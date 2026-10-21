@@ -8,7 +8,7 @@ código, que dados um item feito guarda e como criar uma profissão ou um aprimo
 
 | Arquivo | O que faz |
 |---|---|
-| `module/professions/data.mjs` | As dez profissões (cor, ícone, tipos de item que fazem, talento), os talentos, a escada de Ranks (`RANK_EXP`), a tabela da Oficina (`QUALITIES`) e da Coleta (`GATHER`), os preços do Item Misterioso, o multiplicador por nível, o tipo de cada item (`kindOf`) e as listas de aprimoramentos (`ENHANCEMENTS`, `LEGENDARY`). |
+| `module/professions/data.mjs` | As dez profissões (cor, ícone, tipos de item que fazem, talento), os talentos, a escada de Ranks (`RANK_EXP`), a tabela da Oficina (`QUALITIES`) e da Coleta (`GATHER`), os preços da Anima-mundi, o multiplicador por nível, o tipo de cada item (`kindOf`) e as listas de aprimoramentos (`ENHANCEMENTS`, `LEGENDARY`). |
 | `module/professions/state.mjs` | A profissão do personagem (`professionOf`), a EXP e as tentativas (`record`, `setExp`, `refundAttempt`), o cartão de Rank novo e os materiais (`materialsOf`, `materialFor`, `materialData`, `shardData`). |
 | `module/professions/forge.mjs` | O item feito: `buildCrafted` monta o item a partir da base e dos aprimoramentos (campos, efeitos, tags, grau, nome, preço e texto); o que cada aprimoramento faz e o texto dele; o pergaminho do Escriba (`scrollFromSkill`) e o Banquete (`banquetFrom`). |
 | `module/professions/actions.mjs` | As ações, cada uma com o seu cartão de chat: `craftAttempt` e `finishCraft` (Oficina), `fuse` (Fusão), `retouch` e `sell` (Mercador), `gather` (Coletor), `sharpen`, `mend`, `banquet` e `copy` (talentos). |
@@ -69,13 +69,14 @@ flags.eternia.craft = {
 - Os lendários: Fio do Destino é `eternia.roll.damage.dice` +1 (filtro: dano que não é cura); Égide é um poder do
   item (`flags.eternia.powers`, momento Antes do Dano, 1/Cena) que dá Anulação 9999 gasta pelo próximo dano; Coração
   Estelar é `flags.eternia.sceneStatuses: [{ status: "lastStand" }]`.
-- O grau vira a tag `M1`…`M4`; o preço é o da base mais o do Item Misterioso vezes o grau; o texto ganha um bloco
+- O grau vira a tag `M1`…`M4`; o preço é o da base mais o da Anima-mundi vezes o grau; o texto ganha um bloco
   `lhp-craft-note` com a qualidade, quem fez e os aprimoramentos.
 
 ### Materiais e itens novos
 
-- Item Misterioso N: `gear` com a tag `Magic Catalyst N` (`catalystLevel`).
-- Estilhaço Estelar: `gear` com `flags.eternia.material = "starShard"`.
+- Anima-mundi N: `gear` com a tag `Magic Catalyst N` (`catalystLevel`).
+- Quintessência: `gear` com `flags.eternia.material = "starShard"` (o valor vem do nome que ela tinha na 0.4.0,
+  Estilhaço Estelar).
 - Engenhocas: `usable` com a tag `Gadget`; bombas e redes têm `flags.eternia.trap = true`. A Pedra de Faísca dá um
   efeito com `consumeOn: "attack"`, `damageTags: ["Shock"]` e `onHit: { statusId: "shocked", value }`.
 - Canções: `usable` com a tag `Song` (o Silenciado impede).

@@ -375,7 +375,7 @@ const USABLE_ICON = "systems/eternia/assets/ui/items_icons/usable.svg";
 
 /**
  * Whether Gear source data is really a usable item: it has a Timing to be used with, or the
- * [Consumable] tag. The rest (Mysterious Items, Magnifying Glass, Torch…) stays Gear ("Other").
+ * [Consumable] tag. The rest (Anima-mundi, Magnifying Glass, Torch…) stays Gear ("Other").
  * @param {object} system    Item system source data
  * @returns {boolean}
  */

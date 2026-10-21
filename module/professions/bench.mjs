@@ -321,7 +321,7 @@ export class ProfessionBench extends HandlebarsApplicationMixin(ApplicationV2) {
         const cap = gatherCap(p);
         const { levels, shards } = materialsOf(actor);
         const items = Array.from({ length: cap }, (_, i) => i + 1).map(n => card({
-          key: String(n), name: L("Profession.Bench.MaterialName", { n }), img: "icons/commodities/treasure/puzzle-box-glowing-blue.webp",
+          key: String(n), name: L("Profession.Bench.MaterialName", { n }), img: "icons/commodities/gems/gem-cluster-teal.webp",
           level: n, meta: L("Profession.Bench.Owned", { n: levels.get(n)?.length ?? 0 })
         }));
         const chances = { none: 0, one: 0, two: 0, shard: 0 };
@@ -439,7 +439,7 @@ export class ProfessionBench extends HandlebarsApplicationMixin(ApplicationV2) {
     };
   }
 
-  /** The Fusion's side panel: the rules and the Star Shards. */
+  /** The Fusion's side panel: the rules and the Quintessences. */
   #fusionSide(shards) {
     return { fusion: true, shards, lines: [L("Profession.Bench.FusionRule"), L("Profession.Bench.FusionLegendary")] };
   }

@@ -266,7 +266,7 @@ export function fusionPairs(actor) {
 
 /**
  * Fuse two equal crafted items into one of the next quality: it keeps the enhancements of one of them and takes one
- * more (a Perfect pair and a Star Shard: a Legendary item with the legendary enhancement of its list).
+ * more (a Perfect pair and a Quintessence: a Legendary item with the legendary enhancement of its list).
  * @param {Actor} actor
  * @param {object} choice
  * @param {string[]} choice.ids     The two items
@@ -400,11 +400,11 @@ export async function sell(actor, itemId) {
 /*  Gatherer                                    */
 /* -------------------------------------------- */
 
-/** Highest Item Misterioso the Gatherer finds. */
+/** Highest Anima-mundi the Gatherer finds. */
 export const gatherCap = p => Math.min(MAX_MATERIAL, p.cap);
 
 /**
- * Gathering: 2D + Rank finds Item Misterioso of the chosen level (8+: one, 11+: two) and, on two sixes, a Star Shard.
+ * Gathering: 2D + Rank finds Anima-mundi of the chosen level (8+: one, 11+: two) and, on two sixes, a Quintessence.
  * @param {Actor} actor
  * @param {number} level
  */

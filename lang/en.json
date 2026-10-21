@@ -1623,7 +1623,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.4: the professions</strong></p><ul><li><strong>Ten professions</strong>, the subclasses of Eternia: Blacksmith, Tailor, Artisan, Alchemist, Cook, Scribe, Engineer, Bard, Gatherer and Merchant, in the Races and Classes compendium.</li><li><strong>Profession tab</strong> on the sheet: Rank, EXP, attempts of the scenario, materials, works and each one's talent.</li><li><strong>The Workshop:</strong> choose the base, spend a Mysterious Item and roll 2D + Rank. From Uncommon to Perfect, with the enhancements you choose. Two equal items become a better one in a Fusion, and a Legendary takes a Star Shard.</li><li><strong>New items:</strong> the Engineer's Gadgets (bombs, nets, spark stones), which also become traps, and the Bard's Songs.</li></ul><p>The full rules are in the AS REGRAS journal, under X. PROFISSÕES.</p><p>Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
+      "Body": "<p><strong>What's new in Eternia 0.4: the professions</strong></p><ul><li><strong>Ten professions</strong>, the subclasses of Eternia: Blacksmith, Tailor, Artisan, Alchemist, Cook, Scribe, Engineer, Bard, Gatherer and Merchant, in the Races and Classes compendium.</li><li><strong>Profession tab</strong> on the sheet: Rank, EXP, attempts of the scenario, materials, works and each one's talent.</li><li><strong>The Workshop:</strong> choose the base, spend an Anima-mundi and roll 2D + Rank. From Uncommon to Perfect, with the enhancements you choose. Two equal items become a better one in a Fusion, and a Legendary takes a Quintessence.</li><li><strong>New items:</strong> the Engineer's Gadgets (bombs, nets, spark stones), which also become traps, and the Bard's Songs.</li></ul><p>The full rules are in the AS REGRAS journal, under X. PROFISSÕES.</p><p>Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -1779,7 +1779,7 @@
         "scribe": "Scrolls",
         "engineer": "Bombs, nets and spark stones",
         "bard": "Songs recorded in crystal",
-        "gatherer": "Mysterious Items and Star Shards",
+        "gatherer": "Anima-mundi and Quintessence",
         "merchant": "Retouches and full-price sales"
       },
       "RankTitle": {
@@ -2007,7 +2007,7 @@
         },
         "gather": {
           "name": "Gathering",
-          "text": "Roll 2D + Rank: 8 or more finds 1 Mysterious Item of the level you choose, 11 or more finds 2, and two sixes also find a Star Shard. Spends an attempt."
+          "text": "Roll 2D + Rank: 8 or more finds 1 Anima-mundi of the level you choose, 11 or more finds 2, and two sixes also find a Quintessence. Spends an attempt."
         },
         "retouch": {
           "name": "Retouch",
@@ -2048,8 +2048,8 @@
         "Left": "{n}/{max} attempts",
         "Workshop": "Workshop: {item}",
         "Outcome": {
-          "fail": "Failure: the Mysterious Item {n} was lost.",
-          "salvage": "Salvage: nothing came out, but the Mysterious Item {n} is back.",
+          "fail": "Failure: the Anima-mundi {n} was lost.",
+          "salvage": "Salvage: nothing came out, but the Anima-mundi {n} is back.",
           "uncommon": "Uncommon: the work gets 1 enhancement.",
           "rare": "Rare: the work gets 2 enhancements.",
           "perfect": "Perfect: the work gets 3 enhancements."
@@ -2059,7 +2059,7 @@
         "Made": "{name} finished a work",
         "Copies": "{n} copies.",
         "Fused": "Fused {a} and {b}.",
-        "ShardSpent": "A Star Shard was spent.",
+        "ShardSpent": "A Quintessence was spent.",
         "Fusion": "Fusion",
         "Retouch": "Retouch",
         "Retouched": "{out} became {in} ({n} G).",
@@ -2068,9 +2068,9 @@
         "Gathering": "Gathering",
         "Gather": {
           "none": "Nothing found.",
-          "one": "Found 1 Mysterious Item {n}.",
-          "two": "Found {count} Mysterious Items {n}.",
-          "shard": "Found a Star Shard!"
+          "one": "Found 1 Anima-mundi {n}.",
+          "two": "Found {count} Anima-mundi {n}.",
+          "shard": "Found a Quintessence!"
         },
         "Sharpened": "{name}'s {item} gets +{n} Attack Power until the end of the scenario.",
         "Mended": "Fatigue −{n}:",
@@ -2087,7 +2087,7 @@
         "Cap": "Items up to level {n} (this one needs Rank {rank}).",
         "NoAttempts": "No attempts left this scenario.",
         "Pending": "Finish the work on the bench first.",
-        "NoMaterial": "Missing a Mysterious Item {n}.",
+        "NoMaterial": "Missing an Anima-mundi {n}.",
         "Gold": "Not enough gold ({n} G).",
         "NoPending": "There is no work on the bench.",
         "Slots": "Choose all the enhancements of the work.",
@@ -2095,7 +2095,7 @@
         "Twice": "The item already has this enhancement.",
         "CutOnce": "Only one enhancement can be cut.",
         "Fusion": "Choose two equal items of the same quality.",
-        "NoShard": "Missing a Star Shard.",
+        "NoShard": "Missing a Quintessence.",
         "NotCrafted": "Only items made in a Workshop can be retouched.",
         "NotForSale": "This item can't be sold (equipped, no price or not for sale).",
         "NoWeapon": "Choose a character's weapon.",
@@ -2112,15 +2112,15 @@
       "Gather": {
         "Result": {
           "none": "Nothing",
-          "one": "1 Mysterious Item",
-          "two": "{count} Mysterious Items",
-          "shard": "Star Shard!"
+          "one": "1 Anima-mundi",
+          "two": "{count} Anima-mundi",
+          "shard": "Quintessence!"
         },
         "Chance": {
           "none": "Nothing",
           "one": "1 material",
           "two": "2 materials",
-          "shard": "Star Shard"
+          "shard": "Quintessence"
         }
       },
       "Mode": {
@@ -2162,9 +2162,9 @@
       "Bench": {
         "Title": "Bench",
         "Hint": {
-          "craft": "Choose the base: an item of your bag (it becomes the work) or of the catalog (you pay its price on a success). Each attempt spends 1 Mysterious Item of the item's level, except on a Salvage.",
+          "craft": "Choose the base: an item of your bag (it becomes the work) or of the catalog (you pay its price on a success). Each attempt spends 1 Anima-mundi of the item's level, except on a Salvage.",
           "fusion": "Two equal crafted items (same base and quality) become one of the next quality, with one more enhancement. Spends no attempt.",
-          "gather": "Choose the level of the Mysterious Item you look for and roll 2D + Rank.",
+          "gather": "Choose the level of the Anima-mundi you look for and roll 2D + Rank.",
           "retouch": "Choose an item made in a Workshop to swap one enhancement.",
           "sell": "You sell at full price. Magic items give 2 EXP.",
           "sharpen": "Choose a weapon of the party. Spends an attempt.",
@@ -2193,7 +2193,7 @@
           "banquet": "Prepare the banquet",
           "copy": "Write the scroll"
         },
-        "MaterialName": "Mysterious Item {n}",
+        "MaterialName": "Anima-mundi {n}",
         "Owned": "You have {n}",
         "PickLevel": "Choose the level",
         "Equipped": "Equipped",
@@ -2206,7 +2206,7 @@
         "EmptyCopy": "No skill to copy.",
         "CopyLine": "Written with your Skill Rank ({sr}), check and damage.",
         "FusionRule": "Uncommon + Uncommon = Rare · Rare + Rare = Perfect.",
-        "FusionLegendary": "Perfect + Perfect + Star Shard = Legendary, with the legendary enhancement of its list.",
+        "FusionLegendary": "Perfect + Perfect + Quintessence = Legendary, with the legendary enhancement of its list.",
         "Prompt": {
           "craft": "Choose an item to forge.",
           "retouch": "Choose an item.",
@@ -2232,8 +2232,8 @@
         },
         "MendMax": "3 characters at most.",
         "Reveal": {
-          "fail": "The Mysterious Item {n} was lost.",
-          "salvage": "Nothing came out, but the Mysterious Item {n} is back.",
+          "fail": "The Anima-mundi {n} was lost.",
+          "salvage": "Nothing came out, but the Anima-mundi {n} is back.",
           "uncommon": "The work gets 1 enhancement.",
           "rare": "The work gets 2 enhancements.",
           "perfect": "The work gets 3 enhancements."
@@ -2272,7 +2272,7 @@
         "Keep": "Which enhancements stay",
         "Cut": "Cut: counts double",
         "Multiplier": "This item's numbers count ×{n} (high level).",
-        "LegendaryNote": "The two Perfect items and a Star Shard become a Legendary item: it gets the legendary enhancement of its list.",
+        "LegendaryNote": "The two Perfect items and a Quintessence become a Legendary item: it gets the legendary enhancement of its list.",
         "WorkName": "Name of the work",
         "NoneYet": "No enhancement chosen.",
         "Copies": "{n} copies",
@@ -2297,8 +2297,8 @@
         "PendingSlots": "choose {n} enhancement(s)",
         "Finish": "Finish",
         "Materials": "Materials",
-        "MaterialsNote": "Mysterious Item 1 to 10 and Star Shard",
-        "Shards": "Star Shard",
+        "MaterialsNote": "Anima-mundi 1 to 10 and Quintessence",
+        "Shards": "Quintessence",
         "Talent": "Talent",
         "Always": "Always on",
         "Traps": "Traps",
@@ -2312,7 +2312,7 @@
         "StepCap": "up to level {n}",
         "RollBonus": "to the roll",
         "Cap": "max level",
-        "GatherCap": "max Mysterious Item",
+        "GatherCap": "max Anima-mundi",
         "FullPrice": "on sales",
         "AttemptsStat": "attempts",
         "ExpNext": "{n} to Rank {rank}",
@@ -2322,7 +2322,7 @@
         "CostsAttempt": "Spends 1 attempt",
         "BatchNow": "Now: {n} copy(ies) per potion or toxin.",
         "MendNow": "Now: −{n} Fatigue.",
-        "GatherNow": "Now: Mysterious Item up to level {n}.",
+        "GatherNow": "Now: Anima-mundi up to level {n}.",
         "RetouchNow": "Shops pay full price for your items.",
         "ExpHint": "Workshop EXP: Failure 1 · Salvage 2 · Uncommon 3 · Rare 5 · Perfect 8. Retouch {retouch}.",
         "Exp": "{name} EXP",

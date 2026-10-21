@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.1 — 2026-10-21
+
+### Alterado
+- O Item Misterioso agora se chama **Anima-mundi**, com imagem e texto novos, e o Estilhaço Estelar, **Quintessência**.
+  Os que já estão nas fichas continuam valendo como material.
+
 ## 0.4.0 — 2026-10-21
 
 ### Adicionado

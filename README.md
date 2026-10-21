@@ -5,9 +5,10 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.4.0
+## Versão 0.4.1
 
-- **Novo na 0.4.0: as 10 profissões** (as subclasses), com a aba Profissão na ficha, a Oficina, a Fusão, os
+- **Novo na 0.4.1:** o Item Misterioso agora se chama **Anima-mundi**, e o Estilhaço Estelar, **Quintessência**.
+- **Desde a 0.4.0: as 10 profissões** (as subclasses), com a aba Profissão na ficha, a Oficina, a Fusão, os
   talentos e itens novos (veja [As profissões](#as-profissões)).
 - **Desde a 0.3.0: as 8 raças da Eternia**, com 32 habilidades raciais automatizadas (veja [As raças](#as-raças)).
 - **Desde a 0.2.0: 31 condições** somadas aos 23 estados de base, todas automatizadas (veja
@@ -131,16 +132,16 @@ trocar de profissão guarda a EXP de cada uma. As regras completas estão em **X
 | Escriba | pergaminhos | Cópia: uma habilidade sua num pergaminho de uso único |
 | Engenheiro | bombas, redes, pedras de faísca | Armadilha: bombas e redes armadas num quadrado da cena |
 | Bardo | canções gravadas em cristal | Obra-prima: com dois 6, a canção sai em massa ou instantânea |
-| Coletor | (Coleta) | Coleta: Item Misterioso e, com dois 6, Estilhaço Estelar |
+| Coletor | (Coleta) | Coleta: Anima-mundi e, com dois 6, Quintessência |
 | Mercador | (Retoque e venda) | Retoque: troca um aprimoramento; vende tudo pelo valor cheio |
 
 - **Rank 1 a 5** (EXP 20, 40, 80 e 160): +Rank na rolagem, Rank + 1 tentativas por cenário e itens até o nível
   Rank × 6. O fim do cenário (Ferramentas do Mestre) devolve as tentativas.
-- **A Oficina:** escolha a base (da mochila, que vira a obra, ou do catálogo, que você paga), gaste 1 Item
-  Misterioso do nível dela e role 2D + Rank: Falha, Aproveitamento (o material volta), Incomum [M1], Raro [M2] ou
+- **A Oficina:** escolha a base (da mochila, que vira a obra, ou do catálogo, que você paga), gaste 1
+  Anima-mundi do nível dela e role 2D + Rank: Falha, Aproveitamento (o material volta), Incomum [M1], Raro [M2] ou
   Perfeito [M3], com 1 a 3 aprimoramentos à escolha. Dois 6 sobem um degrau.
-- **Fusão:** dois itens feitos iguais viram um do grau acima, com mais um aprimoramento; dois Perfeitos e um
-  Estilhaço Estelar viram um **Lendário [M4]**, com o aprimoramento lendário da lista (Fio do Destino, Égide,
+- **Fusão:** dois itens feitos iguais viram um do grau acima, com mais um aprimoramento; dois Perfeitos e uma
+  Quintessência viram um **Lendário [M4]**, com o aprimoramento lendário da lista (Fio do Destino, Égide,
   Coração Estelar).
 - **Aprimoramentos:** 6 por tipo de item (armas, proteções, acessórios, consumíveis) e o Espaçosa das bolsas. Os
   números dobram do nível 11 e triplicam do 21; entram nos números do item ou em efeitos que valem com ele equipado.
@@ -148,7 +149,7 @@ trocar de profissão guarda a EXP de cada uma. As regras completas estão em **X
   materiais, o talento, as obras na mochila e os Ranks. A **bancada** faz cada ação passo a passo, com a rolagem na
   tela, e posta um cartão no chat.
 - **Itens novos:** Engenhocas (Bomba Incendiária, Bomba de Gelo, Rede, Pedra de Faísca) e Canções (Hino de Coragem,
-  Marcha de Guerra, Balada do Pavor, Canção de Ninar), em três graus; o Estilhaço Estelar.
+  Marcha de Guerra, Balada do Pavor, Canção de Ninar), em três graus; a Quintessência.
 
 ## As condições
 

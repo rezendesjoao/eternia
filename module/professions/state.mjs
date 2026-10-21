@@ -107,7 +107,7 @@ async function announceRank(actor, p, rank) {
 /* -------------------------------------------- */
 
 /**
- * The Item Misterioso (by level) and Star Shards an actor carries.
+ * The Anima-mundi (by level) and Quintessences an actor carries.
  * @param {Actor} actor
  * @returns {{levels: Map<number, Item[]>, shards: Item[]}}
  */
@@ -124,7 +124,7 @@ export function materialsOf(actor) {
   return { levels, shards };
 }
 
-/** One Item Misterioso of the level an item of this level takes, or null. */
+/** One Anima-mundi of the level an item of this level takes, or null. */
 export function materialFor(actor, level) {
   return materialsOf(actor).levels.get(materialLevel(level))?.[0] ?? null;
 }
@@ -149,11 +149,11 @@ async function compendiumData(test) {
   return data;
 }
 
-/** Data of an Item Misterioso N. */
+/** Data of an Anima-mundi N. */
 export const materialData = level => compendiumData(e => (e.type === "gear")
   && catalystLevel(e) === materialLevel(level));
 
-/** Data of a Star Shard. */
+/** Data of a Quintessence. */
 export const shardData = () => compendiumData(e => foundry.utils.getProperty(e, `flags.${SYSTEM_ID}.material`) === SHARD);
 
 /**

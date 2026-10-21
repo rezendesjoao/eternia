@@ -99,7 +99,7 @@ export function craftChances(rank) {
   return QUALITIES.map(q => ({ id: q.id, pct: (counts[q.id] / 36) * 100 }));
 }
 
-/** 2D + Rank of the Gatherer: materials found. Two sixes also find a Star Shard. */
+/** 2D + Rank of the Gatherer: materials found. Two sixes also find a Quintessence. */
 export const GATHER = [
   { id: "none", min: -Infinity, count: 0, exp: 1 },
   { id: "one", min: 8, count: 1, exp: 3 },
@@ -118,13 +118,13 @@ export function gatherOutcome(dice, rank) {
 /*  Materials                                   */
 /* -------------------------------------------- */
 
-/** Item Misterioso 1 to 10 ([Magic Catalyst N]): its price. */
+/** Anima-mundi 1 to 10 ([Magic Catalyst N]): its price. */
 export const MATERIAL_PRICES = [15, 20, 25, 30, 40, 50, 60, 70, 90, 110];
 export const MAX_MATERIAL = MATERIAL_PRICES.length;
-/** The Item Misterioso an item of this level takes (10 from level 10 up). */
+/** The Anima-mundi an item of this level takes (10 from level 10 up). */
 export const materialLevel = level => Math.clamp(toInt(level), 1, MAX_MATERIAL);
 export const materialPrice = level => MATERIAL_PRICES[materialLevel(level) - 1];
-/** Level of an Item Misterioso from its tag ("Magic Catalyst 3"), or 0. */
+/** Level of an Anima-mundi from its tag ("Magic Catalyst 3"), or 0. */
 export function catalystLevel(item) {
   for (const tag of item?.system?.tags ?? []) {
     const m = /^magic catalyst (\d+)$/.exec(tagKey(tag));
@@ -132,7 +132,7 @@ export function catalystLevel(item) {
   }
   return 0;
 }
-/** Flag of the Star Shard (flags.eternia.material). */
+/** Flag of the Quintessence (flags.eternia.material), named after its 0.4.0 name, Star Shard. */
 export const SHARD = "starShard";
 
 /** The numbers of the enhancements double from level 11 and triple from 21. */
@@ -275,5 +275,5 @@ export const QUICK_FROM = ["major", "rest time", "interlude", "main process"];
 /** Targets the Wide enhancement widens ("Self", "Single", "2 Targets"). */
 export const WIDE_TARGET = /^\s*(self|single|(\d+)\s*targets?)\s*$/i;
 
-/** Where the Gatherer's Item Misterioso and the Star Shard are. */
+/** Where the Gatherer's Anima-mundi and the Quintessence are. */
 export const ITEMS_PACK = "eternia.items";
