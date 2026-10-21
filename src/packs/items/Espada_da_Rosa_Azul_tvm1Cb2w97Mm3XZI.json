@@ -1,0 +1,158 @@
+{
+  "name": "Espada da Rosa Azul",
+  "type": "weapon",
+  "system": {
+    "description": "<p>(Constante) Todo dano que você causar ganha [Frio].</p><p>[Momento: Ação Maior] <strong>Liberação de Memória: Florescer.</strong> Alvo: Área 3 (escolha) · Alcance: Corpo a corpo. Rosas de gelo brotam do chão: causa [6D + Ataque] de dano físico de [Frio], e os alvos ficam [Congelando: 3] e [Enraizado]. 1/Cenário.</p><hr><p><em>Uma espada longa azul-prateada, de guarda em forma de rosa azul, com cristais de gelo na lâmina.</em></p>",
+    "tags": [
+      "One-Handed",
+      "Blade",
+      "Cold",
+      "Not For Sale",
+      "M7"
+    ],
+    "rank": 30,
+    "price": 16400,
+    "equipped": false,
+    "attack": 52,
+    "magic": 0,
+    "accuracy": 0,
+    "initiative": 0,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "Close",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/espada-da-rosa-azul.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "hhHE552Z6SaOVN2D",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "damageTags": [
+            "Cold"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Espada da Rosa Azul",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!tvm1Cb2w97Mm3XZI.hhHE552Z6SaOVN2D",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Major",
+          "target": "Wide 3 (P)",
+          "range": "Close",
+          "cost": "",
+          "limit": "1/Scenario",
+          "text": "[Trigger: Major] Liberação de Memória: Florescer: \"Target: Wide 3 (P) / Range: Close\". Ice roses burst from the ground: deals [6D + Attack] physical [Cold] damage, and the targets get [Freezing: 3] and [Rooted]. Once per scenario.",
+          "damage": {
+            "dice": 6,
+            "mod": 0,
+            "type": "physical",
+            "recovery": false,
+            "noPower": false
+          },
+          "effects": [
+            {
+              "name": "Liberação de Memória: Florescer",
+              "img": "systems/eternia/assets/ui/status/freezing.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "freezing"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "freezing",
+                    "value": 3
+                  }
+                }
+              }
+            },
+            {
+              "name": "Liberação de Memória: Florescer",
+              "img": "systems/eternia/assets/ui/status/rooted.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "rooted"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "rooted"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "tvm1Cb2w97Mm3XZI",
+  "folder": "MG22GXACpWQynXcZ",
+  "_key": "!items!tvm1Cb2w97Mm3XZI"
+}

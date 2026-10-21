@@ -1,0 +1,130 @@
+{
+  "name": "Lâmina de Aço Gélido",
+  "type": "weapon",
+  "system": {
+    "description": "<p>(Constante) Todo dano que você causar ganha [Frio].</p><p>[Momento: Logo Após o Dano] <strong>Fio de Gelo.</strong> Alvo: Único · Alcance: Corpo a corpo. O alvo que você feriu fica [Congelando: 1]. 1/Cena.</p><hr><p><em>Uma espada longa de aço frio, coberta de geada, com um cristal azul-claro no pomo.</em></p>",
+    "tags": [
+      "One-Handed",
+      "Blade",
+      "Cold",
+      "Not For Sale",
+      "M4"
+    ],
+    "rank": 14,
+    "price": 1490,
+    "equipped": false,
+    "attack": 20,
+    "magic": 0,
+    "accuracy": 0,
+    "initiative": 0,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "Close",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/lamina-de-aco-gelido.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "qLzA2xaycGTQx4SU",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "damageTags": [
+            "Cold"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Lâmina de Aço Gélido",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!MjibLWkWkLUYv45j.qLzA2xaycGTQx4SU",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
+  "sort": 24000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "After Damage",
+          "target": "Single",
+          "range": "Close",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: After Damage] Fio de Gelo: \"Target: Single / Range: Close\". The target you damaged gets [Freezing: 1]. Once per scene.",
+          "effects": [
+            {
+              "name": "Fio de Gelo",
+              "img": "systems/eternia/assets/ui/status/freezing.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "freezing"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "freezing",
+                    "value": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "MjibLWkWkLUYv45j",
+  "folder": "5mrlBpHcr35R8Ew0",
+  "_key": "!items!MjibLWkWkLUYv45j"
+}

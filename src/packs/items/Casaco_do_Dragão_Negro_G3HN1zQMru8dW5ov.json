@@ -1,0 +1,135 @@
+{
+  "name": "Casaco do Dragão Negro",
+  "type": "armor",
+  "system": {
+    "description": "<p><strong>Couro de Dragão</strong> (Constante): +1D na Esquiva.</p><p>(Constante) Em todo combate, você recebe [Anulação: 10].</p><p>[Momento: Ação Menor] <strong>Sombra do Dragão.</strong> Alvo: Você. Você fica [Oculto]. 1/Cena.</p><hr><p><em>Um casaco longo de couro de dragão negro, de escamas discretas, costurado por uma alfaiate famosa.</em></p>",
+    "tags": [
+      "Medium Armor",
+      "Not For Sale",
+      "M6"
+    ],
+    "rank": 27,
+    "price": 8660,
+    "equipped": false,
+    "attack": 0,
+    "magic": 0,
+    "accuracy": 0,
+    "initiative": 0,
+    "pdef": 50,
+    "mdef": 42,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "-"
+  },
+  "img": "systems/eternia/assets/icons/items/casaco-do-dragao-negro.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "qY3N3c2HF4x6B3Iw",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Casaco do Dragão Negro: Couro de Dragão",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.checks.evasion.dice",
+            "type": "add",
+            "value": 1,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!G3HN1zQMru8dW5ov.qY3N3c2HF4x6B3Iw",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
+  "sort": 82000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "sceneStatuses": [
+        {
+          "status": "cancel",
+          "value": 10
+        }
+      ],
+      "powers": [
+        {
+          "timing": "Minor",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Minor] Sombra do Dragão: \"Target: Self / Range: -\". You become [Hidden]. Once per scene.",
+          "effects": [
+            {
+              "name": "Sombra do Dragão",
+              "img": "systems/eternia/assets/ui/status/hidden.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "hidden"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "hidden"
+                  },
+                  "recipients": "self"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "G3HN1zQMru8dW5ov",
+  "folder": "5mrlBpHcr35R8Ew0",
+  "_key": "!items!G3HN1zQMru8dW5ov"
+}

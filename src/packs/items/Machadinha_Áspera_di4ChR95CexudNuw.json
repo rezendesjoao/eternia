@@ -1,0 +1,83 @@
+{
+  "name": "Machadinha Áspera",
+  "type": "weapon",
+  "system": {
+    "description": "<p>[Momento: Logo Após o Dano] <strong>Corte Áspero.</strong> Alvo: Único · Alcance: Corpo a corpo. O alvo que você feriu fica [Deterioração: 5]. 1/Cena.</p><hr><p><em>Uma machadinha de cabeça de ferro lascada e cabo de madeira gasta.</em></p>",
+    "tags": [
+      "One-Handed",
+      "Hafted"
+    ],
+    "rank": 4,
+    "price": 120,
+    "equipped": false,
+    "attack": 9,
+    "magic": 0,
+    "accuracy": -1,
+    "initiative": -1,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "Close",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/machadinha-aspera.webp",
+  "effects": [],
+  "sort": 11000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "After Damage",
+          "target": "Single",
+          "range": "Close",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: After Damage] Corte Áspero: \"Target: Single / Range: Close\". The target you damaged gets [Decay: 5]. Once per scene.",
+          "effects": [
+            {
+              "name": "Corte Áspero",
+              "img": "systems/eternia/assets/ui/status/decay.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "decay"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "decay",
+                    "value": 5
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "di4ChR95CexudNuw",
+  "folder": "5mrlBpHcr35R8Ew0",
+  "_key": "!items!di4ChR95CexudNuw"
+}

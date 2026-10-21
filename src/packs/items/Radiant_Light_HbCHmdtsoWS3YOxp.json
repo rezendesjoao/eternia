@@ -1,0 +1,155 @@
+{
+  "name": "Radiant Light",
+  "type": "weapon",
+  "system": {
+    "description": "<p><strong>Deusa da Criação</strong> (Constante): +1D na Esquiva.</p><p>[Momento: Ação Maior] <strong>Autoridade da Criação.</strong> Alvo: Todos a até 20 Qd · Alcance: 20 Qd. Você muda o terreno da batalha: todos os aliados recebem [Barreira: 60], e todos os inimigos ficam [Enraizado]. 1/Cenário.</p><hr><p><em>Uma rapieira branca e dourada que brilha com uma luz suave, de guarda dourada em arcos.</em></p>",
+    "tags": [
+      "One-Handed",
+      "Blade",
+      "Light",
+      "Not For Sale",
+      "M7"
+    ],
+    "rank": 30,
+    "price": 16400,
+    "equipped": false,
+    "attack": 48,
+    "magic": 0,
+    "accuracy": 3,
+    "initiative": 3,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "Close",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/radiant-light.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "dcq8rkp0NdTvodkb",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Radiant Light: Deusa da Criação",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.checks.evasion.dice",
+            "type": "add",
+            "value": 1,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!HbCHmdtsoWS3YOxp.dcq8rkp0NdTvodkb",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
+  "sort": 57000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Major",
+          "target": "Wide 20 (A)",
+          "range": "20Sq",
+          "cost": "",
+          "limit": "1/Scenario",
+          "text": "[Trigger: Major] Autoridade da Criação: \"Target: Wide 20 (A) / Range: 20Sq\". You reshape the battlefield: every ally gains [Barrier: 60], and every enemy becomes [Rooted]. Once per scenario.",
+          "effects": [
+            {
+              "name": "Autoridade da Criação",
+              "img": "systems/eternia/assets/ui/status/barrier.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "barrier"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "barrier",
+                    "value": 60
+                  },
+                  "recipients": "allies"
+                }
+              }
+            },
+            {
+              "name": "Autoridade da Criação",
+              "img": "systems/eternia/assets/ui/status/rooted.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "rooted"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "rooted"
+                  },
+                  "recipients": "enemies"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "HbCHmdtsoWS3YOxp",
+  "folder": "MG22GXACpWQynXcZ",
+  "_key": "!items!HbCHmdtsoWS3YOxp"
+}

@@ -5,10 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.5.0
+## Versão 0.6.0
 
-- **Novo na 0.5.0: um ícone para cada item.** Os 867 itens do compêndio, sem repetir, com molduras pelo grau mágico
-  e efeitos nas armas de nível alto (veja [Os ícones dos itens](#os-ícones-dos-itens)).
+- **Novo na 0.6.0: 108 itens de Sword Art Online** no compêndio de Itens (Aincrad, Alfheim e Submundo), com
+  habilidades automatizadas e ícones pintados; os lendários são fortes de propósito (veja
+  [Os itens de Sword Art Online](#os-itens-de-sword-art-online)).
+- **Desde a 0.5.0: um ícone para cada item**, sem repetir, com molduras pelo grau mágico e efeitos nas armas de nível
+  alto (veja [Os ícones dos itens](#os-ícones-dos-itens)).
 - **Desde a 0.4.0: as 10 profissões** (as subclasses), com a aba Profissão na ficha, a Oficina, a Fusão, os
   talentos e itens novos (veja [As profissões](#as-profissões)).
 - **Desde a 0.3.0: as 8 raças da Eternia**, com 32 habilidades raciais automatizadas (veja [As raças](#as-raças)).
@@ -20,7 +23,8 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
 - **Compêndios da Eternia:** Raças e Classes (as 8 raças e as 10 profissões) e Habilidades Raciais; no compêndio de
-  Itens, as Engenhocas e as Canções. Ainda vazios, à espera das
+  Itens, as Engenhocas, as Canções e os 108 itens de Sword Art Online (veja
+  [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazios, à espera das
   classes: Habilidades Comuns e de Subclasse, de Arquétipo e de Classe. As raças, classes e habilidades gerais e de
   combate de Log Horizon foram tiradas do sistema.
 
@@ -75,9 +79,9 @@ texto.
 
 ## Os ícones dos itens
 
-Cada um dos 867 itens do compêndio tem o seu próprio ícone, sem repetir: os ícones pintados que vêm com o Foundry
-(o sistema aponta para eles, sem copiá-los) e, nas katanas e nos chicotes, arte própria da Eternia
-(`assets/icons/items/`). Itens de uma mesma família mudam de forma a cada grau (I, II, III) e de cor a cada tipo.
+Cada um dos 975 itens do compêndio tem o seu próprio ícone, sem repetir: os ícones pintados que vêm com o Foundry
+(o sistema aponta para eles, sem copiá-los) e, nas katanas, nos chicotes e nos itens de Sword Art Online, arte
+própria da Eternia (`assets/icons/items/`). Itens de uma mesma família mudam de forma a cada grau (I, II, III) e de cor a cada tipo.
 Por cima do ícone, o sistema desenha:
 
 - **a moldura do grau mágico:** de [M1] a [M3], uma linha na cor da qualidade (verde, azul e roxo); de [M4] a [M6]
@@ -167,6 +171,34 @@ trocar de profissão guarda a EXP de cada uma. As regras completas estão em **X
   tela, e posta um cartão no chat.
 - **Itens novos:** Engenhocas (Bomba Incendiária, Bomba de Gelo, Rede, Pedra de Faísca) e Canções (Hino de Coragem,
   Marcha de Guerra, Balada do Pavor, Canção de Ninar), em três graus; a Quintessência.
+
+## Os itens de Sword Art Online
+
+No compêndio de Itens, três pastas trazem **108 itens** inspirados em Sword Art Online, do nível 1 ao 30: Aincrad
+(83), Alfheim (10) e Submundo (15). São 59 armas (espadas, rapieiras, adagas, katanas, machados, martelo, lança,
+arcos, chicote, cajado e armas de arremesso) e 49 proteções e acessórios (casacos, peitorais, capas, calças, botas,
+luvas, cinto, anéis e brincos), cada um com o seu ícone pintado.
+
+- **Graus:** os itens comuns estão à venda. Os raros são Artefatos de [M4] a [M7], fora de venda, com o preço pelo
+  nível e pelo grau.
+- **Habilidades próprias:** cada item raro tem um bônus fixo, um estado em todo combate, um poder de gatilho ou mais
+  de um, já automatizados. Os poderes viram habilidades de quem carrega o item, com Momento, alvo, alcance, limite,
+  dano e estados.
+- **Fortes de propósito:** as armas lendárias [M7] passam do que as regras de base dariam a um item do nível delas.
+  São recompensas de fim de campanha.
+
+| Item | Nível | Destaque |
+|---|---|---|
+| Elucidator e Dark Repulser | 27 [M6] | Explosão Estelar, só com as duas equipadas: [8D + Ataque] e Fadiga 10 em quem usa |
+| Mate Chopper | 24 [M6] | todo dano que causa deixa Deterioração 10 |
+| Liberator | 30 [M7] | espada e escudo num item só: +10 nas Defesas e Último Fôlego em todo combate |
+| Espada Sagrada Excalibur | 30 [M7] | dano de [Radiância], Anulação 15 em todo combate e [8D + Ataque] em área, com Atordoado |
+| Radiant Light | 30 [M7] | Barreira 60 nos aliados e Enraizado nos inimigos, numa área de 20 quadrados |
+| Espada Perfura-Tempo | 30 [M7] | anula todo o dano de um ataque, uma vez por cenário |
+
+Dois recursos novos servem para qualquer item: o poder que só funciona com outro item equipado junto (`withItem`) e
+os efeitos que vão só para os aliados ou só para os inimigos entre os alvos (`recipients`: `allies`, `enemies`), em
+`docs/condicoes.md`.
 
 ## As condições
 
@@ -383,7 +415,10 @@ eternia.icons.refresh();              // desenha de novo os ícones da tela
 - **Arte da interface** (`assets/ui/**`): do sistema original de Kyane. As texturas da ficha e o logo são gerados
   por `tools/`.
 - **Ícones dos itens:** os do Foundry VTT (arte de Rexard, licenciada para uso dentro do Foundry; o sistema só aponta
-  para eles). As katanas e os chicotes (`assets/icons/items/`) são arte própria da Eternia.
+  para eles). As katanas, os chicotes e os itens de Sword Art Online (`assets/icons/items/`) são arte própria da
+  Eternia.
+- **Reki Kawahara / Kadokawa:** criadores de Sword Art Online, de onde vêm os nomes e a inspiração dos itens das pastas
+  Aincrad, Alfheim e Submundo. A Eternia não é oficial nem tem vínculo com eles.
 - **Ícones** de [game-icons.net](https://game-icons.net) sob [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
   (fundos dos estados recoloridos). Autores: Lorc, Delapouite, Skoll, Sbed, Zeromancer e
   Carl Olsen.
@@ -455,4 +490,4 @@ eternia.icons.refresh();              // desenha de novo os ícones da tela
 
 O código (scripts, templates, estilos e arquivos de idioma) é distribuído sob a **licença MIT**, veja
 [LICENSE.txt](LICENSE.txt). Ela não cobre as regras, o cenário nem o conteúdo de Log Horizon TRPG, que pertencem a
-Mamare Touno e Kadokawa.
+Mamare Touno e Kadokawa, nem os nomes de Sword Art Online, de Reki Kawahara e Kadokawa.

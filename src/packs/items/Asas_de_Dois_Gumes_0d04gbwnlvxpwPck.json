@@ -1,0 +1,106 @@
+{
+  "name": "Asas de Dois Gumes",
+  "type": "weapon",
+  "system": {
+    "description": "<p>[Momento: Ação Maior] <strong>Voo Cruzado.</strong> Alvo: 2 alvos · Alcance: 8 Qd. As duas lâminas voam e voltam: causa [4D + Ataque] de dano físico em cada alvo. 1/Cena.</p><p>[Momento: Ação Maior] <strong>Liberação de Memória: Pássaros Sem Asa.</strong> Alvo: 4 alvos · Alcance: 10 Qd. Causa [5D + Ataque] de dano físico em cada alvo, e eles ficam [Paralisado]. 1/Cenário.</p><hr><p><em>Um par de lâminas de arremesso em cruz, cada uma com a forma de uma única asa de pássaro.</em></p>",
+    "tags": [
+      "One-Handed",
+      "Throwing",
+      "Not For Sale",
+      "M7"
+    ],
+    "rank": 26,
+    "price": 12370,
+    "equipped": false,
+    "attack": 40,
+    "magic": 0,
+    "accuracy": 0,
+    "initiative": 3,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "4Sq",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/asas-de-dois-gumes.webp",
+  "effects": [],
+  "sort": 47000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Major",
+          "target": "2 Targets",
+          "range": "8Sq",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Major] Voo Cruzado: \"Target: 2 Targets / Range: 8Sq\". Both blades fly out and return: deals [4D + Attack] physical damage to each target. Once per scene.",
+          "damage": {
+            "dice": 4,
+            "mod": 0,
+            "type": "physical",
+            "recovery": false,
+            "noPower": false
+          }
+        },
+        {
+          "timing": "Major",
+          "target": "4 Targets",
+          "range": "10Sq",
+          "cost": "",
+          "limit": "1/Scenario",
+          "text": "[Trigger: Major] Liberação de Memória: Pássaros Sem Asa: \"Target: 4 Targets / Range: 10Sq\". Deals [5D + Attack] physical damage to each target, and they become [Paralyzed]. Once per scenario.",
+          "damage": {
+            "dice": 5,
+            "mod": 0,
+            "type": "physical",
+            "recovery": false,
+            "noPower": false
+          },
+          "effects": [
+            {
+              "name": "Liberação de Memória: Pássaros Sem Asa",
+              "img": "systems/eternia/assets/ui/status/paralyzed.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "paralyzed"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "paralyzed"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "0d04gbwnlvxpwPck",
+  "folder": "MG22GXACpWQynXcZ",
+  "_key": "!items!0d04gbwnlvxpwPck"
+}

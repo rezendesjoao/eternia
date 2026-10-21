@@ -1,0 +1,85 @@
+{
+  "name": "Espada do Cavaleiro da Rainha",
+  "type": "weapon",
+  "system": {
+    "description": "<p>[Momento: Instantânea] <strong>Juramento.</strong> Alvo: Único · Alcance: 2 Qd. Use quando um aliado for alvo de um ataque. Ele recebe [Barreira: 20]. 1/Cena.</p><hr><p><em>Uma espada longa de cavaleiro, de guarda dourada em forma de coroa e punho roxo real.</em></p>",
+    "tags": [
+      "One-Handed",
+      "Blade",
+      "Not For Sale",
+      "M5"
+    ],
+    "rank": 12,
+    "price": 1400,
+    "equipped": false,
+    "attack": 19,
+    "magic": 0,
+    "accuracy": 0,
+    "initiative": 0,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "Close",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/espada-do-cavaleiro-da-rainha.webp",
+  "effects": [],
+  "sort": 21000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Instant",
+          "target": "Single",
+          "range": "2Sq",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Instant] Juramento: \"Target: Single / Range: 2Sq\". Use when an ally is targeted by an attack. They gain [Barrier: 20]. Once per scene.",
+          "effects": [
+            {
+              "name": "Juramento",
+              "img": "systems/eternia/assets/ui/status/barrier.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "barrier"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "barrier",
+                    "value": 20
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "42DXYRg0JdsRphtT",
+  "folder": "5mrlBpHcr35R8Ew0",
+  "_key": "!items!42DXYRg0JdsRphtT"
+}

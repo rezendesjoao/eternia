@@ -1,0 +1,145 @@
+{
+  "name": "Annihilate Ray",
+  "type": "weapon",
+  "system": {
+    "description": "<p>(Constante) Todo dano que você causar ganha [Radiância].</p><p>[Momento: Movimento] <strong>Asas do Sol.</strong> Alvo: Você. Você ganha ou perde [Voando].</p><p>[Momento: Ação Maior] <strong>Raio Aniquilador.</strong> Alvo: Área 3 (escolha) · Alcance: 20 Qd. Uma chuva de raios de luz: causa [5D + Ataque] de dano físico de [Radiância]. 1/Cena.</p><hr><p><em>Um arco longo todo branco, de braços elegantes em forma de pena.</em></p>",
+    "tags": [
+      "Two-Handed",
+      "Bow",
+      "Radiance",
+      "Not For Sale",
+      "M7"
+    ],
+    "rank": 30,
+    "price": 16400,
+    "equipped": false,
+    "attack": 82,
+    "magic": 0,
+    "accuracy": 0,
+    "initiative": 0,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "6Sq",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/annihilate-ray.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "kF9aGyXRdF7bud0V",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "damageTags": [
+            "Radiance"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Annihilate Ray",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!T9SGAPfSebNrovg1.kF9aGyXRdF7bud0V",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
+  "sort": 58000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Move",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "",
+          "text": "[Trigger: Move] Asas do Sol: \"Target: Self / Range: -\". You gain or lose [Flying].",
+          "effects": [
+            {
+              "name": "Asas do Sol",
+              "img": "systems/eternia/assets/ui/status/flying.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "flying"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "flying"
+                  },
+                  "recipients": "self"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "timing": "Major",
+          "target": "Wide 3 (P)",
+          "range": "20Sq",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Major] Raio Aniquilador: \"Target: Wide 3 (P) / Range: 20Sq\". A rain of light beams: deals [5D + Attack] physical [Radiance] damage. Once per scene.",
+          "damage": {
+            "dice": 5,
+            "mod": 0,
+            "type": "physical",
+            "recovery": false,
+            "noPower": false
+          }
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "T9SGAPfSebNrovg1",
+  "folder": "MG22GXACpWQynXcZ",
+  "_key": "!items!T9SGAPfSebNrovg1"
+}

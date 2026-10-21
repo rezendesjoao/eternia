@@ -1,0 +1,110 @@
+{
+  "name": "Espada Falsa Caliburn",
+  "type": "weapon",
+  "system": {
+    "description": "<p>[Momento: Rolagem de Dano] <strong>Brilho Falso.</strong> Alvo: Você. Sua próxima rolagem de dano recebe +2D, e o alvo fica [Cego] até o fim da rodada. 1/Cena.</p><hr><p><em>Uma espada dourada que imita uma espada sagrada, mas de brilho opaco e guarda simples.</em></p>",
+    "tags": [
+      "One-Handed",
+      "Blade",
+      "Not For Sale",
+      "M5"
+    ],
+    "rank": 18,
+    "price": 3020,
+    "equipped": false,
+    "attack": 28,
+    "magic": 0,
+    "accuracy": 0,
+    "initiative": 0,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "Close",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/espada-falsa-caliburn.webp",
+  "effects": [],
+  "sort": 36000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Damage Roll",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Damage Roll] Brilho Falso: \"Target: Self / Range: -\". Your next damage roll gets +2D, and the target becomes [Blinded] until the end of the round. Once per scene.",
+          "effects": [
+            {
+              "name": "Brilho Falso",
+              "img": "systems/eternia/assets/ui/status/blinded.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "blinded"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfRound",
+                  "statusData": {
+                    "statusId": "blinded"
+                  }
+                }
+              }
+            },
+            {
+              "name": "Brilho Falso",
+              "img": "icons/svg/upgrade.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "eternia.roll.damage.dice",
+                    "type": "add",
+                    "value": "2",
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "recipients": "self",
+                  "expires": "endOfScene",
+                  "consumeOn": "attack"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "KeQm5d7O83VGqzSj",
+  "folder": "UPMmun3tQJwky88X",
+  "_key": "!items!KeQm5d7O83VGqzSj"
+}

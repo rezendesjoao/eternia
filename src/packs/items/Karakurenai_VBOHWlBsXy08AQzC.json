@@ -1,0 +1,132 @@
+{
+  "name": "Karakurenai",
+  "type": "weapon",
+  "system": {
+    "description": "<p><strong>Espírito Carmesim</strong> (Constante): +2 na Iniciativa.</p><p>[Momento: Iniciativa] <strong>Lâmina Carmesim.</strong> Alvo: Você. Você recebe [Fortalecido: 10] até o fim da cena. 1/Cenário.</p><hr><p><em>Uma katana de brilho carmesim, cabo enrolado em vermelho e acabamentos de laca rubra.</em></p>",
+    "tags": [
+      "Two-Handed",
+      "Katana",
+      "Not For Sale",
+      "M5"
+    ],
+    "rank": 18,
+    "price": 3020,
+    "equipped": false,
+    "attack": 42,
+    "magic": 0,
+    "accuracy": 1,
+    "initiative": -1,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "Close",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/karakurenai.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "lSldk8NCP3UvlQw7",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Karakurenai: Espírito Carmesim",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.initiative.mod",
+            "type": "add",
+            "value": 2,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!VBOHWlBsXy08AQzC.lSldk8NCP3UvlQw7",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
+  "sort": 26000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Initiative",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scenario",
+          "text": "[Trigger: Initiative] Lâmina Carmesim: \"Target: Self / Range: -\". You gain [Empowered: 10] until the end of the scene. Once per scenario.",
+          "effects": [
+            {
+              "name": "Lâmina Carmesim",
+              "img": "systems/eternia/assets/ui/status/empowered.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "empowered"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "empowered",
+                    "value": 10
+                  },
+                  "recipients": "self"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "VBOHWlBsXy08AQzC",
+  "folder": "5mrlBpHcr35R8Ew0",
+  "_key": "!items!VBOHWlBsXy08AQzC"
+}

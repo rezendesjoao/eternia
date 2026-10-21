@@ -1,0 +1,130 @@
+{
+  "name": "Golpe Invernal",
+  "type": "weapon",
+  "system": {
+    "description": "<p>(Constante) Todo dano que você causar ganha [Frio].</p><p>[Momento: Logo Após o Dano] <strong>Estocada Invernal.</strong> Alvo: Único · Alcance: Corpo a corpo. O alvo que você feriu fica [Lento]. 1/Cena.</p><hr><p><em>Uma rapieira branca e azul-gelo, com cristais de geada crescendo na guarda.</em></p>",
+    "tags": [
+      "One-Handed",
+      "Blade",
+      "Light",
+      "Cold",
+      "Not For Sale",
+      "M5"
+    ],
+    "rank": 10,
+    "price": 1000,
+    "equipped": false,
+    "attack": 14,
+    "magic": 0,
+    "accuracy": 1,
+    "initiative": 2,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "Close",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/golpe-invernal.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "at28nl8FjRnFyNgA",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "damageTags": [
+            "Cold"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Golpe Invernal",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!Xfp6jO80e2omD5g9.at28nl8FjRnFyNgA",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "After Damage",
+          "target": "Single",
+          "range": "Close",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: After Damage] Estocada Invernal: \"Target: Single / Range: Close\". The target you damaged becomes [Slowed]. Once per scene.",
+          "effects": [
+            {
+              "name": "Estocada Invernal",
+              "img": "systems/eternia/assets/ui/status/slowed.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "slowed"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "slowed"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "Xfp6jO80e2omD5g9",
+  "folder": "5mrlBpHcr35R8Ew0",
+  "_key": "!items!Xfp6jO80e2omD5g9"
+}

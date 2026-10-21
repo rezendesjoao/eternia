@@ -1,0 +1,111 @@
+{
+  "name": "Espada do Crepúsculo",
+  "type": "weapon",
+  "system": {
+    "description": "<p>[Momento: Rolagem de Dano] <strong>Último Raio.</strong> Alvo: Você. Sua próxima rolagem de dano recebe +2D, e o alvo fica [Marcado: 10]. 1/Cena.</p><hr><p><em>Uma espada longa cuja lâmina passa do laranja do pôr do sol ao roxo do anoitecer.</em></p>",
+    "tags": [
+      "One-Handed",
+      "Blade",
+      "Not For Sale",
+      "M5"
+    ],
+    "rank": 8,
+    "price": 680,
+    "equipped": false,
+    "attack": 15,
+    "magic": 0,
+    "accuracy": 0,
+    "initiative": 0,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "Close",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/espada-do-crepusculo.webp",
+  "effects": [],
+  "sort": 15000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Damage Roll",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Damage Roll] Último Raio: \"Target: Self / Range: -\". Your next damage roll gets +2D, and the target gets [Marked: 10]. Once per scene.",
+          "effects": [
+            {
+              "name": "Último Raio",
+              "img": "systems/eternia/assets/ui/status/marked.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "marked"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "marked",
+                    "value": 10
+                  }
+                }
+              }
+            },
+            {
+              "name": "Último Raio",
+              "img": "icons/svg/upgrade.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "eternia.roll.damage.dice",
+                    "type": "add",
+                    "value": "2",
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "recipients": "self",
+                  "expires": "endOfScene",
+                  "consumeOn": "attack"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "WOhVlBaxaLVeOQyb",
+  "folder": "5mrlBpHcr35R8Ew0",
+  "_key": "!items!WOhVlBaxaLVeOQyb"
+}

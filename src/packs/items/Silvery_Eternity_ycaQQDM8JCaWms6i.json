@@ -1,0 +1,187 @@
+{
+  "name": "Silvery Eternity",
+  "type": "weapon",
+  "system": {
+    "description": "<p><strong>Soberana</strong> (Constante): +10 no Poder Mágico, e você é imune a [Medo] e [Encantado].</p><p>(Constante) Todo dano que você causar ganha [Eletricidade].</p><p>[Momento: Ação Maior] <strong>Relâmpago Prateado.</strong> Alvo: Único · Alcance: 8 Qd. Causa [5D + Poder Mágico] de dano mágico de [Eletricidade], e o alvo fica [Eletrificado: 10]. 2/Cena.</p><hr><p><em>Uma rapieira fina de prata, cercada de raios violeta e brancos, de guarda prateada trabalhada.</em></p>",
+    "tags": [
+      "One-Handed",
+      "Blade",
+      "Light",
+      "Shock",
+      "Not For Sale",
+      "M7"
+    ],
+    "rank": 30,
+    "price": 16400,
+    "equipped": false,
+    "attack": 48,
+    "magic": 48,
+    "accuracy": 2,
+    "initiative": 2,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "Close",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/silvery-eternity.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "0C7jPqKU4Ne5kgsJ",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Silvery Eternity: Soberana",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.power.magic.mod",
+            "type": "add",
+            "value": 10,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!ycaQQDM8JCaWms6i.0C7jPqKU4Ne5kgsJ",
+      "start": null,
+      "showIcon": 1
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "op7dsxuhkwEyWzSL",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "damageTags": [
+            "Shock"
+          ],
+          "immune": [
+            "frightened",
+            "charmed"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Silvery Eternity",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!ycaQQDM8JCaWms6i.op7dsxuhkwEyWzSL",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
+  "sort": 56000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Major",
+          "target": "Single",
+          "range": "8Sq",
+          "cost": "",
+          "limit": "2/Scene",
+          "text": "[Trigger: Major] Relâmpago Prateado: \"Target: Single / Range: 8Sq\". Deals [5D + Magic] magical [Shock] damage, and the target gets [Shocked: 10]. 2 times per scene.",
+          "damage": {
+            "dice": 5,
+            "mod": 0,
+            "type": "magical",
+            "recovery": false,
+            "noPower": false
+          },
+          "effects": [
+            {
+              "name": "Relâmpago Prateado",
+              "img": "systems/eternia/assets/ui/status/shocked.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "shocked"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "shocked",
+                    "value": 10
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "ycaQQDM8JCaWms6i",
+  "folder": "MG22GXACpWQynXcZ",
+  "_key": "!items!ycaQQDM8JCaWms6i"
+}

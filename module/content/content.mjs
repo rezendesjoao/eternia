@@ -217,7 +217,7 @@ function skillData(item, powers, index, texts) {
   // The item's own text, unless its powers can't be told apart (edited by hand): then the English one.
   const own = (texts.powers.length === powers.length) ? (power.whole ? texts.rules : texts.powers[index]) : "";
   const flags = { [ITEM_SKILL]: { item: item.id, power: index } };
-  for (const key of ["crLock", "minHate", "notActed", "srOf"]) {
+  for (const key of ["crLock", "minHate", "notActed", "srOf", "useActions", "withItem"]) {
     if (power[key]) flags[key] = foundry.utils.deepClone(power[key]);
   }
   const system = {

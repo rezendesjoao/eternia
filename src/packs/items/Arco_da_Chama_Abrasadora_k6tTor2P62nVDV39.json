@@ -1,0 +1,182 @@
+{
+  "name": "Arco da Chama Abrasadora",
+  "type": "weapon",
+  "system": {
+    "description": "<p><strong>Pena de Fênix</strong> (Constante): +1D na Precisão.</p><p>(Constante) Todo dano que você causar ganha [Chama].</p><p>[Momento: Ação Maior] <strong>Liberação de Memória: Fênix.</strong> Alvo: Área 3 (escolha) · Alcance: 20 Qd. Uma fênix de fogo desce sobre os alvos: causa [7D + Ataque] de dano físico de [Chama], e eles ficam [Queimando: 5]. 1/Cenário.</p><hr><p><em>Um arco recurvo vermelho e laranja envolto em chamas, de braços em forma de asas de fênix.</em></p>",
+    "tags": [
+      "Two-Handed",
+      "Bow",
+      "Flame",
+      "Not For Sale",
+      "M7"
+    ],
+    "rank": 30,
+    "price": 16400,
+    "equipped": false,
+    "attack": 84,
+    "magic": 0,
+    "accuracy": 0,
+    "initiative": 0,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "6Sq",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/arco-da-chama-abrasadora.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "vTXv3IF0cLo5w9Y6",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Arco da Chama Abrasadora: Pena de Fênix",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.checks.accuracy.dice",
+            "type": "add",
+            "value": 1,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!k6tTor2P62nVDV39.vTXv3IF0cLo5w9Y6",
+      "start": null,
+      "showIcon": 1
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "dXWSEjivMhOo2ve5",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "damageTags": [
+            "Flame"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Arco da Chama Abrasadora",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!k6tTor2P62nVDV39.dXWSEjivMhOo2ve5",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
+  "sort": 55000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Major",
+          "target": "Wide 3 (P)",
+          "range": "20Sq",
+          "cost": "",
+          "limit": "1/Scenario",
+          "text": "[Trigger: Major] Liberação de Memória: Fênix: \"Target: Wide 3 (P) / Range: 20Sq\". A fire phoenix falls on the targets: deals [7D + Attack] physical [Flame] damage, and they get [Burning: 5]. Once per scenario.",
+          "damage": {
+            "dice": 7,
+            "mod": 0,
+            "type": "physical",
+            "recovery": false,
+            "noPower": false
+          },
+          "effects": [
+            {
+              "name": "Liberação de Memória: Fênix",
+              "img": "systems/eternia/assets/ui/status/burning.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "burning"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "burning",
+                    "value": 5
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "k6tTor2P62nVDV39",
+  "folder": "MG22GXACpWQynXcZ",
+  "_key": "!items!k6tTor2P62nVDV39"
+}

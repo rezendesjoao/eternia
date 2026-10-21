@@ -1,0 +1,125 @@
+{
+  "name": "Espada Perfura-Tempo",
+  "type": "weapon",
+  "system": {
+    "description": "<p>[Momento: Ação Maior] <strong>Corte do Futuro.</strong> Alvo: Único · Alcance: Corpo a corpo. O golpe chega antes do movimento: causa [5D + Ataque] de dano físico, e o alvo fica [Exposto]. 1/Cena.</p><p>[Momento: Instantânea] <strong>Liberação de Memória: Corte do Passado.</strong> Alvo: Você. Use logo depois de sofrer um ataque: todo o dano dele é anulado. 1/Cenário.</p><hr><p><em>Uma espada muito longa de aço simples, com um ponteiro de relógio discreto na guarda redonda.</em></p>",
+    "tags": [
+      "One-Handed",
+      "Blade",
+      "Not For Sale",
+      "M7"
+    ],
+    "rank": 30,
+    "price": 16400,
+    "equipped": false,
+    "attack": 56,
+    "magic": 0,
+    "accuracy": 0,
+    "initiative": 0,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "Close",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/espada-perfura-tempo.webp",
+  "effects": [],
+  "sort": 54000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Major",
+          "target": "Single",
+          "range": "Close",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Major] Corte do Futuro: \"Target: Single / Range: Close\". The blow lands before the swing: deals [5D + Attack] physical damage, and the target becomes [Exposed]. Once per scene.",
+          "damage": {
+            "dice": 5,
+            "mod": 0,
+            "type": "physical",
+            "recovery": false,
+            "noPower": false
+          },
+          "effects": [
+            {
+              "name": "Corte do Futuro",
+              "img": "systems/eternia/assets/ui/status/exposed.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "exposed"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "exposed"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "timing": "Instant",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scenario",
+          "text": "[Trigger: Instant] Liberação de Memória: Corte do Passado: \"Target: Self / Range: -\". Use right after you are hit by an attack: all its damage is canceled. Once per scenario.",
+          "effects": [
+            {
+              "name": "Liberação de Memória: Corte do Passado",
+              "img": "systems/eternia/assets/ui/status/cancel.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "cancel"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "cancel",
+                    "value": 9999
+                  },
+                  "recipients": "self",
+                  "consumeOn": "damage"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "5kTUnrknVlbHhc7b",
+  "folder": "MG22GXACpWQynXcZ",
+  "_key": "!items!5kTUnrknVlbHhc7b"
+}

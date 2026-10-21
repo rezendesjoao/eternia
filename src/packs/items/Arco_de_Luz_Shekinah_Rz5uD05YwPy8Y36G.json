@@ -1,0 +1,166 @@
+{
+  "name": "Arco de Luz Shekinah",
+  "type": "weapon",
+  "system": {
+    "description": "<p><strong>Arco de Luz</strong> (Constante): +1D na Precisão, e o alcance dos seus disparos dobra.</p><p>(Constante) Todo dano que você causar ganha [Radiância].</p><p>[Momento: Ação Maior] <strong>Flecha de Luz.</strong> Alvo: Único · Alcance: 30 Qd. Causa [6D + Ataque] de dano físico de [Radiância], e o alvo perde [Oculto]. 1/Cena.</p><hr><p><em>Um arco longo branco e dourado, elegante, que brilha com luz própria.</em></p>",
+    "tags": [
+      "Two-Handed",
+      "Bow",
+      "Radiance",
+      "Not For Sale",
+      "M7"
+    ],
+    "rank": 30,
+    "price": 16400,
+    "equipped": false,
+    "attack": 82,
+    "magic": 0,
+    "accuracy": 0,
+    "initiative": 0,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "6Sq",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/arco-de-luz-shekinah.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "IRMpjx56VRRcVaFN",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Arco de Luz Shekinah: Arco de Luz",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.checks.accuracy.dice",
+            "type": "add",
+            "value": 1,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!Rz5uD05YwPy8Y36G.IRMpjx56VRRcVaFN",
+      "start": null,
+      "showIcon": 1
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "CTlxQJb2w7l7Z6q3",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "damageTags": [
+            "Radiance"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Arco de Luz Shekinah",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!Rz5uD05YwPy8Y36G.CTlxQJb2w7l7Z6q3",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
+  "sort": 43000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Major",
+          "target": "Single",
+          "range": "30Sq",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Major] Flecha de Luz: \"Target: Single / Range: 30Sq\". Deals [6D + Attack] physical [Radiance] damage, and the target loses [Hidden]. Once per scene.",
+          "damage": {
+            "dice": 6,
+            "mod": 0,
+            "type": "physical",
+            "recovery": false,
+            "noPower": false
+          },
+          "useActions": [
+            {
+              "type": "removeStatus",
+              "statuses": [
+                "hidden"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "Rz5uD05YwPy8Y36G",
+  "folder": "UPMmun3tQJwky88X",
+  "_key": "!items!Rz5uD05YwPy8Y36G"
+}

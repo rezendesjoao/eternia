@@ -265,16 +265,25 @@ export async function applyItemEffects(item, actors, { useId, sustained, only } 
     return data;
   });
 
-  // Who gets each effect: the targets (default), the user, or both.
+  // Who gets each effect: the targets (default), the user, or both; or, among the targets, the user's allies
+  // (the user too) or enemies, by the disposition of their tokens.
   const caster = item.actor ?? null;
   const goesTo = data => data.flags?.eternia?.recipients ?? "targets";
+  const side = actor => (actor?.token ?? actor?.getActiveTokens()[0]?.document ?? actor?.prototypeToken)?.disposition;
+  const ally = actor => !!caster && ((actor === caster) || (side(actor) === side(caster)));
+  const takes = (actor, data) => {
+    const to = goesTo(data);
+    if (to === "allies") return ally(actor);
+    if (to === "enemies") return !ally(actor);
+    return to !== "self";
+  };
   const plan = new Map();
   for (const actor of new Set(actors)) {
-    if (actor) plan.set(actor, effects.filter(e => goesTo(e) !== "self"));
+    if (actor) plan.set(actor, effects.filter(e => takes(actor, e)));
   }
   if (caster) {
     const own = plan.get(caster) ?? [];
-    plan.set(caster, [...own, ...effects.filter(e => (goesTo(e) !== "targets") && !own.includes(e))]);
+    plan.set(caster, [...own, ...effects.filter(e => ["self", "both", "allies"].includes(goesTo(e)) && !own.includes(e))]);
   }
 
   const names = [];

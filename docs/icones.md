@@ -1,8 +1,8 @@
 # Ícones dos itens: referência técnica
 
 Cada item do compêndio tem o seu próprio ícone, sem repetir (a mesma imagem com `hue` diferente conta como outro
-ícone). Quase todos são ícones do Foundry (`icons/...`); as katanas e os chicotes têm arte própria em
-`assets/icons/items/`. Por cima do ícone, o sistema desenha uma moldura pelo grau mágico e, nas armas e
+ícone). Quase todos são ícones do Foundry (`icons/...`); as katanas, os chicotes e os itens de Sword Art Online têm
+arte própria em `assets/icons/items/`. Por cima do ícone, o sistema desenha uma moldura pelo grau mágico e, nas armas e
 equipamentos de nível alto, efeitos animados. Nada dos ícones do Foundry vai no zip: a licença deles (Rexard) só
 permite usá-los dentro do Foundry, então o sistema aponta para o caminho e monta o desenho no navegador de cada
 jogador. Ao escolher ícones novos, use só os pintados (fundo escuro), não os chapados de fundo claro.
@@ -46,8 +46,8 @@ também para o movimento quando o computador pede menos animação.
 
 ## Arte própria
 
-As katanas e os chicotes vieram de grades de 9 ícones geradas no ChatGPT a partir de esboços de layout, recortadas
-por célula em 256 px (`assets/icons/items/<nome>.webp`). Para um item novo com arte própria, grave a imagem ali e
+As katanas, os chicotes e os itens de Sword Art Online vieram de grades de 9 ícones geradas no ChatGPT a partir de
+esboços de layout, recortadas por célula em 256 px (`assets/icons/items/<nome>.webp`). Para um item novo com arte própria, grave a imagem ali e
 aponte o `img` do item para `systems/eternia/assets/icons/items/<nome>.webp`; a moldura e os efeitos vêm sozinhos.
 
 ## Para macros

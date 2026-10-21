@@ -61,7 +61,7 @@ Usados pelas raças, servem para qualquer habilidade (`conditions/effects.mjs`, 
 
 | Onde | Flag | O que faz |
 |---|---|---|
-| Efeito | `recipients` | `"targets"` (padrão), `"self"` (quem usa) ou `"both"` |
+| Efeito | `recipients` | `"targets"` (padrão), `"self"` (quem usa), `"both"`, `"allies"` (os alvos do mesmo lado de quem usa, pela disposição do token, e quem usa) ou `"enemies"` (os alvos do outro lado) |
 | Efeito | `immune` | lista de estados que não pegam enquanto o efeito existir (e acabam quando ele chega) |
 | Efeito | `fatigueOnEnd` | Fadiga ao acabar (fórmula resolvida ao aplicar) |
 | Efeito | `endsWith` | acaba quando o ator perde esse estado |
@@ -71,6 +71,7 @@ Usados pelas raças, servem para qualquer habilidade (`conditions/effects.mjs`, 
 | Efeito | condição `hasSkill` | só vale se quem usa tiver a habilidade com esse nome |
 | Habilidade | `chooseEffect` | os efeitos são alternativas: quem usa escolhe um |
 | Habilidade | `useActions` | `{ type: "fatigue", value }`, `{ type: "doubleStatus", status }` ou `{ type: "removeStatus", statuses }`, com `recipients` (também em itens usáveis) |
+| Habilidade | `withItem` | nome de outro item que precisa estar equipado junto (habilidade de item, como um par de espadas) |
 | Habilidade | `special` | `"pack"` (Matilha, em `rolls.mjs`) ou `"book"` (O Livro, no renascimento) |
 | Habilidade | `minRank`, `choiceOnly`, `rankGrants` | NP mínimo, só por escolha, e habilidades dadas a cada NH |
 

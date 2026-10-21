@@ -203,8 +203,9 @@ const crLockOf = item => toInt(item.getFlag(SYSTEM_ID, "crLock"));
 const crOf = actor => toInt(actor?.system?.infos?.crank ?? actor?.system?.rank);
 
 /**
- * Whether the conditions of an item's skill are met: the item is equipped, the Character Rank is below the
- * item's lock, the Hate is high enough, the skill whose rank sets the limit is there, the user hasn't acted.
+ * Whether the conditions of an item's skill are met: the item is equipped (and the item it is used with, as
+ * a pair of swords), the Character Rank is below the item's lock, the Hate is high enough, the skill whose rank
+ * sets the limit is there, the user hasn't acted.
  * @param {Item} item
  * @param {Actor} actor
  * @param {Combat|null} combat
@@ -216,6 +217,10 @@ function itemIssues(item, actor, combat, combatant) {
   const owner = sourceItem(item);
   if (owner && EQUIPMENT.includes(owner.type) && (owner.system.equipped === false)) {
     issues.push(L("Use.NotEquipped", { item: owner.name }));
+  }
+  const partner = item.getFlag(SYSTEM_ID, "withItem");
+  if (partner && !actor.items.some(i => (i.name === partner) && EQUIPMENT.includes(i.type) && (i.system.equipped !== false))) {
+    issues.push(L("Use.NotEquipped", { item: partner }));
   }
   const lock = crLockOf(item);
   if (lock && (crOf(actor) >= lock)) issues.push(L("Use.CrLocked", { lock }));

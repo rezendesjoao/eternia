@@ -1,0 +1,132 @@
+{
+  "name": "Rapieira Cavalheiresca",
+  "type": "weapon",
+  "system": {
+    "description": "<p><strong>Guarda do Cavaleiro</strong> (Constante): +2 na Esquiva.</p><p>[Momento: Ação Menor] <strong>Foco do Cavaleiro.</strong> Alvo: Você. Você fica [Concentrado]. 1/Cena.</p><hr><p><em>Uma rapieira nobre forjada por ferreiros élficos, de guarda negra e prata com luas crescentes.</em></p>",
+    "tags": [
+      "One-Handed",
+      "Blade",
+      "Light",
+      "Not For Sale",
+      "M5"
+    ],
+    "rank": 6,
+    "price": 420,
+    "equipped": false,
+    "attack": 11,
+    "magic": 0,
+    "accuracy": 1,
+    "initiative": 2,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "Close",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/rapieira-cavalheiresca.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "qmluZ7onwGusw5K4",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Rapieira Cavalheiresca: Guarda do Cavaleiro",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.checks.evasion.mod",
+            "type": "add",
+            "value": 2,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!zpdn5dobm6uHYNHo.qmluZ7onwGusw5K4",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
+  "sort": 13000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Minor",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Minor] Foco do Cavaleiro: \"Target: Self / Range: -\". You become [Focused]. Once per scene.",
+          "effects": [
+            {
+              "name": "Foco do Cavaleiro",
+              "img": "systems/eternia/assets/ui/status/focused.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "focused"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "focused"
+                  },
+                  "recipients": "self"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "zpdn5dobm6uHYNHo",
+  "folder": "5mrlBpHcr35R8Ew0",
+  "_key": "!items!zpdn5dobm6uHYNHo"
+}

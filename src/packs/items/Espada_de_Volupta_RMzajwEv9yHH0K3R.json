@@ -1,0 +1,146 @@
+{
+  "name": "Espada de Volupta",
+  "type": "weapon",
+  "system": {
+    "description": "<p>(Constante) Você é imune a [Envenenado] e recebe [Regeneração: 5] em todo combate.</p><p>[Momento: Antes do Teste] <strong>Golpe da Fortuna.</strong> Alvo: Você. Seu próximo ataque recebe +1D na Precisão e +2D no dano. 1/Cena.</p><hr><p><em>Uma espada dourada cravejada de rubis e esmeraldas, o maior prêmio de uma cidade de jogos.</em></p>",
+    "tags": [
+      "One-Handed",
+      "Blade",
+      "Not For Sale",
+      "M6"
+    ],
+    "rank": 12,
+    "price": 1810,
+    "equipped": false,
+    "attack": 20,
+    "magic": 0,
+    "accuracy": 0,
+    "initiative": 0,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "Close",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/espada-de-volupta.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "RSiEs8MXRDo1H9hp",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "immune": [
+            "poisoned"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Espada de Volupta",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!RMzajwEv9yHH0K3R.RSiEs8MXRDo1H9hp",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
+  "sort": 22000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "sceneStatuses": [
+        {
+          "status": "regen",
+          "value": 5
+        }
+      ],
+      "powers": [
+        {
+          "timing": "Before Check",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Before Check] Golpe da Fortuna: \"Target: Self / Range: -\". Your next attack gets +1D to Accuracy and +2D to damage. Once per scene.",
+          "effects": [
+            {
+              "name": "Golpe da Fortuna",
+              "img": "icons/svg/upgrade.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "system.checks.accuracy.dice",
+                    "type": "add",
+                    "value": "1",
+                    "phase": "initial",
+                    "priority": null
+                  },
+                  {
+                    "key": "eternia.roll.damage.dice",
+                    "type": "add",
+                    "value": "2",
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "recipients": "self",
+                  "expires": "endOfScene",
+                  "consumeOn": "attack"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "RMzajwEv9yHH0K3R",
+  "folder": "5mrlBpHcr35R8Ew0",
+  "_key": "!items!RMzajwEv9yHH0K3R"
+}

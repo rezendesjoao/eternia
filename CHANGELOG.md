@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.6.0 — 2026-10-21
+
+### Adicionado
+- **108 itens de Sword Art Online** no compêndio de Itens, em três pastas (Aincrad, Alfheim e Submundo), do nível 1
+  ao 30: 59 armas e 49 proteções e acessórios, com ícones pintados próprios (`assets/icons/items/`). Os raros são
+  Artefatos de [M4] a [M7], cada um com bônus fixos, estados em todo combate e poderes automatizados; os lendários
+  [M7] são fortes de propósito.
+- Poder de item que só funciona com outro item equipado junto (`withItem`, como a Explosão Estelar da Elucidator com a
+  Dark Repulser).
+- Efeitos de habilidade só para os aliados ou só para os inimigos entre os alvos (`recipients`: `allies`, `enemies`).
+- Aviso de novidades da 0.6.
+
 ## 0.5.0 — 2026-10-21
 
 ### Adicionado

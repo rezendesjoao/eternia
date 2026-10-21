@@ -1,0 +1,124 @@
+{
+  "name": "Espada do Lírio Negro",
+  "type": "weapon",
+  "system": {
+    "description": "<p>[Momento: Ação Maior] <strong>Corta Tudo.</strong> Alvo: Único · Alcance: Corpo a corpo. Causa [5D + Ataque] de dano direto, e o alvo fica [Fissurado: 1]. 1/Cena.</p><p>[Momento: Instantânea] <strong>Liberação de Memória: Flor Solitária.</strong> Alvo: Você. Você recebe [Último Fôlego]. 1/Cenário.</p><hr><p><em>Uma espada negra finíssima como uma agulha, de guarda em forma de lírio negro.</em></p>",
+    "tags": [
+      "One-Handed",
+      "Blade",
+      "Not For Sale",
+      "M7"
+    ],
+    "rank": 28,
+    "price": 14310,
+    "equipped": false,
+    "attack": 50,
+    "magic": 0,
+    "accuracy": 0,
+    "initiative": 0,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "Close",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/espada-do-lirio-negro.webp",
+  "effects": [],
+  "sort": 48000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Major",
+          "target": "Single",
+          "range": "Close",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Major] Corta Tudo: \"Target: Single / Range: Close\". Deals [5D + Attack] direct damage, and the target gets [Fissured: 1]. Once per scene.",
+          "damage": {
+            "dice": 5,
+            "mod": "@attack",
+            "type": "direct",
+            "recovery": false,
+            "noPower": true
+          },
+          "effects": [
+            {
+              "name": "Corta Tudo",
+              "img": "systems/eternia/assets/ui/status/fissured.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "fissured"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "fissured",
+                    "value": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "timing": "Instant",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scenario",
+          "text": "[Trigger: Instant] Liberação de Memória: Flor Solitária: \"Target: Self / Range: -\". You gain [Last Stand]. Once per scenario.",
+          "effects": [
+            {
+              "name": "Liberação de Memória: Flor Solitária",
+              "img": "systems/eternia/assets/ui/status/lastStand.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "lastStand"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "lastStand"
+                  },
+                  "recipients": "self"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "5nPi5apIkHCgJb5T",
+  "folder": "MG22GXACpWQynXcZ",
+  "_key": "!items!5nPi5apIkHCgJb5T"
+}

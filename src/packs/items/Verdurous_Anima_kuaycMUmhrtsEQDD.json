@@ -1,0 +1,98 @@
+{
+  "name": "Verdurous Anima",
+  "type": "weapon",
+  "system": {
+    "description": "<p>(Constante) Em todo combate, você recebe [Regeneração: 5].</p><p>[Momento: Ação Maior] <strong>Autoridade da Terra.</strong> Alvo: Área 20 (escolha) · Alcance: 20 Qd. A terra floresce: os aliados escolhidos recuperam [6D + Recuperação] PV e recebem [Regeneração: 20]. 1/Cenário.</p><hr><p><em>Uma katana verde, com folhas e vinhas gravadas na lâmina e o cabo enrolado em verde.</em></p>",
+    "tags": [
+      "Two-Handed",
+      "Katana",
+      "Not For Sale",
+      "M7"
+    ],
+    "rank": 30,
+    "price": 16400,
+    "equipped": false,
+    "attack": 70,
+    "magic": 0,
+    "accuracy": 1,
+    "initiative": -1,
+    "pdef": 0,
+    "mdef": 0,
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "range": "Close",
+    "main": false
+  },
+  "img": "systems/eternia/assets/icons/items/verdurous-anima.webp",
+  "effects": [],
+  "sort": 59000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "sceneStatuses": [
+        {
+          "status": "regen",
+          "value": 5
+        }
+      ],
+      "powers": [
+        {
+          "timing": "Major",
+          "target": "Wide 20 (P)",
+          "range": "20Sq",
+          "cost": "",
+          "limit": "1/Scenario",
+          "text": "[Trigger: Major] Autoridade da Terra: \"Target: Wide 20 (P) / Range: 20Sq\". The land blooms: the chosen allies recover [6D + Recovery] HP and gain [Regen: 20]. Once per scenario.",
+          "damage": {
+            "dice": 6,
+            "mod": 0,
+            "type": "",
+            "recovery": true,
+            "noPower": false
+          },
+          "effects": [
+            {
+              "name": "Autoridade da Terra",
+              "img": "systems/eternia/assets/ui/status/regen.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "regen"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "regen",
+                    "value": 20
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.6.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "kuaycMUmhrtsEQDD",
+  "folder": "MG22GXACpWQynXcZ",
+  "_key": "!items!kuaycMUmhrtsEQDD"
+}
