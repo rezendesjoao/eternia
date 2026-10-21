@@ -11,7 +11,7 @@ import { skillModifiers } from "../helpers/roll-bonuses.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 
-/** Type dropdown of skills and tickets (labels: LHTRPG.Skill.Type.X, LHTRPG.Ticket.Type.X). */
+/** Type dropdown of skills and tickets (labels: ETERNIA.Skill.Type.X, ETERNIA.Ticket.Type.X). */
 const SUBTYPES = {
   skill: ["Basic", "General", "Combat", "Monster", "Item"],
   ticket: ["Treasure", "Fate", "Connection", "Reset"]
@@ -22,36 +22,36 @@ const SUBTYPES = {
  * Supports all 14 item types, dynamically selecting the template in _configureRenderParts.
  * @extends {foundry.applications.sheets.ItemSheetV2}
  */
-export class LHTrpgItemSheet extends HandlebarsApplicationMixin(foundry.applications.sheets.ItemSheetV2) {
+export class EterniaItemSheet extends HandlebarsApplicationMixin(foundry.applications.sheets.ItemSheetV2) {
 
   static DEFAULT_OPTIONS = {
-    classes: ["lhtrpg", "sheet", "item"],
+    classes: ["eternia", "sheet", "item"],
     position: { width: 520, height: 550 },
     window: { resizable: true },
     form: { submitOnChange: true },
     actions: {
-      editImage: LHTrpgItemSheet.#onEditImage,
-      throwLinkedSkill: LHTrpgItemSheet.#onThrowLinkedSkill,
-      createLinkedSkill: LHTrpgItemSheet.#onCreateLinkedSkill,
-      editLinkedSkill: LHTrpgItemSheet.#onEditLinkedSkill,
-      deleteLinkedSkill: LHTrpgItemSheet.#onDeleteLinkedSkill,
-      rollSkill: LHTrpgItemSheet.#onRollSkill,
-      useItem: LHTrpgItemSheet.#onUseItem,
-      openGrant: LHTrpgItemSheet.#onOpenGrant,
-      removeGrant: LHTrpgItemSheet.#onRemoveGrant,
-      removeSubclassSkill: LHTrpgItemSheet.#onRemoveSubclassSkill,
-      create: LHTrpgItemSheet.#onManageActiveEffect,
-      edit: LHTrpgItemSheet.#onManageActiveEffect,
-      delete: LHTrpgItemSheet.#onManageActiveEffect,
-      toggle: LHTrpgItemSheet.#onManageActiveEffect,
-      addCondition: LHTrpgItemSheet.#onAddCondition,
-      deleteCondition: LHTrpgItemSheet.#onDeleteCondition
+      editImage: EterniaItemSheet.#onEditImage,
+      throwLinkedSkill: EterniaItemSheet.#onThrowLinkedSkill,
+      createLinkedSkill: EterniaItemSheet.#onCreateLinkedSkill,
+      editLinkedSkill: EterniaItemSheet.#onEditLinkedSkill,
+      deleteLinkedSkill: EterniaItemSheet.#onDeleteLinkedSkill,
+      rollSkill: EterniaItemSheet.#onRollSkill,
+      useItem: EterniaItemSheet.#onUseItem,
+      openGrant: EterniaItemSheet.#onOpenGrant,
+      removeGrant: EterniaItemSheet.#onRemoveGrant,
+      removeSubclassSkill: EterniaItemSheet.#onRemoveSubclassSkill,
+      create: EterniaItemSheet.#onManageActiveEffect,
+      edit: EterniaItemSheet.#onManageActiveEffect,
+      delete: EterniaItemSheet.#onManageActiveEffect,
+      toggle: EterniaItemSheet.#onManageActiveEffect,
+      addCondition: EterniaItemSheet.#onAddCondition,
+      deleteCondition: EterniaItemSheet.#onDeleteCondition
     }
   };
 
   static PARTS = {
     sheet: {
-      template: "systems/lhtrpg/templates/item/item-weapon-sheet.html",
+      template: "systems/eternia/templates/item/item-weapon-sheet.html",
       scrollable: [".sheet-body"]
     }
   };
@@ -65,7 +65,7 @@ export class LHTrpgItemSheet extends HandlebarsApplicationMixin(foundry.applicat
   /** @override */
   _configureRenderParts(options) {
     const parts = super._configureRenderParts(options);
-    parts.sheet.template = `systems/lhtrpg/templates/item/item-${this.item.type}-sheet.html`;
+    parts.sheet.template = `systems/eternia/templates/item/item-${this.item.type}-sheet.html`;
     return parts;
   }
 
@@ -110,11 +110,11 @@ export class LHTrpgItemSheet extends HandlebarsApplicationMixin(foundry.applicat
       context.skillDiceOptions = diceOptions(SKILL_MAX_DICE);
       // Character skills: check stat of the character, extra dice on top of it / of the Attack-Magic Power
       context.isMonsterSkill = isMonsterSkill(item);
-      context.checkStatOptions = Object.fromEntries(CHECK_STATS.map(s => [s, `LHTRPG.Check.${s.capitalize()}`]));
-      context.checkVsOptions = { evasion: "LHTRPG.Check.Evasion", resistance: "LHTRPG.Check.Resistance", auto: "LHTRPG.Skill.Label.CheckAuto" };
+      context.checkStatOptions = Object.fromEntries(CHECK_STATS.map(s => [s, `ETERNIA.Check.${s.capitalize()}`]));
+      context.checkVsOptions = { evasion: "ETERNIA.Check.Evasion", resistance: "ETERNIA.Check.Resistance", auto: "ETERNIA.Skill.Label.CheckAuto" };
       // Dice: a number or a formula (suggestions for the text field)
       context.skillDiceSuggestions = [...Object.keys(context.skillDiceOptions), "@sr", "@sr+1", "@sr+2", "@sr+3", "@sr*2"];
-      context.damageTypeOptions = Object.fromEntries(DAMAGE_TYPES.map(t => [t, `LHTRPG.Combat.Type.${t}`]));
+      context.damageTypeOptions = Object.fromEntries(DAMAGE_TYPES.map(t => [t, `ETERNIA.Combat.Type.${t}`]));
       // Timing / Target / Range / Cost / Limit dropdowns
       context.skillFields = prepareSkillFields(item.system);
       // Hate cost / range / notes changed by the owner's effects (see roll-bonuses.mjs)
@@ -123,7 +123,7 @@ export class LHTrpgItemSheet extends HandlebarsApplicationMixin(foundry.applicat
 
     // Skill / Ticket type dropdown
     const subtypes = SUBTYPES[item.type];
-    if (subtypes) context.subtypeOptions = Object.fromEntries(subtypes.map(t => [t, `LHTRPG.${item.type.capitalize()}.Type.${t}`]));
+    if (subtypes) context.subtypeOptions = Object.fromEntries(subtypes.map(t => [t, `ETERNIA.${item.type.capitalize()}.Type.${t}`]));
 
     // Usable items: Use button, when carried by a character
     if (item.type === "usable") context.canUse = canUseItem(item);
@@ -145,7 +145,7 @@ export class LHTrpgItemSheet extends HandlebarsApplicationMixin(foundry.applicat
     // Skills: conditions for all their effects (the Styles' "only produces an effect when…")
     if (item.type === "skill") {
       context.conditions = conditionsContext(item.system.conditions, {
-        prefix: "system.conditions", hint: "LHTRPG.Condition.HintSkill", editable: this.isEditable
+        prefix: "system.conditions", hint: "ETERNIA.Condition.HintSkill", editable: this.isEditable
       });
     }
     return context;
@@ -372,13 +372,13 @@ export class LHTrpgItemSheet extends HandlebarsApplicationMixin(foundry.applicat
     const skill = await Item.implementation.fromDropData(data);
     if (!skill) return;
     if (skill.type !== "skill") {
-      ui.notifications.warn(game.i18n.localize("LHTRPG.CharacterOptions.Grants.OnlySkills"));
+      ui.notifications.warn(game.i18n.localize("ETERNIA.CharacterOptions.Grants.OnlySkills"));
       return;
     }
     // Skills inside an actor are not stable references: link the compendium/world entry they came from.
     const uuid = skill.parent ? (skill._stats?.compendiumSource ?? null) : skill.uuid;
     if (!uuid) {
-      ui.notifications.warn(game.i18n.localize("LHTRPG.CharacterOptions.Grants.OnlySkills"));
+      ui.notifications.warn(game.i18n.localize("ETERNIA.CharacterOptions.Grants.OnlySkills"));
       return;
     }
     const grants = foundry.utils.deepClone(this.item.system.grants ?? []);
@@ -406,7 +406,7 @@ export class LHTrpgItemSheet extends HandlebarsApplicationMixin(foundry.applicat
     if (!skill) return;
     const uuid = (skill.type !== "skill") ? null : (skill.parent ? (skill._stats?.compendiumSource ?? null) : skill.uuid);
     if (!uuid) {
-      ui.notifications.warn(game.i18n.localize("LHTRPG.CharacterOptions.Grants.OnlySkills"));
+      ui.notifications.warn(game.i18n.localize("ETERNIA.CharacterOptions.Grants.OnlySkills"));
       return;
     }
     const skills = this.item.system.skills ?? [];

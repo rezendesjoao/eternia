@@ -6,7 +6,7 @@
 
 import { isPrimaryGM } from "../helpers/clients.mjs";
 
-const SOCKET = "system.lhtrpg";
+const SOCKET = "system.eternia";
 const SCOPE = "piles";
 const TIMEOUT = 15000;
 
@@ -38,14 +38,14 @@ export function initSocket() {
  */
 export async function request(action, payload = {}) {
   const gm = game.users.activeGM;
-  if (!gm) return { ok: false, error: "LHTRPG.Piles.Error.NoGM" };
+  if (!gm) return { ok: false, error: "ETERNIA.Piles.Error.NoGM" };
   if (gm.isSelf) return _enqueue(action, payload, game.user.id);
 
   const id = foundry.utils.randomID();
   return new Promise(resolve => {
     const timer = setTimeout(() => {
       pending.delete(id);
-      resolve({ ok: false, error: "LHTRPG.Piles.Error.Timeout" });
+      resolve({ ok: false, error: "ETERNIA.Piles.Error.Timeout" });
     }, TIMEOUT);
     pending.set(id, result => {
       clearTimeout(timer);
@@ -64,12 +64,12 @@ function _enqueue(action, payload, userId) {
 async function _execute(action, payload, userId) {
   const handler = handlers[action];
   const user = game.users.get(userId);
-  if (!handler || !user) return { ok: false, error: "LHTRPG.Piles.Error.Generic" };
+  if (!handler || !user) return { ok: false, error: "ETERNIA.Piles.Error.Generic" };
   try {
     return (await handler(payload, user)) ?? { ok: true };
   } catch (err) {
-    console.error(`Log Horizon TRPG | Pile action "${action}" failed`, err);
-    return { ok: false, error: "LHTRPG.Piles.Error.Generic" };
+    console.error(`Eternia | Pile action "${action}" failed`, err);
+    return { ok: false, error: "ETERNIA.Piles.Error.Generic" };
   }
 }
 

@@ -5,7 +5,7 @@
  * beyond its Maximum SR or the character's CR.
  *
  * At character creation and after a CR Up the character has skills to choose
- * (`flags.lhtrpg.skillProgress`): the window counts them down. Opened from the sheet without pending
+ * (`flags.eternia.skillProgress`): the window counts them down. Opened from the sheet without pending
  * picks it has no quota. Basic skills are never counted.
  *
  * Which skills a character can learn comes from the compendium folders: Archetype (Warrior, Weapon
@@ -67,7 +67,7 @@ const ARCHETYPE_FOLDERS = {
 const COMMON_FOLDER = "common";
 
 /** Compendiums of the Basic skills a character can take (not the GM EX Powers nor monster skills). */
-const BASIC_PACKS = ["lhtrpg.skills-basic", "lhtrpg.skills-mounts"];
+const BASIC_PACKS = ["eternia.skills-basic", "eternia.skills-mounts"];
 
 /** Source filter values, in display order. */
 const SOURCES = ["eligible", "archetype", "class", "race", "subclass", "common", "all"];
@@ -172,7 +172,7 @@ function rankOf(actor) {
 
 /** Skill picks record of a character, or null when it has none. */
 function getProgress(actor) {
-  return actor.getFlag("lhtrpg", PROGRESS_FLAG) ?? null;
+  return actor.getFlag("eternia", PROGRESS_FLAG) ?? null;
 }
 
 /** Skills a character is owed at its CR: { Combat, General }. */
@@ -192,7 +192,7 @@ function ownedPicks(actor, progress) {
 
 /** Marked picks of a skill item. */
 function picksOf(item) {
-  const picks = item.getFlag("lhtrpg", PICK_FLAG);
+  const picks = item.getFlag("eternia", PICK_FLAG);
   return Array.isArray(picks) ? picks : [];
 }
 
@@ -235,7 +235,7 @@ function getTrainingLimit(actor) {
  */
 export async function startSkillProgress(actor) {
   if (getProgress(actor)) return;
-  await actor.setFlag("lhtrpg", PROGRESS_FLAG, { base: rankOf(actor), creation: false });
+  await actor.setFlag("eternia", PROGRESS_FLAG, { base: rankOf(actor), creation: false });
 }
 
 /**
@@ -248,8 +248,8 @@ export async function startSkillProgress(actor) {
 export async function offerClassSkills(actor) {
   if ((rankOf(actor) === 1) && !getProgress(actor)?.creation) {
     const chosen = actor.items.some(i => (i.type === "skill") && PICK_SUBTYPES.includes(i.system.subtype)
-      && !i.getFlag("lhtrpg", "grantedBy") && !picksOf(i).length);
-    if (getProgress(actor) || !chosen) await actor.setFlag("lhtrpg", PROGRESS_FLAG, { base: 1, creation: true });
+      && !i.getFlag("eternia", "grantedBy") && !picksOf(i).length);
+    if (getProgress(actor) || !chosen) await actor.setFlag("eternia", PROGRESS_FLAG, { base: 1, creation: true });
   }
   const pending = getPendingSkills(actor);
   if (PICK_SUBTYPES.some(s => pending[s] > 0)) return SkillBrowser.open(actor);
@@ -302,8 +302,8 @@ async function rollbackDialog(actor, aboveRank, reason) {
       acquired,
       fromSR,
       action: acquired
-        ? game.i18n.localize("LHTRPG.SkillBrowser.Undo.Delete")
-        : game.i18n.format("LHTRPG.SkillBrowser.Undo.Lower", { from: sr, to: fromSR }),
+        ? game.i18n.localize("ETERNIA.SkillBrowser.Undo.Delete")
+        : game.i18n.format("ETERNIA.SkillBrowser.Undo.Lower", { from: sr, to: fromSR }),
       ranks: [...new Set(undone.map(p => p.rank))].sort((x, y) => x - y).join(", ")
     });
   }
@@ -311,23 +311,23 @@ async function rollbackDialog(actor, aboveRank, reason) {
 
   const { DialogV2 } = foundry.applications.api;
   const content = await foundry.applications.handlebars.renderTemplate(
-    "systems/lhtrpg/templates/apps/skill-undo.hbs",
+    "systems/eternia/templates/apps/skill-undo.hbs",
     { rows, hint: game.i18n.format(reason, { name: actor.name, rank: aboveRank }) }
   );
   const data = await DialogV2.wait({
-    window: { title: game.i18n.format("LHTRPG.SkillBrowser.Undo.Title", { name: actor.name }), icon: "fa-solid fa-rotate-left" },
-    classes: ["lhtrpg", "skill-undo"],
+    window: { title: game.i18n.format("ETERNIA.SkillBrowser.Undo.Title", { name: actor.name }), icon: "fa-solid fa-rotate-left" },
+    classes: ["eternia", "skill-undo"],
     position: { width: 420 },
     content,
     buttons: [
       {
         action: "apply",
-        label: "LHTRPG.SkillBrowser.Undo.Apply",
+        label: "ETERNIA.SkillBrowser.Undo.Apply",
         icon: "fa-solid fa-check",
         default: true,
         callback: (event, button) => new foundry.applications.ux.FormDataExtended(button.form).object
       },
-      { action: "keep", label: "LHTRPG.SkillBrowser.Undo.Keep", icon: "fa-solid fa-xmark", callback: () => ({}) }
+      { action: "keep", label: "ETERNIA.SkillBrowser.Undo.Keep", icon: "fa-solid fa-xmark", callback: () => ({}) }
     ],
     rejectClose: false
   });
@@ -340,8 +340,8 @@ async function rollbackDialog(actor, aboveRank, reason) {
     const item = actor.items.get(row.id);
     const kept = picksOf(item).filter(p => p.rank <= aboveRank);
     if (chosen[row.id] && row.acquired) toDelete.push(row.id);
-    else if (chosen[row.id]) toUpdate.push({ _id: row.id, "system.skillRank.value": row.fromSR, [`flags.lhtrpg.${PICK_FLAG}`]: kept });
-    else toUpdate.push({ _id: row.id, [`flags.lhtrpg.${PICK_FLAG}`]: kept });
+    else if (chosen[row.id]) toUpdate.push({ _id: row.id, "system.skillRank.value": row.fromSR, [`flags.eternia.${PICK_FLAG}`]: kept });
+    else toUpdate.push({ _id: row.id, [`flags.eternia.${PICK_FLAG}`]: kept });
   }
   if (toDelete.length) await actor.deleteEmbeddedDocuments("Item", toDelete);
   if (toUpdate.length) await actor.updateEmbeddedDocuments("Item", toUpdate);
@@ -368,7 +368,7 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   static idFor(actor) {
-    return `lhtrpg-skill-browser-${actor.id}`;
+    return `eternia-skill-browser-${actor.id}`;
   }
 
   /**
@@ -390,7 +390,7 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   static DEFAULT_OPTIONS = {
-    classes: ["lhtrpg", "skill-browser"],
+    classes: ["eternia", "skill-browser"],
     tag: "div",
     window: { icon: "fa-solid fa-book-open-reader", resizable: true },
     position: { width: 640, height: 680 },
@@ -405,12 +405,12 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   };
 
   static PARTS = {
-    main: { template: "systems/lhtrpg/templates/apps/skill-browser.hbs", scrollable: [".skill-list"] }
+    main: { template: "systems/eternia/templates/apps/skill-browser.hbs", scrollable: [".skill-list"] }
   };
 
   /** @override */
   get title() {
-    return game.i18n.format("LHTRPG.SkillBrowser.Title", { name: this.actor.name });
+    return game.i18n.format("ETERNIA.SkillBrowser.Title", { name: this.actor.name });
   }
 
   /** Pending picks of the character, or null when it has none (no quota). */
@@ -453,7 +453,7 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       entries.push({
         ...entry,
         sourceLabel: (source === "basic") ? entry.pack
-          : (source ? game.i18n.localize(`LHTRPG.SkillBrowser.Source.${source}`) : (entry.folder || entry.pack)),
+          : (source ? game.i18n.localize(`ETERNIA.SkillBrowser.Source.${source}`) : (entry.folder || entry.pack)),
         owned: !!owned,
         sr,
         maxSR,
@@ -462,9 +462,9 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
         capped,
         disabled: !picked && (capped || (counted && full) || trainingFull),
         reason: capped
-          ? game.i18n.format((sr + 1 > maxSR) ? "LHTRPG.SkillBrowser.MaxSR" : "LHTRPG.SkillBrowser.MaxCR", { max: Math.min(maxSR, rank) })
-          : ((counted && full) ? game.i18n.localize("LHTRPG.SkillBrowser.Full")
-            : (trainingFull ? game.i18n.format("LHTRPG.SkillBrowser.TrainingFull", { max: CREATION_TRAINING }) : "")),
+          ? game.i18n.format((sr + 1 > maxSR) ? "ETERNIA.SkillBrowser.MaxSR" : "ETERNIA.SkillBrowser.MaxCR", { max: Math.min(maxSR, rank) })
+          : ((counted && full) ? game.i18n.localize("ETERNIA.SkillBrowser.Full")
+            : (trainingFull ? game.i18n.format("ETERNIA.SkillBrowser.TrainingFull", { max: CREATION_TRAINING }) : "")),
         expanded: this.expanded.has(entry.uuid),
         description: this.descriptions.get(entry.uuid) ?? "",
         search: `${entry.name} ${entry.folder} ${entry.tags.join(" ")}`.toLowerCase()
@@ -473,13 +473,13 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
 
     const tabs = TABS.map(subtype => ({
       subtype,
-      label: game.i18n.localize(`LHTRPG.Skill.Type.${subtype}`),
+      label: game.i18n.localize(`ETERNIA.Skill.Type.${subtype}`),
       active: subtype === this.tab,
       count: (quota && PICK_SUBTYPES.includes(subtype)) ? `${this.#picked(subtype)}/${quota[subtype]}` : (this.#picked(subtype) || "")
     }));
     const sources = SOURCES.map(value => ({
       value,
-      label: game.i18n.localize(`LHTRPG.SkillBrowser.Filter.${value}`),
+      label: game.i18n.localize(`ETERNIA.SkillBrowser.Filter.${value}`),
       selected: value === this.source
     }));
     const picks = [...this.picks.values()].map(p => ({
@@ -497,9 +497,9 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       quota,
       editable: actor.isOwner,
       hint: [
-        quota ? game.i18n.format("LHTRPG.SkillBrowser.HintPending", { combat: quota.Combat, general: quota.General })
-          : game.i18n.localize("LHTRPG.SkillBrowser.HintFree"),
-        (training !== null) ? game.i18n.format("LHTRPG.SkillBrowser.HintTraining", { left: Math.max(0, training), max: CREATION_TRAINING }) : ""
+        quota ? game.i18n.format("ETERNIA.SkillBrowser.HintPending", { combat: quota.Combat, general: quota.General })
+          : game.i18n.localize("ETERNIA.SkillBrowser.HintFree"),
+        (training !== null) ? game.i18n.format("ETERNIA.SkillBrowser.HintTraining", { left: Math.max(0, training), max: CREATION_TRAINING }) : ""
       ].filter(Boolean).join(" ")
     };
   }
@@ -613,8 +613,8 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
         const from = Number(owned.system.skillRank?.value) || 1;
         const sr = from + 1;
         const picks = [...picksOf(owned), ...mark(pick, "raise", from)];
-        toUpdate.push({ _id: owned.id, "system.skillRank.value": sr, [`flags.lhtrpg.${PICK_FLAG}`]: picks });
-        lines.push(game.i18n.format("LHTRPG.SkillBrowser.ChatRaise", { name: owned.name, sr }));
+        toUpdate.push({ _id: owned.id, "system.skillRank.value": sr, [`flags.eternia.${PICK_FLAG}`]: picks });
+        lines.push(game.i18n.format("ETERNIA.SkillBrowser.ChatRaise", { name: owned.name, sr }));
         continue;
       }
       const skill = await fromUuid(pick.uuid);
@@ -627,17 +627,17 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       foundry.utils.setProperty(data, "_stats.compendiumSource", skill.uuid);
       foundry.utils.setProperty(data, "system.skillRank.value", 1);
       const picks = mark(pick, "new");
-      if (picks.length) foundry.utils.setProperty(data, `flags.lhtrpg.${PICK_FLAG}`, picks);
+      if (picks.length) foundry.utils.setProperty(data, `flags.eternia.${PICK_FLAG}`, picks);
       toCreate.push(data);
-      lines.push(game.i18n.format("LHTRPG.SkillBrowser.ChatNew", { name: skill.name }));
+      lines.push(game.i18n.format("ETERNIA.SkillBrowser.ChatNew", { name: skill.name }));
     }
     if (toUpdate.length) await actor.updateEmbeddedDocuments("Item", toUpdate);
     if (toCreate.length) await actor.createEmbeddedDocuments("Item", toCreate);
 
     await ChatMessage.create({
       speaker: ChatMessage.getSpeaker({ actor }),
-      content: `<div class="lhtrpg skill-pick-card"><h3><i class="fa-solid fa-book-open-reader"></i> `
-        + `${game.i18n.format("LHTRPG.SkillBrowser.ChatTitle", { name: actor.name })}</h3>`
+      content: `<div class="eternia skill-pick-card"><h3><i class="fa-solid fa-book-open-reader"></i> `
+        + `${game.i18n.format("ETERNIA.SkillBrowser.ChatTitle", { name: actor.name })}</h3>`
         + `<ul>${lines.map(l => `<li>${l}</li>`).join("")}</ul></div>`
     });
 
@@ -672,11 +672,11 @@ export function registerSkillBrowser() {
   // CR lowered (by hand, e.g. a GM fixing a wrong CR Up): offer to undo the picks of the ranks removed.
   Hooks.on("preUpdateActor", (actor, changes, options) => {
     if ((actor.type !== "character") || !foundry.utils.hasProperty(changes, "system.infos.crank")) return;
-    options.lhtrpgPreviousRank = rankOf(actor);
+    options.eterniaPreviousRank = rankOf(actor);
   });
   Hooks.on("updateActor", (actor, changes, options, userId) => {
-    if (!isLocalChange(options, userId) || (options.lhtrpgPreviousRank === undefined)) return;
+    if (!isLocalChange(options, userId) || (options.eterniaPreviousRank === undefined)) return;
     const rank = rankOf(actor);
-    if (rank < options.lhtrpgPreviousRank) rollbackPicks(actor, { aboveRank: rank, reason: "LHTRPG.SkillBrowser.Undo.HintRank" });
+    if (rank < options.eterniaPreviousRank) rollbackPicks(actor, { aboveRank: rank, reason: "ETERNIA.SkillBrowser.Undo.HintRank" });
   });
 }

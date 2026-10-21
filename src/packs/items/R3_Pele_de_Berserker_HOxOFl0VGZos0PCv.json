@@ -1,0 +1,107 @@
+{
+  "name": "R3 Pele de Berserker",
+  "type": "armor",
+  "system": {
+    "description": "<p>[Momento: Abertura]: Você recebe um bônus de +5 na sua próxima rolagem de dano. Trate este efeito como um Estado de Combate que é removido após ser aplicado uma vez. Você também sofre [Fraqueza: 10]. Trate este efeito como um Estado Negativo que dura até o fim da Rodada.</p>\n<p>Traje de antigos guerreiros, transmitido em Ezzo. Dizem que, vestidos com peles de urso, eles enlouqueciam em batalha e derrotavam os inimigos à custa de si mesmos.</p>\n<hr>\n<p>Pelo de Urso Enlouquecido [Material-Base] (40G) + Armadura de Peles (130G) + [Catalisador Mágico 3] (25G) x 3 + Custo de Fabricação (105G)</p>",
+    "tags": [
+      "M4",
+      "Medium Armor",
+      "Rare"
+    ],
+    "pdef": 8,
+    "mdef": 6,
+    "initiative": 0,
+    "rank": 3,
+    "price": 350,
+    "equipped": false,
+    "checkType": "-",
+    "range": "-",
+    "target": "-",
+    "timing": "-",
+    "attack": 0,
+    "magic": 0,
+    "accuracy": 0
+  },
+  "img": "systems/eternia/assets/ui/items_icons/armor.svg",
+  "effects": [],
+  "sort": 2000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Setup",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "",
+          "text": "[Trigger: Setup]: You gain a +5 bonus to your next damage roll. Treat this effect as a Combat Status that is removed after applying once. You also take [Weakness: 10]. Treat this effect as a Bad Status that lasts until the end of the round.",
+          "effects": [
+            {
+              "name": "R3 Berserk Hide",
+              "img": "systems/lhtrpg/assets/ui/items_icons/armor.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "lhtrpg.roll.damage.mod",
+                    "type": "add",
+                    "value": 5,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfRound"
+                }
+              }
+            },
+            {
+              "name": "R3 Berserk Hide",
+              "img": "systems/lhtrpg/assets/ui/items_icons/armor.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "weakness"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfRound",
+                  "statusData": {
+                    "statusId": "weakness",
+                    "value": 10
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "HOxOFl0VGZos0PCv",
+  "folder": "GSOXnkHg6C8os28Y",
+  "_key": "!items!HOxOFl0VGZos0PCv"
+}

@@ -1,0 +1,49 @@
+{{!-- SKILLS: Basic / General / Combat, each grouped by Timing. Click the image to use (send to chat),
+     the name to open the details. --}}
+<section class="tab major skills" data-group="primary" data-tab="skills">
+	<nav class="sub-nav tabs" data-group="skills">
+		{{#each lh.skillTabs as |tab|}}
+		<a data-action="tab" data-group="skills" data-tab="{{tab.id}}">{{localize (concat 'ETERNIA.Skill.Type.' tab.subtype)}}{{#if tab.pending}}<span class="pending">{{tab.pending}}</span>{{/if}}</a>
+		{{/each}}
+	</nav>
+	{{#each lh.skillTabs as |tab|}}
+	<div class="tab lhpf-pane" data-group="skills" data-tab="{{tab.id}}">
+		<div class="tab-content">
+			<div class="lhpf-toolbar">
+				<span class="count">{{localize 'ETERNIA.Sheet.SkillCount' n=tab.count}}</span>
+				{{#if tab.browse}}
+				<button type="button" class="{{#if tab.pending}}attention{{/if}}" data-action="skill-browse" data-subtype="{{tab.subtype}}" data-tooltip="{{localize 'ETERNIA.SkillBrowser.Open'}}">
+					<i class="fa-solid fa-fw fa-book-open-reader"></i>{{localize 'ETERNIA.SkillBrowser.Browse'}}{{#if tab.pending}} ({{tab.pending}}){{/if}}
+				</button>
+				{{/if}}
+			</div>
+			<ol class="directory-list lhpf-list">
+				{{#each tab.groups as |group|}}
+				<li class="action-header"><h3>{{group.label}}</h3><span class="count">{{group.skills.length}}</span></li>
+				{{#each group.skills as |item|}}
+				<li class="item skill draggable" data-item-id="{{item._id}}">
+					<div class="item-name">
+						<a class="item-image framed" data-action="item-throw" data-tooltip="{{localize 'ETERNIA.Sheet.Use'}}"><img src="{{item.img}}" alt=""><i class="fa-solid fa-comment"></i></a>
+						<h4 class="name"><a data-action="lhauto-summary">{{item.name}}</a></h4>
+					</div>
+					<ul class="tags meta">
+						{{#if item.lh.kuden}}<li class="tag lhk-badge" data-tooltip="{{localize 'ETERNIA.Kuden.Sheet.BadgeTip'}}">{{localize 'ETERNIA.Kuden.Title'}}</li>{{/if}}
+						{{#if item.lh.sr}}<li class="tag tag_alt" data-tooltip="{{localize 'ETERNIA.Sheet.SR'}}">{{localize 'ETERNIA.Sheet.SRShort'}} {{item.lh.sr}}</li>{{/if}}
+						{{#if item.lh.cost}}<li class="tag tag_secondary">{{item.lh.cost}}</li>{{/if}}
+						{{#if item.lh.limit}}<li class="tag tag_transparent">{{item.lh.limit}}</li>{{/if}}
+					</ul>
+					<div class="item-controls">
+						<a class="item-control" data-action="item-edit" data-tooltip="ETERNIA.ButtonLabel.Edit"><i class="fa-solid fa-fw fa-pen-to-square"></i></a>
+						{{#if @root.editable}}<a class="item-control" data-action="item-delete" data-tooltip="ETERNIA.ButtonLabel.Delete"><i class="fa-solid fa-fw fa-trash"></i></a>{{/if}}
+					</div>
+					<div class="item-summary" hidden></div>
+				</li>
+				{{/each}}
+				{{else}}
+				<li class="lhpf-empty">{{localize 'ETERNIA.Sheet.NoSkills'}}</li>
+				{{/each}}
+			</ol>
+		</div>
+	</div>
+	{{/each}}
+</section>

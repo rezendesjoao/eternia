@@ -53,7 +53,7 @@ function renderTargetInfoHtml(info) {
 export function formatStatusPreview(statusId, value, tag) {
   if (!statusId) return "—";
   const statusInfo = LH_STATUSES.find(s => s.id === statusId);
-  const label = globalThis.game?.i18n?.localize ? game.i18n.localize(`LHTRPG.StatusEffect.${statusId}`) : statusId;
+  const label = globalThis.game?.i18n?.localize ? game.i18n.localize(`ETERNIA.StatusEffect.${statusId}`) : statusId;
   const rating = isFormula(value) ? `[${formulaLabel(value)}]` : Math.max(1, Math.floor(Number(value) || 0) || 1);
   const cleanTag = (tag ?? "").trim();
 
@@ -67,21 +67,21 @@ export function formatStatusPreview(statusId, value, tag) {
 }
 
 /**
- * Custom ActiveEffect configuration sheet for Log Horizon TRPG (AppV2).
+ * Custom ActiveEffect configuration sheet for Eternia (AppV2).
  * Provides an attribute key suggestion dropdown with catalog destinations,
  * translated labels, type exclusivity chips, and derived-field warnings.
  * @extends {foundry.applications.sheets.ActiveEffectConfig}
  */
-export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.ActiveEffectConfig {
+export class EterniaActiveEffectConfig extends foundry.applications.sheets.ActiveEffectConfig {
 
   /** @override */
   static DEFAULT_OPTIONS = {
-    classes: ["lhtrpg-effect-config"],
+    classes: ["eternia-effect-config"],
     actions: {
-      addCondition: LHTrpgActiveEffectConfig.#onAddCondition,
-      deleteCondition: LHTrpgActiveEffectConfig.#onDeleteCondition,
-      addFilterSkill: LHTrpgActiveEffectConfig.#onAddFilterSkill,
-      removeFilterSkill: LHTrpgActiveEffectConfig.#onRemoveFilterSkill
+      addCondition: EterniaActiveEffectConfig.#onAddCondition,
+      deleteCondition: EterniaActiveEffectConfig.#onDeleteCondition,
+      addFilterSkill: EterniaActiveEffectConfig.#onAddFilterSkill,
+      removeFilterSkill: EterniaActiveEffectConfig.#onRemoveFilterSkill
     }
   };
 
@@ -92,8 +92,8 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
         { id: "details", icon: "fa-solid fa-book" },
         { id: "duration", icon: "fa-solid fa-clock" },
         { id: "changes", icon: "fa-solid fa-gears" },
-        { id: "lhStatus", icon: "fa-solid fa-heart-crack", label: "LHTRPG.EffectConfig.StatusTab" },
-        { id: "lhConditions", icon: "fa-solid fa-list-check", label: "LHTRPG.EffectConfig.ConditionsTab" }
+        { id: "lhStatus", icon: "fa-solid fa-heart-crack", label: "ETERNIA.EffectConfig.StatusTab" },
+        { id: "lhConditions", icon: "fa-solid fa-list-check", label: "ETERNIA.EffectConfig.ConditionsTab" }
       ],
       initial: "details",
       labelPrefix: "EFFECT.TABS"
@@ -106,18 +106,18 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
     tabs: foundry.applications.sheets.ActiveEffectConfig.PARTS.tabs,
     details: foundry.applications.sheets.ActiveEffectConfig.PARTS.details,
     duration: {
-      template: "systems/lhtrpg/templates/effects/effect-duration.hbs"
+      template: "systems/eternia/templates/effects/effect-duration.hbs"
     },
     changes: {
-      template: "systems/lhtrpg/templates/effects/effect-changes.hbs",
-      templates: ["systems/lhtrpg/templates/effects/effect-change.hbs"],
+      template: "systems/eternia/templates/effects/effect-changes.hbs",
+      templates: ["systems/eternia/templates/effects/effect-change.hbs"],
       scrollable: ["ol[data-changes]"]
     },
     lhStatus: {
-      template: "systems/lhtrpg/templates/effects/effect-status.hbs"
+      template: "systems/eternia/templates/effects/effect-status.hbs"
     },
     lhConditions: {
-      template: "systems/lhtrpg/templates/effects/effect-conditions-tab.hbs"
+      template: "systems/eternia/templates/effects/effect-conditions-tab.hbs"
     },
     footer: foundry.applications.sheets.ActiveEffectConfig.PARTS.footer
   };
@@ -145,7 +145,7 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
   async _preparePartContext(partId, context, options) {
     context = await super._preparePartContext(partId, context, options);
     if (partId === "lhStatus") {
-      const statusData = context.source?.flags?.lhtrpg?.statusData ?? {};
+      const statusData = context.source?.flags?.eternia?.statusData ?? {};
       const statusId = statusData.statusId ?? "";
       const statusInfo = LH_STATUSES.find(s => s.id === statusId);
 
@@ -154,10 +154,10 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
       context.isTagged = !!statusInfo?.tagged;
       context.statusGroups = LH_STATUS_GROUPS.map(group => ({
         id: group,
-        label: `LHTRPG.StatusGroup.${group}`,
+        label: `ETERNIA.StatusGroup.${group}`,
         statuses: LH_STATUSES.filter(s => s.group === group).map(s => ({
           id: s.id,
-          label: `LHTRPG.StatusEffect.${s.id}`,
+          label: `ETERNIA.StatusEffect.${s.id}`,
           selected: s.id === statusId,
           rated: !!s.rated,
           list: !!s.list,
@@ -166,35 +166,35 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
       }));
 
       if (statusInfo?.rated) {
-        context.hint = game.i18n.localize("LHTRPG.EffectConfig.HintRated");
+        context.hint = game.i18n.localize("ETERNIA.EffectConfig.HintRated");
       } else if (statusInfo?.list) {
-        context.hint = game.i18n.localize("LHTRPG.EffectConfig.HintList");
+        context.hint = game.i18n.localize("ETERNIA.EffectConfig.HintList");
       } else {
         context.hint = "";
       }
 
       context.preview = formatStatusPreview(statusId, statusData.value, statusData.tag);
     } else if (partId === "lhConditions") {
-      context.conditions = conditionsContext(context.source?.flags?.lhtrpg?.conditions, {
-        prefix: "flags.lhtrpg.conditions", hint: "LHTRPG.Condition.HintEffect", editable: context.editable
+      context.conditions = conditionsContext(context.source?.flags?.eternia?.conditions, {
+        prefix: "flags.eternia.conditions", hint: "ETERNIA.Condition.HintEffect", editable: context.editable
       });
       context.rollFilter = rollFilterContext(context.source, context.editable);
     } else if (partId === "duration") {
-      let expires = context.source?.flags?.lhtrpg?.expires;
+      let expires = context.source?.flags?.eternia?.expires;
       if (expires === undefined) {
-        expires = this.document.getFlag("lhtrpg", "expires");
+        expires = this.document.getFlag("eternia", "expires");
       }
       if (expires === undefined) {
-        const statusId = context.source?.flags?.lhtrpg?.statusData?.statusId ?? this.document.getFlag("lhtrpg", "statusData")?.statusId;
+        const statusId = context.source?.flags?.eternia?.statusData?.statusId ?? this.document.getFlag("eternia", "statusData")?.statusId;
         const statusInfo = LH_STATUSES.find(s => s.id === statusId);
         if (statusInfo?.group === "combat") expires = "endOfScene";
         else expires = "";
       }
       context.expiryOptions = [
-        { value: "", label: "LHTRPG.EffectDuration.Manual" },
-        { value: "endOfProcess", label: "LHTRPG.EffectDuration.EndOfProcess" },
-        { value: "endOfRound", label: "LHTRPG.EffectDuration.EndOfRound" },
-        { value: "endOfScene", label: "LHTRPG.EffectDuration.EndOfScene" }
+        { value: "", label: "ETERNIA.EffectDuration.Manual" },
+        { value: "endOfProcess", label: "ETERNIA.EffectDuration.EndOfProcess" },
+        { value: "endOfRound", label: "ETERNIA.EffectDuration.EndOfRound" },
+        { value: "endOfScene", label: "ETERNIA.EffectDuration.EndOfScene" }
       ].map(opt => ({ ...opt, selected: opt.value === expires }));
     }
     return context;
@@ -210,7 +210,7 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
     const html = await super._renderChange(context);
     if (context.changeType?.render) return html;
     context.info = getEffectKeyInfo(context.change.key, this.targetActorTypes);
-    return foundry.applications.handlebars.renderTemplate("systems/lhtrpg/templates/effects/effect-change.hbs", context);
+    return foundry.applications.handlebars.renderTemplate("systems/eternia/templates/effects/effect-change.hbs", context);
   }
 
   /** @override */
@@ -222,7 +222,7 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
     this._suggestInputs = [];
 
     const targetActorTypes = this.targetActorTypes;
-    const catalog = globalThis.CONFIG?.LHTRPG?.effectTargets ?? EFFECT_TARGETS;
+    const catalog = globalThis.CONFIG?.ETERNIA?.effectTargets ?? EFFECT_TARGETS;
     const applicable = catalog.filter(t => t.actorTypes.some(at => targetActorTypes.includes(at)));
 
     const rows = this.element.querySelectorAll("ol[data-changes] li[data-index]");
@@ -239,16 +239,16 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
             let label;
             if (target.group === "checkDice") {
               const checkName = game.i18n.localize(target.label);
-              label = game.i18n.format("LHTRPG.EffectTarget.Dice", { check: checkName });
+              label = game.i18n.format("ETERNIA.EffectTarget.Dice", { check: checkName });
             } else {
               label = game.i18n.localize(target.label);
             }
-            const group = game.i18n.localize(`LHTRPG.EffectTarget.Group.${target.group}`);
+            const group = game.i18n.localize(`ETERNIA.EffectTarget.Group.${target.group}`);
             let badge = null;
             let badgeType = null;
             if (targetActorTypes.length > 1 && target.actorTypes.length === 1) {
               badgeType = target.actorTypes[0];
-              badge = game.i18n.localize(badgeType === "monster" ? "LHTRPG.EffectTarget.Chip.Monster" : "LHTRPG.EffectTarget.Chip.Character");
+              badge = game.i18n.localize(badgeType === "monster" ? "ETERNIA.EffectTarget.Chip.Monster" : "ETERNIA.EffectTarget.Chip.Character");
             }
 
             let score = 3;
@@ -297,7 +297,7 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
             if (!exact) {
               filtered.push({
                 value: query.trim(),
-                label: `${game.i18n.localize("LHTRPG.EffectTarget.Custom")}: ${query.trim()}`,
+                label: `${game.i18n.localize("ETERNIA.EffectTarget.Custom")}: ${query.trim()}`,
                 desc: query.trim(),
                 custom: true
               });
@@ -345,14 +345,14 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
       this.#addFilterSkillByName(event.currentTarget.value);
     });
 
-    // LH Status tab listeners
+    // Status tab listeners
     const statusTab = this.element.querySelector(".tab.lh-status");
     if (statusTab) {
-      const selectStatus = statusTab.querySelector('select[name="flags.lhtrpg.statusData.statusId"]');
+      const selectStatus = statusTab.querySelector('select[name="flags.eternia.statusData.statusId"]');
       const groupRating = statusTab.querySelector(".lh-status-rating-group");
-      const inputRating = statusTab.querySelector('input[name="flags.lhtrpg.statusData.value"]');
+      const inputRating = statusTab.querySelector('input[name="flags.eternia.statusData.value"]');
       const groupTag = statusTab.querySelector(".lh-status-tag-group");
-      const inputTag = statusTab.querySelector('input[name="flags.lhtrpg.statusData.tag"]');
+      const inputTag = statusTab.querySelector('input[name="flags.eternia.statusData.tag"]');
       const hintEl = statusTab.querySelector(".lh-status-hint");
       const previewEl = statusTab.querySelector(".lh-status-preview");
 
@@ -378,10 +378,10 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
         }
         if (hintEl) {
           if (statusInfo?.rated) {
-            hintEl.textContent = game.i18n.localize("LHTRPG.EffectConfig.HintRated");
+            hintEl.textContent = game.i18n.localize("ETERNIA.EffectConfig.HintRated");
             hintEl.hidden = false;
           } else if (statusInfo?.list) {
-            hintEl.textContent = game.i18n.localize("LHTRPG.EffectConfig.HintList");
+            hintEl.textContent = game.i18n.localize("ETERNIA.EffectConfig.HintList");
             hintEl.hidden = false;
           } else {
             hintEl.textContent = "";
@@ -395,8 +395,8 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
         selectStatus.addEventListener("change", () => {
           updateStatusUi();
           // Combat Statuses last until the end of the scene, unless a duration was already chosen.
-          const expiresSelect = this.element.querySelector('select[name="flags.lhtrpg.expires"]');
-          if (expiresSelect && (this.document.getFlag("lhtrpg", "expires") === undefined)) {
+          const expiresSelect = this.element.querySelector('select[name="flags.eternia.expires"]');
+          if (expiresSelect && (this.document.getFlag("eternia", "expires") === undefined)) {
             const group = LH_STATUSES.find(s => s.id === selectStatus.value)?.group;
             expiresSelect.value = (group === "combat") ? "endOfScene" : "";
           }
@@ -412,8 +412,8 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
           updatePreview();
         });
 
-        const catalog = globalThis.CONFIG?.LHTRPG?.tags ?? TAG_CATALOG;
-        const applicableTags = catalog.filter(t => t.group === "LHTRPG.TagGroup.Element" || t.group === "LHTRPG.TagGroup.Attack");
+        const catalog = globalThis.CONFIG?.ETERNIA?.tags ?? TAG_CATALOG;
+        const applicableTags = catalog.filter(t => t.group === "ETERNIA.TagGroup.Element" || t.group === "ETERNIA.TagGroup.Attack");
 
         const tagSuggest = new SuggestInput(inputTag, {
           getOptions: query => {
@@ -470,14 +470,14 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
   _processFormData(event, form, formData) {
     const submitData = super._processFormData(event, form, formData);
 
-    const prevStatusId = this.document.getFlag("lhtrpg", "statusData")?.statusId ?? null;
-    const rawStatusData = foundry.utils.getProperty(submitData, "flags.lhtrpg.statusData") ?? {};
+    const prevStatusId = this.document.getFlag("eternia", "statusData")?.statusId ?? null;
+    const rawStatusData = foundry.utils.getProperty(submitData, "flags.eternia.statusData") ?? {};
     const newStatusId = String(rawStatusData.statusId ?? "").trim();
-    const lhFlags = foundry.utils.getProperty(submitData, "flags.lhtrpg");
+    const lhFlags = foundry.utils.getProperty(submitData, "flags.eternia");
     if (lhFlags) delete lhFlags.statusData;
 
     if (!newStatusId) {
-      if (prevStatusId) foundry.utils.setProperty(submitData, "flags.lhtrpg.statusData", _del);
+      if (prevStatusId) foundry.utils.setProperty(submitData, "flags.eternia.statusData", _del);
       const statuses = new Set(submitData.statuses ?? this.document.statuses);
       if (prevStatusId) statuses.delete(prevStatusId);
       submitData.statuses = Array.from(statuses);
@@ -496,7 +496,7 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
         cleanData.tag = rawTag ? canonicalTag(rawTag) : "";
       } else cleanData.tag = _del;
 
-      foundry.utils.setProperty(submitData, "flags.lhtrpg.statusData", cleanData);
+      foundry.utils.setProperty(submitData, "flags.eternia.statusData", cleanData);
 
       const statuses = new Set(submitData.statuses ?? this.document.statuses);
       if (prevStatusId && (prevStatusId !== newStatusId)) {
@@ -506,29 +506,29 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
       submitData.statuses = Array.from(statuses);
     }
 
-    const rawExpires = foundry.utils.getProperty(submitData, "flags.lhtrpg.expires");
+    const rawExpires = foundry.utils.getProperty(submitData, "flags.eternia.expires");
     if (rawExpires !== undefined) {
-      foundry.utils.setProperty(submitData, "flags.lhtrpg.expires", String(rawExpires ?? ""));
-    } else if (this.document.getFlag("lhtrpg", "expires") === undefined && newStatusId) {
+      foundry.utils.setProperty(submitData, "flags.eternia.expires", String(rawExpires ?? ""));
+    } else if (this.document.getFlag("eternia", "expires") === undefined && newStatusId) {
       const statusInfo = LH_STATUSES.find(s => s.id === newStatusId);
       if (statusInfo?.group === "combat") {
-        foundry.utils.setProperty(submitData, "flags.lhtrpg.expires", "endOfScene");
+        foundry.utils.setProperty(submitData, "flags.eternia.expires", "endOfScene");
       }
     }
 
     // Conditions come as {0: {...}, 1: {...}}
-    const conditions = foundry.utils.getProperty(submitData, "flags.lhtrpg.conditions");
-    if (conditions) foundry.utils.setProperty(submitData, "flags.lhtrpg.conditions", conditionsFromForm(conditions));
+    const conditions = foundry.utils.getProperty(submitData, "flags.eternia.conditions");
+    if (conditions) foundry.utils.setProperty(submitData, "flags.eternia.conditions", conditionsFromForm(conditions));
 
     // Roll filter: tags as text, statuses as checkboxes; its skills aren't in the form. Effects without
     // one don't get an empty one.
-    const rawFilter = foundry.utils.getProperty(submitData, "flags.lhtrpg.rollFilter");
+    const rawFilter = foundry.utils.getProperty(submitData, "flags.eternia.rollFilter");
     if (rawFilter) {
       const filter = rollFilterFromForm(rawFilter, rollFilter(this.document).skills);
-      if (hasRollFilter(filter) || this.document.getFlag("lhtrpg", "rollFilter")) {
-        foundry.utils.setProperty(submitData, "flags.lhtrpg.rollFilter", filter);
+      if (hasRollFilter(filter) || this.document.getFlag("eternia", "rollFilter")) {
+        foundry.utils.setProperty(submitData, "flags.eternia.rollFilter", filter);
       }
-      else delete submitData.flags.lhtrpg.rollFilter;
+      else delete submitData.flags.eternia.rollFilter;
     }
 
     return submitData;
@@ -540,22 +540,22 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
    */
   _formConditions() {
     const submitData = this._processFormData(null, this.form, new foundry.applications.ux.FormDataExtended(this.form));
-    return foundry.utils.getProperty(submitData, "flags.lhtrpg.conditions")
-      ?? conditionsFromForm(this.document.getFlag("lhtrpg", "conditions"));
+    return foundry.utils.getProperty(submitData, "flags.eternia.conditions")
+      ?? conditionsFromForm(this.document.getFlag("eternia", "conditions"));
   }
 
   /** Add a condition (Skill Rank tier by default). */
   static async #onAddCondition() {
     const conditions = this._formConditions();
     conditions.push({ type: "srAtLeast", value: 2 });
-    return this.submit({ updateData: { flags: { lhtrpg: { conditions } } } });
+    return this.submit({ updateData: { flags: { eternia: { conditions } } } });
   }
 
   /** Remove a condition. */
   static async #onDeleteCondition(event, target) {
     const conditions = this._formConditions();
     conditions.splice(Number(target.closest("[data-index]")?.dataset.index) || 0, 1);
-    return this.submit({ updateData: { flags: { lhtrpg: { conditions } } } });
+    return this.submit({ updateData: { flags: { eternia: { conditions } } } });
   }
 
   /**
@@ -563,7 +563,7 @@ export class LHTrpgActiveEffectConfig extends foundry.applications.sheets.Active
    * @param {object[]} skills
    */
   _submitFilterSkills(skills) {
-    return this.submit({ updateData: { flags: { lhtrpg: { rollFilter: { skills } } } } });
+    return this.submit({ updateData: { flags: { eternia: { rollFilter: { skills } } } } });
   }
 
   /**

@@ -1,0 +1,268 @@
+{
+  "_id": "g3znqYjSkv2mtONk",
+  "name": "Batedor de Carteiras Kitsune",
+  "type": "monster",
+  "img": "systems/eternia/assets/ui/actors_icons/monster.svg",
+  "sort": 0,
+  "system": {
+    "health": {
+      "value": 25,
+      "max": 25,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mob",
+      "Humanoid",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 7,
+        "magic": 10
+      },
+      "speed": 2,
+      "initiative": 7
+    },
+    "rank": 3,
+    "idendification": "6",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 0,
+        "mod": 8
+      },
+      "resistance": {
+        "dice": 0,
+        "mod": 8
+      }
+    },
+    "description": ""
+  },
+  "items": [
+    {
+      "_id": "jXvh9UECUBbz74qb",
+      "name": "Jogo de Pés Ágil",
+      "type": "skill",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
+      "sort": 100,
+      "folder": null,
+      "system": {
+        "description": "<p>No início de cada rodada, este inimigo remove um acúmulo de [Perseguição].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": ""
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_key": "!actors.items!g3znqYjSkv2mtONk.jXvh9UECUBbz74qb"
+    },
+    {
+      "_id": "rT2voFxxnwU861kl",
+      "name": "Implorando por Misericórdia",
+      "type": "skill",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
+      "sort": 200,
+      "folder": null,
+      "system": {
+        "description": "<p>Este inimigo entra imediatamente em [Espera] e rola 1D (o resultado não é revelado aos jogadores). Um personagem que fizer um [Teste de Acerto] contra este inimigo e lhe causar dano aumenta seu [Ódio] em +[o resultado rolado ÷ 2]. Este efeito dura até o fim da rodada.</p>",
+        "tags": [],
+        "timing": "Setup",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": ""
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_key": "!actors.items!g3znqYjSkv2mtONk.rT2voFxxnwU861kl"
+    },
+    {
+      "_id": "SPgvcUKHAMMhnMvf",
+      "name": "Bolsa de Ponta-Cabeça",
+      "type": "skill",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
+      "sort": 300,
+      "folder": null,
+      "system": {
+        "description": "<p>O alvo deixa cair a seus pés todos os itens de seus [Espaços de Inventário]. Pegar os itens de volta conta como parte de \"Trocar Equipamento\".<br>(Menor): O alvo sofre [Perseguição: 3].</p>",
+        "tags": [
+          "Special Attack"
+        ],
+        "timing": "Major",
+        "checkType": "Opposed (12 Fixed vs Resistance)",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "dice": 0,
+          "mod": 12,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": ""
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_key": "!actors.items!g3znqYjSkv2mtONk.SPgvcUKHAMMhnMvf"
+    }
+  ],
+  "effects": [],
+  "prototypeToken": {
+    "name": "Batedor de Carteiras Kitsune",
+    "texture": {
+      "src": "systems/eternia/assets/ui/actors_icons/monster.svg"
+    },
+    "flags": {}
+  },
+  "flags": {},
+  "ownership": {
+    "default": 0
+  },
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "folder": "XAj2Q8ZzBvNAwxtG",
+  "_key": "!actors!g3znqYjSkv2mtONk"
+}

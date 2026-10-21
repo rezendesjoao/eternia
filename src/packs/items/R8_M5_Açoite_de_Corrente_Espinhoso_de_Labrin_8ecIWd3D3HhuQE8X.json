@@ -1,0 +1,86 @@
+{
+  "name": "R8 M5 Açoite de Corrente Espinhoso de Labrin",
+  "type": "weapon",
+  "system": {
+    "description": "<p>[Momento: Imediatamente Após o Dano] Usado quando você sofre dano de um alvo dentro de \"Alcance: 2Qd\". Aplica [Deterioração:5] ao alvo. Esta [Deterioração] não substitui a [Deterioração] que o alvo já tenha; em vez disso, soma-se à intensidade dela.\nUm chicote feito de várias correntes de prata entrelaçadas e impregnado com uma maldição de espinheiro. Ele se enrosca em qualquer um que tente ferir seu usuário, como se tivesse vontade própria, e revida cravando espinhos amaldiçoados.</p><hr><p>Espinhos de Cacto [Material-Base] (140G) + Chicote de Corrente (100G) × 3 + [Catalisador Mágico 8] (70G) × 2 + Custo de Fabricação (300G)</p>",
+    "tags": [
+      "One-Handed",
+      "Whip",
+      "Poison",
+      "Not For Sale",
+      "M5"
+    ],
+    "initiative": 2,
+    "rank": 8,
+    "price": 880,
+    "equipped": false,
+    "attack": 13,
+    "magic": 0,
+    "accuracy": -1,
+    "main": false,
+    "range": "Close",
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "pdef": 0,
+    "mdef": 0
+  },
+  "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
+  "effects": [],
+  "sort": 3600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "After Damage",
+          "target": "Single",
+          "range": "2Sq",
+          "cost": "",
+          "limit": "",
+          "text": "[Trigger: Immediately After Damage] Used when you take damage from a target within \"Range: 2Sq\". Gives the target [Decay:5]. This [Decay] does not overwrite existing [Decay] on the target, but instead adds to its intensity.",
+          "effects": [
+            {
+              "name": "R8 M5 Labrin's Thorny Chainlash",
+              "img": "systems/lhtrpg/assets/ui/items_icons/weapon.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "decay"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "decay",
+                    "value": 5
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "8ecIWd3D3HhuQE8X",
+  "folder": "C19YDMIkeXI6v7zD",
+  "_key": "!items!8ecIWd3D3HhuQE8X"
+}

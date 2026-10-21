@@ -1,0 +1,972 @@
+/* ==========================================================================
+   Action HUD (module/hud/, templates/hud/)
+   A parchment bar above the macro hotbar, in the look of the character sheet: a green cap with the
+   portrait, the resources on one line and the panel buttons on the other, the turn on the right. The panels
+   open above it with a dark band and the green group headers of the sheet's lists.
+   ========================================================================== */
+
+#lhauto-hud {
+  --pf-primary: #1f5137;
+  --pf-primary-dark: #173f2b;
+  --pf-primary-deep: #0f2a1c;
+  --pf-secondary: #1d4248;
+  --pf-tertiary: #e9d7a1;
+  --pf-tertiary-dark: #cdb879;
+  --pf-tertiary-darker: #b19a55;
+  --pf-tertiary-light: #f4ead0;
+  --pf-alt: #786452;
+  --pf-alt-dark: #443730;
+  --pf-text: #1c1c1c;
+  --pf-text-soft: #59554b;
+  --pf-text-light: #f5f0e4;
+  --pf-divider: #baa991;
+  --pf-ring: #9f725b;
+  --pf-red: #8c2f2f;
+  --pf-edge: #4a3a2c;
+  --pf-serif: "Eternia Eczar", "Eczar", Georgia, serif;
+  --pf-body: "Eternia Gelasio", "Gelasio", Georgia, serif;
+  --pf-sans: "Signika", "Roboto", sans-serif;
+  --lhh-paper: #f3eee2 url("../assets/sheet/parchment.webp") center / 640px auto;
+  position: relative;
+  max-width: 100%;
+  margin: 0 0 8px;
+  pointer-events: auto;
+  color: var(--pf-text);
+  font-family: var(--pf-body);
+}
+#lhauto-hud .lhh {
+  position: relative;
+}
+#lhauto-hud a {
+  cursor: pointer;
+}
+#lhauto-hud a:hover {
+  text-shadow: none;
+}
+#lhauto-hud img {
+  border: none;
+}
+#lhauto-hud button {
+  width: auto;
+  min-width: 0;
+  margin: 0;
+  box-shadow: none;
+  line-height: 1;
+  cursor: pointer;
+}
+#lhauto-hud h3,
+#lhauto-hud h4 {
+  border: none;
+}
+
+/* The core macro hotbar gives its place to the HUD (setting "hotbar"): the HUD takes its bottom margin. */
+body.lhauto-no-hotbar #hotbar {
+  display: none;
+}
+body.lhauto-no-hotbar #lhauto-hud {
+  margin-bottom: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Bar
+   -------------------------------------------------------------------------- */
+#lhauto-hud .lhh-bar {
+  display: flex;
+  align-items: stretch;
+  min-height: 56px;
+  overflow: hidden;
+  border: 1px solid var(--pf-edge);
+  border-radius: 6px;
+  background: var(--lhh-paper);
+  box-shadow: inset 0 0 0 1px rgba(233, 215, 161, 0.4), 0 3px 10px rgba(0, 0, 0, 0.45);
+}
+
+/* Green cap with the portrait */
+#lhauto-hud .lhh-cap {
+  position: relative;
+  display: flex;
+  flex: 0 0 62px;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--pf-primary-deep);
+  background: linear-gradient(180deg, #25633f 0%, #1a4730 60%, #143823 100%);
+  box-shadow: inset -1px 0 0 rgba(233, 215, 161, 0.25);
+}
+#lhauto-hud .lhh-portrait {
+  display: block;
+  width: 46px;
+  height: 46px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--pf-tertiary);
+  box-shadow: 0 0 0 2px var(--pf-tertiary-dark), 0 0 0 3px #3a2a1a, 0 2px 5px rgba(0, 0, 0, 0.55);
+  transition: box-shadow 0.15s ease-out;
+}
+#lhauto-hud .lhh-portrait:hover {
+  box-shadow: 0 0 0 2px var(--pf-tertiary-light), 0 0 0 3px #3a2a1a, 0 0 8px rgba(233, 215, 161, 0.6);
+}
+#lhauto-hud .lhh-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+#lhauto-hud .lhh-fold {
+  position: absolute;
+  right: 3px;
+  bottom: 2px;
+  color: rgba(233, 215, 161, 0.55);
+  font-size: 9px;
+}
+#lhauto-hud .lhh-fold:hover {
+  color: var(--pf-tertiary-light);
+}
+#lhauto-hud.collapsed .lhh-bar {
+  border-radius: 50% 6px 6px 50%;
+}
+#lhauto-hud.collapsed .lhh-cap {
+  border-right: none;
+}
+
+#lhauto-hud .lhh-main {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px 10px;
+}
+
+/* Resources line */
+#lhauto-hud .lhh-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 18px;
+  padding-left: 2px;
+  white-space: nowrap;
+}
+#lhauto-hud .lhh-name {
+  max-width: 170px;
+  overflow: hidden;
+  color: var(--pf-primary-dark);
+  font: 600 15px/1.1 var(--pf-serif);
+  letter-spacing: 0.01em;
+  text-overflow: ellipsis;
+}
+#lhauto-hud .lhh-hp {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+}
+#lhauto-hud .lhh-hp-bar {
+  position: relative;
+  width: 104px;
+  height: 9px;
+  overflow: hidden;
+  border: 1px solid var(--pf-tertiary-darker);
+  border-radius: 5px;
+  background: linear-gradient(180deg, #1c0b0b, #2e1212);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+#lhauto-hud .lhh-hp-bar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(180deg, #ea6a52 0%, #c42e22 45%, #8e1717 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: width 0.4s ease;
+}
+#lhauto-hud .lhh-hp-text {
+  color: #5a1a14;
+  font: 600 13px/1 var(--pf-sans);
+}
+#lhauto-hud .lhh-hp-text small {
+  color: var(--pf-text-soft);
+  font-size: 11px;
+  font-weight: 400;
+}
+#lhauto-hud .lhh-hp.low .lhh-hp-text {
+  color: var(--pf-red);
+}
+#lhauto-hud .lhh-barrier {
+  flex: 0 0 auto;
+  color: var(--pf-secondary);
+  font: 600 12px/1 var(--pf-sans);
+}
+#lhauto-hud .lhh-barrier i {
+  margin-right: 3px;
+}
+#lhauto-hud .lhh-fate {
+  display: flex;
+  cursor: pointer;
+  gap: 2px;
+  color: #a8862e;
+  font-size: 11px;
+}
+#lhauto-hud .lhh-fate .fa-regular {
+  color: rgba(168, 134, 46, 0.5);
+}
+#lhauto-hud .lhh-hate,
+#lhauto-hud .lhh-fatigue {
+  color: var(--pf-text);
+  font: 600 12px/1 var(--pf-sans);
+}
+#lhauto-hud .lhh-hate b,
+#lhauto-hud .lhh-fatigue b {
+  margin-right: 3px;
+  color: var(--pf-text-soft);
+  font-weight: 500;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+#lhauto-hud .lhh-hate i {
+  margin-left: 3px;
+  font-size: 10px;
+}
+#lhauto-hud .lhh-hate.top {
+  color: #7a4e00;
+}
+#lhauto-hud .lhh-hate.top i {
+  color: #b8860b;
+}
+#lhauto-hud .lhh-hate.under i {
+  color: var(--pf-secondary);
+}
+
+/* Fate, Hate and Fatigue */
+#lhauto-hud .lhh-res {
+  display: grid;
+  flex: 0 0 auto;
+  grid-template-columns: auto auto;
+  align-content: center;
+  justify-items: start;
+  gap: 6px 12px;
+  padding: 4px 12px;
+  border-left: 1px solid var(--pf-divider);
+  white-space: nowrap;
+}
+#lhauto-hud .lhh-res .lhh-fate {
+  grid-column: 1 / -1;
+}
+
+/* Panel buttons */
+#lhauto-hud .lhh-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+#lhauto-hud .lhh-tab {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: none;
+  color: var(--pf-alt-dark);
+  font: 500 13px/1 var(--pf-sans);
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: background-color 0.12s ease-out, border-color 0.12s ease-out;
+}
+#lhauto-hud .lhh-tab i {
+  color: var(--pf-primary);
+  font-size: 12px;
+}
+#lhauto-hud .lhh-tab:hover {
+  border-color: rgba(31, 81, 55, 0.25);
+  background: rgba(31, 81, 55, 0.1);
+}
+#lhauto-hud .lhh-tab.active {
+  border-color: var(--pf-primary-deep);
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  color: var(--pf-tertiary-light);
+}
+#lhauto-hud .lhh-tab.active i {
+  color: var(--pf-tertiary);
+}
+#lhauto-hud .lhh-badge {
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  border-radius: 8px;
+  background: var(--pf-red);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6);
+  color: #fff;
+  font: 600 10px/15px var(--pf-sans);
+  font-variant: normal;
+  text-align: center;
+}
+
+/* Pinned shortcuts */
+#lhauto-hud .lhh-pins {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+  margin-left: 6px;
+  padding-left: 10px;
+  border-left: 1px solid var(--pf-divider);
+}
+#lhauto-hud .lhh-pinned {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 3px;
+  background: var(--pf-tertiary);
+  box-shadow: 0 0 0 1px var(--pf-tertiary), 0 0 0 2px var(--pf-ring), inset 0 0 4px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.12s ease-out;
+}
+#lhauto-hud .lhh-pinned img {
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  object-fit: cover;
+}
+#lhauto-hud .lhh-pinned:hover {
+  box-shadow: 0 0 0 1px var(--pf-tertiary), 0 0 0 2px var(--pf-primary), 0 0 7px rgba(31, 81, 55, 0.65);
+}
+#lhauto-hud .lhh-pinned.unusable img {
+  filter: grayscale(0.9) opacity(0.6);
+}
+#lhauto-hud .lhh-pinned-uses {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  min-width: 13px;
+  height: 13px;
+  padding: 0 2px;
+  border-radius: 7px;
+  background: var(--pf-alt-dark);
+  box-shadow: 0 0 0 1px var(--pf-tertiary-light);
+  color: #fff;
+  font: 600 9px/13px var(--pf-sans);
+  text-align: center;
+}
+#lhauto-hud .lhh-pinned.check {
+  align-items: center;
+  gap: 4px;
+  width: auto;
+  padding: 0 6px;
+  color: var(--pf-primary-dark);
+  font: 600 11px/1 var(--pf-sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Turn */
+#lhauto-hud .lhh-side {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+  padding: 4px 10px 4px 12px;
+  border-left: 1px solid var(--pf-divider);
+  white-space: nowrap;
+}
+#lhauto-hud .lhh-side.active {
+  background: linear-gradient(90deg, rgba(31, 81, 55, 0), rgba(31, 81, 55, 0.12));
+}
+#lhauto-hud .lhh-round {
+  color: var(--pf-text-soft);
+  font: 500 12px/1 var(--pf-sans);
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+#lhauto-hud .lhh-turn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#lhauto-hud .lhh-actions {
+  display: flex;
+  gap: 3px;
+  margin-right: 2px;
+}
+#lhauto-hud .lhh-act {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--pf-primary);
+  box-shadow: 0 0 0 1px var(--pf-primary-deep), inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  color: var(--pf-tertiary-light);
+  font-size: 10px;
+}
+#lhauto-hud .lhh-act.spent {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+  color: rgba(0, 0, 0, 0.28);
+}
+#lhauto-hud .lhh-end,
+#lhauto-hud .lhh-join,
+#lhauto-hud .lhh-dodge,
+#lhauto-hud .lhh-standby {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+  padding: 0 8px;
+  border: 1px solid var(--pf-primary-deep);
+  border-radius: 3px;
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  color: var(--pf-tertiary-light);
+  font: 600 12px/1 var(--pf-sans);
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+}
+#lhauto-hud .lhh-end:hover,
+#lhauto-hud .lhh-join:hover {
+  background: var(--pf-primary-dark);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2), 0 0 6px rgba(31, 81, 55, 0.5);
+}
+#lhauto-hud .lhh-dodges {
+  display: flex;
+  gap: 4px;
+}
+#lhauto-hud .lhh-dodge {
+  border-color: #5c1d1d;
+  background: var(--pf-red);
+}
+#lhauto-hud .lhh-dodge:hover {
+  background: #742424;
+}
+#lhauto-hud .lhh-dodge small {
+  max-width: 90px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.75);
+  font: 400 11px/1 var(--pf-sans);
+  font-variant: normal;
+  text-overflow: ellipsis;
+}
+#lhauto-hud .lhh-standby {
+  padding: 0 6px;
+  border-color: var(--pf-alt);
+  background: transparent;
+  color: var(--pf-alt-dark);
+}
+#lhauto-hud .lhh-standby:hover {
+  background: rgba(120, 100, 82, 0.15);
+}
+#lhauto-hud .lhh-state {
+  padding: 2px 6px;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+  color: var(--pf-text-soft);
+  font: 500 11px/1.2 var(--pf-sans);
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+/* --------------------------------------------------------------------------
+   Panel
+   -------------------------------------------------------------------------- */
+#lhauto-hud .lhh-panel {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: max(100%, 460px);
+  max-width: min(560px, calc(100vw - 32px));
+  max-height: min(62vh, 560px);
+  overflow: hidden;
+  border: 1px solid var(--pf-edge);
+  border-radius: 6px;
+  background: var(--lhh-paper);
+  box-shadow: inset 0 0 0 1px rgba(233, 215, 161, 0.4), 0 6px 18px rgba(0, 0, 0, 0.5);
+  animation: lhh-pop 0.14s ease-out;
+}
+@keyframes lhh-pop {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+#lhauto-hud .lhh-panel-head {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  height: 30px;
+  padding: 0 10px 0 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+  background: linear-gradient(#183827, #10291b);
+  color: var(--pf-tertiary-light);
+}
+#lhauto-hud .lhh-panel-head h3 {
+  flex: 1;
+  margin: 0;
+  color: var(--pf-tertiary-light);
+  font: 500 15px/1 var(--pf-serif);
+  letter-spacing: 0.02em;
+}
+#lhauto-hud .lhh-panel-close {
+  color: var(--pf-tertiary);
+  font-size: 13px;
+}
+#lhauto-hud .lhh-panel-close:hover {
+  color: #fff;
+}
+#lhauto-hud .lhh-panel-body {
+  flex: 1;
+  min-height: 0;
+  padding: 8px 8px 10px;
+  overflow: hidden auto;
+  scrollbar-color: var(--pf-tertiary-darker) transparent;
+  scrollbar-width: thin;
+}
+#lhauto-hud .lhh-panel-hint {
+  flex: 0 0 auto;
+  padding: 4px 12px 5px;
+  border-top: 1px solid var(--pf-divider);
+  background: rgba(255, 255, 255, 0.28);
+  color: var(--pf-text-soft);
+  font: italic 400 11.5px/1.3 var(--pf-body);
+}
+#lhauto-hud .lhh-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 24px;
+  margin: 10px 0 2px;
+  padding: 0 8px;
+  border-radius: 3px;
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+  color: var(--pf-text-light);
+  font: 500 14px/1 var(--pf-serif);
+}
+#lhauto-hud .lhh-panel-body > .lhh-group:first-child,
+#lhauto-hud .lhh-resource + .lhh-group {
+  margin-top: 0;
+}
+#lhauto-hud .lhh-group-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 18px;
+  margin-left: auto;
+  padding: 0 7px;
+  border: 1px solid rgba(233, 215, 161, 0.6);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--pf-tertiary-light);
+  font: 500 11px/1 var(--pf-sans);
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+}
+#lhauto-hud .lhh-group-action:hover {
+  background: rgba(0, 0, 0, 0.32);
+}
+#lhauto-hud .lhh-group-action i {
+  color: var(--pf-tertiary);
+  font-size: 10px;
+}
+#lhauto-hud .lhh-empty {
+  margin: 6px 4px;
+  color: var(--pf-text-soft);
+  font: italic 13px var(--pf-body);
+  list-style: none;
+}
+
+/* Rows (skills, pieces, powers, usable items, effects) */
+#lhauto-hud .lhh-rows,
+#lhauto-hud .lhh-checks,
+#lhauto-hud .lhh-statuses {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#lhauto-hud .lhh-row,
+#lhauto-hud .lhh-entry,
+#lhauto-hud .lhh-effect,
+#lhauto-hud .lhh-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  padding: 2px 4px 2px 6px;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg, rgba(241, 237, 234, 0), #c9bba8) 1;
+  transition: background-color 0.12s ease-out;
+}
+#lhauto-hud .lhh-row,
+#lhauto-hud .lhh-check {
+  cursor: pointer;
+}
+#lhauto-hud .lhh-row:hover,
+#lhauto-hud .lhh-check:hover {
+  background: rgba(31, 81, 55, 0.08);
+}
+#lhauto-hud .lhh-row-img {
+  display: flex;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  background: var(--pf-tertiary);
+  box-shadow: 0 0 0 1px var(--pf-tertiary), 0 0 0 2px var(--pf-ring), inset 0 0 4px rgba(0, 0, 0, 0.5);
+}
+#lhauto-hud .lhh-row-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  object-fit: cover;
+}
+#lhauto-hud .lhh-row-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 500 14px/1.25 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#lhauto-hud .lhh-row:hover .lhh-row-name {
+  color: var(--pf-primary);
+}
+#lhauto-hud .lhh-row-tier {
+  margin-left: 6px;
+  color: var(--pf-text-soft);
+  font: italic 400 11.5px var(--pf-body);
+}
+#lhauto-hud .lhh-row-meta {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 4px;
+}
+#lhauto-hud .lhh-chip {
+  padding: 2px 5px;
+  border-radius: 2px;
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font: 500 10px/1.3 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+#lhauto-hud .lhh-chip.sr { background: var(--pf-alt); }
+#lhauto-hud .lhh-chip.cost { background: var(--pf-secondary); }
+#lhauto-hud .lhh-chip.qty { background: var(--pf-alt-dark); }
+#lhauto-hud .lhh-chip.limit {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+  color: var(--pf-text-soft);
+  font-size: 10.5px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+#lhauto-hud .lhh-uses {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--pf-text-soft);
+  font: 600 11px/1 var(--pf-sans);
+}
+#lhauto-hud .lhh-uses i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--pf-alt);
+}
+#lhauto-hud .lhh-uses i.on {
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px var(--pf-primary-deep);
+}
+#lhauto-hud .lhh-row.unusable {
+  opacity: 0.72;
+}
+#lhauto-hud .lhh-row.unusable .lhh-row-img img {
+  filter: grayscale(0.85);
+}
+#lhauto-hud .lhh-row.unusable .lhh-row-name {
+  color: var(--pf-text-soft);
+}
+#lhauto-hud .lhh-row.blocked {
+  opacity: 0.5;
+}
+#lhauto-hud .lhh-row.constant .lhh-row-name {
+  font-style: italic;
+}
+#lhauto-hud .lhh-pin-toggle {
+  flex: 0 0 16px;
+  color: rgba(0, 0, 0, 0.28);
+  font-size: 11px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.1s ease-out;
+}
+#lhauto-hud :is(.lhh-row, .lhh-check, .lhh-effect):hover > .lhh-pin-toggle,
+#lhauto-hud .pinned > .lhh-pin-toggle {
+  opacity: 1;
+}
+#lhauto-hud .pinned > .lhh-pin-toggle,
+#lhauto-hud .lhh-pin-toggle:hover {
+  color: var(--pf-primary);
+}
+#lhauto-hud .lhh-pin-toggle.remove:hover {
+  color: var(--pf-red);
+}
+
+/* Items: the item, then its powers a little inside */
+#lhauto-hud .lhh-entry .lhh-row-name {
+  font-weight: 600;
+}
+#lhauto-hud .lhh-rows:has(.lhh-entry) > .lhh-row {
+  padding-left: 26px;
+}
+
+/* Checks */
+#lhauto-hud .lhh-checks.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 12px;
+}
+#lhauto-hud .lhh-check {
+  gap: 7px;
+  min-height: 28px;
+}
+#lhauto-hud .lhh-check > .fa-dice-d6 {
+  color: var(--pf-primary);
+  font-size: 13px;
+}
+#lhauto-hud .lhh-check .name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font: 500 14px/1.2 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#lhauto-hud .lhh-check:hover .name {
+  color: var(--pf-primary);
+}
+#lhauto-hud .lhh-check .attr {
+  color: var(--pf-text-soft);
+  font: 500 10px/1 var(--pf-sans);
+  letter-spacing: 0.06em;
+}
+#lhauto-hud .lhh-check .dice {
+  min-width: 46px;
+  padding: 2px 5px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+  background: #424242;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font: 600 11px/1.3 var(--pf-sans);
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+#lhauto-hud .lhh-check .dice[data-tier="2"] { background: #1d4c63; }
+#lhauto-hud .lhh-check .dice[data-tier="3"] { background: #3c1f5e; }
+#lhauto-hud .lhh-check .dice[data-tier="4"] { background: #6b4a0f; }
+#lhauto-hud .lhh-check .dice[data-tier="5"] { background: #6e1414; }
+
+/* Kuden Resource */
+#lhauto-hud .lhh-resource {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.35);
+}
+#lhauto-hud .lhh-resource .name {
+  flex: 1;
+  color: var(--pf-primary-dark);
+  font: 600 14px/1 var(--pf-serif);
+}
+#lhauto-hud .lhh-resource .pips {
+  display: flex;
+  gap: 7px;
+}
+#lhauto-hud .lhh-resource .pip {
+  width: 11px;
+  height: 11px;
+  border: 1px solid var(--pf-tertiary-darker);
+  background: rgba(255, 255, 255, 0.4);
+  transform: rotate(45deg);
+}
+#lhauto-hud .lhh-resource .pip.on {
+  border-color: #7a5a10;
+  background: linear-gradient(135deg, #f0d987, #b8860b);
+}
+#lhauto-hud .lhh-resource .value {
+  color: var(--pf-text-soft);
+  font: 600 12px/1 var(--pf-sans);
+}
+
+/* Statuses */
+#lhauto-hud .lhh-statuses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 6px 2px 4px;
+}
+#lhauto-hud .lhh-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 4px 2px 2px;
+  border-radius: 2px;
+  background: var(--pf-alt-dark);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  color: var(--pf-tertiary-light);
+  font: 500 10.5px/1.3 var(--pf-sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+#lhauto-hud .lhh-status-tag.bad {
+  background: var(--pf-red);
+}
+#lhauto-hud .lhh-status-tag img {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+}
+#lhauto-hud .lhh-status-tag .remove {
+  margin-left: 2px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 10px;
+}
+#lhauto-hud .lhh-status-tag .remove:hover {
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Tooltip of the rows and the pinned shortcuts (#tooltip with .lhh-tip)
+   -------------------------------------------------------------------------- */
+#tooltip.lhh-tip,
+.locked-tooltip.lhh-tip {
+  max-width: 340px;
+  padding: 0 0 8px;
+  overflow: hidden;
+  border: 1px solid #4a3a2c;
+  border-radius: 4px;
+  background: #f3eee2 url("../assets/sheet/parchment.webp") center / 640px auto;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  color: #1c1c1c;
+  font: 400 12.5px/1.4 "Eternia Gelasio", "Gelasio", Georgia, serif;
+  text-align: left;
+}
+.lhh-tip header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 10px 5px;
+  background: linear-gradient(#183827, #10291b);
+  color: #f4ead0;
+}
+.lhh-tip header strong {
+  font: 500 14.5px/1.2 "Eternia Eczar", "Eczar", Georgia, serif;
+}
+.lhh-tip header span {
+  font: 500 10px/1.2 "Signika", sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.lhh-tip .lhh-tip-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin: 7px 10px 0;
+  padding: 0;
+  list-style: none;
+}
+.lhh-tip .lhh-tip-tags li {
+  padding: 1px 5px;
+  border-radius: 2px;
+  background: #1f5137;
+  color: #fff;
+  font: 500 9.5px/1.4 "Signika", sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.lhh-tip .lhh-tip-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  margin: 6px 10px 0;
+  font-size: 12px;
+}
+.lhh-tip .lhh-tip-fields b {
+  margin-right: 2px;
+  color: #59554b;
+  font: 600 11px "Signika", sans-serif;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+}
+.lhh-tip .lhh-tip-uses,
+.lhh-tip .lhh-tip-issues {
+  margin: 6px 10px 0;
+  font: 600 11.5px/1.3 "Signika", sans-serif;
+}
+.lhh-tip .lhh-tip-uses {
+  color: #1f5137;
+}
+.lhh-tip .lhh-tip-issues {
+  color: #8c2f2f;
+}
+.lhh-tip .lhh-tip-desc {
+  max-height: 280px;
+  margin: 7px 10px 0;
+  padding-top: 6px;
+  overflow: hidden;
+  border-top: 1px solid #baa991;
+}
+.lhh-tip .lhh-tip-desc p {
+  margin: 0 0 4px;
+}
+.lhh-tip .lhh-tip-desc :last-child {
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Narrow bottom column (hud.mjs fit): icon-only panel buttons, then shorter labels, then no resources column
+   -------------------------------------------------------------------------- */
+#lhauto-hud.narrow .lhh-tab {
+  padding: 0 7px;
+}
+#lhauto-hud.narrow .lhh-tab span,
+#lhauto-hud.narrow .lhh-dodge small {
+  display: none;
+}
+#lhauto-hud.narrow .lhh-name {
+  max-width: 110px;
+}
+#lhauto-hud.tiny .lhh-name,
+#lhauto-hud.tiny .lhh-hp-text small {
+  display: none;
+}
+#lhauto-hud.tiny .lhh-hp-bar {
+  width: 80px;
+}
+#lhauto-hud.micro .lhh-res {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #lhauto-hud .lhh-panel {
+    animation: none;
+  }
+}

@@ -2,7 +2,7 @@
   "name": "R2 M5 Big Shot",
   "type": "weapon",
   "system": {
-    "description": "<p>[Trigger: Initiative] You can use this when your [Hate] is 7 or more. You gain [Barrier: 20]. 1/Scenario</p>\n<p>A large spear that doubles as a battle flag, appearing in the folklore of Takemi, an ancient hero known to the &lt;Earthlings&gt; as the hero of subjugating demi-humans. A flag that flutters with every wave inspires allies and attracts the attention of enemies, and the power of prayer contained in the flag turns hostility into protective power. It was popular during the game era because you can write your favorite emblem on one side.</p>\n<hr>\n<p>Living Spirit Stone [Core Material] (30G) + Long Spear (80G) + [Magic Catalyst 2] (20G) x 4 + Crafting Cost (100G)</p>",
+    "description": "<p>[Momento: Iniciativa] Você pode usar isto quando seu [Ódio] for 7 ou mais. Você recebe [Barreira: 20]. 1/Cenário</p>\n<p>Uma lança grande que também serve de bandeira de batalha e aparece no folclore de Takemi, um herói antigo conhecido pelo &lt;Povo da Terra&gt; como o herói que subjugou os semi-humanos. A bandeira, que tremula sempre que a lança é brandida, inspira os aliados e atrai a atenção dos inimigos, e o poder da prece contido nela transforma a hostilidade em poder de proteção. Era popular na época do jogo porque é possível escrever o seu emblema favorito em um dos lados.</p>\n<hr>\n<p>Pedra Espiritual Viva [Material-Base] (30G) + Lança Longa (80G) + [Catalisador Mágico 2] (20G) x 4 + Custo de Fabricação (100G)</p>",
     "tags": [
       "M5",
       "Two-Handed",
@@ -24,17 +24,55 @@
     "pdef": 0,
     "mdef": 0
   },
-  "img": "systems/lhtrpg/assets/ui/items_icons/weapon.svg",
+  "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
   "effects": [],
   "sort": 16200000,
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Initiative",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scenario",
+          "text": "[Trigger: Initiative] You can use this when your [Hate] is 7 or more. You gain [Barrier: 20]. 1/Scenario",
+          "minHate": 7,
+          "effects": [
+            {
+              "name": "R2 M5 Big Shot",
+              "img": "systems/lhtrpg/assets/ui/items_icons/weapon.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "barrier"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "barrier",
+                    "value": 20
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
-    "systemId": "lhtrpg",
-    "systemVersion": "1.5.0",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

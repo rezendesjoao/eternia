@@ -1,0 +1,127 @@
+{{!-- INVENTORY: wealth, equipment slots, carried items, tickets and the space used. --}}
+<section class="tab major inventory" data-group="primary" data-tab="inventory">
+	<div class="tab-content">
+		<ul class="currency">
+			<li class="label">{{localize 'ETERNIA.Sheet.Wealth'}}</li>
+			<li class="denomination gold">
+				<div class="currency-image"></div>
+				<input class="gold-input" type="text" name="system.inventory.gold" value="{{source.inventory.gold}}" placeholder="0" data-dtype="Number" maxlength="9" inputmode="numeric" data-tooltip="{{localize 'ETERNIA.Sheet.Gold' total=lh.gold}}">
+				<span class="unit">G</span>
+			</li>
+			{{#if editable}}
+			<li><button type="button" data-action="lhauto-gold" data-sign="1" data-tooltip="{{localize 'ETERNIA.Sheet.GoldAdd'}}"><i class="fa-solid fa-plus fa-fw"></i></button></li>
+			<li><button type="button" data-action="lhauto-gold" data-sign="-1" data-tooltip="{{localize 'ETERNIA.Sheet.GoldSpend'}}"><i class="fa-solid fa-minus fa-fw"></i></button></li>
+			<li><button type="button" class="gold-give" data-action="gold-give" data-tooltip="{{localize 'ETERNIA.Piles.GiveGoldTitle'}}"><i class="fa-solid fa-hand-holding-dollar fa-fw"></i></button></li>
+			{{/if}}
+		</ul>
+
+		<header class="lhpf-section">{{localize 'ETERNIA.Sheet.Equipped'}}<span class="hint">{{localize 'ETERNIA.Sheet.EquipHint'}}</span></header>
+		<div class="lhpf-doll">
+			<svg class="lhpf-doll-art" viewBox="0 0 480 300" aria-hidden="true">
+				<defs>
+					<linearGradient id="lhpf-doll-skin" x1="0" x2="1" y1="0" y2="0">
+						<stop offset="0" stop-color="#f3ead3"></stop><stop offset=".55" stop-color="#e6d8b6"></stop><stop offset="1" stop-color="#cfbd93"></stop>
+					</linearGradient>
+				</defs>
+				<g class="halo"><circle cx="240" cy="150" r="112"></circle><circle class="inner" cx="240" cy="150" r="108"></circle></g>
+				<g class="figure" transform="translate(160 4)">
+					<ellipse class="ground" cx="80" cy="290.5" rx="30" ry="3.6"></ellipse>
+					<path class="body" d="M74.5 40C74.2 44 73.8 47 73.2 49.5C66 52 56.5 53 50.5 56.5C45.5 59 43.6 64.5 43.6 71C43 84 40.6 96 39.2 108C38 119 34.4 133 32.2 146C30.6 152 28.4 159 28.6 165C28.8 170.5 32 173.5 35.4 172C37.6 170.8 38.4 166 38.6 161C38.8 156.5 39.2 152.5 39.6 149C41.8 136 45.6 123 48.4 111C50.6 100 54.6 87 58.6 77C59.4 92 58.4 107 59.6 120C60.4 130 55.6 137.5 54.4 146C52.8 167 55.8 189 58.4 207C59.6 216 56.4 226 57.4 238C58.4 252 62.6 262 63.6 272C63.2 277.5 59 280.5 58.8 285C59 289.5 70.5 290.5 76 289C77.6 285 76 278 75.2 272C74.4 260 75.8 247 74.4 236C72.8 226 74 214 75.4 205C77.2 188 78.6 168 80 160C81.4 168 82.8 188 84.6 205C86 214 87.2 226 85.6 236C84.2 247 85.6 260 84.8 272C84 278 82.4 285 84 289C89.5 290.5 101 289.5 101.2 285C101 280.5 96.8 277.5 96.4 272C97.4 262 101.6 252 102.6 238C103.6 226 100.4 216 101.6 207C104.2 189 107.2 167 105.6 146C104.4 137.5 99.6 130 100.4 120C101.6 107 100.6 92 101.4 77C105.4 87 109.4 100 111.6 111C114.4 123 118.2 136 120.4 149C120.8 152.5 121.2 156.5 121.4 161C121.6 166 122.4 170.8 124.6 172C128 173.5 131.2 170.5 131.4 165C131.6 159 129.4 152 127.8 146C125.6 133 122 119 120.8 108C119.4 96 117 84 116.4 71C116.4 64.5 114.5 59 109.5 56.5C103.5 53 94 52 86.8 49.5C86.2 47 85.8 44 85.5 40Z"></path>
+					<ellipse class="body" cx="80" cy="24.5" rx="12.2" ry="15.5"></ellipse>
+					<path class="details" d="M72.5 55.5C66 57.5 60 58 54 58.5 M62 86C66.5 92.5 73.5 94 78.5 90.5 M61 120.5C66 124 72 125.5 77 125 M61.5 207C64.5 211 69 211.5 72.5 208 M44.5 104C46 107.5 47 108.5 48.5 109.5 M87.5 55.5C94 57.5 100 58 106 58.5 M98 86C93.5 92.5 86.5 94 81.5 90.5 M99 120.5C94 124 88 125.5 83 125 M98.5 207C95.5 211 91 211.5 87.5 208 M115.5 104C114 107.5 113 108.5 111.5 109.5 M80 96V124"></path>
+				</g>
+				{{#each lh.slots as |slot|}}
+				<g class="link{{#if slot.filled}} filled{{/if}}" data-pos="{{slot.pos}}"><polyline points="{{slot.doll.line}}"></polyline><circle cx="{{slot.doll.x}}" cy="{{slot.doll.y}}" r="3"></circle></g>
+				{{/each}}
+			</svg>
+			{{#each lh.slots as |slot|}}
+			<div class="equip-slot lhpf-slot {{slot.doll.side}}{{#if slot.item}} filled{{/if}}{{#if slot.locked}} locked{{/if}}" data-pos="{{slot.pos}}" style="top: {{slot.doll.top}}px" data-slot-type="{{slot.type}}" data-slot-index="{{slot.index}}"{{#if slot.hand}} data-hand="{{slot.hand}}"{{/if}}>
+				{{#if slot.item}}
+				<div class="item equipped draggable" data-item-id="{{slot.item._id}}">
+					<a class="item-image framed" data-action="item-edit" data-tooltip="{{slot.item.name}}"><img src="{{slot.item.img}}" alt=""></a>
+					<div class="text">
+						<span class="slot-label">{{localize slot.label}}</span>
+						<a class="name" data-action="item-edit" data-tooltip="{{slot.item.name}}">{{slot.item.name}}</a>
+					</div>
+					<div class="item-controls">
+						{{#if slot.swap}}<a class="hand-swap" data-action="hand-swap" data-tooltip="ETERNIA.Hands.Swap"><i class="fa-solid fa-fw fa-right-left"></i></a>{{/if}}
+						{{#each slot.item.lhPowers as |power|}}<a class="item-control" data-action="lhauto-power" data-skill-id="{{power.id}}" data-tooltip="{{power.tooltip}}"><i class="fa-solid fa-fw fa-comment-dots"></i>{{#if power.n}}<sup>{{power.n}}</sup>{{/if}}</a>{{else}}{{#if slot.item.system.linkedSkillUuid}}<a class="item-control" data-action="linked-skill-throw" data-tooltip="ETERNIA.Item.Label.ThrowToChat"><i class="fa-solid fa-fw fa-comment-dots"></i></a>{{/if}}{{/each}}
+						{{#if @root.editable}}
+						<a class="item-control" data-action="item-equip" data-tooltip="ETERNIA.Sheet.Unequip"><i class="fa-solid fa-fw fa-shirt"></i></a>
+						<a class="item-control" data-action="item-give" data-tooltip="ETERNIA.Piles.GiveTo"><i class="fa-solid fa-fw fa-hand-holding"></i></a>
+						<a class="item-control" data-action="item-delete" data-tooltip="ETERNIA.ButtonLabel.Delete"><i class="fa-solid fa-fw fa-trash"></i></a>
+						{{/if}}
+					</div>
+				</div>
+				{{else if slot.locked}}
+				<div class="empty-slot locked-slot" data-tooltip="{{localize 'ETERNIA.Hands.Locked' weapon=slot.locked.name}}">
+					<span class="item-image framed"><img src="{{slot.locked.img}}" alt=""></span>
+					<div class="text"><span class="slot-label">{{localize slot.label}}</span><span class="name"><i class="fa-solid fa-lock"></i> {{slot.locked.name}}</span></div>
+				</div>
+				{{else}}
+				<div class="empty-slot">
+					<span class="item-image framed placeholder"><img src="systems/eternia/assets/ui/items_icons/{{slot.icon}}.svg" alt=""></span>
+					<div class="text"><span class="slot-label">{{localize slot.label}}</span><span class="name empty">{{localize 'ETERNIA.Sheet.EmptySlot'}}</span></div>
+				</div>
+				{{/if}}
+			</div>
+			{{/each}}
+		</div>
+
+		<section class="lhpf-carried">
+			<header>
+				<h3 class="item-name">{{localize 'ETERNIA.Sheet.Carried'}}</h3>
+				<span class="type">{{localize 'ETERNIA.Label.Type'}}</span>
+				{{#if editable}}
+				<div class="addItem item-controls">
+					<a data-action="add-item-menu" data-tooltip="{{localize 'ETERNIA.Add'}}"><i class="fa-solid fa-fw fa-plus"></i> {{localize 'ETERNIA.Add'}}</a>
+					<div class="dropdown-content">
+						{{#each lh.itemTypes}}<a class="item-control" data-action="item-create" data-type="{{type}}"><img src="systems/eternia/assets/ui/items_icons/{{type}}.svg" alt="">{{label}}</a>{{/each}}
+					</div>
+				</div>
+				{{/if}}
+			</header>
+			<ol class="inventory-list items">
+				{{#each lh.carried as |item|}}
+				<li class="item draggable{{#if item.over}} over{{/if}}" data-item-id="{{item._id}}"{{#if item.over}} data-tooltip="{{localize 'ETERNIA.Sheet.OverSpace'}}"{{/if}}>
+					<div class="data">
+						<div class="item-name">
+							<a class="item-image framed" data-action="item-edit" data-tooltip="{{localize 'ETERNIA.ButtonLabel.Edit'}}"><img src="{{item.img}}" alt=""><i class="fa-solid fa-pen"></i></a>
+							<h4><a data-action="lhauto-summary">{{item.name}}</a></h4>
+						</div>
+						<span class="type">{{item.typeLabel}}</span>
+						<div class="item-controls">
+							{{#if item.usable}}<a class="item-control" data-action="item-use" data-tooltip="ETERNIA.Item.Use.Button"><i class="fa-solid fa-fw fa-flask"></i></a>{{/if}}
+							{{#each item.lhPowers as |power|}}<a class="item-control" data-action="lhauto-power" data-skill-id="{{power.id}}" data-tooltip="{{power.tooltip}}"><i class="fa-solid fa-fw fa-comment-dots"></i>{{#if power.n}}<sup>{{power.n}}</sup>{{/if}}</a>{{else}}{{#if item.system.linkedSkillUuid}}<a class="item-control" data-action="linked-skill-throw" data-tooltip="ETERNIA.Item.Label.ThrowToChat"><i class="fa-solid fa-fw fa-comment-dots"></i></a>{{/if}}{{/each}}
+							{{#if @root.editable}}
+							{{#if item.equippable}}<a class="item-control" data-action="item-equip" data-tooltip="ETERNIA.Label.Equip"><i class="fa-solid fa-fw fa-shirt"></i></a>{{/if}}
+							<a class="item-control" data-action="item-give" data-tooltip="ETERNIA.Piles.GiveTo"><i class="fa-solid fa-fw fa-hand-holding"></i></a>
+							<a class="item-control" data-action="item-delete" data-tooltip="ETERNIA.ButtonLabel.Delete"><i class="fa-solid fa-fw fa-trash"></i></a>
+							{{/if}}
+						</div>
+					</div>
+					<div class="item-summary" hidden></div>
+				</li>
+				{{else}}
+				<li class="lhpf-empty">{{localize 'ETERNIA.Sheet.EmptyBag'}}</li>
+				{{/each}}
+			</ol>
+		</section>
+
+		<header class="lhpf-section">{{localize 'ETERNIA.Label.Tickets'}}</header>
+		<div class="ticket-slots-grid lhpf-tickets">
+			{{> "systems/eternia/templates/actor/parts/inventory/inventory-ticket-ranked-slot.html" subtype="Treasure" typeLabel="ETERNIA.Ticket.Type.Treasure" icon="icons/sundries/flags/banner-pink.webp" items=tickets.treasure total=tickets.treasureTotal rank=system.infos.crank}}
+			{{> "systems/eternia/templates/actor/parts/inventory/inventory-ticket-slot.html" subtype="Fate" typeLabel="ETERNIA.Ticket.Type.Fate" icon="icons/sundries/flags/banner-green.webp" item=tickets.fate.[0]}}
+			{{> "systems/eternia/templates/actor/parts/inventory/inventory-ticket-slot.html" subtype="Connection" typeLabel="ETERNIA.Ticket.Type.Connection" icon="icons/sundries/flags/banner-purple.webp" item=tickets.connection.[0]}}
+			{{> "systems/eternia/templates/actor/parts/inventory/inventory-ticket-slot.html" subtype="Reset" typeLabel="ETERNIA.Ticket.Type.Reset" icon="icons/sundries/flags/banner-blue.webp" item=tickets.reset.[0]}}
+		</div>
+	</div>
+
+	<footer class="inventory-bottom-summary">
+		<div class="encumbrance{{#if lh.space.over}} over-limit{{/if}}" data-tooltip="{{localize 'ETERNIA.Sheet.SpaceHint'}}">
+			<i class="fa-solid fa-sack"></i>
+			<span class="bar"><i style="width: {{lh.space.pct}}%"></i></span>
+			<span class="text">{{localize 'ETERNIA.Sheet.Space'}}: <b>{{lh.space.value}}</b> / {{lh.space.max}}</span>
+		</div>
+	</footer>
+</section>

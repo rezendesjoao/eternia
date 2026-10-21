@@ -7,24 +7,24 @@ import { initSocket } from "./pile-socket.mjs";
 import { registerOperations } from "./pile-operations.mjs";
 import { PilesAPI, onDropCanvasData } from "./pile-api.mjs";
 import { actorTokens, isPile } from "./pile-utils.mjs";
-import { LHTrpgPileSheet } from "./pile-sheet.mjs";
+import { EterniaPileSheet } from "./pile-sheet.mjs";
 
 /** Called from the system's init hook. */
 export function registerPiles() {
-  game.lhtrpg.piles = PilesAPI;
+  game.eternia.piles = PilesAPI;
 
   CONFIG.Actor.typeLabels ??= {};
   CONFIG.Actor.typeLabels[PILE_TYPE] = "TYPES.Actor.pile";
 
-  foundry.documents.collections.Actors.registerSheet("lhtrpg", LHTrpgPileSheet, {
+  foundry.documents.collections.Actors.registerSheet("eternia", EterniaPileSheet, {
     types: [PILE_TYPE],
     makeDefault: true,
-    label: "LHTRPG.Piles.SheetLabel"
+    label: "ETERNIA.Piles.SheetLabel"
   });
 
-  game.settings.register("lhtrpg", SETTINGS.chatLog, {
-    name: "LHTRPG.Piles.Settings.ChatLog.Name",
-    hint: "LHTRPG.Piles.Settings.ChatLog.Hint",
+  game.settings.register("eternia", SETTINGS.chatLog, {
+    name: "ETERNIA.Piles.Settings.ChatLog.Name",
+    hint: "ETERNIA.Piles.Settings.ChatLog.Hint",
     scope: "world",
     config: true,
     type: Boolean,
@@ -32,7 +32,7 @@ export function registerPiles() {
   });
 
   // How each user sorts/filters pile contents (personal preference).
-  game.settings.register("lhtrpg", SETTINGS.view, {
+  game.settings.register("eternia", SETTINGS.view, {
     scope: "client",
     config: false,
     type: Object,
@@ -63,7 +63,7 @@ export function registerPiles() {
   Hooks.once("ready", () => {
     initSocket();
     if (game.user.isGM && game.modules.get("item-piles")?.active) {
-      ui.notifications.info(game.i18n.localize("LHTRPG.Piles.ItemPilesActive"));
+      ui.notifications.info(game.i18n.localize("ETERNIA.Piles.ItemPilesActive"));
     }
   });
 }
@@ -73,7 +73,7 @@ function refreshPileSheets() {
   clearTimeout(refreshTimeout);
   refreshTimeout = setTimeout(() => {
     for (const app of foundry.applications.instances.values()) {
-      if ((app instanceof LHTrpgPileSheet) && app.rendered) app.render();
+      if ((app instanceof EterniaPileSheet) && app.rendered) app.render();
     }
   }, 50);
 }

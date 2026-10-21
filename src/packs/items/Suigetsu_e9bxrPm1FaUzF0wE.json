@@ -2,7 +2,7 @@
   "name": "Suigetsu",
   "type": "weapon",
   "system": {
-    "description": "<p>[Trigger: Setup] Select one Sq within 2Sq from you. Place the prop 【Mind Floor】 on the target Sq with PR9. The prop's tag is [Magic]. This effect lasts until the end of the round.\nA throwing weapon made from metal that has been continuously exposed to the glow of the moon reflected in a spirit spring. Not only is it a powerful weapon, but it can also unleash the magic power of the moon's reflection on water, creating an illusionary barrier that confuses enemies.</p><hr><p>Moonlight Golden Scale [Core Material] (140G) + Eight-Pointed Shuriken (230G) ×2 + Firefly Gem (40G) ×4 + [Magic Catalyst 9] (90G) ×2 + Crafting Cost (370G)</p>",
+    "description": "<p>[Momento: Abertura] Escolha um Qd a até 2Qd de você. Coloque o objeto de cena 【Piso da Mente】 no Qd escolhido, com PR9. A tag do objeto de cena é [Mágico]. Este efeito dura até o fim da rodada.\nUma arma de arremesso feita de um metal exposto continuamente ao brilho da lua refletida em uma fonte espiritual. Além de ser uma arma poderosa, ela pode liberar o poder mágico do reflexo da lua na água, criando uma barreira ilusória que confunde os inimigos.</p><hr><p>Escama Dourada do Luar [Material-Base] (140G) + Cata-Vento (230G) ×2 + Joia do Vaga-Lume (40G) ×4 + [Catalisador Mágico 9] (90G) ×2 + Custo de Fabricação (370G)</p>",
     "tags": [
       "One-Handed",
       "Throwing",
@@ -24,17 +24,30 @@
     "pdef": 0,
     "mdef": 0
   },
-  "img": "systems/lhtrpg/assets/ui/items_icons/weapon.svg",
+  "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
   "effects": [],
   "sort": 15300000,
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Setup",
+          "target": "-",
+          "range": "2Sq",
+          "cost": "",
+          "limit": "",
+          "text": "[Trigger: Setup] Select one Sq within 2Sq from you. Place the prop 【Mind Floor】 on the target Sq with PR9. The prop's tag is [Magic]. This effect lasts until the end of the round."
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
-    "systemId": "lhtrpg",
-    "systemVersion": "1.5.0",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

@@ -1,20 +1,20 @@
-<div class="lhtrpg-item-sheet flexcol">
+<div class="eternia-item-sheet flexcol">
   <header class="sheet-header">
     <img class="profile-img" src="{{item.img}}" data-action="editImage" data-edit="img" title="{{item.name}}" />
     <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'LHTRPG.Placeholder.Name'}}" /></h1>
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'ETERNIA.Placeholder.Name'}}" /></h1>
       <div class="grid grid-3col">
         <div class="resource flexcol">
-          <label class="resource-label">{{localize 'LHTRPG.Label.Type'}}</label>
+          <label class="resource-label">{{localize 'ETERNIA.Label.Type'}}</label>
           <select name="system.subtype">
             {{selectOptions subtypeOptions selected=system.subtype localize=true}}
           </select>
         </div>
         <div class="resource grid-span-2">
           <div class="flexrow">
-            <label class="resource-label">{{localize 'LHTRPG.Label.Tags'}}</label>
+            <label class="resource-label">{{localize 'ETERNIA.Label.Tags'}}</label>
           </div>
-          {{> "systems/lhtrpg/templates/parts/tag-input.html"}}
+          {{> "systems/eternia/templates/parts/tag-input.html"}}
         </div>
       </div>
     </div>
@@ -23,7 +23,7 @@
   <section class="sheet-stats">
 
     <div class="stat-div">
-      <label>{{localize 'LHTRPG.Skill.Label.SR'}}</label>
+      <label>{{localize 'ETERNIA.Skill.Label.SR'}}</label>
       <div>
         <input class="skillRank-input" type="text" name="system.skillRank.value" value="{{system.skillRank.value}}"
           placeholder="0" data-dtype="Number" maxlength="2">
@@ -34,54 +34,54 @@
     </div>
 
     <div class="stat-div">
-      <label>{{localize 'LHTRPG.Skill.Label.Timing'}}</label>
-      {{> "systems/lhtrpg/templates/item/parts/skill-field.html" f=skillFields.timing}}
+      <label>{{localize 'ETERNIA.Skill.Label.Timing'}}</label>
+      {{> "systems/eternia/templates/item/parts/skill-field.html" f=skillFields.timing}}
     </div>
 
-    {{> "systems/lhtrpg/templates/item/parts/roll-check.html"}}
+    {{> "systems/eternia/templates/item/parts/roll-check.html"}}
 
     <div class="stat-div">
-      <label>{{localize 'LHTRPG.Skill.Label.Target'}}</label>
-      {{> "systems/lhtrpg/templates/item/parts/skill-field.html" f=skillFields.target}}
-    </div>
-
-    <div class="stat-div">
-      <label>{{localize 'LHTRPG.Skill.Label.Range'}}</label>
-      {{> "systems/lhtrpg/templates/item/parts/skill-field.html" f=skillFields.range}}
+      <label>{{localize 'ETERNIA.Skill.Label.Target'}}</label>
+      {{> "systems/eternia/templates/item/parts/skill-field.html" f=skillFields.target}}
     </div>
 
     <div class="stat-div">
-      <label>{{localize 'LHTRPG.Skill.Label.Cost'}}</label>
-      {{> "systems/lhtrpg/templates/item/parts/skill-field.html" f=skillFields.cost}}
+      <label>{{localize 'ETERNIA.Skill.Label.Range'}}</label>
+      {{> "systems/eternia/templates/item/parts/skill-field.html" f=skillFields.range}}
     </div>
 
     <div class="stat-div">
-      <label>{{localize 'LHTRPG.Skill.Label.Limit'}}</label>
-      {{> "systems/lhtrpg/templates/item/parts/skill-field.html" f=skillFields.limit}}
+      <label>{{localize 'ETERNIA.Skill.Label.Cost'}}</label>
+      {{> "systems/eternia/templates/item/parts/skill-field.html" f=skillFields.cost}}
+    </div>
+
+    <div class="stat-div">
+      <label>{{localize 'ETERNIA.Skill.Label.Limit'}}</label>
+      {{> "systems/eternia/templates/item/parts/skill-field.html" f=skillFields.limit}}
     </div>
     
-    {{> "systems/lhtrpg/templates/item/parts/roll-damage.html"}}
+    {{> "systems/eternia/templates/item/parts/roll-damage.html"}}
 
     {{#if (or skillMods.cost skillMods.range skillMods.notes.length)}}
-    <div class="lh-skill-mods" data-tooltip="{{localize 'LHTRPG.Skill.Label.ModifiedHint'}}">
+    <div class="lh-skill-mods" data-tooltip="{{localize 'ETERNIA.Skill.Label.ModifiedHint'}}">
       <i class="fas fa-wand-magic-sparkles"></i>
-      {{#if skillMods.cost}}<span>{{localize 'LHTRPG.Skill.Label.Cost'}}: {{skillMods.cost.text}} ({{skillMods.cost.sourceText}})</span>{{/if}}
-      {{#if skillMods.range}}<span>{{localize 'LHTRPG.Skill.Label.Range'}}: {{skillMods.range.text}} ({{skillMods.range.sourceText}})</span>{{/if}}
+      {{#if skillMods.cost}}<span>{{localize 'ETERNIA.Skill.Label.Cost'}}: {{skillMods.cost.text}} ({{skillMods.cost.sourceText}})</span>{{/if}}
+      {{#if skillMods.range}}<span>{{localize 'ETERNIA.Skill.Label.Range'}}: {{skillMods.range.text}} ({{skillMods.range.sourceText}})</span>{{/if}}
       {{#each skillMods.notes as |note|}}<span>{{note.text}} ({{note.label}})</span>{{/each}}
     </div>
     {{/if}}
 
     <div class="stat-div checkType">
-      <label>{{localize 'LHTRPG.Skill.Label.MacroEffect'}}</label>
-      <input class="macroeffect-input" type="text" name="system.macroeffect" value="{{system.macroeffect}}" placeholder="{{localize 'LHTRPG.Skill.Placeholder.MacroEffect'}}" data-dtype="text">
+      <label>{{localize 'ETERNIA.Skill.Label.MacroEffect'}}</label>
+      <input class="macroeffect-input" type="text" name="system.macroeffect" value="{{system.macroeffect}}" placeholder="{{localize 'ETERNIA.Skill.Placeholder.MacroEffect'}}" data-dtype="text">
     </div>
 
   </section>
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-action="tab" data-group="primary" data-tab="description">{{localize 'LHTRPG.Description.Label'}}</a>
-    <a class="item" data-action="tab" data-group="primary" data-tab="effects">{{localize 'LHTRPG.Effect.Label'}}</a>
+    <a class="item" data-action="tab" data-group="primary" data-tab="description">{{localize 'ETERNIA.Description.Label'}}</a>
+    <a class="item" data-action="tab" data-group="primary" data-tab="effects">{{localize 'ETERNIA.Effect.Label'}}</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -96,8 +96,8 @@
 
     {{!-- Attributes Tab --}}
     <div class="tab effects" data-group="primary" data-tab="effects">
-      {{> "systems/lhtrpg/templates/effects/effect-conditions.hbs"}}
-      {{> "systems/lhtrpg/templates/item/parts/item-effects.html"}}
+      {{> "systems/eternia/templates/effects/effect-conditions.hbs"}}
+      {{> "systems/eternia/templates/item/parts/item-effects.html"}}
     </div>
   </section>
 </div>

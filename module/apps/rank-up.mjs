@@ -1,6 +1,6 @@
 /**
  * Character Rank Up (Log Ticket): +1 CR. Base Stats (+1 each) and Max HP (+ class HP Modifier)
- * follow on their own in LHTrpgActor#prepareDerivedData; this confirms the change and records it
+ * follow on their own in EterniaActor#prepareDerivedData; this confirms the change and records it
  * in the chat, and opens the skill selection for the skills the character can now acquire or rank up.
  */
 
@@ -20,16 +20,16 @@ export async function rankUp(actor) {
   const hp = classStats(actor)?.hpPerRank ?? 0;
   const skills = rankUpSkills(to);
   const gains = [
-    game.i18n.format("LHTRPG.RankUp.GainHP", { hp }),
-    game.i18n.localize("LHTRPG.RankUp.GainStats"),
-    game.i18n.format("LHTRPG.RankUp.GainSkills", skills)
+    game.i18n.format("ETERNIA.RankUp.GainHP", { hp }),
+    game.i18n.localize("ETERNIA.RankUp.GainStats"),
+    game.i18n.format("ETERNIA.RankUp.GainSkills", skills)
   ];
   const list = `<ul>${gains.map(g => `<li>${g}</li>`).join("")}</ul>`;
 
   const confirmed = await DialogV2.confirm({
-    window: { title: game.i18n.format("LHTRPG.RankUp.Title", { name: actor.name }), icon: "fa-solid fa-angles-up" },
-    classes: ["lhtrpg", "rank-up-dialog"],
-    content: `<p>${game.i18n.format("LHTRPG.RankUp.Confirm", { from, to })}</p>${list}`,
+    window: { title: game.i18n.format("ETERNIA.RankUp.Title", { name: actor.name }), icon: "fa-solid fa-angles-up" },
+    classes: ["eternia", "rank-up-dialog"],
+    content: `<p>${game.i18n.format("ETERNIA.RankUp.Confirm", { from, to })}</p>${list}`,
     rejectClose: false
   });
   if (!confirmed) return false;
@@ -39,8 +39,8 @@ export async function rankUp(actor) {
   await actor.update({ "system.infos.crank": to });
   await ChatMessage.create({
     speaker: ChatMessage.getSpeaker({ actor }),
-    content: `<div class="lhtrpg rank-up-card"><h3><i class="fa-solid fa-angles-up"></i> `
-      + `${game.i18n.format("LHTRPG.RankUp.Chat", { name: actor.name, to })}</h3>${list}</div>`
+    content: `<div class="eternia rank-up-card"><h3><i class="fa-solid fa-angles-up"></i> `
+      + `${game.i18n.format("ETERNIA.RankUp.Chat", { name: actor.name, to })}</h3>${list}</div>`
   });
   SkillBrowser.open(actor);
   return true;

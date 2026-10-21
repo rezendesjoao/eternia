@@ -5,9 +5,9 @@
 export const PILE_TYPE = "pile";
 
 export const PILE_MODES = {
-  loot: "LHTRPG.Piles.Mode.Loot",
-  chest: "LHTRPG.Piles.Mode.Chest",
-  merchant: "LHTRPG.Piles.Mode.Merchant"
+  loot: "ETERNIA.Piles.Mode.Loot",
+  chest: "ETERNIA.Piles.Mode.Chest",
+  merchant: "ETERNIA.Piles.Mode.Merchant"
 };
 
 // Item types that physically exist and can be carried, dropped, traded or sold.
@@ -47,21 +47,21 @@ export const SETTINGS = {
 
 // Ways to order a pile's contents (each user picks their own).
 export const SORT_MODES = {
-  manual: "LHTRPG.Piles.Sort.Manual",
-  name: "LHTRPG.Piles.Sort.Name",
-  type: "LHTRPG.Piles.Sort.Type",
-  priceAsc: "LHTRPG.Piles.Sort.PriceAsc",
-  priceDesc: "LHTRPG.Piles.Sort.PriceDesc"
+  manual: "ETERNIA.Piles.Sort.Manual",
+  name: "ETERNIA.Piles.Sort.Name",
+  type: "ETERNIA.Piles.Sort.Type",
+  priceAsc: "ETERNIA.Piles.Sort.PriceAsc",
+  priceDesc: "ETERNIA.Piles.Sort.PriceDesc"
 };
 
 // Icon of each physical item type, for the type filter.
 export const TYPE_ICONS = {
-  weapon: "systems/lhtrpg/assets/ui/items_icons/weapon.svg",
-  armor: "systems/lhtrpg/assets/ui/items_icons/armor.svg",
-  shield: "systems/lhtrpg/assets/ui/items_icons/shield.svg",
-  accessory: "systems/lhtrpg/assets/ui/items_icons/accessory.svg",
-  bag: "systems/lhtrpg/assets/ui/items_icons/bag.svg",
-  usable: "systems/lhtrpg/assets/ui/items_icons/usable.svg",
-  gear: "systems/lhtrpg/assets/ui/items_icons/gear.svg",
+  weapon: "systems/eternia/assets/ui/items_icons/weapon.svg",
+  armor: "systems/eternia/assets/ui/items_icons/armor.svg",
+  shield: "systems/eternia/assets/ui/items_icons/shield.svg",
+  accessory: "systems/eternia/assets/ui/items_icons/accessory.svg",
+  bag: "systems/eternia/assets/ui/items_icons/bag.svg",
+  usable: "systems/eternia/assets/ui/items_icons/usable.svg",
+  gear: "systems/eternia/assets/ui/items_icons/gear.svg",
   ticket: "icons/sundries/flags/banner-pink.webp"
 };

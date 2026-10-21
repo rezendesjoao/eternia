@@ -1,10 +1,10 @@
-<div class="lhtrpg-item-sheet flexcol">
-  {{> "systems/lhtrpg/templates/item/parts/item-header.html"}}
+<div class="eternia-item-sheet flexcol">
+  {{> "systems/eternia/templates/item/parts/item-header.html"}}
 
   <section class="sheet-stats option-stats">
 
     <div class="stat-div option-identifier">
-      <label>{{localize 'LHTRPG.CharacterOptions.Identifier'}}</label>
+      <label>{{localize 'ETERNIA.CharacterOptions.Identifier'}}</label>
       <div>
         <input type="text" name="system.identifier" value="{{system.identifier}}" placeholder="-" data-dtype="String">
       </div>
@@ -13,9 +13,9 @@
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-action="tab" data-group="primary" data-tab="description">{{localize 'LHTRPG.Description.Label'}}</a>
-    <a class="item" data-action="tab" data-group="primary" data-tab="skills">{{localize 'LHTRPG.CharacterOptions.Grants.Tab'}}</a>
-    <a class="item" data-action="tab" data-group="primary" data-tab="effects">{{localize 'LHTRPG.Effect.Label'}}</a>
+    <a class="item" data-action="tab" data-group="primary" data-tab="description">{{localize 'ETERNIA.Description.Label'}}</a>
+    <a class="item" data-action="tab" data-group="primary" data-tab="skills">{{localize 'ETERNIA.CharacterOptions.Grants.Tab'}}</a>
+    <a class="item" data-action="tab" data-group="primary" data-tab="effects">{{localize 'ETERNIA.Effect.Label'}}</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -30,12 +30,12 @@
 
     {{!-- Skills this Subclass allows the character to learn --}}
     <div class="tab subclass-skills" data-group="primary" data-tab="skills">
-      {{> "systems/lhtrpg/templates/item/parts/item-subclass-skills.html"}}
+      {{> "systems/eternia/templates/item/parts/item-subclass-skills.html"}}
     </div>
 
     {{!-- Effects Tab: applied to the character while it holds this item --}}
     <div class="tab effects" data-group="primary" data-tab="effects">
-      {{> "systems/lhtrpg/templates/item/parts/item-effects.html"}}
+      {{> "systems/eternia/templates/item/parts/item-effects.html"}}
     </div>
   </section>
 </div>

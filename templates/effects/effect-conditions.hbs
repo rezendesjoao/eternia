@@ -1,11 +1,11 @@
-{{!-- Conditions of a skill (system.conditions) or of an effect (flags.lhtrpg.conditions). See effect-conditions.mjs.
+{{!-- Conditions of a skill (system.conditions) or of an effect (flags.eternia.conditions). See effect-conditions.mjs.
       Context: conditions = { rows, prefix, types, tags, hint, editable } --}}
 <div class="lh-conditions">
   <div class="lh-conditions-header">
-    <span class="lh-conditions-title">{{localize "LHTRPG.Condition.Title"}}</span>
+    <span class="lh-conditions-title">{{localize "ETERNIA.Condition.Title"}}</span>
     {{#if conditions.editable}}
     <button type="button" class="inline-control icon fa-regular fa-square-plus" data-action="addCondition"
-      data-tooltip="{{localize 'LHTRPG.Condition.Add'}}" aria-label="{{localize 'LHTRPG.Condition.Add'}}"></button>
+      data-tooltip="{{localize 'ETERNIA.Condition.Add'}}" aria-label="{{localize 'ETERNIA.Condition.Add'}}"></button>
     {{/if}}
   </div>
   <p class="hint">{{conditions.hint}}</p>
@@ -20,7 +20,7 @@
         {{#unless ../conditions.editable}}disabled{{/unless}}>
       {{else if row.tag}}
       <input type="text" name="{{../conditions.prefix}}.{{row.index}}.value" value="{{row.value}}" list="lh-condition-tags"
-        placeholder="{{localize 'LHTRPG.Condition.TagPlaceholder'}}" {{#unless ../conditions.editable}}disabled{{/unless}}>
+        placeholder="{{localize 'ETERNIA.Condition.TagPlaceholder'}}" {{#unless ../conditions.editable}}disabled{{/unless}}>
       {{else if row.status}}
       <select name="{{../conditions.prefix}}.{{row.index}}.value" {{#unless ../conditions.editable}}disabled{{/unless}}>
         {{selectOptions ../conditions.statuses selected=row.value blank="—"}}
@@ -30,7 +30,7 @@
       {{/if}}
       {{#if ../conditions.editable}}
       <button type="button" class="inline-control icon fa-solid fa-trash" data-action="deleteCondition"
-        aria-label="{{localize 'LHTRPG.Condition.Delete'}}"></button>
+        aria-label="{{localize 'ETERNIA.Condition.Delete'}}"></button>
       {{/if}}
     </li>
     {{/each}}

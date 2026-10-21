@@ -1,0 +1,1086 @@
+/* ==========================================================================
+   Chat in the parchment look (module/chat/chat.mjs arranges the DOM)
+   Messages marked `lhc-msg`: slim green header, parchment body, rolls as a strip of dice faces with
+   the total in a seal, compact skill / combat cards. Sized for the ~300px chat sidebar.
+   ========================================================================== */
+
+.chat-message.lhc-msg {
+  --c-primary: #1f5137;
+  --c-primary-dark: #173f2b;
+  --c-primary-light: #2a6a47;
+  --c-gold: #c9a94e;
+  --c-gold-dark: #8a6d1f;
+  --c-tert: #e9d7a1;
+  --c-ink: #1c1c1c;
+  --c-soft: #5c584e;
+  --c-line: #cbbd9f;
+  --c-red: #8c2f2f;
+  --c-teal: #2f6b5a;
+  --c-serif: "Eternia Eczar", "Eczar", Georgia, serif;
+  --c-body: "Eternia Gelasio", "Gelasio", Georgia, serif;
+  --c-sans: "Signika", sans-serif;
+
+  position: relative;
+  margin: 5px 3px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #2c3a2f;
+  border-radius: 4px;
+  background: #f3ecdb url("../assets/sheet/parchment.webp") center / cover;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  color: var(--c-ink);
+  font: 400 13px/1.4 var(--c-body);
+}
+.chat-message.lhc-msg.whisper {
+  box-shadow: inset 3px 0 0 #6b4a92, 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+.chat-message.lhc-msg.blind {
+  box-shadow: inset 3px 0 0 #6b6b6b, 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+/* Header */
+.chat-message.lhc-msg .message-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 6px;
+  margin: 0;
+  padding: 3px 7px;
+  border-bottom: 1px solid var(--c-gold-dark);
+  background: linear-gradient(90deg, #22573b, #163826);
+  color: var(--c-tert);
+  font-size: 11px;
+  line-height: 1.25;
+}
+.chat-message.lhc-msg .message-header > * {
+  flex: 0 0 auto;
+}
+.chat-message.lhc-msg .lhc-portrait {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--c-gold);
+  border-radius: 50%;
+  object-fit: cover;
+}
+.chat-message.lhc-msg .message-header .message-sender {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: #f5f0e4;
+  font: 600 12.5px/1.25 var(--c-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: none;
+}
+.chat-message.lhc-msg .message-header .message-metadata {
+  color: rgba(233, 215, 161, 0.62);
+  font-size: 10px;
+}
+.chat-message.lhc-msg .message-header .message-metadata a {
+  color: inherit;
+}
+.chat-message.lhc-msg .message-header .message-metadata a:hover {
+  color: var(--c-tert);
+  text-shadow: none;
+}
+.chat-message.lhc-msg .message-header .flavor-text,
+.chat-message.lhc-msg .message-header .whisper-to {
+  flex: 1 1 100%;
+  margin: 0;
+  color: var(--c-tert);
+  font: italic 400 11px/1.3 var(--c-body);
+}
+.chat-message.lhc-msg .message-header .whisper-to {
+  color: #d8c6f0;
+}
+.chat-message.lhc-msg.lhc-plain .message-header .flavor-text {
+  display: none;
+}
+.chat-message.lhc-msg .message-content {
+  padding: 7px 9px 8px;
+  color: var(--c-ink);
+  font: inherit;
+}
+
+/* Plain roll title */
+.lhc-msg .lhc-title {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 6px;
+}
+.lhc-msg .lhc-kicker {
+  color: var(--c-gold-dark);
+  font: 600 9.5px/1.3 var(--c-sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.lhc-msg .lhc-name {
+  overflow: hidden;
+  color: var(--c-primary-dark);
+  font: 600 15px/1.2 var(--c-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Rolls: a strip of dice faces and the total in a seal
+   -------------------------------------------------------------------------- */
+.lhc-msg .dice-roll {
+  margin: 0 0 6px;
+}
+.lhc-msg .dice-roll .dice-result {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+.lhc-msg .dice-roll .dice-formula,
+.lhc-msg .dice-roll .dice-total,
+.lhc-msg .dice-roll .dice-tooltip {
+  display: none !important;
+}
+.lhc-msg .dice-roll .dice-flavor {
+  margin: 0 0 4px;
+  color: var(--c-gold-dark);
+  font: italic 11px/1.3 var(--c-body);
+}
+.lhc-msg .lhc-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 6px 5px 8px;
+  border: 1px solid var(--c-line);
+  border-radius: 5px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.25));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+}
+.lhc-msg .lhc-dice {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+.lhc-msg .lhc-die {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
+}
+.lhc-msg svg.lhc-die rect {
+  fill: #fbf6e8;
+  stroke: #3e3a2c;
+  stroke-width: 1.2;
+}
+.lhc-msg svg.lhc-die circle {
+  fill: #1f2a22;
+}
+.lhc-msg svg.lhc-die[data-v="6"] rect {
+  fill: #f2d98a;
+  stroke: var(--c-gold-dark);
+}
+.lhc-msg svg.lhc-die[data-v="1"] circle {
+  fill: var(--c-red);
+}
+.lhc-msg .lhc-die.off {
+  opacity: 0.32;
+}
+.lhc-msg .lhc-num {
+  display: grid;
+  place-items: center;
+  border: 1.2px solid #3e3a2c;
+  border-radius: 5px;
+  background: #fbf6e8;
+  color: var(--c-ink);
+  font: 700 12px/1 var(--c-serif);
+}
+.lhc-msg .lhc-mod {
+  margin-left: 2px;
+  color: var(--c-soft);
+  font: 600 15px/1 var(--c-serif);
+  white-space: nowrap;
+}
+.lhc-msg .lhc-total {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #3a8a5f, var(--c-primary-dark) 70%);
+  box-shadow: 0 0 0 2px var(--c-tert), 0 0 0 3px #9f725b, 0 2px 4px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font: 700 18px/1 var(--c-serif);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.lhc-msg .lhc-strip[data-kind="damage"] .lhc-total {
+  background: radial-gradient(circle at 35% 30%, #c4483a, #6e1717 70%);
+}
+.lhc-msg .lhc-strip[data-kind="heal"] .lhc-total {
+  background: radial-gradient(circle at 35% 30%, #4fa58a, #1f4d40 70%);
+}
+.lhc-msg .lhc-strip[data-outcome="critical"] {
+  border-color: var(--c-gold);
+  background: linear-gradient(180deg, rgba(255, 244, 200, 0.85), rgba(242, 217, 138, 0.35));
+}
+.lhc-msg .lhc-strip[data-outcome="critical"] .lhc-total {
+  background: radial-gradient(circle at 35% 30%, #fff3c4, var(--c-gold) 60%, var(--c-gold-dark));
+  box-shadow: 0 0 0 2px #fff6d8, 0 0 0 3px var(--c-gold-dark), 0 0 10px rgba(201, 169, 78, 0.85);
+  color: #3a2c08;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.lhc-msg .lhc-strip[data-outcome="fumble"] {
+  border-color: rgba(140, 47, 47, 0.55);
+  background: linear-gradient(180deg, rgba(140, 47, 47, 0.12), rgba(140, 47, 47, 0.04));
+}
+.lhc-msg .lhc-strip[data-outcome="fumble"] .lhc-total {
+  background: radial-gradient(circle at 35% 30%, #5a5a55, #262624 70%);
+  color: #ff9d8f;
+}
+.lhc-msg .lhc-outcome,
+.lhc-msg .lh-combat-card .lh-outcome {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 5px 0 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: 700 11px/1 var(--c-serif);
+  letter-spacing: 0.22em;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: none;
+  animation: none;
+}
+.lhc-msg .lhc-outcome::before,
+.lhc-msg .lhc-outcome::after,
+.lhc-msg .lh-combat-card .lh-outcome::before,
+.lhc-msg .lh-combat-card .lh-outcome::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.45;
+}
+.lhc-msg .lhc-outcome.critical,
+.lhc-msg .lh-combat-card .lh-outcome.critical {
+  color: var(--c-gold-dark);
+}
+.lhc-msg .lhc-outcome.fumble,
+.lhc-msg .lh-combat-card .lh-outcome.fumble {
+  color: var(--c-red);
+}
+
+/* Fresh rolls: the dice tumble in, the seal pops */
+.lhc-msg .lhc-strip.lhc-fresh .lhc-die {
+  animation: lhc-tumble 0.5s cubic-bezier(0.2, 0.8, 0.3, 1.25) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+.lhc-msg .lhc-strip.lhc-fresh .lhc-total {
+  animation: lhc-pop 0.45s 0.3s cubic-bezier(0.2, 0.8, 0.3, 1.3) both;
+}
+@keyframes lhc-tumble {
+  from { opacity: 0; transform: translateY(-8px) rotate(-120deg) scale(0.6); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes lhc-pop {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Cards (skills, items, attacks and damage)
+   -------------------------------------------------------------------------- */
+.lhc-msg .eternia.chat-card,
+.lhc-msg .lhauto-card {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--c-ink);
+  font: inherit;
+}
+.lhc-msg .eternia.chat-card .chat-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+  padding: 0 0 5px;
+  border-bottom: 1px solid var(--c-line);
+}
+.lhc-msg .eternia.chat-card .chat-card-img {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 3px;
+  background: var(--c-primary-dark);
+  box-shadow: 0 0 0 1px var(--c-tert), 0 0 0 2px #9f725b, 0 1px 3px rgba(0, 0, 0, 0.35);
+  object-fit: cover;
+}
+.lhc-msg .eternia.chat-card .chat-card-title {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.lhc-msg .eternia.chat-card .chat-card-title h3 {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: none;
+  color: var(--c-primary-dark);
+  font: 600 15px/1.2 var(--c-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: none;
+}
+.lhc-msg .eternia.chat-card .chat-card-type,
+.lhc-msg .eternia.chat-card .chat-card-weapon {
+  color: var(--c-soft);
+  font: 400 9.5px/1.3 var(--c-sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.lhc-msg .eternia.chat-card.skill-chat-card .chat-card-type {
+  display: none;
+}
+
+/* Timing · Target · Range under the name */
+.lhc-msg .lhc-sub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 6px;
+  color: var(--c-gold-dark);
+  font: 600 9.5px/1.35 var(--c-sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.lhc-msg .lhc-sub .chat-stat {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: baseline;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+.lhc-msg .lhc-sub .chat-stat-label {
+  display: none;
+}
+.lhc-msg .lhc-sub .chat-stat-value {
+  color: inherit;
+  font: inherit;
+  white-space: nowrap;
+}
+.lhc-msg .lhc-sub .chat-stat + .chat-stat::before {
+  content: "·";
+  margin-right: 6px;
+  color: var(--c-soft);
+}
+.lhc-msg .eternia.chat-card[data-timing="major"] .lhc-sub .chat-stat:first-child { color: #8c2f2f; }
+.lhc-msg .eternia.chat-card[data-timing="minor"] .lhc-sub .chat-stat:first-child { color: #a0661a; }
+.lhc-msg .eternia.chat-card[data-timing="move"] .lhc-sub .chat-stat:first-child { color: #2f7a52; }
+.lhc-msg .eternia.chat-card[data-timing="reaction"] .lhc-sub .chat-stat:first-child { color: #5d4a8a; }
+.lhc-msg .eternia.chat-card[data-timing="setup"] .lhc-sub .chat-stat:first-child,
+.lhc-msg .eternia.chat-card[data-timing="cleanup"] .lhc-sub .chat-stat:first-child { color: #1f5a6b; }
+
+/* Tags */
+.lhc-msg .eternia.chat-card .chat-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin: 0 0 6px;
+}
+.lhc-msg .eternia.chat-card .chat-card-tags .tag {
+  margin: 0;
+  padding: 2px 5px;
+  border: none;
+  border-radius: 2px;
+  background: var(--c-primary);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font: 500 9.5px/1.3 var(--c-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Check and Damage as a small table */
+.lhc-msg .lhc-spec {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 2px 9px;
+  margin: 0 0 6px;
+  padding: 5px 8px;
+  border-left: 2px solid var(--c-primary);
+  background: rgba(255, 255, 255, 0.38);
+}
+.lhc-msg .lhc-spec .chat-stat {
+  display: contents;
+}
+.lhc-msg .lhc-spec .chat-stat-label {
+  align-self: center;
+  color: var(--c-soft);
+  font: 600 9.5px/1.5 var(--c-sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.lhc-msg .lhc-spec .chat-stat-value {
+  text-align: left;
+  color: var(--c-ink);
+  font: 500 12.5px/1.35 var(--c-serif);
+}
+
+/* SR, Cost, Limit as chips */
+.lhc-msg .lhc-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0 0 7px;
+}
+.lhc-msg .lhc-chips .chat-stat {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 4px;
+  margin: 0;
+  padding: 1px 7px;
+  border: 1px solid var(--c-line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: none;
+}
+.lhc-msg .lhc-chips .chat-stat-label {
+  color: var(--c-soft);
+  font: 600 8.5px/1.4 var(--c-sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.lhc-msg .lhc-chips .chat-stat-value {
+  color: var(--c-primary-dark);
+  font: 600 11px/1.4 var(--c-serif);
+}
+.lhc-msg .chat-stat.lhc-empty {
+  display: none !important;
+}
+.lhc-msg .lh-modified {
+  color: var(--c-gold-dark);
+}
+
+/* Notes, effects applied, warnings */
+.lhc-msg .lh-skill-notes {
+  margin: 0 0 6px;
+  padding: 4px 8px;
+  border-left: 2px solid var(--c-gold);
+  background: rgba(201, 169, 78, 0.12);
+  list-style: none;
+  font-size: 11.5px;
+}
+.lhc-msg .lh-note-source {
+  color: var(--c-soft);
+  font-style: italic;
+}
+.lhc-msg .item-use-note,
+.lhc-msg .item-use-applied,
+.lhc-msg .skill-card-applied {
+  margin: 0 0 6px;
+  padding: 3px 7px;
+  border: none;
+  border-left: 2px solid var(--c-primary);
+  border-radius: 0;
+  background: rgba(31, 81, 55, 0.08);
+  color: var(--c-primary-dark);
+  font-size: 11.5px;
+}
+.lhc-msg .item-use-note {
+  border-left-color: var(--c-gold-dark);
+  background: rgba(201, 169, 78, 0.14);
+  color: #5a4300;
+}
+
+/* Buttons */
+.lhc-msg .eternia.chat-card .chat-card-rolls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0 0 6px;
+}
+.chat-message.lhc-msg .chat-card button,
+.chat-message.lhc-msg .message-content > button {
+  display: inline-flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+  height: 26px;
+  margin: 0;
+  padding: 0 9px;
+  border: 1px solid var(--c-primary-dark);
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--c-primary-light), var(--c-primary));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  color: #f5f0e4;
+  font: 600 11.5px/1 var(--c-serif);
+  letter-spacing: 0.02em;
+  text-shadow: none;
+  text-transform: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease-out, box-shadow 0.15s ease-out, color 0.15s ease-out;
+}
+.chat-message.lhc-msg .chat-card button i,
+.chat-message.lhc-msg .message-content > button i {
+  margin: 0;
+  font-size: 11px;
+}
+.chat-message.lhc-msg .chat-card button:hover:not(:disabled),
+.chat-message.lhc-msg .message-content > button:hover:not(:disabled) {
+  border-color: var(--c-gold-dark);
+  background: linear-gradient(180deg, #e2c36a, var(--c-gold));
+  box-shadow: 0 0 6px rgba(201, 169, 78, 0.55);
+  color: #2c2206;
+}
+.chat-message.lhc-msg .chat-card button:disabled,
+.chat-message.lhc-msg .message-content > button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Fate buttons: gold, small */
+.chat-message.lhc-msg button.lhauto-fate {
+  flex: 0 0 auto;
+  border-color: var(--c-gold-dark);
+  background: linear-gradient(180deg, #ecd27e, var(--c-gold));
+  color: #3a2c08;
+}
+.chat-message.lhc-msg button.lhauto-fate:hover:not(:disabled) {
+  border-color: var(--c-primary-dark);
+  background: linear-gradient(180deg, var(--c-primary-light), var(--c-primary));
+  color: #f5f0e4;
+}
+.chat-message.lhc-msg button.lhauto-fate i {
+  color: inherit;
+}
+.chat-message.lhc-msg button.lhauto-fate-die {
+  padding: 0 7px;
+}
+.chat-message.lhc-msg .lh-attack-card > button.lhauto-fate-reroll,
+.chat-message.lhc-msg .message-content > button.lhauto-fate-reroll {
+  display: flex;
+  height: 22px;
+  margin: 0 0 6px auto;
+  font-size: 10.5px;
+}
+.chat-message.lhc-msg .message-content > button.lhauto-fate-reroll {
+  margin: 2px 0 0 auto;
+}
+.chat-message.lhc-msg .lh-attack-card > button.lhauto-attack-damage {
+  display: flex;
+  width: 100%;
+  margin-top: 6px;
+}
+.lhc-msg .lhauto-fate-mark {
+  margin: 4px 0 0;
+  color: var(--c-gold-dark);
+  font: italic 11px/1.3 var(--c-body);
+}
+
+/* Description, folded */
+.lhc-msg details.lhc-desc {
+  margin: 2px 0 0;
+  border-top: 1px dashed var(--c-line);
+}
+.lhc-msg details.lhc-desc > summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 0 1px;
+  color: var(--c-soft);
+  font: 600 9.5px/1.3 var(--c-sans);
+  letter-spacing: 0.06em;
+  list-style: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.lhc-msg details.lhc-desc > summary::-webkit-details-marker {
+  display: none;
+}
+.lhc-msg details.lhc-desc > summary i {
+  font-size: 10px;
+  transition: transform 0.15s ease-out;
+}
+.lhc-msg details.lhc-desc[open] > summary i {
+  transform: rotate(90deg);
+}
+.lhc-msg details.lhc-desc > summary:hover {
+  color: var(--c-primary);
+}
+.lhc-msg .lhc-desc-peek {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--c-soft);
+  font: italic 400 11.5px/1.3 var(--c-body);
+  letter-spacing: 0;
+  text-overflow: ellipsis;
+  text-transform: none;
+  white-space: nowrap;
+}
+.lhc-msg details.lhc-desc[open] .lhc-desc-peek {
+  display: none;
+}
+.lhc-msg .eternia.chat-card .chat-card-description {
+  margin: 4px 0 0;
+  padding: 0;
+  border: none;
+  color: var(--c-ink);
+  font: 400 12.5px/1.45 var(--c-body);
+}
+.lhc-msg .chat-card-description p {
+  margin: 0 0 5px;
+}
+.lhc-msg .chat-card-description hr {
+  margin: 6px 0;
+  border: none;
+  border-top: 1px solid var(--c-line);
+}
+/* Inline rolls and links inside the text */
+.chat-message.lhc-msg a.inline-roll,
+.chat-message.lhc-msg a.content-link {
+  padding: 0 4px;
+  border: 1px solid var(--c-line);
+  border-radius: 3px;
+  background: rgba(31, 81, 55, 0.1);
+  color: var(--c-primary-dark);
+  font: 600 12px/1.4 var(--c-serif);
+  white-space: nowrap;
+}
+.chat-message.lhc-msg a.inline-roll i,
+.chat-message.lhc-msg a.content-link i {
+  color: var(--c-primary);
+}
+.chat-message.lhc-msg a.inline-roll:hover,
+.chat-message.lhc-msg a.content-link:hover {
+  border-color: var(--c-gold-dark);
+  background: rgba(201, 169, 78, 0.25);
+  text-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
+   Combat cards: targets and Apply
+   -------------------------------------------------------------------------- */
+.lhc-msg .lh-card-bonuses {
+  margin: 0 0 6px;
+  color: var(--c-primary);
+  font: italic 11px/1.3 var(--c-body);
+}
+.lhc-msg .lh-combat-card .lh-targets {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.lhc-msg .lh-combat-card .lh-target {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  padding: 4px 5px;
+  border: 1px solid var(--c-line);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: none;
+  color: var(--c-ink);
+}
+.lhc-msg .lh-attack-card .lh-target {
+  flex-wrap: nowrap;
+}
+.lhc-msg .lh-combat-card .lh-target-line {
+  display: flex;
+  flex: 1 1 100%;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+.lhc-msg .lh-combat-card .lh-target-img {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--c-gold-dark);
+  border-radius: 3px;
+  object-fit: cover;
+}
+.lhc-msg .lh-combat-card .lh-target-name {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  font: 600 12.5px/1.2 var(--c-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhc-msg .lh-combat-card .lh-distance {
+  flex: 0 0 auto;
+  color: var(--c-soft);
+  font: 400 9.5px/1 var(--c-sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.lhc-msg .lh-combat-card .lh-dodge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 24px;
+  padding: 1px 5px;
+  border: 1px solid var(--c-line);
+  border-radius: 3px;
+  background: #fffaf0;
+  color: var(--c-ink);
+  font: 700 12px/1.2 var(--c-serif);
+}
+.lhc-msg .lh-combat-card .lh-dodge .fa-star,
+.lhc-msg .lh-combat-card .lhauto-fate-star { color: var(--c-gold-dark); }
+.lhc-msg .lh-combat-card .lh-dodge .fa-skull { color: var(--c-red); }
+.lhc-msg .lh-combat-card .lh-result {
+  flex: 0 0 auto;
+  padding: 2px 6px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font: 700 9.5px/1.2 var(--c-sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.lhc-msg .lh-combat-card .lh-result.hit {
+  border-color: var(--c-primary-dark);
+  background: var(--c-primary);
+  color: #f5f0e4;
+}
+.lhc-msg .lh-combat-card .lh-result.miss {
+  border-color: var(--c-red);
+  background: transparent;
+  color: var(--c-red);
+}
+.lhc-msg .lh-combat-card .lh-result.pending {
+  border: 1px dashed var(--c-gold-dark);
+  background: rgba(201, 169, 78, 0.16);
+  color: var(--c-gold-dark);
+}
+.chat-message.lhc-msg .lh-combat-card button.lh-roll-dodge,
+.chat-message.lhc-msg .lh-combat-card button.lhauto-fate-dodge {
+  flex: 0 0 auto;
+  height: 22px;
+  padding: 0 7px;
+  font-size: 10.5px;
+}
+.lhc-msg .lh-combat-card .lh-badge {
+  flex: 0 0 auto;
+  padding: 1px 5px;
+  border: 1px solid var(--c-red);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--c-red);
+  font: 600 9px/1.2 var(--c-sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.lhc-msg .lh-combat-card .lh-target .lh-applied {
+  flex: 0 0 auto;
+  padding: 1px 6px;
+  border-radius: 9px;
+  background: rgba(140, 47, 47, 0.12);
+  color: var(--c-red);
+  font: 700 11px/1.3 var(--c-serif);
+}
+.lhc-msg .lh-combat-card .lh-apply-buttons {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 3px;
+  min-width: 0;
+  margin: 2px 0 0;
+}
+.chat-message.lhc-msg .lh-combat-card .lh-apply-buttons button {
+  flex: 0 1 auto;
+  height: 22px;
+  padding: 0 7px;
+  font-size: 10.5px;
+}
+.chat-message.lhc-msg .lh-combat-card .lh-apply-buttons button[data-mode="damage"] {
+  flex: 1 1 auto;
+}
+.chat-message.lhc-msg .lh-combat-card button.lh-apply[data-mode="heal"] {
+  border-color: #1f4d40;
+  background: linear-gradient(180deg, #3f8a74, var(--c-teal));
+}
+.chat-message.lhc-msg .lh-combat-card button.lh-apply[data-mode="direct"] {
+  border-color: #5a1d1d;
+  background: linear-gradient(180deg, #a5463a, var(--c-red));
+}
+.lhc-msg .lh-combat-card .lh-target.lh-selected {
+  border-style: dashed;
+}
+
+/* Applied damage */
+.lhc-msg .lh-applied-card .lh-applied-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 4px;
+  font: 400 12px/1.3 var(--c-body);
+}
+.lhc-msg .lh-applied-card .lhc-who {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--c-soft);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhc-msg .lh-applied-card .lhc-who strong {
+  color: var(--c-primary-dark);
+  font: 600 13px/1.3 var(--c-serif);
+}
+.lhc-msg .lh-applied-card .lh-applied-title .lh-applied {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--c-red);
+  color: #fff;
+  font: 700 11.5px/1.2 var(--c-serif);
+}
+.lhc-msg .lh-applied-card .lh-applied-title .lh-applied.heal {
+  background: var(--c-teal);
+}
+.lhc-msg .lh-applied-card .lh-applied-lines {
+  margin: 0 0 6px;
+  padding: 2px 0 2px 8px;
+  border-left: 2px solid var(--c-line);
+  background: none;
+  color: var(--c-soft);
+  font: 400 11.5px/1.4 var(--c-body);
+  list-style: none;
+}
+.lhc-msg .lh-applied-card .lh-applied-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+.chat-message.lhc-msg .lh-applied-card .lh-applied-buttons button {
+  flex: 0 0 auto;
+  height: 22px;
+  padding: 0 8px;
+  border-color: var(--c-line);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--c-primary);
+  font-size: 10.5px;
+}
+.lhc-msg .lh-applied-card.undone {
+  opacity: 0.6;
+}
+.lhc-msg .lh-applied-card.undone .lh-applied-title {
+  text-decoration: line-through;
+}
+.lhc-msg .lh-undone,
+.lhc-msg .lhauto-undone {
+  color: var(--c-soft);
+  font: italic 11px/1.3 var(--c-body);
+  text-align: right;
+}
+
+/* --------------------------------------------------------------------------
+   Round phases: a thin divider
+   -------------------------------------------------------------------------- */
+.chat-message.lhc-msg.lhc-phase {
+  margin: 6px 3px;
+  border-color: rgba(44, 58, 47, 0.6);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.chat-message.lhc-msg.lhc-phase .message-header {
+  display: none;
+}
+.chat-message.lhc-msg.lhc-phase .message-content {
+  padding: 4px 9px;
+}
+.lhc-msg .eternia.chat-card.lh-phase-card .chat-card-header {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+.lhc-msg .eternia.chat-card.lh-phase-card .chat-card-title {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+.lhc-msg .lh-phase-card .chat-card-title::before,
+.lhc-msg .lh-phase-card .chat-card-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--c-gold));
+}
+.lhc-msg .lh-phase-card .chat-card-title::after {
+  background: linear-gradient(90deg, var(--c-gold), transparent);
+}
+.lhc-msg .eternia.chat-card.lh-phase-card .chat-card-title h3 {
+  flex: 0 0 auto;
+  font: 700 11.5px/1.3 var(--c-serif);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.lhc-msg .lh-phase-card.cleanup .chat-card-title h3 {
+  color: #4a2f6b;
+}
+.lhc-msg .eternia.chat-card.lh-phase-card .chat-card-type {
+  flex: 0 0 auto;
+  order: 2;
+}
+.lhc-msg .lh-phase-card.standby {
+  text-align: center;
+}
+.lhc-msg .lh-phase-card.standby p {
+  margin: 0;
+  color: var(--c-gold-dark);
+  font: italic 11.5px/1.3 var(--c-body);
+}
+
+/* --------------------------------------------------------------------------
+   Summaries, expired effects, gold
+   -------------------------------------------------------------------------- */
+.lhc-msg .lhauto-card .chat-card-header h3 {
+  margin: 0;
+  color: var(--c-primary-dark);
+  font: 600 14px/1.2 var(--c-serif);
+}
+.lhc-msg .lhauto-card ul {
+  margin: 0;
+  padding: 0 0 0 14px;
+  color: var(--c-ink);
+  font-size: 12px;
+}
+.lhc-msg .lhauto-card p {
+  margin: 0;
+}
+.lhc-msg .lhauto-gold-card i {
+  color: var(--c-gold-dark);
+}
+.lhc-msg .lh-expiry-card .chat-card-header {
+  justify-content: flex-start;
+}
+.lhc-msg .lh-expiry-card h3 {
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: var(--c-primary-dark);
+  font: 600 14px/1.2 var(--c-serif);
+  text-align: left;
+}
+.lhc-msg .lh-expiry-card .lh-expiry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+}
+.lhc-msg .lh-expiry-card .actor-name {
+  color: var(--c-primary-dark);
+  font-family: var(--c-serif);
+}
+.lhc-msg .lh-expiry-card .effect-label {
+  color: var(--c-ink);
+}
+.lhc-msg .lh-expiry-card .expiry-reason {
+  color: var(--c-soft);
+  font-style: italic;
+}
+
+/* The line under a used skill (use.mjs): cost, uses, Undo */
+.lhc-msg .lhauto-use {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3px 8px;
+  margin: 6px 0 0;
+  padding: 5px 0 0;
+  border-top: 1px dashed var(--c-line);
+  color: var(--c-soft);
+  font: 400 11px/1.35 var(--c-body);
+}
+.lhc-msg .lhauto-use .lhauto-use-parts {
+  flex: 1;
+  min-width: 0;
+}
+.lhc-msg .lhauto-use .lhauto-use-parts i,
+.lhc-msg .lhauto-use > span > i {
+  margin-right: 3px;
+  color: var(--c-primary);
+}
+.lhc-msg .lhauto-use .lhauto-forced {
+  flex: 1 1 100%;
+  color: #8a5a10;
+  font-size: 10.5px;
+}
+.chat-message.lhc-msg .lhauto-use button.lhauto-undo {
+  flex: 0 0 auto;
+  height: 20px;
+  padding: 0 7px;
+  border-color: var(--c-line);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--c-primary);
+  font-size: 10px;
+}
+.lhc-msg .lhauto-use.undone .lhauto-use-parts {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-message.lhc-msg *,
+  .chat-message.lhc-msg *::before,
+  .chat-message.lhc-msg *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Statuses written in the cards, applied with a click (status-links.mjs) */
+.chat-message .lhauto-status {
+  padding: 0 2px;
+  border-bottom: 1px dotted currentColor;
+  border-radius: 2px;
+  color: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.chat-message .lhauto-status i {
+  margin-right: 3px;
+  font-size: 0.8em;
+  opacity: 0.6;
+}
+.chat-message .lhauto-status:hover {
+  background: rgba(31, 81, 55, 0.12);
+  text-shadow: none;
+}
+.chat-message.lhc-msg .lhauto-status {
+  color: #1f5137;
+}

@@ -12,7 +12,7 @@
 
 export const CLIENT_ID = foundry.utils.randomID();
 
-const SOCKET = "system.lhtrpg";
+const SOCKET = "system.eternia";
 const SCOPE = "clients";
 const HEARTBEAT = 5000;
 const TIMEOUT = 12000;

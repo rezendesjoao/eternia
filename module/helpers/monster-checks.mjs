@@ -92,10 +92,10 @@ async function migrateMonsterChecks() {
       await actor.update(update, { render: false, diff: false });
       migrated++;
     } catch (err) {
-      console.error(`Log Horizon TRPG | Could not migrate the checks of ${actor.uuid}`, err);
+      console.error(`Eternia | Could not migrate the checks of ${actor.uuid}`, err);
     }
   }
-  console.log(`Log Horizon TRPG | Migrated Evasion/Resistance of ${migrated} monsters`);
+  console.log(`Eternia | Migrated Evasion/Resistance of ${migrated} monsters`);
   return true;
 }
 

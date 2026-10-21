@@ -30,17 +30,17 @@ export const CHECK_STATS = [
 
 /** Battle status added to a character skill's damage, by damage type. */
 const DAMAGE_POWER = { physical: "attack", magical: "magic" };
-const POWER_LABELS = { attack: "LHTRPG.Tooltip.AttackPower", magic: "LHTRPG.Tooltip.MagicPower", restoration: "LHTRPG.Tooltip.RestorationPower" };
-const VS_LABELS = { evasion: "LHTRPG.Check.Evasion", resistance: "LHTRPG.Check.Resistance", auto: "LHTRPG.Skill.Label.CheckAuto" };
+const POWER_LABELS = { attack: "ETERNIA.Tooltip.AttackPower", magic: "ETERNIA.Tooltip.MagicPower", restoration: "ETERNIA.Tooltip.RestorationPower" };
+const VS_LABELS = { evasion: "ETERNIA.Check.Evasion", resistance: "ETERNIA.Check.Resistance", auto: "ETERNIA.Skill.Label.CheckAuto" };
 const TYPE_LABELS = {
-  physical: "LHTRPG.Skill.Label.DamagePhysical", magical: "LHTRPG.Skill.Label.DamageMagical",
-  penetrating: "LHTRPG.Combat.Type.penetrating", direct: "LHTRPG.Combat.Type.direct"
+  physical: "ETERNIA.Skill.Label.DamagePhysical", magical: "ETERNIA.Skill.Label.DamageMagical",
+  penetrating: "ETERNIA.Combat.Type.penetrating", direct: "ETERNIA.Combat.Type.direct"
 };
-const RECOVERY_LABEL = "LHTRPG.Skill.Label.DamageRecovery";
+const RECOVERY_LABEL = "ETERNIA.Skill.Label.DamageRecovery";
 
 const toInt = value => Math.trunc(Number(value) || 0);
 const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
-const statLabel = stat => game.i18n.localize(`LHTRPG.Check.${capitalize(stat)}`);
+const statLabel = stat => game.i18n.localize(`ETERNIA.Check.${capitalize(stat)}`);
 
 /**
  * Read dice and modifier from text like "Opposed (5+2D vs Evasion)", "2D + 4", "13 Fixed".
@@ -226,7 +226,7 @@ function skillRoller(item) {
  * @returns {Actor[]}
  */
 function rollTargets(attackMessage, defaultTargets) {
-  const attack = attackMessage?.getFlag("lhtrpg", "attack");
+  const attack = attackMessage?.getFlag("eternia", "attack");
   const uuids = attack ? attack.targets.filter(t => t.hit !== false).map(t => t.actorUuid)
     : game.user.targets.size ? [...game.user.targets].map(t => t.actor?.uuid)
       : (defaultTargets ?? []).map(t => t.actorUuid);
@@ -245,7 +245,7 @@ function rollTargets(attackMessage, defaultTargets) {
  */
 export async function rollSkill(item, which, { targets } = {}) {
   const system = item.system;
-  const title = `${item.name} - ${game.i18n.localize(`LHTRPG.Skill.Label.${which === "check" ? "Check" : "Damage"}`)}`;
+  const title = `${item.name} - ${game.i18n.localize(`ETERNIA.Skill.Label.${which === "check" ? "Check" : "Damage"}`)}`;
   const values = system[which];
   const monster = isMonsterSkill(item);
   // Character skill: the check stat, or the powers added to its damage.
@@ -274,7 +274,7 @@ export async function rollSkill(item, which, { targets } = {}) {
   if (stat || powers.length) {
     actor = skillRoller(item);
     if (!actor) {
-      ui.notifications.warn(game.i18n.localize("LHTRPG.Skill.Notif.NoCharacter"));
+      ui.notifications.warn(game.i18n.localize("ETERNIA.Skill.Notif.NoCharacter"));
       return null;
     }
     if (which === "check") {

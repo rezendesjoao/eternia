@@ -13,7 +13,7 @@
  *                        Power base already is the main weapon's, so "Attack Power becomes [Weapon's x2]" is
  *                        "+@weapon.attack" on Attack Power, and "[both weapons' combined]" is "+@offhand.attack".
  *
- * Formulas are evaluated by LHTrpgActiveEffect.applyChange. On a character the attribute modifiers are computed
+ * Formulas are evaluated by EterniaActiveEffect.applyChange. On a character the attribute modifiers are computed
  * after the effects are applied (prepareDerivedData), so changes that read them go to a phase of their own
  * (ATTRIBUTES_PHASE), applied right after computing the modifiers, before checks and battle statuses (see actor.mjs).
  * Effects copied to a target when a skill is used get their formulas resolved at that moment (item-use.mjs).
@@ -79,7 +79,7 @@ function weaponPowers(weapon) {
 }
 
 /**
- * Evaluate a formula, rounding down (Log Horizon rounds fractions down).
+ * Evaluate a formula, rounding down (Eternia rounds fractions down).
  * @param {string} value
  * @param {object} data      See formulaData
  * @returns {number|null}    null when the formula can't be evaluated

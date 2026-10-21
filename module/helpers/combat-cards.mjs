@@ -21,9 +21,9 @@ import { skillModifiers } from "./roll-bonuses.mjs";
 import { hateRank } from "./effect-conditions.mjs";
 
 const TEMPLATES = {
-  attack: "systems/lhtrpg/templates/chat/attack-card.hbs",
-  damage: "systems/lhtrpg/templates/chat/damage-card.hbs",
-  applied: "systems/lhtrpg/templates/chat/damage-applied.hbs"
+  attack: "systems/eternia/templates/chat/attack-card.hbs",
+  damage: "systems/eternia/templates/chat/damage-card.hbs",
+  applied: "systems/eternia/templates/chat/damage-applied.hbs"
 };
 
 /** Damage modes of the damage card buttons. */
@@ -32,7 +32,7 @@ const MODES = ["damage", "half", "double", "direct", "heal"];
 const PATCHABLE = { attack: ["dodge", "hit"], damage: ["applied"] };
 
 const toInt = value => Math.trunc(Number(value) || 0);
-const L = key => game.i18n.localize(`LHTRPG.Combat.${key}`);
+const L = key => game.i18n.localize(`ETERNIA.Combat.${key}`);
 
 /* -------------------------------------------- */
 /*  Registration                                */
@@ -217,7 +217,7 @@ function bestTagged(bad, list, legacy, tags) {
 
 async function renderCard(kind, data, roll) {
   const labels = {
-    vs: data.vs ? game.i18n.localize(`LHTRPG.Check.${data.vs.capitalize()}`) : "",
+    vs: data.vs ? game.i18n.localize(`ETERNIA.Check.${data.vs.capitalize()}`) : "",
     type: data.recovery ? L("Type.recovery") : L(`Type.${data.type}`)
   };
   return foundry.applications.handlebars.renderTemplate(TEMPLATES[kind], {
@@ -235,21 +235,21 @@ async function renderCard(kind, data, roll) {
 async function updateCardTarget(message, kind, index, patch) {
   if (message.isOwner) return _applyTargetPatch(message, kind, index, patch);
   const result = await request("combatCardUpdate", { messageId: message.id, kind, index, patch });
-  if (!result.ok) ui.notifications.warn(game.i18n.localize(result.error ?? "LHTRPG.Piles.Error.Generic"));
+  if (!result.ok) ui.notifications.warn(game.i18n.localize(result.error ?? "ETERNIA.Piles.Error.Generic"));
 }
 
 async function _applyTargetPatch(message, kind, index, patch) {
-  const data = foundry.utils.deepClone(message.getFlag("lhtrpg", kind));
+  const data = foundry.utils.deepClone(message.getFlag("eternia", kind));
   if (!data?.targets?.[index]) return;
   Object.assign(data.targets[index], patch);
   const content = await renderCard(kind, data, message.rolls[0]);
-  return message.update({ content, [`flags.lhtrpg.${kind}`]: data });
+  return message.update({ content, [`flags.eternia.${kind}`]: data });
 }
 
 /** GM side of updateCardTarget: only the owner of that target may change it. */
 async function _onCardUpdateRequest({ messageId, kind, index, patch }, user) {
   const message = game.messages.get(messageId);
-  const target = message?.getFlag("lhtrpg", kind)?.targets?.[index];
+  const target = message?.getFlag("eternia", kind)?.targets?.[index];
   if (!target || !PATCHABLE[kind]) return { ok: false };
   if (!targetActor(target)?.testUserPermission(user, "OWNER")) return { ok: false };
   const allowed = Object.fromEntries(Object.entries(patch ?? {}).filter(([k]) => PATCHABLE[kind].includes(k)));
@@ -298,7 +298,7 @@ export async function createAttackCard(item, attacker, formula, flavor, { bonuse
   }));
   const far = targets.filter(t => (range !== null) && (t.distance !== null) && (t.distance > range));
   if (far.length) {
-    ui.notifications.warn(game.i18n.format("LHTRPG.Combat.Notif.OutOfRange", {
+    ui.notifications.warn(game.i18n.format("ETERNIA.Combat.Notif.OutOfRange", {
       names: far.map(t => `${t.name} (${t.distance} Sq)`).join(", "), range: rangeLabel
     }));
     return null;
@@ -340,7 +340,7 @@ export async function createAttackCard(item, attacker, formula, flavor, { bonuse
     speaker: ChatMessage.getSpeaker({ actor: attacker ?? item.actor }),
     content: await renderCard("attack", data, rolls[0]),
     rolls,
-    flags: { lhtrpg: { attack: data } }
+    flags: { eternia: { attack: data } }
   };
   ChatMessage.applyMode(messageData);
   return ChatMessage.create(messageData);
@@ -348,7 +348,7 @@ export async function createAttackCard(item, attacker, formula, flavor, { bonuse
 
 /** A character's owner rolls its Dodge Check from the attack card. */
 async function onRollDodge(message, index) {
-  const data = message.getFlag("lhtrpg", "attack");
+  const data = message.getFlag("eternia", "attack");
   const target = data?.targets?.[index];
   const actor = target && targetActor(target);
   if (!actor?.isOwner || target.dodge) return;
@@ -371,7 +371,7 @@ const ATTACK_LOOKBACK = 30;
  */
 export function findAttackMessage(item) {
   const recent = game.messages.contents.slice(-ATTACK_LOOKBACK).reverse();
-  return recent.find(m => m.getFlag("lhtrpg", "attack")?.itemUuid === item.uuid) ?? null;
+  return recent.find(m => m.getFlag("eternia", "attack")?.itemUuid === item.uuid) ?? null;
 }
 
 /**
@@ -386,7 +386,7 @@ export function findAttackMessage(item) {
  */
 export async function createDamageCard(item, attacker, formula, flavor, attackMessage, defaultTargets, { bonuses = "" } = {}) {
   const roll = await new Roll(formula).evaluate();
-  const attack = attackMessage?.getFlag("lhtrpg", "attack");
+  const attack = attackMessage?.getFlag("eternia", "attack");
   const targets = attack
     ? attack.targets.filter(t => t.hit !== false).map(t => ({
       tokenUuid: t.tokenUuid, actorUuid: t.actorUuid, name: t.name, img: t.img,
@@ -416,7 +416,7 @@ export async function createDamageCard(item, attacker, formula, flavor, attackMe
     speaker: ChatMessage.getSpeaker({ actor: attacker ?? item.actor }),
     content: await renderCard("damage", data, roll),
     rolls: [roll],
-    flags: { lhtrpg: { damage: data } }
+    flags: { eternia: { damage: data } }
   };
   ChatMessage.applyMode(messageData);
   return ChatMessage.create(messageData);
@@ -480,7 +480,7 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   if (mode === "double") amount *= 2;
   const steps = [`${amount}`];
   const tags = [...(card.tags ?? []), ...(TYPE_TAGS[direct ? "direct" : card.type] ?? [])];
-  const tagLabel = (status, entry) => game.i18n.localize(`LHTRPG.StatusEffect.${status}`) + (entry.tag ? ` (${entry.tag})` : "");
+  const tagLabel = (status, entry) => game.i18n.localize(`ETERNIA.StatusEffect.${status}`) + (entry.tag ? ` (${entry.tag})` : "");
   if (!direct) {
     const defense = defenseOf(actor, card.type);
     if (defense) steps.push(`− ${defense} ${L(card.type === "magical" ? "Applied.MDef" : "Applied.PDef")}`);
@@ -490,7 +490,7 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   }
   amount = Math.max(amount, 0);
   const absorbed = hit(amount);
-  if (absorbed) steps.push(`− ${absorbed} ${game.i18n.localize("LHTRPG.StatusEffect.barrier")}`);
+  if (absorbed) steps.push(`− ${absorbed} ${game.i18n.localize("ETERNIA.StatusEffect.barrier")}`);
   lines.push(`${L(direct ? "Mode.direct" : "Applied.Damage")}: ${steps.join(" ")} → ${amount - absorbed} HP`);
 
   // Failed Dodge Check: Hate Damage, Pursuit, Weakness (direct damage, each through Barrier)
@@ -499,7 +499,7 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
     const extra = (label, value) => {
       if (value <= 0) return;
       const absorbed = hit(value);
-      lines.push(`${label}: ${value}${absorbed ? ` − ${absorbed} ${game.i18n.localize("LHTRPG.StatusEffect.barrier")}` : ""} → ${value - absorbed} HP`);
+      lines.push(`${label}: ${value}${absorbed ? ` − ${absorbed} ${game.i18n.localize("ETERNIA.StatusEffect.barrier")}` : ""} → ${value - absorbed} HP`);
     };
     if ((card.hateMultiplier > 0) && (hateRank(actor) === "top")) {
       extra(L("Applied.Hate"), Math.floor(before.hate * card.hateMultiplier));
@@ -509,7 +509,7 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
       const pursuits = [...before.pursuits];
       pursuits.splice(pursuits.indexOf(top), 1);
       updates["system.bad-status.pursuits"] = pursuits;
-      extra(game.i18n.localize("LHTRPG.StatusEffect.pursuit"), top);
+      extra(game.i18n.localize("ETERNIA.StatusEffect.pursuit"), top);
     }
     const weakness = bestTagged(bad, "weaknesses", "weakness", tags);
     if (weakness) extra(tagLabel("weakness", weakness), weakness.value);
@@ -539,14 +539,14 @@ async function postApplied(actor, card, before, lines, result) {
     content: await foundry.applications.handlebars.renderTemplate(TEMPLATES.applied, data),
     // A monster's breakdown gives away its Defense and statuses: GM only, until revealed.
     whisper: actor.hasPlayerOwner ? [] : ChatMessage.getWhisperRecipients("GM").map(u => u.id),
-    flags: { lhtrpg: { applied: data } }
+    flags: { eternia: { applied: data } }
   });
   return result;
 }
 
 /** Restore what an application changed. */
 async function undoApplied(message) {
-  const data = message.getFlag("lhtrpg", "applied");
+  const data = message.getFlag("eternia", "applied");
   const actor = data && fromUuidSync(data.actorUuid);
   if (!actor?.isOwner || data.undone) return;
   const { before } = data;
@@ -565,13 +565,13 @@ async function undoApplied(message) {
   const undone = { ...data, undone: true };
   await message.update({
     content: await foundry.applications.handlebars.renderTemplate(TEMPLATES.applied, undone),
-    "flags.lhtrpg.applied": undone
+    "flags.eternia.applied": undone
   });
 }
 
 /** A damage card button: apply to that target, or to the controlled tokens when the card has none. */
 async function onApplyDamage(message, index, mode) {
-  const card = message.getFlag("lhtrpg", "damage");
+  const card = message.getFlag("eternia", "damage");
   if (!card || !MODES.includes(mode)) return;
   if (index === null) {
     const actors = canvas.tokens.controlled.map(t => t.actor).filter(a => a?.isOwner);
@@ -591,7 +591,7 @@ async function onApplyDamage(message, index, mode) {
 /* -------------------------------------------- */
 
 function _onRenderChatMessage(message, html) {
-  const flags = message.flags?.lhtrpg ?? {};
+  const flags = message.flags?.eternia ?? {};
   const kind = flags.attack ? "attack" : flags.damage ? "damage" : null;
 
   if (kind) {

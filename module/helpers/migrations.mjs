@@ -10,7 +10,6 @@
  * `run(from)` receives the version already done (0 = never run) and returns true when finished;
  * anything else (false, or an error) leaves the migration pending, to be retried on the next load.
  */
-import { CHARACTER_OPTIONS_MIGRATION } from "./character-options.mjs";
 import { MONSTER_CHECKS_MIGRATION } from "./monster-checks.mjs";
 import { STATUSES_MIGRATION } from "./statuses.mjs";
 import { USABLE_MIGRATION } from "./item-use.mjs";
@@ -21,9 +20,8 @@ import { ON_USE_SKILLS_MIGRATION } from "./sustained.mjs";
 import { clientsDiscovered, isPrimaryGM } from "./clients.mjs";
 
 export const MIGRATIONS = [
-  CHARACTER_OPTIONS_MIGRATION,   // legacy Race/Class/Subclass fields -> items
   MONSTER_CHECKS_MIGRATION,      // legacy text Evasion/Resistance -> { dice, mod }
-  STATUSES_MIGRATION,            // legacy status effects/fields -> LH status effects
+  STATUSES_MIGRATION,            // legacy status effects/fields -> Eternia status effects
   USABLE_MIGRATION,              // usable Gear -> "usable" type (replaces the item's system data)
   TAGS_MIGRATION,                // canonical tags
   HANDS_MIGRATION,               // Two-Handed + off hand, equipped non-equipment
@@ -34,13 +32,13 @@ export const MIGRATIONS = [
 /** Register the world setting of every migration. Call during the `init` hook. */
 export function registerMigrations() {
   for (const { setting } of MIGRATIONS) {
-    game.settings.register("lhtrpg", setting, { scope: "world", config: false, type: Number, default: 0 });
+    game.settings.register("eternia", setting, { scope: "world", config: false, type: Number, default: 0 });
   }
 }
 
 /** Migrations that still have to run in this world. */
 export function pendingMigrations() {
-  return MIGRATIONS.filter(m => game.settings.get("lhtrpg", m.setting) < m.version);
+  return MIGRATIONS.filter(m => game.settings.get("eternia", m.setting) < m.version);
 }
 
 let running = null;
@@ -60,26 +58,26 @@ async function _run() {
   const pending = pendingMigrations();
   if (!pending.length) return [];
 
-  const notice = ui.notifications.info(game.i18n.localize("LHTRPG.Migration.Running"), { permanent: true });
+  const notice = ui.notifications.info(game.i18n.localize("ETERNIA.Migration.Running"), { permanent: true });
   const left = [];
   for (const migration of pending) {
-    const from = game.settings.get("lhtrpg", migration.setting);
+    const from = game.settings.get("eternia", migration.setting);
     let done = false;
     try {
       done = (await migration.run(from)) === true;
     } catch (err) {
-      console.error(`Log Horizon TRPG | Migration "${migration.id}" failed`, err);
+      console.error(`Eternia | Migration "${migration.id}" failed`, err);
     }
-    if (done) await game.settings.set("lhtrpg", migration.setting, migration.version);
+    if (done) await game.settings.set("eternia", migration.setting, migration.version);
     else left.push(migration.id);
   }
   ui.notifications.remove(notice);
 
   if (left.length) {
-    console.warn(`Log Horizon TRPG | Migrations left pending: ${left.join(", ")}`);
-    ui.notifications.warn(game.i18n.format("LHTRPG.Migration.Pending", { list: left.join(", ") }), { permanent: true });
+    console.warn(`Eternia | Migrations left pending: ${left.join(", ")}`);
+    ui.notifications.warn(game.i18n.format("ETERNIA.Migration.Pending", { list: left.join(", ") }), { permanent: true });
   } else {
-    ui.notifications.info(game.i18n.localize("LHTRPG.Migration.Done"));
+    ui.notifications.info(game.i18n.localize("ETERNIA.Migration.Done"));
   }
   return left;
 }

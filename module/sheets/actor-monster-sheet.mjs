@@ -11,31 +11,31 @@ const { HandlebarsApplicationMixin } = foundry.applications.api;
  * Sheet for monster actors in AppV2.
  * @extends {foundry.applications.sheets.ActorSheetV2}
  */
-export class LHTrpgActorMonsterSheet extends HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
+export class EterniaActorMonsterSheet extends HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
 
   static DEFAULT_OPTIONS = {
-    classes: ["lhtrpg", "sheet", "monster"],
+    classes: ["eternia", "sheet", "monster"],
     position: { width: 520, height: 550 },
     window: { resizable: true },
     form: { submitOnChange: true },
     actions: {
-      editImage: LHTrpgActorMonsterSheet.#onEditImage,
-      "monster-send-to-chat": LHTrpgActorMonsterSheet.#onSendToChat,
-      "monster-check-roll": LHTrpgActorMonsterSheet.#onRollCheck,
-      "item-create": LHTrpgActorMonsterSheet.#onItemCreate,
-      "item-edit": LHTrpgActorMonsterSheet.#onItemEdit,
-      "item-delete": LHTrpgActorMonsterSheet.#onItemDelete,
-      "item-throw": LHTrpgActorMonsterSheet.#onItemThrow,
-      create: LHTrpgActorMonsterSheet.#onManageActiveEffect,
-      edit: LHTrpgActorMonsterSheet.#onManageActiveEffect,
-      delete: LHTrpgActorMonsterSheet.#onManageActiveEffect,
-      toggle: LHTrpgActorMonsterSheet.#onManageActiveEffect
+      editImage: EterniaActorMonsterSheet.#onEditImage,
+      "monster-send-to-chat": EterniaActorMonsterSheet.#onSendToChat,
+      "monster-check-roll": EterniaActorMonsterSheet.#onRollCheck,
+      "item-create": EterniaActorMonsterSheet.#onItemCreate,
+      "item-edit": EterniaActorMonsterSheet.#onItemEdit,
+      "item-delete": EterniaActorMonsterSheet.#onItemDelete,
+      "item-throw": EterniaActorMonsterSheet.#onItemThrow,
+      create: EterniaActorMonsterSheet.#onManageActiveEffect,
+      edit: EterniaActorMonsterSheet.#onManageActiveEffect,
+      delete: EterniaActorMonsterSheet.#onManageActiveEffect,
+      toggle: EterniaActorMonsterSheet.#onManageActiveEffect
     }
   };
 
   static PARTS = {
     sheet: {
-      template: "systems/lhtrpg/templates/actor/actor-monster-sheet.html",
+      template: "systems/eternia/templates/actor/actor-monster-sheet.html",
       scrollable: [".sheet-body"]
     }
   };
@@ -139,7 +139,7 @@ export class LHTrpgActorMonsterSheet extends HandlebarsApplicationMixin(foundry.
         dice: base.dice !== e.dice,
         mod: base.mod !== e.mod,
         display: `→ ${formula(e)}`,
-        tooltip: game.i18n.format("LHTRPG.Effect.ModifiedTooltip", { base: formula(base, "6"), effective: formula(e, "6") })
+        tooltip: game.i18n.format("ETERNIA.Effect.ModifiedTooltip", { base: formula(base, "6"), effective: formula(e, "6") })
       };
     };
 
@@ -259,7 +259,7 @@ export class LHTrpgActorMonsterSheet extends HandlebarsApplicationMixin(foundry.
     if (!values) return;
     return new Roll(diceFormula(values)).toMessage({
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: `${game.i18n.localize("LHTRPG.WindowTitle.AbilityCheck")} - ${game.i18n.localize(`LHTRPG.Check.${name}`)}`
+      flavor: `${game.i18n.localize("ETERNIA.WindowTitle.AbilityCheck")} - ${game.i18n.localize(`ETERNIA.Check.${name}`)}`
     });
   }
 
@@ -275,9 +275,9 @@ export class LHTrpgActorMonsterSheet extends HandlebarsApplicationMixin(foundry.
     const pdef = system["battle-status"]?.defense?.phys ?? 0;
     const mdef = system["battle-status"]?.defense?.magic ?? 0;
     let lowerDefense;
-    if (pdef < mdef) lowerDefense = game.i18n.localize("LHTRPG.Monster.DefensePhysical");
-    else if (mdef < pdef) lowerDefense = game.i18n.localize("LHTRPG.Monster.DefenseMagical");
-    else lowerDefense = game.i18n.localize("LHTRPG.Monster.DefenseEqual");
+    if (pdef < mdef) lowerDefense = game.i18n.localize("ETERNIA.Monster.DefensePhysical");
+    else if (mdef < pdef) lowerDefense = game.i18n.localize("ETERNIA.Monster.DefenseMagical");
+    else lowerDefense = game.i18n.localize("ETERNIA.Monster.DefenseEqual");
 
     const skills = await Promise.all(actor.items.filter(i => i.type === "skill").map(async item => ({
       ...item.toObject(false),
@@ -298,7 +298,7 @@ export class LHTrpgActorMonsterSheet extends HandlebarsApplicationMixin(foundry.
     };
 
     const content = await foundry.applications.handlebars.renderTemplate(
-      "systems/lhtrpg/templates/dialogs/monsterInfoCard.hbs",
+      "systems/eternia/templates/dialogs/monsterInfoCard.hbs",
       cardData
     );
 

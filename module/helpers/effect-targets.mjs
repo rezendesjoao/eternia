@@ -1,5 +1,5 @@
 /**
- * Catalog of ActiveEffect targets, broken key migrations, and readable summary helper for Log Horizon TRPG.
+ * Catalog of ActiveEffect targets, broken key migrations, and readable summary helper for Eternia.
  *
  * In character actors, prepareDerivedData recomputes values such as fate.max, health.max,
  * attributes.<attr>.mod, checks.*.total/base, battle-status.*.total/base, inventory.maxSpace/space.
@@ -17,87 +17,87 @@ import { conditionLabel } from "./effect-conditions.mjs";
 import { isSkillFilterKey, rollFilter, rollFilterLabel } from "./roll-bonuses.mjs";
 
 /**
- * Known effect target destinations in Log Horizon TRPG.
+ * Known effect target destinations in Eternia.
  * @type {{ key: string, label: string, group: "attributes"|"resources"|"checks"|"checkDice"|"battle"|"other", actorTypes: string[], kind: "number"|"dice"|"tags" }[]}
  */
 export const EFFECT_TARGETS = [
   // --- Attributes ---
   // Character accumulator fields
-  { key: "system.attributes.str.effect", label: "LHTRPG.Str", group: "attributes", actorTypes: ["character"], kind: "number" },
-  { key: "system.attributes.dex.effect", label: "LHTRPG.Dex", group: "attributes", actorTypes: ["character"], kind: "number" },
-  { key: "system.attributes.pow.effect", label: "LHTRPG.Pow", group: "attributes", actorTypes: ["character"], kind: "number" },
-  { key: "system.attributes.int.effect", label: "LHTRPG.Int", group: "attributes", actorTypes: ["character"], kind: "number" },
+  { key: "system.attributes.str.effect", label: "ETERNIA.Str", group: "attributes", actorTypes: ["character"], kind: "number" },
+  { key: "system.attributes.dex.effect", label: "ETERNIA.Dex", group: "attributes", actorTypes: ["character"], kind: "number" },
+  { key: "system.attributes.pow.effect", label: "ETERNIA.Pow", group: "attributes", actorTypes: ["character"], kind: "number" },
+  { key: "system.attributes.int.effect", label: "ETERNIA.Int", group: "attributes", actorTypes: ["character"], kind: "number" },
   // Monster direct attribute modifier fields
-  { key: "system.attributes.str.mod", label: "LHTRPG.Str", group: "attributes", actorTypes: ["monster"], kind: "number" },
-  { key: "system.attributes.dex.mod", label: "LHTRPG.Dex", group: "attributes", actorTypes: ["monster"], kind: "number" },
-  { key: "system.attributes.pow.mod", label: "LHTRPG.Pow", group: "attributes", actorTypes: ["monster"], kind: "number" },
-  { key: "system.attributes.int.mod", label: "LHTRPG.Int", group: "attributes", actorTypes: ["monster"], kind: "number" },
+  { key: "system.attributes.str.mod", label: "ETERNIA.Str", group: "attributes", actorTypes: ["monster"], kind: "number" },
+  { key: "system.attributes.dex.mod", label: "ETERNIA.Dex", group: "attributes", actorTypes: ["monster"], kind: "number" },
+  { key: "system.attributes.pow.mod", label: "ETERNIA.Pow", group: "attributes", actorTypes: ["monster"], kind: "number" },
+  { key: "system.attributes.int.mod", label: "ETERNIA.Int", group: "attributes", actorTypes: ["monster"], kind: "number" },
 
   // --- Resources ---
   // Character accumulator fields
-  { key: "system.health.effect", label: "LHTRPG.EffectTarget.MaxHP", group: "resources", actorTypes: ["character"], kind: "number" },
-  { key: "system.fate.effect", label: "LHTRPG.EffectTarget.MaxFate", group: "resources", actorTypes: ["character"], kind: "number" },
-  { key: "system.inventory.mod", label: "LHTRPG.Item.Label.BagSpace", group: "resources", actorTypes: ["character"], kind: "number" },
+  { key: "system.health.effect", label: "ETERNIA.EffectTarget.MaxHP", group: "resources", actorTypes: ["character"], kind: "number" },
+  { key: "system.fate.effect", label: "ETERNIA.EffectTarget.MaxFate", group: "resources", actorTypes: ["character"], kind: "number" },
+  { key: "system.inventory.mod", label: "ETERNIA.Item.Label.BagSpace", group: "resources", actorTypes: ["character"], kind: "number" },
   // Monster direct resource fields
-  { key: "system.health.max", label: "LHTRPG.EffectTarget.MaxHP", group: "resources", actorTypes: ["monster"], kind: "number" },
-  { key: "system.fate.max", label: "LHTRPG.EffectTarget.MaxFate", group: "resources", actorTypes: ["monster"], kind: "number" },
+  { key: "system.health.max", label: "ETERNIA.EffectTarget.MaxHP", group: "resources", actorTypes: ["monster"], kind: "number" },
+  { key: "system.fate.max", label: "ETERNIA.EffectTarget.MaxFate", group: "resources", actorTypes: ["monster"], kind: "number" },
 
   // --- Checks (modifier) ---
-  { key: "system.checks.athletics.mod", label: "LHTRPG.Check.Athletics", group: "checks", actorTypes: ["character"], kind: "number" },
-  { key: "system.checks.endurance.mod", label: "LHTRPG.Check.Endurance", group: "checks", actorTypes: ["character"], kind: "number" },
-  { key: "system.checks.disable.mod", label: "LHTRPG.Check.Disable", group: "checks", actorTypes: ["character"], kind: "number" },
-  { key: "system.checks.operation.mod", label: "LHTRPG.Check.Operation", group: "checks", actorTypes: ["character"], kind: "number" },
-  { key: "system.checks.perception.mod", label: "LHTRPG.Check.Perception", group: "checks", actorTypes: ["character"], kind: "number" },
-  { key: "system.checks.negotiation.mod", label: "LHTRPG.Check.Negotiation", group: "checks", actorTypes: ["character"], kind: "number" },
-  { key: "system.checks.knowledge.mod", label: "LHTRPG.Check.Knowledge", group: "checks", actorTypes: ["character"], kind: "number" },
-  { key: "system.checks.analysis.mod", label: "LHTRPG.Check.Analysis", group: "checks", actorTypes: ["character"], kind: "number" },
-  { key: "system.checks.accuracy.mod", label: "LHTRPG.Check.Accuracy", group: "checks", actorTypes: ["character"], kind: "number" },
-  { key: "system.checks.evasion.mod", label: "LHTRPG.Check.Evasion", group: "checks", actorTypes: ["character", "monster"], kind: "number" },
-  { key: "system.checks.resistance.mod", label: "LHTRPG.Check.Resistance", group: "checks", actorTypes: ["character", "monster"], kind: "number" },
+  { key: "system.checks.athletics.mod", label: "ETERNIA.Check.Athletics", group: "checks", actorTypes: ["character"], kind: "number" },
+  { key: "system.checks.endurance.mod", label: "ETERNIA.Check.Endurance", group: "checks", actorTypes: ["character"], kind: "number" },
+  { key: "system.checks.disable.mod", label: "ETERNIA.Check.Disable", group: "checks", actorTypes: ["character"], kind: "number" },
+  { key: "system.checks.operation.mod", label: "ETERNIA.Check.Operation", group: "checks", actorTypes: ["character"], kind: "number" },
+  { key: "system.checks.perception.mod", label: "ETERNIA.Check.Perception", group: "checks", actorTypes: ["character"], kind: "number" },
+  { key: "system.checks.negotiation.mod", label: "ETERNIA.Check.Negotiation", group: "checks", actorTypes: ["character"], kind: "number" },
+  { key: "system.checks.knowledge.mod", label: "ETERNIA.Check.Knowledge", group: "checks", actorTypes: ["character"], kind: "number" },
+  { key: "system.checks.analysis.mod", label: "ETERNIA.Check.Analysis", group: "checks", actorTypes: ["character"], kind: "number" },
+  { key: "system.checks.accuracy.mod", label: "ETERNIA.Check.Accuracy", group: "checks", actorTypes: ["character"], kind: "number" },
+  { key: "system.checks.evasion.mod", label: "ETERNIA.Check.Evasion", group: "checks", actorTypes: ["character", "monster"], kind: "number" },
+  { key: "system.checks.resistance.mod", label: "ETERNIA.Check.Resistance", group: "checks", actorTypes: ["character", "monster"], kind: "number" },
 
   // --- Check Dice ---
-  { key: "system.checks.athletics.dice", label: "LHTRPG.Check.Athletics", group: "checkDice", actorTypes: ["character"], kind: "dice" },
-  { key: "system.checks.endurance.dice", label: "LHTRPG.Check.Endurance", group: "checkDice", actorTypes: ["character"], kind: "dice" },
-  { key: "system.checks.disable.dice", label: "LHTRPG.Check.Disable", group: "checkDice", actorTypes: ["character"], kind: "dice" },
-  { key: "system.checks.operation.dice", label: "LHTRPG.Check.Operation", group: "checkDice", actorTypes: ["character"], kind: "dice" },
-  { key: "system.checks.perception.dice", label: "LHTRPG.Check.Perception", group: "checkDice", actorTypes: ["character"], kind: "dice" },
-  { key: "system.checks.negotiation.dice", label: "LHTRPG.Check.Negotiation", group: "checkDice", actorTypes: ["character"], kind: "dice" },
-  { key: "system.checks.knowledge.dice", label: "LHTRPG.Check.Knowledge", group: "checkDice", actorTypes: ["character"], kind: "dice" },
-  { key: "system.checks.analysis.dice", label: "LHTRPG.Check.Analysis", group: "checkDice", actorTypes: ["character"], kind: "dice" },
-  { key: "system.checks.accuracy.dice", label: "LHTRPG.Check.Accuracy", group: "checkDice", actorTypes: ["character"], kind: "dice" },
-  { key: "system.checks.evasion.dice", label: "LHTRPG.Check.Evasion", group: "checkDice", actorTypes: ["character", "monster"], kind: "dice" },
-  { key: "system.checks.resistance.dice", label: "LHTRPG.Check.Resistance", group: "checkDice", actorTypes: ["character", "monster"], kind: "dice" },
+  { key: "system.checks.athletics.dice", label: "ETERNIA.Check.Athletics", group: "checkDice", actorTypes: ["character"], kind: "dice" },
+  { key: "system.checks.endurance.dice", label: "ETERNIA.Check.Endurance", group: "checkDice", actorTypes: ["character"], kind: "dice" },
+  { key: "system.checks.disable.dice", label: "ETERNIA.Check.Disable", group: "checkDice", actorTypes: ["character"], kind: "dice" },
+  { key: "system.checks.operation.dice", label: "ETERNIA.Check.Operation", group: "checkDice", actorTypes: ["character"], kind: "dice" },
+  { key: "system.checks.perception.dice", label: "ETERNIA.Check.Perception", group: "checkDice", actorTypes: ["character"], kind: "dice" },
+  { key: "system.checks.negotiation.dice", label: "ETERNIA.Check.Negotiation", group: "checkDice", actorTypes: ["character"], kind: "dice" },
+  { key: "system.checks.knowledge.dice", label: "ETERNIA.Check.Knowledge", group: "checkDice", actorTypes: ["character"], kind: "dice" },
+  { key: "system.checks.analysis.dice", label: "ETERNIA.Check.Analysis", group: "checkDice", actorTypes: ["character"], kind: "dice" },
+  { key: "system.checks.accuracy.dice", label: "ETERNIA.Check.Accuracy", group: "checkDice", actorTypes: ["character"], kind: "dice" },
+  { key: "system.checks.evasion.dice", label: "ETERNIA.Check.Evasion", group: "checkDice", actorTypes: ["character", "monster"], kind: "dice" },
+  { key: "system.checks.resistance.dice", label: "ETERNIA.Check.Resistance", group: "checkDice", actorTypes: ["character", "monster"], kind: "dice" },
 
   // --- Battle Status ---
   // Character battle status modifiers
-  { key: "system.battle-status.power.attack.mod", label: "LHTRPG.Tooltip.AttackPower", group: "battle", actorTypes: ["character"], kind: "number" },
-  { key: "system.battle-status.power.magic.mod", label: "LHTRPG.Tooltip.MagicPower", group: "battle", actorTypes: ["character"], kind: "number" },
-  { key: "system.battle-status.power.restoration.mod", label: "LHTRPG.Tooltip.RestorationPower", group: "battle", actorTypes: ["character"], kind: "number" },
-  { key: "system.battle-status.defense.phys.mod", label: "LHTRPG.Monster.PDef", group: "battle", actorTypes: ["character"], kind: "number" },
-  { key: "system.battle-status.defense.magic.mod", label: "LHTRPG.Monster.MDef", group: "battle", actorTypes: ["character"], kind: "number" },
-  { key: "system.battle-status.speed.mod", label: "LHTRPG.Monster.Speed", group: "battle", actorTypes: ["character"], kind: "number" },
-  { key: "system.battle-status.initiative.mod", label: "LHTRPG.Monster.Initiative", group: "battle", actorTypes: ["character"], kind: "number" },
+  { key: "system.battle-status.power.attack.mod", label: "ETERNIA.Tooltip.AttackPower", group: "battle", actorTypes: ["character"], kind: "number" },
+  { key: "system.battle-status.power.magic.mod", label: "ETERNIA.Tooltip.MagicPower", group: "battle", actorTypes: ["character"], kind: "number" },
+  { key: "system.battle-status.power.restoration.mod", label: "ETERNIA.Tooltip.RestorationPower", group: "battle", actorTypes: ["character"], kind: "number" },
+  { key: "system.battle-status.defense.phys.mod", label: "ETERNIA.Monster.PDef", group: "battle", actorTypes: ["character"], kind: "number" },
+  { key: "system.battle-status.defense.magic.mod", label: "ETERNIA.Monster.MDef", group: "battle", actorTypes: ["character"], kind: "number" },
+  { key: "system.battle-status.speed.mod", label: "ETERNIA.Monster.Speed", group: "battle", actorTypes: ["character"], kind: "number" },
+  { key: "system.battle-status.initiative.mod", label: "ETERNIA.Monster.Initiative", group: "battle", actorTypes: ["character"], kind: "number" },
   // Monster direct battle status fields
-  { key: "system.battle-status.defense.phys", label: "LHTRPG.Monster.PDef", group: "battle", actorTypes: ["monster"], kind: "number" },
-  { key: "system.battle-status.defense.magic", label: "LHTRPG.Monster.MDef", group: "battle", actorTypes: ["monster"], kind: "number" },
-  { key: "system.battle-status.speed", label: "LHTRPG.Monster.Speed", group: "battle", actorTypes: ["monster"], kind: "number" },
-  { key: "system.battle-status.initiative", label: "LHTRPG.Monster.Initiative", group: "battle", actorTypes: ["monster"], kind: "number" },
+  { key: "system.battle-status.defense.phys", label: "ETERNIA.Monster.PDef", group: "battle", actorTypes: ["monster"], kind: "number" },
+  { key: "system.battle-status.defense.magic", label: "ETERNIA.Monster.MDef", group: "battle", actorTypes: ["monster"], kind: "number" },
+  { key: "system.battle-status.speed", label: "ETERNIA.Monster.Speed", group: "battle", actorTypes: ["monster"], kind: "number" },
+  { key: "system.battle-status.initiative", label: "ETERNIA.Monster.Initiative", group: "battle", actorTypes: ["monster"], kind: "number" },
 
   // --- Roll bonuses (roll-bonuses.mjs): rolls of the skills matching the effect's roll filter ---
-  { key: "lhtrpg.roll.check.mod", label: "LHTRPG.EffectTarget.RollCheckMod", group: "roll", actorTypes: ["character", "monster"], kind: "number" },
-  { key: "lhtrpg.roll.check.dice", label: "LHTRPG.EffectTarget.RollCheckDice", group: "roll", actorTypes: ["character", "monster"], kind: "dice" },
-  { key: "lhtrpg.roll.damage.mod", label: "LHTRPG.EffectTarget.RollDamageMod", group: "roll", actorTypes: ["character", "monster"], kind: "number" },
-  { key: "lhtrpg.roll.damage.dice", label: "LHTRPG.EffectTarget.RollDamageDice", group: "roll", actorTypes: ["character", "monster"], kind: "dice" },
+  { key: "eternia.roll.check.mod", label: "ETERNIA.EffectTarget.RollCheckMod", group: "roll", actorTypes: ["character", "monster"], kind: "number" },
+  { key: "eternia.roll.check.dice", label: "ETERNIA.EffectTarget.RollCheckDice", group: "roll", actorTypes: ["character", "monster"], kind: "dice" },
+  { key: "eternia.roll.damage.mod", label: "ETERNIA.EffectTarget.RollDamageMod", group: "roll", actorTypes: ["character", "monster"], kind: "number" },
+  { key: "eternia.roll.damage.dice", label: "ETERNIA.EffectTarget.RollDamageDice", group: "roll", actorTypes: ["character", "monster"], kind: "dice" },
   // Skill modifiers (same filter): Hate cost, range, a note
-  { key: "lhtrpg.skill.hateCost", label: "LHTRPG.EffectTarget.SkillHateCost", group: "roll", actorTypes: ["character", "monster"], kind: "number" },
-  { key: "lhtrpg.skill.range", label: "LHTRPG.EffectTarget.SkillRange", group: "roll", actorTypes: ["character", "monster"], kind: "number" },
-  { key: "lhtrpg.skill.note", label: "LHTRPG.EffectTarget.SkillNote", group: "roll", actorTypes: ["character", "monster"], kind: "text" },
+  { key: "eternia.skill.hateCost", label: "ETERNIA.EffectTarget.SkillHateCost", group: "roll", actorTypes: ["character", "monster"], kind: "number" },
+  { key: "eternia.skill.range", label: "ETERNIA.EffectTarget.SkillRange", group: "roll", actorTypes: ["character", "monster"], kind: "number" },
+  { key: "eternia.skill.note", label: "ETERNIA.EffectTarget.SkillNote", group: "roll", actorTypes: ["character", "monster"], kind: "text" },
 
   // --- Other ---
-  { key: "system.infos.hate", label: "LHTRPG.Label.Hate", group: "other", actorTypes: ["character"], kind: "number" },
-  { key: "system.infos.fatigue", label: "LHTRPG.Label.Fatigue", group: "other", actorTypes: ["character"], kind: "number" },
-  { key: "system.rank", label: "LHTRPG.Monster.Rank", group: "other", actorTypes: ["monster"], kind: "number" },
-  { key: "system.tags", label: "LHTRPG.Label.Tags", group: "other", actorTypes: ["character", "monster"], kind: "tags" }
+  { key: "system.infos.hate", label: "ETERNIA.Label.Hate", group: "other", actorTypes: ["character"], kind: "number" },
+  { key: "system.infos.fatigue", label: "ETERNIA.Label.Fatigue", group: "other", actorTypes: ["character"], kind: "number" },
+  { key: "system.rank", label: "ETERNIA.Monster.Rank", group: "other", actorTypes: ["monster"], kind: "number" },
+  { key: "system.tags", label: "ETERNIA.Label.Tags", group: "other", actorTypes: ["character", "monster"], kind: "tags" }
 ];
 
 /**
@@ -124,12 +124,12 @@ export const CHARACTER_ONLY_EFFECT_KEY_MIGRATIONS = {
 
 /**
  * Find the catalog entry for a target key.
- * Uses CONFIG.LHTRPG.effectTargets when available at runtime for module extensibility.
+ * Uses CONFIG.ETERNIA.effectTargets when available at runtime for module extensibility.
  * @param {string} key
  * @returns {object|null}
  */
 export function findEffectTarget(key) {
-  const catalog = globalThis.CONFIG?.LHTRPG?.effectTargets ?? EFFECT_TARGETS;
+  const catalog = globalThis.CONFIG?.ETERNIA?.effectTargets ?? EFFECT_TARGETS;
   return catalog.find(t => t.key === key) ?? null;
 }
 
@@ -213,7 +213,7 @@ export function getEffectKeyInfo(key, targetActorTypes = ["character", "monster"
     return {
       status: "derived",
       warning: true,
-      message: localize("LHTRPG.EffectTarget.Warning.Derived")
+      message: localize("ETERNIA.EffectTarget.Warning.Derived")
     };
   }
 
@@ -223,14 +223,14 @@ export function getEffectKeyInfo(key, targetActorTypes = ["character", "monster"
     return {
       status: "unknown",
       warning: true,
-      message: localize("LHTRPG.EffectTarget.Warning.Unknown")
+      message: localize("ETERNIA.EffectTarget.Warning.Unknown")
     };
   }
 
   let label;
   if (target.group === "checkDice") {
     const checkName = localize(target.label);
-    label = format("LHTRPG.EffectTarget.Dice", { check: checkName });
+    label = format("ETERNIA.EffectTarget.Dice", { check: checkName });
   } else {
     label = localize(target.label);
   }
@@ -240,7 +240,7 @@ export function getEffectKeyInfo(key, targetActorTypes = ["character", "monster"
     const type = target.actorTypes[0];
     chip = {
       type,
-      label: localize(type === "monster" ? "LHTRPG.EffectTarget.Chip.Monster" : "LHTRPG.EffectTarget.Chip.Character")
+      label: localize(type === "monster" ? "ETERNIA.EffectTarget.Chip.Monster" : "ETERNIA.EffectTarget.Chip.Character")
     };
   }
 
@@ -385,15 +385,15 @@ export function lhEffectSummary(changesOrEffect, options) {
         ? changesOrEffect
         : [];
 
-  const statusData = changesOrEffect?.flags?.lhtrpg?.statusData
-    ?? (typeof changesOrEffect?.getFlag === "function" ? changesOrEffect.getFlag("lhtrpg", "statusData") : null)
-    ?? changesOrEffect?._source?.flags?.lhtrpg?.statusData;
+  const statusData = changesOrEffect?.flags?.eternia?.statusData
+    ?? (typeof changesOrEffect?.getFlag === "function" ? changesOrEffect.getFlag("eternia", "statusData") : null)
+    ?? changesOrEffect?._source?.flags?.eternia?.statusData;
 
   let statusPart = null;
   if (statusData?.statusId) {
     const statusId = String(statusData.statusId).trim();
     const localize = str => (globalThis.game?.i18n?.localize ? globalThis.game.i18n.localize(str) : null);
-    const i18nKey = `LHTRPG.StatusEffect.${statusId}`;
+    const i18nKey = `ETERNIA.StatusEffect.${statusId}`;
     let label = localize(i18nKey);
     if (!label || (label === i18nKey)) {
       label = statusId;
@@ -426,18 +426,18 @@ export function lhEffectSummary(changesOrEffect, options) {
   }
 
   // Conditions of the effect itself (SR / CR tiers…); those of its skill show on the skill sheet.
-  const conditions = changesOrEffect?.flags?.lhtrpg?.conditions ?? changesOrEffect?._source?.flags?.lhtrpg?.conditions;
+  const conditions = changesOrEffect?.flags?.eternia?.conditions ?? changesOrEffect?._source?.flags?.eternia?.conditions;
   const conditionText = (Array.isArray(conditions) && conditions.length && globalThis.game?.i18n)
     ? conditions.map(conditionLabel).filter(Boolean).join(", ") : "";
 
-  const expires = changesOrEffect?.flags?.lhtrpg?.expires
-    ?? (typeof changesOrEffect?.getFlag === "function" ? changesOrEffect.getFlag("lhtrpg", "expires") : null)
-    ?? changesOrEffect?._source?.flags?.lhtrpg?.expires;
+  const expires = changesOrEffect?.flags?.eternia?.expires
+    ?? (typeof changesOrEffect?.getFlag === "function" ? changesOrEffect.getFlag("eternia", "expires") : null)
+    ?? changesOrEffect?._source?.flags?.eternia?.expires;
 
   const EXPIRY_LABELS = {
-    endOfProcess: "LHTRPG.EffectDuration.EndOfProcess",
-    endOfRound: "LHTRPG.EffectDuration.EndOfRound",
-    endOfScene: "LHTRPG.EffectDuration.EndOfScene"
+    endOfProcess: "ETERNIA.EffectDuration.EndOfProcess",
+    endOfRound: "ETERNIA.EffectDuration.EndOfRound",
+    endOfScene: "ETERNIA.EffectDuration.EndOfScene"
   };
 
   if (!parts.length && !conditionText) {
@@ -473,7 +473,7 @@ const MIGRATION_VERSION = 2;
  * Call during the `init` hook.
  */
 export function registerEffectTargets() {
-  CONFIG.LHTRPG.effectTargets ??= EFFECT_TARGETS;
+  CONFIG.ETERNIA.effectTargets ??= EFFECT_TARGETS;
   Handlebars.registerHelper("lhEffectSummary", lhEffectSummary);
 }
 
@@ -501,7 +501,7 @@ async function _migrateDocEffects(doc, actorType) {
       count += updates.length;
     } catch (err) {
       failed++;
-      console.error(`Log Horizon TRPG | Could not migrate ActiveEffects on ${doc.uuid}`, err);
+      console.error(`Eternia | Could not migrate ActiveEffects on ${doc.uuid}`, err);
     }
   }
 
@@ -521,7 +521,7 @@ async function _migrateDocEffects(doc, actorType) {
           count += itemUpdates.length;
         } catch (err) {
           failed++;
-          console.error(`Log Horizon TRPG | Could not migrate ActiveEffects on item ${item.uuid}`, err);
+          console.error(`Eternia | Could not migrate ActiveEffects on item ${item.uuid}`, err);
         }
       }
     }
@@ -553,10 +553,10 @@ async function _deleteLegacyEffectCopies(actor) {
   if (!ids.length) return { count: 0, failed: 0 };
   try {
     await actor.deleteEmbeddedDocuments("ActiveEffect", ids, { render: false });
-    console.log(`Log Horizon TRPG | Deleted ${ids.length} legacy effect copies on ${actor.name}`);
+    console.log(`Eternia | Deleted ${ids.length} legacy effect copies on ${actor.name}`);
     return { count: ids.length, failed: 0 };
   } catch (err) {
-    console.error(`Log Horizon TRPG | Could not delete the legacy effect copies of ${actor.uuid}`, err);
+    console.error(`Eternia | Could not delete the legacy effect copies of ${actor.uuid}`, err);
     return { count: 0, failed: 1 };
   }
 }
@@ -599,8 +599,8 @@ async function migrateEffects() {
     }
   }
 
-  console.log(`Log Horizon TRPG | Migrated ${count} active effect(s)`);
-  if (count) ui.notifications.info(game.i18n.format("LHTRPG.Effect.Migrated", { count }));
+  console.log(`Eternia | Migrated ${count} active effect(s)`);
+  if (count) ui.notifications.info(game.i18n.format("ETERNIA.Effect.Migrated", { count }));
   // Anything that failed is retried on the next load.
   return failed === 0;
 }

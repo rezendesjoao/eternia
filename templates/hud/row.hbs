@@ -1,0 +1,14 @@
+{{!-- A usable row of the action HUD (skill, Kuden piece, item power, usable item). --}}
+<li class="lhh-row{{#if unusable}} unusable{{/if}}{{#if blocked}} blocked{{/if}}{{#if pinned}} pinned{{/if}}{{#if constant}} constant{{/if}}" data-action="lhh-use" data-item-id="{{id}}" data-tip-item="{{id}}" data-tooltip-html="{{tip}}" data-tooltip-class="lhh-tip" data-tooltip-direction="RIGHT">
+	<span class="lhh-row-img"><img src="{{img}}" alt=""></span>
+	<span class="lhh-row-name">{{name}}{{#if tier}}<em class="lhh-row-tier">{{tier}}</em>{{/if}}</span>
+	<span class="lhh-row-meta">
+		{{#if qty}}<span class="lhh-chip qty">×{{qty}}</span>{{/if}}
+		{{#if sr}}<span class="lhh-chip sr">{{localize 'ETERNIA.Sheet.SRShort'}} {{sr}}</span>{{/if}}
+		{{#if cost}}<span class="lhh-chip cost">{{cost}}</span>{{/if}}
+		{{#if uses}}<span class="lhh-uses">{{#if uses.pips}}{{#each uses.pips}}<i{{#if this}} class="on"{{/if}}></i>{{/each}}{{else}}{{uses.left}}/{{uses.max}}{{/if}}</span>{{/if}}
+		{{#if limit}}<span class="lhh-chip limit">{{limit}}</span>{{/if}}
+		{{#if constant}}<span class="lhh-chip limit">{{localize 'ETERNIA.Hud.Constant'}}</span>{{/if}}
+	</span>
+	<a class="lhh-pin-toggle" data-action="lhh-pin" data-pin="item.{{id}}" aria-label="{{localize 'ETERNIA.Hud.Pin'}}"><i class="fa-solid fa-thumbtack"></i></a>
+</li>

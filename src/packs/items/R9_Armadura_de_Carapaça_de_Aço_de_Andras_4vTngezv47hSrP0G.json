@@ -1,0 +1,85 @@
+{
+  "name": "R9 Armadura de Carapaça de Aço de Andras",
+  "type": "armor",
+  "system": {
+    "description": "<p>No início da cena, você recebe [Anulação (ataques que não sejam Corpo a corpo): 10]. [Momento: Ação] Use junto com uma de suas ações que tenha a tag [Postura]. Sua próxima rolagem de dano recebe +5 (este efeito é tratado como um Estado de Combate e é removido assim que surtir efeito).\nArmadura forjada a partir de um fragmento lascado da carapaça do dragão de aço. As placas da armadura mudam de forma de acordo com a vontade de quem a veste, auxiliando tanto no ataque quanto na defesa.</p><hr><p>Carapaça do Dragão de Aço [Material-Base] (180G) + Armadura Lamelar (530G) + Escudo de Ferro (150G) + [Catalisador Mágico 9] (90G) ×3 + Custo de Fabricação (480G)</p>",
+    "tags": [
+      "Heavy Armor",
+      "Not For Sale",
+      "M6"
+    ],
+    "pdef": 29,
+    "mdef": 12,
+    "initiative": -2,
+    "rank": 9,
+    "price": 1610,
+    "equipped": false,
+    "checkType": "-",
+    "range": "-",
+    "target": "-",
+    "timing": "-",
+    "attack": 0,
+    "magic": 0,
+    "accuracy": 0
+  },
+  "img": "systems/eternia/assets/ui/items_icons/armor.svg",
+  "effects": [],
+  "sort": 800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Action",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "",
+          "text": "[Trigger: Action] Use together with one of your actions with the [Stance] tag. Your next damage roll gets +5 (this effect is treated as a Combat Status and is removed once it takes effect).",
+          "effects": [
+            {
+              "name": "R9 Steel Shell Armor of Andras",
+              "img": "systems/lhtrpg/assets/ui/items_icons/armor.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "lhtrpg.roll.damage.mod",
+                    "type": "add",
+                    "value": 5,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfRound"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "4vTngezv47hSrP0G",
+  "folder": "GSOXnkHg6C8os28Y",
+  "_key": "!items!4vTngezv47hSrP0G"
+}

@@ -2,7 +2,7 @@
   "name": "R18 M6 Clock Upper",
   "type": "weapon",
   "system": {
-    "description": "<p>[Trigger: Action & Fate 1] Used at the same time as \"Beat Up\". Adds +[\"Wyvern Kick\" SR × 6] to the direct damage dealt by the effect of \"Beat Up\".\nA metallic additional armor that envelops both hands and feet, glowing with a silver sheen. It is believed to be a special golem equipment from the Alvean era, though details are unknown. It has a function that allows for sudden bursts of initiative by utilizing excess MP released into the atmosphere.</p><hr><p>Spirit Mirror of the Autumn Rain [Core Material] (560G) + Katar (1000G) + Leggings (730G) + [Magic Catalyst 18] (310G) ×4 + Crafting Cost (1390G)</p>",
+    "description": "<p>[Momento: Ação & Destino 1] Usado ao mesmo tempo que \"Surra\". Adiciona +[NH de \"Chute da Serpe\" × 6] ao dano direto causado pelo efeito de \"Surra\".\nUma armadura adicional metálica que envolve as mãos e os pés, reluzindo com um brilho prateado. Acredita-se que seja um equipamento especial de golem da era dos Alv, embora os detalhes sejam desconhecidos. Possui uma função que permite súbitos picos de iniciativa aproveitando o excesso de PM liberado na atmosfera.</p><hr><p>Espelho Espiritual da Chuva de Outono [Material-Base] (560G) + Katar (1000G) + Perneiras (730G) + [Catalisador Mágico 18] (310G) ×4 + Custo de Fabricação (1390G)</p>",
     "tags": [
       "Two-Handed",
       "Martial Arts",
@@ -24,17 +24,30 @@
     "pdef": 0,
     "mdef": 0
   },
-  "img": "systems/lhtrpg/assets/ui/items_icons/weapon.svg",
+  "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
   "effects": [],
   "sort": 6200000,
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Action",
+          "target": "-",
+          "range": "-",
+          "cost": "Fate 1",
+          "limit": "",
+          "text": "[Trigger: Action & Fate 1] Used at the same time as \"Beat Up\". Adds +[\"Wyvern Kick\" SR × 6] to the direct damage dealt by the effect of \"Beat Up\"."
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
-    "systemId": "lhtrpg",
-    "systemVersion": "1.5.0",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

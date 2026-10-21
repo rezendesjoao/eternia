@@ -2,7 +2,7 @@
   "name": "R9 M6 Mamorugatana Hitorishizuka",
   "type": "weapon",
   "system": {
-    "description": "<p>[Trigger: Instant] You gain [Barrier:40]. Additionally, you gain +1 to [Defense Check] against attacks other than Close range (this effect is treated as a CS, and this effect is lost at the same time as the [Barrier] from this effect is lost). Once per scene.\nA slender wakizashi whose blade is sheathed in ice crystals that scatter when drawn. The frost that resides within the blade envelops its wielder, forming an ice wall that blocks and deflects enemy attacks, protecting the wielder's body.</p><hr><p>Blizzard Crystal [Core Material] (140G) + Nagamaki (490G) + Barrier Gem (Basic) (40G) ×4 + [Magic Catalyst 9] (90G) ×3 + Crafting Cost (510G)</p>",
+    "description": "<p>[Momento: Instantânea] Você recebe [Barreira:40]. Além disso, você recebe +1 no [Teste de Defesa] contra ataques que não sejam de alcance Corpo a corpo (este efeito é tratado como um Estado de Combate e se perde no mesmo momento em que a [Barreira] deste efeito se perder). Uma vez por cena.\nUm wakizashi esguio cuja lâmina é revestida de cristais de gelo que se espalham quando ele é desembainhado. A geada que habita a lâmina envolve seu portador, formando uma muralha de gelo que bloqueia e desvia os ataques inimigos e protege o corpo de quem o empunha.</p><hr><p>Cristal da Nevasca [Material-Base] (140G) + Nagamaki (490G) + Joia de Barreira I (40G) ×4 + [Catalisador Mágico 9] (90G) ×3 + Custo de Fabricação (510G)</p>",
     "tags": [
       "Two-Handed",
       "Katana",
@@ -24,17 +24,54 @@
     "pdef": 0,
     "mdef": 0
   },
-  "img": "systems/lhtrpg/assets/ui/items_icons/weapon.svg",
+  "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
   "effects": [],
   "sort": 13700000,
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Instant",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Instant] You gain [Barrier:40]. Additionally, you gain +1 to [Defense Check] against attacks other than Close range (this effect is treated as a CS, and this effect is lost at the same time as the [Barrier] from this effect is lost). Once per scene.",
+          "effects": [
+            {
+              "name": "R9 M6 Mamorugatana Hitorishizuka",
+              "img": "systems/lhtrpg/assets/ui/items_icons/weapon.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "barrier"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "barrier",
+                    "value": 40
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
-    "systemId": "lhtrpg",
-    "systemVersion": "1.5.0",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

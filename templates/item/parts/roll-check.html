@@ -1,11 +1,11 @@
 {{!-- Check of a skill or usable item: character check + extra dice, or fixed dice (monsters, items). --}}
     <div class="stat-div skill-roll">
-      <label {{#unless noRoll}}class="skill-roll-button lh-roll-button" data-action="rollSkill" data-roll="check" title="{{localize 'LHTRPG.ButtonLabel.Roll'}}"{{/unless}}>{{localize 'LHTRPG.Skill.Label.Check'}}</label>
+      <label {{#unless noRoll}}class="skill-roll-button lh-roll-button" data-action="rollSkill" data-roll="check" title="{{localize 'ETERNIA.ButtonLabel.Roll'}}"{{/unless}}>{{localize 'ETERNIA.Skill.Label.Check'}}</label>
       <div class="skill-roll-fields">
         {{#if isMonsterSkill}}
           <input class="skill-roll-dice lh-formula-mod" type="text" name="system.check.dice" list="lh-skill-dice"
             value="{{#if system.check.diceFormula}}{{system.check.diceFormula}}{{else}}{{system.check.dice}}{{/if}}"
-            placeholder="0" data-tooltip="{{localize 'LHTRPG.Skill.Label.DiceFormulaHint'}}" {{disabled (eq system.check.vs "auto")}}><span>D</span>
+            placeholder="0" data-tooltip="{{localize 'ETERNIA.Skill.Label.DiceFormulaHint'}}" {{disabled (eq system.check.vs "auto")}}><span>D</span>
         {{else}}
           {{!-- Character skill: the character's check, plus extra dice --}}
           <select class="skill-roll-stat" name="system.check.stat" {{disabled (eq system.check.vs "auto")}}>
@@ -14,12 +14,12 @@
           <span>+</span>
           <input class="skill-roll-dice lh-formula-mod" type="text" name="system.check.dice" list="lh-skill-dice"
             value="{{#if system.check.diceFormula}}{{system.check.diceFormula}}{{else}}{{system.check.dice}}{{/if}}"
-            placeholder="0" data-tooltip="{{localize 'LHTRPG.Skill.Label.ExtraDice'}} — {{localize 'LHTRPG.Skill.Label.DiceFormulaHint'}}" {{disabled (eq system.check.vs "auto")}}><span>D</span>
+            placeholder="0" data-tooltip="{{localize 'ETERNIA.Skill.Label.ExtraDice'}} — {{localize 'ETERNIA.Skill.Label.DiceFormulaHint'}}" {{disabled (eq system.check.vs "auto")}}><span>D</span>
         {{/if}}
         <span>+</span>
         <input class="skill-roll-mod lh-formula-mod" type="text" name="system.check.mod"
           value="{{#if system.check.formula}}{{system.check.formula}}{{else}}{{system.check.mod}}{{/if}}"
-          placeholder="0" data-tooltip="{{localize 'LHTRPG.Skill.Label.ModFormulaHint'}}" {{disabled (eq system.check.vs "auto")}}>
+          placeholder="0" data-tooltip="{{localize 'ETERNIA.Skill.Label.ModFormulaHint'}}" {{disabled (eq system.check.vs "auto")}}>
         <span class="skill-roll-vs">vs</span>
         <select class="skill-roll-vs-select" name="system.check.vs">
           {{selectOptions checkVsOptions selected=system.check.vs blank="-" localize=true}}

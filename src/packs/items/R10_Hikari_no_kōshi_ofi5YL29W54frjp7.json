@@ -2,7 +2,7 @@
   "name": "R10 Hikari no kōshi",
   "type": "accessory",
   "system": {
-    "description": "<p>[Trigger: Initiative] You gain [Barrier:60]. Once per scenario.〔CR21〕This item's effect cannot be used.\nSymbol of Radiant Protection A talisman imbued with a powerful protective magic. When a specific incantation is recited, it covers the wearer in a glowing lattice-shaped barrier, shielding them from various dangers.</p><hr><p>Laminated Crystal [Core Material] (180G) + Madder Charm (140G) + Kite Shield (220G) + [Magic Catalyst 10] (110G) ×4 + Crafting Cost (420G)</p>",
+    "description": "<p>[Momento: Iniciativa] Você recebe [Barreira:60]. Uma vez por Cenário.〔NP21〕O efeito deste item não pode ser usado.\nSímbolo da Proteção Radiante. Um talismã imbuído de uma poderosa magia de proteção. Quando um encantamento específico é recitado, ele envolve quem o usa numa barreira luminosa em forma de treliça, protegendo-o de diversos perigos.</p><hr><p>Cristal Laminado [Material-Base] (180G) + Amuleto de Akane (Amuleto da Flor Vermelha) (140G) + Escudo Pipa (220G) + [Catalisador Mágico 10] (110G) ×4 + Custo de Fabricação (420G)</p>",
     "tags": [
       "Accessory",
       "Not For Sale",
@@ -22,17 +22,55 @@
     "attack": 0,
     "accuracy": 0
   },
-  "img": "systems/lhtrpg/assets/ui/items_icons/accessory.svg",
+  "img": "systems/eternia/assets/ui/items_icons/accessory.svg",
   "effects": [],
   "sort": 0,
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Initiative",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scenario",
+          "text": "[Trigger: Initiative] You gain [Barrier:60]. Once per scenario.〔CR21〕This item's effect cannot be used.",
+          "crLock": 21,
+          "effects": [
+            {
+              "name": "R10 Hikari no kōshi",
+              "img": "systems/lhtrpg/assets/ui/items_icons/accessory.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "barrier"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "barrier",
+                    "value": 60
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
-    "systemId": "lhtrpg",
-    "systemVersion": "1.5.0",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

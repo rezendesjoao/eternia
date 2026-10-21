@@ -1,0 +1,84 @@
+{
+  "name": "R6 M6 Olhar da Medusa",
+  "type": "weapon",
+  "system": {
+    "description": "<p>[Momento: Instantânea] Usado contra um alvo em \"Alvo: Individual / Alcance: 4Qd\". Aplica [Rigidez] ao alvo. Se o alvo não sofrer nenhum dano de PV durante este Processo Principal, a [Rigidez] é removida ao fim do Processo Principal. Uma vez por cena.\nFlecha do Olhar Maléfico Uma flecha criada para liberar maldições junto com sua haste, imbuída de uma pedra mágica que, segundo dizem, possui o poder do olhar maléfico. Quem testemunha seu disparo tem a alma trespassada e fica sujeito a uma amarra invisível.</p><hr><p>Pedra Olho-de-Serpente [Material-Base] (100G) + Besta Leve (230G) ×2 + [Catalisador Mágico 6] (50G) ×2 + Custo de Fabricação (230G)</p>",
+    "tags": [
+      "Two-Handed",
+      "Bow",
+      "Not For Sale",
+      "M6"
+    ],
+    "initiative": -4,
+    "rank": 6,
+    "price": 890,
+    "equipped": false,
+    "attack": 23,
+    "magic": 0,
+    "accuracy": -1,
+    "main": false,
+    "range": "3Sq",
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "pdef": 0,
+    "mdef": 0
+  },
+  "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
+  "effects": [],
+  "sort": 15400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Instant",
+          "target": "Single",
+          "range": "4Sq",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Instant] \"Target: Single / Range: 4Sq\" used against a target. Gives [Rigor] to the target. If the target does not receive any HP damage during this main process, the [Rigor] is removed upon the end of the main process. Once per scene.",
+          "effects": [
+            {
+              "name": "R6 M6 Medusa Gaze",
+              "img": "systems/lhtrpg/assets/ui/items_icons/weapon.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "rigor"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "rigor"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "etkXh6NgJycO4RXs",
+  "folder": "C19YDMIkeXI6v7zD",
+  "_key": "!items!etkXh6NgJycO4RXs"
+}

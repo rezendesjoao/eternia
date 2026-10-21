@@ -1,0 +1,482 @@
+{
+  "name": "Guia de Criação de Inimigos",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Sobre Este Documento",
+      "type": "text",
+      "_id": "aEn2IgFNAZxrqj3l",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Este documento é um material de apoio para desenvolvedores que queiram criar seus próprios dados de inimigos.</p><p>Os inimigos de “LHZ” têm suas capacidades numéricas aproximadas calculadas com base em algumas informações fundamentais. Embora a versão final passe por ajustes dos desenvolvedores, pensei que oferecer um modelo do processo de criação poderia servir de apoio aos desenvolvedores.</p><p>Como este documento se destina a desenvolvedores, não é algo de que jogadores ou Mestres costumem precisar. Ele é especificamente para desenvolvedores que queiram criar seus próprios dados de inimigos. Por sua natureza, pode haver partes sem explicação suficiente, especialmente nos trechos de texto. Por favor, entenda que isso se deve à priorização dentro do projeto de suporte.</p><p>Dada a sua natureza, podem ocorrer atualizações sem aviso prévio. Além disso, o suporte a este documento pode ser menos intenso do que o suporte aos livros de regras. Por favor, tenha isso em mente.</p><p>O objetivo e o papel dos desenvolvedores de “LHZ” são criar conteúdo em torno das sessões, enriquecer o ambiente dos desenvolvedores e encontrar alegria e felicidade no processo. Os inimigos enfrentam os PJs diretamente e, com uma visão estreita, isso poderia se reduzir a uma simples disputa de força. No entanto, o verdadeiro propósito dos inimigos é oferecer desafios interessantes aos jogadores e, assim, aumentar a empolgação da sessão. Um excelente design de inimigo se concentra em ser um alvo para os desafios dos PJs daquele NP, extraindo ao máximo os pontos fortes deles. Não se trata de anular os pontos fortes dos PJs nem de simplesmente ser poderoso.</p><p>A equipe de desenvolvimento de “LHZ” acredita que as atividades livres e abertas dos desenvolvedores contribuem para a vitalidade da cena. Muitos desenvolvedores que fornecem dados excelentes podem usar este documento para criar rivais que enriqueçam as aventuras. Espero que este documento, junto com o suporte contínuo, seja útil aos desenvolvedores em seus projetos.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!ZlZsjhYIdg0BaUkB.aEn2IgFNAZxrqj3l"
+    },
+    {
+      "sort": 200000,
+      "name": "I. Dados básicos do inimigo",
+      "type": "text",
+      "_id": "D2Yng4WtnvEVfWTU",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p></p><h3>I.a. Nome</h3><p>　O nome do inimigo. É preciso dar um nome a ele. Em “LHZ” adota-se a estrutura &lt;nome em kanji&gt; + furigana, o que tem dois motivos: um é aproveitar o poder evocativo dos kanji; o outro é seguir a obra original.</p><hr /><p></p><h3>I.b. NP</h3><p>　É o nível do inimigo (inimigos também são personagens, então usa-se o Nível de Personagem). O NP tem grande impacto em todas as capacidades desse inimigo. Em “LHZ”, espera-se e incentiva-se que os PJs enfrentem inimigos do mesmo nível.</p><hr /><p></p><h3>I.c. Raça maior</h3><p>　Dado básico interno. Todo inimigo pertence a uma das oito raças maiores: humanoide, natural, espírito, mítico, morto-vivo, artificial, humano e artifício (ver “LHZ”, p. 378), e cada inimigo terá uma dessas tags.</p><p>　O artifício é uma exceção e será explicado a seguir, mas as sete raças maiores — humanoide, natural, espírito, mítico, morto-vivo, artificial e humano — não afetam o cálculo básico dos dados do inimigo.</p><p>　O artifício não só tem 50% dos PV, como também possui a seguinte “característica de raça maior”. O valor n da Dificuldade de Desarme se baseia em “Dificuldade”, em “LHZ”, p. 403.</p><p>《Mecanismo sem Vontade》_Constante_ Os ataques deste inimigo não causam Dano de Ódio, e personagens [Abaixo no Ódio] também não recebem o bônus de defesa contra eles. Além disso, se você for bem-sucedido em um “desarme de objeto de cena” contra este inimigo com “Dificuldade de Desarme: n”, este inimigo fica [Incapacitado]. Este inimigo também não tem Ação de Movimento.</p><hr /><p></p><h3>I.d. Notoriedade</h3><p>　Dado básico interno. Todo inimigo tem uma notoriedade interna. O valor obtido somando [(NP-1)÷3+1] (arredondado para baixo) ao valor básico definido pela notoriedade passa a ser a “Dificuldade de Identificação” do inimigo.</p><p>　A “Dificuldade de Identificação” é um valor importante nos inimigos de “LHZ”. Sobretudo em ambientes de NP 3 ou mais, conhecer as capacidades do inimigo e poder preparar contramedidas com antecedência tem grande impacto na dificuldade do combate. Os desenvolvedores devem ter cuidado ao usar notoriedades como “desconhecido” e “secreto”. Se você atribuir essas notoriedades por motivos de ambientação ou de imagem, o inimigo pode se mostrar, na sessão, mais feroz do que seus números indicam.</p><p></p><table style=\"border-collapse:collapse;color:rgb(0, 0, 0);font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;font-size:13.44px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\"><tbody><tr><th style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal;background-color:rgb(221, 221, 221);width:60px\" data-colwidth=\"160\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\"><strong>Notoriedade</strong></span></p></th><th style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal;background-color:rgb(221, 221, 221)\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\"><strong>Valor básico da Dificuldade de Identificação</strong></span></p></th></tr><tr><td style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal\" data-colwidth=\"160\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\"><strong>Superfamoso</strong></span></p></td><td style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\"><strong>Automático</strong></span></p></td></tr><tr><td style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal\" data-colwidth=\"160\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\"><strong>Famoso</strong></span></p></td><td style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\"><strong>2</strong></span></p></td></tr><tr><td style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal\" data-colwidth=\"160\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\"><strong>Conhecido</strong></span></p></td><td style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\"><strong>4</strong></span></p></td></tr><tr><td style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal\" data-colwidth=\"160\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\"><strong>Normal</strong></span></p></td><td style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\"><strong>6</strong></span></p></td></tr><tr><td style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal\" data-colwidth=\"160\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\"><strong>Raro</strong></span></p></td><td style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\"><strong>7</strong></span></p></td></tr><tr><td style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal\" data-colwidth=\"160\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\"><strong>Desconhecido</strong></span></p></td><td style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\"><strong>9</strong></span></p></td></tr><tr><td style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal\" data-colwidth=\"160\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\"><strong>Secreto</strong></span></p></td><td style=\"border:1px solid black;padding:3px;line-height:14px;text-align:left;font-weight:normal\"><p><span style=\"font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif\">12</span></p></td></tr></tbody></table><hr /><p></p><h3>I.e. Tipo E</h3><p>　Dado básico interno. O Tipo E representa o caráter básico do inimigo e, depois do NP, é o que mais influencia o cálculo básico dos dados do inimigo. Há nove Tipos E: Encouraçado, Esgrimista, Lutador, Suporte, Curandeiro, Lanceiro, Arqueiro, Atirador e Bombardeiro.</p><p>　Este material apresenta, em forma de lista, o cálculo básico dos dados de inimigo para cada Tipo E e NP.</p><p></p><p>• Encouraçado:</p><p>Inimigo de Iniciativa baixa que se destaca em Defesa Física e PV Máx. Como a classe Guardião, deve receber habilidades para proteger aliados e atrapalhar a movimentação dos PJs. Embora seja difícil de derrotar individualmente, este Tipo E não é adequado para transmitir uma sensação de ameaça aos PJs. O uso excessivo pode levar à estagnação da sessão. Também não é adequado para chefes solo. Um inimigo representativo citado em “LHZ” é o Ogro Verde Blindado (p. 444).</p><hr /><p></p><p>• Esgrimista:</p><p>Inimigo com Defesa Física e PV Máx. altos, embora menores que os do Encouraçado, e Iniciativa baixa. Como a classe Samurai, deve receber habilidades para proteger aliados e contra-atacar. Este Tipo E é adequado para fazer os PJs sentirem que devem derrotá-lo primeiro. É relativamente adequado para chefes solo. Um inimigo representativo citado em “LHZ” é o Vampiro (p. 457).</p><hr /><p></p><p>• Lutador:</p><p>Inimigo que se destaca em PV Máx. e testes de defesa, mas tem Defesa baixa. Como a classe Monge, deve receber habilidades para proteger aliados, atrapalhar os PJs e contra-atacar. Embora seja difícil de derrotar, não é adequado para transmitir uma sensação de ameaça aos PJs. Lembra a classe Monge, mas a existência das regras de Ódio diferencia os papéis e o design dos inimigos. Também não é adequado como chefe principal. Um inimigo representativo citado em “LHZ” é a Garota Devoradora de Cadáveres (p. 436).</p><hr /><p></p><p>• Suporte:</p><p>Inimigo que se destaca em Resistência e Iniciativa, mas é fraco contra ataques físicos. Como as classes Bardo ou Encantador, deve receber habilidades para apoiar aliados e impor diversos empecilhos aos PJs. Em ambientes de NP 3 ou mais, pode ter Estados Negativos (EN) poderosos ou elementos de controle de terreno. Individualmente, este Tipo E não é especialmente ameaçador para os PJs. É adequado para chefes de grupo. Um inimigo representativo citado em “LHZ” é o Texugo Espinhoso do Matagal (p. 424).</p><hr /><p></p><p>• Curandeiro:</p><p>Inimigo que se destaca em Resistência, com Defesa um tanto alta, mas pouco durável no geral. Como as classes Clérigo, Druida ou Kannagi, deve receber habilidades para proteger aliados. Este Tipo E não é bom em ataques diretos, o que torna difícil que ele, sozinho, transmita uma sensação de ameaça aos PJs. Lembra as classes Clérigo, Druida ou Kannagi, mas habilidades de cura excessivas podem levar à estagnação do combate. É preciso ajustar as habilidades de suporte com criatividade. É adequado para chefes de grupo. Um inimigo representativo citado em “LHZ” é o Unicórnio (p. 449).</p><hr /><p></p><p>• Lanceiro:</p><p>Inimigo com Esquiva alta, capaz de causar o maior dano físico. Como as classes Assassino ou Espadachim, deve receber habilidades que apliquem EN, causem dano adicional e melhorem a própria movimentação. Este Tipo E é adequado para transmitir uma sensação de ameaça aos PJs, o que o torna versátil como atacante inimigo de NP baixo a alto. É adequado tanto para chefes solo quanto para chefes de grupo. Um inimigo representativo citado em “LHZ” é o Masqalwin das Lâminas (p. 467).</p><hr /><p></p><p>• Arqueiro:</p><p>Inimigo que usa ataques à distância, causando dano físico a 3 ou 4 quadrados de distância. Destaca-se um pouco em Defesa Mágica, mas tem dificuldade com ataques no mesmo quadrado. Como a classe Assassino, deve receber habilidades que forcem a movimentação dos PJs e causem dano adicional. Projete este Tipo E pensando na cooperação com outros inimigos. Em comparação com o tipo Lanceiro, tem a vantagem de não precisar se mover e de permitir ataques concentrados. É preciso cautela ao criá-lo. É adequado tanto para chefes solo quanto para chefes de grupo. Um inimigo representativo citado em “LHZ” é a Libélula de Engrenagem (p. 433).</p><hr /><p></p><p>• Atirador:</p><p>Inimigo que usa Ataques Mágicos de alvo individual, causando dano mágico à distância. Destaca-se em “Testes de Ataque” e Iniciativa, mas tem PV e Defesa Física baixos. Como as classes Feiticeiro ou Invocador, deve receber habilidades que apliquem EN e causem dano adicional. Este Tipo E se destaca no ataque, mas é vulnerável a dano, o que exige cuidados no design, incluindo pontos fracos. É adequado tanto para chefes solo quanto para chefes de grupo. Um inimigo representativo citado em “LHZ” é o Conjurador Encantador das Pequenas Presas (p. 422).</p><hr /><p></p><p>• Bombardeiro:</p><p>Inimigo que usa Ataques Mágicos em área, causando dano mágico à distância. Como a classe Feiticeiro, destaca-se em “Testes de Ataque”, mas tem PV e Defesa Física relativamente baixos. Projete este Tipo E com habilidades para realizar ataques mágicos em Área (Escolha) e aplicar EN. Este Tipo E tem a capacidade de influenciar o campo de batalha, então é preciso um planejamento cuidadoso, incluindo pontos fracos. Um inimigo representativo citado em “LHZ” é o Heiglott da Princesa Branca (p. 465).</p><p></p><hr /><hr />"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!ZlZsjhYIdg0BaUkB.D2Yng4WtnvEVfWTU"
+    },
+    {
+      "sort": 300000,
+      "name": "II. Como criar seu próprio inimigo",
+      "type": "text",
+      "_id": "hrY5X3idj8WiCJvc",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p></p><h3>Passo 1: Determine os dados básicos</h3><p>　Primeiro, vamos determinar os dados básicos do inimigo. Manter uma anotação deles à mão vai ajudar você a prosseguir com mais tranquilidade depois.</p><p>• Nome: é obrigatório ter um nome.</p><p>• NP: o ideal é que corresponda ao nível exigido pelo cenário e ao nível dos PJs que vão enfrentá-lo.</p><p>• Raça maior: escolha entre humanoide, natural, espírito, mítico, morto-vivo, artificial, humano e artifício.</p><p>• Notoriedade: se não tiver nenhuma preferência específica, escolha entre conhecido, normal e raro.</p><p>• Tipo E: escolha entre Encouraçado, Esgrimista, Lutador, Suporte, Curandeiro, Lanceiro, Arqueiro, Atirador e Bombardeiro. Leve em conta que ter vários Tipos E em uma mesma batalha torna o desafio mais recompensador. Em “LHZ”, o número de encontros com cada Tipo E não precisa ser igual. Em particular, Suportes, Curandeiros, Lutadores, Bombardeiros etc. são difíceis de conduzir em ambientes de NP 2 ou menos, então é melhor não forçar o uso deles.</p><p>• Categoria do inimigo: escolha entre lacaio, comum ou chefe.</p><hr /><p></p><h3>Passo 2: Copie a parte de cálculo básico dos dados do inimigo.</h3><p>　Na segunda metade deste documento, use o Tipo E e o NP como referência para encontrar a “parte de cálculo básico dos dados do inimigo” e transcreva-a para a sua anotação.</p><p>　Acrescente o nome e a tag de raça maior. Calcule também a Dificuldade de Identificação com base na notoriedade e acrescente-a.</p><hr /><p></p><h3>Passo 3: Dê habilidades especiais</h3><p>　Dê habilidades especiais ao inimigo. Inimigos comuns e lacaios devem receber de 2 a 3 habilidades especiais. Uma delas deve ser uma habilidade especial que use uma Ação Maior como método de ataque.</p><p>　Ao criar as habilidades especiais, o melhor é pensar em duas frentes: ajustar a habilidade especial dessa Ação Maior e dar outras habilidades especiais. Para ambas, a “explicação dos Tipos E” e o livro de regras de “LHZ” serão úteis.</p><p>　Considere usar a condição de execução [Menor] nas habilidades especiais usadas em Ações Maiores. Pelo menos a maioria dos inimigos deve ter essa opção de ação. Isso porque um inimigo sem essa condição de execução pode remover Estados Negativos (EN) como [Rigidez] ou [Aflito] a um custo baixo, o que reduz relativamente o valor desses EN.</p><hr /><p></p><h3>Passo 4: Ajuste como lacaio (só para lacaios)</h3><p>　Inimigos lacaios têm exatamente os mesmos dados que inimigos comuns, exceto por serem mais fáceis de eliminar e por terem testes simplificados.</p><p>　Depois de criar um inimigo comum, divida seus [PV] pela metade e substitua cada dado usado nos testes (principalmente no [Teste de Acerto] e no [Teste de Defesa]) por um valor fixo de 3. Acrescente também [Lacaio] às tags.</p><p>　Note também que, por suas características, inimigos lacaios não podem ter a condição de execução [Resultado n].</p><hr /><p></p><h3>Passo 5: Ajuste como chefe (só para chefes)</h3><p>　Inimigos chefes têm mais métodos de ataque e mais ações que inimigos comuns, e seus [PV] são bastante reforçados. Eles também possuem de 3 a 6 pontos de [Destino]. Em princípio, a quantidade de dano que causam é a mesma dos inimigos comuns.</p><p>　Inimigos chefes podem ser divididos, grosso modo, em dois tipos: chefes solo, que aparecem sozinhos, e chefes de grupo, que aparecem acompanhados de inimigos comuns (e às vezes de inimigos lacaios).</p><p>　Um chefe solo é um chefe que (em geral) aparece sozinho diante dos PJs. Faça seus PV serem 4 vezes os de um inimigo comum. Como ele tem poucas ações e é facilmente travado por EN, deve ser equipado com uma habilidade especial capaz de causar dano em uma área ampla e de remover EN no Processo de Abertura ou no Processo de Encerramento. Para NP 4 ou mais, é necessário um design mais poderoso, que inclua a remoção de vários EN e movimento forçado.</p><p>　Um chefe de grupo é um chefe que aparece diante dos PJs com 2 a 4 subordinados. Seus PV são o dobro dos de um inimigo comum. Esses subordinados só aparecem como parte das habilidades do chefe de grupo, por isso não deixam itens. Como chefes de grupo aparecem com seus subordinados, eles funcionarão melhor em combate se você der a eles a capacidade de apoiar seus subordinados ou de cooperar com eles.</p><p>　Por suas características, chefes tendem a realizar menos ações que o conjunto dos PJs. Por isso, é essencial aumentar o número de ações deles, o que é representado pela “Re-Ação”. Além disso, como o chefe possui [Destino], uma característica própria dos chefes, você vai precisar de uma habilidade especial que use esse recurso como custo. O mais fácil é incluir em uma habilidade especial de Ação Maior a condição de execução “[Destino 1]: esta habilidade passa a ter ‘Alvo: Área (Escolha)’”. Além disso, como é fácil aumentar o [Teste de Acerto] com [Destino], ataques cujo poder aumenta com [Resultado N] e afins se tornam fáceis de usar.</p><hr /><p></p><h3>Passo 6: Determine a tabela de itens deixados</h3><p>　A tabela de itens deixados do inimigo é montada para ser resolvida com 1D.</p><p>　Você pode montá-la com base no valor indicado neste documento, o “Valor Esperado dos Itens Deixados”. Se quiser distribuir as probabilidades de forma desigual, a soma de todos os resultados de 1D deve ficar dentro do “Valor Esperado dos Itens Deixados”.</p><p>　O ideal é arredondar o preço dos itens deixados com a tag [Valioso] para um múltiplo de 5 ou 10. Além disso, ao incluir itens gerais, note que itens sem a tag [Consumível] são calculados a 1/10 do preço do item.</p><p>　Os itens deixados por inimigos lacaios são fixos e valem metade. Divida mais uma vez pela metade o valor médio dos itens deixados que calculamos antes.</p><p>　Os itens deixados por inimigos chefes valem 4 vezes mais que os de inimigos comuns. Um dos itens deixados deve ser um [Catalisador Mágico] com força 1 acima do NP do inimigo chefe. Também é uma boa ideia ter, além dos itens deixados normais, um [Material-Base] com Nível do Item igual ao NP do inimigo como item deixado fixo. Esse [Material-Base] pode ser o mesmo de um inimigo já existente ou algo que você mesmo crie.</p><hr /><p></p><h3>Passo 7: Escreva a descrição</h3><p>　Por fim, escreva a descrição. Ela deve incluir informações que passem uma imagem marcante do inimigo, como suas características externas, sua ecologia e sua área de atuação, e que ajudem a conduzi-lo de fato como inimigo. Não há necessidade de escrever descrições longas.</p><p>　A descrição é uma mensagem do desenvolvedor que criou o inimigo para o desenvolvedor que vai usá-lo. Se esta parte for bem escrita, ficará mais fácil transmitir a imagem do inimigo que você criou. Isso facilita que outros desenvolvedores o incluam ao criar cenários.</p><p>　Descrições adequadas também dão apoio ao Mestre. Inimigos com descrições excelentes podem ter um impacto positivo nas narrações do Mestre durante as sessões e nas decisões tomadas em combate.</p><p></p><hr /><hr />",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!ZlZsjhYIdg0BaUkB.hrY5X3idj8WiCJvc"
+    },
+    {
+      "sort": 400000,
+      "name": "III. Encouraçado",
+      "type": "text",
+      "_id": "cWsAX47LViLdPLi6",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<hr /><p></p><p>◆〈Encouraçado Tipo 1 NP1〉</p><p>　[FOR] 2 [DES] 1 [POD] 1 [INT] 1</p><p>　[Esquiva] 1 + 2D [Resistência] 1 + 2D [Defesa Física] 10 [Defesa Mágica] 3</p><p>　[PV Máx.] 56 [Multiplicador de Ódio] × 1 [Iniciativa] 1 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 1》_[Ataque Corpo a Corpo]_Maior_Confronto (4+2D/Esquiva)_Individual_Corpo a corpo_Causa [12+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 23G</p><hr /><p></p><p>◆〈Encouraçado Tipo 1 NP2〉</p><p>　[FOR] 3 [DES] 1 [POD] 2 [INT] 1</p><p>　[Esquiva] 2+2D [Resistência] 1+2D [Defesa Física] 12 [Defesa Mágica] 5</p><p>　[PV Máx.] 65 [Multiplicador de Ódio] x 1 [Iniciativa] 2 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 1》_[Ataque Corpo a Corpo]_Maior_Confronto (5+2D/Esquiva)_Individual_Corpo a corpo_Causa [16+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 28G</p><hr /><p></p><p>◆〈Encouraçado Tipo 1 NP3〉</p><p>　[FOR] 3 [DES] 2 [POD] 2 [INT] 1</p><p>　[Esquiva] 2 + 2D [Resistência] 1 + 2D [Defesa Física] 14 [Defesa Mágica] 7</p><p>　[PV Máx.] 73 [Multiplicador de Ódio] x 1 [Iniciativa] 3 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 1》_[Ataque Corpo a Corpo]_Maior_Confronto (5+2D/Esquiva)_Individual_Corpo a corpo_Causa [19+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 35G</p><hr /><p></p><p>◆〈Encouraçado Tipo 1 NP4〉</p><p>　[FOR] 3 [DES] 2 [POD] 2 [INT] 2</p><p>　[Esquiva] 2 + 2D [Resistência] 2 + 2D [Defesa Física] 16 [Defesa Mágica] 8</p><p>　[PV Máx.] 82 [Multiplicador de Ódio] x 1 [Iniciativa] 3 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 1》_[Ataque Corpo a Corpo]_Maior_Confronto (5+2D/Esquiva)_Individual_Corpo a corpo_Causa [23+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 42G</p><hr /><p></p><p>◆〈Encouraçado Tipo 1 NP5〉</p><p>　[FOR] 4 [DES] 2 [POD] 3 [INT] 2</p><p>　[Esquiva] 3 + 2D [Resistência] 2 + 2D [Defesa Física] 19 [Defesa Mágica] 10</p><p>　[PV Máx.] 90 [Multiplicador de Ódio] x 1 [Iniciativa] 4 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 1》_[Ataque Corpo a Corpo]_Maior_Confronto (6+2D/Esquiva)_Individual_Corpo a corpo_Causa [26+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 52G</p><hr /><p></p><p>◆〈Encouraçado Tipo 1 NP6〉</p><p>　[FOR] 4 [DES] 3 [POD] 3 [INT] 2</p><p>　[Esquiva] 3 + 2D [Resistência] 2 + 2D [Defesa Física] 21 [Defesa Mágica] 12</p><p>　[PV Máx.] 99 [Multiplicador de Ódio] x 2 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 1》_[Ataque Corpo a Corpo]_Maior_Confronto (6+2D/Esquiva)_Individual_Corpo a corpo_Causa [30+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 63G</p><hr /><p></p><p>◆〈Encouraçado Tipo 1 NP7〉</p><p>　[FOR] 4 [DES] 3 [POD] 3 [INT] 3</p><p>　[Esquiva] 4 + 2D [Resistência] 3 + 2D [Defesa Física] 23 [Defesa Mágica] 13</p><p>　[PV Máx.] 107 [Multiplicador de Ódio] x 2 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 1》_[Ataque Corpo a Corpo]_Maior_Confronto (6+2D/Esquiva)_Individual_Corpo a corpo_Causa [33+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 75G</p><hr /><p></p><p>◆〈Encouraçado Tipo 1 NP8〉</p><p>　[FOR] 5 [DES] 3 [POD] 4 [INT] 3</p><p>　[Esquiva] 4 + 2D [Resistência] 3 + 2D [Defesa Física] 25 [Defesa Mágica] 15</p><p>　[PV Máx.] 116 [Multiplicador de Ódio] x 2 [Iniciativa] 6 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 1》_[Ataque Corpo a Corpo]_Maior_Confronto (7+2D/Esquiva)_Individual_Corpo a corpo_Causa [37+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 89G</p><hr /><p></p><p>◆〈Encouraçado Tipo 1 NP9〉</p><p>　[FOR] 5 [DES] 4 [POD] 4 [INT] 3</p><p>　[Esquiva] 4 + 2D [Resistência] 3 + 2D [Defesa Física] 27 [Defesa Mágica] 17</p><p>　[PV Máx.] 124 [Multiplicador de Ódio] x 2 [Iniciativa] 7 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 1》_[Ataque Corpo a Corpo]_Maior_Confronto (7+2D/Esquiva)_Individual_Corpo a corpo_Causa [40+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 104G</p><hr /><p></p><p>◆〈Encouraçado Tipo 1 NP10〉</p><p>　[FOR] 5 [DES] 4 [POD] 4 [INT] 4</p><p>　[Esquiva] 5 + 2D [Resistência] 4 + 2D [Defesa Física] 30 [Defesa Mágica] 19</p><p>　[PV Máx.] 133 [Multiplicador de Ódio] x 2 [Iniciativa] 8 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 1》_[Ataque Corpo a Corpo]_Maior_Confronto (8+2D/Esquiva)_Individual_Corpo a corpo_Causa [44+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 120G</p><p></p><hr /><hr />"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!ZlZsjhYIdg0BaUkB.cWsAX47LViLdPLi6"
+    },
+    {
+      "sort": 500000,
+      "name": "IV. Esgrimista",
+      "type": "text",
+      "_id": "kzNwZVyDuyZtUL0G",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<hr /><p></p><p>◆〈Esgrimista Tipo 2 NP1〉</p><p>　[FOR] 2 [DES] 1 [POD] 1 [INT] 1</p><p>　[Esquiva] 1 + 2D [Resistência] 1 + 2D [Defesa Física] 6 [Defesa Mágica] 2</p><p>　[PV Máx.] 53 [Multiplicador de Ódio] × 1 [Iniciativa] 1 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 2》_[Ataque Corpo a Corpo]_Maior_Confronto (4+2D/Esquiva)_Individual_Corpo a corpo_Causa [12+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 23G</p><hr /><p></p><p>◆〈Esgrimista Tipo 2 NP2〉</p><p>　[FOR] 3 [DES] 2 [POD] 1 [INT] 1</p><p>　[Esquiva] 2+2D [Resistência] 1+2D [Defesa Física] 8 [Defesa Mágica] 4</p><p>　[PV Máx.] 61 [Multiplicador de Ódio] x 1 [Iniciativa] 2 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 2》_[Ataque Corpo a Corpo]_Maior_Confronto (5+2D/Esquiva)_Individual_Corpo a corpo_Causa [16+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 28G</p><hr /><p></p><p>◆〈Esgrimista Tipo 2 NP3〉</p><p>　[FOR] 3 [DES] 2 [POD] 1 [INT] 2</p><p>　[Esquiva] 2+2D [Resistência] 1+2D [Defesa Física] 10 [Defesa Mágica] 6</p><p>　[PV Máx.] 70 [Multiplicador de Ódio] × 1 [Iniciativa] 3 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 2》_[Ataque Corpo a Corpo]_Maior_Confronto (5+2D/Esquiva)_Individual_Corpo a corpo_Causa [19+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 35G</p><hr /><p></p><p>◆〈Esgrimista Tipo 2 NP4〉</p><p>　[FOR] 3 [DES] 2 [POD] 2 [INT] 2</p><p>　[Esquiva] 2+2D [Resistência] 2+2D [Defesa Física] 11 [Defesa Mágica] 7</p><p>　[PV Máx.] 78 [Multiplicador de Ódio] x 2 [Iniciativa] 3 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 2》_[Ataque Corpo a Corpo]_Maior_Confronto (5+2D/Esquiva)_Individual_Corpo a corpo_Causa [23+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 42G</p><hr /><p></p><p>◆〈Esgrimista Tipo 2 NP5〉</p><p>　[FOR] 4 [DES] 3 [POD] 2 [INT] 2</p><p>　[Esquiva] 3 + 2D [Resistência] 2 + 2D [Defesa Física] 13 [Defesa Mágica] 9</p><p>　[PV Máx.] 87 [Multiplicador de Ódio] x 2 [Iniciativa] 4 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 2》_[Ataque Corpo a Corpo]_Maior_Confronto (6+2D/Esquiva)_Individual_Corpo a corpo_Causa [26+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 52G</p><hr /><p></p><p>◆〈Esgrimista Tipo 2 NP6〉</p><p>　[FOR] 4 [DES] 3 [POD] 2 [INT] 3</p><p>　[Esquiva] 3 + 2D [Resistência] 2 + 2D [Defesa Física] 15 [Defesa Mágica] 11</p><p>　[PV Máx.] 95 [Multiplicador de Ódio] x 2 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 2》_[Ataque Corpo a Corpo]_Maior_Confronto (6+2D/Esquiva)_Individual_Corpo a corpo_Causa [30+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 63G</p><hr /><p></p><p>◆〈Esgrimista Tipo 2 NP7〉</p><p>　[FOR] 4 [DES] 3 [POD] 3 [INT] 3</p><p>　[Esquiva] 3 + 2D [Resistência] 3 + 2D [Defesa Física] 16 [Defesa Mágica] 12</p><p>　[PV Máx.] 103 [Multiplicador de Ódio] x 2 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 2》_[Ataque Corpo a Corpo]_Maior_Confronto (6+2D/Esquiva)_Individual_Corpo a corpo_Causa [33+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 75G</p><hr /><p></p><p>◆〈Esgrimista Tipo 2 NP8〉</p><p>　[FOR] 5 [DES] 4 [POD] 3 [INT] 3</p><p>　[Esquiva] 4 + 2D [Resistência] 3 + 2D [Defesa Física] 18 [Defesa Mágica] 14</p><p>　[PV Máx.] 112 [Multiplicador de Ódio] x 2 [Iniciativa] 6 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 2》_[Ataque Corpo a Corpo]_Maior_Confronto (7+2D/Esquiva)_Individual_Corpo a corpo_Causa [37+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 89G</p><hr /><p></p><p>◆〈Esgrimista Tipo 2 NP9〉</p><p>　[FOR] 5 [DES] 4 [POD] 3 [INT] 4</p><p>　[Esquiva] 4 + 2D [Resistência] 3 + 2D [Defesa Física] 20 [Defesa Mágica] 16</p><p>　[PV Máx.] 120 [Multiplicador de Ódio] x 2 [Iniciativa] 7 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 2》_[Ataque Corpo a Corpo]_Maior_Confronto (7+2D/Esquiva)_Individual_Corpo a corpo_Causa [40+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 104G</p><hr /><p></p><p>◆〈Esgrimista Tipo 2 NP10〉</p><p>　[FOR] 5 [DES] 4 [POD] 4 [INT] 4</p><p>　[Esquiva] 5 + 2D [Resistência] 4 + 2D [Defesa Física] 22 [Defesa Mágica] 18</p><p>　[PV Máx.] 129 [Multiplicador de Ódio] x 3 [Iniciativa] 8 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 2》_[Ataque Corpo a Corpo]_Maior_Confronto (8+2D/Esquiva)_Individual_Corpo a corpo_Causa [44+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 120G</p><p></p><hr /><hr />"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!ZlZsjhYIdg0BaUkB.kzNwZVyDuyZtUL0G"
+    },
+    {
+      "sort": 600000,
+      "name": "V. Lutador",
+      "type": "text",
+      "_id": "MJh1osekz8C8Wpqv",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<hr /><p></p><p>◆〈Lutador Tipo 3 NP1〉</p><p>　[FOR] 2 [DES] 1 [POD] 1 [INT] 1</p><p>　[Esquiva] 1 + 3D [Resistência] 1 + 3D [Defesa Física] 2 [Defesa Mágica] 4</p><p>　[PV Máx.] 52 [Multiplicador de Ódio] × 1 [Iniciativa] 3 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 3》_[Ataque Corpo a Corpo]_Maior_Confronto (4+2D/Esquiva)_Individual_Corpo a corpo_Causa [12+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 23G</p><hr /><p></p><p>◆〈Lutador Tipo 3 NP2〉</p><p>　[FOR] 3 [DES] 2 [POD] 1 [INT] 1</p><p>　[Esquiva] 1 + 3D [Resistência] 2 + 3D [Defesa Física] 3 [Defesa Mágica] 5</p><p>　[PV Máx.] 60 [Multiplicador de Ódio] x 1 [Iniciativa] 4 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 3》_[Ataque Corpo a Corpo]_Maior_Confronto (5+2D/Esquiva)_Individual_Corpo a corpo_Causa [16+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 28G</p><hr /><p></p><p>◆〈Lutador Tipo 3 NP3〉</p><p>　[FOR] 3 [DES] 2 [POD] 1 [INT] 2</p><p>　[Esquiva] 1 + 3D [Resistência] 2 + 3D [Defesa Física] 4 [Defesa Mágica] 6</p><p>　[PV Máx.] 67 [Multiplicador de Ódio] × 1 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 3》_[Ataque Corpo a Corpo]_Maior_Confronto (5+2D/Esquiva)_Individual_Corpo a corpo_Causa [19+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 35G</p><hr /><p></p><p>◆〈Lutador Tipo 3 NP4〉</p><p>　[FOR] 3 [DES] 2 [POD] 2 [INT] 2</p><p>　[Esquiva] 2 + 3D [Resistência] 2 + 3D [Defesa Física] 5 [Defesa Mágica] 8</p><p>　[PV Máx.] 75 [Multiplicador de Ódio] x 1 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 3》_[Ataque Corpo a Corpo]_Maior_Confronto (5+2D/Esquiva)_Individual_Corpo a corpo_Causa [23+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 42G</p><hr /><p></p><p>◆〈Lutador Tipo 3 NP5〉</p><p>　[FOR] 4 [DES] 3 [POD] 2 [INT] 2</p><p>　[Esquiva] 2 + 3D [Resistência] 3 + 3D [Defesa Física] 6 [Defesa Mágica] 9</p><p>　[PV Máx.] 82 [Multiplicador de Ódio] × 1 [Iniciativa] 6 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 3》_[Ataque Corpo a Corpo]_Maior_Confronto (6+2D/Esquiva)_Individual_Corpo a corpo_Causa [26+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 52G</p><hr /><p></p><p>◆〈Lutador Tipo 3 NP6〉</p><p>　[FOR] 4 [DES] 3 [POD] 2 [INT] 3</p><p>　[Esquiva] 2+3D [Resistência] 3+3D [Defesa Física] 7 [Defesa Mágica] 10</p><p>　[PV Máx.] 90 [Multiplicador de Ódio] x 2 [Iniciativa] 7 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 3》_[Ataque Corpo a Corpo]_Maior_Confronto (6+2D/Esquiva)_Individual_Corpo a corpo_Causa [30+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 63G</p><hr /><p></p><p>◆〈Lutador Tipo 3 NP7〉</p><p>　[FOR] 4 [DES] 3 [POD] 3 [INT] 3</p><p>　[Esquiva] 3 + 3D [Resistência] 3 + 3D [Defesa Física] 8 [Defesa Mágica] 12</p><p>　[PV Máx.] 97 [Multiplicador de Ódio] x 2 [Iniciativa] 7 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 3》_[Ataque Corpo a Corpo]_Maior_Confronto (6+2D/Esquiva)_Individual_Corpo a corpo_Causa [33+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 75G</p><hr /><p></p><p>◆〈Lutador Tipo 3 NP8〉</p><p>　[FOR] 5 [DES] 4 [POD] 3 [INT] 3</p><p>　[Esquiva] 3 + 3D [Resistência] 4 + 3D [Defesa Física] 9 [Defesa Mágica] 13</p><p>　[PV Máx.] 105 [Multiplicador de Ódio] x 2 [Iniciativa] 8 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 3》_[Ataque Corpo a Corpo]_Maior_Confronto (7+2D/Esquiva)_Individual_Corpo a corpo_Causa [37+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 89G</p><hr /><p></p><p>◆〈Lutador Tipo 3 NP9〉</p><p>　[FOR] 5 [DES] 4 [POD] 3 [INT] 4</p><p>　[Esquiva] 3 + 3D [Resistência] 4 + 3D [Defesa Física] 10 [Defesa Mágica] 14</p><p>　[PV Máx.] 112 [Multiplicador de Ódio] x 2 [Iniciativa] 9 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 3》_[Ataque Corpo a Corpo]_Maior_Confronto (7+2D/Esquiva)_Individual_Corpo a corpo_Causa [40+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 104G</p><hr /><p></p><p>◆〈Lutador Tipo 3 NP10〉</p><p>　[FOR] 5 [DES] 4 [POD] 4 [INT] 4</p><p>　[Esquiva] 4 + 3D [Resistência] 5 + 3D [Defesa Física] 11 [Defesa Mágica] 16</p><p>　[PV Máx.] 120 [Multiplicador de Ódio] x 2 [Iniciativa] 10 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 3》_[Ataque Corpo a Corpo]_Maior_Confronto (8+2D/Esquiva)_Individual_Corpo a corpo_Causa [44+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 120G</p><p></p><hr /><hr />"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!ZlZsjhYIdg0BaUkB.MJh1osekz8C8Wpqv"
+    },
+    {
+      "sort": 700000,
+      "name": "VI. Suporte",
+      "type": "text",
+      "_id": "MYWk4CpPusPopqGV",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>◆〈Suporte Tipo 4 NP1〉</p><p>　[FOR] 1 [DES] 1 [POD] 2 [INT] 1</p><p>　[Esquiva] 1 + 2D [Resistência] 2 + 2D [Defesa Física] 4 [Defesa Mágica] 6</p><p>　[PV Máx.] 40 [Multiplicador de Ódio] x 1 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 4》_[Ataque Mágico]_Maior_Confronto (4+2D/Resistência)_Individual_4Qd_Causa [4+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 23G</p><hr /><p>◆〈Suporte Tipo 4 NP2〉</p><p>　[FOR] 2 [DES] 1 [POD] 3 [INT] 1</p><p>　[Esquiva] 1 + 2D [Resistência] 3 + 2D [Defesa Física] 6 [Defesa Mágica] 8</p><p>　[PV Máx.] 45 [Multiplicador de Ódio] × 1 [Iniciativa] 6 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 4》_[Ataque Mágico]_Maior_Confronto (5+2D/Resistência)_Individual_4Qd_Causa [8+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 28G</p><hr /><p>◆〈Suporte Tipo 4 NP3〉</p><p>　[FOR] 2 [DES] 1 [POD] 3 [INT] 2</p><p>　[Esquiva] 1 + 2D [Resistência] 3 + 2D [Defesa Física] 7 [Defesa Mágica] 10</p><p>　[PV Máx.] 50 [Multiplicador de Ódio] × 1 [Iniciativa] 7 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 4》_[Ataque Mágico]_Maior_Confronto (5+2D/Resistência)_Individual_4Qd_Causa [11+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 35G</p><hr /><p>◆〈Suporte Tipo 4 NP4〉</p><p>　[FOR] 2 [DES] 2 [POD] 3 [INT] 2</p><p>　[Esquiva] 2 + 2D [Resistência] 3 + 2D [Defesa Física] 9 [Defesa Mágica] 12</p><p>　[PV Máx.] 55 [Multiplicador de Ódio] × 1 [Iniciativa] 7 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 4》_[Ataque Mágico]_Maior_Confronto (5+2D/Resistência)_Individual_4Qd_Causa [15+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 42G</p><hr /><p>◆〈Suporte Tipo 4 NP5〉</p><p>　[FOR] 3 [DES] 2 [POD] 4 [INT] 2</p><p>　[Esquiva] 2 + 2D [Resistência] 4 + 2D [Defesa Física] 10 [Defesa Mágica] 14</p><p>　[PV Máx.] 60 [Multiplicador de Ódio] × 1 [Iniciativa] 8 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 4》_[Ataque Mágico]_Maior_Confronto (6+2D/Resistência)_Individual_4Qd_Causa [18+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 52G</p><hr /><p>◆〈Suporte Tipo 4 NP6〉</p><p>　[FOR] 3 [DES] 2 [POD] 4 [INT] 3</p><p>　[Esquiva] 3 + 2D [Resistência] 4 + 2D [Defesa Física] 12 [Defesa Mágica] 15</p><p>　[PV Máx.] 65 [Multiplicador de Ódio] × 2 [Iniciativa] 9 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 4》_[Ataque Mágico]_Maior_Confronto (6+2D/Resistência)_Individual_4Qd_Causa [22+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 63G</p><hr /><p>◆〈Suporte Tipo 4 NP7〉</p><p>　[FOR] 3 [DES] 3 [POD] 4 [INT] 3</p><p>　[Esquiva] 3 + 2D [Resistência] 4 + 2D [Defesa Física] 13 [Defesa Mágica] 17</p><p>　[PV Máx.] 70 [Multiplicador de Ódio] × 2 [Iniciativa] 9 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 4》_[Ataque Mágico]_Maior_Confronto (6+2D/Resistência)_Individual_4Qd_Causa [25+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 75G</p><hr /><p>◆〈Suporte Tipo 4 NP8〉</p><p>　[FOR] 4 [DES] 3 [POD] 5 [INT] 3</p><p>　[Esquiva] 3 + 2D [Resistência] 5 + 2D [Defesa Física] 15 [Defesa Mágica] 19</p><p>　[PV Máx.] 75 [Multiplicador de Ódio] x 2 [Iniciativa] 10 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 4》_[Ataque Mágico]_Maior_Confronto (7+2D/Resistência)_Individual_4Qd_Causa [29+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 89G</p><hr /><p>◆〈Suporte Tipo 4 NP9〉</p><p>　[FOR] 4 [DES] 3 [POD] 5 [INT] 4</p><p>　[Esquiva] 4 + 2D [Resistência] 5 + 2D [Defesa Física] 16 [Defesa Mágica] 21</p><p>　[PV Máx.] 80 [Multiplicador de Ódio] x 2 [Iniciativa] 11 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 4》_[Ataque Mágico]_Maior_Confronto (7+2D/Resistência)_Individual_4Qd_Causa [32+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 104G</p><hr /><p>◆〈Suporte Tipo 4 NP10〉</p><p>　[FOR] 4 [DES] 4 [POD] 5 [INT] 4</p><p>　[Esquiva] 4 + 2D [Resistência] 6 + 2D [Defesa Física] 18 [Defesa Mágica] 23</p><p>　[PV Máx.] 85 [Multiplicador de Ódio] × 2 [Iniciativa] 12 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 4》_[Ataque Mágico]_Maior_Confronto (8+2D/Resistência)_Individual_4Qd_Causa [36+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 120G</p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!ZlZsjhYIdg0BaUkB.MYWk4CpPusPopqGV"
+    },
+    {
+      "sort": 800000,
+      "name": "VII. Curandeiro",
+      "type": "text",
+      "_id": "RRjI3pWZvY1adNPc",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>◆〈Curandeiro Tipo 5 NP1〉</p><p>　[FOR] 1 [DES] 1 [POD] 2 [INT] 1</p><p>　[Esquiva] 1 + 2D [Resistência] 2 + 2D [Defesa Física] 9 [Defesa Mágica] 2</p><p>　[PV Máx.] 36 [Multiplicador de Ódio] x 1 [Iniciativa] 1 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 5》_[Ataque Corpo a Corpo]_Maior_Confronto (4+2D/Esquiva)_Individual_2Qd_Causa [12+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 23G</p><hr /><p>◆〈Curandeiro Tipo 5 NP2〉</p><p>　[FOR] 1 [DES] 1 [POD] 3 [INT] 2</p><p>　[Esquiva] 1 + 2D [Resistência] 3 + 2D [Defesa Física] 11 [Defesa Mágica] 4</p><p>　[PV Máx.] 42 [Multiplicador de Ódio] x 1 [Iniciativa] 2 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 5》_[Ataque Corpo a Corpo]_Maior_Confronto (5+2D/Esquiva)_Individual_2Qd_Causa [16+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 28G</p><hr /><p>◆〈Curandeiro Tipo 5 NP3〉</p><p>　[FOR] 2 [DES] 1 [POD] 3 [INT] 2</p><p>　[Esquiva] 1 + 2D [Resistência] 3 + 2D [Defesa Física] 13 [Defesa Mágica] 6</p><p>　[PV Máx.] 48 [Multiplicador de Ódio] × 1 [Iniciativa] 3 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 5》_[Ataque Corpo a Corpo]_Maior_Confronto (5+2D/Esquiva)_Individual_2Qd_Causa [19+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 35G</p><hr /><p>◆〈Curandeiro Tipo 5 NP4〉</p><p>　[FOR] 2 [DES] 2 [POD] 3 [INT] 2</p><p>　[Esquiva] 2 + 2D [Resistência] 3 + 2D [Defesa Física] 15 [Defesa Mágica] 7</p><p>　[PV Máx.] 54 [Multiplicador de Ódio] × 1 [Iniciativa] 3 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 5》_[Ataque Corpo a Corpo]_Maior_Confronto (5+2D/Esquiva)_Individual_2Qd_Causa [23+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 42G</p><hr /><p>◆〈Curandeiro Tipo 5 NP5〉</p><p>　[FOR] 2 [DES] 2 [POD] 4 [INT] 3</p><p>　[Esquiva] 2 + 2D [Resistência] 4 + 2D [Defesa Física] 17 [Defesa Mágica] 9</p><p>　[PV Máx.] 60 [Multiplicador de Ódio] × 1 [Iniciativa] 4 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 5》_[Ataque Corpo a Corpo]_Maior_Confronto (6+2D/Esquiva)_Individual_2Qd_Causa [26+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 52G</p><hr /><p>◆〈Curandeiro Tipo 5 NP6〉</p><p>　[FOR] 3 [DES] 2 [POD] 4 [INT] 3</p><p>　[Esquiva] 3 + 2D [Resistência] 4 + 2D [Defesa Física] 18 [Defesa Mágica] 11</p><p>　[PV Máx.] 66 [Multiplicador de Ódio] × 2 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 5》_[Ataque Corpo a Corpo]_Maior_Confronto (6+2D/Esquiva)_Individual_2Qd_Causa [30+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 63G</p><hr /><p>◆〈Curandeiro Tipo 5 NP7〉</p><p>　[FOR] 3 [DES] 3 [POD] 4 [INT] 3</p><p>　[Esquiva] 3 + 2D [Resistência] 4 + 2D [Defesa Física] 20 [Defesa Mágica] 12</p><p>　[PV Máx.] 72 [Multiplicador de Ódio] x 2 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 5》_[Ataque Corpo a Corpo]_Maior_Confronto (6+2D/Esquiva)_Individual_2Qd_Causa [33+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 75G</p><hr /><p>◆〈Curandeiro Tipo 5 NP8〉</p><p>　[FOR] 3 [DES] 3 [POD] 5 [INT] 4</p><p>　[Esquiva] 3 + 2D [Resistência] 5 + 2D [Defesa Física] 22 [Defesa Mágica] 14</p><p>　[PV Máx.] 78 [Multiplicador de Ódio] x 2 [Iniciativa] 6 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 5》_[Ataque Corpo a Corpo]_Maior_Confronto (7+2D/Esquiva)_Individual_2Qd_Causa [37+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 89G</p><hr /><p>◆〈Curandeiro Tipo 5 NP9〉</p><p>　[FOR] 4 [DES] 3 [POD] 5 [INT] 4</p><p>　[Esquiva] 4 + 2D [Resistência] 5 + 2D [Defesa Física] 24 [Defesa Mágica] 16</p><p>　[PV Máx.] 84 [Multiplicador de Ódio] x 2 [Iniciativa] 7 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 5》_[Ataque Corpo a Corpo]_Maior_Confronto (7+2D/Esquiva)_Individual_2Qd_Causa [40+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 104G</p><hr /><p>◆〈Curandeiro Tipo 5 NP10〉</p><p>　[FOR] 4 [DES] 4 [POD] 5 [INT] 4</p><p>　[Esquiva] 4 + 2D [Resistência] 6 + 2D [Defesa Física] 26 [Defesa Mágica] 18</p><p>　[PV Máx.] 90 [Multiplicador de Ódio] x 2 [Iniciativa] 8 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 5》_[Ataque Corpo a Corpo]_Maior_Confronto (8+2D/Esquiva)_Individual_2Qd_Causa [44+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 120G</p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!ZlZsjhYIdg0BaUkB.RRjI3pWZvY1adNPc"
+    },
+    {
+      "sort": 900000,
+      "name": "VIII. Lanceiro",
+      "type": "text",
+      "_id": "9b23Ty4dbRd5HBNc",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>◆〈Lanceiro Tipo 6 NP1〉</p><p>　[FOR] 1 [DES] 2 [POD] 1 [INT] 1</p><p>　[Esquiva] 2 + 2D [Resistência] 1 + 2D [Defesa Física] 6 [Defesa Mágica] 4</p><p>　[PV Máx.] 36 [Multiplicador de Ódio] x 2 [Iniciativa] 3 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 6》_[Ataque Corpo a Corpo]_Maior_Confronto (3+3D/Esquiva)_Individual_Corpo a corpo_Causa [25+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 23G</p><hr /><p>◆〈Lanceiro Tipo 6 NP2〉</p><p>　[FOR] 2 [DES] 3 [POD] 1 [INT] 1</p><p>　[Esquiva] 3 + 2D [Resistência] 1 + 2D [Defesa Física] 8 [Defesa Mágica] 6</p><p>　[PV Máx.] 42 [Multiplicador de Ódio] x 2 [Iniciativa] 4 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 6》_[Ataque Corpo a Corpo]_Maior_Confronto (4+3D/Esquiva)_Individual_Corpo a corpo_Causa [31+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 28G</p><hr /><p>◆〈Lanceiro Tipo 6 NP3〉</p><p>　[FOR] 2 [DES] 3 [POD] 1 [INT] 2</p><p>　[Esquiva] 3 + 2D [Resistência] 1 + 2D [Defesa Física] 10 [Defesa Mágica] 7</p><p>　[PV Máx.] 48 [Multiplicador de Ódio] x 2 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 6》_[Ataque Corpo a Corpo]_Maior_Confronto (4+3D/Esquiva)_Individual_Corpo a corpo_Causa [37+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 35G</p><hr /><p>◆〈Lanceiro Tipo 6 NP4〉</p><p>　[FOR] 2 [DES] 3 [POD] 2 [INT] 2</p><p>　[Esquiva] 3 + 2D [Resistência] 2 + 2D [Defesa Física] 11 [Defesa Mágica] 9</p><p>　[PV Máx.] 54 [Multiplicador de Ódio] x 2 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 6》_[Ataque Corpo a Corpo]_Maior_Confronto (4+3D/Esquiva)_Individual_Corpo a corpo_Causa [43+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 42G</p><hr /><p>◆〈Lanceiro Tipo 6 NP5〉</p><p>　[FOR] 3 [DES] 4 [POD] 2 [INT] 2</p><p>　[Esquiva] 4 + 2D [Resistência] 2 + 2D [Defesa Física] 13 [Defesa Mágica] 10</p><p>　[PV Máx.] 60 [Multiplicador de Ódio] x 2 [Iniciativa] 6 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 6》_[Ataque Corpo a Corpo]_Maior_Confronto (5+3D/Esquiva)_Individual_Corpo a corpo_Causa [49+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 52G</p><hr /><p>◆〈Lanceiro Tipo 6 NP6〉</p><p>　[FOR] 3 [DES] 4 [POD] 2 [INT] 3</p><p>　[Esquiva] 4 + 2D [Resistência] 2 + 2D [Defesa Física] 15 [Defesa Mágica] 12</p><p>　[PV Máx.] 66 [Multiplicador de Ódio] x 3 [Iniciativa] 7 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 6》_[Ataque Corpo a Corpo]_Maior_Confronto (5+3D/Esquiva)_Individual_Corpo a corpo_Causa [55+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 63G</p><hr /><p>◆〈Lanceiro Tipo 6 NP7〉</p><p>　[FOR] 3 [DES] 4 [POD] 3 [INT] 3</p><p>　[Esquiva] 5 + 2D [Resistência] 3 + 2D [Defesa Física] 16 [Defesa Mágica] 13</p><p>　[PV Máx.] 72 [Multiplicador de Ódio] x 3 [Iniciativa] 7 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 6》_[Ataque Corpo a Corpo]_Maior_Confronto (5+3D/Esquiva)_Individual_Corpo a corpo_Causa [61+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 75G</p><hr /><p>◆〈Lanceiro Tipo 6 NP8〉</p><p>　[FOR] 4 [DES] 5 [POD] 3 [INT] 3</p><p>　[Esquiva] 5 + 2D [Resistência] 3 + 2D [Defesa Física] 18 [Defesa Mágica] 15</p><p>　[PV Máx.] 78 [Multiplicador de Ódio] x 3 [Iniciativa] 8 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 6》_[Ataque Corpo a Corpo]_Maior_Confronto (6+3D/Esquiva)_Individual_Corpo a corpo_Causa [67+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 89G</p><hr /><p>◆〈Lanceiro Tipo 6 NP9〉</p><p>　[FOR] 4 [DES] 5 [POD] 3 [INT] 4</p><p>　[Esquiva] 5 + 2D [Resistência] 3 + 2D [Defesa Física] 20 [Defesa Mágica] 16</p><p>　[PV Máx.] 84 [Multiplicador de Ódio] x 3 [Iniciativa] 9 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 6》_[Ataque Corpo a Corpo]_Maior_Confronto (6+3D/Esquiva)_Individual_Corpo a corpo_Causa [73+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 104G</p><hr /><p>◆〈Lanceiro Tipo 6 NP10〉</p><p>　[FOR] 4 [DES] 5 [POD] 4 [INT] 4</p><p>　[Esquiva] 6 + 2D [Resistência] 4 + 2D [Defesa Física] 22 [Defesa Mágica] 18</p><p>　[PV Máx.] 90 [Multiplicador de Ódio] × 3 [Iniciativa] 10 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 6》_[Ataque Corpo a Corpo]_Maior_Confronto (7+3D/Esquiva)_Individual_Corpo a corpo_Causa [79+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 120G</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!ZlZsjhYIdg0BaUkB.9b23Ty4dbRd5HBNc"
+    },
+    {
+      "sort": 1000000,
+      "name": "IX. Arqueiro",
+      "type": "text",
+      "_id": "B0lk50K4HtzPhnAV",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>◆〈Arqueiro Tipo 7 NP1〉</p><p>　[FOR] 1 [DES] 1 [POD] 1 [INT] 2</p><p>　[Esquiva] 1 + 2D [Resistência] 1 + 2D [Defesa Física] 7 [Defesa Mágica] 6</p><p>　[PV Máx.] 31 [Multiplicador de Ódio] x 2 [Iniciativa] 3 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 7》_[Ataque à Distância]_Maior_Confronto (2+3D/Esquiva)_Individual_3Qd_Causa [25+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 23G</p><hr /><p>◆〈Arqueiro Tipo 7 NP2〉</p><p>　[FOR] 1 [DES] 2 [POD] 1 [INT] 3</p><p>　[Esquiva] 2 + 2D [Resistência] 1 + 2D [Defesa Física] 9 [Defesa Mágica] 8</p><p>　[PV Máx.] 36 [Multiplicador de Ódio] x 2 [Iniciativa] 4 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 7》_[Ataque à Distância]_Maior_Confronto (3+3D/Esquiva)_Individual_3Qd_Causa [31+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 28G</p><hr /><p>◆〈Arqueiro Tipo 7 NP3〉</p><p>　[FOR] 2 [DES] 2 [POD] 1 [INT] 3</p><p>　[Esquiva] 2 + 2D [Resistência] 1 + 2D [Defesa Física] 10 [Defesa Mágica] 10</p><p>　[PV Máx.] 41 [Multiplicador de Ódio] × 2 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 7》_[Ataque à Distância]_Maior_Confronto (3+3D/Esquiva)_Individual_3Qd_Causa [37+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 35G</p><hr /><p>◆〈Arqueiro Tipo 7 NP4〉</p><p>　[FOR] 2 [DES] 2 [POD] 2 [INT] 3</p><p>　[Esquiva] 2 + 2D [Resistência] 2 + 2D [Defesa Física] 12 [Defesa Mágica] 12</p><p>　[PV Máx.] 46 [Multiplicador de Ódio] x 3 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 7》_[Ataque à Distância]_Maior_Confronto (3+3D/Esquiva)_Individual_3Qd_Causa [43+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 42G</p><hr /><p>◆〈Arqueiro Tipo 7 NP5〉</p><p>　[FOR] 2 [DES] 3 [POD] 2 [INT] 4</p><p>　[Esquiva] 3 + 2D [Resistência] 2 + 2D [Defesa Física] 14 [Defesa Mágica] 14</p><p>　[PV Máx.] 51 [Multiplicador de Ódio] × 3 [Iniciativa] 6 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 7》_[Ataque à Distância]_Maior_Confronto (4+3D/Esquiva)_Individual_3Qd_Causa [49+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 52G</p><hr /><p>◆〈Arqueiro Tipo 7 NP6〉</p><p>　[FOR] 3 [DES] 3 [POD] 2 [INT] 4</p><p>　[Esquiva] 3 + 2D [Resistência] 2 + 2D [Defesa Física] 15 [Defesa Mágica] 16</p><p>　[PV Máx.] 56 [Multiplicador de Ódio] x 3 [Iniciativa] 7 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 7》_[Ataque à Distância]_Maior_Confronto (4+3D/Esquiva)_Individual_3Qd_Causa [55+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 63G</p><hr /><p>◆〈Arqueiro Tipo 7 NP7〉</p><p>　[FOR] 3 [DES] 3 [POD] 3 [INT] 4</p><p>　[Esquiva] 3 + 2D [Resistência] 3 + 2D [Defesa Física] 17 [Defesa Mágica] 18</p><p>　[PV Máx.] 61 [Multiplicador de Ódio] x 3 [Iniciativa] 7 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 7》_[Ataque à Distância]_Maior_Confronto (4+3D/Esquiva)_Individual_3Qd_Causa [61+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 75G</p><hr /><p>◆〈Arqueiro Tipo 7 NP8〉</p><p>　[FOR] 3 [DES] 4 [POD] 3 [INT] 5</p><p>　[Esquiva] 4 + 2D [Resistência] 3 + 2D [Defesa Física] 18 [Defesa Mágica] 20</p><p>　[PV Máx.] 66 [Multiplicador de Ódio] x 3 [Iniciativa] 8 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 7》_[Ataque à Distância]_Maior_Confronto (5+3D/Esquiva)_Individual_3Qd_Causa [67+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 89G</p><hr /><p>◆〈Arqueiro Tipo 7 NP9〉</p><p>　[FOR] 4 [DES] 4 [POD] 3 [INT] 5</p><p>　[Esquiva] 4 + 2D [Resistência] 3 + 2D [Defesa Física] 20 [Defesa Mágica] 22</p><p>　[PV Máx.] 71 [Multiplicador de Ódio] x 3 [Iniciativa] 9 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 7》_[Ataque à Distância]_Maior_Confronto (5+3D/Esquiva)_Individual_3Qd_Causa [73+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 104G</p><hr /><p>◆〈Arqueiro Tipo 7 NP10〉</p><p>　[FOR] 4 [DES] 4 [POD] 4 [INT] 5</p><p>　[Esquiva] 5 + 2D [Resistência] 4 + 2D [Defesa Física] 22 [Defesa Mágica] 24</p><p>　[PV Máx.] 76 [Multiplicador de Ódio] x 4 [Iniciativa] 10 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 7》_[Ataque à Distância]_Maior_Confronto (6+3D/Esquiva)_Individual_3Qd_Causa [79+2D] de dano físico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 120G</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!ZlZsjhYIdg0BaUkB.B0lk50K4HtzPhnAV"
+    },
+    {
+      "sort": 1100000,
+      "name": "X. Atirador",
+      "type": "text",
+      "_id": "jklrwJPf3FEltx1R",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>◆〈Atirador Tipo 8 NP1〉</p><p>　[FOR] 1 [DES] 1 [POD] 2 [INT] 2</p><p>　[Esquiva] 1 + 2D [Resistência] 2 + 2D [Defesa Física] 4 [Defesa Mágica] 6</p><p>　[PV Máx.] 30 [Multiplicador de Ódio] x 2 [Iniciativa] 4 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 8》_[Ataque Mágico]_Maior_Confronto (2+3D/Resistência)_Individual_4Qd_Causa [17+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 23G</p><hr /><p>◆〈Atirador Tipo 8 NP2〉</p><p>　[FOR] 1 [DES] 1 [POD] 2 [INT] 3</p><p>　[Esquiva] 1+2D [Resistência] 2+2D [Defesa Física] 5 [Defesa Mágica] 8</p><p>　[PV Máx.] 34 [Multiplicador de Ódio] × 2 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 8》_[Ataque Mágico]_Maior_Confronto (3+3D/Resistência)_Individual_4Qd_Causa [23+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 28G</p><hr /><p>◆〈Atirador Tipo 8 NP3〉</p><p>　[FOR] 2 [DES] 1 [POD] 2 [INT] 3</p><p>　[Esquiva] 1 + 2D [Resistência] 2 + 2D [Defesa Física] 6 [Defesa Mágica] 10</p><p>　[PV Máx.] 38 [Multiplicador de Ódio] × 2 [Iniciativa] 6 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 8》_[Ataque Mágico]_Maior_Confronto (3+3D/Resistência)_Individual_4Qd_Causa [29+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 35G</p><hr /><p>◆〈Atirador Tipo 8 NP4〉</p><p>　[FOR] 2 [DES] 2 [POD] 3 [INT] 3</p><p>　[Esquiva] 2 + 2D [Resistência] 3 + 2D [Defesa Física] 8 [Defesa Mágica] 12</p><p>　[PV Máx.] 42 [Multiplicador de Ódio] x 3 [Iniciativa] 6 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 8》_[Ataque Mágico]_Maior_Confronto (3+3D/Resistência)_Individual_4Qd_Causa [35+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 42G</p><hr /><p>◆〈Atirador Tipo 8 NP5〉</p><p>　[FOR] 2 [DES] 2 [POD] 3 [INT] 4</p><p>　[Esquiva] 2 + 2D [Resistência] 3 + 2D [Defesa Física] 9 [Defesa Mágica] 14</p><p>　[PV Máx.] 46 [Multiplicador de Ódio] x 3 [Iniciativa] 7 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 8》_[Ataque Mágico]_Maior_Confronto (4+3D/Resistência)_Individual_4Qd_Causa [41+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 52G</p><hr /><p>◆〈Atirador Tipo 8 NP6〉</p><p>　[FOR] 3 [DES] 2 [POD] 3 [INT] 4</p><p>　[Esquiva] 3 + 2D [Resistência] 3 + 2D [Defesa Física] 10 [Defesa Mágica] 16</p><p>　[PV Máx.] 50 [Multiplicador de Ódio] × 3 [Iniciativa] 8 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 8》_[Ataque Mágico]_Maior_Confronto (4+3D/Resistência)_Individual_4Qd_Causa [47+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 63G</p><hr /><p>◆〈Atirador Tipo 8 NP7〉</p><p>　[FOR] 3 [DES] 3 [POD] 4 [INT] 4</p><p>　[Esquiva] 3 + 2D [Resistência] 4 + 2D [Defesa Física] 12 [Defesa Mágica] 18</p><p>　[PV Máx.] 54 [Multiplicador de Ódio] × 3 [Iniciativa] 8 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 8》_[Ataque Mágico]_Maior_Confronto (4+3D/Resistência)_Individual_4Qd_Causa [53+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 75G</p><hr /><p>◆〈Atirador Tipo 8 NP8〉</p><p>　[FOR] 3 [DES] 3 [POD] 4 [INT] 5</p><p>　[Esquiva] 3 + 2D [Resistência] 4 + 2D [Defesa Física] 13 [Defesa Mágica] 20</p><p>　[PV Máx.] 58 [Multiplicador de Ódio] × 3 [Iniciativa] 9 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 8》_[Ataque Mágico]_Maior_Confronto (5+3D/Resistência)_Individual_4Qd_Causa [59+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 89G</p><hr /><p>◆〈Atirador Tipo 8 NP9〉</p><p>　[FOR] 4 [DES] 3 [POD] 4 [INT] 5</p><p>　[Esquiva] 4 + 2D [Resistência] 4 + 2D [Defesa Física] 14 [Defesa Mágica] 22</p><p>　[PV Máx.] 62 [Multiplicador de Ódio] x 3 [Iniciativa] 10 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 8》_[Ataque Mágico]_Maior_Confronto (5+3D/Resistência)_Individual_4Qd_Causa [65+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 104G</p><hr /><p>◆〈Atirador Tipo 8 NP10〉</p><p>　[FOR] 4 [DES] 4 [POD] 5 [INT] 5</p><p>　[Esquiva] 4 + 2D [Resistência] 5 + 2D [Defesa Física] 16 [Defesa Mágica] 24</p><p>　[PV Máx.] 66 [Multiplicador de Ódio] × 4 [Iniciativa] 11 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 8》_[Ataque Mágico]_Maior_Confronto (6+3D/Resistência)_Individual_4Qd_Causa [71+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 120G</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!ZlZsjhYIdg0BaUkB.jklrwJPf3FEltx1R"
+    },
+    {
+      "sort": 1200000,
+      "name": "XI. Bombardeiro",
+      "type": "text",
+      "_id": "XXv3RnSOM9cGNbgL",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>◆〈Bombardeiro Tipo 9 NP1〉</p><p>　[FOR] 1 [DES] 1 [POD] 2 [INT] 2</p><p>　[Esquiva] 1 + 2D [Resistência] 2 + 2D [Defesa Física] 4 [Defesa Mágica] 6</p><p>　[PV Máx.] 30 [Multiplicador de Ódio] × 2 [Iniciativa] 1 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 9》_[Ataque Mágico]_Maior_Confronto (2+3D/Resistência)_Área (Escolha)_4Qd_Causa [17+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 23G</p><hr /><p>◆〈Bombardeiro Tipo 9 NP2〉</p><p>　[FOR] 1 [DES] 1 [POD] 2 [INT] 3</p><p>　[Esquiva] 1 + 2D [Resistência] 2 + 2D [Defesa Física] 5 [Defesa Mágica] 8</p><p>　[PV Máx.] 34 [Multiplicador de Ódio] x 2 [Iniciativa] 2 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 9》_[Ataque Mágico]_Maior_Confronto (3+3D/Resistência)_Área (Escolha)_4Qd_Causa [23+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 28G</p><hr /><p>◆〈Bombardeiro Tipo 9 NP3〉</p><p>　[FOR] 2 [DES] 1 [POD] 2 [INT] 3</p><p>　[Esquiva] 1 + 2D [Resistência] 2 + 2D [Defesa Física] 6 [Defesa Mágica] 10</p><p>　[PV Máx.] 38 [Multiplicador de Ódio] x 2 [Iniciativa] 3 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 9》_[Ataque Mágico]_Maior_Confronto (3+3D/Resistência)_Área (Escolha)_4Qd_Causa [29+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 35G</p><hr /><p>◆〈Bombardeiro Tipo 9 NP4〉</p><p>　[FOR] 2 [DES] 2 [POD] 3 [INT] 3</p><p>　[Esquiva] 2 + 2D [Resistência] 3 + 2D [Defesa Física] 8 [Defesa Mágica] 12</p><p>　[PV Máx.] 42 [Multiplicador de Ódio] x 3 [Iniciativa] 3 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 9》_[Ataque Mágico]_Maior_Confronto (3+3D/Resistência)_Área (Escolha)_4Qd_Causa [35+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 42G</p><hr /><p>◆〈Bombardeiro Tipo 9 NP5〉</p><p>　[FOR] 2 [DES] 2 [POD] 3 [INT] 4</p><p>　[Esquiva] 2 + 2D [Resistência] 3 + 2D [Defesa Física] 9 [Defesa Mágica] 14</p><p>　[PV Máx.] 46 [Multiplicador de Ódio] x 3 [Iniciativa] 4 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 9》_[Ataque Mágico]_Maior_Confronto (4+3D/Resistência)_Área (Escolha)_4Qd_Causa [41+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 52G</p><hr /><p>◆〈Bombardeiro Tipo 9 NP6〉</p><p>　[FOR] 3 [DES] 2 [POD] 3 [INT] 4</p><p>　[Esquiva] 3 + 2D [Resistência] 3 + 2D [Defesa Física] 10 [Defesa Mágica] 16</p><p>　[PV Máx.] 50 [Multiplicador de Ódio] x 3 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 9》_[Ataque Mágico]_Maior_Confronto (4+3D/Resistência)_Área (Escolha)_4Qd_Causa [47+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 63G</p><hr /><p>◆〈Bombardeiro Tipo 9 NP7〉</p><p>　[FOR] 3 [DES] 3 [POD] 4 [INT] 4</p><p>　[Esquiva] 3 + 2D [Resistência] 4 + 2D [Defesa Física] 12 [Defesa Mágica] 18</p><p>　[PV Máx.] 54 [Multiplicador de Ódio] x 3 [Iniciativa] 5 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 9》_[Ataque Mágico]_Maior_Confronto (4+3D/Resistência)_Área (Escolha)_4Qd_Causa [53+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 75G</p><hr /><p>◆〈Bombardeiro Tipo 9 NP8〉</p><p>　[FOR] 3 [DES] 3 [POD] 4 [INT] 5</p><p>　[Esquiva] 3 + 2D [Resistência] 4 + 2D [Defesa Física] 13 [Defesa Mágica] 20</p><p>　[PV Máx.] 58 [Multiplicador de Ódio] x 3 [Iniciativa] 6 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 9》_[Ataque Mágico]_Maior_Confronto (5+3D/Resistência)_Área (Escolha)_4Qd_Causa [59+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 89G</p><hr /><p>◆〈Bombardeiro Tipo 9 NP9〉</p><p>　[FOR] 4 [DES] 3 [POD] 4 [INT] 5</p><p>　[Esquiva] 4 + 2D [Resistência] 4 + 2D [Defesa Física] 14 [Defesa Mágica] 22</p><p>　[PV Máx.] 62 [Multiplicador de Ódio] × 3 [Iniciativa] 7 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 9》_[Ataque Mágico]_Maior_Confronto (5+3D/Resistência)_Área (Escolha)_4Qd_Causa [65+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 104G</p><hr /><p>◆〈Bombardeiro Tipo 9 NP10〉</p><p>　[FOR] 4 [DES] 4 [POD] 5 [INT] 5</p><p>　[Esquiva] 4 + 2D [Resistência] 5 + 2D [Defesa Física] 16 [Defesa Mágica] 24</p><p>　[PV Máx.] 66 [Multiplicador de Ódio] x 4 [Iniciativa] 8 [Velocidade] 2</p><p>▼Habilidade Especial</p><p>《Método de Ataque Básico Tipo 9》_[Ataque Mágico]_Maior_Confronto (6+3D/Resistência)_Área (Escolha)_4Qd_Causa [71+2D] de dano mágico.</p><p>▼Itens Deixados</p><p>Valor Esperado dos Itens Deixados: 120G</p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!ZlZsjhYIdg0BaUkB.XXv3RnSOM9cGNbgL"
+    }
+  ],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "ZlZsjhYIdg0BaUkB",
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "categories": [],
+  "folder": null,
+  "_key": "!journal!ZlZsjhYIdg0BaUkB"
+}

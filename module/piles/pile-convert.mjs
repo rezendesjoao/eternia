@@ -3,7 +3,7 @@
  * Piles pile, merchant, container or vault) into a system pile, keeping its
  * id, items, gold, image, tokens and permissions. Stats are dropped.
  *
- * Usage (macro): game.lhtrpg.piles.convertDialog()
+ * Usage (macro): game.eternia.piles.convertDialog()
  */
 import { PILE_MODES, PILE_TYPE, PHYSICAL_TYPES, STOCK_FLAG } from "./pile-config.mjs";
 import { itemQuantity } from "./pile-utils.mjs";
@@ -71,7 +71,7 @@ function itemChanges(items, mode, ip, dropNonPhysical) {
     }
     const update = { _id: item.id, "system.equipped": false };
     if (item.flags?.["item-piles"]) update["flags.item-piles"] = _del;
-    if (mode === "merchant") update[`flags.lhtrpg.${STOCK_FLAG}`] = infinite ? -1 : itemQuantity(item);
+    if (mode === "merchant") update[`flags.eternia.${STOCK_FLAG}`] = infinite ? -1 : itemQuantity(item);
     updates.push(update);
   }
   return { deletions, updates };
@@ -101,7 +101,7 @@ export async function convertActorToPile(actor, { mode, dropNonPhysical = true }
     type: PILE_TYPE,
     system: _replace(system),
     "ownership.default": Math.max(actor.ownership.default ?? 0, LIMITED),
-    "flags.lhtrpg.preConversion": { type: source.type, system: source.system, itemPiles: source.flags?.["item-piles"] ?? null }
+    "flags.eternia.preConversion": { type: source.type, system: source.system, itemPiles: source.flags?.["item-piles"] ?? null }
   });
   if (actor.flags?.["item-piles"]) await actor.update({ "flags.item-piles": _del });
 
@@ -174,9 +174,9 @@ function convertibleActors() {
 
 /** Show the conversion dialog (GM only). */
 export async function convertDialog() {
-  if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("LHTRPG.Piles.Error.NoPermission"));
+  if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("ETERNIA.Piles.Error.NoPermission"));
   const actors = convertibleActors();
-  if (!actors.length) return ui.notifications.info(game.i18n.localize("LHTRPG.Piles.Convert.NoActors"));
+  if (!actors.length) return ui.notifications.info(game.i18n.localize("ETERNIA.Piles.Convert.NoActors"));
 
   const esc = foundry.utils.escapeHTML;
   const selected = canvas.ready ? canvas.tokens.controlled.map(t => t.actor).find(a => a && actors.includes(a.isToken ? game.actors.get(a.id) : a)) : null;
@@ -185,37 +185,37 @@ export async function convertDialog() {
   const actorOptions = actors.map(a => {
     const ip = itemPilesData(a).type;
     let tag = ip ? ` — Item Piles: ${ip}` : "";
-    if (a.hasPlayerOwner) tag += ` — ⚠ ${game.i18n.localize("LHTRPG.Piles.Convert.PlayerOwned")}`;
+    if (a.hasPlayerOwner) tag += ` — ⚠ ${game.i18n.localize("ETERNIA.Piles.Convert.PlayerOwned")}`;
     return `<option value="${a.id}" data-mode="${suggestedMode(a)}" ${a === initial ? "selected" : ""}>${esc(a.name)} (${esc(typeLabel(a))}${esc(tag)})</option>`;
   }).join("");
   const modeOptions = Object.entries(PILE_MODES).map(([value, label]) =>
     `<option value="${value}" ${value === suggestedMode(initial) ? "selected" : ""}>${game.i18n.localize(label)}</option>`).join("");
 
   const content = `
-    <p>${game.i18n.localize("LHTRPG.Piles.Convert.Hint")}</p>
-    <div class="form-group"><label>${game.i18n.localize("LHTRPG.Piles.Convert.Actor")}</label>
+    <p>${game.i18n.localize("ETERNIA.Piles.Convert.Hint")}</p>
+    <div class="form-group"><label>${game.i18n.localize("ETERNIA.Piles.Convert.Actor")}</label>
       <select name="actorId">${actorOptions}</select></div>
-    <div class="form-group"><label>${game.i18n.localize("LHTRPG.Piles.Convert.Mode")}</label>
+    <div class="form-group"><label>${game.i18n.localize("ETERNIA.Piles.Convert.Mode")}</label>
       <select name="mode">${modeOptions}</select></div>
-    <div class="form-group"><label>${game.i18n.localize("LHTRPG.Piles.Convert.DropNonPhysical")}</label>
+    <div class="form-group"><label>${game.i18n.localize("ETERNIA.Piles.Convert.DropNonPhysical")}</label>
       <input type="checkbox" name="dropNonPhysical" checked></div>
-    <p class="notes lhtrpg-convert-summary"></p>`;
+    <p class="notes eternia-convert-summary"></p>`;
 
   const describe = form => {
     const actor = game.actors.get(form.elements.actorId.value);
     const physical = actor.items.filter(i => PHYSICAL_TYPES.includes(i.type)).length;
     const other = actor.items.size - physical;
     const tokens = game.scenes.contents.reduce((n, s) => n + s.tokens.filter(t => t.actorId === actor.id).length, 0);
-    form.querySelector(".lhtrpg-convert-summary").textContent = game.i18n.format("LHTRPG.Piles.Convert.Summary", {
+    form.querySelector(".eternia-convert-summary").textContent = game.i18n.format("ETERNIA.Piles.Convert.Summary", {
       physical, other, tokens, gold: Math.floor(Number(actor.system?.inventory?.gold ?? 0) || 0)
     });
   };
 
   const data = await DialogV2.input({
-    window: { title: game.i18n.localize("LHTRPG.Piles.Convert.Title"), icon: "fas fa-box-open" },
+    window: { title: game.i18n.localize("ETERNIA.Piles.Convert.Title"), icon: "fas fa-box-open" },
     position: { width: 520 },
     content,
-    ok: { label: game.i18n.localize("LHTRPG.Piles.Convert.Confirm"), icon: "fas fa-right-left" },
+    ok: { label: game.i18n.localize("ETERNIA.Piles.Convert.Confirm"), icon: "fas fa-right-left" },
     render: (event, dialog) => {
       const form = dialog.element.querySelector("form");
       const actorSelect = form.elements.actorId;
@@ -231,12 +231,12 @@ export async function convertDialog() {
   const actor = game.actors.get(data.actorId);
   const modeLabel = game.i18n.localize(PILE_MODES[data.mode]);
   const confirmed = await DialogV2.confirm({
-    window: { title: game.i18n.localize("LHTRPG.Piles.Convert.Title") },
-    content: `<p>${game.i18n.format("LHTRPG.Piles.Convert.AreYouSure", { actor: esc(actor.name), mode: modeLabel })}</p>`
+    window: { title: game.i18n.localize("ETERNIA.Piles.Convert.Title") },
+    content: `<p>${game.i18n.format("ETERNIA.Piles.Convert.AreYouSure", { actor: esc(actor.name), mode: modeLabel })}</p>`
   });
   if (!confirmed) return;
 
   const result = await convertActorToPile(actor, { mode: data.mode, dropNonPhysical: !!data.dropNonPhysical });
-  ui.notifications.info(game.i18n.format("LHTRPG.Piles.Convert.Done", { actor: actor.name, mode: modeLabel, ...result }));
+  ui.notifications.info(game.i18n.format("ETERNIA.Piles.Convert.Done", { actor: actor.name, mode: modeLabel, ...result }));
   return actor;
 }

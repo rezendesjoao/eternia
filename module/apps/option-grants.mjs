@@ -33,7 +33,7 @@ function owns(actor, skill) {
 export async function offerGrants(actor, item) {
   const source = sourceOf(item);
   const stale = actor.items.filter(i => {
-    const flag = i.getFlag("lhtrpg", GRANT_FLAG);
+    const flag = i.getFlag("eternia", GRANT_FLAG);
     return (flag?.type === item.type) && (flag.source !== source);
   });
 
@@ -52,23 +52,23 @@ export async function offerGrants(actor, item) {
 
   const typeLabel = game.i18n.localize(`TYPES.Item.${item.type}`);
   const content = await foundry.applications.handlebars.renderTemplate(
-    "systems/lhtrpg/templates/apps/option-grants.hbs",
+    "systems/eternia/templates/apps/option-grants.hbs",
     { item, slots, stale, typeLabel }
   );
   const data = await DialogV2.wait({
-    window: { title: game.i18n.format("LHTRPG.CharacterOptions.Grants.Title", { name: item.name }), icon: "fa-solid fa-book-atlas" },
-    classes: ["lhtrpg", "option-grants"],
+    window: { title: game.i18n.format("ETERNIA.CharacterOptions.Grants.Title", { name: item.name }), icon: "fa-solid fa-book-atlas" },
+    classes: ["eternia", "option-grants"],
     position: { width: 420 },
     content,
     buttons: [
       {
         action: "add",
-        label: "LHTRPG.CharacterOptions.Grants.Add",
+        label: "ETERNIA.CharacterOptions.Grants.Add",
         icon: "fa-solid fa-check",
         default: true,
         callback: (event, button) => new foundry.applications.ux.FormDataExtended(button.form).object
       },
-      { action: "skip", label: "LHTRPG.CharacterOptions.Grants.Skip", icon: "fa-solid fa-xmark" }
+      { action: "skip", label: "ETERNIA.CharacterOptions.Grants.Skip", icon: "fa-solid fa-xmark" }
     ],
     rejectClose: false
   });
@@ -94,7 +94,7 @@ export async function offerGrants(actor, item) {
     delete skillData.sort;
     delete skillData.ownership;
     foundry.utils.setProperty(skillData, "_stats.compendiumSource", skill.uuid);
-    foundry.utils.setProperty(skillData, `flags.lhtrpg.${GRANT_FLAG}`, { type: item.type, source });
+    foundry.utils.setProperty(skillData, `flags.eternia.${GRANT_FLAG}`, { type: item.type, source });
     toCreate.push(skillData);
   }
   if (toCreate.length) await actor.createEmbeddedDocuments("Item", toCreate);

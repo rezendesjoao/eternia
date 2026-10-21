@@ -1,5 +1,5 @@
 /**
- * Log Horizon TRPG statuses (Rules v0.3, VI.a. STATUSES).
+ * Eternia statuses (Rules v0.3, VI.a. STATUSES).
  *
  * Every status is registered as a Foundry status effect, so it can be toggled from the Token HUD
  * and is drawn on the token like any other status. Statuses backed by an actor data field (the
@@ -11,7 +11,7 @@
 import { canonicalTag } from "./tag-catalog.mjs";
 import { isLocalChange } from "./clients.mjs";
 
-const ICONS_PATH = "systems/lhtrpg/assets/ui/status";
+const ICONS_PATH = "systems/eternia/assets/ui/status";
 
 /**
  * @typedef {object} LHStatus
@@ -72,7 +72,7 @@ const MIGRATION_VERSION = 5;
 /* -------------------------------------------- */
 
 /**
- * Replace the core status effects with the Log Horizon ones and register the sync hooks.
+ * Replace the core status effects with the Eternia ones and register the sync hooks.
  * Call during the `init` hook.
  */
 export function registerStatuses() {
@@ -80,7 +80,7 @@ export function registerStatuses() {
     id: s.id,
     // Static id: a status can only exist once per actor, even with concurrent toggles.
     _id: `lh${s.id}`.padEnd(16, "0"),
-    name: `LHTRPG.StatusEffect.${s.id}`,
+    name: `ETERNIA.StatusEffect.${s.id}`,
     img: s.img
   }));
   CONFIG.specialStatusEffects.DEFEATED = "dead";
@@ -112,7 +112,7 @@ export function getStatusPanel(actor) {
   const source = actor._source.system;
   return LH_STATUS_GROUPS.map(group => ({
     id: group,
-    label: game.i18n.localize(`LHTRPG.StatusGroup.${group}`),
+    label: game.i18n.localize(`ETERNIA.StatusGroup.${group}`),
     statuses: LH_STATUSES
       .filter(s => (s.group === group) && (s.id !== "fatigue"))
       .filter(s => !s.types || s.types.includes(actor.type))
@@ -120,7 +120,7 @@ export function getStatusPanel(actor) {
         const value = s.path ? foundry.utils.getProperty(source, s.path) : undefined;
         return {
           id: s.id,
-          label: game.i18n.localize(`LHTRPG.StatusEffect.${s.id}`),
+          label: game.i18n.localize(`ETERNIA.StatusEffect.${s.id}`),
           img: s.img,
           field: s.path ? `system.${s.path}` : null,
           rated: !!s.rated,
@@ -243,7 +243,7 @@ function _inactiveFieldValue(status) {
 }
 
 function _effectName(status, value) {
-  const label = game.i18n.localize(`LHTRPG.StatusEffect.${status.id}`);
+  const label = game.i18n.localize(`ETERNIA.StatusEffect.${status.id}`);
   if (status.list) {
     const entries = _listValue(value, status.tagged).map(e => status.tagged ? (e.tag ? `(${e.tag}) ${e.value}` : e.value) : e);
     return `${label}: ${entries.join(" / ")}`;
@@ -251,9 +251,9 @@ function _effectName(status, value) {
   return status.rated ? `${label}: ${Number(value) || 0}` : label;
 }
 
-/** The LH status data of an effect (flags.lhtrpg.statusData), if any. */
+/** The Eternia status data of an effect (flags.eternia.statusData), if any. */
 function _statusData(effect) {
-  const data = effect.getFlag?.("lhtrpg", "statusData");
+  const data = effect.getFlag?.("eternia", "statusData");
   return data?.statusId ? data : null;
 }
 
@@ -326,7 +326,7 @@ function _queueSync(actor, status) {
   const key = `${actor.uuid}.${status.id}`;
   const next = (_syncQueue.get(key) ?? Promise.resolve())
     .then(() => _syncEffectFromField(actor, status))
-    .catch(err => console.error(`Log Horizon TRPG | Could not sync ${status.id} of ${actor.uuid}`, err));
+    .catch(err => console.error(`Eternia | Could not sync ${status.id} of ${actor.uuid}`, err));
   _syncQueue.set(key, next);
   next.then(() => { if (_syncQueue.get(key) === next) _syncQueue.delete(key); });
 }
@@ -342,7 +342,7 @@ function _queueFieldUpdate(actor, status, fn) {
   const key = `${actor.uuid}.${status.id}`;
   const next = (_fieldUpdateQueue.get(key) ?? Promise.resolve())
     .then(() => fn())
-    .catch(err => console.error(`Log Horizon TRPG | Could not update status field ${status.id} on ${actor.uuid}`, err));
+    .catch(err => console.error(`Eternia | Could not update status field ${status.id} on ${actor.uuid}`, err));
   _fieldUpdateQueue.set(key, next);
   next.then(() => { if (_fieldUpdateQueue.get(key) === next) _fieldUpdateQueue.delete(key); });
   return next;
@@ -524,7 +524,7 @@ function _syncCombatantsHidden(effect, options, userId) {
  */
 async function migrateStatuses() {
   // Icon overrides imported from Combat Utility Belt (third-party art) are no longer used.
-  await game.settings.storage.get("world").find(s => s.key === "lhtrpg.statusIcons")?.delete();
+  await game.settings.storage.get("world").find(s => s.key === "eternia.statusIcons")?.delete();
 
   const actors = [...game.actors];
   for (const scene of game.scenes) {
@@ -539,11 +539,11 @@ async function migrateStatuses() {
       await migrateActorStatuses(actor);
     } catch (err) {
       failed++;
-      console.error(`Log Horizon TRPG | Could not migrate the statuses of ${actor.uuid}`, err);
+      console.error(`Eternia | Could not migrate the statuses of ${actor.uuid}`, err);
     }
   }
 
-  console.log(`Log Horizon TRPG | Migrated statuses of ${actors.length - failed}/${actors.length} actors`);
+  console.log(`Eternia | Migrated statuses of ${actors.length - failed}/${actors.length} actors`);
   return true;
 }
 
@@ -553,7 +553,7 @@ export const STATUSES_MIGRATION = {
 };
 
 /**
- * Migrate one actor's statuses: replace legacy and Combat Utility Belt effects with LH status
+ * Migrate one actor's statuses: replace legacy and Combat Utility Belt effects with Eternia status
  * effects, create the effects of fields that are already set, and refresh status icons.
  * @param {Actor} actor
  */
@@ -562,7 +562,7 @@ export async function migrateActorStatuses(actor) {
     const statusId = e.getFlag("core", "statusId");
     return statusId && STATUS_BY_ID.has(statusId) && !e.statuses.size;
   });
-  // Combat Utility Belt conditions with a LH equivalent (by name) are replaced by that status;
+  // Combat Utility Belt conditions with an Eternia equivalent (by name) are replaced by that status;
   // the rest (e.g. Asleep) are left as they are. CUB is not active, so getFlag() would throw.
   const cub = actor.effects
     .filter(e => foundry.utils.getProperty(e.flags, "combat-utility-belt.conditionId"))
@@ -615,7 +615,7 @@ export async function migrateActorStatuses(actor) {
 }
 
 /**
- * Match a CUB condition name ("Pursuit 2", "Hate TOP"...) to a LH status.
+ * Match a CUB condition name ("Pursuit 2", "Hate TOP"...) to an Eternia status.
  */
 function _statusFromCUBName(name) {
   const key = (name ?? "").toLowerCase().replace(/[^a-z]/g, "");

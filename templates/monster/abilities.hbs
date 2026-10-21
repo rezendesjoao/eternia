@@ -1,0 +1,37 @@
+{{!-- ABILITIES, grouped by Timing: the image uses it (sends it to the chat), the name opens the details; the check,
+     the damage and the limit are chips under the name. --}}
+<section class="tab major abilities" data-group="primary" data-tab="abilities">
+	<div class="tab-content">
+		<div class="lhpf-toolbar">
+			<span class="count">{{localize 'ETERNIA.Sheet.SkillCount' n=lh.skillCount}}</span>
+			{{#if editable}}<button type="button" data-action="item-create" data-type="skill"><i class="fa-solid fa-fw fa-plus"></i>{{localize 'ETERNIA.Add'}}</button>{{/if}}
+		</div>
+		<ol class="directory-list lhpf-list lhpf-abilities">
+			{{#each lh.groups as |group|}}
+			<li class="action-header"><h3>{{group.label}}</h3><span class="count">{{group.skills.length}}</span></li>
+			{{#each group.skills as |item|}}
+			<li class="item skill draggable" data-item-id="{{item.id}}">
+				<div class="item-name">
+					<a class="item-image framed" data-action="item-throw" data-tooltip="{{localize 'ETERNIA.Sheet.Use'}}"><img src="{{item.img}}" alt=""><i class="fa-solid fa-comment"></i></a>
+					<div class="text">
+						<h4 class="name"><a data-action="lhauto-summary">{{item.name}}</a></h4>
+						{{#if item.chips.length}}
+						<ul class="tags meta">
+							{{#each item.chips}}<li class="tag {{cls}}" data-tooltip="{{tip}}">{{text}}</li>{{/each}}
+						</ul>
+						{{/if}}
+					</div>
+				</div>
+				<div class="item-controls">
+					<a class="item-control" data-action="item-edit" data-tooltip="ETERNIA.ButtonLabel.Edit"><i class="fa-solid fa-fw fa-pen-to-square"></i></a>
+					{{#if @root.editable}}<a class="item-control" data-action="item-delete" data-tooltip="ETERNIA.ButtonLabel.Delete"><i class="fa-solid fa-fw fa-trash"></i></a>{{/if}}
+				</div>
+				<div class="item-summary" hidden></div>
+			</li>
+			{{/each}}
+			{{else}}
+			<li class="lhpf-empty">{{localize 'ETERNIA.Sheet.Monster.NoAbilities'}}</li>
+			{{/each}}
+		</ol>
+	</div>
+</section>

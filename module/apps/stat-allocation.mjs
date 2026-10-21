@@ -36,22 +36,22 @@ export async function chooseHumanStats(item) {
     checked: Number(current[key]) > 0
   }));
   const content = await foundry.applications.handlebars.renderTemplate(
-    "systems/lhtrpg/templates/apps/human-stats.hbs", { stats, picks: HUMAN_PICKS }
+    "systems/eternia/templates/apps/human-stats.hbs", { stats, picks: HUMAN_PICKS }
   );
   const data = await DialogV2.wait({
-    window: { title: game.i18n.localize("LHTRPG.StatAllocation.Human.Title"), icon: "fa-solid fa-person" },
-    classes: ["lhtrpg", "stat-allocation"],
+    window: { title: game.i18n.localize("ETERNIA.StatAllocation.Human.Title"), icon: "fa-solid fa-person" },
+    classes: ["eternia", "stat-allocation"],
     position: { width: 360 },
     content,
     buttons: [
       {
         action: "ok",
-        label: "LHTRPG.StatAllocation.Confirm",
+        label: "ETERNIA.StatAllocation.Confirm",
         icon: "fa-solid fa-check",
         default: true,
         callback: (event, button) => new foundry.applications.ux.FormDataExtended(button.form).object
       },
-      { action: "skip", label: "LHTRPG.StatAllocation.Later", icon: "fa-solid fa-xmark" }
+      { action: "skip", label: "ETERNIA.StatAllocation.Later", icon: "fa-solid fa-xmark" }
     ],
     render: (event, dialog) => {
       const form = dialog.element.querySelector("form");
@@ -92,23 +92,23 @@ export async function allocateBonusPoints(actor) {
     bonus: Number(attributes[key]?.value) || 0
   }));
   const content = await foundry.applications.handlebars.renderTemplate(
-    "systems/lhtrpg/templates/apps/bonus-points.hbs",
+    "systems/eternia/templates/apps/bonus-points.hbs",
     { stats, points: BONUS_POINTS, max: MAX_BASE_STAT }
   );
   const data = await DialogV2.wait({
-    window: { title: game.i18n.format("LHTRPG.StatAllocation.Bonus.Title", { name: actor.name }), icon: "fa-solid fa-chart-simple" },
-    classes: ["lhtrpg", "stat-allocation"],
+    window: { title: game.i18n.format("ETERNIA.StatAllocation.Bonus.Title", { name: actor.name }), icon: "fa-solid fa-chart-simple" },
+    classes: ["eternia", "stat-allocation"],
     position: { width: 420 },
     content,
     buttons: [
       {
         action: "ok",
-        label: "LHTRPG.StatAllocation.Confirm",
+        label: "ETERNIA.StatAllocation.Confirm",
         icon: "fa-solid fa-check",
         default: true,
         callback: (event, button) => new foundry.applications.ux.FormDataExtended(button.form).object
       },
-      { action: "skip", label: "LHTRPG.StatAllocation.Later", icon: "fa-solid fa-xmark" }
+      { action: "skip", label: "ETERNIA.StatAllocation.Later", icon: "fa-solid fa-xmark" }
     ],
     render: (event, dialog) => {
       const form = dialog.element.querySelector("form");

@@ -2,7 +2,7 @@
   "name": "R20 Zauberflete",
   "type": "weapon",
   "system": {
-    "description": "<p>You gain +10 to your [Special Attack] damage roll for all skills you possess with the [Support Song] tag (SR+1, maximum SR may be exceeded). [Trigger: Damage Roll] Once per scenario.\nA sinister flute that enchants and drives listeners to madness with its beautiful sound. Many talented musicians have played it, but all who owned it met unfortunate ends. Variants shaped like other instruments also exist.</p><hr><p>Tough Tissue Membrane [Core Material] (680G) + Master's Instrument (540G) + [Magic Catalyst 20] (370G) ×5 + Crafting Cost (1450G)</p>",
+    "description": "<p>Você recebe +10 na rolagem de dano de [Ataque Especial] para todas as habilidades que possui com a tag [Canção de Suporte] (NH+1; o NH Máximo pode ser excedido). [Momento: Rolagem de Dano] Uma vez por cenário.\nUma flauta sinistra que encanta os ouvintes e os leva à loucura com seu belo som. Muitos músicos talentosos a tocaram, mas todos que a possuíram tiveram finais infelizes. Também existem variantes com a forma de outros instrumentos.</p><hr><p>Membrana de Tecido Resistente [Material-Base] (680G) + Instrumento Obra-Prima (540G) + [Catalisador Mágico 20] (370G) ×5 + Custo de Fabricação (1450G)</p>",
     "tags": [
       "Two-Handed",
       "Instrument",
@@ -24,17 +24,31 @@
     "pdef": 0,
     "mdef": 0
   },
-  "img": "systems/lhtrpg/assets/ui/items_icons/weapon.svg",
+  "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
   "effects": [],
   "sort": 0,
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Damage Roll",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scenario",
+          "text": "You gain +10 to your [Special Attack] damage roll for all skills you possess with the [Support Song] tag (SR+1, maximum SR may be exceeded). [Trigger: Damage Roll] Once per scenario.",
+          "whole": true
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
-    "systemId": "lhtrpg",
-    "systemVersion": "1.5.0",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

@@ -1,0 +1,83 @@
+{{!-- Action HUD (module/hud/hud.mjs): the bar and, above it, the open panel. --}}
+<div class="lhh">
+	{{#if panel}}{{> "systems/eternia/templates/hud/panel.hbs"}}{{/if}}
+	<div class="lhh-bar">
+		<div class="lhh-cap">
+			<a class="lhh-portrait" data-action="lhh-sheet" data-tooltip-text="{{name}} · {{localize 'ETERNIA.Hud.OpenSheet'}}" data-tooltip-direction="UP"><img src="{{img}}" alt=""></a>
+			<a class="lhh-fold" data-action="lhh-collapse" data-tooltip-text="{{#if collapsed}}{{localize 'ETERNIA.Hud.Expand'}}{{else}}{{localize 'ETERNIA.Hud.Collapse'}}{{/if}}" data-tooltip-direction="UP"><i class="fa-solid {{#if collapsed}}fa-angles-right{{else}}fa-angles-left{{/if}}"></i></a>
+		</div>
+		{{#unless collapsed}}
+		<div class="lhh-main">
+			<div class="lhh-status">
+				<span class="lhh-name" title="{{name}}">{{name}}</span>
+				<span class="lhh-hp{{#if hp.low}} low{{/if}}" data-tooltip-text="{{localize 'ETERNIA.Label.HP'}} {{hp.value}} / {{hp.max}}" data-tooltip-direction="UP">
+					<span class="lhh-hp-bar"><i style="width: {{hp.pct}}%"></i></span>
+					<span class="lhh-hp-text">{{hp.value}}<small>/{{hp.max}}</small></span>
+				</span>
+				{{#if barrier}}<span class="lhh-barrier" data-tooltip-text="{{localize 'ETERNIA.StatusEffect.barrier'}} {{barrier}}" data-tooltip-direction="UP"><i class="fa-solid fa-shield-halved"></i>{{barrier}}</span>{{/if}}
+			</div>
+			<nav class="lhh-nav">
+				{{#each panels}}
+				<button type="button" class="lhh-tab{{#if active}} active{{/if}}" data-action="lhh-panel" data-panel="{{id}}" data-tooltip-text="{{label}}" data-tooltip-direction="UP"><i class="{{icon}}"></i><span>{{label}}</span>{{#if badge}}<b class="lhh-badge">{{badge}}</b>{{/if}}</button>
+				{{/each}}
+				{{#if pins.length}}
+				<span class="lhh-pins">
+					{{#each pins}}
+					{{#if (eq kind 'check')}}
+					<a class="lhh-pinned check" data-action="lhh-check" data-check="{{key}}" data-tooltip-text="{{label}} {{text}}" data-tooltip-direction="UP"><i class="fa-solid fa-dice-d6"></i><span>{{short}}</span></a>
+					{{else}}
+					<a class="lhh-pinned{{#if unusable}} unusable{{/if}}" data-action="lhh-use" data-item-id="{{id}}" data-tip-item="{{id}}" data-tooltip-html="{{tip}}" data-tooltip-class="lhh-tip" data-tooltip-direction="UP"><img src="{{img}}" alt="">{{#if uses}}<b class="lhh-pinned-uses">{{uses.left}}</b>{{/if}}{{#if qty}}<b class="lhh-pinned-uses">{{qty}}</b>{{/if}}</a>
+					{{/if}}
+					{{/each}}
+				</span>
+				{{/if}}
+			</nav>
+		</div>
+		{{#if character}}
+		<div class="lhh-res">
+			{{#if fate}}<span class="lhh-fate" data-action="lhh-fate" data-tooltip-text="{{fate.tooltip}}" data-tooltip-direction="UP">{{#each fate.pips}}<i class="{{#if this}}fa-solid{{else}}fa-regular{{/if}} fa-star"></i>{{/each}}</span>{{/if}}
+			{{#if hate}}<span class="lhh-hate{{#if hate.rank}} {{hate.rank}}{{/if}}" data-tooltip-text="{{hate.tooltip}}" data-tooltip-direction="UP"><b>{{localize 'ETERNIA.Sheet.Hate'}}</b>{{hate.value}}{{#if (eq hate.rank 'top')}}<i class="fa-solid fa-crown"></i>{{/if}}{{#if (eq hate.rank 'under')}}<i class="fa-solid fa-angles-down"></i>{{/if}}</span>{{/if}}
+			{{#if fatigue}}<span class="lhh-fatigue" data-tooltip-text="{{localize 'ETERNIA.Hud.FatigueTip' value=fatigue}}" data-tooltip-direction="UP"><b>{{localize 'ETERNIA.Sheet.Fatigue'}}</b>{{fatigue}}</span>{{/if}}
+		</div>
+		{{/if}}
+		{{#if (or combat dodge)}}
+		<div class="lhh-side{{#if combat.active}} active{{/if}}">
+			{{#if dodge}}
+			{{#with dodge}}
+			<button type="button" class="lhh-dodge" data-action="lhh-dodge" data-message-id="{{messageId}}" data-index="{{index}}" data-tooltip-text="{{tooltip}}" data-tooltip-direction="UP"><i class="fa-solid fa-shield-halved"></i><span>{{localize 'ETERNIA.Hud.Dodge'}}</span><small>{{by}}</small>{{#if more}}<b class="lhh-badge">+{{more}}</b>{{/if}}</button>
+			{{/with}}
+			{{else}}
+			{{#with combat}}
+			{{#if started}}
+			<span class="lhh-round" data-tooltip-text="{{localize 'ETERNIA.Sheet.Initiative'}} {{initiative}}" data-tooltip-direction="UP">{{localize 'ETERNIA.Hud.Round' n=round}} · {{phase}}</span>
+			{{else if join}}
+			<span class="lhh-round">{{localize 'ETERNIA.Sheet.Initiative'}} {{initiative}}</span>
+			{{else}}
+			<span class="lhh-round">{{localize 'ETERNIA.Sheet.Initiative'}} {{initiative}}</span>
+			{{/if}}
+			{{/with}}
+			{{/if}}
+			{{#with combat}}
+			{{#if join}}
+			<button type="button" class="lhh-join" data-action="lhh-join" data-tooltip-text="{{localize 'ETERNIA.Hud.JoinHint' n=initiative}}" data-tooltip-direction="UP"><i class="fa-solid fa-swords"></i><span>{{localize 'ETERNIA.Hud.Join'}}</span></button>
+			{{else if started}}
+			{{#if active}}
+			<span class="lhh-turn">
+				{{#if actions}}<span class="lhh-actions">{{#each actions}}<i class="lhh-act fa-solid {{icon}}{{#unless left}} spent{{/unless}}" data-tooltip-text="{{label}}" data-tooltip-direction="UP"></i>{{/each}}</span>{{/if}}
+				{{#if canStandby}}<button type="button" class="lhh-standby" data-action="lhh-standby" data-tooltip-text="{{localize 'ETERNIA.Combat.StandbyHint'}}" data-tooltip-direction="UP"><i class="fa-solid fa-hourglass-half"></i></button>{{/if}}
+				<button type="button" class="lhh-end" data-action="lhh-end" data-tooltip-text="{{localize 'ETERNIA.Hud.EndHint'}}" data-tooltip-direction="UP"><i class="fa-solid fa-check"></i><span>{{localize 'ETERNIA.Hud.End'}}</span></button>
+			</span>
+			{{else if post}}
+			<span class="lhh-state">{{localize 'ETERNIA.Combat.ActionState.post'}}</span>
+			{{else if standby}}
+			<span class="lhh-state">{{localize 'ETERNIA.Combat.ActionState.standby'}}</span>
+			{{else}}
+			<span class="lhh-state">{{localize 'ETERNIA.Combat.ActionState.pre'}}</span>
+			{{/if}}
+			{{/if}}
+			{{/with}}
+		</div>
+		{{/if}}
+		{{/unless}}
+	</div>
+</div>

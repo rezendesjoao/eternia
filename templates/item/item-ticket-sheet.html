@@ -1,10 +1,10 @@
-<div class="lhtrpg-item-sheet flexcol">
-  {{> "systems/lhtrpg/templates/item/parts/item-header.html"}}
+<div class="eternia-item-sheet flexcol">
+  {{> "systems/eternia/templates/item/parts/item-header.html"}}
 
   <section class="sheet-stats">
 
     <div class="stat-div">
-      <label>{{localize 'LHTRPG.Label.Type'}}</label>
+      <label>{{localize 'ETERNIA.Label.Type'}}</label>
       <div>
         <select name="system.subtype">
           {{selectOptions subtypeOptions selected=system.subtype localize=true}}
@@ -13,7 +13,7 @@
     </div>
 
     <div class="stat-div">
-      <label>{{localize 'LHTRPG.Item.Label.Quantity'}}</label>
+      <label>{{localize 'ETERNIA.Item.Label.Quantity'}}</label>
       <div>
         <input class="itemQuantity-input" type="text" name="system.quantity" value="{{system.quantity}}" placeholder="1"
           data-dtype="Number" maxlength="3">
@@ -21,7 +21,7 @@
     </div>
 
     <div class="stat-div">
-      <label>{{localize 'LHTRPG.Item.Label.Rank'}}</label>
+      <label>{{localize 'ETERNIA.Item.Label.Rank'}}</label>
       <div>
         <input class="itemRank-input" type="text" name="system.rank" value="{{system.rank}}" placeholder="0"
           data-dtype="Number" maxlength="2">
@@ -29,7 +29,7 @@
     </div>
 
     <div class="stat-div">
-      <label>{{localize 'LHTRPG.Item.Label.Price'}}</label>
+      <label>{{localize 'ETERNIA.Item.Label.Price'}}</label>
       <div>
         <input class="itemPrice-input" type="text" name="system.price" value="{{system.price}}" placeholder="0"
           data-dtype="Number">
@@ -40,8 +40,8 @@
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-action="tab" data-group="primary" data-tab="description">{{localize 'LHTRPG.Description.Label'}}</a>
-    <a class="item" data-action="tab" data-group="primary" data-tab="effects">{{localize 'LHTRPG.Effect.Label'}}</a>
+    <a class="item" data-action="tab" data-group="primary" data-tab="description">{{localize 'ETERNIA.Description.Label'}}</a>
+    <a class="item" data-action="tab" data-group="primary" data-tab="effects">{{localize 'ETERNIA.Effect.Label'}}</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -57,7 +57,7 @@
     {{!-- Attributes Tab --}}
     <div class="tab effects" data-group="primary" data-tab="effects">
       {{!-- As you add new fields, add them in here! --}}
-      {{> "systems/lhtrpg/templates/item/parts/item-effects.html"}}
+      {{> "systems/eternia/templates/item/parts/item-effects.html"}}
     </div>
   </section>
 </div>

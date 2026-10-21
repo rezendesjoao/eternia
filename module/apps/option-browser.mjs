@@ -48,7 +48,7 @@ async function buildIndex(type) {
       if (e.type === type) entries.push(entry(e, e.uuid ?? pack.getUuid(e._id), pack.title, order));
     }
   }
-  const world = game.i18n.localize("LHTRPG.CharacterOptions.World");
+  const world = game.i18n.localize("ETERNIA.CharacterOptions.World");
   for (const item of game.items) {
     if ((item.type === type) && item.visible) entries.push(entry(item, item.uuid, world, 2));
   }
@@ -100,7 +100,7 @@ export class OptionBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   static idFor(actor) {
-    return `lhtrpg-option-browser-${actor.id}`;
+    return `eternia-option-browser-${actor.id}`;
   }
 
   /** Open the window for an actor (one per actor: opening it again switches the type). */
@@ -115,7 +115,7 @@ export class OptionBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   static DEFAULT_OPTIONS = {
-    classes: ["lhtrpg", "option-browser"],
+    classes: ["eternia", "option-browser"],
     tag: "div",
     window: { icon: "fa-solid fa-book-atlas", resizable: true },
     position: { width: 340, height: 600 },
@@ -126,12 +126,12 @@ export class OptionBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   };
 
   static PARTS = {
-    main: { template: "systems/lhtrpg/templates/apps/option-browser.hbs", scrollable: [".option-list"] }
+    main: { template: "systems/eternia/templates/apps/option-browser.hbs", scrollable: [".option-list"] }
   };
 
   /** @override */
   get title() {
-    return game.i18n.localize(`LHTRPG.CharacterOptions.Select.${this.type}`);
+    return game.i18n.localize(`ETERNIA.CharacterOptions.Select.${this.type}`);
   }
 
   /** @override */
@@ -148,7 +148,7 @@ export class OptionBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     return {
       entries,
       query: this.query,
-      placeholder: game.i18n.localize(`LHTRPG.CharacterOptions.Search.${this.type}`),
+      placeholder: game.i18n.localize(`ETERNIA.CharacterOptions.Search.${this.type}`),
       editable: this.actor.isOwner
     };
   }

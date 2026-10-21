@@ -4,7 +4,7 @@
  *   - `changes` -> `system.changes`, numeric `mode` -> `type` ("add", "override"…), JSON values deserialized
  *     ("1" -> 1; formulas and text stay strings) and `phase: "initial"`.
  *   - `duration`: v14 shape `{value, units, expiry, expired}` and `start: null`. Compendium effects carry no core
- *     duration: their length is the Log Horizon one (flags.lhtrpg.expires) and copies start when applied, so the
+ *     duration: their length is the Eternia one (flags.eternia.expires) and copies start when applied, so the
  *     leftover v13 rounds/turns/startTime are dropped.
  *   - `origin: null` (old "Compendium.world.*" uuids of the world they were made in) and `showIcon`.
  * Run it again after cherry-picking compendium changes made in the v13 branch.

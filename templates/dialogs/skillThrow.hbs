@@ -1,4 +1,4 @@
-<div class="lhtrpg chat-card skill-chat-card" data-item-uuid="{{uuid}}">
+<div class="eternia chat-card skill-chat-card" data-item-uuid="{{uuid}}">
 	<header class="chat-card-header">
 		<img class="chat-card-img" src="{{img}}" alt="{{name}}" />
 		<div class="chat-card-title">
@@ -14,14 +14,14 @@
 	{{/if}}
 
 	<div class="chat-card-stats">
-		{{#if system.checkLabel}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Skill.Label.Check'}}</span><span class="chat-stat-value">{{system.checkLabel}}</span></div>{{/if}}
-		{{#if system.damageLabel}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Skill.Label.Damage'}}</span><span class="chat-stat-value">{{system.damageLabel}}</span></div>{{/if}}
-		{{#if system.skillRank.max}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Skill.Label.SR'}}</span><span class="chat-stat-value">{{system.skillRank.value}}/{{system.skillRank.max}}</span></div>{{/if}}
-		{{#if system.timing}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Skill.Label.Timing'}}</span><span class="chat-stat-value">{{system.timing}}</span></div>{{/if}}
-		{{#if system.target}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Skill.Label.Target'}}</span><span class="chat-stat-value">{{system.target}}</span></div>{{/if}}
-		{{#if system.range}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Skill.Label.Range'}}</span><span class="chat-stat-value">{{#if mods.range}}<span class="lh-modified" data-tooltip="{{mods.range.sourceText}}">{{mods.range.text}}</span>{{else}}{{system.range}}{{/if}}</span></div>{{/if}}
-		{{#if system.cost}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Skill.Label.Cost'}}</span><span class="chat-stat-value">{{#if mods.cost}}<span class="lh-modified" data-tooltip="{{mods.cost.sourceText}}">{{mods.cost.text}}</span>{{else}}{{system.cost}}{{/if}}</span></div>{{/if}}
-		{{#if system.limit}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Skill.Label.Limit'}}</span><span class="chat-stat-value">{{system.limit}}</span></div>{{/if}}
+		{{#if system.checkLabel}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Skill.Label.Check'}}</span><span class="chat-stat-value">{{system.checkLabel}}</span></div>{{/if}}
+		{{#if system.damageLabel}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Skill.Label.Damage'}}</span><span class="chat-stat-value">{{system.damageLabel}}</span></div>{{/if}}
+		{{#if system.skillRank.max}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Skill.Label.SR'}}</span><span class="chat-stat-value">{{system.skillRank.value}}/{{system.skillRank.max}}</span></div>{{/if}}
+		{{#if system.timing}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Skill.Label.Timing'}}</span><span class="chat-stat-value">{{system.timing}}</span></div>{{/if}}
+		{{#if system.target}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Skill.Label.Target'}}</span><span class="chat-stat-value">{{system.target}}</span></div>{{/if}}
+		{{#if system.range}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Skill.Label.Range'}}</span><span class="chat-stat-value">{{#if mods.range}}<span class="lh-modified" data-tooltip="{{mods.range.sourceText}}">{{mods.range.text}}</span>{{else}}{{system.range}}{{/if}}</span></div>{{/if}}
+		{{#if system.cost}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Skill.Label.Cost'}}</span><span class="chat-stat-value">{{#if mods.cost}}<span class="lh-modified" data-tooltip="{{mods.cost.sourceText}}">{{mods.cost.text}}</span>{{else}}{{system.cost}}{{/if}}</span></div>{{/if}}
+		{{#if system.limit}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Skill.Label.Limit'}}</span><span class="chat-stat-value">{{system.limit}}</span></div>{{/if}}
 	</div>
 
 	{{#if mods.notes.length}}
@@ -30,13 +30,13 @@
 	</ul>
 	{{/if}}
 
-	{{#if appliedNames}}<div class="item-use-applied skill-card-applied"><i class="fas fa-bolt"></i> {{localize 'LHTRPG.Item.Use.EffectsApplied' names=appliedNames}}</div>{{/if}}
+	{{#if appliedNames}}<div class="item-use-applied skill-card-applied"><i class="fas fa-bolt"></i> {{localize 'ETERNIA.Item.Use.EffectsApplied' names=appliedNames}}</div>{{/if}}
 
 	{{#if (or rollable.check rollable.damage canApplyEffects)}}
 	<div class="chat-card-rolls">
-		{{#if rollable.check}}<button type="button" class="skill-card-roll" data-roll="check"><i class="fas fa-dice"></i> {{localize 'LHTRPG.Skill.Label.Check'}}</button>{{/if}}
-		{{#if rollable.damage}}<button type="button" class="skill-card-roll" data-roll="damage"><i class="fas fa-dice"></i> {{localize 'LHTRPG.Skill.Label.Damage'}}</button>{{/if}}
-		{{#if canApplyEffects}}<button type="button" class="skill-card-effects"><i class="fas fa-bolt"></i> {{localize 'LHTRPG.Item.Use.ApplyEffects'}}</button>{{/if}}
+		{{#if rollable.check}}<button type="button" class="skill-card-roll" data-roll="check"><i class="fas fa-dice"></i> {{localize 'ETERNIA.Skill.Label.Check'}}</button>{{/if}}
+		{{#if rollable.damage}}<button type="button" class="skill-card-roll" data-roll="damage"><i class="fas fa-dice"></i> {{localize 'ETERNIA.Skill.Label.Damage'}}</button>{{/if}}
+		{{#if canApplyEffects}}<button type="button" class="skill-card-effects"><i class="fas fa-bolt"></i> {{localize 'ETERNIA.Item.Use.ApplyEffects'}}</button>{{/if}}
 	</div>
 	{{/if}}
 

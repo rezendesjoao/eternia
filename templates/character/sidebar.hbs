@@ -1,0 +1,94 @@
+{{!-- Sidebar banner: what is used in play. --}}
+
+{{!-- HIT POINTS --}}
+<header><h2>{{localize 'ETERNIA.Sheet.HitPoints'}}</h2></header>
+<div class="hitpoints">
+	<div class="hp-big">
+		<div class="container barrier" data-tooltip="{{localize 'ETERNIA.Sheet.BarrierHint'}}">
+			<label class="sidebar_label">{{localize 'ETERNIA.StatusEffect.barrier'}}</label>
+			<div class="data-value"><input class="lhpf-barrier" type="text" value="{{lh.barrier}}" placeholder="0" maxlength="3" inputmode="numeric"{{#unless editable}} disabled{{/unless}}></div>
+		</div>
+		<div class="container current-hp">
+			<label class="sidebar_label">{{localize 'ETERNIA.Label.HP'}}</label>
+			<div class="data-value"><input type="text" name="system.health.value" value="{{source.health.value}}" placeholder="0" data-dtype="Number" maxlength="4"{{#if modified.hpValue}} class="has-effect" data-tooltip="{{modified.hpValue.tooltip}}"{{/if}}></div>
+		</div>
+		<div class="container max-hp">
+			<span class="sidebar_label">{{localize 'ETERNIA.Sheet.Max'}}</span>
+			<div class="data-value"><h2>{{lh.hp.max}}</h2></div>
+		</div>
+	</div>
+	<div class="lhpf-hpbar" data-tooltip="{{lh.hp.value}} / {{lh.hp.max}}"><i style="width: {{lh.hp.pct}}%"></i></div>
+	<div class="hp-small">
+		<label class="gauge hate{{#if lh.hateRank}} rank-{{lh.hateRank}}{{/if}}" style="--fill: {{lh.hate.fill}}%" data-tooltip="{{lh.hate.tooltip}}">
+			<span class="sidebar_label">{{localize 'ETERNIA.Sheet.Hate'}}{{#if lh.hateRank}} <i class="fa-solid {{#if (eq lh.hateRank 'top')}}fa-crown{{else}}fa-angles-down{{/if}}"></i>{{/if}}</span>
+			<span class="box"><span class="fill"></span><input type="text" name="system.infos.hate" value="{{source.infos.hate}}" placeholder="0" data-dtype="Number" maxlength="3"{{#if modified.hate}} class="has-effect"{{/if}}></span>
+		</label>
+		<label class="gauge fatigue" style="--fill: {{lh.fatigue.fill}}%" data-tooltip="{{lh.fatigue.tooltip}}">
+			<span class="sidebar_label">{{localize 'ETERNIA.Sheet.Fatigue'}}</span>
+			<span class="box"><span class="fill"></span><input type="text" name="system.infos.fatigue" value="{{source.infos.fatigue}}" placeholder="0" data-dtype="Number" maxlength="3"{{#if modified.fatigue}} class="has-effect"{{/if}}></span>
+		</label>
+	</div>
+</div>
+
+{{!-- DEFENSES --}}
+<header><h2>{{localize 'ETERNIA.Sheet.Defenses'}}</h2></header>
+<div class="lhpf-defenses">
+	<div class="shield phys" data-tooltip="{{localize 'ETERNIA.Tooltip.PhysDefense'}}">
+		<svg viewBox="0 0 64 72" aria-hidden="true"><path class="outer" d="M32 2 61 10V35C61 53 47 64 32 70 17 64 3 53 3 35V10Z"></path><path class="inner" d="M32 7 56 13.5V35C56 50 44.5 59.5 32 64.5 19.5 59.5 8 50 8 35V13.5Z"></path></svg>
+		<span class="value">{{lh.defense.phys}}</span>
+		<span class="sidebar_label">{{localize 'ETERNIA.Sheet.PhysDef'}}</span>
+	</div>
+	<div class="shield magic" data-tooltip="{{localize 'ETERNIA.Tooltip.MagicDefense'}}">
+		<svg viewBox="0 0 64 72" aria-hidden="true"><path class="outer" d="M32 2 61 10V35C61 53 47 64 32 70 17 64 3 53 3 35V10Z"></path><path class="inner" d="M32 7 56 13.5V35C56 50 44.5 59.5 32 64.5 19.5 59.5 8 50 8 35V13.5Z"></path></svg>
+		<span class="value">{{lh.defense.magic}}</span>
+		<span class="sidebar_label">{{localize 'ETERNIA.Sheet.MagicDef'}}</span>
+	</div>
+	<div class="stack">
+		<div class="mini" data-tooltip="{{localize 'ETERNIA.Tooltip.Initiative'}}">
+			<span class="sidebar_label">{{localize 'ETERNIA.Sheet.Initiative'}}</span>
+			<span class="value">{{lh.initiative}}</span>
+		</div>
+		<div class="mini" data-tooltip="{{localize 'ETERNIA.Tooltip.Speed'}}">
+			<span class="sidebar_label">{{localize 'ETERNIA.Sheet.Speed'}}</span>
+			<span class="value">{{lh.speed}}</span>
+		</div>
+	</div>
+</div>
+
+{{!-- POWER --}}
+<header><h2>{{localize 'ETERNIA.Sheet.Power'}}</h2></header>
+<ul class="saves power">
+	{{#each lh.power}}
+	<li data-tooltip="{{localize tooltip}}">
+		<h3 class="sidebar_label">{{label}}</h3>
+		<span class="value"><i class="{{icon}}"></i>{{value}}</span>
+	</li>
+	{{/each}}
+</ul>
+
+{{!-- COMBAT CHECKS (like saving throws) --}}
+<header><h2>{{localize 'ETERNIA.Sheet.CombatChecks'}}</h2></header>
+<ul class="saves">
+	{{#each lh.combatChecks}}
+	<li data-check="{{key}}">
+		<h3 class="sidebar_label">{{label}}</h3>
+		<span class="lhpf-dice" data-tier="{{tier}}">{{dice}}D</span>
+		<a class="save-roll" data-action="roll-check" data-name="{{name}}" data-dice="{{dice}}" data-bonus="{{total}}" data-tooltip="{{localize 'ETERNIA.ButtonLabel.Roll'}}: {{dice}}D{{mod}}">
+			<i class="fa-solid fa-dice-d6"></i><span class="modifier">{{mod}}</span>
+		</a>
+	</li>
+	{{/each}}
+</ul>
+
+{{!-- STATUSES --}}
+<header>
+	<h2>{{localize 'ETERNIA.Sheet.Statuses'}}</h2>
+	{{#if editable}}<button type="button" data-action="lhauto-remove-bad" data-tooltip="{{localize 'ETERNIA.Sheet.RemoveBadHint'}}"><i class="fa-solid fa-star"></i> {{localize 'ETERNIA.Sheet.RemoveBad'}}</button>{{/if}}
+</header>
+<ol class="tags lhpf-statuses">
+	{{#each lh.statuses}}
+	<li class="tag" data-status="{{id}}"><img src="{{img}}" alt="">{{label}}</li>
+	{{else}}
+	<li class="none">{{localize 'ETERNIA.Sheet.NoStatus'}}</li>
+	{{/each}}
+</ol>

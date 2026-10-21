@@ -1,0 +1,2490 @@
+/* ==========================================================================
+   Parchment windows (module/apps/window-theme.mjs)
+   The system's other windows in the look of the character sheet (css/sheet.css): item and
+   monster sheets, the effect editor, the skill and class browsers, chests and shops, and the
+   dialogs. The green window bar, parchment, the name on a dark band, small-caps labels over dotted
+   rows, the light sub-navigation with flourishes and green section bars.
+   The system's templates are untouched, so the selectors follow its markup: module/apps/window-theme.mjs
+   adds "lhwin" and Foundry's light theme to these windows before they are first drawn.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Palette (the character sheet's) and Foundry's form variables
+   -------------------------------------------------------------------------- */
+.application.lhwin.themed {
+  --pf-primary: #1f5137;
+  --pf-primary-dark: #173f2b;
+  --pf-primary-light: #2b6747;
+  --pf-secondary: #1d4248;
+  --pf-tertiary: #e9d7a1;
+  --pf-tertiary-dark: #cdb879;
+  --pf-tertiary-darker: #b19a55;
+  --pf-tertiary-light: #f4ead0;
+  --pf-alt: #786452;
+  --pf-alt-dark: #443730;
+  --pf-bg: #f8f4ec;
+  --pf-text: #1c1c1c;
+  --pf-text-soft: #59554b;
+  --pf-text-light: #f5f0e4;
+  --pf-divider: #baa991;
+  --pf-ring: #9f725b;
+  --pf-red: #8c2f2f;
+  --pf-serif: "Eternia Eczar", "Eczar", Georgia, serif;
+  --pf-body: "Eternia Gelasio", "Gelasio", Georgia, serif;
+  --pf-sans: "Signika", "Roboto", sans-serif;
+  --lhw-row-line: linear-gradient(90deg, rgba(201, 187, 168, 0.12), #c9bba8) 1;
+  --lhw-frame: 0 0 0 1px var(--pf-tertiary), 0 0 0 2px var(--pf-ring), inset 0 0 4px rgba(0, 0, 0, 0.5);
+  --lhw-portrait: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39, inset 0 0 8px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.55);
+  --input-height: 26px;
+  --input-text-color: var(--pf-text);
+  --input-background-color: rgba(255, 255, 255, 0.55);
+  --input-border-color: var(--pf-divider);
+  --input-focus-outline-color: var(--pf-primary-light);
+  --input-placeholder-color: rgba(89, 85, 75, 0.6);
+  --color-form-label: var(--pf-alt-dark);
+  --color-form-label-hover: var(--pf-primary);
+  --color-form-hint: var(--pf-text-soft);
+  --color-form-hint-hover: var(--pf-text);
+  --color-tabs-border: var(--pf-divider);
+  --color-fieldset-border: var(--pf-divider);
+  --color-border: var(--pf-divider);
+  --color-text-emphatic: var(--pf-primary-dark);
+  --color-text-primary: var(--pf-text);
+  --color-text-secondary: var(--pf-text-soft);
+  --color-text-subtle: var(--pf-text-soft);
+  --button-background-color: rgba(255, 255, 255, 0.5);
+  --button-border-color: var(--pf-divider);
+  --button-text-color: var(--pf-text);
+  --button-hover-background-color: var(--pf-primary);
+  --button-hover-border-color: var(--pf-primary-dark);
+  --button-hover-text-color: #fff;
+  --button-focus-outline-color: var(--pf-primary-light);
+  --checkbox-checked-color: var(--pf-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Window: green bar, parchment
+   -------------------------------------------------------------------------- */
+.application.lhwin.themed .window-header {
+  background: linear-gradient(#183827, #10291b);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+  color: var(--pf-tertiary-light);
+}
+.application.lhwin.themed .window-header .window-title {
+  font-family: var(--pf-serif);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.application.lhwin.themed .window-header :is(.header-control, button) {
+  color: var(--pf-tertiary);
+}
+.application.lhwin.themed .window-header :is(.header-control, button):hover {
+  color: #fff;
+}
+.application.lhwin.themed .window-content,
+.application.lhwin.themed:is(.item, .monster) .window-content {
+  background: #f3eee2 url("../assets/sheet/parchment.webp") center / cover;
+  color: var(--pf-text);
+  font-family: var(--pf-body);
+  font-size: 13px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-alt) transparent;
+}
+.application.lhwin.themed,
+.application.lhwin.themed * {
+  scrollbar-color: var(--pf-alt) transparent;
+}
+.application.lhwin.themed a:hover {
+  text-shadow: none;
+}
+
+/* Form controls */
+.application.lhwin.themed :is(input[type="text"], input[type="number"], input[type="search"], input:not([type]), select, textarea) {
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.55);
+  box-shadow: none;
+  color: var(--pf-text);
+  text-shadow: none;
+}
+.application.lhwin.themed :is(input[type="text"], input[type="number"], input[type="search"], input:not([type]), select, textarea):hover {
+  border-color: var(--pf-alt);
+  box-shadow: none;
+}
+.application.lhwin.themed :is(input[type="text"], input[type="number"], input[type="search"], input:not([type]), select, textarea):focus {
+  border-color: var(--pf-primary);
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0 1px rgba(31, 81, 55, 0.2);
+  text-shadow: none;
+}
+.application.lhwin.themed :is(input, select, textarea):disabled {
+  opacity: 0.6;
+}
+/* Foundry draws checkboxes with icons coloured by variables set on the input itself */
+.application.lhwin.themed :is(input[type="checkbox"], input[type="radio"]) {
+  --checkbox-background-color: #9c8a73;
+  --checkbox-checked-color: var(--pf-primary);
+  --checkbox-checkmark-color: transparent;
+  --checkbox-disabled-color: rgba(120, 100, 82, 0.4);
+  --checkbox-font-weight: 400;
+}
+.application.lhwin.themed select :is(option, optgroup) {
+  color: var(--pf-text);
+  background-color: #fbf8f1;
+}
+.application.lhwin.themed select option:checked {
+  color: #fff;
+  background-color: var(--pf-primary);
+}
+.application.lhwin.themed .form-group > label {
+  color: var(--pf-alt-dark);
+  font-family: var(--pf-sans);
+  font-weight: 500;
+}
+.application.lhwin.themed :is(p.hint, .form-group p.hint, p.notes) {
+  color: var(--pf-text-soft);
+  font-family: var(--pf-body);
+  font-style: italic;
+}
+
+/* Rich text editor while editing */
+.application.lhwin.themed prose-mirror menu {
+  border: 1px solid var(--pf-divider);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.45);
+}
+.application.lhwin.themed prose-mirror menu button {
+  color: var(--pf-text-soft);
+}
+.application.lhwin.themed prose-mirror menu button:hover,
+.application.lhwin.themed prose-mirror menu button.active {
+  background: rgba(31, 81, 55, 0.1);
+  color: var(--pf-primary);
+}
+.application.lhwin.themed prose-mirror.active .editor-content {
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Dialog buttons: parchment; the default one green */
+.application.lhwin.themed .form-footer button {
+  height: 32px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: none;
+  color: var(--pf-text);
+  font: 500 14px/1 var(--pf-serif);
+  text-shadow: none;
+}
+.application.lhwin.themed .form-footer button:hover,
+.application.lhwin.themed .form-footer button:focus-visible {
+  border-color: var(--pf-primary-dark);
+  background: var(--pf-primary);
+  color: #fff;
+}
+.application.lhwin.themed .form-footer button:is([autofocus], .default, .bright),
+.application.lhwin.themed.sheet .form-footer button[type="submit"] {
+  border-color: var(--pf-primary-dark);
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  color: var(--pf-text-light);
+}
+.application.lhwin.themed .form-footer button:is([autofocus], .default, .bright):hover,
+.application.lhwin.themed.sheet .form-footer button[type="submit"]:hover {
+  background: var(--pf-primary-light);
+}
+
+/* ==========================================================================
+   Item and monster sheets
+   ========================================================================== */
+.application.lhwin.themed:is(.item, .monster) .window-content {
+  padding: 0;
+  overflow: hidden auto;
+}
+.application.lhwin.themed:is(.item, .monster) section,
+.application.lhwin.themed:is(.item, .monster) nav {
+  background: none;
+  color: inherit;
+}
+/* Header, stats and tabs stay put; the body scrolls (the whole window scrolls only when it is too short) */
+.application.lhwin.themed:is(.item, .monster) :is(.eternia-item-sheet, .eternia-monster-sheet) {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+.application.lhwin.themed:is(.item, .monster) :is(.eternia-item-sheet, .eternia-monster-sheet) > .sheet-body {
+  flex: 1 1 0;
+  min-height: 150px;
+  overflow: hidden auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-alt) transparent;
+}
+
+/* --------------------------------------------------------------------------
+   Header: the name on the green band, the framed picture straddling it, tags below
+   -------------------------------------------------------------------------- */
+.application.lhwin.themed:is(.item, .monster) .sheet-header {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0;
+  padding: 8px 14px 8px;
+  border: none;
+  background:
+    linear-gradient(var(--pf-tertiary-darker), var(--pf-tertiary-darker)) 0 52px / 100% 1px no-repeat,
+    url("../assets/sheet/header.webp") 0 0 / auto 52px repeat-x;
+  color: var(--pf-text);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-header .profile-img {
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: #2a2a24;
+  box-shadow: var(--lhw-portrait);
+  object-fit: cover;
+  cursor: pointer;
+}
+.application.lhwin.themed.monster .sheet-header .profile-img {
+  flex-basis: 80px;
+  width: 80px;
+  height: 80px;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-header .header-fields {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-header h1.charname {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+}
+.application.lhwin.themed.monster .sheet-header h1.charname {
+  margin-right: 34px;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-header h1.charname input {
+  display: block;
+  width: 100%;
+  height: 36px;
+  margin: 0;
+  padding: 0 4px;
+  border: none;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pf-text-light);
+  font: 500 24px/1 var(--pf-serif);
+  text-align: left;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-header h1.charname input:hover {
+  border-bottom-color: rgba(245, 240, 228, 0.35);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-header h1.charname input:focus {
+  border-bottom-color: var(--pf-text-light);
+  background: transparent;
+  box-shadow: none;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-header .grid.grid-3col {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 14px 0 0;
+  padding: 0;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-header .resource {
+  display: flex;
+  align-items: flex-start;
+  align-self: flex-start;
+  min-width: 0;
+  margin: 0;
+  text-align: start;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-header .resource:is(.grid-span-2, .grid-span-3) {
+  flex: 1;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-header .resource > .flexrow,
+.application.lhwin.themed:is(.item, .monster) .sheet-header .resource-label {
+  display: none;
+}
+/* Skill type: a dropdown that looks like a tag */
+.application.lhwin.themed:is(.item, .monster) .sheet-header .resource.flexcol select {
+  width: auto;
+  min-width: 0;
+  height: 22px;
+  min-height: 0;
+  margin: 0;
+  padding: 0 2px 0 6px;
+  border: none;
+  border-radius: 2px;
+  background-color: var(--pf-secondary);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font: 500 10px/1 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-header .resource.flexcol select option {
+  font: 13px var(--pf-body);
+  letter-spacing: 0;
+  text-transform: none;
+}
+/* Monster: "send to chat" as a round button on the band */
+.application.lhwin.themed.monster .sheet-header .monster-send-to-chat {
+  position: absolute;
+  top: 13px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(233, 215, 161, 0.55);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--pf-tertiary);
+  font-size: 0;
+}
+.application.lhwin.themed.monster .sheet-header .monster-send-to-chat i {
+  font-size: 12px;
+}
+.application.lhwin.themed.monster .sheet-header .monster-send-to-chat:hover {
+  background: var(--pf-primary-light);
+  color: #fff;
+  text-shadow: none;
+}
+
+/* Tags: the chips of the character sheet */
+.application.lhwin.themed:is(.item, .monster) .lh-tag-input {
+  flex: 1;
+  min-width: 0;
+}
+.application.lhwin.themed:is(.item, .monster) .lh-tag-input .tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  list-style: none;
+}
+.application.lhwin.themed:is(.item, .monster) .lh-tag-input .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  padding: 3px 6px;
+  border: none;
+  border-radius: 2px;
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font: 500 10px/1.2 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.application.lhwin.themed:is(.item, .monster) .lh-tag-input .tag.tag-custom {
+  background: var(--pf-alt);
+}
+.application.lhwin.themed:is(.item, .monster) .lh-tag-input .tag.tag-derived {
+  background: var(--pf-secondary);
+  font-style: normal;
+  opacity: 1;
+}
+.application.lhwin.themed:is(.item, .monster) .lh-tag-input .tag-remove {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 9px;
+  opacity: 1;
+}
+.application.lhwin.themed:is(.item, .monster) .lh-tag-input .tag-remove:hover {
+  color: #fff;
+}
+.application.lhwin.themed:is(.item, .monster) .lh-tag-input .tag-entry {
+  flex: 1 0 120px;
+  min-width: 120px;
+  list-style: none;
+}
+.application.lhwin.themed:is(.item, .monster) .lh-tag-input .tag-entry-input {
+  width: 100%;
+  height: 22px;
+  margin: 0;
+  padding: 0 6px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--pf-text);
+  font: italic 13px/1 var(--pf-body);
+  text-align: start;
+}
+.application.lhwin.themed:is(.item, .monster) .lh-tag-input .tag-entry-input:hover {
+  border-color: var(--pf-divider);
+}
+.application.lhwin.themed:is(.item, .monster) .lh-tag-input .tag-entry-input:focus {
+  border-color: var(--pf-primary);
+  background: rgba(255, 255, 255, 0.6);
+  font-style: normal;
+}
+
+/* --------------------------------------------------------------------------
+   Stats: small-caps labels over dotted rows, two columns
+   -------------------------------------------------------------------------- */
+.application.lhwin.themed:is(.item, .monster) .sheet-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 0 18px;
+  margin: 0;
+  padding: 4px 14px 12px;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  min-width: 0;
+  min-height: 31px;
+  height: auto;
+  margin: 0;
+  padding: 3px 0;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid transparent;
+  border-image: var(--lhw-row-line);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div:is(.skill-roll, .checkType, .itemBagLimit, .itemCheck, .linked-skill-stat, .item-use-row, .rank),
+.application.lhwin.themed:is(.item, .monster) .sheet-stats > .lh-skill-mods {
+  grid-column: 1 / -1;
+  margin-right: 0;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div > label {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  width: auto;
+  max-width: 55%;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--pf-alt-dark);
+  font: 600 10px/1.15 var(--pf-sans);
+  letter-spacing: 0.06em;
+  text-shadow: none;
+  text-transform: uppercase;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div > div {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  min-width: 0;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div > div > span:not([class]) {
+  color: var(--pf-text-soft);
+  font: 400 13px/1 var(--pf-body);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div :is(input[type="text"], input[type="number"], select) {
+  height: 24px;
+  margin: 0;
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: none;
+  color: var(--pf-text);
+  text-shadow: none;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div :is(input[type="text"], input[type="number"], select):hover {
+  border-color: var(--pf-alt);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div :is(input[type="text"], input[type="number"], select):focus {
+  border-color: var(--pf-primary);
+  background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0 1px rgba(31, 81, 55, 0.2);
+}
+/* Numbers: Eczar, centered; text: Gelasio, the rest of the row */
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div :is(input[type="text"], input[type="number"]) {
+  width: 60px;
+  padding: 0 4px;
+  font: 600 14px/1 var(--pf-serif);
+  text-align: center;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div input[type="text"]:not([data-dtype="Number"]) {
+  flex: 1;
+  width: auto;
+  min-width: 0;
+  font: 400 13px/1 var(--pf-body);
+  text-align: start;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div input:is(.itemPrice-input, .itemQuantity-input)[type="text"] {
+  flex: 0 0 80px;
+  width: 80px;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div input.skillRank-input[type="text"] {
+  flex: 0 0 34px;
+  width: 34px;
+  text-align: center;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div select {
+  width: auto;
+  max-width: 100%;
+  padding: 0 2px 0 4px;
+  font: 400 13px/1 var(--pf-body);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: var(--checkbox-size, 18px);
+  height: var(--checkbox-size, 18px);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div > input[type="checkbox"],
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div > div > input[type="checkbox"] {
+  margin: 0 0 0 auto;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div > input[type="text"] {
+  flex: 1;
+}
+
+/* Effective values (monster stats changed by effects) */
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div input.has-effect,
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div select.has-effect {
+  border-color: var(--pf-primary-light);
+  color: var(--pf-primary);
+  font-weight: 700;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .stat-effective {
+  margin: 0;
+  color: var(--pf-primary);
+  font: 600 11px/1 var(--pf-sans);
+}
+
+/* Rolls: Check / Damage of skills and usable items, Evasion / Resistance of monsters */
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div > label.lh-roll-button {
+  flex: 0 0 auto;
+  gap: 5px;
+  padding: 4px 8px 4px 7px;
+  border-radius: 2px;
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35), inset 0 0 0 2px rgba(255, 255, 255, 0.15);
+  color: var(--pf-text-light);
+  cursor: pointer;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div > label.lh-roll-button::before {
+  content: "\f6d1";
+  font: 900 11px/1 var(--font-awesome);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div > label.lh-roll-button:hover {
+  background: var(--pf-primary-light);
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .skill-roll-fields {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 4px;
+  padding: 0;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .skill-roll-fields > span {
+  color: var(--pf-text-soft);
+  font: 400 13px/1 var(--pf-body);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .skill-roll-fields input.skill-roll-dice.lh-formula-mod {
+  flex: 0 0 44px;
+  width: 44px;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .skill-roll-fields input.skill-roll-mod.lh-formula-mod {
+  flex: 0 0 56px;
+  width: 56px;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .skill-roll-fields select.skill-roll-stat {
+  width: 108px;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .skill-roll-fields select.skill-roll-vs-select {
+  flex: 1 1 90px;
+  width: auto;
+  min-width: 0;
+  margin: 0;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .skill-roll-fields span.skill-roll-vs {
+  padding: 0 2px;
+  color: var(--pf-alt);
+  font: italic 400 12px/1 var(--pf-body);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .skill-roll-options {
+  gap: 4px 10px;
+  margin-left: auto;
+  padding: 0;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div label.skill-roll-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: auto;
+  height: auto;
+  padding: 0;
+  background: none;
+  color: var(--pf-text);
+  font: 400 12px/1 var(--pf-body);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .monster-check-fields {
+  width: auto;
+  padding: 0;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .monster-check-fields select {
+  width: 62px;
+  height: 24px;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .monster-check-fields input.monster-check-mod[type="number"] {
+  flex: 0 0 44px;
+  width: 44px;
+}
+
+/* Timing / Target / Range / Cost / Limit: type + amount + qualifier, or free text */
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div:has(> .skill-field) {
+  width: auto;
+  align-items: center;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .skill-field {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  gap: 3px;
+  min-width: 0;
+  padding: 0;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .skill-field select.skill-field-type {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .skill-field input.skill-field-n[type="text"] {
+  flex: 0 0 32px;
+  width: 32px;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div .skill-field input.skill-field-custom[type="text"] {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Skill changed by its owner's effects */
+.application.lhwin.themed:is(.item, .monster) .sheet-stats > .lh-skill-mods {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  margin: 6px 0 0;
+  padding: 4px 8px;
+  border-left: 2px solid var(--pf-primary);
+  border-radius: 0;
+  background: rgba(31, 81, 55, 0.07);
+  color: var(--pf-text);
+  font: italic 12px/1.3 var(--pf-body);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats > .lh-skill-mods > i {
+  color: var(--pf-primary);
+}
+
+/* Linked skill of an item */
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div.linked-skill-stat .linked-skill-content {
+  flex: 1;
+  justify-content: flex-start;
+  padding: 0;
+}
+.application.lhwin.themed:is(.item, .monster) .linked-skill-row {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  min-height: 26px;
+}
+.application.lhwin.themed:is(.item, .monster) .linked-skill-icon {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 2px;
+  background: var(--pf-primary-dark);
+  box-shadow: var(--lhw-frame);
+}
+.application.lhwin.themed:is(.item, .monster) .linked-skill-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 500 14px/1.2 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.application.lhwin.themed:is(.item, .monster) .linked-skill-name:hover {
+  color: var(--pf-primary);
+  text-decoration: none;
+}
+.application.lhwin.themed:is(.item, .monster) .linked-skill-controls {
+  display: flex;
+  gap: 6px;
+}
+.application.lhwin.themed:is(.item, .monster) .linked-skill-controls a {
+  width: auto;
+  height: auto;
+  border: none;
+  background: none;
+  color: var(--pf-text-soft);
+  font-size: 12px;
+}
+.application.lhwin.themed:is(.item, .monster) .linked-skill-controls a:hover {
+  background: none;
+  color: var(--pf-primary);
+}
+.application.lhwin.themed:is(.item, .monster) .linked-skill-controls a.linked-skill-delete:hover {
+  color: var(--pf-red);
+}
+.application.lhwin.themed:is(.item, .monster) .linked-skill-row.empty {
+  opacity: 1;
+  color: var(--pf-text-soft);
+}
+.application.lhwin.themed:is(.item, .monster) .linked-skill-row.empty .linked-skill-icon {
+  opacity: 0.45;
+  box-shadow: none;
+}
+.application.lhwin.themed:is(.item, .monster) .linked-skill-empty-label {
+  color: var(--pf-text-soft);
+  font: italic 13px/1 var(--pf-body);
+  opacity: 1;
+}
+.application.lhwin.themed:is(.item, .monster) .linked-skill-row.empty:hover .linked-skill-empty-label {
+  color: var(--pf-primary);
+}
+
+/* Use button of a usable item */
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div.item-use-row {
+  border-image: none;
+  border-bottom: none;
+  padding-top: 8px;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div.item-use-row .item-use {
+  flex: 1;
+  height: 30px;
+  margin: 0;
+  border: 1px solid var(--pf-primary-dark);
+  border-radius: 3px;
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  color: var(--pf-text-light);
+  font: 500 14px/1 var(--pf-serif);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-stats .stat-div.item-use-row .item-use:hover {
+  background: var(--pf-primary-light);
+}
+
+/* Monster stats: four columns, the attributes in boxes */
+.application.lhwin.themed.monster .sheet-stats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding-top: 10px;
+}
+.application.lhwin.themed.monster .sheet-stats .stat-div {
+  grid-column: span 2;
+}
+.application.lhwin.themed.monster .sheet-stats .stat-div.rank {
+  grid-column: 1 / -1;
+}
+.application.lhwin.themed.monster .sheet-stats .stat-div:has(> label.small-label) {
+  grid-column: span 1;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  margin: 6px 0 6px;
+  padding: 5px 0 6px;
+  border: 1px solid var(--pf-divider);
+  border-image: none;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.3);
+}
+.application.lhwin.themed.monster .sheet-stats .stat-div > label.small-label {
+  justify-content: center;
+  width: auto;
+  max-width: none;
+}
+.application.lhwin.themed.monster .sheet-stats .stat-div:has(> label.small-label) > div {
+  justify-content: center;
+}
+.application.lhwin.themed.monster .sheet-stats .stat-div input.small-input[type="text"] {
+  width: 44px;
+  height: 26px;
+  border-color: transparent;
+  background-color: transparent;
+  font-size: 20px;
+}
+.application.lhwin.themed.monster .sheet-stats .stat-div input.small-input[type="text"]:is(:hover, :focus) {
+  border-color: var(--pf-divider);
+  background-color: rgba(255, 255, 255, 0.6);
+}
+.application.lhwin.themed.monster .sheet-stats .stat-div input:is(.monsterIdDif-input, .monsterHateMulti-input)[type="text"] {
+  flex: 0 0 60px;
+  width: 60px;
+  font: 600 14px/1 var(--pf-serif);
+  text-align: center;
+}
+.application.lhwin.themed.monster .sheet-stats .stat-div input:is(.monsterHP-input, .monsterFate-input)[type="text"] {
+  flex: 0 0 52px;
+  width: 52px;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   Sub-navigation: light bar with flourishes
+   -------------------------------------------------------------------------- */
+.application.lhwin.themed:is(.item, .monster) nav.sheet-tabs {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 0 0 34px;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 34px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: var(--pf-bg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18), 0 -1px 2px rgba(0, 0, 0, 0.06);
+  white-space: nowrap;
+}
+.application.lhwin.themed:is(.item, .monster) nav.sheet-tabs::before,
+.application.lhwin.themed:is(.item, .monster) nav.sheet-tabs::after {
+  content: "";
+  flex: 0 0 40px;
+  height: 16px;
+  margin: 0 12px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 16'%3E%3Cpath d='M3 8h19c4 0 6-3.2 9.2-3.2 2.9 0 4.8 1.9 4.8 4 0 1.8-1.5 3.2-3.4 3.2-1.6 0-2.8-1-2.8-2.4 0-1.1.8-1.9 1.9-1.9' fill='none' stroke='%23b8963f' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M3 8l3-2.2v4.4z' fill='%23b8963f'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+.application.lhwin.themed:is(.item, .monster) nav.sheet-tabs::after {
+  transform: scaleX(-1);
+}
+.application.lhwin.themed:is(.item, .monster) nav.sheet-tabs > a.item {
+  display: block;
+  flex: 1;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  background: none;
+  color: var(--pf-alt);
+  font: 400 15px/34px var(--pf-serif);
+  text-align: center;
+  text-decoration: none;
+  text-shadow: none;
+  transition: color 0.1s ease-out;
+}
+.application.lhwin.themed:is(.item, .monster) nav.sheet-tabs > a.item:first-of-type {
+  border-left: none;
+}
+.application.lhwin.themed:is(.item, .monster) nav.sheet-tabs > a.item:last-of-type {
+  border-right: none;
+}
+.application.lhwin.themed:is(.item, .monster) nav.sheet-tabs > a.item:hover,
+.application.lhwin.themed:is(.item, .monster) nav.sheet-tabs > a.item.active {
+  background: none;
+  color: var(--pf-primary);
+  text-shadow: none;
+}
+.application.lhwin.themed:is(.item, .monster) nav.sheet-tabs > a.item.active {
+  font-weight: 600;
+}
+.application.lhwin.themed:is(.item, .monster) nav.sheet-tabs:has(> a.item:nth-of-type(5))::before,
+.application.lhwin.themed:is(.item, .monster) nav.sheet-tabs:has(> a.item:nth-of-type(5))::after {
+  flex-basis: 26px;
+  margin: 0 6px;
+}
+.application.lhwin.themed:is(.item, .monster) nav.sheet-tabs:has(> a.item:nth-of-type(5)) > a.item {
+  font-size: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   Body: description, effects, grants, monster skills and statuses
+   -------------------------------------------------------------------------- */
+.application.lhwin.themed:is(.item, .monster) .sheet-body {
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-body > .tab {
+  position: relative;
+  height: auto;
+  min-height: 100%;
+  padding: 12px 14px 14px;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-body > .tab > .sheet-stats {
+  padding: 0;
+}
+
+/* Description */
+.application.lhwin.themed:is(.item, .monster) .sheet-body .tab prose-mirror {
+  position: relative;
+  display: block;
+  height: auto;
+  min-height: 100px;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  color: var(--pf-text);
+  font: 400 14px/1.55 var(--pf-body);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-body .tab prose-mirror.inactive > button.toggle {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: none;
+  color: var(--pf-primary);
+  font-size: 12px;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-body .tab prose-mirror.inactive > button.toggle:hover {
+  background: var(--pf-primary);
+  color: #fff;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-body .tab prose-mirror .editor-content {
+  height: auto;
+  padding: 0 32px 0 2px;
+  overflow: visible;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-body .tab prose-mirror.active {
+  min-height: 100%;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-body .tab prose-mirror.active .editor-content {
+  padding: 6px 4px;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-body .tab prose-mirror menu {
+  position: sticky;
+  top: -12px;
+  z-index: 1;
+  background: var(--pf-bg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-body .tab prose-mirror :is(h1, h2, h3) {
+  color: var(--pf-primary);
+  font-family: var(--pf-serif);
+  border-bottom: 1px solid var(--pf-divider);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-body .tab prose-mirror :is(h4, h5) {
+  color: var(--pf-primary-dark);
+  font-family: var(--pf-serif);
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-body .tab prose-mirror p {
+  margin: 0 0 7px;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-body .tab :is(label, h3) {
+  color: inherit;
+}
+.application.lhwin.themed:is(.item, .monster) .sheet-body .tab :is(p.hint, .hint) {
+  color: var(--pf-text-soft);
+}
+
+/* Effects: green bars by category, framed icons */
+.application.lhwin.themed:is(.item, .monster) .effects-list {
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  color: var(--pf-text);
+  list-style: none;
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list > li.items-header {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  height: 28px;
+  margin: 10px 0 0;
+  padding: 0 8px;
+  border: none;
+  border-radius: 4px;
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+  color: var(--pf-text-light);
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list > li.items-header:first-child {
+  margin-top: 0;
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list > li.items-header h3 {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: var(--pf-text-light);
+  font: 500 15px/1 var(--pf-serif);
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list > li.items-header .effect-source {
+  flex: 0 0 78px;
+  color: var(--pf-text-light);
+  font: 400 10px/1 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-align: center;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list .item-controls {
+  display: flex;
+  flex: 0 0 64px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  margin: 0;
+  color: var(--pf-text-soft);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list > li.items-header .item-controls a {
+  color: var(--pf-text-light);
+  font: 400 11px/1 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list > li.items-header .item-controls a:hover {
+  color: #fff;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list ol.item-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list li.item.effect {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 4px 4px 8px;
+  border-bottom: 1px solid transparent;
+  border-image: var(--lhw-row-line);
+  background: none;
+  color: var(--pf-text);
+  transition: background-color 0.15s ease-out;
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list li.item.effect:hover {
+  background: rgba(120, 100, 82, 0.08);
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list li.item.effect .item-name {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--pf-text);
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list li.item.effect img.item-image {
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  border: none;
+  border-radius: 2px;
+  background: var(--pf-tertiary);
+  box-shadow: var(--lhw-frame);
+  object-fit: cover;
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list .effect-title-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list .effect-title-group h4 {
+  margin: 0;
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 500 14px/1.2 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list .effect-summary {
+  overflow: hidden;
+  color: var(--pf-text-soft);
+  font: italic 12px/1.25 var(--pf-body);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list .effect-unmet {
+  color: var(--pf-red);
+  font: 400 11px/1.2 var(--pf-sans);
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list li.item.effect :is(.effect-source, .effect-duration) {
+  flex: 0 0 78px;
+  border: none;
+  overflow: hidden;
+  color: var(--pf-text-soft);
+  font: 400 11px/1.2 var(--pf-body);
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list li.item.effect .item-controls a {
+  margin: 0;
+  color: var(--pf-text-soft);
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list li.item.effect .item-controls a:hover {
+  color: var(--pf-primary);
+  text-shadow: none;
+}
+.application.lhwin.themed:is(.item, .monster) .effects-list li.item.effect .item-controls a[data-action="delete"]:hover {
+  color: var(--pf-red);
+}
+.application.lhwin.themed .lh-on-use-badge {
+  padding: 1px 5px;
+  border: 1px solid rgba(31, 81, 55, 0.35);
+  border-radius: 2px;
+  background: rgba(31, 81, 55, 0.08);
+  color: var(--pf-primary);
+  font: 500 10px/1.3 var(--pf-sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Conditions of a skill (also in the effect editor) */
+.application.lhwin.themed .lh-conditions {
+  margin: 0 0 14px;
+}
+.application.lhwin.themed :is(.lh-conditions, .lh-roll-filter) .lh-conditions-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 0 4px;
+  padding: 0 0 2px;
+  border-bottom: 1px solid var(--pf-divider);
+}
+.application.lhwin.themed :is(.lh-conditions, .lh-roll-filter) .lh-conditions-title {
+  color: var(--pf-primary);
+  font: 600 15px/1 var(--pf-serif);
+}
+.application.lhwin.themed :is(.lh-conditions, .lh-roll-filter) .lh-conditions-header .inline-control {
+  color: var(--pf-primary);
+  font-size: 14px;
+}
+.application.lhwin.themed .lh-conditions .hint {
+  margin: 2px 0 6px;
+  color: var(--pf-text-soft);
+  font: italic 12px/1.35 var(--pf-body);
+  opacity: 1;
+}
+.application.lhwin.themed .lh-conditions .lh-condition-row {
+  gap: 6px;
+  margin: 3px 0;
+}
+.application.lhwin.themed .lh-conditions .lh-condition-row .inline-control {
+  color: var(--pf-text-soft);
+}
+.application.lhwin.themed .lh-conditions .lh-condition-row .inline-control:hover {
+  color: var(--pf-red);
+}
+
+/* Starting skills (race, class, subclass) and the skills a subclass allows */
+.application.lhwin.themed:is(.item, .monster) .grants-hint {
+  margin: 0 0 8px;
+  color: var(--pf-text-soft);
+  font: italic 12px/1.35 var(--pf-body);
+  opacity: 1;
+}
+.application.lhwin.themed:is(.item, .monster) .grant-slots {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.application.lhwin.themed:is(.item, .monster) .grant-slot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 2px;
+  border-bottom: 1px solid transparent;
+  border-image: var(--lhw-row-line);
+}
+.application.lhwin.themed:is(.item, .monster) .grant-slot-label {
+  flex: 0 0 92px;
+  padding: 0;
+  color: var(--pf-alt-dark);
+  font: 600 10px/1.15 var(--pf-sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 1;
+}
+.application.lhwin.themed:is(.item, .monster) .grant-skills {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.application.lhwin.themed:is(.item, .monster) .grant-skill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px 2px 2px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.45);
+}
+.application.lhwin.themed:is(.item, .monster) .grant-skill.missing {
+  border-color: var(--pf-red);
+  background: rgba(140, 47, 47, 0.08);
+}
+.application.lhwin.themed:is(.item, .monster) .grant-skill img {
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 2px;
+  background: var(--pf-primary-dark);
+}
+.application.lhwin.themed:is(.item, .monster) .grant-skill .grant-open {
+  color: var(--pf-text);
+  font: 500 13px/1.2 var(--pf-serif);
+}
+.application.lhwin.themed:is(.item, .monster) .grant-skill .grant-open:hover {
+  color: var(--pf-primary);
+}
+.application.lhwin.themed:is(.item, .monster) .grant-skill :is(.grant-remove, .subclass-skill-remove) {
+  color: var(--pf-text-soft);
+  font-size: 10px;
+}
+.application.lhwin.themed:is(.item, .monster) .grant-skill :is(.grant-remove, .subclass-skill-remove):hover {
+  color: var(--pf-red);
+}
+.application.lhwin.themed:is(.item, .monster) .subclass-skill-list {
+  padding: 2px 0;
+}
+.application.lhwin.themed:is(.item, .monster) .subclass-skill-empty {
+  color: var(--pf-text-soft);
+  font: italic 13px/1.3 var(--pf-body);
+  opacity: 1;
+}
+.application.lhwin.themed:is(.item, .monster) .grant-dropzone {
+  margin: 10px 0 0;
+  padding: 10px;
+  border: 1px dashed var(--pf-divider);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  color: var(--pf-text-soft);
+  font: italic 13px/1.2 var(--pf-body);
+  text-align: center;
+  opacity: 1;
+}
+.application.lhwin.themed:is(.item, .monster) :is(.grant-slot, .grant-dropzone).drag-over {
+  border-color: var(--pf-primary);
+  background: rgba(31, 81, 55, 0.12);
+}
+
+/* Monster skills: green header bar, framed icons */
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list > li.item {
+  display: grid;
+  grid-template-columns: minmax(0, 2.3fr) minmax(0, 1fr) minmax(0, 1.6fr) 54px;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 4px 4px 4px 8px;
+  border-bottom: 1px solid transparent;
+  border-image: var(--lhw-row-line);
+  background: none;
+  color: var(--pf-text);
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list > li.item:hover {
+  background: rgba(120, 100, 82, 0.08);
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list > li.item > * {
+  grid-column: auto;
+  min-width: 0;
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list > li.items-header {
+  height: 28px;
+  margin: 0 0 2px;
+  padding: 0 8px;
+  border: none;
+  border-radius: 4px;
+  border-image: none;
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+  color: var(--pf-text-light);
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list > li.items-header:hover {
+  background: var(--pf-primary);
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list > li.items-header > .item-name {
+  color: var(--pf-text-light);
+  font: 400 10px/1 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list > li.items-header > .item-name:first-child {
+  font: 500 15px/1 var(--pf-serif);
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 1;
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list > li.items-header .item-controls a {
+  color: var(--pf-text-light);
+  font: 400 11px/1 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list .item-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pf-text);
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list .item-image {
+  display: flex;
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  border-radius: 2px;
+  background: var(--pf-primary-dark);
+  box-shadow: var(--lhw-frame);
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list .item-image img {
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 2px;
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list a.item-throw {
+  min-width: 0;
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list h4 {
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 500 14px/1.2 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list a.item-throw:hover h4 {
+  color: var(--pf-primary);
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list :is(.item-timing, .item-checkType) h4 {
+  color: var(--pf-text-soft);
+  font: 400 12px/1.2 var(--pf-body);
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list .item-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  color: var(--pf-text-soft);
+  font-size: 12px;
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list li.item:not(.items-header) .item-controls a {
+  margin: 0;
+  color: var(--pf-text-soft);
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list li.item:not(.items-header) .item-controls a:hover {
+  color: var(--pf-primary);
+}
+.application.lhwin.themed.monster .tab[data-tab="skills"] .items-list li.item:not(.items-header) .item-controls a.item-delete:hover {
+  color: var(--pf-red);
+}
+
+/* Monster statuses: the panel of the character sheet */
+.application.lhwin.themed.monster .lh-status-panel {
+  column-gap: 16px;
+  padding: 0;
+  color: var(--pf-text);
+  font: 400 13px/1.2 var(--pf-body);
+}
+.application.lhwin.themed.monster .lh-status-panel .lh-status-group-title {
+  margin: 4px 0 4px;
+  padding: 0 0 2px;
+  border: none;
+  border-bottom: 1px solid var(--pf-divider);
+  color: var(--pf-primary);
+  font: 600 14px/1 var(--pf-serif);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.application.lhwin.themed.monster .lh-status-panel .lh-status {
+  gap: 6px;
+  height: auto;
+  min-height: 24px;
+  padding: 1px 4px;
+  border-radius: 2px;
+  color: var(--pf-text);
+  opacity: 1;
+}
+.application.lhwin.themed.monster .lh-status-panel .lh-status:hover {
+  background: rgba(31, 81, 55, 0.07);
+  color: var(--pf-text);
+  opacity: 1;
+}
+.application.lhwin.themed.monster .lh-status-panel .lh-status.active {
+  background: rgba(31, 81, 55, 0.13);
+  box-shadow: inset 2px 0 0 var(--pf-primary);
+  color: var(--pf-text);
+  font-weight: 600;
+}
+.application.lhwin.themed.monster .lh-status-panel .lh-status img {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  opacity: 0.7;
+}
+.application.lhwin.themed.monster .lh-status-panel .lh-status.active img {
+  opacity: 1;
+}
+.application.lhwin.themed.monster .lh-status-panel .lh-status input.lh-status-rating {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 20px;
+  padding: 0 2px;
+  border: 1px solid var(--pf-divider);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--pf-text);
+  font: 600 12px/1 var(--pf-serif);
+}
+.application.lhwin.themed.monster .lh-status-panel :is(.lh-status-list-add, .lh-status-entry-remove) {
+  color: var(--pf-primary);
+}
+.application.lhwin.themed.monster .lh-status-panel :is(.lh-status-list-add, .lh-status-entry-remove):hover {
+  color: var(--pf-red);
+}
+.application.lhwin.themed.monster .lh-status-panel .lh-status-entries {
+  border-left-color: var(--pf-divider);
+}
+.application.lhwin.themed.monster .lh-status-panel .lh-status-entry input {
+  border: 1px solid var(--pf-divider);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--pf-text);
+}
+
+/* ==========================================================================
+   Effect editor (the system's ActiveEffectConfig)
+   ========================================================================== */
+.application.lhwin.themed.eternia-effect-config .window-content {
+  gap: 0;
+  padding: 0;
+}
+.application.lhwin.themed.eternia-effect-config .sheet-header.img-name {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  padding: 10px 14px;
+  border: none;
+  background: url("../assets/sheet/header.webp") 0 0 / auto 100% repeat-x;
+  box-shadow: inset 0 -1px 0 var(--pf-tertiary-darker);
+}
+.application.lhwin.themed.eternia-effect-config .sheet-header.img-name img {
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  margin: 0 0 0 3px;
+  border: none;
+  border-radius: 0;
+  background: #2a2a24;
+  box-shadow: var(--lhw-portrait);
+  object-fit: contain;
+  cursor: pointer;
+}
+.application.lhwin.themed.eternia-effect-config .sheet-header.img-name input[name="name"] {
+  flex: 1;
+  height: 38px;
+  margin: 0;
+  padding: 0 4px;
+  border: none;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pf-text-light);
+  font: 500 24px/1 var(--pf-serif);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.application.lhwin.themed.eternia-effect-config .sheet-header.img-name input[name="name"]:hover {
+  border-bottom-color: rgba(245, 240, 228, 0.35);
+}
+.application.lhwin.themed.eternia-effect-config .sheet-header.img-name input[name="name"]:focus {
+  border-bottom-color: var(--pf-text-light);
+  background: transparent;
+  box-shadow: none;
+}
+.application.lhwin.themed.eternia-effect-config nav.sheet-tabs {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 0 0 34px;
+  align-items: stretch;
+  justify-content: space-evenly;
+  gap: 0;
+  height: 34px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: var(--pf-bg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+}
+.application.lhwin.themed.eternia-effect-config nav.sheet-tabs > a {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0 4px;
+  border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  background: none;
+  box-shadow: none;
+  color: var(--pf-alt);
+  font: 400 14px/1 var(--pf-serif);
+  text-decoration: none;
+  text-shadow: none;
+  white-space: nowrap;
+}
+.application.lhwin.themed.eternia-effect-config nav.sheet-tabs > a:first-child {
+  border-left: none;
+}
+.application.lhwin.themed.eternia-effect-config nav.sheet-tabs > a:last-child {
+  border-right: none;
+}
+.application.lhwin.themed.eternia-effect-config nav.sheet-tabs > a i {
+  font-size: 11px;
+  opacity: 0.75;
+}
+.application.lhwin.themed.eternia-effect-config nav.sheet-tabs > a:hover,
+.application.lhwin.themed.eternia-effect-config nav.sheet-tabs > a.active {
+  color: var(--pf-primary);
+  text-shadow: none;
+}
+.application.lhwin.themed.eternia-effect-config nav.sheet-tabs > a.active {
+  font-weight: 600;
+}
+.application.lhwin.themed.eternia-effect-config nav.sheet-tabs > a.active i {
+  opacity: 1;
+}
+.application.lhwin.themed.eternia-effect-config section.tab {
+  padding: 12px 14px;
+}
+.application.lhwin.themed.eternia-effect-config .form-group {
+  margin: 0;
+  padding: 5px 0;
+  border-bottom: 1px solid transparent;
+  border-image: var(--lhw-row-line);
+}
+.application.lhwin.themed.eternia-effect-config .form-group > label {
+  color: var(--pf-alt-dark);
+  font: 600 10px/1.2 var(--pf-sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.application.lhwin.themed.eternia-effect-config .form-group.stacked {
+  border-image: none;
+  border-bottom: none;
+}
+.application.lhwin.themed.eternia-effect-config .form-group p.hint {
+  font-size: 12px;
+}
+.application.lhwin.themed.eternia-effect-config .form-footer {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 10px 14px 12px;
+  border-top: 1px solid var(--pf-divider);
+}
+.application.lhwin.themed.eternia-effect-config fieldset {
+  border: 1px solid var(--pf-divider);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.2);
+}
+.application.lhwin.themed.eternia-effect-config fieldset > legend {
+  padding: 0 6px;
+  color: var(--pf-primary);
+  font: 600 15px/1 var(--pf-serif);
+}
+/* Changes: a green bar over the rows, like the effect lists */
+.application.lhwin.themed.eternia-effect-config .tab.changes > header {
+  align-items: center;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 0 0 8px;
+  border: none;
+  border-radius: 4px;
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+  color: var(--pf-text-light);
+  font: 400 10px/1 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.application.lhwin.themed.eternia-effect-config .tab.changes > header .inline-control {
+  color: var(--pf-text-light);
+  font-size: 14px;
+}
+.application.lhwin.themed.eternia-effect-config .tab.changes > header .inline-control:hover {
+  color: #fff;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+}
+.application.lhwin.themed.eternia-effect-config .tab.changes ol[data-changes] > li {
+  padding: 5px 0 5px 8px;
+  border-bottom: 1px solid transparent;
+  border-image: var(--lhw-row-line);
+}
+.application.lhwin.themed.eternia-effect-config .tab.changes ol[data-changes] > li .inline-control {
+  color: var(--pf-text-soft);
+}
+.application.lhwin.themed.eternia-effect-config .tab.changes ol[data-changes] > li .inline-control:hover {
+  color: var(--pf-red);
+}
+.application.lhwin.themed.eternia-effect-config .lh-formula-hint {
+  margin: 8px 0 0;
+  font-size: 12px;
+}
+.application.lhwin.themed.eternia-effect-config .lh-effect-target-info .lh-target-label {
+  color: var(--pf-text-soft);
+  font: italic 11px/14px var(--pf-body);
+  opacity: 1;
+}
+.application.lhwin.themed.eternia-effect-config .lh-effect-target-info .lh-target-warning {
+  color: #9a5a12;
+}
+.application.lhwin.themed.eternia-effect-config .lh-effect-target-info .lh-target-warning.derived {
+  color: var(--pf-red);
+}
+/* Status and roll filter */
+.application.lhwin.themed.eternia-effect-config .tab.lh-status .lh-status-preview {
+  color: var(--pf-primary-dark);
+  font: 600 14px/1.2 var(--pf-serif);
+}
+.application.lhwin.themed.eternia-effect-config .tab.lh-status .lh-status-preview-group {
+  border-top: 1px solid var(--pf-divider);
+  border-image: none;
+}
+.application.lhwin.themed .lh-roll-filter {
+  margin-top: 14px;
+  padding-top: 0;
+  border-top: none;
+}
+.application.lhwin.themed .lh-roll-filter .hint {
+  color: var(--pf-text-soft);
+  font: italic 12px/1.35 var(--pf-body);
+  opacity: 1;
+}
+.application.lhwin.themed .lh-roll-filter-drop {
+  border-color: var(--pf-divider);
+  background: rgba(255, 255, 255, 0.3);
+}
+.application.lhwin.themed .lh-filter-chip {
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--pf-text);
+  font: 500 12px/1.3 var(--pf-serif);
+}
+.application.lhwin.themed .lh-filter-empty {
+  color: var(--pf-text-soft);
+  font: italic 12px/1.3 var(--pf-body);
+}
+
+/* ==========================================================================
+   Skill and class browsers
+   ========================================================================== */
+.application.lhwin.themed:is(.skill-browser, .option-browser) .window-content {
+  padding: 0;
+}
+.application.lhwin.themed :is(.skill-browser-body, .option-browser-body) {
+  gap: 0;
+}
+.application.lhwin.themed .skill-tabs {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 0 0 34px;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: var(--pf-bg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+}
+.application.lhwin.themed .skill-tabs::before,
+.application.lhwin.themed .skill-tabs::after {
+  content: "";
+  flex: 0 0 40px;
+  align-self: center;
+  height: 16px;
+  margin: 0 12px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 16'%3E%3Cpath d='M3 8h19c4 0 6-3.2 9.2-3.2 2.9 0 4.8 1.9 4.8 4 0 1.8-1.5 3.2-3.4 3.2-1.6 0-2.8-1-2.8-2.4 0-1.1.8-1.9 1.9-1.9' fill='none' stroke='%23b8963f' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M3 8l3-2.2v4.4z' fill='%23b8963f'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+.application.lhwin.themed .skill-tabs::after {
+  transform: scaleX(-1);
+}
+.application.lhwin.themed .skill-tab {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0;
+  border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  color: var(--pf-alt);
+  font: 400 15px/1 var(--pf-serif);
+  text-transform: none;
+  opacity: 1;
+}
+.application.lhwin.themed .skill-tab:first-of-type {
+  border-left: none;
+}
+.application.lhwin.themed .skill-tab:last-of-type {
+  border-right: none;
+}
+.application.lhwin.themed .skill-tab:hover,
+.application.lhwin.themed .skill-tab.active {
+  color: var(--pf-primary);
+  text-shadow: none;
+}
+.application.lhwin.themed .skill-tab.active {
+  border-bottom: none;
+  font-weight: 600;
+}
+.application.lhwin.themed .skill-tab-count {
+  min-width: 16px;
+  margin: 0;
+  padding: 0 5px;
+  border-radius: 8px;
+  background: var(--pf-primary);
+  color: #fff;
+  font: 600 10px/16px var(--pf-sans);
+  text-align: center;
+}
+.application.lhwin.themed .skill-hint {
+  margin: 10px 14px 0;
+  color: var(--pf-text-soft);
+  font: italic 12px/1.35 var(--pf-body);
+  opacity: 1;
+}
+.application.lhwin.themed .skill-toolbar {
+  gap: 8px;
+  margin: 8px 14px 6px;
+}
+.application.lhwin.themed :is(.skill-search, .option-search) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--pf-text-soft);
+}
+.application.lhwin.themed .option-search {
+  margin: 10px 12px 6px;
+}
+.application.lhwin.themed :is(.skill-search, .option-search):focus-within {
+  border-color: var(--pf-primary);
+  background: rgba(255, 255, 255, 0.85);
+}
+.application.lhwin.themed :is(.skill-search, .option-search) input[type="search"] {
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  font: 400 14px/1 var(--pf-body);
+}
+.application.lhwin.themed :is(.skill-search, .option-search) input[type="search"]:focus {
+  background: transparent;
+  box-shadow: none;
+}
+.application.lhwin.themed .skill-toolbar select {
+  flex: 0 0 200px;
+  height: 30px;
+  font: 400 13px/1 var(--pf-body);
+}
+.application.lhwin.themed :is(.skill-list, .option-list) {
+  margin: 0;
+  padding: 0 8px 6px 12px;
+  scrollbar-gutter: stable;
+}
+.application.lhwin.themed :is(.skill-row, .option-row) {
+  padding: 6px 4px;
+  border-bottom: 1px solid transparent;
+  border-image: var(--lhw-row-line);
+  transition: background-color 0.15s ease-out;
+}
+.application.lhwin.themed :is(.skill-row, .option-row):hover {
+  background: rgba(120, 100, 82, 0.08);
+}
+.application.lhwin.themed :is(.skill-row.picked, .option-row.selected) {
+  background: rgba(31, 81, 55, 0.12);
+  box-shadow: inset 3px 0 0 var(--pf-primary);
+}
+.application.lhwin.themed :is(.skill-icon, .option-icon) {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  padding: 3px;
+  border: none;
+  border-radius: 2px;
+  background: var(--pf-primary-dark);
+  box-shadow: var(--lhw-frame);
+  object-fit: contain;
+}
+.application.lhwin.themed .option-icon {
+  flex-basis: 40px;
+  width: 40px;
+  height: 40px;
+}
+.application.lhwin.themed :is(.skill-name, .option-name) {
+  color: var(--pf-text);
+  font: 500 15px/1.25 var(--pf-serif);
+}
+.application.lhwin.themed .skill-name > i {
+  margin-right: 1px;
+  color: var(--pf-alt);
+  font-size: 11px;
+}
+.application.lhwin.themed a.skill-text:hover .skill-name {
+  color: var(--pf-primary);
+}
+.application.lhwin.themed .skill-owned {
+  margin-left: 6px;
+  padding: 1px 5px;
+  border: 1px solid rgba(31, 81, 55, 0.35);
+  border-radius: 2px;
+  background: rgba(31, 81, 55, 0.1);
+  color: var(--pf-primary);
+  font: 600 10px/1.3 var(--pf-sans);
+  letter-spacing: 0.04em;
+  vertical-align: 2px;
+}
+.application.lhwin.themed :is(.skill-meta, .option-source) {
+  color: var(--pf-text-soft);
+  font: italic 12px/1.3 var(--pf-body);
+  opacity: 1;
+}
+.application.lhwin.themed :is(.skill-buttons, .option-buttons) {
+  gap: 5px;
+}
+.application.lhwin.themed :is(.skill-buttons, .option-buttons) button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: none;
+  color: var(--pf-text-soft);
+  font-size: 12px;
+}
+.application.lhwin.themed :is(.skill-buttons, .option-buttons) button:hover:not(:disabled) {
+  border-color: var(--pf-primary-dark);
+  background: var(--pf-primary);
+  color: #fff;
+}
+.application.lhwin.themed :is(.skill-pick, .option-select):not(:disabled) {
+  border-color: var(--pf-primary-dark);
+  background: var(--pf-primary);
+  color: var(--pf-text-light);
+}
+.application.lhwin.themed :is(.skill-buttons, .option-buttons) :is(.skill-pick, .option-select):not(:disabled):hover {
+  background: var(--pf-primary-light);
+}
+.application.lhwin.themed .skill-buttons button:disabled {
+  opacity: 0.4;
+}
+.application.lhwin.themed .skill-buttons .skill-unpick {
+  border-color: rgba(140, 47, 47, 0.5);
+  color: var(--pf-red);
+}
+.application.lhwin.themed .skill-buttons .skill-unpick:hover:not(:disabled) {
+  border-color: var(--pf-red);
+  background: var(--pf-red);
+  color: #fff;
+}
+.application.lhwin.themed .skill-description {
+  margin: 6px 4px 4px 48px;
+  padding: 6px 10px;
+  border-left: 2px solid var(--pf-divider);
+  background: rgba(255, 255, 255, 0.35);
+  color: var(--pf-text);
+  font: 400 13px/1.45 var(--pf-body);
+}
+.application.lhwin.themed :is(.skill-empty, .option-empty) {
+  color: var(--pf-text-soft);
+  font: italic 13px/1.4 var(--pf-body);
+  opacity: 1;
+}
+.application.lhwin.themed .skill-footer {
+  gap: 8px;
+  margin: 0;
+  padding: 8px 14px 12px;
+  border-top: 1px solid var(--pf-divider);
+  background: rgba(255, 255, 255, 0.2);
+}
+.application.lhwin.themed .skill-chip {
+  gap: 5px;
+  padding: 2px 6px 2px 2px;
+  border-radius: 2px;
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font: 500 11px/1.2 var(--pf-sans);
+}
+.application.lhwin.themed .skill-chip img {
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.25);
+}
+.application.lhwin.themed .skill-chip a {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 10px;
+}
+.application.lhwin.themed .skill-chip a:hover {
+  color: #fff;
+}
+.application.lhwin.themed .skill-picks-empty {
+  color: var(--pf-text-soft);
+  font: italic 12px/1.3 var(--pf-body);
+  opacity: 1;
+}
+.application.lhwin.themed .skill-footer-buttons button {
+  height: 32px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: none;
+  color: var(--pf-text);
+  font: 500 14px/1 var(--pf-serif);
+}
+.application.lhwin.themed .skill-footer-buttons button:hover:not(:disabled) {
+  border-color: var(--pf-primary-dark);
+  background: var(--pf-primary);
+  color: #fff;
+}
+.application.lhwin.themed .skill-footer-buttons .skill-confirm:not(:disabled) {
+  border-color: var(--pf-primary-dark);
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  color: var(--pf-text-light);
+}
+.application.lhwin.themed .skill-footer-buttons .skill-confirm:not(:disabled):hover {
+  background: var(--pf-primary-light);
+}
+.application.lhwin.themed .skill-footer-buttons button:disabled {
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   Dialogs of the system: starting skills, base stats, undo, refresh, rank up
+   ========================================================================== */
+.application.lhwin.themed {
+  --table-header-bg-color: rgba(31, 81, 55, 0.08);
+  --table-header-border-color: var(--pf-divider);
+  --table-header-text-color: var(--pf-alt-dark);
+  --table-row-color-even: rgba(255, 255, 255, 0.28);
+  --table-row-color-odd: transparent;
+  --table-row-color-highlight: rgba(31, 81, 55, 0.1);
+}
+.application.lhwin.themed.dialog .window-content {
+  padding: 12px 14px;
+}
+.application.lhwin.themed.dialog .dialog-content p {
+  margin: 0 0 8px;
+  font: 400 14px/1.45 var(--pf-body);
+}
+.application.lhwin.themed :is(.allocation-hint, .undo-hint, .refresh-hint, .refresh-summary, .option-grants-body .grants-hint) {
+  color: var(--pf-text-soft);
+  font: italic 13px/1.4 var(--pf-body);
+  opacity: 1;
+}
+.application.lhwin.themed .grants-list .grant-slot {
+  padding: 6px 0;
+  border-bottom: 1px solid transparent;
+  border-image: var(--lhw-row-line);
+}
+.application.lhwin.themed .grant-choice-label {
+  margin: 0 0 3px;
+  color: var(--pf-alt-dark);
+  font: 600 10px/1.2 var(--pf-sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 1;
+}
+.application.lhwin.themed .grant-option {
+  gap: 8px;
+  padding: 2px 0;
+  color: var(--pf-text);
+  font: 500 14px/1.3 var(--pf-serif);
+}
+.application.lhwin.themed :is(.grant-option, .undo-row, .refresh-skill-head) img {
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 2px;
+  background: var(--pf-primary-dark);
+  box-shadow: var(--lhw-frame);
+  object-fit: contain;
+}
+.application.lhwin.themed .grant-owned,
+.application.lhwin.themed .grants-stale-names {
+  color: var(--pf-text-soft);
+  font: italic 12px/1.3 var(--pf-body);
+  opacity: 1;
+}
+.application.lhwin.themed .human-stats {
+  gap: 6px 12px;
+}
+.application.lhwin.themed .human-stat {
+  padding: 4px 8px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.35);
+}
+.application.lhwin.themed .human-stat:has(input:checked) {
+  border-color: var(--pf-primary);
+  background: rgba(31, 81, 55, 0.1);
+}
+.application.lhwin.themed .human-stat .stat-label {
+  color: var(--pf-text);
+  font: 600 14px/1 var(--pf-serif);
+}
+.application.lhwin.themed .human-stat .stat-bonus {
+  color: var(--pf-primary);
+  font: 600 13px/1 var(--pf-serif);
+  opacity: 1;
+}
+.application.lhwin.themed .bonus-table {
+  border-collapse: collapse;
+}
+.application.lhwin.themed .bonus-table thead th {
+  padding: 4px;
+  border-bottom: 1px solid var(--pf-divider);
+  color: var(--pf-alt-dark);
+  font: 600 10px/1.2 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.application.lhwin.themed .bonus-table tbody th {
+  color: var(--pf-primary);
+  font: 600 14px/1 var(--pf-serif);
+}
+.application.lhwin.themed .bonus-table td {
+  padding: 3px 4px;
+  font: 400 14px/1 var(--pf-serif);
+}
+.application.lhwin.themed .bonus-table input[type="number"] {
+  width: 52px;
+  height: 26px;
+  font: 600 14px/1 var(--pf-serif);
+  text-align: center;
+}
+.application.lhwin.themed .bonus-base {
+  font: 700 16px/1 var(--pf-serif);
+}
+.application.lhwin.themed.stat-allocation .invalid {
+  color: var(--pf-red);
+}
+.application.lhwin.themed .bonus-remaining {
+  margin: 8px 0 0;
+  color: var(--pf-text-soft);
+  font: 400 13px/1 var(--pf-body);
+}
+.application.lhwin.themed .bonus-remaining strong {
+  color: var(--pf-primary);
+  font: 700 17px/1 var(--pf-serif);
+}
+.application.lhwin.themed :is(.undo-row, .refresh-skill) {
+  padding: 5px 0;
+  border-bottom: 1px solid transparent;
+  border-image: var(--lhw-row-line);
+}
+.application.lhwin.themed :is(.undo-name, .refresh-skill-name) {
+  color: var(--pf-text);
+  font: 500 14px/1.25 var(--pf-serif);
+}
+.application.lhwin.themed .undo-meta,
+.application.lhwin.themed :is(.refresh-changes, .refresh-footnote, .refresh-by-name, .refresh-keep) {
+  color: var(--pf-text-soft);
+  font: italic 12px/1.3 var(--pf-body);
+  opacity: 1;
+}
+.application.lhwin.themed .refresh-actor-name {
+  border-bottom: 1px solid var(--pf-divider);
+  color: var(--pf-primary);
+  font: 600 15px/1.2 var(--pf-serif);
+}
+.application.lhwin.themed .refresh-actor-name img {
+  border-radius: 2px;
+  box-shadow: var(--lhw-frame);
+}
+.application.lhwin.themed .refresh-warning {
+  color: #9a5a12;
+}
+.application.lhwin.themed .sustained-dialog-form .radio-label {
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font: 400 14px/1.3 var(--pf-body);
+}
+.application.lhwin.themed .sustained-dialog-form .radio-label:hover {
+  border-color: var(--pf-divider);
+  background: rgba(255, 255, 255, 0.4);
+}
+.application.lhwin.themed .sustained-dialog-form .dialog-hint {
+  color: var(--pf-text-soft);
+  font: italic 13px/1.4 var(--pf-body);
+}
+
+/* The GM tools (automation/scenes.mjs) */
+.application.lhwin.themed.lhauto-tools .lhauto-tools-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.application.lhwin.themed.lhauto-tools .lhauto-tools-body p {
+  margin: 0 0 2px;
+  color: var(--pf-text-soft);
+  font: italic 13px/1.4 var(--pf-body);
+}
+.application.lhwin.themed.lhauto-tools .lhauto-tools-body hr {
+  width: 100%;
+  margin: 8px 0;
+  border: none;
+  border-top: 1px solid var(--pf-divider);
+  background: none;
+}
+.application.lhwin.themed.lhauto-tools .lhauto-tools-body button {
+  justify-content: flex-start;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: none;
+  color: var(--pf-text);
+  font: 500 14px/1 var(--pf-serif);
+}
+.application.lhwin.themed.lhauto-tools .lhauto-tools-body button i {
+  width: 18px;
+  color: var(--pf-primary);
+  text-align: center;
+}
+.application.lhwin.themed.lhauto-tools .lhauto-tools-body button:hover {
+  border-color: var(--pf-primary-dark);
+  background: var(--pf-primary);
+  color: #fff;
+}
+.application.lhwin.themed.lhauto-tools .lhauto-tools-body button:hover i {
+  color: #fff;
+}
+
+/* ==========================================================================
+   Chests, loot and shops (the system's pile window): its own colour variables
+   ========================================================================== */
+.application.lhwin.themed.pile-sheet {
+  --lhp-bg: #f3eee2;
+  --lhp-bg-alt: #f3eee2;
+  --lhp-panel: rgba(255, 255, 255, 0.3);
+  --lhp-border: var(--pf-divider);
+  --lhp-text: var(--pf-text);
+  --lhp-text-dim: var(--pf-text-soft);
+  --lhp-accent: var(--pf-primary);
+  --lhp-accent-strong: var(--pf-primary-light);
+  --lhp-gold: #8a6d1f;
+  --lhp-danger: var(--pf-red);
+  --lhp-radius: 3px;
+}
+.application.lhwin.themed.pile-sheet .window-content {
+  background: #f3eee2 url("../assets/sheet/parchment.webp") center / cover;
+}
+.application.lhwin.themed.pile-sheet .pile-header {
+  background: url("../assets/sheet/header.webp") 0 0 / auto 100% repeat-x;
+  border-bottom: 1px solid var(--pf-tertiary-darker);
+  color: var(--pf-text-light);
+}
+.application.lhwin.themed.pile-sheet .pile-portrait {
+  border: none;
+  border-radius: 0;
+  background: #2a2a24;
+  box-shadow: var(--lhw-portrait);
+}
+.application.lhwin.themed.pile-sheet :is(.pile-name, input.pile-name) {
+  border-color: transparent;
+  color: var(--pf-text-light);
+  font: 500 22px/1.1 var(--pf-serif);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.application.lhwin.themed.pile-sheet .pile-header input.pile-name {
+  border: none;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.application.lhwin.themed.pile-sheet .pile-header input.pile-name:hover {
+  border-bottom-color: rgba(245, 240, 228, 0.35);
+}
+.application.lhwin.themed.pile-sheet .pile-header input.pile-name:focus {
+  border-bottom-color: var(--pf-text-light);
+  background: transparent;
+  box-shadow: none;
+}
+.application.lhwin.themed.pile-sheet .pile-header .pile-badge {
+  border-color: rgba(233, 215, 161, 0.55);
+  color: var(--pf-tertiary);
+  font: 500 10px/1.6 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.application.lhwin.themed.pile-sheet .pile-header .pile-badge.ok {
+  border-color: #9fd3a8;
+  color: #cdebd2;
+}
+.application.lhwin.themed.pile-sheet .pile-header .pile-badge.warn {
+  border-color: #e7a5a5;
+  color: #f3c7c7;
+}
+.application.lhwin.themed.pile-sheet .pile-header .pile-config-toggle {
+  color: var(--pf-tertiary);
+}
+.application.lhwin.themed.pile-sheet .pile-header .pile-config-toggle:is(:hover, .active) {
+  color: #fff;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+}
+.application.lhwin.themed.pile-sheet :is(input, select) {
+  border-color: var(--pf-divider);
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--pf-text);
+}
+.application.lhwin.themed.pile-sheet :is(.pile-section-title, .pile-config-title, .pile-shop-desc-title, .pile-tab) {
+  font-family: var(--pf-serif);
+  text-shadow: none;
+}
+.application.lhwin.themed.pile-sheet :is(.pile-section-title, .pile-config-title, .pile-shop-desc-title) {
+  color: var(--pf-primary);
+  font-weight: 600;
+}
+.application.lhwin.themed.pile-sheet .pile-tab.active {
+  color: var(--pf-primary);
+  font-weight: 600;
+}
+.application.lhwin.themed.pile-sheet .pile-item {
+  border: none;
+  border-bottom: 1px solid transparent;
+  border-image: var(--lhw-row-line);
+  border-radius: 0;
+  background: none;
+}
+.application.lhwin.themed.pile-sheet .pile-item:hover {
+  background: rgba(120, 100, 82, 0.08);
+}
+.application.lhwin.themed.pile-sheet .pile-item-img {
+  border: none;
+  border-radius: 2px;
+  background: var(--pf-primary-dark);
+  box-shadow: var(--lhw-frame);
+}
+.application.lhwin.themed.pile-sheet .pile-item-name {
+  color: var(--pf-text);
+  font: 500 14px/1.25 var(--pf-serif);
+}
+.application.lhwin.themed.pile-sheet .pile-slot-image {
+  border-radius: 3px;
+  box-shadow: var(--lhw-frame);
+}
+.application.lhwin.themed.pile-sheet .pile-slot-qty,
+.application.lhwin.themed.pile-sheet .pile-slot-control {
+  color: #fff;
+}
+.application.lhwin.themed.pile-sheet .pile-slot-control.delete {
+  background: var(--pf-red);
+  color: #fff;
+}
+.application.lhwin.themed.pile-sheet .pile-type-filter {
+  border-color: var(--pf-divider);
+  border-radius: 2px;
+  color: var(--pf-text-soft);
+}
+.application.lhwin.themed.pile-sheet .pile-type-filter img {
+  border-radius: 2px;
+  background: var(--pf-primary-dark);
+}
+.application.lhwin.themed.pile-sheet .pile-type-filter.active {
+  border-color: var(--pf-primary);
+  background: rgba(31, 81, 55, 0.12);
+  color: var(--pf-primary);
+}
+.application.lhwin.themed.pile-sheet .pile-button {
+  border-color: var(--pf-divider);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--pf-text);
+  font-family: var(--pf-serif);
+}
+.application.lhwin.themed.pile-sheet .pile-button:hover:not(:disabled) {
+  border-color: var(--pf-primary-dark);
+  background: var(--pf-primary);
+  box-shadow: none;
+  color: #fff;
+}
+.application.lhwin.themed.pile-sheet .pile-button.primary {
+  border-color: var(--pf-primary-dark);
+  background: var(--pf-primary);
+  color: var(--pf-text-light);
+}
+.application.lhwin.themed.pile-sheet .pile-button.primary:hover:not(:disabled) {
+  background: var(--pf-primary-light);
+}
+.application.lhwin.themed.pile-sheet .pile-footer {
+  background: rgba(255, 255, 255, 0.25);
+}
+.application.lhwin.themed.pile-sheet .pile-interactor,
+.application.lhwin.themed.pile-sheet .pile-shop-portrait {
+  background: rgba(255, 255, 255, 0.3);
+}
+.application.lhwin.themed.pile-sheet .pile-shop-portrait {
+  box-shadow: var(--lhw-portrait);
+}
+.application.lhwin.themed.pile-sheet .pile-closed-icon {
+  text-shadow: none;
+}
+
+/* ==========================================================================
+   Sheets that can only be read (locked compendium, someone else's item): values as plain text
+   ========================================================================== */
+.application.lhwin.themed.lhwin-locked :is(input[type="text"], input[type="number"], select, textarea):disabled,
+.application.lhwin.themed:is(.item, .monster).lhwin-locked .sheet-stats .stat-div :is(input[type="text"], input[type="number"], select):disabled {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  opacity: 1;
+  cursor: default;
+  appearance: none;
+}
+.application.lhwin.themed.lhwin-locked :is(input[type="checkbox"], input[type="radio"]):disabled {
+  --checkbox-background-color: #9c8a73;
+  --checkbox-checked-color: var(--pf-primary);
+  opacity: 1;
+}
+.application.lhwin.themed.lhwin-locked .sheet-header h1.charname input:disabled,
+.application.lhwin.themed.lhwin-locked .sheet-header.img-name input[name="name"]:disabled {
+  color: var(--pf-text-light);
+}
+.application.lhwin.themed.lhwin-locked .sheet-header .resource.flexcol select:disabled {
+  border: none;
+  background-color: var(--pf-secondary);
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Kuden tab of the skill sheet (house rule: module/kuden/item-sheet.mjs)
+   -------------------------------------------------------------------------- */
+.lhauto-kuden-tab.active {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px 4px;
+}
+.lhauto-kuden-tab .form-group {
+  flex-wrap: wrap;
+}
+.lhauto-kuden-tab .form-group .hint {
+  flex: 0 0 100%;
+  margin: 2px 0 0;
+  font-size: 11px;
+  opacity: 0.8;
+}
+.lhauto-kuden-tab .lhk-cost {
+  margin: 2px 0 6px;
+  font-style: italic;
+  opacity: 0.85;
+}
+.lhauto-kuden-tab fieldset.lhk-resource {
+  margin-top: 6px;
+}
+.lhauto-kuden-tab .lhk-curve {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+  margin: 4px 0;
+}
+.lhauto-kuden-tab .lhk-hour {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 10px;
+  text-align: center;
+}
+.lhauto-kuden-tab .lhk-hour input {
+  width: 100%;
+  text-align: center;
+}
+.lhauto-kuden-tab label.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.lhauto-tools-body .lhauto-kuden-env .form-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 2px 0;
+}
+.lhauto-tools-body .lhauto-kuden-env .form-group label {
+  flex: 1;
+}
+.lhauto-tools-body .lhauto-kuden-env .form-fields {
+  display: flex;
+  flex: 0 0 auto;
+}
+.lhauto-tools-body .lhauto-kuden-env select {
+  width: 170px;
+}

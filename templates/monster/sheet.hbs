@@ -1,0 +1,59 @@
+{{!-- Parchment monster sheet (eternia): the character sheet's layout, made small. Banner, header with the
+     portrait, the name, the tags and the Level, a strip with the attributes and the Identification, the navigation
+     band and the tabs. Keeps the selectors and data-actions of the system's monster sheet (module/sheets/monster-sheet.mjs);
+     the look is in css/sheet.css. --}}
+<div class="lhpf-sheet lhpf-monster">
+
+	<aside class="lhpf-sidebar">
+		<div class="sidebar">
+			{{> "systems/eternia/templates/monster/sidebar.hbs"}}
+		</div>
+	</aside>
+
+	<header class="lhpf-header">
+		<div class="portrait"><img src="{{actor.img}}" alt="" data-action="editImage" data-edit="img" data-tooltip="{{actor.name}}"></div>
+		<div class="char-details">
+			<input class="char-name" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'ETERNIA.Placeholder.Name'}}" spellcheck="false">
+			{{> "systems/eternia/templates/parts/tag-input.html"}}
+		</div>
+		<div class="char-level">
+			<button type="button" class="rank-up" data-action="monster-send-to-chat" data-tooltip="{{localize 'ETERNIA.Sheet.Monster.SendHint'}}"><i class="fa-solid fa-comment"></i></button>
+			<div class="level" data-tooltip="{{localize 'ETERNIA.Sheet.Monster.Level'}}{{#if modified.rank}} · {{modified.rank.tooltip}}{{/if}}">
+				<svg class="badge" viewBox="0 0 40 43" aria-hidden="true"><path d="M20 1.5 37.5 6.5V21.5C37.5 31.5 29.5 38 20 41.5 10.5 38 2.5 31.5 2.5 21.5V6.5Z"></path></svg>
+				<label>{{localize 'ETERNIA.Sheet.Monster.LevelShort'}}</label>
+				<input type="text" name="system.rank" value="{{source.rank}}" data-dtype="Number" maxlength="2"{{#if modified.rank}} class="has-effect"{{/if}}>
+			</div>
+		</div>
+	</header>
+
+	<div class="lhpf-stats">
+		{{#each lh.attributes}}
+		<label class="stat" data-tooltip="{{label}}{{#if modified}} · {{modified.tooltip}}{{/if}}">
+			<span class="abbr">{{abbr}}</span>
+			<input type="text" name="system.attributes.{{key}}.mod" value="{{value}}" placeholder="0" data-dtype="Number" maxlength="3"{{#if modified}} class="has-effect"{{/if}}>
+		</label>
+		{{/each}}
+		<label class="stat ident" data-tooltip="{{localize 'ETERNIA.Monster.Identification'}}">
+			<span class="abbr">{{localize 'ETERNIA.Sheet.Monster.IdentShort'}}</span>
+			<input type="text" name="system.idendification" value="{{source.idendification}}" placeholder="—" maxlength="6">
+		</label>
+	</div>
+
+	<nav class="lhpf-nav tabs" data-group="primary">
+		<span class="panel-title">{{lh.tabLabel}}</span>
+		{{#each lh.tabs}}
+		<a class="item" data-action="tab" data-group="primary" data-tab="{{id}}" data-tooltip="{{label}}" aria-label="{{label}}"><i class="{{icon}}"></i></a>
+		{{/each}}
+	</nav>
+
+	<section class="lhpf-body">
+		{{> "systems/eternia/templates/monster/abilities.hbs"}}
+		{{> "systems/eternia/templates/character/effects.hbs"}}
+		<section class="tab major description" data-group="primary" data-tab="description">
+			<div class="tab-content">
+				{{#unless source.description}}{{#if editable}}<p class="lhpf-empty lhpf-bio-hint"><i class="fa-solid fa-feather"></i> {{localize 'ETERNIA.Sheet.Monster.DescriptionHint'}}</p>{{/if}}{{/unless}}
+				<prose-mirror class="lhpf-bio" name="system.description" value="{{source.description}}" toggled {{#unless editable}}disabled{{/unless}}>{{{enrichments.description}}}</prose-mirror>
+			</div>
+		</section>
+	</section>
+</div>

@@ -1,0 +1,104 @@
+{{!-- The open panel of the action HUD, above the bar. --}}
+<section class="lhh-panel" data-panel="{{panel.id}}">
+	<header class="lhh-panel-head">
+		<h3>{{panel.label}}</h3>
+		<a class="lhh-panel-close" data-action="lhh-close" aria-label="{{localize 'Close'}}"><i class="fa-solid fa-xmark"></i></a>
+	</header>
+	<div class="lhh-panel-body">
+
+		{{!-- CHECKS --}}
+		{{#with panel.checks}}
+		{{#each groups}}
+		<h4 class="lhh-group">{{label}}</h4>
+		<ul class="lhh-checks{{#if grid}} grid{{/if}}">
+			{{#each checks}}
+			<li class="lhh-check{{#if pinned}} pinned{{/if}}" data-action="lhh-check" data-check="{{key}}">
+				<i class="fa-solid fa-dice-d6"></i>
+				<span class="name">{{label}}</span>
+				{{#if attr}}<span class="attr">{{attr}}</span>{{/if}}
+				<span class="dice" data-tier="{{tier}}">{{text}}</span>
+				<a class="lhh-pin-toggle" data-action="lhh-pin" data-pin="check.{{key}}" aria-label="{{localize 'ETERNIA.Hud.Pin'}}"><i class="fa-solid fa-thumbtack"></i></a>
+			</li>
+			{{/each}}
+		</ul>
+		{{/each}}
+		{{/with}}
+
+		{{!-- SKILLS --}}
+		{{#with panel.skills}}
+		{{#each groups}}
+		<h4 class="lhh-group">{{label}}</h4>
+		<ul class="lhh-rows">{{#each rows}}{{> "systems/eternia/templates/hud/row.hbs"}}{{/each}}</ul>
+		{{else}}
+		<p class="lhh-empty">{{localize 'ETERNIA.Hud.NoSkills'}}</p>
+		{{/each}}
+		{{/with}}
+
+		{{!-- KUDEN --}}
+		{{#with panel.kuden}}
+		{{#if resource}}
+		<div class="lhh-resource" data-tooltip-text="{{resource.hint}}">
+			<span class="name">{{resource.name}}</span>
+			<span class="pips">{{#each resource.pips}}<a class="pip{{#if on}} on{{/if}}"{{#if ../resource.manual}} data-action="lhh-resource" data-value="{{value}}"{{/if}}></a>{{/each}}</span>
+			<span class="value">{{resource.value}}/{{resource.max}}</span>
+		</div>
+		{{/if}}
+		{{#each groups}}
+		<h4 class="lhh-group">{{label}}</h4>
+		<ul class="lhh-rows">{{#each rows}}{{> "systems/eternia/templates/hud/row.hbs"}}{{/each}}</ul>
+		{{/each}}
+		{{/with}}
+
+		{{!-- ITEMS --}}
+		{{#with panel.items}}
+		{{#each groups}}
+		<h4 class="lhh-group">{{label}}</h4>
+		<ul class="lhh-rows">
+			{{#each entries}}
+			<li class="lhh-entry" data-item-id="{{id}}">
+				<span class="lhh-row-img"><img src="{{img}}" alt=""></span>
+				<span class="lhh-row-name">{{name}}</span>
+				<span class="lhh-row-meta"><span class="lhh-chip limit">{{typeLabel}}</span></span>
+			</li>
+			{{#each powers}}{{> "systems/eternia/templates/hud/row.hbs"}}{{/each}}
+			{{/each}}
+			{{#each rows}}{{> "systems/eternia/templates/hud/row.hbs"}}{{/each}}
+		</ul>
+		{{else}}
+		<p class="lhh-empty">{{localize 'ETERNIA.Hud.NoItems'}}</p>
+		{{/each}}
+		{{/with}}
+
+		{{!-- STATUSES --}}
+		{{#with panel.effects}}
+		<h4 class="lhh-group">{{localize 'ETERNIA.Sheet.Statuses'}}
+			{{#if canRemoveBad}}<button type="button" class="lhh-group-action" data-action="lhh-remove-bad" data-tooltip-text="{{localize 'ETERNIA.Sheet.RemoveBadHint'}}"><i class="fa-solid fa-star"></i> {{localize 'ETERNIA.Hud.RemoveBad'}}</button>{{/if}}
+		</h4>
+		<ul class="lhh-statuses">
+			{{#each statuses}}
+			<li class="lhh-status-tag{{#if bad}} bad{{/if}}" data-status="{{id}}">
+				<img src="{{img}}" alt=""><span>{{label}}{{#if detail}} <b>{{detail}}</b>{{/if}}</span>
+				<a class="remove" data-action="lhh-status-off" aria-label="{{localize 'ETERNIA.Hud.Remove'}}"><i class="fa-solid fa-xmark"></i></a>
+			</li>
+			{{else}}
+			<li class="lhh-empty">{{localize 'ETERNIA.Sheet.NoStatus'}}</li>
+			{{/each}}
+		</ul>
+		{{#if effects.length}}
+		<h4 class="lhh-group">{{localize 'ETERNIA.Hud.Effects'}}</h4>
+		<ul class="lhh-rows">
+			{{#each effects}}
+			<li class="lhh-effect" data-effect-uuid="{{uuid}}">
+				<span class="lhh-row-img"><img src="{{img}}" alt=""></span>
+				<span class="lhh-row-name">{{name}}</span>
+				<span class="lhh-row-meta">{{#if duration}}<span class="lhh-chip limit">{{duration}}</span>{{/if}}</span>
+				<a class="lhh-pin-toggle remove" data-action="lhh-effect-off" aria-label="{{localize 'ETERNIA.Hud.Remove'}}"><i class="fa-solid fa-xmark"></i></a>
+			</li>
+			{{/each}}
+		</ul>
+		{{/if}}
+		{{/with}}
+
+	</div>
+	<footer class="lhh-panel-hint">{{panel.hint}}</footer>
+</section>

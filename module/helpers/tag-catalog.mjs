@@ -1,20 +1,20 @@
 /**
- * Catalog of the known Log Horizon TRPG tags: the canonical spelling stored in `system.tags`, the
+ * Catalog of the known Eternia tags: the canonical spelling stored in `system.tags`, the
  * misspellings / variants it replaces and a group for the suggestion list. The rules summary shown
- * as tooltip lives in the lang files (`LHTRPG.TagDesc.<Label>`, see tagDescription). Modules can add
- * entries to `CONFIG.LHTRPG.tags` during `init` / `setup`, with their own `desc`.
+ * as tooltip lives in the lang files (`ETERNIA.TagDesc.<Label>`, see tagDescription). Modules can add
+ * entries to `CONFIG.ETERNIA.tags` during `init` / `setup`, with their own `desc`.
  *
  * Tags are stored WITHOUT brackets, in Title Case ("Two-Handed", not "[two handed]").
  */
 
 const G = {
-  equip: "LHTRPG.TagGroup.Equipment",
-  item: "LHTRPG.TagGroup.Item",
-  skill: "LHTRPG.TagGroup.Skill",
-  attack: "LHTRPG.TagGroup.Attack",
-  element: "LHTRPG.TagGroup.Element",
-  creature: "LHTRPG.TagGroup.Creature",
-  other: "LHTRPG.TagGroup.Other"
+  equip: "ETERNIA.TagGroup.Equipment",
+  item: "ETERNIA.TagGroup.Item",
+  skill: "ETERNIA.TagGroup.Skill",
+  attack: "ETERNIA.TagGroup.Attack",
+  element: "ETERNIA.TagGroup.Element",
+  creature: "ETERNIA.TagGroup.Creature",
+  other: "ETERNIA.TagGroup.Other"
 };
 
 /** @type {{label: string, group: string, desc?: string, aliases?: string[]}[]} */
@@ -150,9 +150,9 @@ export const tagKey = tag => String(tag ?? "").replace(/[\[\]]/g, "").replace(/[
 let _index = null;
 let _indexSource = null;
 
-/** Map of tagKey(label or alias) -> catalog entry. Rebuilt if CONFIG.LHTRPG.tags is replaced. */
+/** Map of tagKey(label or alias) -> catalog entry. Rebuilt if CONFIG.ETERNIA.tags is replaced. */
 function index() {
-  const catalog = globalThis.CONFIG?.LHTRPG?.tags ?? TAG_CATALOG;
+  const catalog = globalThis.CONFIG?.ETERNIA?.tags ?? TAG_CATALOG;
   if (_index && (_indexSource === catalog) && (_index.size >= catalog.length)) return _index;
   _index = new Map();
   _indexSource = catalog;
@@ -201,10 +201,10 @@ export function canonicalTags(tags) {
   return out;
 }
 
-/** Tooltip text of a tag: `LHTRPG.TagDesc.<Label>` (lang files), else the entry's `desc` (module-added tags). */
+/** Tooltip text of a tag: `ETERNIA.TagDesc.<Label>` (lang files), else the entry's `desc` (module-added tags). */
 export function tagDescription(tag) {
   const entry = findTag(tag);
   if (!entry) return "";
-  const key = `LHTRPG.TagDesc.${entry.label.replace(/[^A-Za-z0-9]/g, "")}`;
+  const key = `ETERNIA.TagDesc.${entry.label.replace(/[^A-Za-z0-9]/g, "")}`;
   return game.i18n.has(key) ? game.i18n.localize(key) : (entry.desc ?? "");
 }

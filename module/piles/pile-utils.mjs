@@ -41,7 +41,7 @@ export function itemQuantity(item) {
 }
 
 export function getStock(item) {
-  const stock = item.getFlag("lhtrpg", STOCK_FLAG);
+  const stock = item.getFlag("eternia", STOCK_FLAG);
   return (stock === undefined || stock === null || stock === "") ? -1 : Number(stock);
 }
 

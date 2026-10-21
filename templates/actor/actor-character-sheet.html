@@ -1,17 +1,17 @@
-<div class="lhtrpg-character-sheet character flexcol">
+<div class="eternia-character-sheet character flexcol">
 
 	{{!-- Sheet Header --}}
 	<header class="sheet-header">
 		<img class="profile-img" src="{{actor.img}}" data-action="editImage" data-edit="img" title="{{actor.name}}" height="100"
 			width="100" />
 
-		<span class="collapsible" id="hate-button" data-action="toggle-hate" title="{{localize 'LHTRPG.Label.ToggleHateFatigue'}}">
+		<span class="collapsible" id="hate-button" data-action="toggle-hate" title="{{localize 'ETERNIA.Label.ToggleHateFatigue'}}">
 		</span>
 
 		{{!-- Hate/Fatigue Fields --}}
 		<div class="info-windows content" id="hate">
 			<div class="hate-window">
-				<label class="hate-label" for="">{{localize 'LHTRPG.Label.Hate'}}</label>
+				<label class="hate-label" for="">{{localize 'ETERNIA.Label.Hate'}}</label>
 				<input class="hate-input{{#if modified.hate}} has-effect{{/if}}" type="text" name="system.infos.hate"
 					value="{{source.infos.hate}}" placeholder="0" data-dtype="Number"
 					maxlength="3" {{#if modified.hate}}data-tooltip="{{modified.hate.tooltip}}"{{/if}}>
@@ -20,7 +20,7 @@
 				{{/if}}
 			</div>
 			<div class="fatigue-window">
-				<label class="fatigue-label" for="">{{localize 'LHTRPG.Label.Fatigue'}}</label>
+				<label class="fatigue-label" for="">{{localize 'ETERNIA.Label.Fatigue'}}</label>
 				<input class="fatigue-input{{#if modified.fatigue}} has-effect{{/if}}" type="text" name="system.infos.fatigue"
 					value="{{source.infos.fatigue}}" placeholder="0" data-dtype="Number"
 					maxlength="3" {{#if modified.fatigue}}data-tooltip="{{modified.fatigue.tooltip}}"{{/if}}>
@@ -33,20 +33,20 @@
 		{{!-- Header Fields --}}
 		<div class="header-fields">
 			<h1 class="charname">
-				<input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'LHTRPG.Placeholder.Name'}}" />
+				<input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'ETERNIA.Placeholder.Name'}}" />
 			</h1>
 			<div class="race">
-				<label>{{localize 'LHTRPG.Label.Race'}}</label>
-				{{> "systems/lhtrpg/templates/actor/parts/actor-option.html" type="race" option=characterOptions.race
-					placeholder=(localize 'LHTRPG.Placeholder.Race')}}
+				<label>{{localize 'ETERNIA.Label.Race'}}</label>
+				{{> "systems/eternia/templates/actor/parts/actor-option.html" type="race" option=characterOptions.race
+					placeholder=(localize 'ETERNIA.Placeholder.Race')}}
 			</div>
 			<img class="class-img" src="{{classImg}}" data-action="class-img" data-option-type="class" title="{{characterOptions.class.name}}"
 				height="100" width="100" />
 			<div class="classes">
-				{{> "systems/lhtrpg/templates/actor/parts/actor-option.html" type="class" option=characterOptions.class
-					placeholder=(localize 'LHTRPG.Placeholder.Class')}}
-				{{> "systems/lhtrpg/templates/actor/parts/actor-option.html" type="subclass" option=characterOptions.subclass
-					placeholder=(localize 'LHTRPG.Placeholder.SubClass')}}
+				{{> "systems/eternia/templates/actor/parts/actor-option.html" type="class" option=characterOptions.class
+					placeholder=(localize 'ETERNIA.Placeholder.Class')}}
+				{{> "systems/eternia/templates/actor/parts/actor-option.html" type="subclass" option=characterOptions.subclass
+					placeholder=(localize 'ETERNIA.Placeholder.SubClass')}}
 			</div>
 			<div class="levels">
 				<input class="crank{{#if modified.crank}} has-effect{{/if}}" type="text" name="system.infos.crank" value="{{source.infos.crank}}" placeholder="0" data-dtype="Number" maxlength="3" {{#if modified.crank}}data-tooltip="{{modified.crank.tooltip}}"{{/if}}>
@@ -54,8 +54,8 @@
 				<span class="stat-effective" data-tooltip="{{modified.crank.tooltip}}">{{modified.crank.display}}</span>
 				{{/if}}
 				{{#if editable}}
-				<button type="button" class="rank-up" data-action="rank-up" data-tooltip="LHTRPG.RankUp.Tooltip">
-					<i class="fa-solid fa-angles-up"></i> {{localize 'LHTRPG.RankUp.Button'}}
+				<button type="button" class="rank-up" data-action="rank-up" data-tooltip="ETERNIA.RankUp.Tooltip">
+					<i class="fa-solid fa-angles-up"></i> {{localize 'ETERNIA.RankUp.Button'}}
 				</button>
 				{{/if}}
 			</div>
@@ -67,10 +67,10 @@
 	<nav class="sheet-tabs tabs" data-group="primary">
 		{{!-- Default tab is specified in actor-sheet.mjs --}}
 		<a class="item" data-action="tab" data-group="primary" data-tab="stats"><img src="{{classImg}}" alt=""></a>
-		<a class="item" data-action="tab" data-group="primary" data-tab="skills"><img src="/systems/lhtrpg/assets/ui/navigation/skills.webp"
+		<a class="item" data-action="tab" data-group="primary" data-tab="skills"><img src="/systems/eternia/assets/ui/navigation/skills.webp"
 				alt=""></a>
-		<a class="item" data-action="tab" data-group="primary" data-tab="items"><img src="/systems/lhtrpg/assets/ui/navigation/items.webp" alt=""></a>
-		<a class="item" data-action="tab" data-group="primary" data-tab="bio"><img src="/systems/lhtrpg/assets/ui/navigation/bio.webp" alt=""></a>
+		<a class="item" data-action="tab" data-group="primary" data-tab="items"><img src="/systems/eternia/assets/ui/navigation/items.webp" alt=""></a>
+		<a class="item" data-action="tab" data-group="primary" data-tab="bio"><img src="/systems/eternia/assets/ui/navigation/bio.webp" alt=""></a>
 	</nav>
 
 	{{!-- Sheet Body --}}
@@ -81,19 +81,19 @@
 
 			<nav class="status-tabs tabs" data-group="stats">
 				{{!-- Default tab is specified in actor-sheet.mjs --}}
-				<a class="item" data-action="tab" data-group="stats" data-tab="stats">{{toUpperCase (localize 'LHTRPG.Stats.Label')}}</a>
-				<a class="item" data-action="tab" data-group="stats" data-tab="effects">{{toUpperCase (localize 'LHTRPG.Effect.Label')}}</a>
-				<a class="item" data-action="tab" data-group="stats" data-tab="status">{{toUpperCase (localize 'LHTRPG.Status.Label')}}</a>
+				<a class="item" data-action="tab" data-group="stats" data-tab="stats">{{toUpperCase (localize 'ETERNIA.Stats.Label')}}</a>
+				<a class="item" data-action="tab" data-group="stats" data-tab="effects">{{toUpperCase (localize 'ETERNIA.Effect.Label')}}</a>
+				<a class="item" data-action="tab" data-group="stats" data-tab="status">{{toUpperCase (localize 'ETERNIA.Status.Label')}}</a>
 			</nav>
 			<section class="status-body">
 				<div class="tab stats" data-group="stats" data-tab="stats">
-					{{> "systems/lhtrpg/templates/actor/parts/actor-stats.html"}}
+					{{> "systems/eternia/templates/actor/parts/actor-stats.html"}}
 				</div>
 				<div class="tab effects" data-group="stats" data-tab="effects">
-					{{> "systems/lhtrpg/templates/actor/parts/actor-effects.html"}}
+					{{> "systems/eternia/templates/actor/parts/actor-effects.html"}}
 				</div>
 				<div class="tab status" data-group="stats" data-tab="status">
-					{{> "systems/lhtrpg/templates/actor/parts/actor-status.html"}}
+					{{> "systems/eternia/templates/actor/parts/actor-status.html"}}
 				</div>
 			</section>
 		</div>
@@ -104,19 +104,19 @@
 
 			<nav class="skills-tabs tabs" data-group="skills">
 				{{!-- Default tab is specified in actor-sheet.mjs --}}
-				<a class="item" data-action="tab" data-group="skills" data-tab="basic">{{toUpperCase (localize 'LHTRPG.Skill.Type.Basic')}}</a>
-				<a class="item" data-action="tab" data-group="skills" data-tab="general">{{toUpperCase (localize 'LHTRPG.Skill.Type.General')}}</a>
-				<a class="item" data-action="tab" data-group="skills" data-tab="combat">{{toUpperCase (localize 'LHTRPG.Skill.Type.Combat')}}</a>
+				<a class="item" data-action="tab" data-group="skills" data-tab="basic">{{toUpperCase (localize 'ETERNIA.Skill.Type.Basic')}}</a>
+				<a class="item" data-action="tab" data-group="skills" data-tab="general">{{toUpperCase (localize 'ETERNIA.Skill.Type.General')}}</a>
+				<a class="item" data-action="tab" data-group="skills" data-tab="combat">{{toUpperCase (localize 'ETERNIA.Skill.Type.Combat')}}</a>
 			</nav>
 			<section class="skills-body">
 				<div class="tab skills" data-group="skills" data-tab="basic">
-					{{> "systems/lhtrpg/templates/actor/parts/actor-skills-basic.html"}}
+					{{> "systems/eternia/templates/actor/parts/actor-skills-basic.html"}}
 				</div>
 				<div class="tab skills" data-group="skills" data-tab="general">
-					{{> "systems/lhtrpg/templates/actor/parts/actor-skills-general.html"}}					
+					{{> "systems/eternia/templates/actor/parts/actor-skills-general.html"}}					
 				</div>
 				<div class="tab skills" data-group="skills" data-tab="combat">
-					{{> "systems/lhtrpg/templates/actor/parts/actor-skills-combat.html"}}
+					{{> "systems/eternia/templates/actor/parts/actor-skills-combat.html"}}
 				</div>
 
 			</section>
@@ -127,15 +127,15 @@
 
 			<nav class="items-tabs tabs" data-group="items">
 				{{!-- Default tab is specified in actor-sheet.mjs --}}
-				<a class="item" data-action="tab" data-group="items" data-tab="equipment">{{toUpperCase (localize 'LHTRPG.Label.Equip')}}</a>
-				<a class="item" data-action="tab" data-group="items" data-tab="tickets">{{toUpperCase (localize 'LHTRPG.Label.Tickets')}}</a>
+				<a class="item" data-action="tab" data-group="items" data-tab="equipment">{{toUpperCase (localize 'ETERNIA.Label.Equip')}}</a>
+				<a class="item" data-action="tab" data-group="items" data-tab="tickets">{{toUpperCase (localize 'ETERNIA.Label.Tickets')}}</a>
 			</nav>
 			<section class="items-body">
 				<div class="tab items" data-group="items" data-tab="equipment">
-					{{> "systems/lhtrpg/templates/actor/parts/actor-inventory.html"}}
+					{{> "systems/eternia/templates/actor/parts/actor-inventory.html"}}
 				</div>
 				<div class="tab items" data-group="items" data-tab="tickets">
-					{{> "systems/lhtrpg/templates/actor/parts/actor-tickets.html"}}
+					{{> "systems/eternia/templates/actor/parts/actor-tickets.html"}}
 				</div>
 			</section>
 		</div>
@@ -144,24 +144,24 @@
 		<div class="tab stats grid-span-6" data-group="primary" data-tab="bio">
 			<nav class="bio-tabs tabs" data-group="bio">
 				{{!-- Default tab is specified in actor-sheet.mjs --}}
-				<a class="item" data-action="tab" data-group="bio" data-tab="bio">{{toUpperCase (localize 'LHTRPG.Biography.Label')}}</a>
-				<a class="item" data-action="tab" data-group="bio" data-tab="connections">{{toUpperCase (localize 'LHTRPG.Connection.Label')}}</a>
-				<a class="item" data-action="tab" data-group="bio" data-tab="unions">{{toUpperCase (localize 'LHTRPG.Union.Label')}}</a>
+				<a class="item" data-action="tab" data-group="bio" data-tab="bio">{{toUpperCase (localize 'ETERNIA.Biography.Label')}}</a>
+				<a class="item" data-action="tab" data-group="bio" data-tab="connections">{{toUpperCase (localize 'ETERNIA.Connection.Label')}}</a>
+				<a class="item" data-action="tab" data-group="bio" data-tab="unions">{{toUpperCase (localize 'ETERNIA.Union.Label')}}</a>
 			</nav>
 			<section class="bio-body">
 				<div class="tab skills" data-group="bio" data-tab="bio">
-					{{> "systems/lhtrpg/templates/actor/parts/actor-biography.html"}}
+					{{> "systems/eternia/templates/actor/parts/actor-biography.html"}}
 				</div>
 				<div class="tab skills" data-group="bio" data-tab="connections">
-					{{> "systems/lhtrpg/templates/actor/parts/actor-bio-connections.html"}}
+					{{> "systems/eternia/templates/actor/parts/actor-bio-connections.html"}}
 				</div>
 				<div class="tab skills" data-group="bio" data-tab="unions">
-					{{> "systems/lhtrpg/templates/actor/parts/actor-bio-unions.html"}}
+					{{> "systems/eternia/templates/actor/parts/actor-bio-unions.html"}}
 				</div>
 				<div class="guild">
-					<h4>{{localize 'LHTRPG.Label.Guild'}}</h4>
+					<h4>{{localize 'ETERNIA.Label.Guild'}}</h4>
 					<input class="guild-input" type="text" name="system.social.guild"
-					value="{{source.social.guild}}" placeholder="{{localize 'LHTRPG.Label.Guild'}}" data-dtype="text">
+					value="{{source.social.guild}}" placeholder="{{localize 'ETERNIA.Label.Guild'}}" data-dtype="text">
 				</div>
 			</section>
 		</div>

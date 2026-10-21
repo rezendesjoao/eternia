@@ -1,4 +1,4 @@
-<div class="lhtrpg chat-card item-chat-card">
+<div class="eternia chat-card item-chat-card">
 	<header class="chat-card-header">
 		<img class="chat-card-img" src="{{img}}" alt="{{name}}" />
 		<div class="chat-card-title">
@@ -15,41 +15,41 @@
 
 	<div class="chat-card-stats">
 		{{#if isWeapon}}
-			<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.Attack'}}</span><span class="chat-stat-value">{{system.attack}}</span></div>
-			<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.Magic'}}</span><span class="chat-stat-value">{{system.magic}}</span></div>
-			<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.Accuracy'}}</span><span class="chat-stat-value">{{system.accuracy}}</span></div>
-			{{#if system.range}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.Range'}}</span><span class="chat-stat-value">{{system.range}}</span></div>{{/if}}
+			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Attack'}}</span><span class="chat-stat-value">{{system.attack}}</span></div>
+			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Magic'}}</span><span class="chat-stat-value">{{system.magic}}</span></div>
+			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Accuracy'}}</span><span class="chat-stat-value">{{system.accuracy}}</span></div>
+			{{#if system.range}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Range'}}</span><span class="chat-stat-value">{{system.range}}</span></div>{{/if}}
 		{{/if}}
 		{{#if isArmor}}
-			<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.PDef'}}</span><span class="chat-stat-value">{{system.pdef}}</span></div>
-			<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.MDef'}}</span><span class="chat-stat-value">{{system.mdef}}</span></div>
+			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.PDef'}}</span><span class="chat-stat-value">{{system.pdef}}</span></div>
+			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.MDef'}}</span><span class="chat-stat-value">{{system.mdef}}</span></div>
 		{{/if}}
 		{{#if isShield}}
-			<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.PDef'}}</span><span class="chat-stat-value">{{system.pdef}}</span></div>
-			<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.MDef'}}</span><span class="chat-stat-value">{{system.mdef}}</span></div>
+			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.PDef'}}</span><span class="chat-stat-value">{{system.pdef}}</span></div>
+			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.MDef'}}</span><span class="chat-stat-value">{{system.mdef}}</span></div>
 		{{/if}}
 		{{#if isAccessory}}
-			<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.PDef'}}</span><span class="chat-stat-value">{{system.pdef}}</span></div>
-			<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.MDef'}}</span><span class="chat-stat-value">{{system.mdef}}</span></div>
-			<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.Magic'}}</span><span class="chat-stat-value">{{system.magic}}</span></div>
+			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.PDef'}}</span><span class="chat-stat-value">{{system.pdef}}</span></div>
+			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.MDef'}}</span><span class="chat-stat-value">{{system.mdef}}</span></div>
+			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Magic'}}</span><span class="chat-stat-value">{{system.magic}}</span></div>
 		{{/if}}
 		{{#if isBag}}
-			<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.BagSpace'}}</span><span class="chat-stat-value">{{system.bagSpace}}</span></div>
-			{{#if system.limit}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.BagLimit'}}</span><span class="chat-stat-value">{{system.limit}}</span></div>{{/if}}
+			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.BagSpace'}}</span><span class="chat-stat-value">{{system.bagSpace}}</span></div>
+			{{#if system.limit}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.BagLimit'}}</span><span class="chat-stat-value">{{system.limit}}</span></div>{{/if}}
 		{{/if}}
 		{{#if isGear}}
-			{{#if system.timing}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.Timing'}}</span><span class="chat-stat-value">{{system.timing}}</span></div>{{/if}}
-			{{#if system.checkLabel}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.Check'}}</span><span class="chat-stat-value">{{system.checkLabel}}</span></div>
-			{{else if system.check}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.Check'}}</span><span class="chat-stat-value">{{system.check}}</span></div>{{/if}}
-			{{#if system.damageLabel}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Skill.Label.Damage'}}</span><span class="chat-stat-value">{{system.damageLabel}}</span></div>{{/if}}
-			{{#if system.target}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.Target'}}</span><span class="chat-stat-value">{{system.target}}</span></div>{{/if}}
-			{{#if system.range}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.Range'}}</span><span class="chat-stat-value">{{system.range}}</span></div>{{/if}}
+			{{#if system.timing}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Timing'}}</span><span class="chat-stat-value">{{system.timing}}</span></div>{{/if}}
+			{{#if system.checkLabel}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Check'}}</span><span class="chat-stat-value">{{system.checkLabel}}</span></div>
+			{{else if system.check}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Check'}}</span><span class="chat-stat-value">{{system.check}}</span></div>{{/if}}
+			{{#if system.damageLabel}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Skill.Label.Damage'}}</span><span class="chat-stat-value">{{system.damageLabel}}</span></div>{{/if}}
+			{{#if system.target}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Target'}}</span><span class="chat-stat-value">{{system.target}}</span></div>{{/if}}
+			{{#if system.range}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Range'}}</span><span class="chat-stat-value">{{system.range}}</span></div>{{/if}}
 		{{/if}}
 		{{#if isTicket}}
-			<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.Quantity'}}</span><span class="chat-stat-value">{{system.quantity}}</span></div>
+			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Quantity'}}</span><span class="chat-stat-value">{{system.quantity}}</span></div>
 		{{/if}}
-		<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.Rank'}}</span><span class="chat-stat-value">{{system.rank}}</span></div>
-		{{#if system.price}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'LHTRPG.Item.Label.Price'}}</span><span class="chat-stat-value">{{system.price}}G</span></div>{{/if}}
+		<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Rank'}}</span><span class="chat-stat-value">{{system.rank}}</span></div>
+		{{#if system.price}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Price'}}</span><span class="chat-stat-value">{{system.price}}G</span></div>{{/if}}
 	</div>
 
 	{{#if enrichedSkillText}}

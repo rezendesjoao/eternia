@@ -2,7 +2,7 @@
   "name": "R4 Shito no bōshi",
   "type": "accessory",
   "system": {
-    "description": "<p><span class=\"jCAhz ChMk0b\"><span class=\"ryNqvb\">You will not be [Confused].</span></span> <span class=\"jCAhz ChMk0b\"><span class=\"ryNqvb\">[Trigger: Action] Use at the same time as your \"Heal\".</span></span> <span class=\"jCAhz ChMk0b\"><span class=\"ryNqvb\">Add +[your recovery power] to the next damage roll made by the target of \"Heal\" (this effect is treated as CS and is canceled once the effect is activated).</span></span> <span class=\"jCAhz ChMk0b\"><span class=\"ryNqvb\">Can be used once per scene.</span></span></p>\n<hr>\n<p><span class=\"jCAhz ChMk0b\"><span class=\"ryNqvb\">A ceremonial hat said to have been used by God's apostles.</span></span> <span class=\"jCAhz ChMk0b\"><span class=\"ryNqvb\">Its magical power, which is a symbol of deep faith, imparts the effect of elevating the spirit of the opponent to the healing power exercised by the wearer.</span></span></p>\n<hr>\n<p>Radiant Crystal [Core Material] (50G) + Willow Band (60G) + Black Ring (90G) + [Magic Catalyst 4] (30G) x 4 + Crafting Cost (120G)</p>",
+    "description": "<p><span class=\"jCAhz ChMk0b\"><span class=\"ryNqvb\">Você não fica [Confuso].</span></span> <span class=\"jCAhz ChMk0b\"><span class=\"ryNqvb\">[Momento: Ação] Use ao mesmo tempo que a sua \"Cura\".</span></span> <span class=\"jCAhz ChMk0b\"><span class=\"ryNqvb\">Acrescente +[seu Poder de Recuperação] à próxima rolagem de dano feita pelo alvo de \"Cura\" (este efeito é tratado como Estado de Combate e é cancelado assim que for ativado).</span></span> <span class=\"jCAhz ChMk0b\"><span class=\"ryNqvb\">Pode ser usado uma vez por Cena.</span></span></p>\n<hr>\n<p><span class=\"jCAhz ChMk0b\"><span class=\"ryNqvb\">Um chapéu cerimonial que, dizem, era usado pelos apóstolos de Deus.</span></span> <span class=\"jCAhz ChMk0b\"><span class=\"ryNqvb\">Seu poder mágico, símbolo de uma fé profunda, faz com que o poder de cura exercido por quem o usa também eleve o espírito de quem o recebe.</span></span></p>\n<hr>\n<p>Cristal Radiante [Material-Base] (50G) + Faixa de Salgueiro (60G) + Anel Negro (90G) + [Catalisador Mágico 4] (30G) x 4 + Custo de Fabricação (120G)</p>",
     "tags": [
       "Accessory",
       "Helm",
@@ -23,17 +23,56 @@
     "attack": 0,
     "accuracy": 0
   },
-  "img": "systems/lhtrpg/assets/ui/items_icons/accessory.svg",
+  "img": "systems/eternia/assets/ui/items_icons/accessory.svg",
   "effects": [],
   "sort": 0,
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Action",
+          "target": "Single",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Action] Use at the same time as your \"Heal\". Add +[your recovery power] to the next damage roll made by the target of \"Heal\" (this effect is treated as CS and is canceled once the effect is activated). Can be used once per scene.",
+          "effects": [
+            {
+              "name": "R4 Shito no bōshi",
+              "img": "systems/lhtrpg/assets/ui/items_icons/accessory.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "lhtrpg.roll.damage.mod",
+                    "type": "add",
+                    "value": "@recovery",
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfRound"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
-    "systemId": "lhtrpg",
-    "systemVersion": "1.5.0",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

@@ -1,13 +1,17 @@
 {
-  "id": "lhtrpg",
-  "title": "Log Horizon TRPG (ログ・ホライズンTRPG)",
-  "description": "A system for playing Log Horizon TRPG. <em>Database Database Just living in the Database</em>",
-  "version": "2.1.1",
+  "id": "eternia",
+  "title": "Eternia",
+  "description": "Eternia: RPG de mesa para o Foundry VTT, com combate por fases, Ódio, Destino, estados e durações automáticos, ficha em pergaminho, HUD de ações e cartões de chat feitos para mesas grandes e combates simultâneos.",
+  "version": "0.1.0",
   "compatibility": {
     "minimum": 14,
-    "verified": "14.369"
+    "verified": "14.367"
   },
   "authors": [
+    {
+      "name": "rezendesjoao",
+      "url": "https://github.com/rezendesjoao"
+    },
     {
       "name": "Kyane",
       "url": "https://github.com/Tenyryas",
@@ -21,26 +25,56 @@
   "media": [
     {
       "type": "setup",
-      "url": "systems/lhtrpg/assets/Logo_lhtrpg.webp",
-      "thumbnail": "systems/lhtrpg/assets/Logo_lhtrpg.webp"
+      "url": "systems/eternia/assets/logo.webp",
+      "thumbnail": "systems/eternia/assets/logo.webp"
     }
   ],
   "esmodules": [
-    "module/lhtrpg.mjs"
+    "module/eternia.mjs"
   ],
   "styles": [
-    "css/fonts.css",
-    "css/lhtrpg.css",
-    "css/piles.css"
+    {
+      "src": "css/fonts.css"
+    },
+    {
+      "src": "css/eternia.css"
+    },
+    {
+      "src": "css/piles.css"
+    },
+    {
+      "src": "css/automation.css",
+      "layer": "modules"
+    },
+    {
+      "src": "css/sheet.css",
+      "layer": "modules"
+    },
+    {
+      "src": "css/chat.css",
+      "layer": "modules"
+    },
+    {
+      "src": "css/windows.css",
+      "layer": "modules"
+    },
+    {
+      "src": "css/hud.css",
+      "layer": "modules"
+    },
+    {
+      "src": "css/tbg.css",
+      "layer": "modules"
+    }
   ],
   "scripts": [],
   "packs": [
     {
       "name": "races-classes",
-      "label": "Races & Classes",
+      "label": "Raças e Classes",
       "path": "packs/races-classes",
       "type": "Item",
-      "system": "lhtrpg",
+      "system": "eternia",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -49,10 +83,10 @@
     },
     {
       "name": "skills-basic",
-      "label": "Basic Skills",
+      "label": "Habilidades Básicas",
       "path": "packs/skills-basic",
       "type": "Item",
-      "system": "lhtrpg",
+      "system": "eternia",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -61,10 +95,10 @@
     },
     {
       "name": "skills-common",
-      "label": "Common & Subclass Skills",
+      "label": "Habilidades Comuns e de Subclasse",
       "path": "packs/skills-common",
       "type": "Item",
-      "system": "lhtrpg",
+      "system": "eternia",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -73,10 +107,10 @@
     },
     {
       "name": "skills-racial",
-      "label": "Racial Skills",
+      "label": "Habilidades Raciais",
       "path": "packs/skills-racial",
       "type": "Item",
-      "system": "lhtrpg",
+      "system": "eternia",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -85,10 +119,10 @@
     },
     {
       "name": "skills-archetype",
-      "label": "Archetype Skills",
+      "label": "Habilidades de Arquétipo",
       "path": "packs/skills-archetype",
       "type": "Item",
-      "system": "lhtrpg",
+      "system": "eternia",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -97,10 +131,10 @@
     },
     {
       "name": "skills-class",
-      "label": "Class Skills",
+      "label": "Habilidades de Classe",
       "path": "packs/skills-class",
       "type": "Item",
-      "system": "lhtrpg",
+      "system": "eternia",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -109,10 +143,10 @@
     },
     {
       "name": "skills-mounts",
-      "label": "Mount Skills",
+      "label": "Habilidades de Montaria",
       "path": "packs/skills-mounts",
       "type": "Item",
-      "system": "lhtrpg",
+      "system": "eternia",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -121,10 +155,10 @@
     },
     {
       "name": "gm-ex-powers",
-      "label": "GM EX Powers",
+      "label": "Poderes EX do Mestre",
       "path": "packs/gm-ex-powers",
       "type": "Item",
-      "system": "lhtrpg",
+      "system": "eternia",
       "ownership": {
         "PLAYER": "NONE",
         "ASSISTANT": "OWNER"
@@ -133,10 +167,10 @@
     },
     {
       "name": "items",
-      "label": "Items",
+      "label": "Itens",
       "path": "packs/items",
       "type": "Item",
-      "system": "lhtrpg",
+      "system": "eternia",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -145,10 +179,10 @@
     },
     {
       "name": "bestiary",
-      "label": "Bestiary",
+      "label": "Bestiário",
       "path": "packs/bestiary",
       "type": "Actor",
-      "system": "lhtrpg",
+      "system": "eternia",
       "ownership": {
         "PLAYER": "NONE",
         "ASSISTANT": "OWNER"
@@ -157,10 +191,10 @@
     },
     {
       "name": "rules",
-      "label": "Rules",
+      "label": "Regras",
       "path": "packs/rules",
       "type": "JournalEntry",
-      "system": "lhtrpg",
+      "system": "eternia",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
@@ -169,6 +203,11 @@
     }
   ],
   "languages": [
+    {
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",
+      "path": "lang/pt-BR.json"
+    },
     {
       "lang": "en",
       "name": "English",
@@ -205,13 +244,16 @@
   "gridUnits": "ft",
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "fate",
-  "url": "https://github.com/DeadlyPoisonK/LHTTRPG",
-  "manifest": "https://github.com/DeadlyPoisonK/LHTTRPG/releases/latest/download/system.json",
-  "download": "https://github.com/DeadlyPoisonK/LHTTRPG/releases/download/v2.1.1/lhtrpg.zip",
+  "url": "https://github.com/rezendesjoao/eternia",
+  "manifest": "https://github.com/rezendesjoao/eternia/releases/latest/download/system.json",
+  "download": "https://github.com/rezendesjoao/eternia/releases/download/v0.1.0/eternia.zip",
+  "bugs": "https://github.com/rezendesjoao/eternia/issues",
+  "readme": "https://github.com/rezendesjoao/eternia/blob/main/README.md",
+  "changelog": "https://github.com/rezendesjoao/eternia/blob/main/CHANGELOG.md",
   "license": "LICENSE.txt",
   "packFolders": [
     {
-      "name": "Log Horizon TRPG",
+      "name": "Eternia",
       "sorting": "m",
       "color": "#1d4d36",
       "packs": [
@@ -219,7 +261,7 @@
       ],
       "folders": [
         {
-          "name": "Skills",
+          "name": "Habilidades",
           "sorting": "m",
           "color": "#1d4d36",
           "packs": [
@@ -232,7 +274,7 @@
           ]
         },
         {
-          "name": "Items",
+          "name": "Itens",
           "sorting": "m",
           "color": "#1d4d36",
           "packs": [
@@ -240,7 +282,7 @@
           ]
         },
         {
-          "name": "Game Master",
+          "name": "Mestre",
           "sorting": "m",
           "color": "#1d4d36",
           "packs": [

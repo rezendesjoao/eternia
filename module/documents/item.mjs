@@ -7,21 +7,21 @@ import { useSkillEffects } from "../helpers/sustained.mjs";
  * Extend the basic Item with some very simple modifications.
  * @extends {Item}
  */
-export class LHTrpgItem extends Item {
+export class EterniaItem extends Item {
 
   
   chatTemplate = {
-    "skill": "systems/lhtrpg/templates/dialogs/skillThrow.hbs",
-    "weapon": "systems/lhtrpg/templates/dialogs/itemCard.hbs",
-    "armor": "systems/lhtrpg/templates/dialogs/itemCard.hbs",
-    "shield": "systems/lhtrpg/templates/dialogs/itemCard.hbs",
-    "accessory": "systems/lhtrpg/templates/dialogs/itemCard.hbs",
-    "bag": "systems/lhtrpg/templates/dialogs/itemCard.hbs",
-    "gear": "systems/lhtrpg/templates/dialogs/itemCard.hbs",
-    "usable": "systems/lhtrpg/templates/dialogs/itemCard.hbs",
-    "ticket": "systems/lhtrpg/templates/dialogs/itemCard.hbs",
-    "connection": "systems/lhtrpg/templates/item/item-connection-sheet.html",
-    "union": "systems/lhtrpg/templates/item/item-union-sheet.html",
+    "skill": "systems/eternia/templates/dialogs/skillThrow.hbs",
+    "weapon": "systems/eternia/templates/dialogs/itemCard.hbs",
+    "armor": "systems/eternia/templates/dialogs/itemCard.hbs",
+    "shield": "systems/eternia/templates/dialogs/itemCard.hbs",
+    "accessory": "systems/eternia/templates/dialogs/itemCard.hbs",
+    "bag": "systems/eternia/templates/dialogs/itemCard.hbs",
+    "gear": "systems/eternia/templates/dialogs/itemCard.hbs",
+    "usable": "systems/eternia/templates/dialogs/itemCard.hbs",
+    "ticket": "systems/eternia/templates/dialogs/itemCard.hbs",
+    "connection": "systems/eternia/templates/item/item-connection-sheet.html",
+    "union": "systems/eternia/templates/item/item-union-sheet.html",
     }
 
   /**
@@ -60,7 +60,7 @@ export class LHTrpgItem extends Item {
   }
 
   /** System compendium holding the base ticket of each subtype. */
-  static TICKET_PACK = "lhtrpg.items";
+  static TICKET_PACK = "eternia.items";
 
   /**
    * Data for one new ticket of `subtype`, copied from the system compendium so it keeps its
@@ -72,7 +72,7 @@ export class LHTrpgItem extends Item {
    */
   static async ticketData(subtype, { rank } = {}) {
     let data = { name: "New Ticket", type: "ticket", system: { subtype } };
-    const pack = game.packs.get(LHTrpgItem.TICKET_PACK);
+    const pack = game.packs.get(EterniaItem.TICKET_PACK);
     if (pack) {
       const index = await pack.getIndex({ fields: ["system.subtype"] });
       const entry = index.find(e => (e.type === "ticket") && (e.system?.subtype === subtype));
@@ -94,7 +94,7 @@ export class LHTrpgItem extends Item {
     await super._preCreate(createData, options, user);
 
     if (this.type === "ticket") {
-      const preset = LHTrpgItem.TICKET_PRESETS[this.system.subtype] ?? LHTrpgItem.TICKET_PRESETS.Treasure;
+      const preset = EterniaItem.TICKET_PRESETS[this.system.subtype] ?? EterniaItem.TICKET_PRESETS.Treasure;
       const updateData = {};
       if (!this.name || this.name === "New Ticket") updateData['name'] = preset.name;
       if (this.img === 'icons/svg/item-bag.svg') updateData['img'] = preset.img;
@@ -105,7 +105,7 @@ export class LHTrpgItem extends Item {
     // add item default picture depending on type
     if (this.img === 'icons/svg/item-bag.svg') {
       const updateData = {};
-      updateData['img'] = OPTION_ICONS[this.type] ?? `systems/lhtrpg/assets/ui/items_icons/${this.type}.svg`;
+      updateData['img'] = OPTION_ICONS[this.type] ?? `systems/eternia/assets/ui/items_icons/${this.type}.svg`;
 
       await this.updateSource(updateData);
     }
@@ -197,7 +197,7 @@ export class LHTrpgItem extends Item {
 
     chatData.content = await foundry.applications.handlebars.renderTemplate(this.chatTemplate[element.type], cardData);
     if (skillUseFlag) {
-      foundry.utils.setProperty(chatData, "flags.lhtrpg.skillUse", skillUseFlag);
+      foundry.utils.setProperty(chatData, "flags.eternia.skillUse", skillUseFlag);
     }
     return ChatMessage.create(chatData);
   }

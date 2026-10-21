@@ -1,0 +1,92 @@
+{
+  "name": "R6 M4 Varinha Kodama",
+  "type": "weapon",
+  "system": {
+    "description": "<p>[Momento: Rolagem de Dano] Adicione +6 à rolagem de dano do seu [Ataque Mágico]. Uma vez por cena.\nUma varinha mágica imbuída do poder de uma árvore ancestral que ressoa como um sino. De vez em quando, ela amplifica o poder dos feitiços lançados pelo usuário.</p><hr><p>Galho Sempre-Verde [Material-Base] (80G) + Varinha de Pinho (140G) + [Catalisador Mágico 6] (50G) ×4 + Custo de Fabricação (200G)</p>",
+    "tags": [
+      "One-Handed",
+      "Staff",
+      "Not For Sale",
+      "M4"
+    ],
+    "initiative": 2,
+    "rank": 6,
+    "price": 620,
+    "equipped": false,
+    "attack": 6,
+    "magic": 13,
+    "accuracy": 0,
+    "main": false,
+    "range": "Close",
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "pdef": 0,
+    "mdef": 0
+  },
+  "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
+  "effects": [],
+  "sort": 24400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Damage Roll",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Damage Roll] Add +6 to your [Magic Attack] damage roll. Once per scene.",
+          "effects": [
+            {
+              "name": "R6 M4 Kodama Wand",
+              "img": "systems/lhtrpg/assets/ui/items_icons/weapon.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "lhtrpg.roll.damage.mod",
+                    "type": "add",
+                    "value": 6,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfProcess",
+                  "rollFilter": {
+                    "skillTags": [
+                      "Magic Attack"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "yHkHB7Jn0LqzsqmN",
+  "folder": "C19YDMIkeXI6v7zD",
+  "_key": "!items!yHkHB7Jn0LqzsqmN"
+}

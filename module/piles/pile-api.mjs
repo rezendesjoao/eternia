@@ -1,7 +1,7 @@
 /**
  * Client-side pile API. Every call goes through the GM (see pile-socket.mjs)
  * and reports its outcome to the user with notifications.
- * Exposed as `game.lhtrpg.piles`.
+ * Exposed as `game.eternia.piles`.
  */
 import { request } from "./pile-socket.mjs";
 import { convertDialog, convertActorToPile } from "./pile-convert.mjs";
@@ -19,7 +19,7 @@ const { DialogV2 } = foundry.applications.api;
 
 function notify(result) {
   if (!result) return false;
-  if (!result.ok) ui.notifications.warn(game.i18n.format(result.error ?? "LHTRPG.Piles.Error.Generic", result.errorData ?? {}));
+  if (!result.ok) ui.notifications.warn(game.i18n.format(result.error ?? "ETERNIA.Piles.Error.Generic", result.errorData ?? {}));
   for (const w of result.warnings ?? []) ui.notifications.warn(game.i18n.format(w.key, w.data ?? {}));
   return !!result.ok;
 }
@@ -31,7 +31,7 @@ function playSound(src) {
 /** The character acting on a pile, or a warning when there's none. */
 export function requireInteractingActor() {
   const actor = getInteractingActor();
-  if (!actor) ui.notifications.warn(game.i18n.localize("LHTRPG.Piles.Error.NoActor"));
+  if (!actor) ui.notifications.warn(game.i18n.localize("ETERNIA.Piles.Error.NoActor"));
   return actor;
 }
 
@@ -48,9 +48,9 @@ export async function promptQuantity(title, max, { label, initial } = {}) {
   const value = initial ?? max;
   const data = await DialogV2.input({
     window: { title },
-    content: `<div class="form-group"><label>${label ?? game.i18n.localize("LHTRPG.Piles.Quantity")}</label>
+    content: `<div class="form-group"><label>${label ?? game.i18n.localize("ETERNIA.Piles.Quantity")}</label>
       <input type="number" name="quantity" min="1" max="${max}" step="1" value="${value}" autofocus></div>`,
-    ok: { label: game.i18n.localize("LHTRPG.Piles.Confirm") }
+    ok: { label: game.i18n.localize("ETERNIA.Piles.Confirm") }
   });
   if (!data) return null;
   const qty = Math.floor(Number(data.quantity) || 0);
@@ -60,14 +60,14 @@ export async function promptQuantity(title, max, { label, initial } = {}) {
 /** Ask for an amount of gold between 1 and max. */
 export async function promptGold(title, max) {
   if (max <= 0) {
-    ui.notifications.warn(game.i18n.localize("LHTRPG.Piles.Error.NoGold"));
+    ui.notifications.warn(game.i18n.localize("ETERNIA.Piles.Error.NoGold"));
     return null;
   }
   const data = await DialogV2.input({
     window: { title },
-    content: `<div class="form-group"><label>${game.i18n.localize("LHTRPG.Piles.GoldLabel")} (${game.i18n.format("LHTRPG.Piles.Max", { max })})</label>
+    content: `<div class="form-group"><label>${game.i18n.localize("ETERNIA.Piles.GoldLabel")} (${game.i18n.format("ETERNIA.Piles.Max", { max })})</label>
       <input type="number" name="amount" min="1" max="${max}" step="1" value="${max}" autofocus></div>`,
-    ok: { label: game.i18n.localize("LHTRPG.Piles.Confirm") }
+    ok: { label: game.i18n.localize("ETERNIA.Piles.Confirm") }
   });
   if (!data) return null;
   const amount = Math.floor(Number(data.amount) || 0);
@@ -83,21 +83,21 @@ function giftTargets(giver) {
 async function promptTarget(title, giver, { gold = false, item = null } = {}) {
   const targets = giftTargets(giver);
   if (!targets.length) {
-    ui.notifications.warn(game.i18n.localize("LHTRPG.Piles.Error.NoTargets"));
+    ui.notifications.warn(game.i18n.localize("ETERNIA.Piles.Error.NoTargets"));
     return null;
   }
   const options = targets.map(a => `<option value="${a.uuid}">${foundry.utils.escapeHTML(a.name)}</option>`).join("");
   const max = gold ? getGold(giver) : (item ? itemQuantity(item) : 1);
   let extra = "";
-  if (gold) extra = `<div class="form-group"><label>${game.i18n.localize("LHTRPG.Piles.GoldLabel")} (${game.i18n.format("LHTRPG.Piles.Max", { max })})</label>
+  if (gold) extra = `<div class="form-group"><label>${game.i18n.localize("ETERNIA.Piles.GoldLabel")} (${game.i18n.format("ETERNIA.Piles.Max", { max })})</label>
       <input type="number" name="amount" min="1" max="${max}" step="1" value="${max}"></div>`;
-  else if (max > 1) extra = `<div class="form-group"><label>${game.i18n.localize("LHTRPG.Piles.Quantity")}</label>
+  else if (max > 1) extra = `<div class="form-group"><label>${game.i18n.localize("ETERNIA.Piles.Quantity")}</label>
       <input type="number" name="amount" min="1" max="${max}" step="1" value="${max}"></div>`;
   const data = await DialogV2.input({
     window: { title },
-    content: `<div class="form-group"><label>${game.i18n.localize("LHTRPG.Piles.GiveTo")}</label>
+    content: `<div class="form-group"><label>${game.i18n.localize("ETERNIA.Piles.GiveTo")}</label>
       <select name="target">${options}</select></div>${extra}`,
-    ok: { label: game.i18n.localize("LHTRPG.Piles.Give") }
+    ok: { label: game.i18n.localize("ETERNIA.Piles.Give") }
   });
   if (!data?.target) return null;
   const amount = Math.floor(Number(data.amount ?? 1) || 0);
@@ -118,7 +118,7 @@ export async function transferItem(item, target, { quantity, ask = true } = {}) 
   const source = item.parent;
   if (!source || !target) return null;
   if (!isPhysical(item)) {
-    ui.notifications.warn(game.i18n.format("LHTRPG.Piles.Error.NotPhysical", { item: item.name }));
+    ui.notifications.warn(game.i18n.format("ETERNIA.Piles.Error.NotPhysical", { item: item.name }));
     return null;
   }
   let qty = quantity;
@@ -137,7 +137,7 @@ export async function takeAll(pile, actor = requireInteractingActor()) {
 
 export async function transferGold(source, target, amount, { title } = {}) {
   if (amount === undefined) {
-    amount = await promptGold(title ?? game.i18n.localize("LHTRPG.Piles.GoldLabel"), getGold(source));
+    amount = await promptGold(title ?? game.i18n.localize("ETERNIA.Piles.GoldLabel"), getGold(source));
     if (!amount) return false;
   }
   return notify(await request("transferGold", { sourceUuid: source.uuid, targetUuid: target.uuid, amount }));
@@ -150,7 +150,7 @@ export async function splitGold(pile, actor = getInteractingActor()) {
 /** "Give to…" button on a character sheet item. */
 export async function giveItem(item) {
   const giver = item.parent;
-  const choice = await promptTarget(game.i18n.format("LHTRPG.Piles.GiveItemTitle", { item: item.name }), giver, { item });
+  const choice = await promptTarget(game.i18n.format("ETERNIA.Piles.GiveItemTitle", { item: item.name }), giver, { item });
   if (!choice) return false;
   const target = await fromUuid(choice.targetUuid);
   return !!(await transferItem(item, target, { quantity: choice.amount }));
@@ -159,10 +159,10 @@ export async function giveItem(item) {
 /** "Give gold" button on a character sheet. */
 export async function giveGold(giver) {
   if (getGold(giver) <= 0) {
-    ui.notifications.warn(game.i18n.localize("LHTRPG.Piles.Error.NoGold"));
+    ui.notifications.warn(game.i18n.localize("ETERNIA.Piles.Error.NoGold"));
     return false;
   }
-  const choice = await promptTarget(game.i18n.localize("LHTRPG.Piles.GiveGoldTitle"), giver, { gold: true });
+  const choice = await promptTarget(game.i18n.localize("ETERNIA.Piles.GiveGoldTitle"), giver, { gold: true });
   if (!choice) return false;
   const target = await fromUuid(choice.targetUuid);
   return transferGold(giver, target, choice.amount);
@@ -189,7 +189,7 @@ export async function buyItem(merchant, item, buyer = requireInteractingActor())
   const unit = buyPrice(merchant, item);
   let qty = 1;
   if (item.type === "ticket") {
-    const stock = item.getFlag("lhtrpg", "stock");
+    const stock = item.getFlag("eternia", "stock");
     const byGold = unit > 0 ? Math.floor(getGold(buyer) / unit) : 99;
     const max = Math.max(1, Math.min(byGold, (stock === undefined || stock === -1) ? 99 : stock));
     qty = await promptQuantity(item.name, max, { initial: 1 });
@@ -206,8 +206,8 @@ export async function sellItem(merchant, item) {
   if (!qty) return false;
   const earned = sellPrice(merchant, item) * qty;
   const confirmed = await DialogV2.confirm({
-    window: { title: game.i18n.localize("LHTRPG.Piles.Sell") },
-    content: `<p>${game.i18n.format("LHTRPG.Piles.SellConfirm", { item: item.name, quantity: qty, gold: earned })}</p>`
+    window: { title: game.i18n.localize("ETERNIA.Piles.Sell") },
+    content: `<p>${game.i18n.format("ETERNIA.Piles.SellConfirm", { item: item.name, quantity: qty, gold: earned })}</p>`
   });
   if (!confirmed) return false;
   const ok = notify(await request("sellItem", { merchantUuid: merchant.uuid, sellerUuid: seller.uuid, itemId: item.id, quantity: qty }));
@@ -229,7 +229,7 @@ export function openPile(pile) {
     const actor = requireInteractingActor();
     if (!actor) return;
     if (!isWithinReach(pile, actor)) {
-      ui.notifications.warn(game.i18n.format("LHTRPG.Piles.Error.TooFar", { pile: pile.token?.name ?? pile.name }));
+      ui.notifications.warn(game.i18n.format("ETERNIA.Piles.Error.TooFar", { pile: pile.token?.name ?? pile.name }));
       return;
     }
   }

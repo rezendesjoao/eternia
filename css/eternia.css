@@ -1,0 +1,4929 @@
+/* Global styles */
+.rollable:hover, .rollable:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+
+.card-img {
+  height: auto;
+  width: 40px;
+  border: none;
+}
+
+.card-description {
+  margin: 1px;
+  font-size: inherit;
+  text-align: left;
+  line-height: inherit;
+  border: 1px solid var(--color-border-light-tertiary);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+
+.grid,
+.grid-2col {
+  display: grid;
+  grid-column: span 2 / span 2;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.grid-3col {
+  grid-column: span 3 / span 3;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-5col {
+  grid-column: span 5 / span 5;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.grid-6col {
+  grid-column: span 6 / span 6;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.grid-8col {
+  grid-column: span 8 / span 8;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+
+.grid-14col {
+  grid-column: span 14 / span 14;
+  grid-template-columns: repeat(14, minmax(0, 1fr));
+}
+
+.grid-span-2 {
+  grid-column-end: span 2;
+}
+
+.grid-span-3 {
+  grid-column-end: span 3;
+}
+
+.grid-span-4 {
+  grid-column-end: span 4;
+}
+
+.grid-span-6 {
+  grid-column-end: span 6;
+}
+
+.grid-span-8 {
+  grid-column-end: span 8;
+}
+
+.flex-group-center {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+}
+
+.flexlarge {
+  -webkit-box-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+}
+
+.align-center {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Styles limited to eternia sheets */
+.eternia.sheet.actor {
+  background: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  /* V2 windows blur what lies behind them: this sheet is a transparent frame over the canvas. */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+.eternia.sheet.actor .window-resize-handle,
+.eternia.sheet.actor div.window-resizable-handle {
+  display: none;
+  visibility: hidden;
+}
+
+/* AppV2 root container: keep natural section heights */
+.eternia.sheet.actor .eternia-character-sheet {
+  min-height: 100%;
+}
+
+.eternia.sheet.actor .eternia-character-sheet > * {
+  flex: 0 0 auto;
+}
+
+/* Undo the AppV2 element styles that V1 windows did not get: headings in the display font (bold,
+   24px), 32px-high inputs and spaced tab navs. Core styles are in @layer, so zero-specificity
+   :where() rules beat them while any of the sheet's own rules still win. */
+.eternia.sheet.actor {
+  --input-height: var(--form-field-height, 26px);
+}
+
+.eternia.sheet.actor .window-content {
+  line-height: normal;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+:where(.eternia.sheet.actor) :where(h1, h2, h3, h4) {
+  font-family: "Signika", sans-serif;
+  font-size: inherit;
+  font-weight: normal;
+  line-height: normal;
+  color: inherit;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+:where(.eternia.sheet.actor) :where(input[type="text"], input[type="number"]) {
+  width: calc(100% - 2px);
+  padding: 1px 3px;
+  line-height: normal;
+  text-align: center;
+}
+
+:where(.eternia.sheet.actor) :where(input.guild-input, input.lh-status-tag, input.tag-entry-input) {
+  text-align: start;
+}
+
+/* Tags (Stats tab): label and chips aligned to the left. */
+.eternia.sheet.actor .bad-status .resource {
+  text-align: start;
+}
+
+:where(.eternia.sheet.actor) :where(nav.tabs) {
+  gap: 0;
+  line-height: normal;
+}
+
+.eternia.sheet.actor input[type="checkbox"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+  /* Not removed via appearance */
+  margin: 0;
+  font: inherit;
+  color: #d6ffda;
+  border: 2px solid #d6ffda;
+  border-radius: 100%;
+  display: grid;
+  place-content: center;
+}
+
+.eternia.sheet.actor input[type="checkbox"]::before {
+  color: #d6ffda;
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition: 120ms -webkit-transform ease-in-out;
+  transition: 120ms -webkit-transform ease-in-out;
+  -o-transition: 120ms transform ease-in-out;
+  transition: 120ms transform ease-in-out;
+  transition: 120ms transform ease-in-out, 120ms -webkit-transform ease-in-out;
+  -webkit-box-shadow: inset 1.15em 1.15em #081910;
+  box-shadow: inset 1.15em 1.15em #081910;
+  -webkit-transform-origin: bottom left;
+  -ms-transform-origin: bottom left;
+  transform-origin: bottom left;
+  -webkit-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+  clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+}
+
+.eternia.sheet.actor input[type="checkbox"]:checked::before {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.eternia.sheet.actor input[type="checkbox"]:checked {
+  -webkit-filter: none;
+  background-color: #d6ffda;
+}
+
+.eternia.sheet.actor .window-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  border: none;
+  border-bottom: none;
+  background: transparent;
+  box-shadow: none;
+  top: 25px;
+  left: 240px;
+  height: 50px;
+  width: 358px;
+  z-index: 1;
+  overflow: visible;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 350px;
+  flex: 0 0 350px;
+  padding: 0 0 0 20px;
+  margin: 0;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.eternia.sheet.actor .window-header .window-title,
+.eternia.sheet.actor .window-header .header-control {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 fit-content;
+  flex: 0 0 fit-content;
+}
+
+.eternia.sheet.actor .window-header .window-title {
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 80px;
+  flex: 0 0 80px;
+  font-family: "Signika", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #d6ffda;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.eternia.sheet.actor .window-header .header-control {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #d6ffda;
+  padding: 2px 4px;
+  margin: 0 2px;
+  cursor: pointer;
+}
+
+.eternia.sheet.actor .window-header .header-control:hover {
+  color: #fff;
+  text-shadow: 0 0 5px #d6ffda;
+  box-shadow: none;
+}
+
+.eternia.sheet.actor .window-header button[data-action="close"] {
+  position: absolute;
+  top: 5px;
+  left: 363px;
+  background-color: transparent;
+  background-image: url("../assets/ui/button_close.webp");
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  box-shadow: none;
+  height: 60px;
+  width: 60px;
+  font-size: 0;
+  line-height: 0;
+  padding: 0;
+  margin: 0;
+  -webkit-transition: background-size 0.1s ease-in;
+  -o-transition: background-size 0.1s ease-in;
+  transition: background-size 0.1s ease-in;
+}
+
+.eternia.sheet.actor .window-header button[data-action="close"] i {
+  display: none;
+}
+
+.eternia.sheet.actor .window-header button[data-action="close"]:hover {
+  -webkit-filter: brightness(1.25) drop-shadow(0 0 3px white);
+  filter: brightness(1.25) drop-shadow(0 0 3px white);
+  background-size: 55px;
+  box-shadow: none;
+}
+
+.eternia.sheet.actor .window-header button[data-action="close"]:active {
+  -webkit-filter: brightness(0.7);
+  filter: brightness(0.7);
+  background-size: 50px;
+}
+
+.eternia.sheet.actor section.window-content {
+  background: transparent;
+  overflow: hidden;
+  background-image: url("../assets/ui/bg_charsheet.webp");
+  background-size: 700px 700px;
+  background-repeat: no-repeat;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  -webkit-filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.4));
+  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.4));
+  overflow: visible;
+}
+
+/* The Skills and Items tabs use a variant background with the section-title
+   underline removed, since that line used to cross their tab-title text and
+   made it unreadable. Other tabs keep the original artwork. */
+.eternia.sheet.actor:has(.tab[data-tab="skills"].active) section.window-content,
+.eternia.sheet.actor:has(.tab[data-tab="items"].active) section.window-content,
+.eternia.sheet.actor:has(.tab[data-group="primary"][data-tab="stats"].active .tab[data-group="stats"][data-tab="status"].active) section.window-content {
+  background-image: url("../assets/ui/bg_charsheet_notitle.webp");
+}
+
+.eternia.sheet.actor .profile-img {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 285px;
+  flex: 0 0 285px;
+  height: 285px;
+  width: 285px;
+  margin-right: 10px;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  -webkit-clip-path: path("M0 0 285 0V142.5L142.5 285 0 142.5V0");
+  clip-path: path("M0 0 285 0V142.5L142.5 285 0 142.5V0");
+  border: 0px transparent;
+}
+
+.eternia.sheet.actor .class-img {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 130px;
+  flex: 0 0 130px;
+  height: 130px;
+  width: 130px;
+  position: absolute;
+  top: 130px;
+  left: -140px;
+  border: 0px transparent;
+}
+
+
+.eternia.sheet.actor .sheet-header .collapsible {
+  position: absolute;
+  top: 184px;
+  left: 623px;
+  background: url("../assets/ui/uncollapse.webp");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-size: 60px;
+  background-position: center;
+  height: 60px;
+  width: 60px;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: -webkit-transform 0.3s ease-in-out;
+  -o-transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  z-index: 1;
+}
+
+.eternia.sheet.actor .sheet-header .active {
+  -webkit-transform: rotate(540deg);
+  -ms-transform: rotate(540deg);
+  transform: rotate(540deg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 60px;
+  width: 60px;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: -webkit-transform 0.3s ease-in-out;
+  -o-transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+}
+
+.eternia.sheet.actor .sheet-header .collapsible:hover {
+  background-size: 65px;
+  -webkit-filter: drop-shadow(0px 0px 3px white);
+  filter: drop-shadow(0px 0px 3px white);
+}
+
+.eternia.sheet.actor .sheet-header .content {
+  overflow: hidden;
+  -webkit-transition: -webkit-transform 0.05s ease-out;
+  transition: -webkit-transform 0.05s ease-out;
+  -o-transition: transform 0.05s ease-out;
+  transition: transform 0.05s ease-out;
+  transition: transform 0.05s ease-out, -webkit-transform 0.05s ease-out;
+}
+
+.eternia.sheet.actor .sheet-header .info-windows {
+  position: absolute;
+  top: 135px;
+  left: 640px;
+  -webkit-transform: perspective(400px) rotateY(-90deg);
+  transform: perspective(400px) rotateY(-90deg);
+  max-width: 211px;
+}
+
+.eternia.sheet.actor .sheet-header .info-windows .hate-window,
+.eternia.sheet.actor .sheet-header .info-windows .fatigue-window {
+  position: relative;
+  margin-top: 5px;
+  height: 65px;
+  width: 211px;
+  background-image: url("../assets/ui/info_window_short.webp");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.eternia.sheet.actor .sheet-header .info-windows .hate-window .hate-label,
+.eternia.sheet.actor .sheet-header .info-windows .hate-window .fatigue-label,
+.eternia.sheet.actor .sheet-header .info-windows .fatigue-window .hate-label,
+.eternia.sheet.actor .sheet-header .info-windows .fatigue-window .fatigue-label {
+  text-align: center;
+  font-size: 16px;
+  color: white;
+  position: absolute;
+  top: 42px;
+  left: 32px;
+  width: 65px;
+}
+
+.eternia.sheet.actor .sheet-header .info-windows .hate-window .hate-input,
+.eternia.sheet.actor .sheet-header .info-windows .hate-window .fatigue-input,
+.eternia.sheet.actor .sheet-header .info-windows .fatigue-window .hate-input,
+.eternia.sheet.actor .sheet-header .info-windows .fatigue-window .fatigue-input {
+  font-size: 32px;
+  height: 32px;
+  width: 140px;
+  font-family: "Edu SA Beginner", cursive;
+  color: white;
+  text-align: center;
+  position: absolute;
+  top: 2px;
+  left: 38px;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields {
+  position: absolute;
+  top: 50px;
+  left: 295px;
+}
+
+.card-header {
+  grid-column: span 3 / span 3;
+  grid-template-columns: repeat(3, minmax(0, 1fr));   
+}
+
+
+.eternia.sheet.actor .sheet-header .header-fields .charname {
+  font-size: 50px;
+  position: relative;
+  top: -5px;
+  left: -25px;
+  height: 90px;
+  width: 370px;
+  text-align: center;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .charname input {
+  vertical-align: -webkit-baseline-middle;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .race {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 300px;
+  height: 60px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+  color: #d6ffda;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .race label {
+  -ms-flex-preferred-size: 50px;
+  flex-basis: 50px;
+  font-size: 20px;
+  margin-right: 30px;
+  color: #d6ffda;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .classes {
+  margin-top: 15px;
+  height: 85px;
+  width: 205px;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .classes .subclass {
+  font-size: 20px;
+  color: #d6ffda;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .classes .class {
+  font-size: 20px;
+  color: #d6ffda;
+  height: 50px;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .levels {
+  font-size: 40px;
+  font-family: "Edu SA Beginner", cursive;
+  position: absolute;
+  top: 163px;
+  left: 270px;
+  text-align: center;
+  width: 70px;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .levels input {
+  height: 50px;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .levels .rank-up {
+  display: inline-block;
+  height: auto;
+  position: relative;
+  /* Centered under "Cr. <rank>" ("Cr." is part of the background art, left of the input). */
+  left: -44px;
+  width: 90px;
+  /* Above the separator line (it used to overlap it). */
+  top: -12px;
+  margin-top: -6px;
+  padding: 2px 4px;
+  font-family: "Noto Serif JP", serif;
+  font-size: 13px;
+  line-height: 24px;
+  white-space: nowrap;
+  color: #d6ffda;
+  background: rgba(214, 255, 218, 0.08);
+  border: 1px solid #5fd3a7;
+  border-radius: 4px;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .levels .rank-up:hover {
+  background: rgba(95, 211, 167, 0.3);
+  box-shadow: 0 0 6px #5fd3a7;
+}
+
+.eternia.sheet.actor .sheet-body {
+  position: absolute;
+  top: 320px;
+  left: 139px;
+  height: 350px;
+  width: 500px;
+  margin-top: 0;
+  color: white;
+}
+
+.eternia.sheet.actor .sheet-body .stats {
+  margin-left: 5px;
+  margin-right: 5px;
+  gap: 4px;
+  grid-template-rows: 95px 95px;
+}
+
+.eternia.sheet.actor .sheet-body .stats nav.status-tabs,
+.eternia.sheet.actor .sheet-body .stats nav.skills-tabs,
+.eternia.sheet.actor .sheet-body .stats nav.bio-tabs,
+.eternia.sheet.actor .sheet-body .stats nav.items-tabs {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  top: 325px;
+  left: 162px;
+  width: 350px;
+  height: 45px;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  border: none;
+}
+
+.eternia.sheet.actor .sheet-body .stats nav.status-tabs a,
+.eternia.sheet.actor .sheet-body .stats nav.skills-tabs a,
+.eternia.sheet.actor .sheet-body .stats nav.bio-tabs a,
+.eternia.sheet.actor .sheet-body .stats nav.items-tabs a {
+  background: url("../assets/ui/confirm-tab.webp");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  vertical-align: middle;
+  line-height: 45px;
+  height: 45px;
+  width: 116px;
+  color: #fff;
+  -webkit-filter: grayscale(100%) opacity(50%);
+  filter: grayscale(100%) opacity(50%);
+  -webkit-transition: -webkit-filter 0.3s ease-in;
+  transition: -webkit-filter 0.3s ease-in;
+  -o-transition: filter 0.3s ease-in;
+  transition: filter 0.3s ease-in;
+  transition: filter 0.3s ease-in, -webkit-filter 0.3s ease-in;
+}
+
+.eternia.sheet.actor .sheet-body .stats nav.status-tabs a.active,
+.eternia.sheet.actor .sheet-body .stats nav.skills-tabs a.active,
+.eternia.sheet.actor .sheet-body .stats nav.bio-tabs a.active,
+.eternia.sheet.actor .sheet-body .stats nav.items-tabs a.active {
+  -webkit-filter: grayscale(0%) opacity(100%) drop-shadow(0 0 5px white);
+  filter: grayscale(0%) opacity(100%) drop-shadow(0 0 5px white);
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status {
+  gap: 14px;
+  text-align: center;
+  margin-top: 0;
+  grid-template-rows: 75px 60px 70px;
+  row-gap: 2px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status img {
+  border: none;
+  height: 25px;
+  justify-self: center;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status div.hp h4:first-child {
+  background: -webkit-linear-gradient(#63da30, #e2fb2f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  font-weight: bold;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status div.hp input {
+  background: -webkit-linear-gradient(#63da30, #e2fb2f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  font-weight: bold;
+  text-align: right;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status div.hp input[name="system.health.max"] {
+  text-align: left;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status div.fate h4:first-child {
+  background: -webkit-linear-gradient(#17d7f0, #c484da);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  font-weight: bold;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status div.fate input {
+  background: -webkit-linear-gradient(#17d7f0, #c484da);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  font-weight: bold;
+  text-align: right;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status div.fate input[name="system.fate.max"] {
+  text-align: left;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .hp,
+.eternia.sheet.actor .sheet-body .stats .battle-status .fate {
+  text-align: center;
+  grid-column-end: span 3;
+  font-size: 25px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .hp h4,
+.eternia.sheet.actor .sheet-body .stats .battle-status .fate h4 {
+  color: #d6ffda;
+  margin: 0;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .hp .hp-gauge,
+.eternia.sheet.actor .sheet-body .stats .battle-status .hp .fate-gauge,
+.eternia.sheet.actor .sheet-body .stats .battle-status .fate .hp-gauge,
+.eternia.sheet.actor .sheet-body .stats .battle-status .fate .fate-gauge {
+  flex-wrap: nowrap;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .hp .hp-gauge input,
+.eternia.sheet.actor .sheet-body .stats .battle-status .hp .fate-gauge input,
+.eternia.sheet.actor .sheet-body .stats .battle-status .fate .hp-gauge input,
+.eternia.sheet.actor .sheet-body .stats .battle-status .fate .fate-gauge input {
+  font-family: "Edu SA Beginner", cursive;
+  font-size: 25px;
+  text-shadow: none;
+  /* Each field as wide as its number (three-digit HP did not fit); the gauge centers them. */
+  field-sizing: content;
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 1ch;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .hp .hp-gauge span,
+.eternia.sheet.actor .sheet-body .stats .battle-status .hp .fate-gauge span,
+.eternia.sheet.actor .sheet-body .stats .battle-status .fate .hp-gauge span,
+.eternia.sheet.actor .sheet-body .stats .battle-status .fate .fate-gauge span {
+  -webkit-box-flex: inherit;
+  -ms-flex-positive: inherit;
+  flex-grow: inherit;
+  color: #9cf3da;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .power {
+  margin-top: 0;
+  grid-template-rows: 20px 50px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .power h4 {
+  color: #d6ffda;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .power h4:lang(ja) {
+  font-size: 18px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .power .power-attack,
+.eternia.sheet.actor .sheet-body .stats .battle-status .power .power-resto,
+.eternia.sheet.actor .sheet-body .stats .battle-status .power .power-magic {
+  position: relative;
+  top: -10px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .defense {
+  margin-top: 0;
+  grid-template-rows: 20px 50px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .defense h4 {
+  color: #d6ffda;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .defense h4:lang(ja) {
+  font-size: 18px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .defense .defense-phys,
+.eternia.sheet.actor .sheet-body .stats .battle-status .defense .defense-magic {
+  position: relative;
+  top: -10px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .speedInit {
+  margin: 0;
+}
+
+/* Speed / Initiative: the value next to its icon (the input comes first in the markup). */
+.eternia.sheet.actor .sheet-body .stats .battle-status .speedInit .speed,
+.eternia.sheet.actor .sheet-body .stats .battle-status .speedInit .initiative {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .speedInit .speed input,
+.eternia.sheet.actor .sheet-body .stats .battle-status .speedInit .initiative input {
+  flex: 0 0 28px;
+  width: 28px;
+  text-align: left;
+}
+
+.eternia.sheet.actor .sheet-body .stats .battle-status .speedInit .speed h4,
+.eternia.sheet.actor .sheet-body .stats .battle-status .speedInit .initiative h4 {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.eternia.sheet.actor .sheet-body .stats .attributes {
+  gap: 14px;
+  -webkit-column-gap: 6px;
+  -moz-column-gap: 6px;
+  column-gap: 6px;
+  grid-template-rows: 150px 10px 30px;
+  text-align: center;
+  margin-top: 0;
+}
+
+.eternia.sheet.actor .sheet-body .stats .attributes h4 {
+  color: #d6ffda;
+  -ms-flex-item-align: center;
+  align-self: center;
+  margin-bottom: -5px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .attributes h4.attr-name {
+  font-size: 20px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .attributes .grid {
+  gap: 0px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.eternia.sheet.actor .sheet-body .stats .attributes .attr-inputs {
+  font-family: "Edu SA Beginner", cursive;
+  /* Keeps the height of the removed third row (bonus points), so the checks below and the
+     Speed / Initiative row next to it stay in place. */
+  min-height: 79px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.eternia.sheet.actor .sheet-body .stats .attributes .attr-inputs:lang(ja) {
+  min-height: 50px;
+  padding-top: 5px;
+}
+.eternia.sheet.actor .sheet-body .stats .attributes .attr-inputs .attr-mod-input {
+  color: #d6ffda;
+  font-size: 25px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .attributes .attr-inputs .attr-input {
+  position: relative;
+  top: -5px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .attributes .check h4 {
+  font-family: "Noto Serif JP", serif;
+  font-size: 11px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .attributes .check h4:lang(ja) {
+  font-size: 18px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .attributes .check div {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-family: "Edu SA Beginner", cursive;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+}
+
+.eternia.sheet.actor .sheet-body .stats .attributes .check input {
+  min-width: 0;
+  padding: 0;
+  -webkit-box-flex: 0.2;
+  -ms-flex-positive: 0.2;
+  flex-grow: 0.2;
+}
+
+.eternia.sheet.actor .sheet-body .stats .attributes .check span {
+  color: #d6ffda;
+  -webkit-box-flex: 0.1;
+  -ms-flex-positive: 0.1;
+  flex-grow: 0.1;
+  min-width: 0;
+}
+
+.eternia.sheet.actor .sheet-body .stats .attributes .check:hover {
+  background-color: #d6ffda;
+  border-radius: 4px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .attributes .check:hover h4, .eternia.sheet.actor .sheet-body .stats .attributes .check:hover span, .eternia.sheet.actor .sheet-body .stats .attributes .check:hover input {
+  color: #081910;
+}
+
+.eternia.sheet.actor .sheet-body .stats .attributes .check:active, .eternia.sheet.actor .sheet-body .stats .attributes .check:focus {
+  background-color: #d6ffda;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 0px 5px 2px #d6ffda;
+  box-shadow: 0px 0px 5px 2px #d6ffda;
+}
+
+.eternia.sheet.actor .sheet-body .stats .bad-status {
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  margin-top: 25px;
+  grid-template-rows: 80px;
+  text-align: center;
+  gap: 1px;
+  font-size: 12px;
+  color: #d6ffda;
+}
+
+.eternia.sheet.actor .sheet-body .stats .bad-status img {
+  height: 25px;
+  border: none;
+}
+
+.eternia.sheet.actor .sheet-body .stats .bad-status input {
+  font-size: 16px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .bad-status .tag-list {
+  height: 50px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .bad-status .tag-list .tag {
+  max-height: 25px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .bad-status .rated-statuses {
+  gap: 0;
+  margin-top: 0;
+  grid-template-rows: 38px 38px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .bad-status .rated-statuses div:nth-child(2) {
+  grid-column-start: 2;
+  grid-column-end: 6;
+}
+
+.eternia.sheet.actor .sheet-body .stats .bad-status .barrier h4,
+.eternia.sheet.actor .sheet-body .stats .bad-status .regen h4,
+.eternia.sheet.actor .sheet-body .stats .bad-status .decay h4,
+.eternia.sheet.actor .sheet-body .stats .bad-status .cancel h4,
+.eternia.sheet.actor .sheet-body .stats .bad-status .pursuit h4 {
+  position: relative;
+  top: -8px;
+}
+
+.eternia.sheet.actor .sheet-body .stats .bad-status .barrier h4:lang(ja),
+.eternia.sheet.actor .sheet-body .stats .bad-status .regen h4:lang(ja),
+.eternia.sheet.actor .sheet-body .stats .bad-status .decay h4:lang(ja),
+.eternia.sheet.actor .sheet-body .stats .bad-status .cancel h4:lang(ja),
+.eternia.sheet.actor .sheet-body .stats .bad-status .pursuit h4:lang(ja) {
+  font-size: 18px;
+}
+
+.eternia.sheet.actor .sheet-body h4.tab-title {
+  position: absolute;
+  top: 317px;
+  left: 34px;
+  width: 125px;
+  text-align: center;
+  font-family: 'Edu SA Beginner';
+  font-size: 25px;
+  color: #d6ffda;
+}
+
+.eternia.sheet.actor .bio-body {
+  height: 225px;
+}
+
+.eternia.sheet.actor .bio-body div[data-edit="system.biography"] {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.eternia.sheet.actor .bio-body .item h4 {
+  text-align: center;
+}
+
+.eternia.sheet.actor .bio-body .guild {
+  position: absolute;
+  top: 232px;
+  height: 75px;
+  width: 412px;
+  margin: 0 30px 0 30px;
+}
+
+.eternia.sheet.actor .bio-body .guild h4 {
+  font-size: 20px;
+  color: #d6ffda;
+  margin: 0;
+}
+
+.eternia.sheet.actor .bio-body .guild .guild-input {
+  font-size: 40px;
+  height: 60px;
+  padding: 0;
+  padding-bottom: 20px;
+}
+
+.eternia.sheet.actor .sheet-tabs {
+  position: absolute;
+  top: 324px;
+  left: 45px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border: none;
+}
+
+.eternia.sheet.actor .sheet-tabs img {
+  border: none;
+  height: 60px;
+}
+
+.eternia.sheet.actor .sheet-tabs a {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  margin-bottom: 5px;
+  padding: 0;
+}
+
+.eternia.sheet.actor .sheet-tabs a.active {
+  -webkit-filter: grayscale(0%);
+  filter: grayscale(0%);
+  -webkit-transition: -webkit-filter 0.3s ease-out;
+  transition: -webkit-filter 0.3s ease-out;
+  -o-transition: filter 0.3s ease-out;
+  transition: filter 0.3s ease-out;
+  transition: filter 0.3s ease-out, -webkit-filter 0.3s ease-out;
+}
+
+.eternia.sheet.actor .items-list {
+  max-height: 290px;
+  background-color: rgba(26, 41, 34, 0.9);
+}
+
+.eternia.sheet.actor.minimized .window-title {
+  display: block !important;
+  text-align: center;
+  font-family: "Noto Serif JP", serif;
+  font-size: 24px;
+  max-width: 120px;
+  overflow: hidden;
+  white-space: nowrap;
+  word-break: break-word;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  height: auto;
+}
+
+.eternia.sheet.actor.minimized .window-header {
+  position: static;
+  top: auto;
+  left: auto;
+  padding: 0;
+  height: 78px;
+  width: 222px;
+  border: 0;
+  background-image: url("../assets/ui/info_window.webp");
+  background-size: contain;
+  background-repeat: no-repeat;
+  -webkit-transition: none;
+  -o-transition: none;
+  transition: none;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.eternia.sheet.actor.minimized .window-header button[data-action="close"] {
+  position: absolute;
+  top: -10px;
+  left: 165px;
+  -webkit-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+.eternia {
+  /* Track */
+  /* Handle */
+  /* ----------------------------------------- */
+  /*  Items Lists                              */
+  /* ----------------------------------------- */
+  /* Example style for Eternia (can be removed if not needed) */
+  color: white;
+  font-family: "Noto Serif JP", serif;
+}
+
+.eternia ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.eternia ::-webkit-scrollbar-thumb {
+  background: #081910;
+  border-color: #d6ffda;
+}
+
+.eternia .item-form {
+  font-family: "Noto Serif JP", serif;
+}
+
+.eternia .sheet-header {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 auto;
+  flex: 0 auto;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.eternia .sheet-header .profile-img {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100px;
+  flex: 0 0 100px;
+  height: 100px;
+  margin-right: 10px;
+  border: none;
+}
+
+.eternia .sheet-header .header-fields {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.eternia .sheet-header h1.charname {
+  height: 50px;
+  padding: 0px;
+  margin: 5px 0;
+  border-bottom: 0;
+}
+
+.eternia .sheet-header h1.charname input {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.eternia .sheet-tabs {
+  -webkit-box-flex: 0;
+  -ms-flex: 0;
+  flex: 0;
+}
+
+.eternia .tabs .item.active {
+  text-shadow: 0 0 10px #d6ffda;
+}
+
+.eternia .sheet-body,
+.eternia .sheet-body .tab,
+.eternia .sheet-body .tab .editor {
+  height: 100%;
+}
+
+.eternia .tox .tox-editor-container {
+  background: #fff;
+}
+
+.eternia .tox .tox-edit-area {
+  padding: 0 8px;
+}
+
+.eternia .resource-label {
+  font-weight: bold;
+}
+
+.eternia .items-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: none;
+  border: none;
+  font-weight: bold;
+}
+
+.eternia .items-header > * {
+  font-size: 14px;
+  text-align: center;
+}
+
+.eternia .items-header .item-name {
+  font-weight: bold;
+  padding-left: 5px;
+  text-align: left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-bottom: none;
+}
+
+.eternia .items-header .item-name:not(:first-child) {
+  text-align: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.eternia .items-list {
+  list-style: none;
+  margin: 10px 5px 0 5px;
+  padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  color: #d6ffda;
+  max-height: 210px;
+}
+
+/* Skills are shown as an icon grid (like the Items equipment slots) instead
+   of a spreadsheet-style list, so the icons assigned to each skill are the
+   focal point. The Skills tab's background variant has no mid-content
+   divider line, so it can use the full ~280px budget. */
+.eternia .skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  grid-auto-rows: auto;
+  gap: 12px 8px;
+  margin: 10px 15px 0 15px;
+  max-height: 280px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.eternia .skills-grid .item.skill-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  position: relative;
+}
+
+.eternia .skills-grid .item-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  box-sizing: border-box;
+  background-image: url("../assets/ui/inventory/item-bg.webp");
+  background-size: contain;
+  border: none;
+  background-repeat: no-repeat;
+}
+
+.eternia .skills-grid .item-image img {
+  max-width: 44px;
+  max-height: 44px;
+}
+
+.eternia .skills-grid .item.skill-tile:hover .item-image {
+  -webkit-filter: brightness(1.4);
+  filter: brightness(1.4);
+}
+
+.eternia .skills-grid .items-control {
+  display: none;
+  position: absolute;
+  top: 38px;
+  width: 56px;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.eternia .skills-grid .item.skill-tile:hover .items-control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.eternia .skills-grid .items-control a.item-control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #488e56;
+  width: 20px;
+  height: 20px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.eternia .skills-grid .items-control .item-edit {
+  color: #222222;
+}
+
+.eternia .skills-grid .items-control .item-delete {
+  color: #c6515d;
+}
+
+.eternia .skills-grid .slot-label {
+  font-family: "Noto Serif JP", serif;
+  font-size: 10px;
+  color: #d6ffda;
+  text-align: center;
+  line-height: 1.15;
+  max-width: 64px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.eternia .skills-grid .add-tile .item-image.add-icon {
+  border: 1px dashed rgba(214, 255, 218, 0.4);
+  background-image: none;
+  opacity: 0.6;
+  font-size: 20px;
+  color: #d6ffda;
+}
+
+.eternia .skills-grid .add-tile:hover .item-image.add-icon {
+  opacity: 1;
+  border-color: #d6ffda;
+}
+
+.eternia .items-list .item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.eternia .items-list .item-name {
+  -webkit-box-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+  margin: 0;
+  overflow: hidden;
+  font-size: 13px;
+  text-align: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.eternia .items-list .item-name h3, .eternia .items-list .item-name h4 {
+  margin: 0;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.eternia .items-list .item-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100px;
+  flex: 0 0 100px;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.eternia .items-list .item-controls a {
+  font-size: 12px;
+  text-align: center;
+  margin: 0 6px;
+}
+
+.eternia .items-list .item-controls a.item-delete {
+  color: #c6515d;
+}
+
+.eternia .items-list .item-controls a:hover {
+  text-shadow: 0 0 8px #4ad0b3;
+}
+
+.eternia .items-list .item {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 5px 2px;
+  margin: 0;
+  gap: 0;
+  color: white;
+}
+
+.eternia .items-list .item:last-child {
+  border-bottom: none;
+}
+
+.eternia .items-list .item .item-name {
+  color: white;
+}
+
+.eternia .items-list .item .item-name .item-image {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 30px;
+  flex: 0 0 30px;
+  height: 30px;
+  background-size: 30px;
+  border: none;
+  margin-right: 5px;
+}
+
+.eternia .items-list .item:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.eternia .items-list .item-prop {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+
+.eternia .items-list .items-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: none;
+  border: none;
+  font-weight: bold;
+}
+
+.eternia .items-list .items-header > * {
+  font-size: 12px;
+  text-align: center;
+}
+
+.eternia .items-list .items-header .item-name {
+  padding-left: 5px;
+  text-align: left;
+}
+
+.eternia .item-formula {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 200px;
+  flex: 0 0 200px;
+  padding: 0 8px;
+}
+
+.eternia .item-timing,
+.eternia .item-checkType {
+  text-align: center;
+}
+
+.eternia .effects .item .effect-source,
+.eternia .effects .item .effect-duration,
+.eternia .effects .item .effect-controls {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+
+.eternia .effects .item .effect-controls {
+  border: none;
+}
+
+/* Effect readable summary under the effect name */
+.eternia .effects-list .effect-title-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-align: left;
+}
+
+.eternia .effects-list .effect-title-group h4 {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.eternia .effects-list .effect-summary {
+  font-size: 11px;
+  line-height: 1.2;
+  color: rgba(214, 255, 218, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.eternia .effects-list .effect-summary em {
+  font-style: italic;
+  opacity: 0.85;
+}
+
+.eternia .tag-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 10px 5px 0 5px;
+  padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  color: white;
+  row-gap: 3px;
+  -webkit-column-gap: 2px;
+  -moz-column-gap: 2px;
+  column-gap: 2px;
+}
+
+.eternia .tag {
+  text-align: center;
+  padding: 2px;
+  color: #444;
+  border: 1px solid #F9F9F9;
+  background-color: #F9F9F9;
+  border-radius: 5px;
+}
+
+/* Tag editor: chips + text field with suggestions (tags.mjs) */
+.eternia .lh-tag-input .tag-list {
+  align-items: center;
+  margin-top: 4px;
+  cursor: text;
+}
+
+.eternia .lh-tag-input .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 5px;
+}
+
+.eternia .lh-tag-input .tag.tag-custom {
+  border-style: dashed;
+  border-color: #999;
+}
+
+.eternia .lh-tag-input .tag.tag-derived {
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.eternia .lh-tag-input .tag-remove {
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+.eternia .lh-tag-input .tag-remove:hover {
+  opacity: 1;
+  color: #a00;
+}
+
+.eternia .lh-tag-input .tag-entry {
+  flex: 1 1 90px;
+  min-width: 90px;
+}
+
+.eternia .lh-tag-input .tag-entry-input {
+  width: 100%;
+  height: 22px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  box-shadow: none;
+}
+
+.eternia .lh-tag-input .tag-entry-input:focus {
+  outline: none;
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.eternia.lh-tag-menu {
+  position: fixed;
+  z-index: 100000;
+  margin: 0;
+  padding: 2px 0;
+  list-style: none;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  background: #f4f2ea;
+  color: #222;
+  border: 1px solid #7a7971;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  font-size: 13px;
+}
+
+.eternia.lh-tag-menu li {
+  padding: 3px 8px;
+  cursor: pointer;
+}
+
+.eternia.lh-tag-menu li.active {
+  background: #3a8ee6;
+  color: white;
+}
+
+.eternia.lh-tag-menu .lh-tag-menu-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.eternia.lh-tag-menu .lh-tag-menu-label {
+  font-weight: bold;
+}
+
+.eternia.lh-tag-menu .lh-tag-menu-group {
+  font-size: 10px;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.eternia.lh-tag-menu .lh-tag-menu-desc {
+  font-size: 11px;
+  opacity: 0.75;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eternia.lh-tag-menu li.custom .lh-tag-menu-label {
+  font-weight: normal;
+  font-style: italic;
+}
+
+.eternia .inventory-layout {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 6px 15px 0 20px;
+}
+
+.eternia .equipment-slots {
+  flex: 0 0 auto;
+}
+
+.eternia .equipment-title {
+  margin: 0 0 6px 0;
+  font-family: "Noto Serif JP", serif;
+  font-size: 14px;
+  text-align: center;
+  color: #d6ffda;
+}
+
+.eternia .equip-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  grid-auto-rows: auto;
+  gap: 12px;
+}
+
+.eternia .equip-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.eternia .equip-slot.center-slot {
+  grid-column: 2;
+}
+
+.eternia .equip-slot .item,
+.eternia .equip-slot .empty-slot {
+  height: 56px;
+  width: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.eternia .equip-slot .item-name {
+  width: 100%;
+}
+
+.eternia .equip-slot .empty-slot {
+  border: 1px dashed rgba(214, 255, 218, 0.4);
+  border-radius: 5px;
+  opacity: 0.5;
+  cursor: default;
+}
+
+.eternia .equip-slot .empty-slot .slot-placeholder {
+  filter: grayscale(100%);
+  opacity: 0.7;
+}
+
+.eternia .equip-slot.drag-over {
+  filter: brightness(1.4);
+}
+
+.eternia .equip-slot.drag-over .empty-slot {
+  border-color: #d6ffda;
+  opacity: 1;
+}
+
+.eternia .equip-slot .slot-label,
+.eternia .ticket-slot--ranked .slot-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #d6ffda;
+  opacity: 0.8;
+  text-align: center;
+  line-height: 1;
+}
+
+.eternia .ticket-slots-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  justify-items: center;
+  align-items: start;
+  row-gap: 18px;
+  width: 460px;
+  min-height: 260px;
+  margin: 6px auto 0;
+}
+
+.eternia .ticket-slot {
+  position: relative;
+}
+
+.eternia .ticket-slot .empty-slot {
+  cursor: pointer;
+}
+
+.eternia .ticket-slot .slot-quantity {
+  position: absolute;
+  top: 0;
+  right: 4px;
+  min-width: 16px;
+  padding: 0 3px;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+  color: #052b0f;
+  background: #d6ffda;
+  border-radius: 8px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
+}
+
+.eternia .ticket-slot .slot-stack-controls {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+}
+
+.eternia .ticket-slot .slot-stack-controls a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  line-height: 1;
+  font-size: 12px;
+  font-weight: bold;
+  color: #d6ffda;
+  background: rgba(214, 255, 218, 0.12);
+  border: 1px solid rgba(214, 255, 218, 0.4);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.eternia .ticket-slot .slot-stack-controls a:hover {
+  background: rgba(214, 255, 218, 0.3);
+}
+
+.eternia .ticket-slot .slot-stack-controls a.disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Treasure Tickets: one stack per rank, listed under the icon */
+.eternia .ticket-slot--ranked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.eternia .ticket-slot--ranked .ticket-slot-icon {
+  position: relative;
+  padding: 2px 4px 0;
+}
+
+.eternia .ticket-slot--ranked .ticket-slot-icon img {
+  display: block;
+  border: 1px solid rgba(214, 255, 218, 0.4);
+  border-radius: 3px;
+}
+
+.eternia .ticket-slot--ranked .ticket-slot-icon .slot-quantity {
+  right: -6px;
+  top: -4px;
+}
+
+.eternia .ticket-rank-list {
+  list-style: none;
+  margin: 2px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 110px;
+  overflow-y: auto;
+}
+
+.eternia .ticket-rank-list li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  padding: 0 2px;
+  font-size: 12px;
+  color: #d6ffda;
+}
+
+.eternia .ticket-rank-list .ticket-rank-row:hover {
+  background: rgba(214, 255, 218, 0.08);
+}
+
+.eternia .ticket-rank-list .ticket-rank-name {
+  min-width: 34px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.eternia .ticket-rank-list .ticket-rank-qty {
+  min-width: 22px;
+}
+
+.eternia .ticket-rank-list .item-give {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.eternia .ticket-rank-list .item-give:hover {
+  opacity: 1;
+}
+
+.eternia .ticket-rank-list .ticket-rank-add {
+  margin-top: 2px;
+  padding-top: 3px;
+  border-top: 1px solid rgba(214, 255, 218, 0.2);
+}
+
+.eternia .ticket-rank-list .ticket-rank-add span {
+  min-width: 18px;
+  font-weight: bold;
+}
+
+.eternia .ticket-rank-list input.ticket-rank-input {
+  width: 32px;
+  height: 17px;
+  padding: 0 2px;
+  border: 1px solid rgba(214, 255, 218, 0.3);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.3);
+  color: inherit;
+  font-size: 12px;
+  text-align: center;
+}
+
+.eternia .inventory-panel {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.eternia .inventory-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+  grid-auto-rows: 56px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  color: #d6ffda;
+  max-height: 245px;
+  gap: 6px;
+  scrollbar-color: #488e56 transparent;
+}
+
+.eternia .inventory-list .item {
+  height: 56px;
+  width: 56px;
+  position: relative;
+}
+
+.eternia .inventory-list .item-name {
+  width: 100%;
+}
+
+.eternia .equip-slot .item .linked-skill-throw-badge,
+.eternia .inventory-list .item .linked-skill-throw-badge {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  font-size: 9px;
+  color: #052b0f;
+  background: #d6ffda;
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.eternia .equip-slot .item .linked-skill-throw-badge:hover,
+.eternia .inventory-list .item .linked-skill-throw-badge:hover {
+  filter: brightness(1.2);
+}
+
+.eternia .inventory-list .empty-slot {
+  height: 56px;
+  width: 56px;
+  border: 1px dashed rgba(214, 255, 218, 0.25);
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.eternia .inventory-list .item:hover {
+  -webkit-filter: brightness(1.5);
+  filter: brightness(1.5);
+}
+
+.eternia .inventory-list .item:hover .items-control,
+.eternia .equip-slot .item:hover .items-control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 36px;
+  width: 56px;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.eternia .inventory-list .item:hover a.item-control,
+.eternia .equip-slot .item:hover a.item-control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #488e56;
+  width: 20px;
+  height: 20px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.eternia .inventory-list .item:hover .item-equip,
+.eternia .equip-slot .item:hover .item-equip {
+  color: #222222;
+}
+
+.eternia .inventory-list .item:hover .item-use {
+  color: #1d2a5c;
+}
+
+.eternia .inventory-list .item:hover .item-delete,
+.eternia .equip-slot .item:hover .item-delete {
+  color: #c6515d;
+}
+
+.eternia .inventory-list .item-image,
+.eternia .equip-slot .item-image {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 56px;
+  flex: 0 0 56px;
+  height: 56px;
+  border: none;
+  background-image: url("../assets/ui/inventory/item-bg.webp");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.eternia .inventory-list .item-image img,
+.eternia .equip-slot .item-image img {
+  max-width: 44px;
+  max-height: 44px;
+}
+
+.eternia .inventory-list .item-image img {
+  border: none;
+}
+
+.eternia .inventory-list .items-control,
+.eternia .equip-slot .items-control {
+  display: none;
+}
+
+.eternia .inventory-list .item.equipped a.item-control,
+.eternia .equip-slot .item.equipped a.item-control {
+  background-color: #6251ba;
+}
+
+.eternia .inventory-list .item.equipped .item-image,
+.eternia .equip-slot .item.equipped .item-image {
+  background-image: url("../assets/ui/inventory/equipped-bg.webp");
+}
+
+.eternia .inventory-infos {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 6px 5px 0 5px;
+  font-size: 22px;
+  height: auto;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.eternia .inventory-infos input {
+  height: 26px;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 40px;
+  flex: 0 0 40px;
+}
+
+.eternia .inventory-infos img {
+  border: none;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 26px;
+  flex: 0 0 26px;
+  -ms-flex-item-align: baseline;
+  align-self: baseline;
+}
+
+.eternia .inventory-infos .inventory-space,
+.eternia .inventory-infos .inventory-gold,
+.eternia .inventory-infos .addItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+}
+
+.eternia .inventory-infos .inventory-space {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+.eternia .inventory-infos .inventory-gold {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.eternia .inventory-infos .invSpace-input,
+.eternia .inventory-infos .gold-input {
+  text-align: right;
+  font-family: "Edu SA Beginner", cursive;
+}
+
+.eternia .inventory-infos .gold-input {
+  font-size: 18px;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 70px;
+  flex: 0 0 70px;
+}
+
+.eternia .inventory-infos .max {
+  text-align: left;
+}
+
+.eternia .inventory-infos span {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 fit-content;
+  flex: 0 0 fit-content;
+}
+
+.eternia .inventory-infos .addItem {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.eternia .inventory-infos .addItem .dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: 150px;
+  background-color: rgba(26, 41, 34, 0.95);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  top: -253px;
+  left: -33px;
+  border-radius: 5px;
+  padding: 4px 0;
+  -webkit-box-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+  z-index: 1;
+}
+
+.eternia .inventory-infos .addItem .dropdown-content a.item-control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.eternia .inventory-infos .addItem .dropdown-content a.item-control:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.eternia .inventory-infos .addItem .dropdown-content a.item-control img {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 24px;
+  flex: 0 0 24px;
+}
+
+.eternia .inventory-infos .addItem .dropdown-content a.item-control span {
+  font-size: 14px;
+  color: #d6ffda;
+}
+
+.eternia .inventory-infos .addItem .show {
+  display: block;
+}
+
+.eternia input {
+  background: transparent;
+  border: 0;
+  text-shadow: 0 0 2px white;
+  color: white;
+}
+
+.eternia a:hover {
+  text-shadow: 0 0 8px #d6ffda;
+}
+
+.eternia input:hover {
+  -webkit-box-shadow: 0 0 8px #d6ffda;
+  box-shadow: 0 0 8px #d6ffda;
+}
+
+.eternia input:disabled:hover {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.eternia input:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  text-shadow: 0 0 5px #4ad0b3;
+}
+
+.eternia.sheet.item,
+.eternia.sheet.monster {
+  /* Track */
+  /* Handle */
+}
+
+.eternia.sheet.item .window-content,
+.eternia.sheet.monster .window-content {
+  background-color: #1a2922;
+  color: #d6ffda;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.eternia.sheet.item .sheet-body > .tab,
+.eternia.sheet.monster .sheet-body > .tab {
+  display: none;
+}
+
+.eternia.sheet.item .sheet-body > .tab.active,
+.eternia.sheet.monster .sheet-body > .tab.active {
+  display: block;
+}
+
+/* AppV2 root of the item/monster templates (the old <form>): its sections keep their natural height and the
+   window content scrolls, instead of flexbox squashing the header when the sheet doesn't fit. */
+.eternia.sheet.item .eternia-item-sheet,
+.eternia.sheet.monster .eternia-monster-sheet {
+  min-height: 100%;
+}
+
+.eternia.sheet.item .eternia-item-sheet > *,
+.eternia.sheet.monster .eternia-monster-sheet > * {
+  flex: 0 0 auto;
+}
+
+.eternia.sheet.item .sheet-body .tab prose-mirror,
+.eternia.sheet.monster .sheet-body .tab prose-mirror {
+  min-height: 140px;
+  padding: 6px 16px;
+}
+
+/* AppV2 styles headings with its display font: keep the name as it was in the AppV1 sheet. */
+.eternia.sheet.item .sheet-header h1.charname input,
+.eternia.sheet.monster .sheet-header h1.charname input {
+  font-family: Signika, "Palatino Linotype", sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+}
+
+.eternia.sheet.item .sheet-header .profile-img,
+.eternia.sheet.monster .sheet-header .profile-img {
+  cursor: pointer;
+}
+
+.eternia.sheet.item ::-webkit-scrollbar-track,
+.eternia.sheet.monster ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.eternia.sheet.item ::-webkit-scrollbar-thumb,
+.eternia.sheet.monster ::-webkit-scrollbar-thumb {
+  background: #444;
+  border-color: #222222;
+}
+
+.eternia.sheet.item section,
+.eternia.sheet.monster section {
+  color: #d6ffda;
+  background-image: none;
+  background-color: #1a2922;
+  padding: 0;
+}
+
+.eternia.sheet.item nav,
+.eternia.sheet.monster nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #1a2922;
+  padding: 0;
+}
+
+.eternia.sheet.item nav a.item,
+.eternia.sheet.monster nav a.item {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 0px;
+  flex: 1 1 0px;
+  width: auto;
+  text-align: center;
+  padding: 5px 0 5px 0;
+  color: #d6ffda;
+  cursor: pointer;
+}
+
+.eternia.sheet.item nav a.item.active,
+.eternia.sheet.monster nav a.item.active {
+  background-color: #666666;
+  color: white;
+  text-shadow: none;
+}
+
+.eternia.sheet.item .sheet-header,
+.eternia.sheet.monster .sheet-header {
+  background-color: #1a2922;
+  color: white;
+  padding: 8px;
+}
+
+.eternia.sheet.item .sheet-header .resource,
+.eternia.sheet.monster .sheet-header .resource {
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
+.eternia.sheet.item .sheet-header .header-fields,
+.eternia.sheet.monster .sheet-header .header-fields {
+  padding-left: 10px;
+  border-left: 1px solid white;
+}
+
+.eternia.sheet.item .sheet-header .header-fields select,
+.eternia.sheet.monster .sheet-header .header-fields select {
+  width: auto;
+  min-width: 80px;
+  min-height: 26px;
+  margin-top: 10px;
+  color: white;
+  background-color: #666666;
+}
+
+/* Dropdown lists keep the dark background of the sheets, so the light text stays readable */
+.eternia select option,
+.eternia select optgroup {
+  color: #d6ffda;
+  background-color: #1f1f1f;
+}
+
+.eternia select option:checked {
+  color: #1f1f1f;
+  background-color: #8fcf9b;
+}
+
+.eternia.sheet.monster .sheet-header .monster-send-to-chat {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 4px 0 8px;
+  padding: 3px 8px;
+  font-size: 11px;
+  color: #d6ffda;
+  background-color: #2a4536;
+  border: 1px solid #4a7a5d;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.eternia.sheet.monster .sheet-header .monster-send-to-chat:hover {
+  background-color: #396b4c;
+  text-shadow: none;
+}
+
+.eternia.sheet.item .sheet-stats,
+.eternia.sheet.monster .sheet-stats {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.eternia.sheet.item .sheet-stats input,
+.eternia.sheet.monster .sheet-stats input {
+  color: #d6ffda;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div,
+.eternia.sheet.monster .sheet-stats .stat-div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border: 1px solid #666666;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div label,
+.eternia.sheet.monster .sheet-stats .stat-div label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  color: white;
+  background-color: #666666;
+  padding: 4px;
+  width: 80px;
+  height: 100%;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div div,
+.eternia.sheet.monster .sheet-stats .stat-div div {
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div input,
+.eternia.sheet.monster .sheet-stats .stat-div input {
+  width: 150px;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div select {
+  width: 150px;
+  color: #d6ffda;
+  background-color: #1f1f1f;
+  border: 1px solid #666666;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div input.itemEquipped-input,
+.eternia.sheet.item .sheet-stats .stat-div input.itemMain-input,
+.eternia.sheet.monster .sheet-stats .stat-div input.itemEquipped-input,
+.eternia.sheet.monster .sheet-stats .stat-div input.itemMain-input {
+  vertical-align: bottom;
+  margin: 0;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .monsterHP-input,
+.eternia.sheet.item .sheet-stats .stat-div .monsterFate-input,
+.eternia.sheet.monster .sheet-stats .stat-div .monsterHP-input,
+.eternia.sheet.monster .sheet-stats .stat-div .monsterFate-input {
+  width: 69px;
+  text-align: right;
+}
+
+/* Stat labels that roll to chat (monster Evasion/Resistance, skill Damage).
+   The border is an inset shadow so the label keeps the size of the plain ones. */
+.eternia.sheet .sheet-stats .stat-div label.lh-roll-button {
+  cursor: pointer;
+  color: #d6ffda;
+  background-color: #2f5a3a;
+  box-shadow: inset 0 0 0 1px #8fcf9b;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.eternia.sheet .sheet-stats .stat-div label.lh-roll-button:hover {
+  background-color: #3f7a4e;
+  text-shadow: 0 0 6px #d6ffda;
+}
+
+/* Monster Evasion / Resistance: dice select + numeric modifier */
+
+.eternia.sheet.monster .sheet-stats .stat-div .monster-check-fields {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  width: 150px;
+  padding-left: 2px;
+}
+
+.eternia.sheet.monster .sheet-stats .stat-div .monster-check-fields select {
+  width: 62px;
+  height: 24px;
+  color: #d6ffda;
+  background-color: #1f1f1f;
+  border: 1px solid #666666;
+}
+
+.eternia.sheet.monster .sheet-stats .stat-div .monster-check-fields input.monster-check-mod {
+  width: 70px;
+  text-align: center;
+}
+
+/* Active effect indicator on monster stats */
+.eternia.sheet.monster .sheet-stats .stat-div div {
+  display: flex;
+  align-items: center;
+}
+
+.eternia.sheet.monster .sheet-stats .stat-div input.has-effect,
+.eternia.sheet.monster .sheet-stats .stat-div select.has-effect {
+  color: #9cf3da;
+  font-weight: bold;
+  border-color: #4a7a5d;
+}
+
+.eternia.sheet.monster .sheet-stats .stat-div .stat-effective {
+  font-size: 11px;
+  font-weight: bold;
+  color: #8fcf9b;
+  margin-left: 2px;
+  white-space: nowrap;
+  cursor: help;
+}
+
+/* Compensate widths when modified to prevent multi-column wrapping */
+.eternia.sheet.monster .sheet-stats .stat-div input.has-effect:not(.small-input):not(.monsterHP-input):not(.monsterFate-input):not(.monster-check-mod) {
+  width: 110px;
+}
+
+.eternia.sheet.monster .sheet-stats .stat-div input.monsterHP-input.has-effect,
+.eternia.sheet.monster .sheet-stats .stat-div input.monsterFate-input.has-effect {
+  width: 46px;
+}
+
+/* Evasion/Resistance: the dice select keeps its width, the modifier gives way to the indicators */
+.eternia.sheet.monster .sheet-stats .stat-div .monster-check-fields select {
+  flex: 0 0 auto;
+}
+
+.eternia.sheet.monster .sheet-stats .stat-div .monster-check-fields input.monster-check-mod {
+  flex: 0 1 70px;
+  min-width: 28px;
+}
+
+.eternia.sheet.monster .sheet-stats .stat-div .monster-check-fields .stat-effective {
+  margin-left: 0;
+}
+
+/* Skill Check / Damage: dice select + numeric modifier + exclusive options */
+.eternia.sheet.item .sheet-stats .stat-div .skill-roll-fields :disabled,
+.eternia.sheet.item .sheet-stats .stat-div label.skill-roll-option:has(input:disabled) {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div.skill-roll {
+  width: 100%;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-roll-fields {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 3px;
+  padding-left: 2px;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-roll-fields select {
+  width: 62px;
+  height: 24px;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-roll-fields select.skill-roll-stat {
+  width: 96px;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-roll-fields select.skill-roll-vs-select {
+  flex: 1;
+  width: auto;
+  min-width: 0;
+  margin-right: 4px;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-roll-fields input.skill-roll-mod {
+  width: 52px;
+  text-align: center;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-roll-vs {
+  padding: 0 2px;
+  font-style: italic;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-roll-options {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+  padding-right: 6px;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div label.skill-roll-option {
+  width: auto;
+  height: auto;
+  padding: 0;
+  align-items: center;
+  gap: 2px;
+  color: #d6ffda;
+  background: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div label.skill-roll-option input {
+  width: auto;
+  margin: 0;
+}
+
+/* Skill Timing/Target/Range/Cost/Limit: type dropdown + amount + qualifier, or free text */
+.eternia.sheet.item .sheet-stats .stat-div:has(> .skill-field) {
+  width: calc(50% - 3px);
+  align-items: stretch;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-field {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  align-items: center;
+  gap: 3px;
+  padding: 0 2px;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-field [hidden] {
+  display: none;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-field select {
+  width: auto;
+  height: 24px;
+  padding: 0 2px;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-field select.skill-field-type {
+  flex: 1 0 auto;
+  max-width: 100%;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-field:has(> .skill-field-custom:not([hidden])) select.skill-field-type {
+  flex: 0 0 72px;
+  min-width: 0;
+  max-width: 72px;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-field input.skill-field-custom {
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-field input.skill-field-n {
+  flex: 0 0 32px;
+  width: 32px;
+  text-align: center;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skillRank-input,
+.eternia.sheet.monster .sheet-stats .stat-div .skillRank-input {
+  width: 30px;
+  text-align: right;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .small-label,
+.eternia.sheet.monster .sheet-stats .stat-div .small-label {
+  width: 50px;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .small-input,
+.eternia.sheet.monster .sheet-stats .stat-div .small-input {
+  width: 40px;
+  text-align: center;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .max,
+.eternia.sheet.monster .sheet-stats .stat-div .max {
+  text-align: left;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div.rank,
+.eternia.sheet.monster .sheet-stats .stat-div.rank {
+  margin-right: 100%;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div.checkType,
+.eternia.sheet.item .sheet-stats .stat-div.itemBagLimit,
+.eternia.sheet.item .sheet-stats .stat-div.itemCheck,
+.eternia.sheet.monster .sheet-stats .stat-div.checkType,
+.eternia.sheet.monster .sheet-stats .stat-div.itemBagLimit,
+.eternia.sheet.monster .sheet-stats .stat-div.itemCheck {
+  width: 100%;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div.checkType div,
+.eternia.sheet.item .sheet-stats .stat-div.itemBagLimit div,
+.eternia.sheet.item .sheet-stats .stat-div.itemCheck div,
+.eternia.sheet.monster .sheet-stats .stat-div.checkType div,
+.eternia.sheet.monster .sheet-stats .stat-div.itemBagLimit div,
+.eternia.sheet.monster .sheet-stats .stat-div.itemCheck div {
+  width: 100%;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div.checkType input,
+.eternia.sheet.item .sheet-stats .stat-div.itemBagLimit input,
+.eternia.sheet.item .sheet-stats .stat-div.itemCheck input,
+.eternia.sheet.monster .sheet-stats .stat-div.checkType input,
+.eternia.sheet.monster .sheet-stats .stat-div.itemBagLimit input,
+.eternia.sheet.monster .sheet-stats .stat-div.itemCheck input {
+  width: 100%;
+}
+
+.eternia.sheet.item .sheet-body,
+.eternia.sheet.monster .sheet-body {
+  height: 180px;
+}
+
+.eternia.sheet.item .sheet-body div[data-edit="system.description"],
+.eternia.sheet.monster .sheet-body div[data-edit="system.description"] {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.eternia.sheet.item .sheet-body.itemArmor,
+.eternia.sheet.item .sheet-body.itemBag,
+.eternia.sheet.monster .sheet-body.itemArmor,
+.eternia.sheet.monster .sheet-body.itemBag {
+  height: 240px;
+}
+
+.eternia.sheet.item .sheet-body.itemConnection,
+.eternia.sheet.monster .sheet-body.itemConnection {
+  height: 340px;
+}
+
+.eternia.sheet.item .items-header,
+.eternia.sheet.monster .items-header {
+  color: #d6ffda;
+}
+
+.eternia.sheet.item .stat-div.linked-skill-stat {
+  flex: 1 1 100%;
+}
+
+.eternia.sheet.item .stat-div.linked-skill-stat .linked-skill-content {
+  flex: 1 1 auto;
+  padding: 2px 8px;
+}
+
+.eternia.sheet.item .linked-skill-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  min-height: 24px;
+}
+
+.eternia.sheet.item .linked-skill-row.empty {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.15s ease-in;
+}
+
+.eternia.sheet.item .linked-skill-row.empty:hover {
+  opacity: 1;
+}
+
+.eternia.sheet.item .linked-skill-icon {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+}
+
+.eternia.sheet.item .linked-skill-row.empty .linked-skill-icon {
+  filter: grayscale(100%);
+}
+
+.eternia.sheet.item .linked-skill-empty-label {
+  font-size: 11px;
+  color: #d6ffda;
+  opacity: 0.8;
+}
+
+.eternia.sheet.item .linked-skill-name {
+  flex: 1 1 auto;
+  font-size: 12px;
+  color: #d6ffda;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.eternia.sheet.item .linked-skill-name:hover {
+  text-decoration: underline;
+}
+
+.eternia.sheet.item .linked-skill-controls {
+  display: none;
+  flex-direction: row;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+
+.eternia.sheet.item .linked-skill-row:hover .linked-skill-controls {
+  display: flex;
+}
+
+.eternia.sheet.item .linked-skill-controls a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  color: #d6ffda;
+  background: rgba(214, 255, 218, 0.12);
+  border: 1px solid rgba(214, 255, 218, 0.4);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.eternia.sheet.item .linked-skill-controls a:hover {
+  background: rgba(214, 255, 218, 0.3);
+}
+
+.eternia.sheet.item .linked-skill-row.drag-over {
+  outline: 1px dashed #d6ffda;
+  outline-offset: 3px;
+}
+
+/* Other modules (e.g. LocknKey) inject their own tabs into this sheet using
+   Foundry's default form styling, which assumes a light background. Keep
+   their labels and hint text readable against our dark green theme too. */
+.eternia.sheet.item .tab label,
+.eternia.sheet.monster .tab label,
+.eternia.sheet.item .tab h3,
+.eternia.sheet.monster .tab h3 {
+  color: #d6ffda;
+}
+
+.eternia.sheet.item .tab p.hint,
+.eternia.sheet.monster .tab p.hint,
+.eternia.sheet.item .tab .hint,
+.eternia.sheet.monster .tab .hint {
+  color: rgba(214, 255, 218, 0.7);
+}
+
+.eternia.sheet.item .items-list,
+.eternia.sheet.monster .items-list {
+  margin-top: 0;
+  color: #d6ffda;
+  max-height: 100%;
+}
+
+.eternia.sheet.item .items-list .item,
+.eternia.sheet.monster .items-list .item {
+  color: #d6ffda;
+}
+
+.eternia.sheet.item .items-list .item .item-name,
+.eternia.sheet.monster .items-list .item .item-name {
+  color: #d6ffda;
+}
+
+/* Skill / effect names: V2 sheets get Foundry's global h4 (display font, 24px); keep the V1 look. */
+.eternia.sheet.item .items-list h4,
+.eternia.sheet.monster .items-list h4 {
+  font-family: "Signika", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: normal;
+  color: inherit;
+  margin: 0;
+  /* overflow-x: hidden alone (see .items-list .item-name h4) makes the y axis scrollable: a thin
+     scrollbar showed next to each name. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eternia.sheet.monster .sheet-body.monster {
+  height: calc(100% - 170px);
+}
+
+
+.eternia.chat-card {
+  font-family: "Noto Serif JP", serif;
+  font-style: normal;
+  font-size: 12px;
+  color: #d6ffda;
+  background-color: rgba(26, 41, 34, 0.9);
+  border: 1px solid rgba(214, 255, 218, 0.5);
+  border-radius: 6px;
+  padding: 8px;
+  -webkit-box-shadow: 0 0 4px rgba(214, 255, 218, 0.25);
+  box-shadow: 0 0 4px rgba(214, 255, 218, 0.25);
+}
+
+.eternia.chat-card .chat-card-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(214, 255, 218, 0.35);
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+}
+
+.eternia.chat-card .chat-card-img {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 40px;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.eternia.chat-card .chat-card-title {
+  min-width: 0;
+}
+
+.eternia.chat-card .chat-card-title h3 {
+  margin: 0;
+  font-family: "Edu SA Beginner", cursive;
+  font-size: 18px;
+  color: #d6ffda;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.eternia.chat-card .chat-card-type {
+  font-size: 11px;
+  color: #d6ffda;
+  opacity: 0.75;
+  text-transform: uppercase;
+}
+
+.eternia.chat-card .chat-card-stats {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+/* Skill card: Check / Damage roll buttons */
+.eternia.chat-card .chat-card-rolls {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.eternia.chat-card .chat-card-rolls .skill-card-roll,
+.eternia.chat-card .chat-card-rolls .item-use-roll,
+.eternia.chat-card .chat-card-rolls .item-use-effects {
+  flex: 1;
+  margin: 0;
+  line-height: 24px;
+  color: #d6ffda;
+  background-color: #2f5a3a;
+  border: 1px solid #8fcf9b;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.eternia.chat-card .chat-card-rolls .skill-card-roll:hover,
+.eternia.chat-card .chat-card-rolls .item-use-roll:hover,
+.eternia.chat-card .chat-card-rolls .item-use-effects:hover {
+  background-color: #3f7a4e;
+  text-shadow: 0 0 6px #d6ffda;
+}
+
+.eternia.chat-card .chat-stat {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  min-width: 44px;
+  padding: 3px 6px;
+  border: 1px solid rgba(214, 255, 218, 0.3);
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.eternia.chat-card .chat-stat-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  color: #d6ffda;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.eternia.chat-card .chat-stat-value {
+  max-width: 100%;
+  text-align: center;
+  font-family: "Edu SA Beginner", cursive;
+  font-size: 16px;
+  color: #d6ffda;
+}
+
+.eternia.chat-card .chat-card-tags {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-bottom: 6px;
+}
+
+.eternia.chat-card .chat-card-tags .tag {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  background-color: rgba(214, 255, 218, 0.15);
+  color: #d6ffda;
+  border: 1px solid rgba(214, 255, 218, 0.35);
+}
+
+.eternia.chat-card .chat-card-condition {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+
+.eternia.chat-card .chat-card-condition .chat-stat-label {
+  text-transform: uppercase;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.eternia.chat-card .chat-card-monster-skills h4 {
+  margin: 6px 0 4px;
+  font-family: "Edu SA Beginner", cursive;
+  font-size: 14px;
+  color: #d6ffda;
+  border-top: 1px solid rgba(214, 255, 218, 0.35);
+  padding-top: 6px;
+}
+
+.eternia.chat-card .chat-card-skill {
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed rgba(214, 255, 218, 0.2);
+}
+
+.eternia.chat-card .chat-card-skill:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.eternia.chat-card .chat-card-skill-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 3px;
+}
+
+.eternia.chat-card .chat-card-skill-img {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 3px;
+}
+
+.eternia.chat-card .chat-card-skill-header h5 {
+  margin: 0;
+  font-size: 13px;
+  color: #d6ffda;
+}
+
+.eternia.chat-card .chat-card-skill-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-bottom: 3px;
+}
+
+.eternia.chat-card .chat-card-description {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #e8fff0;
+  border-top: 1px solid rgba(214, 255, 218, 0.25);
+  padding-top: 6px;
+}
+
+.eternia.chat-card .chat-card-description p:first-child {
+  margin-top: 0;
+}
+
+.eternia.chat-card .chat-card-description p:last-child {
+  margin-bottom: 0;
+}
+.dice-roll .dice-total.success {
+  color: inherit;
+  background: #c7d0c0;
+  border: 1px solid #006c00;
+}
+.dice-roll .dice-total.failure {
+  color: inherit;
+  background: #ffdddd;
+  border: 1px solid #6e0000;
+}
+.dice-roll .dice-total.critical {
+  color: green;
+}
+.dice-roll .dice-total.fumble {
+  color: red;
+}
+
+/* -------------------------------------------- */
+/*  Status panel (actor-status-panel.html)      */
+/* -------------------------------------------- */
+
+.eternia.sheet .lh-status-panel {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-areas:
+    "bad life other"
+    "bad combat other";
+  grid-template-rows: auto 1fr;
+  column-gap: 10px;
+  padding: 4px 8px;
+  color: #d6ffda;
+  font-size: 12px;
+}
+
+.eternia.sheet .lh-status-group--bad { grid-area: bad; }
+.eternia.sheet .lh-status-group--life { grid-area: life; }
+.eternia.sheet .lh-status-group--combat { grid-area: combat; }
+.eternia.sheet .lh-status-group--other { grid-area: other; }
+
+.eternia.sheet .lh-status-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.eternia.sheet .lh-status-group-title {
+  margin: 2px 0 1px;
+  padding: 0 0 1px;
+  border: none;
+  border-bottom: 1px solid rgba(74, 208, 179, 0.5);
+  color: #4ad0b3;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.eternia.sheet.actor .lh-status-panel .lh-status,
+.eternia.sheet.monster .lh-status-panel .lh-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 20px;
+  padding: 0 2px;
+  border-radius: 3px;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.1s, background-color 0.1s;
+}
+
+.eternia.sheet.actor .lh-status-panel .lh-status:hover,
+.eternia.sheet.monster .lh-status-panel .lh-status:hover {
+  opacity: 0.85;
+  background: rgba(74, 208, 179, 0.12);
+}
+
+.eternia.sheet.actor .lh-status-panel .lh-status.active,
+.eternia.sheet.monster .lh-status-panel .lh-status.active {
+  opacity: 1;
+  background: rgba(212, 160, 23, 0.25);
+  box-shadow: inset 2px 0 0 #d4a017;
+}
+
+.eternia.sheet.actor .lh-status-panel .lh-status img,
+.eternia.sheet.monster .lh-status-panel .lh-status img {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 2px;
+  object-fit: cover;
+}
+
+.eternia.sheet.actor .lh-status-panel .lh-status-label,
+.eternia.sheet.monster .lh-status-panel .lh-status-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The whole row is the toggle: hide the checkbox itself */
+.eternia.sheet.actor .lh-status-panel .lh-status input.lh-status-check,
+.eternia.sheet.monster .lh-status-panel .lh-status input.lh-status-check {
+  display: none;
+}
+
+.eternia.sheet.actor .lh-status-panel .lh-status input.lh-status-rating,
+.eternia.sheet.monster .lh-status-panel .lh-status input.lh-status-rating {
+  flex: 0 0 30px;
+  width: 30px;
+  height: 17px;
+  padding: 0 2px;
+  border: 1px solid rgba(214, 255, 218, 0.3);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.3);
+  color: inherit;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* List statuses (Pursuit): add button next to the input, entries listed below */
+.eternia.sheet.actor .lh-status-panel .lh-status--list,
+.eternia.sheet.monster .lh-status-panel .lh-status--list {
+  cursor: default;
+}
+
+.eternia.sheet.actor .lh-status-panel .lh-status-list-add,
+.eternia.sheet.actor .lh-status-panel .lh-status-entry-remove,
+.eternia.sheet.monster .lh-status-panel .lh-status-list-add,
+.eternia.sheet.monster .lh-status-panel .lh-status-entry-remove {
+  flex: 0 0 14px;
+  font-size: 10px;
+  text-align: center;
+  color: #d6ffda;
+  cursor: pointer;
+}
+
+.eternia.sheet.actor .lh-status-panel .lh-status-list-add:hover,
+.eternia.sheet.actor .lh-status-panel .lh-status-entry-remove:hover,
+.eternia.sheet.monster .lh-status-panel .lh-status-list-add:hover,
+.eternia.sheet.monster .lh-status-panel .lh-status-entry-remove:hover {
+  color: #d4a017;
+}
+
+.eternia.sheet.actor .lh-status-panel .lh-status-entries,
+.eternia.sheet.monster .lh-status-panel .lh-status-entries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 6px;
+  list-style: none;
+  margin: 0 0 2px 23px;
+  padding: 0 0 0 4px;
+  border-left: 1px solid rgba(212, 160, 23, 0.6);
+}
+
+.eternia.sheet.actor .lh-status-panel .lh-status-entry,
+.eternia.sheet.monster .lh-status-panel .lh-status-entry {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  height: 19px;
+  margin: 0;
+  padding: 0;
+}
+
+.eternia.sheet.actor .lh-status-panel .lh-status-entry input.lh-status-rating,
+.eternia.sheet.monster .lh-status-panel .lh-status-entry input.lh-status-rating {
+  flex: 0 0 30px;
+  width: 30px;
+  height: 17px;
+  padding: 0 2px;
+  border: 1px solid rgba(214, 255, 218, 0.3);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.3);
+  color: inherit;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* Tag of a Weakness / Cancel entry ("Flame"); empty = any damage */
+.eternia.sheet.actor .lh-status-panel input.lh-status-tag,
+.eternia.sheet.monster .lh-status-panel input.lh-status-tag {
+  flex: 0 1 52px;
+  width: 52px;
+  min-width: 0;
+  height: 17px;
+  padding: 0 2px;
+  border: 1px solid rgba(214, 255, 218, 0.3);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.3);
+  color: inherit;
+  font-size: 11px;
+}
+
+.eternia.sheet.actor .character .lh-status-panel input.lh-status-tag {
+  height: 21px;
+  font-size: 13px;
+}
+
+/* Character sheet: the status tab uses the whole frame (its background has no
+   bottom section line), with bigger rows and text */
+.eternia.sheet.actor .character .lh-status-panel {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr) minmax(0, 1.1fr);
+  height: 300px;
+  padding: 6px 6px;
+  column-gap: 10px;
+  font-size: 14px;
+}
+
+.eternia.sheet.actor .character .lh-status-group {
+  gap: 3px;
+}
+
+.eternia.sheet.actor .character .lh-status-group-title {
+  margin: 4px 0 2px;
+  font-size: 12px;
+}
+
+.eternia.sheet.actor .character .lh-status-panel .lh-status {
+  height: 26px;
+  gap: 6px;
+}
+
+.eternia.sheet.actor .character .lh-status-panel .lh-status img {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+}
+
+.eternia.sheet.actor .character .lh-status-panel input.lh-status-rating,
+.eternia.sheet.actor .character .lh-status-panel .lh-status-entry input.lh-status-rating {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 21px;
+  font-size: 14px;
+}
+
+.eternia.sheet.actor .character .lh-status-panel .lh-status-entry {
+  height: 23px;
+}
+
+.eternia.sheet.actor .character .lh-status-panel .lh-status-entries {
+  margin-left: 29px;
+}
+
+.eternia.sheet.actor .character .lh-status-panel .lh-status-list-add,
+.eternia.sheet.actor .character .lh-status-panel .lh-status-entry-remove {
+  font-size: 12px;
+}
+
+/* Several Pursuits scroll inside the column instead of crossing the frame */
+.eternia.sheet.actor .character .lh-status-group--bad {
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.eternia.sheet.actor .character .lh-status-group--bad > * {
+  flex-shrink: 0;
+}
+
+/* Monster sheet has more room */
+.eternia.sheet.monster .lh-status-panel {
+  padding: 6px 4px;
+  font-size: 13px;
+}
+
+.eternia.sheet.monster .lh-status-panel .lh-status {
+  height: 22px;
+}
+
+.eternia.sheet .lh-status-panel .lh-status input.lh-status-rating::-webkit-inner-spin-button,
+.eternia.sheet .lh-status-panel .lh-status input.lh-status-rating::-webkit-outer-spin-button,
+.eternia.sheet .lh-status-panel .lh-status-entry input.lh-status-rating::-webkit-inner-spin-button,
+.eternia.sheet .lh-status-panel .lh-status-entry input.lh-status-rating::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* -------------------------------------------- */
+/*  Race / Class / Subclass (character header)  */
+/* -------------------------------------------- */
+
+.eternia.sheet.actor .sheet-header .header-fields .option-field {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  font-size: 20px;
+  color: #d6ffda;
+  border-bottom: 1px solid rgba(214, 255, 218, 0.3);
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .classes .option-field.class {
+  height: 50px;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .option-field .option-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .option-field .option-menu {
+  flex: 0 0 18px;
+  text-align: center;
+  font-size: 16px;
+  opacity: 0.7;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .option-field .option-browse {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 0.55;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .option-field .option-browse i {
+  font-size: 16px;
+}
+
+.eternia.sheet.actor .sheet-header .header-fields .option-field .option-menu:hover,
+.eternia.sheet.actor .sheet-header .header-fields .option-field .option-browse:hover {
+  opacity: 1;
+  text-shadow: 0 0 6px #2aa05a;
+}
+
+.eternia.sheet.actor .class-img {
+  cursor: pointer;
+}
+
+/* -------------------------------------------- */
+/*  Race / Class / Subclass selection window    */
+/* -------------------------------------------- */
+
+.eternia.option-browser .window-content {
+  padding: 6px;
+  background: #1f1f1f;
+  color: #e8e8e8;
+}
+
+.eternia.option-browser .option-browser-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+}
+
+.eternia.option-browser .option-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px;
+}
+
+.eternia.option-browser .option-search input {
+  flex: 1;
+}
+
+.eternia.option-browser .option-list {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.eternia.option-browser .option-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.eternia.option-browser .option-row.selected {
+  background: rgba(42, 160, 90, 0.18);
+  box-shadow: inset 3px 0 0 #2aa05a;
+}
+
+.eternia.option-browser .option-icon {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border: none;
+}
+
+.eternia.option-browser .option-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.eternia.option-browser .option-name {
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.eternia.option-browser .option-source {
+  font-size: 11px;
+  font-style: italic;
+  opacity: 0.65;
+}
+
+.eternia.option-browser .option-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.eternia.option-browser .option-buttons button {
+  width: 30px;
+  height: 30px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eternia.option-browser .option-buttons button i {
+  margin: 0;
+}
+
+.eternia.option-browser .option-select {
+  color: #4cd07d;
+}
+
+.eternia.option-browser .option-empty {
+  padding: 12px 6px;
+  font-style: italic;
+  opacity: 0.7;
+  text-align: center;
+}
+
+/* -------------------------------------------- */
+/*  Starting skills (Race / Class / Subclass)   */
+/* -------------------------------------------- */
+
+.eternia.sheet.item .tab.grants .grants-hint,
+.eternia.sheet.item .tab.subclass-skills .grants-hint {
+  margin: 6px 4px;
+  font-style: italic;
+  opacity: 0.75;
+}
+
+.eternia.sheet.item .grant-slots {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.eternia.sheet.item .grant-slot {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.eternia.sheet.item .grant-slot-label {
+  flex: 0 0 80px;
+  font-size: 12px;
+  opacity: 0.7;
+  padding-top: 5px;
+}
+
+.eternia.sheet.item .grant-skills {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.eternia.sheet.item .grant-skill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px 2px 2px;
+  border: 1px solid rgba(76, 208, 125, 0.4);
+  border-radius: 4px;
+}
+
+.eternia.sheet.item .grant-skill.missing {
+  border-color: #c04040;
+}
+
+.eternia.sheet.item .grant-skill img {
+  width: 22px;
+  height: 22px;
+  border: none;
+}
+
+.eternia.sheet.item .grant-slot.drag-over,
+.eternia.sheet.item .grant-dropzone.drag-over {
+  background: rgba(42, 160, 90, 0.2);
+}
+
+.eternia.sheet.item .grant-dropzone {
+  margin: 8px 4px;
+  padding: 10px;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* Skills a Subclass allows */
+.eternia.sheet.item .subclass-skill-list {
+  padding: 4px;
+}
+
+.eternia.sheet.item .subclass-skill-empty {
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.eternia.option-grants .grants-list {
+  margin: 0 0 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.eternia.option-grants .grant-slot {
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.eternia.option-grants .grant-choice-label {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.eternia.option-grants .grant-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.eternia.option-grants .grant-option img {
+  width: 24px;
+  height: 24px;
+  border: none;
+}
+
+.eternia.option-grants .grant-option.owned {
+  opacity: 0.55;
+}
+
+.eternia.option-grants .grant-owned {
+  font-size: 11px;
+  font-style: italic;
+}
+
+.eternia.option-grants .grants-stale {
+  display: block;
+  margin-top: 6px;
+}
+
+.eternia.option-grants .grants-stale-names {
+  display: block;
+  font-size: 11px;
+  opacity: 0.7;
+  margin-left: 22px;
+}
+
+/* Base Stats dialogs: Human +1 choice and bonus points */
+.eternia.stat-allocation .allocation-hint {
+  margin: 0 0 8px;
+}
+
+.eternia.stat-allocation .human-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px 12px;
+}
+
+.eternia.stat-allocation .human-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.eternia.stat-allocation .human-stat .stat-bonus {
+  margin-left: auto;
+  opacity: 0.7;
+}
+
+.eternia.stat-allocation .bonus-table {
+  width: 100%;
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+.eternia.stat-allocation .bonus-table input {
+  width: 52px;
+  text-align: center;
+}
+
+.eternia.stat-allocation .bonus-base {
+  font-weight: bold;
+}
+
+.eternia.stat-allocation .invalid {
+  color: #ff6b6b;
+}
+
+.eternia.stat-allocation .bonus-remaining {
+  margin: 0;
+  text-align: right;
+}
+
+/* Character Rank Up chat card */
+.eternia.rank-up-card h3 {
+  margin: 0 0 4px;
+}
+
+.eternia.rank-up-card ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+/* -------------------------------------------- */
+/*  Skill selection window                      */
+/* -------------------------------------------- */
+
+.eternia.skill-browser .window-content {
+  padding: 6px;
+  background: #1f1f1f;
+  color: #e8e8e8;
+}
+
+.eternia.skill-browser .skill-browser-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+}
+
+.eternia.skill-browser .skill-tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.eternia.skill-browser .skill-tab {
+  flex: 1;
+  padding: 6px;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  opacity: 0.6;
+  border-bottom: 2px solid transparent;
+}
+
+.eternia.skill-browser .skill-tab.active {
+  opacity: 1;
+  border-bottom-color: #2aa05a;
+}
+
+.eternia.skill-browser .skill-tab-count {
+  margin-left: 4px;
+  padding: 0 6px;
+  border-radius: 8px;
+  background: rgba(42, 160, 90, 0.35);
+  font-size: 11px;
+}
+
+.eternia.skill-browser .skill-hint {
+  margin: 0;
+  font-size: 12px;
+  font-style: italic;
+  opacity: 0.75;
+}
+
+.eternia.skill-browser .skill-toolbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.eternia.skill-browser .skill-search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px;
+}
+
+.eternia.skill-browser .skill-search input {
+  flex: 1;
+}
+
+.eternia.skill-browser .skill-toolbar select {
+  flex: 0 0 200px;
+}
+
+.eternia.skill-browser .skill-list {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.eternia.skill-browser .skill-row {
+  padding: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.eternia.skill-browser .skill-row.picked {
+  background: rgba(42, 160, 90, 0.18);
+  box-shadow: inset 3px 0 0 #2aa05a;
+}
+
+.eternia.skill-browser .skill-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eternia.skill-browser .skill-icon {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border: none;
+}
+
+.eternia.skill-browser .skill-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.eternia.skill-browser .skill-name {
+  font-weight: bold;
+}
+
+.eternia.skill-browser .skill-owned {
+  margin-left: 4px;
+  padding: 0 5px;
+  border-radius: 6px;
+  background: rgba(95, 211, 167, 0.25);
+  font-size: 11px;
+  font-weight: normal;
+}
+
+.eternia.skill-browser .skill-meta {
+  font-size: 11px;
+  font-style: italic;
+  opacity: 0.65;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.eternia.skill-browser .skill-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.eternia.skill-browser .skill-buttons button {
+  width: 30px;
+  height: 30px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eternia.skill-browser .skill-buttons button i {
+  margin: 0;
+}
+
+.eternia.skill-browser .skill-pick:not(:disabled) {
+  color: #4cd07d;
+}
+
+.eternia.skill-browser .skill-unpick {
+  color: #ff6b6b;
+}
+
+.eternia.skill-browser .skill-description {
+  margin: 4px 0 2px 44px;
+  font-size: 12px;
+}
+
+.eternia.skill-browser .skill-description p {
+  margin: 0 0 4px;
+}
+
+.eternia.skill-browser .skill-empty {
+  padding: 12px 6px;
+  font-style: italic;
+  opacity: 0.7;
+  text-align: center;
+}
+
+.eternia.skill-browser .skill-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.eternia.skill-browser .skill-picks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.eternia.skill-browser .skill-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border-radius: 12px;
+  background: rgba(42, 160, 90, 0.25);
+  font-size: 12px;
+}
+
+.eternia.skill-browser .skill-chip img {
+  width: 18px;
+  height: 18px;
+  border: none;
+}
+
+.eternia.skill-browser .skill-picks-empty {
+  font-size: 12px;
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.eternia.skill-browser .skill-footer-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.eternia.skill-browser .skill-footer-buttons button {
+  flex: 1;
+}
+
+.eternia.skill-browser .skill-confirm:not(:disabled) {
+  color: #4cd07d;
+}
+
+/* "Browse" tile of the character's skill grid, with the picks left after a CR Up */
+.eternia.sheet.actor .skills-grid .skill-browse .add-icon {
+  position: relative;
+}
+
+.eternia.sheet.actor .skills-grid .skill-browse.pending .add-icon {
+  color: #5fd3a7;
+  box-shadow: 0 0 8px #5fd3a7;
+}
+
+.eternia.sheet.actor .skills-grid .skill-pending-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: #2aa05a;
+  color: white;
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+}
+
+/* Skills learned chat card */
+.eternia.skill-pick-card h3 {
+  margin: 0 0 4px;
+}
+
+.eternia.skill-pick-card ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+/* Undo skill picks (CR lowered, Main Class removed) */
+.eternia.skill-undo .undo-hint {
+  margin: 0 0 8px;
+}
+
+.eternia.skill-undo .undo-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.eternia.skill-undo .undo-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.eternia.skill-undo .undo-row img {
+  width: 28px;
+  height: 28px;
+  border: none;
+}
+
+.eternia.skill-undo .undo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.eternia.skill-undo .undo-name {
+  font-weight: bold;
+}
+
+.eternia.skill-undo .undo-meta {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+/* -------------------------------------------- */
+/*  Combat chat cards (attack / damage)          */
+/* -------------------------------------------- */
+
+.eternia.lh-combat-card .dice-roll {
+  margin-bottom: 6px;
+}
+
+.eternia.lh-combat-card .lh-outcome {
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.eternia.lh-combat-card .lh-outcome.critical { color: #ffe27a; text-shadow: 0 0 6px #ffe27a; }
+.eternia.lh-combat-card .lh-outcome.fumble { color: #ff8a80; }
+
+.eternia.lh-combat-card .lh-targets {
+  list-style: none;
+  margin: 0 0 6px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.eternia.lh-combat-card .lh-target {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 4px;
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(214, 255, 218, 0.25);
+  border-radius: 4px;
+}
+
+.eternia.lh-combat-card .lh-damage-target {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.eternia.lh-combat-card .lh-target-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.eternia.lh-combat-card .lh-target-img {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  object-fit: contain;
+}
+
+.eternia.lh-combat-card .lh-target-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.eternia.lh-combat-card .lh-dodge {
+  font-weight: bold;
+  cursor: help;
+}
+
+.eternia.lh-combat-card .lh-result,
+.eternia.lh-combat-card .lh-badge,
+.eternia.lh-combat-card .lh-applied {
+  flex: 0 0 auto;
+  padding: 0 5px;
+  border-radius: 3px;
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: bold;
+}
+
+.eternia.lh-combat-card .lh-result.hit { background-color: #7a2f2f; color: #ffd6d6; }
+.eternia.lh-combat-card .lh-result.miss { background-color: #2f4f7a; color: #d6e6ff; }
+.eternia.lh-combat-card .lh-result.pending { background-color: rgba(214, 255, 218, 0.15); }
+.eternia.lh-combat-card .lh-badge { background-color: #6b4a1e; color: #ffe8c2; cursor: help; }
+.eternia.lh-combat-card .lh-applied { background-color: rgba(214, 255, 218, 0.2); }
+.eternia.lh-combat-card .lh-distance { flex: 0 0 auto; font-size: 11px; opacity: 0.7; }
+
+.eternia.lh-combat-card button.lh-roll-dodge,
+.eternia.lh-combat-card button.lh-apply,
+.eternia.lh-combat-card button.lh-undo {
+  margin: 0;
+  line-height: 20px;
+  font-size: 11px;
+  color: #d6ffda;
+  background-color: #2f5a3a;
+  border: 1px solid #8fcf9b;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.eternia.lh-combat-card button.lh-roll-dodge { flex: 0 0 auto; width: auto; padding: 0 6px; }
+
+.eternia.lh-combat-card .lh-apply-buttons {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 2fr 1fr;
+  gap: 3px;
+  margin-top: 3px;
+}
+
+.eternia.lh-combat-card button.lh-apply { padding: 0 2px; white-space: nowrap; }
+.eternia.lh-combat-card button.lh-apply[data-mode="heal"] { background-color: #2f5a55; }
+
+.eternia.lh-combat-card button.lh-roll-dodge:hover,
+.eternia.lh-combat-card button.lh-apply:hover,
+.eternia.lh-combat-card button.lh-undo:hover {
+  background-color: #3f7a4e;
+  text-shadow: 0 0 6px #d6ffda;
+}
+
+.eternia.lh-applied-card .lh-applied-title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.eternia.lh-applied-card .lh-applied-title .lh-applied { margin-left: auto; }
+
+.eternia.lh-applied-card .lh-applied-lines {
+  margin: 0 0 6px;
+  padding-left: 16px;
+  font-size: 11px;
+}
+
+.eternia.lh-applied-card .lh-applied-buttons { display: flex; gap: 4px; }
+.eternia.lh-applied-card .lh-applied-buttons button { flex: 1; }
+.eternia.lh-combat-card button.lh-reveal {
+  margin: 0;
+  line-height: 20px;
+  font-size: 11px;
+  color: #d6ffda;
+  background-color: #4a3f6b;
+  border: 1px solid #b9a8e8;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.eternia.lh-applied-card.undone { opacity: 0.55; }
+.eternia.lh-applied-card.undone .lh-applied-title { text-decoration: line-through; }
+.eternia.lh-applied-card .lh-undone { text-align: center; font-style: italic; }
+
+/* -------------------------------------------- */
+/*  Combat tracker: Round Progression phases     */
+/* -------------------------------------------- */
+
+.combat-tracker-header .lh-phase-bar {
+  display: flex;
+  gap: 4px;
+  padding: 4px 0 2px;
+}
+
+.combat-tracker-header .lh-phase-bar .lh-phase {
+  flex: 1;
+  min-height: 24px;
+  padding: 0 4px;
+  font-size: var(--font-size-12);
+  opacity: 0.55;
+}
+
+.combat-tracker-header .lh-phase-bar .lh-phase:disabled {
+  cursor: default;
+}
+
+.combat-tracker-header .lh-phase-bar .lh-phase.active {
+  opacity: 1;
+  font-weight: bold;
+  border-color: #4cd07d;
+  box-shadow: 0 0 6px #4cd07d;
+}
+
+/* Also styles cards posted before the chat-card markup (h3 + p only) */
+.eternia.lh-phase-card {
+  font-family: "Noto Serif JP", serif;
+  font-size: 12px;
+  color: #d6ffda;
+  background-color: rgba(26, 41, 34, 0.9);
+  border: 1px solid rgba(214, 255, 218, 0.5);
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: 0 0 4px rgba(214, 255, 218, 0.25);
+}
+
+.eternia.lh-phase-card h3 {
+  margin: 0;
+  font-family: "Edu SA Beginner", cursive;
+  font-size: 18px;
+  color: #d6ffda;
+  text-align: center;
+  border: none;
+}
+
+.eternia.lh-phase-card > h3 {
+  border-bottom: 1px solid rgba(214, 255, 218, 0.35);
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+}
+
+.eternia.lh-phase-card .chat-card-header {
+  justify-content: center;
+  text-align: center;
+}
+
+.eternia.lh-phase-card p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.eternia.lh-expiry-card {
+  font-family: "Noto Serif JP", serif;
+  font-size: 12px;
+  color: #d6ffda;
+  background-color: rgba(26, 41, 34, 0.9);
+  border: 1px solid rgba(214, 255, 218, 0.5);
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: 0 0 4px rgba(214, 255, 218, 0.25);
+}
+
+.eternia.lh-expiry-card h3 {
+  margin: 0;
+  font-family: "Edu SA Beginner", cursive;
+  font-size: 16px;
+  color: #d6ffda;
+  text-align: center;
+  border: none;
+  border-bottom: 1px solid rgba(214, 255, 218, 0.35);
+  padding-bottom: 4px;
+  margin-bottom: 6px;
+}
+
+.eternia.lh-expiry-card .chat-card-header {
+  justify-content: center;
+  text-align: center;
+}
+
+.eternia.lh-expiry-card .lh-expiry-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.eternia.lh-expiry-card .lh-expiry-list li {
+  line-height: 1.4;
+}
+
+.eternia.lh-expiry-card .lh-expiry-list .actor-name {
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.eternia.lh-expiry-card .lh-expiry-list .effect-label {
+  color: #d6ffda;
+}
+
+.eternia.lh-expiry-card .lh-expiry-list .expiry-reason {
+  opacity: 0.8;
+  font-style: italic;
+  font-size: 11px;
+}
+
+/* Combat tracker: Pre/Post-Action and Standby */
+.combat-tracker .combatant .lh-action-state {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 0 4px;
+  border-radius: 3px;
+  font-size: var(--font-size-10);
+  line-height: 14px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  border: 1px solid currentColor;
+  opacity: 0.8;
+}
+
+.combat-tracker .combatant .token-name .lh-action-state {
+  align-self: flex-start;
+}
+
+.combat-tracker .combatant .lh-action-state.pre { color: #4cd07d; }
+.combat-tracker .combatant .lh-action-state.post { color: #999999; }
+.combat-tracker .combatant .lh-action-state.standby { color: #ffe27a; }
+
+.combat-tracker .combatant.lh-post-action:not(.active) {
+  opacity: 0.55;
+}
+
+.combat-tracker .combatant .lh-standby-button {
+  color: #ffe27a;
+}
+
+/* Hand slots: swap button and off hand taken by a Two-Handed weapon */
+.eternia .equip-slot {
+  position: relative;
+}
+
+.eternia .equip-slot .hand-swap {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  z-index: 2;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 10px;
+  color: #222222;
+  background-color: #d6ffda;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
+}
+
+.eternia .equip-slot .hand-swap:hover {
+  background-color: #488e56;
+  color: #ffffff;
+}
+
+.eternia .equip-slot .empty-slot.locked-slot {
+  opacity: 1;
+  border-style: solid;
+  border-color: rgba(214, 255, 218, 0.25);
+  background-color: rgba(0, 0, 0, 0.35);
+  cursor: not-allowed;
+}
+
+.eternia .equip-slot .empty-slot.locked-slot .locked-weapon {
+  border: none;
+  filter: grayscale(100%);
+  opacity: 0.35;
+}
+
+.eternia .equip-slot .empty-slot.locked-slot .fa-lock {
+  position: absolute;
+  font-size: 16px;
+  color: #d6ffda;
+  text-shadow: 0 0 3px #000000;
+}
+
+.eternia .equip-slot.locked .slot-label {
+  opacity: 0.4;
+}
+
+.lh-attack-card .chat-card-title .chat-card-weapon {
+  display: block;
+  font-size: 12px;
+  text-transform: none;
+  opacity: 0.9;
+}
+
+/* Usable items and skills: use card notes, applied effects banner */
+.eternia.chat-card .item-use-note,
+.eternia.chat-card .item-use-applied,
+.eternia.chat-card .skill-card-applied {
+  margin: 0 0 6px;
+  padding: 3px 6px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.eternia.chat-card .item-use-note {
+  color: #6b4a00;
+  background-color: #fff1c7;
+  border: 1px solid #d9b44a;
+}
+
+.eternia.chat-card .item-use-applied,
+.eternia.chat-card .skill-card-applied {
+  color: #1f4d2b;
+  background-color: #dff3e3;
+  border: 1px solid #8fcf9b;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div.item-use-row {
+  flex-basis: 100%;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div.item-use-row .item-use {
+  width: 100%;
+  margin: 0;
+  line-height: 24px;
+  color: #d6ffda;
+  background-color: #2f5a3a;
+  border: 1px solid #8fcf9b;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div.item-use-row .item-use:hover {
+  background-color: #3f7a4e;
+}
+
+/* -------------------------------------------- */
+/*  ActiveEffect Config (effect-config.mjs)     */
+/* -------------------------------------------- */
+
+.eternia-effect-config .tab.changes li {
+  align-items: flex-start;
+}
+
+.eternia-effect-config .tab.changes .key {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.eternia-effect-config .lh-effect-target-info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 14px;
+  font-size: 11px;
+  line-height: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eternia-effect-config .lh-effect-target-info .lh-target-label {
+  opacity: 0.85;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eternia-effect-config .lh-effect-target-info .lh-target-chip,
+.eternia.lh-tag-menu .lh-target-chip {
+  display: inline-block;
+  padding: 0 4px;
+  border-radius: 3px;
+  font-size: 10px;
+  line-height: 13px;
+  font-weight: bold;
+}
+
+.eternia-effect-config .lh-effect-target-info .lh-target-chip.character,
+.eternia.lh-tag-menu .lh-target-chip.character {
+  background: rgba(42, 160, 90, 0.18);
+  color: #1f6b3d;
+  border: 1px solid rgba(42, 160, 90, 0.4);
+}
+
+.eternia-effect-config .lh-effect-target-info .lh-target-chip.monster,
+.eternia.lh-tag-menu .lh-target-chip.monster {
+  background: rgba(180, 50, 50, 0.18);
+  color: #8f2626;
+  border: 1px solid rgba(180, 50, 50, 0.4);
+}
+
+.eternia.lh-tag-menu li.active .lh-target-chip {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.eternia-effect-config .lh-effect-target-info .lh-target-warning {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: #b05a00;
+  font-weight: bold;
+  cursor: help;
+}
+
+.eternia-effect-config .lh-effect-target-info .lh-target-warning.derived {
+  color: #b52020;
+}
+
+.eternia-effect-config .lh-effect-target-info .lh-target-warning i {
+  font-size: 11px;
+}
+
+.eternia-effect-config .tab.lh-status {
+  padding: 0.5rem;
+}
+
+.eternia-effect-config .tab.lh-status .lh-status-hint {
+  margin: 0.5rem 0;
+  font-style: italic;
+  color: var(--color-text-subtle, #555);
+}
+
+.eternia-effect-config .tab.lh-status .lh-status-preview-group {
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--color-border-light-2, #ccc);
+  padding-top: 0.5rem;
+}
+
+.eternia-effect-config .tab.lh-status .lh-status-preview {
+  font-weight: bold;
+  color: var(--color-text-primary, #111);
+  font-size: 13px;
+}
+
+/* -------------------------------------------- */
+/*  On-use Effect Badge & Sustained Dialog      */
+/* -------------------------------------------- */
+
+.lh-on-use-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 11px;
+  background-color: rgba(47, 90, 58, 0.15);
+  color: #1f4d2b;
+  border: 1px solid rgba(143, 207, 155, 0.5);
+}
+
+.sustained-dialog-form {
+  padding: 0.5rem;
+}
+
+.sustained-dialog-form .dialog-hint {
+  margin-bottom: 0.75rem;
+  font-size: 13px;
+}
+
+.sustained-dialog-form .sustained-radios {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sustained-dialog-form .radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.sustained-dialog-form .radio-label:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+
+/* -------------------------------------------- */
+/*  Effect conditions (effect-conditions.mjs)   */
+/* -------------------------------------------- */
+
+.lh-conditions {
+  margin: 4px 0 8px;
+}
+
+.lh-conditions .lh-conditions-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+}
+
+.lh-conditions .lh-conditions-header .inline-control {
+  flex: 0 0 auto;
+  width: auto;
+  height: auto;
+  padding: 0 4px;
+}
+
+.lh-conditions .hint,
+.lh-roll-filter .hint {
+  margin: 2px 0 4px;
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+.lh-conditions .lh-condition-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lh-conditions .lh-condition-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 2px 0;
+}
+
+.lh-conditions .lh-condition-row select {
+  flex: 1 1 55%;
+}
+
+.lh-conditions .lh-condition-row input,
+.lh-conditions .lh-condition-row .lh-condition-spacer {
+  flex: 1 1 35%;
+  min-width: 0;
+}
+
+.lh-conditions .lh-condition-row .inline-control {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+.eternia .effects-list .effect-unmet {
+  font-size: 11px;
+  line-height: 1.2;
+  color: #e8a3a3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eternia-effect-config .lh-formula-hint {
+  margin: 4px 0 0;
+  font-size: 11px;
+}
+
+/* Roll filter of roll bonuses (roll-bonuses.mjs) */
+.lh-roll-filter {
+  margin-top: 10px;
+  padding-top: 6px;
+  border-top: 1px solid var(--color-border-light-2, #8884);
+}
+
+.lh-roll-filter .lh-roll-filter-drop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-height: 28px;
+  padding: 4px;
+  border: 1px dashed var(--color-border-light-2, #888);
+  border-radius: 4px;
+}
+
+.lh-roll-filter .lh-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: rgba(143, 207, 155, 0.2);
+}
+
+.lh-roll-filter .lh-filter-empty {
+  opacity: 0.6;
+  font-style: italic;
+}
+
+.lh-roll-filter .lh-roll-filter-add {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.lh-roll-filter .lh-roll-filter-add .inline-control {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+.lh-roll-filter .lh-filter-statuses {
+  gap: 12px;
+}
+
+.lh-combat-card .lh-card-bonuses {
+  margin: 2px 0 4px;
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+/* Check / Damage modifier: a number or a formula ("@sr*5") */
+.eternia.sheet.item .sheet-stats .stat-div .skill-roll-fields input.skill-roll-mod.lh-formula-mod {
+  width: 72px;
+  padding: 0 4px;
+}
+
+/* Skills changed by the owner's effects: Hate cost, range, notes (roll-bonuses.mjs skillModifiers) */
+.eternia.sheet.item .sheet-stats .lh-skill-mods {
+  flex: 1 1 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  margin: 2px 0;
+  padding: 2px 6px;
+  font-size: 12px;
+  border-radius: 3px;
+  background: rgba(143, 207, 155, 0.15);
+}
+
+.eternia.chat-card .lh-modified {
+  font-weight: bold;
+  color: #a8f0b5;
+  text-decoration: underline dotted;
+}
+
+.eternia.chat-card .lh-skill-notes {
+  list-style: none;
+  margin: 4px 0;
+  padding: 0;
+  font-size: 12px;
+}
+
+.eternia.chat-card .lh-skill-notes .lh-note-source {
+  opacity: 0.7;
+}
+
+/* Check / Damage dice: a number or a formula ("@sr+3") */
+.eternia.sheet.item .sheet-stats .stat-div .skill-roll-fields input.skill-roll-dice {
+  width: 72px;
+  padding: 0 4px;
+  text-align: center;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-roll-fields select.skill-roll-type {
+  width: auto;
+  min-width: 0;
+}
+
+/* Damage row: dice / modifier formulas + type + options wrap to a second line when they don't fit */
+.eternia.sheet.item .sheet-stats .stat-div.skill-roll .skill-roll-fields {
+  flex-wrap: wrap;
+  row-gap: 2px;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-roll-options {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 8px;
+}
+
+.eternia.sheet.item .sheet-stats .stat-div .skill-roll-option {
+  white-space: nowrap;
+}
+
+/* Refresh skills from the compendium (GM tool) */
+.eternia.skill-refresh .skill-refresh-body {
+  max-height: 65vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.eternia.skill-refresh .refresh-hint,
+.eternia.skill-refresh .refresh-summary {
+  margin: 0 0 6px;
+}
+
+.eternia.skill-refresh .refresh-actor {
+  margin-bottom: 8px;
+}
+
+.eternia.skill-refresh .refresh-actor-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0 2px;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.eternia.skill-refresh .refresh-actor-name img {
+  width: 24px;
+  height: 24px;
+  border: none;
+  object-fit: cover;
+}
+
+.eternia.skill-refresh .refresh-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.eternia.skill-refresh .refresh-skill {
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.eternia.skill-refresh .refresh-skill-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.eternia.skill-refresh .refresh-skill-head img {
+  width: 22px;
+  height: 22px;
+  border: none;
+}
+
+.eternia.skill-refresh .refresh-by-name {
+  font-size: 11px;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.eternia.skill-refresh .refresh-choice {
+  margin: 2px 0 2px 28px;
+  width: calc(100% - 28px);
+}
+
+.eternia.skill-refresh .refresh-changes,
+.eternia.skill-refresh .refresh-keep,
+.eternia.skill-refresh .refresh-warning {
+  display: block;
+  margin-left: 28px;
+  font-size: 12px;
+}
+
+.eternia.skill-refresh .refresh-changes {
+  opacity: 0.75;
+}
+
+.eternia.skill-refresh .refresh-warning {
+  color: #e0a040;
+}
+
+.eternia.skill-refresh .refresh-footnote {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  font-size: 11px;
+  opacity: 0.7;
+}

@@ -25,7 +25,7 @@ export const SUSTAINED_TAGS = {
  * Call during the `init` hook.
  */
 export function registerSustained() {
-  CONFIG.LHTRPG.sustainedTags = { ...SUSTAINED_TAGS };
+  CONFIG.ETERNIA.sustainedTags = { ...SUSTAINED_TAGS };
   registerHandler("endSustainedUse", _onEndSustainedUseRequest);
 }
 
@@ -36,11 +36,11 @@ export function registerSustained() {
  * @returns {number}
  */
 export function sustainedLimit(actor, tagIdOrLabel) {
-  const tags = CONFIG.LHTRPG?.sustainedTags ?? SUSTAINED_TAGS;
+  const tags = CONFIG.ETERNIA?.sustainedTags ?? SUSTAINED_TAGS;
   const entry = Object.entries(tags).find(([k, v]) => v.id === tagIdOrLabel || k === tagIdOrLabel)?.[1];
   const baseLimit = entry?.limit ?? 1;
   const resolvedId = entry?.id ?? tagIdOrLabel;
-  const actorFlag = actor?.getFlag?.("lhtrpg", `sustainedLimit.${resolvedId}`);
+  const actorFlag = actor?.getFlag?.("eternia", `sustainedLimit.${resolvedId}`);
   return (typeof actorFlag === "number") ? actorFlag : baseLimit;
 }
 
@@ -50,7 +50,7 @@ export function sustainedLimit(actor, tagIdOrLabel) {
  * @returns {{tag: string, id: string, limit: number}|null}
  */
 export function getSustainedTag(item) {
-  const tags = CONFIG.LHTRPG?.sustainedTags ?? SUSTAINED_TAGS;
+  const tags = CONFIG.ETERNIA?.sustainedTags ?? SUSTAINED_TAGS;
   const itemTags = item?.system?.tags ?? [];
   for (const rawTag of itemTags) {
     const canonical = canonicalTag(rawTag);
@@ -90,9 +90,9 @@ export function getActiveSustainedUses(casterActor, tagId) {
 
   for (const actor of allActors) {
     for (const effect of actor.effects) {
-      const source = effect.getFlag?.("lhtrpg", "source")
-        ?? effect.flags?.lhtrpg?.source
-        ?? effect._source?.flags?.lhtrpg?.source;
+      const source = effect.getFlag?.("eternia", "source")
+        ?? effect.flags?.eternia?.source
+        ?? effect._source?.flags?.eternia?.source;
       if (!source) continue;
       if (source.casterUuid !== casterActor.uuid) continue;
       if (source.sustained !== tagId) continue;
@@ -134,8 +134,8 @@ export function getActiveSustainedUses(casterActor, tagId) {
 export async function promptSustainedLimitDialog({ actor, item, sustainedTag, activeUses, limit }) {
   const esc = foundry.utils.escapeHTML ?? (s => s);
   const tagLabel = sustainedTag.tag ?? item.name;
-  const title = game.i18n.localize("LHTRPG.Sustained.Dialog.Title");
-  const hint = game.i18n.format("LHTRPG.Sustained.Dialog.Hint", { tag: tagLabel, limit });
+  const title = game.i18n.localize("ETERNIA.Sustained.Dialog.Title");
+  const hint = game.i18n.format("ETERNIA.Sustained.Dialog.Hint", { tag: tagLabel, limit });
 
   const rows = activeUses.map((use, index) => {
     const targets = [...use.targetNames].join(", ") || "—";
@@ -147,7 +147,7 @@ export async function promptSustainedLimitDialog({ actor, item, sustainedTag, ac
     </label>`;
   }).join("");
 
-  const content = `<form class="lhtrpg sustained-dialog-form">
+  const content = `<form class="eternia sustained-dialog-form">
     <p class="dialog-hint">${esc(hint)}</p>
     <div class="form-group sustained-radios">
       ${rows}
@@ -160,7 +160,7 @@ export async function promptSustainedLimitDialog({ actor, item, sustainedTag, ac
     buttons: [
       {
         action: "confirm",
-        label: game.i18n.localize("LHTRPG.Sustained.Dialog.EndSelected"),
+        label: game.i18n.localize("ETERNIA.Sustained.Dialog.EndSelected"),
         icon: "fas fa-times-circle",
         default: true,
         callback: (event, button, dialog) => {
@@ -170,7 +170,7 @@ export async function promptSustainedLimitDialog({ actor, item, sustainedTag, ac
       },
       {
         action: "cancel",
-        label: game.i18n.localize("LHTRPG.ButtonLabel.Cancel"),
+        label: game.i18n.localize("ETERNIA.ButtonLabel.Cancel"),
         icon: "fas fa-ban",
         callback: () => null
       }
@@ -219,7 +219,7 @@ export async function _onEndSustainedUseRequest({ casterUuid, useId, tagLabel },
   const caster = await fromUuid(casterUuid);
   if (!(caster instanceof Actor)) return { ok: false };
   if (user && !user.isGM && !caster.testUserPermission(user, "OWNER")) {
-    return { ok: false, error: "LHTRPG.Piles.Error.Generic" };
+    return { ok: false, error: "ETERNIA.Piles.Error.Generic" };
   }
 
   const allActors = getAllActors();
@@ -228,9 +228,9 @@ export async function _onEndSustainedUseRequest({ casterUuid, useId, tagLabel },
   for (const actor of allActors) {
     const toDeleteIds = [];
     for (const effect of actor.effects) {
-      const source = effect.getFlag?.("lhtrpg", "source")
-        ?? effect.flags?.lhtrpg?.source
-        ?? effect._source?.flags?.lhtrpg?.source;
+      const source = effect.getFlag?.("eternia", "source")
+        ?? effect.flags?.eternia?.source
+        ?? effect._source?.flags?.eternia?.source;
       if (!source) continue;
       if (source.casterUuid === casterUuid && source.useId === useId) {
         toDeleteIds.push(effect.id);
@@ -238,8 +238,8 @@ export async function _onEndSustainedUseRequest({ casterUuid, useId, tagLabel },
           actorName: actor.name,
           effect,
           reason: tagLabel
-            ? game.i18n.format("LHTRPG.EffectExpiry.Reason.SustainedLimit", { tag: tagLabel })
-            : game.i18n.localize("LHTRPG.EffectExpiry.Reason.SustainedLimitGeneric")
+            ? game.i18n.format("ETERNIA.EffectExpiry.Reason.SustainedLimit", { tag: tagLabel })
+            : game.i18n.localize("ETERNIA.EffectExpiry.Reason.SustainedLimitGeneric")
         });
       }
     }
@@ -247,7 +247,7 @@ export async function _onEndSustainedUseRequest({ casterUuid, useId, tagLabel },
       try {
         await actor.deleteEmbeddedDocuments("ActiveEffect", toDeleteIds);
       } catch (err) {
-        console.warn(`Log Horizon TRPG | Could not delete sustained effect on ${actor.name}`, err);
+        console.warn(`Eternia | Could not delete sustained effect on ${actor.name}`, err);
       }
     }
   }
@@ -261,7 +261,7 @@ export async function _onEndSustainedUseRequest({ casterUuid, useId, tagLabel },
 
 /**
  * Prepare and execute skill effects application upon using a skill.
- * Called from LHTrpgItem.ItemThrow().
+ * Called from EterniaItem.ItemThrow().
  * @param {Item} item
  * @returns {Promise<{appliedNames: string, canApplyEffects: boolean, skillUse: object|null}>}
  */
@@ -330,11 +330,11 @@ export async function useSkillEffects(item) {
  * @param {HTMLElement} button
  */
 export async function onApplySkillEffects(message, button) {
-  const skillUse = message.getFlag("lhtrpg", "skillUse");
+  const skillUse = message.getFlag("eternia", "skillUse");
   const uuid = skillUse?.itemUuid ?? button.closest("[data-item-uuid]")?.dataset?.itemUuid;
-  if (!uuid) return ui.notifications.warn(game.i18n.localize("LHTRPG.Skill.Notif.Missing"));
+  if (!uuid) return ui.notifications.warn(game.i18n.localize("ETERNIA.Skill.Notif.Missing"));
   const item = await fromUuid(uuid).catch(() => null);
-  if (!item) return ui.notifications.warn(game.i18n.localize("LHTRPG.Skill.Notif.Missing"));
+  if (!item) return ui.notifications.warn(game.i18n.localize("ETERNIA.Skill.Notif.Missing"));
 
   const sustained = skillUse?.sustained ?? getSustainedTag(item)?.id ?? null;
   const useId = skillUse?.useId ?? foundry.utils.randomID();
@@ -346,7 +346,7 @@ export async function onApplySkillEffects(message, button) {
     : [...game.user.targets].map(t => t.actor).filter(Boolean);
 
   if (!recipients.length) {
-    return ui.notifications.warn(game.i18n.localize("LHTRPG.Item.Use.NoTargets"));
+    return ui.notifications.warn(game.i18n.localize("ETERNIA.Item.Use.NoTargets"));
   }
 
   // Check sustained limit if sustained
@@ -373,13 +373,13 @@ export async function onApplySkillEffects(message, button) {
 
   const names = await applyItemEffects(item, recipients, { useId, sustained });
   if (names.length) {
-    ui.notifications.info(game.i18n.format("LHTRPG.Item.Use.EffectsApplied", { names: names.join(", ") }));
+    ui.notifications.info(game.i18n.format("ETERNIA.Item.Use.EffectsApplied", { names: names.join(", ") }));
 
     // Update message content if user can modify it
     if (message.canUserModify(game.user, "update")) {
       const card = document.createElement("div");
       card.innerHTML = message.content;
-      const appliedText = game.i18n.format("LHTRPG.Item.Use.EffectsApplied", { names: names.join(", ") });
+      const appliedText = game.i18n.format("ETERNIA.Item.Use.EffectsApplied", { names: names.join(", ") });
       const existing = card.querySelector(".item-use-applied, .skill-card-applied");
       if (existing) {
         existing.innerHTML = `<i class="fas fa-bolt"></i> ${appliedText}`;
@@ -402,7 +402,7 @@ export async function onApplySkillEffects(message, button) {
 
 /**
  * Compendium skills whose effects moved from passive (transfer) to "on use" (E3c), by source id,
- * with their LH duration.
+ * with their Eternia duration.
  */
 const ON_USE_SKILLS = {
   EhqdBAC40BKu6kkF: "endOfScene",   // Servant Summon: Undine
@@ -425,13 +425,13 @@ async function _migrateOnUseSkills(items, failed) {
     const expires = _onUseExpiry(item);
     if (!expires) continue;
     const updates = item.effects.filter(e => e.transfer)
-      .map(e => ({ _id: e.id, transfer: false, "flags.lhtrpg.expires": expires }));
+      .map(e => ({ _id: e.id, transfer: false, "flags.eternia.expires": expires }));
     if (!updates.length) continue;
     try {
       await item.updateEmbeddedDocuments("ActiveEffect", updates, { render: false });
       count++;
     } catch (err) {
-      console.error(`Log Horizon TRPG | Could not migrate the effects of ${item.uuid}`, err);
+      console.error(`Eternia | Could not migrate the effects of ${item.uuid}`, err);
       failed.push(item.uuid);
     }
   }
@@ -450,7 +450,7 @@ async function migrateOnUseSkills() {
       count += await _migrateOnUseSkills(pack.documentName === "Actor" ? doc.items : [doc], failed);
     }
   }
-  console.log(`Log Horizon TRPG | On-use skill effects: ${count} skills migrated`);
+  console.log(`Eternia | On-use skill effects: ${count} skills migrated`);
   return !failed.length;
 }
 

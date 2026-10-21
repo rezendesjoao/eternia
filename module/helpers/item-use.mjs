@@ -12,17 +12,17 @@ import { effectConditions, unmetCondition } from "./effect-conditions.mjs";
  *
  * Using one posts a use card (templates/chat/use-card.hbs) with its Check / Damage buttons, copies its
  * Active Effects to the target, and destroys it when it has the [Consumable] tag. The card keeps a copy
- * of the item (flags.lhtrpg.use.item) so its buttons still work once the item is gone.
+ * of the item (flags.eternia.use.item) so its buttons still work once the item is gone.
  *
  * Effects copied to a target are Combat Statuses: they last until the end of the scene, so they are
- * flagged (flags.lhtrpg.itemUse) and removed when the combat ends.
+ * flagged (flags.eternia.itemUse) and removed when the combat ends.
  *
  * Timing: outside combat anything goes. In a combat the actor takes part in, a player can only use
  * the item when its Timing fits the phase (Major / Minor / Move on their own Main Process, Setup in
  * the Setup Process…); the GM is only warned.
  */
 
-const USE_CARD = "systems/lhtrpg/templates/chat/use-card.hbs";
+const USE_CARD = "systems/eternia/templates/chat/use-card.hbs";
 /** Checks the target resists: the item's effects wait for the hit (Apply effects button). */
 export const OPPOSED = ["evasion", "resistance"];
 
@@ -77,22 +77,22 @@ function timingProblem(item, actor) {
   const rule = TIMING_RULES[timing];
   // [Preparation]: may also be used in the Briefing.
   if ((phase === "briefing") && ((rule === "briefing") || hasTag(item, "Preparation") || (timing === "instant"))) return null;
-  const phaseReason = () => game.i18n.format("LHTRPG.Item.Use.Reason.Phase", {
-    phase: game.i18n.localize(`LHTRPG.Combat.Phase.${phase}`)
+  const phaseReason = () => game.i18n.format("ETERNIA.Item.Use.Reason.Phase", {
+    phase: game.i18n.localize(`ETERNIA.Combat.Phase.${phase}`)
   });
   switch (rule) {
     case "turn": {
       const ownTurn = (phase === "main") && combatants.some(c => c.id === combat.combatant?.id);
-      return ownTurn ? null : game.i18n.localize("LHTRPG.Item.Use.Reason.NotTurn");
+      return ownTurn ? null : game.i18n.localize("ETERNIA.Item.Use.Reason.NotTurn");
     }
     case "setup":
     case "main":
     case "cleanup":
       return (phase === rule) ? null : phaseReason();
     case "briefing":
-      return game.i18n.localize("LHTRPG.Item.Use.Reason.Briefing");
+      return game.i18n.localize("ETERNIA.Item.Use.Reason.Briefing");
     case "outside":
-      return game.i18n.localize("LHTRPG.Item.Use.Reason.OutOfCombat");
+      return game.i18n.localize("ETERNIA.Item.Use.Reason.OutOfCombat");
     default:
       // Instant, reactions (Before Check, Damage Roll…), Refer…: any time.
       return null;
@@ -118,7 +118,7 @@ function actorTokens(actor) {
 export async function useItem(item) {
   const actor = item.actor;
   if (!canUseItem(item)) {
-    ui.notifications.warn(game.i18n.localize("LHTRPG.Item.Use.NoActor"));
+    ui.notifications.warn(game.i18n.localize("ETERNIA.Item.Use.NoActor"));
     return null;
   }
 
@@ -127,10 +127,10 @@ export async function useItem(item) {
   if (problem) {
     const timing = item.system.timing || "-";
     if (!game.user.isGM) {
-      ui.notifications.warn(game.i18n.format("LHTRPG.Item.Use.Blocked", { name: item.name, timing, reason: problem }));
+      ui.notifications.warn(game.i18n.format("ETERNIA.Item.Use.Blocked", { name: item.name, timing, reason: problem }));
       return null;
     }
-    note = game.i18n.format("LHTRPG.Item.Use.GMOverride", { timing, reason: problem });
+    note = game.i18n.format("ETERNIA.Item.Use.GMOverride", { timing, reason: problem });
   }
 
   // Effects go to the target right away, unless the target may resist them (opposed Check).
@@ -160,7 +160,7 @@ export async function useItem(item) {
   const messageData = {
     speaker: ChatMessage.getSpeaker({ actor }),
     content: await foundry.applications.handlebars.renderTemplate(USE_CARD, cardData),
-    flags: { lhtrpg: { use: { item: itemData, actorUuid: actor.uuid, self } } }
+    flags: { eternia: { use: { item: itemData, actorUuid: actor.uuid, self } } }
   };
   ChatMessage.applyMode(messageData);
   const message = await ChatMessage.create(messageData);
@@ -175,7 +175,7 @@ export async function useItem(item) {
  * @returns {Item|null}
  */
 function cardItem(message) {
-  const use = message.getFlag("lhtrpg", "use");
+  const use = message.getFlag("eternia", "use");
   const actor = use && fromUuidSync(use.actorUuid);
   if (!actor) return null;
   return actor.items.get(use.item._id) ?? new Item.implementation(use.item, { parent: actor });
@@ -184,8 +184,8 @@ function cardItem(message) {
 /**
  * Whether an existing effect's source matches the source of the incoming item.
  * Matches on itemUuid, or falls back to itemName + casterUuid.
- * @param {object} s        Existing effect's flags.lhtrpg.source
- * @param {object} source   Incoming effect's flags.lhtrpg.source
+ * @param {object} s        Existing effect's flags.eternia.source
+ * @param {object} source   Incoming effect's flags.eternia.source
  * @returns {boolean}
  */
 export function isMatchingSource(s, source) {
@@ -225,16 +225,16 @@ export async function applyItemEffects(item, actors, { useId, sustained } = {}) 
     data.transfer = false;
     data.disabled = false;
     data.img ||= item.img;
-    // The copy lasts its Log Horizon duration (below), not the item effect's core one: it starts now.
+    // The copy lasts its Eternia duration (below), not the item effect's core one: it starts now.
     delete data.start;
     delete data.duration;
     // Formulas ("@sr*3") take the caster's values now; the copy no longer depends on the skill.
     const values = formulaData(item.actor, item);
     data.system.changes = resolveChanges(data.system.changes, values);
-    const statusData = data.flags?.lhtrpg?.statusData;
+    const statusData = data.flags?.eternia?.statusData;
     if (isFormula(statusData?.value)) statusData.value = Math.max(1, evaluateFormula(statusData.value, values) ?? 1);
-    delete data.flags?.lhtrpg?.conditions;
-    foundry.utils.setProperty(data, "flags.lhtrpg.itemUse", true);
+    delete data.flags?.eternia?.conditions;
+    foundry.utils.setProperty(data, "flags.eternia.itemUse", true);
 
     const source = {
       itemUuid: item.uuid,
@@ -243,30 +243,30 @@ export async function applyItemEffects(item, actors, { useId, sustained } = {}) 
       useId: finalUseId
     };
     if (sustainedId) source.sustained = sustainedId;
-    foundry.utils.setProperty(data, "flags.lhtrpg.source", source);
+    foundry.utils.setProperty(data, "flags.eternia.source", source);
 
     let expires;
     if (sustainedId) {
       expires = "endOfScene";
     } else {
-      const origExpires = effect.getFlag?.("lhtrpg", "expires") ?? effect._source?.flags?.lhtrpg?.expires;
+      const origExpires = effect.getFlag?.("eternia", "expires") ?? effect._source?.flags?.eternia?.expires;
       expires = (origExpires && origExpires !== "") ? origExpires : "endOfScene";
     }
-    foundry.utils.setProperty(data, "flags.lhtrpg.expires", expires);
+    foundry.utils.setProperty(data, "flags.eternia.expires", expires);
     return data;
   });
 
   const names = [];
   // A skill replaces its previous copy on the target (same type: no stacking); usables stack.
   const replace = item.type === "skill";
-  const sampleSource = replace ? effects[0]?.flags?.lhtrpg?.source : null;
+  const sampleSource = replace ? effects[0]?.flags?.eternia?.source : null;
 
   for (const actor of new Set(actors)) {
     if (!actor) continue;
     if (actor.isOwner) {
       if (sampleSource) {
         const toDeleteIds = actor.effects
-          .filter(e => isMatchingSource(e.getFlag?.("lhtrpg", "source") ?? e.flags?.lhtrpg?.source ?? e._source?.flags?.lhtrpg?.source, sampleSource))
+          .filter(e => isMatchingSource(e.getFlag?.("eternia", "source") ?? e.flags?.eternia?.source ?? e._source?.flags?.eternia?.source, sampleSource))
           .map(e => e.id);
         if (toDeleteIds.length) await actor.deleteEmbeddedDocuments("ActiveEffect", toDeleteIds);
       }
@@ -274,7 +274,7 @@ export async function applyItemEffects(item, actors, { useId, sustained } = {}) 
     } else {
       const result = await request("applyItemEffects", { actorUuid: actor.uuid, effects, replace });
       if (!result.ok) {
-        ui.notifications.warn(game.i18n.localize(result.error ?? "LHTRPG.Piles.Error.Generic"));
+        ui.notifications.warn(game.i18n.localize(result.error ?? "ETERNIA.Piles.Error.Generic"));
         continue;
       }
     }
@@ -287,12 +287,12 @@ export async function applyItemEffects(item, actors, { useId, sustained } = {}) 
 async function _onApplyEffectsRequest({ actorUuid, effects, replace }) {
   const actor = await fromUuid(actorUuid);
   if (!(actor instanceof Actor) || !Array.isArray(effects)) return { ok: false };
-  const data = effects.filter(e => e?.flags?.lhtrpg?.itemUse && e?.flags?.lhtrpg?.source);
+  const data = effects.filter(e => e?.flags?.eternia?.itemUse && e?.flags?.eternia?.source);
   if (!data.length) return { ok: false };
-  const sampleSource = data[0]?.flags?.lhtrpg?.source;
+  const sampleSource = data[0]?.flags?.eternia?.source;
   if (replace && sampleSource) {
     const toDeleteIds = actor.effects
-      .filter(e => isMatchingSource(e.getFlag?.("lhtrpg", "source") ?? e.flags?.lhtrpg?.source ?? e._source?.flags?.lhtrpg?.source, sampleSource))
+      .filter(e => isMatchingSource(e.getFlag?.("eternia", "source") ?? e.flags?.eternia?.source ?? e._source?.flags?.eternia?.source, sampleSource))
       .map(e => e.id);
     if (toDeleteIds.length) await actor.deleteEmbeddedDocuments("ActiveEffect", toDeleteIds);
   }
@@ -306,7 +306,7 @@ async function _onDeleteCombat(combat) {
   const actors = new Set(combat.combatants.map(c => c.actor).filter(Boolean));
   for (const actor of actors) {
     const ids = actor.effects
-      .filter(e => e.getFlag("lhtrpg", "itemUse") && !e.getFlag("lhtrpg", "expires"))
+      .filter(e => e.getFlag("eternia", "itemUse") && !e.getFlag("eternia", "expires"))
       .map(e => e.id);
     if (ids.length) await actor.deleteEmbeddedDocuments("ActiveEffect", ids);
   }
@@ -314,7 +314,7 @@ async function _onDeleteCombat(combat) {
 
 /** Use card buttons: Check / Damage (the user or the GM), Apply effects (anyone, to their targets). */
 function _onRenderChatMessage(message, html) {
-  if (!message.getFlag("lhtrpg", "use")) return;
+  if (!message.getFlag("eternia", "use")) return;
   const canRoll = message.isAuthor || game.user.isGM;
 
   html.querySelectorAll(".item-use-roll").forEach(button => {
@@ -322,8 +322,8 @@ function _onRenderChatMessage(message, html) {
     button.addEventListener("click", event => {
       event.preventDefault();
       const item = cardItem(message);
-      if (!item) return ui.notifications.warn(game.i18n.localize("LHTRPG.Skill.Notif.Missing"));
-      const self = message.getFlag("lhtrpg", "use").self;
+      if (!item) return ui.notifications.warn(game.i18n.localize("ETERNIA.Skill.Notif.Missing"));
+      const self = message.getFlag("eternia", "use").self;
       rollSkill(item, button.dataset.roll, { targets: self ? targetEntries(actorTokens(item.actor)) : undefined });
     });
   });
@@ -331,11 +331,11 @@ function _onRenderChatMessage(message, html) {
   html.querySelectorAll(".item-use-effects").forEach(button => button.addEventListener("click", async event => {
     event.preventDefault();
     const item = cardItem(message);
-    if (!item) return ui.notifications.warn(game.i18n.localize("LHTRPG.Skill.Notif.Missing"));
+    if (!item) return ui.notifications.warn(game.i18n.localize("ETERNIA.Skill.Notif.Missing"));
     const actors = [...game.user.targets].map(t => t.actor).filter(Boolean);
-    if (!actors.length) return ui.notifications.warn(game.i18n.localize("LHTRPG.Item.Use.NoTargets"));
+    if (!actors.length) return ui.notifications.warn(game.i18n.localize("ETERNIA.Item.Use.NoTargets"));
     const names = await applyItemEffects(item, actors);
-    if (names.length) ui.notifications.info(game.i18n.format("LHTRPG.Item.Use.EffectsApplied", { names: names.join(", ") }));
+    if (names.length) ui.notifications.info(game.i18n.format("ETERNIA.Item.Use.EffectsApplied", { names: names.join(", ") }));
   }));
 }
 
@@ -344,8 +344,8 @@ function _onRenderChatMessage(message, html) {
 /* -------------------------------------------- */
 
 const MIGRATION_VERSION = 1;
-const GEAR_ICON = "systems/lhtrpg/assets/ui/items_icons/gear.svg";
-const USABLE_ICON = "systems/lhtrpg/assets/ui/items_icons/usable.svg";
+const GEAR_ICON = "systems/eternia/assets/ui/items_icons/gear.svg";
+const USABLE_ICON = "systems/eternia/assets/ui/items_icons/usable.svg";
 
 /**
  * Whether Gear source data is really a usable item: it has a Timing to be used with, or the
@@ -400,7 +400,7 @@ async function _migrateItems(items, failed) {
       await item.update(update, { render: false });
       names.push(item.name);
     } catch (err) {
-      console.error(`Log Horizon TRPG | Could not turn ${item.uuid} into a usable item`, err);
+      console.error(`Eternia | Could not turn ${item.uuid} into a usable item`, err);
       failed.push(item.uuid);
     }
   }
@@ -430,8 +430,8 @@ async function migrateUsableItems() {
     }
   }
 
-  console.log(`Log Horizon TRPG | Gear -> Usable: ${names.length} items`, names);
-  if (names.length) ui.notifications.info(game.i18n.format("LHTRPG.Item.Use.Migrated", { count: names.length }));
+  console.log(`Eternia | Gear -> Usable: ${names.length} items`, names);
+  if (names.length) ui.notifications.info(game.i18n.format("ETERNIA.Item.Use.Migrated", { count: names.length }));
   // Try again on the next load if some item could not be converted.
   return !failed.length;
 }

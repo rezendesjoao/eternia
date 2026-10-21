@@ -1,7 +1,7 @@
 {
   "name": "Oobold",
   "type": "monster",
-  "img": "systems/lhtrpg/assets/ui/actors_icons/monster.svg",
+  "img": "systems/eternia/assets/ui/actors_icons/monster.svg",
   "system": {
     "health": {
       "value": 47,
@@ -91,14 +91,14 @@
         "mod": 1
       }
     },
-    "description": "<table style=\"border-collapse: collapse; width: 396pt;\" border=\"0\" width=\"528\" cellspacing=\"0\" cellpadding=\"0\"><colgroup><col style=\"mso-width-source: userset; mso-width-alt: 3218; width: 66pt;\" span=\"6\" width=\"88\"> </colgroup>\n<tbody>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl67\" style=\"height: 15.75pt; width: 396pt;\" colspan=\"6\" width=\"528\" height=\"21\">Drop Items</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl65\" style=\"height: 15.75pt;\" height=\"21\">1~4</td>\n<td class=\"xl66\" colspan=\"5\">Big Fang [Valuable](15G)</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl65\" style=\"height: 15.75pt;\" height=\"21\">5~6</td>\n<td class=\"xl66\" colspan=\"5\">Spirited Wooden Sword [Valuable](40G)</td>\n</tr>\n</tbody>\n</table>\n<p>&nbsp;</p>\n<p>[[/gmr 2d6 + 1]]{[Evasion]}<br>[[/gmr 2d6 + 1]]{[Resistance]}</p>"
+    "description": "<table style=\"border-collapse: collapse; width: 396pt;\" border=\"0\" width=\"528\" cellspacing=\"0\" cellpadding=\"0\"><colgroup><col style=\"mso-width-source: userset; mso-width-alt: 3218; width: 66pt;\" span=\"6\" width=\"88\"> </colgroup>\n<tbody>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl67\" style=\"height: 15.75pt; width: 396pt;\" colspan=\"6\" width=\"528\" height=\"21\">Itens Deixados</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl65\" style=\"height: 15.75pt;\" height=\"21\">1~4</td>\n<td class=\"xl66\" colspan=\"5\">Presa Grande [Valioso](15G)</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl65\" style=\"height: 15.75pt;\" height=\"21\">5~6</td>\n<td class=\"xl66\" colspan=\"5\">Espada de Madeira Aguerrida [Valioso](40G)</td>\n</tr>\n</tbody>\n</table>\n<p>&nbsp;</p>\n<p>[[/gmr 2d6 + 1]]{[Esquiva]}<br>[[/gmr 2d6 + 1]]{[Resistência]}</p>"
   },
   "prototypeToken": {
     "name": "Oobold",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/lhtrpg/assets/ui/actors_icons/monster.svg",
+      "src": "systems/eternia/assets/ui/actors_icons/monster.svg",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -189,10 +189,10 @@
   },
   "items": [
     {
-      "name": "Kobold Tactics",
+      "name": "Táticas Kobold",
       "type": "skill",
       "system": {
-        "description": "<p>This enemy is not affected by [Mechanical] Props unless it wants to be. In addition, whenever this enemy is in the same square as another creature with the [Kobold] tag. It gains a +1 bonus to [Dodge Checks]</p>",
+        "description": "<p>Este inimigo não é afetado por Objetos de cena com a tag [Mecânico], a menos que queira. Além disso, sempre que este inimigo estiver no mesmo quadrado que outra criatura com a tag [Kobold], ele recebe bônus de +1 em [Testes de Esquiva]</p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -208,7 +208,7 @@
         "macroeffect": ""
       },
       "_id": "rxGu7V5bi8ipSeNB",
-      "img": "systems/lhtrpg/assets/ui/items_icons/skill.svg",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
       "effects": [],
       "sort": 0,
       "ownership": {
@@ -217,8 +217,8 @@
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
-        "systemId": "lhtrpg",
-        "systemVersion": "1.5.0",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
@@ -229,10 +229,10 @@
       "_key": "!actors.items!6nAQi2EMdzhRD1iJ.rxGu7V5bi8ipSeNB"
     },
     {
-      "name": "Bold Slap",
+      "name": "Tapa Ousado",
       "type": "skill",
       "system": {
-        "description": "<p>[[/gmr 2d6 + 4]]{2D+4]}</p>\n<p>[[/gmr 2d6 + 12]]{[2D+12]}Phys Damage<br>(Result 13): The target takes [Confusion].</p>",
+        "description": "<p>[[/gmr 2d6 + 4]]{2D+4]}</p>\n<p>[[/gmr 2d6 + 12]]{[2D+12]} de Dano Físico<br>(Resultado 13): O alvo sofre [Confuso].</p>",
         "tags": [
           "Melee Attack"
         ],
@@ -247,10 +247,17 @@
         },
         "cost": "-",
         "limit": "-",
-        "macroeffect": ""
+        "macroeffect": "",
+        "damage": {
+          "dice": 2,
+          "mod": 12,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
       },
       "_id": "Iz8pRGLeBXqUhgP9",
-      "img": "systems/lhtrpg/assets/ui/items_icons/skill.svg",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
       "effects": [],
       "sort": 0,
       "ownership": {
@@ -259,8 +266,8 @@
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
-        "systemId": "lhtrpg",
-        "systemVersion": "1.5.0",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
@@ -271,10 +278,10 @@
       "_key": "!actors.items!6nAQi2EMdzhRD1iJ.Iz8pRGLeBXqUhgP9"
     },
     {
-      "name": "Bold Smack",
+      "name": "Tabefe Ousado",
       "type": "skill",
       "system": {
-        "description": "<p>Use this skill just after an enemy fails an [Attack Check]. The target takes 5 direct damage.&nbsp;<br>The target gains a +1D bonus to their next [Attack Check].<br>Treat this effect as a Combat Status that is removed after applying once.</p>",
+        "description": "<p>Use esta habilidade logo depois que um inimigo falhar em um [Teste de Acerto]. O alvo sofre 5 de dano direto.&nbsp;<br>O alvo recebe bônus de +1D em seu próximo [Teste de Acerto].<br>Trate este efeito como um Estado de Combate que é removido depois de ser aplicado uma vez.</p>",
         "tags": [],
         "timing": "Refer",
         "checkType": "",
@@ -290,7 +297,7 @@
         "macroeffect": ""
       },
       "_id": "51c9uVUgFnR8CFAk",
-      "img": "systems/lhtrpg/assets/ui/items_icons/skill.svg",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
       "effects": [],
       "sort": 0,
       "ownership": {
@@ -299,8 +306,8 @@
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
-        "systemId": "lhtrpg",
-        "systemVersion": "1.5.0",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
@@ -315,8 +322,8 @@
   "flags": {},
   "_stats": {
     "coreVersion": "13.351",
-    "systemId": "lhtrpg",
-    "systemVersion": "1.5.0",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

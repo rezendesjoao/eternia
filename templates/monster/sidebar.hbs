@@ -1,0 +1,89 @@
+{{!-- Monster banner: what is used in a fight. --}}
+
+{{!-- HIT POINTS, FATE, HATE --}}
+<header><h2>{{localize 'ETERNIA.Sheet.HitPoints'}}</h2></header>
+<div class="hitpoints">
+	<div class="hp-big">
+		<div class="container barrier" data-tooltip="{{localize 'ETERNIA.Sheet.BarrierHint'}}">
+			<label class="sidebar_label">{{localize 'ETERNIA.StatusEffect.barrier'}}</label>
+			<div class="data-value"><input class="lhpf-barrier" type="text" value="{{lh.barrier}}" placeholder="0" maxlength="3" inputmode="numeric"{{#unless editable}} disabled{{/unless}}></div>
+		</div>
+		<div class="container current-hp">
+			<label class="sidebar_label">{{localize 'ETERNIA.Label.HP'}}</label>
+			<div class="data-value"><input type="text" name="system.health.value" value="{{source.health.value}}" placeholder="0" data-dtype="Number" maxlength="4"{{#if modified.hpValue}} class="has-effect" data-tooltip="{{modified.hpValue.tooltip}}"{{/if}}></div>
+		</div>
+		<div class="container max-hp">
+			<label class="sidebar_label">{{localize 'ETERNIA.Sheet.Max'}}</label>
+			<div class="data-value"><input type="text" name="system.health.max" value="{{source.health.max}}" placeholder="0" data-dtype="Number" maxlength="4"{{#if modified.hpMax}} class="has-effect" data-tooltip="{{modified.hpMax.tooltip}}"{{/if}}></div>
+		</div>
+	</div>
+	<div class="lhpf-hpbar" data-tooltip="{{lh.hp.value}} / {{lh.hp.max}}"><i style="width: {{lh.hp.pct}}%"></i></div>
+	<div class="hp-small">
+		<div class="gauge fate" style="--fill: {{lh.fate.fill}}%" data-tooltip="{{lh.fate.tooltip}}">
+			<span class="sidebar_label">{{localize 'ETERNIA.Label.Fate'}}</span>
+			<span class="box wide">
+				<span class="fill"></span>
+				<input type="text" name="system.fate.value" value="{{source.fate.value}}" placeholder="0" data-dtype="Number" maxlength="2"{{#if modified.fateValue}} class="has-effect"{{/if}}>
+				<span class="slash">/</span>
+				<input type="text" name="system.fate.max" value="{{source.fate.max}}" placeholder="0" data-dtype="Number" maxlength="2"{{#if modified.fateMax}} class="has-effect"{{/if}}>
+			</span>
+		</div>
+		<label class="gauge hate" data-tooltip="{{localize 'ETERNIA.Monster.HateMultiplier'}}">
+			<span class="sidebar_label">{{localize 'ETERNIA.Sheet.Monster.HateShort'}}</span>
+			<span class="box"><span class="times">×</span><input type="text" name="system.hateMultiplier" value="{{source.hateMultiplier}}" placeholder="—" maxlength="3"></span>
+		</label>
+	</div>
+</div>
+
+{{!-- DEFENSES --}}
+<header><h2>{{localize 'ETERNIA.Sheet.Defenses'}}</h2></header>
+<div class="lhpf-defenses">
+	<label class="shield phys" data-tooltip="{{localize 'ETERNIA.Monster.PDef'}}{{#if modified.pdef}} · {{modified.pdef.tooltip}}{{/if}}">
+		<svg viewBox="0 0 64 72" aria-hidden="true"><path class="outer" d="M32 2 61 10V35C61 53 47 64 32 70 17 64 3 53 3 35V10Z"></path><path class="inner" d="M32 7 56 13.5V35C56 50 44.5 59.5 32 64.5 19.5 59.5 8 50 8 35V13.5Z"></path></svg>
+		<input class="value{{#if modified.pdef}} has-effect{{/if}}" type="text" name="system.battle-status.defense.phys" value="{{source.battle-status.defense.phys}}" placeholder="0" data-dtype="Number" maxlength="3">
+		<span class="sidebar_label">{{localize 'ETERNIA.Sheet.PhysDef'}}{{#if modified.pdef}} <b class="eff">{{modified.pdef.display}}</b>{{/if}}</span>
+	</label>
+	<label class="shield magic" data-tooltip="{{localize 'ETERNIA.Monster.MDef'}}{{#if modified.mdef}} · {{modified.mdef.tooltip}}{{/if}}">
+		<svg viewBox="0 0 64 72" aria-hidden="true"><path class="outer" d="M32 2 61 10V35C61 53 47 64 32 70 17 64 3 53 3 35V10Z"></path><path class="inner" d="M32 7 56 13.5V35C56 50 44.5 59.5 32 64.5 19.5 59.5 8 50 8 35V13.5Z"></path></svg>
+		<input class="value{{#if modified.mdef}} has-effect{{/if}}" type="text" name="system.battle-status.defense.magic" value="{{source.battle-status.defense.magic}}" placeholder="0" data-dtype="Number" maxlength="3">
+		<span class="sidebar_label">{{localize 'ETERNIA.Sheet.MagicDef'}}{{#if modified.mdef}} <b class="eff">{{modified.mdef.display}}</b>{{/if}}</span>
+	</label>
+	<div class="stack">
+		<label class="mini" data-tooltip="{{localize 'ETERNIA.Monster.Initiative'}}{{#if modified.initiative}} · {{modified.initiative.tooltip}}{{/if}}">
+			<span class="sidebar_label">{{localize 'ETERNIA.Sheet.Initiative'}}{{#if modified.initiative}} <b class="eff">{{modified.initiative.display}}</b>{{/if}}</span>
+			<input class="value{{#if modified.initiative}} has-effect{{/if}}" type="text" name="system.battle-status.initiative" value="{{source.battle-status.initiative}}" placeholder="0" data-dtype="Number" maxlength="3">
+		</label>
+		<label class="mini" data-tooltip="{{localize 'ETERNIA.Monster.Speed'}}{{#if modified.speed}} · {{modified.speed.tooltip}}{{/if}}">
+			<span class="sidebar_label">{{localize 'ETERNIA.Sheet.Speed'}}{{#if modified.speed}} <b class="eff">{{modified.speed.display}}</b>{{/if}}</span>
+			<input class="value{{#if modified.speed}} has-effect{{/if}}" type="text" name="system.battle-status.speed" value="{{source.battle-status.speed}}" placeholder="0" data-dtype="Number" maxlength="3">
+		</label>
+	</div>
+</div>
+
+{{!-- EVASION AND RESISTANCE (like the character's combat checks): dice and modifier, the die rolls --}}
+<header><h2>{{localize 'ETERNIA.Sheet.CombatChecks'}}</h2></header>
+<ul class="saves checks">
+	{{#each lh.checks}}
+	<li data-check="{{key}}"{{#if modified}} data-tooltip="{{modified.tooltip}}"{{/if}}>
+		<h3 class="sidebar_label">{{label}}</h3>
+		<div class="check-line">
+			<select class="lhpf-dice-select{{#if modified.dice}} has-effect{{/if}}" name="system.checks.{{key}}.dice" data-dtype="Number" data-tier="{{tier}}">{{selectOptions @root.checkDiceOptions selected=dice}}</select>
+			<input class="modifier{{#if modified.mod}} has-effect{{/if}}" type="text" name="system.checks.{{key}}.mod" value="{{mod}}" placeholder="+0" data-dtype="Number" maxlength="4">
+		</div>
+		<a class="save-roll" data-action="monster-check-roll" data-check="{{key}}" data-name="{{name}}" data-tooltip="{{rollTip}}"><i class="fa-solid fa-dice-d6"></i>{{#if modified}}<span class="eff">{{modified.display}}</span>{{/if}}</a>
+	</li>
+	{{/each}}
+</ul>
+
+{{!-- STATUSES --}}
+<header>
+	<h2>{{localize 'ETERNIA.Sheet.Statuses'}}</h2>
+	<button type="button" data-action="lhauto-statuses" data-tooltip="{{localize 'ETERNIA.Sheet.Monster.StatusesHint'}}"><i class="fa-solid fa-pen"></i> {{localize 'ETERNIA.Sheet.Monster.Edit'}}</button>
+</header>
+<ol class="tags lhpf-statuses">
+	{{#each lh.statuses}}
+	<li class="tag" data-status="{{id}}"><img src="{{img}}" alt="">{{label}}</li>
+	{{else}}
+	<li class="none">{{localize 'ETERNIA.Sheet.NoStatus'}}</li>
+	{{/each}}
+</ol>

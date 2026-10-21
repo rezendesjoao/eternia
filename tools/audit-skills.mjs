@@ -51,7 +51,7 @@ function compendiumUuids() {
     for (const file of fs.readdirSync(path.join(ROOT, dir))) {
       if (!file.endsWith(".json")) continue;
       const doc = JSON.parse(fs.readFileSync(path.join(ROOT, dir, file), "utf8"));
-      uuids.add(`Compendium.lhtrpg.${dir}.Item.${doc._id}`);
+      uuids.add(`Compendium.eternia.${dir}.Item.${doc._id}`);
     }
   }
   return uuids;
@@ -79,10 +79,10 @@ function problems(doc, uuids) {
   for (const effect of doc.effects ?? []) {
     const name = effect.name || "(no name)";
     const changes = effect.system?.changes ?? effect.changes ?? [];
-    if (!changes.length && !effect.statuses?.length && !effect.flags?.lhtrpg?.statusData) issues.push(`${name}: no changes`);
+    if (!changes.length && !effect.statuses?.length && !effect.flags?.eternia?.statusData) issues.push(`${name}: no changes`);
     for (const change of changes) {
       const target = findEffectTarget(change.key);
-      const virtual = String(change.key).startsWith("lhtrpg.");
+      const virtual = String(change.key).startsWith("eternia.");
       if (!change.key) issues.push(`${name}: empty key`);
       else if (!target) issues.push(`${name}: key outside the catalog (${change.key})`);
       if (target && (target.kind !== "text") && !virtual && ((change.type ?? (Number(change.mode) === 0 ? "custom" : "")) === "custom")) {
@@ -94,13 +94,13 @@ function problems(doc, uuids) {
         issues.push(`${name}: value "${value}" is not a number`);
       }
     }
-    for (const c of effect.flags?.lhtrpg?.conditions ?? []) if (!CONDITION_IDS.has(c?.type)) issues.push(`${name}: condition "${c?.type}"`);
-    const rating = effect.flags?.lhtrpg?.statusData?.value;
+    for (const c of effect.flags?.eternia?.conditions ?? []) if (!CONDITION_IDS.has(c?.type)) issues.push(`${name}: condition "${c?.type}"`);
+    const rating = effect.flags?.eternia?.statusData?.value;
     if (String(rating ?? "").includes("@") && !validFormula(rating)) issues.push(`${name}: bad status rating "${rating}"`);
-    if (effect.flags?.lhtrpg?.statusData?.statusId && !(effect.statuses ?? []).includes(effect.flags.lhtrpg.statusData.statusId)) {
-      issues.push(`${name}: statuses must include "${effect.flags.lhtrpg.statusData.statusId}"`);
+    if (effect.flags?.eternia?.statusData?.statusId && !(effect.statuses ?? []).includes(effect.flags.eternia.statusData.statusId)) {
+      issues.push(`${name}: statuses must include "${effect.flags.eternia.statusData.statusId}"`);
     }
-    for (const s of effect.flags?.lhtrpg?.rollFilter?.skills ?? []) {
+    for (const s of effect.flags?.eternia?.rollFilter?.skills ?? []) {
       if (s.uuid && !uuids.has(s.uuid)) issues.push(`${name}: filter skill not found (${s.name} ${s.uuid})`);
     }
   }

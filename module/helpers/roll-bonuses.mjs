@@ -4,8 +4,8 @@
  * with a [Blade] weapon").
  *
  * They are effect changes on virtual keys (nothing is written to the actor's data):
- *   lhtrpg.roll.check.mod | lhtrpg.roll.check.dice | lhtrpg.roll.damage.mod | lhtrpg.roll.damage.dice
- * with a value (number or formula, see effect-formulas.mjs) and the effect's `flags.lhtrpg.rollFilter`:
+ *   eternia.roll.check.mod | eternia.roll.check.dice | eternia.roll.damage.mod | eternia.roll.damage.dice
+ * with a value (number or formula, see effect-formulas.mjs) and the effect's `flags.eternia.rollFilter`:
  *   skills        [{uuid, name}]  the skill rolled is one of these (compendium source, else its name)
  *   skillTags     ["Weapon Attack"]  the skill has one of these tags
  *   weaponTags    ["Blade"]       the main weapon has one of these tags
@@ -19,17 +19,17 @@
  * rollSkill (skill-rolls.mjs) adds those that match to the roll, listing them in the flavor.
  *
  * Skill modifiers use the same filter to change other skills (see skillModifiers):
- *   lhtrpg.skill.hateCost   Hate cost: Add (-1, "-@sr") or Override (0); never below 0 ("Hate N" costs only)
- *   lhtrpg.skill.range      +N Sq (ranges in Sq, Close, or the weapon's)
- *   lhtrpg.skill.note       text shown with the skill ("Ignores [Cancel: Cold]")
+ *   eternia.skill.hateCost   Hate cost: Add (-1, "-@sr") or Override (0); never below 0 ("Hate N" costs only)
+ *   eternia.skill.range      +N Sq (ranges in Sq, Close, or the weapon's)
+ *   eternia.skill.note       text shown with the skill ("Ignores [Cancel: Cold]")
  * They are shown on the skill sheet and chat card, and the range is used by the attack card.
  */
 import { changeType, evaluateFormula, formulaData, isFormula } from "./effect-formulas.mjs";
 import { canonicalTags, tagKey } from "./tag-catalog.mjs";
 import { mainWeapon, parseRange } from "./hands.mjs";
 
-export const ROLL_KEY_PREFIX = "lhtrpg.roll.";
-export const SKILL_KEY_PREFIX = "lhtrpg.skill.";
+export const ROLL_KEY_PREFIX = "eternia.roll.";
+export const SKILL_KEY_PREFIX = "eternia.skill.";
 
 /** Statuses a roll bonus may require on the roller. */
 export const ROLL_FILTER_STATUSES = ["hidden", "hateTop", "hateUnder"];
@@ -46,13 +46,13 @@ export function isSkillFilterKey(key) {
   return k.startsWith(ROLL_KEY_PREFIX) || k.startsWith(SKILL_KEY_PREFIX);
 }
 
-/** "lhtrpg.roll.damage.dice" -> { roll: "damage", part: "dice" } */
+/** "eternia.roll.damage.dice" -> { roll: "damage", part: "dice" } */
 function parseRollKey(key) {
   const [roll, part] = String(key).slice(ROLL_KEY_PREFIX.length).split(".");
   return { roll, part };
 }
 
-/** Collect a roll bonus / skill modifier change (from LHTrpgActor#_prepareEffects). */
+/** Collect a roll bonus / skill modifier change (from EterniaActor#_prepareEffects). */
 export function collectRollBonus(actor, effect, change) {
   (actor.rollBonuses ??= []).push({ effect, key: change.key, value: change.value, type: changeType(change) });
 }
@@ -72,7 +72,7 @@ const toList = value => Array.isArray(value) ? [...value] : (value ? Object.valu
  * @returns {{skills: object[], skillTags: string[], weaponTags: string[], targetTags: string[], selfStatuses: string[], damageTypes: string[], exclusive: string}}
  */
 export function rollFilter(effect) {
-  const raw = effect?.flags?.lhtrpg?.rollFilter ?? effect?._source?.flags?.lhtrpg?.rollFilter ?? {};
+  const raw = effect?.flags?.eternia?.rollFilter ?? effect?._source?.flags?.eternia?.rollFilter ?? {};
   return {
     skills: toList(raw.skills).filter(s => s?.name || s?.uuid),
     skillTags: toList(raw.skillTags),
@@ -230,16 +230,16 @@ export function rollFilterLabel(filter) {
   const parts = [];
   if (filter.skills.length) parts.push(filter.skills.map(s => `«${s.name}»`).join(" "));
   if (filter.skillTags.length) parts.push(tags(filter.skillTags));
-  if (filter.weaponTags.length) parts.push(format("LHTRPG.RollFilter.Summary.Weapon", { tags: tags(filter.weaponTags) }));
-  if (filter.targetTags.length) parts.push(format("LHTRPG.RollFilter.Summary.Target", { tags: tags(filter.targetTags) }));
+  if (filter.weaponTags.length) parts.push(format("ETERNIA.RollFilter.Summary.Weapon", { tags: tags(filter.weaponTags) }));
+  if (filter.targetTags.length) parts.push(format("ETERNIA.RollFilter.Summary.Target", { tags: tags(filter.targetTags) }));
   if (filter.selfStatuses.length) {
-    const statuses = filter.selfStatuses.map(s => `[${i18n ? i18n.localize(`LHTRPG.StatusEffect.${s}`) : s}]`).join("");
-    parts.push(format("LHTRPG.RollFilter.Summary.Status", { statuses }));
+    const statuses = filter.selfStatuses.map(s => `[${i18n ? i18n.localize(`ETERNIA.StatusEffect.${s}`) : s}]`).join("");
+    parts.push(format("ETERNIA.RollFilter.Summary.Status", { statuses }));
   }
   if (filter.damageTypes.length) {
-    parts.push(filter.damageTypes.map(t => i18n ? i18n.localize(`LHTRPG.Combat.Type.${t}`) : t).join("/"));
+    parts.push(filter.damageTypes.map(t => i18n ? i18n.localize(`ETERNIA.Combat.Type.${t}`) : t).join("/"));
   }
-  if (filter.exclusive) parts.push(format("LHTRPG.RollFilter.Summary.Exclusive", { group: filter.exclusive }));
+  if (filter.exclusive) parts.push(format("ETERNIA.RollFilter.Summary.Exclusive", { group: filter.exclusive }));
   return parts.join(", ");
 }
 
@@ -274,8 +274,8 @@ export function rollFilterContext(effectSource, editable) {
     targetTags: filter.targetTags.join(", "),
     exclusive: filter.exclusive,
     exclusiveGroups: EXCLUSIVE_GROUPS,
-    statuses: ROLL_FILTER_STATUSES.map(id => ({ id, label: `LHTRPG.StatusEffect.${id}`, checked: filter.selfStatuses.includes(id) })),
-    damageTypes: ROLL_FILTER_DAMAGE_TYPES.map(id => ({ id, label: `LHTRPG.Combat.Type.${id}`, checked: filter.damageTypes.includes(id) }))
+    statuses: ROLL_FILTER_STATUSES.map(id => ({ id, label: `ETERNIA.StatusEffect.${id}`, checked: filter.selfStatuses.includes(id) })),
+    damageTypes: ROLL_FILTER_DAMAGE_TYPES.map(id => ({ id, label: `ETERNIA.Combat.Type.${id}`, checked: filter.damageTypes.includes(id) }))
   };
 }
 

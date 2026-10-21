@@ -1,0 +1,362 @@
+{
+  "_id": "go6ODeCe36JscMsR",
+  "name": "Rei do Iceberg",
+  "type": "monster",
+  "img": "systems/eternia/assets/ui/actors_icons/monster.svg",
+  "sort": 0,
+  "system": {
+    "health": {
+      "value": 491,
+      "max": 491,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 4,
+      "max": 4,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Nature",
+      "Cold"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 5,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 25,
+        "magic": 10
+      },
+      "speed": 2,
+      "initiative": 6
+    },
+    "rank": 8,
+    "idendification": "7",
+    "hateMultiplier": "7",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 4
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 3
+      }
+    },
+    "description": ""
+  },
+  "items": [
+    {
+      "_id": "Qr355vRreS7aHneW",
+      "name": "Urso do Campo de Gelo",
+      "type": "skill",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
+      "sort": 100,
+      "folder": null,
+      "system": {
+        "description": "<p>Este inimigo não pode usar Deslocar-se. Este inimigo não sofre as penalidades do estado [Nadando].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": ""
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_key": "!actors.items!go6ODeCe36JscMsR.Qr355vRreS7aHneW"
+    },
+    {
+      "_id": "LvmkUtknWoOKMRQV",
+      "name": "Ação Repetida",
+      "type": "skill",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
+      "sort": 200,
+      "folder": null,
+      "system": {
+        "description": "<p>Uma vez por Rodada, quando este inimigo fica em [Pós-Ação], ele imediatamente volta a ficar em [Pré-Ação]. Depois disso, até o fim da Rodada, sua [Iniciativa] passa a ser 0.</p>",
+        "tags": [],
+        "timing": "Refer",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "macroeffect": "",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": ""
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_key": "!actors.items!go6ODeCe36JscMsR.LvmkUtknWoOKMRQV"
+    },
+    {
+      "_id": "rxz44iLC1tmjuzWx",
+      "name": "Vento do Urso da Montanha",
+      "type": "skill",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
+      "sort": 300,
+      "folder": null,
+      "system": {
+        "description": "<p>[37+2D] de dano físico, e o alvo sofre [Rigidez] e [Atordoado].<br>(Menor): [Rigidez] e [Atordoado] não podem ser removidos enquanto o alvo estiver no quadrado deste inimigo.<br>(Destino 1): Dano +10.</p>",
+        "tags": [
+          "Physical Attack",
+          "Cold"
+        ],
+        "timing": "Major",
+        "checkType": "Opposed (6+2D vs Evasion)",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "dice": 2,
+          "mod": 6,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 37,
+          "type": "physical"
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "_id": "V4mWUkIccUsyWCi0",
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "expires": "endOfScene",
+              "statusData": {
+                "statusId": "rigor"
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.1.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Vento do Urso da Montanha",
+          "img": "systems/lhtrpg/assets/ui/items_icons/skill.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "rigor"
+          ],
+          "sort": 0,
+          "_key": "!actors.items.effects!go6ODeCe36JscMsR.rxz44iLC1tmjuzWx.V4mWUkIccUsyWCi0",
+          "start": null,
+          "showIcon": 1
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "_id": "OY4Aks6uoEoAa8Qw",
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "expires": "endOfScene",
+              "statusData": {
+                "statusId": "dazed"
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.1.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Vento do Urso da Montanha",
+          "img": "systems/lhtrpg/assets/ui/items_icons/skill.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "dazed"
+          ],
+          "sort": 0,
+          "_key": "!actors.items.effects!go6ODeCe36JscMsR.rxz44iLC1tmjuzWx.OY4Aks6uoEoAa8Qw",
+          "start": null,
+          "showIcon": 1
+        }
+      ],
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_key": "!actors.items!go6ODeCe36JscMsR.rxz44iLC1tmjuzWx"
+    }
+  ],
+  "effects": [],
+  "prototypeToken": {
+    "name": "Rei do Iceberg",
+    "texture": {
+      "src": "systems/eternia/assets/ui/actors_icons/monster.svg"
+    },
+    "flags": {}
+  },
+  "flags": {},
+  "ownership": {
+    "default": 0
+  },
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "folder": "DZa0LbCEve8eidVi",
+  "_key": "!actors!go6ODeCe36JscMsR"
+}

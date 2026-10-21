@@ -1,0 +1,138 @@
+/* Table automation: the buttons and notes it adds to the system's cards and windows */
+
+/* Buttons added to the system's chat cards: same look as the card's own buttons */
+.eternia.chat-card button.lhauto-undo,
+.eternia.chat-card button.lhauto-fate,
+.eternia.chat-card button.lhauto-attack-damage {
+  color: #d6ffda;
+  background-color: #2f5a3a;
+  border: 1px solid #8fcf9b;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.eternia.chat-card button.lhauto-undo:hover,
+.eternia.chat-card button.lhauto-fate:hover,
+.eternia.chat-card button.lhauto-attack-damage:hover {
+  background-color: #3f7a4e;
+  text-shadow: 0 0 6px #d6ffda;
+}
+.eternia.chat-card button.lhauto-undo:disabled,
+.eternia.chat-card button.lhauto-fate:disabled,
+.eternia.chat-card button.lhauto-attack-damage:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.eternia.chat-card .chat-card-rolls .lhauto-fate-die {
+  flex: 0 0 auto;
+  margin: 0;
+  line-height: 24px;
+}
+
+/* What a skill use cost (under the skill card) */
+.lhauto-use {
+  margin-top: 6px;
+  padding: 4px 6px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.25);
+  font-size: 0.85em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+}
+.lhauto-use.undone .lhauto-use-parts {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+.lhauto-use .lhauto-forced {
+  flex-basis: 100%;
+  color: #8a4b00;
+}
+.lhauto-use .lhauto-undone {
+  flex-basis: 100%;
+  font-style: italic;
+}
+.lhauto-use .lhauto-undo {
+  flex: 0 0 auto;
+  width: auto;
+  margin-left: auto;
+  padding: 0 6px;
+  line-height: 20px;
+  font-size: 0.9em;
+}
+
+/* Damage button on the attack card */
+.lhauto-attack-damage {
+  margin-top: 6px;
+  width: 100%;
+}
+
+/* Fate buttons */
+.lhauto-fate {
+  width: auto;
+  line-height: 22px;
+  padding: 0 6px;
+}
+.lhauto-fate i {
+  color: #c8960c;
+}
+.lh-attack-card .lhauto-fate-reroll {
+  width: 100%;
+  margin: 4px 0;
+}
+.lh-attack-card .lhauto-fate-dodge {
+  flex: 0 0 auto;
+  margin-left: 4px;
+}
+.lhauto-fate-mark {
+  margin: 4px 0;
+  font-size: 0.85em;
+  font-style: italic;
+}
+.lhauto-fate-mark i,
+.lhauto-fate-star {
+  color: #c8960c;
+}
+.lhauto-fate-star {
+  margin-right: 2px;
+}
+.lhauto-fate-use {
+  margin-left: 6px;
+  color: #c8960c;
+  cursor: pointer;
+}
+
+/* Summary cards (Cleanup, end of scene, Fate) */
+.lhauto-card ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+}
+
+/* GM tools */
+.lhauto-tools-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+}
+
+/* Configure Settings: section headers (settings.mjs) */
+.lhauto-settings-section {
+  margin: 16px 0 4px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid currentColor;
+  font-family: "Signika", sans-serif;
+  font-size: 15px;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+}
+
+/* Release notice (notice.mjs) */
+.lhauto-notice .dialog-content ul {
+  margin: 6px 0 8px;
+  padding-left: 20px;
+}
+.lhauto-notice .dialog-content li {
+  margin-bottom: 6px;
+  line-height: 1.4;
+}

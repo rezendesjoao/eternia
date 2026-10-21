@@ -54,7 +54,7 @@ export function parseRange(text, actor) {
   return null;
 }
 
-const L = (key, data) => data ? game.i18n.format(`LHTRPG.Hands.${key}`, data) : game.i18n.localize(`LHTRPG.Hands.${key}`);
+const L = (key, data) => data ? game.i18n.format(`ETERNIA.Hands.${key}`, data) : game.i18n.localize(`ETERNIA.Hands.${key}`);
 
 /**
  * Updates that put `item` in a hand, or null (with a warning) when it can't go there.
@@ -191,7 +191,7 @@ async function migrateHands(done) {
   if (carried.length) messages.push(L("Notif.MigratedCarried", { list: carried.join("; ") }));
   for (const msg of messages) {
     ui.notifications.warn(msg, { permanent: true });
-    console.warn(`lhtrpg | ${msg}`);
+    console.warn(`eternia | ${msg}`);
   }
   return true;
 }

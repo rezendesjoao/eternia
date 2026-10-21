@@ -1,52 +1,52 @@
-import { PHASES } from "../documents/lhtrpgCombat.mjs";
+import { PHASES } from "../documents/eterniaCombat.mjs";
 import { formatStatusPreview } from "../apps/effect-config.mjs";
 import { isPrimaryGM } from "./clients.mjs";
 
 /**
- * Log Horizon TRPG effect expiry engine and durations helper.
+ * Eternia effect expiry engine and durations helper.
  *
  * Rules (v0.3):
  * - Round Progression: Setup -> Main -> Cleanup -> next round Setup.
  *   Cleanup: sustained effects, then effects not lasting multiple rounds end here.
  * - Combat Statuses (Regen, Cancel, Barrier) last until end of scene unless specified otherwise.
- * - LH Durations (flags.lhtrpg.expires):
+ * - Eternia durations (flags.eternia.expires):
  *   - "endOfProcess": expires when the current process ends (a later phase, or the Main Process it
  *     was applied in is over).
  *   - "endOfRound": expires when the next round starts (survives through Cleanup).
  *   - "endOfScene": expires when combat (the scene) ends.
- *   - "" or undefined: manual / core duration (no automatic LH expiry).
+ *   - "" or undefined: manual / core duration (no automatic Eternia expiry).
  */
 
 export const EFFECT_EXPIRIES = ["endOfProcess", "endOfRound", "endOfScene"];
 
 export const EFFECT_EXPIRY_LABELS = {
-  endOfProcess: "LHTRPG.EffectDuration.EndOfProcess",
-  endOfRound: "LHTRPG.EffectDuration.EndOfRound",
-  endOfScene: "LHTRPG.EffectDuration.EndOfScene"
+  endOfProcess: "ETERNIA.EffectDuration.EndOfProcess",
+  endOfRound: "ETERNIA.EffectDuration.EndOfRound",
+  endOfScene: "ETERNIA.EffectDuration.EndOfScene"
 };
 
 export const EFFECT_EXPIRY_SHORT_LABELS = {
-  endOfProcess: "LHTRPG.EffectDuration.Short.EndOfProcess",
-  endOfRound: "LHTRPG.EffectDuration.Short.EndOfRound",
-  endOfScene: "LHTRPG.EffectDuration.Short.EndOfScene"
+  endOfProcess: "ETERNIA.EffectDuration.Short.EndOfProcess",
+  endOfRound: "ETERNIA.EffectDuration.Short.EndOfRound",
+  endOfScene: "ETERNIA.EffectDuration.Short.EndOfScene"
 };
 
 export const EFFECT_EXPIRY_REASONS = {
-  endOfProcess: "LHTRPG.EffectExpiry.Reason.EndOfProcess",
-  endOfRound: "LHTRPG.EffectExpiry.Reason.EndOfRound",
-  endOfScene: "LHTRPG.EffectExpiry.Reason.EndOfScene",
-  sustainedLimit: "LHTRPG.EffectExpiry.Reason.SustainedLimit"
+  endOfProcess: "ETERNIA.EffectExpiry.Reason.EndOfProcess",
+  endOfRound: "ETERNIA.EffectExpiry.Reason.EndOfRound",
+  endOfScene: "ETERNIA.EffectExpiry.Reason.EndOfScene",
+  sustainedLimit: "ETERNIA.EffectExpiry.Reason.SustainedLimit"
 };
 
 /**
- * Handlebars helper: produces the short LH duration label or core duration label.
+ * Handlebars helper: produces the short Eternia duration label or core duration label.
  * @param {ActiveEffect|object} effect
  * @returns {string}
  */
 export function lhEffectDuration(effect) {
-  const expires = effect?.flags?.lhtrpg?.expires
-    ?? (typeof effect?.getFlag === "function" ? effect.getFlag("lhtrpg", "expires") : null)
-    ?? effect?._source?.flags?.lhtrpg?.expires;
+  const expires = effect?.flags?.eternia?.expires
+    ?? (typeof effect?.getFlag === "function" ? effect.getFlag("eternia", "expires") : null)
+    ?? effect?._source?.flags?.eternia?.expires;
 
   if (expires && (expires in EFFECT_EXPIRY_SHORT_LABELS)) {
     const key = EFFECT_EXPIRY_SHORT_LABELS[expires];
@@ -64,9 +64,9 @@ export function formatEffectLabelWithStatus(effect) {
   if (!effect) return "—";
   if (typeof effect === "string") return effect;
   const name = effect.name ?? "—";
-  const statusData = (typeof effect.getFlag === "function" ? effect.getFlag("lhtrpg", "statusData") : null)
-    ?? effect.flags?.lhtrpg?.statusData
-    ?? effect._source?.flags?.lhtrpg?.statusData;
+  const statusData = (typeof effect.getFlag === "function" ? effect.getFlag("eternia", "statusData") : null)
+    ?? effect.flags?.eternia?.statusData
+    ?? effect._source?.flags?.eternia?.statusData;
 
   if (statusData?.statusId) {
     const preview = formatStatusPreview(statusData.statusId, statusData.value, statusData.tag);
@@ -121,8 +121,8 @@ export async function whisperRemovedEffects(entries, defaultReasonKey) {
     </li>
   `).join("");
 
-  const title = globalThis.game?.i18n?.localize ? game.i18n.localize("LHTRPG.EffectExpiry.Title") : "Expired Effects";
-  const content = `<div class="lhtrpg chat-card lh-expiry-card">
+  const title = globalThis.game?.i18n?.localize ? game.i18n.localize("ETERNIA.EffectExpiry.Title") : "Expired Effects";
+  const content = `<div class="eternia chat-card lh-expiry-card">
     <header class="chat-card-header"><div class="chat-card-title">
       <h3>${esc(title)}</h3>
     </div></header>
@@ -152,7 +152,7 @@ export function queueExpiryTask(fn) {
       try {
         await fn();
       } catch (err) {
-        console.error("Log Horizon TRPG | Error in effect expiry task", err);
+        console.error("Eternia | Error in effect expiry task", err);
       }
     });
   return _expiryQueue;
@@ -189,16 +189,16 @@ function _isProcessPosterior(after, appliedAt) {
 }
 
 /**
- * Hook handler for preCreateActiveEffect: sets flags.lhtrpg.appliedAt if created during an active combat.
+ * Hook handler for preCreateActiveEffect: sets flags.eternia.appliedAt if created during an active combat.
  */
 function _onPreCreateActiveEffect(effect, data, options, userId) {
   if (userId && (userId !== game.user?.id)) return;
   const actor = effect.parent;
   if (!(actor instanceof Actor)) return;
 
-  const expires = effect.getFlag?.("lhtrpg", "expires")
-    ?? effect.flags?.lhtrpg?.expires
-    ?? effect._source?.flags?.lhtrpg?.expires;
+  const expires = effect.getFlag?.("eternia", "expires")
+    ?? effect.flags?.eternia?.expires
+    ?? effect._source?.flags?.eternia?.expires;
   if (!expires) return;
 
   const combat = [game.combat, ...game.combats].find(c => c?.started && c.getCombatantsByActor(actor).length > 0);
@@ -211,7 +211,7 @@ function _onPreCreateActiveEffect(effect, data, options, userId) {
     phase: combat.phase,
     active: (combat.phase === "main") ? (combat.progress?.active ?? null) : null
   };
-  effect.updateSource({ "flags.lhtrpg.appliedAt": appliedAt });
+  effect.updateSource({ "flags.eternia.appliedAt": appliedAt });
 }
 
 /**
@@ -234,9 +234,9 @@ async function _processCombatPhaseExpiry(combat, after = { round: combat.round, 
   for (const actor of actors) {
     const toDeleteIds = [];
     for (const effect of actor.effects) {
-      const expires = effect.getFlag?.("lhtrpg", "expires");
+      const expires = effect.getFlag?.("eternia", "expires");
       if (!expires) continue;
-      const appliedAt = effect.getFlag?.("lhtrpg", "appliedAt");
+      const appliedAt = effect.getFlag?.("eternia", "appliedAt");
       if (!appliedAt || (appliedAt.combat !== combat.id)) continue;
 
       let expired = false;
@@ -274,7 +274,7 @@ async function _processCombatPhaseExpiry(combat, after = { round: combat.round, 
           await actor.deleteEmbeddedDocuments("ActiveEffect", validIds);
         }
       } catch (err) {
-        console.warn(`Log Horizon TRPG | Could not delete expired effects on ${actor.name}`, err);
+        console.warn(`Eternia | Could not delete expired effects on ${actor.name}`, err);
       }
     }
   }
@@ -302,7 +302,7 @@ async function _processDeleteCombatExpiry(combat) {
   for (const actor of actors) {
     const toDeleteIds = [];
     for (const effect of actor.effects) {
-      const expires = effect.getFlag?.("lhtrpg", "expires");
+      const expires = effect.getFlag?.("eternia", "expires");
       if (expires === "endOfScene" || expires === "endOfRound" || expires === "endOfProcess") {
         toDeleteIds.push(effect.id);
         entries.push({
@@ -320,7 +320,7 @@ async function _processDeleteCombatExpiry(combat) {
           await actor.deleteEmbeddedDocuments("ActiveEffect", validIds);
         }
       } catch (err) {
-        console.warn(`Log Horizon TRPG | Could not delete expired effects on ${actor.name} upon combat end`, err);
+        console.warn(`Eternia | Could not delete expired effects on ${actor.name} upon combat end`, err);
       }
     }
   }
@@ -335,14 +335,14 @@ async function _processDeleteCombatExpiry(combat) {
  * Call during the `init` hook.
  */
 export function registerEffectDurations() {
-  // LH durations: id -> label (flags.lhtrpg.expires)
-  CONFIG.LHTRPG.effectExpiries = { ...EFFECT_EXPIRY_LABELS };
+  // Eternia durations: id -> label (flags.eternia.expires)
+  CONFIG.ETERNIA.effectExpiries = { ...EFFECT_EXPIRY_LABELS };
 
   Handlebars.registerHelper("lhEffectDuration", lhEffectDuration);
 
   Hooks.on("preCreateActiveEffect", _onPreCreateActiveEffect);
 
-  Hooks.on("lhtrpg.combatPhase", (combat, after, before) => {
+  Hooks.on("eternia.combatPhase", (combat, after, before) => {
     if (!isPrimaryGM()) return;
     if (!before) return;
     if (!_isCombatPhaseForward(after, before)) return;
@@ -352,7 +352,7 @@ export function registerEffectDurations() {
   // A Main Process ended (the combatant became Post-Action) without a phase change.
   Hooks.on("updateCombat", (combat, changed) => {
     if (!isPrimaryGM()) return;
-    if (!foundry.utils.hasProperty(changed, "flags.lhtrpg.acted") || (combat.phase !== "main")) return;
+    if (!foundry.utils.hasProperty(changed, "flags.eternia.acted") || (combat.phase !== "main")) return;
     queueExpiryTask(() => _processCombatPhaseExpiry(combat));
   });
 

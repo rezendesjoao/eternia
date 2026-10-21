@@ -1,17 +1,17 @@
 import { DEFAULT_IMAGES, EQUIP_TYPES, PILE_TYPE, SPACE_TYPES } from "../piles/pile-config.mjs";
 import { syncChestImage } from "../piles/piles.mjs";
 import { completeChecksChange, legacyChecksUpdate, prepareMonsterChecks } from "../helpers/monster-checks.mjs";
-import { classStats, legacyOptionItems, raceStats } from "../helpers/character-options.mjs";
+import { classStats, raceStats } from "../helpers/character-options.mjs";
 import { getHands } from "../helpers/hands.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
 import { collectRollBonus, isSkillFilterKey } from "../helpers/roll-bonuses.mjs";
-import { ATTRIBUTES_PHASE } from "./lhtrpgActiveEffect.mjs";
+import { ATTRIBUTES_PHASE } from "./eterniaActiveEffect.mjs";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
  */
-export class LHTrpgActor extends Actor {
+export class EterniaActor extends Actor {
 
 
   /**
@@ -35,14 +35,8 @@ export class LHTrpgActor extends Actor {
     // add actor default picture depending on type
     if (this.img === 'icons/svg/mystery-man.svg') {
       const updateData = {};
-      updateData['img'] = `systems/lhtrpg/assets/ui/actors_icons/${this.type}.svg`;
+      updateData['img'] = `systems/eternia/assets/ui/actors_icons/${this.type}.svg`;
       await this.updateSource(updateData);
-    }
-
-    // Characters imported with the legacy Race/Class/Subclass text fields get the matching items.
-    if (this.type === 'character') {
-      const legacy = await legacyOptionItems(this._source);
-      if (legacy) this.updateSource({ ...legacy.update, items: [...this._source.items, ...legacy.items] });
     }
 
     // Monsters imported with legacy text Evasion/Resistance ("1+2D")
@@ -104,12 +98,12 @@ export class LHTrpgActor extends Actor {
     // aren't conditional themselves: the actor's own are only gathered while the effects are applied.
     this._lhStatuses = new Set();
     for (const effect of this.allApplicableEffects()) {
-      if (effect.disabled || effect.sourceItem?.areEffectsSuppressed || effect.getFlag("lhtrpg", "conditions")?.length || effect.sourceItem?.system?.conditions?.length) continue;
+      if (effect.disabled || effect.sourceItem?.areEffectsSuppressed || effect.getFlag("eternia", "conditions")?.length || effect.sourceItem?.system?.conditions?.length) continue;
       for (const status of effect.statuses) this._lhStatuses.add(status);
     }
     for (const effect of this.allApplicableEffects()) effect.determineSuppression();
     this._lhStatuses = null;
-    // Roll bonuses and skill modifiers: kept on the actor, evaluated when used (see LHTrpgActiveEffect#shouldApplyChange).
+    // Roll bonuses and skill modifiers: kept on the actor, evaluated when used (see EterniaActiveEffect#shouldApplyChange).
     for (const effect of this.allApplicableEffects()) {
       if (!effect.active) continue;
       for (const change of effect.system.changes) {
@@ -184,7 +178,7 @@ export class LHTrpgActor extends Actor {
       if (attribute.mod !== undefined) attribute.mod = Math.floor(attribute.total / 3);
     }
 
-    // Effects whose formulas read the modifiers above (see LHTrpgActiveEffect#shouldApplyChange)
+    // Effects whose formulas read the modifiers above (see EterniaActiveEffect#shouldApplyChange)
     this.applyActiveEffects(ATTRIBUTES_PHASE);
 
     // Abilities Scores
@@ -270,7 +264,7 @@ export class LHTrpgActor extends Actor {
     const checks = system.checks;
     const { str, dex, pow, int } = system.attributes;
 
-    for (const [check, attribute] of Object.entries(LHTrpgActor.CHECK_ATTRIBUTES)) {
+    for (const [check, attribute] of Object.entries(EterniaActor.CHECK_ATTRIBUTES)) {
       checks[check].base = system.attributes[attribute].mod ?? 0;
       checks[check].total = checks[check].base + checks[check].mod;
     }
@@ -278,7 +272,7 @@ export class LHTrpgActor extends Actor {
     // Accuracy: highest attribute modifier, plus the weapons' accuracy bonus
     // (only if there's 2 or less of them, as that's the equippable limit)
     const weapons = this._equipped("weapon");
-    const accuBonus = (weapons.length <= 2) ? LHTrpgActor._sum(weapons, "accuracy") : 0;
+    const accuBonus = (weapons.length <= 2) ? EterniaActor._sum(weapons, "accuracy") : 0;
     checks.accuracy.base = Math.max(str.mod, int.mod, pow.mod, dex.mod);
     checks.accuracy.total = checks.accuracy.base + accuBonus + checks.accuracy.mod;
 
@@ -292,7 +286,7 @@ export class LHTrpgActor extends Actor {
     const system = this.system;
     const bStatus = system["battle-status"];
     const { str, int } = system.attributes;
-    const sum = LHTrpgActor._sum;
+    const sum = EterniaActor._sum;
 
     const weapons = this._equipped("weapon");
     // Only one armor can be equipped at a time: only the first one counts
@@ -347,7 +341,7 @@ export class LHTrpgActor extends Actor {
   _computeInventoryMaxSpace() {
     const inventory = this.system.inventory;
     inventory.base = 2;
-    inventory.maxSpace = inventory.base + (inventory.mod ?? 0) + LHTrpgActor._sum(this._equipped("bag"), "bagSpace");
+    inventory.maxSpace = inventory.base + (inventory.mod ?? 0) + EterniaActor._sum(this._equipped("bag"), "bagSpace");
   }
 
 }

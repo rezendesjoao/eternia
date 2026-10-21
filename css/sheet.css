@@ -1,0 +1,2719 @@
+/* ==========================================================================
+   Parchment character sheet (module/sheets/character-sheet.mjs, templates/character/)
+   Laid out like the Pathfinder 2e character sheet: a cloth banner on the left with the numbers used in
+   play, the name on a dark band, round tab icons, framed rows and small-caps labels. In green, on
+   parchment. Textures: tools/make-textures.py. Fonts: css/fonts.css.
+   ========================================================================== */
+
+.lhpf {
+  --pf-primary: #1f5137;
+  --pf-primary-dark: #173f2b;
+  --pf-primary-light: #2b6747;
+  --pf-secondary: #1d4248;
+  --pf-tertiary: #e9d7a1;
+  --pf-tertiary-dark: #cdb879;
+  --pf-tertiary-darker: #b19a55;
+  --pf-tertiary-light: #f4ead0;
+  --pf-alt: #786452;
+  --pf-alt-dark: #443730;
+  --pf-sub: #5c584c;
+  --pf-bg: #f8f4ec;
+  --pf-text: #1c1c1c;
+  --pf-text-soft: #59554b;
+  --pf-text-light: #f5f0e4;
+  --pf-divider: #baa991;
+  --pf-ring: #9f725b;
+  --pf-frame: #956d58;
+  --pf-red: #8c2f2f;
+  --pf-serif: "Eternia Eczar", "Eczar", Georgia, serif;
+  --pf-body: "Eternia Gelasio", "Gelasio", Georgia, serif;
+  --pf-sans: "Signika", "Roboto", sans-serif;
+  --pf-condensed: "Modesto Condensed", "Eternia Eczar", serif;
+  --pf-frame-elegant: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='33' height='33'%3E%3Cg fill='none' stroke='%23231f20' stroke-opacity='.3'%3E%3Cpath d='M.5.5h32v32H.5z'/%3E%3Cpath d='M3.5 10V3.5H10M23 3.5h6.5V10M29.5 23v6.5H23M10 29.5H3.5V23'/%3E%3C/g%3E%3C/svg%3E");
+}
+/* Smallest size of the open sheet (the paper doll of the inventory is 480px wide). Not while Foundry minimizes or
+   restores it: a min-width beats the max-width that minimizing uses, and the window would stay full size. */
+.lhpf:not(.minimizing, .minimized, .maximizing) {
+  min-width: 750px;
+  min-height: 560px;
+}
+
+/* --------------------------------------------------------------------------
+   Window
+   -------------------------------------------------------------------------- */
+.application.lhpf .window-header {
+  background: linear-gradient(#183827, #10291b);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+  color: var(--pf-tertiary-light);
+}
+.application.lhpf .window-header .window-title {
+  font-family: var(--pf-serif);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.application.lhpf .window-header .header-control,
+.application.lhpf .window-header button {
+  color: var(--pf-tertiary);
+}
+.application.lhpf .window-content {
+  padding: 0;
+  overflow: hidden;
+  background: #f3eee2 url("../assets/sheet/parchment.webp") center / cover;
+  color: var(--pf-text);
+  font-family: var(--pf-body);
+  font-size: 13px;
+}
+.lhpf a:hover {
+  text-shadow: none;
+}
+.lhpf h1, .lhpf h2, .lhpf h3, .lhpf h4 {
+  border: none;
+}
+.lhpf input.has-effect {
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   Layout: sidebar | header / navigation / content
+   -------------------------------------------------------------------------- */
+.lhpf .lhpf-sheet {
+  display: grid;
+  grid-template:
+    "sidebar header" 74px
+    "sidebar nav" 20px
+    "sidebar content" minmax(0, 1fr)
+    / 230px minmax(0, 1fr);
+  height: 100%;
+  background: url("../assets/sheet/header.webp") repeat-x 0 0 / auto 90px;
+}
+
+/* --------------------------------------------------------------------------
+   Sidebar banner
+   -------------------------------------------------------------------------- */
+.lhpf .lhpf-sidebar {
+  grid-area: sidebar;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  width: 224px;
+  min-height: 0;
+  margin-left: 6px;
+  background:
+    url("../assets/sheet/sidebar.webp") no-repeat center calc(100% - 52px) / 224px 100%,
+    url("../assets/sheet/sidebar-tail.webp") no-repeat center bottom / 224px 52px;
+  color: var(--pf-tertiary-dark);
+  filter: drop-shadow(2px 0 3px rgba(0, 0, 0, 0.35));
+}
+.lhpf .lhpf-sidebar .sidebar {
+  flex: 1;
+  min-height: 0;
+  margin-bottom: 46px;
+  padding: 0 3px 4px 12px;
+  overflow: hidden auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-tertiary-darker) transparent;
+}
+.lhpf .sidebar header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 11px 0 6px;
+}
+.lhpf .sidebar header:first-child {
+  margin-top: 14px;
+}
+.lhpf .sidebar header h2 {
+  flex: 1;
+  margin: 0;
+  padding: 0 0 1px;
+  border-bottom: 1px solid var(--pf-tertiary);
+  color: var(--pf-tertiary);
+  font: 500 13px/1 var(--pf-sans);
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+.lhpf .sidebar header button {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 2px 4px;
+  border: none;
+  border-bottom: 1px solid var(--pf-tertiary);
+  border-radius: 2px 2px 0 0;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  color: var(--pf-primary);
+  font: 600 9px/1 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.lhpf .sidebar header button:hover {
+  background: #fff;
+}
+.lhpf .sidebar header button i {
+  font-size: 8px;
+  color: var(--pf-tertiary-darker);
+}
+.lhpf .sidebar .sidebar_label {
+  color: var(--pf-tertiary-dark);
+  font: 400 10px/1.2 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.lhpf .lhpf-sidebar input[type="text"] {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 2px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pf-text-light);
+  font-family: var(--pf-serif);
+  line-height: 1;
+  text-align: center;
+  outline: none;
+}
+.lhpf .lhpf-sidebar input[type="text"]:hover {
+  text-shadow: 0 0 4px var(--pf-tertiary);
+}
+.lhpf .lhpf-sidebar input[type="text"]:focus {
+  background: rgba(0, 0, 0, 0.22);
+  box-shadow: inset 0 -1px 0 var(--pf-tertiary);
+}
+.lhpf .lhpf-sidebar input.has-effect {
+  color: #ffd27a;
+}
+
+/* Hit points */
+.lhpf .hitpoints .hp-big {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 84px minmax(0, 1fr);
+  align-items: start;
+}
+.lhpf .hitpoints .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.lhpf .hitpoints .container.barrier,
+.lhpf .hitpoints .container.max-hp {
+  margin-top: 13px;
+}
+.lhpf .hitpoints .container.barrier input {
+  width: 3.2ch;
+  margin-top: 4px;
+  font-size: 24px;
+  color: #cfe2f0;
+}
+.lhpf .hitpoints .current-hp {
+  padding: 8px 4px 5px;
+  border: 1px solid var(--pf-tertiary);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  background: linear-gradient(90deg, #0f2719 0%, #1d4c33 50%, #0f2719 100%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+.lhpf .hitpoints .current-hp .data-value {
+  margin-top: 3px;
+}
+.lhpf .hitpoints .current-hp input {
+  height: 34px;
+  font-size: 32px;
+  letter-spacing: -1px;
+}
+.lhpf .hitpoints .max-hp h2 {
+  margin: 5px 0 0;
+  color: var(--pf-tertiary);
+  font: 400 24px/1 var(--pf-serif);
+}
+.lhpf .lhpf-hpbar {
+  position: relative;
+  height: 11px;
+  margin: 9px 2px 0;
+  overflow: hidden;
+  border: 1px solid var(--pf-tertiary-darker);
+  border-radius: 6px;
+  background: linear-gradient(180deg, #1c0b0b, #2e1212);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.7), 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.lhpf .lhpf-hpbar i {
+  display: block;
+  height: 100%;
+  border-radius: 5px 0 0 5px;
+  background: linear-gradient(180deg, #ea6a52 0%, #c42e22 45%, #8e1717 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 1px 0 2px rgba(0, 0, 0, 0.4);
+  transition: width 0.4s ease;
+}
+
+/* Hate (orange) and Fatigue (blue): square boxes that fill up from the bottom */
+.lhpf .hp-small {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px 0 0;
+}
+.lhpf .hp-small .gauge {
+  --box: #e8650a;
+  --box-light: #ff9a3c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.lhpf .hp-small .gauge.fatigue {
+  --box: #2b6cb8;
+  --box-light: #5d9de4;
+}
+.lhpf .hp-small .gauge .sidebar_label i {
+  font-size: 9px;
+}
+.lhpf .hp-small .gauge.rank-top .sidebar_label {
+  color: #ffd27a;
+}
+.lhpf .hp-small .box {
+  position: relative;
+  display: flex;
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  border: 2px solid var(--box);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.38);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(0, 0, 0, 0.35), 0 0 6px color-mix(in srgb, var(--box) 35%, transparent);
+}
+.lhpf .hp-small .box .fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--fill, 0%);
+  background: linear-gradient(180deg, var(--box-light), var(--box));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  opacity: 0.9;
+  transition: height 0.4s ease;
+}
+.lhpf .lhpf-sidebar .hp-small .box input[type="text"] {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  font-size: 22px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+}
+.lhpf .lhpf-sidebar .hp-small .box input[type="text"]:focus {
+  background: rgba(0, 0, 0, 0.25);
+  box-shadow: none;
+}
+
+/* Defenses */
+.lhpf .lhpf-defenses {
+  display: grid;
+  grid-template-columns: 62px 62px minmax(0, 1fr);
+  gap: 6px;
+  align-items: start;
+}
+.lhpf .lhpf-defenses .shield {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.lhpf .lhpf-defenses .shield svg {
+  width: 54px;
+  height: 61px;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.4));
+}
+.lhpf .lhpf-defenses .shield path.outer {
+  fill: #2f5370;
+  stroke: var(--pf-tertiary);
+  stroke-width: 2;
+}
+.lhpf .lhpf-defenses .shield.magic path.outer {
+  fill: #4f3468;
+}
+.lhpf .lhpf-defenses .shield path.inner {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.24);
+  stroke-width: 1;
+}
+.lhpf .lhpf-defenses .shield .value {
+  position: absolute;
+  top: 14px;
+  left: 0;
+  right: 0;
+  color: var(--pf-text-light);
+  font: 400 25px/1 var(--pf-serif);
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+.lhpf .lhpf-defenses .shield .sidebar_label {
+  margin-top: 3px;
+}
+.lhpf .lhpf-defenses .stack {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 4px 0 0 8px;
+  border-left: 1px solid rgba(255, 239, 189, 0.18);
+}
+.lhpf .lhpf-defenses .mini {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.lhpf .lhpf-defenses .mini .value {
+  color: var(--pf-tertiary);
+  font: 400 22px/1 var(--pf-serif);
+}
+
+/* Combat checks, like saving throws */
+.lhpf .saves {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .saves li {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border-left: 1px solid rgba(255, 239, 189, 0.18);
+}
+.lhpf .saves li:first-child {
+  border-left: none;
+}
+.lhpf .saves h3.sidebar_label {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.lhpf .saves .save-roll {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.lhpf .saves .save-roll i {
+  color: var(--pf-text-light);
+  font-size: 15px;
+}
+.lhpf .saves .save-roll:hover i {
+  animation: lhpf-spin 1.4s linear infinite;
+}
+.lhpf .saves .modifier {
+  color: var(--pf-tertiary);
+  font: 400 18px/1 var(--pf-serif);
+}
+.lhpf .saves .save-roll:hover .modifier {
+  text-shadow: 0 0 6px rgba(233, 215, 161, 0.6);
+}
+
+/* Power (no roll) */
+.lhpf .saves.power li {
+  gap: 3px;
+}
+.lhpf .saves.power .value {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  color: var(--pf-tertiary);
+  font: 400 20px/1 var(--pf-serif);
+}
+.lhpf .saves.power .value i {
+  color: var(--pf-tertiary-dark);
+  font-size: 11px;
+}
+
+/* Statuses */
+.lhpf .lhpf-sidebar .lhpf-statuses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .lhpf-sidebar .lhpf-statuses .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 5px 2px 2px;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  color: var(--pf-tertiary-light);
+  font: 500 10px/1.2 var(--pf-sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.lhpf .lhpf-sidebar .lhpf-statuses .tag img {
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 2px;
+}
+.lhpf .lhpf-sidebar .lhpf-statuses .none {
+  color: var(--pf-tertiary-darker);
+  font: italic 12px var(--pf-body);
+}
+
+/* Dice count badge (like a proficiency rank) */
+.lhpf .lhpf-dice {
+  display: inline-block;
+  flex-shrink: 0;
+  min-width: 30px;
+  padding: 1px 4px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+  background: #424242;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font: 500 10px/1.4 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+.lhpf .lhpf-dice[data-tier="2"] { background: #1d4c63; }
+.lhpf .lhpf-dice[data-tier="3"] { background: #3c1f5e; }
+.lhpf .lhpf-dice[data-tier="4"] { background: #6b4a0f; }
+.lhpf .lhpf-dice[data-tier="5"] { background: #6e1414; }
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+.lhpf .lhpf-header {
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+  padding: 0 16px 0 12px;
+  color: var(--pf-text-light);
+}
+.lhpf .lhpf-header .char-details {
+  flex: 1;
+  min-width: 0;
+}
+.lhpf .lhpf-header .char-name {
+  width: 100%;
+  height: 32px;
+  margin: 0;
+  padding: 0 3px;
+  border: none;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pf-text-light);
+  font: 500 26px/1 var(--pf-serif);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.lhpf .lhpf-header .char-name:focus {
+  border-bottom-color: var(--pf-text-light);
+  outline: none;
+}
+.lhpf .lhpf-header .dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 3px;
+  padding-left: 3px;
+}
+.lhpf .lhpf-header .dots .label {
+  color: var(--pf-tertiary-dark);
+  font: 700 10px/1 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.lhpf .lhpf-header .pips {
+  display: flex;
+  gap: 3px;
+  color: var(--pf-tertiary);
+  font-size: 12px;
+  cursor: pointer;
+}
+.lhpf .lhpf-header .pips .fa-regular {
+  color: rgba(233, 215, 161, 0.5);
+}
+.lhpf .lhpf-header .pips:hover i {
+  text-shadow: 0 0 6px rgba(233, 215, 161, 0.75);
+}
+.lhpf .char-level {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.lhpf .char-level .level {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 48px;
+  padding-top: 1px;
+}
+.lhpf .char-level .level svg.badge {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+}
+.lhpf .char-level .level svg.badge path {
+  fill: var(--pf-primary-dark);
+  stroke: var(--pf-tertiary);
+  stroke-width: 1.4;
+}
+.lhpf .char-level .level label,
+.lhpf .char-level .level input {
+  position: relative;
+}
+.lhpf .char-level .level label {
+  color: var(--pf-tertiary-dark);
+  font: 400 9px/1.3 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.lhpf .char-level .level input {
+  width: 36px;
+  height: 22px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pf-text-light);
+  font: 400 21px/1 var(--pf-serif);
+  text-align: center;
+}
+.lhpf .char-level .level input:focus {
+  outline: none;
+  text-shadow: 0 0 4px var(--pf-tertiary);
+}
+.lhpf .char-level .rank-up {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--pf-tertiary-darker);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.25);
+  box-shadow: none;
+  color: var(--pf-tertiary);
+  font-size: 12px;
+  cursor: pointer;
+}
+.lhpf .char-level .rank-up:hover {
+  background: var(--pf-tertiary);
+  color: var(--pf-primary-dark);
+}
+
+/* --------------------------------------------------------------------------
+   Navigation band
+   -------------------------------------------------------------------------- */
+.lhpf nav.lhpf-nav {
+  grid-area: nav;
+  position: relative;
+  z-index: 3; /* the round icons stick out of the band: above the sub-navigation bars below */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  height: 20px;
+  margin: 0;
+  padding: 0 12px 0 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  background:
+    radial-gradient(circle, rgba(233, 215, 161, 0.55) 0.9px, transparent 1.4px) 0 1px / 6px 4px repeat-x,
+    radial-gradient(circle, rgba(233, 215, 161, 0.55) 0.9px, transparent 1.4px) 0 calc(100% - 1px) / 6px 4px repeat-x,
+    var(--pf-secondary);
+  box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+}
+.lhpf nav.lhpf-nav .panel-title {
+  margin-right: auto;
+  padding-left: 14px;
+  color: var(--pf-text-light);
+  font: 500 14px/1 var(--pf-serif);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.lhpf nav.lhpf-nav > a.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #2d5c63, #12313a 72%);
+  box-shadow: 0 0 0 1px var(--pf-tertiary), 0 0 0 2px var(--pf-ring), inset 0 0 4px rgba(0, 0, 0, 0.4);
+  color: var(--pf-tertiary);
+  font-size: 11px;
+  text-shadow: none;
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out, background 0.1s ease-out;
+  z-index: 1;
+}
+.lhpf nav.lhpf-nav > a.item:hover,
+.lhpf nav.lhpf-nav > a.item.active {
+  z-index: 2;
+  transform: scale(1.2);
+  background: radial-gradient(circle at 35% 30%, #3d8f61, #1a4a31 72%);
+  color: var(--pf-text-light);
+}
+.lhpf nav.lhpf-nav > a.item.active {
+  box-shadow: 0 0 0 1px var(--pf-tertiary), 0 0 0 2px var(--pf-ring), inset 0 0 4px rgba(0, 0, 0, 0.25), 0 0 8px var(--pf-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   Content: tabs, panes, section headers
+   -------------------------------------------------------------------------- */
+.lhpf .lhpf-body {
+  grid-area: content;
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+.lhpf .lhpf-body > .tab {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+}
+.lhpf .lhpf-body > .tab.active {
+  display: flex;
+}
+.lhpf .lhpf-pane {
+  display: none;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+}
+.lhpf .lhpf-pane.active {
+  display: flex;
+}
+.lhpf .tab-content {
+  flex: 1;
+  min-height: 0;
+  padding: 10px 12px 14px;
+  overflow: hidden auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-alt) transparent;
+}
+.lhpf .tab.major .tab-content > header,
+.lhpf .subsection > header,
+.lhpf .lhpf-section {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 14px 0 8px;
+  padding: 0 0 2px;
+  border-bottom: 1px solid var(--pf-divider);
+  color: var(--pf-primary);
+  font: 600 16px/1 var(--pf-serif);
+}
+.lhpf .tab.major .tab-content > header:first-child,
+.lhpf .subsection:first-child > header {
+  margin-top: 2px;
+}
+.lhpf .subsection > header button {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  width: auto;
+  height: 20px;
+  margin: 0;
+  padding: 0 6px;
+  border: 1px solid var(--pf-divider);
+  border-bottom: none;
+  border-radius: 2px 2px 0 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pf-primary);
+  font: 500 12px/1 var(--pf-sans);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.lhpf .subsection > header button:hover {
+  background: rgba(31, 81, 55, 0.08);
+}
+.lhpf .lhpf-section .hint {
+  color: var(--pf-text-soft);
+  font: italic 400 11px/1 var(--pf-body);
+}
+.lhpf .lhpf-empty {
+  padding: 8px 10px;
+  color: var(--pf-text-soft);
+  font: italic 13px/1.3 var(--pf-body);
+  list-style: none;
+}
+
+/* Sub-navigation (light bar with flourishes) */
+.lhpf nav.sub-nav {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: var(--pf-bg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+  white-space: nowrap;
+}
+.lhpf nav.sub-nav::before,
+.lhpf nav.sub-nav::after {
+  content: "";
+  flex: 0 0 40px;
+  height: 16px;
+  margin: 0 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 16'%3E%3Cpath d='M3 8h19c4 0 6-3.2 9.2-3.2 2.9 0 4.8 1.9 4.8 4 0 1.8-1.5 3.2-3.4 3.2-1.6 0-2.8-1-2.8-2.4 0-1.1.8-1.9 1.9-1.9' fill='none' stroke='%23b8963f' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M3 8l3-2.2v4.4z' fill='%23b8963f'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+.lhpf nav.sub-nav::after {
+  transform: scaleX(-1);
+}
+.lhpf nav.sub-nav > a {
+  flex: 1;
+  display: block;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  color: var(--pf-alt);
+  font: 400 16px/34px var(--pf-serif);
+  text-align: center;
+  text-decoration: none;
+  text-shadow: none;
+  transition: color 0.1s ease-out;
+}
+.lhpf nav.sub-nav > a:first-of-type {
+  border-left: none;
+}
+.lhpf nav.sub-nav > a:last-of-type {
+  border-right: none;
+}
+.lhpf nav.sub-nav > a:hover,
+.lhpf nav.sub-nav > a.active {
+  color: var(--pf-primary);
+}
+.lhpf nav.sub-nav > a.active {
+  font-weight: 600;
+}
+.lhpf nav.sub-nav .pending {
+  display: inline-block;
+  min-width: 16px;
+  margin-left: 5px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: var(--pf-primary);
+  color: #fff;
+  font: 600 10px/16px var(--pf-sans);
+  vertical-align: 2px;
+}
+.lhpf nav.sub-nav .pending.quiet {
+  background: var(--pf-alt);
+}
+
+/* Generic tags (traits) */
+.lhpf .tab-content .tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .tab-content .tags .tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 5px;
+  border-radius: 2px;
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font: 500 10px/1.3 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.lhpf .tab-content .tags .tag.tag_secondary { background: var(--pf-secondary); }
+.lhpf .tab-content .tags .tag.tag_alt { background: var(--pf-alt); }
+.lhpf .tab-content .tags .tag.tag_transparent {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+  color: var(--pf-text-soft);
+  font-size: 11px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Character tab
+   -------------------------------------------------------------------------- */
+.lhpf .subsection {
+  display: block;
+  margin: 0 0 6px;
+}
+.lhpf .subsection.details {
+  display: grid;
+  grid-template-columns: 128px minmax(0, 1fr);
+  gap: 0 14px;
+  align-items: start;
+  margin: 4px 0 4px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--pf-divider);
+}
+.lhpf .details .image-container {
+  position: relative;
+  width: 128px;
+  height: 128px;
+}
+.lhpf .details .actor-image {
+  display: block;
+  width: 128px;
+  height: 128px;
+  border: none;
+  border-radius: 0;
+  background: #2a2a24;
+  box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39, inset 0 0 8px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.8);
+  object-fit: cover;
+  object-position: center;
+  cursor: pointer;
+}
+.lhpf .details .abcd {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 10px;
+  align-content: start;
+}
+.lhpf .details .detail {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.lhpf .details-label {
+  color: var(--pf-text-soft);
+  font: 400 10px/1.2 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.lhpf .details .detail h3 {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 32px;
+  margin: 0;
+  padding: 0 6px;
+  background: rgba(28, 28, 28, 0.1);
+  color: var(--pf-text);
+  font: 700 14px/1.1 var(--pf-body);
+}
+.lhpf .option-field {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+.lhpf .option-field .option-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--pf-text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .option-field .option-name:hover {
+  color: var(--pf-primary);
+}
+.lhpf .option-field .option-menu {
+  flex: 0 0 auto;
+  padding: 0 2px;
+  color: var(--pf-text-soft);
+}
+.lhpf .option-field .option-browse {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  color: var(--pf-text-soft);
+}
+.lhpf .option-field .option-placeholder {
+  font-weight: 400;
+  font-style: italic;
+}
+.lhpf .option-field .option-menu:hover,
+.lhpf .option-field .option-browse:hover {
+  color: var(--pf-primary);
+}
+.lhpf .detail.class .emblem {
+  display: flex;
+  flex: 0 0 auto;
+  margin-right: -2px;
+}
+.lhpf .detail.class .emblem img {
+  width: 26px;
+  height: 26px;
+  padding: 2px;
+  border: none;
+  border-radius: 50%;
+  background: var(--pf-primary-dark);
+  box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39, 0 0 4px rgba(0, 0, 0, 0.6);
+  object-fit: contain;
+}
+
+/* Tags (system tag input) */
+.lhpf .lh-tag-input .tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .lh-tag-input .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 6px;
+  border-radius: 2px;
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font: 500 10px/1.2 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.lhpf .lh-tag-input .tag.tag-custom { background: var(--pf-alt); }
+.lhpf .lh-tag-input .tag.tag-derived { background: var(--pf-secondary); }
+.lhpf .lh-tag-input .tag-remove {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 9px;
+}
+.lhpf .lh-tag-input .tag-remove:hover {
+  color: #fff;
+}
+.lhpf .lh-tag-input .tag-entry {
+  flex: 1 0 140px;
+  list-style: none;
+}
+.lhpf .lh-tag-input .tag-entry-input {
+  width: 100%;
+  height: 24px;
+  margin: 0;
+  padding: 0 6px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  background: rgba(28, 28, 28, 0.05);
+  box-shadow: none;
+  color: var(--pf-text);
+  font: 13px var(--pf-body);
+}
+.lhpf .lh-tag-input .tag-entry-input:focus {
+  outline: none;
+  border-color: var(--pf-primary);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Connections and unions (tags, like the languages of a Pathfinder sheet) */
+.lhpf .lhpf-social {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 16px;
+}
+.lhpf .lhpf-social .column > header {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 14px 0 8px;
+  padding: 0 0 2px;
+  border-bottom: 1px solid var(--pf-divider);
+  color: var(--pf-primary);
+  font: 600 16px/1 var(--pf-serif);
+}
+.lhpf .lhpf-social .column > header button {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  width: auto;
+  height: 20px;
+  margin: 0;
+  padding: 0 6px;
+  border: 1px solid var(--pf-divider);
+  border-bottom: none;
+  border-radius: 2px 2px 0 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pf-primary);
+  font: 500 12px/1 var(--pf-sans);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.lhpf .lhpf-social .column > header button:hover {
+  background: rgba(31, 81, 55, 0.08);
+}
+.lhpf .lhpf-social .tags {
+  gap: 4px;
+}
+.lhpf .lhpf-social .tags .tag {
+  padding: 3px 6px;
+  font-size: 10px;
+}
+.lhpf .lhpf-social .tags .tag {
+  gap: 6px;
+}
+.lhpf .lhpf-social .tags .tag a:hover {
+  color: var(--pf-tertiary-light);
+}
+.lhpf .lhpf-social .tags .tag .remove {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 9px;
+}
+.lhpf .lhpf-social .tags .tag .remove:hover {
+  color: #fff;
+}
+.lhpf .lhpf-social .tags .none {
+  color: var(--pf-text-soft);
+  font: italic 13px/1.2 var(--pf-body);
+}
+
+/* Attributes */
+.lhpf .attributes ul {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .attributes .attribute {
+  display: flex;
+  flex-direction: column;
+}
+.lhpf .attributes .abbreviation {
+  margin: 0;
+  padding: 0;
+  color: var(--pf-primary);
+  font: 400 22px/1.1 var(--pf-condensed);
+  text-align: center;
+  text-transform: uppercase;
+}
+.lhpf .attributes .modifier {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  margin: 2px 0 0;
+  border: 3px double transparent;
+  border-image: var(--pf-frame-elegant) 11 / 14px repeat;
+  background: rgba(255, 255, 255, 0.22);
+  color: var(--pf-text);
+  font: 700 24px/1 var(--pf-serif);
+}
+.lhpf .attributes .label {
+  margin: 3px 0 0;
+  padding: 2px;
+  color: var(--pf-text);
+  font: 400 10px/1.2 var(--pf-sans);
+  letter-spacing: 0.05em;
+  opacity: 0.5;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Checks tab (framed rows, like the proficiencies list)
+   -------------------------------------------------------------------------- */
+.lhpf .proficiencies-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .proficiencies-list > li {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* tight enough for the longest check name, "Conhecimento" (pt-BR), at the sheet's minimum width */
+  min-height: 36px;
+  padding: 0 6px 0 4px;
+  border: 3px double transparent;
+  border-image: var(--pf-frame-elegant) 11 / 14px repeat;
+  font: 400 16px/1 var(--pf-serif);
+  cursor: pointer;
+  transition: background-color 0.15s ease-out;
+}
+.lhpf .proficiencies-list > li:hover {
+  background: rgba(31, 81, 55, 0.07);
+}
+.lhpf .proficiencies-list .d6 {
+  padding: 4px 3px;
+  color: var(--pf-primary);
+  font-size: 17px;
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.35));
+}
+.lhpf .proficiencies-list > li:hover .d6 i {
+  animation: lhpf-spin 1.4s linear infinite;
+}
+.lhpf .proficiencies-list .modifier {
+  flex: 0 0 26px;
+  width: 26px;
+  padding-top: 2px;
+  color: var(--pf-primary);
+  font-weight: 600;
+  text-align: end;
+}
+.lhpf .proficiencies-list .name {
+  flex: 1;
+  min-width: 0;
+  padding-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .proficiencies-list .attr {
+  color: var(--pf-text-soft);
+  font: 400 10px/1 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Lists: skills, effects, connections
+   -------------------------------------------------------------------------- */
+.lhpf .lhpf-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 0 8px;
+}
+.lhpf .lhpf-toolbar .count {
+  color: var(--pf-text-soft);
+  font: italic 12px/1 var(--pf-body);
+}
+.lhpf .lhpf-toolbar button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: auto;
+  height: 22px;
+  margin: 0;
+  padding: 0 8px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: none;
+  color: var(--pf-primary);
+  font: 500 12px/1 var(--pf-sans);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.lhpf .lhpf-toolbar button:hover {
+  border-color: var(--pf-primary-dark);
+  background: var(--pf-primary);
+  color: #fff;
+}
+.lhpf .lhpf-toolbar button.attention {
+  animation: lhpf-glow 0.75s infinite alternate;
+}
+.lhpf .lhpf-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .lhpf-list > .action-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 28px;
+  margin-top: 10px;
+  padding: 0 8px;
+  border-radius: 4px;
+  background: var(--pf-primary);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+  color: var(--pf-text-light);
+}
+.lhpf .lhpf-list > .action-header:first-child {
+  margin-top: 0;
+}
+.lhpf .lhpf-list > .action-header h3 {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  color: var(--pf-text-light);
+  font: 500 15px/1 var(--pf-serif);
+}
+.lhpf .lhpf-list > .action-header .count {
+  font: 400 11px/1 var(--pf-sans);
+  opacity: 0.8;
+}
+.lhpf .lhpf-list > .action-header .item-controls a {
+  color: var(--pf-text-light);
+  font: 400 11px/1 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.lhpf .lhpf-list > .action-header .item-controls a:hover {
+  color: #fff;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+}
+.lhpf .lhpf-list > li.item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  padding: 4px 4px 4px 8px;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg, rgba(241, 237, 234, 0), #c9bba8) 1;
+  transition: background-color 0.15s ease-out;
+}
+.lhpf .lhpf-list > li.item:hover {
+  background: rgba(120, 100, 82, 0.08);
+}
+.lhpf .item-name {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.lhpf .item-image {
+  position: relative;
+  display: flex;
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+}
+.lhpf .item-image img {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 2px;
+  object-fit: cover;
+}
+.lhpf .item-image.framed {
+  border-radius: 2px;
+  background: var(--pf-tertiary);
+  box-shadow: 0 0 0 1px var(--pf-tertiary), 0 0 0 2px var(--pf-ring), inset 0 0 4px rgba(0, 0, 0, 0.5);
+}
+.lhpf .item-image > i {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  background: rgba(241, 238, 233, 0.92);
+  color: var(--pf-text);
+  font-size: 12px;
+}
+.lhpf a.item-image:hover > i {
+  display: flex;
+}
+.lhpf .item-name h4 {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 500 14px/1.25 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .item-name h4 a {
+  cursor: pointer;
+}
+.lhpf .item-name h4 a:hover,
+.lhpf .expanded > .item-name h4 a,
+.lhpf .expanded > .data .item-name h4 a {
+  color: var(--pf-primary);
+  text-shadow: 0 0 3px var(--pf-tertiary);
+}
+.lhpf .item-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--pf-text-soft);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.lhpf .item-controls a:hover {
+  color: var(--pf-primary);
+}
+.lhpf .item-controls a[data-action="item-delete"]:hover,
+.lhpf .item-controls a[data-action="delete"]:hover {
+  color: var(--pf-red);
+}
+/* the powers of an item with several: numbered in the order of its text */
+.lhpf .item-controls a[data-action="lhauto-power"] sup {
+  margin-left: -2px;
+  font-size: 8px;
+  font-weight: 700;
+}
+.lhpf .lhpf-list .tags.meta {
+  flex: 0 0 auto;
+}
+
+/* Item summary (opened from the name) */
+.lhpf .item-summary {
+  flex-basis: 100%;
+  margin: 4px 4px 6px 34px;
+  padding: 6px 10px;
+  border-left: 2px solid var(--pf-divider);
+  background: rgba(255, 255, 255, 0.35);
+  color: var(--pf-text);
+  font: 400 13px/1.45 var(--pf-body);
+}
+.lhpf .item-summary .tags {
+  margin-bottom: 6px;
+}
+.lhpf .item-summary .fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 14px;
+  margin: 0 0 6px;
+  font-size: 12px;
+}
+.lhpf .item-summary .fields b {
+  margin-right: 2px;
+  color: var(--pf-alt-dark);
+  font: 600 10px/1 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.lhpf .item-summary .description p {
+  margin: 0 0 5px;
+}
+.lhpf .item-summary .description p:last-child {
+  margin-bottom: 0;
+}
+.lhpf .item-summary .empty {
+  color: var(--pf-text-soft);
+  font-style: italic;
+}
+
+/* Effects */
+.lhpf .effects-list > li.item,
+.lhpf .effects-list > .action-header {
+  flex-wrap: nowrap;
+}
+.lhpf .effects-list .item-name .text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.lhpf .effects-list .name {
+  margin: 0;
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 500 14px/1.2 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .effects-list .summary {
+  overflow: hidden;
+  color: var(--pf-text-soft);
+  font: italic 12px/1.25 var(--pf-body);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .effects-list .unmet {
+  color: var(--pf-red);
+  font: 400 11px/1.2 var(--pf-sans);
+}
+.lhpf .effects-list .source,
+.lhpf .effects-list .duration {
+  flex: 0 0 78px;
+  overflow: hidden;
+  color: var(--pf-text-soft);
+  font: 400 11px/1.2 var(--pf-body);
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .effects-list .action-header .source,
+.lhpf .effects-list .action-header .duration {
+  color: var(--pf-text-light);
+  font: 400 10px/1 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.lhpf .effects-list .item-controls {
+  flex: 0 0 70px;
+  justify-content: flex-end;
+}
+.lhpf .effects-list li.item.disabled {
+  opacity: 0.6;
+}
+
+/* --------------------------------------------------------------------------
+   Inventory
+   -------------------------------------------------------------------------- */
+.lhpf .currency {
+  display: flex;
+  align-items: center;
+  margin: 0 0 6px;
+  padding: 3px;
+  list-style: none;
+  background: var(--pf-sub);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+.lhpf .currency .label {
+  flex: 1;
+  margin: 0 12px 0 6px;
+  color: var(--pf-text-light);
+  font: 500 15px/1 var(--pf-serif);
+}
+.lhpf .currency .denomination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 8px;
+  color: var(--pf-text-light);
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.75);
+}
+.lhpf .currency .currency-image {
+  width: 24px;
+  height: 24px;
+  border-radius: 1px;
+  background: url("/icons/commodities/currency/coins-plain-stack-gold-yellow.webp") center / cover;
+  box-shadow: 0 0 0 1px var(--pf-ring), 0 0 0 2px var(--pf-tertiary), 0 0 0 3px var(--pf-frame);
+}
+.lhpf .currency .gold-input {
+  width: 96px;
+  height: 24px;
+  margin: 0;
+  padding: 0 4px;
+  border: none;
+  border-radius: 1px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pf-text-light);
+  font: 500 18px/1 var(--pf-serif);
+  text-align: right;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.75);
+}
+.lhpf .currency .gold-input:focus {
+  background: rgba(0, 0, 0, 0.25);
+  outline: none;
+}
+.lhpf .currency .unit {
+  color: var(--pf-tertiary);
+  font: 600 13px/1 var(--pf-serif);
+}
+.lhpf .currency li > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 24px;
+  margin: 0 0 0 2px;
+  padding: 0;
+  border: none;
+  border-radius: 1px;
+  background: var(--pf-tertiary);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0 0 3px rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 13px;
+  cursor: pointer;
+}
+.lhpf .currency li > button:hover {
+  background: var(--pf-primary);
+  color: #fff;
+}
+
+/* Equipment: the paper doll (figure in the middle, slot cards around it, a line to each body part) */
+.lhpf .lhpf-doll {
+  position: relative;
+  width: 480px;
+  height: 300px;
+  margin: 0 auto 14px;
+}
+.lhpf .lhpf-doll-art {
+  position: absolute;
+  inset: 0;
+  width: 480px;
+  height: 300px;
+  overflow: visible;
+  pointer-events: none;
+}
+.lhpf .lhpf-doll-art .halo circle {
+  fill: none;
+  stroke: rgba(138, 109, 31, 0.26);
+  stroke-width: 1;
+}
+.lhpf .lhpf-doll-art .halo circle.inner {
+  stroke-width: 0.6;
+}
+.lhpf .lhpf-doll-art .figure .body {
+  fill: url(#lhpf-doll-skin);
+  stroke: #3e3a2c;
+  stroke-width: 1.25;
+  stroke-linejoin: round;
+}
+.lhpf .lhpf-doll-art .figure .details {
+  fill: none;
+  stroke: rgba(62, 58, 44, 0.42);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+}
+.lhpf .lhpf-doll-art .figure .ground {
+  fill: rgba(60, 50, 30, 0.16);
+}
+.lhpf .lhpf-doll-art .link polyline {
+  fill: none;
+  stroke: rgba(89, 85, 75, 0.55);
+  stroke-width: 1;
+  stroke-dasharray: 2.5 2.5;
+  transition: stroke 0.15s ease-out, stroke-width 0.15s ease-out;
+}
+.lhpf .lhpf-doll-art .link circle {
+  fill: #f4ecd8;
+  stroke: rgba(89, 85, 75, 0.75);
+  stroke-width: 1;
+  transition: r 0.15s ease-out, fill 0.15s ease-out;
+}
+.lhpf .lhpf-doll-art .link.filled polyline {
+  stroke: var(--pf-primary);
+  stroke-width: 1.1;
+  stroke-dasharray: none;
+}
+.lhpf .lhpf-doll-art .link.filled circle {
+  r: 3.4;
+  fill: #c9a94e;
+  stroke: var(--pf-primary);
+}
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="acc0"]:is(:hover, .drag-over)) .link[data-pos="acc0"],
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="acc1"]:is(:hover, .drag-over)) .link[data-pos="acc1"],
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="acc2"]:is(:hover, .drag-over)) .link[data-pos="acc2"],
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="main"]:is(:hover, .drag-over)) .link[data-pos="main"],
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="armor"]:is(:hover, .drag-over)) .link[data-pos="armor"],
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="bag"]:is(:hover, .drag-over)) .link[data-pos="bag"],
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="off"]:is(:hover, .drag-over)) .link[data-pos="off"] {
+  filter: drop-shadow(0 0 2px rgba(201, 169, 78, 0.6));
+}
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="acc0"]:is(:hover, .drag-over)) .link[data-pos="acc0"] polyline,
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="acc1"]:is(:hover, .drag-over)) .link[data-pos="acc1"] polyline,
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="acc2"]:is(:hover, .drag-over)) .link[data-pos="acc2"] polyline,
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="main"]:is(:hover, .drag-over)) .link[data-pos="main"] polyline,
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="armor"]:is(:hover, .drag-over)) .link[data-pos="armor"] polyline,
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="bag"]:is(:hover, .drag-over)) .link[data-pos="bag"] polyline,
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="off"]:is(:hover, .drag-over)) .link[data-pos="off"] polyline {
+  stroke: #a8862f;
+  stroke-width: 2;
+  stroke-dasharray: none;
+}
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="acc0"]:is(:hover, .drag-over)) .link[data-pos="acc0"] circle,
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="acc1"]:is(:hover, .drag-over)) .link[data-pos="acc1"] circle,
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="acc2"]:is(:hover, .drag-over)) .link[data-pos="acc2"] circle,
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="main"]:is(:hover, .drag-over)) .link[data-pos="main"] circle,
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="armor"]:is(:hover, .drag-over)) .link[data-pos="armor"] circle,
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="bag"]:is(:hover, .drag-over)) .link[data-pos="bag"] circle,
+.lhpf .lhpf-doll:has(.lhpf-slot[data-pos="off"]:is(:hover, .drag-over)) .link[data-pos="off"] circle {
+  r: 4.4;
+  fill: #e9d7a1;
+  stroke: #8a6d1f;
+}
+.lhpf .lhpf-slot {
+  position: absolute;
+  display: flex;
+  align-items: stretch;
+  width: 160px;
+  height: 44px;
+  border: 3px double transparent;
+  border-image: var(--pf-frame-elegant) 11 / 14px repeat;
+  background: rgba(248, 244, 236, 0.82);
+  transition: background-color 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+.lhpf .lhpf-slot.left {
+  left: 0;
+}
+.lhpf .lhpf-slot.right {
+  left: 320px;
+}
+.lhpf .lhpf-slot:hover {
+  background: rgba(255, 252, 244, 0.95);
+}
+.lhpf .lhpf-slot > .item,
+.lhpf .lhpf-slot > .empty-slot {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  padding: 0 4px;
+}
+.lhpf .lhpf-slot .item-image {
+  flex-basis: 28px;
+  width: 28px;
+  height: 28px;
+}
+.lhpf .lhpf-slot .item-image.placeholder {
+  background: rgba(28, 28, 28, 0.07);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18), inset 0 0 4px rgba(0, 0, 0, 0.18);
+}
+.lhpf .lhpf-slot .item-image.placeholder img {
+  padding: 4px;
+  filter: brightness(0);
+  opacity: 0.32;
+  object-fit: contain;
+}
+.lhpf .lhpf-slot .text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.lhpf .lhpf-slot .slot-label {
+  color: var(--pf-text-soft);
+  font: 400 9px/1.2 var(--pf-sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.lhpf .lhpf-slot .name {
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 500 13px/1.2 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .lhpf-slot a.name:hover {
+  color: var(--pf-primary);
+}
+.lhpf .lhpf-slot .name.empty {
+  color: rgba(28, 28, 28, 0.38);
+  font: italic 400 12px/1.2 var(--pf-body);
+}
+/* controls float above the card's top edge on hover, so the name keeps its width */
+.lhpf .lhpf-slot .item-controls {
+  position: absolute;
+  top: -12px;
+  right: 6px;
+  z-index: 2;
+  gap: 6px;
+  padding: 2px 6px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 3px;
+  background: var(--pf-bg);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-out;
+}
+.lhpf .lhpf-slot:hover .item-controls,
+.lhpf .lhpf-slot .item-controls:focus-within {
+  opacity: 1;
+  pointer-events: auto;
+}
+.lhpf .lhpf-slot .hand-swap {
+  color: var(--pf-primary);
+}
+.lhpf .lhpf-slot.drag-over {
+  background: rgba(233, 215, 161, 0.75);
+  box-shadow: 0 0 8px rgba(201, 169, 78, 0.6);
+}
+.lhpf .lhpf-slot.locked .item-image img {
+  filter: grayscale(0.8) opacity(0.6);
+}
+.lhpf .lhpf-slot.locked .name {
+  color: var(--pf-text-soft);
+  font-size: 12px;
+}
+
+/* Carried items */
+.lhpf .lhpf-carried {
+  margin: 0 0 12px;
+}
+.lhpf .lhpf-carried > header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px 4px 8px;
+  background: var(--pf-alt);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+  color: var(--pf-text-light);
+  font: 400 10px/1 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.lhpf .lhpf-carried > header h3 {
+  flex: 1;
+  margin: 0;
+  color: var(--pf-text-light);
+  font: 500 14px/1.2 var(--pf-serif);
+  letter-spacing: 0;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
+  text-transform: none;
+}
+.lhpf .lhpf-carried .type {
+  flex: 0 0 96px;
+  text-align: center;
+}
+.lhpf .lhpf-carried > header .item-controls {
+  flex: 0 0 auto;
+  color: var(--pf-text-light);
+}
+.lhpf .lhpf-carried > header .item-controls > a {
+  color: var(--pf-text-light);
+  font: 400 10px/1 var(--pf-sans);
+}
+.lhpf .lhpf-carried .items {
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--pf-alt);
+  border-top: none;
+  list-style: none;
+}
+.lhpf .lhpf-carried .items > li.item {
+  display: flex;
+  flex-direction: column;
+}
+.lhpf .lhpf-carried .items > li.item:nth-of-type(even) {
+  background: rgba(120, 100, 82, 0.1);
+}
+.lhpf .lhpf-carried .items > li.item:hover {
+  background: rgba(120, 100, 82, 0.16);
+}
+.lhpf .lhpf-carried .data {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 6px 3px 8px;
+}
+.lhpf .lhpf-carried .data .type {
+  color: var(--pf-text-soft);
+  font: 400 12px/1 var(--pf-body);
+}
+.lhpf .lhpf-carried .data .item-controls {
+  flex: 0 0 96px;
+  justify-content: flex-end;
+}
+.lhpf .lhpf-carried .items > li.over {
+  background: rgba(140, 47, 47, 0.1);
+}
+.lhpf .lhpf-carried .items > li.over h4 a {
+  color: var(--pf-red);
+}
+.lhpf .lhpf-carried .item-summary {
+  margin-left: 42px;
+}
+
+/* Add-item menu */
+.lhpf .addItem {
+  position: relative;
+}
+.lhpf .addItem .dropdown-content {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: -4px;
+  z-index: 20;
+  display: none;
+  flex-direction: column;
+  min-width: 170px;
+  padding: 4px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 3px;
+  background: var(--pf-bg);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.lhpf .addItem .dropdown-content.show {
+  display: flex;
+}
+.lhpf .addItem .dropdown-content a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 6px;
+  border-radius: 2px;
+  color: var(--pf-text);
+  font: 400 13px/1 var(--pf-body);
+}
+.lhpf .addItem .dropdown-content a:hover {
+  background: rgba(31, 81, 55, 0.1);
+  color: var(--pf-primary);
+}
+.lhpf .addItem .dropdown-content img {
+  width: 18px;
+  height: 18px;
+  border: none;
+  filter: brightness(0) opacity(0.55);
+}
+
+/* Tickets (system partials) */
+.lhpf .lhpf-tickets {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 6px;
+}
+.lhpf .lhpf-tickets .ticket-slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  padding: 6px 4px;
+  border: 3px double transparent;
+  border-image: var(--pf-frame-elegant) 11 / 14px repeat;
+  text-align: center;
+}
+.lhpf .lhpf-tickets .ticket-slot li.item {
+  list-style: none;
+}
+.lhpf .lhpf-tickets .ticket-slot .item-name {
+  flex-direction: column;
+  gap: 3px;
+}
+.lhpf .lhpf-tickets .ticket-slot .item-image {
+  flex: 0 0 auto;
+  width: auto;
+  height: auto;
+}
+.lhpf .lhpf-tickets .ticket-slot img {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px var(--pf-tertiary), 0 0 0 2px var(--pf-ring);
+}
+.lhpf .lhpf-tickets .ticket-slot .empty-slot img {
+  opacity: 0.45;
+  filter: grayscale(0.6);
+}
+.lhpf .lhpf-tickets .slot-label {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--pf-text-soft);
+  font: 400 9px/1.2 var(--pf-sans);
+  letter-spacing: 0.05em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.lhpf .lhpf-tickets .slot-quantity {
+  position: absolute;
+  top: 2px;
+  right: 6px;
+  min-width: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: var(--pf-primary);
+  color: #fff;
+  font: 600 11px/18px var(--pf-sans);
+}
+.lhpf .lhpf-tickets .ticket-slot-icon {
+  position: relative;
+}
+.lhpf .lhpf-tickets .ticket-slot-icon .slot-quantity {
+  top: -4px;
+  right: -12px;
+}
+.lhpf .lhpf-tickets .items-control {
+  display: flex;
+  gap: 6px;
+  font-size: 11px;
+}
+.lhpf .lhpf-tickets .slot-stack-controls {
+  display: flex;
+  gap: 4px;
+}
+.lhpf .lhpf-tickets .slot-stack-controls a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 18px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  color: var(--pf-primary);
+  font: 600 13px/1 var(--pf-serif);
+}
+.lhpf .lhpf-tickets .slot-stack-controls a:hover {
+  background: var(--pf-primary);
+  color: #fff;
+}
+.lhpf .lhpf-tickets .slot-stack-controls a.disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+.lhpf .lhpf-tickets .ticket-rank-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .lhpf-tickets .ticket-rank-row,
+.lhpf .lhpf-tickets .ticket-rank-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font: 400 12px/1 var(--pf-body);
+}
+.lhpf .lhpf-tickets .ticket-rank-name {
+  color: var(--pf-primary);
+  font-weight: 600;
+}
+.lhpf .lhpf-tickets .ticket-rank-input {
+  width: 42px;
+  height: 20px;
+  margin: 0;
+  padding: 0 2px;
+  border: 1px solid var(--pf-divider);
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: none;
+  color: var(--pf-text);
+  font: 12px var(--pf-body);
+  text-align: center;
+}
+
+/* Space used (bottom bar) */
+.lhpf .inventory-bottom-summary {
+  flex: 0 0 auto;
+  padding: 6px 14px 8px 12px;
+  border-top: 1px solid var(--pf-divider);
+  background: rgba(248, 244, 236, 0.65);
+}
+.lhpf .encumbrance {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pf-text);
+  font: 400 12px/1 var(--pf-body);
+}
+.lhpf .encumbrance > i {
+  color: var(--pf-alt);
+  font-size: 15px;
+}
+.lhpf .encumbrance .bar {
+  flex: 1;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: rgba(28, 28, 28, 0.12);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+.lhpf .encumbrance .bar i {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--pf-primary-light), var(--pf-primary));
+  transition: width 0.4s ease;
+}
+.lhpf .encumbrance.over-limit .bar i {
+  background: linear-gradient(90deg, #a8401e, var(--pf-red));
+}
+.lhpf .encumbrance .text b {
+  font-family: var(--pf-serif);
+}
+
+/* --------------------------------------------------------------------------
+   Statuses panel (system partial)
+   -------------------------------------------------------------------------- */
+.lhpf .lh-status-panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 18px;
+}
+.lhpf .lh-status-group-title {
+  margin: 6px 0 4px;
+  padding: 0 0 2px;
+  border-bottom: 1px solid var(--pf-divider);
+  color: var(--pf-primary);
+  font: 600 15px/1 var(--pf-serif);
+}
+.lhpf .lh-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 26px;
+  padding: 1px 4px;
+  border-radius: 2px;
+  color: var(--pf-text);
+  font: 400 13px/1.2 var(--pf-body);
+  cursor: pointer;
+}
+.lhpf .lh-status:hover {
+  background: rgba(31, 81, 55, 0.07);
+}
+.lhpf .lh-status.active {
+  background: rgba(31, 81, 55, 0.13);
+  box-shadow: inset 2px 0 0 var(--pf-primary);
+  font-weight: 600;
+}
+.lhpf .lh-status img {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.lhpf .lh-status-label {
+  flex: 1;
+  min-width: 0;
+}
+.lhpf .lh-status input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  accent-color: var(--pf-primary);
+}
+.lhpf .lh-status input[type="number"],
+.lhpf .lh-status-entry input {
+  width: 46px;
+  height: 22px;
+  margin: 0;
+  padding: 0 4px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: none;
+  color: var(--pf-text);
+  font: 13px var(--pf-body);
+  text-align: center;
+}
+.lhpf .lh-status-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0 0 4px 30px;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .lh-status-entry {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.lhpf .lh-status-entry input.lh-status-tag {
+  width: 84px;
+  text-align: left;
+}
+.lhpf .lh-status-list-add,
+.lhpf .lh-status-entry-remove {
+  color: var(--pf-primary);
+  font-size: 11px;
+}
+
+/* --------------------------------------------------------------------------
+   Biography
+   -------------------------------------------------------------------------- */
+.lhpf prose-mirror.lhpf-bio {
+  position: relative;
+  display: block;
+  min-height: 100%;
+  color: var(--pf-text);
+  font: 400 14px/1.55 var(--pf-body);
+}
+.lhpf prose-mirror.lhpf-bio.inactive > button.toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: none;
+  color: var(--pf-primary);
+  font-size: 12px;
+}
+.lhpf prose-mirror.lhpf-bio.inactive > button.toggle:hover {
+  background: var(--pf-primary);
+  color: #fff;
+}
+.lhpf .lhpf-bio-hint {
+  padding: 2px 34px 6px 2px;
+}
+.lhpf prose-mirror.lhpf-bio .editor-content {
+  padding: 2px 4px;
+}
+.lhpf prose-mirror.lhpf-bio h1,
+.lhpf prose-mirror.lhpf-bio h2,
+.lhpf prose-mirror.lhpf-bio h3 {
+  color: var(--pf-primary);
+  font-family: var(--pf-serif);
+  border-bottom: 1px solid var(--pf-divider);
+}
+
+/* --------------------------------------------------------------------------
+   Motion
+   -------------------------------------------------------------------------- */
+@keyframes lhpf-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes lhpf-glow {
+  from { box-shadow: 0 0 0 rgba(201, 169, 78, 0); }
+  to { box-shadow: 0 0 8px rgba(201, 169, 78, 0.9); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lhpf *, .lhpf *::before, .lhpf *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Kuden tab (house rule: templates/character/kuden.hbs, module/kuden/)
+   -------------------------------------------------------------------------- */
+.lhpf .lhk-source {
+  color: var(--pf-text-soft);
+  font: italic 400 12px/1 var(--pf-body);
+}
+.lhpf .lhk-meter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+}
+.lhpf .lhk-pips {
+  display: flex;
+  gap: 6px;
+}
+.lhpf .lhk-pip {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--pf-frame);
+  border-radius: 50%;
+  background: var(--pf-tertiary-light);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+.lhpf a.lhk-pip {
+  cursor: pointer;
+}
+.lhpf .lhk-pip.on {
+  border-color: #8a6418;
+  background: radial-gradient(circle at 35% 35%, #f4d675, #c9962c 60%, #8a6418);
+  box-shadow: 0 0 4px rgba(201, 150, 44, 0.7);
+}
+.lhpf .lhk-step {
+  color: var(--pf-primary);
+  font-size: 12px;
+  cursor: pointer;
+}
+.lhpf .lhk-step:hover {
+  color: var(--pf-primary-light);
+  text-shadow: none;
+}
+.lhpf .lhk-value {
+  margin-left: auto;
+  color: var(--pf-primary);
+  font: 600 16px/1 var(--pf-serif);
+}
+.lhpf .lhk-points {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+  padding: 2px 8px;
+  font: 400 13px/1.3 var(--pf-body);
+}
+.lhpf .lhk-points b {
+  color: var(--pf-primary);
+  font: 600 16px/1 var(--pf-serif);
+}
+.lhpf .lhk-points .lhk-pending {
+  color: var(--pf-text-soft);
+  font-style: italic;
+}
+.lhpf .lhk-points button,
+.lhpf .lhk-color-add button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: auto;
+  height: 22px;
+  margin: 0;
+  padding: 0 8px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: none;
+  color: var(--pf-primary);
+  font: 500 12px/1 var(--pf-sans);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.lhpf .lhk-points button {
+  margin-left: auto;
+}
+.lhpf .lhk-points button:hover,
+.lhpf .lhk-color-add button:hover {
+  border-color: var(--pf-primary-dark);
+  background: var(--pf-primary);
+  color: #fff;
+}
+.lhpf .lhk-warning {
+  margin: 4px 8px 0;
+  color: var(--pf-red);
+  font: italic 12px/1.3 var(--pf-body);
+}
+.lhpf .lhk-pieces {
+  margin-top: 10px;
+}
+.lhpf .tab-content .tags .tag.lhk-pk {
+  background: var(--pf-primary-light);
+}
+.lhpf .tab-content .tags .tag.lhk-pk.unpaid {
+  background: var(--pf-red);
+}
+.lhpf .tab-content .tags .tag.lhk-badge {
+  background: #8a6418;
+}
+.lhpf .tab-content .tags .tag.lhk-sr {
+  gap: 3px;
+}
+.lhpf .tab-content .tags .tag.lhk-sr a {
+  color: inherit;
+  font-size: 8px;
+  opacity: 0.8;
+}
+.lhpf .tab-content .tags .tag.lhk-sr a:hover {
+  opacity: 1;
+  text-shadow: none;
+}
+.lhpf .lhk-color .tags {
+  padding: 2px 8px;
+}
+.lhpf .lhk-color .tags .tag a {
+  margin-left: 4px;
+  color: var(--pf-red);
+}
+.lhpf .lhk-color-add {
+  display: flex;
+  gap: 6px;
+  padding: 6px 8px 0;
+}
+.lhpf .lhk-color-add input {
+  flex: 1;
+  height: 24px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--pf-text);
+  font: 400 13px/1 var(--pf-body);
+}
+.lhpf .lhk-env {
+  margin: 14px 8px 0;
+  color: var(--pf-text-soft);
+  font: italic 12px/1.3 var(--pf-body);
+}
+
+/* ==========================================================================
+   Monster sheet (module/sheets/monster-sheet.mjs, templates/monster/): the character sheet's banner, header, band
+   and lists, made small. Header with the portrait, a strip with the attributes, abilities first.
+   ========================================================================== */
+.lhpf.monster:not(.minimizing, .minimized, .maximizing) {
+  min-width: 540px;
+  min-height: 480px;
+}
+.lhpf .lhpf-sheet.lhpf-monster {
+  position: relative;
+  grid-template:
+    "sidebar header" 74px
+    "sidebar stats" 46px
+    "sidebar nav" 20px
+    "sidebar content" minmax(0, 1fr)
+    / 190px minmax(0, 1fr);
+  background: none;
+}
+/* The dark band only behind the header: the strip of attributes is on the parchment */
+.lhpf .lhpf-sheet.lhpf-monster::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 74px;
+  background: url("../assets/sheet/header.webp") repeat-x 0 0 / auto 90px;
+  pointer-events: none;
+}
+
+/* Banner */
+.lhpf .lhpf-monster .lhpf-sidebar {
+  width: 184px;
+  background:
+    url("../assets/sheet/sidebar.webp") no-repeat center calc(100% - 43px) / 184px 100%,
+    url("../assets/sheet/sidebar-tail.webp") no-repeat center bottom / 184px 43px;
+}
+.lhpf .lhpf-monster .lhpf-sidebar .sidebar {
+  margin-bottom: 38px;
+  padding: 0 2px 4px 10px;
+}
+.lhpf .lhpf-monster .sidebar header {
+  margin: 8px 0 5px;
+}
+.lhpf .lhpf-monster .sidebar header:first-child {
+  margin-top: 12px;
+}
+.lhpf .lhpf-monster .lhpf-hpbar {
+  margin-top: 7px;
+}
+.lhpf .lhpf-monster .hp-small {
+  margin-top: 7px;
+}
+.lhpf .lhpf-monster .lhpf-sidebar .eff {
+  color: #ffd27a;
+  font: 600 10px/1 var(--pf-sans);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Hit points: the maximum is a field too */
+.lhpf .lhpf-monster .hitpoints .hp-big {
+  grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr);
+}
+.lhpf .lhpf-monster .hitpoints .container.barrier,
+.lhpf .lhpf-monster .hitpoints .container.max-hp {
+  margin-top: 12px;
+}
+.lhpf .lhpf-monster .lhpf-sidebar .hitpoints .container.barrier input,
+.lhpf .lhpf-monster .lhpf-sidebar .hitpoints .container.max-hp input {
+  width: 3.4ch;
+  margin-top: 4px;
+  font-size: 20px;
+}
+.lhpf .lhpf-monster .lhpf-sidebar .hitpoints .container.max-hp input {
+  color: var(--pf-tertiary);
+}
+.lhpf .lhpf-monster .hitpoints .current-hp input {
+  height: 30px;
+  font-size: 27px;
+}
+
+/* Fate (gold, fills with the Fate left; value / maximum) and the Hate multiplier (orange) */
+.lhpf .lhpf-monster .hp-small .gauge.fate {
+  --box: #b8902e;
+  --box-light: #e3c25a;
+}
+.lhpf .lhpf-monster .hp-small .box {
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 40px;
+}
+.lhpf .lhpf-monster .hp-small .box.wide {
+  width: 76px;
+}
+.lhpf .lhpf-monster .lhpf-sidebar .hp-small .box input[type="text"] {
+  width: 26px;
+  height: 100%;
+  font-size: 19px;
+}
+.lhpf .lhpf-monster .hp-small .slash,
+.lhpf .lhpf-monster .hp-small .times {
+  position: relative;
+  z-index: 1;
+  color: var(--pf-tertiary);
+  font: 400 13px/1 var(--pf-serif);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+}
+
+/* Defenses: the shields hold their field */
+.lhpf .lhpf-monster .lhpf-defenses {
+  grid-template-columns: 50px 50px minmax(0, 1fr);
+  gap: 3px;
+}
+.lhpf .lhpf-monster .lhpf-defenses .shield svg {
+  width: 46px;
+  height: 52px;
+}
+.lhpf .lhpf-monster .lhpf-sidebar .lhpf-defenses .shield input.value {
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  width: 34px;
+  height: 26px;
+  margin-left: -17px;
+  font-size: 22px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+.lhpf .lhpf-monster .lhpf-defenses .shield .sidebar_label {
+  text-align: center;
+}
+.lhpf .lhpf-monster .lhpf-defenses .stack {
+  gap: 6px;
+  padding-left: 6px;
+}
+.lhpf .lhpf-monster .lhpf-defenses .mini .sidebar_label {
+  font-size: 9px;
+  letter-spacing: 0.02em;
+}
+.lhpf .lhpf-monster .lhpf-sidebar .lhpf-defenses .mini input.value {
+  width: 4ch;
+  height: 22px;
+  color: var(--pf-tertiary);
+  font-size: 20px;
+  text-align: left;
+}
+
+/* Evasion and Resistance: dice, modifier and the die that rolls */
+.lhpf .lhpf-monster .saves.checks li {
+  gap: 4px;
+}
+.lhpf .lhpf-monster .saves.checks .check-line {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.lhpf .lhpf-monster .lhpf-sidebar select.lhpf-dice-select {
+  flex: none;
+  width: auto;
+  height: 18px;
+  margin: 0;
+  padding: 0 1px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+  background: #424242;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font: 500 10px/1 var(--pf-sans);
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+.lhpf .lhpf-monster .lhpf-sidebar select.lhpf-dice-select[data-tier="2"] { background: #1d4c63; }
+.lhpf .lhpf-monster .lhpf-sidebar select.lhpf-dice-select[data-tier="3"] { background: #3c1f5e; }
+.lhpf .lhpf-monster .lhpf-sidebar select.lhpf-dice-select[data-tier="4"] { background: #6b4a0f; }
+.lhpf .lhpf-monster .lhpf-sidebar select.lhpf-dice-select[data-tier="5"] { background: #6e1414; }
+.lhpf .lhpf-monster .lhpf-sidebar select.lhpf-dice-select option {
+  background: #fff;
+  color: var(--pf-text);
+}
+.lhpf .lhpf-monster .lhpf-sidebar select.lhpf-dice-select.has-effect {
+  box-shadow: inset 0 0 0 1px #ffd27a;
+}
+.lhpf .lhpf-monster .lhpf-sidebar .saves.checks input.modifier {
+  width: 3.2ch;
+  height: 20px;
+  color: var(--pf-tertiary);
+  font-size: 18px;
+  text-align: left;
+}
+.lhpf .lhpf-monster .saves.checks .save-roll {
+  gap: 5px;
+}
+.lhpf .lhpf-monster .saves.checks .save-roll i {
+  font-size: 16px;
+}
+
+/* Header: portrait, name, tags on the dark band, the button to the chat and the Level */
+.lhpf .lhpf-monster .lhpf-header {
+  position: relative;
+  gap: 10px;
+  padding: 0 12px 0 10px;
+}
+.lhpf .lhpf-monster .lhpf-header .portrait {
+  flex: 0 0 54px;
+  height: 54px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--pf-primary-dark);
+  box-shadow: 0 0 0 1px var(--pf-tertiary), 0 0 0 2px var(--pf-ring), 0 2px 5px rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
+.lhpf .lhpf-monster .lhpf-header .portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  object-fit: cover;
+}
+.lhpf .lhpf-monster .lhpf-header .char-name {
+  height: 28px;
+  font-size: 22px;
+}
+.lhpf .lhpf-monster .lhpf-header .lh-tag-input {
+  max-height: 38px;
+  margin-top: 2px;
+  overflow: hidden auto;
+  scrollbar-width: none;
+}
+.lhpf .lhpf-monster .lhpf-header .lh-tag-input .tag-list {
+  gap: 3px;
+}
+.lhpf .lhpf-monster .lhpf-header .lh-tag-input .tag {
+  gap: 4px;
+  padding: 2px 5px;
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(233, 215, 161, 0.5);
+  color: var(--pf-tertiary-light);
+  font-size: 9px;
+}
+.lhpf .lhpf-monster .lhpf-header .lh-tag-input .tag.tag-custom {
+  background: rgba(120, 100, 82, 0.55);
+}
+.lhpf .lhpf-monster .lhpf-header .lh-tag-input .tag-remove {
+  color: rgba(233, 215, 161, 0.6);
+}
+.lhpf .lhpf-monster .lhpf-header .lh-tag-input .tag-entry {
+  flex: 1 0 100px;
+}
+.lhpf .lhpf-monster .lhpf-header .lh-tag-input .tag-entry-input {
+  height: 18px;
+  padding: 0 3px;
+  border: none;
+  border-bottom: 1px solid rgba(233, 215, 161, 0.3);
+  border-radius: 0;
+  background: transparent;
+  color: var(--pf-tertiary-light);
+  font: italic 12px var(--pf-body);
+}
+.lhpf .lhpf-monster .lhpf-header .lh-tag-input .tag-entry-input::placeholder {
+  color: rgba(233, 215, 161, 0.5);
+}
+.lhpf .lhpf-monster .lhpf-header .lh-tag-input .tag-entry-input:focus {
+  border-bottom-color: var(--pf-tertiary);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Strip: the attributes (modifiers) and the Identification */
+.lhpf .lhpf-stats {
+  grid-area: stats;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.3fr);
+  gap: 6px;
+  align-items: center;
+  padding: 4px 12px 4px 10px;
+}
+.lhpf .lhpf-stats .stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  height: 38px;
+  border: 3px double transparent;
+  border-image: var(--pf-frame-elegant) 11 / 14px repeat;
+  background: rgba(255, 255, 255, 0.22);
+  cursor: text;
+}
+.lhpf .lhpf-stats .abbr {
+  color: var(--pf-primary);
+  font: 600 9px/1 var(--pf-sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.lhpf .lhpf-stats .stat.ident .abbr {
+  color: var(--pf-alt-dark);
+}
+.lhpf .lhpf-stats input {
+  width: 100%;
+  height: 19px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pf-text);
+  font: 500 18px/1 var(--pf-serif);
+  text-align: center;
+}
+.lhpf .lhpf-stats input:focus {
+  outline: none;
+  background: rgba(31, 81, 55, 0.08);
+}
+.lhpf .lhpf-stats input.has-effect {
+  color: var(--pf-primary);
+}
+
+/* Abilities: the name, and the check, the damage and the limit under it */
+.lhpf .lhpf-abilities > li.item {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.lhpf .lhpf-abilities .item-image {
+  flex-basis: 30px;
+  width: 30px;
+  height: 30px;
+}
+.lhpf .lhpf-abilities .item-name .text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.lhpf .lhpf-abilities .item-name h4 {
+  flex: none;
+}
+.lhpf .lhpf-abilities .tags.meta {
+  flex-wrap: wrap;
+}
+.lhpf .tab-content .tags .tag.tag_damage {
+  background: var(--pf-red);
+}
+.lhpf .lhpf-abilities .item-summary {
+  margin-left: 38px;
+}
+
+/* Effects in the narrower column: the origin goes to the name's tooltip */
+.lhpf.monster .effects-list .source {
+  display: none;
+}
+.lhpf.monster .effects-list .duration {
+  flex-basis: 70px;
+}
+.lhpf.monster .effects-list .action-header h3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -10,34 +10,34 @@ const { HandlebarsApplicationMixin } = foundry.applications.api;
  * Sheet for pile actors (loot, chests and merchants). The GM sees the
  * configuration and management controls; players see the interaction view.
  */
-export class LHTrpgPileSheet extends HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
+export class EterniaPileSheet extends HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
 
   static DEFAULT_OPTIONS = {
-    classes: ["lhtrpg", "pile-sheet"],
+    classes: ["eternia", "pile-sheet"],
     position: { width: 560, height: 640 },
     window: { resizable: true },
     form: { submitOnChange: true },
     actions: {
-      take: LHTrpgPileSheet.#onTake,
-      takeAll: LHTrpgPileSheet.#onTakeAll,
-      takeGold: LHTrpgPileSheet.#onTakeGold,
-      depositGold: LHTrpgPileSheet.#onDepositGold,
-      splitGold: LHTrpgPileSheet.#onSplitGold,
-      openChest: LHTrpgPileSheet.#onOpenChest,
-      closeChest: LHTrpgPileSheet.#onCloseChest,
-      buy: LHTrpgPileSheet.#onBuy,
-      sell: LHTrpgPileSheet.#onSell,
-      viewItem: LHTrpgPileSheet.#onViewItem,
-      deleteItem: LHTrpgPileSheet.#onDeleteItem,
-      filterType: LHTrpgPileSheet.#onFilterType,
-      shopTab: LHTrpgPileSheet.#onShopTab,
-      toggleConfig: LHTrpgPileSheet.#onToggleConfig
+      take: EterniaPileSheet.#onTake,
+      takeAll: EterniaPileSheet.#onTakeAll,
+      takeGold: EterniaPileSheet.#onTakeGold,
+      depositGold: EterniaPileSheet.#onDepositGold,
+      splitGold: EterniaPileSheet.#onSplitGold,
+      openChest: EterniaPileSheet.#onOpenChest,
+      closeChest: EterniaPileSheet.#onCloseChest,
+      buy: EterniaPileSheet.#onBuy,
+      sell: EterniaPileSheet.#onSell,
+      viewItem: EterniaPileSheet.#onViewItem,
+      deleteItem: EterniaPileSheet.#onDeleteItem,
+      filterType: EterniaPileSheet.#onFilterType,
+      shopTab: EterniaPileSheet.#onShopTab,
+      toggleConfig: EterniaPileSheet.#onToggleConfig
     }
   };
 
   static PARTS = {
     sheet: {
-      template: "systems/lhtrpg/templates/pile/pile-sheet.html",
+      template: "systems/eternia/templates/pile/pile-sheet.html",
       scrollable: [".pile-body"]
     }
   };
@@ -187,7 +187,7 @@ export class LHTrpgPileSheet extends HandlebarsApplicationMixin(foundry.applicat
         const item = this.actor.items.get(ev.currentTarget.closest("[data-item-id]").dataset.itemId);
         const raw = ev.currentTarget.value.trim();
         const value = (raw === "" || raw === "∞") ? -1 : Math.max(-1, Math.floor(Number(raw) || 0));
-        item?.setFlag("lhtrpg", STOCK_FLAG, value);
+        item?.setFlag("eternia", STOCK_FLAG, value);
       });
     }
   }
@@ -212,7 +212,7 @@ export class LHTrpgPileSheet extends HandlebarsApplicationMixin(foundry.applicat
 
   /** This user's sort/filter preference. */
   #getView() {
-    const view = { sort: "manual", type: "all", ...(game.settings.get("lhtrpg", SETTINGS.view) ?? {}) };
+    const view = { sort: "manual", type: "all", ...(game.settings.get("eternia", SETTINGS.view) ?? {}) };
     if (!(view.sort in SORT_MODES)) view.sort = "manual";
     if ((view.type !== "all") && !PHYSICAL_TYPES.includes(view.type)) view.type = "all";
     return view;
@@ -241,7 +241,7 @@ export class LHTrpgPileSheet extends HandlebarsApplicationMixin(foundry.applicat
       groups = PHYSICAL_TYPES
         .map(t => ({
           type: t,
-          label: game.i18n.localize(`LHTRPG.Piles.TypePlural.${t}`),
+          label: game.i18n.localize(`ETERNIA.Piles.TypePlural.${t}`),
           icon: TYPE_ICONS[t],
           entries: sorted.filter(i => i.type === t).map(toEntry)
         }))
@@ -259,8 +259,8 @@ export class LHTrpgPileSheet extends HandlebarsApplicationMixin(foundry.applicat
   }
 
   async #setView(changes) {
-    const current = game.settings.get("lhtrpg", SETTINGS.view) ?? {};
-    await game.settings.set("lhtrpg", SETTINGS.view, { ...current, ...changes });
+    const current = game.settings.get("eternia", SETTINGS.view) ?? {};
+    await game.settings.set("eternia", SETTINGS.view, { ...current, ...changes });
     this.render();
   }
 
@@ -363,12 +363,12 @@ export class LHTrpgPileSheet extends HandlebarsApplicationMixin(foundry.applicat
 
   static async #onTakeGold() {
     const actor = api.requireInteractingActor();
-    if (actor) await api.transferGold(this.actor, actor, undefined, { title: game.i18n.localize("LHTRPG.Piles.TakeGold") });
+    if (actor) await api.transferGold(this.actor, actor, undefined, { title: game.i18n.localize("ETERNIA.Piles.TakeGold") });
   }
 
   static async #onDepositGold() {
     const actor = api.requireInteractingActor();
-    if (actor) await api.transferGold(actor, this.actor, undefined, { title: game.i18n.localize("LHTRPG.Piles.DepositGold") });
+    if (actor) await api.transferGold(actor, this.actor, undefined, { title: game.i18n.localize("ETERNIA.Piles.DepositGold") });
   }
 
   static async #onSplitGold() {

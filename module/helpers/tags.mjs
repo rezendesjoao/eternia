@@ -112,7 +112,7 @@ class TagInput {
   suggestions(query) {
     const q = tagKey(query);
     const taken = new Set(splitTags([...this.tags, ...(this.owner.system.tags ?? [])]).map(t => tagKey(canonicalTag(t))));
-    const catalog = CONFIG.LHTRPG?.tags ?? TAG_CATALOG;
+    const catalog = CONFIG.ETERNIA?.tags ?? TAG_CATALOG;
     const scored = [];
     for (const entry of catalog) {
       if (taken.has(tagKey(entry.label))) continue;
@@ -163,7 +163,7 @@ const MIGRATION_VERSION = 1;
  * Call during the `init` hook.
  */
 export function registerTags() {
-  CONFIG.LHTRPG.tags ??= TAG_CATALOG;
+  CONFIG.ETERNIA.tags ??= TAG_CATALOG;
   Handlebars.registerHelper("lhTagChips", (tags, source) => tagChips(tags, source));
 
   // Whatever the source (sheet, import, macro, drop from an old compendium), store canonical tags.
@@ -213,7 +213,7 @@ async function _migrateDocs(docs) {
       await doc.update(update, { render: false });
       count++;
     } catch (err) {
-      console.error(`Log Horizon TRPG | Could not normalize the tags of ${doc.uuid}`, err);
+      console.error(`Eternia | Could not normalize the tags of ${doc.uuid}`, err);
     }
   }
   return count;
@@ -237,8 +237,8 @@ async function migrateTags() {
     }
   }
 
-  console.log(`Log Horizon TRPG | Normalized the tags of ${count} documents`);
-  if (count) ui.notifications.info(game.i18n.format("LHTRPG.Tag.Migrated", { count }));
+  console.log(`Eternia | Normalized the tags of ${count} documents`);
+  if (count) ui.notifications.info(game.i18n.format("ETERNIA.Tag.Migrated", { count }));
   return true;
 }
 

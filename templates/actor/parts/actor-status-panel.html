@@ -1,4 +1,4 @@
-{{!-- All Log Horizon statuses, by group. Statuses backed by a data field submit it with the form
+{{!-- All Eternia statuses, by group. Statuses backed by a data field submit it with the form
       (and sync to the status effect); the others toggle the status effect directly. --}}
 <div class="lh-status-panel">
 	{{#each statusPanel}}
@@ -14,7 +14,7 @@
 			{{#unless tagged}}
 			<input class="lh-status-rating lh-status-list-input" type="number" min="1" placeholder="0"
 				data-status-id="{{id}}" />
-			<a class="lh-status-list-add" data-status-id="{{id}}" title="{{localize 'LHTRPG.Add'}}"><i class="fas fa-plus"></i></a>
+			<a class="lh-status-list-add" data-status-id="{{id}}" title="{{localize 'ETERNIA.Add'}}"><i class="fas fa-plus"></i></a>
 			{{/unless}}
 		</div>
 		{{#if (or value.length tagged)}}
@@ -23,7 +23,7 @@
 			{{#if ../tagged}}
 			<li class="lh-status-entry" title="{{../label}}{{#if tag}} ({{tag}}){{/if}}: {{value}}">
 				<input class="lh-status-tag lh-status-entry-tag" type="text" value="{{tag}}"
-					placeholder="{{localize 'LHTRPG.Label.StatusTagAny'}}" data-status-id="{{../id}}" data-index="{{@index}}" />
+					placeholder="{{localize 'ETERNIA.Label.StatusTagAny'}}" data-status-id="{{../id}}" data-index="{{@index}}" />
 				<input class="lh-status-rating lh-status-entry-input" type="number" min="0" value="{{value}}"
 					data-status-id="{{../id}}" data-index="{{@index}}" />
 			{{else}}
@@ -32,17 +32,17 @@
 					data-status-id="{{../id}}" data-index="{{@index}}" />
 			{{/if}}
 				<a class="lh-status-entry-remove" data-status-id="{{../id}}" data-index="{{@index}}"
-					title="{{localize 'LHTRPG.Label.Remove'}}"><i class="fas fa-minus"></i></a>
+					title="{{localize 'ETERNIA.Label.Remove'}}"><i class="fas fa-minus"></i></a>
 			</li>
 			{{/each}}
 			{{#if tagged}}
 			{{!-- Weakness / Cancel: the new entry's Tag and Rating go on their own line (narrow columns) --}}
 			<li class="lh-status-entry lh-status-entry--new" data-add-row>
-				<input class="lh-status-tag lh-status-list-tag" type="text" placeholder="{{localize 'LHTRPG.Label.StatusTag'}}"
-					title="{{localize 'LHTRPG.Label.StatusTagHint'}}" />
+				<input class="lh-status-tag lh-status-list-tag" type="text" placeholder="{{localize 'ETERNIA.Label.StatusTag'}}"
+					title="{{localize 'ETERNIA.Label.StatusTagHint'}}" />
 				<input class="lh-status-rating lh-status-list-input" type="number" min="1" placeholder="0"
 					data-status-id="{{id}}" />
-				<a class="lh-status-list-add" data-status-id="{{id}}" title="{{localize 'LHTRPG.Add'}}"><i class="fas fa-plus"></i></a>
+				<a class="lh-status-list-add" data-status-id="{{id}}" title="{{localize 'ETERNIA.Add'}}"><i class="fas fa-plus"></i></a>
 			</li>
 			{{/if}}
 		</ol>

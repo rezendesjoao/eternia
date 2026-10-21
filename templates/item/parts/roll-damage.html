@@ -1,28 +1,28 @@
 {{!-- Damage / Recovery of a skill or usable item. --}}
     <div class="stat-div skill-roll">
-      <label {{#unless noRoll}}class="skill-roll-button lh-roll-button" data-action="rollSkill" data-roll="damage" title="{{localize 'LHTRPG.ButtonLabel.Roll'}}"{{/unless}}>{{localize 'LHTRPG.Skill.Label.Damage'}}</label>
+      <label {{#unless noRoll}}class="skill-roll-button lh-roll-button" data-action="rollSkill" data-roll="damage" title="{{localize 'ETERNIA.ButtonLabel.Roll'}}"{{/unless}}>{{localize 'ETERNIA.Skill.Label.Damage'}}</label>
       <div class="skill-roll-fields">
         <input class="skill-roll-dice lh-formula-mod" type="text" name="system.damage.dice" list="lh-skill-dice"
           value="{{#if system.damage.diceFormula}}{{system.damage.diceFormula}}{{else}}{{system.damage.dice}}{{/if}}"
-          placeholder="0" data-tooltip="{{localize 'LHTRPG.Skill.Label.DiceFormulaHint'}}"><span>D</span>
+          placeholder="0" data-tooltip="{{localize 'ETERNIA.Skill.Label.DiceFormulaHint'}}"><span>D</span>
         <span>+</span>
         <input class="skill-roll-mod lh-formula-mod" type="text" name="system.damage.mod"
           value="{{#if system.damage.formula}}{{system.damage.formula}}{{else}}{{system.damage.mod}}{{/if}}"
-          placeholder="0" data-tooltip="{{localize 'LHTRPG.Skill.Label.ModFormulaHint'}}">
+          placeholder="0" data-tooltip="{{localize 'ETERNIA.Skill.Label.ModFormulaHint'}}">
         <div class="skill-roll-options">
           {{!-- Physical adds Attack Power, Magical adds Magic Power (character skills) --}}
           <select class="skill-roll-type" name="system.damage.type">
             {{selectOptions damageTypeOptions selected=system.damage.type blank="-" localize=true}}
           </select>
           {{!-- Recovery combines with Physical / Magical --}}
-          <label class="skill-roll-option" {{#unless isMonsterSkill}}title="+ {{localize 'LHTRPG.Tooltip.RestorationPower'}}"{{/unless}}>
+          <label class="skill-roll-option" {{#unless isMonsterSkill}}title="+ {{localize 'ETERNIA.Tooltip.RestorationPower'}}"{{/unless}}>
             <input type="checkbox" name="system.damage.recovery" {{checked system.damage.recovery}}>
-            {{localize 'LHTRPG.Skill.Label.DamageRecovery'}}
+            {{localize 'ETERNIA.Skill.Label.DamageRecovery'}}
           </label>
           {{#unless isMonsterSkill}}
-          <label class="skill-roll-option" data-tooltip="{{localize 'LHTRPG.Skill.Label.DamageNoPowerHint'}}">
+          <label class="skill-roll-option" data-tooltip="{{localize 'ETERNIA.Skill.Label.DamageNoPowerHint'}}">
             <input type="checkbox" name="system.damage.noPower" {{checked system.damage.noPower}}>
-            {{localize 'LHTRPG.Skill.Label.DamageNoPower'}}
+            {{localize 'ETERNIA.Skill.Label.DamageNoPower'}}
           </label>
           {{/unless}}
         </div>

@@ -34,6 +34,6 @@ export function effectModified(base, effective) {
     base: b,
     effective: e,
     display: `→ ${e}`,
-    tooltip: game.i18n.format("LHTRPG.Effect.ModifiedTooltip", { base: b, effective: e })
+    tooltip: game.i18n.format("ETERNIA.Effect.ModifiedTooltip", { base: b, effective: e })
   };
 }

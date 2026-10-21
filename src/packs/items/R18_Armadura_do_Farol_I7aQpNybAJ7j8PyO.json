@@ -1,0 +1,85 @@
+{
+  "name": "R18 Armadura do Farol",
+  "type": "armor",
+  "system": {
+    "description": "<p>[Momento: Instantânea] Só pode ser usado durante o combate. Este item recebe a tag [Quebrado] e você recebe 4 pontos de [Destino]. Além disso, sua [Rolagem de Dano] recebe +2D até o fim da Cena. Do momento do uso até o fim da Cena, este item não pode ser equipado.\nArmadura da Graça de Phoenic. Lendária. Uma bela armadura de placas usada pela heroína, a Dama Cavaleira Phoenic, durante a Guerra de Resistência dos Alv. Durante a feroz batalha, sua armadura se despedaçou, mas ela lutou com uma ferocidade digna de um rakshasa, com a pele exposta. Essa lenda fala de seu espírito indomável. 120 80 10 9 15 Aumenta a resistência a dano físico em 15%. Concede +5 de bônus ao poder de ataque ao sofrer dano. 1500</p><hr><p>Pedra do Sábio[Material-Base](620G)+Armadura de Combate(1200G)+[Catalisador Mágico 18](310G)×4+Custo de Fabricação(1120G)</p>",
+    "tags": [
+      "Heavy Armor",
+      "Not For Sale",
+      "M4"
+    ],
+    "pdef": 48,
+    "mdef": 28,
+    "initiative": -2,
+    "rank": 18,
+    "price": 4180,
+    "equipped": false,
+    "checkType": "-",
+    "range": "-",
+    "target": "-",
+    "timing": "-",
+    "attack": 0,
+    "magic": 0,
+    "accuracy": 0
+  },
+  "img": "systems/eternia/assets/ui/items_icons/armor.svg",
+  "effects": [],
+  "sort": 2100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Instant",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "",
+          "text": "[Trigger: Instant] Can only be used during battle. This item gains the [Broken] tag, and you gain 4 points of [Fate]. Additionally, your [Damage Roll] is increased by +2D until the end of the scene. From after use until the end of the scene, this item cannot be equipped.",
+          "effects": [
+            {
+              "name": "R18 Lighthouse Armor",
+              "img": "systems/lhtrpg/assets/ui/items_icons/armor.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "lhtrpg.roll.damage.dice",
+                    "type": "add",
+                    "value": 2,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "I7aQpNybAJ7j8PyO",
+  "folder": "GSOXnkHg6C8os28Y",
+  "_key": "!items!I7aQpNybAJ7j8PyO"
+}

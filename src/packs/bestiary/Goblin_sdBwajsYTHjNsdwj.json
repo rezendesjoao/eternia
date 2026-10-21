@@ -1,7 +1,7 @@
 {
   "name": "Goblin",
   "type": "monster",
-  "img": "systems/lhtrpg/assets/ui/actors_icons/monster.svg",
+  "img": "systems/eternia/assets/ui/actors_icons/monster.svg",
   "system": {
     "health": {
       "value": 24,
@@ -92,14 +92,14 @@
         "mod": 7
       }
     },
-    "description": "<table style=\"border-collapse: collapse; width: 396pt;\" border=\"0\" width=\"528\" cellspacing=\"0\" cellpadding=\"0\"><colgroup><col style=\"mso-width-source: userset; mso-width-alt: 3218; width: 66pt;\" span=\"6\" width=\"88\"> </colgroup>\n<tbody>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl66\" style=\"height: 15.75pt; width: 396pt;\" colspan=\"6\" width=\"528\" height=\"21\">Drop Items</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl65\" style=\"height: 15.75pt;\" height=\"21\">Fixed</td>\n<td class=\"xl67\" colspan=\"5\">Gob Sword [Valuable] (20G)</td>\n</tr>\n</tbody>\n</table>"
+    "description": "<table style=\"border-collapse: collapse; width: 396pt;\" border=\"0\" width=\"528\" cellspacing=\"0\" cellpadding=\"0\"><colgroup><col style=\"mso-width-source: userset; mso-width-alt: 3218; width: 66pt;\" span=\"6\" width=\"88\"> </colgroup>\n<tbody>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl66\" style=\"height: 15.75pt; width: 396pt;\" colspan=\"6\" width=\"528\" height=\"21\">Itens Deixados</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl65\" style=\"height: 15.75pt;\" height=\"21\">Fixo</td>\n<td class=\"xl67\" colspan=\"5\">Espada Gob [Valioso] (20G)</td>\n</tr>\n</tbody>\n</table>"
   },
   "prototypeToken": {
     "name": "Goblin",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/lhtrpg/assets/ui/actors_icons/monster.svg",
+      "src": "systems/eternia/assets/ui/actors_icons/monster.svg",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -190,10 +190,10 @@
   },
   "items": [
     {
-      "name": "Goblin Rage",
+      "name": "Fúria Goblin",
       "type": "skill",
       "system": {
-        "description": "<ul>\n<li>Use this skill when this enemy takes [Spirit] damage.&nbsp;</li>\n<li>This enemy immediately uses Gob Mob.&nbsp;</li>\n<li>Increase the damage of Gob Mob by +5.</li>\n</ul>",
+        "description": "<ul>\n<li>Use esta habilidade quando este inimigo sofrer dano de [Espírito].&nbsp;</li>\n<li>Este inimigo usa Turba Gob imediatamente.&nbsp;</li>\n<li>Aumente o dano de Turba Gob em +5.</li>\n</ul>",
         "tags": [],
         "timing": "After Damage",
         "checkType": "",
@@ -209,7 +209,7 @@
         "macroeffect": ""
       },
       "_id": "1cxGXB17bzHsj2MN",
-      "img": "systems/lhtrpg/assets/ui/items_icons/skill.svg",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
       "effects": [],
       "sort": 0,
       "ownership": {
@@ -218,8 +218,8 @@
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
-        "systemId": "lhtrpg",
-        "systemVersion": "1.5.0",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
@@ -230,10 +230,10 @@
       "_key": "!actors.items!sdBwajsYTHjNsdwj.1cxGXB17bzHsj2MN"
     },
     {
-      "name": "Gob Mob",
+      "name": "Turba Gob",
       "type": "skill",
       "system": {
-        "description": "<p>Deal [[/gmr 2d6 + 33]]{[33+2D]} physical damage.<br>(Minor): The target takes [Pursuit: 5].</p>",
+        "description": "<p>Causa [[/gmr 2d6 + 33]]{[33+2D]} de dano físico.<br>(Menor): O alvo sofre [Perseguição: 5].</p>",
         "tags": [
           "Melee Attack"
         ],
@@ -248,10 +248,17 @@
         },
         "cost": "-",
         "limit": "-",
-        "macroeffect": ""
+        "macroeffect": "",
+        "damage": {
+          "dice": 2,
+          "mod": 33,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
       },
       "_id": "2bvmmDS4nElpQsOf",
-      "img": "systems/lhtrpg/assets/ui/items_icons/skill.svg",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
       "effects": [],
       "sort": 0,
       "ownership": {
@@ -260,8 +267,8 @@
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
-        "systemId": "lhtrpg",
-        "systemVersion": "1.5.0",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
@@ -272,11 +279,11 @@
       "_key": "!actors.items!sdBwajsYTHjNsdwj.2bvmmDS4nElpQsOf"
     },
     {
-      "name": "Line Breaker",
+      "name": "Rompe-Linhas",
       "type": "skill",
-      "img": "systems/lhtrpg/assets/ui/items_icons/skill.svg",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
       "system": {
-        "description": "<p>This enemy makes a [Safe Move] up to 2 Sq.&nbsp;<br>(Minor): Increase the distance moved by +1 Sq.</p>",
+        "description": "<p>Este inimigo faz um [Movimento Seguro] de até 2 Qd.&nbsp;<br>(Menor): Aumente a distância percorrida em +1 Qd.</p>",
         "tags": [
           "Movement"
         ],
@@ -301,8 +308,8 @@
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
-        "systemId": "lhtrpg",
-        "systemVersion": "1.5.0",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
@@ -318,8 +325,8 @@
   "flags": {},
   "_stats": {
     "coreVersion": "13.351",
-    "systemId": "lhtrpg",
-    "systemVersion": "1.5.0",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

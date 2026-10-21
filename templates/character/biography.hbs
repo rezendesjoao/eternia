@@ -1,0 +1,45 @@
+{{!-- BIOGRAPHY: the text, the connections and the unions. --}}
+<section class="tab major biography" data-group="primary" data-tab="biography">
+	<nav class="sub-nav tabs" data-group="bio">
+		<a data-action="tab" data-group="bio" data-tab="bio">{{localize 'ETERNIA.Biography.Title'}}</a>
+		{{#each lh.social as |tab|}}
+		<a data-action="tab" data-group="bio" data-tab="{{tab.id}}">{{tab.label}}{{#if tab.items.length}}<span class="pending quiet">{{tab.items.length}}</span>{{/if}}</a>
+		{{/each}}
+	</nav>
+
+	<div class="tab lhpf-pane" data-group="bio" data-tab="bio">
+		<div class="tab-content">
+			{{#unless source.biography}}{{#if editable}}<p class="lhpf-empty lhpf-bio-hint"><i class="fa-solid fa-feather"></i> {{localize 'ETERNIA.Sheet.BioHint'}}</p>{{/if}}{{/unless}}
+			<prose-mirror class="lhpf-bio" name="system.biography" value="{{source.biography}}" toggled {{#unless editable}}disabled{{/unless}}>{{{enrichments.biography}}}</prose-mirror>
+		</div>
+	</div>
+
+	{{#each lh.social as |tab|}}
+	<div class="tab lhpf-pane" data-group="bio" data-tab="{{tab.id}}">
+		<div class="tab-content">
+			<ol class="directory-list lhpf-list">
+				<li class="action-header">
+					<h3>{{tab.label}}</h3>
+					<div class="item-controls">{{#if @root.editable}}<a class="item-control" data-action="item-create" data-type="{{tab.type}}"><i class="fa-solid fa-fw fa-plus"></i> {{localize 'ETERNIA.Add'}}</a>{{/if}}</div>
+				</li>
+				{{#each tab.items as |item|}}
+				<li class="item draggable" data-item-id="{{item._id}}">
+					<div class="item-name">
+						<a class="item-image framed" data-action="item-edit"><img src="{{item.img}}" alt=""></a>
+						<h4 class="name"><a data-action="lhauto-summary">{{item.name}}</a></h4>
+					</div>
+					{{#if item.lhTags.length}}<ul class="tags meta">{{#each item.lhTags}}<li class="tag tag_transparent">{{this}}</li>{{/each}}</ul>{{/if}}
+					<div class="item-controls">
+						<a class="item-control" data-action="item-edit" data-tooltip="ETERNIA.ButtonLabel.Edit"><i class="fa-solid fa-fw fa-pen-to-square"></i></a>
+						{{#if @root.editable}}<a class="item-control" data-action="lhauto-delete" data-tooltip="ETERNIA.ButtonLabel.Delete"><i class="fa-solid fa-fw fa-trash"></i></a>{{/if}}
+					</div>
+					<div class="item-summary" hidden></div>
+				</li>
+				{{else}}
+				<li class="lhpf-empty">{{localize 'ETERNIA.Sheet.NoneYet'}}</li>
+				{{/each}}
+			</ol>
+		</div>
+	</div>
+	{{/each}}
+</section>

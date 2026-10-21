@@ -35,7 +35,7 @@
       "WrongItemType": "{item} ({type}) cannot be equipped in the {slot} slot."
     }
   },
-  "LHTRPG": {
+  "ETERNIA": {
     "Hands": {
       "Main": "Main Hand",
       "Off": "Off Hand",
@@ -109,7 +109,7 @@
     },
     "EffectConfig": {
       "Title": "Active Effect Configuration",
-      "StatusTab": "LH Status",
+      "StatusTab": "Status",
       "Status": "Status",
       "StatusNone": "— None —",
       "Rating": "Rating",
@@ -122,15 +122,15 @@
       "RatingFormulaHint": "A number, or a formula (@sr*5) resolved when the skill is used"
     },
     "EffectDuration": {
-      "Label": "Duration (LH)",
+      "Label": "Duration (Eternia)",
       "Manual": "— Manual —",
       "EndOfProcess": "End of process",
       "EndOfRound": "End of round",
       "EndOfScene": "End of scene",
       "Hint": "End of process: expires when the current process ends (the active character's Main Process, or the Setup/Cleanup Process). End of round: expires when the next round starts. End of scene: expires when combat ends. Outside of combat, durations do not expire on their own.",
-      "Legend": "Log Horizon duration",
+      "Legend": "Eternia duration",
       "CoreLegend": "Foundry duration",
-      "CoreHint": "Counted by Foundry in time or combat rounds, and only on effects on an actor. Log Horizon effects normally use the duration above: leave this empty. Effects applied by using a skill or item don't keep it.",
+      "CoreHint": "Counted by Foundry in time or combat rounds, and only on effects on an actor. Eternia effects normally use the duration above: leave this empty. Effects applied by using a skill or item don't keep it.",
       "Short": {
         "EndOfProcess": "End of proc.",
         "EndOfRound": "End of round",
@@ -382,7 +382,7 @@
       "SheetLabel": "Pile Sheet (loot, chest, merchant)",
       "ChatAlias": "Inventory",
       "DefaultLootName": "Loot",
-      "ItemPilesActive": "The Item Piles module is active. Log Horizon TRPG already includes its own loot, chests and merchants: using both at once may overlap.",
+      "ItemPilesActive": "The Item Piles module is active. Eternia already includes its own loot, chests and merchants: using both at once may overlap.",
       "Mode": {
         "Loot": "Loot",
         "Chest": "Chest",
@@ -749,9 +749,9 @@
       }
     },
     "Migration": {
-      "Running": "Log Horizon TRPG: updating the world data… Please don't close the world until it finishes.",
-      "Done": "Log Horizon TRPG: world data updated.",
-      "Pending": "Log Horizon TRPG: some world updates could not be completed ({list}). They will be retried the next time the world is loaded; see the console (F12) for details."
+      "Running": "Eternia: updating the world data… Please don't close the world until it finishes.",
+      "Done": "Eternia: world data updated.",
+      "Pending": "Eternia: some world updates could not be completed ({list}). They will be retried the next time the world is loaded; see the console (F12) for details."
     },
     "TagDesc": {
       "Blade": "Swords and knives. Classes that can equip [Blade] can use it; an attack with this tag requires an equipped [Blade].",
@@ -876,7 +876,18 @@
         "inCombat": "In combat",
         "firstRound": "First round of combat",
         "preAction": "Pre-Action (hasn't acted this round)",
-        "standby": "Declared Standby this round"
+        "standby": "Declared Standby this round",
+        "kudenResource": "Kuden: Resource ≥ N",
+        "kudenResourceFull": "Kuden: Resource at maximum",
+        "sceneDay": "Scene: by day",
+        "sceneNight": "Scene: at night",
+        "sceneNoon": "Scene: at noon",
+        "sceneOpenSky": "Scene: under the open sky",
+        "sceneDarkness": "Scene: in darkness",
+        "sceneMiasma": "Scene: in miasma",
+        "sceneNoMiasma": "Scene: out of miasma",
+        "targetBossRaid": "Target: Boss or Raid",
+        "hpAtMost": "HP ≤ N% of maximum"
       },
       "Summary": {
         "srAtLeast": "SR ≥ {value}",
@@ -899,7 +910,18 @@
         "inCombat": "In combat",
         "firstRound": "First round",
         "preAction": "[Pre-Action]",
-        "standby": "[Standby]"
+        "standby": "[Standby]",
+        "kudenResource": "Resource ≥ {value}",
+        "kudenResourceFull": "Resource at maximum",
+        "sceneDay": "By day",
+        "sceneNight": "At night",
+        "sceneNoon": "At noon",
+        "sceneOpenSky": "Under the open sky",
+        "sceneDarkness": "In darkness",
+        "sceneMiasma": "In miasma",
+        "sceneNoMiasma": "Out of miasma",
+        "targetBossRaid": "Targeting a Boss or Raid",
+        "hpAtMost": "HP at {value}% of maximum or less"
       }
     },
     "RollFilter": {
@@ -966,6 +988,590 @@
         "img": "image",
         "effects": "effects"
       }
+    },
+    "Settings": {
+      "Mode": {
+        "off": "Off",
+        "warn": "Warn and ask to confirm",
+        "block": "Block (the GM can force it)"
+      },
+      "costs": {
+        "Name": "Pay Hate and Fate costs",
+        "Hint": "Using a skill adds its Hate cost (with the discounts of effects) and spends its Fate. Hate is only paid in a started combat; Fate always. The card shows what was paid and has an Undo button."
+      },
+      "limits": {
+        "Name": "Usage limits",
+        "Hint": "Counts the uses of skills with a limit (1/Scene, SR/Scenario, 1/Round…) per character. A scene ends when the combat ends or with the GM tool; a scenario only with the GM tool."
+      },
+      "actions": {
+        "Name": "Timing and action economy",
+        "Hint": "In combat, checks that a skill is used at the right time (Major, Minor, Move and Instant in your own Main Process, Setup in the Setup Process, Cleanup in the Cleanup Process) and that the Main Process action wasn't spent yet."
+      },
+      "hatePerCombat": {
+        "Name": "Hate Top and Hate Under per combat",
+        "Hint": "Puts [Hate Top] and [Hate Under] on the characters of every combat, so the +2 to Dodge and Hate Damage work with several combats at once, and everyone sees on the tokens who is Hate Top."
+      },
+      "cleanup": {
+        "Name": "Regen and Decay in the Cleanup Process",
+        "Hint": "In the Cleanup Process of every round, Regen heals, then Decay deals damage (through Barrier). A summary is posted in the chat."
+      },
+      "endOfProcess": {
+        "Name": "Dazed and Staggered end with the Main Process",
+        "Hint": "By the rules, these statuses end when the affected character's Main Process ends, unless it is Afflicted."
+      },
+      "incapacitated": {
+        "Name": "Automatic Incapacitated",
+        "Hint": "0 HP (or 0 Max HP from Fatigue) makes a character Incapacitated, and an Incapacitated character drops to 0 HP. Incapacitated, Dead and Absent combatants skip their turn (straight to Post-Action)."
+      },
+      "endOfScene": {
+        "Name": "End of scene when the combat ends",
+        "Hint": "When a started combat ends: Incapacitated Adventurers get back up with full HP, Incapacitated enemies die, and Bad and Combat Statuses end. Fatigue and Weakness stay."
+      },
+      "revive": {
+        "Name": "Dead Adventurers revive at the end of the scene",
+        "Hint": "By the rules, a Dead Adventurer revives at the end of the scene with 1 HP and [Fatigue: Max HP − 1]."
+      },
+      "cards": {
+        "Name": "Attack and damage card fixes",
+        "Hint": "Damage is tied to the right attack, and the attack card gets a damage button. Apply doesn't work on a target that still has to dodge or that dodged, and asks before applying again. Private cards are shown to the owners of the targets."
+      },
+      "closeReach": {
+        "Name": "Close reaches the next squares",
+        "Hint": "House rule: a Close attack also reaches a token touching the attacker's, sideways or diagonally, so the two tokens don't have to share a square. Every other range is the system's."
+      },
+      "fate": {
+        "Name": "Fate buttons",
+        "Hint": "Spend 1 Fate to: +1D on a skill's Check, reroll the hit, the dodge or a plain check, and remove a Bad Status (Fate button on the sheet's Statuses box)."
+      },
+      "content": {
+        "Name": "Item and monster content",
+        "Hint": "The trigger powers of items become skills of whoever carries them, potions and jewels heal and food removes Fatigue from whoever uses them, equipped items give their statuses at the start of the scene, and homebrew monsters get their attack damage read from their text. Only what is missing is filled; nothing edited by hand is replaced."
+      },
+      "kuden": {
+        "Name": "Kuden (house rule)",
+        "Hint": "Turns on the Kuden tab of the sheet: signature pieces paid with the skill picks, the Core's Resource, the environment of each scene (hour, sky, darkness and miasma) and new effect conditions."
+      },
+      "chatTheme": {
+        "Name": "Parchment chat theme",
+        "Hint": "Skill, attack and damage cards and the rolls on parchment, with the speaker's portrait."
+      },
+      "windowTheme": {
+        "Name": "Parchment system windows",
+        "Hint": "Item and monster sheets, the effect editor, the skill and class browsers, chests and shops and the dialogs in the same look as the character sheet."
+      },
+      "hud": {
+        "Name": "Action HUD",
+        "Hint": "Shows a bar above the macro hotbar for the selected token: HP, Barrier, Fate, Hate and Fatigue, the checks, the skills by Timing, the Kuden, the items, the statuses, the turn and the pending dodges, to roll and use everything without opening the sheet. Your own setting: each player chooses."
+      },
+      "hudCharacter": {
+        "Name": "HUD with no token selected",
+        "Hint": "With no token selected, the HUD shows the character assigned to you (players only)."
+      },
+      "turnNotice": {
+        "Name": "Your turn notice",
+        "Hint": "Tells you, with a sound, when the Main Process of one of your characters starts."
+      },
+      "turnSelect": {
+        "Name": "Select the token on your turn",
+        "Hint": "When the Main Process of one of your characters starts, its token gets selected (for the GM: the enemies and NPCs no player controls)."
+      },
+      "turnPan": {
+        "Name": "Pan to whoever acts",
+        "Hint": "When a Main Process starts, the view goes to the acting token."
+      },
+      "turnUntarget": {
+        "Name": "Clear targets at the end of your turn",
+        "Hint": "When the Main Process of one of your characters ends, your targets are cleared, so the next skill doesn't go to the old target."
+      },
+      "statusLinks": {
+        "Name": "Clickable statuses in the chat",
+        "Hint": "Statuses written in the cards ([Staggered], [Decay: 10], [Weakness (Flame): 5]…) become links: a click applies the status to your targets (or the selected tokens), like skill effects, until the end of the scene. Ratings with SR are worked out; missing ones are asked."
+      },
+      "quickEffect": {
+        "Name": "Create an effect from a card",
+        "Hint": "Right click a skill or item card in the chat → Create effect on targets: an effect with the skill's name, picture and text, until the end of the Process, the Round or the Scene, to track what the skill only describes in text."
+      },
+      "Section": {
+        "rules": "Rules of use and combat",
+        "chat": "Cards and chat",
+        "content": "Content and house rules",
+        "look": "Look",
+        "hud": "Action HUD (each player chooses)",
+        "turn": "Turn (each player chooses)"
+      },
+      "hotbar": {
+        "Name": "Foundry macro hotbar",
+        "Hint": "Hiding the macro hotbar puts the HUD in its place; swap shows the hotbar only while the HUD is off screen (no token selected). The 1 to 0 keys keep running the macros. Your own setting: each player chooses.",
+        "hide": "Hide (the HUD takes its place)",
+        "swap": "Swap: shown when the HUD is gone",
+        "show": "Show"
+      },
+      "tokenStyle": {
+        "Name": "Token bars and names in the sheet's style",
+        "Hint": "The HP bar, Fate and the name under the tokens in the look of the sheet: a slim bar with a gold edge (Fatigue hatched at its end, Barrier as a blue sliver above), Fate as gold diamonds, and the name in small caps on a band in the colour of the disposition (green friendly, wine hostile, bronze neutral)."
+      },
+      "tokenBars": {
+        "Name": "Who sees the tokens' HP bar",
+        "Hint": "For the HP bar. The second bar (Fate) follows each token's own setting.",
+        "always": "Everyone, always",
+        "identified": "Everyone; enemies only once [Identified]",
+        "core": "As each token is configured"
+      }
+    },
+    "Use": {
+      "ConfirmTitle": "Use {name}?",
+      "ConfirmIntro": "Careful:",
+      "ConfirmQuestion": "Use it anyway?",
+      "UseAnyway": "Use anyway",
+      "Cancel": "Cancel",
+      "Blocked": "{name} can't be used now. {reasons}",
+      "OutsideProcess": "It isn't your Main Process.",
+      "OnlySetup": "Setup skills only in the Setup Process.",
+      "OnlyCleanup": "Cleanup skills only in the Cleanup Process.",
+      "OnlyBriefing": "Briefing skills only before the combat starts.",
+      "OnlyOutOfCombat": "This skill is used outside combat.",
+      "ActionSpent": {
+        "major": "The Major Action of this Main Process was already used.",
+        "minor": "The Minor Action of this Main Process was already used.",
+        "move": "The Move Action of this Main Process was already used."
+      },
+      "LimitReached": "Limit reached: {uses}/{max} {per}.",
+      "Per": {
+        "Scene": "per scene",
+        "Scenario": "per scenario",
+        "Round": "per round"
+      },
+      "NoFate": "Not enough Fate: needs {need}, has {have}.",
+      "Paid": {
+        "Hate": "Hate +{n} (now {total})",
+        "Fate": "Fate −{n} ({total} left)"
+      },
+      "Action": {
+        "major": "Major Action",
+        "minor": "Minor Action",
+        "move": "Move Action"
+      },
+      "Uses": "Use {n}/{max} {per}",
+      "Group": "Group cost ({group}): the allies pay separately",
+      "Forced": "Used despite the warnings",
+      "Undo": "Undo use",
+      "UndoHint": "Gives back the Hate, the Fate, the use and the action. Effects the skill applied are not removed.",
+      "Undone": "Use undone.",
+      "OnlyInitiative": "Initiative skills only in the Initiative Process, during the rounds of the combat.",
+      "NotEquipped": "{item} is not equipped.",
+      "CrLocked": "From CR {lock}, this item's effect cannot be used.",
+      "MinHate": "Not enough Hate: needs {need}, has {have}.",
+      "NoRankSkill": "Its number of uses is the SR of \"{skill}\", which the character doesn't have.",
+      "AlreadyActed": "Only before your Main Process this round (Not Acted).",
+      "Incapacitated": "{name} is Incapacitated and can't act."
+    },
+    "Cards": {
+      "RollDamage": "Roll damage",
+      "PendingDodge": "{name} hasn't rolled the Dodge yet: roll it on the attack card before applying.",
+      "Dodged": "{name} dodged this attack.",
+      "AgainTitle": "Apply again?",
+      "AlreadyApplied": "{name} already took this damage ({result}). Apply again?",
+      "ApplyAgain": "Apply again"
+    },
+    "Fate": {
+      "ExtraDie": "Fate",
+      "ExtraDieButton": "+1D",
+      "ExtraDieHint": "Roll the Check with +1D, spending 1 Fate.",
+      "RerollHit": "Reroll the hit (1 Fate)",
+      "RerollDodge": "Reroll the dodge (1 Fate)",
+      "Reroll": "Reroll (1 Fate)",
+      "Rerolled": "rerolled with Fate",
+      "WasRerolled": "Rerolled with Fate.",
+      "HitRerolled": "Hit rerolled with Fate ({n}×)",
+      "None": "{name} has no Fate.",
+      "UseHint": "Spend 1 Fate to remove a Bad Status.",
+      "RemoveTitle": "Remove a Bad Status",
+      "RemoveIntro": "Spend 1 Fate to remove one Bad Status of {name} (Fate: {fate}).",
+      "AfflictedNote": "Afflicted: Staggered, Dazed, Confused and Overconfident can only go after Afflicted.",
+      "NoBadStatus": "{name} has no Bad Status to remove.",
+      "Remove": "Remove",
+      "Removed": "{name} spent 1 Fate and removed {status}. (Fate: {fate})"
+    },
+    "Round": {
+      "CleanupTitle": "Cleanup — Round {round}",
+      "Regen": "Regen +{n}",
+      "Decay": "Decay −{n}",
+      "Barrier": "(Barrier absorbed {n})",
+      "Line": "{name}: {parts} → {hp}/{max} HP"
+    },
+    "Scene": {
+      "Title": "End of scene",
+      "Recovered": "{name} gets back up with full HP.",
+      "Revived": "{name} revives with 1 HP and Fatigue {fatigue}.",
+      "Died": "{name} dies."
+    },
+    "Tools": {
+      "Name": "GM tools",
+      "Label": "Open",
+      "Hint": "End the scene or the scenario of characters (resets the per-scene and per-scenario usage limits).",
+      "Title": "Eternia — GM tools",
+      "Intro": "Per-scene and per-scenario usage limits count per character. Ending a combat already ends the scene of those who fought; here you end scenes outside combat, and scenarios.",
+      "SceneSelected": "End the scene of the selected tokens",
+      "ScenarioSelected": "End the scenario of the selected tokens",
+      "ScenarioAll": "End the scenario of every character",
+      "NoTokens": "Select the tokens first.",
+      "Done": "{what}: {n} character(s).",
+      "Scene": "Scene ended",
+      "Scenario": "Scenario ended",
+      "FillIntro": "Fills what the world still lacks: the attack damage of homebrew monsters (read from their text) and the skills of the trigger powers of the items the characters carry. The items and monsters of the compendiums already come with their data.",
+      "FillWorld": "Fill in the world's data",
+      "FillNothing": "Nothing to fill: the world already has the data.",
+      "FillConfirm": "This fills the damage of {damage} monster attacks. On the characters: {skills} item power skills to create, {links} items to link to their skill and {removed} skills of items they no longer have to delete. Only what is missing is filled. Go on?",
+      "FillYes": "Fill in",
+      "FillDone": "Data filled in: {damage} monster attacks with damage; {skills} item power skills created, {links} items linked, {removed} skills deleted."
+    },
+    "Content": {
+      "Fed": "Fatigue −{amount}: {names}",
+      "Healed": "Healing: {names}",
+      "NotHealer": "{name} is not of the Healer archetype (no effect)",
+      "Dead": "{name} is Dead (no effect)"
+    },
+    "Sheet": {
+      "Label": "Character sheet",
+      "Tab": {
+        "character": "Character",
+        "checks": "Checks",
+        "skills": "Skills",
+        "kuden": "Kuden",
+        "inventory": "Inventory",
+        "effects": "Effects & statuses",
+        "biography": "Biography"
+      },
+      "HitPoints": "Hit Points",
+      "Max": "Max",
+      "BarrierHint": "Barrier: absorbs damage before HP.",
+      "Hate": "Hate",
+      "Fatigue": "Fatigue",
+      "Defenses": "Defenses",
+      "PhysDef": "Physical",
+      "MagicDef": "Magic",
+      "Initiative": "Initiative",
+      "Speed": "Speed",
+      "CombatChecks": "Combat checks",
+      "AbilityChecks": "Ability checks",
+      "Statuses": "Statuses",
+      "NoStatus": "No status.",
+      "RemoveBad": "Fate",
+      "RemoveBadHint": "Spend 1 Fate to remove a Bad Status.",
+      "FateHint": "Fate {value}/{max}. Click: +1. Right click: −1.",
+      "CR": "Character Rank (CR)",
+      "CRShort": "CR",
+      "Power": "Power",
+      "Attack": "Attack",
+      "Magic": "Magic",
+      "Recovery": "Recovery",
+      "Attributes": "Attributes",
+      "Allocate": "Allocate",
+      "Attr": {
+        "str": {
+          "abbr": "STR",
+          "name": "Strength"
+        },
+        "dex": {
+          "abbr": "DEX",
+          "name": "Dexterity"
+        },
+        "pow": {
+          "abbr": "POW",
+          "name": "Power"
+        },
+        "int": {
+          "abbr": "INT",
+          "name": "Intelligence"
+        }
+      },
+      "Timing": {
+        "major": "Major Action",
+        "minor": "Minor Action",
+        "move": "Move Action",
+        "instant": "Instant Action",
+        "reaction": "Reactions",
+        "setup": "Setup & Initiative",
+        "cleanup": "Cleanup",
+        "constant": "Constant",
+        "downtime": "Out of combat",
+        "other": "Other"
+      },
+      "SkillCount": "{n} skill(s)",
+      "NoSkills": "No skills of this type.",
+      "SR": "Skill Rank (SR)",
+      "SRShort": "SR",
+      "Cost": "Cost",
+      "Limit": "Limit",
+      "Use": "Use (send to chat)",
+      "NoDescription": "No description.",
+      "Wealth": "Wealth",
+      "Gold": "{total} G",
+      "GoldAdd": "Receive gold",
+      "GoldSpend": "Spend gold",
+      "GoldAmount": "Amount (G)",
+      "GoldGained": "{name} received {amount} G (total: {total} G).",
+      "GoldSpent": "{name} spent {amount} G (total: {total} G).",
+      "Equipped": "Equipped",
+      "EquipHint": "drag an item onto a slot",
+      "EmptySlot": "Empty",
+      "Unequip": "Unequip",
+      "Carried": "Carried",
+      "EmptyBag": "Nothing carried.",
+      "OverSpace": "Beyond the bag's space.",
+      "Space": "Space",
+      "SpaceHint": "Space used by the carried items / space of the bag.",
+      "NoEffects": "No effects.",
+      "NoneYet": "Nothing yet.",
+      "Connections": "Connections",
+      "Unions": "Unions",
+      "BioHint": "Click the pencil to write the biography.",
+      "HateBox": "Hate {value}: the box fills a step per point, up to 10.",
+      "FatigueBox": "Fatigue {value}: the maximum HP drops by {value}. The box shows how much of the maximum HP Fatigue took.",
+      "UsePower": "Use {name} ({timing})",
+      "Damage": "Damage",
+      "Monster": {
+        "Label": "Monster sheet",
+        "Level": "Monster Level",
+        "LevelShort": "LV",
+        "IdentShort": "Ident.",
+        "HateShort": "Hate mult.",
+        "FateBox": "Fate {value}/{max}: the box fills with the Fate left.",
+        "SendHint": "Show the monster in the chat: tags, statuses, the lower defense, the Hate multiplier and the abilities.",
+        "Description": "Description",
+        "DescriptionHint": "Click the pencil to write the description.",
+        "NoAbilities": "No abilities. Drag one from a compendium or click Add.",
+        "Edit": "Edit",
+        "StatusesHint": "Open the statuses panel"
+      }
+    },
+    "Chat": {
+      "Description": "Description"
+    },
+    "Kuden": {
+      "Title": "Kuden",
+      "Piece": {
+        "core": "Core",
+        "technique": "Technique",
+        "gift": "Gift",
+        "greaterGift": "Greater Gift",
+        "apex": "Apex"
+      },
+      "Pieces": {
+        "technique": "Techniques",
+        "gift": "Gifts",
+        "greaterGift": "Greater Gifts",
+        "apex": "Apex"
+      },
+      "PieceNone": "Not Kuden",
+      "PieceNoneHint": "Pick the piece to make this skill part of the Kuden (it gets the Kuden tag).",
+      "PieceHint": {
+        "core": "Free. The rule that defines the character, the size of a class starting skill. It may define the Resource.",
+        "technique": "2 PK per SR when Combat, 1 PK per SR when General.",
+        "gift": "1 PK. The size of an official General skill.",
+        "greaterGift": "2 PK, or 1 PK with a Medium or Heavy Restriction. The size of a Combat skill at SR 1.",
+        "apex": "4 PK. The finishing move, 1/Scenario, one per character."
+      },
+      "Tier": {
+        "none": "No Restriction",
+        "light": "Light",
+        "medium": "Medium",
+        "heavy": "Heavy"
+      },
+      "TierHint": {
+        "light": "+50% or +1D",
+        "medium": "+100% or +2D",
+        "heavy": "+200% or +3D"
+      },
+      "Field": {
+        "Piece": "Kuden piece",
+        "Restriction": "Restriction",
+        "RestrictionText": "Weakness",
+        "Origin": "Source material",
+        "Ruler": "Ruler or official twin",
+        "CostLine": "Costs {cost} PK; the picks marked on it paid {paid} PK."
+      },
+      "Resource": {
+        "Title": "Resource",
+        "Hint": "The Resource goes from 0 to 5. Pieces read it with the Resource ≥ N and Resource at maximum conditions.",
+        "Name": "Name",
+        "NamePlaceholder": "Sun, Fury, Charges...",
+        "Max": "Maximum",
+        "Source": "Source",
+        "Dark": "Goes to 0 in darkness",
+        "ResetOnScene": "Back to 0 at the end of the scene"
+      },
+      "Source": {
+        "manual": "Manual",
+        "hour": "Hour of the scene"
+      },
+      "Hour": {
+        "lateNight": "Late night",
+        "dawn": "Dawn",
+        "morning": "Morning",
+        "noon": "Noon",
+        "afternoon": "Afternoon",
+        "dusk": "Dusk",
+        "night": "Night"
+      },
+      "Env": {
+        "Title": "Environment (Kuden)",
+        "Hint": "The Kuden scene conditions and the Resources that follow the hour read these fields.",
+        "Hour": "Hour of the day",
+        "OpenSky": "Open sky",
+        "Darkness": "Darkness",
+        "Miasma": "Miasma",
+        "OpenSkyShort": "open sky",
+        "CoveredShort": "no sky",
+        "DarknessShort": "darkness",
+        "MiasmaShort": "miasma",
+        "Viewed": "Viewed scene: {name}",
+        "NoScene": "No scene is viewed.",
+        "Apply": "Apply the environment",
+        "Applied": "Environment of {name}: {env}."
+      },
+      "Ledger": {
+        "Title": "Kuden Points",
+        "Paid": "PK paid",
+        "Cost": "PK cost",
+        "Kept": "saved",
+        "Pending": "Pending picks: Combat {combat}, General {general}",
+        "Settle": "Settle PK",
+        "SettleHint": "Pays what is missing with the pending picks and gives back the picks that paid beyond the cost and the 1 saved PK.",
+        "Missing": "{n} PK missing. Use Settle PK to pay with the pending picks.",
+        "MissingNoPicks": "{n} PK missing and no pending picks. The GM checks it.",
+        "Surplus": "{n} PK left over; only 1 PK can be saved.",
+        "TwoCores": "There is more than one Core.",
+        "TwoApexes": "There is more than one Apex.",
+        "NoCore": "The Core is missing.",
+        "NoPicks": "{n} PK missing and no pending picks to pay with. The GM checks it."
+      },
+      "Sheet": {
+        "NoCore": "This character has no Core yet.",
+        "CreateCore": "Create Core",
+        "NoPieces": "No pieces yet.",
+        "Less": "−1",
+        "More": "+1",
+        "Raise": "+1 SR (paid with a pending pick)",
+        "Lower": "−1 SR (gives the pick back)",
+        "AtMax": "The SR is already at the piece's maximum or at your CR.",
+        "AtMin": "The SR is already 1.",
+        "PaidTip": "Costs {cost} PK; {paid} PK paid.",
+        "ResourceHour": "Follows the hour: {hour}",
+        "Color": "Color gifts",
+        "NoColor": "None yet.",
+        "ColorPlaceholder": "New color gift (story only)",
+        "ColorRemove": "Remove",
+        "ColorOver": "More than 3 color gifts: only if the Core allows it.",
+        "Env": "Scene environment",
+        "BadgeTip": "Kuden piece: see the Kuden tab."
+      },
+      "New": {
+        "core": "New Core",
+        "technique": "New Technique",
+        "gift": "New Gift",
+        "greaterGift": "New Greater Gift",
+        "apex": "New Apex"
+      },
+      "Use": {
+        "Unmet": "Kuden Restriction not met: {condition}."
+      }
+    },
+    "Hud": {
+      "OpenSheet": "Open the sheet",
+      "Collapse": "Collapse the HUD",
+      "Expand": "Show the HUD",
+      "Panel": {
+        "checks": "Checks",
+        "skills": "Skills",
+        "kuden": "Kuden",
+        "items": "Items",
+        "effects": "Statuses"
+      },
+      "Hint": {
+        "checks": "Click: roll · Shift or right click: roll with a modifier · Pin: fix on the bar",
+        "skills": "Click: use · Shift + click: use and roll the Check · Right click: open · Pin: fix on the bar",
+        "kuden": "Click: use (Constants go to the chat) · Shift + click: use and roll the Check · Right click: open",
+        "items": "Click: use · Right click: open · Pin: fix on the bar",
+        "effects": "× removes the status or the effect"
+      },
+      "Cost": {
+        "hate": "Hate {n}",
+        "fate": "Fate {n}"
+      },
+      "UsesLeft": "{left} of {max} uses left ({per}).",
+      "Hands": "In hand",
+      "Powers": "Equipment powers",
+      "Usables": "Usable items",
+      "Effects": "Effects",
+      "NoSkills": "No skill to use.",
+      "NoItems": "Nothing to use.",
+      "Constant": "Constant",
+      "Pin": "Pin on the bar",
+      "PinsFull": "The bar already has {n} shortcuts: unpin one first.",
+      "RemoveBad": "Fate",
+      "Remove": "Remove",
+      "Round": "Round {n}",
+      "Join": "Join",
+      "JoinHint": "Join the combat (Initiative {n})",
+      "JoinFailed": "Could not join the combat. Ask the GM.",
+      "NoToken": "This character has no token on this scene.",
+      "End": "End",
+      "EndHint": "End your Main Process",
+      "Action": {
+        "major": "Major Action",
+        "minor": "Minor Action",
+        "move": "Move Action"
+      },
+      "FateTip": "Fate {value}/{max}. Click: +1. Right click: −1.",
+      "Dodge": "Dodge",
+      "DodgeHint": "{by} — {skill}: hit {total}. Click to roll {check} ({dice}).",
+      "DodgeMissing": "The attack card was not found in the chat.",
+      "HateTip": "Hate {value}",
+      "FatigueTip": "Fatigue {value}: the maximum HP drops by {value}.",
+      "Power": "Power",
+      "PowerN": "Power {n}"
+    },
+    "Keys": {
+      "hudDismiss": "Action HUD: close the open panel",
+      "hudToggle": "Action HUD: collapse or show",
+      "hudPanel": {
+        "checks": "Action HUD: Checks",
+        "skills": "Action HUD: Skills",
+        "kuden": "Action HUD: Kuden",
+        "items": "Action HUD: Items",
+        "effects": "Action HUD: Statuses"
+      }
+    },
+    "Turn": {
+      "Notice": "{name}'s Main Process has started!"
+    },
+    "StatusLink": {
+      "Hint": "Click: apply to your targets (or the selected tokens)",
+      "Title": "Apply {status}",
+      "Written": "In the text: {text}",
+      "Value": "Rating",
+      "Tag": "Tag",
+      "Apply": "Apply",
+      "NoTargets": "Target or select tokens to apply {status}.",
+      "Applied": "{status} applied to {names}."
+    },
+    "QuickEffect": {
+      "Menu": "Create effect on targets",
+      "NoTargets": "Target or select tokens to create the effect.",
+      "Default": "Effect",
+      "Title": "Create effect",
+      "Intro": "On: {names}.",
+      "Name": "Name",
+      "Duration": "Duration",
+      "Open": "Open to edit",
+      "Create": "Create",
+      "Created": "Effect {name} created on {names}."
+    },
+    "Notice": {
+      "Title": "Eternia {version}",
+      "Ok": "Got it",
+      "Body": "<p><strong>Welcome to Eternia</strong></p><ul><li><strong>Action HUD in place of the macro hotbar.</strong> Select your token (or none, to see your character) and use the bar at the bottom of the screen: roll checks, use skills, Kuden and items, follow HP, Fate and Hate, end your Main Process and roll the pending dodges. Hover for the details; the pin fixes a shortcut on the bar. The Foundry macro hotbar is hidden, but the 1 to 0 keys keep running the macros; to bring it back, change the \"Foundry macro hotbar\" option.</li><li><strong>Clickable statuses.</strong> Click a status written in a chat card, such as [Dazed] or [Decay: 10], to apply it to your targets.</li><li><strong>Create effect.</strong> Right click a skill card → Create effect on targets.</li><li><strong>Turn.</strong> A notice with a sound when your turn starts, and your targets cleared when it ends.</li></ul><p>Each player adjusts the HUD, the macro hotbar and the notices in Game Settings → Configure Settings → Eternia.</p>"
     }
   }
 }

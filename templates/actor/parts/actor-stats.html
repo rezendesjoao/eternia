@@ -1,12 +1,12 @@
 <h4 class="tab-title">
-	{{toUpperCase (localize 'LHTRPG.Stats.Label')}}
+	{{toUpperCase (localize 'ETERNIA.Stats.Label')}}
 </h4>
 
 <div class="stats grid grid-14col">
 	{{!-- HP, Fate, power, etc --}}
 	<div class="battle-status grid grid-6col grid-span-6">
 		<div class="hp flex grid-span-3">
-			<h4>{{localize 'LHTRPG.Label.HP'}}</h4>
+			<h4>{{localize 'ETERNIA.Label.HP'}}</h4>
 			<div class="hp-gauge flexrow">
 				<input class="hp-input current{{#if modified.hpValue}} has-effect{{/if}}" type="text" name="system.health.value"
 					value="{{source.health.value}}" placeholder="0" data-dtype="Number" maxlength="3"
@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		<div class="fate flex grid-span-3">
-			<h4>{{localize 'LHTRPG.Label.Fate'}}</h4>
+			<h4>{{localize 'ETERNIA.Label.Fate'}}</h4>
 			<div class="fate-gauge flexrow">
 				<input class="fate-input{{#if modified.fateValue}} has-effect{{/if}}" type="text" name="system.fate.value" value="{{source.fate.value}}"
 					placeholder="0" data-dtype="Number" maxlength="3"
@@ -36,61 +36,61 @@
 
 		<div class="speedInit grid grid-6col grid-span-6">
 			<div class="grid-span-3 flex flexrow">
-				<div class="speed" title="{{localize 'LHTRPG.Tooltip.Speed'}}">
+				<div class="speed" title="{{localize 'ETERNIA.Tooltip.Speed'}}">
 					<input class="speed-input" type="text" name="system.battle-status.speed.total"
 						value="{{system.battle-status.speed.total}}" placeholder="0" data-dtype="Number"
 						maxlength="2" disabled>
-					<h4><img src="/systems/lhtrpg/assets/ui/speed.svg" alt=""></h4>
+					<h4><img src="/systems/eternia/assets/ui/speed.svg" alt=""></h4>
 				</div>
 			</div>
 			<div class="grid-span-3 flex flexrow">
-				<div class="initiative" title="{{localize 'LHTRPG.Tooltip.Initiative'}}">
+				<div class="initiative" title="{{localize 'ETERNIA.Tooltip.Initiative'}}">
 					<input class="initiative-input" type="text" name="system.battle-status.initiative.total"
 						value="{{system.battle-status.initiative.total}}" placeholder="0"
 						data-dtype="Number" maxlength="2" disabled>
-					<h4><img src="/systems/lhtrpg/assets/ui/initiative.svg" alt=""></h4>
+					<h4><img src="/systems/eternia/assets/ui/initiative.svg" alt=""></h4>
 				</div>
 			</div>
 		</div>
 
 		<div class="power grid grid-3col grid-span-3">
-			<h4 class="grid-span-3">{{localize 'LHTRPG.Label.Power'}}</h4>
-			<div class="power-attack grid-span-1" title="{{localize 'LHTRPG.Tooltip.AttackPower'}}">
+			<h4 class="grid-span-3">{{localize 'ETERNIA.Label.Power'}}</h4>
+			<div class="power-attack grid-span-1" title="{{localize 'ETERNIA.Tooltip.AttackPower'}}">
 				<input class="power-attack-input" type="text" name="system.battle-status.power.attack.total"
 					value="{{system.battle-status.power.attack.total}}" placeholder="0" data-dtype="Number"
 					maxlength="2" disabled>
-				<h4><img src="/systems/lhtrpg/assets/ui/attack.svg" alt=""></h4>
+				<h4><img src="/systems/eternia/assets/ui/attack.svg" alt=""></h4>
 			</div>
-			<div class="power-resto grid-span-1" title="{{localize 'LHTRPG.Tooltip.RestorationPower'}}">
+			<div class="power-resto grid-span-1" title="{{localize 'ETERNIA.Tooltip.RestorationPower'}}">
 				<input class="power-resto-input" type="text" name="system.battle-status.power.restoration.total"
 					value="{{system.battle-status.power.restoration.total}}" placeholder="0"
 					data-dtype="Number" maxlength="2" disabled>
-				<h4><img src="/systems/lhtrpg/assets/ui/resto.svg" alt=""></h4>
+				<h4><img src="/systems/eternia/assets/ui/resto.svg" alt=""></h4>
 			</div>
-			<div class="power-magic grid-span-1" title="{{localize 'LHTRPG.Tooltip.MagicPower'}}">
+			<div class="power-magic grid-span-1" title="{{localize 'ETERNIA.Tooltip.MagicPower'}}">
 				<input class="power-magic-input" type="text" name="system.battle-status.power.magic.total"
 					value="{{system.battle-status.power.magic.total}}" placeholder="0" data-dtype="Number"
 					maxlength="2" disabled>
-				<h4><img src="/systems/lhtrpg/assets/ui/magic.svg" alt=""></h4>
+				<h4><img src="/systems/eternia/assets/ui/magic.svg" alt=""></h4>
 			</div>
 		</div>
 
 		<div class="defense grid grid-3col grid-span-3">
-			<h4 class="grid-span-3">{{localize 'LHTRPG.Label.Defense'}}</h4>
+			<h4 class="grid-span-3">{{localize 'ETERNIA.Label.Defense'}}</h4>
 			<div class="grid-span-3 flex flexrow">
-				<div class="defense-phys" title="{{localize 'LHTRPG.Tooltip.PhysDefense'}}">
+				<div class="defense-phys" title="{{localize 'ETERNIA.Tooltip.PhysDefense'}}">
 					<input class="defense-phys-input" type="text"
 						name="system.battle-status.defense.phys.total"
 						value="{{system.battle-status.defense.phys.total}}" placeholder="0"
 						data-dtype="Number" maxlength="2" disabled>
-					<h4><img src="/systems/lhtrpg/assets/ui/phys-def.svg" alt=""></h4>
+					<h4><img src="/systems/eternia/assets/ui/phys-def.svg" alt=""></h4>
 				</div>
-				<div class="defense-magic" title="{{localize 'LHTRPG.Tooltip.MagicDefense'}}">
+				<div class="defense-magic" title="{{localize 'ETERNIA.Tooltip.MagicDefense'}}">
 					<input class="defense-magic-input" type="text"
 						name="system.battle-status.defense.magic.total"
 						value="{{system.battle-status.defense.magic.total}}" placeholder="0"
 						data-dtype="Number" maxlength="2" disabled>
-					<h4><img src="/systems/lhtrpg/assets/ui/magic-def.svg" alt=""></h4>
+					<h4><img src="/systems/eternia/assets/ui/magic-def.svg" alt=""></h4>
 				</div>
 			</div>
 		</div>
@@ -109,7 +109,7 @@
 					placeholder="0" data-dtype="Number" maxlength="2" disabled>
 			</div>
 			<div class="check flexcolumn grid-span-2 rollableSkill" data-action="roll-check" data-name="Athletics" data-dice="{{system.checks.athletics.dice}}" data-bonus="{{system.checks.athletics.total}}">
-				<h4>{{localize 'LHTRPG.Check.Athletics'}}</h4>
+				<h4>{{localize 'ETERNIA.Check.Athletics'}}</h4>
 				<div class="flexrow">
 					<input class="attr-input" type="text" name="system.checks.athletics.total"
 						value="{{system.checks.athletics.total}}" placeholder="0"
@@ -122,7 +122,7 @@
 				</div>
 			</div>
 			<div class="check flexcolumn grid-span-2 rollableSkill" data-action="roll-check" data-name="Endurance" data-dice="{{system.checks.endurance.dice}}" data-bonus="{{system.checks.endurance.total}}">
-				<h4>{{localize 'LHTRPG.Check.Endurance'}}</h4>
+				<h4>{{localize 'ETERNIA.Check.Endurance'}}</h4>
 				<div class="flexrow">
 					<input class="attr-input" type="text" name="system.checks.endurance.total"
 						value="{{system.checks.endurance.total}}" placeholder="0"
@@ -147,7 +147,7 @@
 					placeholder="0" data-dtype="Number" maxlength="2" disabled>
 			</div>
 			<div class="check flexcolumn grid-span-2 rollableSkill" data-action="roll-check" data-name="Disable" data-dice="{{system.checks.disable.dice}}" data-bonus="{{system.checks.disable.total}}">
-				<h4>{{localize 'LHTRPG.Check.Disable'}}</h4>
+				<h4>{{localize 'ETERNIA.Check.Disable'}}</h4>
 				<div class="flexrow">
 					<input class="attr-input" type="text" name="system.checks.disable.total"
 						value="{{system.checks.disable.total}}" placeholder="0" data-dtype="Number"
@@ -160,7 +160,7 @@
 				</div>
 			</div>
 			<div class="check flexcolumn grid-span-2 rollableSkill" data-action="roll-check" data-name="Operation" data-dice="{{system.checks.operation.dice}}" data-bonus="{{system.checks.operation.total}}">
-				<h4>{{localize 'LHTRPG.Check.Operation'}}</h4>
+				<h4>{{localize 'ETERNIA.Check.Operation'}}</h4>
 				<div class="flexrow">
 					<input class="attr-input" type="text" name="system.checks.operation.total"
 						value="{{system.checks.operation.total}}" placeholder="0"
@@ -185,7 +185,7 @@
 					placeholder="0" data-dtype="Number" maxlength="2" disabled>
 			</div>
 			<div class="check flexcolumn grid-span-2 rollableSkill" data-action="roll-check" data-name="Perception" data-dice="{{system.checks.perception.dice}}" data-bonus="{{system.checks.perception.total}}">
-				<h4>{{localize 'LHTRPG.Check.Perception'}}</h4>
+				<h4>{{localize 'ETERNIA.Check.Perception'}}</h4>
 				<div class="flexrow">
 					<input class="attr-input" type="text" name="system.checks.perception.total"
 						value="{{system.checks.perception.total}}" placeholder="0"
@@ -198,7 +198,7 @@
 				</div>
 			</div>
 			<div class="check flexcolumn grid-span-2 rollableSkill" data-action="roll-check" data-name="Negotiation" data-dice="{{system.checks.negotiation.dice}}" data-bonus="{{system.checks.negotiation.total}}">
-				<h4>{{localize 'LHTRPG.Check.Negotiation'}}</h4>
+				<h4>{{localize 'ETERNIA.Check.Negotiation'}}</h4>
 				<div class="flexrow">
 					<input class="attr-input" type="text" name="system.checks.negotiation.total"
 						value="{{system.checks.negotiation.total}}" placeholder="0"
@@ -223,7 +223,7 @@
 					placeholder="0" data-dtype="Number" maxlength="2" disabled>
 			</div>
 			<div class="check flexcolumn grid-span-2 rollableSkill" data-action="roll-check" data-name="Knowledge" data-dice="{{system.checks.knowledge.dice}}" data-bonus="{{system.checks.knowledge.total}}">
-				<h4>{{localize 'LHTRPG.Check.Knowledge'}}</h4>
+				<h4>{{localize 'ETERNIA.Check.Knowledge'}}</h4>
 				<div class="flexrow">
 					<input class="attr-input" type="text" name="system.checks.knowledge.total"
 						value="{{system.checks.knowledge.total}}" placeholder="0"
@@ -236,7 +236,7 @@
 				</div>
 			</div>
 			<div class="check flexcolumn grid-span-2 rollableSkill" data-action="roll-check" data-name="Analysis" data-dice="{{system.checks.analysis.dice}}" data-bonus="{{system.checks.analysis.total}}">
-				<h4>{{localize 'LHTRPG.Check.Analysis'}}</h4>
+				<h4>{{localize 'ETERNIA.Check.Analysis'}}</h4>
 				<div class="flexrow">
 					<input class="attr-input" type="text" name="system.checks.analysis.total"
 						value="{{system.checks.analysis.total}}" placeholder="0" data-dtype="Number"
@@ -254,7 +254,7 @@
 
 		<div class="grid-span-8 flexrow">
 			<div class="check flexcolumn grid-span-2 rollableSkill" data-action="roll-check" data-name="Accuracy" data-dice="{{system.checks.accuracy.dice}}" data-bonus="{{system.checks.accuracy.total}}">
-				<h4 style="margin-top: 10px;">{{localize 'LHTRPG.Check.Accuracy'}}</h4>
+				<h4 style="margin-top: 10px;">{{localize 'ETERNIA.Check.Accuracy'}}</h4>
 				<div class="flexrow">
 					<input class="attr-input" type="text" name="system.checks.accuracy.total"
 						value="{{system.checks.accuracy.total}}" placeholder="0" data-dtype="Number"
@@ -267,7 +267,7 @@
 				</div>
 			</div>
 			<div class="check flexcolumn grid-span-2 rollableSkill" data-action="roll-check" data-name="Evasion" data-dice="{{system.checks.evasion.dice}}" data-bonus="{{system.checks.evasion.total}}">
-				<h4 style="margin-top: 10px;">{{localize 'LHTRPG.Check.Evasion'}}</h4>
+				<h4 style="margin-top: 10px;">{{localize 'ETERNIA.Check.Evasion'}}</h4>
 				<div class="flexrow">
 					<input class="attr-input" type="text" name="system.checks.evasion.total"
 						value="{{system.checks.evasion.total}}" placeholder="0" data-dtype="Number"
@@ -280,7 +280,7 @@
 				</div>
 			</div>
 			<div class="check flexcolumn grid-span-2 rollableSkill" data-action="roll-check" data-name="Resistance" data-dice="{{system.checks.resistance.dice}}" data-bonus="{{system.checks.resistance.total}}">
-				<h4 style="margin-top: 10px;">{{localize 'LHTRPG.Check.Resistance'}}</h4>
+				<h4 style="margin-top: 10px;">{{localize 'ETERNIA.Check.Resistance'}}</h4>
 				<div class="flexrow">
 					<input class="attr-input" type="text" name="system.checks.resistance.total"
 						value="{{system.checks.resistance.total}}" placeholder="0"
@@ -300,9 +300,9 @@
 	<div class="rated-statuses grid grid-5col grid-span-4">
 		<div class="resource grid-span-4">
 			<div class="flexrow">
-				<label class="resource-label">{{localize 'LHTRPG.Label.Tags'}}</label>
+				<label class="resource-label">{{localize 'ETERNIA.Label.Tags'}}</label>
 			</div>
-			{{> "systems/lhtrpg/templates/parts/tag-input.html"}}
+			{{> "systems/eternia/templates/parts/tag-input.html"}}
 		</div>
 	</div>
 </div>

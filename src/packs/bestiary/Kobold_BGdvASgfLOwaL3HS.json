@@ -1,7 +1,7 @@
 {
   "name": "Kobold",
   "type": "monster",
-  "img": "systems/lhtrpg/assets/ui/actors_icons/monster.svg",
+  "img": "systems/eternia/assets/ui/actors_icons/monster.svg",
   "system": {
     "health": {
       "value": 16,
@@ -92,14 +92,14 @@
         "mod": 7
       }
     },
-    "description": "<table style=\"border-collapse: collapse; width: 396pt;\" border=\"0\" width=\"528\" cellspacing=\"0\" cellpadding=\"0\"><colgroup><col style=\"mso-width-source: userset; mso-width-alt: 3218; width: 66pt;\" span=\"6\" width=\"88\"> </colgroup>\n<tbody>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl65\" style=\"height: 15.75pt; width: 396pt;\" colspan=\"6\" width=\"528\" height=\"21\">Drop Items</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl63\" style=\"height: 15.75pt;\" height=\"21\">Fixed</td>\n<td class=\"xl64\" colspan=\"5\">Kobold Fang [Valuable] (10G)</td>\n</tr>\n</tbody>\n</table>"
+    "description": "<table style=\"border-collapse: collapse; width: 396pt;\" border=\"0\" width=\"528\" cellspacing=\"0\" cellpadding=\"0\"><colgroup><col style=\"mso-width-source: userset; mso-width-alt: 3218; width: 66pt;\" span=\"6\" width=\"88\"> </colgroup>\n<tbody>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl65\" style=\"height: 15.75pt; width: 396pt;\" colspan=\"6\" width=\"528\" height=\"21\">Itens Deixados</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl63\" style=\"height: 15.75pt;\" height=\"21\">Fixo</td>\n<td class=\"xl64\" colspan=\"5\">Presa de Kobold [Valioso] (10G)</td>\n</tr>\n</tbody>\n</table>"
   },
   "prototypeToken": {
     "name": "Kobold",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/lhtrpg/assets/ui/actors_icons/monster.svg",
+      "src": "systems/eternia/assets/ui/actors_icons/monster.svg",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -190,10 +190,10 @@
   },
   "items": [
     {
-      "name": "Kobold Tactics",
+      "name": "Táticas Kobold",
       "type": "skill",
       "system": {
-        "description": "<p>This enemy is not affected by [Mechanical] Props unless it wants to be. In addition, whenever this enemy is in the same square as another creature with the [Kobold] tag. It gains a +1 bonus to [Dodge Checks]</p>",
+        "description": "<p>Este inimigo não é afetado por Objetos de cena com a tag [Mecânico], a menos que queira. Além disso, sempre que este inimigo estiver no mesmo quadrado que outra criatura com a tag [Kobold], ele recebe bônus de +1 em [Testes de Esquiva]</p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -209,7 +209,7 @@
         "macroeffect": ""
       },
       "_id": "O1UuwsKGVgJH7HpX",
-      "img": "systems/lhtrpg/assets/ui/items_icons/skill.svg",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
       "effects": [],
       "sort": 0,
       "ownership": {
@@ -218,8 +218,8 @@
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
-        "systemId": "lhtrpg",
-        "systemVersion": "1.5.0",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
@@ -230,10 +230,10 @@
       "_key": "!actors.items!BGdvASgfLOwaL3HS.O1UuwsKGVgJH7HpX"
     },
     {
-      "name": "Kobo Slash",
+      "name": "Corte Kobo",
       "type": "skill",
       "system": {
-        "description": "<p>[23+2D] Phys Damage<br>(Minor): Damage +5</p>",
+        "description": "<p>[23+2D] de Dano Físico<br>(Menor): Dano +5</p>",
         "tags": [
           "Melee Attack"
         ],
@@ -248,10 +248,17 @@
         },
         "cost": "-",
         "limit": "-",
-        "macroeffect": ""
+        "macroeffect": "",
+        "damage": {
+          "dice": 2,
+          "mod": 23,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
       },
       "_id": "Vk3QiePW7MMjldum",
-      "img": "systems/lhtrpg/assets/ui/items_icons/skill.svg",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
       "effects": [],
       "sort": 0,
       "ownership": {
@@ -260,8 +267,8 @@
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
-        "systemId": "lhtrpg",
-        "systemVersion": "1.5.0",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
@@ -272,10 +279,10 @@
       "_key": "!actors.items!BGdvASgfLOwaL3HS.Vk3QiePW7MMjldum"
     },
     {
-      "name": "Dash&Jump",
+      "name": "Disparada&Salto",
       "type": "skill",
       "system": {
-        "description": "<p>This enemy can make a [Safe Move] 1sq. During this movement, the enemy can move diagonally<br>(Minor): Increase distance by +1sq.</p>",
+        "description": "<p>Este inimigo pode fazer um [Movimento Seguro] de 1 Qd. Durante esse movimento, o inimigo pode se mover na diagonal<br>(Menor): Aumente a distância em +1 Qd.</p>",
         "tags": [
           "Movement"
         ],
@@ -293,7 +300,7 @@
         "macroeffect": ""
       },
       "_id": "S3eYxHhqYmpjMUMP",
-      "img": "systems/lhtrpg/assets/ui/items_icons/skill.svg",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
       "effects": [],
       "sort": 0,
       "ownership": {
@@ -302,8 +309,8 @@
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
-        "systemId": "lhtrpg",
-        "systemVersion": "1.5.0",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
@@ -318,8 +325,8 @@
   "flags": {},
   "_stats": {
     "coreVersion": "13.351",
-    "systemId": "lhtrpg",
-    "systemVersion": "1.5.0",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

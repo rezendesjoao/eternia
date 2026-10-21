@@ -1,7 +1,7 @@
 {
   "name": "Pixie",
   "type": "monster",
-  "img": "systems/lhtrpg/assets/ui/actors_icons/monster.svg",
+  "img": "systems/eternia/assets/ui/actors_icons/monster.svg",
   "system": {
     "health": {
       "value": 34,
@@ -91,14 +91,14 @@
         "mod": 1
       }
     },
-    "description": "<table style=\"border-collapse: collapse; width: 396pt;\" border=\"0\" width=\"528\" cellspacing=\"0\" cellpadding=\"0\"><colgroup><col style=\"mso-width-source: userset; mso-width-alt: 3218; width: 66pt;\" span=\"6\" width=\"88\"> </colgroup>\n<tbody>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl67\" style=\"height: 15.75pt; width: 396pt;\" colspan=\"6\" width=\"528\" height=\"21\">Drop Items</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl65\" style=\"height: 15.75pt;\" height=\"21\">1~5</td>\n<td class=\"xl66\" colspan=\"5\">Hydromel [Magic Catalyst 1](15G)</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl65\" style=\"height: 15.75pt;\" height=\"21\">6</td>\n<td class=\"xl66\" colspan=\"5\">Dusk Wings [Core Material](30G)</td>\n</tr>\n</tbody>\n</table>\n<p>&nbsp;</p>\n<ul>\n<li>[[/gmr 2d6 + 2]]{[Evasion ]}</li>\n<li>[[/gmr 2d6 + 1]]{[Resistance]}</li>\n</ul>"
+    "description": "<table style=\"border-collapse: collapse; width: 396pt;\" border=\"0\" width=\"528\" cellspacing=\"0\" cellpadding=\"0\"><colgroup><col style=\"mso-width-source: userset; mso-width-alt: 3218; width: 66pt;\" span=\"6\" width=\"88\"> </colgroup>\n<tbody>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl67\" style=\"height: 15.75pt; width: 396pt;\" colspan=\"6\" width=\"528\" height=\"21\">Itens Deixados</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl65\" style=\"height: 15.75pt;\" height=\"21\">1~5</td>\n<td class=\"xl66\" colspan=\"5\">Hidromel [Catalisador Mágico 1](15G)</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 15.75pt;\">\n<td class=\"xl65\" style=\"height: 15.75pt;\" height=\"21\">6</td>\n<td class=\"xl66\" colspan=\"5\">Asas do Crepúsculo [Material-Base](30G)</td>\n</tr>\n</tbody>\n</table>\n<p>&nbsp;</p>\n<ul>\n<li>[[/gmr 2d6 + 2]]{[Esquiva ]}</li>\n<li>[[/gmr 2d6 + 1]]{[Resistência]}</li>\n</ul>"
   },
   "prototypeToken": {
     "name": "Pixie",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/lhtrpg/assets/ui/actors_icons/monster.svg",
+      "src": "systems/eternia/assets/ui/actors_icons/monster.svg",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -189,10 +189,10 @@
   },
   "items": [
     {
-      "name": "Spirit of the Wind",
+      "name": "Espírito do Vento",
       "type": "skill",
       "system": {
-        "description": "<p>This enemy always has [Cancel (Shock): 5] and [Flying], immune to [Rigor]<br>Whenever this enemy takes [Blight] damage, treat its defense as 0.</p>",
+        "description": "<p>Este inimigo sempre tem [Anulação (Choque): 5] e [Voando], e é imune a [Rigidez]<br>Sempre que este inimigo sofrer dano de [Corrupção], trate a defesa dele como 0.</p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -208,7 +208,7 @@
         "macroeffect": ""
       },
       "_id": "D5yGpe3oG5vXf0lJ",
-      "img": "systems/lhtrpg/assets/ui/items_icons/skill.svg",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
       "effects": [],
       "sort": 0,
       "ownership": {
@@ -217,8 +217,8 @@
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
-        "systemId": "lhtrpg",
-        "systemVersion": "1.5.0",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
@@ -229,10 +229,10 @@
       "_key": "!actors.items!eI2ltaMZcEfAziLD.D5yGpe3oG5vXf0lJ"
     },
     {
-      "name": "Shocking Sting",
+      "name": "Ferroada Chocante",
       "type": "skill",
       "system": {
-        "description": "<p>[[/gmr 3d6 + 3]]{[3D+3]}</p>\n<p>[[/gmr 2d6 + 25]]{[25+2D]} Phys Damage<br>(Self: Hidden): Target takes [Staggered]</p>",
+        "description": "<p>[[/gmr 3d6 + 3]]{[3D+3]}</p>\n<p>[[/gmr 2d6 + 25]]{[25+2D]} de Dano Físico<br>(Você: Oculto): O alvo sofre [Cambaleante]</p>",
         "tags": [
           "Melee Attack",
           "Shock"
@@ -248,10 +248,17 @@
         },
         "cost": "-",
         "limit": "-",
-        "macroeffect": ""
+        "macroeffect": "",
+        "damage": {
+          "dice": 2,
+          "mod": 25,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
       },
       "_id": "iBnJSUljRlyTSktF",
-      "img": "systems/lhtrpg/assets/ui/items_icons/skill.svg",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
       "effects": [],
       "sort": 0,
       "ownership": {
@@ -260,8 +267,8 @@
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
-        "systemId": "lhtrpg",
-        "systemVersion": "1.5.0",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
@@ -272,10 +279,10 @@
       "_key": "!actors.items!eI2ltaMZcEfAziLD.iBnJSUljRlyTSktF"
     },
     {
-      "name": "Hidden Flight",
+      "name": "Voo Oculto",
       "type": "skill",
       "system": {
-        "description": "<p>Enemy becomes [Hidden]<br>(Minor): Enemy can make a [Safe Move] up to 2sq. without losing [Hidden]</p>",
+        "description": "<p>O inimigo fica [Oculto]<br>(Menor): O inimigo pode fazer um [Movimento Seguro] de até 2 Qd sem perder [Oculto]</p>",
         "tags": [
           "Movement"
         ],
@@ -293,7 +300,7 @@
         "macroeffect": ""
       },
       "_id": "JrKBXRD6uEAWGG3U",
-      "img": "systems/lhtrpg/assets/ui/items_icons/skill.svg",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
       "effects": [],
       "sort": 0,
       "ownership": {
@@ -302,8 +309,8 @@
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
-        "systemId": "lhtrpg",
-        "systemVersion": "1.5.0",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
@@ -318,8 +325,8 @@
   "flags": {},
   "_stats": {
     "coreVersion": "13.351",
-    "systemId": "lhtrpg",
-    "systemVersion": "1.5.0",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

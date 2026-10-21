@@ -8,7 +8,7 @@
  * - replaced: the rules data (REPLACED_FIELDS, `skillRank.max`) and all the item's effects;
  * - kept: the current SR (clamped to the new max), a macro of its own, a custom image, and the description
  *   when the GM ticks "keep" (pre-ticked when the old one has inline rolls or links the compendium lacks);
- * - the previous item is saved in `flags.lhtrpg.refreshBackup`, which "Undo" restores.
+ * - the previous item is saved in `flags.eternia.refreshBackup`, which "Undo" restores.
  *
  * Opened from the character sheet header menu (one character) and from the system settings (all characters).
  */
@@ -75,7 +75,7 @@ function effectSignature(effect) {
     disabled: data.disabled,
     statuses: [...(data.statuses ?? [])].sort(),
     changes: (data.system?.changes ?? data.changes ?? []).map(c => [c.key, changeType(c), String(c.value), c.priority ?? null]),
-    lhtrpg: data.flags?.lhtrpg ?? {}
+    eternia: data.flags?.eternia ?? {}
   });
 }
 
@@ -158,7 +158,7 @@ async function preview(actors) {
   for (const actor of actors) {
     const row = { actor, skills: [], upToDate: 0, unmatched: [], backups: 0 };
     for (const item of actor.items.filter(i => i.type === "skill").sort((a, b) => a.name.localeCompare(b.name))) {
-      if (item.getFlag("lhtrpg", BACKUP_FLAG)) row.backups++;
+      if (item.getFlag("eternia", BACKUP_FLAG)) row.backups++;
       const { by, candidates } = findCandidates(item, index);
       if (!candidates.length) {
         row.unmatched.push(item.name);
@@ -182,7 +182,7 @@ async function preview(actors) {
 
 /** Labels of the changed fields. */
 function changeLabels(changes) {
-  return changes.map(c => game.i18n.localize(`LHTRPG.SkillRefresh.Field.${c}`)).join(", ");
+  return changes.map(c => game.i18n.localize(`ETERNIA.SkillRefresh.Field.${c}`)).join(", ");
 }
 
 /** Template data for the dialog. */
@@ -223,8 +223,8 @@ async function applyRefresh(rows, form) {
       const update = foundry.utils.deepClone(plan.update);
       if (form[`keep.${skill.key}`]) delete update.system.description;
       const backup = skill.item.toObject();
-      delete backup.flags?.lhtrpg?.[BACKUP_FLAG];
-      update[`flags.lhtrpg.${BACKUP_FLAG}`] = { date: Date.now(), data: backup };
+      delete backup.flags?.eternia?.[BACKUP_FLAG];
+      update[`flags.eternia.${BACKUP_FLAG}`] = { date: Date.now(), data: backup };
       updates.push(update);
       if (plan.effects) effectJobs.push({ item: skill.item, effects: plan.effects });
       count++;
@@ -253,14 +253,14 @@ async function replaceEffects(item, effects) {
 async function undoRefresh(actors) {
   let count = 0;
   for (const actor of actors) {
-    for (const item of actor.items.filter(i => i.getFlag("lhtrpg", BACKUP_FLAG))) {
-      const { data } = item.getFlag("lhtrpg", BACKUP_FLAG);
+    for (const item of actor.items.filter(i => i.getFlag("eternia", BACKUP_FLAG))) {
+      const { data } = item.getFlag("eternia", BACKUP_FLAG);
       await item.update({
         name: data.name,
         img: data.img,
         system: data.system,
         "_stats.compendiumSource": data._stats?.compendiumSource ?? null,
-        [`flags.lhtrpg.${BACKUP_FLAG}`]: _del
+        [`flags.eternia.${BACKUP_FLAG}`]: _del
       }, { lhKeepCheckType: true });
       await replaceEffects(item, data.effects ?? []);
       count++;
@@ -283,26 +283,26 @@ export async function refreshSkills(actor) {
   const upToDate = rows.reduce((n, r) => n + r.upToDate, 0);
 
   const content = await foundry.applications.handlebars.renderTemplate(
-    "systems/lhtrpg/templates/apps/skill-refresh.hbs",
+    "systems/eternia/templates/apps/skill-refresh.hbs",
     { rows: data, pending, upToDate, single: !!actor }
   );
   const buttons = [];
   if (pending) buttons.push({
-    action: "apply", label: "LHTRPG.SkillRefresh.Apply", icon: "fa-solid fa-rotate", default: true,
+    action: "apply", label: "ETERNIA.SkillRefresh.Apply", icon: "fa-solid fa-rotate", default: true,
     callback: (event, button) => new foundry.applications.ux.FormDataExtended(button.form).object
   });
   if (backups) buttons.push({
-    action: "undo", label: game.i18n.format("LHTRPG.SkillRefresh.Undo", { count: backups }), icon: "fa-solid fa-rotate-left"
+    action: "undo", label: game.i18n.format("ETERNIA.SkillRefresh.Undo", { count: backups }), icon: "fa-solid fa-rotate-left"
   });
   buttons.push({ action: "cancel", label: "Cancel", icon: "fa-solid fa-xmark", default: !pending });
 
   const result = await DialogV2.wait({
     window: {
-      title: actor ? game.i18n.format("LHTRPG.SkillRefresh.TitleActor", { name: actor.name })
-        : game.i18n.localize("LHTRPG.SkillRefresh.Title"),
+      title: actor ? game.i18n.format("ETERNIA.SkillRefresh.TitleActor", { name: actor.name })
+        : game.i18n.localize("ETERNIA.SkillRefresh.Title"),
       icon: "fa-solid fa-rotate"
     },
-    classes: ["lhtrpg", "skill-refresh"],
+    classes: ["eternia", "skill-refresh"],
     position: { width: 560 },
     content,
     buttons,
@@ -311,18 +311,18 @@ export async function refreshSkills(actor) {
 
   if (result === "undo") {
     const ok = await DialogV2.confirm({
-      window: { title: "LHTRPG.SkillRefresh.Title" },
-      content: `<p>${game.i18n.format("LHTRPG.SkillRefresh.UndoConfirm", { count: backups })}</p>`,
+      window: { title: "ETERNIA.SkillRefresh.Title" },
+      content: `<p>${game.i18n.format("ETERNIA.SkillRefresh.UndoConfirm", { count: backups })}</p>`,
       rejectClose: false
     });
     if (!ok) return;
     const count = await undoRefresh(actors);
-    ui.notifications.info(game.i18n.format("LHTRPG.SkillRefresh.Undone", { count }));
+    ui.notifications.info(game.i18n.format("ETERNIA.SkillRefresh.Undone", { count }));
     return;
   }
   if (!result || (typeof result !== "object")) return;
   const count = await applyRefresh(rows, result);
-  ui.notifications.info(game.i18n.format("LHTRPG.SkillRefresh.Done", { count }));
+  ui.notifications.info(game.i18n.format("ETERNIA.SkillRefresh.Done", { count }));
 }
 
 /** Settings menu entry (Configure Settings → System): opens the dialog for every character. */
@@ -335,10 +335,10 @@ class SkillRefreshMenu extends foundry.applications.api.ApplicationV2 {
 }
 
 export function registerSkillRefresh() {
-  game.settings.registerMenu("lhtrpg", "skillRefresh", {
-    name: "LHTRPG.SkillRefresh.Title",
-    label: "LHTRPG.SkillRefresh.MenuLabel",
-    hint: "LHTRPG.SkillRefresh.MenuHint",
+  game.settings.registerMenu("eternia", "skillRefresh", {
+    name: "ETERNIA.SkillRefresh.Title",
+    label: "ETERNIA.SkillRefresh.MenuLabel",
+    hint: "ETERNIA.SkillRefresh.MenuHint",
     icon: "fa-solid fa-rotate",
     type: SkillRefreshMenu,
     restricted: true

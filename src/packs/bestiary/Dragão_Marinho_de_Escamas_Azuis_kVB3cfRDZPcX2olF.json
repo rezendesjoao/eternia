@@ -1,0 +1,267 @@
+{
+  "_id": "kVB3cfRDZPcX2olF",
+  "name": "Dragão Marinho de Escamas Azuis",
+  "type": "monster",
+  "img": "systems/eternia/assets/ui/actors_icons/monster.svg",
+  "sort": 0,
+  "system": {
+    "health": {
+      "value": 411,
+      "max": 411,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 4,
+      "max": 4,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Cryptid",
+      "Dragon",
+      "Aquatic"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 15,
+        "magic": 12
+      },
+      "speed": 2,
+      "initiative": 7
+    },
+    "rank": 6,
+    "idendification": "7",
+    "hateMultiplier": "6",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 4
+      },
+      "resistance": {
+        "dice": 1,
+        "mod": 2
+      }
+    },
+    "description": ""
+  },
+  "items": [
+    {
+      "_id": "WjGl8cE7GQGR7AkD",
+      "name": "Dragão Caminhante das Águas",
+      "type": "skill",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
+      "sort": 100,
+      "folder": null,
+      "system": {
+        "description": "<p>Este inimigo não tem Ação de Movimento.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": ""
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_key": "!actors.items!kVB3cfRDZPcX2olF.WjGl8cE7GQGR7AkD"
+    },
+    {
+      "_id": "f5rYPS71boSvCFWK",
+      "name": "Ação Repetida",
+      "type": "skill",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
+      "sort": 200,
+      "folder": null,
+      "system": {
+        "description": "<p>Uma vez por Rodada, quando este inimigo fica em [Pós-Ação], ele imediatamente volta a ficar em [Pré-Ação]. Depois disso, até o fim da Rodada, sua [Iniciativa] passa a ser 0.</p>",
+        "tags": [],
+        "timing": "Refer",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "macroeffect": "",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": ""
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_key": "!actors.items!kVB3cfRDZPcX2olF.f5rYPS71boSvCFWK"
+    },
+    {
+      "_id": "0Q7PsYHgHOXGWDBr",
+      "name": "Manipulação da Correnteza",
+      "type": "skill",
+      "img": "systems/eternia/assets/ui/items_icons/skill.svg",
+      "sort": 300,
+      "folder": null,
+      "system": {
+        "description": "<p>O alvo precisa estar, no momento, em contato com o Objeto de cena [Submerso] ou similar. O alvo é compelido a se mover para o mesmo quadrado deste inimigo.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "Auto",
+        "range": "3Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": ""
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_key": "!actors.items!kVB3cfRDZPcX2olF.0Q7PsYHgHOXGWDBr"
+    }
+  ],
+  "effects": [],
+  "prototypeToken": {
+    "name": "Dragão Marinho de Escamas Azuis",
+    "texture": {
+      "src": "systems/eternia/assets/ui/actors_icons/monster.svg"
+    },
+    "flags": {}
+  },
+  "flags": {},
+  "ownership": {
+    "default": 0
+  },
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "folder": "DZa0LbCEve8eidVi",
+  "_key": "!actors!kVB3cfRDZPcX2olF"
+}

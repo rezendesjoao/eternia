@@ -3,8 +3,8 @@
  *
  * A condition is `{ type, value }` (value: a number or a tag, depending on the type). They live in:
  *   - `system.conditions` of a skill: every effect of the skill (the Styles' equipment requirements);
- *   - `flags.lhtrpg.conditions` of an effect: that effect only (Skill Rank / Character Rank tiers).
- * All of them must be met. LHTrpgActiveEffect#determineSuppression checks them on the actor; when one
+ *   - `flags.eternia.conditions` of an effect: that effect only (Skill Rank / Character Rank tiers).
+ * All of them must be met. EterniaActiveEffect#determineSuppression checks them on the actor; when one
  * fails the effect is suppressed and lists under "Condition not met" with the reason.
  * Effects copied to a target when a skill is used are checked against the caster at that moment
  * (item-use.mjs) and lose their conditions.
@@ -157,7 +157,7 @@ export function unmetCondition(conditions, actor, item) {
 
 /** Conditions of an effect, plus those of the skill giving it. */
 export function effectConditions(effect, item) {
-  const own = effect.flags?.lhtrpg?.conditions ?? [];
+  const own = effect.flags?.eternia?.conditions ?? [];
   const fromItem = item?.system?.conditions ?? [];
   return [...(Array.isArray(fromItem) ? fromItem : Object.values(fromItem)), ...(Array.isArray(own) ? own : Object.values(own))];
 }
@@ -173,15 +173,15 @@ export function conditionLabel(condition) {
   if (!type) return "";
   let value;
   if (type.param === "tag") value = String(condition.value ?? "").replace(/[\[\]]/g, "").trim();
-  else if (type.param === "status") value = condition.value ? game.i18n.localize(`LHTRPG.StatusEffect.${condition.value}`) : "?";
+  else if (type.param === "status") value = condition.value ? game.i18n.localize(`ETERNIA.StatusEffect.${condition.value}`) : "?";
   else value = number(condition.value);
-  const key = (type.optional && !value) ? `LHTRPG.Condition.Summary.${type.id}Any` : `LHTRPG.Condition.Summary.${type.id}`;
+  const key = (type.optional && !value) ? `ETERNIA.Condition.Summary.${type.id}Any` : `ETERNIA.Condition.Summary.${type.id}`;
   return game.i18n.format(key, { value });
 }
 
 /** Options of the condition type dropdown. */
 export function conditionTypeOptions() {
-  return Object.fromEntries(CONDITION_TYPES.map(t => [t.id, game.i18n.localize(`LHTRPG.Condition.Type.${t.id}`)]));
+  return Object.fromEntries(CONDITION_TYPES.map(t => [t.id, game.i18n.localize(`ETERNIA.Condition.Type.${t.id}`)]));
 }
 
 /**
@@ -204,13 +204,13 @@ export function prepareConditionRows(conditions) {
  * Context of the conditions editor (templates/effects/effect-conditions.hbs).
  * @param {object[]} conditions
  * @param {object} options
- * @param {string} options.prefix     Form name of the list ("system.conditions", "flags.lhtrpg.conditions")
+ * @param {string} options.prefix     Form name of the list ("system.conditions", "flags.eternia.conditions")
  * @param {string} options.hint       Localization key of the hint
  * @param {boolean} options.editable
  * @returns {object}
  */
 export function conditionsContext(conditions, { prefix, hint, editable }) {
-  const catalog = globalThis.CONFIG?.LHTRPG?.tags ?? TAG_CATALOG;
+  const catalog = globalThis.CONFIG?.ETERNIA?.tags ?? TAG_CATALOG;
   return {
     rows: prepareConditionRows(conditions),
     prefix,
@@ -219,8 +219,8 @@ export function conditionsContext(conditions, { prefix, hint, editable }) {
     types: conditionTypeOptions(),
     // The system's statuses (statuses.mjs registers them as CONFIG.statusEffects; not imported here so
     // that this module, used by effect-targets.mjs, still loads in Node)
-    statuses: Object.fromEntries(CONFIG.statusEffects.map(s => [s.id, game.i18n.localize(`LHTRPG.StatusEffect.${s.id}`)])),
-    tags: catalog.filter(t => t.group === "LHTRPG.TagGroup.Equipment").map(t => t.label)
+    statuses: Object.fromEntries(CONFIG.statusEffects.map(s => [s.id, game.i18n.localize(`ETERNIA.StatusEffect.${s.id}`)])),
+    tags: catalog.filter(t => t.group === "ETERNIA.TagGroup.Equipment").map(t => t.label)
   };
 }
 

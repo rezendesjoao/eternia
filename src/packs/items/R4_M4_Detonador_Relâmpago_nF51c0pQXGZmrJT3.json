@@ -1,0 +1,87 @@
+{
+  "name": "R4 M4 Detonador Relâmpago",
+  "type": "weapon",
+  "system": {
+    "description": "<p>[Momento: Rolagem de Dano] Usado na rolagem de dano de um [Ataque Corpo a Corpo] de \"Alvo: Individual\" feito com esta arma. O dano causado se torna dano mágico com a tag [Choque] e aumenta ainda em +10. Uma vez por cenário.\nLança de uma mão feita de um metal desconhecido, com uma ponta que lembra um relâmpago. Como sua forma sugere, ela pode liberar descargas elétricas pela ponta quando se entoa uma palavra-chave. Como até os Atacantes com Arma conseguem causar dano mágico com ela, é popular entre os aventureiros. No entanto, por causa de sua relação com o dano base, não tem muita procura entre os jogadores de alto nível.</p><hr><p>[Material-Base](60G)+ (100G)+[ 4](30G)×3+Custo de Fabricação(90G)</p>",
+    "tags": [
+      "One-Handed",
+      "Spear",
+      "Not For Sale",
+      "M4"
+    ],
+    "initiative": 1,
+    "rank": 4,
+    "price": 340,
+    "equipped": false,
+    "attack": 8,
+    "magic": 0,
+    "accuracy": 0,
+    "main": false,
+    "range": "Close",
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "pdef": 0,
+    "mdef": 0
+  },
+  "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
+  "effects": [],
+  "sort": 19500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Damage Roll",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scenario",
+          "text": "[Trigger: Damage Roll] This is used for the \"Target: Single\" [Melee Attack] damage roll with this weapon. The damage dealt is magic damage with the [Shock] tag, and is further increased by +10. Once per scenario.",
+          "effects": [
+            {
+              "name": "R4 M4 Lightning Blaster",
+              "img": "systems/lhtrpg/assets/ui/items_icons/weapon.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "lhtrpg.roll.damage.mod",
+                    "type": "add",
+                    "value": 10,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfProcess"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "nF51c0pQXGZmrJT3",
+  "folder": "C19YDMIkeXI6v7zD",
+  "_key": "!items!nF51c0pQXGZmrJT3"
+}

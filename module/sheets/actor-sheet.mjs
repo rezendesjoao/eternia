@@ -2,7 +2,7 @@ import { useItem } from "../helpers/item-use.mjs";
 import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/effects.mjs";
 import { activateTagInput } from "../helpers/tags.mjs";
 import { getStatusPanel, activateStatusPanelListeners } from "../helpers/statuses.mjs";
-import { getOption, OPTION_TYPES } from "../helpers/character-options.mjs";
+import { getOption, OPTION_ICONS, OPTION_TYPES } from "../helpers/character-options.mjs";
 import { allocateBonusPoints, chooseHumanStats, isHumanRace } from "../apps/stat-allocation.mjs";
 import { rankUp } from "../apps/rank-up.mjs";
 import { PICK_SUBTYPES, SkillBrowser, getPendingSkills } from "../apps/skill-browser.mjs";
@@ -28,55 +28,55 @@ const EQUIP_SLOT_CAPACITY = {
  * Sheet for character actors in AppV2.
  * @extends {foundry.applications.sheets.ActorSheetV2}
  */
-export class LHTrpgActorSheet extends HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
+export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
 
   static DEFAULT_OPTIONS = {
-    classes: ["lhtrpg", "sheet", "actor"],
+    classes: ["eternia", "sheet", "actor"],
     position: { width: 700, height: 700 },
     window: {
       resizable: false,
       controls: [{
         icon: "fa-solid fa-rotate",
-        label: "LHTRPG.SkillRefresh.SheetControl",
+        label: "ETERNIA.SkillRefresh.SheetControl",
         action: "refresh-skills",
         visible: () => game.user.isGM
       }]
     },
     form: { submitOnChange: true },
     actions: {
-      "refresh-skills": LHTrpgActorSheet.#onRefreshSkills,
-      editImage: LHTrpgActorSheet.#onEditImage,
-      "item-throw": LHTrpgActorSheet.#onItemThrow,
-      "item-use": LHTrpgActorSheet.#onItemUse,
-      "linked-skill-throw": LHTrpgActorSheet.#onLinkedSkillThrow,
-      "item-edit": LHTrpgActorSheet.#onItemEdit,
-      "item-delete": LHTrpgActorSheet.#onItemDelete,
-      "item-equip": LHTrpgActorSheet.#onItemEquip,
-      "item-create": LHTrpgActorSheet.#onItemCreate,
-      "item-give": LHTrpgActorSheet.#onItemGive,
-      "gold-give": LHTrpgActorSheet.#onGoldGive,
-      "option-name": LHTrpgActorSheet.#onOptionName,
-      "class-img": LHTrpgActorSheet.#onClassImg,
-      "option-browse": LHTrpgActorSheet.#onOptionBrowse,
-      "rank-up": LHTrpgActorSheet.#onRankUp,
-      "skill-browse": LHTrpgActorSheet.#onSkillBrowse,
-      "roll-check": LHTrpgActorSheet.#onRollCheck,
-      "ticket-increment": LHTrpgActorSheet.#onTicketIncrement,
-      "ticket-decrement": LHTrpgActorSheet.#onTicketDecrement,
-      "ticket-rank-create": LHTrpgActorSheet.#onTicketRankCreate,
-      "hand-swap": LHTrpgActorSheet.#onHandSwap,
-      "toggle-hate": LHTrpgActorSheet.#onToggleHate,
-      "add-item-menu": LHTrpgActorSheet.#onAddItemMenu,
-      create: LHTrpgActorSheet.#onManageActiveEffect,
-      edit: LHTrpgActorSheet.#onManageActiveEffect,
-      delete: LHTrpgActorSheet.#onManageActiveEffect,
-      toggle: LHTrpgActorSheet.#onManageActiveEffect
+      "refresh-skills": EterniaActorSheet.#onRefreshSkills,
+      editImage: EterniaActorSheet.#onEditImage,
+      "item-throw": EterniaActorSheet.#onItemThrow,
+      "item-use": EterniaActorSheet.#onItemUse,
+      "linked-skill-throw": EterniaActorSheet.#onLinkedSkillThrow,
+      "item-edit": EterniaActorSheet.#onItemEdit,
+      "item-delete": EterniaActorSheet.#onItemDelete,
+      "item-equip": EterniaActorSheet.#onItemEquip,
+      "item-create": EterniaActorSheet.#onItemCreate,
+      "item-give": EterniaActorSheet.#onItemGive,
+      "gold-give": EterniaActorSheet.#onGoldGive,
+      "option-name": EterniaActorSheet.#onOptionName,
+      "class-img": EterniaActorSheet.#onClassImg,
+      "option-browse": EterniaActorSheet.#onOptionBrowse,
+      "rank-up": EterniaActorSheet.#onRankUp,
+      "skill-browse": EterniaActorSheet.#onSkillBrowse,
+      "roll-check": EterniaActorSheet.#onRollCheck,
+      "ticket-increment": EterniaActorSheet.#onTicketIncrement,
+      "ticket-decrement": EterniaActorSheet.#onTicketDecrement,
+      "ticket-rank-create": EterniaActorSheet.#onTicketRankCreate,
+      "hand-swap": EterniaActorSheet.#onHandSwap,
+      "toggle-hate": EterniaActorSheet.#onToggleHate,
+      "add-item-menu": EterniaActorSheet.#onAddItemMenu,
+      create: EterniaActorSheet.#onManageActiveEffect,
+      edit: EterniaActorSheet.#onManageActiveEffect,
+      delete: EterniaActorSheet.#onManageActiveEffect,
+      toggle: EterniaActorSheet.#onManageActiveEffect
     }
   };
 
   static PARTS = {
     sheet: {
-      template: "systems/lhtrpg/templates/actor/actor-character-sheet.html"
+      template: "systems/eternia/templates/actor/actor-character-sheet.html"
     }
   };
 
@@ -123,7 +123,7 @@ export class LHTrpgActorSheet extends HandlebarsApplicationMixin(foundry.applica
 
     // Race / Class / Subclass items (header fields); the class item's image is the class logo.
     context.characterOptions = Object.fromEntries(OPTION_TYPES.map(type => [type, getOption(actor, type)]));
-    context.classImg = context.characterOptions.class?.img ?? actor.system.class?.img ?? "systems/lhtrpg/assets/ui/classes/Enchanter_Logo.png";
+    context.classImg = context.characterOptions.class?.img ?? OPTION_ICONS.class;
 
     // "Browse" tile of each skill grid, with the picks left (creation, CR Up).
     if (this.isEditable) {
@@ -515,29 +515,29 @@ export class LHTrpgActorSheet extends HandlebarsApplicationMixin(foundry.applica
     const item = target => this.actor.items.get(field(target)?.dataset.itemId);
     new foundry.applications.ux.ContextMenu(element, ".option-menu", [
       {
-        label: "LHTRPG.CharacterOptions.Change",
+        label: "ETERNIA.CharacterOptions.Change",
         icon: '<i class="fa-solid fa-magnifying-glass"></i>',
         onClick: (event, target) => OptionBrowser.open(this.actor, field(target).dataset.optionType)
       },
       {
-        label: "LHTRPG.StatAllocation.Human.Menu",
+        label: "ETERNIA.StatAllocation.Human.Menu",
         icon: '<i class="fa-solid fa-person"></i>',
         visible: target => isHumanRace(item(target)),
         onClick: (event, target) => chooseHumanStats(item(target))
       },
       {
-        label: "LHTRPG.StatAllocation.Bonus.Menu",
+        label: "ETERNIA.StatAllocation.Bonus.Menu",
         icon: '<i class="fa-solid fa-chart-simple"></i>',
         visible: target => field(target).dataset.optionType === "class",
         onClick: () => allocateBonusPoints(this.actor)
       },
       {
-        label: "LHTRPG.ButtonLabel.Edit",
+        label: "ETERNIA.ButtonLabel.Edit",
         icon: '<i class="fa-solid fa-pen-to-square"></i>',
         onClick: (event, target) => item(target)?.sheet.render(true)
       },
       {
-        label: "LHTRPG.ButtonLabel.Delete",
+        label: "ETERNIA.ButtonLabel.Delete",
         icon: '<i class="fa-solid fa-trash"></i>',
         onClick: (event, target) => item(target)?.deleteDialog()
       }
@@ -592,8 +592,8 @@ export class LHTrpgActorSheet extends HandlebarsApplicationMixin(foundry.applica
     if (!item) return null;
     const source = item.parent;
     if ((source instanceof Actor) && (source.uuid !== this.actor.uuid)) {
-      if (game.lhtrpg.piles.isMerchant(source) && !game.user.isGM) return game.lhtrpg.piles.buyItem(source, item, this.actor);
-      return game.lhtrpg.piles.transferItem(item, this.actor);
+      if (game.eternia.piles.isMerchant(source) && !game.user.isGM) return game.eternia.piles.buyItem(source, item, this.actor);
+      return game.eternia.piles.transferItem(item, this.actor);
     }
     if (!this.isEditable) return false;
     return super._onDropItem(event, item);
@@ -644,7 +644,7 @@ export class LHTrpgActorSheet extends HandlebarsApplicationMixin(foundry.applica
     // items from another actor (player, loot, chest) are moved, not copied.
     if (item.parent?.uuid !== this.actor.uuid) {
       if (item.parent instanceof Actor) {
-        const result = await game.lhtrpg.piles.transferItem(item, this.actor, { ask: false });
+        const result = await game.eternia.piles.transferItem(item, this.actor, { ask: false });
         item = this.actor.items.get(result?.createdItemId);
         if (!item) return;
       }
@@ -661,7 +661,7 @@ export class LHTrpgActorSheet extends HandlebarsApplicationMixin(foundry.applica
     const hand = slot.dataset.hand;
     if (hand) {
       if (!["weapon", "shield"].includes(item.type)) {
-        ui.notifications.warn(game.i18n.format("LHTRPG.Hands.Notif.NotHandItem", { item: item.name }));
+        ui.notifications.warn(game.i18n.format("ETERNIA.Hands.Notif.NotHandItem", { item: item.name }));
         return;
       }
       return equipInHand(this.actor, item, hand);
@@ -706,7 +706,7 @@ export class LHTrpgActorSheet extends HandlebarsApplicationMixin(foundry.applica
 
   /**
    * Roll an Ability Check to chat.
-   * @param {string} skillName    Check key (LHTRPG.Check.<skillName>)
+   * @param {string} skillName    Check key (ETERNIA.Check.<skillName>)
    * @param {number} dice         Number of D6
    * @param {number} bonus        Check total
    * @param {number} [mod]        Situational modifier
@@ -716,7 +716,7 @@ export class LHTrpgActorSheet extends HandlebarsApplicationMixin(foundry.applica
     const formula = diceFormula({ dice, mod: (Number(bonus) || 0) + (Number(mod) || 0) });
     return new Roll(formula).toMessage({
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: `${game.i18n.localize("LHTRPG.WindowTitle.AbilityCheck")} - ${game.i18n.localize(`LHTRPG.Check.${skillName}`)}`
+      flavor: `${game.i18n.localize("ETERNIA.WindowTitle.AbilityCheck")} - ${game.i18n.localize(`ETERNIA.Check.${skillName}`)}`
     });
   }
 
@@ -820,11 +820,11 @@ export class LHTrpgActorSheet extends HandlebarsApplicationMixin(foundry.applica
   static #onItemGive(event, target) {
     const itemId = target.closest(".item")?.dataset.itemId;
     const item = this.actor.items.get(itemId);
-    if (item) game.lhtrpg.piles.giveItem(item);
+    if (item) game.eternia.piles.giveItem(item);
   }
 
   static #onGoldGive() {
-    game.lhtrpg.piles.giveGold(this.actor);
+    game.eternia.piles.giveGold(this.actor);
   }
 
   static #onOptionName(event, target) {
@@ -855,13 +855,13 @@ export class LHTrpgActorSheet extends HandlebarsApplicationMixin(foundry.applica
 
   static async #onRollCheck(event, target) {
     const { dice, bonus, name } = target.dataset;
-    const title = `${game.i18n.localize("LHTRPG.WindowTitle.AbilityCheck")} - ${game.i18n.localize(`LHTRPG.Check.${name}`)}`;
+    const title = `${game.i18n.localize("ETERNIA.WindowTitle.AbilityCheck")} - ${game.i18n.localize(`ETERNIA.Check.${name}`)}`;
     const mod = await foundry.applications.api.DialogV2.prompt({
       window: { title },
-      content: await foundry.applications.handlebars.renderTemplate("systems/lhtrpg/templates/dialogs/rollDialog.html"),
+      content: await foundry.applications.handlebars.renderTemplate("systems/eternia/templates/dialogs/rollDialog.html"),
       ok: {
         icon: "fas fa-dice",
-        label: game.i18n.localize("LHTRPG.ButtonLabel.Roll"),
+        label: game.i18n.localize("ETERNIA.ButtonLabel.Roll"),
         callback: (event, button) => Number(button.form.elements.mod.value) || 0
       },
       rejectClose: false

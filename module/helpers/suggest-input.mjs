@@ -9,7 +9,7 @@ export class SuggestInput {
    * @param {(query: string) => Array<{value: any, label: string, group?: string, desc?: string, custom?: boolean, badge?: string, badgeType?: string}>} options.getOptions
    * @param {(option: object) => void} options.onPick
    * @param {(ev: KeyboardEvent, suggest: SuggestInput) => boolean|void} [options.onKeyDown]
-   * @param {string} [options.menuClass="lhtrpg lh-tag-menu"]
+   * @param {string} [options.menuClass="eternia lh-tag-menu"]
    */
   constructor(input, options = {}) {
     this.input = input;
@@ -19,7 +19,7 @@ export class SuggestInput {
     this.getOptions = options.getOptions ?? (() => []);
     this.onPick = options.onPick ?? (() => {});
     this.onKeyDown = options.onKeyDown ?? null;
-    this.menuClass = options.menuClass ?? "lhtrpg lh-tag-menu";
+    this.menuClass = options.menuClass ?? "eternia lh-tag-menu";
     this._blurTimeout = null;
 
     this._onInput = () => this.open();

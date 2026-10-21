@@ -1,0 +1,51 @@
+{{!-- EFFECTS: the active effects by category, and the statuses panel. --}}
+<section class="tab major effects" data-group="primary" data-tab="effects">
+	<nav class="sub-nav tabs" data-group="effects">
+		<a data-action="tab" data-group="effects" data-tab="list">{{localize 'ETERNIA.Effect.Label'}}</a>
+		<a data-action="tab" data-group="effects" data-tab="status">{{localize 'ETERNIA.Sheet.Statuses'}}</a>
+	</nav>
+
+	<div class="tab lhpf-pane" data-group="effects" data-tab="list">
+		<div class="tab-content">
+			<ol class="directory-list lhpf-list effects-list">
+				{{#each effects as |section|}}
+				{{#unless section.hidden}}
+				<li class="action-header" data-effect-type="{{section.type}}">
+					<h3>{{localize section.label}}</h3>
+					<span class="source">{{localize 'ETERNIA.Effect.Source'}}</span>
+					<span class="duration">{{localize 'ETERNIA.Effect.Duration'}}</span>
+					<div class="item-controls">{{#if @root.editable}}<a class="effect-control" data-action="create" data-tooltip="ETERNIA.EffectCreate"><i class="fa-solid fa-fw fa-plus"></i> {{localize 'ETERNIA.Add'}}</a>{{/if}}</div>
+				</li>
+				{{#each section.effects as |effect|}}
+				<li class="item effect draggable{{#if effect.disabled}} disabled{{/if}}" data-effect-id="{{effect.id}}" data-effect-uuid="{{effect.uuid}}">
+					<div class="item-name">
+						<span class="item-image framed"><img src="{{effect.img}}" alt=""></span>
+						<div class="text">
+							<h4 class="name" data-tooltip="{{effect.name}}{{#with (eterniaSource effect.sourceName)}} · {{this}}{{/with}}">{{effect.name}}</h4>
+							{{#with (lhEffectSummary effect) as |summary|}}<div class="summary" title="{{lhEffectSummary effect plain=true}}">{{summary}}</div>{{/with}}
+							{{#if effect.unmetCondition}}<div class="unmet"><i class="fa-solid fa-ban"></i> {{lhConditionLabel effect.unmetCondition}}</div>{{/if}}
+						</div>
+					</div>
+					<span class="source" title="{{eterniaSource effect.sourceName}}">{{eterniaSource effect.sourceName}}</span>
+					<span class="duration">{{lhEffectDuration effect}}</span>
+					<div class="item-controls">
+						<a class="effect-control" data-action="toggle" data-tooltip="ETERNIA.EffectToggle"><i class="fa-solid fa-fw {{#if effect.disabled}}fa-toggle-off{{else}}fa-toggle-on{{/if}}"></i></a>
+						<a class="effect-control" data-action="edit" data-tooltip="ETERNIA.EffectEdit"><i class="fa-solid fa-fw fa-pen-to-square"></i></a>
+						<a class="effect-control" data-action="delete" data-tooltip="ETERNIA.EffectDelete"><i class="fa-solid fa-fw fa-trash"></i></a>
+					</div>
+				</li>
+				{{else}}
+				<li class="lhpf-empty">{{localize 'ETERNIA.Sheet.NoEffects'}}</li>
+				{{/each}}
+				{{/unless}}
+				{{/each}}
+			</ol>
+		</div>
+	</div>
+
+	<div class="tab lhpf-pane" data-group="effects" data-tab="status">
+		<div class="tab-content">
+			{{> "systems/eternia/templates/actor/parts/actor-status-panel.html"}}
+		</div>
+	</div>
+</section>

@@ -7,7 +7,7 @@
     {{#each f.types}}
       <option value="{{key}}" data-n="{{n}}" data-qual="{{qual}}" {{#if (eq ../f.type key)}}selected{{/if}}>{{label}}</option>
     {{/each}}
-    <option value="custom" {{#if f.isCustom}}selected{{/if}}>{{localize 'LHTRPG.Skill.Option.Custom'}}</option>
+    <option value="custom" {{#if f.isCustom}}selected{{/if}}>{{localize 'ETERNIA.Skill.Option.Custom'}}</option>
   </select>
   <input class="skill-field-n" type="text" value="{{f.n}}" {{#unless f.showN}}hidden{{/unless}}>
   {{#if f.quals.length}}

@@ -1,7 +1,7 @@
-export const LHTRPG = {};
+export const ETERNIA = {};
 
 
-LHTRPG.ASCII = `
+ETERNIA.ASCII = `
               _-o#&&*''''?d:>b\_
           _o/"'''  '',, dMF9MMMMMHo_
        .o&#'        '"MbHMMMMMMMMMMMHo.

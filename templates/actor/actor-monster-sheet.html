@@ -1,17 +1,17 @@
-<div class="lhtrpg-monster-sheet flexcol">
+<div class="eternia-monster-sheet flexcol">
   <header class="sheet-header">
     <img class="profile-img" src="{{actor.img}}" data-action="editImage" data-edit="img" title="{{actor.name}}" />
     <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'LHTRPG.Placeholder.Name'}}" /></h1>
-      <a class="monster-send-to-chat" data-action="monster-send-to-chat" title="{{localize 'LHTRPG.Monster.SendToChat'}}">
-        <i class="fas fa-comment"></i> {{localize 'LHTRPG.Monster.SendToChat'}}
+      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'ETERNIA.Placeholder.Name'}}" /></h1>
+      <a class="monster-send-to-chat" data-action="monster-send-to-chat" title="{{localize 'ETERNIA.Monster.SendToChat'}}">
+        <i class="fas fa-comment"></i> {{localize 'ETERNIA.Monster.SendToChat'}}
       </a>
       <div class="grid grid-3col">
         <div class="resource grid-span-3">
           <div class="flexrow">
-            <label class="resource-label">{{localize 'LHTRPG.Label.Tags'}}</label>
+            <label class="resource-label">{{localize 'ETERNIA.Label.Tags'}}</label>
           </div>
-          {{> "systems/lhtrpg/templates/parts/tag-input.html"}}
+          {{> "systems/eternia/templates/parts/tag-input.html"}}
         </div>
       </div>
     </div>
@@ -20,11 +20,11 @@
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-action="tab" data-group="primary" data-tab="stats">{{localize 'LHTRPG.Stats.Label'}}</a>
-    <a class="item" data-action="tab" data-group="primary" data-tab="status">{{localize 'LHTRPG.Status.Label'}}</a>
-    <a class="item" data-action="tab" data-group="primary" data-tab="description">{{localize 'LHTRPG.Description.Label'}}</a>
-    <a class="item" data-action="tab" data-group="primary" data-tab="skills">{{localize 'LHTRPG.Monster.Skills'}}</a>
-    <a class="item" data-action="tab" data-group="primary" data-tab="effects">{{localize 'LHTRPG.Effect.Label'}}</a>
+    <a class="item" data-action="tab" data-group="primary" data-tab="stats">{{localize 'ETERNIA.Stats.Label'}}</a>
+    <a class="item" data-action="tab" data-group="primary" data-tab="status">{{localize 'ETERNIA.Status.Label'}}</a>
+    <a class="item" data-action="tab" data-group="primary" data-tab="description">{{localize 'ETERNIA.Description.Label'}}</a>
+    <a class="item" data-action="tab" data-group="primary" data-tab="skills">{{localize 'ETERNIA.Monster.Skills'}}</a>
+    <a class="item" data-action="tab" data-group="primary" data-tab="effects">{{localize 'ETERNIA.Effect.Label'}}</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -34,7 +34,7 @@
       <section class="sheet-stats">
 
         <div class="stat-div rank">
-          <label>{{localize 'LHTRPG.Monster.Rank'}}</label>
+          <label>{{localize 'ETERNIA.Monster.Rank'}}</label>
           <div>
             <input class="monsterRank-input{{#if modified.rank}} has-effect{{/if}}" type="text" name="system.rank"
               value="{{source.rank}}" placeholder="0" data-dtype="Number" maxlength="2"
@@ -46,7 +46,7 @@
         </div>
 
         <div class="stat-div">
-          <label class="small-label">{{localize 'LHTRPG.Str'}}</label>
+          <label class="small-label">{{localize 'ETERNIA.Str'}}</label>
           <div>
             <input class="monsterSTR-input small-input{{#if modified.str}} has-effect{{/if}}" type="text"
               name="system.attributes.str.mod" value="{{source.attributes.str.mod}}" placeholder="0"
@@ -59,7 +59,7 @@
         </div>
 
         <div class="stat-div">
-          <label class="small-label">{{localize 'LHTRPG.Dex'}}</label>
+          <label class="small-label">{{localize 'ETERNIA.Dex'}}</label>
           <div>
             <input class="monsterDEX-input small-input{{#if modified.dex}} has-effect{{/if}}" type="text"
               name="system.attributes.dex.mod" value="{{source.attributes.dex.mod}}" placeholder="0"
@@ -72,7 +72,7 @@
         </div>
 
         <div class="stat-div">
-          <label class="small-label">{{localize 'LHTRPG.Pow'}}</label>
+          <label class="small-label">{{localize 'ETERNIA.Pow'}}</label>
           <div>
             <input class="monsterPOW-input small-input{{#if modified.pow}} has-effect{{/if}}" type="text"
               name="system.attributes.pow.mod" value="{{source.attributes.pow.mod}}" placeholder="0"
@@ -85,7 +85,7 @@
         </div>
 
         <div class="stat-div">
-          <label class="small-label">{{localize 'LHTRPG.Int'}}</label>
+          <label class="small-label">{{localize 'ETERNIA.Int'}}</label>
           <div>
             <input class="monsterINT-input small-input{{#if modified.int}} has-effect{{/if}}" type="text"
               name="system.attributes.int.mod" value="{{source.attributes.int.mod}}" placeholder="0"
@@ -98,7 +98,7 @@
         </div>
 
         <div class="stat-div">
-          <label>{{localize 'LHTRPG.Label.HP'}}</label>
+          <label>{{localize 'ETERNIA.Label.HP'}}</label>
           <div>
             <input class="monsterHP-input{{#if modified.hpValue}} has-effect{{/if}}" type="text"
               name="system.health.value" value="{{source.health.value}}" placeholder="0" data-dtype="Number"
@@ -117,7 +117,7 @@
         </div>
 
         <div class="stat-div">
-          <label>{{localize 'LHTRPG.Label.Fate'}}</label>
+          <label>{{localize 'ETERNIA.Label.Fate'}}</label>
           <div>
             <input class="monsterFate-input{{#if modified.fateValue}} has-effect{{/if}}" type="text"
               name="system.fate.value" value="{{source.fate.value}}" placeholder="0" data-dtype="Number"
@@ -136,7 +136,7 @@
         </div>
 
         <div class="stat-div">
-          <label>{{localize 'LHTRPG.Monster.Identification'}}</label>
+          <label>{{localize 'ETERNIA.Monster.Identification'}}</label>
           <div>
             <input class="monsterIdDif-input" type="text" name="system.idendification" value="{{source.idendification}}"
               placeholder="-" data-dtype="text">
@@ -144,7 +144,7 @@
         </div>
 
         <div class="stat-div">
-          <label>{{localize 'LHTRPG.Monster.HateMultiplier'}}</label>
+          <label>{{localize 'ETERNIA.Monster.HateMultiplier'}}</label>
           <div>
             <input class="monsterHateMulti-input" type="text" name="system.hateMultiplier" value="{{source.hateMultiplier}}"
               placeholder="-" data-dtype="text">
@@ -153,7 +153,7 @@
 
         <div class="stat-div monster-check">
           <label class="monster-check-roll lh-roll-button" data-action="monster-check-roll" data-check="evasion" data-name="Evasion"
-            title="{{localize 'LHTRPG.ButtonLabel.Roll'}}">{{localize 'LHTRPG.Check.Evasion'}}</label>
+            title="{{localize 'ETERNIA.ButtonLabel.Roll'}}">{{localize 'ETERNIA.Check.Evasion'}}</label>
           <div class="monster-check-fields">
             <select class="monster-check-dice{{#if modified.evasion.dice}} has-effect{{/if}}" name="system.checks.evasion.dice" data-dtype="Number"
               {{#if modified.evasion.dice}}data-tooltip="{{modified.evasion.tooltip}}"{{/if}}>
@@ -171,7 +171,7 @@
 
         <div class="stat-div monster-check">
           <label class="monster-check-roll lh-roll-button" data-action="monster-check-roll" data-check="resistance" data-name="Resistance"
-            title="{{localize 'LHTRPG.ButtonLabel.Roll'}}">{{localize 'LHTRPG.Check.Resistance'}}</label>
+            title="{{localize 'ETERNIA.ButtonLabel.Roll'}}">{{localize 'ETERNIA.Check.Resistance'}}</label>
           <div class="monster-check-fields">
             <select class="monster-check-dice{{#if modified.resistance.dice}} has-effect{{/if}}" name="system.checks.resistance.dice" data-dtype="Number"
               {{#if modified.resistance.dice}}data-tooltip="{{modified.resistance.tooltip}}"{{/if}}>
@@ -188,7 +188,7 @@
         </div>
 
         <div class="stat-div">
-          <label>{{localize 'LHTRPG.Monster.PDef'}}</label>
+          <label>{{localize 'ETERNIA.Monster.PDef'}}</label>
           <div>
             <input class="monsterPDef-input{{#if modified.pdef}} has-effect{{/if}}" type="text" name="system.battle-status.defense.phys"
               value="{{source.battle-status.defense.phys}}" placeholder="-" data-dtype="Number" maxlength="3"
@@ -200,7 +200,7 @@
         </div>
 
         <div class="stat-div">
-          <label>{{localize 'LHTRPG.Monster.MDef'}}</label>
+          <label>{{localize 'ETERNIA.Monster.MDef'}}</label>
           <div>
             <input class="monsterMDef-input{{#if modified.mdef}} has-effect{{/if}}" type="text" name="system.battle-status.defense.magic"
               value="{{source.battle-status.defense.magic}}" placeholder="-" data-dtype="Number" maxlength="3"
@@ -212,7 +212,7 @@
         </div>
 
         <div class="stat-div">
-          <label>{{localize 'LHTRPG.Monster.Speed'}}</label>
+          <label>{{localize 'ETERNIA.Monster.Speed'}}</label>
           <div>
             <input class="monsterSpeed-input{{#if modified.speed}} has-effect{{/if}}" type="text" name="system.battle-status.speed"
               value="{{source.battle-status.speed}}" placeholder="-" data-dtype="Number" maxlength="3"
@@ -224,7 +224,7 @@
         </div>
 
         <div class="stat-div">
-          <label>{{localize 'LHTRPG.Monster.Initiative'}}</label>
+          <label>{{localize 'ETERNIA.Monster.Initiative'}}</label>
           <div>
             <input class="monsterInit-input{{#if modified.initiative}} has-effect{{/if}}" type="text" name="system.battle-status.initiative"
               value="{{source.battle-status.initiative}}" placeholder="-" data-dtype="Number" maxlength="3"
@@ -239,7 +239,7 @@
     </div>
     {{!-- Status Tab --}}
     <div class="tab" data-group="primary" data-tab="status">
-      {{> "systems/lhtrpg/templates/actor/parts/actor-status-panel.html"}}
+      {{> "systems/eternia/templates/actor/parts/actor-status-panel.html"}}
     </div>
 
     {{!-- Description Tab --}}
@@ -250,13 +250,13 @@
     </div>
 
     <div class="tab" data-group="primary" data-tab="skills">
-      {{> "systems/lhtrpg/templates/actor/parts/monster-skills.html"}}
+      {{> "systems/eternia/templates/actor/parts/monster-skills.html"}}
     </div>
 
     {{!-- Effects Tab --}}
     <div class="tab effects" data-group="primary" data-tab="effects">
       {{!-- As you add new fields, add them in here! --}}
-      {{> "systems/lhtrpg/templates/actor/parts/monster-effects.html"}}
+      {{> "systems/eternia/templates/actor/parts/monster-effects.html"}}
     </div>
   </section>
 </div>

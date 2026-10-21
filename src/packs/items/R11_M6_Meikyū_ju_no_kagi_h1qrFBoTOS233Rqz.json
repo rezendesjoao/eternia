@@ -2,7 +2,7 @@
   "name": "R11 M6 Meikyū-ju no kagi",
   "type": "weapon",
   "system": {
-    "description": "<p>[Trigger: Action] Used simultaneously with your \"Basic Magic Attack\". If \"Basic Magic Attack\" succeeds, the target becomes [State That Does Not Exist In The Scene]. This effect is removed at the end of the round, and afterward, the target receives [Dazed]. Once per scenario. This effect is called \"Labyrinth Seal\".\n</p><hr><p>Old Branch of the Spirited Away [Core Material] (240G) + Cedar Staff (400G) + Madder Charm (140G) ×3 + [Magic Catalyst 11] (120G) ×3 + Crafting Cost (580G)</p>",
+    "description": "<p>[Momento: Ação] Usado ao mesmo tempo que seu \"Ataque Mágico Básico\". Se o \"Ataque Mágico Básico\" for bem-sucedido, o alvo fica [Ausente da Cena]. Este efeito é removido ao fim da rodada e, em seguida, o alvo fica [Atordoado]. Uma vez por cenário. Este efeito se chama \"Selo do Labirinto\".\n</p><hr><p>Velho Galho dos Levados pelos Espíritos [Material-Base] (240G) + Cajado de Cedro (400G) + Amuleto de Akane (140G) ×3 + [Catalisador Mágico 11] (120G) ×3 + Custo de Fabricação (580G)</p>",
     "tags": [
       "Two-Handed",
       "Staff",
@@ -24,17 +24,30 @@
     "pdef": 0,
     "mdef": 0
   },
-  "img": "systems/lhtrpg/assets/ui/items_icons/weapon.svg",
+  "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
   "effects": [],
   "sort": 16700000,
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Action",
+          "target": "-",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scenario",
+          "text": "[Trigger: Action] Used simultaneously with your \"Basic Magic Attack\". If \"Basic Magic Attack\" succeeds, the target becomes [State That Does Not Exist In The Scene]. This effect is removed at the end of the round, and afterward, the target receives [Dazed]. Once per scenario. This effect is called \"Labyrinth Seal\"."
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
-    "systemId": "lhtrpg",
-    "systemVersion": "1.5.0",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

@@ -1,46 +1,46 @@
-<div class="lhtrpg-item-sheet flexcol">
-  {{> "systems/lhtrpg/templates/item/parts/item-header.html"}}
+<div class="eternia-item-sheet flexcol">
+  {{> "systems/eternia/templates/item/parts/item-header.html"}}
 
   <section class="sheet-stats option-stats">
 
     <div class="stat-div option-identifier">
-      <label>{{localize 'LHTRPG.CharacterOptions.Identifier'}}</label>
+      <label>{{localize 'ETERNIA.CharacterOptions.Identifier'}}</label>
       <div>
         <input type="text" name="system.identifier" value="{{system.identifier}}" placeholder="-" data-dtype="String">
       </div>
     </div>
     <div class="stat-div">
-      <label>{{localize 'LHTRPG.Str'}}</label>
+      <label>{{localize 'ETERNIA.Str'}}</label>
       <div>
         <input type="text" name="system.attributes.str" value="{{system.attributes.str}}" placeholder="0" data-dtype="Number" maxlength="3">
       </div>
     </div>
     <div class="stat-div">
-      <label>{{localize 'LHTRPG.Dex'}}</label>
+      <label>{{localize 'ETERNIA.Dex'}}</label>
       <div>
         <input type="text" name="system.attributes.dex" value="{{system.attributes.dex}}" placeholder="0" data-dtype="Number" maxlength="3">
       </div>
     </div>
     <div class="stat-div">
-      <label>{{localize 'LHTRPG.Pow'}}</label>
+      <label>{{localize 'ETERNIA.Pow'}}</label>
       <div>
         <input type="text" name="system.attributes.pow" value="{{system.attributes.pow}}" placeholder="0" data-dtype="Number" maxlength="3">
       </div>
     </div>
     <div class="stat-div">
-      <label>{{localize 'LHTRPG.Int'}}</label>
+      <label>{{localize 'ETERNIA.Int'}}</label>
       <div>
         <input type="text" name="system.attributes.int" value="{{system.attributes.int}}" placeholder="0" data-dtype="Number" maxlength="3">
       </div>
     </div>
     <div class="stat-div">
-      <label>{{localize 'LHTRPG.Label.HP'}}</label>
+      <label>{{localize 'ETERNIA.Label.HP'}}</label>
       <div>
         <input type="text" name="system.hp" value="{{system.hp}}" placeholder="0" data-dtype="Number" maxlength="3">
       </div>
     </div>
     <div class="stat-div">
-      <label>{{localize 'LHTRPG.Label.Fate'}}</label>
+      <label>{{localize 'ETERNIA.Label.Fate'}}</label>
       <div>
         <input type="text" name="system.fate" value="{{system.fate}}" placeholder="0" data-dtype="Number" maxlength="3">
       </div>
@@ -49,9 +49,9 @@
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-action="tab" data-group="primary" data-tab="description">{{localize 'LHTRPG.Description.Label'}}</a>
-    <a class="item" data-action="tab" data-group="primary" data-tab="grants">{{localize 'LHTRPG.CharacterOptions.Grants.Tab'}}</a>
-    <a class="item" data-action="tab" data-group="primary" data-tab="effects">{{localize 'LHTRPG.Effect.Label'}}</a>
+    <a class="item" data-action="tab" data-group="primary" data-tab="description">{{localize 'ETERNIA.Description.Label'}}</a>
+    <a class="item" data-action="tab" data-group="primary" data-tab="grants">{{localize 'ETERNIA.CharacterOptions.Grants.Tab'}}</a>
+    <a class="item" data-action="tab" data-group="primary" data-tab="effects">{{localize 'ETERNIA.Effect.Label'}}</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -66,12 +66,12 @@
 
     {{!-- Starting skills Tab --}}
     <div class="tab grants" data-group="primary" data-tab="grants">
-      {{> "systems/lhtrpg/templates/item/parts/item-grants.html"}}
+      {{> "systems/eternia/templates/item/parts/item-grants.html"}}
     </div>
 
     {{!-- Effects Tab: applied to the character while it holds this item --}}
     <div class="tab effects" data-group="primary" data-tab="effects">
-      {{> "systems/lhtrpg/templates/item/parts/item-effects.html"}}
+      {{> "systems/eternia/templates/item/parts/item-effects.html"}}
     </div>
   </section>
 </div>

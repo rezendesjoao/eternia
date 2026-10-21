@@ -1,0 +1,83 @@
+{
+  "name": "R16 Colete da Dança da Fênix",
+  "type": "armor",
+  "system": {
+    "description": "<p>[Momento: Instantânea] Como custo, este item perde uma tag [Bordado]. Se as tags [Bordado] chegarem a zero, a tag [Quebrado] é acrescentada a este item no fim da Cena. Você entra no estado [Voando] e pode usar o Poder EX \"Mergulho Aéreo\". Este efeito dura até o fim da Cena.\nUma veste sem mangas para o tronco, feita de um rico tecido vermelho com uma fênix bordada em fio de ouro. Ao liberar o poder contido no bordado, quem a veste pode flutuar livremente no ar por um curto período.</p><hr><p>Enxofre Verdadeiro [Material-Base] (500G) + Armadura Acolchoada (1100G) + Pergaminho de Voo II (320G) + [Catalisador Mágico 16] (250G) ×2 + Custo de Fabricação (780G)</p>",
+    "tags": [
+      "Light Armor",
+      "Not For Sale",
+      "Embroidery",
+      "M4"
+    ],
+    "pdef": 25,
+    "mdef": 30,
+    "initiative": 0,
+    "rank": 16,
+    "price": 3200,
+    "equipped": false,
+    "checkType": "-",
+    "range": "Close",
+    "target": "-",
+    "timing": "-",
+    "attack": 0,
+    "magic": 0,
+    "accuracy": 0
+  },
+  "img": "systems/eternia/assets/ui/items_icons/armor.svg",
+  "effects": [],
+  "sort": 4000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Instant",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "",
+          "text": "[Trigger: Instant] This item loses one [Embroidery] tag as a cost. If the [Embroidery] tag reaches zero, the [Broken] tag is added to this item at the end of the scene. You gain the [Flight] state and can use the EX Power \"Air Dive\". This effect lasts until the end of the scene.",
+          "effects": [
+            {
+              "name": "R16 Phoenix Dance Vest",
+              "img": "systems/lhtrpg/assets/ui/items_icons/armor.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "flying"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "flying"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "czC6mpr9x5TKMNri",
+  "folder": "GSOXnkHg6C8os28Y",
+  "_key": "!items!czC6mpr9x5TKMNri"
+}

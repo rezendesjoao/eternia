@@ -2,7 +2,7 @@
   "name": "R7 Banshiki no kēpu",
   "type": "accessory",
   "system": {
-    "description": "<p>[Trigger: Text] Use this when you are targeted by [Block Ability]. Gives [Dazed] to a target with \"Target: Area (Select)/Range: Close\" and allows you to continue without losing movement. Once per scene.〔Self: Artist〕Adds +2 to your [Negotiation Check].\nthat changes color according to the wearer's intent. It is said to contain the soul of a wandering jester who despises all constraints, and it deceives those who attempt to hinder its bearer.</p><hr><p>Vividly Colored Scale [Core Material] (120G) + Cape (170G) + Scroll of Stealth (Basic) (100G) + [Magic Catalyst 7] (60G) ×2 + Crafting Cost (260G)</p>",
+    "description": "<p>[Momento: Ver texto] Use quando você for alvo de [Obstrução]. Inflige [Atordoado] a um alvo com \"Alvo: Área (Escolha)/Alcance: Corpo a corpo\" e permite que você continue sem perder o movimento. Uma vez por Cena.〔Pessoal: Artista〕Acrescenta +2 ao seu [Teste de Negociação].\nque muda de cor conforme a intenção de quem a veste. Dizem que abriga a alma de um bufão errante que despreza todas as amarras, e ela engana aqueles que tentam atrapalhar quem a porta.</p><hr><p>Escama de Cores Vívidas [Material-Base] (120G) + Capa (170G) + Pergaminho de Furtividade I (100G) + [Catalisador Mágico 7] (60G) ×2 + Custo de Fabricação (260G)</p>",
     "tags": [
       "Accessory",
       "Cloak",
@@ -23,17 +23,53 @@
     "attack": 0,
     "accuracy": 0
   },
-  "img": "systems/lhtrpg/assets/ui/items_icons/accessory.svg",
+  "img": "systems/eternia/assets/ui/items_icons/accessory.svg",
   "effects": [],
   "sort": 0,
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Refer",
+          "target": "Area (P)",
+          "range": "Close",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Text] Use this when you are targeted by [Block Ability]. Gives [Dazed] to a target with \"Target: Area (Select)/Range: Close\" and allows you to continue without losing movement. Once per scene.〔Self: Artist〕Adds +2 to your [Negotiation Check].",
+          "effects": [
+            {
+              "name": "R7 Banshiki no kēpu",
+              "img": "systems/lhtrpg/assets/ui/items_icons/accessory.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "dazed"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "dazed"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
-    "systemId": "lhtrpg",
-    "systemVersion": "1.5.0",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

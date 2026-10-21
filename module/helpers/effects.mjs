@@ -16,11 +16,11 @@ export function onManageActiveEffect(event, owner, target) {
   switch ( action ) {
     case "create":
       return owner?.createEmbeddedDocuments("ActiveEffect", [{
-        name: game.i18n.localize("LHTRPG.Effect.New"),
+        name: game.i18n.localize("ETERNIA.Effect.New"),
         img: "icons/svg/aura.svg",
         origin: owner.uuid,
-        // Temporary: until the end of the round (Log Horizon duration, see effect-durations.mjs)
-        "flags.lhtrpg.expires": li?.dataset?.effectType === "temporary" ? "endOfRound" : undefined,
+        // Temporary: until the end of the round (Eternia duration, see effect-durations.mjs)
+        "flags.eternia.expires": li?.dataset?.effectType === "temporary" ? "endOfRound" : undefined,
         disabled: li?.dataset?.effectType === "inactive"
       }]);
     case "edit":
@@ -43,28 +43,28 @@ export function prepareActiveEffectCategories(effects) {
     const categories = {
       temporary: {
         type: "temporary",
-        label: "LHTRPG.Effect.Category.temporary",
+        label: "ETERNIA.Effect.Category.temporary",
         effects: []
       },
       passive: {
         type: "passive",
-        label: "LHTRPG.Effect.Category.passive",
+        label: "ETERNIA.Effect.Category.passive",
         effects: []
       },
       inactive: {
         type: "inactive",
-        label: "LHTRPG.Effect.Category.inactive",
+        label: "ETERNIA.Effect.Category.inactive",
         effects: []
       },
       // Suppressed because a condition of the effect or its skill is not met (see effect-conditions.mjs)
       unmet: {
         type: "unmet",
-        label: "LHTRPG.Effect.Category.unmet",
+        label: "ETERNIA.Effect.Category.unmet",
         effects: []
       },
       suppressed: {
         type: "suppressed",
-        label: "LHTRPG.Effect.Category.suppressed",
+        label: "ETERNIA.Effect.Category.suppressed",
         effects: []
       }
     };

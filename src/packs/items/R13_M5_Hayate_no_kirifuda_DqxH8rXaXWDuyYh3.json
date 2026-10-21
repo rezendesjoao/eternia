@@ -2,7 +2,7 @@
   "name": "R13 M5 Hayate no kirifuda",
   "type": "weapon",
   "system": {
-    "description": "<p>[Trigger: Minor] You immediately perform the action \"Timing: Minor Action\" twice. This weapon gains the [Broken] tag until the end of this scene.\n</p><hr><p>Dream Fortune Cards [Core Material] (300G) + Eight-Pointed Shuriken (230G) + Quick Card (Basic) (170G) ×3 + [Magic Catalyst 13] (170G) ×3 + Crafting Cost (580G)</p>",
+    "description": "<p>[Momento: Menor] Você realiza imediatamente duas ações de \"Momento: Ação Menor\". Esta arma recebe a tag [Quebrado] até o fim desta cena.\n</p><hr><p>Cartas de Adivinhação dos Sonhos [Material-Base] (300G) + Shuriken de Oito Pontas (230G) + Carta Rápida I (170G) ×3 + [Catalisador Mágico 13] (170G) ×3 + Custo de Fabricação (580G)</p>",
     "tags": [
       "One-Handed",
       "Throwing",
@@ -24,17 +24,30 @@
     "pdef": 0,
     "mdef": 0
   },
-  "img": "systems/lhtrpg/assets/ui/items_icons/weapon.svg",
+  "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
   "effects": [],
   "sort": 5000000,
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Minor",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "",
+          "text": "[Trigger: Minor] You immediately perform the action \"Timing: Minor Action\" twice. This weapon gains the [Broken] tag until the end of this scene."
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
-    "systemId": "lhtrpg",
-    "systemVersion": "1.5.0",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

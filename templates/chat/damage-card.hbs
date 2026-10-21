@@ -1,17 +1,17 @@
-<div class="lhtrpg chat-card lh-combat-card lh-damage-card">
+<div class="eternia chat-card lh-combat-card lh-damage-card">
 	<header class="chat-card-header">
 		<img class="chat-card-img" src="{{img}}" alt="{{skillName}}" />
 		<div class="chat-card-title">
 			<h3>{{skillName}}</h3>
-			<span class="chat-card-type">{{localize 'LHTRPG.Combat.DamageRoll'}} ({{labels.type}})</span>
+			<span class="chat-card-type">{{localize 'ETERNIA.Combat.DamageRoll'}} ({{labels.type}})</span>
 		</div>
 	</header>
 
 	{{{rollHTML}}}
-	{{#if bonuses}}<div class="lh-card-bonuses" data-tooltip="LHTRPG.RollFilter.CardBonuses"><i class="fas fa-circle-plus"></i> {{bonuses}}</div>{{/if}}
+	{{#if bonuses}}<div class="lh-card-bonuses" data-tooltip="ETERNIA.RollFilter.CardBonuses"><i class="fas fa-circle-plus"></i> {{bonuses}}</div>{{/if}}
 
 	{{#if tags.length}}
-	<div class="chat-card-tags" data-tooltip="LHTRPG.Combat.AttackTags">
+	<div class="chat-card-tags" data-tooltip="ETERNIA.Combat.AttackTags">
 		{{#each tags as |tag|}}<span class="tag">{{tag}}</span>{{/each}}
 	</div>
 	{{/if}}
@@ -19,13 +19,13 @@
 	{{#*inline "applyButtons"}}
 	<div class="lh-apply-buttons owner-only">
 		{{#if recoveryOnly}}
-		<button type="button" class="lh-apply" data-mode="heal"><i class="fas fa-heart"></i> {{localize 'LHTRPG.Combat.Mode.heal'}}</button>
+		<button type="button" class="lh-apply" data-mode="heal"><i class="fas fa-heart"></i> {{localize 'ETERNIA.Combat.Mode.heal'}}</button>
 		{{else}}
-		<button type="button" class="lh-apply" data-mode="damage" data-tooltip="LHTRPG.Combat.Hint.damage"><i class="fas fa-heart-crack"></i> {{localize 'LHTRPG.Combat.Mode.damage'}}</button>
-		<button type="button" class="lh-apply" data-mode="half" data-tooltip="LHTRPG.Combat.Hint.half">½</button>
-		<button type="button" class="lh-apply" data-mode="double" data-tooltip="LHTRPG.Combat.Hint.double">×2</button>
-		<button type="button" class="lh-apply" data-mode="direct" data-tooltip="LHTRPG.Combat.Hint.direct"><i class="fas fa-bolt"></i> {{localize 'LHTRPG.Combat.Mode.direct'}}</button>
-		<button type="button" class="lh-apply" data-mode="heal" data-tooltip="LHTRPG.Combat.Hint.heal"><i class="fas fa-heart"></i></button>
+		<button type="button" class="lh-apply" data-mode="damage" data-tooltip="ETERNIA.Combat.Hint.damage"><i class="fas fa-heart-crack"></i> {{localize 'ETERNIA.Combat.Mode.damage'}}</button>
+		<button type="button" class="lh-apply" data-mode="half" data-tooltip="ETERNIA.Combat.Hint.half">½</button>
+		<button type="button" class="lh-apply" data-mode="double" data-tooltip="ETERNIA.Combat.Hint.double">×2</button>
+		<button type="button" class="lh-apply" data-mode="direct" data-tooltip="ETERNIA.Combat.Hint.direct"><i class="fas fa-bolt"></i> {{localize 'ETERNIA.Combat.Mode.direct'}}</button>
+		<button type="button" class="lh-apply" data-mode="heal" data-tooltip="ETERNIA.Combat.Hint.heal"><i class="fas fa-heart"></i></button>
 		{{/if}}
 	</div>
 	{{/inline}}
@@ -36,14 +36,14 @@
 			<div class="lh-target-line">
 				<img class="lh-target-img" src="{{target.img}}" alt="{{target.name}}" />
 				<span class="lh-target-name">{{target.name}}</span>
-				{{#if target.dodgeFailed}}<span class="lh-badge" data-tooltip="LHTRPG.Combat.Hint.dodgeFailed">{{localize 'LHTRPG.Combat.DodgeFailed'}}</span>{{/if}}
+				{{#if target.dodgeFailed}}<span class="lh-badge" data-tooltip="ETERNIA.Combat.Hint.dodgeFailed">{{localize 'ETERNIA.Combat.DodgeFailed'}}</span>{{/if}}
 				{{#if target.applied}}<span class="lh-applied">{{target.applied}}</span>{{/if}}
 			</div>
 			{{> applyButtons recoveryOnly=../recoveryOnly}}
 		</li>
 		{{else}}
 		<li class="lh-target lh-damage-target lh-selected">
-			<div class="lh-target-line"><span class="lh-target-name">{{localize 'LHTRPG.Combat.Selected'}}</span></div>
+			<div class="lh-target-line"><span class="lh-target-name">{{localize 'ETERNIA.Combat.Selected'}}</span></div>
 			{{> applyButtons recoveryOnly=recoveryOnly}}
 		</li>
 		{{/each}}

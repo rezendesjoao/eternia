@@ -1,0 +1,85 @@
+{
+  "name": "Lâmina do Tumulto",
+  "type": "weapon",
+  "system": {
+    "description": "<p>[Você: Topo de Ódio] Você não entra no estado [Cambaleante]. [Momento: Ver texto] Usado quando o alvo fica [Incapacitado] ou [Morto] por um [Ataque Corpo a Corpo] com esta arma. Você recebe [Regeneração:10]. Esta [Regeneração] não substitui nenhuma [Regeneração] que você já esteja recebendo; em vez disso, soma-se à intensidade dela.\nUma longa espada montante com desenhos elaborados de carvalho e folhagem densa. Toda vez que seu portador derrota um inimigo, ela concede ao corpo dele um tremendo poder regenerativo.</p><hr><p>Núcleo da Lâmina Rouba-Vida[Material-Base](220G)+Ultraje(480G)+Poção de Regeneração II(260G)×2+[Catalisador Mágico 11](120G)×2+Custo de Fabricação(540G)</p>",
+    "tags": [
+      "Two-Handed",
+      "Blade",
+      "Not For Sale",
+      "M6"
+    ],
+    "initiative": 0,
+    "rank": 11,
+    "price": 2000,
+    "equipped": false,
+    "attack": 28,
+    "magic": 0,
+    "accuracy": 0,
+    "main": false,
+    "range": "Close",
+    "checkType": "-",
+    "target": "-",
+    "timing": "-",
+    "pdef": 0,
+    "mdef": 0
+  },
+  "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
+  "effects": [],
+  "sort": 22300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Refer",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "",
+          "text": "[Trigger: Text] This is used when the target is rendered [Incapacitated] or [Dead] by an [Melee Attack] with this weapon. You gain [Regen:10]. This [Regen] does not overwrite any [Regen] you are already receiving, but adds to its intensity.",
+          "effects": [
+            {
+              "name": "Riot Edge",
+              "img": "systems/lhtrpg/assets/ui/items_icons/weapon.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "regen"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "regen",
+                    "value": 10
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": "eternia",
+    "systemVersion": "0.1.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "uKILK6jKJMY9ekqH",
+  "folder": "C19YDMIkeXI6v7zD",
+  "_key": "!items!uKILK6jKJMY9ekqH"
+}
