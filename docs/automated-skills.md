@@ -1,6 +1,6 @@
 # Automated Skills — User Guide
 
-Leer en español: [automated-skills.es.md](automated-skills.es.md) · Back to the [README](../README.md)
+Back to the [README](../README.md). The examples are skills of the original Log Horizon TRPG compendiums; the same tools build the skills of Eternia.
 
 Most skills in the system compendiums now carry their rules as data, not only as text. When a character
 has a skill, the system applies what it can on its own:
@@ -109,7 +109,7 @@ from the compendium from now on are already complete; for the old ones there is 
 
   ![Character sheet menu](images/skills/refresh-menu.webp)
 
-- **Every character in the world**: **Game Settings → Log Horizon TRPG → Refresh characters' skills**.
+- **Every character in the world**: **Game Settings → Eternia → Refresh characters' skills**.
 
   ![Button in the system settings](images/skills/refresh-settings.webp)
 
@@ -163,8 +163,8 @@ done from the skill sheet and the Active Effect editor; no code is needed.
 | **Effects** | Skill sheet → Effects tab | What the skill changes. Passive (Constant) or applied when used. |
 | **Conditions of an effect** | Effect editor → Conditions | Requirements of a single effect ("(SR2): …" tiers). |
 | **Skill filter** | Effect editor → Conditions | Which rolls / skills a bonus to other skills affects. |
-| **LH Status** | Effect editor → LH Status | A Log Horizon status that the effect gives (with Rating / Tag). |
-| **Duration (LH)** | Effect editor → Duration | How long an effect applied when used lasts. |
+| **Status** | Effect editor → Status | An Eternia status that the effect gives (with Rating / Tag). |
+| **Duration (Eternia)** | Effect editor → Duration | How long an effect applied when used lasts. |
 
 ### Check and Damage
 
@@ -265,13 +265,13 @@ For active skills ("During this Main Process…", stances, "The target takes [Ri
    owner, it's copied to the target when the skill is used (see [section 2](#skills-that-apply-effects-when-used)).
 2. In **Changes**, the bonuses as usual (they can also be roll bonuses with a skill filter: *Pinpoint* = Skill
    Damage/Recovery bonus `@sr*3`, filter skill tags `Weapon Attack`).
-3. In **Duration**, choose **Duration (LH)**.
+3. In **Duration**, choose **Duration (Eternia)**.
 
 #### Duration
 
-![Log Horizon durations](images/skills/effect-duration.webp)
+![Eternia durations](images/skills/effect-duration.webp)
 
-| Skill text | Duration (LH) |
+| Skill text | Duration (Eternia) |
 |---|---|
 | "During this Main Process", "for this check", bonuses of Before Check / Damage Roll timing | End of process |
 | "until the end of the round" | End of round |
@@ -282,7 +282,7 @@ applied when used without a duration ends with the combat (end of scene).
 
 #### Statuses with a Rating
 
-To give a Log Horizon status ("The target takes [Decay: (SR×5)]", "gains [Regen: 10]"), use the **LH Status**
+To give an Eternia status ("The target takes [Decay: (SR×5)]", "gains [Regen: 10]"), use the **Status**
 tab: choose the status and, if it has one, its **Rating** (number or formula) and its **Tag** (for [Weakness]
 and [Cancel]). One effect = one status.
 
