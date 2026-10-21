@@ -1,0 +1,25 @@
+{{!-- The bench of a profession (module/professions/bench.mjs): the crest band with the modes and the attempts, then
+     the step of the mode: choose, reveal (the dice), enhance, done. --}}
+<div class="lhp-bench-body" style="--lhp-color: {{color}}">
+{{#if none}}
+	<p class="lhp-bench-none"><i class="fa-solid fa-hammer"></i> {{localize "ETERNIA.Profession.Error.NoProfession"}}</p>
+{{else}}
+	<header class="lhp-bench-head">
+		<div class="lhp-mini-crest"><img src="{{img}}" alt=""><b>{{rank}}</b></div>
+		<div class="lhp-bench-title"><h2>{{name}}</h2><span>{{rankTitle}} · {{actor.name}}</span></div>
+		<nav class="lhp-modes">
+			{{#each modes as |m|}}<a class="lhp-mode{{#if m.active}} active{{/if}}" data-action="mode" data-mode="{{m.id}}"><i class="{{m.icon}}"></i><span>{{m.label}}</span></a>{{/each}}
+		</nav>
+		<div class="lhp-bench-attempts" data-tooltip="{{localize 'ETERNIA.Profession.Sheet.AttemptsTip'}}">
+			{{#each attempts.pips as |pip|}}<i class="fa-solid fa-hammer{{#if pip.used}} used{{/if}}"></i>{{/each}}
+			<span><b>{{attempts.left}}</b>/{{attempts.max}}</span>
+		</div>
+	</header>
+	<section class="lhp-bench-main step-{{step}} mode-{{mode}}">
+		{{#if isChoose}}{{> "systems/eternia/templates/professions/bench-choose.hbs"}}{{/if}}
+		{{#if isEnhance}}{{> "systems/eternia/templates/professions/bench-enhance.hbs"}}{{/if}}
+		{{#if reveal}}{{> "systems/eternia/templates/professions/bench-reveal.hbs"}}{{/if}}
+		{{#if done}}{{> "systems/eternia/templates/professions/bench-done.hbs"}}{{/if}}
+	</section>
+{{/if}}
+</div>

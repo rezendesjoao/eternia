@@ -1,0 +1,17 @@
+{{!-- The roll of the Workshop or of the Gathering: the dice fall, then the total and the quality. --}}
+{{#with reveal as |r|}}
+<div class="lhp-reveal" style="--lhp-quality: {{r.quality.color}}">
+	<div class="lhp-reveal-glow"></div>
+	<div class="lhp-reveal-stage">
+		<div class="lhp-dice">
+			{{#each r.faces as |f|}}<span class="lhp-die" style="--delay: {{f.delay}}ms"><i class="{{f.icon}}"></i></span>{{/each}}
+		</div>
+		<div class="lhp-reveal-total"><span>{{r.dice.[0]}} + {{r.dice.[1]}} + {{r.rank}}</span><b>{{r.total}}</b></div>
+		<div class="lhp-reveal-quality"><span>{{#if r.label}}{{r.label}}{{else}}{{r.quality.label}}{{/if}}</span></div>
+		{{#if r.doubleSix}}<div class="lhp-reveal-crit"><i class="fa-solid fa-dice-six"></i><i class="fa-solid fa-dice-six"></i> {{localize "ETERNIA.Profession.Bench.DoubleSix"}}</div>{{/if}}
+		<ul class="lhp-reveal-lines">{{#each r.lines}}<li>{{this}}</li>{{/each}}</ul>
+		<div class="lhp-reveal-exp"><i class="fa-solid fa-star"></i> +{{r.exp}} EXP{{#if r.rankUp}}<b class="lhp-rank-up"> · {{localize "ETERNIA.Profession.Bench.RankUp"}}</b>{{/if}}</div>
+		<button type="button" class="lhp-big-button" data-action="continue">{{r.button}} <i class="fa-solid fa-arrow-right"></i></button>
+	</div>
+</div>
+{{/with}}

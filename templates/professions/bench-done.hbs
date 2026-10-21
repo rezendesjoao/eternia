@@ -1,0 +1,24 @@
+{{!-- The end of an action: the item made (or the gold, the characters), with its enhancements. --}}
+{{#with done as |d|}}
+<div class="lhp-done" {{#if d.quality}}style="--lhp-quality: {{d.quality.color}}"{{/if}}>
+	<div class="lhp-done-rays"></div>
+	<div class="lhp-done-card">
+		{{#if d.item}}<a class="lhp-done-art" {{#if d.item.uuid}}data-action="view" data-uuid="{{d.item.uuid}}" data-tooltip="{{localize 'ETERNIA.Profession.Bench.Open'}}"{{/if}}><img src="{{d.item.img}}" alt=""></a>{{/if}}
+		{{#if d.coins}}<div class="lhp-done-coins"><i class="fa-solid fa-coins"></i><b>+{{d.coins}} G</b></div>{{/if}}
+		<span class="lhp-done-title">{{d.title}}</span>
+		{{#if d.item}}<h2>{{d.item.name}}</h2>{{/if}}
+		{{#if d.quality}}<span class="lhp-quality-ribbon">{{d.quality.label}}</span>{{/if}}
+		{{#if (gt d.count 1)}}<p class="lhp-forge-note"><i class="fa-solid fa-clone"></i> {{localize "ETERNIA.Profession.Bench.Copies" n=d.count}}</p>{{/if}}
+		{{#if d.item.enhancements.length}}
+		<ul class="lhp-effects">
+			{{#each d.item.enhancements as |f|}}<li class="{{#if f.legendary}}legendary{{/if}}{{#if f.cut}} cut{{/if}}"><i class="{{f.icon}}"></i><span><b>{{f.name}}{{#if f.cut}} ✦{{/if}}</b> {{f.text}}</span></li>{{/each}}
+		</ul>
+		{{/if}}
+		{{#if d.lines.length}}<ul class="lhp-done-lines">{{#each d.lines}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
+		<div class="lhp-done-buttons">
+			<button type="button" data-action="again"><i class="fa-solid fa-rotate-left"></i> {{d.again}}</button>
+			<button type="button" data-action="close"><i class="fa-solid fa-check"></i> {{localize "ETERNIA.Profession.Bench.Close"}}</button>
+		</div>
+	</div>
+</div>
+{{/with}}

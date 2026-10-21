@@ -69,6 +69,7 @@ export const TAG_CATALOG = [
   { label: "Summoning Whistle", group: G.item },
   { label: "Flag", group: G.item },
   { label: "Tame", group: G.item },
+  { label: "Gadget", group: G.item },
   ...[1, 2, 3, 4, 5, 6].map(n => ({ label: `M${n}`, group: G.item })),
 
   // Skill keywords.

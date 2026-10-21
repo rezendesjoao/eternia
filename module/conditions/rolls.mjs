@@ -113,6 +113,8 @@ export function dodgeModifier(actor, { vs = "evasion", attacker = null, item = n
 export function damageModifier(actor, item = null) {
   const t = tally();
   if (!actor || item?.system?.damage?.recovery) return t;
+  // Effects spent by the next damage the actor rolls (`consumeOn: "attack"`: a Spark Stone).
+  t.consume.push(...consumedBy(actor, ["attack"]).map(id => `effect:${id}`));
   const pack = packSkill(actor);
   if (pack && (alliesWithin(actor, 2) > 0)) t.add("pack", 0, 2 * (Number(pack.system.skillRank?.value) || 1), pack.name);
   if (!rulesOn()) return t;

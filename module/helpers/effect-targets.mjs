@@ -84,6 +84,8 @@ export const EFFECT_TARGETS = [
   { key: "system.battle-status.initiative", label: "ETERNIA.Monster.Initiative", group: "battle", actorTypes: ["monster"], kind: "number" },
   // Passive [Cancel] (conditions/effects.mjs passiveCancels; tag in flags.eternia.cancelTag)
   { key: "eternia.passive.cancel", label: "ETERNIA.StatusEffect.cancel", group: "battle", actorTypes: ["character", "monster"], kind: "number" },
+  // Max Fate that doesn't add up: only the highest one counts (a crafted Lucky accessory, actor.mjs _luck)
+  { key: "eternia.passive.luck", label: "ETERNIA.EffectTarget.Luck", group: "resources", actorTypes: ["character"], kind: "number" },
 
   // --- Roll bonuses (roll-bonuses.mjs): rolls of the skills matching the effect's roll filter ---
   { key: "eternia.roll.check.mod", label: "ETERNIA.EffectTarget.RollCheckMod", group: "roll", actorTypes: ["character", "monster"], kind: "number" },

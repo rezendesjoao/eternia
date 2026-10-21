@@ -1,0 +1,2342 @@
+/* ==========================================================================
+   Professions (module/professions/): the profession tab of the character sheet, the bench (the window of the
+   Workshop, the Fusion, the Gathering, the Merchant and the talents) and their chat cards.
+   The parchment and green of the sheet, gold trims, and the profession's own color (--lhp-color) on its crest and
+   buttons; the quality of a work (--lhp-quality) on its frame.
+   ========================================================================== */
+
+.lhpf .tab.profession,
+.lhp-bench,
+.lhp-card {
+  --lhp-gold: #c9a24a;
+  --lhp-gold-light: #f2db94;
+  --lhp-gold-dark: #8a6a25;
+  --lhp-night: #10291b;
+  --lhp-forest: #1b4430;
+  --lhp-paper: #fbf6e8;
+  --lhp-paper-dark: #efe3c4;
+  --lhp-line: #c8b79a;
+  --lhp-color: #1f5137;
+  --lhp-quality: #c9a24a;
+  --lhp-soft: color-mix(in srgb, var(--lhp-color) 12%, transparent);
+}
+
+@keyframes lhp-spin { to { transform: rotate(360deg); } }
+@keyframes lhp-shimmer { from { transform: translateX(-120%); } to { transform: translateX(260%); } }
+@keyframes lhp-pulse { 0%, 100% { opacity: 0.55; transform: scale(0.94); } 50% { opacity: 1; transform: scale(1.04); } }
+@keyframes lhp-breathe { 0%, 100% { box-shadow: 0 0 0 2px var(--lhp-night), 0 0 0 4px var(--lhp-gold), 0 0 6px 2px color-mix(in srgb, var(--lhp-color) 60%, transparent); } 50% { box-shadow: 0 0 0 2px var(--lhp-night), 0 0 0 4px var(--lhp-gold-light), 0 0 16px 6px color-mix(in srgb, var(--lhp-color) 75%, transparent); } }
+@keyframes lhp-flicker { 0%, 100% { transform: scale(1) rotate(-2deg); opacity: 0.9; } 40% { transform: scale(1.12) rotate(3deg); opacity: 1; } 70% { transform: scale(0.96) rotate(-1deg); opacity: 0.85; } }
+@keyframes lhp-rise { from { opacity: 0; transform: translateY(14px) scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes lhp-pop { 0% { transform: scale(0.6); } 70% { transform: scale(1.1); } 100% { transform: scale(1); } }
+@keyframes lhp-tumble {
+  0% { opacity: 0; transform: translate(-60px, -150px) rotate(-560deg) scale(0.5); }
+  55% { opacity: 1; transform: translate(6px, 12px) rotate(24deg) scale(1.08); }
+  75% { transform: translate(-2px, -8px) rotate(-8deg) scale(0.98); }
+  100% { transform: none; }
+}
+@keyframes lhp-celebrate {
+  0% { box-shadow: inset 0 0 0 1px rgba(242, 219, 148, 0.35), 0 0 0 0 rgba(242, 219, 148, 0.9); }
+  60% { box-shadow: inset 0 0 0 1px rgba(242, 219, 148, 0.9), 0 0 0 14px rgba(242, 219, 148, 0); }
+  100% { box-shadow: inset 0 0 0 1px rgba(242, 219, 148, 0.35), 0 0 0 0 rgba(242, 219, 148, 0); }
+}
+
+/* --------------------------------------------------------------------------
+   Tab: choose a profession
+   -------------------------------------------------------------------------- */
+.lhpf .tab.profession .lhp-choose-head {
+  margin: 6px 0 12px;
+  text-align: center;
+}
+.lhpf .tab.profession .lhp-choose-head > i {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, #2b6747, var(--lhp-night));
+  box-shadow: 0 0 0 2px var(--lhp-night), 0 0 0 4px var(--lhp-gold), 0 4px 10px rgba(0, 0, 0, 0.3);
+  color: var(--lhp-gold-light);
+  font-size: 20px;
+}
+.lhpf .tab.profession .lhp-choose-head h2 {
+  margin: 0 0 4px;
+  color: var(--pf-primary);
+  font: 600 22px/1.1 var(--pf-serif);
+}
+.lhpf .tab.profession .lhp-choose-head p {
+  margin: 0 auto;
+  max-width: 420px;
+  color: var(--pf-text-soft);
+  font: italic 13px/1.35 var(--pf-body);
+}
+.lhpf .tab.profession .lhp-choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .tab.profession .lhp-choice a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--lhp-line);
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--lhp-paper), color-mix(in srgb, var(--lhp-color) 7%, var(--lhp-paper-dark)));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.lhpf .tab.profession .lhp-choice a[data-action]:hover {
+  transform: translateY(-2px);
+  border-color: var(--lhp-color);
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--lhp-color) 30%, transparent);
+}
+.lhpf .tab.profession .lhp-choice-medal {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--lhp-color) 75%, #fff), color-mix(in srgb, var(--lhp-color) 55%, #000));
+  box-shadow: 0 0 0 2px var(--lhp-night), 0 0 0 3px var(--lhp-gold), 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+.lhpf .tab.profession .lhp-choice-medal img {
+  width: 32px;
+  height: 32px;
+  border: none;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
+}
+.lhpf .tab.profession .lhp-choice-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.lhpf .tab.profession .lhp-choice-name {
+  color: var(--pf-text);
+  font: 600 15px/1.15 var(--pf-serif);
+}
+.lhpf .tab.profession .lhp-choice-talent {
+  color: color-mix(in srgb, var(--lhp-color) 75%, #000);
+  font: 500 11px/1.3 var(--pf-sans);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --------------------------------------------------------------------------
+   Tab: crest
+   -------------------------------------------------------------------------- */
+.lhpf .tab.profession .lhp-crest {
+  position: relative;
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  margin: 2px 0 10px;
+  padding: 14px 16px 16px 14px;
+  border-radius: 8px;
+  background:
+    radial-gradient(130% 160% at 0% 50%, color-mix(in srgb, var(--lhp-color) 60%, transparent) 0%, transparent 58%),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 9px),
+    linear-gradient(135deg, var(--lhp-forest) 0%, var(--lhp-night) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(242, 219, 148, 0.35),
+    inset 0 0 0 4px rgba(16, 41, 27, 0.9),
+    inset 0 0 0 5px rgba(201, 162, 74, 0.5),
+    0 4px 10px rgba(0, 0, 0, 0.3);
+  color: var(--pf-tertiary-light);
+  overflow: hidden;
+}
+.lhpf .tab.profession .lhp-crest::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  bottom: -60px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--lhp-color) 30%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.lhpf .tab.profession .lhp-crest.celebrate {
+  animation: lhp-celebrate 1.4s ease-out 2;
+}
+.lhpf .tab.profession .lhp-medallion {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  margin: 2px 4px 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 32%, color-mix(in srgb, var(--lhp-color) 80%, #fff 20%), color-mix(in srgb, var(--lhp-color) 55%, #000) 75%);
+  box-shadow:
+    0 0 0 3px var(--lhp-night),
+    0 0 0 5px var(--lhp-gold),
+    0 0 0 6px var(--lhp-night),
+    0 0 22px color-mix(in srgb, var(--lhp-color) 75%, transparent),
+    inset 0 0 14px rgba(0, 0, 0, 0.55);
+}
+.lhpf .tab.profession .lhp-medallion img {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border: none;
+  filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.6));
+}
+.lhpf .tab.profession .lhp-medallion-ring {
+  position: absolute;
+  inset: -11px;
+  border: 1px dashed rgba(242, 219, 148, 0.5);
+  border-radius: 50%;
+  animation: lhp-spin 60s linear infinite;
+}
+.lhpf .tab.profession .lhp-rank-badge {
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 30px;
+  transform: translateX(-50%);
+}
+.lhpf .tab.profession .lhp-rank-badge svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: var(--lhp-night);
+  stroke: var(--lhp-gold);
+  stroke-width: 2.6;
+}
+.lhpf .tab.profession .lhp-rank-badge b {
+  position: relative;
+  margin-top: -2px;
+  color: var(--lhp-gold-light);
+  font: 700 15px/1 var(--pf-serif);
+}
+.lhpf .tab.profession .lhp-crest-body {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+.lhpf .tab.profession .lhp-eyebrow {
+  display: block;
+  color: var(--lhp-gold);
+  font: 600 9.5px/1 var(--pf-sans);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+.lhpf .tab.profession .lhp-name {
+  margin: 3px 0 4px;
+  overflow: hidden;
+  color: #f8eed3;
+  font: 600 27px/1 var(--pf-serif);
+  letter-spacing: 0.01em;
+  text-overflow: ellipsis;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
+  white-space: nowrap;
+}
+.lhpf .tab.profession .lhp-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 9px;
+}
+.lhpf .tab.profession .lhp-gems {
+  display: inline-flex;
+  gap: 5px;
+}
+.lhpf .tab.profession .lhp-gem {
+  width: 9px;
+  height: 9px;
+  transform: rotate(45deg);
+  border: 1px solid rgba(242, 219, 148, 0.55);
+  background: rgba(0, 0, 0, 0.35);
+}
+.lhpf .tab.profession .lhp-gem.on {
+  border-color: var(--lhp-gold-light);
+  background: linear-gradient(135deg, #fff3c4, var(--lhp-gold) 55%, var(--lhp-gold-dark));
+  box-shadow: 0 0 6px rgba(242, 219, 148, 0.8);
+}
+.lhpf .tab.profession .lhp-rank-title {
+  color: var(--pf-tertiary);
+  font: italic 500 14px/1 var(--pf-body);
+}
+.lhpf .tab.profession .lhp-exp-bar {
+  position: relative;
+  height: 9px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(242, 219, 148, 0.3);
+  overflow: hidden;
+}
+.lhpf .tab.profession .lhp-exp-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 5px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--lhp-color) 75%, #fff 10%), var(--lhp-gold) 70%, var(--lhp-gold-light));
+  box-shadow: 0 0 8px color-mix(in srgb, var(--lhp-gold) 70%, transparent);
+  overflow: hidden;
+  transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.lhpf .tab.profession .lhp-exp-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: lhp-shimmer 2.8s ease-in-out infinite;
+}
+.lhpf .tab.profession .lhp-exp-text {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 5px;
+  font: 500 11px/1 var(--pf-sans);
+}
+.lhpf .tab.profession .lhp-exp-value {
+  color: var(--lhp-gold-light);
+  white-space: nowrap;
+}
+.lhpf .tab.profession a.lhp-exp-value:hover {
+  text-shadow: 0 0 6px rgba(242, 219, 148, 0.8);
+}
+.lhpf .tab.profession .lhp-exp-value b {
+  font: 700 15px/1 var(--pf-serif);
+}
+.lhpf .tab.profession .lhp-exp-value span {
+  opacity: 0.75;
+}
+.lhpf .tab.profession .lhp-exp-next {
+  overflow: hidden;
+  color: var(--pf-tertiary-dark);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .tab.profession .lhp-attempts {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border: 1px solid rgba(242, 219, 148, 0.3);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.22);
+}
+.lhpf .tab.profession .lhp-attempts-label {
+  color: var(--lhp-gold);
+  font: 600 9px/1 var(--pf-sans);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.lhpf .tab.profession .lhp-attempt-pips {
+  display: grid;
+  grid-template-columns: repeat(3, 20px);
+  justify-content: center;
+  gap: 4px;
+}
+.lhpf .tab.profession .lhp-attempt {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--lhp-color) 70%, #fff 15%), var(--lhp-night));
+  box-shadow: 0 0 0 1px var(--lhp-gold), 0 0 8px color-mix(in srgb, var(--lhp-gold) 50%, transparent);
+  color: var(--lhp-gold-light);
+  font-size: 10px;
+}
+.lhpf .tab.profession .lhp-attempt.used {
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 0 1px rgba(242, 219, 148, 0.25);
+  color: rgba(242, 219, 148, 0.25);
+}
+.lhpf .tab.profession a.lhp-attempt.used:hover {
+  color: var(--lhp-gold-light);
+  box-shadow: 0 0 0 1px var(--lhp-gold-light);
+}
+.lhpf .tab.profession .lhp-attempts-sub {
+  color: var(--pf-tertiary-dark);
+  font: 500 10.5px/1 var(--pf-sans);
+  white-space: nowrap;
+}
+.lhpf .tab.profession .lhp-attempts-sub b {
+  color: var(--lhp-gold-light);
+  font: 700 13px/1 var(--pf-serif);
+}
+
+/* --------------------------------------------------------------------------
+   Tab: what the Rank gives, the bench's buttons, the work waiting
+   -------------------------------------------------------------------------- */
+.lhpf .tab.profession .lhp-stats {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .tab.profession .lhp-stats li {
+  position: relative;
+  flex: 1;
+  display: grid;
+  grid-template: "icon value" auto "icon label" auto / 26px minmax(0, 1fr);
+  align-items: center;
+  column-gap: 7px;
+  padding: 6px 9px;
+  border: 1px solid var(--lhp-line);
+  border-radius: 6px;
+  background: linear-gradient(180deg, var(--lhp-paper), var(--lhp-paper-dark));
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+.lhpf .tab.profession .lhp-stats i {
+  grid-area: icon;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--lhp-soft);
+  color: color-mix(in srgb, var(--lhp-color) 80%, #000);
+  font-size: 12px;
+}
+.lhpf .tab.profession .lhp-stats b {
+  grid-area: value;
+  color: var(--pf-text);
+  font: 700 17px/1 var(--pf-serif);
+}
+.lhpf .tab.profession .lhp-stats span {
+  grid-area: label;
+  overflow: hidden;
+  color: var(--pf-text-soft);
+  font: 500 10px/1.2 var(--pf-sans);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .tab.profession .lhp-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+  margin: 0 0 10px;
+}
+.lhpf .tab.profession .lhp-action {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: auto;
+  min-height: 48px;
+  margin: 0;
+  padding: 6px 10px 6px 6px;
+  border: 1px solid var(--lhp-line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fffdf6, var(--lhp-paper-dark));
+  box-shadow: 0 2px 0 var(--lhp-line), 0 3px 8px rgba(0, 0, 0, 0.1);
+  color: var(--pf-text);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+.lhpf .tab.profession .lhp-action:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 var(--lhp-line), 0 8px 16px color-mix(in srgb, var(--lhp-color) 25%, transparent);
+}
+.lhpf .tab.profession .lhp-action:not(:disabled):active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 var(--lhp-line), 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+.lhpf .tab.profession .lhp-action-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 7px;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--lhp-color) 85%, #fff 15%), color-mix(in srgb, var(--lhp-color) 75%, #000));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 0 1px color-mix(in srgb, var(--lhp-color) 50%, #000);
+  color: #fff;
+  font-size: 16px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.lhpf .tab.profession .lhp-action-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.lhpf .tab.profession .lhp-action-text b {
+  font: 600 14px/1.1 var(--pf-serif);
+}
+.lhpf .tab.profession .lhp-action-text small {
+  overflow: hidden;
+  color: var(--pf-text-soft);
+  font: 400 10.5px/1.25 var(--pf-sans);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.lhpf .tab.profession .lhp-action.primary {
+  border-color: color-mix(in srgb, var(--lhp-color) 60%, #000);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--lhp-color) 88%, #fff 12%), color-mix(in srgb, var(--lhp-color) 82%, #000));
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--lhp-color) 55%, #000), 0 4px 12px color-mix(in srgb, var(--lhp-color) 35%, transparent);
+  color: #fff;
+}
+.lhpf .tab.profession .lhp-action.primary .lhp-action-icon {
+  background: rgba(0, 0, 0, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+.lhpf .tab.profession .lhp-action.primary small {
+  color: rgba(255, 255, 255, 0.82);
+}
+.lhpf .tab.profession .lhp-pending {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 10px;
+  padding: 8px 10px;
+  border: 1px solid color-mix(in srgb, var(--lhp-quality) 55%, transparent);
+  border-left: 4px solid var(--lhp-quality);
+  border-radius: 6px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--lhp-quality) 16%, var(--lhp-paper)), var(--lhp-paper));
+}
+.lhpf .tab.profession .lhp-pending > i {
+  color: #d9662b;
+  font-size: 20px;
+  animation: lhp-flicker 1.6s ease-in-out infinite;
+}
+.lhpf .tab.profession .lhp-pending div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.lhpf .tab.profession .lhp-pending b {
+  font: 600 14px/1.15 var(--pf-serif);
+}
+.lhpf .tab.profession .lhp-pending span {
+  color: color-mix(in srgb, var(--lhp-quality) 75%, #000);
+  font: 600 11px/1 var(--pf-sans);
+}
+.lhpf .tab.profession .lhp-pending button {
+  width: auto;
+  height: 28px;
+  margin: 0;
+  padding: 0 10px;
+  border: 1px solid color-mix(in srgb, var(--lhp-quality) 60%, #000);
+  border-radius: 5px;
+  background: var(--lhp-quality);
+  color: #fff;
+  font: 600 12px/1 var(--pf-sans);
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Tab: chances, materials, talent, traps
+   -------------------------------------------------------------------------- */
+.lhpf .tab.profession .lhp-header-note {
+  color: var(--pf-text-soft);
+  font: italic 400 12px/1 var(--pf-body);
+}
+.lhp-chance-bar {
+  display: flex;
+  height: 14px;
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+}
+.lhp-chance-seg {
+  position: relative;
+  height: 100%;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 75%, #fff), var(--c) 55%, color-mix(in srgb, var(--c) 80%, #000));
+  transition: filter 0.15s ease;
+}
+.lhp-chance-seg + .lhp-chance-seg {
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.55);
+}
+.lhp-chance-seg:hover {
+  filter: brightness(1.15) saturate(1.2);
+}
+.lhpf .tab.profession .lhp-chance-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--pf-text-soft);
+  font: 500 11px/1.2 var(--pf-sans);
+}
+.lhpf .tab.profession .lhp-chance-legend li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.lhpf .tab.profession .lhp-chance-legend i {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  background: var(--c);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+.lhpf .tab.profession .lhp-chance-legend b {
+  color: var(--pf-text);
+}
+.lhpf .tab.profession .lhp-shelf {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+  gap: 4px;
+  padding: 6px 6px 12px;
+}
+.lhpf .tab.profession .lhp-shelf::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 9px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #a06a3d, #6b4323 70%, #4a2c15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+.lhpf .tab.profession .lhp-crystal {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #e8dcc0);
+  box-shadow: 0 0 0 1px var(--lhp-line), 0 3px 4px rgba(0, 0, 0, 0.18);
+  transition: transform 0.15s ease;
+}
+.lhpf .tab.profession .lhp-crystal:hover {
+  transform: translateY(-3px);
+}
+.lhpf .tab.profession .lhp-crystal img {
+  width: 100%;
+  height: 100%;
+  border: none;
+  filter: drop-shadow(0 0 4px rgba(90, 160, 255, 0.55));
+}
+.lhpf .tab.profession .lhp-crystal.none img {
+  filter: grayscale(1);
+  opacity: 0.3;
+}
+.lhpf .tab.profession .lhp-crystal-level {
+  position: absolute;
+  top: -5px;
+  left: -4px;
+  display: grid;
+  place-items: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 3px;
+  border-radius: 8px;
+  background: var(--lhp-night);
+  box-shadow: 0 0 0 1px var(--lhp-gold);
+  color: var(--lhp-gold-light);
+  font: 700 9.5px/1 var(--pf-sans);
+}
+.lhpf .tab.profession .lhp-crystal.none .lhp-crystal-level {
+  opacity: 0.5;
+}
+.lhpf .tab.profession .lhp-crystal-count {
+  position: absolute;
+  right: -3px;
+  bottom: -5px;
+  padding: 1px 4px;
+  border-radius: 7px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--lhp-line), 0 1px 2px rgba(0, 0, 0, 0.2);
+  color: var(--pf-text);
+  font: 700 10px/1.1 var(--pf-sans);
+}
+.lhpf .tab.profession .lhp-crystal.shard:not(.none) {
+  background: radial-gradient(circle at 50% 35%, #3a2a66, #120c26);
+  box-shadow: 0 0 0 1px #c9a24a, 0 0 10px rgba(160, 120, 255, 0.6);
+}
+.lhpf .tab.profession .lhp-crystal.shard:not(.none) img {
+  filter: drop-shadow(0 0 4px rgba(200, 170, 255, 0.8));
+}
+.lhpf .tab.profession .lhp-talent {
+  display: flex;
+  gap: 12px;
+  margin: 12px 0 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--lhp-line);
+  border-left: 4px solid var(--lhp-color);
+  border-radius: 6px;
+  background:
+    radial-gradient(120% 90% at 100% 0%, var(--lhp-soft), transparent 60%),
+    linear-gradient(180deg, var(--lhp-paper), var(--lhp-paper-dark));
+}
+.lhpf .tab.profession .lhp-talent-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--lhp-color) 80%, #fff 20%), color-mix(in srgb, var(--lhp-color) 70%, #000));
+  box-shadow: 0 0 0 2px var(--lhp-paper), 0 0 0 3px var(--lhp-gold);
+  color: #fff;
+  font-size: 17px;
+}
+.lhpf .tab.profession .lhp-talent-body header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+}
+.lhpf .tab.profession .lhp-talent-kind {
+  width: 100%;
+  color: color-mix(in srgb, var(--lhp-color) 80%, #000);
+  font: 600 9.5px/1 var(--pf-sans);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.lhpf .tab.profession .lhp-talent h3 {
+  margin: 0;
+  font: 600 17px/1.1 var(--pf-serif);
+}
+.lhpf .tab.profession .lhp-talent p {
+  margin: 4px 0 0;
+  font: 13px/1.35 var(--pf-body);
+}
+.lhpf .tab.profession .lhp-talent-note {
+  color: color-mix(in srgb, var(--lhp-color) 75%, #000);
+  font: italic 600 12px/1.3 var(--pf-body) !important;
+}
+.lhp-chip {
+  display: inline-block;
+  padding: 2px 7px;
+  border: 1px solid var(--lhp-line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--pf-text-soft);
+  font: 600 10px/1.2 var(--pf-sans);
+}
+.lhpf .tab.profession .lhp-trap-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .tab.profession .lhp-trap-list li:not(.lhpf-empty) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  border: 1px solid var(--lhp-line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.5);
+}
+.lhpf .tab.profession .lhp-trap-list img {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  background: radial-gradient(circle at 50% 35%, #2b6747, var(--lhp-night));
+}
+.lhpf .tab.profession .lhp-trap-list span {
+  flex: 1;
+  font: 600 13px/1.1 var(--pf-serif);
+}
+.lhpf .tab.profession .lhp-trap-list button {
+  width: auto;
+  height: 26px;
+  margin: 0;
+  padding: 0 10px;
+  border: 1px solid #8a5a1c;
+  border-radius: 5px;
+  background: linear-gradient(180deg, #e9a24b, #b8661b);
+  color: #fff;
+  font: 600 11.5px/1 var(--pf-sans);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+
+/* --------------------------------------------------------------------------
+   Tab: works and the Rank ladder
+   -------------------------------------------------------------------------- */
+.lhpf .tab.profession .lhp-work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .tab.profession .lhp-work {
+  display: flex;
+  gap: 9px;
+  padding: 7px 8px;
+  border: 1px solid color-mix(in srgb, var(--lhp-quality) 40%, var(--lhp-line));
+  border-radius: 7px;
+  background:
+    radial-gradient(120% 100% at 0% 0%, color-mix(in srgb, var(--lhp-quality) 14%, transparent), transparent 60%),
+    linear-gradient(180deg, #fffdf7, var(--lhp-paper));
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+.lhpf .tab.profession .lhp-work-art {
+  position: relative;
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 6px;
+  background: radial-gradient(circle at 50% 35%, #2b6747, var(--lhp-night));
+  box-shadow: 0 0 0 2px var(--lhp-quality), 0 0 10px color-mix(in srgb, var(--lhp-quality) 70%, transparent);
+}
+.lhpf .tab.profession .lhp-work-art img {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 6px;
+}
+.lhpf .tab.profession .lhp-work-count {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  padding: 1px 5px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--lhp-line), 0 1px 2px rgba(0, 0, 0, 0.25);
+  color: var(--pf-text);
+  font: 700 10px/1.2 var(--pf-sans);
+}
+.lhpf .tab.profession .lhp-work-equipped {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  padding: 2px;
+  border-radius: 50%;
+  background: var(--pf-primary);
+  color: #fff;
+  font-size: 9px;
+}
+.lhpf .tab.profession .lhp-work-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.lhpf .tab.profession .lhp-work-name {
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 600 13.5px/1.15 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .tab.profession .lhp-work-quality {
+  color: color-mix(in srgb, var(--lhp-quality) 85%, #000);
+  font: 700 10.5px/1 var(--pf-sans);
+  letter-spacing: 0.02em;
+}
+.lhpf .tab.profession .lhp-work-quality i {
+  font-size: 7px;
+  vertical-align: 1px;
+}
+.lhpf .tab.profession .lhp-work-enh {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 2px;
+}
+.lhpf .tab.profession .lhp-work-enh i,
+.lhp-card .lhp-card-enh i {
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--lhp-quality) 16%, #fff);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--lhp-quality) 45%, transparent);
+  color: color-mix(in srgb, var(--lhp-quality) 80%, #000);
+  font-size: 9.5px;
+}
+.lhpf .tab.profession .lhp-work-enh i.legendary,
+.lhp-card .lhp-card-enh i.legendary {
+  background: linear-gradient(135deg, #fff1b8, #d4861a);
+  box-shadow: 0 0 0 1px #8a5a12, 0 0 6px rgba(212, 134, 26, 0.7);
+  color: #4a2a00;
+}
+.lhpf .tab.profession .lhp-work-enh i.cut {
+  box-shadow: 0 0 0 1px #2f7f86, 0 0 5px rgba(47, 127, 134, 0.6);
+}
+.lhpf .tab.profession .lhp-ladder ol {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .tab.profession .lhp-ladder ol::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 10%;
+  right: 10%;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--lhp-gold), var(--lhp-line));
+}
+.lhpf .tab.profession .lhp-ladder li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+.lhpf .tab.profession .lhp-step {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  margin-bottom: 3px;
+  transform: rotate(45deg);
+  border-radius: 6px;
+  background: var(--lhp-paper);
+  box-shadow: 0 0 0 1px var(--lhp-line), 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+.lhpf .tab.profession .lhp-step b {
+  transform: rotate(-45deg);
+  color: var(--pf-text-soft);
+  font: 700 14px/1 var(--pf-serif);
+}
+.lhpf .tab.profession .lhp-ladder li.reached .lhp-step {
+  background: linear-gradient(135deg, #fff3c4, var(--lhp-gold) 60%, var(--lhp-gold-dark));
+  box-shadow: 0 0 0 1px var(--lhp-gold-dark), 0 2px 6px rgba(138, 106, 37, 0.45);
+}
+.lhpf .tab.profession .lhp-ladder li.reached .lhp-step b {
+  color: var(--lhp-night);
+}
+.lhpf .tab.profession .lhp-ladder li.current .lhp-step {
+  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--lhp-color) 80%, #fff 20%), color-mix(in srgb, var(--lhp-color) 70%, #000));
+  animation: lhp-breathe 2.6s ease-in-out infinite;
+}
+.lhpf .tab.profession .lhp-ladder li.current .lhp-step b {
+  color: #fff;
+}
+.lhpf .tab.profession .lhp-step-title {
+  color: var(--pf-text);
+  font: 600 12.5px/1.1 var(--pf-serif);
+}
+.lhpf .tab.profession .lhp-ladder li:not(.reached) .lhp-step-title {
+  color: var(--pf-text-soft);
+}
+.lhpf .tab.profession .lhp-step-info {
+  color: var(--pf-text-soft);
+  font: 500 10px/1.25 var(--pf-sans);
+}
+
+/* --------------------------------------------------------------------------
+   Bench window
+   -------------------------------------------------------------------------- */
+.application.lhp-bench .window-content {
+  padding: 0;
+  overflow: hidden;
+}
+.lhp-bench .lhp-bench-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: var(--pf-text);
+  font-family: var(--pf-body);
+}
+.lhp-bench .lhp-bench-none {
+  margin: auto;
+  color: var(--pf-text-soft);
+  font: italic 15px/1.3 var(--pf-body);
+}
+.lhp-bench .lhp-bench-head {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: auto minmax(110px, auto) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 14px;
+  background:
+    radial-gradient(90% 200% at 0% 50%, color-mix(in srgb, var(--lhp-color) 55%, transparent), transparent 55%),
+    linear-gradient(135deg, var(--lhp-forest), var(--lhp-night));
+  box-shadow: inset 0 -1px 0 rgba(201, 162, 74, 0.6), 0 3px 8px rgba(0, 0, 0, 0.3);
+  color: var(--pf-tertiary-light);
+}
+.lhp-bench .lhp-mini-crest {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 32%, color-mix(in srgb, var(--lhp-color) 80%, #fff 20%), color-mix(in srgb, var(--lhp-color) 55%, #000) 75%);
+  box-shadow: 0 0 0 2px var(--lhp-night), 0 0 0 3px var(--lhp-gold), 0 0 12px color-mix(in srgb, var(--lhp-color) 70%, transparent);
+}
+.lhp-bench .lhp-mini-crest img {
+  width: 32px;
+  height: 32px;
+  border: none;
+}
+.lhp-bench .lhp-mini-crest b {
+  position: absolute;
+  right: -6px;
+  bottom: -4px;
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: var(--lhp-night);
+  box-shadow: 0 0 0 1px var(--lhp-gold);
+  color: var(--lhp-gold-light);
+  font: 700 11px/1 var(--pf-serif);
+}
+.lhp-bench .lhp-bench-title h2 {
+  margin: 0;
+  border: none;
+  color: #f8eed3;
+  font: 600 19px/1.05 var(--pf-serif);
+}
+.lhp-bench .lhp-bench-title span {
+  color: var(--pf-tertiary-dark);
+  font: italic 12px/1.2 var(--pf-body);
+}
+.lhp-bench .lhp-modes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+.lhp-bench .lhp-mode {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid rgba(242, 219, 148, 0.28);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--pf-tertiary);
+  font: 600 12px/1 var(--pf-sans);
+  transition: background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+.lhp-bench .lhp-mode:hover {
+  border-color: rgba(242, 219, 148, 0.6);
+  color: #fff;
+  text-shadow: none;
+}
+.lhp-bench .lhp-mode.active {
+  border-color: var(--lhp-gold);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--lhp-color) 90%, #fff 10%), color-mix(in srgb, var(--lhp-color) 80%, #000));
+  box-shadow: 0 0 10px color-mix(in srgb, var(--lhp-color) 60%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+.lhp-bench .lhp-bench-attempts {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 5px 9px;
+  border: 1px solid rgba(242, 219, 148, 0.3);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--lhp-gold-light);
+  font-size: 11px;
+}
+.lhp-bench .lhp-bench-attempts i.used {
+  color: rgba(242, 219, 148, 0.22);
+}
+.lhp-bench .lhp-bench-attempts span {
+  margin-left: 4px;
+  color: var(--pf-tertiary-dark);
+  font: 500 11px/1 var(--pf-sans);
+}
+.lhp-bench .lhp-bench-attempts b {
+  color: var(--lhp-gold-light);
+  font: 700 13px/1 var(--pf-serif);
+}
+.lhp-bench .lhp-bench-main {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+.lhp-bench .lhp-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 292px;
+  height: 100%;
+}
+.lhp-bench .lhp-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  padding: 12px 14px;
+}
+.lhp-bench .lhp-hint {
+  margin: 0;
+  color: var(--pf-text-soft);
+  font: italic 12.5px/1.3 var(--pf-body);
+}
+.lhp-bench .lhp-hint i {
+  color: color-mix(in srgb, var(--lhp-color) 75%, #000);
+}
+.lhp-bench .lhp-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.lhp-bench .lhp-segment {
+  display: inline-flex;
+  padding: 2px;
+  border: 1px solid var(--lhp-line);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.5);
+}
+.lhp-bench .lhp-segment a {
+  padding: 5px 12px;
+  border-radius: 5px;
+  color: var(--pf-text-soft);
+  font: 600 12px/1 var(--pf-sans);
+}
+.lhp-bench .lhp-segment a.active {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--lhp-color) 88%, #fff 12%), color-mix(in srgb, var(--lhp-color) 80%, #000));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  color: #fff;
+}
+.lhp-bench .lhp-segment b {
+  margin-left: 2px;
+  opacity: 0.8;
+}
+.lhp-bench .lhp-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.lhp-bench .lhp-filter {
+  padding: 3px 9px;
+  border: 1px solid var(--lhp-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
+  color: var(--pf-text-soft);
+  font: 600 11px/1.2 var(--pf-sans);
+}
+.lhp-bench .lhp-filter.active {
+  border-color: var(--lhp-color);
+  background: var(--lhp-soft);
+  color: color-mix(in srgb, var(--lhp-color) 80%, #000);
+}
+.lhp-bench .lhp-search-box {
+  position: relative;
+}
+.lhp-bench .lhp-search-box i {
+  position: absolute;
+  top: 50%;
+  left: 9px;
+  transform: translateY(-50%);
+  color: var(--pf-text-soft);
+  font-size: 11px;
+}
+.lhp-bench .lhp-search-box input {
+  width: 100%;
+  height: 28px;
+  padding-left: 26px;
+  border-radius: 6px;
+}
+.lhp-bench .lhp-list {
+  flex: 1;
+  min-height: 0;
+  margin: 0 -4px;
+  padding: 2px 4px 8px;
+  overflow: hidden auto;
+  scrollbar-width: thin;
+}
+.lhp-bench .lhp-picks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+  gap: 7px;
+}
+.lhp-bench .lhp-list.levels .lhp-picks {
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+.lhp-bench .lhp-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0 5px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--lhp-line);
+  color: var(--pf-primary);
+  font: 600 14px/1 var(--pf-serif);
+}
+.lhp-bench .lhp-group:first-child {
+  margin-top: 0;
+}
+.lhp-bench .lhp-group img {
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+}
+.lhp-bench .lhp-pick {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 8px;
+  border: 1px solid var(--lhp-line);
+  border-radius: 7px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.4));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+.lhp-bench .lhp-pick:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--lhp-color) 70%, var(--lhp-line));
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  text-shadow: none;
+}
+.lhp-bench .lhp-pick.selected {
+  border-color: var(--lhp-color);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--lhp-color) 12%, #fffdf6), color-mix(in srgb, var(--lhp-color) 6%, #fffdf6));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--lhp-color) 40%, transparent), 0 4px 12px color-mix(in srgb, var(--lhp-color) 25%, transparent);
+}
+.lhp-bench .lhp-pick.locked {
+  opacity: 0.5;
+  filter: grayscale(0.7);
+  cursor: not-allowed;
+}
+.lhp-bench .lhp-pick-art {
+  position: relative;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  background: radial-gradient(circle at 50% 35%, #2b6747, var(--lhp-night));
+  box-shadow: 0 0 0 1px var(--pf-tertiary), 0 0 0 2px var(--pf-ring), inset 0 0 4px rgba(0, 0, 0, 0.5);
+}
+.lhp-bench .lhp-pick-art.magic {
+  box-shadow: 0 0 0 2px var(--lhp-quality), 0 0 8px color-mix(in srgb, var(--lhp-quality) 70%, transparent);
+}
+.lhp-bench .lhp-pick-art img {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 5px;
+}
+.lhp-bench .lhp-pick-level,
+.lhp-bench .lhp-pick-count {
+  position: absolute;
+  bottom: -5px;
+  right: -6px;
+  display: grid;
+  place-items: center;
+  min-width: 18px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: var(--lhp-night);
+  box-shadow: 0 0 0 1px var(--lhp-gold);
+  color: var(--lhp-gold-light);
+  font: 700 10px/1 var(--pf-sans);
+}
+.lhp-bench .lhp-pick-count {
+  right: auto;
+  left: -6px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--lhp-line);
+  color: var(--pf-text);
+}
+.lhp-bench .lhp-pick-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.lhp-bench .lhp-pick-name {
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 600 13px/1.15 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhp-bench .lhp-pick-meta {
+  overflow: hidden;
+  color: var(--pf-text-soft);
+  font: 500 10.5px/1.15 var(--pf-sans);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhp-bench .lhp-pick-mat {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 5px;
+  border-radius: 9px;
+  background: rgba(63, 138, 63, 0.14);
+  color: #2e6b2e;
+  font: 700 10px/1 var(--pf-sans);
+}
+.lhp-bench .lhp-pick-mat.missing {
+  background: rgba(163, 57, 47, 0.12);
+  color: #8c2f2f;
+}
+.lhp-bench .lhp-pick-lock {
+  color: var(--pf-text-soft);
+}
+.lhp-bench .lhp-pick-check {
+  color: var(--lhp-color);
+  font-size: 16px;
+}
+.lhp-bench .lhp-empty {
+  grid-column: 1 / -1;
+  margin: 18px 0;
+  color: var(--pf-text-soft);
+  font: italic 13px/1.4 var(--pf-body);
+  text-align: center;
+}
+
+/* Side panel: the anvil */
+.lhp-bench .lhp-side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  padding: 12px 14px;
+  border-left: 1px solid var(--lhp-line);
+  background:
+    radial-gradient(140% 60% at 50% 0%, color-mix(in srgb, var(--lhp-color) 14%, transparent), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(233, 215, 161, 0.3));
+  box-shadow: inset 6px 0 10px -8px rgba(0, 0, 0, 0.35);
+}
+.lhp-bench .lhp-side-scroll {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  overflow: hidden auto;
+  scrollbar-width: thin;
+}
+.lhp-bench .lhp-anvil-empty {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--pf-text-soft);
+  text-align: center;
+}
+.lhp-bench .lhp-anvil-empty i {
+  display: grid;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, var(--lhp-paper), var(--lhp-paper-dark));
+  box-shadow: 0 0 0 2px var(--lhp-line), inset 0 0 12px rgba(0, 0, 0, 0.15);
+  color: color-mix(in srgb, var(--lhp-color) 60%, #8a7a62);
+  font-size: 28px;
+}
+.lhp-bench .lhp-anvil-empty p {
+  margin: 0;
+  font: italic 13px/1.4 var(--pf-body);
+}
+.lhp-bench .lhp-forge,
+.lhp-bench .lhp-gather,
+.lhp-bench .lhp-fusion-rules {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+.lhp-bench .lhp-forge-art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 92px;
+  height: 92px;
+  margin: 4px auto;
+  border-radius: 12px;
+  background: radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--lhp-color) 45%, #2b6747), var(--lhp-night) 80%);
+  box-shadow: 0 0 0 1px var(--pf-tertiary), 0 0 0 3px var(--pf-ring), 0 0 18px color-mix(in srgb, var(--lhp-color) 45%, transparent), 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+.lhp-bench .lhp-forge-art img {
+  width: 76px;
+  height: 76px;
+  border: none;
+}
+.lhp-bench .lhp-forge-art > i {
+  color: var(--lhp-color);
+  font-size: 34px;
+}
+.lhp-bench .lhp-forge h3,
+.lhp-bench .lhp-gather h3 {
+  margin: 0;
+  border: none;
+  font: 600 17px/1.15 var(--pf-serif);
+}
+.lhp-bench .lhp-forge-kind {
+  color: var(--pf-text-soft);
+  font: 500 11.5px/1 var(--pf-sans);
+}
+.lhp-bench .lhp-forge-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  margin: 2px 0;
+  padding: 0;
+  list-style: none;
+}
+.lhp-bench .lhp-forge-stats li {
+  display: flex;
+  gap: 4px;
+  padding: 2px 7px;
+  border: 1px solid var(--lhp-line);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.6);
+  font: 500 10.5px/1.3 var(--pf-sans);
+}
+.lhp-bench .lhp-material {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 9px;
+  border: 1px solid rgba(63, 138, 63, 0.45);
+  border-radius: 7px;
+  background: rgba(63, 138, 63, 0.08);
+  text-align: left;
+}
+.lhp-bench .lhp-material.missing {
+  border-color: rgba(163, 57, 47, 0.5);
+  background: rgba(163, 57, 47, 0.08);
+}
+.lhp-bench .lhp-material img {
+  width: 30px;
+  height: 30px;
+  border: none;
+  filter: drop-shadow(0 0 4px rgba(90, 160, 255, 0.55));
+}
+.lhp-bench .lhp-material div {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.lhp-bench .lhp-material b {
+  font: 600 13px/1.1 var(--pf-serif);
+}
+.lhp-bench .lhp-material span {
+  color: var(--pf-text-soft);
+  font: 500 10.5px/1.2 var(--pf-sans);
+}
+.lhp-bench .lhp-material > i {
+  color: #3f8a3f;
+  font-size: 16px;
+}
+.lhp-bench .lhp-material.missing > i {
+  color: #a3392f;
+}
+.lhp-bench .lhp-forge-note {
+  margin: 0;
+  color: var(--pf-text-soft);
+  font: 12px/1.35 var(--pf-body);
+}
+.lhp-bench .lhp-forge-list {
+  width: 100%;
+  text-align: left;
+}
+.lhp-bench .lhp-forge-list summary {
+  color: color-mix(in srgb, var(--lhp-color) 75%, #000);
+  font: 600 11.5px/1.4 var(--pf-sans);
+  cursor: pointer;
+}
+.lhp-bench .lhp-forge-list ul {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.lhp-bench .lhp-forge-list li {
+  margin: 2px 0;
+  font: 11.5px/1.3 var(--pf-body);
+}
+.lhp-bench .lhp-forge-list li i {
+  width: 16px;
+  color: color-mix(in srgb, var(--lhp-color) 75%, #000);
+  text-align: center;
+}
+.lhp-bench .lhp-mini-label {
+  display: block;
+  color: color-mix(in srgb, var(--lhp-color) 70%, #000);
+  font: 600 9.5px/1.2 var(--pf-sans);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.lhp-bench .lhp-mini-chances {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.lhp-bench .lhp-mini-chances .lhp-chance-bar {
+  height: 10px;
+}
+.lhp-bench .lhp-gather-chances {
+  width: 100%;
+  margin: 2px 0;
+  padding: 0;
+  list-style: none;
+}
+.lhp-bench .lhp-gather-chances li {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 2px;
+  border-bottom: 1px dotted var(--lhp-line);
+  font: 12px/1.3 var(--pf-body);
+}
+.lhp-bench .lhp-gather-chances li.g-shard b {
+  color: #b8700f;
+}
+.lhp-bench .lhp-big-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 42px;
+  margin: 0;
+  border: 1px solid color-mix(in srgb, var(--lhp-color) 60%, #000);
+  border-radius: 8px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--lhp-color) 85%, #fff 15%), color-mix(in srgb, var(--lhp-color) 78%, #000));
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--lhp-color) 50%, #000), 0 6px 14px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font: 600 16px/1 var(--pf-serif);
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.1s ease;
+}
+.lhp-bench .lhp-big-button:not(:disabled):hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+.lhp-bench .lhp-big-button:not(:disabled):active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 color-mix(in srgb, var(--lhp-color) 50%, #000), 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.lhp-bench .lhp-big-button:disabled {
+  filter: grayscale(0.85);
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.lhp-bench .lhp-why {
+  margin: 0;
+  color: #8c2f2f;
+  font: italic 12px/1.3 var(--pf-body);
+  text-align: center;
+}
+.lhp-bench .lhp-fusion-rules > i {
+  color: var(--lhp-color);
+  font-size: 30px;
+}
+.lhp-bench .lhp-fusion-rules p {
+  margin: 0;
+  font: 12.5px/1.4 var(--pf-body);
+}
+
+/* Enhance step */
+.lhp-bench .lhp-enhance {
+  gap: 10px;
+}
+.lhp-bench .lhp-enh-head {
+  position: relative;
+  padding: 10px 12px 10px;
+  border: 1px solid color-mix(in srgb, var(--lhp-quality) 45%, var(--lhp-line));
+  border-radius: 8px;
+  background:
+    radial-gradient(100% 140% at 100% 0%, color-mix(in srgb, var(--lhp-quality) 22%, transparent), transparent 60%),
+    linear-gradient(180deg, #fffdf6, var(--lhp-paper));
+}
+.lhp-quality-ribbon {
+  display: inline-block;
+  padding: 3px 12px 3px 10px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 7px) 50%, 100% 100%, 0 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--lhp-quality) 80%, #fff 20%), color-mix(in srgb, var(--lhp-quality) 85%, #000));
+  color: #fff;
+  font: 700 11px/1.2 var(--pf-sans);
+  letter-spacing: 0.08em;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+  text-transform: uppercase;
+}
+.lhp-bench .lhp-enh-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 10px;
+  margin-top: 6px;
+}
+.lhp-bench .lhp-enh-title h3 {
+  margin: 0;
+  border: none;
+  font: 600 18px/1.1 var(--pf-serif);
+}
+.lhp-bench .lhp-enh-roll {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--pf-text-soft);
+  font: 500 12px/1 var(--pf-sans);
+}
+.lhp-bench .lhp-enh-roll i {
+  color: color-mix(in srgb, var(--lhp-quality) 80%, #000);
+  font-size: 18px;
+}
+.lhp-bench .lhp-enh-roll b {
+  color: var(--pf-text);
+  font: 700 17px/1 var(--pf-serif);
+}
+.lhp-bench .lhp-enh-lede {
+  margin: 4px 0 0;
+  color: var(--pf-text-soft);
+  font: italic 12.5px/1.35 var(--pf-body);
+}
+.lhp-bench .lhp-sockets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.lhp-bench .lhp-work-sockets {
+  justify-content: center;
+  padding: 6px 0 2px;
+}
+.lhp-bench .lhp-socket {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 46px;
+  height: 34px;
+  padding: 0 12px 0 6px;
+  border-radius: 17px;
+  font: 600 12px/1 var(--pf-sans);
+}
+.lhp-bench .lhp-socket.empty {
+  justify-content: center;
+  padding: 0;
+  width: 46px;
+  border: 2px dashed color-mix(in srgb, var(--lhp-quality) 55%, var(--lhp-line));
+  background: rgba(255, 255, 255, 0.35);
+  color: color-mix(in srgb, var(--lhp-quality) 70%, #8a7a62);
+  animation: lhp-pulse 2.2s ease-in-out infinite;
+}
+.lhp-bench .lhp-socket.filled {
+  border: 1px solid color-mix(in srgb, var(--lhp-quality) 60%, #000);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--lhp-quality) 30%, #fff), color-mix(in srgb, var(--lhp-quality) 18%, #fff));
+  box-shadow: 0 2px 6px color-mix(in srgb, var(--lhp-quality) 30%, transparent);
+  color: color-mix(in srgb, var(--lhp-quality) 30%, #000);
+  animation: lhp-pop 0.3s ease-out both;
+}
+.lhp-bench .lhp-socket.filled > i:first-child {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--lhp-quality);
+  color: #fff;
+  font-size: 11px;
+}
+.lhp-bench .lhp-socket.kept {
+  animation: none;
+  opacity: 0.85;
+}
+.lhp-bench .lhp-socket.legendary {
+  border-color: #8a5a12;
+  background: linear-gradient(135deg, #fff1b8, #f0b44a 60%, #d4861a);
+  box-shadow: 0 0 10px rgba(212, 134, 26, 0.6);
+  color: #4a2a00;
+}
+.lhp-bench .lhp-socket.legendary > i:first-child {
+  background: #6b3d00;
+}
+.lhp-bench .lhp-socket.cut {
+  box-shadow: 0 0 0 2px #2f7f86, 0 0 10px rgba(47, 127, 134, 0.55);
+}
+.lhp-bench .lhp-socket-x,
+.lhp-bench .lhp-socket-out {
+  margin-left: 2px;
+  opacity: 0.55;
+  font-size: 11px;
+}
+.lhp-bench .lhp-socket.picked:hover .lhp-socket-x {
+  opacity: 1;
+  color: #8c2f2f;
+}
+.lhp-bench .lhp-socket.out {
+  border-style: dashed;
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+.lhp-bench .lhp-socket.fixed {
+  cursor: default;
+}
+.lhp-bench .lhp-keep {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.lhp-bench .lhp-keep .lhp-mini-label {
+  width: 100%;
+}
+.lhp-bench .lhp-keep-option {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  min-width: 180px;
+  padding: 5px 8px;
+  border: 1px solid var(--lhp-line);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.5);
+}
+.lhp-bench .lhp-keep-option.active {
+  border-color: var(--lhp-quality);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--lhp-quality) 35%, transparent);
+}
+.lhp-bench .lhp-keep-option img {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  background: radial-gradient(circle at 50% 35%, #2b6747, var(--lhp-night));
+}
+.lhp-bench .lhp-keep-option span {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.lhp-bench .lhp-keep-option b {
+  font: 600 12.5px/1.15 var(--pf-serif);
+}
+.lhp-bench .lhp-keep-option small {
+  overflow: hidden;
+  color: var(--pf-text-soft);
+  font: 500 10.5px/1.2 var(--pf-sans);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhp-bench .lhp-masterpiece > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 4px;
+}
+.lhp-bench .lhp-master {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 7px 10px;
+  border: 1px solid #c0a060;
+  border-radius: 7px;
+  background: linear-gradient(180deg, #fffaf0, #f6e7c3);
+}
+.lhp-bench .lhp-master.active {
+  border-color: #d4861a;
+  background: linear-gradient(135deg, #fff1b8, #f6c76a);
+  box-shadow: 0 0 10px rgba(212, 134, 26, 0.5);
+}
+.lhp-bench .lhp-master b {
+  font: 600 13px/1.1 var(--pf-serif);
+}
+.lhp-bench .lhp-master small {
+  color: var(--pf-text-soft);
+  font: 500 10.5px/1.25 var(--pf-sans);
+}
+.lhp-bench .lhp-legendary-note {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: auto 0;
+  padding: 18px;
+  border: 1px solid #c0a060;
+  border-radius: 10px;
+  background: radial-gradient(circle at 50% 0%, rgba(240, 180, 74, 0.35), transparent 70%), #fffaf0;
+  text-align: center;
+}
+.lhp-bench .lhp-legendary-note > i {
+  color: #d4861a;
+  font-size: 34px;
+  filter: drop-shadow(0 0 8px rgba(212, 134, 26, 0.7));
+  animation: lhp-pulse 2s ease-in-out infinite;
+}
+.lhp-bench .lhp-legendary-note p {
+  margin: 0;
+  font: 13px/1.45 var(--pf-body);
+}
+.lhp-bench .lhp-enh-grid {
+  display: grid;
+  flex: 1;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  align-content: start;
+  gap: 8px;
+  min-height: 0;
+  margin: 0 -4px;
+  padding: 2px 4px 8px;
+  overflow: hidden auto;
+  scrollbar-width: thin;
+}
+.lhp-bench .lhp-enh {
+  position: relative;
+  display: grid;
+  grid-template: "icon name" auto "icon text" auto "tag tag" auto / 32px minmax(0, 1fr);
+  align-items: start;
+  gap: 2px 8px;
+  padding: 9px 10px;
+  border: 1px solid var(--lhp-line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fffdf8, var(--lhp-paper));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+.lhp-bench .lhp-enh:not(.disabled):hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--lhp-quality) 70%, var(--lhp-line));
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--lhp-quality) 25%, rgba(0, 0, 0, 0.1));
+}
+.lhp-bench .lhp-enh.selected {
+  border-color: var(--lhp-quality);
+  background:
+    radial-gradient(120% 120% at 0% 0%, color-mix(in srgb, var(--lhp-quality) 22%, transparent), transparent 60%),
+    linear-gradient(180deg, #fffdf8, var(--lhp-paper));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--lhp-quality) 40%, transparent), 0 6px 14px color-mix(in srgb, var(--lhp-quality) 22%, transparent);
+}
+.lhp-bench .lhp-enh.disabled {
+  opacity: 0.42;
+  filter: grayscale(0.6);
+  cursor: not-allowed;
+}
+.lhp-bench .lhp-enh-icon {
+  grid-area: icon;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--lhp-quality) 65%, #fff 35%), color-mix(in srgb, var(--lhp-quality) 75%, #000));
+  box-shadow: 0 0 0 2px #fffdf8, 0 0 0 3px color-mix(in srgb, var(--lhp-quality) 55%, transparent);
+  color: #fff;
+  font-size: 14px;
+}
+.lhp-bench .lhp-enh-name {
+  grid-area: name;
+  font: 600 14px/1.15 var(--pf-serif);
+}
+.lhp-bench .lhp-enh-text {
+  grid-area: text;
+  color: var(--pf-text-soft);
+  font: 12px/1.3 var(--pf-body);
+}
+.lhp-bench .lhp-enh select {
+  grid-area: tag;
+  height: 24px;
+  margin-top: 4px;
+  font: 500 11.5px/1 var(--pf-sans);
+}
+.lhp-bench .lhp-enh-check {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  color: var(--lhp-quality);
+  font-size: 15px;
+  animation: lhp-pop 0.25s ease-out both;
+}
+.lhp-bench .lhp-enh-mult {
+  position: absolute;
+  bottom: 5px;
+  right: 7px;
+  color: color-mix(in srgb, var(--lhp-quality) 80%, #000);
+  font: 700 10px/1 var(--pf-sans);
+}
+.lhp-bench .lhp-cut {
+  position: absolute;
+  top: 26px;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(47, 127, 134, 0.12);
+  color: #2f7f86;
+  font-size: 11px;
+}
+.lhp-bench .lhp-cut.on {
+  background: #2f7f86;
+  box-shadow: 0 0 8px rgba(47, 127, 134, 0.6);
+  color: #fff;
+}
+.lhp-bench .lhp-preview {
+  gap: 8px;
+}
+.lhp-bench .lhp-name {
+  height: 32px;
+  font: 600 14px/1 var(--pf-serif);
+}
+.lhp-bench .lhp-compare {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lhp-bench .lhp-compare li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 2px;
+  border-bottom: 1px dotted var(--lhp-line);
+  font: 12.5px/1.2 var(--pf-body);
+}
+.lhp-bench .lhp-compare .before {
+  color: var(--pf-text-soft);
+}
+.lhp-bench .lhp-compare i {
+  color: var(--lhp-line);
+  font-size: 10px;
+}
+.lhp-bench .lhp-compare li.same {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+.lhp-bench .lhp-compare b {
+  min-width: 26px;
+  font: 700 14px/1 var(--pf-serif);
+  text-align: right;
+}
+.lhp-bench .lhp-compare li.up b {
+  color: #2e7d32;
+}
+.lhp-bench .lhp-compare li.down b {
+  color: #a3392f;
+}
+.lhp-bench .lhp-compare li.up i,
+.lhp-bench .lhp-compare li.down i {
+  color: color-mix(in srgb, var(--lhp-quality) 80%, #000);
+}
+.lhp-effects {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lhp-effects li {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font: 12px/1.35 var(--pf-body);
+}
+.lhp-effects li > i {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--lhp-quality) 18%, #fff);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--lhp-quality) 45%, transparent);
+  color: color-mix(in srgb, var(--lhp-quality) 80%, #000);
+  font-size: 10px;
+}
+.lhp-effects li.legendary > i {
+  background: linear-gradient(135deg, #fff1b8, #d4861a);
+  color: #4a2a00;
+}
+.lhp-bench .lhp-discard {
+  color: #8c2f2f;
+  font: 500 11px/1 var(--pf-sans);
+  text-align: center;
+}
+
+/* Reveal: the dice fall, then the quality */
+.lhp-bench .lhp-reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 42%, rgba(27, 68, 48, 0.94), rgba(6, 18, 12, 0.97) 70%);
+  color: var(--pf-tertiary-light);
+  animation: lhp-rise 0.25s ease-out both;
+}
+.lhp-bench .lhp-reveal-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 460px;
+  height: 460px;
+  margin: -260px 0 0 -230px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--lhp-quality) 55%, transparent), transparent 68%);
+  opacity: 0;
+  animation: lhp-pulse 2.6s ease-in-out 1s infinite;
+}
+.lhp-bench .lhp-reveal-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 420px;
+  text-align: center;
+}
+.lhp-bench .lhp-dice {
+  display: flex;
+  gap: 18px;
+}
+.lhp-bench .lhp-die {
+  display: grid;
+  place-items: center;
+  width: 78px;
+  height: 78px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #fffdf6, #e6d6ad);
+  box-shadow: 0 0 0 2px var(--lhp-gold), 0 10px 24px rgba(0, 0, 0, 0.5), inset 0 -4px 8px rgba(138, 106, 37, 0.35);
+  animation: lhp-tumble 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: var(--delay, 0ms);
+}
+.lhp-bench .lhp-die i {
+  color: var(--lhp-night);
+  font-size: 52px;
+}
+.lhp-bench .lhp-reveal-total {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  animation: lhp-rise 0.45s ease-out 0.95s both;
+}
+.lhp-bench .lhp-reveal-total span {
+  color: var(--pf-tertiary-dark);
+  font: 500 14px/1 var(--pf-sans);
+}
+.lhp-bench .lhp-reveal-total b {
+  color: #fff;
+  font: 700 40px/1 var(--pf-serif);
+  text-shadow: 0 0 18px color-mix(in srgb, var(--lhp-quality) 80%, transparent);
+}
+.lhp-bench .lhp-reveal-quality {
+  animation: lhp-pop 0.5s ease-out 1.15s both;
+}
+.lhp-bench .lhp-reveal-quality span {
+  display: inline-block;
+  padding: 7px 26px;
+  clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 12px 100%, 0 50%);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--lhp-quality) 75%, #fff 25%), color-mix(in srgb, var(--lhp-quality) 85%, #000));
+  color: #fff;
+  font: 700 19px/1.1 var(--pf-serif);
+  letter-spacing: 0.06em;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+  filter: drop-shadow(0 0 12px color-mix(in srgb, var(--lhp-quality) 80%, transparent));
+}
+.lhp-bench .lhp-reveal-crit {
+  color: var(--lhp-gold-light);
+  font: 600 13px/1 var(--pf-sans);
+  animation: lhp-rise 0.4s ease-out 1.3s both;
+}
+.lhp-bench .lhp-reveal-lines {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--pf-tertiary);
+  font: italic 13.5px/1.4 var(--pf-body);
+  animation: lhp-rise 0.4s ease-out 1.35s both;
+}
+.lhp-bench .lhp-reveal-exp {
+  color: var(--lhp-gold-light);
+  font: 600 14px/1 var(--pf-sans);
+  animation: lhp-rise 0.4s ease-out 1.45s both;
+}
+.lhp-bench .lhp-rank-up {
+  color: #fff;
+  text-shadow: 0 0 10px var(--lhp-gold);
+}
+.lhp-bench .lhp-reveal .lhp-big-button {
+  width: auto;
+  min-width: 240px;
+  padding: 0 22px;
+  animation: lhp-rise 0.4s ease-out 1.55s both;
+}
+
+/* Done */
+.lhp-bench .lhp-done {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  --lhp-quality: var(--lhp-color);
+}
+.lhp-bench .lhp-done-rays {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 900px;
+  height: 900px;
+  margin: -450px 0 0 -450px;
+  background: repeating-conic-gradient(color-mix(in srgb, var(--lhp-quality) 16%, transparent) 0 8deg, transparent 8deg 22deg);
+  mask-image: radial-gradient(circle, #000 0%, transparent 55%);
+  animation: lhp-spin 50s linear infinite;
+}
+.lhp-bench .lhp-done-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: min(440px, 90%);
+  padding: 22px 26px 18px;
+  border: 1px solid color-mix(in srgb, var(--lhp-quality) 50%, var(--lhp-line));
+  border-radius: 14px;
+  background: radial-gradient(120% 80% at 50% 0%, color-mix(in srgb, var(--lhp-quality) 18%, transparent), transparent 60%), #fffcf3;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25), inset 0 0 0 4px #fffcf3, inset 0 0 0 5px color-mix(in srgb, var(--lhp-quality) 45%, transparent);
+  text-align: center;
+  animation: lhp-rise 0.45s ease-out both;
+}
+.lhp-bench .lhp-done-art {
+  display: grid;
+  place-items: center;
+  width: 104px;
+  height: 104px;
+  margin-top: -2px;
+  border-radius: 16px;
+  background: radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--lhp-quality) 40%, #2b6747), var(--lhp-night) 80%);
+  box-shadow: 0 0 0 3px var(--lhp-quality), 0 0 26px color-mix(in srgb, var(--lhp-quality) 75%, transparent), 0 8px 18px rgba(0, 0, 0, 0.25);
+  animation: lhp-pop 0.55s ease-out 0.1s both;
+}
+.lhp-bench .lhp-done-art img {
+  width: 86px;
+  height: 86px;
+  border: none;
+}
+.lhp-bench .lhp-done-coins {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #a8841f;
+  font: 700 28px/1 var(--pf-serif);
+  animation: lhp-pop 0.5s ease-out both;
+}
+.lhp-bench .lhp-done-title {
+  color: color-mix(in srgb, var(--lhp-quality) 75%, #000);
+  font: 600 10px/1 var(--pf-sans);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+.lhp-bench .lhp-done-card h2 {
+  margin: 0;
+  border: none;
+  font: 600 23px/1.1 var(--pf-serif);
+}
+.lhp-bench .lhp-done-card .lhp-effects {
+  width: 100%;
+  margin-top: 4px;
+  text-align: left;
+}
+.lhp-bench .lhp-done-lines {
+  margin: 2px 0;
+  padding: 0;
+  list-style: none;
+  color: var(--pf-text-soft);
+  font: 12.5px/1.4 var(--pf-body);
+}
+.lhp-bench .lhp-done-buttons {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin-top: 8px;
+}
+.lhp-bench .lhp-done-buttons button {
+  flex: 1;
+  height: 34px;
+  font: 600 13px/1 var(--pf-sans);
+}
+
+/* --------------------------------------------------------------------------
+   Chat cards
+   -------------------------------------------------------------------------- */
+.lhp-card {
+  overflow: hidden;
+  padding: 0 !important;
+  border: 1px solid color-mix(in srgb, var(--lhp-color) 40%, #b9a98d) !important;
+  border-radius: 7px !important;
+  background: linear-gradient(180deg, #fffdf6, #f6eedb) !important;
+}
+.lhp-card .lhp-card-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 9px;
+  background:
+    radial-gradient(120% 200% at 0% 50%, color-mix(in srgb, var(--lhp-color) 55%, transparent), transparent 60%),
+    linear-gradient(135deg, #1b4430, #10291b);
+  box-shadow: inset 0 -1px 0 rgba(201, 162, 74, 0.6);
+}
+.lhp-card .lhp-card-head img {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  padding: 3px;
+  border: none;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--lhp-color) 80%, #fff 20%), color-mix(in srgb, var(--lhp-color) 55%, #000));
+  box-shadow: 0 0 0 1px #10291b, 0 0 0 2px #c9a24a;
+}
+.lhp-card .lhp-card-head h3 {
+  margin: 0;
+  border: none;
+  color: #f8eed3;
+  font: 600 14px/1.15 var(--pf-serif, serif);
+}
+.lhp-card .lhp-card-head span {
+  color: #cdb879;
+  font: italic 11px/1.2 var(--pf-body, serif);
+}
+.lhp-card .lhp-card-roll {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 8px 2px;
+}
+.lhp-card .lhp-card-die {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: linear-gradient(145deg, #fffdf6, #e6d6ad);
+  box-shadow: 0 0 0 1px #c9a24a, 0 2px 3px rgba(0, 0, 0, 0.25);
+  color: #10291b;
+  font: 700 15px/1 var(--pf-serif, serif);
+}
+.lhp-card .lhp-card-plus {
+  color: #59554b;
+  font: 500 12px/1 var(--pf-sans, sans-serif);
+}
+.lhp-card .lhp-card-roll b {
+  font: 700 22px/1 var(--pf-serif, serif);
+}
+.lhp-card .lhp-card-quality {
+  margin: 6px auto 2px;
+  padding: 3px 14px;
+  width: max-content;
+  max-width: 90%;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 8px 100%, 0 50%);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--lhp-quality) 75%, #fff 25%), color-mix(in srgb, var(--lhp-quality) 85%, #000));
+  color: #fff;
+  font: 700 12px/1.2 var(--pf-serif, serif);
+  letter-spacing: 0.05em;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+.lhp-card .lhp-card-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 9px 0;
+  padding: 5px 7px;
+  border: 1px solid color-mix(in srgb, var(--lhp-quality) 40%, #c8b79a);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--lhp-quality) 7%, #fff);
+}
+.lhp-card .lhp-card-item img {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 5px;
+  background: radial-gradient(circle at 50% 35%, #2b6747, #10291b);
+  box-shadow: 0 0 0 2px var(--lhp-quality), 0 0 6px color-mix(in srgb, var(--lhp-quality) 60%, transparent);
+}
+.lhp-card .lhp-card-item > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.lhp-card .lhp-card-link {
+  font: 600 13px/1.2 var(--pf-serif, serif);
+}
+.lhp-card .lhp-card-enh {
+  display: flex;
+  gap: 3px;
+}
+.lhp-card .lhp-card-enh i {
+  width: 17px;
+  height: 17px;
+  font-size: 8.5px;
+}
+.lhp-card .lhp-card-lines {
+  margin: 6px 0 0;
+  padding: 0 10px 0 24px;
+  font: 12.5px/1.4 var(--pf-body, serif);
+}
+.lhp-card .lhp-card-foot {
+  margin-top: 6px;
+  padding: 4px 10px 6px;
+  border-top: 1px dotted #c8b79a;
+  color: #59554b;
+  font: 600 11px/1.2 var(--pf-sans, sans-serif);
+  text-align: right;
+}
+.lhp-card.lhp-rankup ul {
+  margin: 6px 0 8px;
+  padding: 0 10px 0 24px;
+  font: 12.5px/1.45 var(--pf-body, serif);
+}
+.lhp-card.lhp-rankup .lhp-card-head h3 {
+  color: #f2db94;
+  text-shadow: 0 0 8px rgba(242, 219, 148, 0.6);
+}
+
+/* Crafted items: the block at the start of their text */
+.lhp-craft-note {
+  margin: 0 0 8px;
+  padding: 6px 10px;
+  border-left: 3px solid #c9a24a;
+  border-radius: 3px;
+  background: rgba(201, 162, 74, 0.1);
+}
+.lhp-craft-note p {
+  margin: 0 0 2px;
+}
+.lhp-craft-note ul {
+  margin: 2px 0 0;
+  padding-left: 18px;
+}
+
+/* Arming a trap: the cursor over the scene */
+body.lhp-picking #board {
+  cursor: crosshair !important;
+}
+
+/* Less motion when the system asks for it: everything shows at once. */
+@media (prefers-reduced-motion: reduce) {
+  .lhp-bench *,
+  .lhpf .tab.profession * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

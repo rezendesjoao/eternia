@@ -5,9 +5,11 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.3.0
+## Versão 0.4.0
 
-- **Novo na 0.3.0: as 8 raças da Eternia**, com 32 habilidades raciais automatizadas (veja [As raças](#as-raças)).
+- **Novo na 0.4.0: as 10 profissões** (as subclasses), com a aba Profissão na ficha, a Oficina, a Fusão, os
+  talentos e itens novos (veja [As profissões](#as-profissões)).
+- **Desde a 0.3.0: as 8 raças da Eternia**, com 32 habilidades raciais automatizadas (veja [As raças](#as-raças)).
 - **Desde a 0.2.0: 31 condições** somadas aos 23 estados de base, todas automatizadas (veja
   [As condições](#as-condições)).
 - **Já vem pronto:** a ficha de personagem e a de monstro, o HUD de ações, o chat, os tokens e as outras janelas no
@@ -15,7 +17,8 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   português do Brasil.
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
-- **Compêndios da Eternia:** Raças e Classes (as 8 raças) e Habilidades Raciais. Ainda vazios, à espera das
+- **Compêndios da Eternia:** Raças e Classes (as 8 raças e as 10 profissões) e Habilidades Raciais; no compêndio de
+  Itens, as Engenhocas e as Canções. Ainda vazios, à espera das
   classes: Habilidades Comuns e de Subclasse, de Arquétipo e de Classe. As raças, classes e habilidades gerais e de
   combate de Log Horizon foram tiradas do sistema.
 
@@ -41,6 +44,8 @@ rótulos em versalete. Fontes Eczar e Gelasio.
 - **Kuden:** o Núcleo, o Recurso, os Pontos de Kuden e as peças (só com a regra da casa ligada).
 - **Inventário:** a riqueza (receber e gastar ouro fica registrado no chat), o boneco de equipamento (sete espaços
   ligados por linhas às partes do corpo), o que se carrega, os tíquetes e o espaço da bolsa.
+- **Profissão:** o brasão da profissão com o Rank, a EXP e as tentativas do cenário, os botões da bancada (Oficina,
+  Fusão, talentos), as chances, os materiais, o talento, as obras e os Ranks; sem profissão, as dez para escolher.
 - **Efeitos e estados** e a **Biografia**.
 
 ## A ficha de monstro
@@ -109,6 +114,41 @@ Escolher a raça na ficha abre a escolha das habilidades inatas (a Bênção do 
 Astro do Flügel) e, no Humano, dos dois atributos. O navegador de habilidades mostra as desbloqueáveis com o NP em
 que liberam. Cada habilidade traz o efeito direto e, embaixo, como ele aparece em cena; a automação aplica os
 estados, os bônus, as escolhas (como gastar uma Cauda num Truque ou numa Ilusão) e os custos.
+
+## As profissões
+
+A subclasse da Eternia é uma **profissão**: um ofício fora de combate que faz itens com aprimoramentos, sobe de
+Rank com EXP e tem um talento próprio. Escolha a profissão na aba **Profissão** da ficha (ou no campo Subclasse);
+trocar de profissão guarda a EXP de cada uma. As regras completas estão em **X. PROFISSÕES**, no diário AS REGRAS.
+
+| Profissão | Faz | Talento |
+|---|---|---|
+| Ferreiro | armas, armaduras pesadas e médias, escudos | Afiar: +2 de Poder de Ataque numa arma do grupo até o fim do cenário |
+| Alfaiate | armaduras leves, roupas, bolsas | Remendo: até 3 aliados tiram Rank × 3 de Fadiga |
+| Artesão | acessórios, amuletos, gemas | Lapidação: um aprimoramento de cada acessório vale o dobro |
+| Alquimista | poções, toxinas | Lote: 2 cópias no Rank 3, 3 no Rank 5 |
+| Cozinheiro | comidas | Banquete: 2 comidas iguais viram uma porção para o grupo |
+| Escriba | pergaminhos | Cópia: uma habilidade sua num pergaminho de uso único |
+| Engenheiro | bombas, redes, pedras de faísca | Armadilha: bombas e redes armadas num quadrado da cena |
+| Bardo | canções gravadas em cristal | Obra-prima: com dois 6, a canção sai em massa ou instantânea |
+| Coletor | (Coleta) | Coleta: Item Misterioso e, com dois 6, Estilhaço Estelar |
+| Mercador | (Retoque e venda) | Retoque: troca um aprimoramento; vende tudo pelo valor cheio |
+
+- **Rank 1 a 5** (EXP 20, 40, 80 e 160): +Rank na rolagem, Rank + 1 tentativas por cenário e itens até o nível
+  Rank × 6. O fim do cenário (Ferramentas do Mestre) devolve as tentativas.
+- **A Oficina:** escolha a base (da mochila, que vira a obra, ou do catálogo, que você paga), gaste 1 Item
+  Misterioso do nível dela e role 2D + Rank: Falha, Aproveitamento (o material volta), Incomum [M1], Raro [M2] ou
+  Perfeito [M3], com 1 a 3 aprimoramentos à escolha. Dois 6 sobem um degrau.
+- **Fusão:** dois itens feitos iguais viram um do grau acima, com mais um aprimoramento; dois Perfeitos e um
+  Estilhaço Estelar viram um **Lendário [M4]**, com o aprimoramento lendário da lista (Fio do Destino, Égide,
+  Coração Estelar).
+- **Aprimoramentos:** 6 por tipo de item (armas, proteções, acessórios, consumíveis) e o Espaçosa das bolsas. Os
+  números dobram do nível 11 e triplicam do 21; entram nos números do item ou em efeitos que valem com ele equipado.
+- **A aba Profissão** mostra o brasão com o Rank, a EXP e as tentativas, os botões da bancada, as chances, os
+  materiais, o talento, as obras na mochila e os Ranks. A **bancada** faz cada ação passo a passo, com a rolagem na
+  tela, e posta um cartão no chat.
+- **Itens novos:** Engenhocas (Bomba Incendiária, Bomba de Gelo, Rede, Pedra de Faísca) e Canções (Hino de Coragem,
+  Marcha de Guerra, Balada do Pavor, Canção de Ninar), em três graus; o Estilhaço Estelar.
 
 ## As condições
 
@@ -269,6 +309,9 @@ eternia.parseMonsterDamage(html);     // lê o dano de um ataque de monstro escr
 eternia.hud();                        // o HUD de ações desta tela
 eternia.kuden.ledgerOf(actor);        // Pontos de Kuden: custo, pago, guardado, escolhas pendentes
 eternia.kuden.settle(actor);          // paga o que falta com as escolhas pendentes
+eternia.professions.open(actor, "craft"); // a bancada da profissão num modo (craft, fusion, gather, retouch…)
+eternia.professions.of(actor);        // profissão, Rank, EXP, tentativas e nível máximo
+eternia.professions.addExp(actor, 10); // EXP da profissão (anuncia o Rank novo)
 ```
 
 ## Limites conhecidos

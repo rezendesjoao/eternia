@@ -55,6 +55,7 @@ import { registerTokens } from "./canvas/token-style.mjs";
 import { registerConditions } from "./conditions/index.mjs";
 import { recover } from "./conditions/recovery.mjs";
 import { takeDamage } from "./conditions/damage.mjs";
+import { professionsApi, registerProfessions } from "./professions/index.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -88,6 +89,7 @@ Hooks.once('init', async function () {
     applyStatus: (actor, id, { value = null, tag = "", expires = "endOfScene", from = null } = {}) =>
       giveEffects(actor, [statusEffectData(id, value, tag, { expires, caster: from })]),
     conditions: { recover, damage: takeDamage },
+    professions: professionsApi,
     hud: actionHud,
     kuden: { ledgerOf, resourceOf, setResource, settle, sceneEnv }
   };
@@ -194,6 +196,8 @@ Hooks.once('init', async function () {
   registerStatusLinks();
   registerQuickEffect();
   registerNotice();
+  // Professions (the subclasses): the profession tab, the bench, the traps
+  registerProfessions();
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();

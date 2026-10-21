@@ -12,7 +12,8 @@
  *   the language of the item; the first is the item's linked skill (its icon in the inventory). The
  *   skills leave with the item. use.mjs checks and counts their use like any skill.
  * - Statuses "at the start of the scene": given by the equipped items when a combat starts.
- * - Food: using it removes Fatigue from whoever eats it (the user, or the targeted characters).
+ * - Food: using it removes Fatigue from whoever eats it (the user, or the targeted characters; a Banquet,
+ *   flags.eternia.banquet, feeds every character of the players).
  * - Healing items (potions, jewels): using one heals whoever drinks it the same way.
  *
  * Only missing data is filled: what a GM edited by hand is never replaced.
@@ -25,6 +26,8 @@ import { diceFormula } from "../helpers/dice.mjs";
 import { evaluateFormula, formulaData } from "../helpers/effect-formulas.mjs";
 import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { actorName, combatActors, escape, toInt } from "../helpers/utils.mjs";
+import { statusDefinition } from "../helpers/statuses.mjs";
+import { giveEffects, statusEffectData } from "../chat/status-links.mjs";
 
 const EQUIPMENT = ["weapon", "armor", "shield", "accessory", "bag"];
 /** Item types whose trigger powers become skills (gear is carried, never equipped). */
@@ -327,7 +330,8 @@ function onDeleteItem(item, options, userId) {
 
 /**
  * A combat starts: each character gets the statuses of its equipped items ("You gain [Cancel (Cold): 15]
- * at the start of the scene"). Statuses it already has with that Rating aren't added twice.
+ * at the start of the scene", a crafted Star Heart's [Last Stand]). Statuses it already has with that Rating
+ * aren't added twice.
  * @param {Combat} combat
  */
 async function sceneStatuses(combat) {
@@ -340,6 +344,7 @@ async function sceneStatuses(combat) {
     const bad = actor._source.system?.["bad-status"] ?? {};
     const lists = { cancel: [...(bad.cancels ?? [])], weakness: [...(bad.weaknesses ?? [])] };
     const updates = {};
+    const effects = [];
     for (const entry of entries) {
       if (lists[entry.status]) {
         const list = lists[entry.status];
@@ -353,10 +358,15 @@ async function sceneStatuses(combat) {
         const key = `system.bad-status.${entry.status}`;
         updates[key] = Math.max(toInt(bad[entry.status]), toInt(updates[key]), entry.value);
       }
+      // A condition ([Last Stand]…): an effect of the scene, once.
+      else if (statusDefinition(entry.status) && !actor.statuses.has(entry.status) && !effects.some(e => e.statuses.includes(entry.status))) {
+        effects.push(statusEffectData(entry.status, entry.value ? toInt(entry.value) : null, "", { expires: "endOfScene" }));
+      }
     }
     if (lists.cancel.length !== (bad.cancels ?? []).length) updates["system.bad-status.cancels"] = lists.cancel;
     if (lists.weakness.length !== (bad.weaknesses ?? []).length) updates["system.bad-status.weaknesses"] = lists.weakness;
     if (!foundry.utils.isEmpty(updates)) await actor.update(updates);
+    if (effects.length) await giveEffects(actor, effects);
   }
 }
 
@@ -374,9 +384,15 @@ function onCreateMessage(message, options, userId) {
   if (healOf(message)) drink(message).catch(err => console.error(`${SYSTEM_ID} | Healing failed`, err));
 }
 
-/** Who gets a used item's effect: the user (Target: Self), else the targeted characters, else the user. */
+/**
+ * Who gets a used item's effect: the user and every character of the players (a Banquet), the user (Target: Self),
+ * else the targeted characters, else the user.
+ */
 function recipients(use) {
   const user = fromUuidSync(use.actorUuid);
+  if (use.item?.flags?.[SYSTEM_ID]?.banquet) {
+    return [...new Set([user, ...game.actors.filter(a => (a.type === "character") && a.hasPlayerOwner)])].filter(a => a?.type === "character");
+  }
   const targets = use.self ? [user] : [...game.user.targets].map(t => t.actor);
   return [...new Set((targets.length ? targets : [user]).filter(a => a?.type === "character"))];
 }

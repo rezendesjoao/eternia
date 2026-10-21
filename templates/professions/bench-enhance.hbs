@@ -1,0 +1,108 @@
+{{!-- The "enhance" step (Workshop, Fusion, Retouch): the quality and the sockets of the work, the enhancement cards
+     of its list, and on the side its name, the numbers before → after and the button. --}}
+{{#with enhance as |e|}}
+<div class="lhp-columns">
+	<div class="lhp-left lhp-enhance" style="--lhp-quality: {{e.quality.color}}">
+		<header class="lhp-enh-head">
+			<span class="lhp-quality-ribbon">{{e.quality.label}}</span>
+			<div class="lhp-enh-title">
+				<h3>{{e.title}}</h3>
+				{{#if e.roll}}<span class="lhp-enh-roll">{{#each e.roll.faces}}<i class="{{this}}"></i>{{/each}}<span>+ {{e.roll.rank}} =</span><b>{{e.roll.total}}</b></span>{{/if}}
+			</div>
+			<p class="lhp-enh-lede">{{e.lede}}</p>
+		</header>
+
+		{{#if e.keepChoice}}
+		<div class="lhp-keep">
+			<span class="lhp-mini-label">{{localize "ETERNIA.Profession.Bench.Keep"}}</span>
+			{{#each e.keepChoice as |k|}}
+			<a class="lhp-keep-option{{#if k.active}} active{{/if}}" data-action="keep" data-id="{{k.id}}">
+				<img src="{{k.img}}" alt=""><span><b>{{k.name}}</b><small>{{k.enhancements}}</small></span>
+			</a>
+			{{/each}}
+		</div>
+		{{/if}}
+
+		{{#if e.retouching}}
+		<div class="lhp-keep">
+			<span class="lhp-mini-label">{{localize "ETERNIA.Profession.Bench.PickOut"}}</span>
+			<div class="lhp-sockets">
+				{{#each e.keptView as |k|}}
+				<a class="lhp-socket filled{{#if k.out}} out{{/if}}{{#if k.legendary}} legendary{{/if}}{{#unless k.outable}} fixed{{/unless}}" {{#if k.outable}}data-action="out"{{/if}} data-index="{{k.index}}" data-tooltip="{{k.text}}">
+					<i class="{{k.icon}}"></i><span>{{k.name}}</span>{{#if k.out}}<i class="fa-solid fa-right-from-bracket lhp-socket-out"></i>{{/if}}
+				</a>
+				{{/each}}
+			</div>
+		</div>
+		{{/if}}
+
+		<div class="lhp-sockets lhp-work-sockets">
+			{{#each e.sockets as |s|}}
+			{{#if s.empty}}<span class="lhp-socket empty"><i class="fa-solid fa-plus"></i></span>
+			{{else if s.picked}}<a class="lhp-socket filled picked{{#if s.cut}} cut{{/if}}" data-action="unpick" data-index="{{s.index}}" data-tooltip="{{s.text}}"><i class="{{s.icon}}"></i><span>{{s.name}}</span><i class="fa-solid fa-xmark lhp-socket-x"></i></a>
+			{{else}}<span class="lhp-socket filled kept{{#if s.legendary}} legendary{{/if}}{{#if s.cut}} cut{{/if}}" data-tooltip="{{s.text}}"><i class="{{s.icon}}"></i><span>{{s.name}}</span></span>{{/if}}
+			{{/each}}
+		</div>
+
+		{{#if e.masterpiece}}
+		<div class="lhp-masterpiece">
+			<span class="lhp-mini-label"><i class="fa-solid fa-star"></i> {{localize "ETERNIA.Profession.Masterpiece.Name"}}</span>
+			<div>
+				{{#each e.masterpiece as |m|}}
+				<a class="lhp-master{{#if m.active}} active{{/if}}" data-action="master" data-value="{{m.id}}"><b>{{m.label}}</b><small>{{m.hint}}</small></a>
+				{{/each}}
+			</div>
+		</div>
+		{{/if}}
+
+		{{#if e.legendary}}
+		<div class="lhp-legendary-note">
+			<i class="fa-solid fa-star"></i>
+			<p>{{localize "ETERNIA.Profession.Bench.LegendaryNote"}}</p>
+			<span class="lhp-chip">{{localize "ETERNIA.Profession.Bench.Have" n=e.shards}}</span>
+		</div>
+		{{else}}
+		<div class="lhp-enh-grid">
+			{{#each e.options as |o|}}
+			<div class="lhp-enh{{#if o.selected}} selected{{/if}}{{#if o.disabled}} disabled{{/if}}" data-action="pick" data-enh="{{o.id}}"{{#if o.why}} data-tooltip="{{o.why}}"{{/if}}>
+				<span class="lhp-enh-icon"><i class="{{o.icon}}"></i></span>
+				<span class="lhp-enh-name">{{o.name}}{{#if o.count}} <b>×{{o.count}}</b>{{/if}}</span>
+				<span class="lhp-enh-text">{{o.text}}</span>
+				{{#if o.tags}}
+				<select data-enh-tag="{{o.id}}" {{#if o.disabled}}disabled{{/if}}>{{#each o.tags}}<option value="{{value}}"{{#if selected}} selected{{/if}}>{{label}}</option>{{/each}}</select>
+				{{/if}}
+				{{#if o.cuttable}}<a class="lhp-cut{{#if o.cut}} on{{/if}}" data-action="cut" data-tooltip="{{localize 'ETERNIA.Profession.Bench.Cut'}}"><i class="fa-solid fa-gem"></i></a>{{/if}}
+				{{#if o.selected}}<i class="fa-solid fa-circle-check lhp-enh-check"></i>{{/if}}
+				{{#if (gt o.multiplier 1)}}<span class="lhp-enh-mult" data-tooltip="{{localize 'ETERNIA.Profession.Bench.Multiplier' n=o.multiplier}}">×{{o.multiplier}}</span>{{/if}}
+			</div>
+			{{/each}}
+		</div>
+		{{/if}}
+	</div>
+
+	<aside class="lhp-side">
+		<div class="lhp-side-scroll lhp-preview">
+			<label class="lhp-mini-label" for="lhp-name-{{@root.actor.id}}">{{localize "ETERNIA.Profession.Bench.WorkName"}}</label>
+			<input id="lhp-name-{{@root.actor.id}}" class="lhp-name" type="text" value="{{e.name}}" placeholder="{{e.placeholder}}" spellcheck="false">
+			{{#if e.stats.length}}
+			<ul class="lhp-compare">
+				{{#each e.stats as |s|}}
+				<li class="{{#if s.up}}up{{/if}}{{#if s.down}} down{{/if}}{{#unless s.changed}} same{{/unless}}"><span>{{s.label}}</span>{{#if s.changed}}<span class="before">{{s.value}}</span><i class="fa-solid fa-arrow-right"></i>{{/if}}<b>{{s.after}}</b></li>
+				{{/each}}
+			</ul>
+			{{/if}}
+			{{#if e.effects.length}}
+			<ul class="lhp-effects">
+				{{#each e.effects as |f|}}<li class="{{#if f.legendary}}legendary{{/if}}{{#if f.cut}} cut{{/if}}"><i class="{{f.icon}}"></i><span><b>{{f.name}}{{#if f.cut}} ✦{{/if}}</b> {{f.text}}</span></li>{{/each}}
+			</ul>
+			{{else}}
+			<p class="lhp-empty">{{localize "ETERNIA.Profession.Bench.NoneYet"}}</p>
+			{{/if}}
+			{{#if e.copies}}<p class="lhp-forge-note"><i class="fa-solid fa-clone"></i> {{localize "ETERNIA.Profession.Bench.Copies" n=e.copies}}</p>{{/if}}
+			{{#if e.cost}}<p class="lhp-forge-note"><i class="fa-solid fa-coins"></i> {{localize "ETERNIA.Profession.Bench.RetouchCost" n=e.cost}}</p>{{/if}}
+		</div>
+		<button type="button" class="lhp-big-button lhp-finish" data-action="finish" {{#unless e.ready}}disabled{{/unless}}><i class="fa-solid fa-wand-magic-sparkles"></i> {{e.finish}}</button>
+		{{#if e.canDiscard}}<a class="lhp-discard" data-action="discard"><i class="fa-solid fa-trash"></i> {{localize "ETERNIA.Profession.Bench.Discard"}}</a>{{/if}}
+	</aside>
+</div>
+{{/with}}

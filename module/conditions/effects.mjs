@@ -5,11 +5,13 @@
  *   endsWith: "berserk"          the effect ends when the actor loses that status
  *   consumeOn: "negotiation"     the effect ends after the next roll of that kind (conditions/rolls.mjs):
  *                                a check ("negotiation", "accuracy"…, "check" for any), "dodge" (Evasion or
- *                                Resistance) or "damage" (the next damage applied to the actor)
+ *                                Resistance), "damage" (the next damage applied to the actor) or "attack" (the
+ *                                next damage the actor rolls)
  * and, on a skill, `flags.eternia.useActions`: what using it does when its effects are applied
  * (item-use.mjs applyItemEffects), each to the targets (default), the user ("self") or both:
  *   { type: "fatigue", value: "-@cr*5" }        changes the Fatigue (never below 0)
  *   { type: "doubleStatus", status: "berserk" } doubles the Rating of a status the actor has
+ *   { type: "removeStatus", statuses: ["burning", …] } ends those statuses (a purifying potion, professions/forge.mjs)
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
@@ -57,7 +59,7 @@ export async function runUseActions(item, { targets, caster }) {
     const actors = new Set([...(to !== "self" ? targets : []), ...((to !== "targets") && caster ? [caster] : [])]);
     const value = isFormula(action.value) ? (evaluateFormula(action.value, values) ?? 0) : toInt(action.value);
     for (const actor of actors) {
-      const payload = { actorUuid: actor.uuid, type: action.type, value, status: action.status ?? "" };
+      const payload = { actorUuid: actor.uuid, type: action.type, value, status: action.status ?? "", statuses: listOf(action.statuses) };
       const line = actor.isOwner ? await doAction(actor, payload)
         : (await request("conditionAction", { ...payload, casterUuid: caster?.uuid ?? "" }))?.line;
       if (line) {
@@ -71,7 +73,7 @@ export async function runUseActions(item, { targets, caster }) {
 }
 
 /** One use action on one actor. Returns the chat line. */
-async function doAction(actor, { type, value, status }) {
+async function doAction(actor, { type, value, status, statuses = [] }) {
   if (type === "fatigue") {
     const before = toInt(actor._source.system?.infos?.fatigue);
     const after = Math.max(0, before + toInt(value));
@@ -86,17 +88,24 @@ async function doAction(actor, { type, value, status }) {
     await actor.update({ [`system.${def.path}`]: current * 2 });
     return L("Conditions.Actions.Double", { name: actorName(actor), status: label(status), n: current * 2 });
   }
+  if (type === "removeStatus") {
+    const ids = listOf(statuses).filter(id => has(actor, id));
+    if (!ids.length) return null;
+    await removeStatuses(actor, ids);
+    return L("Conditions.Actions.Remove", { name: actorName(actor), statuses: ids.map(label).join(", ") });
+  }
   return null;
 }
 
 /** GM side of a use action on an actor the user doesn't own: only from the owner of the user. */
-async function onActionRequest({ actorUuid, casterUuid, type, value, status }, user) {
+async function onActionRequest({ actorUuid, casterUuid, type, value, status, statuses }, user) {
   const doc = await fromUuid(actorUuid);
   const actor = (doc instanceof TokenDocument) ? doc.actor : doc;
   const caster = casterUuid ? await fromUuid(casterUuid) : null;
   const owner = (caster instanceof TokenDocument) ? caster.actor : caster;
   if (!(actor instanceof Actor) || !owner?.testUserPermission(user, "OWNER")) return { ok: false };
-  return { ok: true, line: await doAction(actor, { type, value: Math.max(-999, Math.min(999, toInt(value))), status }) };
+  const ids = listOf(statuses).filter(id => (typeof id === "string") && statusDefinition(id));
+  return { ok: true, line: await doAction(actor, { type, value: Math.max(-999, Math.min(999, toInt(value))), status, statuses: ids }) };
 }
 
 /* -------------------------------------------- */

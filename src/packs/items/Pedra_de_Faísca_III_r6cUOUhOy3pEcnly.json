@@ -1,0 +1,119 @@
+{
+  "name": "Pedra de Faísca III",
+  "type": "usable",
+  "system": {
+    "description": "<p>Esfregue a pedra na arma ou nas mãos: o seu próximo dano causa +25, com a tag [Choque], e deixa quem ele atingir [Eletrificado: 9].</p><hr><p><em>A pedra estala ao ser riscada e solta um fio de luz azul que se enrola na lâmina, zumbindo como um enxame, à espera do primeiro golpe.</em></p>",
+    "tags": [
+      "Gadget",
+      "Consumable",
+      "Shock"
+    ],
+    "rank": 21,
+    "price": 375,
+    "equipped": false,
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Close",
+    "target": "Self",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false,
+      "noPower": false
+    }
+  },
+  "img": "icons/commodities/treasure/stone-cracked-lightning-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "consumeOn": "attack",
+          "damageTags": [
+            "Shock"
+          ],
+          "onHit": {
+            "statusId": "shocked",
+            "value": 9
+          },
+          "rollFilter": {
+            "damageTypes": [
+              "physical",
+              "magical",
+              "penetrating",
+              "direct"
+            ]
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.4.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Pedra de Faísca III",
+      "img": "systems/eternia/assets/ui/status/shocked.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "eternia.roll.damage.mod",
+            "type": "add",
+            "value": 25,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "SG1cI5AfdsmnFW3u",
+      "_key": "!items.effects!r6cUOUhOy3pEcnly.SG1cI5AfdsmnFW3u"
+    }
+  ],
+  "sort": 12000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.4.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "r6cUOUhOy3pEcnly",
+  "folder": "6m6zuXhUdKsYAoac",
+  "_key": "!items!r6cUOUhOy3pEcnly"
+}

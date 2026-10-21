@@ -175,7 +175,8 @@
       "RollDamageDice": "Bônus de Dano/Recuperação da habilidade (dados)",
       "SkillHateCost": "Custo de Ódio da habilidade",
       "SkillRange": "Alcance da habilidade (Qd)",
-      "SkillNote": "Nota da habilidade"
+      "SkillNote": "Nota da habilidade",
+      "Luck": "Destino máximo (só o maior conta)"
     },
     "Sustained": {
       "Dialog": {
@@ -1290,7 +1291,8 @@
         "kuden": "Kuden",
         "inventory": "Inventário",
         "effects": "Efeitos e estados",
-        "biography": "Biografia"
+        "biography": "Biografia",
+        "profession": "Profissão"
       },
       "HitPoints": "Pontos de Vida",
       "Max": "Máx.",
@@ -1621,7 +1623,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.3: as 8 raças</strong></p><ul><li><strong>Humanos, Elfos, Flügel, Etherious, Oni, Exceed, Vargr e Kitsune</strong>, no compêndio Raças e Classes.</li><li><strong>Duas habilidades inatas</strong> (uma Geral e uma de Combate) entram ao escolher a raça. Humanos escolhem a Bênção, Elfos o elemento do Pacto e Flügel o Astro.</li><li><strong>Duas desbloqueáveis</strong> pela subida de nível: a Geral a partir do NP 3 e a de Combate a partir do NP 5. O navegador de habilidades mostra quando cada uma libera.</li><li><strong>Tudo automático:</strong> estados, bônus, escolhas e custos das 32 habilidades raciais.</li></ul><p>Desde a 0.2: 31 condições automatizadas. Passe o mouse sobre um estado para ler a regra, ou veja o diário AS REGRAS, em IX. CONDIÇÕES DA ETERNIA.</p><p>Primeira vez na Eternia? O HUD de ações no pé da tela substitui a barra de macros: selecione o seu token e use-o para rolar testes, usar habilidades e encerrar o seu Processo Principal.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.4: as profissões</strong></p><ul><li><strong>Dez profissões</strong>, as subclasses da Eternia: Ferreiro, Alfaiate, Artesão, Alquimista, Cozinheiro, Escriba, Engenheiro, Bardo, Coletor e Mercador, no compêndio Raças e Classes.</li><li><strong>Aba Profissão</strong> na ficha: Rank, EXP, tentativas do cenário, materiais, obras e o talento de cada uma.</li><li><strong>A Oficina:</strong> escolha a base, gaste um Item Misterioso e role 2D + Rank. Do Incomum ao Perfeito, com os aprimoramentos que você escolher. Dois itens iguais viram um melhor na Fusão, e o Lendário pede um Estilhaço Estelar.</li><li><strong>Itens novos:</strong> as Engenhocas do Engenheiro (bombas, redes, pedras de faísca), que também viram armadilhas, e as Canções do Bardo.</li></ul><p>As regras completas estão no diário AS REGRAS, em X. PROFISSÕES.</p><p>Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -1745,7 +1747,8 @@
       "FatigueOnEnd": "{name}: {effect} acabou e deixa Fadiga {n}.",
       "Actions": {
         "Fatigue": "{name}: Fadiga {before} → {after}.",
-        "Double": "{name}: {status} sobe para {n}."
+        "Double": "{name}: {status} sobe para {n}.",
+        "Remove": "{name}: sem {statuses}."
       },
       "Alone": "Sozinho"
     },
@@ -1753,6 +1756,584 @@
       "Title": "{name}: nova escolha",
       "Hint": "{name} dá mais {n} escolha(s) desta lista. Escolha uma:",
       "Add": "Adicionar"
+    },
+    "Profession": {
+      "Name": {
+        "blacksmith": "Ferreiro",
+        "tailor": "Alfaiate",
+        "artisan": "Artesão",
+        "alchemist": "Alquimista",
+        "cook": "Cozinheiro",
+        "scribe": "Escriba",
+        "engineer": "Engenheiro",
+        "bard": "Bardo",
+        "gatherer": "Coletor",
+        "merchant": "Mercador"
+      },
+      "Crafts": {
+        "blacksmith": "Armas, armaduras pesadas e médias, escudos",
+        "tailor": "Armaduras leves, roupas e bolsas",
+        "artisan": "Acessórios, amuletos e gemas",
+        "alchemist": "Poções e toxinas",
+        "cook": "Comidas",
+        "scribe": "Pergaminhos",
+        "engineer": "Bombas, redes e pedras de faísca",
+        "bard": "Canções gravadas em cristal",
+        "gatherer": "Item Misterioso e Estilhaços Estelares",
+        "merchant": "Retoques e vendas pelo valor cheio"
+      },
+      "RankTitle": {
+        "1": "Novato",
+        "2": "Aprendiz",
+        "3": "Experiente",
+        "4": "Mestre",
+        "5": "Grão-Mestre"
+      },
+      "RankShort": "Rank {n}",
+      "Quality": {
+        "fail": "Falha",
+        "salvage": "Aproveitamento",
+        "uncommon": "Incomum",
+        "rare": "Raro",
+        "perfect": "Perfeito",
+        "legendary": "Lendário"
+      },
+      "Kind": {
+        "weapon": "Arma",
+        "heavyArmor": "Armadura pesada ou média",
+        "lightArmor": "Armadura leve",
+        "shield": "Escudo",
+        "bag": "Bolsa",
+        "accessory": "Acessório",
+        "charm": "Amuleto",
+        "gem": "Gema",
+        "potion": "Poção",
+        "toxin": "Toxina",
+        "food": "Comida",
+        "scroll": "Pergaminho",
+        "gadget": "Engenhoca",
+        "song": "Canção"
+      },
+      "Enh": {
+        "sharp": {
+          "name": "Afiada",
+          "text": "+{n} de Poder de Ataque",
+          "epithet": "do Gume"
+        },
+        "runic": {
+          "name": "Rúnica",
+          "text": "+{n} de Poder Mágico",
+          "epithet": "das Runas"
+        },
+        "heavy": {
+          "name": "Pesada",
+          "text": "+{n} de Poder de Ataque e −{m} de Iniciativa",
+          "epithet": "do Colosso"
+        },
+        "swift": {
+          "name": "Veloz",
+          "text": "+{n} de Iniciativa",
+          "epithet": "do Vento"
+        },
+        "true": {
+          "name": "Certeira",
+          "text": "+{n} na Precisão",
+          "epithet": "do Falcão"
+        },
+        "elemental": {
+          "name": "Elemental",
+          "text": "O dano da arma ganha a tag [{tag}]",
+          "epithet": {
+            "Flame": "das Chamas",
+            "Cold": "do Gelo",
+            "Shock": "do Trovão",
+            "Radiance": "da Aurora"
+          }
+        },
+        "reinforced": {
+          "name": "Reforçada",
+          "text": "+{n} de Defesa Física",
+          "epithet": "da Muralha"
+        },
+        "enchanted": {
+          "name": "Encantada",
+          "text": "+{n} de Defesa Mágica",
+          "epithet": "do Encanto"
+        },
+        "vigorous": {
+          "name": "Vigorosa",
+          "text": "+{n} de PV máximo",
+          "epithet": "do Vigor"
+        },
+        "agile": {
+          "name": "Ágil",
+          "text": "+{n} na Esquiva",
+          "epithet": "da Esquiva"
+        },
+        "light": {
+          "name": "Leve",
+          "text": "+{n} de Iniciativa",
+          "epithet": "da Pluma"
+        },
+        "resistant": {
+          "name": "Resistente",
+          "text": "[Anulação ({tag}): {n}] sempre",
+          "epithet": {
+            "Flame": "contra Chamas",
+            "Cold": "contra o Frio",
+            "Shock": "contra Raios",
+            "Radiance": "contra a Luz",
+            "Blight": "contra a Corrupção",
+            "Poison": "contra Venenos"
+          }
+        },
+        "roomy": {
+          "name": "Espaçosa",
+          "text": "+{n} espaços na bolsa",
+          "epithet": "do Viajante"
+        },
+        "lucky": {
+          "name": "Da Sorte",
+          "text": "+{n} de Destino máximo (só o maior conta)",
+          "epithet": "da Sorte"
+        },
+        "vital": {
+          "name": "Vital",
+          "text": "+{n} de PV máximo",
+          "epithet": "da Vida"
+        },
+        "restoring": {
+          "name": "Restauradora",
+          "text": "+{n} de Recuperação",
+          "epithet": "da Cura"
+        },
+        "arcane": {
+          "name": "Arcana",
+          "text": "+{n} de Poder Mágico",
+          "epithet": "dos Arcanos"
+        },
+        "sage": {
+          "name": "Do Sábio",
+          "text": "+{n} em Conhecimento e em Análise",
+          "epithet": "do Sábio"
+        },
+        "explorer": {
+          "name": "Do Explorador",
+          "text": "+{n} em Percepção e em Atletismo",
+          "epithet": "do Explorador"
+        },
+        "potent": {
+          "name": "Potente",
+          "epithet": "da Potência",
+          "heal": "+{n} na cura",
+          "damage": "+{n} no dano",
+          "fatigue": "Tira {n} de Fadiga a mais",
+          "status": "+{n} no Valor de [{status}]"
+        },
+        "double": {
+          "name": "Dupla",
+          "text": "Rende uma unidade a mais",
+          "epithet": "em Dobro"
+        },
+        "quick": {
+          "name": "Rápida",
+          "text": "Usada como Ação Menor",
+          "epithet": "de Ação Rápida"
+        },
+        "wide": {
+          "name": "Ampla",
+          "text": "Afeta até {n} alvos a mais",
+          "epithet": "de Grupo"
+        },
+        "purifying": {
+          "name": "Purificante",
+          "text": "Também tira [Queimando], [Envenenado] e [Congelando] do alvo",
+          "epithet": "da Pureza"
+        },
+        "invigorating": {
+          "name": "Revigorante",
+          "text": "O alvo também fica [Concentrado]",
+          "epithet": "do Foco"
+        },
+        "fate": {
+          "name": "Fio do Destino",
+          "text": "+1D no dano",
+          "epithet": "do Destino"
+        },
+        "aegis": {
+          "name": "Égide",
+          "text": "Uma vez por cena, anula todo o dano de um ataque (use antes do dano)",
+          "epithet": "da Égide"
+        },
+        "starheart": {
+          "name": "Coração Estelar",
+          "text": "Começa cada combate com [Último Fôlego]",
+          "epithet": "das Estrelas"
+        }
+      },
+      "Talent": {
+        "sharpen": {
+          "name": "Afiar",
+          "text": "No Interlúdio, uma arma do grupo ganha +2 de Poder de Ataque (×2 a partir do nível 11, ×3 a partir do 21) até o fim do cenário do dono dela. Gasta uma tentativa.",
+          "effect": "+{n} de Poder de Ataque até o fim do cenário (afiada por {name})."
+        },
+        "mend": {
+          "name": "Remendo",
+          "text": "No Interlúdio, até 3 aliados reduzem a Fadiga em Rank × 3. Gasta uma tentativa."
+        },
+        "cut": {
+          "name": "Lapidação",
+          "text": "Um aprimoramento de cada acessório que você faz vale o dobro (menos Da Sorte). Marque-o com a gema ao escolher."
+        },
+        "batch": {
+          "name": "Lote",
+          "text": "Cada poção e toxina que você faz sai em 2 cópias no Rank 3 e em 3 cópias no Rank 5."
+        },
+        "banquet": {
+          "name": "Banquete",
+          "text": "Junte 2 comidas iguais numa porção para o grupo inteiro: cada personagem dos jogadores come."
+        },
+        "copy": {
+          "name": "Cópia",
+          "text": "Grave uma habilidade sua num pergaminho que qualquer um usa uma vez, com o seu NH, o seu teste e o seu dano. Gasta uma tentativa e dá 2 de EXP."
+        },
+        "trap": {
+          "name": "Armadilha",
+          "text": "Na Abertura (ou fora de combate), arme uma bomba ou uma rede num quadrado da cena: ela dispara no primeiro inimigo que entrar nele."
+        },
+        "masterpiece": {
+          "name": "Obra-prima",
+          "text": "Com dois 6 na Oficina, a canção sai em massa (todos os alvos) ou instantânea (Momento Instantânea), à sua escolha."
+        },
+        "gather": {
+          "name": "Coleta",
+          "text": "Role 2D + Rank: 8 ou mais encontra 1 Item Misterioso do nível que você escolher, 11 ou mais encontra 2, e dois 6 também encontram um Estilhaço Estelar. Gasta uma tentativa."
+        },
+        "retouch": {
+          "name": "Retoque",
+          "text": "Troque um aprimoramento de um item feito numa Oficina por outro da mesma lista: 100 G, e o preço dobra a cada novo retoque do item. Gasta uma tentativa e dá 5 de EXP. Você vende tudo pelo valor cheio."
+        }
+      },
+      "Why": {
+        "potent": "Este item não cura, não causa dano, não tira Fadiga nem dá um estado com Valor.",
+        "quick": "Só para itens de Ação Maior ou de Descanso.",
+        "wide": "Só para itens de alvo Pessoal, Individual ou com um número de alvos.",
+        "hostile": "Só para itens usados em aliados."
+      },
+      "Forge": {
+        "MadeBy": "feito por {name} ({profession} Rank {rank})"
+      },
+      "Masterpiece": {
+        "Name": "Obra-prima",
+        "mass": "Em massa: afeta todos os alvos",
+        "instant": "Instantânea: usada a qualquer momento",
+        "massHint": "O alvo vira Todos",
+        "instantHint": "O Momento vira Instantânea"
+      },
+      "Copy": {
+        "Name": "Pergaminho: {name}",
+        "Note": "Gravado por {name}: «{skill}» com NH {sr}. Quem usa faz o efeito da habilidade uma vez, com o teste e o dano de quem gravou."
+      },
+      "Banquet": {
+        "Name": "Banquete: {name}",
+        "Note": "Preparado por {name}: uma porção para o grupo inteiro (cada personagem dos jogadores come)."
+      },
+      "Chat": {
+        "RankUp": "{name} chegou ao Rank {rank}!",
+        "RankBonus": "+{n} na rolagem.",
+        "RankAttempts": "{n} tentativas por cenário.",
+        "RankCap": "Itens até o nível {n}.",
+        "RankBatch": "Lote: cada poção e toxina sai em {n} cópias.",
+        "Exp": "+{n} EXP",
+        "Left": "{n}/{max} tentativas",
+        "Workshop": "Oficina: {item}",
+        "Outcome": {
+          "fail": "Falha: o Item Misterioso {n} se perdeu.",
+          "salvage": "Aproveitamento: nada saiu, mas o Item Misterioso {n} voltou.",
+          "uncommon": "Incomum: a obra ganha 1 aprimoramento.",
+          "rare": "Raro: a obra ganha 2 aprimoramentos.",
+          "perfect": "Perfeito: a obra ganha 3 aprimoramentos."
+        },
+        "DoubleSix": "Dois 6: subiu um degrau!",
+        "Paid": "Base comprada por {n} G.",
+        "Made": "{name} terminou uma obra",
+        "Copies": "{n} cópias.",
+        "Fused": "Fundiu {a} e {b}.",
+        "ShardSpent": "Um Estilhaço Estelar foi gasto.",
+        "Fusion": "Fusão",
+        "Retouch": "Retoque",
+        "Retouched": "{out} virou {in} ({n} G).",
+        "Sale": "Venda",
+        "Sold": "Vendeu {item} por {n} G.",
+        "Gathering": "Coleta",
+        "Gather": {
+          "none": "Nada encontrado.",
+          "one": "Encontrou 1 Item Misterioso {n}.",
+          "two": "Encontrou {count} Itens Misteriosos {n}.",
+          "shard": "Encontrou um Estilhaço Estelar!"
+        },
+        "Sharpened": "{item} de {name} ganha +{n} de Poder de Ataque até o fim do cenário.",
+        "Mended": "Fadiga −{n}:",
+        "NoFatigue": "{name}: sem mudança.",
+        "Banquet": "Duas porções de {item} viraram um banquete para o grupo.",
+        "Copied": "«{skill}» foi gravada num pergaminho.",
+        "TrapArmed": "Armou {item} num quadrado da cena.",
+        "TrapTriggered": "{item} disparou em {name}!",
+        "TrapEffects": "Efeitos: {effects}."
+      },
+      "Error": {
+        "NoProfession": "Este personagem não tem essa profissão.",
+        "NotYours": "Sua profissão não faz este item (ou ele já é mágico).",
+        "Cap": "Itens até o nível {n} (este pede o Rank {rank}).",
+        "NoAttempts": "Sem tentativas neste cenário.",
+        "Pending": "Termine primeiro a obra que está na bancada.",
+        "NoMaterial": "Falta um Item Misterioso {n}.",
+        "Gold": "Ouro insuficiente ({n} G).",
+        "NoPending": "Não há obra na bancada.",
+        "Slots": "Escolha todos os aprimoramentos da obra.",
+        "Enhancement": "Este aprimoramento não serve para este item.",
+        "Twice": "Este aprimoramento já está no item.",
+        "CutOnce": "Só um aprimoramento pode ser lapidado.",
+        "Fusion": "Escolha dois itens iguais da mesma qualidade.",
+        "NoShard": "Falta um Estilhaço Estelar.",
+        "NotCrafted": "Só itens feitos numa Oficina podem ser retocados.",
+        "NotForSale": "Este item não pode ser vendido (equipado, sem preço ou invendável).",
+        "NoWeapon": "Escolha uma arma de um personagem.",
+        "Sharpened": "Esta arma já está afiada.",
+        "Generic": "Não deu certo.",
+        "NoTargets": "Escolha até 3 personagens.",
+        "NoPair": "Faltam 2 comidas iguais.",
+        "NoSkill": "Escolha uma habilidade sua.",
+        "NotTrap": "Só bombas e redes viram armadilhas.",
+        "NoScene": "Abra uma cena para armar a armadilha.",
+        "TrapPhase": "Armadilhas se armam na Abertura (ou fora de combate).",
+        "Missing": "A profissão não está no compêndio."
+      },
+      "Gather": {
+        "Result": {
+          "none": "Nada",
+          "one": "1 Item Misterioso",
+          "two": "{count} Itens Misteriosos",
+          "shard": "Estilhaço Estelar!"
+        },
+        "Chance": {
+          "none": "Nada",
+          "one": "1 material",
+          "two": "2 materiais",
+          "shard": "Estilhaço Estelar"
+        }
+      },
+      "Mode": {
+        "craft": "Oficina",
+        "fusion": "Fusão",
+        "gather": "Coleta",
+        "retouch": "Retoque",
+        "sell": "Vender",
+        "sharpen": "Afiar",
+        "mend": "Remendo",
+        "banquet": "Banquete",
+        "copy": "Cópia"
+      },
+      "ModeHint": {
+        "craft": "Crie um item com aprimoramentos",
+        "fusion": "Dois iguais viram um melhor",
+        "gather": "Procure materiais",
+        "retouch": "Troque um aprimoramento",
+        "sell": "Venda pelo valor cheio",
+        "sharpen": "+2 de Poder de Ataque numa arma",
+        "mend": "Tira Fadiga de até 3 aliados",
+        "banquet": "2 comidas viram uma do grupo",
+        "copy": "Uma habilidade num pergaminho"
+      },
+      "Stat": {
+        "attack": "Poder de Ataque",
+        "magic": "Poder Mágico",
+        "accuracy": "Precisão",
+        "initiative": "Iniciativa",
+        "pdef": "Defesa Física",
+        "mdef": "Defesa Mágica",
+        "space": "Espaços",
+        "timing": "Momento",
+        "target": "Alvo",
+        "heal": "Cura",
+        "damage": "Dano",
+        "fatigue": "Fadiga"
+      },
+      "Bench": {
+        "Title": "Bancada",
+        "Hint": {
+          "craft": "Escolha a base: um item da sua mochila (ele vira a obra) ou do catálogo (você paga o preço dele se der certo). Cada tentativa gasta 1 Item Misterioso do nível do item, menos no Aproveitamento.",
+          "fusion": "Dois itens feitos iguais (mesma base e mesma qualidade) viram um da qualidade acima, com um aprimoramento a mais. Não gasta tentativa.",
+          "gather": "Escolha o nível do Item Misterioso que você procura e role 2D + Rank.",
+          "retouch": "Escolha um item feito numa Oficina para trocar um aprimoramento.",
+          "sell": "Você vende pelo valor cheio. Itens mágicos dão 2 de EXP.",
+          "sharpen": "Escolha uma arma do grupo. Gasta uma tentativa.",
+          "mend": "Escolha até 3 personagens. Gasta uma tentativa.",
+          "banquet": "Duas comidas iguais viram uma porção para o grupo inteiro.",
+          "copy": "Escolha uma habilidade sua. Gasta uma tentativa e dá 2 de EXP."
+        },
+        "ChooseEnhancements": "Escolher os aprimoramentos",
+        "Continue": "Continuar",
+        "Price": "{n} G",
+        "EmptyCatalog": "Nenhum item do catálogo para esta profissão.",
+        "EmptyInventory": "Nenhum item da mochila que esta profissão faça. Veja o catálogo.",
+        "Source": {
+          "inventory": "Mochila",
+          "catalog": "Catálogo"
+        },
+        "All": "Tudo",
+        "EmptyFusion": "Nenhum par de itens feitos iguais.",
+        "EmptyRetouch": "Nenhum item feito numa Oficina na mochila.",
+        "EmptySell": "Nada para vender.",
+        "SellFor": "Vende por {n} G.",
+        "Confirm": {
+          "sell": "Vender por {n} G",
+          "sharpen": "Afiar (+{n})",
+          "mend": "Remendar (−{n} de Fadiga)",
+          "banquet": "Preparar o banquete",
+          "copy": "Gravar o pergaminho"
+        },
+        "MaterialName": "Item Misterioso {n}",
+        "Owned": "Você tem {n}",
+        "PickLevel": "Escolha o nível",
+        "Equipped": "Equipado",
+        "EmptySharpen": "Nenhuma arma no grupo.",
+        "Fatigue": "Fadiga {n}",
+        "MendLine": "−{n} de Fadiga em {count} personagem(ns).",
+        "Pair": "Par",
+        "EmptyBanquet": "Nenhum par de comidas iguais.",
+        "BanquetLine": "Uma porção para cada personagem dos jogadores.",
+        "EmptyCopy": "Nenhuma habilidade para copiar.",
+        "CopyLine": "Gravada com o seu NH ({sr}), o seu teste e o seu dano.",
+        "FusionRule": "Incomum + Incomum = Raro · Raro + Raro = Perfeito.",
+        "FusionLegendary": "Perfeito + Perfeito + Estilhaço Estelar = Lendário, com o aprimoramento lendário da lista.",
+        "Prompt": {
+          "craft": "Escolha um item para forjar.",
+          "retouch": "Escolha um item.",
+          "sell": "Escolha um item para vender.",
+          "sharpen": "Escolha uma arma.",
+          "mend": "Escolha os personagens.",
+          "banquet": "Escolha um par de comidas.",
+          "copy": "Escolha uma habilidade."
+        },
+        "CraftTitle": "{item}",
+        "FusionTitle": "Fusão: {item}",
+        "RetouchTitle": "Retoque: {item}",
+        "PickOut": "Escolha o aprimoramento que sai",
+        "Finish": {
+          "craft": "Concluir a obra",
+          "fusion": "Fundir",
+          "retouch": "Retocar ({n} G)"
+        },
+        "Lede": {
+          "craft": "Escolha {n} aprimoramento(s) da lista. O nome vem do primeiro, mas você pode mudar.",
+          "fusion": "Os aprimoramentos de um dos itens ficam; escolha mais um.",
+          "retouch": "Clique no aprimoramento que sai e escolha outro da lista."
+        },
+        "MendMax": "No máximo 3 personagens.",
+        "Reveal": {
+          "fail": "O Item Misterioso {n} se perdeu.",
+          "salvage": "Nada saiu, mas o Item Misterioso {n} voltou.",
+          "uncommon": "A obra ganha 1 aprimoramento.",
+          "rare": "A obra ganha 2 aprimoramentos.",
+          "perfect": "A obra ganha 3 aprimoramentos."
+        },
+        "Full": "Todos os espaços estão preenchidos: tire um antes.",
+        "Done": {
+          "craft": "Obra concluída",
+          "fusion": "Fusão concluída",
+          "retouch": "Retoque concluído",
+          "sell": "Vendido",
+          "sharpen": "Arma afiada",
+          "mend": "Remendado",
+          "banquet": "Banquete pronto",
+          "copy": "Pergaminho gravado"
+        },
+        "Again": {
+          "craft": "Nova obra",
+          "fusion": "Outra fusão",
+          "retouch": "Outro retoque",
+          "sell": "Vender outro",
+          "sharpen": "Afiar outra",
+          "mend": "Voltar",
+          "banquet": "Outro banquete",
+          "copy": "Outra cópia"
+        },
+        "Search": "Buscar…",
+        "Level": "nível {n}",
+        "Have": "Você tem {n}",
+        "BasePrice": "Do catálogo: paga {n} G se der certo.",
+        "FromInventory": "Da mochila: o item vira a obra se der certo.",
+        "Batch": "Lote: sai em {n} cópias.",
+        "Possible": "Aprimoramentos possíveis",
+        "Chances": "Chances (2D + Rank)",
+        "Forge": "Forjar",
+        "Gather": "Coletar",
+        "Keep": "Quais aprimoramentos ficam",
+        "Cut": "Lapidar: vale o dobro",
+        "Multiplier": "Os números deste item valem ×{n} (nível alto).",
+        "LegendaryNote": "Os dois itens Perfeitos e um Estilhaço Estelar viram um item Lendário: ele ganha o aprimoramento lendário da lista.",
+        "WorkName": "Nome da obra",
+        "NoneYet": "Nenhum aprimoramento escolhido.",
+        "Copies": "{n} cópias",
+        "RetouchCost": "Custa {n} G.",
+        "Discard": "Descartar a obra (Mestre)",
+        "DoubleSix": "Dois 6: subiu um degrau!",
+        "RankUp": "Rank novo!",
+        "Open": "Abrir o item",
+        "Close": "Fechar"
+      },
+      "Sheet": {
+        "ChooseTitle": "Escolha uma profissão",
+        "ChooseHint": "A profissão é a subclasse do personagem: faz itens com aprimoramentos, sobe de Rank com EXP e tem um talento próprio.",
+        "RankTip": "Rank {n}",
+        "Eyebrow": "Profissão",
+        "SetExp": "Mudar a EXP",
+        "Attempts": "Tentativas",
+        "AttemptsTip": "Tentativas do cenário: o fim do cenário (Ferramentas do Mestre) devolve todas.",
+        "Refund": "Devolver uma tentativa",
+        "PerScenario": "no cenário",
+        "Pending": "Obra na bancada: {item}",
+        "PendingSlots": "escolha {n} aprimoramento(s)",
+        "Finish": "Concluir",
+        "Materials": "Materiais",
+        "MaterialsNote": "Item Misterioso 1 a 10 e Estilhaço Estelar",
+        "Shards": "Estilhaço Estelar",
+        "Talent": "Talento",
+        "Always": "Sempre ativo",
+        "Traps": "Armadilhas",
+        "Armed": "{n} armada(s)",
+        "Arm": "Armar",
+        "NoTraps": "Nenhuma bomba ou rede na mochila.",
+        "Works": "Obras",
+        "NoWorks": "Nenhum item feito numa Oficina na mochila.",
+        "Ladder": "Ranks",
+        "StepAttempts": "{n} tentativas",
+        "StepCap": "até nível {n}",
+        "RollBonus": "na rolagem",
+        "Cap": "nível máximo",
+        "GatherCap": "Item Misterioso máx.",
+        "FullPrice": "nas vendas",
+        "AttemptsStat": "tentativas",
+        "ExpNext": "faltam {n} para o Rank {rank}",
+        "ExpMax": "Rank máximo",
+        "Chances": "Chances na Oficina (2D + {n})",
+        "GatherChances": "Chances da Coleta (2D + {n})",
+        "CostsAttempt": "Gasta 1 tentativa",
+        "BatchNow": "Agora: {n} cópia(s) por poção ou toxina.",
+        "MendNow": "Agora: −{n} de Fadiga.",
+        "GatherNow": "Agora: Item Misterioso até o nível {n}.",
+        "RetouchNow": "Lojas pagam o valor cheio pelos seus itens.",
+        "ExpHint": "EXP da Oficina: Falha 1 · Aproveitamento 2 · Incomum 3 · Raro 5 · Perfeito 8. Retoque {retouch}.",
+        "Exp": "EXP de {name}",
+        "Save": "Salvar"
+      },
+      "Trap": {
+        "Pick": "Clique no quadrado onde armar {item} (Esc cancela).",
+        "Armed": "Armadilha armada",
+        "Region": "Armadilha: {item}",
+        "Name": "Armadilha"
+      }
     }
   },
   "Cancel": "Cancelar"

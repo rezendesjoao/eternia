@@ -65,11 +65,12 @@ Usados pelas raças, servem para qualquer habilidade (`conditions/effects.mjs`, 
 | Efeito | `immune` | lista de estados que não pegam enquanto o efeito existir (e acabam quando ele chega) |
 | Efeito | `fatigueOnEnd` | Fadiga ao acabar (fórmula resolvida ao aplicar) |
 | Efeito | `endsWith` | acaba quando o ator perde esse estado |
-| Efeito | `consumeOn` | acaba depois do próximo teste desse tipo (`"negotiation"`…, `"check"`), Esquiva (`"dodge"`) ou dano (`"damage"`) |
+| Efeito | `consumeOn` | acaba depois do próximo teste desse tipo (`"negotiation"`…, `"check"`), Esquiva (`"dodge"`), dano sofrido (`"damage"`) ou a próxima rolagem de dano de quem o tem (`"attack"`) |
+| Efeito | `damageTags`, `onHit` | tags que o dano de quem o tem ganha; estado que esse dano dá em quem atinge (`docs/profissoes.md`) |
 | Efeito | chave `eternia.passive.cancel` | Anulação passiva (tag em `cancelTag`) |
 | Efeito | condição `hasSkill` | só vale se quem usa tiver a habilidade com esse nome |
 | Habilidade | `chooseEffect` | os efeitos são alternativas: quem usa escolhe um |
-| Habilidade | `useActions` | `{ type: "fatigue", value }` ou `{ type: "doubleStatus", status }`, com `recipients` |
+| Habilidade | `useActions` | `{ type: "fatigue", value }`, `{ type: "doubleStatus", status }` ou `{ type: "removeStatus", statuses }`, com `recipients` (também em itens usáveis) |
 | Habilidade | `special` | `"pack"` (Matilha, em `rolls.mjs`) ou `"book"` (O Livro, no renascimento) |
 | Habilidade | `minRank`, `choiceOnly`, `rankGrants` | NP mínimo, só por escolha, e habilidades dadas a cada NH |
 

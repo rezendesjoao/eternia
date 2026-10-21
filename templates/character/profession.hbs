@@ -1,0 +1,199 @@
+{{!-- PROFESSION (module/professions/sheet.mjs): the crest with the Rank, the EXP and the attempts of the scenario,
+     the bench's buttons, the work waiting, the Workshop's chances, the materials, the talent, the Engineer's traps,
+     the works the character carries and the Rank ladder. Without a profession: the ten to choose from. --}}
+<section class="tab major profession" data-group="primary" data-tab="profession">
+	<div class="tab-content">
+	{{#with lh.profession as |p|}}
+	{{#if p.none}}
+
+		<div class="lhp-choose">
+			<header class="lhp-choose-head">
+				<i class="fa-solid fa-hammer"></i>
+				<h2>{{localize "ETERNIA.Profession.Sheet.ChooseTitle"}}</h2>
+				<p>{{localize "ETERNIA.Profession.Sheet.ChooseHint"}}</p>
+			</header>
+			<ul class="lhp-choices">
+				{{#each p.choices as |c|}}
+				<li class="lhp-choice" style="--lhp-color: {{c.color}}">
+					<a {{#if p.editable}}data-action="lhp" data-op="choose" data-id="{{c.id}}"{{/if}} data-tooltip="{{c.crafts}}">
+						<span class="lhp-choice-medal"><img src="{{c.img}}" alt=""></span>
+						<span class="lhp-choice-text">
+							<span class="lhp-choice-name">{{c.name}}</span>
+							<span class="lhp-choice-talent"><i class="{{c.icon}}"></i> {{c.talent}}</span>
+						</span>
+					</a>
+				</li>
+				{{/each}}
+			</ul>
+		</div>
+
+	{{else}}
+
+		{{!-- Crest --}}
+		<div class="lhp-crest{{#if p.celebrate}} celebrate{{/if}}" style="--lhp-color: {{p.color}}">
+			<div class="lhp-medallion">
+				<span class="lhp-medallion-ring"></span>
+				<img src="{{p.img}}" alt="">
+				<span class="lhp-rank-badge" data-tooltip="{{localize 'ETERNIA.Profession.Sheet.RankTip' n=p.rank}}"><svg viewBox="0 0 40 43" aria-hidden="true"><path d="M20 1.5 37.5 6.5V21.5C37.5 31.5 29.5 38 20 41.5 10.5 38 2.5 31.5 2.5 21.5V6.5Z"></path></svg><b>{{p.rank}}</b></span>
+			</div>
+			<div class="lhp-crest-body">
+				<span class="lhp-eyebrow">{{localize "ETERNIA.Profession.Sheet.Eyebrow"}}</span>
+				<h2 class="lhp-name">{{p.name}}</h2>
+				<div class="lhp-subtitle">
+					<span class="lhp-gems">{{#each p.gems as |g|}}<i class="lhp-gem{{#if g.on}} on{{/if}}"></i>{{/each}}</span>
+					<span class="lhp-rank-title">{{p.rankTitle}}</span>
+				</div>
+				<div class="lhp-exp" data-tooltip="{{p.expHint}}">
+					<div class="lhp-exp-bar"><span class="lhp-exp-fill" style="width: {{p.exp.pct}}%"></span></div>
+					<div class="lhp-exp-text">
+						{{#if p.editable}}<a class="lhp-exp-value" data-action="lhp" data-op="exp" data-tooltip="{{localize 'ETERNIA.Profession.Sheet.SetExp'}}">{{else}}<span class="lhp-exp-value">{{/if}}<b>{{p.exp.value}}</b>{{#if p.exp.next}}<span>/{{p.exp.next}}</span>{{/if}} EXP{{#if p.editable}}</a>{{else}}</span>{{/if}}
+						<span class="lhp-exp-next">{{p.exp.label}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="lhp-attempts" data-tooltip="{{localize 'ETERNIA.Profession.Sheet.AttemptsTip'}}">
+				<span class="lhp-attempts-label">{{localize "ETERNIA.Profession.Sheet.Attempts"}}</span>
+				<div class="lhp-attempt-pips">
+					{{#each p.attempts.pips as |pip|}}
+					{{#if (and pip.used ../isGM)}}<a class="lhp-attempt used" data-action="lhp" data-op="refund" data-tooltip="{{localize 'ETERNIA.Profession.Sheet.Refund'}}"><i class="fa-solid fa-hammer"></i></a>
+					{{else}}<span class="lhp-attempt{{#if pip.used}} used{{/if}}"><i class="fa-solid fa-hammer"></i></span>{{/if}}
+					{{/each}}
+				</div>
+				<span class="lhp-attempts-sub"><b>{{p.attempts.left}}</b>/{{p.attempts.max}} {{localize "ETERNIA.Profession.Sheet.PerScenario"}}</span>
+			</div>
+		</div>
+
+		{{!-- What the Rank gives --}}
+		<ul class="lhp-stats" style="--lhp-color: {{p.color}}">
+			{{#each p.stats as |s|}}
+			<li><i class="{{s.icon}}"></i><b>{{s.value}}</b><span>{{s.label}}</span></li>
+			{{/each}}
+		</ul>
+
+		{{!-- The bench --}}
+		<div class="lhp-actions" style="--lhp-color: {{p.color}}">
+			{{#each p.actions as |a|}}
+			<button type="button" class="lhp-action{{#if a.primary}} primary{{/if}}" {{#if p.editable}}data-action="lhp" data-op="bench" data-mode="{{a.mode}}"{{else}}disabled{{/if}}>
+				<span class="lhp-action-icon"><i class="{{a.icon}}"></i></span>
+				<span class="lhp-action-text"><b>{{a.label}}</b><small>{{a.hint}}</small></span>
+			</button>
+			{{/each}}
+		</div>
+
+		{{#if p.pending}}
+		<div class="lhp-pending" style="--lhp-quality: {{p.pending.color}}">
+			<i class="fa-solid fa-fire-flame-curved"></i>
+			<div><b>{{localize "ETERNIA.Profession.Sheet.Pending" item=p.pending.name}}</b>
+				<span>{{p.pending.quality}} · {{localize "ETERNIA.Profession.Sheet.PendingSlots" n=p.pending.slots}}</span></div>
+			{{#if p.editable}}<button type="button" data-action="lhp" data-op="pending"><i class="fa-solid fa-gem"></i> {{localize "ETERNIA.Profession.Sheet.Finish"}}</button>{{/if}}
+		</div>
+		{{/if}}
+
+		{{!-- Chances --}}
+		{{#if p.chances}}
+		<div class="subsection lhp-chances">
+			<header><span>{{p.chancesTitle}}</span></header>
+			<div class="lhp-chance-bar">
+				{{#each p.chances as |c|}}{{#unless c.extra}}<span class="lhp-chance-seg" style="width: {{c.width}}%; --c: {{c.color}}" data-tooltip="{{c.label}}: {{c.pct}}%"></span>{{/unless}}{{/each}}
+			</div>
+			<ul class="lhp-chance-legend">
+				{{#each p.chances as |c|}}<li style="--c: {{c.color}}"><i></i>{{c.label}} <b>{{c.pct}}%</b></li>{{/each}}
+			</ul>
+		</div>
+		{{/if}}
+
+		{{!-- Materials --}}
+		<div class="subsection lhp-materials">
+			<header><span>{{localize "ETERNIA.Profession.Sheet.Materials"}}</span><span class="lhp-header-note">{{localize "ETERNIA.Profession.Sheet.MaterialsNote"}}</span></header>
+			<div class="lhp-shelf">
+				{{#each p.materials as |m|}}
+				<span class="lhp-crystal{{#unless m.count}} none{{/unless}}" data-tooltip="{{localize 'ETERNIA.Profession.Bench.MaterialName' n=m.level}}: {{m.count}}">
+					<img src="icons/commodities/treasure/puzzle-box-glowing-blue.webp" alt="">
+					<span class="lhp-crystal-level">{{m.level}}</span>
+					{{#if m.count}}<span class="lhp-crystal-count">×{{m.count}}</span>{{/if}}
+				</span>
+				{{/each}}
+				<span class="lhp-crystal shard{{#unless p.shards}} none{{/unless}}" data-tooltip="{{localize 'ETERNIA.Profession.Sheet.Shards'}}: {{p.shards}}">
+					<img src="icons/magic/light/explosion-star-glow-blue-purple.webp" alt="">
+					<span class="lhp-crystal-level"><i class="fa-solid fa-star"></i></span>
+					{{#if p.shards}}<span class="lhp-crystal-count">×{{p.shards}}</span>{{/if}}
+				</span>
+			</div>
+		</div>
+
+		{{!-- Talent --}}
+		<div class="lhp-talent" style="--lhp-color: {{p.color}}">
+			<span class="lhp-talent-icon"><i class="{{p.talent.icon}}"></i></span>
+			<div class="lhp-talent-body">
+				<header>
+					<span class="lhp-talent-kind">{{localize "ETERNIA.Profession.Sheet.Talent"}}</span>
+					<h3>{{p.talent.name}}</h3>
+					{{#if p.talent.passive}}<span class="lhp-chip">{{localize "ETERNIA.Profession.Sheet.Always"}}</span>{{/if}}
+					{{#if p.talent.cost}}<span class="lhp-chip">{{p.talent.cost}}</span>{{/if}}
+				</header>
+				<p>{{p.talent.text}}</p>
+				{{#if p.talent.note}}<p class="lhp-talent-note"><i class="fa-solid fa-circle-info"></i> {{p.talent.note}}</p>{{/if}}
+			</div>
+		</div>
+
+		{{!-- Engineer: traps --}}
+		{{#if p.traps}}
+		<div class="subsection lhp-traps">
+			<header><span>{{localize "ETERNIA.Profession.Sheet.Traps"}}</span>{{#if p.traps.armed}}<span class="lhp-header-note"><i class="fa-solid fa-land-mine-on"></i> {{localize "ETERNIA.Profession.Sheet.Armed" n=p.traps.armed}}</span>{{/if}}</header>
+			<ul class="lhp-trap-list">
+				{{#each p.traps.items as |t|}}
+				<li data-item-id="{{t.id}}">
+					<img src="{{t.img}}" alt="">
+					<span>{{t.name}}</span>
+					{{#if p.editable}}<button type="button" data-action="lhp" data-op="arm"><i class="fa-solid fa-land-mine-on"></i> {{localize "ETERNIA.Profession.Sheet.Arm"}}</button>{{/if}}
+				</li>
+				{{else}}
+				<li class="lhpf-empty">{{localize "ETERNIA.Profession.Sheet.NoTraps"}}</li>
+				{{/each}}
+			</ul>
+		</div>
+		{{/if}}
+
+		{{!-- Works --}}
+		<div class="subsection lhp-works">
+			<header><span>{{localize "ETERNIA.Profession.Sheet.Works"}}</span>{{#if p.works.length}}<span class="lhp-header-note">{{p.works.length}}</span>{{/if}}</header>
+			{{#if p.works.length}}
+			<ul class="lhp-work-grid">
+				{{#each p.works as |w|}}
+				<li class="lhp-work" style="--lhp-quality: {{w.color}}" data-item-id="{{w.id}}">
+					<a class="lhp-work-art" data-action="lhp" data-op="work"><img src="{{w.img}}" alt="">{{#if (gt w.count 1)}}<b class="lhp-work-count">×{{w.count}}</b>{{/if}}{{#if w.equipped}}<i class="fa-solid fa-shield-check lhp-work-equipped" data-tooltip="{{localize 'ETERNIA.Profession.Bench.Equipped'}}"></i>{{/if}}</a>
+					<div class="lhp-work-body">
+						<a class="lhp-work-name" data-action="lhp" data-op="work" data-tooltip="{{w.name}}">{{w.name}}</a>
+						<span class="lhp-work-quality">{{#each w.gems}}<i class="fa-solid fa-diamond"></i>{{/each}} {{w.quality}}</span>
+						<span class="lhp-work-enh">
+							{{#each w.enhancements as |e|}}<i class="{{e.icon}}{{#if e.legendary}} legendary{{/if}}{{#if e.cut}} cut{{/if}}" data-tooltip="<b>{{e.name}}</b>: {{e.text}}"></i>{{/each}}
+						</span>
+					</div>
+				</li>
+				{{/each}}
+			</ul>
+			{{else}}
+			<p class="lhpf-empty">{{localize "ETERNIA.Profession.Sheet.NoWorks"}}</p>
+			{{/if}}
+		</div>
+
+		{{!-- Rank ladder --}}
+		<div class="subsection lhp-ladder" style="--lhp-color: {{p.color}}">
+			<header><span>{{localize "ETERNIA.Profession.Sheet.Ladder"}}</span></header>
+			<ol>
+				{{#each p.ladder as |r|}}
+				<li class="{{#if r.reached}}reached{{/if}}{{#if r.current}} current{{/if}}">
+					<span class="lhp-step"><b>{{r.rank}}</b></span>
+					<span class="lhp-step-title">{{r.title}}</span>
+					<span class="lhp-step-info">{{r.exp}} EXP</span>
+					<span class="lhp-step-info">{{localize "ETERNIA.Profession.Sheet.StepAttempts" n=r.attempts}}</span>
+					{{#if r.cap}}<span class="lhp-step-info">{{localize "ETERNIA.Profession.Sheet.StepCap" n=r.cap}}</span>{{/if}}
+				</li>
+				{{/each}}
+			</ol>
+		</div>
+
+	{{/if}}
+	{{/with}}
+	</div>
+</section>

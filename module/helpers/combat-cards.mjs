@@ -9,6 +9,8 @@
  * the damage to it: Physical/Magic Defense by type, [Cancel], then [Barrier], then HP. If the target
  * failed its Dodge Check, Hate Damage, [Pursuit] and [Weakness] follow, each through [Barrier] on
  * its own, and a character loses 1 Hate. Every application posts a summary with an Undo button.
+ * The attacker's effects may give the damage tags (`flags.eternia.damageTags`) and statuses to whoever it hits
+ * (`flags.eternia.onHit: {statusId, value}`), like an Engineer's Spark Stone (professions/).
  *
  * Players can't update messages they didn't write, so dodges and "applied" marks made on someone
  * else's card go through the active GM (see pile-socket.mjs).
@@ -22,6 +24,7 @@ import { hateRank } from "./effect-conditions.mjs";
 import { applyModifier, consumeAfterRoll, dodgeModifier } from "../conditions/rolls.mjs";
 import { afterDamage, beforeDamage, canHeal, markDamage, restoreForUndo, snapshotForUndo } from "../conditions/damage.mjs";
 import { consumedBy, passiveCancels } from "../conditions/effects.mjs";
+import { statusEffectData } from "../chat/status-links.mjs";
 
 const TEMPLATES = {
   attack: "systems/eternia/templates/chat/attack-card.hbs",
@@ -196,6 +199,9 @@ function attackTags(item, attacker) {
   const tags = [...(item.system.tags ?? [])];
   const weapon = attackWeapon(item, attacker);
   if (weapon) tags.push(...(weapon.system.tags ?? []));
+  for (const effect of (attacker ?? item.actor)?.effects ?? []) {
+    if (effect.active) tags.push(...(effect.getFlag("eternia", "damageTags") ?? []));
+  }
   const seen = new Set();
   return tags.filter(t => {
     const key = normalizeTag(t);
@@ -221,6 +227,14 @@ function bestTagged(bad, list, legacy, tags, extra = []) {
   return entries
     .filter(e => !e.tag || keys.has(normalizeTag(e.tag)))
     .reduce((best, e) => (!best || (e.value > best.value)) ? e : best, null);
+}
+
+/** The statuses the attacker's effects give to whoever its damage hits. */
+function onHitOf(attacker) {
+  return (attacker?.effects ?? []).filter(e => e.active && e.getFlag("eternia", "onHit")?.statusId).map(e => {
+    const hit = e.getFlag("eternia", "onHit");
+    return { statusId: hit.statusId, value: toInt(hit.value) || null, name: e.name };
+  });
 }
 
 /* -------------------------------------------- */
@@ -421,6 +435,8 @@ export async function createDamageCard(item, attacker, formula, flavor, attackMe
     type: type || fallbackType,
     recovery,
     tags: attackTags(item, attacker),
+    onHit: recovery ? [] : onHitOf(attacker ?? item.actor),
+    attackerUuid: (attacker ?? item.actor)?.uuid ?? "",
     attackerType: attack?.attackerType ?? attacker?.type ?? item.actor?.type ?? null,
     hateMultiplier: attack?.hateMultiplier ?? hateMultiplier(attacker ?? item.actor),
     targets
@@ -567,6 +583,14 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   if (spent.length) await actor.deleteEmbeddedDocuments("ActiveEffect", spent).catch(() => null);
   if ((hp <= 0) && !before.incapacitated) await actor.toggleStatusEffect("incapacitated", { active: true });
   for (const fn of after.after) await fn();
+  // Statuses the attacker's effects give on a hit (an Engineer's Spark Stone): Undo takes them back.
+  if (card.onHit?.length) {
+    const caster = card.attackerUuid ? fromUuidSync(card.attackerUuid) : null;
+    const created = await actor.createEmbeddedDocuments("ActiveEffect",
+      card.onHit.map(h => statusEffectData(h.statusId, h.value, "", { caster, expires: "endOfScene" })));
+    before.onHitEffects = created.map(e => e.id);
+    lines.push(card.onHit.map(h => `${h.name}: ${game.i18n.localize(`ETERNIA.StatusEffect.${h.statusId}`)}${h.value ? ` ${h.value}` : ""}`).join(", "));
+  }
 
   return postApplied(actor, card, before, lines, `−${before.hp - hp} HP`);
 }
@@ -598,8 +622,10 @@ async function undoApplied(message) {
   };
   if (actor.type === "character") updates["system.infos.hate"] = before.hate;
   await actor.update(updates);
-  // The statuses the application had ended ([Marked], [Asleep], [Last Stand]…) come back.
+  // The statuses the application had ended ([Marked], [Asleep], [Last Stand]…) come back; those it gave go.
   await restoreForUndo(actor, before);
+  const given = (before.onHitEffects ?? []).filter(id => actor.effects.has(id));
+  if (given.length) await actor.deleteEmbeddedDocuments("ActiveEffect", given);
   if (actor.statuses.has("incapacitated") !== before.incapacitated) {
     await actor.toggleStatusEffect("incapacitated", { active: before.incapacitated });
   }

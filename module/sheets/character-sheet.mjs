@@ -2,7 +2,7 @@
  * The parchment character sheet: the system's sheet logic (EterniaActorSheet) with new templates, laid
  * out like the Pathfinder 2e character sheet. A green banner on the left keeps what is used in play
  * (HP, Barrier, Hate, Fatigue, defenses, combat checks, statuses); the header has the name, Fate and
- * the CR; the tabs hold the character, the checks, the skills, the inventory, the effects and the bio.
+ * the CR; the tabs hold the character, the checks, the skills, the inventory, the profession, the effects and the bio.
  *
  * Every selector and data-action the parent class relies on is kept in templates/character/
  * (.item[data-item-id], .equip-slot, .inventory-list, .option-field, the status panel, tag input and
@@ -19,9 +19,10 @@ import { isEmpty, tagLabel, term } from "../i18n/terms.mjs";
 import { announceSettle, changeRank, colorOf, createPiece, isKuden, kudenContext, resourceOf, setColor, setResource } from "../kuden/pieces.mjs";
 import { EterniaActorSheet } from "./actor-sheet.mjs";
 import { allocateBonusPoints } from "../apps/stat-allocation.mjs";
+import { professionAction, professionContext } from "../professions/sheet.mjs";
 
 const DIR = `systems/eternia/templates/character`;
-const PARTIALS = ["sidebar", "character", "checks", "skills", "kuden", "inventory", "effects", "biography"];
+const PARTIALS = ["sidebar", "character", "checks", "skills", "kuden", "inventory", "profession", "effects", "biography"];
 
 const TABS = [
   { id: "character", icon: "fa-solid fa-address-card" },
@@ -30,6 +31,8 @@ const TABS = [
   // Kuden (house rule, module/kuden/): only with its setting on
   { id: "kuden", icon: "fa-solid fa-scroll" },
   { id: "inventory", icon: "fa-solid fa-backpack" },
+  // The profession (the subclass, module/professions/)
+  { id: "profession", icon: "fa-solid fa-hammer" },
   { id: "effects", icon: "fa-solid fa-person-rays" },
   { id: "biography", icon: "fa-solid fa-book-open-reader" }
 ];
@@ -188,7 +191,8 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       "kuden-settle": EterniaCharacterSheet.#onKudenSettle,
       "kuden-resource": EterniaCharacterSheet.#onKudenResource,
       "kuden-color-add": EterniaCharacterSheet.#onKudenColorAdd,
-      "kuden-color-remove": EterniaCharacterSheet.#onKudenColorRemove
+      "kuden-color-remove": EterniaCharacterSheet.#onKudenColorRemove,
+      "lhp": EterniaCharacterSheet.#onProfession
     }
   };
 
@@ -372,6 +376,9 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     // Kuden: Core, Resource, Kuden Points, pieces, color gifts
     lh.kuden = kuden ? kudenContext(actor, { editable: this.isEditable, term }) : null;
 
+    // Profession: crest, bench, chances, materials, talent, works, Rank ladder
+    lh.profession = professionContext(actor, { editable: this.isEditable });
+
     context.lh = lh;
     return context;
   }
@@ -517,6 +524,11 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
         name: actorName(this.actor), amount: fmt(Math.abs(after - before)), total: fmt(after)
       }))}</p></div>`
     });
+  }
+
+  /** The profession tab's buttons (data-op: professions/sheet.mjs). */
+  static #onProfession(event, target) {
+    return professionAction(this, target);
   }
 
   /* -------------------------------------------- */

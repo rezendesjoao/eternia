@@ -175,7 +175,8 @@
       "RollDamageDice": "Skill Damage/Recovery bonus (dice)",
       "SkillHateCost": "Skill Hate cost",
       "SkillRange": "Skill range (Sq)",
-      "SkillNote": "Skill note"
+      "SkillNote": "Skill note",
+      "Luck": "Max Fate (only the highest counts)"
     },
     "Sustained": {
       "Dialog": {
@@ -1290,7 +1291,8 @@
         "kuden": "Kuden",
         "inventory": "Inventory",
         "effects": "Effects & statuses",
-        "biography": "Biography"
+        "biography": "Biography",
+        "profession": "Profession"
       },
       "HitPoints": "Hit Points",
       "Max": "Max",
@@ -1621,7 +1623,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.3: the 8 races</strong></p><ul><li><strong>Humans, Elves, Flügel, Etherious, Oni, Exceed, Vargr and Kitsune</strong>, in the Races and Classes compendium.</li><li><strong>Two innate skills</strong> (one General, one Combat) come with the race. Humans pick their Blessing, Elves the element of their Pact and Flügel their Star.</li><li><strong>Two unlockable skills</strong> by leveling up: the General one from CR 3 and the Combat one from CR 5. The skill browser shows when each unlocks.</li><li><strong>All automatic:</strong> statuses, bonuses, choices and costs of the 32 racial skills.</li></ul><p>Since 0.2: 31 automated conditions. Hover a status to read its rule, or see the AS REGRAS journal, under IX. CONDIÇÕES DA ETERNIA.</p><p>First time in Eternia? The action HUD at the bottom of the screen replaces the macro hotbar: select your token and use it to roll checks, use skills and end your Main Process.</p>"
+      "Body": "<p><strong>What's new in Eternia 0.4: the professions</strong></p><ul><li><strong>Ten professions</strong>, the subclasses of Eternia: Blacksmith, Tailor, Artisan, Alchemist, Cook, Scribe, Engineer, Bard, Gatherer and Merchant, in the Races and Classes compendium.</li><li><strong>Profession tab</strong> on the sheet: Rank, EXP, attempts of the scenario, materials, works and each one's talent.</li><li><strong>The Workshop:</strong> choose the base, spend a Mysterious Item and roll 2D + Rank. From Uncommon to Perfect, with the enhancements you choose. Two equal items become a better one in a Fusion, and a Legendary takes a Star Shard.</li><li><strong>New items:</strong> the Engineer's Gadgets (bombs, nets, spark stones), which also become traps, and the Bard's Songs.</li></ul><p>The full rules are in the AS REGRAS journal, under X. PROFISSÕES.</p><p>Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -1745,7 +1747,8 @@
       "FatigueOnEnd": "{name}: {effect} ends and leaves Fatigue {n}.",
       "Actions": {
         "Fatigue": "{name}: Fatigue {before} → {after}.",
-        "Double": "{name}: {status} rises to {n}."
+        "Double": "{name}: {status} rises to {n}.",
+        "Remove": "{name}: no more {statuses}."
       },
       "Alone": "Alone"
     },
@@ -1753,6 +1756,584 @@
       "Title": "{name}: a new pick",
       "Hint": "{name} gives {n} more pick(s) from this list. Choose one:",
       "Add": "Add"
+    },
+    "Profession": {
+      "Name": {
+        "blacksmith": "Blacksmith",
+        "tailor": "Tailor",
+        "artisan": "Artisan",
+        "alchemist": "Alchemist",
+        "cook": "Cook",
+        "scribe": "Scribe",
+        "engineer": "Engineer",
+        "bard": "Bard",
+        "gatherer": "Gatherer",
+        "merchant": "Merchant"
+      },
+      "Crafts": {
+        "blacksmith": "Weapons, heavy and medium armor, shields",
+        "tailor": "Light armor, clothes and bags",
+        "artisan": "Accessories, charms and gems",
+        "alchemist": "Potions and toxins",
+        "cook": "Food",
+        "scribe": "Scrolls",
+        "engineer": "Bombs, nets and spark stones",
+        "bard": "Songs recorded in crystal",
+        "gatherer": "Mysterious Items and Star Shards",
+        "merchant": "Retouches and full-price sales"
+      },
+      "RankTitle": {
+        "1": "Novice",
+        "2": "Apprentice",
+        "3": "Journeyman",
+        "4": "Master",
+        "5": "Grandmaster"
+      },
+      "RankShort": "Rank {n}",
+      "Quality": {
+        "fail": "Failure",
+        "salvage": "Salvage",
+        "uncommon": "Uncommon",
+        "rare": "Rare",
+        "perfect": "Perfect",
+        "legendary": "Legendary"
+      },
+      "Kind": {
+        "weapon": "Weapon",
+        "heavyArmor": "Heavy or medium armor",
+        "lightArmor": "Light armor",
+        "shield": "Shield",
+        "bag": "Bag",
+        "accessory": "Accessory",
+        "charm": "Charm",
+        "gem": "Gem",
+        "potion": "Potion",
+        "toxin": "Toxin",
+        "food": "Food",
+        "scroll": "Scroll",
+        "gadget": "Gadget",
+        "song": "Song"
+      },
+      "Enh": {
+        "sharp": {
+          "name": "Sharp",
+          "text": "+{n} Attack Power",
+          "epithet": "of the Edge"
+        },
+        "runic": {
+          "name": "Runic",
+          "text": "+{n} Magic Power",
+          "epithet": "of Runes"
+        },
+        "heavy": {
+          "name": "Heavy",
+          "text": "+{n} Attack Power and −{m} Initiative",
+          "epithet": "of the Colossus"
+        },
+        "swift": {
+          "name": "Swift",
+          "text": "+{n} Initiative",
+          "epithet": "of the Wind"
+        },
+        "true": {
+          "name": "True",
+          "text": "+{n} Accuracy",
+          "epithet": "of the Falcon"
+        },
+        "elemental": {
+          "name": "Elemental",
+          "text": "The weapon's damage gets the [{tag}] tag",
+          "epithet": {
+            "Flame": "of Flames",
+            "Cold": "of Ice",
+            "Shock": "of Thunder",
+            "Radiance": "of Dawn"
+          }
+        },
+        "reinforced": {
+          "name": "Reinforced",
+          "text": "+{n} Physical Defense",
+          "epithet": "of the Wall"
+        },
+        "enchanted": {
+          "name": "Enchanted",
+          "text": "+{n} Magic Defense",
+          "epithet": "of Warding"
+        },
+        "vigorous": {
+          "name": "Vigorous",
+          "text": "+{n} Max HP",
+          "epithet": "of Vigor"
+        },
+        "agile": {
+          "name": "Agile",
+          "text": "+{n} Evasion",
+          "epithet": "of Evasion"
+        },
+        "light": {
+          "name": "Light",
+          "text": "+{n} Initiative",
+          "epithet": "of the Feather"
+        },
+        "resistant": {
+          "name": "Resistant",
+          "text": "[Cancel ({tag}): {n}] always",
+          "epithet": {
+            "Flame": "against Flames",
+            "Cold": "against Cold",
+            "Shock": "against Lightning",
+            "Radiance": "against Light",
+            "Blight": "against Blight",
+            "Poison": "against Poison"
+          }
+        },
+        "roomy": {
+          "name": "Roomy",
+          "text": "+{n} bag spaces",
+          "epithet": "of the Traveler"
+        },
+        "lucky": {
+          "name": "Lucky",
+          "text": "+{n} Max Fate (only the highest counts)",
+          "epithet": "of Luck"
+        },
+        "vital": {
+          "name": "Vital",
+          "text": "+{n} Max HP",
+          "epithet": "of Life"
+        },
+        "restoring": {
+          "name": "Restoring",
+          "text": "+{n} Recovery",
+          "epithet": "of Healing"
+        },
+        "arcane": {
+          "name": "Arcane",
+          "text": "+{n} Magic Power",
+          "epithet": "of the Arcane"
+        },
+        "sage": {
+          "name": "Sage's",
+          "text": "+{n} Knowledge and Analysis",
+          "epithet": "of the Sage"
+        },
+        "explorer": {
+          "name": "Explorer's",
+          "text": "+{n} Perception and Athletics",
+          "epithet": "of the Explorer"
+        },
+        "potent": {
+          "name": "Potent",
+          "epithet": "of Potency",
+          "heal": "+{n} healing",
+          "damage": "+{n} damage",
+          "fatigue": "Removes {n} more Fatigue",
+          "status": "+{n} to the Rating of [{status}]"
+        },
+        "double": {
+          "name": "Double",
+          "text": "Makes one more unit",
+          "epithet": "in Double"
+        },
+        "quick": {
+          "name": "Quick",
+          "text": "Used as a Minor Action",
+          "epithet": "of Quick Action"
+        },
+        "wide": {
+          "name": "Wide",
+          "text": "Affects up to {n} more targets",
+          "epithet": "for the Group"
+        },
+        "purifying": {
+          "name": "Purifying",
+          "text": "Also removes [Burning], [Poisoned] and [Freezing] from the target",
+          "epithet": "of Purity"
+        },
+        "invigorating": {
+          "name": "Invigorating",
+          "text": "The target also becomes [Focused]",
+          "epithet": "of Focus"
+        },
+        "fate": {
+          "name": "Thread of Fate",
+          "text": "+1D damage",
+          "epithet": "of Fate"
+        },
+        "aegis": {
+          "name": "Aegis",
+          "text": "Once per scene, cancels all the damage of an attack (use it before the damage)",
+          "epithet": "of the Aegis"
+        },
+        "starheart": {
+          "name": "Star Heart",
+          "text": "Starts every combat with [Last Stand]",
+          "epithet": "of the Stars"
+        }
+      },
+      "Talent": {
+        "sharpen": {
+          "name": "Sharpen",
+          "text": "In the Interlude, a weapon of the party gets +2 Attack Power (×2 from level 11, ×3 from 21) until the end of its owner's scenario. Spends an attempt.",
+          "effect": "+{n} Attack Power until the end of the scenario (sharpened by {name})."
+        },
+        "mend": {
+          "name": "Mend",
+          "text": "In the Interlude, up to 3 allies reduce their Fatigue by Rank × 3. Spends an attempt."
+        },
+        "cut": {
+          "name": "Cut",
+          "text": "One enhancement of each accessory you make counts double (except Lucky). Mark it with the gem when choosing."
+        },
+        "batch": {
+          "name": "Batch",
+          "text": "Each potion and toxin you make comes out in 2 copies at Rank 3 and in 3 copies at Rank 5."
+        },
+        "banquet": {
+          "name": "Banquet",
+          "text": "Turn 2 equal foods into one portion for the whole party: every player character eats."
+        },
+        "copy": {
+          "name": "Copy",
+          "text": "Write one of your skills on a scroll anyone uses once, with your Skill Rank, check and damage. Spends an attempt and gives 2 EXP."
+        },
+        "trap": {
+          "name": "Trap",
+          "text": "In the Setup (or out of combat), arm a bomb or a net on a square of the scene: it goes off on the first enemy that steps in."
+        },
+        "masterpiece": {
+          "name": "Masterpiece",
+          "text": "With two sixes in the Workshop, the song comes out en masse (every target) or instant (Timing Instant), your choice."
+        },
+        "gather": {
+          "name": "Gathering",
+          "text": "Roll 2D + Rank: 8 or more finds 1 Mysterious Item of the level you choose, 11 or more finds 2, and two sixes also find a Star Shard. Spends an attempt."
+        },
+        "retouch": {
+          "name": "Retouch",
+          "text": "Swap one enhancement of a crafted item for another of its list: 100 G, doubling with each retouch of the item. Spends an attempt and gives 5 EXP. You sell everything at full price."
+        }
+      },
+      "Why": {
+        "potent": "This item doesn't heal, deal damage, remove Fatigue or give a rated status.",
+        "quick": "Only for Major Action or Rest Time items.",
+        "wide": "Only for Self, Single or numbered targets.",
+        "hostile": "Only for items used on allies."
+      },
+      "Forge": {
+        "MadeBy": "made by {name} ({profession} Rank {rank})"
+      },
+      "Masterpiece": {
+        "Name": "Masterpiece",
+        "mass": "En masse: affects every target",
+        "instant": "Instant: used at any time",
+        "massHint": "The target becomes All",
+        "instantHint": "The Timing becomes Instant"
+      },
+      "Copy": {
+        "Name": "Scroll: {name}",
+        "Note": "Written by {name}: «{skill}» at Skill Rank {sr}. Whoever uses it gets the skill's effect once, with the check and damage of its writer."
+      },
+      "Banquet": {
+        "Name": "Banquet: {name}",
+        "Note": "Prepared by {name}: one portion for the whole party (every player character eats)."
+      },
+      "Chat": {
+        "RankUp": "{name} reached Rank {rank}!",
+        "RankBonus": "+{n} to the roll.",
+        "RankAttempts": "{n} attempts per scenario.",
+        "RankCap": "Items up to level {n}.",
+        "RankBatch": "Batch: each potion and toxin comes out in {n} copies.",
+        "Exp": "+{n} EXP",
+        "Left": "{n}/{max} attempts",
+        "Workshop": "Workshop: {item}",
+        "Outcome": {
+          "fail": "Failure: the Mysterious Item {n} was lost.",
+          "salvage": "Salvage: nothing came out, but the Mysterious Item {n} is back.",
+          "uncommon": "Uncommon: the work gets 1 enhancement.",
+          "rare": "Rare: the work gets 2 enhancements.",
+          "perfect": "Perfect: the work gets 3 enhancements."
+        },
+        "DoubleSix": "Two sixes: one step up!",
+        "Paid": "Base bought for {n} G.",
+        "Made": "{name} finished a work",
+        "Copies": "{n} copies.",
+        "Fused": "Fused {a} and {b}.",
+        "ShardSpent": "A Star Shard was spent.",
+        "Fusion": "Fusion",
+        "Retouch": "Retouch",
+        "Retouched": "{out} became {in} ({n} G).",
+        "Sale": "Sale",
+        "Sold": "Sold {item} for {n} G.",
+        "Gathering": "Gathering",
+        "Gather": {
+          "none": "Nothing found.",
+          "one": "Found 1 Mysterious Item {n}.",
+          "two": "Found {count} Mysterious Items {n}.",
+          "shard": "Found a Star Shard!"
+        },
+        "Sharpened": "{name}'s {item} gets +{n} Attack Power until the end of the scenario.",
+        "Mended": "Fatigue −{n}:",
+        "NoFatigue": "{name}: no change.",
+        "Banquet": "Two portions of {item} became a banquet for the party.",
+        "Copied": "«{skill}» was written on a scroll.",
+        "TrapArmed": "Armed {item} on a square of the scene.",
+        "TrapTriggered": "{item} went off on {name}!",
+        "TrapEffects": "Effects: {effects}."
+      },
+      "Error": {
+        "NoProfession": "This character doesn't have that profession.",
+        "NotYours": "Your profession doesn't make this item (or it is already magic).",
+        "Cap": "Items up to level {n} (this one needs Rank {rank}).",
+        "NoAttempts": "No attempts left this scenario.",
+        "Pending": "Finish the work on the bench first.",
+        "NoMaterial": "Missing a Mysterious Item {n}.",
+        "Gold": "Not enough gold ({n} G).",
+        "NoPending": "There is no work on the bench.",
+        "Slots": "Choose all the enhancements of the work.",
+        "Enhancement": "This enhancement doesn't fit this item.",
+        "Twice": "The item already has this enhancement.",
+        "CutOnce": "Only one enhancement can be cut.",
+        "Fusion": "Choose two equal items of the same quality.",
+        "NoShard": "Missing a Star Shard.",
+        "NotCrafted": "Only items made in a Workshop can be retouched.",
+        "NotForSale": "This item can't be sold (equipped, no price or not for sale).",
+        "NoWeapon": "Choose a character's weapon.",
+        "Sharpened": "This weapon is already sharpened.",
+        "Generic": "That didn't work.",
+        "NoTargets": "Choose up to 3 characters.",
+        "NoPair": "Missing 2 equal foods.",
+        "NoSkill": "Choose one of your skills.",
+        "NotTrap": "Only bombs and nets become traps.",
+        "NoScene": "Open a scene to arm the trap.",
+        "TrapPhase": "Traps are armed in the Setup (or out of combat).",
+        "Missing": "The profession is not in the compendium."
+      },
+      "Gather": {
+        "Result": {
+          "none": "Nothing",
+          "one": "1 Mysterious Item",
+          "two": "{count} Mysterious Items",
+          "shard": "Star Shard!"
+        },
+        "Chance": {
+          "none": "Nothing",
+          "one": "1 material",
+          "two": "2 materials",
+          "shard": "Star Shard"
+        }
+      },
+      "Mode": {
+        "craft": "Workshop",
+        "fusion": "Fusion",
+        "gather": "Gathering",
+        "retouch": "Retouch",
+        "sell": "Sell",
+        "sharpen": "Sharpen",
+        "mend": "Mend",
+        "banquet": "Banquet",
+        "copy": "Copy"
+      },
+      "ModeHint": {
+        "craft": "Make an item with enhancements",
+        "fusion": "Two equal ones become a better one",
+        "gather": "Look for materials",
+        "retouch": "Swap an enhancement",
+        "sell": "Sell at full price",
+        "sharpen": "+2 Attack Power on a weapon",
+        "mend": "Removes Fatigue from up to 3 allies",
+        "banquet": "2 foods become one for the party",
+        "copy": "A skill on a scroll"
+      },
+      "Stat": {
+        "attack": "Attack Power",
+        "magic": "Magic Power",
+        "accuracy": "Accuracy",
+        "initiative": "Initiative",
+        "pdef": "Physical Defense",
+        "mdef": "Magic Defense",
+        "space": "Spaces",
+        "timing": "Timing",
+        "target": "Target",
+        "heal": "Healing",
+        "damage": "Damage",
+        "fatigue": "Fatigue"
+      },
+      "Bench": {
+        "Title": "Bench",
+        "Hint": {
+          "craft": "Choose the base: an item of your bag (it becomes the work) or of the catalog (you pay its price on a success). Each attempt spends 1 Mysterious Item of the item's level, except on a Salvage.",
+          "fusion": "Two equal crafted items (same base and quality) become one of the next quality, with one more enhancement. Spends no attempt.",
+          "gather": "Choose the level of the Mysterious Item you look for and roll 2D + Rank.",
+          "retouch": "Choose an item made in a Workshop to swap one enhancement.",
+          "sell": "You sell at full price. Magic items give 2 EXP.",
+          "sharpen": "Choose a weapon of the party. Spends an attempt.",
+          "mend": "Choose up to 3 characters. Spends an attempt.",
+          "banquet": "Two equal foods become one portion for the whole party.",
+          "copy": "Choose one of your skills. Spends an attempt and gives 2 EXP."
+        },
+        "ChooseEnhancements": "Choose the enhancements",
+        "Continue": "Continue",
+        "Price": "{n} G",
+        "EmptyCatalog": "No catalog item for this profession.",
+        "EmptyInventory": "No item in the bag this profession makes. See the catalog.",
+        "Source": {
+          "inventory": "Bag",
+          "catalog": "Catalog"
+        },
+        "All": "All",
+        "EmptyFusion": "No pair of equal crafted items.",
+        "EmptyRetouch": "No item made in a Workshop in the bag.",
+        "EmptySell": "Nothing to sell.",
+        "SellFor": "Sells for {n} G.",
+        "Confirm": {
+          "sell": "Sell for {n} G",
+          "sharpen": "Sharpen (+{n})",
+          "mend": "Mend (−{n} Fatigue)",
+          "banquet": "Prepare the banquet",
+          "copy": "Write the scroll"
+        },
+        "MaterialName": "Mysterious Item {n}",
+        "Owned": "You have {n}",
+        "PickLevel": "Choose the level",
+        "Equipped": "Equipped",
+        "EmptySharpen": "No weapon in the party.",
+        "Fatigue": "Fatigue {n}",
+        "MendLine": "−{n} Fatigue on {count} character(s).",
+        "Pair": "Pair",
+        "EmptyBanquet": "No pair of equal foods.",
+        "BanquetLine": "One portion for each player character.",
+        "EmptyCopy": "No skill to copy.",
+        "CopyLine": "Written with your Skill Rank ({sr}), check and damage.",
+        "FusionRule": "Uncommon + Uncommon = Rare · Rare + Rare = Perfect.",
+        "FusionLegendary": "Perfect + Perfect + Star Shard = Legendary, with the legendary enhancement of its list.",
+        "Prompt": {
+          "craft": "Choose an item to forge.",
+          "retouch": "Choose an item.",
+          "sell": "Choose an item to sell.",
+          "sharpen": "Choose a weapon.",
+          "mend": "Choose the characters.",
+          "banquet": "Choose a pair of foods.",
+          "copy": "Choose a skill."
+        },
+        "CraftTitle": "{item}",
+        "FusionTitle": "Fusion: {item}",
+        "RetouchTitle": "Retouch: {item}",
+        "PickOut": "Choose the enhancement that leaves",
+        "Finish": {
+          "craft": "Finish the work",
+          "fusion": "Fuse",
+          "retouch": "Retouch ({n} G)"
+        },
+        "Lede": {
+          "craft": "Choose {n} enhancement(s) of the list. The name comes from the first one, but you can change it.",
+          "fusion": "The enhancements of one of the items stay; choose one more.",
+          "retouch": "Click the enhancement that leaves and choose another of the list."
+        },
+        "MendMax": "3 characters at most.",
+        "Reveal": {
+          "fail": "The Mysterious Item {n} was lost.",
+          "salvage": "Nothing came out, but the Mysterious Item {n} is back.",
+          "uncommon": "The work gets 1 enhancement.",
+          "rare": "The work gets 2 enhancements.",
+          "perfect": "The work gets 3 enhancements."
+        },
+        "Full": "Every slot is filled: take one out first.",
+        "Done": {
+          "craft": "Work finished",
+          "fusion": "Fusion finished",
+          "retouch": "Retouch finished",
+          "sell": "Sold",
+          "sharpen": "Weapon sharpened",
+          "mend": "Mended",
+          "banquet": "Banquet ready",
+          "copy": "Scroll written"
+        },
+        "Again": {
+          "craft": "New work",
+          "fusion": "Another fusion",
+          "retouch": "Another retouch",
+          "sell": "Sell another",
+          "sharpen": "Sharpen another",
+          "mend": "Back",
+          "banquet": "Another banquet",
+          "copy": "Another copy"
+        },
+        "Search": "Search…",
+        "Level": "level {n}",
+        "Have": "You have {n}",
+        "BasePrice": "From the catalog: pays {n} G on a success.",
+        "FromInventory": "From the bag: the item becomes the work on a success.",
+        "Batch": "Batch: comes out in {n} copies.",
+        "Possible": "Possible enhancements",
+        "Chances": "Chances (2D + Rank)",
+        "Forge": "Forge",
+        "Gather": "Gather",
+        "Keep": "Which enhancements stay",
+        "Cut": "Cut: counts double",
+        "Multiplier": "This item's numbers count ×{n} (high level).",
+        "LegendaryNote": "The two Perfect items and a Star Shard become a Legendary item: it gets the legendary enhancement of its list.",
+        "WorkName": "Name of the work",
+        "NoneYet": "No enhancement chosen.",
+        "Copies": "{n} copies",
+        "RetouchCost": "Costs {n} G.",
+        "Discard": "Discard the work (GM)",
+        "DoubleSix": "Two sixes: one step up!",
+        "RankUp": "New Rank!",
+        "Open": "Open the item",
+        "Close": "Close"
+      },
+      "Sheet": {
+        "ChooseTitle": "Choose a profession",
+        "ChooseHint": "The profession is the character's subclass: it makes items with enhancements, ranks up with EXP and has a talent of its own.",
+        "RankTip": "Rank {n}",
+        "Eyebrow": "Profession",
+        "SetExp": "Change the EXP",
+        "Attempts": "Attempts",
+        "AttemptsTip": "Attempts of the scenario: ending the scenario (GM Tools) gives them all back.",
+        "Refund": "Give back an attempt",
+        "PerScenario": "this scenario",
+        "Pending": "Work on the bench: {item}",
+        "PendingSlots": "choose {n} enhancement(s)",
+        "Finish": "Finish",
+        "Materials": "Materials",
+        "MaterialsNote": "Mysterious Item 1 to 10 and Star Shard",
+        "Shards": "Star Shard",
+        "Talent": "Talent",
+        "Always": "Always on",
+        "Traps": "Traps",
+        "Armed": "{n} armed",
+        "Arm": "Arm",
+        "NoTraps": "No bomb or net in the bag.",
+        "Works": "Works",
+        "NoWorks": "No item made in a Workshop in the bag.",
+        "Ladder": "Ranks",
+        "StepAttempts": "{n} attempts",
+        "StepCap": "up to level {n}",
+        "RollBonus": "to the roll",
+        "Cap": "max level",
+        "GatherCap": "max Mysterious Item",
+        "FullPrice": "on sales",
+        "AttemptsStat": "attempts",
+        "ExpNext": "{n} to Rank {rank}",
+        "ExpMax": "Highest Rank",
+        "Chances": "Workshop chances (2D + {n})",
+        "GatherChances": "Gathering chances (2D + {n})",
+        "CostsAttempt": "Spends 1 attempt",
+        "BatchNow": "Now: {n} copy(ies) per potion or toxin.",
+        "MendNow": "Now: −{n} Fatigue.",
+        "GatherNow": "Now: Mysterious Item up to level {n}.",
+        "RetouchNow": "Shops pay full price for your items.",
+        "ExpHint": "Workshop EXP: Failure 1 · Salvage 2 · Uncommon 3 · Rare 5 · Perfect 8. Retouch {retouch}.",
+        "Exp": "{name} EXP",
+        "Save": "Save"
+      },
+      "Trap": {
+        "Pick": "Click the square to arm {item} on (Esc cancels).",
+        "Armed": "Trap armed",
+        "Region": "Trap: {item}",
+        "Name": "Trap"
+      }
     }
   }
 }

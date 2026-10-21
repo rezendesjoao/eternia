@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.4.0 — 2026-10-21
+
+### Adicionado
+- **As 10 profissões da Eternia**, as subclasses, no compêndio Raças e Classes (pasta Profissões): Ferreiro,
+  Alfaiate, Artesão, Alquimista, Cozinheiro, Escriba, Engenheiro, Bardo, Coletor e Mercador. Cada uma sobe do Rank 1
+  ao 5 com EXP (+Rank na rolagem, Rank + 1 tentativas por cenário, itens até o nível Rank × 6) e tem um talento.
+- **Aba Profissão** na ficha: o brasão com o Rank, a EXP e as tentativas do cenário, os botões da bancada, as
+  chances da Oficina, os materiais, o talento, as armadilhas do Engenheiro, as obras e a escada de Ranks; sem
+  profissão, as dez para escolher.
+- **A bancada:** a Oficina (base da mochila ou do catálogo, 1 Item Misterioso, 2D + Rank, de Incomum [M1] a
+  Perfeito [M3], com os aprimoramentos escolhidos e o nome da obra), a Fusão (dois iguais viram um melhor; o
+  Lendário [M4] pede um Estilhaço Estelar), a Coleta, o Retoque e a Venda do Mercador, e os talentos Afiar, Remendo,
+  Banquete e Cópia. A rolagem aparece na tela e cada ação posta um cartão no chat.
+- **25 aprimoramentos** (armas, proteções, bolsas, acessórios e consumíveis) e 3 lendários (Fio do Destino, Égide e
+  Coração Estelar), automatizados nos números do item ou em efeitos dele; dobram do nível 11 e triplicam do 21.
+- **Itens novos** no compêndio de Itens: as Engenhocas (Bomba Incendiária, Bomba de Gelo, Rede e Pedra de Faísca) e as
+  Canções (Hino de Coragem, Marcha de Guerra, Balada do Pavor e Canção de Ninar), em três graus, e o Estilhaço
+  Estelar. Bombas e redes viram armadilhas: Regiões da cena que disparam no primeiro inimigo que entra.
+- Página **X. PROFISSÕES** no diário AS REGRAS e a referência técnica `docs/profissoes.md`.
+- Efeitos: tags de dano (`damageTags`), estados ao acertar (`onHit`, que o Desfazer tira), `consumeOn: "attack"`, a
+  ação de uso `removeStatus` (também em itens usáveis) e a chave `eternia.passive.luck` (Destino máximo que não se
+  soma). Estados de condição no início do combate (`sceneStatuses`).
+- Tag [Engenhoca] e os alvos Grupo e Todos.
+- Para macros: `game.eternia.professions` (`open`, `of`, `addExp`).
+- Aviso de novidades da 0.4.
+
+### Alterado
+- O Mercador vende pelo valor cheio também nas lojas.
+- O Item Misterioso ganhou imagem e texto de material das profissões.
+
 ## 0.3.0 — 2026-10-21
 
 ### Adicionado

@@ -137,9 +137,11 @@ export async function useItem(item) {
   // Effects go to the target right away, unless the target may resist them (opposed Check).
   const self = isSelfTarget(item);
   const hasEffects = item.effects.size > 0;
+  // Use actions (a purifying potion: conditions/effects.mjs) act with the effects, or alone.
+  const acts = hasEffects || !!item.getFlag("eternia", "useActions")?.length;
   const opposed = OPPOSED.includes(item.system.check?.vs);
   let applied = [];
-  if (hasEffects && !opposed) {
+  if (acts && !opposed) {
     const recipients = self ? [actor] : [...game.user.targets].map(t => t.actor).filter(Boolean);
     applied = await applyItemEffects(item, recipients);
   }
@@ -154,7 +156,7 @@ export async function useItem(item) {
     note,
     rollable: skillRollable(item),
     // Apply effects later: on a hit, or to targets chosen after using it
-    canApplyEffects: hasEffects && (opposed || (!self && !applied.length)),
+    canApplyEffects: acts && (opposed || (!self && !applied.length)),
     appliedNames: applied.join(", "),
     enrichedDescription: await foundry.applications.ux.TextEditor.implementation.enrichHTML(item.system.description ?? "", { relativeTo: item })
   };

@@ -176,7 +176,7 @@ export class EterniaActor extends Actor {
     dex.total = dex.jb + dex.value + dex.rc + dex.effect;
     int.total = int.jb + int.value + int.rc + int.effect;
     pow.total = pow.jb + pow.value + pow.rc + pow.effect;
-    fate.max = fate.rc + fate.effect;
+    fate.max = fate.rc + fate.effect + this._luck();
     hp.max = hp.jb + hp.mod + hp.rc - fati + hp.effect;
 
     // Attributes modifiers
@@ -203,6 +203,12 @@ export class EterniaActor extends Actor {
 
     // Defense, Speed and Initiative under the conditions (conditions/derived.mjs)
     applyConditionStats(this);
+  }
+
+  /** The highest "+Max Fate, one per character" of its effects (a crafted Lucky accessory, professions/). */
+  _luck() {
+    return (this.passiveBonuses ?? []).filter(b => b.key === "eternia.passive.luck")
+      .reduce((best, b) => Math.max(best, Math.trunc(Number(b.value) || 0)), 0);
   }
 
   /**

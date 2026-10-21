@@ -28,6 +28,9 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   um espaço com várias opções). As habilidades ficam em `skills-racial`, na pasta com o nome da raça: as inatas e as
   variantes levam `flags.eternia.choiceOnly` (só aparecem no navegador depois de concedidas) e as 2 desbloqueáveis
   `flags.eternia.minRank` (3 na Geral, 5 na de Combate).
+- Profissão = item `subclass` com `system.identifier` igual a um id de `module/professions/data.mjs`, na pasta
+  Profissões de `races-classes`. O progresso fica no personagem (`flags.eternia.professions.<id>`) e o item feito guarda
+  a base em `flags.eternia.craft` (veja `docs/profissoes.md`). Engenhocas e Canções ficam em `items` (pastas próprias).
 - Fórmulas de rolagem ficam no próprio campo: `damage.dice: "@sr+1"`, `damage.mod: "@cr*2+10"` (nunca em
   `diceFormula`/`formula`, que são derivados). Flags de efeito e de habilidade: veja `docs/condicoes.md`.
 - `npm run packs:build` (Foundry CLI, com o mundo fechado) gera `packs/`; `npm run packs:unpack` volta para `src/`.

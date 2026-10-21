@@ -1,0 +1,23 @@
+{{!-- Chat card of a profession action (module/professions/actions.mjs). --}}
+<div class="eternia chat-card lhauto-card lhp-card" style="--lhp-color: {{color}}{{#if qualityColor}}; --lhp-quality: {{qualityColor}}{{/if}}">
+	<header class="lhp-card-head">
+		<img src="{{img}}" alt="">
+		<div><h3>{{title}}</h3><span>{{subtitle}}</span></div>
+	</header>
+	{{#if dice}}
+	<div class="lhp-card-roll">
+		<span class="lhp-card-die">{{dice.[0]}}</span><span class="lhp-card-die">{{dice.[1]}}</span>
+		<span class="lhp-card-plus">+ {{rank}} =</span><b>{{total}}</b>
+	</div>
+	{{/if}}
+	{{#if qualityLabel}}<div class="lhp-card-quality">{{qualityLabel}}</div>{{/if}}
+	{{#each items as |item|}}
+	<div class="lhp-card-item">
+		<img src="{{item.img}}" alt="">
+		<div><span class="lhp-card-link">{{item.link}}</span>
+		{{#if item.enhancements.length}}<span class="lhp-card-enh">{{#each item.enhancements}}<i class="{{icon}}{{#if legendary}} legendary{{/if}}"></i>{{/each}}</span>{{/if}}</div>
+	</div>
+	{{/each}}
+	{{#if lines.length}}<ul class="lhp-card-lines">{{#each lines}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
+	{{#if footer}}<footer class="lhp-card-foot">{{footer}}</footer>{{/if}}
+</div>

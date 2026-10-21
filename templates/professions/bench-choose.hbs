@@ -1,0 +1,123 @@
+{{!-- The "choose" step of the bench: the list on the left (items, pairs, levels, characters, skills) and the side
+     panel with what was chosen and its button. --}}
+{{#*inline "lhpCard"}}
+<a class="lhp-pick{{#if selected}} selected{{/if}}{{#if locked}} locked{{/if}}" data-action="select" data-key="{{key}}"{{#if locked}} data-tooltip="{{lockHint}}"{{/if}}{{#if quality}} style="--lhp-quality: {{quality}}"{{/if}}>
+	<span class="lhp-pick-art{{#if quality}} magic{{/if}}"><img src="{{img}}" alt="">{{#if level}}<b class="lhp-pick-level">{{level}}</b>{{/if}}{{#if count}}<b class="lhp-pick-count">×{{count}}</b>{{/if}}</span>
+	<span class="lhp-pick-text"><span class="lhp-pick-name" data-tooltip="{{name}}">{{name}}</span>{{#if meta}}<span class="lhp-pick-meta">{{meta}}</span>{{/if}}</span>
+	{{#if material}}<span class="lhp-pick-mat{{#unless hasMaterial}} missing{{/unless}}" data-tooltip="{{localize 'ETERNIA.Profession.Bench.MaterialName' n=material}}"><i class="fa-solid fa-cube"></i>{{material}}</span>{{/if}}
+	{{#if locked}}<i class="fa-solid fa-lock lhp-pick-lock"></i>{{/if}}
+	{{#if checked}}<i class="fa-solid fa-circle-check lhp-pick-check"></i>{{/if}}
+</a>
+{{/inline}}
+<div class="lhp-columns">
+	<div class="lhp-left">
+		<p class="lhp-hint"><i class="fa-solid fa-circle-info"></i> {{hint}}</p>
+		{{#if sources}}
+		<div class="lhp-toolbar">
+			<div class="lhp-segment">
+				{{#each sources as |s|}}<a class="{{#if s.active}}active{{/if}}" data-action="source" data-source="{{s.id}}">{{s.label}}{{#if s.count}} <b>{{s.count}}</b>{{/if}}</a>{{/each}}
+			</div>
+			{{#if filters}}
+			<div class="lhp-filters">
+				{{#each filters as |f|}}<a class="lhp-filter{{#if f.active}} active{{/if}}" data-action="filter" data-filter="{{f.id}}">{{f.label}}</a>{{/each}}
+			</div>
+			{{/if}}
+		</div>
+		{{/if}}
+		{{#if list.searchable}}
+		<div class="lhp-search-box"><i class="fa-solid fa-magnifying-glass"></i><input class="lhp-search" type="search" value="{{list.search}}" placeholder="{{localize 'ETERNIA.Profession.Bench.Search'}}"></div>
+		{{/if}}
+		<div class="lhp-list{{#if list.grid}} {{list.grid}}{{/if}}">
+			{{#if list.groups}}
+				{{#each list.groups as |g|}}
+				<h4 class="lhp-group"><img src="{{g.img}}" alt="">{{g.name}}</h4>
+				<div class="lhp-picks">{{#each g.items}}{{> lhpCard}}{{/each}}</div>
+				{{else}}
+				<p class="lhp-empty">{{list.empty}}</p>
+				{{/each}}
+			{{else}}
+				<div class="lhp-picks">
+					{{#each list.items}}{{> lhpCard}}{{else}}<p class="lhp-empty">{{list.empty}}</p>{{/each}}
+				</div>
+			{{/if}}
+		</div>
+	</div>
+
+	<aside class="lhp-side">
+		<div class="lhp-side-scroll">
+		{{#with side as |s|}}
+
+		{{#if s.craft}}
+			{{#if s.empty}}
+			<div class="lhp-anvil-empty"><i class="fa-solid fa-hammer"></i><p>{{localize "ETERNIA.Profession.Bench.Prompt.craft"}}</p></div>
+			{{else}}
+			<div class="lhp-forge">
+				<div class="lhp-forge-art"><img src="{{s.img}}" alt=""></div>
+				<h3>{{s.name}}</h3>
+				<span class="lhp-forge-kind">{{s.kind}} · {{localize "ETERNIA.Profession.Bench.Level" n=s.level}}</span>
+				{{#if s.stats.length}}<ul class="lhp-forge-stats">{{#each s.stats}}<li><span>{{label}}</span><b>{{value}}</b></li>{{/each}}</ul>{{/if}}
+				<div class="lhp-material{{#unless s.have}} missing{{/unless}}">
+					<img src="icons/commodities/treasure/puzzle-box-glowing-blue.webp" alt="">
+					<div><b>{{s.materialName}}</b><span>{{localize "ETERNIA.Profession.Bench.Have" n=s.have}}</span></div>
+					<i class="fa-solid {{#if s.have}}fa-circle-check{{else}}fa-circle-xmark{{/if}}"></i>
+				</div>
+				{{#if s.price}}<p class="lhp-forge-note"><i class="fa-solid fa-coins"></i> {{localize "ETERNIA.Profession.Bench.BasePrice" n=s.price}}</p>{{/if}}
+				{{#if s.fromInventory}}<p class="lhp-forge-note"><i class="fa-solid fa-backpack"></i> {{localize "ETERNIA.Profession.Bench.FromInventory"}}</p>{{/if}}
+				{{#if s.copies}}<p class="lhp-forge-note"><i class="fa-solid fa-flask-vial"></i> {{localize "ETERNIA.Profession.Bench.Batch" n=s.copies}}</p>{{/if}}
+				<details class="lhp-forge-list">
+					<summary>{{localize "ETERNIA.Profession.Bench.Possible"}}</summary>
+					<ul>{{#each s.list}}<li><i class="{{icon}}"></i><b>{{name}}</b> {{text}}</li>{{/each}}</ul>
+				</details>
+			</div>
+			{{/if}}
+			<div class="lhp-mini-chances">
+				<span class="lhp-mini-label">{{localize "ETERNIA.Profession.Bench.Chances"}}</span>
+				<div class="lhp-chance-bar">{{#each s.chances as |c|}}<span class="lhp-chance-seg" style="width: {{c.width}}%; --c: {{c.color}}" data-tooltip="{{c.label}}: {{c.pct}}%"></span>{{/each}}</div>
+			</div>
+			{{#unless s.empty}}
+			<button type="button" class="lhp-big-button" data-action="roll" {{#unless s.can}}disabled data-tooltip="{{s.why}}"{{/unless}}>
+				<i class="fa-solid fa-hammer"></i> {{localize "ETERNIA.Profession.Bench.Forge"}}
+			</button>
+			{{#unless s.can}}<p class="lhp-why"><i class="fa-solid fa-triangle-exclamation"></i> {{s.why}}</p>{{/unless}}
+			{{/unless}}
+		{{/if}}
+
+		{{#if s.fusion}}
+			<div class="lhp-fusion-rules">
+				<i class="fa-solid fa-object-group"></i>
+				{{#each s.lines}}<p>{{this}}</p>{{/each}}
+				<div class="lhp-material{{#unless s.shards}} missing{{/unless}}">
+					<img src="icons/magic/light/explosion-star-glow-blue-purple.webp" alt="">
+					<div><b>{{localize "ETERNIA.Profession.Sheet.Shards"}}</b><span>{{localize "ETERNIA.Profession.Bench.Have" n=s.shards}}</span></div>
+				</div>
+			</div>
+		{{/if}}
+
+		{{#if s.gather}}
+			<div class="lhp-gather">
+				<div class="lhp-forge-art"><img src="icons/commodities/treasure/puzzle-box-glowing-blue.webp" alt="">{{#if s.level}}<b class="lhp-pick-level">{{s.level}}</b>{{/if}}</div>
+				<h3>{{#if s.level}}{{localize "ETERNIA.Profession.Bench.MaterialName" n=s.level}}{{else}}{{localize "ETERNIA.Profession.Bench.PickLevel"}}{{/if}}</h3>
+				<ul class="lhp-gather-chances">{{#each s.chances}}<li class="g-{{id}}"><span>{{label}}</span><b>{{pct}}%</b></li>{{/each}}</ul>
+				<button type="button" class="lhp-big-button" data-action="roll" {{#unless s.can}}disabled{{/unless}}><i class="fa-solid fa-person-digging"></i> {{localize "ETERNIA.Profession.Bench.Gather"}}</button>
+				{{#unless s.can}}<p class="lhp-why">{{s.why}}</p>{{/unless}}
+			</div>
+		{{/if}}
+
+		{{#if s.simple}}
+			{{#if s.empty}}
+			<div class="lhp-anvil-empty"><i class="{{#if (eq s.mode 'sell')}}fa-solid fa-coins{{else}}fa-solid fa-hand-pointer{{/if}}"></i><p>{{s.prompt}}</p></div>
+			{{else}}
+			<div class="lhp-forge">
+				<div class="lhp-forge-art">{{#if s.img}}<img src="{{s.img}}" alt="">{{else}}<i class="{{s.icon}}"></i>{{/if}}</div>
+				<h3>{{s.name}}</h3>
+				{{#each s.lines}}<p class="lhp-forge-note">{{this}}</p>{{/each}}
+				{{#if s.attempt}}<p class="lhp-forge-note"><i class="fa-solid fa-hammer"></i> {{localize "ETERNIA.Profession.Sheet.CostsAttempt"}}</p>{{/if}}
+			</div>
+			<button type="button" class="lhp-big-button" data-action="confirm" {{#if (eq s.ready false)}}disabled{{/if}}><i class="fa-solid fa-check"></i> {{s.confirm}}</button>
+			{{/if}}
+		{{/if}}
+
+		{{/with}}
+		</div>
+	</aside>
+</div>

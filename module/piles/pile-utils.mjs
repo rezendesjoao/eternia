@@ -74,8 +74,11 @@ export function buyPrice(merchant, item) {
   return Math.max(0, Math.ceil((Number(item.system.price) || 0) * mult));
 }
 
+/** A character with the Merchant profession (professions/) sells at full price. */
+const sellsAtFullPrice = actor => !!actor?.items?.some(i => (i.type === "subclass") && (i.system.identifier === "merchant"));
+
 export function sellPrice(merchant, item) {
-  const mult = Number(merchant.system.merchant?.sellMultiplier ?? 0.5);
+  const mult = Math.max(Number(merchant.system.merchant?.sellMultiplier ?? 0.5), sellsAtFullPrice(item.actor) ? 1 : 0);
   return Math.max(0, Math.floor((Number(item.system.price) || 0) * mult));
 }
 
