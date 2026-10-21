@@ -1,3 +1,4 @@
+import { applyConditionStats } from "../conditions/derived.mjs";
 import { DEFAULT_IMAGES, EQUIP_TYPES, PILE_TYPE, SPACE_TYPES } from "../piles/pile-config.mjs";
 import { syncChestImage } from "../piles/piles.mjs";
 import { completeChecksChange, legacyChecksUpdate, prepareMonsterChecks } from "../helpers/monster-checks.mjs";
@@ -136,7 +137,9 @@ export class EterniaActor extends Actor {
     // (They have no class/race/infos, so the character computations below would throw.)
     if (this.type === 'monster') {
       this.applyActiveEffects(ATTRIBUTES_PHASE);
-      return prepareMonsterChecks(system);
+      prepareMonsterChecks(system);
+      // Defense, Speed and Initiative under the conditions (conditions/derived.mjs)
+      return applyConditionStats(this);
     }
     if (this.type !== 'character') return;
 
@@ -194,6 +197,9 @@ export class EterniaActor extends Actor {
     // have their own slots and don't use inventory space)
     system.inventory.space = this.items.filter(item => SPACE_TYPES.includes(item.type)
       && ((item.system.equipped !== true) || !EQUIP_TYPES.includes(item.type))).length;
+
+    // Defense, Speed and Initiative under the conditions (conditions/derived.mjs)
+    applyConditionStats(this);
   }
 
   /**

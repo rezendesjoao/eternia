@@ -2,6 +2,7 @@ import { diceFormula } from "./dice.mjs";
 import { createAttackCard, createDamageCard, findAttackMessage, isAttack } from "./combat-cards.mjs";
 import { evaluateFormula, formulaData, formulaLabel, isFormula } from "./effect-formulas.mjs";
 import { rollBonuses, rollBonusesLabel } from "./roll-bonuses.mjs";
+import { applyModifier, checkModifier, consumeAfterRoll, damageModifier } from "../conditions/rolls.mjs";
 
 /**
  * Skill Check and Damage, set directly on the skill sheet:
@@ -295,14 +296,26 @@ export async function rollSkill(item, which, { targets } = {}) {
     dice += bonus.dice;
     mod += bonus.mod;
   }
-  const bonusText = rollBonusesLabel(bonuses);
+  // The roller's conditions (conditions/rolls.mjs): penalties and bonuses to the Check, damage to the Damage Roll.
+  const roller = actor ?? item.actor;
+  const condition = (which === "check")
+    ? checkModifier(roller, { item, stat: values.stat, targets: [...game.user.targets].map(t => t.actor).filter(Boolean) })
+    : damageModifier(roller, item);
+  if (which === "check") ({ dice, mod } = (dice > 0) ? applyModifier({ dice, mod }, condition) : { dice, mod: mod + condition.mod });
+  else mod += condition.mod;
+  const bonusText = [rollBonusesLabel(bonuses), condition.text].filter(Boolean).join(", ");
   const formula = diceFormula({ dice, mod });
 
-  if (attack) return createAttackCard(item, actor, formula, flavor, { bonuses: bonusText });
-  if (which === "damage") {
+  let result;
+  if (attack) result = await createAttackCard(item, actor, formula, flavor, { bonuses: bonusText });
+  else if (which === "damage") {
     const defaultTargets = (targets?.length && !game.user.targets.size) ? targets : undefined;
-    return createDamageCard(item, actor, formula, flavor, attackMessage, defaultTargets, { bonuses: bonusText });
+    result = await createDamageCard(item, actor, formula, flavor, attackMessage, defaultTargets, { bonuses: bonusText });
   }
-  if (bonusText) flavor += ` (${bonusText})`;
-  return new Roll(formula).toMessage({ speaker: ChatMessage.getSpeaker({ actor }), flavor });
+  else {
+    if (bonusText) flavor += ` (${bonusText})`;
+    result = await new Roll(formula).toMessage({ speaker: ChatMessage.getSpeaker({ actor }), flavor });
+  }
+  if (result) await consumeAfterRoll(roller, condition.consume);
+  return result;
 }

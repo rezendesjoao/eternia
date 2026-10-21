@@ -18,6 +18,9 @@
  * The core macro hotbar can give its place to the HUD (client setting "hotbar"): hidden, or hidden only while the
  * HUD is on screen. It is only hidden with CSS, so the macro keys (1–0) keep working.
  */
+import { recover } from "../conditions/recovery.mjs";
+import { removeStatuses } from "../conditions/rules.mjs";
+import { applyModifier, checkModifier, consumeAfterRoll } from "../conditions/rolls.mjs";
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { diceFormula } from "../helpers/dice.mjs";
 import { useItem } from "../helpers/item-use.mjs";
@@ -53,6 +56,7 @@ export class ActionHud extends HandlebarsApplicationMixin(ApplicationV2) {
       "lhh-dodge": ActionHud.#onDodge,
       "lhh-remove-bad": ActionHud.#onRemoveBad,
       "lhh-status-off": ActionHud.#onStatusOff,
+      "lhh-status-recover": ActionHud.#onStatusRecover,
       "lhh-effect-off": ActionHud.#onEffectOff,
       "lhh-resource": ActionHud.#onResource
     }
@@ -351,7 +355,13 @@ export class ActionHud extends HandlebarsApplicationMixin(ApplicationV2) {
     const id = target.closest("[data-status]")?.dataset.status;
     if (!actor?.isOwner || !id) return;
     if (id === "fatigue") return actor.update({ "system.infos.fatigue": 0 });
-    return actor.toggleStatusEffect(id, { active: false });
+    return removeStatuses(actor, [id]);
+  }
+
+  /** End a status with the action of the Main Process it takes (conditions/recovery.mjs). */
+  static async #onStatusRecover(event, target) {
+    const id = target.closest("[data-status]")?.dataset.status;
+    if (this.actor?.isOwner && id) return recover(this.actor, id);
   }
 
   static async #onEffectOff(event, target) {
@@ -477,10 +487,14 @@ export async function rollActorCheck(actor, token, key, { ask = false } = {}) {
     });
     if (mod === null) return null;
   }
-  return new Roll(diceFormula({ dice: check.dice, mod: check.mod + mod })).toMessage({
+  // The actor's conditions (conditions/rolls.mjs)
+  const condition = checkModifier(actor, { stat: key });
+  const message = await new Roll(diceFormula(applyModifier({ dice: check.dice, mod: check.mod + mod }, condition))).toMessage({
     speaker: ChatMessage.getSpeaker({ actor, token: token?.document }),
-    flavor: title
+    flavor: condition.text ? `${title} (${condition.text})` : title
   });
+  await consumeAfterRoll(actor, condition.consume);
+  return message;
 }
 
 /* -------------------------------------------- */

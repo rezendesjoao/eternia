@@ -19,6 +19,8 @@ import { listStatusEntries } from "./statuses.mjs";
 import { mainWeapon, parseRange } from "./hands.mjs";
 import { skillModifiers } from "./roll-bonuses.mjs";
 import { hateRank } from "./effect-conditions.mjs";
+import { applyModifier, consumeAfterRoll, dodgeModifier } from "../conditions/rolls.mjs";
+import { afterDamage, beforeDamage, canHeal, markDamage, restoreForUndo, snapshotForUndo } from "../conditions/damage.mjs";
 
 const TEMPLATES = {
   attack: "systems/eternia/templates/chat/attack-card.hbs",
@@ -114,20 +116,29 @@ export function targetEntries(tokens) {
 }
 
 /**
- * Roll a target's Dodge Check: its Evasion / Resistance, -1D when [Dazed] (min 1D),
- * +2 for a [Hate Under] character.
+ * Roll a target's Dodge Check: its Evasion / Resistance, with the dice its conditions take or give (min 1D, see
+ * conditions/rolls.mjs: [Dazed], [Paralyzed], [Marked]…), +2 for a [Hate Under] character. An [Asleep] target
+ * fails it outright.
  * @param {Actor} actor
  * @param {"evasion"|"resistance"} vs
+ * @param {object} [context]
+ * @param {Actor} [context.attacker]
+ * @param {Item} [context.item]   The attack
  */
-async function rollDodge(actor, vs) {
+async function rollDodge(actor, vs, { attacker = null, item = null } = {}) {
   const check = actor.system.checks?.[vs] ?? {};
-  let dice = toInt(check.dice);
-  let mod = toInt(actor.type === "monster" ? check.mod : check.total);
-  if (actor.system["bad-status"]?.dazed) dice = Math.max(dice - 1, 1);
+  const condition = dodgeModifier(actor, { vs, attacker, item });
+  if (condition.autoFail) {
+    const roll = await new Roll("0").evaluate();
+    const asleep = game.i18n.localize("ETERNIA.StatusEffect.asleep");
+    return { roll, dodge: { total: 0, critical: false, fumble: true, formula: "—", results: "", conditions: asleep } };
+  }
+  let { dice, mod } = applyModifier({ dice: toInt(check.dice), mod: toInt(actor.type === "monster" ? check.mod : check.total) }, condition);
   const hateUnder = hateRank(actor) === "under";
   if (hateUnder) mod += 2;
   const roll = await new Roll(diceFormula({ dice, mod })).evaluate();
-  return { roll, dodge: { ...rollOutcome(roll, actor), hateUnder } };
+  await consumeAfterRoll(actor, condition.consume);
+  return { roll, dodge: { ...rollOutcome(roll, actor), hateUnder, conditions: condition.text } };
 }
 
 /* -------------------------------------------- */
@@ -315,7 +326,7 @@ export async function createAttackCard(item, attacker, formula, flavor, { bonuse
   for (const entry of targets) {
     const actor = targetActor(entry);
     if (auto || (actor?.type !== "monster")) continue;
-    const { roll, dodge } = await rollDodge(actor, vs);
+    const { roll, dodge } = await rollDodge(actor, vs, { attacker: attacker ?? item.actor, item });
     rolls.push(roll);
     entry.dodge = dodge;
     entry.hit = resolveHit(attack, dodge);
@@ -352,7 +363,8 @@ async function onRollDodge(message, index) {
   const target = data?.targets?.[index];
   const actor = target && targetActor(target);
   if (!actor?.isOwner || target.dodge) return;
-  const { roll, dodge } = await rollDodge(actor, data.vs);
+  const item = data.itemUuid ? fromUuidSync(data.itemUuid) : null;
+  const { roll, dodge } = await rollDodge(actor, data.vs, { attacker: item?.actor ?? null, item });
   await game.dice3d?.showForRoll(roll, game.user, true);
   await updateCardTarget(message, "attack", index, { dodge, hit: resolveHit(data.attack, dodge) });
 }
@@ -451,11 +463,17 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
     pursuits: [...(bad.pursuits ?? [])].map(toInt),
     hate: toInt(system.infos?.hate),
     overconfident: !!bad.overconfident,
-    incapacitated: actor.statuses.has("incapacitated")
+    incapacitated: actor.statuses.has("incapacitated"),
+    ...snapshotForUndo(actor)
   };
   const lines = [];
 
   if (mode === "heal") {
+    // A [Cursed] character recovers no HP (conditions/damage.mjs).
+    if (!canHeal(actor)) {
+      lines.push(game.i18n.format("ETERNIA.Conditions.CursedNoHeal", { name: actor.token?.name ?? actor.name }));
+      return postApplied(actor, card, before, lines, "+0 HP");
+    }
     const hp = Math.min(before.hp + card.total, toInt(system.health.max));
     await actor.update({ "system.health.value": hp });
     lines.push(`${L("Applied.Heal")}: +${hp - before.hp} HP`);
@@ -481,10 +499,14 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   const steps = [`${amount}`];
   const tags = [...(card.tags ?? []), ...(TYPE_TAGS[direct ? "direct" : card.type] ?? [])];
   const tagLabel = (status, entry) => game.i18n.localize(`ETERNIA.StatusEffect.${status}`) + (entry.tag ? ` (${entry.tag})` : "");
-  if (!direct) {
-    const defense = defenseOf(actor, card.type);
+  // The defender's conditions: [Exposed] (no Defense, no Cancel), [Intangible] (no physical damage).
+  const condition = beforeDamage(actor, card, direct);
+  steps.push(...condition.notes.map(note => `(${note})`));
+  if (condition.immune) amount = 0;
+  if (!direct && !condition.immune) {
+    const defense = condition.noDefense ? 0 : defenseOf(actor, card.type);
     if (defense) steps.push(`− ${defense} ${L(card.type === "magical" ? "Applied.MDef" : "Applied.PDef")}`);
-    const cancel = bestTagged(bad, "cancels", "cancel", tags);
+    const cancel = condition.noCancel ? null : bestTagged(bad, "cancels", "cancel", tags);
     if (cancel) steps.push(`− ${cancel.value} ${tagLabel("cancel", cancel)}`);
     amount -= defense + (cancel?.value ?? 0);
   }
@@ -513,6 +535,12 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
     }
     const weakness = bestTagged(bad, "weaknesses", "weakness", tags);
     if (weakness) extra(tagLabel("weakness", weakness), weakness.value);
+    // [Marked]: its Rating as direct damage, then the mark ends.
+    const mark = markDamage(actor);
+    if (mark > 0) {
+      extra(game.i18n.localize("ETERNIA.StatusEffect.marked"), mark);
+      before.marked = true;
+    }
     // A character who fails a Dodge Check against an enemy loses 1 Hate.
     if ((actor.type === "character") && (card.attackerType === "monster") && (before.hate > 0)) {
       updates["system.infos.hate"] = before.hate - 1;
@@ -520,15 +548,23 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
     }
   }
 
-  const hp = Math.max(before.hp - hpLoss, 0);
+  // The defender's conditions after the HP loss: [Bond], [Last Stand], waking up, [Mirror]… (conditions/damage.mjs)
+  const after = afterDamage(actor, card, {
+    hp: Math.max(before.hp - hpLoss, 0), hpLoss, absorbed: before.barrier - barrier, marked: !!before.marked
+  });
+  lines.push(...after.lines);
+  const hp = after.hp;
+  Object.assign(updates, after.updates);
   updates["system.health.value"] = hp;
   updates["system.bad-status.barrier"] = barrier;
   // [Overconfident] ends when the character loses HP.
   if (hpLoss > 0 && before.overconfident) updates["system.bad-status.overconfident"] = false;
   await actor.update(updates);
+  if (after.end.length) await removeConditionStatuses(actor, after.end);
   if ((hp <= 0) && !before.incapacitated) await actor.toggleStatusEffect("incapacitated", { active: true });
+  for (const fn of after.after) await fn();
 
-  return postApplied(actor, card, before, lines, `−${hpLoss} HP`);
+  return postApplied(actor, card, before, lines, `−${before.hp - hp} HP`);
 }
 
 /** Post the summary of an application, with the values needed to undo it. */
@@ -558,6 +594,8 @@ async function undoApplied(message) {
   };
   if (actor.type === "character") updates["system.infos.hate"] = before.hate;
   await actor.update(updates);
+  // The statuses the application had ended ([Marked], [Asleep], [Last Stand]…) come back.
+  await restoreForUndo(actor, before);
   if (actor.statuses.has("incapacitated") !== before.incapacitated) {
     await actor.toggleStatusEffect("incapacitated", { active: before.incapacitated });
   }
@@ -633,4 +671,10 @@ function _onRenderChatMessage(message, html) {
       undoApplied(message);
     });
   });
+}
+
+/** End statuses that have no field (their effects are deleted). */
+async function removeConditionStatuses(actor, ids) {
+  const effects = actor.effects.filter(e => [...e.statuses].some(id => ids.includes(id)));
+  if (effects.length) await actor.deleteEmbeddedDocuments("ActiveEffect", effects.map(e => e.id));
 }

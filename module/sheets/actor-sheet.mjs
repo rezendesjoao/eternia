@@ -1,3 +1,4 @@
+import { applyModifier, checkModifier, consumeAfterRoll } from "../conditions/rolls.mjs";
 import { useItem } from "../helpers/item-use.mjs";
 import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/effects.mjs";
 import { activateTagInput } from "../helpers/tags.mjs";
@@ -712,12 +713,17 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
    * @param {number} [mod]        Situational modifier
    * @returns {Promise<ChatMessage>}
    */
-  rollSkill(skillName, dice, bonus, mod = 0) {
-    const formula = diceFormula({ dice, mod: (Number(bonus) || 0) + (Number(mod) || 0) });
-    return new Roll(formula).toMessage({
+  async rollSkill(skillName, dice, bonus, mod = 0) {
+    // The character's conditions: [Confused], [Blinded], [Focused]… (conditions/rolls.mjs)
+    const condition = checkModifier(this.actor, { stat: String(skillName).toLowerCase() });
+    const values = applyModifier({ dice: Number(dice) || 0, mod: (Number(bonus) || 0) + (Number(mod) || 0) }, condition);
+    const flavor = `${game.i18n.localize("ETERNIA.WindowTitle.AbilityCheck")} - ${game.i18n.localize(`ETERNIA.Check.${skillName}`)}`;
+    const message = await new Roll(diceFormula(values)).toMessage({
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: `${game.i18n.localize("ETERNIA.WindowTitle.AbilityCheck")} - ${game.i18n.localize(`ETERNIA.Check.${skillName}`)}`
+      flavor: condition.text ? `${flavor} (${condition.text})` : flavor
     });
+    await consumeAfterRoll(this.actor, condition.consume);
+    return message;
   }
 
   /* -------------------------------------------- */

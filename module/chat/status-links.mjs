@@ -14,6 +14,7 @@ import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { request } from "../piles/pile-socket.mjs";
 import { amount } from "../automation/use.mjs";
 import { actorName, escape, toInt } from "../helpers/utils.mjs";
+import { statusDescription } from "../helpers/statuses.mjs";
 
 /** The statuses that can be applied from a link, and how their value works. */
 const STATUSES = {
@@ -21,11 +22,29 @@ const STATUSES = {
   decay: { rated: true }, regen: { rated: true }, barrier: { rated: true },
   pursuit: { rated: true },
   weakness: { rated: true, tagged: true },
-  cancel: { rated: true, tagged: true }
+  cancel: { rated: true, tagged: true },
+  // The conditions of Eternia (conditions/catalog.mjs)
+  paralyzed: {}, asleep: {}, rooted: {}, prone: {}, slowed: {}, grappled: {},
+  silenced: {}, disarmed: {}, blinded: {}, sealed: { tagged: true },
+  frightened: {}, charmed: {}, taunted: {}, berserk: { rated: true },
+  burning: { rated: true }, poisoned: { rated: true }, freezing: { rated: true }, shocked: { rated: true }, cursed: {},
+  exposed: {}, fissured: { rated: true }, marked: { rated: true }, doom: { rated: true },
+  hasted: {}, empowered: { rated: true }, focused: {}, mirror: { rated: true }, intangible: {}, lastStand: {},
+  awakened: { rated: true }, bond: {}
 };
 
 /** Extra names some texts use. */
-const SYNONYMS = { regeneration: "regen", pursuits: "pursuit", weaknesses: "weakness", cancellation: "cancel" };
+const SYNONYMS = {
+  regeneration: "regen", pursuits: "pursuit", weaknesses: "weakness", cancellation: "cancel",
+  paralysis: "paralyzed", paralisia: "paralyzed", sleep: "asleep", sono: "asleep", root: "rooted", grapple: "grappled",
+  silence: "silenced", silêncio: "silenced", disarm: "disarmed", blind: "blinded", cegueira: "blinded", seal: "sealed",
+  selo: "sealed", fear: "frightened", charm: "charmed", encanto: "charmed", taunt: "taunted", provocação: "taunted",
+  rage: "berserk", burn: "burning", queimadura: "burning", poison: "poisoned", veneno: "poisoned", freeze: "freezing",
+  frozen: "freezing", congelado: "freezing", shock: "shocked", choque: "shocked", curse: "cursed", maldição: "cursed",
+  crack: "fissured", fissura: "fissured", mark: "marked", marca: "marked", sentence: "doom", haste: "hasted",
+  focus: "focused", foco: "focused", reflect: "mirror", reflexo: "mirror", "último fôlego": "lastStand",
+  "last stand": "lastStand", awaken: "awakened", transformação: "awakened", link: "bond"
+};
 
 let pattern = null;
 let names = null;
@@ -101,7 +120,7 @@ function linkNode(node) {
     link.dataset.status = id;
     if (value) link.dataset.value = value;
     if (tag) link.dataset.tag = tag;
-    link.dataset.tooltipText = L("StatusLink.Hint");
+    link.dataset.tooltipText = [statusDescription(id), L("StatusLink.Hint")].filter(Boolean).join(" · ");
     link.innerHTML = `<i class="fa-solid fa-hand-sparkles"></i>${escape(match[0])}`;
     parts.push(link);
     last = match.index + match[0].length;

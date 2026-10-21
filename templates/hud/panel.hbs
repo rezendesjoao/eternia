@@ -77,7 +77,8 @@
 		<ul class="lhh-statuses">
 			{{#each statuses}}
 			<li class="lhh-status-tag{{#if bad}} bad{{/if}}" data-status="{{id}}">
-				<img src="{{img}}" alt=""><span>{{label}}{{#if detail}} <b>{{detail}}</b>{{/if}}</span>
+				<img src="{{img}}" alt=""><span{{#if desc}} data-tooltip-text="{{desc}}"{{/if}}>{{label}}{{#if detail}} <b>{{detail}}</b>{{/if}}</span>
+				{{#if recover}}<a class="recover" data-action="lhh-status-recover" data-tooltip-text="{{recover.text}}" aria-label="{{recover.text}}"><i class="fa-solid fa-person-running"></i></a>{{/if}}
 				<a class="remove" data-action="lhh-status-off" aria-label="{{localize 'ETERNIA.Hud.Remove'}}"><i class="fa-solid fa-xmark"></i></a>
 			</li>
 			{{else}}

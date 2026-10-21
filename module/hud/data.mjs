@@ -8,6 +8,7 @@
  * Skill rows read use.mjs (inspectUse) without asking anything: uses left of a counted limit, the cost to
  * pay, and why the skill can't be used now (dimmed). Panels are only built when open.
  */
+import { recoveryOf } from "../conditions/recovery.mjs";
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { getStatusPanel } from "../helpers/statuses.mjs";
 import { parseSkillField } from "../helpers/skill-fields.mjs";
@@ -290,7 +291,8 @@ function effectsPanel(actor) {
     let detail = "";
     if (s.list && Array.isArray(s.value) && s.value.length) detail = s.value.map(entry).join(", ");
     else if (s.rated && toInt(s.value)) detail = String(toInt(s.value));
-    return { id: s.id, img: s.img, label: s.label, detail, group: group.id, bad: group.id === "bad" };
+    // The rules as tooltip, and the action that ends it when there is one (conditions/recovery.mjs)
+    return { id: s.id, img: s.img, label: s.label, detail, group: group.id, bad: group.id === "bad", desc: s.desc, recover: recoveryOf(s.id) };
   }));
   const fatigue = toInt(actor._source.system?.infos?.fatigue);
   const fatigueImg = CONFIG.statusEffects.find(s => s.id === "fatigue")?.img;

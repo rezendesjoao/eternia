@@ -367,7 +367,38 @@
       "standby": "Standby",
       "hateTop": "Hate Top",
       "hateUnder": "Hate Under",
-      "absent": "Absent From Scene"
+      "absent": "Absent From Scene",
+      "paralyzed": "Paralyzed",
+      "asleep": "Asleep",
+      "rooted": "Rooted",
+      "prone": "Prone",
+      "slowed": "Slowed",
+      "grappled": "Grappled",
+      "silenced": "Silenced",
+      "disarmed": "Disarmed",
+      "blinded": "Blinded",
+      "sealed": "Sealed",
+      "frightened": "Frightened",
+      "charmed": "Charmed",
+      "taunted": "Taunted",
+      "berserk": "Berserk",
+      "burning": "Burning",
+      "poisoned": "Poisoned",
+      "freezing": "Freezing",
+      "shocked": "Shocked",
+      "cursed": "Cursed",
+      "exposed": "Exposed",
+      "fissured": "Fissured",
+      "marked": "Marked",
+      "doom": "Doom",
+      "hasted": "Hasted",
+      "empowered": "Empowered",
+      "focused": "Focused",
+      "mirror": "Mirror",
+      "intangible": "Intangible",
+      "lastStand": "Last Stand",
+      "awakened": "Awakened",
+      "bond": "Bond"
     },
     "StatusGroup": {
       "bad": "Bad Status",
@@ -848,7 +879,9 @@
       "Gimmick": "Prop or gimmick enemy.",
       "Mob": "Mob enemy.",
       "Boss": "Boss enemy.",
-      "NightVision": "Not hindered by darkness."
+      "NightVision": "Not hindered by darkness.",
+      "Spell": "A magic skill that doesn't attack (blessings, healing, wards). Silenced forbids it.",
+      "Song": "A song, hymn or magic sound. Silenced forbids it."
     },
     "Condition": {
       "Title": "Conditions",
@@ -1016,8 +1049,8 @@
         "Hint": "In the Cleanup Process of every round, Regen heals, then Decay deals damage (through Barrier). A summary is posted in the chat."
       },
       "endOfProcess": {
-        "Name": "Dazed and Staggered end with the Main Process",
-        "Hint": "By the rules, these statuses end when the affected character's Main Process ends, unless it is Afflicted."
+        "Name": "Statuses that end at the end of the Main Process",
+        "Hint": "Staggered, Dazed, Paralyzed, Silenced and Taunted end at the end of the Main Process of whoever received them. With Afflicted, the ones it protects stay."
       },
       "incapacitated": {
         "Name": "Automatic Incapacitated",
@@ -1093,6 +1126,7 @@
       },
       "Section": {
         "rules": "Rules of use and combat",
+        "conditions": "Conditions",
         "chat": "Cards and chat",
         "content": "Content and house rules",
         "look": "Look",
@@ -1116,6 +1150,14 @@
         "always": "Everyone, always",
         "identified": "Everyone; enemies only once [Identified]",
         "core": "As each token is configured"
+      },
+      "conditionRules": {
+        "Name": "Automatic effects of the conditions",
+        "Hint": "Dice, damage, turns and stacks of the conditions: Burning in the Cleanup Process, Poisoned at the start of the turn, Exposed without Defense, Last Stand, Mirror, Bond, Freezing that freezes, Fissured that breaks the guard and the other rules of the AS REGRAS journal (IX. CONDIÇÕES DA ETERNIA)."
+      },
+      "conditionLimits": {
+        "Name": "What the conditions forbid",
+        "Hint": "Actions, targets and movement the conditions forbid (Paralyzed, Silenced, Disarmed, Grappled, Taunted, Blinded…): warn asks whether to go on; block stops the players (the GM may still go on)."
       }
     },
     "Use": {
@@ -1493,7 +1535,7 @@
         "skills": "Click: use · Shift + click: use and roll the Check · Right click: open · Pin: fix on the bar",
         "kuden": "Click: use (Constants go to the chat) · Shift + click: use and roll the Check · Right click: open",
         "items": "Click: use · Right click: open · Pin: fix on the bar",
-        "effects": "× removes the status or the effect"
+        "effects": "× removes the status or effect; the running icon ends the status by spending its rule's action"
       },
       "Cost": {
         "hate": "Hate {n}",
@@ -1571,7 +1613,126 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>Welcome to Eternia</strong></p><ul><li><strong>Action HUD in place of the macro hotbar.</strong> Select your token (or none, to see your character) and use the bar at the bottom of the screen: roll checks, use skills, Kuden and items, follow HP, Fate and Hate, end your Main Process and roll the pending dodges. Hover for the details; the pin fixes a shortcut on the bar. The Foundry macro hotbar is hidden, but the 1 to 0 keys keep running the macros; to bring it back, change the \"Foundry macro hotbar\" option.</li><li><strong>Clickable statuses.</strong> Click a status written in a chat card, such as [Dazed] or [Decay: 10], to apply it to your targets.</li><li><strong>Create effect.</strong> Right click a skill card → Create effect on targets.</li><li><strong>Turn.</strong> A notice with a sound when your turn starts, and your targets cleared when it ends.</li></ul><p>Each player adjusts the HUD, the macro hotbar and the notices in Game Settings → Configure Settings → Eternia.</p>"
+      "Body": "<p><strong>What's new in Eternia 0.2: 31 new conditions</strong></p><ul><li><strong>Anime conditions.</strong> Paralyzed, Asleep, Rooted, Prone, Slowed, Grappled, Silenced, Disarmed, Blinded, Sealed, Frightened, Charmed, Taunted, Berserk, Burning, Poisoned, Freezing, Shocked, Cursed, Exposed, Fissured, Marked and Doom, plus Hasted, Empowered, Focused, Mirror, Intangible, Last Stand, Awakened and Bond.</li><li><strong>All automatic.</strong> The dice of checks and Dodge Checks, the damage in the chat, who loses the turn, the stacks (the third Freezing paralyzes, the third Fissured breaks the guard), the sheet defenses and the end of each condition.</li><li><strong>Ending it with an action.</strong> In the action HUD, under Statuses, the running icon spends the action the rule asks for and ends the condition.</li><li><strong>The rule at hand.</strong> Hover a condition (sheet, HUD or chat) to read its rule. The full page is in the AS REGRAS journal, under IX. CONDIÇÕES DA ETERNIA.</li></ul><p>In Game Settings → Configure Settings → Eternia → Conditions, the GM turns the effects on and off and chooses whether what they forbid only warns or blocks.</p><p>First time in Eternia? The action HUD at the bottom of the screen replaces the macro hotbar: select your token and use it to roll checks, use skills and end your Main Process.</p>"
+    },
+    "StatusDesc": {
+      "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
+      "weakness": "[Weakness (Tag): n]: failing a Dodge Check against an attack with that tag (or any, without a tag) deals +n direct damage. Only the highest applies to each attack.",
+      "incapacitated": "At 0 HP: no actions, no checks, always Post-Action. Adventurers recover at the end of the scene; enemies die.",
+      "dead": "Out of play for the scene. Adventurers revive at the end of the scene with 1 HP and Fatigue equal to the rest of their Max HP.",
+      "staggered": "−1D on Major and Main Process actions. Ends at the end of their Main Process.",
+      "dazed": "−1D on Dodge Checks; no reactions to checks against them, no Obstruction. Ends at the end of their Main Process.",
+      "rigor": "No actions with the [Movement] tag, the token doesn't move, no Obstruction. Ends with a Minor or Major Action.",
+      "confused": "−1D on every check and +1 Hate at the start of each Main Process. Ends with a Major Action.",
+      "decay": "[Decay: n]: n damage in the Cleanup Process. The highest Rating stays. Ends with a Major Action.",
+      "pursuit": "[Pursuit: n]: failing a Dodge Check deals +n direct damage and that Pursuit ends. Several stack.",
+      "afflicted": "Keeps Staggered, Dazed, Confused, Weakness, Overconfident, Frightened and Charmed from ending. Ends with a Minor or Major Action.",
+      "overconfident": "Any natural 1 on the dice is a Fumble. Ends when the character loses HP.",
+      "regen": "[Regen: n]: recovers n HP in the Cleanup Process. The highest Rating stays.",
+      "cancel": "[Cancel (Tag): n]: reduces damage with that tag (or any, without a tag) by n. Only the highest applies.",
+      "barrier": "[Barrier: n]: absorbs damage before HP, spending its Rating. The highest Rating stays.",
+      "hidden": "Others' actions can't target them (only areas). Ends on a Major Action, dealing or taking damage, being found or at the end of the scene.",
+      "swimming": "−1D on every check. Puts out Burning.",
+      "flying": "Ignores scene objects with [Terrain]; only flyers can Obstruct them.",
+      "identified": "The GM reveals the enemy's defenses, Hate Multiplier and skills.",
+      "standby": "Delayed their Main Process: acts after everyone who isn't on Standby.",
+      "hateTop": "Highest Hate in the combat: takes the Hate Damage of enemy attacks.",
+      "hateUnder": "Hate below the Top: +2 on Dodge Checks.",
+      "absent": "Out of the scene: skips their turn.",
+      "paralyzed": "No Main Process action nor reaction, and −1D on Dodge Checks. Loses the turn: ends at the end of their Main Process.",
+      "asleep": "No actions nor reactions, and fails Dodge Checks outright. Ends on taking damage, or when someone spends a Minor Action to wake them.",
+      "rooted": "Held to the ground: no actions with the [Movement] tag, the token doesn't move, −1D on Dodge Checks. Ends in the Cleanup Process.",
+      "prone": "On the ground: −1D on their Close attacks and on Dodge Checks against Close attacks. Standing up takes the Move Action.",
+      "slowed": "No Move Action, and acts after everyone who isn't Slowed. Ends in the Cleanup Process.",
+      "grappled": "Held by the grappler: no actions with the [Movement] tag, the token doesn't move, attacks only the grappler. Ends with a Major Action or if the grappler is Incapacitated.",
+      "silenced": "No skills with the [Magic Attack], [Spell] or [Song] tags. Ends at the end of their Main Process.",
+      "disarmed": "No weapon attacks ([Weapon Attack], [Melee Attack], [Ranged Attack], [Sword Attack] or Range: Weapon). Taking the weapon back takes a Minor Action.",
+      "blinded": "−1D on every check but Resistance, and attacks only within 1 square. Ends in the Cleanup Process.",
+      "sealed": "[Sealed (Skill)]: that skill can't be used. Without a name, it seals the last skill used. Ends at the end of the scene.",
+      "frightened": "−1D on every check against whoever frightened them, and can't move closer to them. Ends in the Cleanup Process.",
+      "charmed": "Can't attack the charmer and −1D on Dodge Checks against them. Ends if the charmer deals them damage, or with a Major Action.",
+      "taunted": "Their hostile skills must target the taunter. Ends at the end of their Main Process.",
+      "berserk": "[Berserk: n]: +n damage on attacks, −1D on Dodge Checks, and only skills that attack (and movement). Ends with a Major Action or at the end of the scene.",
+      "burning": "[Burning: n]: n [Flame] damage in the Cleanup Process. The highest Rating stays. Ends with a Minor Action (putting it out) or when Swimming.",
+      "poisoned": "[Poisoned: n]: n direct damage at the start of each Main Process and −1D on Resistance. The highest Rating stays. Ends with a Major Action.",
+      "freezing": "[Freezing: n] (up to 3 stacks): −1 Speed and Initiative per stack. On the third the character freezes: Paralyzed, and the stacks clear. [Flame] damage removes them all. Ends with a Major Action.",
+      "shocked": "[Shocked: n]: n direct damage on every Major Action, and no reactions. The highest Rating stays. Ends in the Cleanup Process.",
+      "cursed": "Recovers no HP (healing, Regen and items) and effects can't give them Barrier nor Regen. Ends at the end of the scene.",
+      "exposed": "The guard is down: Physical and Magic Defense are 0 and Cancel doesn't work. Ends in the Cleanup Process.",
+      "fissured": "[Fissured: n] (up to 3 stacks): −2 Physical and Magic Defense per stack. On the third the guard breaks: the stacks clear, the Barrier is gone and they are Exposed. Ends with a Major Action.",
+      "marked": "[Marked: n]: −1D on Dodge Checks; failing one deals +n direct damage and the mark ends. The highest Rating stays.",
+      "doom": "[Doom: n]: the Rating drops by 1 in each Cleanup Process; at 0 the character is Incapacitated. Only what removes Bad Statuses ends it sooner.",
+      "hasted": "A second Minor Action in each Main Process.",
+      "empowered": "[Empowered: n]: +n damage on attacks. The highest Rating stays.",
+      "focused": "+1D on the next check (Dodge Checks included); ends after it.",
+      "mirror": "[Mirror: n]: when damaged by an attack, the attacker takes n direct damage.",
+      "intangible": "Takes no physical damage. Ends on a Major Action or in the Cleanup Process.",
+      "lastStand": "When they would drop to 0 HP, they stay at 1 HP and the status ends.",
+      "awakened": "[Awakened: n]: the transformation. +1D on Accuracy checks and +n damage on attacks. When it ends, it leaves [Fatigue: n].",
+      "bond": "Half the HP damage they would take goes to whoever made the Bond, as direct damage. Ends at the end of the scene or if that character is Incapacitated."
+    },
+    "StatusFamily": {
+      "core": "Classic",
+      "control": "Control",
+      "block": "Block",
+      "mind": "Mind",
+      "element": "Elements",
+      "guard": "Guard break"
+    },
+    "Conditions": {
+      "Damage": "Damage",
+      "DamageLine": "{name}: {what} {n}{parts} → HP {before} → {hp}",
+      "DamageFrom": "{what} from {name}",
+      "Applied": {
+        "Exposed": "Exposed: no Defense nor Cancel",
+        "Intangible": "Intangible: no physical damage",
+        "Bond": "Bond: {n} go to {name}",
+        "LastStand": "Last Stand: stays at 1 HP",
+        "WokeUp": "Woke up",
+        "CharmBroken": "The Charm broke",
+        "Melted": "The Flame melted the Freezing",
+        "Mirror": "Mirror: {n} damage to {name}"
+      },
+      "CursedNoHeal": "{name} is Cursed: recovers no HP.",
+      "CursedBlocks": "{name} is Cursed: gets no {status}.",
+      "ConfusedHate": "{name} is Confused: Hate goes up to {hate}.",
+      "DoomFalls": "{name}: the Doom has come. Incapacitated.",
+      "DoomCount": "{name}: Doom {n}.",
+      "RoundEnds": "{name}: end of {statuses}.",
+      "AwakenedEnds": "{name} returns to normal and takes Fatigue {n}.",
+      "Threshold": {
+        "freezing": "{name} freezes: Paralyzed.",
+        "fissured": "{name}'s guard breaks: the Barrier is gone and they are Exposed."
+      },
+      "Freed": "{name} is free of {status}: {source} is Incapacitated.",
+      "LostTurnTitle": "Lost turn",
+      "LostTurn": "{name} ({statuses}) loses the Main Process.",
+      "Use": {
+        "NoActions": "{name} is {status} and can't act.",
+        "NoMovement": "{name} is {status}: no [Movement] actions.",
+        "NoReactions": "{name} is {status}: no reactions.",
+        "Silenced": "{name} is Silenced: no [Magic Attack], [Spell] or [Song].",
+        "Disarmed": "{name} is Disarmed: no weapon attacks.",
+        "Sealed": "This skill is Sealed.",
+        "Berserk": "{name} is Berserk: only skills that attack (and movement).",
+        "Blinded": "{name} is Blinded: attacks only within 1 square ({targets}).",
+        "Grappled": "{name} is Grappled: attacks only {source}.",
+        "Taunted": "{name} is Taunted: must target {source}.",
+        "Charmed": "{name} is Charmed: can't attack {source}."
+      },
+      "Move": {
+        "Stuck": "{name} is {status} and can't move.",
+        "Fear": "{name} is Frightened of {source} and can't come closer."
+      },
+      "Recover": {
+        "Hint": "End it with {actions}",
+        "Or": " or ",
+        "NotYourProcess": "{name} can only end this in their own Main Process.",
+        "NoAction": "{name} has no {actions} left in this Main Process.",
+        "Done": "{name} spends the {action} and is free of {status}.",
+        "DoneFree": "{name} is free of {status}.",
+        "Afflicted": "{name} is Afflicted: can't end {status}."
+      }
     }
   }
 }

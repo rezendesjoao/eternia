@@ -78,6 +78,8 @@ export const TAG_CATALOG = [
   { label: "Harmony", group: G.skill },
   { label: "Servant Summon", group: G.skill },
   { label: "Enchantment", group: G.skill },
+  { label: "Spell", group: G.skill },
+  { label: "Song", group: G.skill },
   { label: "Swift", group: G.skill },
   { label: "Scout", group: G.skill },
   { label: "Summon", group: G.skill },

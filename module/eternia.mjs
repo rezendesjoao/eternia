@@ -51,6 +51,9 @@ import { ledgerOf, resourceOf, setResource, settle } from "./kuden/pieces.mjs";
 import { sceneEnv } from "./kuden/env.mjs";
 import { actionHud, registerHud, rollActorCheck } from "./hud/hud.mjs";
 import { registerTokens } from "./canvas/token-style.mjs";
+import { registerConditions } from "./conditions/index.mjs";
+import { recover } from "./conditions/recovery.mjs";
+import { takeDamage } from "./conditions/damage.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -69,7 +72,7 @@ Hooks.once('init', async function () {
     EterniaCombat,
     EterniaActiveEffect,
     OptionBrowser,
-    // For macros: scenes, checks, Fate, statuses, the HUD and the Kuden.
+    // For macros: scenes, checks, Fate, statuses and conditions, the HUD and the Kuden.
     endScene,
     endScenario: actors => endScene(actors, { scenario: true }),
     fillWorld,
@@ -81,8 +84,9 @@ Hooks.once('init', async function () {
     removeBadStatus,
     syncItemSkills,
     undoUse,
-    applyStatus: (actor, id, { value = null, tag = "", expires = "endOfScene" } = {}) =>
-      giveEffects(actor, [statusEffectData(id, value, tag, { expires })]),
+    applyStatus: (actor, id, { value = null, tag = "", expires = "endOfScene", from = null } = {}) =>
+      giveEffects(actor, [statusEffectData(id, value, tag, { expires, caster: from })]),
+    conditions: { recover, damage: takeDamage },
     hud: actionHud,
     kuden: { ledgerOf, resourceOf, setResource, settle, sceneEnv }
   };
@@ -176,6 +180,7 @@ Hooks.once('init', async function () {
   registerCards();
   registerFate();
   registerContent();
+  registerConditions();
   registerPortugueseDisplay();
   registerChat();
   registerWindows();

@@ -5,8 +5,10 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.1.0
+## Versão 0.2.0
 
+- **Novo na 0.2.0: 31 condições** somadas aos 23 estados de base, todas automatizadas (veja
+  [As condições](#as-condições)).
 - **Já vem pronto:** a ficha de personagem e a de monstro, o HUD de ações, o chat, os tokens e as outras janelas no
   mesmo visual; toda a automação de combate e de uso de habilidades; o Kuden (regra da casa); a interface em
   português do Brasil.
@@ -85,6 +87,45 @@ tela, no lugar da barra de macros do Foundry:
 - A barra de macros fica escondida, mas as teclas 1 a 0 continuam executando as macros. Cada jogador escolhe entre
   esconder, trocar ou mostrar.
 
+## As condições
+
+Os 23 estados das regras de base e mais 31 condições da Eternia, feitas para emular poderes de anime. A regra de
+cada uma aparece ao passar o mouse (na ficha, no HUD e nos estados clicáveis do chat), e a página
+**IX. CONDIÇÕES DA ETERNIA** do diário AS REGRAS traz todas por extenso.
+
+| Família | Condições |
+|---|---|
+| Controle | Paralisado, Adormecido, Enraizado, Derrubado, Lento, Agarrado |
+| Bloqueio | Silenciado, Desarmado, Cego, Selado (Habilidade) |
+| Mente | Medo, Encantado, Provocado, Fúria: n |
+| Elementais | Queimando: n, Envenenado: n, Congelando: n (acumula até 3), Eletrificado: n, Maldito |
+| Quebra de guarda | Exposto, Fissurado: n (acumula até 3), Marcado: n, Sentença: n |
+| Estados de Combate | Acelerado, Fortalecido: n, Concentrado, Espelho: n, Intangível, Último Fôlego, Despertado: n |
+| Outros | Vínculo |
+
+O que o sistema faz sozinho:
+
+- **Dados:** −1D e +1D nos testes e nas Esquivas (Confuso, Cego, Medo contra quem o causou, Derrubado, Marcado,
+  Envenenado, Encantado, Concentrado, Despertado…) e o dano a mais de Fortalecido, Fúria e Despertado, com o motivo
+  no cartão. Adormecido falha na Esquiva.
+- **Dano aplicado:** Exposto fica sem Defesa e sem Anulação, Intangível não sofre dano físico, Marcado soma o seu
+  Valor quando a Esquiva falha, Último Fôlego segura em 1 PV, Vínculo divide o dano, Espelho devolve, Maldito não
+  recupera PV, [Chama] derrete o Congelando e o Adormecido acorda.
+- **Turnos:** Envenenado no início do Processo Principal, Eletrificado a cada Ação Maior, Queimando e Sentença no
+  Encerramento; Lento age depois dos outros, Acelerado tem duas Ações Menores, Paralisado e Adormecido perdem a vez.
+- **Acúmulos:** o terceiro Congelando paralisa; o terceiro Fissurado quebra a guarda (a Barreira some e vem Exposto).
+- **Ficha:** Exposto e Fissurado baixam as defesas; Congelando, a Velocidade e a Iniciativa; Enraizado, Agarrado,
+  Paralisado e Adormecido zeram a Velocidade.
+- **Proibições:** as ações, os alvos e o movimento que as condições impedem (Silenciado, Desarmado, Selado,
+  Agarrado, Provocado, Encantado, Cego, Fúria, Enraizado, Medo…) avisam ou bloqueiam, como os limites de uso.
+- **Fim:** cada condição acaba quando a regra manda (fim do Processo Principal, Encerramento, fim da cena) e
+  respeita o Aflito; Agarrado e Vínculo acabam quando quem os causou fica Incapacitado; Despertado deixa Fadiga.
+- **Livrar-se com uma ação:** no HUD, o ícone de corrida ao lado da condição gasta a ação da regra (Ação Menor para
+  Queimando, de Movimento para Derrubado, Maior para Envenenado…).
+- **Origem:** Medo, Encantado, Provocado, Agarrado e Vínculo lembram quem os causou (quem usou a habilidade ou o
+  estado clicável).
+- Duas tags novas para as habilidades: [Feitiço] e [Canção]. Silenciado impede as duas e o [Ataque Mágico].
+
 ## A automação
 
 ### Uso de habilidades
@@ -100,7 +141,8 @@ tela, no lugar da barra de macros do Foundry:
 ### Combate
 - **Topo e Abaixo no Ódio por combate**, certos mesmo com vários combates ao mesmo tempo.
 - **Encerramento:** a Regeneração cura e depois a Deterioração causa dano, com um resumo no chat.
-- **Atordoado e Cambaleante** acabam no fim do Processo Principal de quem os recebeu.
+- **Atordoado, Cambaleante, Paralisado, Silenciado e Provocado** acabam no fim do Processo Principal de quem os
+  recebeu.
 - **Incapacitado** com PV 0; Incapacitados, Mortos e Ausentes passam a vez.
 - **Fim de cena ao encerrar o combate:** Aventureiros Incapacitados voltam, Mortos revivem com Fadiga, inimigos
   Incapacitados morrem, Estados Negativos e de Combate acabam.
@@ -149,11 +191,13 @@ janelas em pergaminho, que pedem para recarregar.
 | Momento e economia de ações | avisar |
 | Topo e Abaixo no Ódio por combate | ligado |
 | Regeneração e Deterioração no Encerramento | ligado |
-| Atordoado e Cambaleante acabam no fim do Processo Principal | ligado |
+| Estados que acabam no fim do Processo Principal | ligado |
 | Incapacitado automático | ligado |
 | Fim de cena ao encerrar o combate | ligado |
 | Aventureiros mortos revivem no fim da cena | ligado |
 | Corpo a corpo alcança os quadrados vizinhos | ligado |
+| Efeitos automáticos das condições | ligado |
+| O que as condições proíbem | avisar |
 | Correções nos cartões de ataque e dano | ligado |
 | Botões de Destino | ligado |
 | Estados clicáveis no chat | ligado |
@@ -193,6 +237,9 @@ eternia.rollActorCheck(actor, token, "athletics", { ask: true }); // teste de pe
 eternia.spendFate(actor);             // gasta 1 Destino
 eternia.removeBadStatus(actor);       // remover um Estado Negativo com Destino
 eternia.applyStatus(actor, "decay", { value: 10 }); // aplica um estado como os efeitos de habilidade
+eternia.applyStatus(actor, "frightened", { from: boss }); // condição com origem (Medo de boss)
+eternia.conditions.recover(actor, "burning");          // livra-se gastando a ação da regra
+eternia.conditions.damage(actor, 5, { reason: "burning" }); // dano de condição, com Barreira e linha no chat
 eternia.fillWorld({ dryRun: true });  // conta (ou completa) o que falta no mundo
 eternia.syncItemSkills(actor);        // habilidades dos poderes dos itens do personagem
 eternia.parseMonsterDamage(html);     // lê o dano de um ataque de monstro escrito em texto
@@ -208,14 +255,17 @@ eternia.kuden.settle(actor);          // paga o que falta com as escolhas penden
 - **Poderes de itens** que dependem de uma escolha, de um resultado ou de outra habilidade ficam só com os campos, o
   texto e a contagem de usos; o efeito deles é feito à mão.
 - **Os estados das habilidades** entram pelo botão **Aplicar efeitos**, depois do acerto.
+- **Desfazer o dano** não devolve o dano que o Espelho e o Vínculo mandaram para outro personagem.
+- **Acordar quem está Adormecido** (outro personagem gasta uma Ação Menor) é feito à mão, tirando o estado.
 - **Erro do core 14.367 no console** com combates simultâneos (`Cannot use 'in' operator to search for 'turn'`): vem
   do rastreador de combate do Foundry e é inofensivo.
 
 ## Desenvolvimento
 
 - `module/` é o código (entrada em `module/eternia.mjs`): `documents/`, `sheets/` (as fichas de pergaminho estendem as
-  classes base), `helpers/`, `apps/`, `piles/`, `automation/`, `chat/`, `content/`, `hud/`, `canvas/`, `kuden/` e
-  `i18n/` (os termos em português). `templates/`, `css/` e `lang/` seguem a mesma divisão.
+  classes base), `helpers/`, `apps/`, `piles/`, `automation/`, `chat/`, `content/`, `hud/`, `canvas/`, `kuden/`,
+  `conditions/` (as condições da Eternia) e `i18n/` (os termos em português). `templates/`, `css/` e `lang/` seguem a
+  mesma divisão.
 - O visual de pergaminho (`css/automation.css`, `sheet.css`, `chat.css`, `windows.css`, `hud.css` e `tbg.css`) entra
   na camada de CSS `modules` (veja `styles` no `system.json`), acima do CSS base do sistema e do Foundry.
 - Os compêndios são versionados em `src/packs/<pacote>/*.json`, em português. Os campos que a automação lê (tags,
@@ -224,6 +274,8 @@ eternia.kuden.settle(actor);          // paga o que falta com as escolhas penden
   - `npm run packs:unpack` faz o caminho de volta, depois de editar os compêndios dentro do Foundry.
 - `npm run package` monta `dist/eternia.zip` e `dist/system.json` para a release.
 - `tools/make-textures.py` gera as texturas da ficha e `tools/make-logo.py` o logo, sem arte de terceiros.
+- `tools/make-status-icons.mjs` gera os ícones dos estados a partir dos ícones do game-icons.net.
+- `docs/condicoes.md` explica onde cada regra das condições está no código e como criar uma condição nova.
 
 ## Créditos
 
@@ -241,7 +293,8 @@ eternia.kuden.settle(actor);          // paga o que falta com as escolhas penden
 - **Arte da interface** (`assets/ui/**`): do sistema original de Kyane. As texturas da ficha e o logo são gerados
   por `tools/`.
 - **Ícones** de [game-icons.net](https://game-icons.net) sob [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
-  (fundos dos estados recoloridos). Autores: Lorc, Delapouite, Skoll, Sbed e Zeromancer.
+  (fundos dos estados recoloridos). Autores: Lorc, Delapouite, Skoll, Sbed, Zeromancer e
+  Carl Olsen.
 
 <details>
 <summary>Ícones dos estados e do compêndio (game-icons.net)</summary>
@@ -271,6 +324,37 @@ eternia.kuden.settle(actor);          // paga o que falta com as escolhas penden
 | hateTop | angry-eyes | Delapouite |
 | hateUnder | target-arrows | Lorc |
 | absent | exit-door | Delapouite |
+| paralyzed | spider-web | Lorc |
+| asleep | night-sleep | Delapouite |
+| rooted | tree-roots | Delapouite |
+| prone | falling | Sbed |
+| slowed | snail | Lorc |
+| grappled | grab | Lorc |
+| silenced | silenced | Delapouite |
+| disarmed | drop-weapon | Skoll |
+| blinded | blindfold | Delapouite |
+| sealed | padlock | Lorc |
+| frightened | terror | Lorc |
+| charmed | smitten | Lorc |
+| taunted | shouting | Lorc |
+| berserk | enrage | Delapouite |
+| burning | flame | Carl Olsen |
+| poisoned | poison-bottle | Lorc |
+| freezing | snowflake-2 | Lorc |
+| shocked | electric | Sbed |
+| cursed | cursed-star | Lorc |
+| exposed | shield-disabled | Skoll |
+| fissured | cracked-helm | Lorc |
+| marked | human-target | Delapouite |
+| doom | grim-reaper | Lorc |
+| hasted | sprint | Lorc |
+| empowered | muscle-up | Lorc |
+| focused | meditation | Lorc |
+| mirror | mirror-mirror | Lorc |
+| intangible | ghost | Lorc |
+| lastStand | half-heart | Lorc |
+| awakened | aura | Lorc |
+| bond | linked-rings | Lorc |
 | Habilidades de Montaria | horse-head | Delapouite |
 
 </details>

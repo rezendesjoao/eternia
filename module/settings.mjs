@@ -17,6 +17,7 @@ const MODES = {
 /** The first setting of each section of Configure Settings, and its header. */
 const SECTIONS = {
   costs: "rules",
+  conditionRules: "conditions",
   cards: "chat",
   content: "content",
   chatTheme: "look",
@@ -55,6 +56,9 @@ export function registerSettings() {
   toggle("endOfScene");
   toggle("revive");
   toggle("closeReach");
+  // The conditions of Eternia (conditions/): their automatic effects, and what they forbid
+  toggle("conditionRules");
+  mode("conditionLimits", "warn");
   // Cards and chat
   toggle("cards");
   toggle("fate");

@@ -1,3 +1,4 @@
+import { rulesOn } from "../conditions/rules.mjs";
 import { registerHandler, request } from "../piles/pile-socket.mjs";
 // Identifies this browser window: the same user can be logged in from several.
 import { CLIENT_ID } from "../helpers/clients.mjs";
@@ -95,10 +96,12 @@ export class EterniaCombat extends Combat {
 	 * @returns {Combatant[]}
 	 */
 	_orderTurns({ acted, active, standby }) {
+		// [Slowed] combatants act after everyone who isn't (conditions/catalog.mjs).
+		const slowed = c => (rulesOn() && c.actor?.statuses?.has("slowed")) ? 0.5 : 0;
 		const group = c => {
 			if (acted.includes(c.id)) return 0;
 			if (c.id === active) return 1;
-			return standby.includes(c.id) ? 3 : 2;
+			return standby.includes(c.id) ? 3 : 2 + slowed(c);
 		};
 		const init = c => Number.isNumeric(c.initiative) ? Math.floor(c.initiative) : -Infinity;
 		const pc = c => c.actor?.type === "character" ? 0 : 1;

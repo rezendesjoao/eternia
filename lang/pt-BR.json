@@ -367,7 +367,38 @@
       "standby": "Espera",
       "hateTop": "Topo de Ódio",
       "hateUnder": "Abaixo no Ódio",
-      "absent": "Ausente da Cena"
+      "absent": "Ausente da Cena",
+      "paralyzed": "Paralisado",
+      "asleep": "Adormecido",
+      "rooted": "Enraizado",
+      "prone": "Derrubado",
+      "slowed": "Lento",
+      "grappled": "Agarrado",
+      "silenced": "Silenciado",
+      "disarmed": "Desarmado",
+      "blinded": "Cego",
+      "sealed": "Selado",
+      "frightened": "Medo",
+      "charmed": "Encantado",
+      "taunted": "Provocado",
+      "berserk": "Fúria",
+      "burning": "Queimando",
+      "poisoned": "Envenenado",
+      "freezing": "Congelando",
+      "shocked": "Eletrificado",
+      "cursed": "Maldito",
+      "exposed": "Exposto",
+      "fissured": "Fissurado",
+      "marked": "Marcado",
+      "doom": "Sentença",
+      "hasted": "Acelerado",
+      "empowered": "Fortalecido",
+      "focused": "Concentrado",
+      "mirror": "Espelho",
+      "intangible": "Intangível",
+      "lastStand": "Último Fôlego",
+      "awakened": "Despertado",
+      "bond": "Vínculo"
     },
     "StatusGroup": {
       "bad": "Estado Negativo",
@@ -848,7 +879,9 @@
       "Gimmick": "Inimigo cenário ou mecanismo.",
       "Mob": "Inimigo lacaio.",
       "Boss": "Inimigo chefe.",
-      "NightVision": "Não é atrapalhado pela escuridão."
+      "NightVision": "Não é atrapalhado pela escuridão.",
+      "Spell": "Habilidade de magia que não ataca (bênçãos, curas, proteções). Silenciado impede.",
+      "Song": "Canção, hino ou som mágico. Silenciado impede."
     },
     "Condition": {
       "Title": "Condições",
@@ -1016,8 +1049,8 @@
         "Hint": "No Processo de Encerramento de cada rodada, cura a Regeneração e depois aplica a Deterioração (que passa pela Barreira). Posta um resumo no chat."
       },
       "endOfProcess": {
-        "Name": "Atordoado e Cambaleante acabam no fim do Processo Principal",
-        "Hint": "Pela regra, esses estados acabam quando termina o Processo Principal de quem os recebeu, a menos que esteja Aflito."
+        "Name": "Estados que acabam no fim do Processo Principal",
+        "Hint": "Cambaleante, Atordoado, Paralisado, Silenciado e Provocado acabam no fim do Processo Principal de quem os recebeu. Com Aflito, os que ele protege continuam."
       },
       "incapacitated": {
         "Name": "Incapacitado automático",
@@ -1093,6 +1126,7 @@
       },
       "Section": {
         "rules": "Regras de uso e de combate",
+        "conditions": "Condições",
         "chat": "Cartões e chat",
         "content": "Conteúdo e regras da casa",
         "look": "Visual",
@@ -1116,6 +1150,14 @@
         "always": "Todos, sempre",
         "identified": "Todos; os inimigos só depois de [Identificado]",
         "core": "Como na configuração de cada token"
+      },
+      "conditionRules": {
+        "Name": "Efeitos automáticos das condições",
+        "Hint": "Dados, dano, turnos e acúmulos das condições: Queimando no Encerramento, Envenenado no início do turno, Exposto sem Defesa, Último Fôlego, Espelho, Vínculo, Congelando que congela, Fissurado que quebra a guarda e as outras regras do diário AS REGRAS (IX. CONDIÇÕES DA ETERNIA)."
+      },
+      "conditionLimits": {
+        "Name": "O que as condições proíbem",
+        "Hint": "Ações, alvos e movimento que as condições proíbem (Paralisado, Silenciado, Desarmado, Agarrado, Provocado, Cego…): avisar pergunta se é para seguir; bloquear impede os jogadores (o Mestre pode forçar)."
       }
     },
     "Use": {
@@ -1493,7 +1535,7 @@
         "skills": "Clique: usar · Shift + clique: usar e já rolar o Teste · Botão direito: abrir · Alfinete: fixar na barra",
         "kuden": "Clique: usar (as Constantes vão para o chat) · Shift + clique: usar e já rolar o Teste · Botão direito: abrir",
         "items": "Clique: usar · Botão direito: abrir · Alfinete: fixar na barra",
-        "effects": "× remove o estado ou o efeito"
+        "effects": "× remove o estado ou o efeito; o ícone de corrida livra-se do estado gastando a ação da regra"
       },
       "Cost": {
         "hate": "Ódio {n}",
@@ -1571,7 +1613,126 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Bem-vindo à Eternia</strong></p><ul><li><strong>HUD de ações no lugar da barra de macros.</strong> Selecione o seu token (ou nenhum, para ver o seu personagem) e use a barra no pé da tela: rolar testes, usar habilidades, Kuden e itens, acompanhar PV, Destino e Ódio, encerrar o seu Processo Principal e rolar as esquivas pendentes. Passe o mouse para ver os detalhes; o alfinete fixa um atalho na barra. A barra de macros do Foundry fica escondida, mas as teclas 1 a 0 continuam executando as macros; para trazê-la de volta, mude a opção \"Barra de macros do Foundry\".</li><li><strong>Estados clicáveis.</strong> Clique num estado escrito num cartão do chat, como [Atordoado] ou [Deterioração: 10], para aplicá-lo nos seus alvos.</li><li><strong>Criar efeito.</strong> Botão direito num cartão de habilidade → Criar efeito nos alvos.</li><li><strong>Turno.</strong> Aviso com som quando começa a sua vez e alvos limpos quando ela acaba.</li></ul><p>Cada jogador ajusta o HUD, a barra de macros e os avisos em Configurações do Jogo → Configurar Opções → Eternia.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.2: 31 condições novas</strong></p><ul><li><strong>Condições de anime.</strong> Paralisado, Adormecido, Enraizado, Derrubado, Lento, Agarrado, Silenciado, Desarmado, Cego, Selado, Medo, Encantado, Provocado, Fúria, Queimando, Envenenado, Congelando, Eletrificado, Maldito, Exposto, Fissurado, Marcado e Sentença, além de Acelerado, Fortalecido, Concentrado, Espelho, Intangível, Último Fôlego, Despertado e Vínculo.</li><li><strong>Tudo automático.</strong> Os dados dos testes e das Esquivas, o dano no chat, quem perde a vez, os acúmulos (o terceiro Congelando paralisa, o terceiro Fissurado quebra a guarda), as defesas da ficha e o fim de cada condição.</li><li><strong>Livrar-se com uma ação.</strong> No HUD de ações, em Estados, o ícone de corrida gasta a ação que a regra pede e tira a condição.</li><li><strong>A regra à mão.</strong> Passe o mouse sobre uma condição (na ficha, no HUD ou no chat) para ler a regra. A página completa fica no diário AS REGRAS, em IX. CONDIÇÕES DA ETERNIA.</li></ul><p>Em Configurações do Jogo → Configurar Opções → Eternia → Condições, o Mestre liga e desliga os efeitos e escolhe se as proibições só avisam ou bloqueiam.</p><p>Primeira vez na Eternia? O HUD de ações no pé da tela substitui a barra de macros: selecione o seu token e use-o para rolar testes, usar habilidades e encerrar o seu Processo Principal.</p>"
+    },
+    "StatusDesc": {
+      "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
+      "weakness": "[Fraqueza (Tag): n]: ao falhar na Esquiva contra um ataque com essa tag (ou qualquer um, sem tag), sofre +n de dano direto. Só a de maior Valor vale em cada ataque.",
+      "incapacitated": "Com 0 PV: não age, não faz testes e fica sempre em Pós-Ação. Aventureiros se recuperam no fim da cena; inimigos morrem.",
+      "dead": "Fora de jogo pela cena. Aventureiros revivem no fim da cena com 1 PV e Fadiga igual ao resto dos PV máximos.",
+      "staggered": "−1D nas ações de Momento Maior e Processo Principal. Sai no fim do seu Processo Principal.",
+      "dazed": "−1D nas Esquivas; não reage a testes contra si nem usa Obstrução. Sai no fim do seu Processo Principal.",
+      "rigor": "Não realiza ações com a tag [Movimento], não move o token nem usa Obstrução. Sai com uma Ação Menor ou Maior.",
+      "confused": "−1D em todos os testes e +1 de Ódio no início de cada Processo Principal. Sai com uma Ação Maior.",
+      "decay": "[Deterioração: n]: sofre n de dano no Encerramento. Fica a de maior Valor. Sai com uma Ação Maior.",
+      "pursuit": "[Perseguição: n]: ao falhar na Esquiva, sofre +n de dano direto e essa Perseguição sai. Várias se acumulam.",
+      "afflicted": "Impede que Cambaleante, Atordoado, Confuso, Fraqueza, Presunçoso, Medo e Encantado saiam. Sai com uma Ação Menor ou Maior.",
+      "overconfident": "Qualquer 1 natural nos dados vira Falha Crítica. Sai ao perder PV.",
+      "regen": "[Regeneração: n]: recupera n PV no Encerramento. Fica a de maior Valor.",
+      "cancel": "[Anulação (Tag): n]: reduz em n o dano com essa tag (ou qualquer um, sem tag). Só a de maior Valor vale.",
+      "barrier": "[Barreira: n]: absorve o dano antes dos PV, gastando o Valor. Fica a de maior Valor.",
+      "hidden": "Não pode ser alvo de ações de outros (só de área). Sai ao usar uma Ação Maior, causar ou sofrer dano, ser descoberto ou no fim da cena.",
+      "swimming": "−1D em todos os testes. Apaga Queimando.",
+      "flying": "Ignora objetos de cena com [Terreno] e só sofre Obstrução de quem também voa.",
+      "identified": "O Mestre revela as defesas, o multiplicador de Ódio e as habilidades do inimigo.",
+      "standby": "Adiou o Processo Principal: age depois de todos os que não estão em Espera.",
+      "hateTop": "Tem o maior Ódio do combate: recebe o dano de Ódio dos ataques inimigos.",
+      "hateUnder": "Ódio abaixo do Topo: +2 nas Esquivas.",
+      "absent": "Fora da cena: passa a vez.",
+      "paralyzed": "Não realiza nenhuma ação do Processo Principal nem reações, e sofre −1D nas Esquivas. Perde a vez: sai no fim do seu Processo Principal.",
+      "asleep": "Não age nem reage, e falha automaticamente nas Esquivas. Sai ao sofrer dano, ou quando alguém gasta uma Ação Menor para acordá-lo.",
+      "rooted": "Preso ao chão: não realiza ações com a tag [Movimento], não move o token e sofre −1D nas Esquivas. Sai no Encerramento.",
+      "prone": "No chão: −1D nos seus ataques Corpo a corpo e nas Esquivas contra ataques Corpo a corpo. Levantar gasta a Ação de Movimento.",
+      "slowed": "Fica sem a Ação de Movimento e age depois de todos os que não estão Lentos. Sai no Encerramento.",
+      "grappled": "Preso por quem o agarrou: não realiza ações com a tag [Movimento], não move o token e só ataca quem o agarrou. Sai com uma Ação Maior ou se quem agarrou ficar Incapacitado.",
+      "silenced": "Não usa habilidades com as tags [Ataque Mágico], [Feitiço] ou [Canção]. Sai no fim do seu Processo Principal.",
+      "disarmed": "Não usa ataques com arma ([Ataque com Arma], [Ataque Corpo a Corpo], [Ataque à Distância], [Ataque com Espada] ou Alcance: Arma). Recuperar a arma gasta uma Ação Menor.",
+      "blinded": "−1D em todos os testes (menos Resistência) e só ataca quem está a até 1 quadrado. Sai no Encerramento.",
+      "sealed": "[Selado (Habilidade)]: essa habilidade não pode ser usada. Sem nome, sela a última que o personagem usou. Sai no fim da cena.",
+      "frightened": "−1D em todos os testes contra quem causou o Medo, e não se aproxima dele. Sai no Encerramento.",
+      "charmed": "Não ataca quem o encantou e sofre −1D nas Esquivas contra ele. Sai se essa pessoa lhe causar dano, ou com uma Ação Maior.",
+      "taunted": "As suas habilidades hostis precisam ter como alvo quem o provocou. Sai no fim do seu Processo Principal.",
+      "berserk": "[Fúria: n]: +n de dano nos ataques, −1D nas Esquivas, e só usa habilidades que atacam (e as de movimento). Sai com uma Ação Maior ou no fim da cena.",
+      "burning": "[Queimando: n]: sofre n de dano de [Chama] no Encerramento. Fica o de maior Valor. Sai com uma Ação Menor (apagar o fogo) ou ao ficar Nadando.",
+      "poisoned": "[Envenenado: n]: sofre n de dano direto no início de cada Processo Principal e −1D nas Resistências. Fica o de maior Valor. Sai com uma Ação Maior.",
+      "freezing": "[Congelando: n] (até 3 acúmulos): −1 de Velocidade e de Iniciativa por acúmulo. No terceiro, congela: fica Paralisado e os acúmulos zeram. Dano de [Chama] remove tudo. Sai com uma Ação Maior.",
+      "shocked": "[Eletrificado: n]: sofre n de dano direto sempre que usa uma Ação Maior, e não usa reações. Fica o de maior Valor. Sai no Encerramento.",
+      "cursed": "Não recupera PV (cura, Regeneração e itens) e efeitos não lhe dão Barreira nem Regeneração. Sai no fim da cena.",
+      "exposed": "A guarda caiu: Defesa Física e Mágica valem 0 e a Anulação não funciona. Sai no Encerramento.",
+      "fissured": "[Fissurado: n] (até 3 acúmulos): −2 de Defesa Física e Mágica por acúmulo. No terceiro, a guarda quebra: os acúmulos zeram, a Barreira some e ele fica Exposto. Sai com uma Ação Maior.",
+      "marked": "[Marcado: n]: −1D nas Esquivas; ao falhar numa Esquiva, sofre +n de dano direto e a marca sai. Fica a de maior Valor.",
+      "doom": "[Sentença: n]: o Valor cai 1 em cada Encerramento; ao chegar a 0, o personagem fica Incapacitado. Só sai antes com o que remove Estados Negativos.",
+      "hasted": "Tem uma segunda Ação Menor em cada Processo Principal.",
+      "empowered": "[Fortalecido: n]: +n de dano nos ataques. Fica o de maior Valor.",
+      "focused": "+1D no próximo teste que fizer (Esquiva inclusive); sai depois dele.",
+      "mirror": "[Espelho: n]: quando sofre dano de um ataque, quem atacou sofre n de dano direto.",
+      "intangible": "Não sofre dano físico. Sai ao usar uma Ação Maior ou no Encerramento.",
+      "lastStand": "Quando chegaria a 0 PV, fica com 1 PV e o estado sai.",
+      "awakened": "[Despertado: n]: a transformação. +1D nos testes de Precisão e +n de dano nos ataques. Quando sai, deixa [Fadiga: n].",
+      "bond": "Metade do dano que sofreria nos PV vai para quem fez o Vínculo, como dano direto. Sai no fim da cena ou se essa pessoa ficar Incapacitada."
+    },
+    "StatusFamily": {
+      "core": "Clássicos",
+      "control": "Controle",
+      "block": "Bloqueio",
+      "mind": "Mente",
+      "element": "Elementais",
+      "guard": "Quebra de guarda"
+    },
+    "Conditions": {
+      "Damage": "Dano",
+      "DamageLine": "{name}: {what} {n}{parts} → PV {before} → {hp}",
+      "DamageFrom": "{what} de {name}",
+      "Applied": {
+        "Exposed": "Exposto: sem Defesa nem Anulação",
+        "Intangible": "Intangível: sem dano físico",
+        "Bond": "Vínculo: {n} vão para {name}",
+        "LastStand": "Último Fôlego: fica com 1 PV",
+        "WokeUp": "Acordou",
+        "CharmBroken": "O Encanto se quebrou",
+        "Melted": "A Chama derreteu o Congelando",
+        "Mirror": "Espelho: {n} de dano em {name}"
+      },
+      "CursedNoHeal": "{name} está Maldito: não recupera PV.",
+      "CursedBlocks": "{name} está Maldito: não recebe {status}.",
+      "ConfusedHate": "{name} está Confuso: o Ódio sobe para {hate}.",
+      "DoomFalls": "{name}: a Sentença chegou ao fim. Incapacitado.",
+      "DoomCount": "{name}: Sentença {n}.",
+      "RoundEnds": "{name}: fim de {statuses}.",
+      "AwakenedEnds": "{name} volta ao normal e recebe Fadiga {n}.",
+      "Threshold": {
+        "freezing": "{name} congela: fica Paralisado.",
+        "fissured": "A guarda de {name} quebra: perde a Barreira e fica Exposto."
+      },
+      "Freed": "{name} se livra de {status}: {source} está Incapacitado.",
+      "LostTurnTitle": "Perdeu a vez",
+      "LostTurn": "{name} ({statuses}) perde o Processo Principal.",
+      "Use": {
+        "NoActions": "{name} está {status} e não age.",
+        "NoMovement": "{name} está {status}: sem ações de [Movimento].",
+        "NoReactions": "{name} está {status}: sem reações.",
+        "Silenced": "{name} está Silenciado: sem [Ataque Mágico], [Feitiço] ou [Canção].",
+        "Disarmed": "{name} está Desarmado: sem ataques com arma.",
+        "Sealed": "Esta habilidade está Selada.",
+        "Berserk": "{name} está em Fúria: só usa habilidades que atacam (e as de movimento).",
+        "Blinded": "{name} está Cego: só ataca quem está a até 1 quadrado ({targets}).",
+        "Grappled": "{name} está Agarrado: só ataca {source}.",
+        "Taunted": "{name} está Provocado: precisa ter {source} como alvo.",
+        "Charmed": "{name} está Encantado: não ataca {source}."
+      },
+      "Move": {
+        "Stuck": "{name} está {status} e não se move.",
+        "Fear": "{name} tem Medo de {source} e não se aproxima."
+      },
+      "Recover": {
+        "Hint": "Livrar-se com {actions}",
+        "Or": " ou ",
+        "NotYourProcess": "{name} só se livra disso no próprio Processo Principal.",
+        "NoAction": "{name} não tem mais {actions} neste Processo Principal.",
+        "Done": "{name} gasta a {action} e se livra de {status}.",
+        "DoneFree": "{name} se livra de {status}.",
+        "Afflicted": "{name} está Aflito: não se livra de {status}."
+      }
     }
   },
   "Cancel": "Cancelar"

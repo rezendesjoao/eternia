@@ -23,7 +23,7 @@
 			{{#if (eq target.distance 0)}}<span class="lh-distance">{{localize 'ETERNIA.Combat.Close'}}</span>
 			{{else if target.distance}}<span class="lh-distance">{{target.distance}} Sq</span>{{/if}}
 			{{#if target.dodge}}
-			<span class="lh-dodge" data-tooltip="{{target.dodge.formula}} [{{target.dodge.results}}]{{#if target.dodge.hateUnder}} · {{localize 'ETERNIA.Combat.HateUnder'}}{{/if}}">
+			<span class="lh-dodge" data-tooltip="{{target.dodge.formula}} [{{target.dodge.results}}]{{#if target.dodge.hateUnder}} · {{localize 'ETERNIA.Combat.HateUnder'}}{{/if}}{{#if target.dodge.conditions}} · {{target.dodge.conditions}}{{/if}}">
 				{{#if target.dodge.critical}}<i class="fas fa-star"></i>{{/if}}{{#if target.dodge.fumble}}<i class="fas fa-skull"></i>{{/if}}
 				{{target.dodge.total}}
 			</span>

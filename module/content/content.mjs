@@ -18,6 +18,7 @@
  * Only missing data is filled: what a GM edited by hand is never replaced.
  */
 import { parseMonsterDamage } from "./monster-damage.mjs";
+import { canHeal } from "../conditions/damage.mjs";
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { canonicalTag } from "../helpers/tag-catalog.mjs";
 import { diceFormula } from "../helpers/dice.mjs";
@@ -469,6 +470,8 @@ async function healActor(actor, amount, heal) {
     return { ok: true, line: L("Content.NotHealer", { name }) };
   }
   if (actor.statuses.has("dead")) return { ok: true, line: L("Content.Dead", { name }) };
+  // A [Cursed] character recovers no HP (conditions/damage.mjs).
+  if (!canHeal(actor)) return { ok: true, line: L("Conditions.CursedNoHeal", { name }) };
   const max = toInt(actor.system.health?.max);
   const before = toInt(actor.system.health?.value);
   const after = Math.max(before, Math.min(max, before + amount));

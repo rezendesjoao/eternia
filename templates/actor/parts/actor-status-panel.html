@@ -5,10 +5,12 @@
 	<div class="lh-status-group lh-status-group--{{id}}">
 		<h4 class="lh-status-group-title">{{label}}</h4>
 		{{#each statuses}}
+		{{!-- Families of the Bad Statuses (Control, Block, Mind…) get a small header --}}
+		{{#if family}}<h5 class="lh-status-family">{{family}}</h5>{{/if}}
 		{{#if list}}
 		{{!-- Status that can be applied several times (Pursuit, Weakness, Cancel): type a Rating (and a Tag
 		      for Weakness / Cancel, empty = any damage) and add it as a new entry --}}
-		<div class="lh-status lh-status--list{{#if active}} active{{/if}}" title="{{label}}"{{#unless tagged}} data-add-row{{/unless}}>
+		<div class="lh-status lh-status--list{{#if active}} active{{/if}}" data-tooltip-text="{{label}}{{#if desc}}: {{desc}}{{/if}}"{{#unless tagged}} data-add-row{{/unless}}>
 			<img src="{{img}}" alt="" />
 			<span class="lh-status-label">{{label}}</span>
 			{{#unless tagged}}
@@ -48,7 +50,7 @@
 		</ol>
 		{{/if}}
 		{{else}}
-		<label class="lh-status{{#if active}} active{{/if}}" title="{{label}}">
+		<label class="lh-status{{#if active}} active{{/if}}" data-tooltip-text="{{label}}{{#if desc}}: {{desc}}{{/if}}">
 			{{#if rated}}
 			<img src="{{img}}" alt="" />
 			<span class="lh-status-label">{{label}}</span>

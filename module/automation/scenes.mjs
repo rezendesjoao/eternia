@@ -15,12 +15,12 @@ import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { actorName, confirm, escape, postSummary, toInt } from "../helpers/utils.mjs";
 import { fillWorld } from "../content/content.mjs";
 import { kudenEndScene } from "../kuden/pieces.mjs";
+import { LH_STATUSES } from "../helpers/statuses.mjs";
+import { END_OF_SCENE_GROUPS, END_OF_SCENE_OTHERS } from "../conditions/catalog.mjs";
 import { applyEnvFromTools, envToolsHTML } from "../kuden/env.mjs";
 
-/** Bad Statuses with a checkbox, with a Rating, and with a list of Ratings; Combat Statuses. */
-const FLAG_STATUSES = ["staggered", "dazed", "rigor", "confused", "afflicted", "overconfident"];
-const RATED_STATUSES = ["decay", "regen", "barrier"];
-const LIST_STATUSES = ["pursuits", "cancels"];
+/** The statuses that end with the scene: the Bad and Combat Statuses, and a few others ([Hidden], [Bond]). */
+const endsWithScene = s => END_OF_SCENE_GROUPS.includes(s.group) || END_OF_SCENE_OTHERS.includes(s.id);
 
 /** How many scenes / scenarios this actor has finished. */
 export const counter = (actor, name) => toInt(actor?.getFlag(SYSTEM_ID, name));
@@ -36,11 +36,16 @@ export async function bumpCounter(actor, name) {
  * @returns {Promise<string|null>}   A line for the summary card, if something worth telling happened.
  */
 export async function endOfSceneFor(actor) {
-  const bad = actor._source.system?.["bad-status"] ?? {};
   const updates = {};
-  for (const key of FLAG_STATUSES) if (bad[key]) updates[`system.bad-status.${key}`] = false;
-  for (const key of RATED_STATUSES) if (toInt(bad[key])) updates[`system.bad-status.${key}`] = 0;
-  for (const key of LIST_STATUSES) if (Array.isArray(bad[key]) && bad[key].length) updates[`system.bad-status.${key}`] = [];
+  const ending = [];
+  for (const status of LH_STATUSES.filter(endsWithScene)) {
+    if (status.path) {
+      const value = foundry.utils.getProperty(actor._source.system ?? {}, status.path);
+      const set = status.list ? (Array.isArray(value) && value.length) : (status.rated ? toInt(value) : !!value);
+      if (set) updates[`system.${status.path}`] = status.list ? [] : (status.rated ? 0 : false);
+    }
+    else if (actor.statuses.has(status.id)) ending.push(status.id);
+  }
 
   const statuses = actor.statuses;
   const off = [];
@@ -67,6 +72,8 @@ export async function endOfSceneFor(actor) {
   }
 
   if (!foundry.utils.isEmpty(updates)) await actor.update(updates);
+  const effects = actor.effects.filter(e => ending.some(id => e.statuses.has(id))).map(e => e.id);
+  if (effects.length) await actor.deleteEmbeddedDocuments("ActiveEffect", effects);
   for (const id of off) if (actor.statuses.has(id)) await actor.toggleStatusEffect(id, { active: false });
   for (const id of on) if (!actor.statuses.has(id)) await actor.toggleStatusEffect(id, { active: true });
   return line;

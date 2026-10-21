@@ -2073,6 +2073,27 @@
   color: var(--pf-primary);
   font: 600 15px/1 var(--pf-serif);
 }
+/* Bad Statuses: the whole width, two columns, a small header per family */
+.lhpf .lh-status-group--bad {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 18px;
+  align-content: start;
+}
+.lhpf .lh-status-group--bad > .lh-status-group-title,
+.lhpf .lh-status-group--bad > .lh-status-family,
+.lhpf .lh-status-group--bad > .lh-status-entries {
+  grid-column: 1 / -1;
+}
+.lhpf .lh-status-family {
+  margin: 6px 0 2px;
+  color: var(--pf-text-soft);
+  font: 600 11px/1.2 var(--pf-sans);
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+}
 .lhpf .lh-status {
   display: flex;
   align-items: center;

@@ -1,12 +1,11 @@
 /**
- * What's new: once per user and release line, a short window with the news of this version (the HUD, the turn
- * helpers, the status links, the HUD in place of the macro hotbar…), so the players know the bar at the bottom of
- * the screen is theirs to use and where the macros went.
+ * What's new: once per user and release line, a short window with the news of this version (0.2: the conditions;
+ * 0.1: the HUD in place of the macro hotbar, the turn helpers, the status links), so the players know what changed.
  */
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 
 /** The release line the notice speaks about. */
-const NOTICE = "0.1";
+const NOTICE = "0.2";
 
 /** Call during the `init` hook. */
 export function registerNotice() {

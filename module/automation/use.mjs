@@ -26,6 +26,8 @@ import { actorName, combatantOf, combatOf, confirm, escape, toInt, wrap } from "
 import { counter } from "./scenes.mjs";
 import { ITEM_SKILL, linkedSkill } from "../content/content.mjs";
 import { kudenUseIssues } from "../kuden/conditions.mjs";
+import { actionAllowance, conditionUseIssues } from "../conditions/actions.mjs";
+import { afterAction } from "../conditions/turns.mjs";
 
 /** The action a Timing spends in the Main Process. */
 const ACTIONS = { Major: "major", Minor: "minor", Move: "move" };
@@ -276,7 +278,7 @@ export async function checkUsable(item) {
  * @returns {{combat: Combat|null, combatant: Combatant|null, timing: string, action: string|null,
  *   limit: object|null, key: string|null, uses: number, cost: object|null, issues: {text: string, mode: string}[]}}
  */
-export function inspectUse(item) {
+export function inspectUse(item, { targets = null } = {}) {
   const actor = item.actor;
   const combat = combatOf(actor);
   const combatant = combat ? combatantOf(combat, actor) : null;
@@ -290,12 +292,17 @@ export function inspectUse(item) {
     issues.push({ text: L("Use.Incapacitated", { name: actorName(actor) }), mode: actionsMode });
   }
 
-  // Timing and action economy (in a started combat)
+  // Timing and action economy (in a started combat): [Hasted] has two Minor Actions, [Slowed] no Move Action.
   if (combatant && actionsMode && (actionsMode !== "off")) {
     for (const text of timingIssues(timing, combat, combatant)) issues.push({ text, mode: actionsMode });
     action = ACTIONS[timing] ?? null;
-    if (action && spentActions(actor, combat)[action]) issues.push({ text: L(`Use.ActionSpent.${action}`), mode: actionsMode });
+    if (action && (spentActions(actor, combat)[action] >= actionAllowance(actor)[action])) {
+      issues.push({ text: L(`Use.ActionSpent.${action}`), mode: actionsMode });
+    }
   }
+
+  // What the user's conditions forbid (conditions/actions.mjs)
+  issues.push(...conditionUseIssues(item, actor, { targets }));
 
   // Usage limit, and the conditions of an item's skill
   const limitsMode = setting("limits");
@@ -330,7 +337,21 @@ export function actionsLeft(actor) {
   const combat = combatOf(actor);
   if (!mode || (mode === "off") || !combat || !combatantOf(combat, actor)) return null;
   const spent = spentActions(actor, combat);
-  return { major: !spent.major, minor: !spent.minor, move: !spent.move };
+  const allowed = actionAllowance(actor);
+  return { major: spent.major < allowed.major, minor: spent.minor < allowed.minor, move: spent.move < allowed.move };
+}
+
+/**
+ * Spend one action of the actor's Main Process outside a skill (ending a status, see conditions/recovery.mjs).
+ * @param {Actor} actor
+ * @param {"major"|"minor"|"move"} action
+ */
+export async function spendAction(actor, action) {
+  const combat = combatOf(actor);
+  if (!combat || !Object.values(ACTIONS).includes(action)) return;
+  const spent = spentActions(actor, combat);
+  spent[action] += 1;
+  await actor.update({ [`flags.${SYSTEM_ID}.actions`]: spent });
 }
 
 /**
@@ -339,7 +360,7 @@ export function actionsLeft(actor) {
  * @returns {Promise<object|null>}   The plan to record after the card, or null when the use stops.
  */
 async function planUse(item) {
-  const state = inspectUse(item);
+  const state = inspectUse(item, { targets: [...game.user.targets] });
   const forced = await decide(item, state.issues);
   if (!forced) return null;
   return { ...state, forced };
@@ -397,6 +418,9 @@ async function commitUse(item, plan, message) {
   if (record.hate || record.fate || record.action || record.limit || record.group || record.forced.length) {
     await message.setFlag(SYSTEM_ID, "usage", record);
   }
+  // The conditions an action sets off: [Shocked] hurts on a Major Action, which also ends [Intangible] and
+  // [Hidden]; the last skill used is the one a [Sealed] without a name seals.
+  await afterAction(actor, item, plan.action);
 }
 
 /**

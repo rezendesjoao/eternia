@@ -16,23 +16,15 @@ import { hateRank } from "../helpers/effect-conditions.mjs";
 import { request } from "../piles/pile-socket.mjs";
 import { actorName, escape, targetActor, toInt } from "../helpers/utils.mjs";
 import { rollCheck } from "../chat/cards.mjs";
+import { LH_STATUSES } from "../helpers/statuses.mjs";
+import { AFFLICTED_PROTECTS } from "../conditions/catalog.mjs";
+import { has, removeStatuses } from "../conditions/rules.mjs";
+import { applyModifier, consumeAfterRoll, dodgeModifier } from "../conditions/rolls.mjs";
 
 const ATTACK_TEMPLATE = "systems/eternia/templates/chat/attack-card.hbs";
 
-/**
- * Bad Statuses Fate can remove: their field in `system.bad-status`, the value that clears it, and
- * whether [Afflicted] protects it.
- */
-const BAD_STATUSES = [
-  { id: "staggered", path: "staggered", clear: false, afflicted: true },
-  { id: "dazed", path: "dazed", clear: false, afflicted: true },
-  { id: "rigor", path: "rigor", clear: false },
-  { id: "confused", path: "confused", clear: false, afflicted: true },
-  { id: "decay", path: "decay", clear: 0 },
-  { id: "pursuit", path: "pursuits", clear: [] },
-  { id: "afflicted", path: "afflicted", clear: false },
-  { id: "overconfident", path: "overconfident", clear: false, afflicted: true }
-];
+/** Bad Statuses Fate can remove (all of them, the conditions of Eternia included); [Afflicted] protects some. */
+const badStatuses = () => LH_STATUSES.filter(s => s.group === "bad");
 
 /** Call during the `init` hook. */
 export function registerFate() {
@@ -82,15 +74,20 @@ function resolveHit(attack, dodge) {
 }
 
 /** A Dodge Check: Evasion / Resistance, -1D when [Dazed] (min 1D), +2 for a [Hate Under] character. */
-async function rollDodge(actor, vs) {
+async function rollDodge(actor, vs, { attacker = null, item = null } = {}) {
   const check = actor.system.checks?.[vs] ?? {};
-  let dice = toInt(check.dice);
-  let mod = toInt((actor.type === "monster") ? check.mod : check.total);
-  if (actor.system["bad-status"]?.dazed) dice = Math.max(dice - 1, 1);
+  const condition = dodgeModifier(actor, { vs, attacker, item });
+  if (condition.autoFail) {
+    const roll = await new Roll("0").evaluate();
+    const asleep = game.i18n.localize("ETERNIA.StatusEffect.asleep");
+    return { roll, dodge: { total: 0, critical: false, fumble: true, formula: "—", results: "", conditions: asleep } };
+  }
+  let { dice, mod } = applyModifier({ dice: toInt(check.dice), mod: toInt(actor.type === "monster" ? check.mod : check.total) }, condition);
   const hateUnder = hateRank(actor) === "under";
   if (hateUnder) mod += 2;
   const roll = await new Roll(diceFormula({ dice, mod })).evaluate();
-  return { roll, dodge: { ...rollOutcome(roll, actor), hateUnder } };
+  await consumeAfterRoll(actor, condition.consume);
+  return { roll, dodge: { ...rollOutcome(roll, actor), hateUnder, conditions: condition.text } };
 }
 
 async function renderAttack(data, roll) {
@@ -148,7 +145,8 @@ async function rerollDodge(message, index) {
   const target = data?.targets?.[index];
   const actor = targetActor(target);
   if (!target?.dodge || data.auto || !canSpend(actor)) return;
-  const { roll, dodge } = await rollDodge(actor, data.vs);
+  const item = data.itemUuid ? fromUuidSync(data.itemUuid) : null;
+  const { roll, dodge } = await rollDodge(actor, data.vs, { attacker: item?.actor ?? null, item });
   await game.dice3d?.showForRoll(roll, game.user, true);
   const patch = { dodge: { ...dodge, fate: true }, hit: resolveHit(data.attack, dodge) };
   if (message.isOwner) {
@@ -277,11 +275,8 @@ function onRenderSheet(app, html) {
 
 /** Spend 1 Fate Point to remove one Bad Status of a character. */
 export async function removeBadStatus(actor) {
-  const bad = actor._source.system?.["bad-status"] ?? {};
-  const isOn = status => Array.isArray(status.clear) ? (bad[status.path]?.length > 0)
-    : (typeof status.clear === "number") ? (toInt(bad[status.path]) > 0) : !!bad[status.path];
-  const afflicted = !!bad.afflicted;
-  const options = BAD_STATUSES.filter(isOn).filter(s => !(afflicted && s.afflicted));
+  const afflicted = has(actor, "afflicted");
+  const options = badStatuses().filter(s => has(actor, s.id)).filter(s => !(afflicted && AFFLICTED_PROTECTS.includes(s.id)));
   if (!options.length) return ui.notifications.info(L("Fate.NoBadStatus", { name: actorName(actor) }));
   if (fateOf(actor) < 1) return ui.notifications.warn(L("Fate.None", { name: actorName(actor) }));
 
@@ -296,9 +291,9 @@ export async function removeBadStatus(actor) {
     rejectClose: false,
     ok: { label: L("Fate.Remove"), icon: "fa-solid fa-star", callback: (event, button) => button.form.elements.status.value }
   });
-  const status = BAD_STATUSES.find(s => s.id === choice);
+  const status = options.find(s => s.id === choice);
   if (!status || !await spendFate(actor)) return;
-  await actor.update({ [`system.bad-status.${status.path}`]: status.clear });
+  await removeStatuses(actor, [status.id]);
   await ChatMessage.create({
     speaker: ChatMessage.getSpeaker({ actor }),
     content: `<div class="eternia chat-card lhauto-card"><p><i class="fa-solid fa-star"></i> ${escape(L("Fate.Removed", {

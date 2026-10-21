@@ -1,3 +1,4 @@
+import { applyModifier, checkModifier, consumeAfterRoll } from "../conditions/rolls.mjs";
 import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/effects.mjs";
 import { activateTagInput } from "../helpers/tags.mjs";
 import { getStatusPanel, activateStatusPanelListeners } from "../helpers/statuses.mjs";
@@ -253,14 +254,19 @@ export class EterniaActorMonsterSheet extends HandlebarsApplicationMixin(foundry
     return fp.browse();
   }
 
-  static #onRollCheck(event, target) {
+  static async #onRollCheck(event, target) {
     const { check, name } = target.dataset;
     const values = this.actor.system.checks?.[check];
     if (!values) return;
-    return new Roll(diceFormula(values)).toMessage({
+    // The monster's conditions (conditions/rolls.mjs)
+    const condition = checkModifier(this.actor, { stat: check });
+    const flavor = `${game.i18n.localize("ETERNIA.WindowTitle.AbilityCheck")} - ${game.i18n.localize(`ETERNIA.Check.${name}`)}`;
+    const message = await new Roll(diceFormula(applyModifier({ dice: Number(values.dice) || 0, mod: Number(values.mod) || 0 }, condition))).toMessage({
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: `${game.i18n.localize("ETERNIA.WindowTitle.AbilityCheck")} - ${game.i18n.localize(`ETERNIA.Check.${name}`)}`
+      flavor: condition.text ? `${flavor} (${condition.text})` : flavor
     });
+    await consumeAfterRoll(this.actor, condition.consume);
+    return message;
   }
 
   static async #onSendToChat(event, target) {

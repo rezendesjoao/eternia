@@ -10,6 +10,7 @@
 
 import { canonicalTag } from "./tag-catalog.mjs";
 import { isLocalChange } from "./clients.mjs";
+import { FAMILIES, NEW_STATUSES } from "../conditions/catalog.mjs";
 
 const ICONS_PATH = "systems/eternia/assets/ui/status";
 
@@ -25,6 +26,9 @@ const ICONS_PATH = "systems/eternia/assets/ui/status";
  * @property {boolean} [tagged]  List entries are `{ value, tag }`: the status only applies to damage
  *                               with that tag ([Weakness (Flame): 5]); no tag = any damage.
  * @property {string[]} [types]  Actor types that show this status in their sheet (default: all).
+ * @property {string} [family]   Family of a Bad Status, for the status panel (see conditions/catalog.mjs).
+ * @property {number} [stack]    The Rating adds up with every application, up to this many stacks.
+ * @property {boolean} [source]  The status acts against or through the character who gave it.
  */
 
 /** @type {LHStatus[]} */
@@ -35,14 +39,14 @@ export const LH_STATUSES = [
   { id: "incapacitated", group: "life", img: `${ICONS_PATH}/incapacitated.svg` },
   { id: "dead", group: "life", img: `${ICONS_PATH}/dead.svg` },
   // Bad Statuses
-  { id: "staggered", group: "bad", img: `${ICONS_PATH}/staggered.svg`, path: "bad-status.staggered" },
-  { id: "dazed", group: "bad", img: `${ICONS_PATH}/dazed.svg`, path: "bad-status.dazed" },
-  { id: "rigor", group: "bad", img: `${ICONS_PATH}/rigor.svg`, path: "bad-status.rigor" },
-  { id: "confused", group: "bad", img: `${ICONS_PATH}/confused.svg`, path: "bad-status.confused" },
-  { id: "decay", group: "bad", img: `${ICONS_PATH}/decay.svg`, path: "bad-status.decay", rated: true },
-  { id: "pursuit", group: "bad", img: `${ICONS_PATH}/pursuit.svg`, path: "bad-status.pursuits", list: true },
-  { id: "afflicted", group: "bad", img: `${ICONS_PATH}/afflicted.svg`, path: "bad-status.afflicted" },
-  { id: "overconfident", group: "bad", img: `${ICONS_PATH}/overconfident.svg`, path: "bad-status.overconfident" },
+  { id: "staggered", group: "bad", family: "core", img: `${ICONS_PATH}/staggered.svg`, path: "bad-status.staggered" },
+  { id: "dazed", group: "bad", family: "core", img: `${ICONS_PATH}/dazed.svg`, path: "bad-status.dazed" },
+  { id: "rigor", group: "bad", family: "core", img: `${ICONS_PATH}/rigor.svg`, path: "bad-status.rigor" },
+  { id: "confused", group: "bad", family: "core", img: `${ICONS_PATH}/confused.svg`, path: "bad-status.confused" },
+  { id: "decay", group: "bad", family: "core", img: `${ICONS_PATH}/decay.svg`, path: "bad-status.decay", rated: true },
+  { id: "pursuit", group: "bad", family: "core", img: `${ICONS_PATH}/pursuit.svg`, path: "bad-status.pursuits", list: true },
+  { id: "afflicted", group: "bad", family: "core", img: `${ICONS_PATH}/afflicted.svg`, path: "bad-status.afflicted" },
+  { id: "overconfident", group: "bad", family: "core", img: `${ICONS_PATH}/overconfident.svg`, path: "bad-status.overconfident" },
   // Combat Statuses
   { id: "regen", group: "combat", img: `${ICONS_PATH}/regen.svg`, path: "bad-status.regen", rated: true },
   { id: "cancel", group: "combat", img: `${ICONS_PATH}/cancel.svg`, path: "bad-status.cancels", list: true, tagged: true },
@@ -55,8 +59,13 @@ export const LH_STATUSES = [
   { id: "standby", group: "other", img: `${ICONS_PATH}/standby.svg` },
   { id: "hateTop", group: "other", img: `${ICONS_PATH}/hateTop.svg` },
   { id: "hateUnder", group: "other", img: `${ICONS_PATH}/hateUnder.svg` },
-  { id: "absent", group: "other", img: `${ICONS_PATH}/absent.svg` }
+  { id: "absent", group: "other", img: `${ICONS_PATH}/absent.svg` },
+  // The conditions of Eternia (conditions/catalog.mjs)
+  ...NEW_STATUSES
 ];
+
+/** Order of the statuses in the panel: the Bad Statuses by family, the others as listed. */
+const PANEL_ORDER = new Map(LH_STATUSES.map((s, i) => [s.id, ((s.group === "bad") ? FAMILIES.indexOf(s.family) * 100 : 0) + i]));
 
 /** Status that hides the token from everyone but its owners and the GM. */
 export const HIDDEN_STATUS = "hidden";
@@ -116,11 +125,15 @@ export function getStatusPanel(actor) {
     statuses: LH_STATUSES
       .filter(s => (s.group === group) && (s.id !== "fatigue"))
       .filter(s => !s.types || s.types.includes(actor.type))
-      .map(s => {
+      .sort((a, b) => PANEL_ORDER.get(a.id) - PANEL_ORDER.get(b.id))
+      .map((s, i, list) => {
         const value = s.path ? foundry.utils.getProperty(source, s.path) : undefined;
+        const familyStart = !!s.family && (s.family !== list[i - 1]?.family);
         return {
           id: s.id,
           label: game.i18n.localize(`ETERNIA.StatusEffect.${s.id}`),
+          desc: statusDescription(s.id),
+          family: familyStart ? game.i18n.localize(`ETERNIA.StatusFamily.${s.family}`) : null,
           img: s.img,
           field: s.path ? `system.${s.path}` : null,
           rated: !!s.rated,
@@ -132,6 +145,15 @@ export function getStatusPanel(actor) {
       })
   }));
 }
+
+/** The rules of a status in one or two lines (tooltips of the sheets, the HUD and the chat links). */
+export function statusDescription(id) {
+  const key = `ETERNIA.StatusDesc.${id}`;
+  return game.i18n.has(key) ? game.i18n.localize(key) : "";
+}
+
+/** The definition of a status, if it is one of the system's. */
+export const statusDefinition = id => STATUS_BY_ID.get(id) ?? null;
 
 /**
  * Listeners of the status panel's list statuses (Pursuit, Weakness, Cancel): add the Rating (and
@@ -352,7 +374,12 @@ async function _applyStatusDataOnCreate(actor, status, statusData) {
   const value = _fieldValue(actor, status);
   if (value === undefined) return;
 
-  if (status.rated) {
+  if (status.rated && status.stack) {
+    const effVal = Math.floor(Number(statusData.value) || 0) || 1;
+    const currentVal = Number(value) || 0;
+    const next = Math.min(currentVal + effVal, status.stack);
+    if (next !== currentVal) await actor.update({ [`system.${status.path}`]: next });
+  } else if (status.rated) {
     const effVal = Math.floor(Number(statusData.value) || 0) || 1;
     const currentVal = Number(value) || 0;
     const maxVal = Math.max(currentVal, effVal);
@@ -396,6 +423,11 @@ async function _applyStatusDataOnDelete(actor, status, statusData, deletedEffect
       currentList.splice(index, 1);
       await actor.update({ [`system.${status.path}`]: currentList });
     }
+  } else if (status.rated && status.stack) {
+    const currentVal = Number(value) || 0;
+    const effVal = Math.floor(Number(statusData.value) || 0) || 1;
+    const next = Math.max(0, currentVal - effVal);
+    if (next !== currentVal) await actor.update({ [`system.${status.path}`]: next });
   } else if (status.rated) {
     const currentVal = Number(value) || 0;
     const effVal = Math.floor(Number(statusData.value) || 0) || 1;

@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.2.0 — 2026-10-21
+
+### Adicionado
+- **31 condições novas**, somadas aos 23 estados de base e automatizadas: Paralisado, Adormecido, Enraizado,
+  Derrubado, Lento e Agarrado (Controle); Silenciado, Desarmado, Cego e Selado (Bloqueio); Medo, Encantado,
+  Provocado e Fúria (Mente); Queimando, Envenenado, Congelando, Eletrificado e Maldito (Elementais); Exposto,
+  Fissurado, Marcado e Sentença (Quebra de guarda); Acelerado, Fortalecido, Concentrado, Espelho, Intangível, Último
+  Fôlego e Despertado (Estados de Combate); e Vínculo.
+- **Automação das condições:** os dados dos testes e das Esquivas, o dano a mais, o dano aplicado (Exposto,
+  Intangível, Marcado, Último Fôlego, Vínculo, Espelho, Maldito), o dano no início do Processo Principal, na Ação
+  Maior e no Encerramento, a perda de vez, a ordem do Lento, as duas Ações Menores do Acelerado, os acúmulos com
+  limiar, as defesas e a Velocidade na ficha, o fim de cada condição e o Desfazer. O que elas proíbem (ações, alvos e
+  movimento) avisa ou bloqueia.
+- **Livrar-se de uma condição** gastando a ação da regra, pelo botão no painel de Estados do HUD.
+- A regra de cada estado no tooltip da ficha, do HUD e dos estados clicáveis do chat, e o painel de estados da ficha
+  separado por família.
+- Página **IX. CONDIÇÕES DA ETERNIA** no diário AS REGRAS.
+- Tags [Feitiço] e [Canção].
+- Configurações "Efeitos automáticos das condições" e "O que as condições proíbem".
+- Para macros: `game.eternia.applyStatus` aceita a origem (`from`), `game.eternia.conditions.recover` e
+  `game.eternia.conditions.damage`.
+- 31 ícones de estado do game-icons.net (`tools/make-status-icons.mjs`) e a referência técnica `docs/condicoes.md`.
+- Aviso de novidades da 0.2.
+
+### Alterado
+- Paralisado, Silenciado e Provocado acabam no fim do Processo Principal de quem os recebeu, como Atordoado e
+  Cambaleante. A configuração passou a se chamar "Estados que acabam no fim do Processo Principal".
+- Aflito também protege Medo e Encantado.
+- O fim de cena também encerra o Vínculo.
+
 ## 0.1.0 — 2026-10-21
 
 Primeira versão da Eternia. Parte do [LHTTRPG](https://github.com/DeadlyPoisonK/LHTTRPG) 2.1.1 (o histórico dele

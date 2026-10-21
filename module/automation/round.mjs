@@ -3,8 +3,10 @@
  *
  * - Cleanup Process: [Regen] heals, then [Decay] deals its Rating as damage through [Barrier]
  *   ("perform the effects that would heal first"); a summary is posted.
- * - [Staggered] and [Dazed] end at the end of the affected character's Main Process, unless it is
- *   [Afflicted] (then they would come back at once).
+ * - [Staggered], [Dazed] and the other statuses of END_OF_OWN_PROCESS (conditions/catalog.mjs) end at the end of
+ *   the affected character's Main Process; [Afflicted] keeps the ones it protects.
+ * - The conditions of the Cleanup ([Burning], [Doom], the statuses that end with the round) and the combatants
+ *   that lose their Main Process ([Paralyzed], [Asleep]): see conditions/turns.mjs.
  * - Incapacitated: at 0 HP, or 0 Max HP from Fatigue; a character made Incapacitated above 0 HP drops
  *   to 0. Incapacitated, Dead and Absent combatants are always Post-Action: their turn is skipped.
  * - The end of a started combat is the end of the scene of those who fought in it (scenes.mjs).
@@ -16,6 +18,10 @@ import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
 import { actorName, combatActors, outOfAction, postSummary, toInt, wrap } from "../helpers/utils.mjs";
 import { bumpCounter, endOfSceneFor } from "./scenes.mjs";
+import { AFFLICTED_PROTECTS, END_OF_OWN_PROCESS } from "../conditions/catalog.mjs";
+import { cleanupConditions } from "../conditions/turns.mjs";
+import { losesTurn } from "../conditions/actions.mjs";
+import { has, removeStatuses } from "../conditions/rules.mjs";
 
 /** Call during the `init` hook. */
 export function registerRound() {
@@ -31,7 +37,7 @@ export function registerRound() {
   });
 
   wrap(proto, "_advance", function (original, state) {
-    return original.call(this, setting("incapacitated") ? skipOutOfAction(this, state) : state);
+    return original.call(this, skipLostTurns(this, setting("incapacitated") ? skipOutOfAction(this, state) : state));
   });
 
   // Who was Post-Action before a combat update, to find whose Main Process just ended.
@@ -59,9 +65,16 @@ async function cleanup(combat, round) {
   for (const actor of combatActors(combat)) {
     if (actor.statuses.has("dead") || actor.statuses.has("incapacitated")) continue;
     const bad = actor.system["bad-status"] ?? {};
-    const regen = toInt(bad.regen);
+    // A [Cursed] character recovers no HP (conditions/damage.mjs).
+    const regen = has(actor, "cursed") ? 0 : toInt(bad.regen);
     const decay = toInt(bad.decay);
-    if ((regen <= 0) && (decay <= 0)) continue;
+    const own = actor.hasPlayerOwner ? lines : gmLines;
+    // [Burning], [Doom] and the statuses that end with the round (conditions/turns.mjs)
+    const conditionLines = async () => own.push(...await cleanupConditions(actor));
+    if ((regen <= 0) && (decay <= 0)) {
+      await conditionLines();
+      continue;
+    }
 
     const max = toInt(actor.system.health?.max);
     let hp = toInt(actor.system.health?.value);
@@ -82,7 +95,8 @@ async function cleanup(combat, round) {
     updates["system.health.value"] = hp;
     await actor.update(updates);
     const line = L("Round.Line", { name: actorName(actor), parts: parts.join(", "), hp, max });
-    (actor.hasPlayerOwner ? lines : gmLines).push(line);
+    own.push(line);
+    await conditionLines();
   }
   if (lines.length || gmLines.length) {
     const scene = combat.scene?.name ? ` · ${combat.scene.name}` : "";
@@ -102,7 +116,25 @@ function skipOutOfAction(combat, state) {
   return skipped.length ? { ...state, acted: [...state.acted, ...skipped] } : state;
 }
 
-/** Main Processes that just ended: [Staggered] and [Dazed] end with them. */
+/**
+ * [Paralyzed] and [Asleep] combatants lose their Main Process: they become Post-Action without acting (their
+ * Main Process ends, so [Paralyzed] ends with it). A line in the chat says so.
+ */
+function skipLostTurns(combat, state) {
+  const skipped = combat.combatants.filter(c => !state.acted.includes(c.id) && (c.id !== state.active) && c.actor
+    && !c.actor.statuses.has("incapacitated") && !c.actor.statuses.has("dead") && losesTurn(c.actor));
+  if (!skipped.length) return state;
+  // Only the next one in the Initiative Process is skipped now: the others keep their place until their turn.
+  const next = combat._nextActor(state);
+  if (!next || !skipped.includes(next)) return state;
+  const statuses = ["paralyzed", "asleep"].filter(id => has(next.actor, id));
+  postSummary(L("Conditions.LostTurnTitle"), [L("Conditions.LostTurn", {
+    name: next.name, statuses: statuses.map(id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`)).join(", ")
+  })]).catch(() => null);
+  return skipLostTurns(combat, { ...state, acted: [...state.acted, next.id] });
+}
+
+/** Main Processes that just ended: [Staggered], [Dazed] and the other statuses of END_OF_OWN_PROCESS end with them. */
 async function onUpdateCombat(combat, changes, options, userId) {
   if (!setting("endOfProcess") || !isLocalChange(options, userId)) return;
   const acted = foundry.utils.getProperty(changes, "flags.eternia.acted");
@@ -110,13 +142,11 @@ async function onUpdateCombat(combat, changes, options, userId) {
   const before = options.eterniaActed ?? [];
   for (const id of acted.filter(id => !before.includes(id))) {
     const actor = combat.combatants.get(id)?.actor;
-    const bad = actor?._source.system?.["bad-status"];
-    if (!bad || bad.afflicted) continue;
-    const updates = {};
-    if (bad.dazed) updates["system.bad-status.dazed"] = false;
-    if (bad.staggered) updates["system.bad-status.staggered"] = false;
-    if (!foundry.utils.isEmpty(updates)) {
-      await actor.update(updates).catch(err => console.error(`${SYSTEM_ID} | Could not end the statuses of ${actor.uuid}`, err));
+    if (!actor) continue;
+    const afflicted = actor.statuses.has("afflicted");
+    const ending = END_OF_OWN_PROCESS.filter(status => has(actor, status) && !(afflicted && AFFLICTED_PROTECTS.includes(status)));
+    if (ending.length) {
+      await removeStatuses(actor, ending).catch(err => console.error(`${SYSTEM_ID} | Could not end the statuses of ${actor.uuid}`, err));
     }
   }
 }
