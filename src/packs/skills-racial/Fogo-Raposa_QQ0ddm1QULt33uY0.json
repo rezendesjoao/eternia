@@ -1,0 +1,108 @@
+{
+  "name": "Fogo-Raposa",
+  "type": "skill",
+  "system": {
+    "description": "<p>Causa [(NH+1)D + Poder Mágico] de dano mágico com a tag [Chama], e o alvo recebe [Queimando: NP].</p><p>Gaste um uso de Caudas para o fogo atingir também outro inimigo a até 2 Qd do alvo (inclua-o entre os alvos).</p><hr><p><em>Chamas azul-claras, frias ao toque de quem as conjura, brotam da ponta das caudas e correm pelo ar como raposas de fogo. Ao alcançar o alvo, mordem e não soltam mais, ardendo em silêncio.</em></p>",
+    "tags": [
+      "Magic Attack",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 3
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "@sr+1",
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/magical/spirit-mischief-fire-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "burning",
+            "value": "@cr"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Fogo-Raposa",
+      "img": "systems/eternia/assets/ui/status/burning.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "burning"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "e6s1xT6x8cNzxNvm",
+      "_key": "!items.effects!QQ0ddm1QULt33uY0.e6s1xT6x8cNzxNvm"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "minRank": 5
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.3.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "QQ0ddm1QULt33uY0",
+  "folder": "svPpq0sc57x6avND",
+  "_key": "!items!QQ0ddm1QULt33uY0"
+}

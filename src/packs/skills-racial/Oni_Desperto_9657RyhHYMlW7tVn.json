@@ -1,0 +1,125 @@
+{
+  "name": "Oni Desperto",
+  "type": "skill",
+  "system": {
+    "description": "<p>Só pode ser usada com o Chifre à mostra, enquanto você estiver em [Fúria].</p><p>Até o fim da cena: +1D nos testes de Precisão, o Valor da sua Fúria dobra, e você fica imune a [Medo], [Atordoado] e [Cambaleante]. Quando o efeito acaba, você recebe [Fadiga: NP×2].</p><hr><p><em>O chifre cresce e arde como metal em brasa; a luz desce pelas veias e pinta o corpo de linhas brancas. Você ri, e o riso faz o chão tremer. Quando a fúria passa, o corpo inteiro dói como se tivesse sido moído.</em></p>",
+    "tags": [],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Close",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scenario",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": "",
+    "conditions": [
+      {
+        "type": "status",
+        "value": "berserk"
+      }
+    ]
+  },
+  "img": "icons/magic/control/buff-strength-muscle-damage-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "immune": [
+            "frightened",
+            "dazed",
+            "staggered"
+          ],
+          "fatigueOnEnd": "@cr*2",
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Oni Desperto",
+      "img": "icons/magic/control/buff-strength-muscle-damage-red.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.checks.accuracy.dice",
+            "type": "add",
+            "value": 1,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "43Q0mccc6mYRJmcs",
+      "_key": "!items.effects!9657RyhHYMlW7tVn.43Q0mccc6mYRJmcs"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "minRank": 5,
+      "useActions": [
+        {
+          "type": "doubleStatus",
+          "status": "berserk"
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.3.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "9657RyhHYMlW7tVn",
+  "folder": "fqM2bbtkc5wc6yir",
+  "_key": "!items!9657RyhHYMlW7tVn"
+}

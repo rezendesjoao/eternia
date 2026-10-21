@@ -53,12 +53,15 @@ export async function endOfSceneFor(actor) {
   let line = null;
   if (actor.type === "character") {
     if (statuses.has("dead") && setting("revive")) {
+      // A race skill that brings the character back whole (`flags.eternia.special: "book"`).
+      const book = actor.items.find(i => (i.type === "skill") && (i.getFlag("eternia", "special") === "book"));
       const max = toInt(actor.system.health?.max);
-      const fatigue = toInt(actor._source.system.infos?.fatigue) + Math.max(0, max - 1);
+      const fatigue = toInt(actor._source.system.infos?.fatigue) + (book ? 0 : Math.max(0, max - 1));
       updates["system.infos.fatigue"] = fatigue;
       updates["system.health.value"] = 1;
       off.push("dead", "incapacitated");
-      line = L("Scene.Revived", { name: actorName(actor), fatigue });
+      line = book ? L("Scene.RevivedWhole", { name: actorName(actor), skill: book.name })
+        : L("Scene.Revived", { name: actorName(actor), fatigue });
     }
     else if (statuses.has("incapacitated") && !statuses.has("dead")) {
       updates["system.health.value"] = toInt(actor.system.health?.max);

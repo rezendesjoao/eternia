@@ -313,6 +313,10 @@
       },
       "Placeholder": {
         "MacroEffect": "-"
+      },
+      "ChooseEffect": {
+        "Hint": "Choose the effect of {name}:",
+        "Apply": "Apply"
       }
     },
     "Ticket": {
@@ -604,7 +608,8 @@
         "subclass": "Subclass",
         "common": "Common",
         "all": "Every skill (no restriction)"
-      }
+      },
+      "MinCR": "Unlocks at CR {rank}"
     },
     "RankUp": {
       "Button": "CR Up",
@@ -920,7 +925,8 @@
         "sceneMiasma": "Scene: in miasma",
         "sceneNoMiasma": "Scene: out of miasma",
         "targetBossRaid": "Target: Boss or Raid",
-        "hpAtMost": "HP ≤ N% of maximum"
+        "hpAtMost": "HP ≤ N% of maximum",
+        "hasSkill": "Has the skill"
       },
       "Summary": {
         "srAtLeast": "SR ≥ {value}",
@@ -954,7 +960,8 @@
         "sceneMiasma": "In miasma",
         "sceneNoMiasma": "Out of miasma",
         "targetBossRaid": "Targeting a Boss or Raid",
-        "hpAtMost": "HP at {value}% of maximum or less"
+        "hpAtMost": "HP at {value}% of maximum or less",
+        "hasSkill": "With {value}"
       }
     },
     "RollFilter": {
@@ -1245,7 +1252,8 @@
       "Title": "End of scene",
       "Recovered": "{name} gets back up with full HP.",
       "Revived": "{name} revives with 1 HP and Fatigue {fatigue}.",
-      "Died": "{name} dies."
+      "Died": "{name} dies.",
+      "RevivedWhole": "{name} comes back with 1 HP and no Fatigue ({skill})."
     },
     "Tools": {
       "Name": "GM tools",
@@ -1613,7 +1621,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.2: 31 new conditions</strong></p><ul><li><strong>Anime conditions.</strong> Paralyzed, Asleep, Rooted, Prone, Slowed, Grappled, Silenced, Disarmed, Blinded, Sealed, Frightened, Charmed, Taunted, Berserk, Burning, Poisoned, Freezing, Shocked, Cursed, Exposed, Fissured, Marked and Doom, plus Hasted, Empowered, Focused, Mirror, Intangible, Last Stand, Awakened and Bond.</li><li><strong>All automatic.</strong> The dice of checks and Dodge Checks, the damage in the chat, who loses the turn, the stacks (the third Freezing paralyzes, the third Fissured breaks the guard), the sheet defenses and the end of each condition.</li><li><strong>Ending it with an action.</strong> In the action HUD, under Statuses, the running icon spends the action the rule asks for and ends the condition.</li><li><strong>The rule at hand.</strong> Hover a condition (sheet, HUD or chat) to read its rule. The full page is in the AS REGRAS journal, under IX. CONDIÇÕES DA ETERNIA.</li></ul><p>In Game Settings → Configure Settings → Eternia → Conditions, the GM turns the effects on and off and chooses whether what they forbid only warns or blocks.</p><p>First time in Eternia? The action HUD at the bottom of the screen replaces the macro hotbar: select your token and use it to roll checks, use skills and end your Main Process.</p>"
+      "Body": "<p><strong>What's new in Eternia 0.3: the 8 races</strong></p><ul><li><strong>Humans, Elves, Flügel, Etherious, Oni, Exceed, Vargr and Kitsune</strong>, in the Races and Classes compendium.</li><li><strong>Two innate skills</strong> (one General, one Combat) come with the race. Humans pick their Blessing, Elves the element of their Pact and Flügel their Star.</li><li><strong>Two unlockable skills</strong> by leveling up: the General one from CR 3 and the Combat one from CR 5. The skill browser shows when each unlocks.</li><li><strong>All automatic:</strong> statuses, bonuses, choices and costs of the 32 racial skills.</li></ul><p>Since 0.2: 31 automated conditions. Hover a status to read its rule, or see the AS REGRAS journal, under IX. CONDIÇÕES DA ETERNIA.</p><p>First time in Eternia? The action HUD at the bottom of the screen replaces the macro hotbar: select your token and use it to roll checks, use skills and end your Main Process.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -1732,7 +1740,19 @@
         "Done": "{name} spends the {action} and is free of {status}.",
         "DoneFree": "{name} is free of {status}.",
         "Afflicted": "{name} is Afflicted: can't end {status}."
-      }
+      },
+      "Immune": "{name} is immune to {status}.",
+      "FatigueOnEnd": "{name}: {effect} ends and leaves Fatigue {n}.",
+      "Actions": {
+        "Fatigue": "{name}: Fatigue {before} → {after}.",
+        "Double": "{name}: {status} rises to {n}."
+      },
+      "Alone": "Alone"
+    },
+    "RankGrants": {
+      "Title": "{name}: a new pick",
+      "Hint": "{name} gives {n} more pick(s) from this list. Choose one:",
+      "Add": "Add"
     }
   }
 }

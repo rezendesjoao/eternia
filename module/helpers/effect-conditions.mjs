@@ -40,7 +40,8 @@ export const CONDITION_TYPES = [
   { id: "inCombat", state: true },
   { id: "firstRound", state: true },
   { id: "preAction", state: true },
-  { id: "standby", state: true }
+  { id: "standby", state: true },
+  { id: "hasSkill", param: "tag" }
 ];
 
 const STATE_TYPES = new Set(CONDITION_TYPES.filter(t => t.state).map(t => t.id));
@@ -129,7 +130,9 @@ const TESTS = {
   standby: (c, ctx) => {
     const { combat, combatant } = ctx.combat();
     return ctx.statuses().has("standby") || (!!combatant && !!combat.progress?.standby.includes(combatant.id));
-  }
+  },
+  // Has a skill of this name ("the element of your Spirit Pact")
+  hasSkill: (c, ctx) => ctx.skills().has(String(c.value ?? "").trim().toLowerCase())
 };
 
 /**
@@ -150,7 +153,8 @@ export function unmetCondition(conditions, actor, item) {
     equipped: () => equipped ??= (actor?.items.filter(i => EQUIP_TYPES.includes(i.type) && (i.system.equipped === true)) ?? []),
     hands: () => hands ??= getHands(actor),
     hate: () => hateRank(actor, statuses()),
-    combat: () => fight ??= combatOf(actor)
+    combat: () => fight ??= combatOf(actor),
+    skills: () => new Set((actor?.items ?? []).filter(i => i.type === "skill").map(i => i.name.trim().toLowerCase()))
   };
   return conditions.find(c => TESTS[c?.type] && !TESTS[c.type](c, ctx)) ?? null;
 }

@@ -80,6 +80,8 @@ export class EterniaActor extends Actor {
     super._clearData();
     // Bonuses to the rolls of some skills (see helpers/roll-bonuses.mjs)
     this.rollBonuses = [];
+    // Passive statuses of effects, read where they act ("eternia.passive.cancel": conditions/effects.mjs)
+    this.passiveBonuses = [];
   }
 
   /** @inheritdoc */
@@ -109,6 +111,7 @@ export class EterniaActor extends Actor {
       if (!effect.active) continue;
       for (const change of effect.system.changes) {
         if (isSkillFilterKey(change.key)) collectRollBonus(this, effect, change);
+        else if (String(change.key).startsWith("eternia.passive.")) this.passiveBonuses.push({ effect, key: change.key, value: change.value });
       }
     }
   }

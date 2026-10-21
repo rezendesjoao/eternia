@@ -1,0 +1,153 @@
+{
+  "name": "Chifre",
+  "type": "skill",
+  "system": {
+    "description": "<p>O seu chifre de luz aparece até o fim da cena: você recebe [Fúria: NH×3] e [Regeneração: FOR], a mana do ambiente fechando as suas feridas.</p><p>Para guardar o chifre, gaste uma Ação Maior para sair da Fúria; a Regeneração acaba junto.</p><hr><p><em>Um chifre de luz branca rompe a pele da testa com um estalo seco. O ar ao redor forma um redemoinho em direção a ele, e a mana do lugar entra no corpo como fôlego: as feridas se fecham sozinhas e o seu sorriso fica perigoso.</em></p>",
+    "tags": [],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Close",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 3
+    },
+    "cost": "Hate 1",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/abilities/bull-head-horns-glowing.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "berserk",
+            "value": "@sr*3"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Chifre: Fúria",
+      "img": "systems/eternia/assets/ui/status/berserk.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "berserk"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "V9xFjVlvQSTQjEi4",
+      "_key": "!items.effects!4Ld1eVxxxroIE3B7.V9xFjVlvQSTQjEi4"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "endsWith": "berserk",
+          "statusData": {
+            "statusId": "regen",
+            "value": "@str"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Chifre: Regeneração",
+      "img": "systems/eternia/assets/ui/status/regen.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "regen"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "peVTgGWo75t8NROb",
+      "_key": "!items.effects!4Ld1eVxxxroIE3B7.peVTgGWo75t8NROb"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.3.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "4Ld1eVxxxroIE3B7",
+  "folder": "fqM2bbtkc5wc6yir",
+  "_key": "!items!4Ld1eVxxxroIE3B7"
+}

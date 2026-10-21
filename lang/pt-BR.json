@@ -313,6 +313,10 @@
       },
       "Placeholder": {
         "MacroEffect": "-"
+      },
+      "ChooseEffect": {
+        "Hint": "Escolha o efeito de {name}:",
+        "Apply": "Aplicar"
       }
     },
     "Ticket": {
@@ -604,7 +608,8 @@
         "subclass": "Subclasse",
         "common": "Comum",
         "all": "Todas as habilidades (sem restrição)"
-      }
+      },
+      "MinCR": "Libera no NP {rank}"
     },
     "RankUp": {
       "Button": "Subir NP",
@@ -920,7 +925,8 @@
         "sceneMiasma": "Cena: em miasma",
         "sceneNoMiasma": "Cena: fora de miasma",
         "targetBossRaid": "Alvo: Chefe ou Raide",
-        "hpAtMost": "PV ≤ N% do máximo"
+        "hpAtMost": "PV ≤ N% do máximo",
+        "hasSkill": "Tem a habilidade"
       },
       "Summary": {
         "srAtLeast": "NH ≥ {value}",
@@ -954,7 +960,8 @@
         "sceneMiasma": "Em miasma",
         "sceneNoMiasma": "Fora de miasma",
         "targetBossRaid": "Mirando um Chefe ou Raide",
-        "hpAtMost": "PV em {value}% do máximo ou menos"
+        "hpAtMost": "PV em {value}% do máximo ou menos",
+        "hasSkill": "Com {value}"
       }
     },
     "RollFilter": {
@@ -1245,7 +1252,8 @@
       "Title": "Fim de cena",
       "Recovered": "{name} se recupera com PV cheio.",
       "Revived": "{name} revive com 1 PV e Fadiga {fatigue}.",
-      "Died": "{name} morre."
+      "Died": "{name} morre.",
+      "RevivedWhole": "{name} volta com 1 PV e sem Fadiga ({skill})."
     },
     "Tools": {
       "Name": "Ferramentas do Mestre",
@@ -1613,7 +1621,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.2: 31 condições novas</strong></p><ul><li><strong>Condições de anime.</strong> Paralisado, Adormecido, Enraizado, Derrubado, Lento, Agarrado, Silenciado, Desarmado, Cego, Selado, Medo, Encantado, Provocado, Fúria, Queimando, Envenenado, Congelando, Eletrificado, Maldito, Exposto, Fissurado, Marcado e Sentença, além de Acelerado, Fortalecido, Concentrado, Espelho, Intangível, Último Fôlego, Despertado e Vínculo.</li><li><strong>Tudo automático.</strong> Os dados dos testes e das Esquivas, o dano no chat, quem perde a vez, os acúmulos (o terceiro Congelando paralisa, o terceiro Fissurado quebra a guarda), as defesas da ficha e o fim de cada condição.</li><li><strong>Livrar-se com uma ação.</strong> No HUD de ações, em Estados, o ícone de corrida gasta a ação que a regra pede e tira a condição.</li><li><strong>A regra à mão.</strong> Passe o mouse sobre uma condição (na ficha, no HUD ou no chat) para ler a regra. A página completa fica no diário AS REGRAS, em IX. CONDIÇÕES DA ETERNIA.</li></ul><p>Em Configurações do Jogo → Configurar Opções → Eternia → Condições, o Mestre liga e desliga os efeitos e escolhe se as proibições só avisam ou bloqueiam.</p><p>Primeira vez na Eternia? O HUD de ações no pé da tela substitui a barra de macros: selecione o seu token e use-o para rolar testes, usar habilidades e encerrar o seu Processo Principal.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.3: as 8 raças</strong></p><ul><li><strong>Humanos, Elfos, Flügel, Etherious, Oni, Exceed, Vargr e Kitsune</strong>, no compêndio Raças e Classes.</li><li><strong>Duas habilidades inatas</strong> (uma Geral e uma de Combate) entram ao escolher a raça. Humanos escolhem a Bênção, Elfos o elemento do Pacto e Flügel o Astro.</li><li><strong>Duas desbloqueáveis</strong> pela subida de nível: a Geral a partir do NP 3 e a de Combate a partir do NP 5. O navegador de habilidades mostra quando cada uma libera.</li><li><strong>Tudo automático:</strong> estados, bônus, escolhas e custos das 32 habilidades raciais.</li></ul><p>Desde a 0.2: 31 condições automatizadas. Passe o mouse sobre um estado para ler a regra, ou veja o diário AS REGRAS, em IX. CONDIÇÕES DA ETERNIA.</p><p>Primeira vez na Eternia? O HUD de ações no pé da tela substitui a barra de macros: selecione o seu token e use-o para rolar testes, usar habilidades e encerrar o seu Processo Principal.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -1732,7 +1740,19 @@
         "Done": "{name} gasta a {action} e se livra de {status}.",
         "DoneFree": "{name} se livra de {status}.",
         "Afflicted": "{name} está Aflito: não se livra de {status}."
-      }
+      },
+      "Immune": "{name} é imune a {status}.",
+      "FatigueOnEnd": "{name}: {effect} acabou e deixa Fadiga {n}.",
+      "Actions": {
+        "Fatigue": "{name}: Fadiga {before} → {after}.",
+        "Double": "{name}: {status} sobe para {n}."
+      },
+      "Alone": "Sozinho"
+    },
+    "RankGrants": {
+      "Title": "{name}: nova escolha",
+      "Hint": "{name} dá mais {n} escolha(s) desta lista. Escolha uma:",
+      "Add": "Adicionar"
     }
   },
   "Cancel": "Cancelar"

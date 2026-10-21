@@ -5,17 +5,18 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.2.0
+## Versão 0.3.0
 
-- **Novo na 0.2.0: 31 condições** somadas aos 23 estados de base, todas automatizadas (veja
+- **Novo na 0.3.0: as 8 raças da Eternia**, com 32 habilidades raciais automatizadas (veja [As raças](#as-raças)).
+- **Desde a 0.2.0: 31 condições** somadas aos 23 estados de base, todas automatizadas (veja
   [As condições](#as-condições)).
 - **Já vem pronto:** a ficha de personagem e a de monstro, o HUD de ações, o chat, os tokens e as outras janelas no
   mesmo visual; toda a automação de combate e de uso de habilidades; o Kuden (regra da casa); a interface em
   português do Brasil.
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
-- **Compêndios vazios, à espera do conteúdo da Eternia:** Raças e Classes, Habilidades Comuns e de Subclasse,
-  Habilidades Raciais, Habilidades de Arquétipo e Habilidades de Classe. As raças, classes e habilidades gerais e de
+- **Compêndios da Eternia:** Raças e Classes (as 8 raças) e Habilidades Raciais. Ainda vazios, à espera das
+  classes: Habilidades Comuns e de Subclasse, de Arquétipo e de Classe. As raças, classes e habilidades gerais e de
   combate de Log Horizon foram tiradas do sistema.
 
 ## A ficha de personagem
@@ -86,6 +87,28 @@ tela, no lugar da barra de macros do Foundry:
   lista de jogadores e à barra lateral aberta.
 - A barra de macros fica escondida, mas as teclas 1 a 0 continuam executando as macros. Cada jogador escolhe entre
   esconder, trocar ou mostrar.
+
+## As raças
+
+Oito raças, cada uma com +2 em atributos, PV e Destino, **duas habilidades inatas** (uma Geral e uma de Combate,
+que entram ao escolher a raça) e **duas desbloqueáveis** pela subida de nível: a Geral a partir do NP 3 e a de
+Combate a partir do NP 5, pagas com as escolhas normais de habilidade.
+
+| Raça | Atributos | PV | Destino | Inatas | Desbloqueáveis |
+|---|---|---|---|---|---|
+| Humanos | +1 em dois à escolha | 8 | 1 | Bênção (uma de oito), Força dos Laços | Coleção de Bênçãos, Segunda Origem |
+| Elfos | DES +1, POD +1 | 8 | 1 | Olhos de Mana, Pacto Espiritual (Gelo, Vento, Luz ou Terra) | Canção dos Quase-Espíritos, Grande Espírito |
+| Flügel | POD +1, INT +1 | 8 | 1 | Asas de Luz, Graça do Astro (seis Astros) | Biblioteca Viva, Golpe Celeste |
+| Etherious | FOR +1, INT +1 | 8 | 1 | O Livro, Maldição | Voz do Purgatório, Forma Etherious |
+| Oni | FOR +2 | 16 | 0 | Clarividência, Chifre | Elo de Sangue, Oni Desperto |
+| Exceed | DES +2 | 0 | 2 | Aera, Parceiro | Premonição, Velocidade Máxima |
+| Vargr | FOR +1, DES +1 | 16 | 0 | Faro de Lobo, Matilha | Caçador da Estepe, Forma da Lua |
+| Kitsune | POD +2 | 0 | 2 | Mil Faces, Caudas | Encanto da Raposa, Fogo-Raposa |
+
+Escolher a raça na ficha abre a escolha das habilidades inatas (a Bênção do Humano, o elemento do Pacto do Elfo e o
+Astro do Flügel) e, no Humano, dos dois atributos. O navegador de habilidades mostra as desbloqueáveis com o NP em
+que liberam. Cada habilidade traz o efeito direto e, embaixo, como ele aparece em cena; a automação aplica os
+estados, os bônus, as escolhas (como gastar uma Cauda num Truque ou numa Ilusão) e os custos.
 
 ## As condições
 
@@ -257,6 +280,10 @@ eternia.kuden.settle(actor);          // paga o que falta com as escolhas penden
 - **Os estados das habilidades** entram pelo botão **Aplicar efeitos**, depois do acerto.
 - **Desfazer o dano** não devolve o dano que o Espelho e o Vínculo mandaram para outro personagem.
 - **Acordar quem está Adormecido** (outro personagem gasta uma Ação Menor) é feito à mão, tirando o estado.
+- **Raças:** o que acontece fora das regras fica na mão do grupo: a conversa com espíritos (Olhos de Mana), a
+  visão de outra criatura (Clarividência), o elo mental (Elo de Sangue), a visão do Mestre (Premonição), o
+  disfarce (Mil Faces), carregar alguém voando (Aera, Parceiro) e atingir um segundo alvo com uma Cauda
+  (Fogo-Raposa).
 - **Erro do core 14.367 no console** com combates simultâneos (`Cannot use 'in' operator to search for 'turn'`): vem
   do rastreador de combate do Foundry e é inofensivo.
 

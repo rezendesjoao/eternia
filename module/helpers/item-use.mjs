@@ -6,6 +6,7 @@ import { getSustainedTag } from "./sustained.mjs";
 import { isPrimaryGM } from "./clients.mjs";
 import { evaluateFormula, formulaData, isFormula, resolveChanges } from "./effect-formulas.mjs";
 import { effectConditions, unmetCondition } from "./effect-conditions.mjs";
+import { runUseActions } from "../conditions/effects.mjs";
 
 /**
  * Usable items (potions, food, scrolls, whistles, poisons…): item type "usable".
@@ -200,20 +201,24 @@ export function isMatchingSource(s, source) {
  * For usables, copies all effects.
  * Skills replace any previous copy of the same skill on the target (no stacking); usables stack.
  * Actors the user doesn't own are handled by the GM.
+ * An effect goes to the targets, to the user (`flags.eternia.recipients: "self"`) or to both ("both"); the
+ * item's `flags.eternia.useActions` then act on the same actors (conditions/effects.mjs).
  * @param {Item} item
  * @param {Actor[]} actors
  * @param {object} [options]
  * @param {string} [options.useId]
  * @param {string} [options.sustained]
+ * @param {string} [options.only]   Id of the one effect to apply (a skill whose effects are alternatives)
  * @returns {Promise<string[]>}   Names of the actors that received them
  */
-export async function applyItemEffects(item, actors, { useId, sustained } = {}) {
+export async function applyItemEffects(item, actors, { useId, sustained, only } = {}) {
   // Effects whose conditions the caster doesn't meet (Skill Rank tiers…) are left out.
   const rawEffects = ((item.type === "skill")
     ? item.effects.filter(e => e.transfer === false)
-    : [...item.effects]).filter(e => !unmetCondition(effectConditions(e, item), item.actor, item));
+    : [...item.effects]).filter(e => (!only || (e.id === only)) && !unmetCondition(effectConditions(e, item), item.actor, item));
 
-  if (!rawEffects.length) return [];
+  // A skill with use actions only (conditions/effects.mjs)
+  if (!rawEffects.length) return runUseActions(item, { targets: [...new Set(actors)].filter(Boolean), caster: item.actor ?? null });
 
   const finalUseId = useId || foundry.utils.randomID();
   const sustainedId = sustained ?? getSustainedTag(item)?.id;
@@ -233,6 +238,8 @@ export async function applyItemEffects(item, actors, { useId, sustained } = {}) 
     data.system.changes = resolveChanges(data.system.changes, values);
     const statusData = data.flags?.eternia?.statusData;
     if (isFormula(statusData?.value)) statusData.value = Math.max(1, evaluateFormula(statusData.value, values) ?? 1);
+    const fatigue = data.flags?.eternia?.fatigueOnEnd;
+    if (isFormula(fatigue)) data.flags.eternia.fatigueOnEnd = Math.max(0, evaluateFormula(fatigue, values) ?? 0);
     delete data.flags?.eternia?.conditions;
     foundry.utils.setProperty(data, "flags.eternia.itemUse", true);
 
@@ -256,23 +263,38 @@ export async function applyItemEffects(item, actors, { useId, sustained } = {}) 
     return data;
   });
 
+  // Who gets each effect: the targets (default), the user, or both.
+  const caster = item.actor ?? null;
+  const goesTo = data => data.flags?.eternia?.recipients ?? "targets";
+  const plan = new Map();
+  for (const actor of new Set(actors)) {
+    if (actor) plan.set(actor, effects.filter(e => goesTo(e) !== "self"));
+  }
+  if (caster) {
+    const own = plan.get(caster) ?? [];
+    plan.set(caster, [...own, ...effects.filter(e => (goesTo(e) !== "targets") && !own.includes(e))]);
+  }
+
   const names = [];
-  // A skill replaces its previous copy on the target (same type: no stacking); usables stack.
+  // A skill replaces its previous copy on the target (same type: no stacking); usables stack. A skill whose
+  // effects are alternatives only replaces the same alternative (a Tail spent on a trick keeps the illusion).
   const replace = item.type === "skill";
   const sampleSource = replace ? effects[0]?.flags?.eternia?.source : null;
+  const alternatives = !!item.getFlag?.("eternia", "chooseEffect");
 
-  for (const actor of new Set(actors)) {
-    if (!actor) continue;
+  for (const [actor, list] of plan) {
+    if (!list.length) continue;
     if (actor.isOwner) {
       if (sampleSource) {
         const toDeleteIds = actor.effects
           .filter(e => isMatchingSource(e.getFlag?.("eternia", "source") ?? e.flags?.eternia?.source ?? e._source?.flags?.eternia?.source, sampleSource))
+          .filter(e => !alternatives || list.some(l => l.name === e.name))
           .map(e => e.id);
         if (toDeleteIds.length) await actor.deleteEmbeddedDocuments("ActiveEffect", toDeleteIds);
       }
-      await actor.createEmbeddedDocuments("ActiveEffect", effects);
+      await actor.createEmbeddedDocuments("ActiveEffect", list);
     } else {
-      const result = await request("applyItemEffects", { actorUuid: actor.uuid, effects, replace });
+      const result = await request("applyItemEffects", { actorUuid: actor.uuid, effects: list, replace, sameName: alternatives });
       if (!result.ok) {
         ui.notifications.warn(game.i18n.localize(result.error ?? "ETERNIA.Piles.Error.Generic"));
         continue;
@@ -280,11 +302,12 @@ export async function applyItemEffects(item, actors, { useId, sustained } = {}) 
     }
     names.push(actor.name);
   }
-  return names;
+  const acted = await runUseActions(item, { targets: [...new Set(actors)].filter(Boolean), caster });
+  return [...new Set([...names, ...acted])];
 }
 
 /** GM side of applyItemEffects, for actors the user doesn't own. */
-async function _onApplyEffectsRequest({ actorUuid, effects, replace }) {
+async function _onApplyEffectsRequest({ actorUuid, effects, replace, sameName }) {
   const actor = await fromUuid(actorUuid);
   if (!(actor instanceof Actor) || !Array.isArray(effects)) return { ok: false };
   const data = effects.filter(e => e?.flags?.eternia?.itemUse && e?.flags?.eternia?.source);
@@ -293,6 +316,7 @@ async function _onApplyEffectsRequest({ actorUuid, effects, replace }) {
   if (replace && sampleSource) {
     const toDeleteIds = actor.effects
       .filter(e => isMatchingSource(e.getFlag?.("eternia", "source") ?? e.flags?.eternia?.source ?? e._source?.flags?.eternia?.source, sampleSource))
+      .filter(e => !sameName || data.some(d => d.name === e.name))
       .map(e => e.id);
     if (toDeleteIds.length) await actor.deleteEmbeddedDocuments("ActiveEffect", toDeleteIds);
   }

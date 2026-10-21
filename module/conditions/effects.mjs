@@ -1,0 +1,176 @@
+/**
+ * What some effects do besides their changes, read from their flags (the race skills use them):
+ *   immune: ["frightened", …]    while the effect is on, those statuses don't take, and they end when it comes
+ *   fatigueOnEnd: n              when the effect ends (or is removed), the actor takes [Fatigue: n]
+ *   endsWith: "berserk"          the effect ends when the actor loses that status
+ *   consumeOn: "negotiation"     the effect ends after the next roll of that kind (conditions/rolls.mjs):
+ *                                a check ("negotiation", "accuracy"…, "check" for any), "dodge" (Evasion or
+ *                                Resistance) or "damage" (the next damage applied to the actor)
+ * and, on a skill, `flags.eternia.useActions`: what using it does when its effects are applied
+ * (item-use.mjs applyItemEffects), each to the targets (default), the user ("self") or both:
+ *   { type: "fatigue", value: "-@cr*5" }        changes the Fatigue (never below 0)
+ *   { type: "doubleStatus", status: "berserk" } doubles the Rating of a status the actor has
+ */
+import { L, SYSTEM_ID } from "../settings.mjs";
+import { isLocalChange } from "../helpers/clients.mjs";
+import { actorName, postSummary, toInt } from "../helpers/utils.mjs";
+import { evaluateFormula, formulaData, isFormula } from "../helpers/effect-formulas.mjs";
+import { registerHandler, request } from "../piles/pile-socket.mjs";
+import { statusDefinition } from "../helpers/statuses.mjs";
+import { has, rating, removeStatuses } from "./rules.mjs";
+
+const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
+const flag = (effect, key) => effect.getFlag?.(SYSTEM_ID, key) ?? effect.flags?.[SYSTEM_ID]?.[key];
+const listOf = value => Array.isArray(value) ? value : (value ? Object.values(value) : []);
+
+/** The statuses an actor is immune to, from its active effects. */
+export function immunities(actor) {
+  const out = new Set();
+  for (const effect of actor?.effects ?? []) {
+    if (!effect.active) continue;
+    for (const id of listOf(flag(effect, "immune"))) out.add(id);
+  }
+  return out;
+}
+
+/** The statuses an effect gives. */
+const statusesOf = effect => [...(effect.statuses ?? []), flag(effect, "statusData")?.statusId].filter(Boolean);
+
+/* -------------------------------------------- */
+/*  Use actions                                 */
+/* -------------------------------------------- */
+
+/**
+ * Run the use actions of an item on the actors its effects went to.
+ * @param {Item} item
+ * @param {{targets: Actor[], caster: Actor|null}} recipients
+ * @returns {Promise<string[]>}   Names of the actors they changed
+ */
+export async function runUseActions(item, { targets, caster }) {
+  const actions = listOf(item.getFlag?.(SYSTEM_ID, "useActions"));
+  if (!actions.length) return [];
+  const values = formulaData(caster ?? item.actor, item);
+  const lines = [];
+  const names = [];
+  for (const action of actions) {
+    const to = action.recipients ?? "targets";
+    const actors = new Set([...(to !== "self" ? targets : []), ...((to !== "targets") && caster ? [caster] : [])]);
+    const value = isFormula(action.value) ? (evaluateFormula(action.value, values) ?? 0) : toInt(action.value);
+    for (const actor of actors) {
+      const payload = { actorUuid: actor.uuid, type: action.type, value, status: action.status ?? "" };
+      const line = actor.isOwner ? await doAction(actor, payload)
+        : (await request("conditionAction", { ...payload, casterUuid: caster?.uuid ?? "" }))?.line;
+      if (line) {
+        lines.push(line);
+        names.push(actorName(actor));
+      }
+    }
+  }
+  if (lines.length) await postSummary(item.name, lines);
+  return names;
+}
+
+/** One use action on one actor. Returns the chat line. */
+async function doAction(actor, { type, value, status }) {
+  if (type === "fatigue") {
+    const before = toInt(actor._source.system?.infos?.fatigue);
+    const after = Math.max(0, before + toInt(value));
+    if (after === before) return null;
+    await actor.update({ "system.infos.fatigue": after });
+    return L("Conditions.Actions.Fatigue", { name: actorName(actor), before, after });
+  }
+  if (type === "doubleStatus") {
+    const def = statusDefinition(status);
+    const current = rating(actor, status);
+    if (!def?.path || !has(actor, status) || !current) return null;
+    await actor.update({ [`system.${def.path}`]: current * 2 });
+    return L("Conditions.Actions.Double", { name: actorName(actor), status: label(status), n: current * 2 });
+  }
+  return null;
+}
+
+/** GM side of a use action on an actor the user doesn't own: only from the owner of the user. */
+async function onActionRequest({ actorUuid, casterUuid, type, value, status }, user) {
+  const doc = await fromUuid(actorUuid);
+  const actor = (doc instanceof TokenDocument) ? doc.actor : doc;
+  const caster = casterUuid ? await fromUuid(casterUuid) : null;
+  const owner = (caster instanceof TokenDocument) ? caster.actor : caster;
+  if (!(actor instanceof Actor) || !owner?.testUserPermission(user, "OWNER")) return { ok: false };
+  return { ok: true, line: await doAction(actor, { type, value: Math.max(-999, Math.min(999, toInt(value))), status }) };
+}
+
+/* -------------------------------------------- */
+/*  Effect flags                                */
+/* -------------------------------------------- */
+
+/** A status coming to an actor immune to it doesn't take. */
+function onPreCreateEffect(effect, data, options, userId) {
+  if (userId !== game.user.id) return;
+  const actor = effect.parent;
+  if (!(actor instanceof Actor)) return;
+  const immune = immunities(actor);
+  if (!immune.size) return;
+  const blocked = statusesOf(effect).filter(id => immune.has(id));
+  if (!blocked.length) return;
+  ui.notifications.info(L("Conditions.Immune", { name: actorName(actor), status: blocked.map(label).join(", ") }));
+  return false;
+}
+
+async function onCreateEffect(effect, options, userId) {
+  if (!isLocalChange(options, userId)) return;
+  const actor = effect.parent;
+  if (!(actor instanceof Actor)) return;
+  // An immunity ends the statuses it covers.
+  const immune = listOf(flag(effect, "immune")).filter(id => has(actor, id));
+  if (immune.length) await removeStatuses(actor, immune);
+}
+
+async function onDeleteEffect(effect, options, userId) {
+  if (!isLocalChange(options, userId)) return;
+  const actor = effect.parent;
+  if (!(actor instanceof Actor)) return;
+  // The price of a transformation, when it ends.
+  const fatigue = toInt(flag(effect, "fatigueOnEnd"));
+  if ((fatigue > 0) && (actor.type === "character")) {
+    const total = toInt(actor._source.system?.infos?.fatigue) + fatigue;
+    await actor.update({ "system.infos.fatigue": total });
+    await postSummary(effect.name, [L("Conditions.FatigueOnEnd", { name: actorName(actor), effect: effect.name, n: fatigue })]);
+  }
+  // Effects that last only while a status does.
+  const gone = statusesOf(effect).filter(id => !has(actor, id));
+  if (gone.length) {
+    const ids = actor.effects.filter(e => gone.includes(flag(e, "endsWith"))).map(e => e.id);
+    if (ids.length) await actor.deleteEmbeddedDocuments("ActiveEffect", ids).catch(() => null);
+  }
+}
+
+/**
+ * The passive [Cancel] of an actor's effects (`eternia.passive.cancel`, tag in `flags.eternia.cancelTag`), as
+ * entries like those of its status.
+ * @param {Actor} actor
+ * @returns {{value: number, tag: string}[]}
+ */
+export function passiveCancels(actor) {
+  return (actor?.passiveBonuses ?? []).filter(b => b.key === "eternia.passive.cancel").map(b => ({
+    value: isFormula(b.value) ? (evaluateFormula(b.value, formulaData(actor, b.effect.sourceItem)) ?? 0) : toInt(b.value),
+    tag: flag(b.effect, "cancelTag") ?? ""
+  })).filter(e => e.value > 0);
+}
+
+/**
+ * The effects of an actor that end after a roll of this kind.
+ * @param {Actor} actor
+ * @param {string[]} kinds   "negotiation", "check", "dodge", "evasion"…
+ * @returns {string[]}       Effect ids
+ */
+export function consumedBy(actor, kinds) {
+  return (actor?.effects ?? []).filter(e => e.active && kinds.includes(flag(e, "consumeOn"))).map(e => e.id);
+}
+
+/** Call during the `init` hook. */
+export function registerConditionEffects() {
+  registerHandler("conditionAction", onActionRequest);
+  Hooks.on("preCreateActiveEffect", onPreCreateEffect);
+  Hooks.on("createActiveEffect", (...args) => onCreateEffect(...args).catch(err => console.error(`${SYSTEM_ID} | Immunity failed`, err)));
+  Hooks.on("deleteActiveEffect", (...args) => onDeleteEffect(...args).catch(err => console.error(`${SYSTEM_ID} | Effect end failed`, err)));
+}

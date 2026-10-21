@@ -1,0 +1,106 @@
+{
+  "name": "Golpe Celeste",
+  "type": "skill",
+  "system": {
+    "description": "<p>Causa [3D + Poder Mágico + (NP×2)+10] de dano mágico com a tag [Radiância].</p><p>Depois do ataque, a sua auréola se apaga: você fica [Exposto] e [Lento] até o fim da rodada.</p><hr><p><em>A auréola se expande até virar um anel do tamanho de uma torre. Toda a luz das asas converge num ponto acima do alvo e desce como uma lança vertical que transforma a noite em dia. Depois, o anel se apaga e as asas caem, opacas e pesadas.</em></p>",
+    "tags": [
+      "Magic Attack",
+      "Radiance"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "20Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "1/Scenario",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": "@cr*2+10",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/light/beam-horizon-strike-yellow.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Auréola Apagada",
+      "img": "systems/eternia/assets/ui/status/exposed.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "exposed",
+        "slowed"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "9EbRgQkM4jBvRGN4",
+      "_key": "!items.effects!hIU8c7ZuuFbiaLTl.9EbRgQkM4jBvRGN4"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "minRank": 5
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.3.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 900000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "hIU8c7ZuuFbiaLTl",
+  "folder": "dZcDsmE70NlTlJ0S",
+  "_key": "!items!hIU8c7ZuuFbiaLTl"
+}

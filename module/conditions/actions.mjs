@@ -66,8 +66,11 @@ export function conditionUseIssues(item, actor, { targets = null } = {}) {
   if (has(actor, "disarmed") && isWeaponAttack(item)) push("disarmed", "Disarmed");
   if (has(actor, "sealed") && sealedSkills(actor).includes(item.name.trim().toLowerCase())) push("sealed", "Sealed");
   const hostile = isHostile(item);
-  // [Berserk] still moves: only the other skills that don't attack are out.
-  if (has(actor, "berserk") && !hostile && !tags.includes("movement") && (timing !== "Move")) push("berserk", "Berserk");
+  // [Berserk] still moves, and uses the skills made for it (those that require it): only the other skills that
+  // don't attack are out.
+  if (has(actor, "berserk") && !hostile && !tags.includes("movement") && (timing !== "Move") && !requires(item, "berserk")) {
+    push("berserk", "Berserk");
+  }
 
   // Targets (only when the skill is used: the user's targets are known then)
   if (targets && hostile) {
@@ -90,6 +93,13 @@ export function conditionUseIssues(item, actor, { targets = null } = {}) {
     if (charmers.length) push("charmed", "Charmed", { source: charmers.map(actorName).join(", ") });
   }
   return issues;
+}
+
+/** Whether a skill only works with a status (its conditions ask for it). */
+function requires(item, status) {
+  const conditions = item.system?.conditions;
+  const list = Array.isArray(conditions) ? conditions : Object.values(conditions ?? {});
+  return list.some(c => (c?.type === "status") && (c.value === status));
 }
 
 /** The skills an actor has [Sealed]: the Tag of each sealing, lower case. */

@@ -82,6 +82,8 @@ export const EFFECT_TARGETS = [
   { key: "system.battle-status.defense.magic", label: "ETERNIA.Monster.MDef", group: "battle", actorTypes: ["monster"], kind: "number" },
   { key: "system.battle-status.speed", label: "ETERNIA.Monster.Speed", group: "battle", actorTypes: ["monster"], kind: "number" },
   { key: "system.battle-status.initiative", label: "ETERNIA.Monster.Initiative", group: "battle", actorTypes: ["monster"], kind: "number" },
+  // Passive [Cancel] (conditions/effects.mjs passiveCancels; tag in flags.eternia.cancelTag)
+  { key: "eternia.passive.cancel", label: "ETERNIA.StatusEffect.cancel", group: "battle", actorTypes: ["character", "monster"], kind: "number" },
 
   // --- Roll bonuses (roll-bonuses.mjs): rolls of the skills matching the effect's roll filter ---
   { key: "eternia.roll.check.mod", label: "ETERNIA.EffectTarget.RollCheckMod", group: "roll", actorTypes: ["character", "monster"], kind: "number" },

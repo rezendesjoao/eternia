@@ -100,6 +100,8 @@ export class EterniaActiveEffect extends ActiveEffect {
      */
     shouldApplyChange(change, options) {
         if (isSkillFilterKey(change.key)) return false;
+        // Passive statuses ("eternia.passive.cancel") are read where they act, not written to the actor.
+        if (String(change.key).startsWith("eternia.passive.")) return false;
         if ((change.phase === "initial") && (this.target?.type === "character") && readsAttributes(change.value)) {
             return options?.phase === ATTRIBUTES_PHASE;
         }

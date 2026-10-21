@@ -1,0 +1,260 @@
+{
+  "name": "Grande Espírito",
+  "type": "skill",
+  "system": {
+    "description": "<p>O seu espírito se manifesta em tamanho real. Causa [2D + Poder Mágico + (NP×2)+10] de dano mágico.</p><p>Cada alvo atingido recebe o efeito do elemento do seu Pacto: Gelo, [Congelando: 2]; Vento, [Derrubado]; Luz, [Exposto]; Terra, [Enraizado].</p><hr><p><em>O pequeno espírito que sempre o acompanha cresce até tocar as copas das árvores, uma fera de gelo, um ciclone vivo, um anjo de luz ou um colosso de pedra, e varre a área com um rugido antes de voltar ao tamanho de sempre.</em></p>",
+    "tags": [
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "1/Scenario",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": "@cr*2+10",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Pacto Espiritual: Gelo"
+            }
+          ],
+          "statusData": {
+            "statusId": "freezing",
+            "value": 2
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Grande Espírito: Gelo",
+      "img": "systems/eternia/assets/ui/status/freezing.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "freezing"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "n8cAFTqE8nWhcCO7",
+      "_key": "!items.effects!KBXifjy9UfBieUnQ.n8cAFTqE8nWhcCO7"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Pacto Espiritual: Vento"
+            }
+          ],
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Grande Espírito: Vento",
+      "img": "systems/eternia/assets/ui/status/prone.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "prone"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "04G1an2CYLFD1G7X",
+      "_key": "!items.effects!KBXifjy9UfBieUnQ.04G1an2CYLFD1G7X"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Pacto Espiritual: Luz"
+            }
+          ],
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Grande Espírito: Luz",
+      "img": "systems/eternia/assets/ui/status/exposed.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "exposed"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "cMWxsJRye6tPKkP2",
+      "_key": "!items.effects!KBXifjy9UfBieUnQ.cMWxsJRye6tPKkP2"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Pacto Espiritual: Terra"
+            }
+          ],
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Grande Espírito: Terra",
+      "img": "systems/eternia/assets/ui/status/rooted.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "rooted"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "4qpmVUtc3gPrROQg",
+      "_key": "!items.effects!KBXifjy9UfBieUnQ.4qpmVUtc3gPrROQg"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "minRank": 5
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.3.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 700000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "KBXifjy9UfBieUnQ",
+  "folder": "0Amrale2QVq4ArsY",
+  "_key": "!items!KBXifjy9UfBieUnQ"
+}

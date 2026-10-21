@@ -11,6 +11,11 @@
  * Which skills a character can learn comes from the compendium folders: Archetype (Warrior, Weapon
  * Master...), Main Class (Guardian...), Race (Human...) and Common, plus the skills its Subclass
  * allows (`system.skills` of the Subclass item).
+ *
+ * Two flags of a compendium skill narrow that down:
+ *   flags.eternia.minRank     the CR from which it can be learned (the race skills unlocked by leveling up)
+ *   flags.eternia.choiceOnly  it is only given by a choice (a race's starting skill, a Blessing): listed
+ *                             only once the character has it, to raise its SR
  */
 
 import { getOption } from "../helpers/character-options.mjs";
@@ -76,7 +81,7 @@ const SOURCES = ["eligible", "archetype", "class", "race", "subclass", "common",
 /*  Index                                       */
 /* -------------------------------------------- */
 
-const INDEX_FIELDS = ["system.subtype", "system.skillRank", "system.tags", "folder"];
+const INDEX_FIELDS = ["system.subtype", "system.skillRank", "system.tags", "folder", "flags.eternia.minRank", "flags.eternia.choiceOnly"];
 
 let indexPromise = null;
 
@@ -113,6 +118,8 @@ async function buildIndex() {
         img: e.img,
         subtype: e.system.subtype,
         maxSR: Number(e.system.skillRank?.max) || 1,
+        minRank: Number(e.flags?.eternia?.minRank) || 0,
+        choiceOnly: !!e.flags?.eternia?.choiceOnly,
         tags: e.system.tags ?? [],
         folder: folders[0] ?? "",
         folders: folders.map(f => f.toLowerCase()),
@@ -443,12 +450,15 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       if (!["eligible", "all"].includes(this.source) && (source !== this.source)) continue;
 
       const owned = ownedSkill(actor, entry);
+      if (entry.choiceOnly && !owned) continue;
       const sr = owned ? (Number(owned.system.skillRank?.value) || 1) : 0;
       const maxSR = owned ? (Number(owned.system.skillRank?.max) || entry.maxSR) : entry.maxSR;
       const picked = this.picks.has(entry.uuid);
       // Can't go beyond the Maximum SR of the skill or the character's CR.
       const capped = (sr + 1 > maxSR) || (sr + 1 > rank);
       const trainingFull = !owned && (training !== null) && (training <= 0) && isTraining(entry);
+      // Not yet: learned from a higher CR.
+      const locked = !owned && (entry.minRank > rank);
       const counted = PICK_SUBTYPES.includes(entry.subtype);
       entries.push({
         ...entry,
@@ -460,8 +470,8 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
         next: sr + 1,
         picked,
         capped,
-        disabled: !picked && (capped || (counted && full) || trainingFull),
-        reason: capped
+        disabled: !picked && (locked || capped || (counted && full) || trainingFull),
+        reason: locked ? game.i18n.format("ETERNIA.SkillBrowser.MinCR", { rank: entry.minRank }) : capped
           ? game.i18n.format((sr + 1 > maxSR) ? "ETERNIA.SkillBrowser.MaxSR" : "ETERNIA.SkillBrowser.MaxCR", { max: Math.min(maxSR, rank) })
           : ((counted && full) ? game.i18n.localize("ETERNIA.SkillBrowser.Full")
             : (trainingFull ? game.i18n.format("ETERNIA.SkillBrowser.TrainingFull", { max: CREATION_TRAINING }) : "")),

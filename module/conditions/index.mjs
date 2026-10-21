@@ -8,16 +8,20 @@
  * - damage.mjs      damage and healing under them, and the damage they deal themselves;
  * - turns.mjs       the start and end of a Main Process, the Cleanup, the stacks, what comes and goes with them;
  * - derived.mjs     Defense, Speed and Initiative under them;
- * - recovery.mjs    ending one by spending an action of the Main Process.
+ * - recovery.mjs    ending one by spending an action of the Main Process;
+ * - effects.mjs     what some effects do besides their changes (immunity, Fatigue when they end, ending with a
+ *                   status or after a roll) and the use actions of skills.
  * The statuses themselves are registered with the others (helpers/statuses.mjs).
  */
 import { registerConditionDamage } from "./damage.mjs";
 import { registerConditionTurns } from "./turns.mjs";
 import { registerConditionMovement } from "./actions.mjs";
+import { registerConditionEffects } from "./effects.mjs";
 
 /** Call during the `init` hook. */
 export function registerConditions() {
   registerConditionDamage();
   registerConditionTurns();
   registerConditionMovement();
+  registerConditionEffects();
 }

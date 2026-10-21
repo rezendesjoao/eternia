@@ -21,6 +21,7 @@ import { skillModifiers } from "./roll-bonuses.mjs";
 import { hateRank } from "./effect-conditions.mjs";
 import { applyModifier, consumeAfterRoll, dodgeModifier } from "../conditions/rolls.mjs";
 import { afterDamage, beforeDamage, canHeal, markDamage, restoreForUndo, snapshotForUndo } from "../conditions/damage.mjs";
+import { consumedBy, passiveCancels } from "../conditions/effects.mjs";
 
 const TEMPLATES = {
   attack: "systems/eternia/templates/chat/attack-card.hbs",
@@ -213,8 +214,8 @@ function attackTags(item, attacker) {
  * @param {string[]} tags     Tags of the damage (with its type tags)
  * @returns {{value: number, tag: string}|null}
  */
-function bestTagged(bad, list, legacy, tags) {
-  const entries = listStatusEntries(bad[list], true);
+function bestTagged(bad, list, legacy, tags, extra = []) {
+  const entries = [...listStatusEntries(bad[list], true), ...extra];
   if (!entries.length && (Number(bad[legacy]) > 0)) entries.push({ value: Number(bad[legacy]), tag: "" });
   const keys = new Set(tags.map(normalizeTag));
   return entries
@@ -506,7 +507,7 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   if (!direct && !condition.immune) {
     const defense = condition.noDefense ? 0 : defenseOf(actor, card.type);
     if (defense) steps.push(`− ${defense} ${L(card.type === "magical" ? "Applied.MDef" : "Applied.PDef")}`);
-    const cancel = condition.noCancel ? null : bestTagged(bad, "cancels", "cancel", tags);
+    const cancel = condition.noCancel ? null : bestTagged(bad, "cancels", "cancel", tags, passiveCancels(actor));
     if (cancel) steps.push(`− ${cancel.value} ${tagLabel("cancel", cancel)}`);
     amount -= defense + (cancel?.value ?? 0);
   }
@@ -561,6 +562,9 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   if (hpLoss > 0 && before.overconfident) updates["system.bad-status.overconfident"] = false;
   await actor.update(updates);
   if (after.end.length) await removeConditionStatuses(actor, after.end);
+  // Effects that only stood in the way of this damage (an illusion taking the blow).
+  const spent = consumedBy(actor, ["damage"]);
+  if (spent.length) await actor.deleteEmbeddedDocuments("ActiveEffect", spent).catch(() => null);
   if ((hp <= 0) && !before.incapacitated) await actor.toggleStatusEffect("incapacitated", { active: true });
   for (const fn of after.after) await fn();
 

@@ -1,0 +1,157 @@
+{
+  "name": "Parceiro",
+  "type": "skill",
+  "system": {
+    "description": "<p>Use quando um aliado for alvo de um ataque, antes do teste de Esquiva dele. Escolha um:</p><p><strong>Puxão:</strong> ele recebe +2D nesse teste de Esquiva ou de Resistência.<br><strong>Resgate:</strong> você o carrega num Movimento Seguro de 2 Qd, para fora do alcance do ataque se possível.</p><hr><p><em>Um borrão branco cruza o campo: você mergulha, agarra o companheiro pelos ombros e o arranca do caminho no último instante, ou grita o aviso que faz o corpo dele se mover sozinho.</em></p>",
+    "tags": [],
+    "timing": "Instant",
+    "checkType": "",
+    "range": "Refer",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 3
+    },
+    "cost": "-",
+    "limit": "(SR)/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/holy/barrier-shield-winged-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "consumeOn": "dodge",
+          "expires": "endOfProcess"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Parceiro: Puxão",
+      "img": "icons/magic/holy/barrier-shield-winged-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.checks.evasion.dice",
+            "type": "add",
+            "value": 2,
+            "phase": "initial",
+            "priority": null
+          },
+          {
+            "key": "system.checks.resistance.dice",
+            "type": "add",
+            "value": 2,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "1qyTwbz6k856aklJ",
+      "_key": "!items.effects!A42eQ3vB78ualNP8.1qyTwbz6k856aklJ"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "expires": "endOfProcess"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Parceiro: Resgate",
+      "img": "icons/creatures/abilities/wings-birdlike-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "XMrQ29FAD9NosJ6v",
+      "_key": "!items.effects!A42eQ3vB78ualNP8.XMrQ29FAD9NosJ6v"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "choiceOnly": true,
+      "chooseEffect": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.3.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "A42eQ3vB78ualNP8",
+  "folder": "Bi8dB59GKxEv8HKu",
+  "_key": "!items!A42eQ3vB78ualNP8"
+}

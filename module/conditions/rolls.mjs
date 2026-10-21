@@ -9,10 +9,14 @@
  * (against Evasion), [Poisoned] (against Resistance), [Prone] (against Close attacks) and [Charmed] (against its
  * source); +1D for [Focused]. [Asleep] fails it outright. The dice never go below 1D.
  * Damage Rolls: +Rating for [Empowered], [Berserk] and [Awakened].
+ * Race skills: the Pack (a skill with `flags.eternia.special: "pack"`) adds +[SR×2] damage with an ally within
+ * 2 Sq and −1D on Accuracy with no ally within 5 Sq; effects with `consumeOn` end after the roll they help
+ * (conditions/effects.mjs).
  */
 import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { parseRange } from "../helpers/hands.mjs";
 import { has, isSourceOf, rating, removeStatuses, rulesOn } from "./rules.mjs";
+import { consumedBy } from "./effects.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -28,10 +32,10 @@ function tally() {
   const parts = [];
   return {
     dice: 0, mod: 0, parts, consume: [],
-    add(id, dice = 0, mod = 0) {
+    add(id, dice = 0, mod = 0, name = label(id)) {
       this.dice += dice;
       this.mod += mod;
-      if (dice || mod) parts.push(`${label(id)} ${dice ? `${dice > 0 ? "+" : ""}${dice}D` : `${mod > 0 ? "+" : ""}${mod}`}`);
+      if (dice || mod) parts.push(`${name} ${dice ? `${dice > 0 ? "+" : ""}${dice}D` : `${mod > 0 ? "+" : ""}${mod}`}`);
     },
     /** "Confuso −1D, Concentrado +1D" for the roll's flavor. */
     get text() { return parts.join(", ").replace(/-/g, "−"); }
@@ -49,7 +53,12 @@ function tally() {
  */
 export function checkModifier(actor, { item = null, stat = "", targets = [] } = {}) {
   const t = tally();
-  if (!actor || !rulesOn()) return t;
+  if (!actor) return t;
+  // Effects that help one roll of this check only.
+  t.consume.push(...consumedBy(actor, ["check", stat].filter(Boolean)).map(id => `effect:${id}`));
+  const pack = packSkill(actor);
+  if (pack && (stat === "accuracy") && (alliesWithin(actor, 5) === 0)) t.add("pack", -1, 0, game.i18n.localize("ETERNIA.Conditions.Alone"));
+  if (!rulesOn()) return t;
   const timing = item ? parseSkillField("timing", item.system.timing).type : "";
   if (has(actor, "staggered") && ["Major", "Main Process"].includes(timing)) t.add("staggered", -1);
   if (has(actor, "confused")) t.add("confused", -1);
@@ -78,6 +87,7 @@ export function dodgeModifier(actor, { vs = "evasion", attacker = null, item = n
   const t = tally();
   t.autoFail = false;
   if (!actor) return t;
+  t.consume.push(...consumedBy(actor, ["dodge", vs]).map(id => `effect:${id}`));
   // [Dazed] is a rule of the base system: it stays on with the conditions' automation off.
   if (has(actor, "dazed")) t.add("dazed", -1);
   if (!rulesOn()) return t;
@@ -102,7 +112,10 @@ export function dodgeModifier(actor, { vs = "evasion", attacker = null, item = n
  */
 export function damageModifier(actor, item = null) {
   const t = tally();
-  if (!actor || !rulesOn() || item?.system?.damage?.recovery) return t;
+  if (!actor || item?.system?.damage?.recovery) return t;
+  const pack = packSkill(actor);
+  if (pack && (alliesWithin(actor, 2) > 0)) t.add("pack", 0, 2 * (Number(pack.system.skillRank?.value) || 1), pack.name);
+  if (!rulesOn()) return t;
   for (const id of ["empowered", "berserk", "awakened"]) {
     const n = rating(actor, id);
     if (n > 0) t.add(id, 0, n);
@@ -112,7 +125,41 @@ export function damageModifier(actor, item = null) {
 
 /** End the statuses a roll used up ([Focused]). */
 export async function consumeAfterRoll(actor, consume) {
-  if (actor?.isOwner && consume?.length) await removeStatuses(actor, consume);
+  if (!actor?.isOwner || !consume?.length) return;
+  const effects = consume.filter(c => c.startsWith("effect:")).map(c => c.slice(7)).filter(id => actor.effects.has(id));
+  const statuses = consume.filter(c => !c.startsWith("effect:"));
+  if (statuses.length) await removeStatuses(actor, statuses);
+  if (effects.length) await actor.deleteEmbeddedDocuments("ActiveEffect", effects).catch(() => null);
+}
+
+/* -------------------------------------------- */
+/*  The Pack                                    */
+/* -------------------------------------------- */
+
+/** The actor's Pack skill, if it has one. */
+function packSkill(actor) {
+  return actor.items?.find(i => (i.type === "skill") && (i.getFlag("eternia", "special") === "pack")) ?? null;
+}
+
+/**
+ * How many allies stand within this many squares of the actor's token (same disposition, not down), counted on
+ * the grid as the attack cards count (Manhattan). Null when the actor has no token on a square grid.
+ * @param {Actor} actor
+ * @param {number} squares
+ * @returns {number|null}
+ */
+function alliesWithin(actor, squares) {
+  if (!canvas.ready || (canvas.grid.type !== CONST.GRID_TYPES.SQUARE)) return null;
+  const token = canvas.tokens.controlled.find(t => t.actor === actor) ?? actor.getActiveTokens(true)[0];
+  if (!token) return null;
+  const at = canvas.grid.getOffset(token.center);
+  return canvas.tokens.placeables.filter(t => (t !== token) && t.actor && (t.actor !== actor)
+    && (t.document.disposition === token.document.disposition)
+    && !t.actor.statuses.has("incapacitated") && !t.actor.statuses.has("dead")
+    && (() => {
+      const p = canvas.grid.getOffset(t.center);
+      return Math.abs(p.i - at.i) + Math.abs(p.j - at.j) <= squares;
+    })()).length;
 }
 
 /** Apply a modifier to dice and modifier, keeping at least 1D. */

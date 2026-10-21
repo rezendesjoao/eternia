@@ -267,7 +267,7 @@ export async function _onEndSustainedUseRequest({ casterUuid, useId, tagLabel },
  */
 export async function useSkillEffects(item) {
   const nonTransferEffects = item.effects.filter(e => e.transfer === false);
-  if (!nonTransferEffects.length) {
+  if (!nonTransferEffects.length && !useActionsOf(item).length) {
     return { appliedNames: "", canApplyEffects: false, skillUse: null };
   }
 
@@ -283,8 +283,11 @@ export async function useSkillEffects(item) {
 
   const opposed = OPPOSED.includes(item.system?.check?.vs);
   let applied = [];
+  // Alternatives ("spend a Tail: +1D, or…"): picked now, or later with the card's button.
+  const alternatives = !!item.getFlag("eternia", "chooseEffect");
+  const only = (alternatives && !opposed) ? await chooseEffect(item) : null;
 
-  if (!opposed && recipients.length > 0) {
+  if (!opposed && (!alternatives || only) && ((recipients.length > 0) || !needsTargets(item, only))) {
     let proceed = true;
     if (sustained && item.actor) {
       const limit = sustainedLimit(item.actor, sustained);
@@ -306,7 +309,7 @@ export async function useSkillEffects(item) {
     }
 
     if (proceed) {
-      applied = await applyItemEffects(item, recipients, { useId, sustained });
+      applied = await applyItemEffects(item, recipients, { useId, sustained, only });
     }
   }
 
@@ -322,6 +325,56 @@ export async function useSkillEffects(item) {
       sustained
     }
   };
+}
+
+/** The use actions of a skill (conditions/effects.mjs). */
+const useActionsOf = item => {
+  const actions = item.getFlag("eternia", "useActions");
+  return Array.isArray(actions) ? actions : Object.values(actions ?? {});
+};
+
+/**
+ * Whether applying a skill's effects (all, or the chosen one) needs targets: some effect or use action goes to
+ * the targets only. Those for the user ("self") or the user and the targets ("both") don't.
+ * @param {Item} item
+ * @param {string|null} only
+ */
+function needsTargets(item, only) {
+  const to = x => x?.recipients ?? "targets";
+  return item.effects.some(e => (e.transfer === false) && (!only || (e.id === only)) && (to(e.flags?.eternia) === "targets"))
+    || useActionsOf(item).some(a => to(a) === "targets");
+}
+
+/**
+ * Ask which of a skill's alternative effects to apply.
+ * @param {Item} item
+ * @returns {Promise<string|null>}   The effect id, or null when cancelled
+ */
+async function chooseEffect(item) {
+  const effects = item.effects.filter(e => e.transfer === false);
+  if (effects.length < 2) return effects[0]?.id ?? null;
+  const options = effects.map((e, i) => `<label class="grant-option"><input type="radio" name="effect" value="${e.id}" ${i ? "" : "checked"}>`
+    + `<img src="${e.img || item.img}" alt=""><span class="grant-name">${foundry.utils.escapeHTML(e.name)}</span></label>`).join("");
+  const content = `<div class="option-grants-body"><p class="grants-hint">${game.i18n.format("ETERNIA.Skill.ChooseEffect.Hint", { name: foundry.utils.escapeHTML(item.name) })}</p>`
+    + `<div class="grant-slot choice">${options}</div></div>`;
+  const data = await foundry.applications.api.DialogV2.wait({
+    window: { title: item.name, icon: "fa-solid fa-code-branch" },
+    classes: ["eternia", "option-grants"],
+    position: { width: 380 },
+    content,
+    buttons: [
+      {
+        action: "apply",
+        label: "ETERNIA.Skill.ChooseEffect.Apply",
+        icon: "fa-solid fa-bolt",
+        default: true,
+        callback: (event, button) => new foundry.applications.ux.FormDataExtended(button.form).object
+      },
+      { action: "cancel", label: "Cancel", icon: "fa-solid fa-xmark" }
+    ],
+    rejectClose: false
+  });
+  return ((data && (typeof data === "object")) ? data.effect : null) ?? null;
 }
 
 /**
@@ -341,11 +394,16 @@ export async function onApplySkillEffects(message, button) {
   const isServantSummon = (sustained === "servantSummon");
   const isSelf = isServantSummon || isSelfTarget(item);
 
+  // Alternatives ("spend a Tail: +1D, or the blow hits an illusion"): the user picks one.
+  const alternatives = !!item.getFlag("eternia", "chooseEffect");
+  const only = alternatives ? await chooseEffect(item) : null;
+  if (alternatives && !only) return;
   const recipients = isSelf
     ? (item.actor ? [item.actor] : [])
     : [...game.user.targets].map(t => t.actor).filter(Boolean);
 
-  if (!recipients.length) {
+  // Effects for the user (alone or with the targets) don't need targets.
+  if (!recipients.length && (isSelf || needsTargets(item, only))) {
     return ui.notifications.warn(game.i18n.localize("ETERNIA.Item.Use.NoTargets"));
   }
 
@@ -371,7 +429,7 @@ export async function onApplySkillEffects(message, button) {
     }
   }
 
-  const names = await applyItemEffects(item, recipients, { useId, sustained });
+  const names = await applyItemEffects(item, recipients, { useId, sustained, only });
   if (names.length) {
     ui.notifications.info(game.i18n.format("ETERNIA.Item.Use.EffectsApplied", { names: names.join(", ") }));
 

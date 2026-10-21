@@ -24,6 +24,12 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
 - Raças, classes e habilidades gerais e de combate da Eternia entram nos pacotes vazios (`races-classes`,
   `skills-common`, `skills-racial`, `skills-archetype`, `skills-class`). O navegador de habilidades acha a origem
   de cada habilidade pelo nome das pastas (arquétipo, classe, raça).
+- Raça = item `race` com atributos, `hp`, `fate` e `grants` (as 2 inatas, uma Geral e uma de Combate; uma escolha vira
+  um espaço com várias opções). As habilidades ficam em `skills-racial`, na pasta com o nome da raça: as inatas e as
+  variantes levam `flags.eternia.choiceOnly` (só aparecem no navegador depois de concedidas) e as 2 desbloqueáveis
+  `flags.eternia.minRank` (3 na Geral, 5 na de Combate).
+- Fórmulas de rolagem ficam no próprio campo: `damage.dice: "@sr+1"`, `damage.mod: "@cr*2+10"` (nunca em
+  `diceFormula`/`formula`, que são derivados). Flags de efeito e de habilidade: veja `docs/condicoes.md`.
 - `npm run packs:build` (Foundry CLI, com o mundo fechado) gera `packs/`; `npm run packs:unpack` volta para `src/`.
 
 ## Teste local

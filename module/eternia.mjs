@@ -16,6 +16,7 @@ import { registerTags } from "./helpers/tags.mjs";
 import { EterniaToken } from "./canvas/eterniaToken.mjs";
 import { registerPiles } from "./piles/piles.mjs";
 import { registerCharacterOptions } from "./helpers/character-options.mjs";
+import { registerRankGrants } from "./apps/rank-grants.mjs";
 import { OptionBrowser, registerOptionBrowser } from "./apps/option-browser.mjs";
 import { registerSkillBrowser } from "./apps/skill-browser.mjs";
 import { registerSkillRefresh } from "./apps/skill-refresh.mjs";
@@ -150,6 +151,7 @@ Hooks.once('init', async function () {
 
   // Race / Class / Subclass items: single copy per character, core compendium, legacy migration
   registerCharacterOptions();
+  registerRankGrants();
   registerOptionBrowser();
   registerSkillBrowser();
   // GM tool: refresh the skills characters own from the system compendiums

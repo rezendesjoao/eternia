@@ -1,6 +1,6 @@
 <div class="option-grants-body">
   {{#if slots.length}}
-  <p class="grants-hint">{{localize "ETERNIA.CharacterOptions.Grants.Hint" type=typeLabel name=item.name}}</p>
+  <p class="grants-hint">{{#if hint}}{{hint}}{{else}}{{localize "ETERNIA.CharacterOptions.Grants.Hint" type=typeLabel name=item.name}}{{/if}}</p>
   <ol class="grants-list">
     {{#each slots}}
     <li class="grant-slot{{#if choice}} choice{{/if}}">

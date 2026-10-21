@@ -165,7 +165,8 @@ export class EterniaItem extends Item {
 
     if (element.type === "skill") {
       const nonTransferEffects = element.effects.filter(e => e.transfer === false);
-      if (nonTransferEffects.length > 0) {
+      // Effects on use, or use actions (conditions/effects.mjs)
+      if ((nonTransferEffects.length > 0) || element.getFlag("eternia", "useActions")?.length) {
         const result = await useSkillEffects(element);
         appliedNames = result.appliedNames;
         canApplyEffects = result.canApplyEffects;

@@ -1,0 +1,150 @@
+{
+  "name": "Caudas",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você tem 1 Cauda, mais 1 a cada 3 NP, até nove. Elas voltam a cada cena, e cada uso desta habilidade gasta uma. Escolha um:</p><p><strong>Truque:</strong> você recebe [Concentrado], +1D no seu próximo teste.<br><strong>Ilusão:</strong> você recebe [Anulação: NP×2] contra o próximo dano que sofrer; quem foi atingido era uma cópia.</p><hr><p><em>Uma das caudas brilha e se desfaz em fagulhas azuis. Às vezes ela vira sorte, o dado que rola para o lado certo; às vezes vira você mesmo, uma cópia perfeita que recebe o golpe e se dissolve em folhas secas.</em></p>",
+    "tags": [],
+    "timing": "Instant",
+    "checkType": "",
+    "range": "Close",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "(1+CR/3)/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/biological/tail-puff-grey.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Caudas: Truque",
+      "img": "systems/eternia/assets/ui/status/focused.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "focused"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "6YwNoISWqvIjStr1",
+      "_key": "!items.effects!7E1mggdoGOD8QuPs.6YwNoISWqvIjStr1"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "consumeOn": "damage",
+          "statusData": {
+            "statusId": "cancel",
+            "value": "@cr*2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Caudas: Ilusão",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "1yuJX0Bbthte1Slv",
+      "_key": "!items.effects!7E1mggdoGOD8QuPs.1yuJX0Bbthte1Slv"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "choiceOnly": true,
+      "chooseEffect": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.3.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "7E1mggdoGOD8QuPs",
+  "folder": "svPpq0sc57x6avND",
+  "_key": "!items!7E1mggdoGOD8QuPs"
+}

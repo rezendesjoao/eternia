@@ -18,6 +18,7 @@ import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { actorName, postSummary, toInt } from "../helpers/utils.mjs";
 import { listStatusEntries } from "../helpers/statuses.mjs";
 import { has, isSourceOf, rating, removeStatuses, rulesOn, sameActor, sourcesOf } from "./rules.mjs";
+import { passiveCancels } from "./effects.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -167,7 +168,7 @@ export async function takeDamage(actor, amount, { reason = "", from = null, tag 
   let damage = amount;
   const parts = [];
   if (tag) {
-    const cancel = listStatusEntries(bad.cancels, true)
+    const cancel = [...listStatusEntries(bad.cancels, true), ...passiveCancels(actor)]
       .filter(e => !e.tag || (e.tag.toLowerCase() === tag.toLowerCase()))
       .reduce((best, e) => Math.max(best, e.value), 0);
     if (cancel) {

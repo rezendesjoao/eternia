@@ -55,6 +55,24 @@ Processo Principal), `automation/scenes.mjs` (fim de cena), `documents/eterniaCo
 - `conditionLimits` (avisar): o que as condições proíbem, em `off`, `warn` ou `block` (o Mestre sempre pode seguir).
 - `endOfProcess` (ligado): os estados que acabam no fim do Processo Principal de quem os recebeu.
 
+## Flags de efeito e de habilidade
+
+Usados pelas raças, servem para qualquer habilidade (`conditions/effects.mjs`, `helpers/item-use.mjs`):
+
+| Onde | Flag | O que faz |
+|---|---|---|
+| Efeito | `recipients` | `"targets"` (padrão), `"self"` (quem usa) ou `"both"` |
+| Efeito | `immune` | lista de estados que não pegam enquanto o efeito existir (e acabam quando ele chega) |
+| Efeito | `fatigueOnEnd` | Fadiga ao acabar (fórmula resolvida ao aplicar) |
+| Efeito | `endsWith` | acaba quando o ator perde esse estado |
+| Efeito | `consumeOn` | acaba depois do próximo teste desse tipo (`"negotiation"`…, `"check"`), Esquiva (`"dodge"`) ou dano (`"damage"`) |
+| Efeito | chave `eternia.passive.cancel` | Anulação passiva (tag em `cancelTag`) |
+| Efeito | condição `hasSkill` | só vale se quem usa tiver a habilidade com esse nome |
+| Habilidade | `chooseEffect` | os efeitos são alternativas: quem usa escolhe um |
+| Habilidade | `useActions` | `{ type: "fatigue", value }` ou `{ type: "doubleStatus", status }`, com `recipients` |
+| Habilidade | `special` | `"pack"` (Matilha, em `rolls.mjs`) ou `"book"` (O Livro, no renascimento) |
+| Habilidade | `minRank`, `choiceOnly`, `rankGrants` | NP mínimo, só por escolha, e habilidades dadas a cada NH |
+
 ## Para macros
 
 ```js

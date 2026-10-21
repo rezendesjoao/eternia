@@ -1,0 +1,158 @@
+{
+  "name": "Forma da Lua",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você assume a forma de fera até o fim da cena: recebe [Fortalecido: NP] e +2 na Velocidade.</p><p>Ao se transformar, você uiva: você e os aliados a até 5 Qd (os que você marcar como alvo) recebem [Concentrado].</p><hr><p><em>Os ossos estalam e se alongam, o pelo cobre o corpo e o rosto se projeta num focinho cheio de dentes. O uivo que sai da garganta faz os aliados endireitarem as costas, e os inimigos lembrarem do que vive na escuridão.</em></p>",
+    "tags": [],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Close",
+    "target": "Refer",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scenario",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/abilities/wolf-howl-moon-purple.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "empowered",
+            "value": "@cr"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Forma da Lua",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.speed.mod",
+            "type": "add",
+            "value": 2,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "v6MuA4TwXSvwcpbz",
+      "_key": "!items.effects!OGCXvavN3EmqfbNt.v6MuA4TwXSvwcpbz"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "both",
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Uivo",
+      "img": "systems/eternia/assets/ui/status/focused.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "focused"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "2pUOLjUOF8V0C1Kd",
+      "_key": "!items.effects!OGCXvavN3EmqfbNt.2pUOLjUOF8V0C1Kd"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "minRank": 5
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.3.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "OGCXvavN3EmqfbNt",
+  "folder": "KeGKg5UibRObTvOo",
+  "_key": "!items!OGCXvavN3EmqfbNt"
+}
