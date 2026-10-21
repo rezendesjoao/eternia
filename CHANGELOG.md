@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.5.0 — 2026-10-21
+
+### Adicionado
+- **Ícones únicos para todos os 867 itens do compêndio**, sem repetir: os ícones pintados do Foundry (por caminho, sem
+  copiá-los) e arte própria da Eternia para as 27 katanas e os 13 chicotes (`assets/icons/items/`). Famílias com
+  graus (poções, venenos, pergaminhos, cartas, canções, engenhocas) mudam de forma a cada grau e de cor a cada tipo.
+- **Molduras e efeitos nos ícones** (`module/icons/`): moldura pelo grau mágico ([M1]–[M3] na cor da qualidade,
+  [M4]–[M6] dourada com gema, [M7] espectral); nas armas, armaduras, escudos e acessórios, um reflexo do nível 11 e,
+  do 21 ao 30, brilho, borda de luz e partículas do tema do item. Valem em todas as telas; só os ícones visíveis são
+  desenhados.
+- Configuração **Ícones animados** (de cada jogador) e, para macros, `game.eternia.icons` (`styleOf`, `refresh`).
+- Flag `flags.eternia.icon` (`fx`: tema das partículas; `hue`: variação de cor) e a referência `docs/icones.md`.
+- Aviso de novidades da 0.5.
+
 ## 0.4.1 — 2026-10-21
 
 ### Alterado

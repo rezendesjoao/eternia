@@ -56,6 +56,7 @@ import { registerConditions } from "./conditions/index.mjs";
 import { recover } from "./conditions/recovery.mjs";
 import { takeDamage } from "./conditions/damage.mjs";
 import { professionsApi, registerProfessions } from "./professions/index.mjs";
+import { iconsApi, registerIcons } from "./icons/index.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -90,6 +91,7 @@ Hooks.once('init', async function () {
       giveEffects(actor, [statusEffectData(id, value, tag, { expires, caster: from })]),
     conditions: { recover, damage: takeDamage },
     professions: professionsApi,
+    icons: iconsApi,
     hud: actionHud,
     kuden: { ledgerOf, resourceOf, setResource, settle, sceneEnv }
   };
@@ -198,6 +200,8 @@ Hooks.once('init', async function () {
   registerNotice();
   // Professions (the subclasses): the profession tab, the bench, the traps
   registerProfessions();
+  // Item icons: the frame of the magic grade and the effects of the level
+  registerIcons();
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();

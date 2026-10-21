@@ -78,6 +78,16 @@ export function registerSettings() {
     default: true,
     requiresReload: true
   });
+  // Item icons (icons/index.mjs): each player may keep them still.
+  game.settings.register(SYSTEM_ID, "iconEffects", {
+    name: "ETERNIA.Settings.iconEffects.Name",
+    hint: "ETERNIA.Settings.iconEffects.Hint",
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true
+  });
   // Tokens (tokens.mjs): their bars and nameplate redrawn when these change.
   const tokens = () => Hooks.callAll("eterniaTokenStyle");
   game.settings.register(SYSTEM_ID, "tokenStyle", {

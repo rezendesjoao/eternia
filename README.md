@@ -5,9 +5,10 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.4.1
+## Versão 0.5.0
 
-- **Novo na 0.4.1:** o Item Misterioso agora se chama **Anima-mundi**, e o Estilhaço Estelar, **Quintessência**.
+- **Novo na 0.5.0: um ícone para cada item.** Os 867 itens do compêndio, sem repetir, com molduras pelo grau mágico
+  e efeitos nas armas de nível alto (veja [Os ícones dos itens](#os-ícones-dos-itens)).
 - **Desde a 0.4.0: as 10 profissões** (as subclasses), com a aba Profissão na ficha, a Oficina, a Fusão, os
   talentos e itens novos (veja [As profissões](#as-profissões)).
 - **Desde a 0.3.0: as 8 raças da Eternia**, com 32 habilidades raciais automatizadas (veja [As raças](#as-raças)).
@@ -71,6 +72,22 @@ vista; efeitos, estados e descrição. Todo campo é editável na própria ficha
 Fichas de item (os 14 tipos), editor de efeitos, navegadores de habilidades e de raça e classe, diálogos, baús,
 saques, lojas e as Ferramentas do Mestre seguem o visual da ficha. Num compêndio trancado os valores aparecem como
 texto.
+
+## Os ícones dos itens
+
+Cada um dos 867 itens do compêndio tem o seu próprio ícone, sem repetir: os ícones pintados que vêm com o Foundry
+(o sistema aponta para eles, sem copiá-los) e, nas katanas e nos chicotes, arte própria da Eternia
+(`assets/icons/items/`). Itens de uma mesma família mudam de forma a cada grau (I, II, III) e de cor a cada tipo.
+Por cima do ícone, o sistema desenha:
+
+- **a moldura do grau mágico:** de [M1] a [M3], uma linha na cor da qualidade (verde, azul e roxo); de [M4] a [M6]
+  (Artefatos), moldura dourada com uma gema nos cantos; [M7], moldura espectral;
+- **o movimento do nível** (armas, armaduras, escudos e acessórios): do nível 11, um reflexo que passa pelo ícone; do
+  21 ao 30, também um brilho atrás do item, uma borda de luz e partículas do tema dele (brasas, gelo, faíscas, luz,
+  pétalas, notas, névoa…), mais fortes a cada nível.
+
+Vale na ficha, na janela do item, nos compêndios, na barra lateral, no chat, no HUD e na bancada. Só os ícones que
+aparecem na tela são desenhados. A configuração **Ícones animados** (de cada jogador) deixa só as molduras.
 
 ## Os tokens
 
@@ -275,7 +292,7 @@ janelas em pergaminho, que pedem para recarregar.
 
 Cada jogador escolhe as suas: HUD de ações (ligado), HUD sem token selecionado (ligado), barra de macros do Foundry
 (esconder), aviso da sua vez (ligado), selecionar o token na sua vez (desligado), levar a tela até quem age
-(desligado) e limpar os alvos no fim da sua vez (ligado).
+(desligado), limpar os alvos no fim da sua vez (ligado) e ícones animados (ligado).
 
 ## Instalação
 
@@ -313,6 +330,8 @@ eternia.kuden.settle(actor);          // paga o que falta com as escolhas penden
 eternia.professions.open(actor, "craft"); // a bancada da profissão num modo (craft, fusion, gather, retouch…)
 eternia.professions.of(actor);        // profissão, Rank, EXP, tentativas e nível máximo
 eternia.professions.addExp(actor, 10); // EXP da profissão (anuncia o Rank novo)
+eternia.icons.styleOf(item);          // como o ícone do item é desenhado (moldura, nível, tema, cor)
+eternia.icons.refresh();              // desenha de novo os ícones da tela
 ```
 
 ## Limites conhecidos
@@ -363,6 +382,8 @@ eternia.professions.addExp(actor, 10); // EXP da profissão (anuncia o Rank novo
   Eczar e Gelasio.
 - **Arte da interface** (`assets/ui/**`): do sistema original de Kyane. As texturas da ficha e o logo são gerados
   por `tools/`.
+- **Ícones dos itens:** os do Foundry VTT (arte de Rexard, licenciada para uso dentro do Foundry; o sistema só aponta
+  para eles). As katanas e os chicotes (`assets/icons/items/`) são arte própria da Eternia.
 - **Ícones** de [game-icons.net](https://game-icons.net) sob [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
   (fundos dos estados recoloridos). Autores: Lorc, Delapouite, Skoll, Sbed, Zeromancer e
   Carl Olsen.
