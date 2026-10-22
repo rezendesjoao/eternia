@@ -256,6 +256,7 @@ function guardApply(event, message, button) {
     stop(event);
     confirm({
       title: L("Cards.AgainTitle"),
+      icon: "fa-solid fa-rotate-right",
       content: `<p>${escape(L("Cards.AlreadyApplied", { name: target.name, result: target.applied }))}</p>`,
       yes: L("Cards.ApplyAgain"),
       no: L("Use.Cancel")

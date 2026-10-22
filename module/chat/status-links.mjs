@@ -15,36 +15,7 @@ import { request } from "../piles/pile-socket.mjs";
 import { amount } from "../automation/use.mjs";
 import { actorName, escape, toInt } from "../helpers/utils.mjs";
 import { statusDescription } from "../helpers/statuses.mjs";
-
-/** The statuses that can be applied from a link, and how their value works. */
-const STATUSES = {
-  staggered: {}, dazed: {}, rigor: {}, confused: {}, afflicted: {}, overconfident: {},
-  decay: { rated: true }, regen: { rated: true }, barrier: { rated: true },
-  pursuit: { rated: true },
-  weakness: { rated: true, tagged: true },
-  cancel: { rated: true, tagged: true },
-  // The conditions of Eternia (conditions/catalog.mjs)
-  paralyzed: {}, asleep: {}, rooted: {}, prone: {}, slowed: {}, grappled: {},
-  silenced: {}, disarmed: {}, blinded: {}, sealed: { tagged: true },
-  frightened: {}, charmed: {}, taunted: {}, berserk: { rated: true },
-  burning: { rated: true }, poisoned: { rated: true }, freezing: { rated: true }, shocked: { rated: true }, cursed: {},
-  exposed: {}, fissured: { rated: true }, marked: { rated: true }, doom: { rated: true },
-  hasted: {}, empowered: { rated: true }, focused: {}, mirror: { rated: true }, intangible: {}, lastStand: {},
-  awakened: { rated: true }, bond: {}
-};
-
-/** Extra names some texts use. */
-const SYNONYMS = {
-  regeneration: "regen", pursuits: "pursuit", weaknesses: "weakness", cancellation: "cancel",
-  paralysis: "paralyzed", paralisia: "paralyzed", sleep: "asleep", sono: "asleep", root: "rooted", grapple: "grappled",
-  silence: "silenced", silêncio: "silenced", disarm: "disarmed", blind: "blinded", cegueira: "blinded", seal: "sealed",
-  selo: "sealed", fear: "frightened", charm: "charmed", encanto: "charmed", taunt: "taunted", provocação: "taunted",
-  rage: "berserk", burn: "burning", queimadura: "burning", poison: "poisoned", veneno: "poisoned", freeze: "freezing",
-  frozen: "freezing", congelado: "freezing", shock: "shocked", choque: "shocked", curse: "cursed", maldição: "cursed",
-  crack: "fissured", fissura: "fissured", mark: "marked", marca: "marked", sentence: "doom", haste: "hasted",
-  focus: "focused", foco: "focused", reflect: "mirror", reflexo: "mirror", "último fôlego": "lastStand",
-  "last stand": "lastStand", awaken: "awakened", transformação: "awakened", link: "bond"
-};
+import { LINKABLE as STATUSES, SYNONYMS } from "../helpers/status-names.mjs";
 
 let pattern = null;
 let names = null;
@@ -78,14 +49,16 @@ const SKIP = "a, button, input, textarea, select, .lhauto-status, .dice-tooltip,
 function onRender(message, html) {
   if (!setting("statusLinks") || !pattern) return;
   const content = html.querySelector(".message-content");
-  if (!content || !content.textContent.includes("[")) return;
-  const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT, {
-    acceptNode: node => ((node.nodeValue.includes("[") && !node.parentElement?.closest(SKIP)) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT)
-  });
-  const nodes = [];
-  while (walker.nextNode()) nodes.push(walker.currentNode);
-  let linked = 0;
-  for (const node of nodes) linked += linkNode(node);
+  if (!content) return;
+  let linked = linkChips(content);
+  if (content.textContent.includes("[")) {
+    const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT, {
+      acceptNode: node => ((node.nodeValue.includes("[") && !node.parentElement?.closest(SKIP)) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT)
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    for (const node of nodes) linked += linkNode(node);
+  }
   if (!linked) return;
   content.addEventListener("click", event => {
     const link = event.target.closest(".lhauto-status");
@@ -94,6 +67,28 @@ function onRender(message, html) {
     event.stopPropagation();
     applyFromLink(link, message).catch(err => console.error(`${SYSTEM_ID} | Could not apply the status`, err));
   });
+}
+
+/** The status chips of the card (helpers/text-chips.mjs) that a click can apply become links; returns how many. */
+function linkChips(content) {
+  let linked = 0;
+  for (const chip of content.querySelectorAll(".lhb-status[data-status]:not(.lhauto-status)")) {
+    const def = STATUSES[chip.dataset.status];
+    if (!def) continue;
+    // "[Cancel: Flame]": a tag where the Rating would be.
+    if (def.tagged && chip.dataset.value && !/\d|SR|CR|NH|NP/i.test(chip.dataset.value)) {
+      chip.dataset.tag ||= chip.dataset.value;
+      delete chip.dataset.value;
+    }
+    if (!def.rated) delete chip.dataset.value;
+    chip.classList.add("lhauto-status");
+    chip.insertAdjacentHTML("afterbegin", `<i class="fa-solid fa-hand-sparkles"></i>`);
+    const tip = chip.dataset.tooltipHtml;
+    if (tip) chip.dataset.tooltipHtml = tip.replace(/<\/div>$/, `<span class="lhb-tip-note">${escape(L("StatusLink.Hint"))}</span></div>`);
+    else chip.dataset.tooltipText = L("StatusLink.Hint");
+    linked += 1;
+  }
+  return linked;
 }
 
 /** Replace the statuses of a text node by links; returns how many. */

@@ -237,7 +237,8 @@ export class EterniaCombat extends Combat {
 	 */
 	async endCombat() {
 		await foundry.applications.api.DialogV2.confirm({
-			window: { title: "COMBAT.EndTitle" },
+			window: { title: "COMBAT.EndTitle", icon: "fa-solid fa-flag-checkered" },
+			classes: ["eternia", "lhd-box"],
 			content: `<p>${game.i18n.localize("COMBAT.EndConfirmation")}</p>`,
 			yes: {
 				callback: async () => {

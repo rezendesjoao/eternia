@@ -865,7 +865,8 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
     const { dice, bonus, name } = target.dataset;
     const title = `${game.i18n.localize("ETERNIA.WindowTitle.AbilityCheck")} - ${game.i18n.localize(`ETERNIA.Check.${name}`)}`;
     const mod = await foundry.applications.api.DialogV2.prompt({
-      window: { title },
+      window: { title, icon: "fa-solid fa-dice" },
+      classes: ["eternia", "lhd-box"],
       content: await foundry.applications.handlebars.renderTemplate("systems/eternia/templates/dialogs/rollDialog.html"),
       ok: {
         icon: "fas fa-dice",

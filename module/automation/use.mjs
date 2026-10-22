@@ -30,6 +30,7 @@ import { afterAction } from "../conditions/turns.mjs";
 import {
   commitMotorUse, motorActionOf, motorCostValues, motorUseIssues, planMotorUse, skillMotor, undoMotorUse
 } from "../classes/motor.mjs";
+import { chipText } from "../helpers/text-chips.mjs";
 
 /** The action a Timing spends in the Main Process. */
 const ACTIONS = { Major: "major", Minor: "minor", Move: "move" };
@@ -251,11 +252,17 @@ async function decide(item, issues) {
     ui.notifications.warn(L("Use.Blocked", { name: item.name, reasons: blocked.map(i => i.text).join(" ") }));
     return null;
   }
-  const list = issues.map(i => `<li>${escape(i.text)}</li>`).join("");
   const ok = await confirm({
-    title: L("Use.ConfirmTitle", { name: item.name }),
-    content: `<p>${escape(L("Use.ConfirmIntro"))}</p><ul>${list}</ul><p>${escape(L("Use.ConfirmQuestion"))}</p>`,
+    title: L("Use.ConfirmIntro"),
+    icon: "fa-solid fa-triangle-exclamation",
+    img: item.img,
+    eyebrow: L("Use.ConfirmEyebrow"),
+    heading: item.name,
+    lines: issues.map(i => ({ html: chipText(i.text, { actor: item.actor, item }), kind: i.kind })),
+    question: L("Use.ConfirmQuestion"),
+    tone: "danger",
     yes: L("Use.UseAnyway"),
+    yesIcon: "fa-solid fa-bolt",
     no: L("Use.Cancel")
   });
   return ok ? issues.map(i => i.text) : null;
@@ -297,22 +304,22 @@ export function inspectUse(item, { targets = null } = {}) {
   let action = null;
   const actionsMode = setting("actions");
   if (actionsMode && (actionsMode !== "off") && (actor.statuses.has("incapacitated") || actor.statuses.has("dead"))) {
-    issues.push({ text: L("Use.Incapacitated", { name: actorName(actor) }), mode: actionsMode });
+    issues.push({ text: L("Use.Incapacitated", { name: actorName(actor) }), mode: actionsMode, kind: "out" });
   }
 
   // Timing and action economy (in a started combat): [Hasted] has two Minor Actions, [Slowed] no Move Action.
   if (combatant && actionsMode && (actionsMode !== "off")) {
-    for (const text of timingIssues(timing, combat, combatant)) issues.push({ text, mode: actionsMode });
+    for (const text of timingIssues(timing, combat, combatant)) issues.push({ text, mode: actionsMode, kind: "timing" });
     // A class Motor may change the action (the Samurai's Iai, at Initiative, spends the Major Action).
     const motorAction = motorActionOf(item, actor);
     action = (motorAction !== undefined) ? motorAction : (ACTIONS[timing] ?? null);
     if (action && (spentActions(actor, combat)[action] >= actionAllowance(actor)[action])) {
-      issues.push({ text: L(`Use.ActionSpent.${action}`), mode: actionsMode });
+      issues.push({ text: L(`Use.ActionSpent.${action}`), mode: actionsMode, kind: "action" });
     }
   }
 
   // What the user's conditions forbid (conditions/actions.mjs)
-  issues.push(...conditionUseIssues(item, actor, { targets }));
+  issues.push(...conditionUseIssues(item, actor, { targets }).map(issue => ({ kind: "condition", ...issue })));
 
   // Usage limit, and the conditions of an item's skill
   const limitsMode = setting("limits");
@@ -320,19 +327,19 @@ export function inspectUse(item, { targets = null } = {}) {
   const key = limit ? limitKey(limit.type, actor, combat) : null;
   const uses = key ? usesOf(item, key) : 0;
   if (key && (uses >= limit.max)) {
-    issues.push({ text: L("Use.LimitReached", { uses, max: limit.max, per: L(`Use.Per.${limit.type}`) }), mode: limitsMode });
+    issues.push({ text: L("Use.LimitReached", { uses, max: limit.max, per: L(`Use.Per.${limit.type}`) }), mode: limitsMode, kind: "limit" });
   }
   if (limitsMode && (limitsMode !== "off")) {
-    for (const text of itemIssues(item, actor, combat, combatant)) issues.push({ text, mode: limitsMode });
+    for (const text of itemIssues(item, actor, combat, combatant)) issues.push({ text, mode: limitsMode, kind: "item" });
     // What a class Motor needs (the blade sheathed, enough Cuts…), see classes/motor.mjs
-    for (const text of motorUseIssues(item, actor)) issues.push({ text, mode: limitsMode });
+    for (const text of motorUseIssues(item, actor)) issues.push({ text, mode: limitsMode, kind: "motor" });
   }
 
   // Costs: the Fate must be there to pay
   const cost = (setting("costs") && (actor.type === "character")) ? costOf(item, actor) : null;
   if (cost?.fate && (cost.group !== "Allies")) {
     const fate = toInt(actor._source.system.fate?.value);
-    if (fate < cost.fate) issues.push({ text: L("Use.NoFate", { need: cost.fate, have: fate }), mode: "block" });
+    if (fate < cost.fate) issues.push({ text: L("Use.NoFate", { need: cost.fate, have: fate }), mode: "block", kind: "fate" });
   }
 
   return { combat, combatant, timing, action, limit, key, uses, cost, issues };

@@ -15,6 +15,8 @@
 
 import { changeType } from "../helpers/effect-formulas.mjs";
 
+import { confirmBox } from "../helpers/dialogs.mjs";
+
 const { DialogV2 } = foundry.applications.api;
 
 /** Rules data taken from the compendium entry. */
@@ -310,10 +312,13 @@ export async function refreshSkills(actor) {
   });
 
   if (result === "undo") {
-    const ok = await DialogV2.confirm({
-      window: { title: "ETERNIA.SkillRefresh.Title" },
-      content: `<p>${game.i18n.format("ETERNIA.SkillRefresh.UndoConfirm", { count: backups })}</p>`,
-      rejectClose: false
+    const ok = await confirmBox({
+      title: game.i18n.localize("ETERNIA.SkillRefresh.Title"),
+      icon: "fa-solid fa-rotate-left",
+      lead: game.i18n.format("ETERNIA.SkillRefresh.UndoConfirm", { count: backups }),
+      yes: game.i18n.format("ETERNIA.SkillRefresh.Undo", { count: backups }),
+      yesIcon: "fa-solid fa-rotate-left",
+      no: game.i18n.localize("ETERNIA.Use.Cancel")
     });
     if (!ok) return;
     const count = await undoRefresh(actors);

@@ -155,7 +155,8 @@ export async function promptSustainedLimitDialog({ actor, item, sustainedTag, ac
   </form>`;
 
   const result = await foundry.applications.api.DialogV2.wait({
-    window: { title },
+    window: { title, icon: "fa-solid fa-hourglass-end" },
+    classes: ["eternia"],
     content,
     buttons: [
       {

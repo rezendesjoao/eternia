@@ -177,6 +177,7 @@ class ToolsApp extends foundry.applications.api.ApplicationV2 {
     if (!counts.documents && !counts.skills && !counts.links && !counts.removed) return ui.notifications.info(L("Tools.FillNothing"));
     const ok = await confirm({
       title: L("Tools.FillWorld"),
+      icon: "fa-solid fa-wand-magic-sparkles",
       content: `<p>${escape(L("Tools.FillConfirm", counts))}</p>`,
       yes: L("Tools.FillYes"),
       no: L("Use.Cancel")

@@ -58,8 +58,9 @@ import { L, SYSTEM_ID } from "../settings.mjs";
 import { getHands } from "../helpers/hands.mjs";
 import { request, registerHandler } from "../piles/pile-socket.mjs";
 import { evaluateFormula, formulaData } from "../helpers/effect-formulas.mjs";
-import { combatActors, combatOf, escape, toInt } from "../helpers/utils.mjs";
+import { combatActors, combatOf, toInt } from "../helpers/utils.mjs";
 import { tagLabel } from "../i18n/terms.mjs";
+import { chooseBox } from "../helpers/dialogs.mjs";
 
 export const MOTOR_FLAG = "motor";
 export const USE_FLAG = "motorUse";
@@ -414,15 +415,18 @@ export function motorActionOf(item, actor) {
 async function chooseAmount(item, def, max, have) {
   const top = Math.max(0, Math.min(max, have));
   if (top <= 1) return top;
-  const options = Array.from({ length: top }, (_, i) => i + 1)
-    .map(n => `<option value="${n}"${n === top ? " selected" : ""}>${n}</option>`).join("");
-  const result = await foundry.applications.api.DialogV2.prompt({
-    window: { title: item.name, icon: "fa-solid fa-coins" },
-    classes: ["eternia", "motor-choose"],
-    content: `<p>${escape(L("Motor.Choose", { unit: motorUnit(def), have }))}</p>
-      <div class="form-group"><label>${escape(motorUnit(def))}</label><select name="amount">${options}</select></div>`,
-    ok: { label: L("Motor.ChooseOk"), callback: (event, button) => toInt(button.form.elements.amount.value) },
-    rejectClose: false
+  const result = await chooseBox({
+    title: motorName(def),
+    icon: "fa-solid fa-coins",
+    img: item.img,
+    eyebrow: motorName(def),
+    heading: item.name,
+    lead: L("Motor.Choose", { unit: motorUnit(def), have }),
+    label: motorUnit(def),
+    options: Array.from({ length: top }, (_, i) => ({ value: String(i + 1), label: String(i + 1) })),
+    selected: String(top),
+    ok: L("Motor.ChooseOk"),
+    okIcon: "fa-solid fa-coins"
   });
   return (result === null || result === undefined) ? null : toInt(result);
 }
@@ -439,15 +443,7 @@ async function chooseAmount(item, def, max, have) {
 export async function chooseOption(title, options, { hint = "", selected = null } = {}) {
   if (!options.length) return null;
   if (options.length === 1) return options[0].value;
-  const list = options.map(o => `<option value="${escape(o.value)}"${o.value === selected ? " selected" : ""}>${escape(o.label)}</option>`).join("");
-  const result = await foundry.applications.api.DialogV2.prompt({
-    window: { title, icon: "fa-solid fa-list-check" },
-    classes: ["eternia", "motor-choose"],
-    content: `${hint ? `<p>${escape(hint)}</p>` : ""}<div class="form-group"><select name="choice">${list}</select></div>`,
-    ok: { label: L("Motor.ChooseOk"), callback: (event, button) => button.form.elements.choice.value },
-    rejectClose: false
-  });
-  return result ?? null;
+  return chooseBox({ title, heading: title, lead: hint, options, selected, ok: L("Motor.Pick") });
 }
 
 /**

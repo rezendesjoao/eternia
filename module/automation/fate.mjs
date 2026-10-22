@@ -285,7 +285,7 @@ export async function removeBadStatus(actor) {
     ${afflicted ? `<p class="hint">${escape(L("Fate.AfflictedNote"))}</p>` : ""}
     <div class="form-group"><select name="status">${options.map(s => `<option value="${s.id}">${escape(label(s))}</option>`).join("")}</select></div>`;
   const choice = await foundry.applications.api.DialogV2.prompt({
-    window: { title: L("Fate.RemoveTitle") },
+    window: { title: L("Fate.RemoveTitle"), icon: "fa-solid fa-star" },
     classes: ["lhauto-dialog"],
     content,
     rejectClose: false,

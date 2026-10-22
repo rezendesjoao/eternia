@@ -1,3 +1,4 @@
+import { confirmBox } from "./dialogs.mjs";
 import { SYSTEM_ID } from "../settings.mjs";
 
 export const toInt = value => Math.trunc(Number(value) || 0);
@@ -66,20 +67,12 @@ export const targetActor = target => fromUuidSync(target?.tokenUuid)?.actor ?? f
 export const sameTarget = (a, b) => (a?.tokenUuid && b?.tokenUuid) ? (a.tokenUuid === b.tokenUuid) : (a?.actorUuid === b?.actorUuid);
 
 /**
- * Yes / No dialog; No is the default answer.
+ * Yes / No message box (helpers/dialogs.mjs); No is the default answer. Besides the title, the HTML content and the
+ * labels, it takes the parts of a message box: icon, img, eyebrow, heading, lead, lines, question, tone.
  * @returns {Promise<boolean>}
  */
-export async function confirm({ title, content, yes, no }) {
-  const answer = await foundry.applications.api.DialogV2.confirm({
-    window: { title },
-    classes: ["lhauto-dialog"],
-    content,
-    modal: true,
-    rejectClose: false,
-    yes: { label: yes ?? "COMMON.Yes" },
-    no: { label: no ?? "COMMON.No" }
-  });
-  return answer === true;
+export function confirm(options) {
+  return confirmBox(options);
 }
 
 /**

@@ -16,6 +16,7 @@ import { CLASSES, KIND_ICONS, MILESTONES } from "./data.mjs";
 import {
   crOf, motorData, motorDef, motorMax, motorName, motorsOf, motorStateLabel, motorUnit, setMotor
 } from "./motor.mjs";
+import { chipText } from "../helpers/text-chips.mjs";
 
 const FIELDS = [
   "system.subtype", "system.skillRank", "system.tags", "system.timing", "folder",
@@ -113,7 +114,7 @@ function motorView(actor, def, lesser, editable) {
     readyLabel: extra.readyLabel ?? "",
     card: ["Gain", "Spend", "Cap", "Reset"].map(part => ({
       label: L(`Classes.Card.${part}`),
-      text: L(`${def.i18n}.Card.${part}${lesser ? "Lesser" : ""}`)
+      html: chipText(L(`${def.i18n}.Card.${part}${lesser ? "Lesser" : ""}`), { actor })
     }))
   };
 }

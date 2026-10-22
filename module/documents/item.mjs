@@ -153,10 +153,10 @@ export class EterniaItem extends Item {
     };
 
     const enrichedDescription = system.description
-      ? await foundry.applications.ux.TextEditor.implementation.enrichHTML(system.description)
+      ? await foundry.applications.ux.TextEditor.implementation.enrichHTML(system.description, { relativeTo: element })
       : "";
     const enrichedSkillText = system.skillText
-      ? await foundry.applications.ux.TextEditor.implementation.enrichHTML(system.skillText)
+      ? await foundry.applications.ux.TextEditor.implementation.enrichHTML(system.skillText, { relativeTo: element })
       : "";
 
     let appliedNames = "";

@@ -7,8 +7,7 @@
 import { classStats, getOption } from "../helpers/character-options.mjs";
 import { offerGrants } from "./option-grants.mjs";
 import { SkillBrowser, rankUpSkills, startSkillProgress } from "./skill-browser.mjs";
-
-const { DialogV2 } = foundry.applications.api;
+import { confirmBox } from "../helpers/dialogs.mjs";
 
 /**
  * Raise the Character Rank of a character by one, after confirmation.
@@ -27,11 +26,18 @@ export async function rankUp(actor) {
   ];
   const list = `<ul>${gains.map(g => `<li>${g}</li>`).join("")}</ul>`;
 
-  const confirmed = await DialogV2.confirm({
-    window: { title: game.i18n.format("ETERNIA.RankUp.Title", { name: actor.name }), icon: "fa-solid fa-angles-up" },
-    classes: ["eternia", "rank-up-dialog"],
-    content: `<p>${game.i18n.format("ETERNIA.RankUp.Confirm", { from, to })}</p>${list}`,
-    rejectClose: false
+  const confirmed = await confirmBox({
+    title: game.i18n.localize("ETERNIA.RankUp.Window"),
+    icon: "fa-solid fa-angles-up",
+    classes: ["rank-up-dialog"],
+    img: actor.img,
+    eyebrow: game.i18n.localize("ETERNIA.RankUp.Button"),
+    heading: actor.name,
+    lead: game.i18n.format("ETERNIA.RankUp.Confirm", { from, to }),
+    lines: gains.map((text, i) => ({ text, kind: "gain", icon: ["fa-solid fa-heart", "fa-solid fa-chart-simple", "fa-solid fa-book-open"][i] })),
+    yes: game.i18n.localize("ETERNIA.RankUp.Button"),
+    yesIcon: "fa-solid fa-angles-up",
+    no: game.i18n.localize("ETERNIA.Use.Cancel")
   });
   if (!confirmed) return false;
 

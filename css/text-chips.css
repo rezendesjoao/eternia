@@ -1,0 +1,135 @@
+/* ==========================================================================
+   Bracket chips (module/helpers/text-chips.mjs): the "[...]" of the texts as small labels of their kind.
+   Each kind has its ink, its tint and its line; a formula with a value shows it in a solid end ("NP+3 | 13").
+   A short chip stays on one line; a long one wraps with the text (each line keeps its frame). The chips carry
+   their own colors over any background.
+   ========================================================================== */
+.lhb {
+  --lhb-ink: #4a4136;
+  --lhb-bg: rgba(110, 85, 45, 0.08);
+  --lhb-line: rgba(110, 85, 45, 0.2);
+  display: inline;
+  margin: 0 0.06em;
+  padding: 0.04em 0.4em;
+  border: 1px solid var(--lhb-line);
+  border-radius: 0.32em;
+  background: var(--lhb-bg);
+  color: var(--lhb-ink);
+  font-family: var(--pf-sans, "Signika", sans-serif);
+  font-size: 0.86em;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  text-shadow: none;
+  white-space: nowrap;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.lhb.lhb-long {
+  white-space: normal;
+}
+.lhb .lhb-value {
+  margin: 0 -0.4em 0 0.42em;
+  padding: 0.04em 0.42em;
+  border-radius: 0 0.22em 0.22em 0;
+  background: var(--lhb-ink);
+  color: #fffaf0;
+  font-weight: 700;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.lhb[data-tooltip-html] {
+  cursor: help;
+}
+.lhb[data-tooltip-html]:hover {
+  border-color: var(--lhb-ink);
+}
+
+.lhb.lhb-formula { --lhb-ink: #1f5137; --lhb-bg: #e5f0e8; --lhb-line: #b3cfbb; }
+.lhb.lhb-status { --lhb-ink: #8c2f1d; --lhb-bg: #f8e7e0; --lhb-line: #e4bfb2; }
+.lhb.lhb-tag { --lhb-ink: #6a4f22; --lhb-bg: #f4e9cd; --lhb-line: #d9c08b; }
+.lhb.lhb-stat { --lhb-ink: #2f4c75; --lhb-bg: #e7edf6; --lhb-line: #c0cde2; }
+.lhb.lhb-time { --lhb-ink: #85600f; --lhb-bg: #faf0d3; --lhb-line: #e5cf8e; }
+.lhb.lhb-term { --lhb-ink: #4a4136; --lhb-bg: rgba(110, 85, 45, 0.08); --lhb-line: rgba(110, 85, 45, 0.2); }
+
+/* In the chat a status chip applies the status (chat/status-links.mjs) */
+.chat-message .lhb.lhb-status.lhauto-status {
+  padding: 0.04em 0.4em;
+  border: 1px solid var(--lhb-line);
+  border-radius: 0.32em;
+  color: var(--lhb-ink);
+  cursor: pointer;
+}
+.chat-message .lhb.lhb-status.lhauto-status.lhb-long {
+  white-space: normal;
+}
+.chat-message .lhb.lhb-status.lhauto-status:hover {
+  border-color: var(--lhb-ink);
+  background: #f1d6cb;
+}
+.chat-message .lhb.lhb-status.lhauto-status i {
+  margin-right: 0.3em;
+  font-size: 0.85em;
+  opacity: 0.75;
+}
+
+/* The tooltip of a chip: parchment with a gold edge */
+#tooltip.lhb-tooltip {
+  max-width: 330px;
+  padding: 9px 12px 10px;
+  border: 1px solid #c9a24a;
+  border-radius: 7px;
+  background: linear-gradient(180deg, #fffcf4 0%, #f5edda 100%);
+  box-shadow: 0 0 0 1px rgba(16, 41, 27, 0.25), 0 8px 22px rgba(0, 0, 0, 0.35);
+  color: #2b241b;
+  font: 400 13px/1.45 var(--pf-body, "Signika", serif);
+  text-align: left;
+}
+#tooltip.lhb-tooltip .lhb-tip {
+  display: grid;
+  gap: 5px;
+}
+#tooltip.lhb-tooltip .lhb-tip-kind {
+  color: #9a7a2c;
+  font: 600 10px/1 var(--pf-sans, "Signika", sans-serif);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+#tooltip.lhb-tooltip .lhb-tip-title {
+  color: #1c2a20;
+  font: 600 15px/1.2 var(--pf-serif, "Eczar", serif);
+}
+#tooltip.lhb-tooltip .lhb-tip-desc {
+  color: #3b3022;
+}
+#tooltip.lhb-tooltip .lhb-tip-line {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 8px;
+}
+#tooltip.lhb-tooltip .lhb-tip-line b {
+  color: #1f5137;
+  font: 700 12px/1.3 var(--pf-sans, "Signika", sans-serif);
+  white-space: nowrap;
+}
+#tooltip.lhb-tooltip .lhb-tip-line em {
+  color: #1f5137;
+  font: 700 13px/1.3 var(--pf-sans, "Signika", sans-serif);
+  font-style: normal;
+}
+#tooltip.lhb-tooltip .lhb-tip-total,
+#tooltip.lhb-tooltip .lhb-tip-note {
+  margin-top: 2px;
+  padding-top: 5px;
+  border-top: 1px dashed #d6c6a2;
+}
+#tooltip.lhb-tooltip .lhb-tip-total {
+  color: #1f5137;
+  font: 700 13px/1.3 var(--pf-sans, "Signika", sans-serif);
+}
+#tooltip.lhb-tooltip .lhb-tip-note {
+  color: #6b5c44;
+  font-style: italic;
+}

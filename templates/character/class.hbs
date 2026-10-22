@@ -37,7 +37,7 @@
 			{{#if m.note}}<span class="lhcl-note">{{m.note}}</span>{{/if}}
 		</div>
 		<dl class="lhcl-card">
-			{{#each m.card as |row|}}<dt>{{row.label}}</dt><dd>{{row.text}}</dd>{{/each}}
+			{{#each m.card as |row|}}<dt>{{row.label}}</dt><dd>{{{row.html}}}</dd>{{/each}}
 		</dl>
 	</div>
 </div>

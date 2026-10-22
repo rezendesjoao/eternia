@@ -41,6 +41,7 @@ import { registerTurn } from "./automation/turn.mjs";
 import { registerCards, rollCheck, rollDamage } from "./chat/cards.mjs";
 import { registerChat } from "./chat/chat.mjs";
 import { giveEffects, registerStatusLinks, statusEffectData } from "./chat/status-links.mjs";
+import { registerTextChips } from "./helpers/text-chips.mjs";
 import { registerQuickEffect } from "./chat/quick-effect.mjs";
 import { fillWorld, registerContent, syncItemSkills } from "./content/content.mjs";
 import { parseMonsterDamage } from "./content/monster-damage.mjs";
@@ -195,6 +196,7 @@ Hooks.once('init', async function () {
   registerClientSettings();
   registerTurn();
   registerStatusLinks();
+  registerTextChips();
   registerQuickEffect();
   registerNotice();
   // Professions (the subclasses): the profession tab, the bench, the traps

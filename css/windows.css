@@ -2033,13 +2033,6 @@
   --table-row-color-odd: transparent;
   --table-row-color-highlight: rgba(31, 81, 55, 0.1);
 }
-.application.lhwin.themed.dialog .window-content {
-  padding: 12px 14px;
-}
-.application.lhwin.themed.dialog .dialog-content p {
-  margin: 0 0 8px;
-  font: 400 14px/1.45 var(--pf-body);
-}
 .application.lhwin.themed :is(.allocation-hint, .undo-hint, .refresh-hint, .refresh-summary, .option-grants-body .grants-hint) {
   color: var(--pf-text-soft);
   font: italic 13px/1.4 var(--pf-body);
@@ -2420,4 +2413,324 @@
   border: none;
   background-color: var(--pf-secondary);
   color: #fff;
+}
+
+/* ==========================================================================
+   Message boxes (module/helpers/dialogs.mjs): every confirmation, warning and choice of the system in one
+   layout. The green bar with a gold edge, warm parchment, a head with the picture and name of what the box is
+   about, the warning lines with the icon of their kind, the question, and two buttons of equal width: the
+   action in green (warm red when it goes against a warning), Cancel in parchment.
+   ========================================================================== */
+.application.lhwin.themed.dialog {
+  min-width: 360px;
+  border-radius: 8px;
+  box-shadow:
+    0 0 0 1px rgba(201, 162, 74, 0.6),
+    0 0 0 4px rgba(16, 41, 27, 0.92),
+    0 0 0 5px rgba(201, 162, 74, 0.35),
+    0 20px 48px rgba(8, 20, 13, 0.55);
+  overflow: hidden;
+}
+.application.lhwin.themed.dialog .window-header {
+  padding: 9px 12px;
+  background: linear-gradient(135deg, #245a3e 0%, #163a28 55%, #0e2519 100%);
+  border-bottom: 1px solid rgba(201, 162, 74, 0.7);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+}
+.application.lhwin.themed.dialog .window-header .window-title {
+  color: #f8efd5;
+  font: 600 15.5px/1.2 var(--pf-serif);
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.application.lhwin.themed.dialog .window-header .window-icon {
+  color: #e6c878;
+}
+.application.lhwin.themed.dialog:has(.lhd-danger) .window-header .window-icon {
+  color: #f0b45c;
+}
+.application.lhwin.themed.dialog .window-content {
+  padding: 18px 20px 16px;
+  background:
+    radial-gradient(140% 80% at 50% 0%, rgba(255, 252, 242, 0.95) 0%, rgba(255, 252, 242, 0) 60%),
+    #f3eee2 url("../assets/sheet/parchment.webp") center / cover;
+}
+.application.lhwin.themed.dialog .dialog-content {
+  gap: 12px;
+  color: var(--pf-text);
+  font: 400 14.5px/1.55 var(--pf-body);
+}
+.application.lhwin.themed.dialog .dialog-content p {
+  margin: 0;
+  font: inherit;
+}
+.application.lhwin.themed.dialog .dialog-content strong {
+  color: #1d3a29;
+}
+.application.lhwin.themed.dialog .dialog-content :is(.hint, .notes) {
+  color: var(--pf-text-soft);
+  font: italic 13.5px/1.45 var(--pf-body);
+}
+.application.lhwin.themed.dialog .dialog-content ul:not([class]) {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.application.lhwin.themed.dialog .dialog-content ul:not([class]) > li {
+  position: relative;
+  margin: 0;
+  padding-left: 18px;
+}
+.application.lhwin.themed.dialog .dialog-content ul:not([class]) > li::before {
+  content: "";
+  position: absolute;
+  top: 0.6em;
+  left: 3px;
+  width: 6px;
+  height: 6px;
+  transform: rotate(45deg);
+  background: linear-gradient(135deg, #f2db94, #c9a24a 60%, #8a6a25);
+}
+
+/* Fields of a box: the plain "label + field" groups (lists of options and tables keep their own look) */
+.application.lhwin.themed.dialog .dialog-content .form-group:has(> label:first-child + :is(select, input, textarea)),
+.application.lhwin.themed.dialog .dialog-content .form-group:has(> select:only-child) {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+.application.lhwin.themed.dialog .dialog-content .form-group:has(> label:first-child + :is(select, input, textarea)) > label {
+  flex: none;
+  margin: 0;
+  color: #6b5c44;
+  font: 600 11px/1.25 var(--pf-sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.application.lhwin.themed.dialog .dialog-content .form-group:has(> label:first-child + input[type="checkbox"]) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border: 1px solid #dacba8;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.5);
+}
+.application.lhwin.themed.dialog .dialog-content .form-group:has(> label:first-child + input[type="checkbox"]) > label {
+  color: var(--pf-text);
+  font: 400 14px/1.4 var(--pf-body);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.application.lhwin.themed.dialog .dialog-content .form-group > input[type="checkbox"] {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--pf-primary);
+}
+.application.lhwin.themed.dialog .dialog-content .form-group > :where(select, input[type="text"], input[type="number"], textarea) {
+  width: 100%;
+  height: 36px;
+  margin: 0;
+  padding: 0 12px;
+  border: 1px solid #c8b79a;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: inset 0 1px 2px rgba(80, 60, 20, 0.1);
+  color: var(--pf-text);
+  font: 500 14.5px/1 var(--pf-sans);
+}
+.application.lhwin.themed.dialog .dialog-content .form-group > select {
+  appearance: none;
+  padding-right: 34px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%231f5137' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 8px;
+  cursor: pointer;
+}
+.application.lhwin.themed.dialog .dialog-content .form-group > textarea {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 12px;
+  line-height: 1.4;
+}
+.application.lhwin.themed.dialog .dialog-content .form-group > :is(select, input, textarea):hover {
+  border-color: #a99572;
+}
+.application.lhwin.themed.dialog .dialog-content .form-group > :is(select, input, textarea):focus {
+  border-color: var(--pf-primary);
+  box-shadow: inset 0 1px 2px rgba(80, 60, 20, 0.1), 0 0 0 3px rgba(31, 81, 55, 0.18);
+  outline: none;
+}
+
+/* Buttons: equal width; the action green, Cancel parchment */
+.application.lhwin.themed.dialog .form-footer {
+  display: flex;
+  gap: 10px;
+  margin-top: 0;
+  padding-top: 14px;
+  border-top: 1px dashed #cdbd99;
+}
+.application.lhwin.themed.dialog .form-footer button {
+  flex: 1 1 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: auto;
+  min-height: 38px;
+  padding: 6px 14px;
+  border: 1px solid #173f2b;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #2d6a49 0%, #1f5137 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 2px rgba(0, 0, 0, 0.25);
+  color: #f8efd5;
+  font: 600 12.5px/1.15 var(--pf-sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.application.lhwin.themed.dialog .form-footer button:hover {
+  border-color: #173f2b;
+  background: linear-gradient(180deg, #357a55 0%, #245c3f 100%);
+  color: #fff;
+}
+.application.lhwin.themed.dialog .form-footer button:is([data-action="no"], [data-action="cancel"]) {
+  border-color: #c3b18d;
+  background: linear-gradient(180deg, #fffaf0 0%, #eee2c4 100%);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 2px rgba(0, 0, 0, 0.12);
+  color: #3b3022;
+}
+.application.lhwin.themed.dialog .form-footer button:is([data-action="no"], [data-action="cancel"]):hover {
+  border-color: #9a7a2c;
+  background: linear-gradient(180deg, #fffdf6 0%, #f3e9cf 100%);
+  color: #1c1c1c;
+}
+.application.lhwin.themed.dialog:has(.lhd-danger) .form-footer button[data-action="yes"] {
+  border-color: #5f201c;
+  background: linear-gradient(180deg, #a5483c 0%, #7a2a23 100%);
+}
+.application.lhwin.themed.dialog:has(.lhd-danger) .form-footer button[data-action="yes"]:hover {
+  background: linear-gradient(180deg, #b55244 0%, #883027 100%);
+}
+.application.lhwin.themed.dialog .form-footer button:focus-visible {
+  outline: 2px solid #c9a24a;
+  outline-offset: 2px;
+}
+.application.lhwin.themed.dialog .form-footer button i {
+  font-size: 12px;
+}
+
+/* The parts of a box */
+.application.lhwin.themed.dialog .lhd {
+  display: grid;
+  gap: 12px;
+}
+.application.lhwin.themed.dialog .lhd-head {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #d9caa8;
+}
+.application.lhwin.themed.dialog .lhd-head.no-img {
+  grid-template-columns: minmax(0, 1fr);
+}
+.application.lhwin.themed.dialog .lhd-img {
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 6px;
+  background: var(--pf-primary-dark);
+  box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39, 0 4px 10px rgba(0, 0, 0, 0.35);
+  object-fit: cover;
+}
+.application.lhwin.themed.dialog .lhd-titles {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.application.lhwin.themed.dialog .lhd-eyebrow {
+  color: #9a7a2c;
+  font: 600 10.5px/1 var(--pf-sans);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.application.lhwin.themed.dialog .lhd-heading {
+  color: #1c2a20;
+  font: 600 21px/1.1 var(--pf-serif);
+  overflow-wrap: anywhere;
+}
+.application.lhwin.themed.dialog .lhd-lead {
+  margin: 0;
+  color: #4b4032;
+}
+.application.lhwin.themed.dialog .lhd-lines {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #dacba8;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: inset 0 1px 2px rgba(120, 90, 30, 0.08);
+  list-style: none;
+  overflow: hidden;
+}
+.application.lhwin.themed.dialog .lhd-line {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  align-items: start;
+  gap: 11px;
+  margin: 0;
+  padding: 10px 12px;
+}
+.application.lhwin.themed.dialog .lhd-line + .lhd-line {
+  border-top: 1px dashed #e0d3b5;
+}
+.application.lhwin.themed.dialog .lhd-line.tone-motor { --lhd-tone: #1f5137; }
+.application.lhwin.themed.dialog .lhd-line.tone-time { --lhd-tone: #9a7a2c; }
+.application.lhwin.themed.dialog .lhd-line.tone-limit { --lhd-tone: #46587a; }
+.application.lhwin.themed.dialog .lhd-line.tone-danger { --lhd-tone: #8c2f1d; }
+.application.lhwin.themed.dialog .lhd-line.tone-info { --lhd-tone: #6b5c44; }
+.application.lhwin.themed.dialog .lhd-icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--lhd-tone, #6b5c44);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8), 0 1px 3px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 12px;
+}
+.application.lhwin.themed.dialog .lhd-text {
+  padding-top: 3px;
+  color: var(--pf-text);
+  font: 400 14.5px/1.5 var(--pf-body);
+}
+.application.lhwin.themed.dialog .lhd-question {
+  position: relative;
+  margin: 0;
+  padding-left: 16px;
+  color: #4b4032;
+  font: italic 400 14px/1.5 var(--pf-body);
+}
+.application.lhwin.themed.dialog .lhd-question::before {
+  content: "";
+  position: absolute;
+  top: 0.62em;
+  left: 2px;
+  width: 6px;
+  height: 6px;
+  transform: rotate(45deg);
+  background: linear-gradient(135deg, #f2db94, #c9a24a 60%, #8a6a25);
+}
+.application.lhwin.themed.dialog .lhd-field {
+  margin-top: 2px;
 }

@@ -8,6 +8,8 @@
 import { PILE_MODES, PILE_TYPE, PHYSICAL_TYPES, STOCK_FLAG } from "./pile-config.mjs";
 import { itemQuantity } from "./pile-utils.mjs";
 
+import { confirmBox } from "../helpers/dialogs.mjs";
+
 const { DialogV2 } = foundry.applications.api;
 
 // Item Piles pile type -> system pile mode.
@@ -212,7 +214,8 @@ export async function convertDialog() {
   };
 
   const data = await DialogV2.input({
-    window: { title: game.i18n.localize("ETERNIA.Piles.Convert.Title"), icon: "fas fa-box-open" },
+    window: { title: game.i18n.localize("ETERNIA.Piles.Convert.Title"), icon: "fa-solid fa-box-open" },
+    classes: ["eternia", "lhd-box"],
     position: { width: 520 },
     content,
     ok: { label: game.i18n.localize("ETERNIA.Piles.Convert.Confirm"), icon: "fas fa-right-left" },
@@ -230,9 +233,17 @@ export async function convertDialog() {
 
   const actor = game.actors.get(data.actorId);
   const modeLabel = game.i18n.localize(PILE_MODES[data.mode]);
-  const confirmed = await DialogV2.confirm({
-    window: { title: game.i18n.localize("ETERNIA.Piles.Convert.Title") },
-    content: `<p>${game.i18n.format("ETERNIA.Piles.Convert.AreYouSure", { actor: esc(actor.name), mode: modeLabel })}</p>`
+  const confirmed = await confirmBox({
+    title: game.i18n.localize("ETERNIA.Piles.Convert.Title"),
+    icon: "fa-solid fa-box-open",
+    img: actor.img,
+    eyebrow: modeLabel,
+    heading: actor.name,
+    content: `<p>${game.i18n.format("ETERNIA.Piles.Convert.AreYouSure", { actor: esc(actor.name), mode: modeLabel })}</p>`,
+    tone: "danger",
+    yes: game.i18n.localize("ETERNIA.Piles.Convert.Confirm"),
+    yesIcon: "fa-solid fa-right-left",
+    no: game.i18n.localize("ETERNIA.Use.Cancel")
   });
   if (!confirmed) return;
 

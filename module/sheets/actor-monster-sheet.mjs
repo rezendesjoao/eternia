@@ -288,7 +288,7 @@ export class EterniaActorMonsterSheet extends HandlebarsApplicationMixin(foundry
     const skills = await Promise.all(actor.items.filter(i => i.type === "skill").map(async item => ({
       ...item.toObject(false),
       enrichedDescription: item.system.description
-        ? await foundry.applications.ux.TextEditor.implementation.enrichHTML(item.system.description, { async: true })
+        ? await foundry.applications.ux.TextEditor.implementation.enrichHTML(item.system.description, { async: true, relativeTo: item })
         : ""
     })));
 

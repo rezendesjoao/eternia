@@ -478,7 +478,8 @@ export async function rollActorCheck(actor, token, key, { ask = false } = {}) {
   let mod = 0;
   if (ask) {
     mod = await foundry.applications.api.DialogV2.prompt({
-      window: { title },
+      window: { title, icon: "fa-solid fa-dice" },
+      classes: ["eternia", "lhd-box"],
       content: await foundry.applications.handlebars.renderTemplate("systems/eternia/templates/dialogs/rollDialog.html"),
       ok: {
         icon: "fas fa-dice",

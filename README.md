@@ -5,9 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.8.0
+## Versão 0.8.1
 
-- **Novo na 0.8.0: as 16 classes.** Junto com o Samurai chegam o Assassino, o Berserker, o Caçador, o Comandante, o
+- **Novo na 0.8.1: caixas de mensagem e colchetes.** Todos os avisos, confirmações e escolhas seguem um padrão só,
+  e os "[...]" dos textos viram etiquetas coloridas pela função, com o valor do personagem nas fórmulas e uma
+  explicação ao passar o mouse (veja [As outras janelas](#as-outras-janelas) e
+  [Os colchetes dos textos](#os-colchetes-dos-textos)).
+- **Desde a 0.8.0: as 16 classes.** Junto com o Samurai chegam o Assassino, o Berserker, o Caçador, o Comandante, o
   Druida, o Estrategista, o Feiticeiro, o Guardião, o Invocador, o Menestrel, o Monge, o Oráculo, o Ressonante, o
   Sacerdote e o Tecelão, cada um com o seu **Motor** (a regra que só a classe tem), 16 talentos, 4 Gerais, três
   Caminhos, o Ápice e a Dedicação para outras classes, tudo automatizado, com a aba **Classe** na ficha e uma página
@@ -85,6 +89,21 @@ vista; efeitos, estados e descrição. Todo campo é editável na própria ficha
 Fichas de item (os 14 tipos), editor de efeitos, navegadores de habilidades e de raça e classe, diálogos, baús,
 saques, lojas e as Ferramentas do Mestre seguem o visual da ficha. Num compêndio trancado os valores aparecem como
 texto.
+
+As **caixas de mensagem** (avisos, confirmações e escolhas) seguem um padrão só: a barra verde com borda dourada, o
+pergaminho e dois botões do mesmo tamanho, a ação em verde e Cancelar em pergaminho (quando a ação vai contra um
+aviso, ela fica vermelho-tijolo). O aviso antes de usar uma habilidade mostra a imagem e o nome dela e cada motivo com
+o ícone do seu tipo (Momento, Motor, limite, condição); subir NP mostra o retrato e o que o personagem ganha; vender e
+converter itens mostram o item ou o personagem.
+
+## Os colchetes dos textos
+
+Os "[...]" das descrições de habilidades e itens, dos cartões do chat, do diário AS REGRAS, do cartão do Motor e dos
+avisos de uso viram etiquetas pela função: **fórmulas** em verde, **estados** em vermelho, **tags** em pergaminho,
+**valores do personagem** em azul, **Momentos** em dourado e os outros termos em cor neutra. Quando o texto é de um
+personagem, a fórmula mostra o valor ao lado ([NP+3] de um personagem de NP 10 aparece como "NP+3 | 13";
+[Poder Mágico + 2D], como "… | 2D+12"). Passar o mouse explica a etiqueta: o que é NP ou NH e quanto vale agora, a
+regra do estado ou da tag. Rolagens embutidas ([[/r 2d6]]) e links (@UUID[…]) ficam como estão.
 
 ## Os ícones dos itens
 
@@ -323,7 +342,7 @@ fim da sua vez.
 
 ### Estados e efeitos a partir do chat
 - **Estados clicáveis:** os estados escritos nos cartões ([Atordoado], [Deterioração: 10], [Fraqueza (Chama): 5]…)
-  viram links que aplicam o estado nos seus alvos, até o fim da cena.
+  viram etiquetas que aplicam o estado nos seus alvos com um clique, até o fim da cena.
 - **Criar efeito nos alvos:** botão direito num cartão de habilidade ou item.
 
 ### Conteúdo dos itens e monstros

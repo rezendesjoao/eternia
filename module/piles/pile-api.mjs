@@ -6,6 +6,7 @@
 import { request } from "./pile-socket.mjs";
 import { convertDialog, convertActorToPile } from "./pile-convert.mjs";
 import { SOUNDS } from "./pile-config.mjs";
+import { confirmBox } from "../helpers/dialogs.mjs";
 import {
   isPile, isMerchant, isPhysical, getGold, itemQuantity, getInteractingActor, isWithinReach,
   buyPrice, sellPrice
@@ -47,7 +48,8 @@ export async function promptQuantity(title, max, { label, initial } = {}) {
   if (max <= 1) return 1;
   const value = initial ?? max;
   const data = await DialogV2.input({
-    window: { title },
+    window: { title, icon: "fa-solid fa-hashtag" },
+    classes: ["eternia", "lhd-box"],
     content: `<div class="form-group"><label>${label ?? game.i18n.localize("ETERNIA.Piles.Quantity")}</label>
       <input type="number" name="quantity" min="1" max="${max}" step="1" value="${value}" autofocus></div>`,
     ok: { label: game.i18n.localize("ETERNIA.Piles.Confirm") }
@@ -64,7 +66,8 @@ export async function promptGold(title, max) {
     return null;
   }
   const data = await DialogV2.input({
-    window: { title },
+    window: { title, icon: "fa-solid fa-coins" },
+    classes: ["eternia", "lhd-box"],
     content: `<div class="form-group"><label>${game.i18n.localize("ETERNIA.Piles.GoldLabel")} (${game.i18n.format("ETERNIA.Piles.Max", { max })})</label>
       <input type="number" name="amount" min="1" max="${max}" step="1" value="${max}" autofocus></div>`,
     ok: { label: game.i18n.localize("ETERNIA.Piles.Confirm") }
@@ -94,7 +97,8 @@ async function promptTarget(title, giver, { gold = false, item = null } = {}) {
   else if (max > 1) extra = `<div class="form-group"><label>${game.i18n.localize("ETERNIA.Piles.Quantity")}</label>
       <input type="number" name="amount" min="1" max="${max}" step="1" value="${max}"></div>`;
   const data = await DialogV2.input({
-    window: { title },
+    window: { title, icon: "fa-solid fa-gift" },
+    classes: ["eternia", "lhd-box"],
     content: `<div class="form-group"><label>${game.i18n.localize("ETERNIA.Piles.GiveTo")}</label>
       <select name="target">${options}</select></div>${extra}`,
     ok: { label: game.i18n.localize("ETERNIA.Piles.Give") }
@@ -205,9 +209,16 @@ export async function sellItem(merchant, item) {
   const qty = await promptQuantity(item.name, itemQuantity(item));
   if (!qty) return false;
   const earned = sellPrice(merchant, item) * qty;
-  const confirmed = await DialogV2.confirm({
-    window: { title: game.i18n.localize("ETERNIA.Piles.Sell") },
-    content: `<p>${game.i18n.format("ETERNIA.Piles.SellConfirm", { item: item.name, quantity: qty, gold: earned })}</p>`
+  const confirmed = await confirmBox({
+    title: game.i18n.localize("ETERNIA.Piles.Sell"),
+    icon: "fa-solid fa-coins",
+    img: item.img,
+    eyebrow: merchant.name,
+    heading: item.name,
+    lead: game.i18n.format("ETERNIA.Piles.SellConfirm", { item: item.name, quantity: qty, gold: earned }),
+    yes: game.i18n.localize("ETERNIA.Piles.Sell"),
+    yesIcon: "fa-solid fa-coins",
+    no: game.i18n.localize("ETERNIA.Use.Cancel")
   });
   if (!confirmed) return false;
   const ok = notify(await request("sellItem", { merchantUuid: merchant.uuid, sellerUuid: seller.uuid, itemId: item.id, quantity: qty }));

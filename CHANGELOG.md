@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.8.1 — 2026-10-22
+
+### Adicionado
+- **Os colchetes dos textos em destaque:** os "[...]" das descrições de habilidades e itens, dos cartões do chat, do
+  diário AS REGRAS, do cartão do Motor na aba Classe e dos avisos de uso viram etiquetas pela função: fórmulas em
+  verde, com o valor do personagem ao lado ([NP+3] de um personagem de NP 10 mostra 13; [Poder Mágico + 2D], 2D+12),
+  estados em vermelho, tags em pergaminho, valores do personagem em azul, Momentos em dourado e os outros termos em
+  cor neutra. Passar o mouse explica cada uma: o que é NP ou NH e quanto vale agora, a regra do estado ou da tag
+  (`module/helpers/text-chips.mjs`, `css/text-chips.css`).
+
+### Alterado
+- **As caixas de mensagem** seguem um padrão só (`module/helpers/dialogs.mjs`): a barra verde com borda dourada, o
+  pergaminho e dois botões do mesmo tamanho, a ação em verde e Cancelar em pergaminho (vermelho-tijolo quando a ação
+  vai contra um aviso). O aviso antes de usar uma habilidade mostra a imagem e o nome dela e cada motivo com o ícone
+  do seu tipo; subir NP mostra o retrato e o que o personagem ganha; vender e converter itens mostram o item ou o
+  personagem; as escolhas do Motor, as quantidades, o ouro e os outros campos ficam no mesmo visual.
+- No chat, os estados escritos nos cartões são as etiquetas vermelhas e continuam aplicando o estado com um clique.
+
 ## 0.8.0 — 2026-10-21
 
 ### Adicionado
