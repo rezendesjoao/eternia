@@ -321,7 +321,10 @@ export async function rollSkill(item, which, { targets } = {}) {
   }
   else {
     if (bonusText) flavor += ` (${bonusText})`;
-    result = await new Roll(formula).toMessage({ speaker: ChatMessage.getSpeaker({ actor }), flavor });
+    const roll = await new Roll(formula).evaluate();
+    result = await roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor }), flavor });
+    // A check was rolled (the class Motors: the Weaver's Pattern). Only on this client.
+    if (which === "check") Hooks.callAll("eternia.check", actor ?? item.actor, roll, { item, kind: "check", message: result });
   }
   if (result) await consumeAfterRoll(roller, condition.consume);
   return result;

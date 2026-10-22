@@ -41,7 +41,9 @@ export const CONDITION_TYPES = [
   { id: "firstRound", state: true },
   { id: "preAction", state: true },
   { id: "standby", state: true },
-  { id: "hasSkill", param: "tag" }
+  { id: "hasSkill", param: "tag" },
+  { id: "motorState", param: "tag" },
+  { id: "motorAtLeast", param: "number" }
 ];
 
 const STATE_TYPES = new Set(CONDITION_TYPES.filter(t => t.state).map(t => t.id));
@@ -132,8 +134,26 @@ const TESTS = {
     return ctx.statuses().has("standby") || (!!combatant && !!combat.progress?.standby.includes(combatant.id));
   },
   // Has a skill of this name ("the element of your Spirit Pact")
-  hasSkill: (c, ctx) => ctx.skills().has(String(c.value ?? "").trim().toLowerCase())
+  hasSkill: (c, ctx) => ctx.skills().has(String(c.value ?? "").trim().toLowerCase()),
+  // A class Motor of the actor is in this state (a Druid's form, a Minstrel's song: classes/motor.mjs)
+  motorState: (c, ctx) => ctx.motors().some(m => m.state === String(c.value ?? "").trim()),
+  // The Motor of the skill giving the effect (else the actor's first one) has at least this many points
+  motorAtLeast: (c, ctx) => (Number(ctx.motor()?.value) || 0) >= number(c.value)
 };
+
+/**
+ * The stored states of an actor's class Motors, through the system API (classes/motor.mjs is not imported here:
+ * this module also loads in Node). The Motor of a class skill is its flags.eternia.motor.id, else the class in its
+ * identifier ("druida-forma-do-urso" → "druida").
+ */
+function motorStates(actor, item) {
+  const api = globalThis.game?.eternia?.motor;
+  if (!api || !actor) return { all: [], own: null };
+  const all = (api.of(actor) ?? []).map(m => ({ id: m.def.id, ...api.get(actor, m.def.id) }));
+  const flags = item?.flags?.eternia ?? {};
+  const id = flags.motor?.id ?? String(flags.identifier ?? "").split("-")[0];
+  return { all, own: all.find(m => m.id === id) ?? all[0] ?? null };
+}
 
 /**
  * The first condition that is not met, or null when all are (or there are none).
@@ -145,7 +165,7 @@ const TESTS = {
 export function unmetCondition(conditions, actor, item) {
   if (!conditions?.length) return null;
   const { sr, cr } = formulaData(actor, item);
-  let equipped, hands, fight;
+  let equipped, hands, fight, motors;
   // While the actor is prepared, its statuses are those gathered before (see actor.mjs applyActiveEffects).
   const statuses = () => actor?._lhStatuses ?? actor?.statuses ?? new Set();
   const ctx = {
@@ -154,7 +174,9 @@ export function unmetCondition(conditions, actor, item) {
     hands: () => hands ??= getHands(actor),
     hate: () => hateRank(actor, statuses()),
     combat: () => fight ??= combatOf(actor),
-    skills: () => new Set((actor?.items ?? []).filter(i => i.type === "skill").map(i => i.name.trim().toLowerCase()))
+    skills: () => new Set((actor?.items ?? []).filter(i => i.type === "skill").map(i => i.name.trim().toLowerCase())),
+    motors: () => (motors ??= motorStates(actor, item)).all,
+    motor: () => (motors ??= motorStates(actor, item)).own
   };
   return conditions.find(c => TESTS[c?.type] && !TESTS[c.type](c, ctx)) ?? null;
 }

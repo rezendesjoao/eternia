@@ -48,6 +48,7 @@ const L = key => game.i18n.localize(`ETERNIA.Combat.${key}`);
 /** Call during the `init` hook. */
 export function registerCombatCards() {
   registerHandler("combatCardUpdate", _onCardUpdateRequest);
+  registerHandler("combatCardAdjust", _onCardAdjustRequest);
   Hooks.on("renderChatMessageHTML", _onRenderChatMessage);
 }
 
@@ -66,7 +67,8 @@ function rollOutcome(roll, actor) {
   const overconfident = !!actor?.system["bad-status"]?.overconfident;
   const fumble = results.length > 0 && (results.every(r => r === 1) || (overconfident && results.includes(1)));
   const critical = !fumble && results.filter(r => r === 6).length >= 2;
-  return { total: fumble ? 0 : roll.total, critical, fumble, formula: roll.formula, results: results.join(", ") };
+  const mod = roll.total - results.reduce((t, r) => t + r, 0);
+  return { total: fumble ? 0 : roll.total, critical, fumble, mod, formula: roll.formula, results: results.join(", ") };
 }
 
 /**
@@ -340,11 +342,13 @@ export async function createAttackCard(item, attacker, formula, flavor, { bonuse
     attack = rollOutcome(roll, attacker);
   }
   // Monsters dodge right away.
+  const dodgeRolls = new Map();
   for (const entry of targets) {
     const actor = targetActor(entry);
     if (auto || (actor?.type !== "monster")) continue;
     const { roll, dodge } = await rollDodge(actor, vs, { attacker: attacker ?? item.actor, item });
     rolls.push(roll);
+    dodgeRolls.set(entry, roll);
     entry.dodge = dodge;
     entry.hit = resolveHit(attack, dodge);
   }
@@ -378,6 +382,28 @@ export async function createAttackCard(item, attacker, formula, flavor, { bonuse
    * @param {{item: Item, attacker: Actor|null, targets: Actor[]}} context
    */
   if (message) Hooks.callAll("eternia.attack", message, { item, attacker: attacker ?? item.actor, targets: targets.map(targetActor).filter(Boolean) });
+  if (message) {
+    const by = attacker ?? item.actor;
+    /**
+     * A check was rolled: an attack's Hit Check, a monster's Dodge Check (the Weaver's Pattern). Only on this client.
+     * @param {Actor} actor
+     * @param {Roll} roll
+     * @param {{item: Item|null, kind: "check"|"attack"|"dodge", message: ChatMessage, attacker?: Actor}} context
+     */
+    if (!auto && rolls[0]) Hooks.callAll("eternia.check", by, rolls[0], { item, kind: "attack", message });
+    for (const entry of targets) {
+      const actor = targetActor(entry);
+      if (!actor) continue;
+      if (dodgeRolls.has(entry)) Hooks.callAll("eternia.check", actor, dodgeRolls.get(entry), { item, kind: "dodge", message, attacker: by });
+      /**
+       * An attack's result against one target is known: an automatic hit or a monster's dodge here, a character's
+       * dodge from the card. Only on this client.
+       * @param {ChatMessage} message
+       * @param {{attacker: Actor, target: Actor, item: Item, hit: boolean}} context
+       */
+      if (typeof entry.hit === "boolean") Hooks.callAll("eternia.attackResult", message, { attacker: by, target: actor, item, hit: entry.hit });
+    }
+  }
   return message;
 }
 
@@ -398,6 +424,99 @@ async function onRollDodge(message, index) {
    * @param {{actor: Actor, attacker: Actor|null, item: Item|null, hit: boolean}} context
    */
   Hooks.callAll("eternia.dodge", message, { actor, attacker: item?.actor ?? null, item, hit });
+  Hooks.callAll("eternia.check", actor, roll, { item, kind: "dodge", message, attacker: item?.actor ?? null });
+  Hooks.callAll("eternia.attackResult", message, { attacker: item?.actor ?? null, target: actor, item, hit });
+}
+
+/* -------------------------------------------- */
+/*  Changing a check after the roll             */
+/* -------------------------------------------- */
+
+/** The dice and the modifier of a check outcome (cards without `mod` read it from the total or the formula). */
+function outcomeParts(outcome) {
+  const dice = String(outcome?.results ?? "").split(",").map(toInt).filter(n => n > 0);
+  let mod = outcome?.mod;
+  if (!Number.isFinite(mod)) {
+    mod = outcome?.fumble
+      ? toInt(String(outcome?.formula ?? "").match(/([+-]\s*\d+)\s*$/)?.[1]?.replace(/\s/g, ""))
+      : toInt(outcome?.total) - dice.reduce((t, n) => t + n, 0);
+  }
+  return { dice, mod };
+}
+
+/**
+ * A check outcome with other dice: the total, Critical and Fumble follow them; the modifier stays.
+ * @param {object} outcome   An attack's `attack` or a target's `dodge`
+ * @param {number[]} dice
+ * @returns {object}
+ */
+export function outcomeWithDice(outcome, dice) {
+  const { mod } = outcomeParts(outcome);
+  const fumble = (dice.length > 0) && dice.every(r => r === 1);
+  const critical = !fumble && (dice.filter(r => r === 6).length >= 2);
+  return { ...outcome, total: fumble ? 0 : dice.reduce((t, n) => t + n, 0) + mod, critical, fumble, mod, results: dice.join(", ") };
+}
+
+/** The dice results of a check outcome. */
+export const outcomeDice = outcome => outcomeParts(outcome).dice;
+
+/**
+ * Change a check of an attack card after it was rolled and judge the hits again: `dice` replaces its dice (the
+ * modifier stays; Critical and Fumble follow the new dice), `delta` adds to its total. For the class Motors' card
+ * actions (the Weaver's Threads, the Strategist's Reading). Done by the card's author or a GM, else by the active GM
+ * on request.
+ * @param {ChatMessage} message
+ * @param {object} change
+ * @param {"attack"|"dodge"} change.kind   The Hit Check, or one target's Dodge Check
+ * @param {number} [change.index]          That target
+ * @param {number[]} [change.dice]
+ * @param {number} [change.delta]
+ * @param {string} [change.note]           Shown on the card
+ * @param {string} [change.actorUuid]      Whose Motor changes it (the GM checks the user owns it)
+ * @returns {Promise<boolean>}
+ */
+export async function adjustCardRoll(message, change) {
+  if (message.isOwner) return _applyAdjust(message, change);
+  const result = await request("combatCardAdjust", { messageId: message.id, change });
+  if (!result?.ok) ui.notifications.warn(game.i18n.localize(result?.error ?? "ETERNIA.Piles.Error.Generic"));
+  return !!result?.ok;
+}
+
+async function _applyAdjust(message, { kind, index = null, dice = null, delta = 0, note = "" }) {
+  const data = foundry.utils.deepClone(message.getFlag("eternia", "attack"));
+  if (!data || data.auto) return false;
+  const target = (kind === "dodge") ? data.targets?.[index] : null;
+  const outcome = (kind === "attack") ? data.attack : target?.dodge;
+  if (!outcome) return false;
+  const next = (Array.isArray(dice) && dice.length) ? outcomeWithDice(outcome, dice.map(toInt)) : { ...outcome };
+  if (delta) next.total = next.fumble ? 0 : toInt(next.total) + toInt(delta);
+  next.notes = [...(outcome.notes ?? []), note].filter(Boolean);
+  const before = data.targets.map(t => t.hit);
+  if (kind === "attack") {
+    data.attack = next;
+    for (const t of data.targets) if (t.dodge) t.hit = resolveHit(data.attack, t.dodge);
+  }
+  else {
+    target.dodge = next;
+    if (data.attack) target.hit = resolveHit(data.attack, next);
+  }
+  await message.update({ content: await renderCard("attack", data, message.rolls[0]), "flags.eternia.attack": data });
+  // The results that changed are told again (a Thread that turns a miss into a hit opens the Assassin's Breach).
+  const item = data.itemUuid ? fromUuidSync(data.itemUuid) : null;
+  data.targets.forEach((t, i) => {
+    if ((typeof t.hit !== "boolean") || (t.hit === before[i])) return;
+    const actor = targetActor(t);
+    if (actor) Hooks.callAll("eternia.attackResult", message, { attacker: item?.actor ?? null, target: actor, item, hit: t.hit, adjusted: true });
+  });
+  return true;
+}
+
+/** GM side of adjustCardRoll: the user must own the character whose Motor changes the check. */
+async function _onCardAdjustRequest({ messageId, change }, user) {
+  const message = game.messages.get(messageId);
+  const actor = change?.actorUuid ? fromUuidSync(change.actorUuid) : null;
+  if (!message || !(actor instanceof Actor) || !actor.testUserPermission(user, "OWNER")) return { ok: false };
+  return { ok: await _applyAdjust(message, change) };
 }
 
 /* -------------------------------------------- */
@@ -511,6 +630,16 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
     await actor.update({ "system.health.value": hp });
     lines.push(`${L("Applied.Heal")}: +${hp - before.hp} HP`);
     if ((hp > 0) && before.incapacitated) await actor.toggleStatusEffect("incapacitated", { active: false });
+    /**
+     * A damage card's healing gave HP back (the class Motors). Only on this client.
+     * @param {Actor} actor
+     * @param {object} card
+     * @param {{amount: number, healer: Actor|null, item: Item|null}} context
+     */
+    Hooks.callAll("eternia.healed", actor, card, {
+      amount: hp - before.hp, healer: card.attackerUuid ? fromUuidSync(card.attackerUuid) : null,
+      item: card.itemUuid ? fromUuidSync(card.itemUuid) : null
+    });
     return postApplied(actor, card, before, lines, `+${hp - before.hp} HP`);
   }
 
@@ -603,6 +732,17 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
    * @param {Actor} actor
    * @param {object} card     The damage card data (itemUuid, attackerUuid…)
    */
+  /**
+   * A damage card took HP from an actor (after Barrier): how much, and from whom (the class Motors). Only on this
+   * client.
+   * @param {Actor} actor
+   * @param {object} card
+   * @param {{amount: number, absorbed: number, attacker: Actor|null, item: Item|null}} context
+   */
+  Hooks.callAll("eternia.damaged", actor, card, {
+    amount: before.hp - hp, absorbed: before.barrier - barrier,
+    attacker: card.attackerUuid ? fromUuidSync(card.attackerUuid) : null, item: card.itemUuid ? fromUuidSync(card.itemUuid) : null
+  });
   if ((before.hp > 0) && (hp <= 0)) Hooks.callAll("eternia.defeated", actor, card);
   for (const fn of after.after) await fn();
   // Statuses the attacker's effects give on a hit (an Engineer's Spark Stone): Undo takes them back.

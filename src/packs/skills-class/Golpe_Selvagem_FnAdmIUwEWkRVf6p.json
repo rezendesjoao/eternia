@@ -1,0 +1,70 @@
+{
+  "name": "Golpe Selvagem",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com pelo menos 1 de Ira, você solta tudo num golpe: [Poder de Ataque + (2 + Ira)D + Ira×NP] de dano físico. Gasta toda a Ira.</p><hr><p><em>Não há técnica nenhuma. Só o peso do corpo inteiro atrás da arma.</em></p>",
+    "tags": [
+      "Weapon Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+@spent",
+      "mod": "@spent*@cr",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/strike-axe-blood-red.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "berserker-golpe-selvagem",
+      "kind": "spends",
+      "branch": "kit",
+      "choiceOnly": true,
+      "motor": {
+        "id": "berserker",
+        "needs": {
+          "min": 1
+        },
+        "spend": "all"
+      },
+      "damageText": "[Poder de Ataque] + (2+Ira)D + Ira×NP Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "FnAdmIUwEWkRVf6p",
+  "folder": "xJE97vkraeVrCnAj",
+  "_key": "!items!FnAdmIUwEWkRVf6p"
+}

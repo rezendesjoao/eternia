@@ -10,32 +10,64 @@
  * The skills that touch a Motor say how in flags.eternia.motor:
  *   id      the Motor ("samurai")
  *   role    "core" | "lesser" (the Motor skills themselves)
- *   needs   { state, min, full, weapon: [tags] }  checked before the use, like a usage limit
+ *   needs   { state, min, max, full, weapon: [tags] }  checked before the use, like a usage limit; `state` may be
+ *           a list (any of them)
  *   spend   "all" | "choose" | n                   "choose": up to `max` (a formula, "@sr+1")
  *   gain    n
  *   set     a state ("drawn")
  *   action  "major" | "minor" | "move" | "none"     the action it spends instead of its Timing's
+ *   alsoSpends  more actions it takes ("move")
  *   draw    true for the class's own strikes (the Samurai's Iai and the like), read by its rules
  *   perfect true when the strike can be a Perfect Cut (the class decides what that takes)
  *   inCombat true: the Motor part only applies in a started combat
+ *   (a class may read more keys of its own: role in a chain, a form, a song…)
  * Before the card is posted, what the use will spend is kept on the skill (flags.eternia.motorUse): its
- * formulas read it as @spent and @perfect (and @per, the dice per point), also when the damage is rolled
- * later from the card. The class's plan may add more; after the card, the change is written and noted on
- * the use record, so Undo gives it back.
+ * formulas read it as @spent and @perfect (and @per, the dice per point, and @use.<key>, the class's own values),
+ * also when the damage is rolled later from the card. After the card, the change is written and noted on the use
+ * record, so Undo gives it back.
  *
- * A Motor definition (see samurai.mjs): { id, i18n (the key prefix of its Name, Unit and State.<state>), states,
- * defaults, costKeyword, icon, max(actor, ctx), issues?, actionOf?, plan?, after?, rollBonuses?, onHit?, display?,
- * and the events onCombatStart, onSetup, onCleanup, onCombatEnd, onWeaponAttack, onAttacked, onDodged, onKill }.
+ * A Motor definition (see samurai.mjs and the other class files):
+ *   id, i18n            the key prefix of its Name, Unit, State.<state> and Card texts
+ *   states, defaults    its states (one alone: no state chip) and the data a new actor starts with
+ *   costKeyword         the word a skill's cost reads ("Hate 1+Cortes")
+ *   stateColors         token disc color of each state (0xRRGGBB), optional
+ *   max(actor, ctx)     its cap
+ *   normalize?(actor, data)  keeps the class's own data coherent with the value whenever the Motor is written (the
+ *                       Strategist's Readings when a pip is clicked); returns the data to write
+ *   issues?(actor, item, motor, ctx), actionOf?(actor, item, motor, action), plan?(actor, item, motor, ctx) (may be
+ *   async; may set plan.vars, plan.autoHit, plan.changes), after?(actor, item, plan, next), rollBonuses?(actor, item,
+ *   which, ctx), onHit?(actor, item, ctx), display?(actor, ctx) → { ready, readyLabel, note }, formulaData?(actor,
+ *   item, ctx) → more @motor.* values, statuses?(actor, ctx) → passive statuses kept on the actor
+ *   ([{ key, statusId, value, tag }], see syncMotorStatuses), cardActions?(actor, ctx, card) and onCardAction?(actor,
+ *   ctx, action, card): buttons on attack cards (index.mjs)
+ *   and the events, each called as fn(actor, { lesser }, ...args) on the window where it happened:
+ *     onCombatStart(combat), onSetup(combat, round), onCleanup(combat, round), onCombatEnd(combat),
+ *     onTurnStart(combat), onTurnEnd(combat)          the actor's own Main Process
+ *     onUse(item, plan)                               any skill the actor used, after its card
+ *     onWeaponAttack(item)                            a weapon attack without a Motor part of its own
+ *     onAttacked(attacker, item, message), onDodged(attacker, item, message)
+ *     onHitTarget(target, item, message), onMissTarget(target, item, message)
+ *     onDamaged(amount, attacker, item, card), onHealed(amount, healer, item, card)
+ *     onKill(target, item, card), onMove(squares), onCheck(roll, context)
+ *   and the same seen by everyone with a Motor in the actor's combat (allies and enemies alike):
+ *     onAnyHit(attacker, target, item, message), onAnyMiss(attacker, target, item, message),
+ *     onAnyDamaged(victim, amount, attacker, item), onAnyHealed(target, amount, healer, item),
+ *     onAnyCheck(roller, roll, context), onAnyKill(victim, attacker, item)
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { getHands } from "../helpers/hands.mjs";
 import { request, registerHandler } from "../piles/pile-socket.mjs";
 import { evaluateFormula, formulaData } from "../helpers/effect-formulas.mjs";
-import { combatOf, escape, toInt } from "../helpers/utils.mjs";
+import { combatActors, combatOf, escape, toInt } from "../helpers/utils.mjs";
 import { tagLabel } from "../i18n/terms.mjs";
 
 export const MOTOR_FLAG = "motor";
 export const USE_FLAG = "motorUse";
+/** Flag of the passive statuses a Motor keeps on its actor: "<motor>:<key>". */
+export const STATUS_FLAG = "motorStatus";
+
+/** How long a use's values stay valid for its later rolls (the damage rolled from the card). */
+const USE_TTL = 10 * 60 * 1000;
 
 /** Motor definitions by id. */
 const MOTORS = new Map();
@@ -51,7 +83,7 @@ export const motorDef = id => MOTORS.get(id) ?? null;
 /** A Motor's name, unit ("Cortes") and state labels. */
 export const motorName = def => L(`${def.i18n}.Name`);
 export const motorUnit = def => L(`${def.i18n}.Unit`);
-export const motorStateLabel = (def, state) => L(`${def.i18n}.State.${state}`);
+export const motorStateLabel = (def, state) => ((def.states?.length ?? 0) > 1 ? L(`${def.i18n}.State.${state}`) : "");
 
 /** Every registered Motor. */
 export const allMotors = () => [...MOTORS.values()];
@@ -97,6 +129,39 @@ export function hasApex(actor, classId) {
 }
 
 /**
+ * The side of an actor: its token's disposition, else monsters against characters (−1 / 1).
+ * @param {Actor} actor
+ * @returns {number}
+ */
+export function sideOf(actor) {
+  const disposition = actor?.token?.disposition ?? actor?.prototypeToken?.disposition;
+  if (Number.isFinite(disposition) && (disposition !== 0)) return Math.sign(disposition);
+  return (actor?.type === "monster") ? -1 : 1;
+}
+
+/** Whether two actors are on opposite sides. */
+export function areEnemies(a, b) {
+  return !!a && !!b && (sideOf(a) !== sideOf(b));
+}
+
+/** Whether two different actors are on the same side. */
+export function areAllies(a, b) {
+  return !!a && !!b && (a.uuid !== b.uuid) && (sideOf(a) === sideOf(b));
+}
+
+/** The actors fighting in the actor's started combat (the actor included), or []. */
+export function combatPeers(actor) {
+  const combat = combatOf(actor);
+  return combat ? [...new Set(combatActors(combat))] : [];
+}
+
+/** "<combat>.<round>" of the combat the actor fights in, or null. */
+export function roundKey(actor) {
+  const combat = combatOf(actor);
+  return combat ? `${combat.id}.${combat.round}` : null;
+}
+
+/**
  * The Motors an actor has: by its Motor skill, or by the Lesser Motor of a Dedication.
  * @param {Actor} actor
  * @returns {{def: object, lesser: boolean, item: Item}[]}
@@ -133,8 +198,14 @@ export function motorMax(actor, id) {
   return Math.max(0, toInt(def.max(actor, { lesser: motor.lesser })));
 }
 
+/** The context a definition's functions get: whether it is the Lesser Motor, its data and cap. */
+export function motorContext(actor, id) {
+  const motor = motorOf(actor, id);
+  return { lesser: !!motor?.lesser, data: motorData(actor, id), max: motorMax(actor, id) };
+}
+
 /**
- * Write a Motor's state: by the owner, else by the GM (socket).
+ * Write a Motor's state: by the owner, else by the GM (socket). Then the passive statuses it gives follow.
  * @param {Actor} actor
  * @param {string} id
  * @param {object} data    The whole new state (the value is kept between 0 and the cap)
@@ -142,8 +213,13 @@ export function motorMax(actor, id) {
 export async function setMotor(actor, id, data) {
   const max = motorMax(actor, id);
   const value = Math.clamp(toInt(data.value), 0, Math.max(max, 0));
-  const state = { ...data, value };
-  if (actor.isOwner) return actor.update({ [`flags.${SYSTEM_ID}.${MOTOR_FLAG}.${id}`]: state });
+  const def = MOTORS.get(id);
+  let state = { ...data, value };
+  if (def?.normalize) state = def.normalize(actor, state) ?? state;
+  if (actor.isOwner) {
+    await actor.update({ [`flags.${SYSTEM_ID}.${MOTOR_FLAG}.${id}`]: state });
+    return syncMotorStatuses(actor);
+  }
   const result = await request("eterniaMotor", { actorUuid: actor.uuid, id, state });
   if (!result?.ok) console.warn(`${SYSTEM_ID} | Could not change the Motor of ${actor.uuid}`, result?.error);
 }
@@ -164,7 +240,52 @@ async function onMotorRequest({ actorUuid, id, state }) {
   const actor = fromUuidSync(actorUuid);
   if (!(actor instanceof Actor) || !MOTORS.has(id)) return { ok: false, error: "ETERNIA.Piles.Error.NoActor" };
   await actor.update({ [`flags.${SYSTEM_ID}.${MOTOR_FLAG}.${id}`]: state });
+  await syncMotorStatuses(actor);
   return { ok: true };
+}
+
+/**
+ * Keep on the actor the passive statuses its Motors give now (def.statuses: a Guardian's Cancel by its Layers, a
+ * Druid's form…): missing ones are created, changed ones replaced, the others removed. Run by whoever wrote the
+ * Motor (its owner or the GM).
+ * @param {Actor} actor
+ */
+export async function syncMotorStatuses(actor) {
+  if (!actor?.isOwner) return;
+  const wanted = new Map();
+  for (const { def, lesser } of motorsOf(actor)) {
+    if (!def.statuses) continue;
+    let list = [];
+    try {
+      list = def.statuses(actor, { lesser, data: motorData(actor, def.id), max: motorMax(actor, def.id) }) ?? [];
+    }
+    catch (err) {
+      console.error(`${SYSTEM_ID} | Motor ${def.id}: statuses failed for ${actor.uuid}`, err);
+    }
+    for (const s of list) wanted.set(`${def.id}:${s.key ?? s.statusId}`, s);
+  }
+  const current = actor.effects.filter(e => e.flags?.[SYSTEM_ID]?.[STATUS_FLAG]);
+  const remove = [];
+  const keep = new Set();
+  for (const effect of current) {
+    const key = effect.flags[SYSTEM_ID][STATUS_FLAG];
+    const want = wanted.get(key);
+    const has = effect.flags[SYSTEM_ID].statusData ?? {};
+    const same = want && (has.statusId === want.statusId) && (toInt(has.value) === toInt(want.value))
+      && ((has.tag ?? "") === (want.tag ?? ""));
+    if (same && !keep.has(key)) keep.add(key);
+    else remove.push(effect.id);
+  }
+  // Loaded here: chat/status-links.mjs reaches this module back through automation/use.mjs.
+  const { statusEffectData } = await import("../chat/status-links.mjs");
+  const create = [...wanted.entries()].filter(([key]) => !keep.has(key)).map(([key, s]) => {
+    const data = statusEffectData(s.statusId, toInt(s.value) || null, s.tag ?? "", { caster: actor, expires: "endOfScene" });
+    data.flags[SYSTEM_ID][STATUS_FLAG] = key;
+    if (s.name) data.name = s.name;
+    return data;
+  });
+  if (remove.length) await actor.deleteEmbeddedDocuments("ActiveEffect", remove).catch(() => null);
+  if (create.length) await actor.createEmbeddedDocuments("ActiveEffect", create);
 }
 
 /* -------------------------------------------- */
@@ -172,21 +293,36 @@ async function onMotorRequest({ actorUuid, id, state }) {
 /* -------------------------------------------- */
 
 /**
- * What a formula reads from the Motors: @spent, @perfect and @per of the skill's last use, and
- * @motor.value / @motor.max / @motor.last of the skill's Motor (or the actor's first one).
+ * What a formula reads from the Motors: @spent, @perfect, @per and @use.<key> of the skill's last use, and
+ * @motor.value / @motor.max / @motor.last (and the class's own @motor.<key>) of the skill's Motor (or the actor's
+ * first one).
  * @param {Actor} actor
  * @param {Item|null} item
  * @returns {object}
  */
 export function motorFormulaData(actor, item) {
   const use = item?.flags?.[SYSTEM_ID]?.[USE_FLAG] ?? {};
-  const id = skillMotor(item)?.id ?? motorsOf(actor)[0]?.def.id ?? null;
+  const owned = motorsOf(actor);
+  const id = skillMotor(item)?.id ?? owned[0]?.def.id ?? null;
+  const def = id ? MOTORS.get(id) : null;
   const data = id ? motorData(actor, id) : {};
+  const max = id ? motorMax(actor, id) : 0;
+  const lesser = !!owned.find(m => m.def.id === id)?.lesser;
+  let extra = {};
+  if (def?.formulaData) {
+    try {
+      extra = def.formulaData(actor, item, { lesser, data, max }) ?? {};
+    }
+    catch (err) {
+      console.error(`${SYSTEM_ID} | Motor ${id}: formulaData failed`, err);
+    }
+  }
   return {
     spent: toInt(use.spent),
     perfect: toInt(use.perfect),
     per: toInt(use.per),
-    motor: { value: toInt(data.value), max: id ? motorMax(actor, id) : 0, last: toInt(data.last) }
+    use: { ...(use.vars ?? {}) },
+    motor: { ...extra, value: toInt(data.value), max, last: toInt(data.last) }
   };
 }
 
@@ -215,7 +351,7 @@ function applies(motor, actor) {
 }
 
 /** The tags of the weapon in the main hand. */
-function mainWeaponTags(actor) {
+export function mainWeaponTags(actor) {
   return (getHands(actor).main?.system.tags ?? []).map(t => String(t).toLowerCase());
 }
 
@@ -236,11 +372,15 @@ export function motorUseIssues(item, actor) {
   const max = motorMax(actor, motor.id);
   const needs = motor.needs ?? {};
   const issues = [];
-  if (needs.state && (data.state !== needs.state)) {
-    issues.push(L("Motor.Issue.State", { state: motorStateLabel(def, needs.state) }));
+  const states = [needs.state].flat().filter(Boolean);
+  if (states.length && !states.includes(data.state)) {
+    issues.push(L("Motor.Issue.State", { state: states.map(s => L(`${def.i18n}.State.${s}`)).join(" / ") }));
   }
   if (needs.min && (toInt(data.value) < needs.min)) {
     issues.push(L("Motor.Issue.Min", { n: needs.min, unit: motorUnit(def), have: toInt(data.value) }));
+  }
+  if (Number.isFinite(needs.max) && (toInt(data.value) > needs.max)) {
+    issues.push(L("Motor.Issue.Max", { n: needs.max, unit: motorUnit(def), have: toInt(data.value) }));
   }
   if (needs.full && (toInt(data.value) < max)) issues.push(L("Motor.Issue.Full", { unit: motorUnit(def), max }));
   if (needs.weapon?.length) {
@@ -288,6 +428,29 @@ async function chooseAmount(item, def, max, have) {
 }
 
 /**
+ * Ask the user to pick one of several options (a form, a song, a slot…), for a class's plan.
+ * @param {string} title
+ * @param {{value: string, label: string}[]} options
+ * @param {object} [settings]
+ * @param {string} [settings.hint]       Text above the list
+ * @param {string} [settings.selected]   The option selected at first
+ * @returns {Promise<string|null>}       The value, or null when cancelled
+ */
+export async function chooseOption(title, options, { hint = "", selected = null } = {}) {
+  if (!options.length) return null;
+  if (options.length === 1) return options[0].value;
+  const list = options.map(o => `<option value="${escape(o.value)}"${o.value === selected ? " selected" : ""}>${escape(o.label)}</option>`).join("");
+  const result = await foundry.applications.api.DialogV2.prompt({
+    window: { title, icon: "fa-solid fa-list-check" },
+    classes: ["eternia", "motor-choose"],
+    content: `${hint ? `<p>${escape(hint)}</p>` : ""}<div class="form-group"><select name="choice">${list}</select></div>`,
+    ok: { label: L("Motor.ChooseOk"), callback: (event, button) => button.form.elements.choice.value },
+    rejectClose: false
+  });
+  return result ?? null;
+}
+
+/**
  * Before the card: what the use will spend, gain and set, kept on the skill for its formulas. Null when the user
  * cancelled a choice; {} when the skill has no Motor part (or it doesn't apply now).
  * @param {Item} item
@@ -313,18 +476,27 @@ export async function planMotorUse(item, actor) {
   }
   else if (motor.spend) spent = Math.min(have, toInt(motor.spend));
 
-  let plan = { id: motor.id, spent, gain: toInt(motor.gain), set: motor.set ?? null, perfect: 0, per: 2, changes: {} };
-  if (def.plan) plan = def.plan(actor, item, motor, { data, max, lesser: owned.lesser, plan }) ?? plan;
+  let plan = {
+    id: motor.id, spent, gain: toInt(motor.gain), set: motor.set ?? null, perfect: 0, per: 2, autoHit: false,
+    vars: {}, changes: {}
+  };
+  if (def.plan) {
+    const planned = await def.plan(actor, item, motor, { data, max, lesser: owned.lesser, plan });
+    if (planned === null) return null;
+    plan = planned ?? plan;
+  }
   // What the formulas and the later rolls of this use read: the amounts, and the state it was used in.
   await item.setFlag(SYSTEM_ID, USE_FLAG, {
-    spent: plan.spent, perfect: plan.perfect, per: plan.per, state: data.state ?? null, last: toInt(data.last), at: Date.now()
+    spent: plan.spent, perfect: plan.perfect, per: plan.per, autoHit: !!plan.autoHit, vars: plan.vars ?? {},
+    state: data.state ?? null, last: toInt(data.last), at: Date.now()
   });
   return plan;
 }
 
 /**
  * After the card: write the Motor change and the class's own reactions. Skills without a Motor part that are
- * weapon attacks go to the class rules too (the Samurai's blade leaves the sheath).
+ * weapon attacks go to the class rules too (the Samurai's blade leaves the sheath); every Motor of the actor then
+ * hears of the use (onUse).
  * @param {Item} item
  * @param {Actor} actor
  * @param {object} plan     See planMotorUse
@@ -341,7 +513,7 @@ export async function commitMotorUse(item, actor, plan) {
     const next = { ...data, ...plan.changes };
     next.value = toInt(data.value) - toInt(plan.spent) + toInt(plan.gain);
     if (plan.set) next.state = plan.set;
-    const final = def.after ? (def.after(actor, item, plan, next) ?? next) : next;
+    const final = def.after ? ((await def.after(actor, item, plan, next)) ?? next) : next;
     await setMotor(actor, plan.id, final);
   }
   else if ((item.system.tags ?? []).includes("Weapon Attack")) {
@@ -349,6 +521,16 @@ export async function commitMotorUse(item, actor, plan) {
       if (!def.onWeaponAttack) continue;
       remember(def.id);
       await def.onWeaponAttack(actor, item);
+    }
+  }
+  for (const { def, lesser } of motorsOf(actor)) {
+    if (typeof def.onUse !== "function") continue;
+    remember(def.id);
+    try {
+      await def.onUse(actor, { lesser }, item, plan?.id === def.id ? plan : null);
+    }
+    catch (err) {
+      console.error(`${SYSTEM_ID} | Motor ${def.id}: onUse failed for ${actor.uuid}`, err);
     }
   }
   return Object.keys(before).length ? { actorUuid: actor.uuid, before } : null;
@@ -363,9 +545,30 @@ export async function undoMotorUse(record) {
   }
 }
 
+/** The values of a skill's last use (motorUse), while still fresh, or null. */
+export function recentUse(item) {
+  const use = item?.flags?.[SYSTEM_ID]?.[USE_FLAG];
+  return (use && (Date.now() - toInt(use.at) < USE_TTL)) ? use : null;
+}
+
 /* -------------------------------------------- */
 /*  Events                                      */
 /* -------------------------------------------- */
+
+/** The events of each actor, one after the other: an attack card's checks arrive together, and each event reads the
+ * Motor the previous one wrote. A class must not await an event of its own actor inside an event. */
+const QUEUES = new Map();
+
+function queued(actor, fn) {
+  const key = actor?.uuid ?? "";
+  const run = (QUEUES.get(key) ?? Promise.resolve()).then(fn, fn);
+  const tail = run.catch(() => null);
+  QUEUES.set(key, tail);
+  tail.then(() => {
+    if (QUEUES.get(key) === tail) QUEUES.delete(key);
+  });
+  return run;
+}
 
 /**
  * Tell an actor's Motors that something happened (onSetup, onDodged…). Errors are logged, never thrown.
@@ -373,15 +576,31 @@ export async function undoMotorUse(record) {
  * @param {string} event
  * @param {...*} args
  */
-export async function motorEvent(actor, event, ...args) {
-  for (const { def, lesser } of motorsOf(actor)) {
-    if (typeof def[event] !== "function") continue;
-    try {
-      await def[event](actor, { lesser }, ...args);
+export function motorEvent(actor, event, ...args) {
+  return queued(actor, async () => {
+    for (const { def, lesser } of motorsOf(actor)) {
+      if (typeof def[event] !== "function") continue;
+      try {
+        await def[event](actor, { lesser }, ...args);
+      }
+      catch (err) {
+        console.error(`${SYSTEM_ID} | Motor ${def.id}: ${event} failed for ${actor.uuid}`, err);
+      }
     }
-    catch (err) {
-      console.error(`${SYSTEM_ID} | Motor ${def.id}: ${event} failed for ${actor.uuid}`, err);
-    }
+  });
+}
+
+/**
+ * Tell everyone with a Motor in these actors' combat (an onAny… event).
+ * @param {Actor[]} actors     Whoever the event is about: their combat is the one told
+ * @param {string} event
+ * @param {...*} args
+ */
+export async function motorBroadcast(actors, event, ...args) {
+  const peers = new Set();
+  for (const actor of actors.filter(Boolean)) for (const peer of combatPeers(actor)) peers.add(peer);
+  for (const peer of peers) {
+    if (motorsOf(peer).some(m => typeof m.def[event] === "function")) await motorEvent(peer, event, ...args);
   }
 }
 
@@ -395,7 +614,13 @@ export async function motorEvent(actor, event, ...args) {
 export function motorRollBonuses(actor, item, which) {
   const bonuses = [];
   for (const { def, lesser } of motorsOf(actor)) {
-    if (def.rollBonuses) bonuses.push(...(def.rollBonuses(actor, item, which, { lesser }) ?? []));
+    if (!def.rollBonuses) continue;
+    try {
+      bonuses.push(...(def.rollBonuses(actor, item, which, { lesser }) ?? []));
+    }
+    catch (err) {
+      console.error(`${SYSTEM_ID} | Motor ${def.id}: rollBonuses failed`, err);
+    }
   }
   return bonuses;
 }
@@ -416,12 +641,14 @@ export function motorOnHit(actor, item) {
 }
 
 /**
- * Whether the skill's last use was a Perfect Cut that hits without a Dodge Check.
+ * Whether the skill's last use hits without a Dodge Check: a Perfect Cut, or a class's plan that said so.
  * @param {Item} item
  * @returns {boolean}
  */
 export function motorAutoHit(item) {
-  return !!skillMotor(item)?.perfect && (toInt(item?.flags?.[SYSTEM_ID]?.[USE_FLAG]?.perfect) > 0);
+  const use = recentUse(item);
+  if (!use) return false;
+  return !!use.autoHit || (!!skillMotor(item)?.perfect && (toInt(use.perfect) > 0));
 }
 
 /** Call during the `init` hook. */

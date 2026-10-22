@@ -1,0 +1,70 @@
+{
+  "name": "Bote do Lobo",
+  "type": "skill",
+  "system": {
+    "description": "<p>Na forma de Lobo, gaste 1 Seiva: você corre até 3 Qd, ignorando o engajamento, e morde um alvo no fim do caminho. [Poder Mágico + 3D] de dano físico. Mova o token antes de rolar.</p><p><em>Um borrão cinza pelo campo, e os dentes fecham antes do grito.</em></p>",
+    "tags": [
+      "Physical Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": "@magic",
+      "type": "physical",
+      "recovery": false,
+      "noPower": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/mammals/wolf-shadow-black.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "druida-bote-do-lobo",
+      "kind": "spends",
+      "branch": "fera",
+      "minRank": 1,
+      "motor": {
+        "id": "druida",
+        "needs": {
+          "state": "lobo"
+        }
+      },
+      "damageText": "[Poder Mágico] + 3D Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "homR43JpwXz8uqnG",
+  "folder": "Eme8ChlzGUdfQoJw",
+  "_key": "!items!homR43JpwXz8uqnG"
+}

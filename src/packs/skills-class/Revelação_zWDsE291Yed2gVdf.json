@@ -1,0 +1,69 @@
+{
+  "name": "Revelação",
+  "type": "skill",
+  "system": {
+    "description": "<p>Precisa de pelo menos 2 de Fardo. Você solta tudo o que carrega: você e os aliados numa área a até 3 Qd recuperam [Recuperação + Fardo D + Fardo×NP] PV. A Revelação gasta todo o Fardo.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Por um momento todos veem o que você vê. Ninguém consegue descrever depois.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": "@spent",
+      "mod": "@spent*@cr",
+      "type": "",
+      "recovery": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/light/explosion-star-large-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "oraculo-revelacao",
+      "kind": "spends",
+      "branch": "kit",
+      "choiceOnly": true,
+      "motor": {
+        "id": "oraculo",
+        "needs": {
+          "min": 2
+        },
+        "spend": "all",
+        "miracle": true
+      },
+      "damageText": "[Recuperação] + Fardo D + Fardo×NP"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "zWDsE291Yed2gVdf",
+  "folder": "HN4q17432bP7ugcw",
+  "_key": "!items!zWDsE291Yed2gVdf"
+}

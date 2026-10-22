@@ -19,7 +19,8 @@ import { L } from "../settings.mjs";
 import { takeDamage } from "../conditions/damage.mjs";
 import { combatOf, toInt } from "../helpers/utils.mjs";
 import {
-  crOf, hasApex, identifierOf, motorData, pathOf, setMotor, skillMotor, talentOf, talentRank
+  areEnemies as enemies, crOf, hasApex, identifierOf, motorData, pathOf, roundKey, setMotor, skillMotor, talentOf,
+  talentRank
 } from "./motor.mjs";
 
 export const SAMURAI_ID = "samurai";
@@ -29,29 +30,12 @@ const T = name => `samurai-${name}`;
 
 const DEFAULTS = { state: "sheathed", value: 0, last: 0, first: true, perfectLast: 0, attacked: null };
 
-/** "<combat>.<round>" of the combat the actor fights in, or null. */
-function roundKey(actor) {
-  const combat = combatOf(actor);
-  return combat ? `${combat.id}.${combat.round}` : null;
-}
-
 /** The Path the actor follows (none with only the Lesser Sheath). */
 const path = (actor, lesser) => (lesser ? null : pathOf(actor, SAMURAI_ID));
 
 /** Cuts a Perfect Cut needs: the cap, one less on the Full Moon with the Apex. */
 function perfectNeed(actor, max) {
   return ((pathOf(actor, SAMURAI_ID) === "lua") && hasApex(actor, SAMURAI_ID)) ? Math.max(1, max - 1) : max;
-}
-
-/** Whether two actors are on opposite sides (monsters against characters, or token dispositions). */
-function enemies(a, b) {
-  if (!a || !b) return false;
-  const side = actor => {
-    const disposition = actor.token?.disposition ?? actor.prototypeToken?.disposition;
-    if (Number.isFinite(disposition) && (disposition !== 0)) return Math.sign(disposition);
-    return (actor.type === "monster") ? -1 : 1;
-  };
-  return side(a) !== side(b);
 }
 
 export const SAMURAI = {

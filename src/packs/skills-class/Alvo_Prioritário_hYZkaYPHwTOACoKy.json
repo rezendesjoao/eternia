@@ -1,0 +1,119 @@
+{
+  "name": "Alvo Prioritário",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste 1 Ordem: você aponta um inimigo, e o grupo inteiro mira nele. Ele fica [Fraqueza: NP÷2+3] até o fim da rodada.</p>",
+    "tags": [
+      "Dedication"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Refer",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/ranged/target-bullseye-arrow-yellow.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "weakness",
+            "value": "floor(@cr/2)+3"
+          },
+          "expires": "endOfRound",
+          "recipients": "enemies"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Alvo Prioritário",
+      "img": "systems/eternia/assets/ui/status/weakness.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "weakness"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "qBYHGIjuNVCUdfrk",
+      "_key": "!items.effects!hYZkaYPHwTOACoKy.qBYHGIjuNVCUdfrk"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "comandante-alvo-prioritario",
+      "kind": "spends",
+      "branch": "vanguarda",
+      "minRank": 1,
+      "motor": {
+        "id": "comandante",
+        "needs": {
+          "min": 1
+        },
+        "spend": 1,
+        "order": "target"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "hYZkaYPHwTOACoKy",
+  "folder": "YadehWKbBUfzECEb",
+  "_key": "!items!hYZkaYPHwTOACoKy"
+}

@@ -1,0 +1,120 @@
+{
+  "name": "Plateia Encantada",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com a canção no Teto: gaste todos os Movimentos (a canção continua, do zero). Os inimigos de um quadrado a até 4 Qd ficam [Encantado] por você (Teste de Precisão contra Resistência).</p>",
+    "tags": [
+      "Song"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/control/hypnosis-mesmerism-swirl.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "charmed"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Plateia Encantada",
+      "img": "systems/eternia/assets/ui/status/charmed.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "charmed"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "MmkeMnvi29WkE6IU",
+      "_key": "!items.effects!Sc55NvaJHIKe5RTK.MmkeMnvi29WkE6IU"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "menestrel-encantada",
+      "kind": "spends",
+      "branch": "plateia",
+      "minRank": 7,
+      "requires": [
+        "menestrel-cancao-de-ninar"
+      ],
+      "motor": {
+        "id": "menestrel",
+        "singing": true,
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Sc55NvaJHIKe5RTK",
+  "folder": "ElBDyYqDRJv11yQA",
+  "_key": "!items!Sc55NvaJHIKe5RTK"
+}

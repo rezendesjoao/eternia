@@ -1,0 +1,72 @@
+{
+  "name": "Execução",
+  "type": "skill",
+  "system": {
+    "description": "<p>Só contra o Alvo do Contrato, com pelo menos 2 Brechas: [Poder de Ataque + (1 + Brechas)D + Brechas×NP] de dano físico. Gasta todas as Brechas.</p><p><strong>A queda:</strong> se o golpe deixar o Alvo com PV iguais ou menores que [Brechas gastas × (NP+5)], ele cai (0 PV). Não vale contra [Chefe].</p><p><strong>Custo:</strong> Ódio 1 + as Brechas gastas.</p><hr><p><em>Ninguém viu a lâmina entrar. Todos viram o corpo cair.</em></p>",
+    "tags": [
+      "Weapon Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1+Brechas",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/strike-dagger-skull-white.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "assassino-execucao",
+      "kind": "spends",
+      "branch": "kit",
+      "choiceOnly": true,
+      "motor": {
+        "id": "assassino",
+        "needs": {
+          "state": "jurado",
+          "min": 2
+        },
+        "spend": "all",
+        "execute": true
+      },
+      "damageText": "[Poder de Ataque] + (1+Brechas)D + Brechas×NP Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "k6oQRezNDwEnRJ5K",
+  "folder": "2BtHFaQzef6pKvMS",
+  "_key": "!items!k6oQRezNDwEnRJ5K"
+}

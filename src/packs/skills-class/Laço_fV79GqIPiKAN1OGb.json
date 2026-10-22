@@ -1,0 +1,67 @@
+{
+  "name": "Laço",
+  "type": "skill",
+  "system": {
+    "description": "<p>Um fio de magia prende um alvo a até 4 Qd: Teste de Acerto contra Resistência; [Poder Mágico + 1D] de dano mágico, e quem é atingido fica [Lento].</p><p>Se o Teste de Acerto do Laço mostrar o seu Padrão, você ganha +1 Fio a mais.</p><hr><p><em>Ninguém vê o fio. Só vê o passo que não sai.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/control/debuff-chains-ropes-purple.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "tecelao-laco",
+      "kind": "feeds",
+      "branch": "kit",
+      "choiceOnly": true,
+      "motor": {
+        "id": "tecelao"
+      },
+      "damageText": "[Poder Mágico] + (1+Fios)D Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "fV79GqIPiKAN1OGb",
+  "folder": "EPEmoIuhwijJYO0b",
+  "_key": "!items!fV79GqIPiKAN1OGb"
+}

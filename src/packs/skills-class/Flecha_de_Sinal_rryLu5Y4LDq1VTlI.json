@@ -1,0 +1,170 @@
+{
+  "name": "Flecha de Sinal",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste 1 de Mira: uma flecha que assobia e crava uma fita vermelha num inimigo ao alcance da arma. Ele fica [Identificado] e [Marcado: NP+5] até o fim da cena.</p><p><em>O assobio diz ao grupo inteiro para onde olhar.</em></p>",
+    "tags": [
+      "Dedication"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/ranged/arrow-flying-white-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "identified"
+          },
+          "expires": "endOfScene",
+          "recipients": "enemies"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Flecha de Sinal",
+      "img": "systems/eternia/assets/ui/status/identified.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "identified"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "Q1eAxiTQQTbYVlD7",
+      "_key": "!items.effects!rryLu5Y4LDq1VTlI.Q1eAxiTQQTbYVlD7"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "marked",
+            "value": "@cr+5"
+          },
+          "expires": "endOfScene",
+          "recipients": "enemies"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Flecha de Sinal",
+      "img": "systems/eternia/assets/ui/status/marked.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "marked"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "6SVQlfA80itkSkgs",
+      "_key": "!items.effects!rryLu5Y4LDq1VTlI.6SVQlfA80itkSkgs"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "cacador-flecha-sinal",
+      "kind": "spends",
+      "branch": "aljava",
+      "minRank": 1,
+      "motor": {
+        "id": "cacador",
+        "needs": {
+          "min": 1,
+          "weapon": [
+            "Bow",
+            "Crossbow",
+            "Throwing"
+          ]
+        },
+        "spend": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "rryLu5Y4LDq1VTlI",
+  "folder": "FekWZLbl9GX7DfII",
+  "_key": "!items!rryLu5Y4LDq1VTlI"
+}

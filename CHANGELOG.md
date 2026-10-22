@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.8.0 — 2026-10-21
+
+### Adicionado
+- **As outras 15 classes**: Assassino, Berserker, Caçador, Comandante, Druida, Estrategista, Feiticeiro, Guardião,
+  Invocador, Menestrel, Monge, Oráculo, Ressonante, Sacerdote e Tecelão, cada uma com o seu Motor, 36 habilidades
+  automatizadas (o kit, 16 talentos em quatro ramos, 4 Gerais, três Caminhos com dois talentos, o Ápice, a Dedicação e
+  o Motor Menor), a base e a sua página no diário AS REGRAS. Com o Samurai, a Eternia tem 16 classes
+  (`docs/classes.md`, "As classes").
+- Motor das classes: os eventos de cada turno, do movimento do token, dos acertos e erros, do dano e da cura aplicados
+  pelos cartões e dos testes rolados (também vistos por todos os Motores do combate); estados passivos que o Motor
+  mantém no personagem; uma nota na aba Classe e no HUD; botões das classes nos cartões de ataque; `plan.vars`
+  (`@use.<chave>` nas fórmulas) e `plan.autoHit`; os eventos de cada personagem em fila, sem perder pontos.
+- Condições de efeito **Motor da classe no estado** e **Motor da classe com pelo menos**.
+- Cartões de ataque: um teste pode ser mudado depois de rolado (os dados ou o total), com o acerto, o Crítico e a
+  Falha Crítica julgados de novo e a mudança anotada no cartão.
+- Ganchos para módulos e macros: `eternia.attackResult`, `eternia.damaged`, `eternia.healed` e `eternia.check`.
+- Aviso de novidades da 0.8.
+
+### Alterado
+- O cartão do Motor na aba Classe perdeu a arte da katana: fica a caixa de pergaminho com uma borda verde em cima,
+  igual para todas as classes.
+- O diário AS REGRAS: a página XI. CLASSES traz como as classes funcionam, a lista das 16 e a automação; cada classe
+  tem a sua página (XI.1 a XI.16).
+- O README lista as 16 classes numa tabela; `docs/classes.md` tem o mapa final das partes da regra e uma seção por
+  classe.
+
+### Corrigido
+- A imunidade (`immune`) de um efeito passivo de habilidade passou a valer: antes só os efeitos do próprio personagem
+  contavam.
+
 ## 0.7.1 — 2026-10-21
 
 ### Alterado

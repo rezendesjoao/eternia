@@ -42,7 +42,7 @@
 		{{#each motors as |m|}}
 		<div class="lhh-motor {{m.state}}{{#if m.ready}} ready{{/if}}" data-motor="{{m.id}}" data-tooltip-text="{{m.tooltip}}" data-tooltip-direction="UP">
 			<b class="lhh-motor-name">{{m.name}}</b>
-			<span class="lhh-motor-state">{{m.stateLabel}}</span>
+			{{#if m.stateLabel}}<span class="lhh-motor-state">{{m.stateLabel}}</span>{{/if}}
 			<span class="lhh-motor-pips">{{#each m.pips as |pip|}}<a class="pip{{#if pip.on}} on{{/if}}" data-action="lhh-motor" data-value="{{pip.value}}"></a>{{/each}}</span>
 			{{#if m.ready}}<i class="fa-solid fa-star lhh-motor-ready"></i>{{/if}}
 		</div>

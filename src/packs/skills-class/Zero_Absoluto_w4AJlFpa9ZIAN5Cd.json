@@ -1,0 +1,77 @@
+{
+  "name": "Zero Absoluto",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Caminho da Geada.</strong> Só com o Calor no Teto: você gasta todo ele num alvo a até 4 Qd. Teste de Precisão contra a Resistência; [Poder Mágico + Calor D] de dano mágico de [Chama], e quem o dano atinge fica [Paralisado].</p><p><strong>Custo:</strong> Ódio 1 + o Calor gasto.</p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1+Calor",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "@spent",
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/water/snowflake-ice-blue-white.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "feiticeiro-zero-absoluto",
+      "kind": "spends",
+      "branch": "pathTalent",
+      "minRank": 7,
+      "motor": {
+        "id": "feiticeiro",
+        "needs": {
+          "full": true
+        },
+        "spend": "all",
+        "set": "estavel"
+      },
+      "pathTalent": {
+        "class": "feiticeiro",
+        "id": "geada"
+      },
+      "damageText": "[Poder Mágico] + Calor D Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 310000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "w4AJlFpa9ZIAN5Cd",
+  "folder": "aN7bQLgNedxfj5fI",
+  "_key": "!items!w4AJlFpa9ZIAN5Cd"
+}

@@ -1,0 +1,120 @@
+{
+  "name": "Ordem: Carga!",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste 2 Ordens: você e até [NH+1] aliados que ouvem você avançam até 2 Qd agora, sem gastar ação, e ficam [Fortalecido: NP÷2+2] até o fim da rodada.</p><p><em>A corneta soa uma vez, e o chão treme.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Refer",
+    "target": "Targets",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 2
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/tools/instruments/horn-flared-wood.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "empowered",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfRound",
+          "recipients": "allies"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Ordem: Carga!",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "3NVtdnkRGPwTd530",
+      "_key": "!items.effects!DU68DDgf0uDDxurG.3NVtdnkRGPwTd530"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "comandante-ordem-carga",
+      "kind": "spends",
+      "branch": "vanguarda",
+      "minRank": 5,
+      "requires": [
+        "comandante-ponto-de-ataque"
+      ],
+      "motor": {
+        "id": "comandante",
+        "needs": {
+          "min": 2
+        },
+        "spend": 2,
+        "order": "charge"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 80000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "DU68DDgf0uDDxurG",
+  "folder": "YadehWKbBUfzECEb",
+  "_key": "!items!DU68DDgf0uDDxurG"
+}

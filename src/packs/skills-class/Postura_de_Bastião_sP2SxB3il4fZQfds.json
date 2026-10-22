@@ -1,0 +1,115 @@
+{
+  "name": "Postura de Bastião",
+  "type": "skill",
+  "system": {
+    "description": "<p>Até o fim da rodada, os aliados do seu quadrado que você escolher ganham [Anulação] igual às suas Camadas. Não gasta Camadas.</p><p><em>Os escudos se encaixam numa parede só.</em></p>",
+    "tags": [],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Close",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/equipment/shield/Scutum-steel-worn.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "cancel",
+            "value": "@motor.value"
+          },
+          "expires": "endOfRound",
+          "recipients": "allies"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Postura de Bastião",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "8YMlA1ZakNJqGsPS",
+      "_key": "!items.effects!sP2SxB3il4fZQfds.8YMlA1ZakNJqGsPS"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "guardiao-postura-de-bastiao",
+      "kind": "bends",
+      "branch": "guarda",
+      "minRank": 5,
+      "requires": [
+        "guardiao-escudo-compartilhado"
+      ],
+      "motor": {
+        "id": "guardiao"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 190000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "sP2SxB3il4fZQfds",
+  "folder": "UJRNMfKwhj4indTf",
+  "_key": "!items!sP2SxB3il4fZQfds"
+}

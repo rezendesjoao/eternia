@@ -760,7 +760,8 @@
         "pre": "Pre-Action: has not taken its Main Process this round.",
         "post": "Post-Action: already took its Main Process this round.",
         "standby": "On Standby: acts after everyone else, lowest Initiative first."
-      }
+      },
+      "Adjusted": "Adjusted total: {total} [{dice}]"
     },
     "Tag": {
       "Placeholder": "Add tag…",
@@ -914,7 +915,9 @@
         "firstRound": "First round of combat",
         "preAction": "Pre-Action (hasn't acted this round)",
         "standby": "Declared Standby this round",
-        "hasSkill": "Has the skill"
+        "hasSkill": "Has the skill",
+        "motorState": "Class Motor in state",
+        "motorAtLeast": "Class Motor at least"
       },
       "Summary": {
         "srAtLeast": "SR ≥ {value}",
@@ -938,7 +941,9 @@
         "firstRound": "First round",
         "preAction": "[Pre-Action]",
         "standby": "[Standby]",
-        "hasSkill": "With {value}"
+        "hasSkill": "With {value}",
+        "motorState": "With the Motor in {value}",
+        "motorAtLeast": "With the Motor at {value} or more"
       }
     },
     "RollFilter": {
@@ -1466,7 +1471,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.7: the classes</strong></p><ul><li><strong>The Samurai</strong>, Eternia's first class, in the Races and Classes compendium (Classes folder), with 36 automated skills.</li><li><strong>Motor: the Sheath.</strong> The sheathed blade gathers Cuts in the Setup Process; the Iai draws before anyone else and spends them all at once. With a full Sheath it is a Perfect Cut.</li><li><strong>Class tab</strong> on the sheet: the base, the Motor, the talents by branch, the Path (CR 3), the Apex (CR 10) and the Dedications. The Motor also shows in the HUD and on the token.</li><li><strong>Dedication:</strong> from CR 5, characters of other classes can take the Lesser Sheath and the Samurai's [Dedication] talents.</li><li><strong>Removed:</strong> the Kuden and Log Horizon's archetypes. The new rules are on page XI. CLASSES of the AS REGRAS journal.</li></ul><p>Since 0.6: the Sword Art Online items. Since 0.5: an icon for every item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
+      "Body": "<p><strong>What's new in Eternia 0.8: the sixteen classes</strong></p><ul><li><strong>15 new classes</strong> next to the Samurai, in the Races and Classes compendium (Classes folder): Assassin, Berserker, Hunter, Commander, Druid, Strategist, Sorcerer, Guardian, Summoner, Minstrel, Monk, Oracle, Resonant, Priest and Weaver.</li><li>Each has its own <strong>Motor</strong>, a rule only that class has, and 36 automated skills: the kit, 16 talents, 4 general talents, three Paths, the Apex and the Dedication.</li><li>The Motor follows the combat by itself: turns, token movement, hits, damage, healing and everyone's checks. The Weaver and the Strategist change the dice of checks right on the attack cards.</li><li>The <strong>Class</strong> tab shows each class's Motor, and the AS REGRAS journal has one page per class (XI.1 to XI.16).</li></ul><p>Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -2184,7 +2189,8 @@
         "State": "Needs to be {state}.",
         "Min": "Needs {unit}: at least {n} (has {have}).",
         "Full": "Needs the {unit} at the cap ({max}).",
-        "Weapon": "Needs a {tags} weapon in the main hand."
+        "Weapon": "Needs a {tags} weapon in the main hand.",
+        "Max": "Needs {n} {unit} at most (has {have})."
       },
       "Choose": "How many {unit} to spend? You have {have}.",
       "ChooseOk": "Spend",
@@ -2207,6 +2213,399 @@
           "CapLesser": "Half the Sheath's cap, at least 1.",
           "ResetLesser": "Any other weapon attack draws the blade and loses the Cuts."
         }
+      },
+      "CardActionFailed": "The Motor action failed; see the console (F12).",
+      "Assassino": {
+        "Name": "Contract",
+        "Unit": "Breaches",
+        "State": {
+          "livre": "Free",
+          "jurado": "Sworn"
+        },
+        "ReadyLabel": "Full Contract",
+        "Note": "Target: {name}",
+        "OneTarget": "Target a single enemy to swear the Contract.",
+        "EnemyTarget": "The Contract can only be sworn on an enemy.",
+        "NotTarget": "The Execution only works on the Contract's Target ({name}): target it.",
+        "FullIssue": "Executioner's Path: the Execution needs a full Contract ({n} Breaches).",
+        "Executed": "{name} falls: the Execution drops anyone at {n} HP or less.",
+        "Poison": "Poisoned Blade",
+        "Card": {
+          "Gain": "Any hit anyone lands on the Target: +1 Breach (your Stab: +2).",
+          "Spend": "The Execution, only on the Target, spends them all: each Breach adds 1D + CR. A Target left at HP ≤ [Breaches × (CR+5)] falls (not a [Boss]).",
+          "Cap": "3 Breaches, +1 every 5 CR.",
+          "Reset": "Swearing a Contract on another Target loses the Breaches. The Target falling fulfills the Contract: you are free.",
+          "GainLesser": "Any hit anyone lands on the Target: +1 Breach.",
+          "SpendLesser": "The Execution, only on the Target, spends them all: each Breach adds 1D + CR, without the fall.",
+          "CapLesser": "Half the Contract's cap, at least 1.",
+          "ResetLesser": "Swearing a Contract on another Target loses the Breaches. The Target falling fulfills the Contract."
+        }
+      },
+      "Berserker": {
+        "Name": "Rage",
+        "Unit": "Rage",
+        "State": {
+          "acesa": "Burning"
+        },
+        "BleedIssue": "Bleed costs {n} HP: you need more HP than that.",
+        "Ready": "Won't fall",
+        "Ancestors": "The Ancestors",
+        "Card": {
+          "Gain": "+1 Rage every time an enemy attack takes HP from you; +1 more at half your HP or less.",
+          "Spend": "Savage Strike spends it all: (2+Rage)D + Rage×CR. Breath of Blood turns Rage into HP.",
+          "Cap": "3 Rage, +1 every 5 CR. With Rage, weapon attacks add +[Rage × 2] to the damage.",
+          "Reset": "At the Cleanup Process of a round in which you neither attacked nor lost HP, lose 1 Rage.",
+          "GainLesser": "+1 Rage every time an enemy attack takes HP from you.",
+          "SpendLesser": "Savage Strike spends it all: (2+Rage)D + Rage×CR.",
+          "CapLesser": "Half the Rage cap, at least 1. With Rage, weapon attacks add +[Rage] to the damage.",
+          "ResetLesser": "At the Cleanup Process of a round in which you neither attacked nor lost HP, lose 1 Rage."
+        }
+      },
+      "Cacador": {
+        "Name": "Aim",
+        "Unit": "Aim",
+        "State": {
+          "firme": "Steady"
+        },
+        "Card": {
+          "Gain": "In the Setup Process, if the token didn't move in the round before: +1. Steady Aim (Move Action): +1.",
+          "Spend": "Sure Shot spends all the Aim: each point adds 1D + CR to the damage.",
+          "Cap": "3, +1 every 5 CR. With a full Aim, the Sure Shot's target is [Exposed].",
+          "Reset": "Moving the token loses all the Aim.",
+          "GainLesser": "Steady Aim (Move Action): +1. Nothing in the Setup Process.",
+          "SpendLesser": "Sure Shot spends all the Aim: each point adds 1D + CR to the damage, without [Exposed].",
+          "CapLesser": "Half the cap of Aim, at least 1.",
+          "ResetLesser": "Moving the token loses all the Aim."
+        },
+        "Ready": "Full Aim",
+        "Moved": "Moved this round",
+        "FreeStep": "Free step: {n} Sq"
+      },
+      "Comandante": {
+        "Name": "Tactics",
+        "Unit": "Orders",
+        "State": {
+          "em-campo": "In the field"
+        },
+        "Card": {
+          "Gain": "In the Setup Process: +1 Order. Survey the Field (Minor Action): +1.",
+          "Spend": "Each Order makes an ally act out of turn: Order: Attack! (a basic attack now, with [Focused]) and Order: Advance! (move now, with [Barrier]).",
+          "Cap": "2 Orders, +1 every 5 CR.",
+          "Reset": "At the end of the combat.",
+          "GainLesser": "Survey the Field (Minor Action): +1. Nothing in the Setup Process.",
+          "SpendLesser": "Order: Attack!: an ally makes a basic attack now, with [Focused].",
+          "CapLesser": "1 Order.",
+          "ResetLesser": "At the end of the combat."
+        },
+        "Ready": "Orders at the cap",
+        "Banner": "Standard raised",
+        "FreeOrder": "Free Order this round"
+      },
+      "Druida": {
+        "Name": "Forms",
+        "Unit": "Sap",
+        "State": {
+          "humana": "Human",
+          "urso": "Bear",
+          "lobo": "Wolf",
+          "falcao": "Hawk",
+          "carvalho": "Oak",
+          "enxame": "Swarm"
+        },
+        "Card": {
+          "Gain": "At the Setup, in the human form: +1 Sap. Earth Sap also gives +1.",
+          "Spend": "The Call of the Beast spends 1 Sap to become a beast; as a beast, each Cleanup costs 1, and with no Sap you go back to the human form.",
+          "Cap": "3 Sap, +1 every 5 CR. Bear: [Cancel: 2 + Sap]. Wolf: [Empowered: CR÷2 + 2].",
+          "Reset": "Every combat starts in the human form, with 1 Sap.",
+          "GainLesser": "At the Setup, in the human form: +1 Sap.",
+          "SpendLesser": "The Call of the Beast spends 1 Sap to become a wolf; as a beast, each Cleanup costs 1.",
+          "CapLesser": "Half the cap of the Forms, at least 1. Only the wolf form.",
+          "ResetLesser": "Every combat starts in the human form, with 1 Sap."
+        },
+        "ChooseForm": "Which form? You have {n} Sap.",
+        "NoSap": "Needs {n} Sap.",
+        "AlreadyBear": "You are already in the bear form.",
+        "NoBear": "The Lesser Forms have no bear form."
+      },
+      "Estrategista": {
+        "Name": "Reading",
+        "Unit": "Readings",
+        "State": {
+          "atento": "Watchful"
+        },
+        "Card": {
+          "Gain": "Study the Field, at the Setup Process: roll 2D and keep both dice as a Reading.",
+          "Spend": "On the attack cards, a Reading replaces the two lowest dice of one of your checks; other skills spend a Reading for its sum.",
+          "Cap": "1 Reading, +1 every 5 CR. Over the cap, you choose which to drop.",
+          "Reset": "At the end of the combat.",
+          "GainLesser": "Study the Field, at the Setup Process: roll 2D and keep both dice as a Reading.",
+          "SpendLesser": "On the attack cards, a Reading replaces the two lowest dice of one of your checks.",
+          "CapLesser": "1 Reading.",
+          "ResetLesser": "At the end of the combat."
+        },
+        "Note": "Readings: {list}",
+        "ReadyLabel": "A Critical in hand",
+        "RollFlavor": "{skill}: Reading",
+        "CombatStart": "Master Mind",
+        "Keep": "Choose the two dice the Reading keeps.",
+        "Discard": "Readings over the cap: choose which to drop.",
+        "ReviseHint": "Which Reading do you revise? Its lowest die is rolled again.",
+        "Choose": "Which Reading do you spend?",
+        "ChooseOptional": "Spend a Reading? With it, the target is also [Marked].",
+        "NoSpend": "Don't spend",
+        "Button": "Reading {a}+{b}",
+        "OwnTip": "Replaces the two lowest dice of the check with {a} and {b}; the Reading is gone.",
+        "EnemyTip": "Replaces the two highest dice of the check with {a} and {b}; the Reading is gone.",
+        "NoteUsed": "{name}: Reading {a}+{b}",
+        "NoReading": "No Readings.",
+        "MaxSum": "Needs a Reading that adds up to {n} or less.",
+        "MinSum": "Needs a Reading that adds up to {n} or more.",
+        "MinReadings": "Needs at least {n} Readings.",
+        "PickAlly": "Whom will the enemy chase?",
+        "Kept": "{name}: the Reading {a}+{b} worked and comes back (Chess Path).",
+        "Deduction": "{name} plays the Reading {a}+{b} on \"{test}\": the total becomes {total}.",
+        "NoCheck": "No check of yours to change: roll the check first."
+      },
+      "Feiticeiro": {
+        "Name": "Heat",
+        "Unit": "Heat",
+        "State": {
+          "estavel": "Stable",
+          "incandescente": "Incandescent"
+        },
+        "Card": {
+          "Gain": "+1 Heat per Spell of the class (the big ones, +2). Your Spells add +[Heat × 2] to their damage.",
+          "Spend": "The Eruption (area, needs 2) lets all the Heat out: each point adds 1D + CR. Breathe the Flame lets 2 out.",
+          "Cap": "3 Heat, +1 every 5 CR. At the cap, Incandescent: Overload at the Cleanup ([Heat × CR] direct damage).",
+          "Reset": "The Eruption empties the Heat; so does the end of the combat.",
+          "GainLesser": "+1 Heat per Spell of the class. Your Spells add +[Heat] to their damage.",
+          "SpendLesser": "The Eruption (needs 2) lets all the Heat out: each point adds 1D + CR.",
+          "CapLesser": "Half the Heat cap, at least 1. At the cap, Incandescent and Overload at the Cleanup.",
+          "ResetLesser": "The Eruption empties the Heat; so does the end of the combat."
+        },
+        "Overload": "Overload",
+        "ChooseEruption": "How much Heat does the Eruption spend? You have {have}.",
+        "VolcanoReady": "Eruption at the cap"
+      },
+      "Guardiao": {
+        "Name": "Bulwark",
+        "Unit": "Layers",
+        "State": {
+          "erguido": "Raised"
+        },
+        "WardIssue": "Target one ally to be your Ward.",
+        "Ward": "Ward: {name}",
+        "Ready": "Sure strike ready",
+        "Card": {
+          "Gain": "+1 Layer every time an enemy makes an attack against you, hit or miss.",
+          "Spend": "The Bulwark Strike spends them all: each Layer adds 1D + CR to the damage, and the target is [Taunted].",
+          "Cap": "3 Layers, +1 every 5 CR. In combat, each Layer is [Cancel: 2].",
+          "Reset": "At the Cleanup Process of a round in which no enemy attacked you, lose 1 Layer.",
+          "GainLesser": "+1 Layer every time an enemy makes an attack against you, hit or miss.",
+          "SpendLesser": "The Bulwark Strike spends them all: each Layer adds 1D + CR to the damage.",
+          "CapLesser": "Half the Bulwark's cap, at least 1. In combat, each Layer is [Cancel: 1].",
+          "ResetLesser": "At the Cleanup Process of a round in which no enemy attacked you, lose 1 Layer."
+        }
+      },
+      "Invocador": {
+        "Name": "Pact",
+        "Unit": "Links",
+        "State": {
+          "vazio": "No spirit",
+          "lobo": "Wolf",
+          "golem": "Golem",
+          "fada": "Fairy"
+        },
+        "Card": {
+          "Gain": "Summon Spirit: choose the Wolf, the Golem or the Fairy and pay [CR+3] HP per Link.",
+          "Spend": "The special commands spend Links; the Living Shield spends 1. Command: Attack adds the Links to its damage.",
+          "Cap": "3 Links, +1 every 5 CR. Wolf: +1D to its strikes; Golem: [Cancel: Links]; Fairy: [Regen: Links × 2].",
+          "Reset": "With 0 Links the spirit fades. Every combat starts without a spirit.",
+          "GainLesser": "Summon Spirit, the Wolf only: [CR+3] HP per Link.",
+          "SpendLesser": "Command: Attack adds the Links to its damage, and the Wolf adds +1D.",
+          "CapLesser": "Half the Pact's cap, at least 1.",
+          "ResetLesser": "With 0 Links the Wolf fades. Every combat starts without a spirit."
+        },
+        "NeedSpirit": "Needs a spirit present.",
+        "NeedThis": "Needs the spirit: {spirit}.",
+        "NoHp": "Too few HP: each Link costs {cost} HP, and you must keep at least 1.",
+        "Full": "The Pact is already at its cap.",
+        "NoSwap": "There is only one spirit to call.",
+        "ChooseSpirit": "Which spirit to summon?",
+        "ChooseLinks": "How many Links? Each costs {cost} HP (you have {hp}).",
+        "LinksOption": "{n} Link(s): −{hp} HP",
+        "LinksFree": "{n} Link(s): free (Eternal Pact)",
+        "ChooseSwap": "Swap for which spirit?",
+        "Note": "1 Link = {cost} HP",
+        "Paid": "{name} pays {hp} HP to the Pact.",
+        "Returned": "{name} recovers {hp} HP: the spirit went back to the void.",
+        "Eternal": "Eternal Pact: {name}'s spirit keeps 1 Link."
+      },
+      "Menestrel": {
+        "Name": "Movements",
+        "Unit": "Movements",
+        "State": {
+          "silencio": "Silence",
+          "marcha": "March",
+          "balada": "Ballad",
+          "hino": "Hymn",
+          "lamento": "Lament"
+        },
+        "Song": {
+          "marcha": "War March",
+          "balada": "Ballad of Life",
+          "hino": "Hymn of the Wall",
+          "lamento": "Lament of the Fallen"
+        },
+        "Card": {
+          "Gain": "At the Setup Process, still singing the same song: +1 Movement.",
+          "Spend": "The Finale (Major) spends them all on a burst of the song until the end of the round, and you fall silent.",
+          "Cap": "3 Movements, +1 at CR 10. The song is on you and your allies in the combat (the Lament, on the enemies).",
+          "Reset": "Starting or changing a song (Minor) goes back to Movement I. [Silenced] at the Setup Process, the song stops.",
+          "GainLesser": "At the Setup Process, still singing the same song: +1 Movement.",
+          "SpendLesser": "The Finale spends them all on a burst of the song until the end of the round.",
+          "CapLesser": "2 Movements.",
+          "ResetLesser": "Changing songs goes back to Movement I. [Silenced] at the Setup Process, the song stops."
+        },
+        "ReadyLabel": "At its peak",
+        "Note": "{song}: Movement {level}",
+        "SameSong": "You are already singing that song.",
+        "NeedSong": "Needs a song being sung.",
+        "Silenced": "{name} is Silenced: the song stops."
+      },
+      "Monge": {
+        "Name": "Chain",
+        "Unit": "Links",
+        "State": {
+          "aberta": "Open"
+        },
+        "ReadyLabel": "Full Chain",
+        "WeaponIssue": "The Chain strikes need a [Martial Arts] weapon in the main hand or both hands empty.",
+        "Card": {
+          "Gain": "Opening Strike and Quick Link: +1 Link each.",
+          "Spend": "The Final Strike spends them all: each Link adds 2D + CR to the damage. With a full Chain, the target is [Dazed].",
+          "Cap": "3 Links, +1 every 5 CR.",
+          "Reset": "A turn without a Chain skill breaks it. Each enemy attack that takes your HP takes 1 Link.",
+          "GainLesser": "Opening Strike: +1 Link.",
+          "SpendLesser": "The Final Strike spends them all: each Link adds 2D + CR to the damage, without the full Chain's effect.",
+          "CapLesser": "Half the Chain's cap, at least 1.",
+          "ResetLesser": "A turn without a Chain skill breaks it. Each enemy attack that takes your HP takes 1 Link."
+        }
+      },
+      "Oraculo": {
+        "Name": "Burden",
+        "Unit": "Burden",
+        "State": {
+          "revelado": "Revealed"
+        },
+        "Card": {
+          "Gain": "+1 Burden per miracle (the big ones, +2). The miracles add +[Burden × 2] to their healing or damage.",
+          "Spend": "The Revelation (area, needs 2) lets all the Burden out: it heals [Recovery + Burden D + Burden×CR]. Penance takes 1 away.",
+          "Cap": "4 Burden, +1 every 5 CR. From 3 on, [Weakness: Burden × 2]; at the cap, also [Cursed].",
+          "Reset": "The Revelation empties the Burden; so does the end of the combat.",
+          "GainLesser": "+1 Burden per miracle. The miracles add +[Burden] to their healing or damage.",
+          "SpendLesser": "The Revelation (needs 2) lets all the Burden out.",
+          "CapLesser": "Half the Burden cap, at least 1. At the cap, [Cursed]; no [Weakness].",
+          "ResetLesser": "The Revelation empties the Burden; so does the end of the combat."
+        },
+        "Curse": {
+          "weakness": "Curse: Weakness {n}",
+          "burning": "Curse: Burning {n}",
+          "cursed": "Cursed"
+        }
+      },
+      "Ressonante": {
+        "Name": "Spark",
+        "Unit": "Glow",
+        "State": {
+          "arma": "Weapon",
+          "armadura": "Armor",
+          "joia": "Jewel"
+        },
+        "Card": {
+          "Gain": "At the Setup: +1 Glow. Resonant Strike, with the Spark in the weapon: +1.",
+          "Spend": "Leap the Spark: the old piece releases its Awakening, and the new one starts with half the Glow.",
+          "Cap": "3 Glow, +1 every 5 CR. Weapon: +[Glow × 2] damage. Armor: [Cancel: Glow × 2]. Jewel: +[Glow × 2] to magic and healing.",
+          "Reset": "Every combat starts with the Spark in the weapon and 0 Glow.",
+          "GainLesser": "At the Setup: +1 Glow. Resonant Strike, with the Spark in the weapon: +1.",
+          "SpendLesser": "Leap the Spark between the weapon and the armor: the old piece releases its Awakening.",
+          "CapLesser": "Half the cap of the Spark, at least 1. Only the weapon and the armor.",
+          "ResetLesser": "Every combat starts with the Spark in the weapon and 0 Glow."
+        },
+        "ChooseSlot": "Which piece does the Spark leap to? It has {n} Glow.",
+        "IconLocked": "Single Icon Path: the Spark doesn't leap in combat.",
+        "Awakening": "Awakening",
+        "Waiting": "Awakening ready: {list}"
+      },
+      "Sacerdote": {
+        "Name": "Grace",
+        "Unit": "Grace",
+        "State": {
+          "vigilia": "Vigilant"
+        },
+        "Card": {
+          "Gain": "Each enemy attack that takes HP from an ally: +1 Grace (+1 if they are left at half HP or less).",
+          "Spend": "Healing Prayer and Shield of Faith spend as much Grace as you want: heal after or protect before.",
+          "Cap": "3 Grace, +1 every 5 CR.",
+          "Reset": "At the end of the combat. Every combat starts at 0.",
+          "GainLesser": "Each enemy attack that takes HP from an ally: +1 Grace.",
+          "SpendLesser": "Healing Prayer and Shield of Faith spend as much Grace as you want.",
+          "CapLesser": "Half the Grace cap, at least 1.",
+          "ResetLesser": "At the end of the combat."
+        },
+        "ReadyLabel": "Full Grace",
+        "Pick": "How much Grace to spend? You have {have}.",
+        "PickOption": "{n} Grace",
+        "Holiness": "Holiness: {name} stays standing with {hp} HP.",
+        "HolinessNote": "Holiness: {n} left this scene"
+      },
+      "Tecelao": {
+        "Name": "Pattern",
+        "Unit": "Threads",
+        "State": {
+          "tecendo": "Weaving"
+        },
+        "Card": {
+          "Gain": "A check of anyone in the combat with two dice that add up to the Pattern: +1 Thread (6 to 8), +2 (4, 5, 9, 10) or +3 (2, 3, 11, 12).",
+          "Spend": "On the attack cards, 1 Thread: the lowest die of a check goes up by 1 or the highest goes down by 1 (2 Threads when that makes or unmakes a Critical or a Fumble).",
+          "Cap": "3 Threads, +1 every 5 CR. The Pattern, a number from 2 to 12, is chosen at the Setup Process.",
+          "Reset": "At the end of the combat. Changing the Pattern in the middle of a combat loses the Threads.",
+          "GainLesser": "A check of anyone in the combat with two dice that add up to the Pattern: +1 Thread (6 to 8), +2 (4, 5, 9, 10) or +3 (2, 3, 11, 12).",
+          "SpendLesser": "On the attack cards, 1 Thread: the lowest die of a check goes up by 1 (2 Threads when that makes a Critical or unmakes a Fumble).",
+          "CapLesser": "Half the Pattern's cap, at least 1.",
+          "ResetLesser": "At the end of the combat. Changing the Pattern in the middle of a combat loses the Threads."
+        },
+        "Note": "Pattern: {n}",
+        "NoteTwo": "Pattern: {a} and {b}",
+        "ReadyLabel": "Unraveling ready",
+        "ChooseHint": "The Pattern: the number two dice of a check must add up to. The rare ones give more Threads.",
+        "ChooseSecond": "The second number of the Pattern.",
+        "Option": "{n} ({fios} Thread)",
+        "Options": "{n} ({fios} Threads)",
+        "ChanceIssue": "Path of Chance: the Pattern is rolled at the Setup Process.",
+        "ChanceFlavor": "Path of Chance: the Pattern of the round",
+        "KnotHint": "How many Threads does the Lasso tighten? Each adds +1D to the damage; with at least 1, the target is also [Rooted].",
+        "ThreadOne": "{n} Thread",
+        "ThreadMany": "{n} Threads",
+        "Up": "Thread +1",
+        "Down": "Thread −1",
+        "Six": "Thread → 6",
+        "One": "Thread → 1",
+        "Fate": "Doom",
+        "UpTip": "1 Thread: the lowest die of the check goes up by 1. Costs 2 when it makes or unmakes a Critical or a Fumble.",
+        "DownTip": "1 Thread: the highest die of the check goes down by 1. Costs 2 when it makes or unmakes a Critical or a Fumble.",
+        "SixTip": "1 Thread: the lowest die of the check becomes 6. Costs 2 when it makes a Critical or unmakes a Fumble.",
+        "OneTip": "1 Thread: the highest die of the check becomes 1. Costs 2 when it makes a Fumble or unmakes a Critical.",
+        "FateTip": "Every Thread (at least 3): the check becomes a Fumble. Once per combat.",
+        "Cost": "{label} ({n} Threads)",
+        "Free": "{label} (free)",
+        "NoteUp": "{name}: Thread +1",
+        "NoteDown": "{name}: Thread −1",
+        "NoteSix": "{name}: Thread → 6",
+        "NoteOne": "{name}: Thread → 1",
+        "NoteFate": "{name}: Doom",
+        "NoDie": "No die of that check can change that way.",
+        "NoThreads": "Too few Threads: it needs {n}."
       }
     },
     "Classes": {
@@ -2268,7 +2667,127 @@
       "Apex": "Apex",
       "General": "General talents",
       "Dedications": "Dedications",
-      "Milestones": "Class milestones"
+      "Milestones": "Class milestones",
+      "assassino": {
+        "Branch": {
+          "sombra": "The Shadow",
+          "veneno": "The Poison",
+          "lamina": "The Blade",
+          "rede": "The Net"
+        }
+      },
+      "berserker": {
+        "Branch": {
+          "sangue": "The Blood",
+          "furia": "The Fury",
+          "massacre": "The Slaughter",
+          "couro": "The Hide"
+        }
+      },
+      "cacador": {
+        "Branch": {
+          "olho": "The Eye",
+          "aljava": "The Quiver",
+          "rastro": "The Trail",
+          "vento": "The Wind"
+        }
+      },
+      "comandante": {
+        "Branch": {
+          "vanguarda": "The Vanguard",
+          "formacao": "The Formation",
+          "estandarte": "The Standard",
+          "mapa": "The Map"
+        }
+      },
+      "druida": {
+        "Branch": {
+          "fera": "The Beast",
+          "raiz": "The Root",
+          "estacao": "The Seasons",
+          "selva": "The Wild"
+        }
+      },
+      "estrategista": {
+        "Branch": {
+          "plano": "The Plan",
+          "previsao": "Foresight",
+          "licao": "The Lesson",
+          "tabuleiro": "The Board"
+        }
+      },
+      "feiticeiro": {
+        "Branch": {
+          "chama": "The Flame",
+          "fole": "The Bellows",
+          "fornalha": "The Furnace",
+          "cinza": "The Ash"
+        }
+      },
+      "guardiao": {
+        "Branch": {
+          "muralha": "The Wall",
+          "desafio": "The Challenge",
+          "martelo": "The Hammer",
+          "guarda": "The Guard"
+        }
+      },
+      "invocador": {
+        "Branch": {
+          "lobo": "The Wolf",
+          "golem": "The Golem",
+          "fada": "The Fairy",
+          "pacto": "The Pact"
+        }
+      },
+      "menestrel": {
+        "Branch": {
+          "repertorio": "The Repertoire",
+          "compasso": "The Beat",
+          "palco": "The Stage",
+          "plateia": "The Audience"
+        }
+      },
+      "monge": {
+        "Branch": {
+          "punho": "The Fist",
+          "fluxo": "The Flow",
+          "vento": "The Wind",
+          "centro": "The Center"
+        }
+      },
+      "oraculo": {
+        "Branch": {
+          "cura": "Healing",
+          "juizo": "Judgment",
+          "presagio": "Omen",
+          "veu": "Veil"
+        }
+      },
+      "ressonante": {
+        "Branch": {
+          "lamina": "The Living Blade",
+          "egide": "The Aegis",
+          "joia": "The Jewel",
+          "eco": "The Echo"
+        }
+      },
+      "sacerdote": {
+        "Branch": {
+          "prece": "The Prayer",
+          "escudo": "The Shield",
+          "vigilia": "The Vigil",
+          "luz": "The Light"
+        }
+      },
+      "tecelao": {
+        "Branch": {
+          "tear": "The Loom",
+          "no": "The Knot",
+          "trama": "The Weft",
+          "tesoura": "The Shears"
+        }
+      }
     }
   }
 }

@@ -1,0 +1,76 @@
+{
+  "name": "Garra e Presa",
+  "type": "skill",
+  "system": {
+    "description": "<p>Numa forma de fera: garras, presas ou galhos contra um alvo engajado com você. [Poder Mágico + 2D] de dano físico.</p><ul><li><strong>Urso:</strong> o alvo fica [Provocado] por você.</li><li><strong>Lobo:</strong> o [Fortalecido] da forma soma ao dano.</li><li><strong>Carvalho</strong> (Caminho do Bosque): o alvo fica [Derrubado].</li></ul><p><em>Não há arma na mão: a arma é o próprio corpo.</em></p>",
+    "tags": [
+      "Physical Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": "@magic",
+      "type": "physical",
+      "recovery": false,
+      "noPower": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/claws/claw-bear-paw-swipe-brown.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "druida-garra-e-presa",
+      "kind": "bends",
+      "branch": "kit",
+      "choiceOnly": true,
+      "motor": {
+        "id": "druida",
+        "needs": {
+          "state": [
+            "urso",
+            "lobo",
+            "falcao",
+            "carvalho",
+            "enxame"
+          ]
+        }
+      },
+      "damageText": "[Poder Mágico] + 2D Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ANZPIhCswnh0xjHT",
+  "folder": "NqsMStm2bVw9Q11n",
+  "_key": "!items!ANZPIhCswnh0xjHT"
+}

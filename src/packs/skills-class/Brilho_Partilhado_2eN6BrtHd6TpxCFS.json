@@ -1,0 +1,119 @@
+{
+  "name": "Brilho Partilhado",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com a Centelha na Joia, gaste 1 Brilho: um aliado a até 4 Qd ganha [Fortalecido: NP÷2 + 2] até o fim da rodada.</p>",
+    "tags": [],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/light/orb-hand-green.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "empowered",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Brilho Partilhado",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "WCjRfT3sgnPTdBo0",
+      "_key": "!items.effects!2eN6BrtHd6TpxCFS.WCjRfT3sgnPTdBo0"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "ressonante-brilho-partilhado",
+      "kind": "spends",
+      "branch": "joia",
+      "minRank": 5,
+      "requires": [
+        "ressonante-gema-da-vida"
+      ],
+      "motor": {
+        "id": "ressonante",
+        "needs": {
+          "state": "joia",
+          "min": 1
+        },
+        "spend": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 160000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "2eN6BrtHd6TpxCFS",
+  "folder": "Rmhid8Zi2UZR20Eq",
+  "_key": "!items!2eN6BrtHd6TpxCFS"
+}

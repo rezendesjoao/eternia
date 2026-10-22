@@ -1,0 +1,166 @@
+{
+  "name": "Tapeçaria",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Caminho do Bordado.</strong> Precisa de pelo menos 3 Fios e gasta todos: o campo vira tapeçaria. Os inimigos numa área a até 3 Qd ficam [Lento] e [Enraizado] e sofrem [1D + Fios × NP] de dano direto.</p><hr><p><em>Quando o Tecelão termina, a cena inteira está costurada no chão.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 1,
+      "mod": "@spent*@cr",
+      "type": "direct",
+      "recovery": false,
+      "noPower": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/cloth/cloth-rolls-cmy.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "slowed"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Tapeçaria",
+      "img": "systems/eternia/assets/ui/status/slowed.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "slowed"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "DqCgCGvdSGs23HiD",
+      "_key": "!items.effects!Uw9nrBi9Zh0iWw61.DqCgCGvdSGs23HiD"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "rooted"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Tapeçaria",
+      "img": "systems/eternia/assets/ui/status/rooted.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "rooted"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "LuWH7fRIj98AEhTe",
+      "_key": "!items.effects!Uw9nrBi9Zh0iWw61.LuWH7fRIj98AEhTe"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "tecelao-tapecaria",
+      "kind": "spends",
+      "branch": "pathTalent",
+      "minRank": 7,
+      "motor": {
+        "id": "tecelao",
+        "needs": {
+          "min": 3
+        },
+        "spend": "all"
+      },
+      "pathTalent": {
+        "class": "tecelao",
+        "id": "bordado"
+      },
+      "damageText": "1D + Fios×NP Direto"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 330000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Uw9nrBi9Zh0iWw61",
+  "folder": "xEpHsCAlh45KG5iK",
+  "_key": "!items!Uw9nrBi9Zh0iWw61"
+}

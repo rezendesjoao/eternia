@@ -1,0 +1,120 @@
+{
+  "name": "Vigília dos Ancestrais",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Caminho dos Ancestrais.</strong> Use quando um aliado a até 1 Qd for sofrer dano: gaste 1 de Ira. Ele ganha [Barreira: Ira × (NP÷2 + 2)] (contando a gasta) até o fim do processo.</p>",
+    "tags": [],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "1Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/death/skeleton-skull-soul-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "barrier",
+            "value": "@motor.value*(floor(@cr/2)+2)"
+          },
+          "expires": "endOfProcess"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Vigília dos Ancestrais",
+      "img": "systems/eternia/assets/ui/status/barrier.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "barrier"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "SvTxtAFTIqcLiXD5",
+      "_key": "!items.effects!ORoDGCKP9GuCJFX6.SvTxtAFTIqcLiXD5"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "berserker-vigilia-ancestrais",
+      "kind": "spends",
+      "branch": "pathTalent",
+      "minRank": 3,
+      "motor": {
+        "id": "berserker",
+        "needs": {
+          "min": 1
+        },
+        "spend": 1,
+        "action": "none"
+      },
+      "pathTalent": {
+        "class": "berserker",
+        "id": "ancestrais"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 320000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ORoDGCKP9GuCJFX6",
+  "folder": "C1iD6vWlTI7CWutp",
+  "_key": "!items!ORoDGCKP9GuCJFX6"
+}

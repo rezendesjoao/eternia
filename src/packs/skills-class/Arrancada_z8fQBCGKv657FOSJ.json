@@ -1,0 +1,71 @@
+{
+  "name": "Arrancada",
+  "type": "skill",
+  "system": {
+    "description": "<p>Antes do golpe, você corre até a sua Velocidade em linha reta, sem gastar a Ação de Movimento. Gaste 1 de Ira: [Poder de Ataque + 2D + NP] de dano físico, e o alvo fica [Derrubado].</p>",
+    "tags": [
+      "Weapon Attack",
+      "Dedication"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": "@cr",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/mammals/ox-bull-horned-glowing-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "berserker-arrancada",
+      "kind": "spends",
+      "branch": "massacre",
+      "minRank": 1,
+      "motor": {
+        "id": "berserker",
+        "needs": {
+          "min": 1
+        },
+        "spend": 1
+      },
+      "damageText": "[Poder de Ataque] + 2D + NP Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 130000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "z8fQBCGKv657FOSJ",
+  "folder": "H8O2K1HAJxgiYBaH",
+  "_key": "!items!z8fQBCGKv657FOSJ"
+}

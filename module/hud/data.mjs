@@ -384,7 +384,8 @@ function motorBlocks(actor) {
     const data = motorData(actor, def.id);
     const max = motorMax(actor, def.id);
     const value = Math.clamp(toInt(data.value), 0, max);
-    const ready = !!def.display?.(actor, { lesser, data, max })?.ready;
+    const extra = def.display?.(actor, { lesser, data, max }) ?? {};
+    const ready = !!extra.ready;
     const stateLabel = motorStateLabel(def, data.state);
     return {
       id: def.id,
@@ -393,8 +394,8 @@ function motorBlocks(actor) {
       stateLabel,
       ready,
       pips: Array.from({ length: max }, (_, i) => ({ value: i + 1, on: i < value })),
-      tooltip: [`${motorName(def)}: ${stateLabel}`, `${value}/${max} ${motorUnit(def)}`,
-        ready ? L("Motor.Samurai.PerfectReady") : ""].filter(Boolean).join(" · ")
+      tooltip: [stateLabel ? `${motorName(def)}: ${stateLabel}` : motorName(def), `${value}/${max} ${motorUnit(def)}`,
+        extra.note ?? "", ready ? (extra.readyLabel ?? "") : ""].filter(Boolean).join(" · ")
     };
   });
 }

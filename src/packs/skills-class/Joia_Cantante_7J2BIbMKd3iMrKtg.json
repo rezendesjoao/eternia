@@ -1,0 +1,72 @@
+{
+  "name": "Joia Cantante",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com a Centelha na Joia, gaste até [NH+1] de Brilho: a gema solta um feixe de luz contra um alvo a até 4 Qd. [Poder Mágico + (2 + Brilho gasto)D] de dano mágico.</p>",
+    "tags": [
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 3
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+@spent",
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/light/beam-rays-teal.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "ressonante-joia-cantante",
+      "kind": "spends",
+      "branch": "joia",
+      "minRank": 1,
+      "motor": {
+        "id": "ressonante",
+        "needs": {
+          "state": "joia",
+          "min": 1
+        },
+        "spend": "choose",
+        "max": "@sr+1"
+      },
+      "damageText": "[Poder Mágico] + (2+Brilho gasto)D Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 130000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "7J2BIbMKd3iMrKtg",
+  "folder": "Rmhid8Zi2UZR20Eq",
+  "_key": "!items!7J2BIbMKd3iMrKtg"
+}

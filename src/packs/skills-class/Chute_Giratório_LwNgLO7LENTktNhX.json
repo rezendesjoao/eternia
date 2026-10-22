@@ -1,0 +1,72 @@
+{
+  "name": "Chute Giratório",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com pelo menos 2 Elos: você gira num chute que varre todos os inimigos do seu quadrado. [Poder de Ataque + (Elos)D + (Elos×NP)÷2] de dano físico em cada um. Gasta todos os Elos.</p><p><strong>Custo:</strong> Ódio 2 + os Elos gastos.</p>",
+    "tags": [
+      "Weapon Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2+Elos",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "@spent",
+      "mod": "floor(@spent*@cr/2)",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/air/air-burst-spiral-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "monge-chute-giratorio",
+      "kind": "spends",
+      "branch": "punho",
+      "minRank": 3,
+      "motor": {
+        "id": "monge",
+        "chain": "finish",
+        "strike": true,
+        "needs": {
+          "min": 2
+        },
+        "spend": "all"
+      },
+      "damageText": "[Poder de Ataque] + (Elos)D + (Elos×NP)÷2 Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "LwNgLO7LENTktNhX",
+  "folder": "jGFvtY2buEnZcTCR",
+  "_key": "!items!LwNgLO7LENTktNhX"
+}

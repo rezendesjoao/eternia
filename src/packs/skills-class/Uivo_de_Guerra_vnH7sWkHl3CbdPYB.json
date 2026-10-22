@@ -1,0 +1,116 @@
+{
+  "name": "Uivo de Guerra",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste 2 de Ira: os aliados a até 3 Qd que você escolher (você também) ganham [Fortalecido: NP÷2 + 2] até o fim da rodada.</p>",
+    "tags": [],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/abilities/wolf-howl-moon-white.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "empowered",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfRound",
+          "recipients": "allies"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Uivo de Guerra",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "ONRyaUSyd89tLgfu",
+      "_key": "!items.effects!vnH7sWkHl3CbdPYB.ONRyaUSyd89tLgfu"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "berserker-uivo",
+      "kind": "spends",
+      "branch": "furia",
+      "minRank": 3,
+      "motor": {
+        "id": "berserker",
+        "needs": {
+          "min": 2
+        },
+        "spend": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "vnH7sWkHl3CbdPYB",
+  "folder": "H8O2K1HAJxgiYBaH",
+  "_key": "!items!vnH7sWkHl3CbdPYB"
+}

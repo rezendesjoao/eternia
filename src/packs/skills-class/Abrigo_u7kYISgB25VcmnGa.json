@@ -1,0 +1,120 @@
+{
+  "name": "Abrigo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Caminho do Escudo Erguido.</strong> Use quando um aliado do seu quadrado for sofrer dano: gaste 1 Camada. Ele ganha [Anulação: Camadas × 2] (contando a que você gastou) até o fim do processo.</p>",
+    "tags": [],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "cancel",
+            "value": "@motor.value*2"
+          },
+          "expires": "endOfProcess"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Abrigo",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "Ai0LeC5aMdCJZOHz",
+      "_key": "!items.effects!u7kYISgB25VcmnGa.Ai0LeC5aMdCJZOHz"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "guardiao-abrigo",
+      "kind": "spends",
+      "branch": "pathTalent",
+      "minRank": 3,
+      "motor": {
+        "id": "guardiao",
+        "needs": {
+          "min": 1
+        },
+        "spend": 1,
+        "action": "none"
+      },
+      "pathTalent": {
+        "class": "guardiao",
+        "id": "escudo"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "u7kYISgB25VcmnGa",
+  "folder": "DWAMtwshkixlAVTV",
+  "_key": "!items!u7kYISgB25VcmnGa"
+}

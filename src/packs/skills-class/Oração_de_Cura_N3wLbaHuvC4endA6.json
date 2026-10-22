@@ -1,0 +1,119 @@
+{
+  "name": "Oração de Cura",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você reza por um aliado a até 4 Qd (ou por você): ele recupera [Recuperação + (2 + Graça gasta)D + (Graça gasta × NP)÷2] PV. Antes da cura, escolha quanta Graça gastar, de 0 até toda.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>As palavras saem baixas e firmes; a luz encontra a ferida antes que o aliado perceba que caiu de joelhos.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": "2+@spent",
+      "mod": "floor(@spent*@cr/2)*(1-@use.area)",
+      "type": "",
+      "recovery": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/holy/prayer-hands-glowing-yellow.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "regen",
+            "value": "floor(@cr/2)+@spent"
+          },
+          "expires": "endOfScene",
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Prece Contínua"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Prece Contínua",
+      "img": "systems/eternia/assets/ui/status/regen.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "regen"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "4beVcHgWHF2nswDu",
+      "_key": "!items.effects!N3wLbaHuvC4endA6.4beVcHgWHF2nswDu"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "sacerdote-oracao",
+      "kind": "spends",
+      "branch": "kit",
+      "choiceOnly": true,
+      "motor": {
+        "id": "sacerdote",
+        "pick": true
+      },
+      "damageText": "[Recuperação] + (2+Graça gasta)D + (Graça gasta×NP)÷2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "N3wLbaHuvC4endA6",
+  "folder": "loi20TVHhXlWGg8A",
+  "_key": "!items!N3wLbaHuvC4endA6"
+}

@@ -1,0 +1,72 @@
+{
+  "name": "Firmar a Mira",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com uma arma [Arco], [Besta] ou [Arremesso] na mão principal, você gasta a Ação de Movimento para não se mover: apoia o pé, ajusta a pegada e segue o alvo com os olhos. +1 Mira.</p><p><em>O mundo encolhe até caber na ponta da flecha.</em></p>",
+    "tags": [],
+    "timing": "Move",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/ranged/person-archery-bow-attack-gray.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "cacador-firmar",
+      "kind": "feeds",
+      "branch": "kit",
+      "choiceOnly": true,
+      "motor": {
+        "id": "cacador",
+        "needs": {
+          "weapon": [
+            "Bow",
+            "Crossbow",
+            "Throwing"
+          ]
+        },
+        "gain": 1,
+        "action": "move"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ACvPG08NuBRcMZMU",
+  "folder": "xl6GwFybmkzUe6lm",
+  "_key": "!items!ACvPG08NuBRcMZMU"
+}

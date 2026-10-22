@@ -1,0 +1,120 @@
+{
+  "name": "Caminho da Aurora",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Reescreve o que a Oração de Cura faz.</strong> Ela cura todos os aliados a até 3 Qd de você (Área, você incluso; marque todos como alvo), mas a Graça gasta só soma dados: [Recuperação + (2 + Graça gasta)D], sem o +(Graça gasta × NP)÷2.</p><p><strong>Talentos do Caminho:</strong> Luz da Aurora (NP 3) e Sol a Pino (NP 7).</p><hr><p><em>Quando ele reza, o campo inteiro amanhece.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/light/beam-rays-yellow-blue-large.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "rollFilter": {
+            "skills": [
+              {
+                "name": "Oração de Cura"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Caminho da Aurora",
+      "img": "icons/magic/light/beam-rays-yellow-blue-large.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "eternia.skill.note",
+            "type": "override",
+            "value": "Aurora: cura todos os aliados a até 3 Qd de você.",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "klZO150pLlrLRXzJ",
+      "_key": "!items.effects!WzJeMD8MpW2DG7t4.klZO150pLlrLRXzJ"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "sacerdote-aurora",
+      "kind": "spends",
+      "branch": "path",
+      "choiceOnly": true,
+      "path": {
+        "class": "sacerdote",
+        "id": "aurora"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 270000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "WzJeMD8MpW2DG7t4",
+  "folder": "a2oztNxmkpS65CKH",
+  "_key": "!items!WzJeMD8MpW2DG7t4"
+}

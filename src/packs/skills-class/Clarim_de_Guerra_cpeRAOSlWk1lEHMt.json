@@ -1,0 +1,117 @@
+{
+  "name": "Clarim de Guerra",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com pelo menos 2 Ordens, gaste todas: o clarim soa por cima do barulho da luta, e você e os aliados que o ouvem ficam [Fortalecido: Ordens gastas × 3] até o fim da rodada.</p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Refer",
+    "target": "Targets",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/tools/instruments/horn-white-gray.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "empowered",
+            "value": "@spent*3"
+          },
+          "expires": "endOfRound",
+          "recipients": "allies"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Clarim de Guerra",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "MzbLosdjYahVRlWK",
+      "_key": "!items.effects!cpeRAOSlWk1lEHMt.MzbLosdjYahVRlWK"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "comandante-clarim-de-guerra",
+      "kind": "spends",
+      "branch": "estandarte",
+      "minRank": 5,
+      "motor": {
+        "id": "comandante",
+        "needs": {
+          "min": 2
+        },
+        "spend": "all",
+        "order": "cry"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 150000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "cpeRAOSlWk1lEHMt",
+  "folder": "YadehWKbBUfzECEb",
+  "_key": "!items!cpeRAOSlWk1lEHMt"
+}

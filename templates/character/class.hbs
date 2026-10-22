@@ -19,28 +19,14 @@
 {{/inline}}
 {{#*inline "lhclMotor"}}
 <div class="lhcl-motor {{m.state}}{{#if m.ready}} ready{{/if}}{{#if m.lesser}} lesser{{/if}}" data-motor="{{m.id}}">
-	<div class="lhcl-motor-art" aria-hidden="true">
-		<svg class="lhcl-sheath" viewBox="0 0 360 48">
-			<g class="lhcl-sword">
-				<path class="lhcl-blade" d="M188 20.5 H318 Q333 21.5 343 24 Q333 26.5 318 27.5 H188 Z"></path>
-				<path class="lhcl-hamon" d="M190 25.2 Q200 23.8 210 25.2 T230 25.2 T250 25.2 T270 25.2 T290 25.2 T310 25.2"></path>
-				<rect class="lhcl-habaki" x="182" y="19.5" width="7" height="9" rx="1.5"></rect>
-				<ellipse class="lhcl-tsuba" cx="178" cy="24" rx="4.2" ry="13"></ellipse>
-				<rect class="lhcl-tsuka" x="118" y="18.5" width="58" height="11" rx="4"></rect>
-				<path class="lhcl-ito" d="M124 18.5 L131 29.5 M131 18.5 L124 29.5 M136 18.5 L143 29.5 M143 18.5 L136 29.5 M148 18.5 L155 29.5 M155 18.5 L148 29.5 M160 18.5 L167 29.5 M167 18.5 L160 29.5"></path>
-				<rect class="lhcl-kashira" x="113" y="19.5" width="6" height="9" rx="2"></rect>
-			</g>
-			<path class="lhcl-saya" d="M186 19 H330 Q348 21 352 24 Q348 27 330 29 H186 Z"></path>
-			<path class="lhcl-kojiri" d="M338 20 Q348 21.5 352 24 Q348 26.5 338 28 Z"></path>
-			<path class="lhcl-sageo" d="M206 29 Q212 41 224 37 Q234 33 242 40"></path>
-		</svg>
-	</div>
 	<div class="lhcl-motor-body">
 		<header>
 			<span class="lhcl-eyebrow">{{#if m.lesser}}{{localize "ETERNIA.Classes.LesserMotor"}}{{else}}{{localize "ETERNIA.Classes.Motor"}}{{/if}}</span>
 			<h3>{{m.name}}</h3>
+			{{#if m.hasStates}}
 			{{#if m.editable}}<a class="lhcl-state" data-action="lhcl" data-op="state" data-tooltip="{{localize 'ETERNIA.Classes.StateTip' state=m.nextState}}">{{m.stateLabel}}</a>
 			{{else}}<span class="lhcl-state">{{m.stateLabel}}</span>{{/if}}
+			{{/if}}
 		</header>
 		<div class="lhcl-points">
 			<span class="lhcl-pips">
@@ -48,6 +34,7 @@
 			</span>
 			<span class="lhcl-count"><b>{{m.value}}</b>/{{m.max}} {{m.unit}}</span>
 			{{#if m.ready}}<span class="lhcl-ready"><i class="fa-solid fa-star"></i> {{m.readyLabel}}</span>{{/if}}
+			{{#if m.note}}<span class="lhcl-note">{{m.note}}</span>{{/if}}
 		</div>
 		<dl class="lhcl-card">
 			{{#each m.card as |row|}}<dt>{{row.label}}</dt><dd>{{row.text}}</dd>{{/each}}

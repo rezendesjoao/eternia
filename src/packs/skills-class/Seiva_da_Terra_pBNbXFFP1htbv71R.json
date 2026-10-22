@@ -1,0 +1,169 @@
+{
+  "name": "Seiva da Terra",
+  "type": "skill",
+  "system": {
+    "description": "<p>Na forma Humana: um aliado a até 4 Qd (ou você) recupera [Recuperação + 2D] PV e ganha [Regeneração: NP÷2 + 2] até o fim da cena. +1 Seiva.</p><p><em>A seiva verde escorre dos dedos para a ferida, e a carne fecha como casca de árvore.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "",
+      "recovery": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/nature/leaf-drip-light-green.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "regen",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Seiva da Terra",
+      "img": "systems/eternia/assets/ui/status/regen.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "regen"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "dg3Onlb4sVCpOl8z",
+      "_key": "!items.effects!pBNbXFFP1htbv71R.dg3Onlb4sVCpOl8z"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "regen",
+            "value": "floor(@cr/2)+2+@motor.value"
+          },
+          "expires": "endOfScene",
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Florescer"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Seiva da Terra (Florescer)",
+      "img": "systems/eternia/assets/ui/status/regen.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "regen"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "4IJlF3H8vTMOhBIh",
+      "_key": "!items.effects!pBNbXFFP1htbv71R.4IJlF3H8vTMOhBIh"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "druida-seiva-da-terra",
+      "kind": "feeds",
+      "branch": "kit",
+      "choiceOnly": true,
+      "motor": {
+        "id": "druida",
+        "needs": {
+          "state": "humana"
+        },
+        "gain": 1
+      },
+      "damageText": "[Recuperação] + 2D (cura)"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "pBNbXFFP1htbv71R",
+  "folder": "NqsMStm2bVw9Q11n",
+  "_key": "!items!pBNbXFFP1htbv71R"
+}

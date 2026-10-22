@@ -1,0 +1,118 @@
+{
+  "name": "Escudo Compartilhado",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste até [NH+1] Camadas: um aliado a até 1 Qd ganha [Anulação: Camadas gastas × 2] até o fim da rodada.</p>",
+    "tags": [
+      "Dedication"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "1Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 3
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/defensive/shield-barrier-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "cancel",
+            "value": "@spent*2"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Escudo Compartilhado",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "edmRWgBmeIyEoTVk",
+      "_key": "!items.effects!WKGEZIKDuylzCnXD.edmRWgBmeIyEoTVk"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "guardiao-escudo-compartilhado",
+      "kind": "spends",
+      "branch": "guarda",
+      "minRank": 3,
+      "motor": {
+        "id": "guardiao",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose",
+        "max": "@sr+1"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 180000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "WKGEZIKDuylzCnXD",
+  "folder": "UJRNMfKwhj4indTf",
+  "_key": "!items!WKGEZIKDuylzCnXD"
+}

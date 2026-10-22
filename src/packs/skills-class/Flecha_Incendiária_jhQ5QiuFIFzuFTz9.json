@@ -1,0 +1,78 @@
+{
+  "name": "Flecha Incendiária",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste até [NH+1] de Mira: uma flecha embebida em óleo, acesa na própria corda. [Poder de Ataque + 2D] de dano físico de [Chama], e o alvo atingido fica [Queimando: Mira gasta × (NP÷2 + 2)].</p>",
+    "tags": [
+      "Weapon Attack",
+      "Ranged Attack",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 2
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/weapons/ammunition/arrow-broadhead-glowing-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "cacador-flecha-incendiaria",
+      "kind": "spends",
+      "branch": "aljava",
+      "minRank": 3,
+      "motor": {
+        "id": "cacador",
+        "needs": {
+          "min": 1,
+          "weapon": [
+            "Bow",
+            "Crossbow",
+            "Throwing"
+          ]
+        },
+        "spend": "choose",
+        "max": "@sr+1"
+      },
+      "damageText": "[Poder de Ataque] + 2D Físico de Chama"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 110000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "jhQ5QiuFIFzuFTz9",
+  "folder": "FekWZLbl9GX7DfII",
+  "_key": "!items!jhQ5QiuFIFzuFTz9"
+}

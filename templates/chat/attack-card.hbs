@@ -13,6 +13,7 @@
 	{{#if bonuses}}<div class="lh-card-bonuses" data-tooltip="ETERNIA.RollFilter.CardBonuses"><i class="fas fa-circle-plus"></i> {{bonuses}}</div>{{/if}}
 	{{#if attack.critical}}<div class="lh-outcome critical">{{localize 'ETERNIA.Combat.Critical'}}</div>{{/if}}
 	{{#if attack.fumble}}<div class="lh-outcome fumble">{{localize 'ETERNIA.Combat.Fumble'}}</div>{{/if}}
+	{{#if attack.notes.length}}<div class="lh-card-adjusted"><i class="fas fa-wand-sparkles"></i> {{localize 'ETERNIA.Combat.Adjusted' total=attack.total dice=attack.results}} · {{#each attack.notes}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</div>{{/if}}
 	{{/unless}}
 
 	<ol class="lh-targets">
@@ -25,7 +26,7 @@
 			{{#if target.dodge}}
 			<span class="lh-dodge" data-tooltip="{{target.dodge.formula}} [{{target.dodge.results}}]{{#if target.dodge.hateUnder}} · {{localize 'ETERNIA.Combat.HateUnder'}}{{/if}}{{#if target.dodge.conditions}} · {{target.dodge.conditions}}{{/if}}">
 				{{#if target.dodge.critical}}<i class="fas fa-star"></i>{{/if}}{{#if target.dodge.fumble}}<i class="fas fa-skull"></i>{{/if}}
-				{{target.dodge.total}}
+				{{target.dodge.total}}{{#if target.dodge.notes.length}} <i class="fas fa-wand-sparkles lh-adjusted-mark" data-tooltip="{{#each target.dodge.notes}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}"></i>{{/if}}
 			</span>
 			{{else}}{{#unless target.auto}}
 			<button type="button" class="lh-roll-dodge owner-only"><i class="fas fa-shield-halved"></i> {{localize 'ETERNIA.Combat.Dodge'}}</button>

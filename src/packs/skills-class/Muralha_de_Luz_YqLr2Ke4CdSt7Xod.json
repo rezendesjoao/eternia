@@ -1,0 +1,119 @@
+{
+  "name": "Muralha de Luz",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste quanta Graça quiser, pelo menos 1: você e cada aliado a até 2 Qd ganham [Barreira: Graça gasta × (NP÷2 + 3)] até o fim da rodada.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Pilares de luz sobem do chão e se fecham numa cúpula que zumbe a cada golpe.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "2Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/defensive/shield-barrier-glowing-triangle-blue-yellow.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "barrier",
+            "value": "@spent*(floor(@cr/2)+3)"
+          },
+          "expires": "endOfRound",
+          "recipients": "both"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Muralha de Luz",
+      "img": "systems/eternia/assets/ui/status/barrier.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "barrier"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "lq1QKCvfKUiNpaO9",
+      "_key": "!items.effects!YqLr2Ke4CdSt7Xod.lq1QKCvfKUiNpaO9"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "sacerdote-muralha-de-luz",
+      "kind": "spends",
+      "branch": "escudo",
+      "minRank": 5,
+      "requires": [
+        "sacerdote-escudo-partilhado"
+      ],
+      "motor": {
+        "id": "sacerdote",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 110000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "YqLr2Ke4CdSt7Xod",
+  "folder": "AHAS6tk6o6xaNdhs",
+  "_key": "!items!YqLr2Ke4CdSt7Xod"
+}

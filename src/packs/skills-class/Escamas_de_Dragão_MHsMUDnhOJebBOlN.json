@@ -1,0 +1,122 @@
+{
+  "name": "Escamas de Dragão",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Caminho do Dragão.</strong> Em combate, você tem [Anulação (Chama): Ira × 2].</p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/defensive/shield-barrier-flaming-diamond-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "cancelTag": "Flame",
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Escamas de Dragão",
+      "img": "icons/magic/defensive/shield-barrier-flaming-diamond-red.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "eternia.passive.cancel",
+            "type": "add",
+            "value": "@motor.value*2",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "TuJEwXdKkM9fNVYM",
+      "_key": "!items.effects!MHsMUDnhOJebBOlN.TuJEwXdKkM9fNVYM"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "berserker-escamas",
+      "kind": "bends",
+      "branch": "pathTalent",
+      "minRank": 3,
+      "motor": {
+        "id": "berserker"
+      },
+      "pathTalent": {
+        "class": "berserker",
+        "id": "dragao"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "MHsMUDnhOJebBOlN",
+  "folder": "C1iD6vWlTI7CWutp",
+  "_key": "!items!MHsMUDnhOJebBOlN"
+}

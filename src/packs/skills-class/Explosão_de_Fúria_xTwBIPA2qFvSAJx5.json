@@ -1,0 +1,116 @@
+{
+  "name": "Explosão de Fúria",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com pelo menos 2 de Ira, você entra em [Fúria: Ira × 2] até o fim da cena (ou até gastar uma Ação Maior para sair): +[Ira × 2] de dano nos ataques, −1D nas Esquivas, e só habilidades que atacam ou de movimento. Não gasta a Ira.</p><hr><p><em>O mundo fica vermelho e estreito, do tamanho de um inimigo.</em></p>",
+    "tags": [
+      "Dedication"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/abilities/mouth-teeth-rows-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "berserk",
+            "value": "@motor.value*2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Explosão de Fúria",
+      "img": "systems/eternia/assets/ui/status/berserk.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "berserk"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "gxtKn17IueGYvC7N",
+      "_key": "!items.effects!xTwBIPA2qFvSAJx5.gxtKn17IueGYvC7N"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "berserker-explosao",
+      "kind": "bends",
+      "branch": "furia",
+      "minRank": 1,
+      "motor": {
+        "id": "berserker",
+        "needs": {
+          "min": 2
+        }
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 90000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "xTwBIPA2qFvSAJx5",
+  "folder": "H8O2K1HAJxgiYBaH",
+  "_key": "!items!xTwBIPA2qFvSAJx5"
+}

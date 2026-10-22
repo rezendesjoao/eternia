@@ -1,0 +1,70 @@
+{
+  "name": "Giro Selvagem",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com pelo menos 2 de Ira, você gira com a arma estendida: todos os inimigos do seu quadrado sofrem [Poder de Ataque + (1 + Ira)D + (Ira×NP)÷2] de dano físico. Gasta toda a Ira.</p><p><em>Um círculo de aço e ninguém de pé dentro dele.</em></p>",
+    "tags": [
+      "Weapon Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "floor(@spent*@cr/2)",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/strike-axe-red.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "berserker-giro-selvagem",
+      "kind": "spends",
+      "branch": "massacre",
+      "minRank": 3,
+      "motor": {
+        "id": "berserker",
+        "needs": {
+          "min": 2
+        },
+        "spend": "all"
+      },
+      "damageText": "[Poder de Ataque] + (1+Ira)D + (Ira×NP)÷2 Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 150000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "SzELikTzvPeJSMH4",
+  "folder": "H8O2K1HAJxgiYBaH",
+  "_key": "!items!SzELikTzvPeJSMH4"
+}

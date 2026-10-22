@@ -1,0 +1,116 @@
+{
+  "name": "Marca de Brasa",
+  "type": "skill",
+  "system": {
+    "description": "<p>Uma brasa salta dos seus dedos e gruda num alvo a até 4 Qd: ele fica [Queimando: NP÷2 + Calor] (o Calor de antes da Marca). Depois, +1 Calor. Uma vez por rodada.</p><p><strong>Custo:</strong> Ódio 1.</p>",
+    "tags": [
+      "Spell",
+      "Flame",
+      "Dedication"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/flame-burning-eye.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "burning",
+            "value": "floor(@cr/2)+@motor.value"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Marca de Brasa",
+      "img": "systems/eternia/assets/ui/status/burning.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "burning"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "noPfGa1nBt1lfL6U",
+      "_key": "!items.effects!LG10moSYzdYyQZtG.noPfGa1nBt1lfL6U"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "feiticeiro-marca-de-brasa",
+      "kind": "feeds",
+      "branch": "chama",
+      "minRank": 1,
+      "motor": {
+        "id": "feiticeiro",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "LG10moSYzdYyQZtG",
+  "folder": "cmnBxFq5EfBEa7q3",
+  "_key": "!items!LG10moSYzdYyQZtG"
+}

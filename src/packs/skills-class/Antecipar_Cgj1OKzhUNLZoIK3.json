@@ -1,0 +1,116 @@
+{
+  "name": "Antecipar",
+  "type": "skill",
+  "system": {
+    "description": "<p>No Processo de Iniciativa, antes do turno de um aliado: gaste 1 Ordem, e ele fica [Acelerado] até o fim da rodada (uma segunda Ação Menor no turno). Não gasta ação.</p>",
+    "tags": [],
+    "timing": "Initiative",
+    "checkType": "",
+    "range": "Refer",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/tools/navigation/compass-worn-copper.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "hasted"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Antecipar",
+      "img": "systems/eternia/assets/ui/status/hasted.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "hasted"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "7KqIHaFQrZSJiOyj",
+      "_key": "!items.effects!Cgj1OKzhUNLZoIK3.7KqIHaFQrZSJiOyj"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "comandante-antecipar",
+      "kind": "spends",
+      "branch": "mapa",
+      "minRank": 3,
+      "motor": {
+        "id": "comandante",
+        "needs": {
+          "min": 1
+        },
+        "spend": 1,
+        "action": "none",
+        "order": "haste"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 190000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Cgj1OKzhUNLZoIK3",
+  "folder": "YadehWKbBUfzECEb",
+  "_key": "!items!Cgj1OKzhUNLZoIK3"
+}

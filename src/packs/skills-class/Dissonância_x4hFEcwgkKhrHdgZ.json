@@ -1,0 +1,77 @@
+{
+  "name": "Dissonância",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com um [Instrumento] na mão principal e uma canção no Movimento II ou mais: gaste 2 Movimentos. Um acorde errado de propósito, num quadrado a até 4 Qd: [Poder Mágico + 3D] de dano mágico em cada inimigo do quadrado (Teste de Precisão contra Resistência), e eles ficam [Confuso].</p>",
+    "tags": [
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/sonic/explosion-shock-wave-teal.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "menestrel-dissonancia",
+      "kind": "spends",
+      "branch": "palco",
+      "minRank": 5,
+      "requires": [
+        "menestrel-acorde"
+      ],
+      "motor": {
+        "id": "menestrel",
+        "singing": true,
+        "needs": {
+          "min": 2,
+          "weapon": [
+            "Instrument"
+          ]
+        },
+        "spend": 2
+      },
+      "damageText": "[Poder Mágico] + (1+Movimentos)D Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 150000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "x4hFEcwgkKhrHdgZ",
+  "folder": "ElBDyYqDRJv11yQA",
+  "_key": "!items!x4hFEcwgkKhrHdgZ"
+}

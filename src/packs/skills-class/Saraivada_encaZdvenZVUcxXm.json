@@ -1,0 +1,80 @@
+{
+  "name": "Saraivada",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Caminho da Chuva de Flechas.</strong> Gaste 1 de Mira: um punhado de flechas soltas de uma vez contra até 3 alvos diferentes ao alcance. [Poder de Ataque + 1D] de dano físico em cada um.</p>",
+    "tags": [
+      "Weapon Attack",
+      "Ranged Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Targets",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 1,
+      "mod": 0,
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/ranged/arrows-flying-salvo-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "cacador-saraivada",
+      "kind": "spends",
+      "branch": "pathTalent",
+      "minRank": 3,
+      "motor": {
+        "id": "cacador",
+        "needs": {
+          "min": 1,
+          "weapon": [
+            "Bow",
+            "Crossbow",
+            "Throwing"
+          ]
+        },
+        "spend": 1
+      },
+      "pathTalent": {
+        "class": "cacador",
+        "id": "chuva"
+      },
+      "damageText": "[Poder de Ataque] + 1D Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "encaZdvenZVUcxXm",
+  "folder": "AvpIg3slFEoCINtd",
+  "_key": "!items!encaZdvenZVUcxXm"
+}

@@ -1,0 +1,71 @@
+{
+  "name": "Prece Coletiva",
+  "type": "skill",
+  "system": {
+    "description": "<p>Precisa de pelo menos 2 Graça. Você ergue as mãos e gasta toda a Graça: cada aliado a até 2 Qd de você (você incluso) recupera [Recuperação + (Graça gasta)D] PV.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Um círculo de luz morna se abre no chão, e quem está dentro respira de novo.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "2Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": "@spent",
+      "mod": 0,
+      "type": "",
+      "recovery": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/life/heart-area-circle-red-green.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "sacerdote-prece-coletiva",
+      "kind": "spends",
+      "branch": "prece",
+      "minRank": 5,
+      "requires": [
+        "sacerdote-prece-continua"
+      ],
+      "motor": {
+        "id": "sacerdote",
+        "needs": {
+          "min": 2
+        },
+        "spend": "all"
+      },
+      "damageText": "[Recuperação] + (Graça gasta)D"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "UZ5iMCgocAiWieDR",
+  "folder": "AHAS6tk6o6xaNdhs",
+  "_key": "!items!UZ5iMCgocAiWieDR"
+}

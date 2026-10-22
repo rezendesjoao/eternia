@@ -1,0 +1,119 @@
+{
+  "name": "Fio de Proteção",
+  "type": "skill",
+  "system": {
+    "description": "<p>Use quando um aliado a até 4 Qd (ou você) for sofrer dano: fios se trançam na frente do golpe. Gaste até [NH+1] Fios; o alvo ganha [Barreira: Fios gastos × (NP+5)] até o fim do processo. Não gasta ação.</p>",
+    "tags": [
+      "Dedication"
+    ],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 3
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/cloth/cloth-bolt-glow-white.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "barrier",
+            "value": "@spent*(@cr+5)"
+          },
+          "expires": "endOfProcess"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Fio de Proteção",
+      "img": "systems/eternia/assets/ui/status/barrier.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "barrier"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "5e5rJDX5a9bpHG3U",
+      "_key": "!items.effects!detnEbdrRiNOvokJ.5e5rJDX5a9bpHG3U"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "tecelao-fio-de-protecao",
+      "kind": "spends",
+      "branch": "trama",
+      "minRank": 3,
+      "motor": {
+        "id": "tecelao",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose",
+        "max": "@sr+1",
+        "action": "none"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 140000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "detnEbdrRiNOvokJ",
+  "folder": "H3LifTM7znCwzK0g",
+  "_key": "!items!detnEbdrRiNOvokJ"
+}

@@ -1,0 +1,68 @@
+{
+  "name": "Comando: Ataque",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com um espírito presente: ele ataca um alvo a até 4 Qd. [Poder Mágico + 1D + Laços] de dano mágico (Teste de Precisão contra Resistência). Não gasta Laços.</p><p>O Lobo soma +1D ao dano.</p>",
+    "tags": [
+      "Magic Attack",
+      "Summon"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 1,
+      "mod": "@motor.value",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/abilities/paw-glowing-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "invocador-comando-ataque",
+      "kind": "motor",
+      "branch": "kit",
+      "choiceOnly": true,
+      "motor": {
+        "id": "invocador",
+        "spirit": "any"
+      },
+      "damageText": "[Poder Mágico] + 1D + Laços Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "DtFc22l67j2dOJg7",
+  "folder": "cKdJ8vmgwcrDfM9J",
+  "_key": "!items!DtFc22l67j2dOJg7"
+}

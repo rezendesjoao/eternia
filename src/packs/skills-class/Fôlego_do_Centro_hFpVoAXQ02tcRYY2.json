@@ -1,0 +1,119 @@
+{
+  "name": "Fôlego do Centro",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com pelo menos 1 Elo: você respira do centro do corpo. Gaste 1 Elo; você ganha [Barreira: NP+5] até o fim da rodada.</p>",
+    "tags": [
+      "Dedication"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/air/air-pressure-shield-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "barrier",
+            "value": "@cr+5"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Fôlego do Centro",
+      "img": "systems/eternia/assets/ui/status/barrier.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "barrier"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "CmaAME5tbBXDBrIY",
+      "_key": "!items.effects!hFpVoAXQ02tcRYY2.CmaAME5tbBXDBrIY"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "monge-folego-do-centro",
+      "kind": "spends",
+      "branch": "centro",
+      "minRank": 1,
+      "motor": {
+        "id": "monge",
+        "chain": "link",
+        "needs": {
+          "min": 1
+        },
+        "spend": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 170000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "hFpVoAXQ02tcRYY2",
+  "folder": "jGFvtY2buEnZcTCR",
+  "_key": "!items!hFpVoAXQ02tcRYY2"
+}

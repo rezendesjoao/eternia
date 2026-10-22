@@ -1,0 +1,124 @@
+{
+  "name": "Olho do Céu",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Ápice do Caçador (NP 10).</strong> Firmar a Mira passa a gastar a Ação Menor, em vez da de Movimento, e dá +2 Mira.</p><ul><li><strong>Falcão:</strong> mover o token até 4 Qd tira só 1 de Mira.</li><li><strong>Chuva de Flechas:</strong> no Tiro Certeiro em área, cada ponto de Mira volta a somar 1D + NP.</li><li><strong>Olho de Águia:</strong> o alcance dos seus Ataques à Distância aumenta em [Mira] Qd.</li></ul><hr><p><em>De onde você está, nada fica longe.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/perception/eye-winged-pink.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "rollFilter": {
+            "skillTags": [
+              "Ranged Attack"
+            ]
+          },
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Caminho do Olho de Águia"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Olho do Céu: Olho de Águia",
+      "img": "icons/magic/perception/eye-winged-pink.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "eternia.skill.range",
+            "type": "add",
+            "value": "@motor.value",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "YoMGHUGfGNSuIDEC",
+      "_key": "!items.effects!ZnkFC9AR60Uq5Jcj.YoMGHUGfGNSuIDEC"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "cacador-olho-do-ceu",
+      "kind": "bends",
+      "branch": "apex",
+      "choiceOnly": true,
+      "motor": {
+        "id": "cacador"
+      },
+      "apex": "cacador"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 340000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ZnkFC9AR60Uq5Jcj",
+  "folder": "D6B2Qe6TYIZelNhW",
+  "_key": "!items!ZnkFC9AR60Uq5Jcj"
+}

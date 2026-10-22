@@ -496,6 +496,8 @@ export async function rollActorCheck(actor, token, key, { ask = false } = {}) {
     flavor: condition.text ? `${title} (${condition.text})` : title
   });
   await consumeAfterRoll(actor, condition.consume);
+  // A check was rolled (the class Motors: the Weaver's Pattern). Only on this client.
+  if (message?.rolls?.[0]) Hooks.callAll("eternia.check", actor, message.rolls[0], { item: null, kind: "check", message });
   return message;
 }
 

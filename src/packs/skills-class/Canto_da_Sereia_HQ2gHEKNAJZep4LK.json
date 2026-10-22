@@ -1,0 +1,121 @@
+{
+  "name": "Canto da Sereia",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Caminho da Sereia.</strong> Cantando: gaste 1 Movimento e chame um inimigo a até 4 Qd (Teste de Precisão contra Resistência). Se acertar, ele anda até 3 Qd na sua direção (o Mestre move o token) e fica [Atordoado].</p>",
+    "tags": [
+      "Song"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/water/vortex-water-whirlpool.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "dazed"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Canto da Sereia",
+      "img": "systems/eternia/assets/ui/status/dazed.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "dazed"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "YcfGdKCSiWaM26Wb",
+      "_key": "!items.effects!HQ2gHEKNAJZep4LK.YcfGdKCSiWaM26Wb"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "menestrel-canto-da-sereia",
+      "kind": "spends",
+      "branch": "pathTalent",
+      "minRank": 3,
+      "motor": {
+        "id": "menestrel",
+        "singing": true,
+        "needs": {
+          "min": 1
+        },
+        "spend": 1
+      },
+      "pathTalent": {
+        "class": "menestrel",
+        "id": "sereia"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 320000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "HQ2gHEKNAJZep4LK",
+  "folder": "c9LtcbDZppwfsy4H",
+  "_key": "!items!HQ2gHEKNAJZep4LK"
+}

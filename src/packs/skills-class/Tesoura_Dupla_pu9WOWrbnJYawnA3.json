@@ -1,0 +1,74 @@
+{
+  "name": "Tesoura Dupla",
+  "type": "skill",
+  "system": {
+    "description": "<p>Precisa de pelo menos 2 Fios e gasta todos: as duas lâminas da tesoura cortam até 2 alvos a até 4 Qd. Teste de Acerto contra Resistência; [Poder Mágico + (Fios)D + (Fios×NP)÷2] de dano mágico em cada um.</p><p><strong>Custo:</strong> Ódio 1 + os Fios gastos.</p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Targets",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1+Fios",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "@spent",
+      "mod": "floor(@spent*@cr/2)",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/cloth/ribbon-bolt-red.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "tecelao-tesoura-dupla",
+      "kind": "spends",
+      "branch": "tesoura",
+      "minRank": 5,
+      "requires": [
+        "tecelao-corte-da-tesoura"
+      ],
+      "motor": {
+        "id": "tecelao",
+        "needs": {
+          "min": 2
+        },
+        "spend": "all"
+      },
+      "damageText": "[Poder Mágico] + Fios D + (Fios×NP)÷2 Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 190000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "pu9WOWrbnJYawnA3",
+  "folder": "H3LifTM7znCwzK0g",
+  "_key": "!items!pu9WOWrbnJYawnA3"
+}

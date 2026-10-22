@@ -723,6 +723,8 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
       flavor: condition.text ? `${flavor} (${condition.text})` : flavor
     });
     await consumeAfterRoll(this.actor, condition.consume);
+    // A check was rolled (the class Motors: the Weaver's Pattern). Only on this client.
+    if (message?.rolls?.[0]) Hooks.callAll("eternia.check", this.actor, message.rolls[0], { item: null, kind: "check", message });
     return message;
   }
 

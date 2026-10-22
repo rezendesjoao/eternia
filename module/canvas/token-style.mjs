@@ -272,7 +272,7 @@ function tokenClass(Base) {
       const d = 4.2 * s;
       // State disc at the left end of the row
       g.lineStyle(Math.max(1, s), COLORS.ink, 0.85).beginFill(COLORS.gold, 1).drawCircle(d, 0, d).endFill();
-      g.lineStyle(0).beginFill(MOTOR_STATES[data.state] ?? COLORS.green, 1).drawCircle(d, 0, d * 0.62).endFill();
+      g.lineStyle(0).beginFill(motor.def.stateColors?.[data.state] ?? MOTOR_STATES[data.state] ?? COLORS.green, 1).drawCircle(d, 0, d * 0.62).endFill();
       if (ready) {
         g.lineStyle(Math.max(1, 1.4 * s), COLORS.goldBright, 0.9).drawRoundedRect((2 * d) + (2 * s), -5 * s, w + (6 * s), 10 * s, 5 * s);
         g.lineStyle(0);

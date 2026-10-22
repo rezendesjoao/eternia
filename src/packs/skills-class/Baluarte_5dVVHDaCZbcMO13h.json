@@ -1,0 +1,118 @@
+{
+  "name": "Baluarte",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Motor do Guardião.</strong> O seu Baluarte junta <strong>Camadas</strong>. Todo combate começa com 0 Camadas.</p><ul><li><strong>Ganha:</strong> +1 Camada cada vez que um inimigo faz um ataque contra você, acerte ou não.</li><li><strong>Efeito:</strong> em combate, cada Camada dá [Anulação: 2]: com 3 Camadas, todo dano que você sofre cai 6.</li><li><strong>Gasta:</strong> o Golpe do Baluarte gasta todas as Camadas num golpe que prende o inimigo a você.</li><li><strong>Teto:</strong> 3 Camadas, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> no Encerramento de uma rodada em que nenhum inimigo atacou você, perde 1 Camada.</li></ul><p><em>Cada golpe que bate no escudo assenta mais uma pedra na muralha.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/equipment/shield/wardoor-wooden-plank-boss-steel.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Baluarte",
+      "img": "icons/equipment/shield/wardoor-wooden-plank-boss-steel.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "eternia.passive.cancel",
+            "type": "add",
+            "value": "@motor.value*@motor.layer",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "RpnI79dLqCN1QApj",
+      "_key": "!items.effects!5dVVHDaCZbcMO13h.RpnI79dLqCN1QApj"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "guardiao-baluarte",
+      "kind": "motor",
+      "branch": "kit",
+      "choiceOnly": true,
+      "motor": {
+        "id": "guardiao",
+        "role": "core"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "5dVVHDaCZbcMO13h",
+  "folder": "otFwizMGMevZhdWU",
+  "_key": "!items!5dVVHDaCZbcMO13h"
+}

@@ -1,0 +1,82 @@
+{
+  "name": "Rugido Ancestral",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Caminho da Fera Primeva.</strong> Numa forma de fera, com pelo menos 2 Seivas, gaste todas: um rugido que sacode o chão. Todos os inimigos do seu quadrado sofrem [Poder Mágico + (1 + Seiva)D + Seiva×NP] de dano físico e ficam com [Medo] de você.</p>",
+    "tags": [
+      "Physical Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@magic+@spent*@cr",
+      "type": "physical",
+      "recovery": false,
+      "noPower": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/abilities/lion-roar-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "druida-rugido-ancestral",
+      "kind": "spends",
+      "branch": "pathTalent",
+      "minRank": 7,
+      "motor": {
+        "id": "druida",
+        "needs": {
+          "state": [
+            "urso",
+            "lobo",
+            "falcao",
+            "carvalho",
+            "enxame"
+          ],
+          "min": 2
+        },
+        "spend": "all"
+      },
+      "pathTalent": {
+        "class": "druida",
+        "id": "primeva"
+      },
+      "damageText": "[Poder Mágico] + (1+Seiva)D + Seiva×NP Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 290000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "JgUd8cQEwYLvawwN",
+  "folder": "X8NpjhTIywxP67Wl",
+  "_key": "!items!JgUd8cQEwYLvawwN"
+}

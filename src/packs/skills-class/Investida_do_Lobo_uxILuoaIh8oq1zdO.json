@@ -1,0 +1,74 @@
+{
+  "name": "Investida do Lobo",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com o Lobo presente: ele salta sobre um alvo a até 4 Qd. Gaste quantos Laços quiser: [Poder Mágico + (1 + Laços gastos)D] de dano físico (Teste de Precisão contra Esquiva), e o alvo fica [Derrubado]. O Lobo soma +1D.</p><p>Com 0 Laços, o Lobo se desfaz depois do golpe.</p><hr><p><em>Um vulto cinzento, um peso no peito, e o chão chega antes da espada.</em></p>",
+    "tags": [
+      "Physical Attack",
+      "Summon",
+      "Dedication"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@magic",
+      "type": "physical",
+      "recovery": false,
+      "noPower": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/mammals/dog-husky-white-blue.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "invocador-investida",
+      "kind": "spends",
+      "branch": "lobo",
+      "minRank": 1,
+      "motor": {
+        "id": "invocador",
+        "spirit": "lobo",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose"
+      },
+      "damageText": "[Poder Mágico] + (1+Laços)D Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "uxILuoaIh8oq1zdO",
+  "folder": "dSSNwJ3CHHk83H9S",
+  "_key": "!items!uxILuoaIh8oq1zdO"
+}

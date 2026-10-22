@@ -1,0 +1,119 @@
+{
+  "name": "Cauterizar",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você fecha uma ferida com fogo, em você ou num aliado engajado com você. Gaste até [NH+1] de Calor: o alvo recupera [Recuperação + Calor gasto × (NP+2)] PV e fica [Queimando: 1]. Uma vez por rodada.</p><p><em>Dói mais que o corte. Mas para de sangrar.</em></p>",
+    "tags": [
+      "Dedication"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 2
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": "@spent*(@cr+2)",
+      "type": "",
+      "recovery": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/flame-burning-hand-white.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "burning",
+            "value": 1
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Cauterizar",
+      "img": "systems/eternia/assets/ui/status/burning.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "burning"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "qfmpHzpLqjQrdMWd",
+      "_key": "!items.effects!qbmF1NiSqed1VdGb.qfmpHzpLqjQrdMWd"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "feiticeiro-cauterizar",
+      "kind": "spends",
+      "branch": "fornalha",
+      "minRank": 3,
+      "motor": {
+        "id": "feiticeiro",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose",
+        "max": "@sr+1"
+      },
+      "damageText": "[Recuperação] + Calor gasto × (NP+2)"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 160000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "qbmF1NiSqed1VdGb",
+  "folder": "cmnBxFq5EfBEa7q3",
+  "_key": "!items!qbmF1NiSqed1VdGb"
+}

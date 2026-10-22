@@ -1,0 +1,170 @@
+{
+  "name": "Brotos Curativos",
+  "type": "skill",
+  "system": {
+    "description": "<p>Na forma Humana: brotos verdes nascem em volta de você. Você e os aliados a até 2 Qd ganham [Regeneração: NP÷2 + 2] até o fim da cena. +1 Seiva.</p><p><em>O chão de pedra racha, e o musgo sobe pelas botas de quem está perto.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "2Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/nature/plant-sproud-hands-dirt-green.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "regen",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene",
+          "recipients": "allies"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Brotos Curativos",
+      "img": "systems/eternia/assets/ui/status/regen.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "regen"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "7wUQx3YWQygbdcLW",
+      "_key": "!items.effects!L5m1zhLaEAVXFH7i.7wUQx3YWQygbdcLW"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "regen",
+            "value": "floor(@cr/2)+2+@motor.value"
+          },
+          "expires": "endOfScene",
+          "recipients": "allies",
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Florescer"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Brotos Curativos (Florescer)",
+      "img": "systems/eternia/assets/ui/status/regen.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "regen"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "9vzu8mCGQhHobDW5",
+      "_key": "!items.effects!L5m1zhLaEAVXFH7i.9vzu8mCGQhHobDW5"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "druida-brotos-curativos",
+      "kind": "feeds",
+      "branch": "raiz",
+      "minRank": 3,
+      "motor": {
+        "id": "druida",
+        "needs": {
+          "state": "humana"
+        },
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 110000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "L5m1zhLaEAVXFH7i",
+  "folder": "Eme8ChlzGUdfQoJw",
+  "_key": "!items!L5m1zhLaEAVXFH7i"
+}

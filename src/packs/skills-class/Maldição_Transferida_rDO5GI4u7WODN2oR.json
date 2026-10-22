@@ -1,0 +1,119 @@
+{
+  "name": "Maldição Transferida",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste até [NH+1] de Fardo e empurre a maldição para um inimigo a até 4 Qd: Teste de Precisão contra a Resistência; se acertar, ele fica [Fraqueza: Fardo gasto × 3] até o fim da cena.</p><p><strong>Custo:</strong> Ódio 1.</p>",
+    "tags": [
+      "Dedication"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 3
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/unholy/strike-hand-glow-pink.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "enemies",
+          "statusData": {
+            "statusId": "weakness",
+            "value": "@spent*3"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Maldição Transferida",
+      "img": "systems/eternia/assets/ui/status/weakness.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "weakness"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "G8wIAQ1wPJbCYVpl",
+      "_key": "!items.effects!rDO5GI4u7WODN2oR.G8wIAQ1wPJbCYVpl"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "oraculo-maldicao-transferida",
+      "kind": "spends",
+      "branch": "presagio",
+      "minRank": 3,
+      "motor": {
+        "id": "oraculo",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose",
+        "max": "@sr+1"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 140000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "rDO5GI4u7WODN2oR",
+  "folder": "vkfDCwHr6MFEA36E",
+  "_key": "!items!rDO5GI4u7WODN2oR"
+}

@@ -1,0 +1,118 @@
+{
+  "name": "Escudo Vivo",
+  "type": "skill",
+  "system": {
+    "description": "<p>Use quando você for sofrer o dano de um ataque, com um espírito presente: gaste 1 Laço. O espírito se põe na frente do golpe e você ganha [Barreira: NP+5] até o fim do processo. Com o Golem, a Barreira é [NP + 5 + Laços × 2].</p><p>Com 0 Laços, o espírito se desfaz.</p>",
+    "tags": [],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/magical/spirit-undead-ghost-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "barrier",
+            "value": "@use.shield"
+          },
+          "expires": "endOfProcess",
+          "recipients": "self"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Escudo Vivo",
+      "img": "systems/eternia/assets/ui/status/barrier.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "barrier"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "GZUXHPiAba6hbos0",
+      "_key": "!items.effects!NbGS5F8hlBZ8X2m8.GZUXHPiAba6hbos0"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "invocador-escudo-vivo",
+      "kind": "spends",
+      "branch": "kit",
+      "choiceOnly": true,
+      "motor": {
+        "id": "invocador",
+        "spirit": "any",
+        "needs": {
+          "min": 1
+        },
+        "spend": 1,
+        "action": "none"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "NbGS5F8hlBZ8X2m8",
+  "folder": "cKdJ8vmgwcrDfM9J",
+  "_key": "!items!NbGS5F8hlBZ8X2m8"
+}

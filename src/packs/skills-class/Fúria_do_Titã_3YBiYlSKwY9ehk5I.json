@@ -1,0 +1,77 @@
+{
+  "name": "Fúria do Titã",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Caminho do Titã.</strong> Com pelo menos 3 Laços: o espírito se lança inteiro sobre um quadrado a até 4 Qd. Gaste todos os Laços: [Poder Mágico + (2 × Laços)D] de dano físico em cada inimigo do quadrado. O espírito se desfaz.</p>",
+    "tags": [
+      "Physical Attack",
+      "Summon"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2+Laços",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2*@spent",
+      "mod": "@magic",
+      "type": "physical",
+      "recovery": false,
+      "noPower": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/earth/barrier-stone-explosion-spiked.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "invocador-furia-do-tita",
+      "kind": "spends",
+      "branch": "pathTalent",
+      "minRank": 7,
+      "motor": {
+        "id": "invocador",
+        "spirit": "any",
+        "needs": {
+          "min": 3
+        },
+        "spend": "all"
+      },
+      "pathTalent": {
+        "class": "invocador",
+        "id": "tita"
+      },
+      "damageText": "[Poder Mágico] + (2×Laços)D Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 330000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "3YBiYlSKwY9ehk5I",
+  "folder": "MwlqUaEsrCvDMnue",
+  "_key": "!items!3YBiYlSKwY9ehk5I"
+}

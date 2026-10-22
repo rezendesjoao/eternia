@@ -1,0 +1,72 @@
+{
+  "name": "Esmagar",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste até [NH+1] de Ira num golpe que quebra a guarda: [Poder de Ataque + (1 + Ira gasta)D] de dano físico, e o alvo fica [Fissurado: 1].</p>",
+    "tags": [
+      "Weapon Attack",
+      "Dedication"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 3
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": 0,
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/strike-club-red.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "berserker-esmagar",
+      "kind": "spends",
+      "branch": "massacre",
+      "minRank": 5,
+      "motor": {
+        "id": "berserker",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose",
+        "max": "@sr+1"
+      },
+      "damageText": "[Poder de Ataque] + (1+Ira gasta)D Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 140000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "vANTBqa6Kme4rIpE",
+  "folder": "H8O2K1HAJxgiYBaH",
+  "_key": "!items!vANTBqa6Kme4rIpE"
+}

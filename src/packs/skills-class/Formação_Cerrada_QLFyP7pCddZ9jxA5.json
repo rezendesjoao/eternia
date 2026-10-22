@@ -1,0 +1,119 @@
+{
+  "name": "Formação Cerrada",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste 1 Ordem: escudos juntos, ombro com ombro. Você e os aliados do seu quadrado ficam [Anulação: NP÷2+2] até o fim da rodada.</p>",
+    "tags": [
+      "Dedication"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Close",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/weapons/polearms/pike-flared-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "cancel",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfRound",
+          "recipients": "allies"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Formação Cerrada",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "9MNUGRd55qk9Yih6",
+      "_key": "!items.effects!QLFyP7pCddZ9jxA5.9MNUGRd55qk9Yih6"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "comandante-formacao-cerrada",
+      "kind": "spends",
+      "branch": "formacao",
+      "minRank": 1,
+      "motor": {
+        "id": "comandante",
+        "needs": {
+          "min": 1
+        },
+        "spend": 1,
+        "order": "formation"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "QLFyP7pCddZ9jxA5",
+  "folder": "YadehWKbBUfzECEb",
+  "_key": "!items!QLFyP7pCddZ9jxA5"
+}

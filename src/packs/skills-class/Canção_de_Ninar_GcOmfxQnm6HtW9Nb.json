@@ -1,0 +1,117 @@
+{
+  "name": "Canção de Ninar",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com uma canção no Movimento II ou mais: gaste 2 Movimentos e cante só para um alvo a até 4 Qd (Teste de Precisão contra Resistência). Se acertar, ele fica [Adormecido].</p><hr><p><em>Ninguém percebe quando a música mudou, só que a espada ficou pesada demais.</em></p>",
+    "tags": [
+      "Song"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/tools/instruments/harp-lap-brown.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "asleep"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Canção de Ninar",
+      "img": "systems/eternia/assets/ui/status/asleep.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "asleep"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "Pk4jb6U9oYcorRWZ",
+      "_key": "!items.effects!GcOmfxQnm6HtW9Nb.Pk4jb6U9oYcorRWZ"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "menestrel-cancao-de-ninar",
+      "kind": "spends",
+      "branch": "plateia",
+      "minRank": 5,
+      "motor": {
+        "id": "menestrel",
+        "singing": true,
+        "needs": {
+          "min": 2
+        },
+        "spend": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 190000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "GcOmfxQnm6HtW9Nb",
+  "folder": "ElBDyYqDRJv11yQA",
+  "_key": "!items!GcOmfxQnm6HtW9Nb"
+}

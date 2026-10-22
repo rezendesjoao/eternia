@@ -28,7 +28,8 @@ const listOf = value => Array.isArray(value) ? value : (value ? Object.values(va
 /** The statuses an actor is immune to, from its active effects. */
 export function immunities(actor) {
   const out = new Set();
-  for (const effect of actor?.effects ?? []) {
+  // The actor's effects and the passive (transfer) effects of its items: a talent may make it immune.
+  for (const effect of actor?.allApplicableEffects?.() ?? actor?.effects ?? []) {
     if (!effect.active) continue;
     for (const id of listOf(flag(effect, "immune"))) out.add(id);
   }

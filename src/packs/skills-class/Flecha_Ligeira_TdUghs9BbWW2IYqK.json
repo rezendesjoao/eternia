@@ -1,0 +1,79 @@
+{
+  "name": "Flecha Ligeira",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste 1 de Mira: um tiro rápido, puxado da aljava sem mirar de novo. [Poder de Ataque + 1D + NP] de dano físico.</p>",
+    "tags": [
+      "Weapon Attack",
+      "Ranged Attack"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 1,
+      "mod": "@cr",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/ranged/arrows-flying-triple-brown.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "cacador-flecha-ligeira",
+      "kind": "spends",
+      "branch": "vento",
+      "minRank": 5,
+      "requires": [
+        "cacador-tiro-em-movimento"
+      ],
+      "motor": {
+        "id": "cacador",
+        "needs": {
+          "min": 1,
+          "weapon": [
+            "Bow",
+            "Crossbow",
+            "Throwing"
+          ]
+        },
+        "spend": 1
+      },
+      "damageText": "[Poder de Ataque] + 1D + NP Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "TdUghs9BbWW2IYqK",
+  "folder": "FekWZLbl9GX7DfII",
+  "_key": "!items!TdUghs9BbWW2IYqK"
+}

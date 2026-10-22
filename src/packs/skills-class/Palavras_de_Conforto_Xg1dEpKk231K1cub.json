@@ -1,0 +1,73 @@
+{
+  "name": "Palavras de Conforto",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você acalma alguém com a voz de quem já viu o fim: Teste de Negociação com +[NH]D. O alvo perde o [Medo]; em combate, você ganha +1 Fardo.</p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "General",
+    "skillRank": {
+      "value": 1,
+      "max": 3
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": "@sr",
+      "mod": 0,
+      "vs": "",
+      "stat": "negotiation"
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/holy/chalice-glowing-gold.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "oraculo-palavras-de-conforto",
+      "kind": "feeds",
+      "branch": "general",
+      "useActions": [
+        {
+          "type": "removeStatus",
+          "statuses": [
+            "frightened"
+          ],
+          "recipients": "targets"
+        }
+      ],
+      "motor": {
+        "id": "oraculo",
+        "inCombat": true,
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 230000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Xg1dEpKk231K1cub",
+  "folder": "bWU4lCA2A5REQ2xG",
+  "_key": "!items!Xg1dEpKk231K1cub"
+}

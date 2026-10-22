@@ -1,0 +1,72 @@
+{
+  "name": "Gume Desperto",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com a Centelha na Arma, gaste até [NH+1] de Brilho: o fio acende de uma ponta à outra. [Poder de Ataque + (2 + Brilho gasto)D + Brilho gasto × NP] de dano físico.</p>",
+    "tags": [
+      "Weapon Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 3
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+@spent",
+      "mod": "@spent*@cr",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/dagger-rune-enchant-flame-strong-teal.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "ressonante-gume-desperto",
+      "kind": "spends",
+      "branch": "lamina",
+      "minRank": 1,
+      "motor": {
+        "id": "ressonante",
+        "needs": {
+          "state": "arma",
+          "min": 1
+        },
+        "spend": "choose",
+        "max": "@sr+1"
+      },
+      "damageText": "[Poder de Ataque] + (2+Brilho gasto)D + Brilho gasto×NP Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ihb4gQlonvCnSeeU",
+  "folder": "Rmhid8Zi2UZR20Eq",
+  "_key": "!items!ihb4gQlonvCnSeeU"
+}

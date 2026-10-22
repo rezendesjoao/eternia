@@ -1,0 +1,118 @@
+{
+  "name": "Baluarte Menor",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Motor Menor do Guardião</strong>, dado pela Dedicação: as Camadas, como no Baluarte, ganhas quando um inimigo ataca você e gastas pelo Golpe do Baluarte, com o Teto pela metade (arredondado para baixo, no mínimo 1). Em combate, cada Camada dá [Anulação: 1].</p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/equipment/shield/buckler-iron-cross-gray.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Baluarte Menor",
+      "img": "icons/equipment/shield/buckler-iron-cross-gray.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "eternia.passive.cancel",
+            "type": "add",
+            "value": "@motor.value*@motor.layer",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "c1f8IGiiQLrYMQGl",
+      "_key": "!items.effects!KdbdO7ZvkOndTO6p.c1f8IGiiQLrYMQGl"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "guardiao-baluarte-menor",
+      "kind": "motor",
+      "branch": "dedication",
+      "choiceOnly": true,
+      "motor": {
+        "id": "guardiao",
+        "role": "lesser"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 360000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "KdbdO7ZvkOndTO6p",
+  "folder": "UDCzdIWu7ANmyvMV",
+  "_key": "!items!KdbdO7ZvkOndTO6p"
+}

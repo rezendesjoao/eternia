@@ -1,0 +1,69 @@
+{
+  "name": "Punho de Pedra",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com o Golem presente: o punho de pedra desce sobre um alvo a até 4 Qd. [Poder Mágico + 2D] de dano físico (Teste de Precisão contra Esquiva), e o alvo fica [Provocado] por você. Se acertar, +1 Laço, sem pagar PV (uma vez por rodada).</p>",
+    "tags": [
+      "Physical Attack",
+      "Summon"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": "@magic",
+      "type": "physical",
+      "recovery": false,
+      "noPower": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/earth/construct-stone-long-arms.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "invocador-punho-de-pedra",
+      "kind": "feeds",
+      "branch": "golem",
+      "minRank": 1,
+      "motor": {
+        "id": "invocador",
+        "spirit": "golem"
+      },
+      "damageText": "[Poder Mágico] + 2D Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "kwVNquIMqHLHOYz2",
+  "folder": "dSSNwJ3CHHk83H9S",
+  "_key": "!items!kwVNquIMqHLHOYz2"
+}

@@ -760,7 +760,8 @@
         "pre": "Pré-Ação: ainda não realizou o seu turno nesta rodada.",
         "post": "Pós-Ação: já realizou o seu turno nesta rodada.",
         "standby": "Em Espera: age depois de todos os outros, a menor Iniciativa primeiro."
-      }
+      },
+      "Adjusted": "Total ajustado: {total} [{dice}]"
     },
     "Tag": {
       "Placeholder": "Adicionar tag…",
@@ -914,7 +915,9 @@
         "firstRound": "Primeira rodada do combate",
         "preAction": "Pré-Ação (ainda não agiu nesta rodada)",
         "standby": "Declarou Espera nesta rodada",
-        "hasSkill": "Tem a habilidade"
+        "hasSkill": "Tem a habilidade",
+        "motorState": "Motor da classe no estado",
+        "motorAtLeast": "Motor da classe com pelo menos"
       },
       "Summary": {
         "srAtLeast": "NH ≥ {value}",
@@ -938,7 +941,9 @@
         "firstRound": "Primeira rodada",
         "preAction": "[Pré-Ação]",
         "standby": "[Espera]",
-        "hasSkill": "Com {value}"
+        "hasSkill": "Com {value}",
+        "motorState": "Com o Motor em {value}",
+        "motorAtLeast": "Com o Motor em {value} ou mais"
       }
     },
     "RollFilter": {
@@ -1466,7 +1471,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.7: as classes</strong></p><ul><li><strong>O Samurai</strong>, a primeira classe da Eternia, no compêndio Raças e Classes (pasta Classes), com 36 habilidades automatizadas.</li><li><strong>Motor: Bainha.</strong> A lâmina Embainhada junta Cortes na Manutenção; o Iai saca antes de todos e gasta todos de uma vez. Com a Bainha cheia, é um Corte Perfeito.</li><li><strong>Aba Classe</strong> na ficha: a base, o Motor, os talentos por ramo, o Caminho (NP 3), o Ápice (NP 10) e as Dedicações. O Motor também aparece no HUD e no token.</li><li><strong>Dedicação:</strong> a partir do NP 5, personagens de outras classes podem pegar a Bainha Menor e os talentos [Dedicação] do Samurai.</li><li><strong>Saíram</strong> o Kuden e os arquétipos de Log Horizon. As regras novas estão na página XI. CLASSES do diário AS REGRAS.</li></ul><p>Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.8: as 16 classes</strong></p><ul><li><strong>15 classes novas</strong> junto com o Samurai, no compêndio Raças e Classes (pasta Classes): Assassino, Berserker, Caçador, Comandante, Druida, Estrategista, Feiticeiro, Guardião, Invocador, Menestrel, Monge, Oráculo, Ressonante, Sacerdote e Tecelão.</li><li>Cada uma tem o seu <strong>Motor</strong>, uma regra que só ela tem (o Contrato do Assassino, a Ira do Berserker, a Mira do Caçador, a Graça do Sacerdote…), e 36 habilidades automatizadas: o kit, 16 talentos, 4 Gerais, três Caminhos, o Ápice e a Dedicação.</li><li>O Motor acompanha o combate sozinho: turnos, movimento do token, acertos, dano, cura e os testes de todo mundo. O Tecelão e o Estrategista mudam os dados dos testes direto nos cartões de ataque.</li><li>A aba <strong>Classe</strong> mostra o Motor de cada classe (com uma nota quando ela guarda algo além dos pontos), e o diário AS REGRAS tem uma página para cada classe (XI.1 a XI.16).</li></ul><p>Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -2184,7 +2189,8 @@
         "State": "Precisa estar {state}.",
         "Min": "Precisa de {unit}: pelo menos {n} (tem {have}).",
         "Full": "Precisa de {unit} no Teto ({max}).",
-        "Weapon": "Precisa de uma arma {tags} na mão principal."
+        "Weapon": "Precisa de uma arma {tags} na mão principal.",
+        "Max": "Precisa de no máximo {n} {unit} (tem {have})."
       },
       "Choose": "Quantos {unit} gastar? Você tem {have}.",
       "ChooseOk": "Gastar",
@@ -2207,6 +2213,399 @@
           "CapLesser": "Metade do Teto da Bainha, no mínimo 1.",
           "ResetLesser": "Qualquer outro ataque com arma desembainha a lâmina e perde os Cortes."
         }
+      },
+      "CardActionFailed": "A ação do Motor falhou; veja o console (F12).",
+      "Assassino": {
+        "Name": "Contrato",
+        "Unit": "Brechas",
+        "State": {
+          "livre": "Livre",
+          "jurado": "Jurado"
+        },
+        "ReadyLabel": "Contrato cheio",
+        "Note": "Alvo: {name}",
+        "OneTarget": "Mire um único inimigo para firmar o Contrato.",
+        "EnemyTarget": "O Contrato só se firma num inimigo.",
+        "NotTarget": "A Execução só vale contra o Alvo do Contrato ({name}): mire-o.",
+        "FullIssue": "Caminho do Carrasco: a Execução só sai com o Contrato cheio ({n} Brechas).",
+        "Executed": "{name} cai: a queda da Execução vale até {n} PV.",
+        "Poison": "Lâmina Envenenada",
+        "Card": {
+          "Gain": "Qualquer acerto de qualquer personagem no Alvo: +1 Brecha (a Punhalada sua: +2).",
+          "Spend": "A Execução, só no Alvo, gasta todas: cada Brecha soma 1D + NP. Se o Alvo ficar com PV ≤ [Brechas × (NP+5)], cai (não vale contra [Chefe]).",
+          "Cap": "3 Brechas, +1 a cada 5 NP.",
+          "Reset": "Firmar Contrato com outro Alvo perde as Brechas. O Alvo caído cumpre o Contrato: você fica livre.",
+          "GainLesser": "Qualquer acerto de qualquer personagem no Alvo: +1 Brecha.",
+          "SpendLesser": "A Execução, só no Alvo, gasta todas: cada Brecha soma 1D + NP, sem a queda.",
+          "CapLesser": "Metade do Teto do Contrato, no mínimo 1.",
+          "ResetLesser": "Firmar Contrato com outro Alvo perde as Brechas. O Alvo caído cumpre o Contrato."
+        }
+      },
+      "Berserker": {
+        "Name": "Ira",
+        "Unit": "Ira",
+        "State": {
+          "acesa": "Acesa"
+        },
+        "BleedIssue": "Sangrar custa {n} PV: você precisa de mais PV do que isso.",
+        "Ready": "Não cai",
+        "Ancestors": "Os Ancestrais",
+        "Card": {
+          "Gain": "+1 Ira cada vez que um ataque de um inimigo tira PV de você; +1 a mais com metade dos PV ou menos.",
+          "Spend": "O Golpe Selvagem gasta toda: (2+Ira)D + Ira×NP. O Fôlego de Sangue troca Ira por PV.",
+          "Cap": "3 de Ira, +1 a cada 5 NP. Com Ira, os Ataques com Arma somam +[Ira × 2] ao dano.",
+          "Reset": "No Encerramento de uma rodada em que você não atacou nem perdeu PV, perde 1 Ira.",
+          "GainLesser": "+1 Ira cada vez que um ataque de um inimigo tira PV de você.",
+          "SpendLesser": "O Golpe Selvagem gasta toda: (2+Ira)D + Ira×NP.",
+          "CapLesser": "Metade do Teto da Ira, no mínimo 1. Com Ira, os Ataques com Arma somam +[Ira] ao dano.",
+          "ResetLesser": "No Encerramento de uma rodada em que você não atacou nem perdeu PV, perde 1 Ira."
+        }
+      },
+      "Cacador": {
+        "Name": "Mira",
+        "Unit": "Mira",
+        "State": {
+          "firme": "Firme"
+        },
+        "Card": {
+          "Gain": "Na Manutenção, se o token não se moveu na rodada anterior: +1. Firmar a Mira (Ação de Movimento): +1.",
+          "Spend": "O Tiro Certeiro gasta toda a Mira: cada ponto soma 1D + NP ao dano.",
+          "Cap": "3, +1 a cada 5 NP. Com a Mira cheia, o alvo do Tiro Certeiro fica [Exposto].",
+          "Reset": "Mover o token perde toda a Mira.",
+          "GainLesser": "Firmar a Mira (Ação de Movimento): +1. Nada na Manutenção.",
+          "SpendLesser": "O Tiro Certeiro gasta toda a Mira: cada ponto soma 1D + NP ao dano, sem [Exposto].",
+          "CapLesser": "Metade do Teto da Mira, no mínimo 1.",
+          "ResetLesser": "Mover o token perde toda a Mira."
+        },
+        "Ready": "Mira cheia",
+        "Moved": "Andou nesta rodada",
+        "FreeStep": "Passo livre: {n} Qd"
+      },
+      "Comandante": {
+        "Name": "Táticas",
+        "Unit": "Ordens",
+        "State": {
+          "em-campo": "Em campo"
+        },
+        "Card": {
+          "Gain": "Na Manutenção: +1 Ordem. Avaliar o Campo (Ação Menor): +1.",
+          "Spend": "Cada Ordem faz um aliado agir fora do turno: Ordem: Atacar! (um ataque básico agora, com [Concentrado]) e Ordem: Avançar! (mover-se agora, com [Barreira]).",
+          "Cap": "2 Ordens, +1 a cada 5 NP.",
+          "Reset": "No fim do combate.",
+          "GainLesser": "Avaliar o Campo (Ação Menor): +1. Nada na Manutenção.",
+          "SpendLesser": "Ordem: Atacar!: um aliado faz um ataque básico agora, com [Concentrado].",
+          "CapLesser": "1 Ordem.",
+          "ResetLesser": "No fim do combate."
+        },
+        "Ready": "Ordens no Teto",
+        "Banner": "Estandarte erguido",
+        "FreeOrder": "Ordem livre nesta rodada"
+      },
+      "Druida": {
+        "Name": "Formas",
+        "Unit": "Seiva",
+        "State": {
+          "humana": "Humana",
+          "urso": "Urso",
+          "lobo": "Lobo",
+          "falcao": "Falcão",
+          "carvalho": "Carvalho",
+          "enxame": "Enxame"
+        },
+        "Card": {
+          "Gain": "Na Manutenção, na forma Humana: +1 Seiva. A Seiva da Terra também dá +1.",
+          "Spend": "O Chamado da Fera gasta 1 Seiva para virar fera; na fera, cada Encerramento gasta 1, e sem Seiva você volta à forma Humana.",
+          "Cap": "3 Seivas, +1 a cada 5 NP. Urso: [Anulação: 2 + Seiva]. Lobo: [Fortalecido: NP÷2 + 2].",
+          "Reset": "Todo combate começa na forma Humana, com 1 Seiva.",
+          "GainLesser": "Na Manutenção, na forma Humana: +1 Seiva.",
+          "SpendLesser": "O Chamado da Fera gasta 1 Seiva para virar Lobo; na fera, cada Encerramento gasta 1.",
+          "CapLesser": "Metade do Teto das Formas, no mínimo 1. Só a forma de Lobo.",
+          "ResetLesser": "Todo combate começa na forma Humana, com 1 Seiva."
+        },
+        "ChooseForm": "Qual forma? Você tem {n} Seiva.",
+        "NoSap": "Precisa de {n} Seiva.",
+        "AlreadyBear": "Você já está na forma de Urso.",
+        "NoBear": "As Formas Menores não têm a forma de Urso."
+      },
+      "Estrategista": {
+        "Name": "Leitura",
+        "Unit": "Leituras",
+        "State": {
+          "atento": "Atento"
+        },
+        "Card": {
+          "Gain": "Estudar o Campo, na Manutenção: role 2D e guarde os dois dados como uma Leitura.",
+          "Spend": "Nos cartões de ataque, uma Leitura troca os dois dados mais baixos de um teste seu; outras habilidades gastam uma Leitura pela soma dela.",
+          "Cap": "1 Leitura, +1 a cada 5 NP. Passou do Teto, você escolhe qual descartar.",
+          "Reset": "No fim do combate.",
+          "GainLesser": "Estudar o Campo, na Manutenção: role 2D e guarde os dois dados como uma Leitura.",
+          "SpendLesser": "Nos cartões de ataque, uma Leitura troca os dois dados mais baixos de um teste seu.",
+          "CapLesser": "1 Leitura.",
+          "ResetLesser": "No fim do combate."
+        },
+        "Note": "Leituras: {list}",
+        "ReadyLabel": "Crítico na mão",
+        "RollFlavor": "{skill}: Leitura",
+        "CombatStart": "Mente Mestra",
+        "Keep": "Escolha os dois dados que ficam na Leitura.",
+        "Discard": "Leituras acima do Teto: escolha qual descartar.",
+        "ReviseHint": "Qual Leitura revisar? O menor dado dela é rolado de novo.",
+        "Choose": "Qual Leitura gastar?",
+        "ChooseOptional": "Gastar uma Leitura? Com ela, o alvo também fica [Marcado].",
+        "NoSpend": "Não gastar",
+        "Button": "Leitura {a}+{b}",
+        "OwnTip": "Troca os dois dados mais baixos do teste por {a} e {b}; a Leitura sai.",
+        "EnemyTip": "Troca os dois dados mais altos do teste por {a} e {b}; a Leitura sai.",
+        "NoteUsed": "{name}: Leitura {a}+{b}",
+        "NoReading": "Sem Leituras.",
+        "MaxSum": "Precisa de uma Leitura de soma {n} ou menos.",
+        "MinSum": "Precisa de uma Leitura de soma {n} ou mais.",
+        "MinReadings": "Precisa de pelo menos {n} Leituras.",
+        "PickAlly": "Quem o inimigo vai perseguir?",
+        "Kept": "{name}: a Leitura {a}+{b} deu certo e volta (Caminho do Xadrez).",
+        "Deduction": "{name} usa a Leitura {a}+{b} em \"{test}\": o total passa a {total}.",
+        "NoCheck": "Nenhum teste seu para trocar: role o teste antes."
+      },
+      "Feiticeiro": {
+        "Name": "Calor",
+        "Unit": "Calor",
+        "State": {
+          "estavel": "Estável",
+          "incandescente": "Incandescente"
+        },
+        "Card": {
+          "Gain": "+1 Calor por Feitiço da classe (os grandes, +2). Os seus Feitiços somam +[Calor × 2] ao dano.",
+          "Spend": "A Erupção (área, precisa de 2) solta todo o Calor: cada ponto soma 1D + NP. Respirar a Chama solta 2.",
+          "Cap": "3 de Calor, +1 a cada 5 NP. No Teto, Incandescente: Sobrecarga no Encerramento ([Calor × NP] de dano direto).",
+          "Reset": "A Erupção zera o Calor; o fim do combate também.",
+          "GainLesser": "+1 Calor por Feitiço da classe. Os seus Feitiços somam +[Calor] ao dano.",
+          "SpendLesser": "A Erupção (precisa de 2) solta todo o Calor: cada ponto soma 1D + NP.",
+          "CapLesser": "Metade do Teto do Calor, no mínimo 1. No Teto, Incandescente e Sobrecarga no Encerramento.",
+          "ResetLesser": "A Erupção zera o Calor; o fim do combate também."
+        },
+        "Overload": "Sobrecarga",
+        "ChooseEruption": "Quanto Calor a Erupção gasta? Você tem {have}.",
+        "VolcanoReady": "Erupção no Teto"
+      },
+      "Guardiao": {
+        "Name": "Baluarte",
+        "Unit": "Camadas",
+        "State": {
+          "erguido": "Erguido"
+        },
+        "WardIssue": "Marque como alvo um aliado para ser o seu Protegido.",
+        "Ward": "Protegido: {name}",
+        "Ready": "Golpe certeiro pronto",
+        "Card": {
+          "Gain": "+1 Camada cada vez que um inimigo faz um ataque contra você, acerte ou não.",
+          "Spend": "O Golpe do Baluarte gasta todas: cada Camada soma 1D + NP ao dano, e o alvo fica [Provocado].",
+          "Cap": "3 Camadas, +1 a cada 5 NP. Em combate, cada Camada é [Anulação: 2].",
+          "Reset": "No Encerramento de uma rodada em que nenhum inimigo atacou você, perde 1 Camada.",
+          "GainLesser": "+1 Camada cada vez que um inimigo faz um ataque contra você, acerte ou não.",
+          "SpendLesser": "O Golpe do Baluarte gasta todas: cada Camada soma 1D + NP ao dano.",
+          "CapLesser": "Metade do Teto do Baluarte, no mínimo 1. Em combate, cada Camada é [Anulação: 1].",
+          "ResetLesser": "No Encerramento de uma rodada em que nenhum inimigo atacou você, perde 1 Camada."
+        }
+      },
+      "Invocador": {
+        "Name": "Pacto",
+        "Unit": "Laços",
+        "State": {
+          "vazio": "Sem espírito",
+          "lobo": "Lobo",
+          "golem": "Golem",
+          "fada": "Fada"
+        },
+        "Card": {
+          "Gain": "Invocar Espírito: escolha o Lobo, o Golem ou a Fada e pague [NP+3] PV por Laço.",
+          "Spend": "Os comandos especiais gastam Laços; o Escudo Vivo gasta 1. O Comando: Ataque soma os Laços ao dano.",
+          "Cap": "3 Laços, +1 a cada 5 NP. Lobo: +1D nos golpes dele; Golem: [Anulação: Laços]; Fada: [Regeneração: Laços × 2].",
+          "Reset": "Com 0 Laços o espírito se desfaz. Todo combate começa sem espírito.",
+          "GainLesser": "Invocar Espírito, só o Lobo: [NP+3] PV por Laço.",
+          "SpendLesser": "O Comando: Ataque soma os Laços ao dano, e o Lobo soma +1D.",
+          "CapLesser": "Metade do Teto do Pacto, no mínimo 1.",
+          "ResetLesser": "Com 0 Laços o Lobo se desfaz. Todo combate começa sem espírito."
+        },
+        "NeedSpirit": "Precisa de um espírito presente.",
+        "NeedThis": "Precisa do espírito: {spirit}.",
+        "NoHp": "PV de menos: cada Laço custa {cost} PV, e você precisa ficar com pelo menos 1.",
+        "Full": "O Pacto já está no Teto.",
+        "NoSwap": "Só há um espírito para chamar.",
+        "ChooseSpirit": "Que espírito invocar?",
+        "ChooseLinks": "Quantos Laços? Cada um custa {cost} PV (você tem {hp}).",
+        "LinksOption": "{n} Laço(s): −{hp} PV",
+        "LinksFree": "{n} Laço(s): sem custo (Pacto Eterno)",
+        "ChooseSwap": "Por qual espírito trocar?",
+        "Note": "1 Laço = {cost} PV",
+        "Paid": "{name} paga {hp} PV ao Pacto.",
+        "Returned": "{name} recupera {hp} PV: o espírito voltou ao vazio.",
+        "Eternal": "Pacto Eterno: o espírito de {name} fica com 1 Laço."
+      },
+      "Menestrel": {
+        "Name": "Movimentos",
+        "Unit": "Movimentos",
+        "State": {
+          "silencio": "Silêncio",
+          "marcha": "Marcha",
+          "balada": "Balada",
+          "hino": "Hino",
+          "lamento": "Lamento"
+        },
+        "Song": {
+          "marcha": "Marcha de Guerra",
+          "balada": "Balada da Vida",
+          "hino": "Hino da Muralha",
+          "lamento": "Lamento dos Caídos"
+        },
+        "Card": {
+          "Gain": "Na Manutenção, cantando a mesma canção: +1 Movimento.",
+          "Spend": "O Finale (Maior) gasta todos numa explosão da canção até o fim da rodada, e você se cala.",
+          "Cap": "3 Movimentos, +1 no NP 10. A canção vale para você e os aliados no combate (o Lamento, para os inimigos).",
+          "Reset": "Começar ou trocar de canção (Menor) volta ao Movimento I. [Silenciado] na Manutenção, a canção para.",
+          "GainLesser": "Na Manutenção, cantando a mesma canção: +1 Movimento.",
+          "SpendLesser": "O Finale gasta todos numa explosão da canção até o fim da rodada.",
+          "CapLesser": "2 Movimentos.",
+          "ResetLesser": "Trocar de canção volta ao Movimento I. [Silenciado] na Manutenção, a canção para."
+        },
+        "ReadyLabel": "No auge",
+        "Note": "{song}: Movimento {level}",
+        "SameSong": "Você já está cantando essa canção.",
+        "NeedSong": "Precisa estar cantando uma canção.",
+        "Silenced": "{name} está Silenciado: a canção para."
+      },
+      "Monge": {
+        "Name": "Corrente",
+        "Unit": "Elos",
+        "State": {
+          "aberta": "Aberta"
+        },
+        "ReadyLabel": "Corrente cheia",
+        "WeaponIssue": "Os golpes da Corrente pedem uma arma [Artes Marciais] na mão principal ou as duas mãos vazias.",
+        "Card": {
+          "Gain": "Golpe de Entrada e Elo Rápido: +1 Elo cada.",
+          "Spend": "O Golpe Final gasta todos: cada Elo soma 2D + NP ao dano. Com a Corrente cheia, o alvo fica [Atordoado].",
+          "Cap": "3 Elos, +1 a cada 5 NP.",
+          "Reset": "Um turno sem habilidade da Corrente a quebra. Cada ataque de um inimigo que tira PV de você tira 1 Elo.",
+          "GainLesser": "Golpe de Entrada: +1 Elo.",
+          "SpendLesser": "O Golpe Final gasta todos: cada Elo soma 2D + NP ao dano, sem o efeito da Corrente cheia.",
+          "CapLesser": "Metade do Teto da Corrente, no mínimo 1.",
+          "ResetLesser": "Um turno sem habilidade da Corrente a quebra. Cada ataque de um inimigo que tira PV de você tira 1 Elo."
+        }
+      },
+      "Oraculo": {
+        "Name": "Fardo",
+        "Unit": "Fardo",
+        "State": {
+          "revelado": "Revelado"
+        },
+        "Card": {
+          "Gain": "+1 Fardo por milagre (os grandes, +2). Os milagres somam +[Fardo × 2] à cura ou ao dano.",
+          "Spend": "A Revelação (área, precisa de 2) solta todo o Fardo: cura [Recuperação + Fardo D + Fardo×NP]. Penitência tira 1.",
+          "Cap": "4 de Fardo, +1 a cada 5 NP. Com 3 ou mais, [Fraqueza: Fardo × 2]; no Teto, também [Maldito].",
+          "Reset": "A Revelação zera o Fardo; o fim do combate também.",
+          "GainLesser": "+1 Fardo por milagre. Os milagres somam +[Fardo] à cura ou ao dano.",
+          "SpendLesser": "A Revelação (precisa de 2) solta todo o Fardo.",
+          "CapLesser": "Metade do Teto do Fardo, no mínimo 1. No Teto, [Maldito]; sem [Fraqueza].",
+          "ResetLesser": "A Revelação zera o Fardo; o fim do combate também."
+        },
+        "Curse": {
+          "weakness": "Maldição: Fraqueza {n}",
+          "burning": "Maldição: Queimando {n}",
+          "cursed": "Maldito"
+        }
+      },
+      "Ressonante": {
+        "Name": "Centelha",
+        "Unit": "Brilho",
+        "State": {
+          "arma": "Arma",
+          "armadura": "Armadura",
+          "joia": "Joia"
+        },
+        "Card": {
+          "Gain": "Na Manutenção: +1 Brilho. O Golpe Ressonante, com a Centelha na Arma: +1.",
+          "Spend": "Saltar a Centelha: a peça antiga solta o Despertar, e a nova começa com metade do Brilho.",
+          "Cap": "3 de Brilho, +1 a cada 5 NP. Arma: +[Brilho × 2] no dano. Armadura: [Anulação: Brilho × 2]. Joia: +[Brilho × 2] em magia e cura.",
+          "Reset": "Todo combate começa com a Centelha na Arma e 0 de Brilho.",
+          "GainLesser": "Na Manutenção: +1 Brilho. O Golpe Ressonante, com a Centelha na Arma: +1.",
+          "SpendLesser": "Saltar a Centelha entre a Arma e a Armadura: a peça antiga solta o Despertar.",
+          "CapLesser": "Metade do Teto da Centelha, no mínimo 1. Só a Arma e a Armadura.",
+          "ResetLesser": "Todo combate começa com a Centelha na Arma e 0 de Brilho."
+        },
+        "ChooseSlot": "Para qual peça a Centelha salta? Ela tem {n} de Brilho.",
+        "IconLocked": "Caminho do Ícone Único: a Centelha não salta em combate.",
+        "Awakening": "Despertar",
+        "Waiting": "Despertar pronto: {list}"
+      },
+      "Sacerdote": {
+        "Name": "Graça",
+        "Unit": "Graça",
+        "State": {
+          "vigilia": "Em vigília"
+        },
+        "Card": {
+          "Gain": "Cada ataque de um inimigo que tira PV de um aliado: +1 Graça (+1 se ele ficar com metade dos PV ou menos).",
+          "Spend": "A Oração de Cura e o Escudo de Fé gastam quanta Graça você quiser: curar depois ou proteger antes.",
+          "Cap": "3 Graça, +1 a cada 5 NP.",
+          "Reset": "No fim do combate. Todo combate começa com 0.",
+          "GainLesser": "Cada ataque de um inimigo que tira PV de um aliado: +1 Graça.",
+          "SpendLesser": "A Oração de Cura e o Escudo de Fé gastam quanta Graça você quiser.",
+          "CapLesser": "Metade do Teto da Graça, no mínimo 1.",
+          "ResetLesser": "No fim do combate."
+        },
+        "ReadyLabel": "Graça plena",
+        "Pick": "Quanta Graça gastar? Você tem {have}.",
+        "PickOption": "{n} Graça",
+        "Holiness": "Santidade: {name} continua de pé, com {hp} PV.",
+        "HolinessNote": "Santidade: {n} nesta cena"
+      },
+      "Tecelao": {
+        "Name": "Padrão",
+        "Unit": "Fios",
+        "State": {
+          "tecendo": "Tecendo"
+        },
+        "Card": {
+          "Gain": "Um teste de qualquer personagem no combate com dois dados que somam o Padrão: +1 Fio (6 a 8), +2 (4, 5, 9, 10) ou +3 (2, 3, 11, 12).",
+          "Spend": "Nos cartões de ataque, 1 Fio: o menor dado de um teste sobe 1 ou o maior desce 1 (2 Fios se criar ou desfizer um Crítico ou uma Falha Crítica).",
+          "Cap": "3 Fios, +1 a cada 5 NP. O Padrão, um número de 2 a 12, se escolhe na Manutenção.",
+          "Reset": "No fim do combate. Trocar de Padrão no meio do combate perde os Fios.",
+          "GainLesser": "Um teste de qualquer personagem no combate com dois dados que somam o Padrão: +1 Fio (6 a 8), +2 (4, 5, 9, 10) ou +3 (2, 3, 11, 12).",
+          "SpendLesser": "Nos cartões de ataque, 1 Fio: o menor dado de um teste sobe 1 (2 Fios se criar um Crítico ou desfizer uma Falha Crítica).",
+          "CapLesser": "Metade do Teto do Padrão, no mínimo 1.",
+          "ResetLesser": "No fim do combate. Trocar de Padrão no meio do combate perde os Fios."
+        },
+        "Note": "Padrão: {n}",
+        "NoteTwo": "Padrão: {a} e {b}",
+        "ReadyLabel": "Desenlace pronto",
+        "ChooseHint": "O Padrão: o número que dois dados de um teste precisam somar. Os raros dão mais Fios.",
+        "ChooseSecond": "O segundo número do Padrão.",
+        "Option": "{n} ({fios} Fio)",
+        "Options": "{n} ({fios} Fios)",
+        "ChanceIssue": "Caminho do Acaso: o Padrão é rolado na Manutenção.",
+        "ChanceFlavor": "Caminho do Acaso: o Padrão da rodada",
+        "KnotHint": "Quantos Fios o Laço aperta? Cada um soma +1D ao dano; com pelo menos 1, o alvo também fica [Enraizado].",
+        "ThreadOne": "{n} Fio",
+        "ThreadMany": "{n} Fios",
+        "Up": "Fio +1",
+        "Down": "Fio −1",
+        "Six": "Fio → 6",
+        "One": "Fio → 1",
+        "Fate": "Sina",
+        "UpTip": "1 Fio: o menor dado do teste sobe 1. Custa 2 se criar ou desfizer um Crítico ou uma Falha Crítica.",
+        "DownTip": "1 Fio: o maior dado do teste desce 1. Custa 2 se criar ou desfizer um Crítico ou uma Falha Crítica.",
+        "SixTip": "1 Fio: o menor dado do teste vira 6. Custa 2 se criar um Crítico ou desfizer uma Falha Crítica.",
+        "OneTip": "1 Fio: o maior dado do teste vira 1. Custa 2 se criar uma Falha Crítica ou desfizer um Crítico.",
+        "FateTip": "Todos os Fios (pelo menos 3): o teste vira Falha Crítica. Uma vez por combate.",
+        "Cost": "{label} ({n} Fios)",
+        "Free": "{label} (grátis)",
+        "NoteUp": "{name}: Fio +1",
+        "NoteDown": "{name}: Fio −1",
+        "NoteSix": "{name}: Fio → 6",
+        "NoteOne": "{name}: Fio → 1",
+        "NoteFate": "{name}: Sina",
+        "NoDie": "Nenhum dado desse teste pode mudar assim.",
+        "NoThreads": "Fios de menos: precisa de {n}."
       }
     },
     "Classes": {
@@ -2268,7 +2667,127 @@
       "Apex": "Ápice",
       "General": "Talentos Gerais",
       "Dedications": "Dedicações",
-      "Milestones": "Marcos da classe"
+      "Milestones": "Marcos da classe",
+      "assassino": {
+        "Branch": {
+          "sombra": "A Sombra",
+          "veneno": "O Veneno",
+          "lamina": "A Lâmina",
+          "rede": "A Rede"
+        }
+      },
+      "berserker": {
+        "Branch": {
+          "sangue": "O Sangue",
+          "furia": "A Fúria",
+          "massacre": "O Massacre",
+          "couro": "O Couro"
+        }
+      },
+      "cacador": {
+        "Branch": {
+          "olho": "O Olho",
+          "aljava": "A Aljava",
+          "rastro": "O Rastro",
+          "vento": "O Vento"
+        }
+      },
+      "comandante": {
+        "Branch": {
+          "vanguarda": "A Vanguarda",
+          "formacao": "A Formação",
+          "estandarte": "O Estandarte",
+          "mapa": "O Mapa"
+        }
+      },
+      "druida": {
+        "Branch": {
+          "fera": "A Fera",
+          "raiz": "A Raiz",
+          "estacao": "As Estações",
+          "selva": "A Selva"
+        }
+      },
+      "estrategista": {
+        "Branch": {
+          "plano": "O Plano",
+          "previsao": "A Previsão",
+          "licao": "A Lição",
+          "tabuleiro": "O Tabuleiro"
+        }
+      },
+      "feiticeiro": {
+        "Branch": {
+          "chama": "A Chama",
+          "fole": "O Fole",
+          "fornalha": "A Fornalha",
+          "cinza": "A Cinza"
+        }
+      },
+      "guardiao": {
+        "Branch": {
+          "muralha": "A Muralha",
+          "desafio": "O Desafio",
+          "martelo": "O Martelo",
+          "guarda": "A Guarda"
+        }
+      },
+      "invocador": {
+        "Branch": {
+          "lobo": "O Lobo",
+          "golem": "O Golem",
+          "fada": "A Fada",
+          "pacto": "O Pacto"
+        }
+      },
+      "menestrel": {
+        "Branch": {
+          "repertorio": "O Repertório",
+          "compasso": "O Compasso",
+          "palco": "O Palco",
+          "plateia": "A Plateia"
+        }
+      },
+      "monge": {
+        "Branch": {
+          "punho": "O Punho",
+          "fluxo": "O Fluxo",
+          "vento": "O Vento",
+          "centro": "O Centro"
+        }
+      },
+      "oraculo": {
+        "Branch": {
+          "cura": "A Cura",
+          "juizo": "O Juízo",
+          "presagio": "O Presságio",
+          "veu": "O Véu"
+        }
+      },
+      "ressonante": {
+        "Branch": {
+          "lamina": "A Lâmina Viva",
+          "egide": "A Égide",
+          "joia": "A Joia",
+          "eco": "O Eco"
+        }
+      },
+      "sacerdote": {
+        "Branch": {
+          "prece": "A Prece",
+          "escudo": "O Escudo",
+          "vigilia": "A Vigília",
+          "luz": "A Luz"
+        }
+      },
+      "tecelao": {
+        "Branch": {
+          "tear": "O Tear",
+          "no": "O Nó",
+          "trama": "A Trama",
+          "tesoura": "A Tesoura"
+        }
+      }
     }
   },
   "Cancel": "Cancelar"

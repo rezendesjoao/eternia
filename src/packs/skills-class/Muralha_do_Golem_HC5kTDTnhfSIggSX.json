@@ -1,0 +1,119 @@
+{
+  "name": "Muralha do Golem",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com o Golem presente: gaste quantos Laços quiser. Você e os aliados que você escolher ganham [Barreira: Laços gastos × (NP+5)] até o fim da rodada.</p><p>Com 0 Laços, o Golem se desfaz.</p><hr><p><em>Ele se ajoelha, apoia as mãos no chão, e o chão sobe em placas na frente de todos.</em></p>",
+    "tags": [
+      "Summon"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "-",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/earth/barrier-stone-pillar-purple.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "barrier",
+            "value": "@spent*(@cr+5)"
+          },
+          "expires": "endOfRound",
+          "recipients": "allies"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Muralha do Golem",
+      "img": "systems/eternia/assets/ui/status/barrier.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "barrier"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "dQppe4j6oNleXOsa",
+      "_key": "!items.effects!HC5kTDTnhfSIggSX.dQppe4j6oNleXOsa"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "invocador-muralha",
+      "kind": "spends",
+      "branch": "golem",
+      "minRank": 1,
+      "motor": {
+        "id": "invocador",
+        "spirit": "golem",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 90000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "HC5kTDTnhfSIggSX",
+  "folder": "dSSNwJ3CHHk83H9S",
+  "_key": "!items!HC5kTDTnhfSIggSX"
+}

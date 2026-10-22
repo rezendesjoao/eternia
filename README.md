@@ -5,12 +5,16 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.7.0
+## Versão 0.8.0
 
-- **Novo na 0.7.0: as classes.** A primeira é o **Samurai**, com o Motor **Bainha** (a lâmina Embainhada junta
-  Cortes; o Iai saca antes de todos e gasta todos de uma vez), 16 talentos, 4 Gerais, três Caminhos, o Ápice e a
-  Dedicação para outras classes, tudo automatizado, com a aba **Classe** na ficha (veja [As classes](#as-classes)).
-  O Kuden e os arquétipos de Log Horizon saíram do sistema.
+- **Novo na 0.8.0: as 16 classes.** Junto com o Samurai chegam o Assassino, o Berserker, o Caçador, o Comandante, o
+  Druida, o Estrategista, o Feiticeiro, o Guardião, o Invocador, o Menestrel, o Monge, o Oráculo, o Ressonante, o
+  Sacerdote e o Tecelão, cada um com o seu **Motor** (a regra que só a classe tem), 16 talentos, 4 Gerais, três
+  Caminhos, o Ápice e a Dedicação para outras classes, tudo automatizado, com a aba **Classe** na ficha e uma página
+  por classe no diário AS REGRAS (veja [As classes](#as-classes)).
+- **Desde a 0.7.0: o sistema de classes**, com o Motor, os Caminhos, o Ápice e a Dedicação; o Kuden e os arquétipos de
+  Log Horizon saíram do sistema. Desde a 0.7.1 as fases do combate se chamam Preparação, Manutenção, Turno e
+  Encerramento.
 - **Desde a 0.6.0: 108 itens de Sword Art Online** no compêndio de Itens (Aincrad, Alfheim e Submundo), com
   habilidades automatizadas e ícones pintados; os lendários são fortes de propósito (veja
   [Os itens de Sword Art Online](#os-itens-de-sword-art-online)).
@@ -25,8 +29,8 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   mesmo visual; toda a automação de combate e de uso de habilidades; a interface em português do Brasil.
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
-- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e o Samurai), Habilidades Raciais e
-  Habilidades de Classe (as 36 do Samurai); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
+- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 16 classes), Habilidades Raciais e
+  Habilidades de Classe (36 por classe, 576 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
 
@@ -125,40 +129,44 @@ tela, no lugar da barra de macros do Foundry:
 ## As classes
 
 Cada classe da Eternia tem um **Motor**, uma regra que só ela tem e que muda o que se decide na rodada; tudo o mais
-gira em volta dele (veja `docs/classes.md` e a página **XI. CLASSES** do diário AS REGRAS):
+gira em volta dele (veja `docs/classes.md` e as páginas **XI. CLASSES** do diário AS REGRAS, uma por classe):
 
 - **Base:** atributos (10 pontos) e PV numa das cinco faixas, que a própria classe define. Não há arquétipos.
 - **Kit do NP 1:** o Motor e as habilidades de entrada, oferecidos ao escolher a classe.
-- **Talentos:** escolhidos a cada NP; todos mexem no Motor (alimentam, gastam ou dobram uma regra dele). Os ramos
-  pedem talentos anteriores, e o navegador de habilidades mostra o que falta.
+- **Talentos:** 16 de Combate em quatro ramos e 4 Gerais por classe; todos mexem no Motor (alimentam, gastam ou dobram
+  uma regra dele). Os ramos pedem talentos anteriores, e o navegador de habilidades mostra o que falta.
 - **Caminho (NP 3):** um de três, oferecido na subida de NP; cada um reescreve uma regra do Motor e traz dois
   talentos próprios.
 - **Dedicação (NP 5):** a multiclasse. Um personagem de outra classe ganha o Motor Menor (Teto pela metade) e abre os
   talentos [Dedicação], dois NP depois.
 - **Ápice (NP 10):** dado sem pedir, transforma o Motor.
 
-### O Samurai
+| Classe | Papéis | Motor |
+|---|---|---|
+| Assassino | Dano | **Contrato**: escolhe um alvo, e cada acerto de qualquer aliado nele abre uma Brecha; a Execução gasta as Brechas e derruba quem ficou fraco demais. |
+| Berserker | Dano | **Ira**: cada ferida sofrida vira Ira, que soma dano a todo golpe; gastar a Ira é escolher entre um golpe brutal e o fôlego para continuar de pé. |
+| Caçador | Dano, Controle | **Mira**: parado, a Mira cresce a cada rodada; o Tiro Certeiro gasta tudo, e mover o token zera. |
+| Comandante | Suporte, Controle | **Táticas**: junta Ordens e gasta a própria ação para um aliado agir fora do turno dele. |
+| Druida | Defesa, Cura | **Formas**: a Seiva paga a transformação em fera, e cada forma troca o que ele pode fazer. |
+| Estrategista | Suporte, Controle | **Leitura**: na Manutenção rola 2D e guarda os dados, para trocar depois os de um teste pelo que leu. |
+| Feiticeiro | Dano | **Calor**: cada feitiço esquenta e bate mais forte; no Teto, a Erupção solta tudo ou a Sobrecarga queima o próprio feiticeiro. |
+| Guardião | Defesa | **Baluarte**: cada ataque contra ele vira uma Camada da muralha (Anulação), que o Golpe do Baluarte transforma em dano e provocação. |
+| Invocador | Dano, Controle | **Pacto**: paga PV para dar Laços a um espírito (lobo, golem ou fada), que luta, protege ou cura gastando os Laços. |
+| Menestrel | Suporte | **Movimentos**: a canção sobe a cada Manutenção e reforça os aliados; trocar de canção volta ao começo, e o Finale gasta tudo. |
+| Monge | Dano, Defesa | **Corrente**: golpes encadeados juntam Elos, e o Golpe Final gasta a corrente inteira; apanhar ou parar quebra os Elos. |
+| Oráculo | Cura, Dano | **Fardo**: cada milagre fica mais forte e pesa mais; com Fardo alto vem a maldição, e a Revelação descarrega tudo de uma vez. |
+| Ressonante | Dano, Defesa | **Centelha**: o poder mora numa peça do equipamento (arma, armadura ou joia) e cresce ali; saltar para outra peça solta o que juntou. |
+| Sacerdote | Cura, Defesa | **Graça**: cada ferida de um aliado vira Graça, gasta em curas depois ou em barreiras antes do golpe. |
+| Samurai | Dano, Defesa | **Bainha**: embainhada, a lâmina junta Cortes; o Iai, na Iniciativa, saca e gasta todos, e com a Bainha cheia é um Corte Perfeito. |
+| Tecelão | Controle, Suporte | **Padrão**: escolhe um número de 2 a 12; quando dois dados de qualquer teste o formam, ganha Fios, que mudam os dados dos outros. |
 
-**Motor: Bainha.** A lâmina fica Embainhada ou Desembainhada. Embainhada, ganha 1 Corte na Manutenção (Teto
-2, +1 a cada 5 NP). O **Iai** se usa no Processo de Iniciativa de qualquer personagem, gasta a Ação Maior da rodada e
-saca gastando todos os Cortes: cada Corte soma 2D + NP ao dano; com a Bainha cheia é um **Corte Perfeito** (acerto
-sem Esquiva e +[NP×2+10]). O custo é Ódio 1 + os Cortes gastos. Qualquer outro ataque com arma desembainha a lâmina e
-perde os Cortes; Embainhar é uma Ação Menor.
-
-- **Base:** Força 4, Destreza 2, Poder 2, Inteligência 2; PV 50, +8 por NP (faixa Robusta). Papéis: Dano e Defesa.
-- **Kit:** Bainha, Embainhar, Iai e Respiração (+1 Corte).
-- **Talentos (16):** A Espera (Silêncio Antes do Golpe, Grito do Saque, Lâmina que Espera, Contra-saque, Desafio do
-  Samurai), O Fio (Corte do Vento, Corte Circular, Aparar com o Saque, Primeira Lâmina), A Bainha (Mão no Cabo,
-  Bainha Longa, Passo do Saque, Respiração Profunda) e O Aço (Kesagiri, Eco do Aço, Chiburi). Gerais: Primeiro a
-  Sacar, Corte Limpo, Postura de Vigília e Duelo de Olhares.
-- **Caminhos:** Lua Cheia (Teto +2, o Iai só com a Bainha cheia, Corte Perfeito em dobro), Água Corrente (ganha
-  Cortes quando atacado, em vez da Manutenção) e Relâmpago (o Iai corre em linha e atinge todos no caminho).
-- **Ápice:** Mente Vazia, o Iai deixa de gastar a Ação Maior.
-- **Automação:** o estado e os Cortes na aba Classe, no HUD e no token; os ganhos na Manutenção e no
-  Encerramento, na esquiva, no ataque sofrido e no inimigo derrubado; o Iai e os saques com o dano dos Cortes, o
-  Corte Perfeito com acerto automático, o custo de Ódio pelos Cortes, a ação que cada um gasta e o **Desfazer** do
-  cartão devolvendo o Motor; os talentos que pedem a lâmina Embainhada ou Desembainhada, ou uma [Katana]/[Lâmina] na
-  mão, avisam antes do uso.
+**Automação:** o Motor fica na aba Classe (o estado, os pontos e uma nota quando a classe guarda algo além deles: o
+alvo do Contrato, o Padrão, as Leituras), no HUD e no token. Os ganhos e os gastos seguem o combate sozinhos: a
+Manutenção e o Encerramento, o começo e o fim de cada turno, o movimento do token, os ataques declarados, os acertos e
+as esquivas, o dano e a cura aplicados pelos cartões, os testes rolados e os inimigos derrubados. O Tecelão e o
+Estrategista ganham botões nos cartões de ataque, que mudam os dados de um teste já rolado e refazem o acerto. O
+Desfazer do cartão devolve o Motor junto com o Ódio e a ação. O que não dá para automatizar (escolher alvos de área,
+mover tokens) fica no texto da habilidade.
 
 ## As raças
 

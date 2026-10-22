@@ -1,0 +1,118 @@
+{
+  "name": "Último Baluarte",
+  "type": "skill",
+  "system": {
+    "description": "<p>Use quando um aliado a até 1 Qd for sofrer o dano de um ataque: gaste 2 Camadas. Ele ganha [Último Fôlego] até o fim do processo: se o dano o levaria a 0 PV, fica com 1.</p>",
+    "tags": [],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "1Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/shield-damaged-broken-gold.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "lastStand"
+          },
+          "expires": "endOfProcess"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Último Baluarte",
+      "img": "systems/eternia/assets/ui/status/lastStand.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "lastStand"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "uUCmFQsFXWQenVVb",
+      "_key": "!items.effects!Y6KuCQwuOkMIafq8.uUCmFQsFXWQenVVb"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "guardiao-ultimo-baluarte",
+      "kind": "spends",
+      "branch": "guarda",
+      "minRank": 7,
+      "requires": [
+        "guardiao-guarda-estendida"
+      ],
+      "motor": {
+        "id": "guardiao",
+        "needs": {
+          "min": 2
+        },
+        "spend": 2,
+        "action": "none"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Y6KuCQwuOkMIafq8",
+  "folder": "UJRNMfKwhj4indTf",
+  "_key": "!items!Y6KuCQwuOkMIafq8"
+}

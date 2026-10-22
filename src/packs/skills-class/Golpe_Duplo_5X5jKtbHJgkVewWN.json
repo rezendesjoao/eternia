@@ -1,0 +1,71 @@
+{
+  "name": "Golpe Duplo",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste 2 Brechas: duas lâminas no mesmo instante. [Poder de Ataque × 2 + 2D] de dano físico.</p>",
+    "tags": [
+      "Weapon Attack",
+      "Dedication"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": "@attack",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/maneuver-daggers-paired-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "assassino-golpe-duplo",
+      "kind": "spends",
+      "branch": "lamina",
+      "minRank": 3,
+      "motor": {
+        "id": "assassino",
+        "needs": {
+          "min": 2
+        },
+        "spend": 2
+      },
+      "damageText": "[Poder de Ataque × 2] + 2D Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 140000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "5X5jKtbHJgkVewWN",
+  "folder": "gMErfNqQ8IFLi35a",
+  "_key": "!items!5X5jKtbHJgkVewWN"
+}

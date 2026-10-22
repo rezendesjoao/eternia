@@ -1,0 +1,168 @@
+{
+  "name": "Ordem: Atacar!",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste 1 Ordem: um aliado que ouve você ataca agora, fora do turno dele, com o Ataque Básico com Arma ou o Ataque Mágico Básico. Ele fica [Concentrado] (+1D no Teste de Acerto), e a Ação Maior dele não se gasta: o sistema a devolve quando o resultado do ataque sai.</p><p><em>\"Agora!\" — e a lança já está no ar.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Refer",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/tools/instruments/horn-red-brown.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "focused"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Ordem: Atacar!",
+      "img": "systems/eternia/assets/ui/status/focused.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "focused"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "ZE7pTBTLJroaeceZ",
+      "_key": "!items.effects!7qC0NeiBK7EF0CIT.ZE7pTBTLJroaeceZ"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "empowered",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfRound",
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Ponto de Ataque"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Ponto de Ataque",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "GMqGJHC7NpW8xCKe",
+      "_key": "!items.effects!7qC0NeiBK7EF0CIT.GMqGJHC7NpW8xCKe"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "comandante-ordem-atacar",
+      "kind": "spends",
+      "branch": "kit",
+      "choiceOnly": true,
+      "motor": {
+        "id": "comandante",
+        "needs": {
+          "min": 1
+        },
+        "spend": 1,
+        "order": "attack"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "7qC0NeiBK7EF0CIT",
+  "folder": "hSbiZppKU5MxYJ4O",
+  "_key": "!items!7qC0NeiBK7EF0CIT"
+}

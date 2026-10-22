@@ -1,0 +1,76 @@
+{
+  "name": "Pira",
+  "type": "skill",
+  "system": {
+    "description": "<p>Só com o Calor no Teto: você gasta todo ele num alvo a até 4 Qd. Teste de Precisão contra a Resistência; [Poder Mágico + (2 + 2×Calor)D + Calor×NP] de dano mágico de [Chama], e quem o dano atinge fica [Queimando: Calor × 2].</p><p><strong>Custo:</strong> Ódio 1 + o Calor gasto.</p><hr><p><em>Não sobra cinza para varrer.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1+Calor",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/flame-burning-tree-log.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "feiticeiro-pira",
+      "kind": "spends",
+      "branch": "cinza",
+      "minRank": 7,
+      "requires": [
+        "feiticeiro-lanca-de-magma"
+      ],
+      "motor": {
+        "id": "feiticeiro",
+        "needs": {
+          "full": true
+        },
+        "spend": "all",
+        "set": "estavel"
+      },
+      "damageText": "[Poder Mágico] + (2+2×Calor)D + Calor×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 180000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "CFTktyQCwTrdcEUf",
+  "folder": "cmnBxFq5EfBEa7q3",
+  "_key": "!items!CFTktyQCwTrdcEUf"
+}

@@ -1,7 +1,7 @@
 /* ==========================================================================
    Classes (module/classes/): the class tab of the character sheet, the Motor in the HUD and its chat lines.
    The parchment and green of the sheet with gold trims, as the profession tab, and the class's own color
-   (--lhcl-color) on its crest and Motor. The Samurai's Sheath is drawn as a katana that leaves its scabbard.
+   (--lhcl-color) on its Motor. The Motor card is the parchment box with a thin green border on top.
    ========================================================================== */
 
 .lhpf .tab.class {
@@ -16,7 +16,6 @@
 }
 
 @keyframes lhcl-ready { 0%, 100% { box-shadow: 0 0 4px rgba(242, 219, 148, 0.6); } 50% { box-shadow: 0 0 12px 3px rgba(242, 219, 148, 0.95); } }
-@keyframes lhcl-glint { from { transform: translateX(-60%); opacity: 0; } 30% { opacity: 0.9; } to { transform: translateX(160%); opacity: 0; } }
 
 /* Choosing a class
    ------------------------------------------------------------------------ */
@@ -130,11 +129,11 @@
 /* Motor
    ------------------------------------------------------------------------ */
 .lhpf .tab.class .lhcl-motor {
-  --lhcl-steel: #e9edf2;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   margin: 0 0 12px;
   border: 1px solid var(--lhcl-line);
+  border-top: 4px solid var(--pf-primary);
   border-radius: 8px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 40%),
@@ -143,46 +142,6 @@
   overflow: hidden;
 }
 .lhpf .tab.class .lhcl-motor.lesser { opacity: 0.95; }
-.lhpf .tab.class .lhcl-motor-art {
-  position: relative;
-  height: 64px;
-  border-bottom: 1px solid var(--lhcl-line);
-  background:
-    radial-gradient(90% 140% at 50% 120%, color-mix(in srgb, var(--lhcl-color) 45%, transparent), transparent 70%),
-    linear-gradient(180deg, var(--lhcl-forest), var(--lhcl-night));
-  overflow: hidden;
-}
-.lhpf .tab.class .lhcl-sheath {
-  position: absolute;
-  inset: 6px 10px;
-  width: calc(100% - 20px);
-  height: calc(100% - 12px);
-}
-.lhpf .tab.class .lhcl-sword { transition: transform 0.55s cubic-bezier(0.2, 0.9, 0.2, 1); }
-.lhpf .tab.class .lhcl-motor.drawn .lhcl-sword { transform: translate(-104px, -1px) rotate(-3deg); }
-.lhpf .tab.class .lhcl-blade { fill: var(--lhcl-steel); stroke: #6b7480; stroke-width: 0.8; }
-.lhpf .tab.class .lhcl-hamon { fill: none; stroke: rgba(255, 255, 255, 0.9); stroke-width: 1; }
-.lhpf .tab.class .lhcl-habaki { fill: var(--lhcl-gold); }
-.lhpf .tab.class .lhcl-tsuba { fill: #2b2116; stroke: var(--lhcl-gold); stroke-width: 1.4; }
-.lhpf .tab.class .lhcl-tsuka { fill: #ece2c9; stroke: #3b2a1a; stroke-width: 1; }
-.lhpf .tab.class .lhcl-ito { stroke: var(--lhcl-color); stroke-width: 2.4; }
-.lhpf .tab.class .lhcl-kashira { fill: var(--lhcl-gold-dark); }
-.lhpf .tab.class .lhcl-saya {
-  fill: color-mix(in srgb, var(--lhcl-color) 78%, #000);
-  stroke: var(--lhcl-gold);
-  stroke-width: 1.2;
-}
-.lhpf .tab.class .lhcl-kojiri { fill: var(--lhcl-gold); }
-.lhpf .tab.class .lhcl-sageo { fill: none; stroke: var(--lhcl-gold-light); stroke-width: 1.6; stroke-linecap: round; opacity: 0.85; }
-.lhpf .tab.class .lhcl-motor.ready .lhcl-motor-art::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  width: 45%;
-  background: linear-gradient(100deg, transparent, rgba(255, 246, 214, 0.45), transparent);
-  animation: lhcl-glint 2.6s ease-in-out infinite;
-  pointer-events: none;
-}
 .lhpf .tab.class .lhcl-motor-body { padding: 8px 12px 10px; }
 .lhpf .tab.class .lhcl-motor-body header {
   display: flex;
@@ -233,6 +192,14 @@
 }
 .lhpf .tab.class .lhcl-motor.ready .lhcl-pip.on { animation: lhcl-ready 1.6s ease-in-out infinite; }
 .lhpf .tab.class .lhcl-count { color: var(--pf-text-soft); font: 13px/1 var(--pf-body); }
+.lhpf .tab.class .lhcl-note {
+  padding: 2px 8px;
+  border: 1px solid var(--lhcl-line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--pf-text);
+  font: 600 11px/1.4 var(--pf-sans);
+}
 .lhpf .tab.class .lhcl-count b { color: var(--pf-text); font: 700 17px/1 var(--pf-serif); }
 .lhpf .tab.class .lhcl-ready {
   padding: 2px 8px;
@@ -386,8 +353,6 @@
 .lhpf .tab.class .lhcl-ladder li.current { border-color: var(--lhcl-gold); box-shadow: 0 0 0 1px var(--lhcl-gold); }
 
 @media (prefers-reduced-motion: reduce) {
-  .lhpf .tab.class .lhcl-sword { transition: none; }
-  .lhpf .tab.class .lhcl-motor.ready .lhcl-motor-art::after,
   .lhpf .tab.class .lhcl-motor.ready .lhcl-pip.on { animation: none; }
 }
 
@@ -434,3 +399,35 @@
 #lhauto-hud .lhh-motor-ready { color: #f2db94; font-size: 11px; }
 #lhauto-hud.narrow .lhh-motor-name,
 #lhauto-hud.tiny .lhh-motor-state { display: none; }
+
+/* Attack cards: what a class Motor changed, and the buttons it offers (module/classes/index.mjs)
+   ------------------------------------------------------------------------ */
+.lhc-msg .lh-card-adjusted,
+.lh-combat-card .lh-card-adjusted {
+  margin: 2px 0 6px;
+  padding: 3px 8px;
+  border-left: 3px solid #1f5137;
+  border-radius: 3px;
+  background: rgba(31, 81, 55, 0.08);
+  color: #1f3a2a;
+  font: 600 11px/1.4 var(--c-body, inherit);
+}
+.lhc-msg .lh-adjusted-mark,
+.lh-combat-card .lh-adjusted-mark { color: #1f5137; font-size: 10px; }
+.lhm-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 2px 0 6px;
+}
+.lhm-card-actions.dodge { flex: 1 1 100%; justify-content: flex-end; margin: 2px 0 0; }
+.lhm-card-action {
+  padding: 1px 8px;
+  border: 1px solid #8a6a25;
+  border-radius: 9px;
+  background: linear-gradient(180deg, #fbf6e8, #efe2c2);
+  color: #1f3a2a;
+  font: 600 10.5px/1.6 var(--c-body, inherit);
+  cursor: pointer;
+}
+.lhm-card-action:hover { border-color: #1f5137; background: #1f5137; color: #f8eed3; }

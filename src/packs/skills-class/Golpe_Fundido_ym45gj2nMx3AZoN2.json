@@ -1,0 +1,71 @@
+{
+  "name": "Golpe Fundido",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Caminho da Fusão.</strong> Com um espírito fundido a você: um golpe com a sua arma e a força dele. [Poder de Ataque + 2D + Laços] de dano físico. Não gasta Laços.</p>",
+    "tags": [
+      "Weapon Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": "@motor.value",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/magical/humanoid-silhouette-dashing-blue.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "invocador-golpe-fundido",
+      "kind": "bends",
+      "branch": "pathTalent",
+      "minRank": 3,
+      "motor": {
+        "id": "invocador",
+        "spirit": "any"
+      },
+      "pathTalent": {
+        "class": "invocador",
+        "id": "fusao"
+      },
+      "damageText": "[Poder de Ataque] + 2D + Laços Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ym45gj2nMx3AZoN2",
+  "folder": "MwlqUaEsrCvDMnue",
+  "_key": "!items!ym45gj2nMx3AZoN2"
+}

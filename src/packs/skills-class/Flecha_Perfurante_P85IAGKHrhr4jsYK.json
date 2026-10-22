@@ -1,0 +1,76 @@
+{
+  "name": "Flecha Perfurante",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com pelo menos 2 de Mira: uma flecha pesada que atravessa escudos e corpos. Atinge todos os inimigos numa linha reta até o alcance da arma: [Poder de Ataque + (1 + Mira)D + Mira×NP÷2] de dano físico em cada um. Gasta toda a Mira.</p>",
+    "tags": [
+      "Weapon Attack",
+      "Ranged Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Line",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*floor(@cr/2)",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/ranged/projectile-strike-impale-gray.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "cacador-flecha-perfurante",
+      "kind": "spends",
+      "branch": "aljava",
+      "minRank": 5,
+      "motor": {
+        "id": "cacador",
+        "needs": {
+          "min": 2,
+          "weapon": [
+            "Bow",
+            "Crossbow",
+            "Throwing"
+          ]
+        },
+        "spend": "all"
+      },
+      "damageText": "[Poder de Ataque] + (1+Mira)D + Mira×NP÷2 Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.8.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 120000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "P85IAGKHrhr4jsYK",
+  "folder": "FekWZLbl9GX7DfII",
+  "_key": "!items!P85IAGKHrhr4jsYK"
+}
