@@ -10,7 +10,7 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   é o registro de custos de uma habilidade (`automation/use.mjs`).
 - Configurações, teclas e o socket usam o id `eternia`. A API de macros fica em `game.eternia`.
 - Os prefixos de CSS e de `data-action` herdados do módulo (`lhpf` ficha, `lhc` chat, `lhh` HUD, `lhwin` janelas,
-  `lhk` Kuden, `lhauto`) continuam como estão.
+  `lhauto`) continuam como estão; a aba Classe usa `lhcl`.
 
 ## CSS
 - `css/eternia.css` e `css/piles.css` são a base (camada `system`).
@@ -21,9 +21,13 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
 ## Compêndios
 - Fonte em `src/packs/<pacote>/*.json`, em português. Campos lidos pela automação (tags, Momento, alcance, alvo,
   custo, limite, tipos, subtipos) ficam em inglês; `module/i18n/` traduz na tela.
-- Raças, classes e habilidades gerais e de combate da Eternia entram nos pacotes vazios (`races-classes`,
-  `skills-common`, `skills-racial`, `skills-archetype`, `skills-class`). O navegador de habilidades acha a origem
-  de cada habilidade pelo nome das pastas (arquétipo, classe, raça).
+- Raças, classes e habilidades gerais e de combate da Eternia ficam em `races-classes`, `skills-racial`,
+  `skills-class` e `skills-common` (este ainda vazio). O navegador de habilidades acha a origem de cada habilidade
+  pelo nome das pastas (a classe, a raça) e pelas flags da Dedicação e dos Caminhos.
+- Classe = item `class` (base, tags de papel, `grants` com o kit, o Caminho no NP 3 e o Ápice no NP 10) + habilidades
+  na pasta com o nome da classe em `skills-class`, com o Motor em código em `module/classes/` (estado em
+  `flags.eternia.motor.<classe>`). Regras de construção, flags e como criar uma classe: `docs/classes.md`. Não há
+  arquétipos nem Kuden.
 - Raça = item `race` com atributos, `hp`, `fate` e `grants` (as 2 inatas, uma Geral e uma de Combate; uma escolha vira
   um espaço com várias opções). As habilidades ficam em `skills-racial`, na pasta com o nome da raça: as inatas e as
   variantes levam `flags.eternia.choiceOnly` (só aparecem no navegador depois de concedidas) e as 2 desbloqueáveis

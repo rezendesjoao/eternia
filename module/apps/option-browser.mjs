@@ -1,4 +1,5 @@
-import { ARCHETYPES, CORE_PACK, getOption, optionDataFrom } from "../helpers/character-options.mjs";
+import { CORE_PACK, getOption, optionDataFrom } from "../helpers/character-options.mjs";
+import { tagLabel } from "../i18n/terms.mjs";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -7,7 +8,7 @@ const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 /* -------------------------------------------- */
 
 /** Extra index fields read from the compendiums (the full documents are never loaded). */
-const INDEX_FIELDS = ["system.identifier", "system.archetype"];
+const INDEX_FIELDS = ["system.identifier", "system.tags"];
 
 /** Option type -> Promise of its entries, built on first use. */
 const cache = new Map();
@@ -21,7 +22,7 @@ export function clearOptionIndex() {
  * Every Race / Class / Subclass the user can see: the Item compendiums first (the system one on top),
  * then the world items.
  * @param {string} type  "race", "class" or "subclass"
- * @returns {Promise<{uuid, name, img, identifier, archetype, source}[]>}
+ * @returns {Promise<{uuid, name, img, identifier, roles, source}[]>}
  */
 export function getOptionIndex(type) {
   if (!cache.has(type)) cache.set(type, buildIndex(type));
@@ -35,7 +36,7 @@ async function buildIndex(type) {
     name: e.name,
     img: e.img,
     identifier: e.system?.identifier ?? "",
-    archetype: e.system?.archetype ?? "",
+    roles: e.system?.tags ?? [],
     source,
     order
   });
@@ -140,8 +141,8 @@ export class OptionBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     const currentSource = current?._stats?.compendiumSource;
     const entries = (await getOptionIndex(this.type)).map(e => ({
       ...e,
-      subtitle: [ARCHETYPES[e.archetype] ? game.i18n.localize(ARCHETYPES[e.archetype]) : null, e.source]
-        .filter(Boolean).join(" · "),
+      // A class's roles (its tags: Damage, Defense…), then the compendium
+      subtitle: [...(e.roles ?? []).map(tagLabel), e.source].filter(Boolean).join(" · "),
       selected: !!current && ((e.uuid === currentSource)
         || (!!e.identifier && (e.identifier === current.system.identifier)))
     }));

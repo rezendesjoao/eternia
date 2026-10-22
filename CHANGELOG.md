@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.7.0 — 2026-10-21
+
+### Adicionado
+- **As classes da Eternia** (`docs/classes.md`, página **XI. CLASSES** do diário AS REGRAS): cada classe tem a sua
+  base, um **Motor** (a regra que só ela tem), talentos que mexem no Motor, um Caminho no NP 3, a Dedicação (a
+  multiclasse) a partir do NP 5 e o Ápice no NP 10.
+- **O Samurai**, a primeira classe, no compêndio Raças e Classes (pasta Classes) e as 36 habilidades dele em
+  Habilidades de Classe: o Motor **Bainha** (Embainhada ou Desembainhada, os Cortes, o Corte Perfeito), o kit, 16
+  talentos em quatro ramos, 4 Gerais, os Caminhos da Lua Cheia, da Água Corrente e do Relâmpago (com dois talentos
+  cada), o Ápice Mente Vazia, a Dedicação e a Bainha Menor. Tudo automatizado.
+- **Motor das classes** (`module/classes/`): o estado no ator (`flags.eternia.motor.<classe>`), os requisitos e o que
+  cada habilidade gasta, ganha ou muda (`flags.eternia.motor`), a ação que ela gasta no lugar da do Momento, o custo
+  de Ódio pelos pontos ("Hate 1+Cortes"), os valores `@spent`, `@perfect`, `@per` e `@motor.*` nas fórmulas, o
+  acerto automático do Corte Perfeito, o Desfazer devolvendo o Motor, e as reações ao Processo de Abertura e de
+  Encerramento, ao início e fim do combate, aos ataques declarados, às esquivas e aos inimigos derrubados.
+- **Aba Classe** na ficha do personagem (o brasão, a base, o Motor, o kit, os talentos por ramo, o Caminho, o Ápice,
+  os Gerais, as Dedicações e os marcos), o **Motor no HUD** e no **token** (losangos acima da barra de PV).
+- Navegador de habilidades: requisitos entre talentos (`flags.eternia.requires`), talentos de Caminho só para quem
+  segue o Caminho (`flags.eternia.pathTalent`), a fonte **Dedicação** (a Dedicação de uma classe para as outras e os
+  talentos [Dedicação] dela dois NP depois, no máximo duas, a segunda depois de dois talentos da primeira).
+- Habilidades iniciais por NP: os espaços de `system.grants` de uma classe podem dizer o NP (`rank`) e ser dados sem
+  perguntar (`auto`); a subida de NP (e o NP mudado à mão) oferece o que chegou. Uma habilidade pode dar outras ao
+  ser aprendida (`flags.eternia.dedicationGrants`).
+- Tags de papel das classes (Dano, Defesa, Cura, Controle) e as tags [Iai] e [Dedicação].
+- Migração que limpa dos mundos o que o Kuden e os arquétipos deixaram.
+- Aviso de novidades da 0.7.
+
+### Alterado
+- As Joias do Chamado da Vida curam quem tem uma classe com o papel [Cura] (antes, o arquétipo Curandeiro).
+- O seletor de classes mostra os papéis da classe no lugar do arquétipo.
+
+### Removido
+- **O Kuden** (regra da casa): a configuração, as abas da ficha e da habilidade, o painel do HUD, o ambiente da cena,
+  as 11 condições de efeito que ele trazia e `game.eternia.kuden`.
+- **Os arquétipos** de Log Horizon: o campo do item de classe, o pacote Habilidades de Arquétipo e a fonte Arquétipo
+  do navegador de habilidades.
+
 ## 0.6.0 — 2026-10-21
 
 ### Adicionado

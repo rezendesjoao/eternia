@@ -2,13 +2,14 @@
  * The parchment character sheet: the system's sheet logic (EterniaActorSheet) with new templates, laid
  * out like the Pathfinder 2e character sheet. A green banner on the left keeps what is used in play
  * (HP, Barrier, Hate, Fatigue, defenses, combat checks, statuses); the header has the name, Fate and
- * the CR; the tabs hold the character, the checks, the skills, the inventory, the profession, the effects and the bio.
+ * the CR; the tabs hold the character, the checks, the skills, the inventory, the class, the profession, the effects
+ * and the bio.
  *
  * Every selector and data-action the parent class relies on is kept in templates/character/
  * (.item[data-item-id], .equip-slot, .inventory-list, .option-field, the status panel, tag input and
  * ticket partials, the tab groups…), so equipping, rolling, tickets and effects keep working.
  */
-import { L, SYSTEM_ID, setting } from "../settings.mjs";
+import { L, SYSTEM_ID } from "../settings.mjs";
 import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { useItem } from "../helpers/item-use.mjs";
 import { removeBadStatus } from "../automation/fate.mjs";
@@ -16,21 +17,21 @@ import { itemSkillsOf, linkedSkill } from "../content/content.mjs";
 import { checkUsable } from "../automation/use.mjs";
 import { actorName, escape, toInt } from "../helpers/utils.mjs";
 import { isEmpty, tagLabel, term } from "../i18n/terms.mjs";
-import { announceSettle, changeRank, colorOf, createPiece, isKuden, kudenContext, resourceOf, setColor, setResource } from "../kuden/pieces.mjs";
 import { EterniaActorSheet } from "./actor-sheet.mjs";
 import { allocateBonusPoints } from "../apps/stat-allocation.mjs";
 import { professionAction, professionContext } from "../professions/sheet.mjs";
+import { classAction, classContext } from "../classes/sheet.mjs";
 
 const DIR = `systems/eternia/templates/character`;
-const PARTIALS = ["sidebar", "character", "checks", "skills", "kuden", "inventory", "profession", "effects", "biography"];
+const PARTIALS = ["sidebar", "character", "checks", "skills", "inventory", "class", "profession", "effects", "biography"];
 
 const TABS = [
   { id: "character", icon: "fa-solid fa-address-card" },
   { id: "checks", icon: "fa-solid fa-dice-d6" },
   { id: "skills", icon: "fa-solid fa-wand-sparkles" },
-  // Kuden (house rule, module/kuden/): only with its setting on
-  { id: "kuden", icon: "fa-solid fa-scroll" },
   { id: "inventory", icon: "fa-solid fa-backpack" },
+  // The class and its Motor (module/classes/)
+  { id: "class", icon: "fa-solid fa-chess-knight" },
   // The profession (the subclass, module/professions/)
   { id: "profession", icon: "fa-solid fa-hammer" },
   { id: "effects", icon: "fa-solid fa-person-rays" },
@@ -186,13 +187,8 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       "lhauto-power": EterniaCharacterSheet.#onPower,
       "linked-skill-throw": EterniaCharacterSheet.#onLinkedSkill,
       "item-use": EterniaCharacterSheet.#onItemUse,
-      "kuden-create": EterniaCharacterSheet.#onKudenCreate,
-      "kuden-rank": EterniaCharacterSheet.#onKudenRank,
-      "kuden-settle": EterniaCharacterSheet.#onKudenSettle,
-      "kuden-resource": EterniaCharacterSheet.#onKudenResource,
-      "kuden-color-add": EterniaCharacterSheet.#onKudenColorAdd,
-      "kuden-color-remove": EterniaCharacterSheet.#onKudenColorRemove,
-      "lhp": EterniaCharacterSheet.#onProfession
+      "lhp": EterniaCharacterSheet.#onProfession,
+      "lhcl": EterniaCharacterSheet.#onClass
     }
   };
 
@@ -236,9 +232,8 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     const lh = {};
 
     // Tabs
-    const kuden = !!setting("kuden");
-    if (!kuden && (this.tabGroups.primary === "kuden")) this.tabGroups.primary = "skills";
-    lh.tabs = TABS.filter(t => kuden || (t.id !== "kuden")).map(t => ({ ...t, label: L(`Sheet.Tab.${t.id}`) }));
+    if (!TABS.some(t => t.id === this.tabGroups.primary)) this.tabGroups.primary = "skills";
+    lh.tabs = TABS.map(t => ({ ...t, label: L(`Sheet.Tab.${t.id}`) }));
     lh.tabLabel = L(`Sheet.Tab.${this.tabGroups.primary}`);
 
     // Sidebar: HP, Barrier, Hate, Fatigue
@@ -310,8 +305,7 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
         timing: parseSkillField("timing", s.timing).type,
         sr: max ? `${value}/${max}` : "",
         cost: isEmpty(s.cost) ? "" : term("cost", s.cost),
-        limit: isEmpty(s.limit) ? "" : term("limit", s.limit),
-        kuden: kuden && isKuden(item)
+        limit: isEmpty(s.limit) ? "" : term("limit", s.limit)
       };
       return item;
     };
@@ -373,8 +367,8 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       { id: "unions", type: "union", label: L("Sheet.Unions"), items: withTags(context.social.unions) }
     ];
 
-    // Kuden: Core, Resource, Kuden Points, pieces, color gifts
-    lh.kuden = kuden ? kudenContext(actor, { editable: this.isEditable, term }) : null;
+    // Class: the Motor, the kit, the Path, the talents, the Dedications
+    lh.classTab = await classContext(actor, { editable: this.isEditable });
 
     // Profession: crest, bench, chances, materials, talent, works, Rank ladder
     lh.profession = professionContext(actor, { editable: this.isEditable });
@@ -432,14 +426,6 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     for (const field of root.querySelectorAll(".lhpf-sidebar input, .lhpf-header input, .gold-input")) {
       field.addEventListener("keydown", event => { if (event.key === "Enter") { event.preventDefault(); field.blur(); } });
     }
-    // Enter in the new color gift adds it (the field has no name: the sheet doesn't save it).
-    const color = root.querySelector(".lhk-color-input");
-    color?.addEventListener("keydown", event => {
-      if (event.key !== "Enter") return;
-      event.preventDefault();
-      root.querySelector("[data-action='kuden-color-add']")?.click();
-    });
-
     // Summaries left open before this render.
     this.#summaries.restore(root);
   }
@@ -531,47 +517,9 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     return professionAction(this, target);
   }
 
-  /* -------------------------------------------- */
-  /*  Kuden                                       */
-  /* -------------------------------------------- */
-
-  /** A new Kuden piece, paid with the pending picks. */
-  static #onKudenCreate(event, target) {
-    if (this.isEditable) return createPiece(this.actor, target.dataset.piece);
-  }
-
-  /** +1 / −1 Skill Rank of a Technique. */
-  static #onKudenRank(event, target) {
-    if (!this.isEditable) return;
-    const item = this.actor.items.get(target.closest("[data-item-id]")?.dataset.itemId);
-    return changeRank(item, Number(target.dataset.delta) || 0);
-  }
-
-  static async #onKudenSettle() {
-    if (this.isEditable) await announceSettle(this.actor);
-  }
-
-  /** The manual Resource: a pip sets the value (the last lit one takes one off), the steps add or take one. */
-  static #onKudenResource(event, target) {
-    if (!this.isEditable) return;
-    const current = resourceOf(this.actor)?.value ?? 0;
-    if (target.dataset.value !== undefined) {
-      const value = Number(target.dataset.value) || 0;
-      return setResource(this.actor, (value === current) ? value - 1 : value);
-    }
-    return setResource(this.actor, current + (Number(target.dataset.delta) || 0));
-  }
-
-  static #onKudenColorAdd(event, target) {
-    if (!this.isEditable) return;
-    const text = target.closest(".lhk-color-add")?.querySelector(".lhk-color-input")?.value.trim();
-    if (text) return setColor(this.actor, [...colorOf(this.actor), text]);
-  }
-
-  static #onKudenColorRemove(event, target) {
-    if (!this.isEditable) return;
-    const index = Number(target.dataset.index);
-    return setColor(this.actor, colorOf(this.actor).filter((_, i) => i !== index));
+  /** The class tab's buttons (data-op: classes/sheet.mjs). */
+  static #onClass(event, target) {
+    return classAction(this, target);
   }
 }
 

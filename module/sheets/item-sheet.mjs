@@ -3,7 +3,7 @@ import { activateTagInput } from "../helpers/tags.mjs";
 import { canonicalTags } from "../helpers/tag-catalog.mjs";
 import { diceOptions } from "../helpers/dice.mjs";
 import { SKILL_MAX_DICE, CHECK_STATS, DAMAGE_TYPES, isMonsterSkill, rollSkill } from "../helpers/skill-rolls.mjs";
-import { ARCHETYPES, OPTION_TYPES } from "../helpers/character-options.mjs";
+import { OPTION_TYPES } from "../helpers/character-options.mjs";
 import { prepareSkillFields, composeSkillField, CUSTOM } from "../helpers/skill-fields.mjs";
 import { canUseItem, useItem } from "../helpers/item-use.mjs";
 import { activateConditionInputs, conditionsContext, conditionsFromForm } from "../helpers/effect-conditions.mjs";
@@ -128,8 +128,6 @@ export class EterniaItemSheet extends HandlebarsApplicationMixin(foundry.applica
     // Usable items: Use button, when carried by a character
     if (item.type === "usable") context.canUse = canUseItem(item);
 
-    // Class archetype options
-    if (item.type === "class") context.archetypes = ARCHETYPES;
 
     // Race / Class / Subclass starting skills
     if (OPTION_TYPES.includes(item.type)) context.grants = await this._prepareGrants();

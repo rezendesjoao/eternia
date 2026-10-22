@@ -34,21 +34,6 @@
 		{{/each}}
 		{{/with}}
 
-		{{!-- KUDEN --}}
-		{{#with panel.kuden}}
-		{{#if resource}}
-		<div class="lhh-resource" data-tooltip-text="{{resource.hint}}">
-			<span class="name">{{resource.name}}</span>
-			<span class="pips">{{#each resource.pips}}<a class="pip{{#if on}} on{{/if}}"{{#if ../resource.manual}} data-action="lhh-resource" data-value="{{value}}"{{/if}}></a>{{/each}}</span>
-			<span class="value">{{resource.value}}/{{resource.max}}</span>
-		</div>
-		{{/if}}
-		{{#each groups}}
-		<h4 class="lhh-group">{{label}}</h4>
-		<ul class="lhh-rows">{{#each rows}}{{> "systems/eternia/templates/hud/row.hbs"}}{{/each}}</ul>
-		{{/each}}
-		{{/with}}
-
 		{{!-- ITEMS --}}
 		{{#with panel.items}}
 		{{#each groups}}

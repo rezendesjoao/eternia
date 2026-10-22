@@ -1,9 +1,9 @@
 /**
  * Action HUD — what the bar and its panels show for an actor (the app is in hud.mjs).
  *
- * The bar: portrait, HP and Barrier, Fate, Hate, Fatigue, the combat state (join, the actions left in the
- * Main Process, end it, Standby), the panel buttons and the pinned shortcuts. The panels: the checks, the
- * skills by Timing, the Kuden pieces, the items (hands, trigger powers, usable items) and the statuses.
+ * The bar: portrait, HP and Barrier, Fate, Hate, Fatigue, the class Motor, the combat state (join, the actions left
+ * in the Main Process, end it, Standby), the panel buttons and the pinned shortcuts. The panels: the checks, the
+ * skills by Timing, the items (hands, trigger powers, usable items) and the statuses.
  *
  * Skill rows read use.mjs (inspectUse) without asking anything: uses left of a counted limit, the cost to
  * pay, and why the skill can't be used now (dimmed). Panels are only built when open.
@@ -15,7 +15,7 @@ import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { skillRollable } from "../helpers/skill-rolls.mjs";
 import { actionsLeft, inspectUse } from "../automation/use.mjs";
 import { itemSkillsOf, linkedSkill } from "../content/content.mjs";
-import { kudenOf, pieceOf, piecesOf, resourceOf } from "../kuden/pieces.mjs";
+import { motorData, motorMax, motorName, motorsOf, motorStateLabel, motorUnit } from "../classes/motor.mjs";
 import { isEmpty, tagLabel, term } from "../i18n/terms.mjs";
 import { ATTRIBUTES, COMBAT_CHECKS, TIMING_GROUPS } from "../sheets/character-sheet.mjs";
 import { actorName, combatantOf, combatOf, escape, toInt } from "../helpers/utils.mjs";
@@ -24,7 +24,6 @@ import { actorName, combatantOf, combatOf, escape, toInt } from "../helpers/util
 export const PANELS = [
   { id: "checks", icon: "fa-solid fa-dice-d6" },
   { id: "skills", icon: "fa-solid fa-wand-sparkles" },
-  { id: "kuden", icon: "fa-solid fa-scroll" },
   { id: "items", icon: "fa-solid fa-sack" },
   { id: "effects", icon: "fa-solid fa-person-rays" }
 ];
@@ -198,20 +197,19 @@ export async function descriptionHTML(item) {
 }
 
 /* -------------------------------------------- */
-/*  Skills, Kuden, items, statuses              */
+/*  Skills, items, statuses                     */
 /* -------------------------------------------- */
 
-/** Skills used from elsewhere: the trigger powers of carried items and, with the Kuden panel, the pieces. */
-function skillsUsedElsewhere(actor, kuden) {
+/** Skills used from elsewhere: the trigger powers of carried items. */
+function skillsUsedElsewhere(actor) {
   const ids = new Set();
   for (const [itemId, list] of itemSkillsOf(actor)) if (actor.items.has(itemId)) for (const skill of list) ids.add(skill.id);
-  if (kuden) for (const piece of piecesOf(actor)) ids.add(piece.id);
   return ids;
 }
 
 /** The skills panel: the skills that are used (not Constant), by Timing. */
-function skillsPanel(actor, pins, kuden) {
-  const elsewhere = skillsUsedElsewhere(actor, kuden);
+function skillsPanel(actor, pins) {
+  const elsewhere = skillsUsedElsewhere(actor);
   const skills = actor.items.filter(i => (i.type === "skill") && !elsewhere.has(i.id) && (timingOf(i) !== "Constant"))
     .sort((a, b) => (a.sort - b.sort) || a.name.localeCompare(b.name, game.i18n.lang));
   const groups = TIMING_GROUPS.filter(g => g.id !== "constant").map(g => ({ id: g.id, label: L(`Sheet.Timing.${g.id}`), rows: [] }));
@@ -221,34 +219,6 @@ function skillsPanel(actor, pins, kuden) {
     groups[(index >= 0) ? index : groups.length - 1].rows.push(skillRow(skill, pins));
   }
   return { groups: groups.filter(g => g.rows.length) };
-}
-
-/** The Kuden panel: the Resource, the Core and the pieces (Constant ones are shown to read and to post). */
-function kudenPanel(actor, pins) {
-  const resource = resourceOf(actor);
-  const row = item => {
-    const constant = timingOf(item) === "Constant";
-    const r = constant ? { ...skillRow(item, pins), unusable: false, issues: "", uses: null, constant: true } : skillRow(item, pins);
-    if (constant) r.tip = tipHTML(item, r);
-    r.restriction = kudenOf(item)?.restriction ?? "";
-    r.tier = r.restriction ? L(`Kuden.Tier.${r.restriction}`) : "";
-    return r;
-  };
-  const pieces = piecesOf(actor);
-  const groups = ["core", "technique", "apex", "greaterGift", "gift"].map(piece => ({
-    id: piece,
-    label: L(piece === "core" ? "Kuden.Piece.core" : `Kuden.Pieces.${piece}`),
-    rows: pieces.filter(p => pieceOf(p) === piece).map(row)
-  })).filter(g => g.rows.length);
-  return {
-    resource: resource && {
-      name: resource.name, value: resource.value, max: resource.max,
-      manual: resource.source === "manual",
-      pips: Array.from({ length: resource.max }, (_, i) => ({ value: i + 1, on: i < resource.value })),
-      hint: (resource.source === "hour") ? L("Kuden.Sheet.ResourceHour", { hour: L(`Kuden.Hour.${resource.hour}`) }) : L("Kuden.Source.manual")
-    },
-    groups
-  };
 }
 
 /** The items panel: what is in the hands, the trigger powers of the equipment, and the usable items. */
@@ -404,6 +374,32 @@ function pinButtons(actor, pins) {
 }
 
 /**
+ * The class Motors of a character for the bar: name, state, points (a pip sets them, as on the class tab) and
+ * whether the next strike is a Perfect Cut.
+ * @param {Actor} actor
+ * @returns {object[]}
+ */
+function motorBlocks(actor) {
+  return motorsOf(actor).map(({ def, lesser }) => {
+    const data = motorData(actor, def.id);
+    const max = motorMax(actor, def.id);
+    const value = Math.clamp(toInt(data.value), 0, max);
+    const ready = !!def.display?.(actor, { lesser, data, max })?.ready;
+    const stateLabel = motorStateLabel(def, data.state);
+    return {
+      id: def.id,
+      name: motorName(def),
+      state: data.state,
+      stateLabel,
+      ready,
+      pips: Array.from({ length: max }, (_, i) => ({ value: i + 1, on: i < value })),
+      tooltip: [`${motorName(def)}: ${stateLabel}`, `${value}/${max} ${motorUnit(def)}`,
+        ready ? L("Motor.Samurai.PerfectReady") : ""].filter(Boolean).join(" · ")
+    };
+  });
+}
+
+/**
  * Everything the HUD template needs.
  * @param {Actor} actor
  * @param {Token|null} token
@@ -413,7 +409,6 @@ export function hudContext(actor, token, { panel, collapsed }) {
   const system = actor.system;
   const source = actor._source.system ?? {};
   const character = actor.type === "character";
-  const kuden = character && !!setting("kuden") && piecesOf(actor).length > 0;
   const pins = pinsOf(actor);
 
   const hp = toInt(system.health?.value), hpMax = Math.max(0, toInt(system.health?.max));
@@ -422,7 +417,7 @@ export function hudContext(actor, token, { panel, collapsed }) {
   const rank = actor.statuses.has("hateTop") ? "top" : (actor.statuses.has("hateUnder") ? "under" : null);
   const badCount = getStatusPanel(actor).find(g => g.id === "bad")?.statuses.filter(s => s.active).length ?? 0;
 
-  const panels = PANELS.filter(p => (p.id !== "kuden") || kuden).map(p => ({
+  const panels = PANELS.map(p => ({
     ...p, label: L(`Hud.Panel.${p.id}`), active: p.id === panel,
     badge: (p.id === "effects" && badCount) ? badCount : null
   }));
@@ -442,6 +437,7 @@ export function hudContext(actor, token, { panel, collapsed }) {
     } : null,
     hate: character ? { value: hate, rank, tooltip: [L("Hud.HateTip", { value: hate }), rank ? game.i18n.localize(`ETERNIA.StatusEffect.${rank === "top" ? "hateTop" : "hateUnder"}`) : ""].filter(Boolean).join(" · ") } : null,
     fatigue: character ? toInt(source.infos?.fatigue) : 0,
+    motors: character ? motorBlocks(actor) : [],
     combat: combatBlock(actor, token),
     dodge: dodgeOf(actor),
     panels,
@@ -450,8 +446,8 @@ export function hudContext(actor, token, { panel, collapsed }) {
   };
 
   if (panel && !collapsed) {
-    const build = { checks: checksPanel, skills: skillsPanel, kuden: kudenPanel, items: itemsPanel, effects: effectsPanel }[panel];
-    context.panel = { id: panel, label: L(`Hud.Panel.${panel}`), hint: L(`Hud.Hint.${panel}`), [panel]: build(actor, pins, kuden) };
+    const build = { checks: checksPanel, skills: skillsPanel, items: itemsPanel, effects: effectsPanel }[panel];
+    context.panel = { id: panel, label: L(`Hud.Panel.${panel}`), hint: L(`Hud.Hint.${panel}`), [panel]: build(actor, pins) };
   }
   return context;
 }

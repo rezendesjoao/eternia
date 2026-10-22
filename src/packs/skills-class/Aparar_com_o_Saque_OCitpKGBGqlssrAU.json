@@ -1,0 +1,120 @@
+{
+  "name": "Aparar com o Saque",
+  "type": "skill",
+  "system": {
+    "description": "<p>Use quando você ou um aliado engajado com você for sofrer dano, com a lâmina Embainhada: um meio-saque desvia o golpe. Gaste até [NH+1] Cortes; o alvo (você ou o aliado) ganha [Barreira: Cortes gastos × (NP+5)] até o fim do processo. A lâmina continua Embainhada.</p>",
+    "tags": [
+      "Dedication"
+    ],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 3
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/defensive/shield-barrier-deflect-gold.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "barrier",
+            "value": "@spent*(@cr+5)"
+          },
+          "expires": "endOfProcess"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.7.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Aparar com o Saque",
+      "img": "systems/eternia/assets/ui/status/barrier.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "barrier"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "4w9dtNlG4YUWrpdy",
+      "_key": "!items.effects!OCitpKGBGqlssrAU.4w9dtNlG4YUWrpdy"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "samurai-aparar",
+      "kind": "spends",
+      "branch": "fio",
+      "minRank": 3,
+      "motor": {
+        "id": "samurai",
+        "needs": {
+          "state": "sheathed",
+          "min": 1
+        },
+        "spend": "choose",
+        "max": "@sr+1",
+        "action": "none"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.7.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 120000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "OCitpKGBGqlssrAU",
+  "folder": "C4ytsEa3HxzTigcG",
+  "_key": "!items!OCitpKGBGqlssrAU"
+}

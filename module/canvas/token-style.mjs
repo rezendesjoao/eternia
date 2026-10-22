@@ -7,6 +7,9 @@
  *   Barrier a steel-blue sliver just above (it absorbs the damage first). Faint marks at each quarter.
  * - Fate (the "fate" attribute, or any small count): gold diamonds on the top edge, filled or hollow.
  * - Any other attribute: the same pill in green.
+ * - Class Motor (module/classes/): a small row of gold diamonds just above the HP bar with a disc for its state
+ *   (green sheathed, crimson drawn, for the Samurai), the diamonds glowing when the next strike is a Perfect Cut.
+ *   It follows the core redraw of the status icons, which every change of the actor or its items sets off.
  * - Nameplate: the name in Eczar small caps on a small band in the colour of the disposition (green friendly, wine
  *   hostile, bronze neutral, grey secret), with a gold hairline and two gold diamonds at its ends; long names end in
  *   "…". The elevation tooltip uses the same font.
@@ -15,6 +18,7 @@
  * Everything is redrawn when the settings change; the core look comes back with "tokenStyle" off.
  */
 import { SYSTEM_ID, setting } from "../settings.mjs";
+import { motorData, motorMax, motorsOf } from "../classes/motor.mjs";
 
 const FONT = "Eternia Eczar";
 const COLORS = {
@@ -31,6 +35,9 @@ const COLORS = {
   green: 0x2f7a52,
   text: 0xf4ead0
 };
+/** Colour of the state disc of a class Motor (the first state is the resting one). */
+const MOTOR_STATES = { sheathed: COLORS.green, drawn: COLORS.hp };
+
 /** Band of the nameplate by token disposition (CONST.TOKEN_DISPOSITIONS). */
 const BANDS = { 1: 0x1f5137, 0: 0x5c4a22, [-1]: 0x6b2420, [-2]: 0x3a3836 };
 
@@ -237,6 +244,47 @@ function tokenClass(Base) {
     /** Height of the HP bar as drawn (0 when hidden), for the nameplate below it. */
     lhBarHeight = 0;
 
+    /** The class Motor's diamonds (module/classes/). */
+    lhMotor = null;
+
+    /** @override Core redraws the status icons on every change of the actor or its items: the Motor follows. */
+    _refreshEffects() {
+      super._refreshEffects();
+      this.#drawMotor();
+    }
+
+    /** The first class Motor of a character: its points as diamonds above the HP bar, its state as a disc. */
+    #drawMotor() {
+      if (!this.lhMotor || this.lhMotor.destroyed) this.lhMotor = this.addChild(new PIXI.Graphics());
+      const g = this.lhMotor;
+      g.clear();
+      g.zIndex = 4;
+      const motor = (styled() && (this.actor?.type === "character")) ? motorsOf(this.actor)[0] : null;
+      const max = motor ? motorMax(this.actor, motor.def.id) : 0;
+      g.visible = !!max && !this.document.isSecret;
+      if (!g.visible) return;
+      const data = motorData(this.actor, motor.def.id);
+      const ready = !!motor.def.display?.(this.actor, { lesser: motor.lesser, data, max })?.ready;
+      const s = canvas.dimensions.uiScale;
+      const { width, height } = this.document.getSize();
+      const pips = new PIXI.Graphics();
+      const w = drawPips(pips, Math.clamp(Number(data.value) || 0, 0, max), max, s);
+      const d = 4.2 * s;
+      // State disc at the left end of the row
+      g.lineStyle(Math.max(1, s), COLORS.ink, 0.85).beginFill(COLORS.gold, 1).drawCircle(d, 0, d).endFill();
+      g.lineStyle(0).beginFill(MOTOR_STATES[data.state] ?? COLORS.green, 1).drawCircle(d, 0, d * 0.62).endFill();
+      if (ready) {
+        g.lineStyle(Math.max(1, 1.4 * s), COLORS.goldBright, 0.9).drawRoundedRect((2 * d) + (2 * s), -5 * s, w + (6 * s), 10 * s, 5 * s);
+        g.lineStyle(0);
+      }
+      pips.position.set((2 * d) + (5 * s), 0);
+      g.addChild(pips);
+      for (const child of g.children.slice(0, -1)) child.destroy();
+      const bh = Math.round((this.document.height >= 2 ? 10 : 8) * s);
+      const total = (2 * d) + (5 * s) + w;
+      g.position.set((width - total) / 2, height - (bh / 2) - (10 * s));
+    }
+
     /** @override Every bar with data is drawn; who sees them is decided in _refreshState. */
     drawBars() {
       if (!styled()) return super.drawBars();
@@ -305,8 +353,10 @@ function tokenClass(Base) {
       super._refreshState();
       if (!styled()) {
         if (this.lhPlate) this.lhPlate.visible = false;
+        if (this.lhMotor) this.lhMotor.visible = false;
         return;
       }
+      this.#drawMotor();
       // The HP bar by the system setting; the second bar by the token's own.
       const secret = this.document.isSecret;
       const own = this._canViewMode(this.document.displayBars);

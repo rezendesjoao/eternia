@@ -29,7 +29,7 @@ import { registerEffectDurations } from "./helpers/effect-durations.mjs";
 import { registerMigrations, runMigrations } from "./helpers/migrations.mjs";
 import { registerSustained, onApplySkillEffects } from "./helpers/sustained.mjs";
 import { registerClients } from "./helpers/clients.mjs";
-// Table automation, the parchment look, the action HUD and the Kuden.
+// Table automation, the parchment look and the action HUD.
 import { registerClientSettings, registerSettings } from "./settings.mjs";
 import { registerUse, undoUse } from "./automation/use.mjs";
 import { registerHate } from "./automation/hate.mjs";
@@ -47,15 +47,15 @@ import { parseMonsterDamage } from "./content/monster-damage.mjs";
 import { registerPortugueseDisplay } from "./i18n/display.mjs";
 import { registerWindows } from "./apps/window-theme.mjs";
 import { registerNotice } from "./apps/notice.mjs";
-import { registerKuden } from "./kuden/index.mjs";
-import { ledgerOf, resourceOf, setResource, settle } from "./kuden/pieces.mjs";
-import { sceneEnv } from "./kuden/env.mjs";
 import { actionHud, registerHud, rollActorCheck } from "./hud/hud.mjs";
 import { registerTokens } from "./canvas/token-style.mjs";
 import { registerConditions } from "./conditions/index.mjs";
 import { recover } from "./conditions/recovery.mjs";
 import { takeDamage } from "./conditions/damage.mjs";
 import { professionsApi, registerProfessions } from "./professions/index.mjs";
+import { MOTOR_API, registerClasses } from "./classes/index.mjs";
+import { registerClassProgression } from "./classes/progression.mjs";
+import { registerClassSheet } from "./classes/sheet.mjs";
 import { iconsApi, registerIcons } from "./icons/index.mjs";
 
 /* -------------------------------------------- */
@@ -75,7 +75,7 @@ Hooks.once('init', async function () {
     EterniaCombat,
     EterniaActiveEffect,
     OptionBrowser,
-    // For macros: scenes, checks, Fate, statuses and conditions, the HUD and the Kuden.
+    // For macros: scenes, checks, Fate, statuses and conditions, the HUD and the class Motors.
     endScene,
     endScenario: actors => endScene(actors, { scenario: true }),
     fillWorld,
@@ -91,9 +91,9 @@ Hooks.once('init', async function () {
       giveEffects(actor, [statusEffectData(id, value, tag, { expires, caster: from })]),
     conditions: { recover, damage: takeDamage },
     professions: professionsApi,
+    motor: MOTOR_API,
     icons: iconsApi,
-    hud: actionHud,
-    kuden: { ledgerOf, resourceOf, setResource, settle, sceneEnv }
+    hud: actionHud
   };
 
   // Add custom constants for configuration.
@@ -176,7 +176,7 @@ Hooks.once('init', async function () {
   // Table automation (each part has its own setting): costs, limits and actions of the skills, Hate per
   // combat, Cleanup, Fate, scenes, reach, turn helpers, attack and damage cards, statuses written in the
   // chat, effects from a card, and the content of the items and monsters. Then the look: the parchment
-  // windows and chat, the token bars and nameplates, the action HUD, and the Kuden house rule.
+  // windows and chat, the token bars and nameplates and the action HUD.
   registerSettings();
   registerTokens();
   registerScenes();
@@ -191,7 +191,6 @@ Hooks.once('init', async function () {
   registerChat();
   registerWindows();
   registerReach();
-  registerKuden();
   registerHud();
   registerClientSettings();
   registerTurn();
@@ -200,6 +199,10 @@ Hooks.once('init', async function () {
   registerNotice();
   // Professions (the subclasses): the profession tab, the bench, the traps
   registerProfessions();
+  // Classes: the Motors, the class tab, the Path and Apex by Character Rank, the Dedications
+  registerClasses();
+  registerClassProgression();
+  registerClassSheet();
   // Item icons: the frame of the magic grade and the effects of the level
   registerIcons();
 

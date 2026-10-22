@@ -1,0 +1,127 @@
+{
+  "name": "Caminho do Relâmpago",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Reescreve o que o Iai faz.</strong> Antes do golpe, você corre em linha reta até [Teto da Bainha] Qd, atravessando inimigos, e o Iai atinge todos os inimigos por onde passou (Linha). Cada Corte soma 1D + NP ao dano, em vez de 2D + NP.</p><p><strong>Talentos do Caminho:</strong> Trovão Atrasado (NP 3) e Raio que Volta (NP 7).</p><hr><p><em>Primeiro o clarão. O trovão chega depois, junto com os corpos caindo.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/lightning/bolt-strike-streak-yellow.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "rollFilter": {
+            "skills": [
+              {
+                "name": "Iai"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.7.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Caminho do Relâmpago",
+      "img": "icons/magic/lightning/bolt-strike-streak-yellow.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "eternia.skill.range",
+            "type": "add",
+            "value": "@motor.max",
+            "phase": "initial",
+            "priority": null
+          },
+          {
+            "key": "eternia.skill.note",
+            "type": "override",
+            "value": "Relâmpago: atinge todos os inimigos da linha.",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "rNEmhNYnDURoYWSH",
+      "_key": "!items.effects!R7cPs8od34bCjC3A.rNEmhNYnDURoYWSH"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "samurai-relampago",
+      "kind": "spends",
+      "branch": "path",
+      "choiceOnly": true,
+      "path": {
+        "class": "samurai",
+        "id": "relampago"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.7.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 270000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "R7cPs8od34bCjC3A",
+  "folder": "9dq1t0tvO9oYoKCD",
+  "_key": "!items!R7cPs8od34bCjC3A"
+}

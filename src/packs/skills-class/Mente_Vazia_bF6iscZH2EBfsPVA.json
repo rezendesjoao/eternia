@@ -1,0 +1,123 @@
+{
+  "name": "Mente Vazia",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Ápice do Samurai (NP 10).</strong> O Iai deixa de gastar a sua Ação Maior.</p><ul><li><strong>Lua Cheia:</strong> o Corte Perfeito acontece com 1 Corte a menos que o Teto.</li><li><strong>Água Corrente:</strong> cada ataque de um inimigo contra você dá 2 Cortes.</li><li><strong>Relâmpago:</strong> o Iai corre o dobro de quadrados.</li></ul><hr><p><em>Não há mais espera nem pressa: só o corte, quando ele tem que acontecer.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/air/weather-sunlight-sky.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "rollFilter": {
+            "skills": [
+              {
+                "name": "Iai"
+              }
+            ]
+          },
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Caminho do Relâmpago"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.7.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Mente Vazia: Relâmpago",
+      "img": "icons/magic/air/weather-sunlight-sky.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "eternia.skill.range",
+            "type": "add",
+            "value": "@motor.max",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "PUzLc7H93AyTqKY4",
+      "_key": "!items.effects!bF6iscZH2EBfsPVA.PUzLc7H93AyTqKY4"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "samurai-mente-vazia",
+      "kind": "bends",
+      "branch": "apex",
+      "choiceOnly": true,
+      "apex": "samurai"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.7.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 340000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "bF6iscZH2EBfsPVA",
+  "folder": "W28tSfdXDs6DdNsN",
+  "_key": "!items!bF6iscZH2EBfsPVA"
+}

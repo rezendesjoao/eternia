@@ -1,19 +1,19 @@
 /**
  * Action HUD: a parchment bar above the macro hotbar for the selected token (or, for a player with nothing
- * selected, their character), to roll the checks, use the skills, the Kuden pieces and the items, and follow
- * HP, Barrier, Fate, Hate, Fatigue and the turn without opening the sheet.
+ * selected, their character), to roll the checks, use the skills and the items, and follow HP, Barrier, Fate,
+ * Hate, Fatigue, the class Motor and the turn without opening the sheet.
  *
  * - The bar: portrait (opens the sheet), resources, the combat state (join the combat, the actions left in the
  *   Main Process, end it, Standby), the Dodge Checks still to roll, the panel buttons and up to 8 pinned
  *   shortcuts.
- * - A panel opens above the bar: checks, skills by Timing, Kuden, items, statuses. Click uses or rolls; Shift
+ * - A panel opens above the bar: checks, skills by Timing, items, statuses. Click uses or rolls; Shift
  *   rolls a skill's Check right after its card (or asks a check's modifier); right click opens the item; the pin
  *   fixes it on the bar. Clicking the board or Escape closes the panel.
  * - Skills go through EterniaItem#ItemThrow, so use.mjs checks and records them as from the sheet; usable items
  *   through the system's useItem (after their Character Rank lock); a Dodge Check through the attack card's own
  *   button (rendered off-screen with its listeners).
  * The data is built in data.mjs; the bar re-renders (debounced) when the actor, its items and effects, its
- * token, the combats, the attack cards or the scene change.
+ * token, the combats or the attack cards change.
  *
  * The core macro hotbar can give its place to the HUD (client setting "hotbar"): hidden, or hidden only while the
  * HUD is on screen. It is only hidden with CSS, so the macro keys (1–0) keep working.
@@ -27,7 +27,7 @@ import { useItem } from "../helpers/item-use.mjs";
 import { checkUsable } from "../automation/use.mjs";
 import { rollCheck } from "../chat/cards.mjs";
 import { removeBadStatus } from "../automation/fate.mjs";
-import { resourceOf, setResource } from "../kuden/pieces.mjs";
+import { motorData, setMotor } from "../classes/motor.mjs";
 import { checkOf, descriptionHTML, hudContext, MAX_PINS, PANELS, pinHolder, pinsOf } from "./data.mjs";
 import { combatantOf, combatOf, toInt } from "../helpers/utils.mjs";
 
@@ -58,7 +58,7 @@ export class ActionHud extends HandlebarsApplicationMixin(ApplicationV2) {
       "lhh-status-off": ActionHud.#onStatusOff,
       "lhh-status-recover": ActionHud.#onStatusRecover,
       "lhh-effect-off": ActionHud.#onEffectOff,
-      "lhh-resource": ActionHud.#onResource
+      "lhh-motor": ActionHud.#onMotor
     }
   };
 
@@ -369,12 +369,14 @@ export class ActionHud extends HandlebarsApplicationMixin(ApplicationV2) {
     if (effect?.isOwner) return effect.delete();
   }
 
-  /** The manual Kuden Resource: a pip sets the value (the last lit one takes one off). */
-  static #onResource(event, target) {
+  /** A class Motor's points: a pip sets them (the last lit one takes one off), as on the class tab. */
+  static #onMotor(event, target) {
     const actor = this.actor;
-    const current = resourceOf(actor)?.value ?? 0;
+    const id = target.closest("[data-motor]")?.dataset.motor;
+    if (!actor?.isOwner || !id) return;
+    const data = motorData(actor, id);
     const value = Number(target.dataset.value) || 0;
-    return setResource(actor, (value === current) ? value - 1 : value);
+    return setMotor(actor, id, { ...data, value: (value === Number(data.value)) ? value - 1 : value });
   }
 
   /** Right click: the sheet of an item; the modifier of a check; one Fate Point less. */
@@ -600,6 +602,4 @@ export function registerHud() {
   Hooks.on("updateToken", doc => { if (hud?.token?.document === doc) hud.refresh(); });
   Hooks.on("updateUser", user => { if (user.isSelf) hud?.refresh(); });
   for (const hook of ["createChatMessage", "updateChatMessage", "deleteChatMessage"]) Hooks.on(hook, onAttack);
-  // The Kuden Resource may follow the hour of the scene.
-  Hooks.on("updateScene", scene => { if (hud?.actor && (scene === canvas?.scene)) hud.refresh(); });
 }

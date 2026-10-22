@@ -4,7 +4,8 @@
  * in the chat, and opens the skill selection for the skills the character can now acquire or rank up.
  */
 
-import { classStats } from "../helpers/character-options.mjs";
+import { classStats, getOption } from "../helpers/character-options.mjs";
+import { offerGrants } from "./option-grants.mjs";
 import { SkillBrowser, rankUpSkills, startSkillProgress } from "./skill-browser.mjs";
 
 const { DialogV2 } = foundry.applications.api;
@@ -36,12 +37,15 @@ export async function rankUp(actor) {
 
   // The skill picks owed follow the CR (see skill-browser.mjs).
   await startSkillProgress(actor);
-  await actor.update({ "system.infos.crank": to });
+  await actor.update({ "system.infos.crank": to }, { eterniaRankUp: true });
   await ChatMessage.create({
     speaker: ChatMessage.getSpeaker({ actor }),
     content: `<div class="eternia rank-up-card"><h3><i class="fa-solid fa-angles-up"></i> `
       + `${game.i18n.format("ETERNIA.RankUp.Chat", { name: actor.name, to })}</h3>${list}</div>`
   });
+  // What the class gives at this CR (its Path at CR 3, its Apex at CR 10), before the picks.
+  const job = getOption(actor, "class");
+  if (job) await offerGrants(actor, job, { above: 1, withStale: false });
   SkillBrowser.open(actor);
   return true;
 }

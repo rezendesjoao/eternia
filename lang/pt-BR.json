@@ -556,12 +556,6 @@
         "usable": "Utilizáveis"
       }
     },
-    "Archetype": {
-      "Warrior": "Guerreiro",
-      "WeaponAttacker": "Atacante com Arma",
-      "Healer": "Curandeiro",
-      "Mage": "Mago"
-    },
     "SkillBrowser": {
       "Title": "Habilidades: {name}",
       "Open": "Ver as habilidades que este personagem pode adquirir ou subir de nível",
@@ -595,22 +589,25 @@
         "Keep": "Manter todas"
       },
       "Source": {
-        "archetype": "Arquétipo",
-        "class": "Classe Principal",
-        "race": "Raça",
-        "subclass": "Subclasse",
-        "common": "Comum"
-      },
-      "Filter": {
-        "eligible": "Todas as minhas listas",
-        "archetype": "Arquétipo",
         "class": "Classe Principal",
         "race": "Raça",
         "subclass": "Subclasse",
         "common": "Comum",
-        "all": "Todas as habilidades (sem restrição)"
+        "dedication": "Dedicação"
       },
-      "MinCR": "Libera no NP {rank}"
+      "Filter": {
+        "eligible": "Todas as minhas listas",
+        "class": "Classe Principal",
+        "race": "Raça",
+        "subclass": "Subclasse",
+        "common": "Comum",
+        "all": "Todas as habilidades (sem restrição)",
+        "dedication": "Dedicação"
+      },
+      "MinCR": "Libera no NP {rank}",
+      "Requires": "Requer: {names}.",
+      "DedicationMax": "No máximo {max} Dedicações.",
+      "DedicationNext": "Antes de outra Dedicação, aprenda {n} talentos da primeira (tem {have})."
     },
     "RankUp": {
       "Button": "Subir NP",
@@ -640,7 +637,6 @@
       }
     },
     "CharacterOptions": {
-      "Archetype": "Arquétipo",
       "Identifier": "ID",
       "HpPerRank": "PV / Nível",
       "World": "Mundo",
@@ -677,7 +673,9 @@
         "RemoveStale": "Remover as habilidades concedidas pela {type} anterior:",
         "SheetHint": "Habilidades que um personagem recebe ao escolher este item. Arraste uma habilidade sobre uma linha para torná-la uma escolha entre várias, ou para a área abaixo para adicionar uma nova.",
         "Drop": "Solte uma habilidade aqui",
-        "OnlySkills": "Só itens de Habilidade de um compêndio ou do mundo podem ser habilidades iniciais."
+        "OnlySkills": "Só itens de Habilidade de um compêndio ou do mundo podem ser habilidades iniciais.",
+        "HintRank": "O que {name} dá no NP {rank}:",
+        "TitleRank": "{name}: NP {rank}"
       }
     },
     "Combat": {
@@ -916,17 +914,6 @@
         "firstRound": "Primeira rodada do combate",
         "preAction": "Pré-Ação (ainda não agiu nesta rodada)",
         "standby": "Declarou Espera nesta rodada",
-        "kudenResource": "Kuden: Recurso ≥ N",
-        "kudenResourceFull": "Kuden: Recurso no máximo",
-        "sceneDay": "Cena: de dia",
-        "sceneNight": "Cena: de noite",
-        "sceneNoon": "Cena: ao meio-dia",
-        "sceneOpenSky": "Cena: sob o céu aberto",
-        "sceneDarkness": "Cena: na escuridão",
-        "sceneMiasma": "Cena: em miasma",
-        "sceneNoMiasma": "Cena: fora de miasma",
-        "targetBossRaid": "Alvo: Chefe ou Raide",
-        "hpAtMost": "PV ≤ N% do máximo",
         "hasSkill": "Tem a habilidade"
       },
       "Summary": {
@@ -951,17 +938,6 @@
         "firstRound": "Primeira rodada",
         "preAction": "[Pré-Ação]",
         "standby": "[Espera]",
-        "kudenResource": "Recurso ≥ {value}",
-        "kudenResourceFull": "Recurso no máximo",
-        "sceneDay": "De dia",
-        "sceneNight": "De noite",
-        "sceneNoon": "Ao meio-dia",
-        "sceneOpenSky": "Sob o céu aberto",
-        "sceneDarkness": "Na escuridão",
-        "sceneMiasma": "Em miasma",
-        "sceneNoMiasma": "Fora de miasma",
-        "targetBossRaid": "Mirando um Chefe ou Raide",
-        "hpAtMost": "PV em {value}% do máximo ou menos",
         "hasSkill": "Com {value}"
       }
     },
@@ -1088,10 +1064,6 @@
         "Name": "Conteúdo dos itens e monstros",
         "Hint": "Os poderes de gatilho dos itens viram habilidades de quem os carrega, poções e joias curam e comidas tiram Fadiga de quem as usa, itens equipados dão os seus estados no início da cena, e monstros feitos à mão têm o dano dos ataques lido do texto. Só completa o que falta; nada editado à mão é trocado."
       },
-      "kuden": {
-        "Name": "Kuden (regra da casa)",
-        "Hint": "Liga a aba Kuden da ficha: as peças de assinatura pagas com as escolhas de habilidade, o Recurso do Núcleo, o ambiente de cada cena (hora, céu, escuridão e miasma) e as condições novas de efeito."
-      },
       "chatTheme": {
         "Name": "Tema pergaminho no chat",
         "Hint": "Cartões de habilidade, ataque, dano e as rolagens em pergaminho, com o retrato de quem fala."
@@ -1106,7 +1078,7 @@
       },
       "hud": {
         "Name": "HUD de ações",
-        "Hint": "Mostra uma barra acima da barra de macros com o token selecionado: PV, Barreira, Destino, Ódio e Fadiga, os testes, as habilidades por Momento, o Kuden, os itens, os estados, o turno e as esquivas pendentes, para rolar e usar tudo sem abrir a ficha. Configuração sua: cada jogador escolhe."
+        "Hint": "Mostra uma barra acima da barra de macros com o token selecionado: PV, Barreira, Destino, Ódio e Fadiga, os testes, as habilidades por Momento, os itens, os estados, o turno e as esquivas pendentes, para rolar e usar tudo sem abrir a ficha. Configuração sua: cada jogador escolhe."
       },
       "hudCharacter": {
         "Name": "HUD sem token selecionado",
@@ -1283,7 +1255,7 @@
     "Content": {
       "Fed": "Fadiga −{amount}: {names}",
       "Healed": "Cura: {names}",
-      "NotHealer": "{name} não é do arquétipo Curandeiro (sem efeito)",
+      "NotHealer": "{name} não tem uma classe com o papel [Cura] (sem efeito)",
       "Dead": "{name} está Morto (sem efeito)"
     },
     "Sheet": {
@@ -1292,11 +1264,11 @@
         "character": "Personagem",
         "checks": "Testes",
         "skills": "Habilidades",
-        "kuden": "Kuden",
         "inventory": "Inventário",
         "effects": "Efeitos e estados",
         "biography": "Biografia",
-        "profession": "Profissão"
+        "profession": "Profissão",
+        "class": "Classe"
       },
       "HitPoints": "Pontos de Vida",
       "Max": "Máx.",
@@ -1404,135 +1376,6 @@
     "Chat": {
       "Description": "Descrição"
     },
-    "Kuden": {
-      "Title": "Kuden",
-      "Piece": {
-        "core": "Núcleo",
-        "technique": "Técnica",
-        "gift": "Dom",
-        "greaterGift": "Dom maior",
-        "apex": "Ápice"
-      },
-      "Pieces": {
-        "technique": "Técnicas",
-        "gift": "Dons",
-        "greaterGift": "Dons maiores",
-        "apex": "Ápice"
-      },
-      "PieceNone": "Não é Kuden",
-      "PieceNoneHint": "Escolha a peça para a habilidade virar parte do Kuden (ela ganha a tag Kuden).",
-      "PieceHint": {
-        "core": "Grátis. A regra que define o personagem, do tamanho de uma habilidade inicial de classe. Pode definir o Recurso.",
-        "technique": "2 PK por NH numa de Combate, 1 PK por NH numa Geral.",
-        "gift": "1 PK. Do tamanho de uma habilidade Geral oficial.",
-        "greaterGift": "2 PK, ou 1 PK com Restrição Média ou Pesada. Do tamanho de uma habilidade de Combate no NH 1.",
-        "apex": "4 PK. O golpe máximo, 1/Cenário, um por personagem."
-      },
-      "Tier": {
-        "none": "Sem Restrição",
-        "light": "Leve",
-        "medium": "Média",
-        "heavy": "Pesada"
-      },
-      "TierHint": {
-        "light": "+50% ou +1D",
-        "medium": "+100% ou +2D",
-        "heavy": "+200% ou +3D"
-      },
-      "Field": {
-        "Piece": "Peça do Kuden",
-        "Restriction": "Restrição",
-        "RestrictionText": "Fraqueza",
-        "Origin": "Origem no original",
-        "Ruler": "Régua ou gêmeo oficial",
-        "CostLine": "Custa {cost} PK; as escolhas marcadas nela pagaram {paid} PK."
-      },
-      "Resource": {
-        "Title": "Recurso",
-        "Hint": "O Recurso vai de 0 a 5. As peças o leem pelas condições Recurso ≥ N e Recurso no máximo.",
-        "Name": "Nome",
-        "NamePlaceholder": "Sol, Fúria, Cargas...",
-        "Max": "Máximo",
-        "Source": "Fonte",
-        "Dark": "Vai a 0 na escuridão",
-        "ResetOnScene": "Volta a 0 no fim da cena"
-      },
-      "Source": {
-        "manual": "Manual",
-        "hour": "Hora da cena"
-      },
-      "Hour": {
-        "lateNight": "Madrugada",
-        "dawn": "Aurora",
-        "morning": "Manhã",
-        "noon": "Meio-dia",
-        "afternoon": "Tarde",
-        "dusk": "Crepúsculo",
-        "night": "Noite"
-      },
-      "Env": {
-        "Title": "Ambiente (Kuden)",
-        "Hint": "As condições de cena do Kuden e os Recursos que seguem a hora leem estes campos.",
-        "Hour": "Hora do dia",
-        "OpenSky": "Céu aberto",
-        "Darkness": "Escuridão",
-        "Miasma": "Miasma",
-        "OpenSkyShort": "céu aberto",
-        "CoveredShort": "sem céu",
-        "DarknessShort": "escuridão",
-        "MiasmaShort": "miasma",
-        "Viewed": "Cena exibida: {name}",
-        "NoScene": "Nenhuma cena exibida.",
-        "Apply": "Aplicar o ambiente",
-        "Applied": "Ambiente de {name}: {env}."
-      },
-      "Ledger": {
-        "Title": "Pontos de Kuden",
-        "Paid": "PK pagos",
-        "Cost": "PK de custo",
-        "Kept": "guardado",
-        "Pending": "Escolhas pendentes: Combate {combat}, Geral {general}",
-        "Settle": "Acertar PK",
-        "SettleHint": "Paga o que falta com as escolhas pendentes e devolve as que pagaram além do custo e do 1 PK guardado.",
-        "Missing": "Faltam {n} PK. Use Acertar PK para pagar com as escolhas pendentes.",
-        "MissingNoPicks": "Faltam {n} PK e não há escolhas pendentes. O Mestre confere.",
-        "Surplus": "Sobram {n} PK; só 1 PK pode ficar guardado.",
-        "TwoCores": "Há mais de um Núcleo.",
-        "TwoApexes": "Há mais de um Ápice.",
-        "NoCore": "Falta o Núcleo.",
-        "NoPicks": "Faltam {n} PK e não há escolhas pendentes para pagar. O Mestre confere."
-      },
-      "Sheet": {
-        "NoCore": "Este personagem ainda não tem Núcleo.",
-        "CreateCore": "Criar Núcleo",
-        "NoPieces": "Nenhuma peça ainda.",
-        "Less": "−1",
-        "More": "+1",
-        "Raise": "+1 NH (paga com uma escolha pendente)",
-        "Lower": "−1 NH (devolve a escolha)",
-        "AtMax": "O NH já está no máximo da peça ou no seu NP.",
-        "AtMin": "O NH já está em 1.",
-        "PaidTip": "Custa {cost} PK; pagos {paid} PK.",
-        "ResourceHour": "Segue a hora: {hour}",
-        "Color": "Dons de cor",
-        "NoColor": "Nenhum ainda.",
-        "ColorPlaceholder": "Novo Dom de cor (só história)",
-        "ColorRemove": "Remover",
-        "ColorOver": "Mais de 3 Dons de cor: só vale se o Núcleo permitir.",
-        "Env": "Ambiente da cena",
-        "BadgeTip": "Peça do Kuden: veja a aba Kuden."
-      },
-      "New": {
-        "core": "Novo Núcleo",
-        "technique": "Nova Técnica",
-        "gift": "Novo Dom",
-        "greaterGift": "Novo Dom maior",
-        "apex": "Novo Ápice"
-      },
-      "Use": {
-        "Unmet": "Restrição do Kuden não cumprida: {condition}."
-      }
-    },
     "Hud": {
       "OpenSheet": "Abrir a ficha",
       "Collapse": "Recolher o HUD",
@@ -1540,14 +1383,12 @@
       "Panel": {
         "checks": "Testes",
         "skills": "Habilidades",
-        "kuden": "Kuden",
         "items": "Itens",
         "effects": "Estados"
       },
       "Hint": {
         "checks": "Clique: rolar · Shift ou botão direito: rolar com modificador · Alfinete: fixar na barra",
         "skills": "Clique: usar · Shift + clique: usar e já rolar o Teste · Botão direito: abrir · Alfinete: fixar na barra",
-        "kuden": "Clique: usar (as Constantes vão para o chat) · Shift + clique: usar e já rolar o Teste · Botão direito: abrir",
         "items": "Clique: usar · Botão direito: abrir · Alfinete: fixar na barra",
         "effects": "× remove o estado ou o efeito; o ícone de corrida livra-se do estado gastando a ação da regra"
       },
@@ -1562,7 +1403,6 @@
       "Effects": "Efeitos",
       "NoSkills": "Nenhuma habilidade para usar.",
       "NoItems": "Nada para usar.",
-      "Constant": "Constante",
       "Pin": "Fixar na barra",
       "PinsFull": "A barra já tem {n} atalhos: solte um antes.",
       "RemoveBad": "Destino",
@@ -1594,7 +1434,6 @@
       "hudPanel": {
         "checks": "HUD de ações: Testes",
         "skills": "HUD de ações: Habilidades",
-        "kuden": "HUD de ações: Kuden",
         "items": "HUD de ações: Itens",
         "effects": "HUD de ações: Estados"
       }
@@ -1627,7 +1466,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.6: os itens de Sword Art Online</strong></p><ul><li><strong>108 itens novos</strong> no compêndio de Itens, nas pastas Aincrad, Alfheim e Submundo: 59 armas e 49 proteções e acessórios, do nível 1 ao 30, cada um com o seu ícone pintado.</li><li><strong>Habilidades próprias:</strong> os itens raros ([M4] a [M7]) trazem bônus, estados em todo combate e poderes já automatizados, que aparecem como habilidades de quem carrega o item.</li><li><strong>Lendários fortes de propósito:</strong> Excalibur, Liberator, Elucidator e as espadas do Submundo passam do que as regras dariam a um item do nível delas.</li><li><strong>Em par:</strong> a Explosão Estelar da Elucidator só funciona com a Dark Repulser equipada junto.</li></ul><p>Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.7: as classes</strong></p><ul><li><strong>O Samurai</strong>, a primeira classe da Eternia, no compêndio Raças e Classes (pasta Classes), com 36 habilidades automatizadas.</li><li><strong>Motor: Bainha.</strong> A lâmina Embainhada junta Cortes no Processo de Abertura; o Iai saca antes de todos e gasta todos de uma vez. Com a Bainha cheia, é um Corte Perfeito.</li><li><strong>Aba Classe</strong> na ficha: a base, o Motor, os talentos por ramo, o Caminho (NP 3), o Ápice (NP 10) e as Dedicações. O Motor também aparece no HUD e no token.</li><li><strong>Dedicação:</strong> a partir do NP 5, personagens de outras classes podem pegar a Bainha Menor e os talentos [Dedicação] do Samurai.</li><li><strong>Saíram</strong> o Kuden e os arquétipos de Log Horizon. As regras novas estão na página XI. CLASSES do diário AS REGRAS.</li></ul><p>Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -2338,6 +2177,101 @@
         "Region": "Armadilha: {item}",
         "Name": "Armadilha"
       }
+    },
+    "Motor": {
+      "Issue": {
+        "NoMotor": "Você não tem o Motor {motor}.",
+        "State": "Precisa estar {state}.",
+        "Min": "Precisa de {unit}: pelo menos {n} (tem {have}).",
+        "Full": "Precisa de {unit} no Teto ({max}).",
+        "Weapon": "Precisa de uma arma {tags} na mão principal."
+      },
+      "Choose": "Quantos {unit} gastar? Você tem {have}.",
+      "ChooseOk": "Gastar",
+      "Samurai": {
+        "Name": "Bainha",
+        "Unit": "Cortes",
+        "State": {
+          "sheathed": "Embainhada",
+          "drawn": "Desembainhada"
+        },
+        "FullMoonIssue": "Caminho da Lua Cheia: o Iai só sai com a Bainha cheia ({n} Cortes).",
+        "PerfectReady": "Corte Perfeito pronto",
+        "Card": {
+          "Gain": "No Processo de Abertura, com a lâmina Embainhada: +1 Corte.",
+          "Spend": "O Iai (Iniciativa, gasta a Ação Maior) saca e gasta todos: cada Corte soma 2D + NP ao dano.",
+          "Cap": "2 Cortes, +1 a cada 5 NP. Com a Bainha cheia, Corte Perfeito: acerto automático e +[NP×2+10].",
+          "Reset": "Qualquer outro ataque com arma desembainha a lâmina e perde os Cortes. Embainhar é uma Ação Menor.",
+          "Decision": "Sacar agora, ou esperar mais um Corte?",
+          "GainLesser": "No Processo de Abertura, com a lâmina Embainhada: +1 Corte.",
+          "SpendLesser": "O Iai saca e gasta todos: cada Corte soma 2D + NP ao dano, sem Corte Perfeito.",
+          "CapLesser": "Metade do Teto da Bainha, no mínimo 1.",
+          "ResetLesser": "Qualquer outro ataque com arma desembainha a lâmina e perde os Cortes.",
+          "DecisionLesser": "Sacar agora, ou esperar mais um Corte?"
+        }
+      }
+    },
+    "Classes": {
+      "Card": {
+        "Gain": "Ganha",
+        "Spend": "Gasta",
+        "Cap": "Teto",
+        "Reset": "Zera",
+        "Decision": "A pergunta"
+      },
+      "Kind": {
+        "motor": "Motor",
+        "feeds": "Alimenta",
+        "spends": "Gasta",
+        "bends": "Dobra"
+      },
+      "samurai": {
+        "Branch": {
+          "espera": "A Espera",
+          "fio": "O Fio",
+          "bainha": "A Bainha",
+          "aco": "O Aço"
+        }
+      },
+      "Attr": {
+        "str": "FOR",
+        "dex": "DES",
+        "pow": "POD",
+        "int": "INT"
+      },
+      "Band": {
+        "frail": "Faixa Frágil: 35 PV, +4 por NP",
+        "light": "Faixa Leve: 40 PV, +5 por NP",
+        "firm": "Faixa Firme: 40 PV, +6 por NP",
+        "robust": "Faixa Robusta: 50 PV, +8 por NP",
+        "colossal": "Faixa Colossal: 55 PV, +9 por NP"
+      },
+      "HpPer": "PV · +{n}/NP",
+      "Milestone": {
+        "kit": "Kit",
+        "path": "Caminho",
+        "dedication": "Dedicação",
+        "apex": "Ápice"
+      },
+      "DedicationTag": "Dedicação",
+      "Owned": "Aprendido",
+      "FromRank": "NP {n}",
+      "Motor": "Motor da classe",
+      "LesserMotor": "Motor Menor",
+      "StateTip": "Passar para {state}",
+      "ChooseTitle": "Sem classe",
+      "ChooseHint": "A classe dá a base do personagem e o seu Motor: a regra que só ela tem.",
+      "Choose": "Escolher a classe",
+      "OpenClass": "Abrir a classe",
+      "Eyebrow": "Classe",
+      "Kit": "Kit do NP 1",
+      "NoTalents": "Nenhum talento.",
+      "Path": "Caminho",
+      "ChoosePath": "Escolher o Caminho",
+      "Apex": "Ápice",
+      "General": "Talentos Gerais",
+      "Dedications": "Dedicações",
+      "Milestones": "Marcos da classe"
     }
   },
   "Cancel": "Cancelar"

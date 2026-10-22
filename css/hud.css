@@ -550,8 +550,7 @@ body.lhauto-no-hotbar #lhauto-hud {
   color: var(--pf-text-light);
   font: 500 14px/1 var(--pf-serif);
 }
-#lhauto-hud .lhh-panel-body > .lhh-group:first-child,
-#lhauto-hud .lhh-resource + .lhh-group {
+#lhauto-hud .lhh-panel-body > .lhh-group:first-child {
   margin-top: 0;
 }
 #lhauto-hud .lhh-group-action {
@@ -639,11 +638,6 @@ body.lhauto-no-hotbar #lhauto-hud {
 #lhauto-hud .lhh-row:hover .lhh-row-name {
   color: var(--pf-primary);
 }
-#lhauto-hud .lhh-row-tier {
-  margin-left: 6px;
-  color: var(--pf-text-soft);
-  font: italic 400 11.5px var(--pf-body);
-}
 #lhauto-hud .lhh-row-meta {
   display: flex;
   flex: 0 0 auto;
@@ -700,9 +694,6 @@ body.lhauto-no-hotbar #lhauto-hud {
 }
 #lhauto-hud .lhh-row.blocked {
   opacity: 0.5;
-}
-#lhauto-hud .lhh-row.constant .lhh-row-name {
-  font-style: italic;
 }
 #lhauto-hud .lhh-pin-toggle {
   flex: 0 0 16px;
@@ -778,42 +769,6 @@ body.lhauto-no-hotbar #lhauto-hud {
 #lhauto-hud .lhh-check .dice[data-tier="3"] { background: #3c1f5e; }
 #lhauto-hud .lhh-check .dice[data-tier="4"] { background: #6b4a0f; }
 #lhauto-hud .lhh-check .dice[data-tier="5"] { background: #6e1414; }
-
-/* Kuden Resource */
-#lhauto-hud .lhh-resource {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 8px;
-  padding: 6px 10px;
-  border: 1px solid var(--pf-divider);
-  border-radius: 3px;
-  background: rgba(255, 255, 255, 0.35);
-}
-#lhauto-hud .lhh-resource .name {
-  flex: 1;
-  color: var(--pf-primary-dark);
-  font: 600 14px/1 var(--pf-serif);
-}
-#lhauto-hud .lhh-resource .pips {
-  display: flex;
-  gap: 7px;
-}
-#lhauto-hud .lhh-resource .pip {
-  width: 11px;
-  height: 11px;
-  border: 1px solid var(--pf-tertiary-darker);
-  background: rgba(255, 255, 255, 0.4);
-  transform: rotate(45deg);
-}
-#lhauto-hud .lhh-resource .pip.on {
-  border-color: #7a5a10;
-  background: linear-gradient(135deg, #f0d987, #b8860b);
-}
-#lhauto-hud .lhh-resource .value {
-  color: var(--pf-text-soft);
-  font: 600 12px/1 var(--pf-sans);
-}
 
 /* Statuses */
 #lhauto-hud .lhh-statuses {

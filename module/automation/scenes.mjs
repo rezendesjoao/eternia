@@ -14,10 +14,8 @@
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { actorName, confirm, escape, postSummary, toInt } from "../helpers/utils.mjs";
 import { fillWorld } from "../content/content.mjs";
-import { kudenEndScene } from "../kuden/pieces.mjs";
 import { LH_STATUSES } from "../helpers/statuses.mjs";
 import { END_OF_SCENE_GROUPS, END_OF_SCENE_OTHERS } from "../conditions/catalog.mjs";
-import { applyEnvFromTools, envToolsHTML } from "../kuden/env.mjs";
 
 /** The statuses that end with the scene: the Bad and Combat Statuses, and a few others ([Hidden], [Bond]). */
 const endsWithScene = s => END_OF_SCENE_GROUPS.includes(s.group) || END_OF_SCENE_OTHERS.includes(s.id);
@@ -94,7 +92,6 @@ export async function endScene(actors, { scenario = false } = {}) {
     try {
       await bumpCounter(actor, "scene");
       if (scenario) await bumpCounter(actor, "scenario");
-      if (setting("kuden")) await kudenEndScene(actor);
       if (setting("endOfScene")) {
         const line = await endOfSceneFor(actor);
         if (line) lines.push(line);
@@ -132,8 +129,7 @@ class ToolsApp extends foundry.applications.api.ApplicationV2 {
       sceneSelected: ToolsApp.#sceneSelected,
       scenarioSelected: ToolsApp.#scenarioSelected,
       scenarioAll: ToolsApp.#scenarioAll,
-      fillWorld: ToolsApp.#fillWorld,
-      kudenEnv: ToolsApp.#kudenEnv
+      fillWorld: ToolsApp.#fillWorld
     }
   };
 
@@ -149,11 +145,7 @@ class ToolsApp extends foundry.applications.api.ApplicationV2 {
       ${button("scenarioAll", "fa-solid fa-book-open", "Tools.ScenarioAll")}
       <hr>
       <p>${escape(L("Tools.FillIntro"))}</p>
-      ${button("fillWorld", "fa-solid fa-wand-magic-sparkles", "Tools.FillWorld")}
-      ${setting("kuden") ? `<hr>
-      <p><b>${escape(L("Kuden.Env.Title"))}</b></p>
-      ${envToolsHTML()}
-      ${game.scenes.viewed ? button("kudenEnv", "fa-solid fa-sun-cloud", "Kuden.Env.Apply") : ""}` : ""}`;
+      ${button("fillWorld", "fa-solid fa-wand-magic-sparkles", "Tools.FillWorld")}`;
     return div;
   }
 
@@ -192,11 +184,6 @@ class ToolsApp extends foundry.applications.api.ApplicationV2 {
     if (!ok) return;
     const done = await fillWorld();
     ui.notifications.info(L("Tools.FillDone", done));
-  }
-
-  /** The Kuden environment of the viewed scene (hour, open sky, darkness, miasma). */
-  static async #kudenEnv() {
-    await applyEnvFromTools(this.element);
   }
 }
 

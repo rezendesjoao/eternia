@@ -152,16 +152,17 @@ const hasTag = (card, key) => (card.tags ?? []).some(t => String(t).toLowerCase(
  * @param {number} amount
  * @param {object} [options]
  * @param {string} [options.reason]   The status that deals it (its name goes in the chat line)
+ * @param {string} [options.what]     The name for the chat line instead (a skill: the Samurai's Water Mirror)
  * @param {Actor} [options.from]      Who caused it ([Mirror], [Bond])
  * @param {string} [options.tag]      Tag of the damage, for [Cancel] ("Flame")
  * @param {boolean} [options.silent]  No chat line (the caller writes its own)
  * @returns {Promise<{loss: number, line: string}|null>}
  */
-export async function takeDamage(actor, amount, { reason = "", from = null, tag = "", silent = false } = {}) {
+export async function takeDamage(actor, amount, { reason = "", what: named = "", from = null, tag = "", silent = false } = {}) {
   amount = toInt(amount);
   if (!actor || (amount <= 0) || actor.statuses.has("dead")) return null;
   if (!actor.isOwner) {
-    const result = await request("conditionDamage", { actorUuid: actor.uuid, amount, reason, fromUuid: from?.uuid ?? null, tag });
+    const result = await request("conditionDamage", { actorUuid: actor.uuid, amount, reason, what: named, fromUuid: from?.uuid ?? null, tag });
     return result?.ok ? result.result : null;
   }
   const bad = actor._source.system?.["bad-status"] ?? {};
@@ -201,7 +202,7 @@ export async function takeDamage(actor, amount, { reason = "", from = null, tag 
   if (end.length) await removeStatuses(actor, end);
   if ((hp <= 0) && !actor.statuses.has("incapacitated")) await actor.toggleStatusEffect("incapacitated", { active: true });
 
-  const what = reason ? label(reason) : L("Conditions.Damage");
+  const what = named || (reason ? label(reason) : L("Conditions.Damage"));
   const line = L("Conditions.DamageLine", {
     name: actorName(actor), what, n: amount, parts: parts.length ? ` (${parts.join(" ")})` : "", before, hp
   }) + (lastStand ? ` · ${label("lastStand")}` : "") + (melted ? ` · ${L("Conditions.Applied.Melted")}` : "");
@@ -213,7 +214,7 @@ export async function takeDamage(actor, amount, { reason = "", from = null, tag 
 }
 
 /** GM side of takeDamage: only for actors with the status that deals it, or the source of one. */
-async function onDamageRequest({ actorUuid, amount, reason, fromUuid: sourceUuid, tag }, user) {
+async function onDamageRequest({ actorUuid, amount, reason, what, fromUuid: sourceUuid, tag }, user) {
   const actor = await fromUuid(actorUuid);
   const from = sourceUuid ? await fromUuid(sourceUuid) : null;
   const target = (actor instanceof TokenDocument) ? actor.actor : actor;
@@ -221,7 +222,7 @@ async function onDamageRequest({ actorUuid, amount, reason, fromUuid: sourceUuid
   // The user must own the actor whose status reflects or shares the damage.
   const origin = (from instanceof TokenDocument) ? from.actor : from;
   if (!origin?.testUserPermission(user, "OWNER")) return { ok: false };
-  const result = await takeDamage(target, Math.min(toInt(amount), 9999), { reason, from: origin, tag });
+  const result = await takeDamage(target, Math.min(toInt(amount), 9999), { reason, what: String(what ?? "").slice(0, 80), from: origin, tag });
   return { ok: true, result };
 }
 

@@ -1,0 +1,79 @@
+{
+  "name": "Corte do Vento",
+  "type": "skill",
+  "system": {
+    "description": "<p>Use no Processo de Iniciativa: gasta a sua Ação Maior desta rodada. Com a lâmina Embainhada e pelo menos 1 Corte, o saque solta uma lâmina de vento contra um alvo a até 3 Qd: [Poder de Ataque + (2×Cortes)D] de dano físico, sem Corte Perfeito. Gasta todos os Cortes e deixa a lâmina Desembainhada.</p>",
+    "tags": [
+      "Weapon Attack",
+      "Iai"
+    ],
+    "timing": "Initiative",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1+Cortes",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2*@spent",
+      "mod": 0,
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/air/wind-stream-red.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "samurai-corte-do-vento",
+      "kind": "spends",
+      "branch": "fio",
+      "minRank": 1,
+      "motor": {
+        "id": "samurai",
+        "needs": {
+          "state": "sheathed",
+          "min": 1,
+          "weapon": [
+            "Katana",
+            "Blade"
+          ]
+        },
+        "spend": "all",
+        "set": "drawn",
+        "action": "major",
+        "draw": true
+      },
+      "damageText": "[Poder de Ataque] + (2×Cortes)D Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.7.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "pCITHosZXq2BlOHC",
+  "folder": "C4ytsEa3HxzTigcG",
+  "_key": "!items!pCITHosZXq2BlOHC"
+}

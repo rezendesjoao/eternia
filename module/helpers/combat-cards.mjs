@@ -25,6 +25,7 @@ import { applyModifier, consumeAfterRoll, dodgeModifier } from "../conditions/ro
 import { afterDamage, beforeDamage, canHeal, markDamage, restoreForUndo, snapshotForUndo } from "../conditions/damage.mjs";
 import { consumedBy, passiveCancels } from "../conditions/effects.mjs";
 import { statusEffectData } from "../chat/status-links.mjs";
+import { motorOnHit } from "../classes/motor.mjs";
 
 const TEMPLATES = {
   attack: "systems/eternia/templates/chat/attack-card.hbs",
@@ -303,10 +304,11 @@ export function isAttack(item) {
  * @param {string} flavor
  * @param {object} [options]
  * @param {string} [options.bonuses]   Roll bonuses added to the check (see roll-bonuses.mjs)
+ * @param {boolean} [options.auto]     Hits without a Dodge Check even against Evasion (a Samurai's Perfect Cut)
  */
-export async function createAttackCard(item, attacker, formula, flavor, { bonuses = "" } = {}) {
+export async function createAttackCard(item, attacker, formula, flavor, { bonuses = "", auto: autoHit = false } = {}) {
   const vs = item.system.check.vs;
-  const auto = vs === "auto";
+  const auto = autoHit || (vs === "auto");
 
   // Range: every target must be within the skill's range, else the attack can't be declared.
   // Range bonuses of the attacker's effects (see roll-bonuses.mjs skillModifiers)
@@ -369,7 +371,14 @@ export async function createAttackCard(item, attacker, formula, flavor, { bonuse
     flags: { eternia: { attack: data } }
   };
   ChatMessage.applyMode(messageData);
-  return ChatMessage.create(messageData);
+  const message = await ChatMessage.create(messageData);
+  /**
+   * An attack was declared against its targets (the Samurai's Flowing Water gains Cuts). Only on this client.
+   * @param {ChatMessage} message
+   * @param {{item: Item, attacker: Actor|null, targets: Actor[]}} context
+   */
+  if (message) Hooks.callAll("eternia.attack", message, { item, attacker: attacker ?? item.actor, targets: targets.map(targetActor).filter(Boolean) });
+  return message;
 }
 
 /** A character's owner rolls its Dodge Check from the attack card. */
@@ -381,7 +390,14 @@ async function onRollDodge(message, index) {
   const item = data.itemUuid ? fromUuidSync(data.itemUuid) : null;
   const { roll, dodge } = await rollDodge(actor, data.vs, { attacker: item?.actor ?? null, item });
   await game.dice3d?.showForRoll(roll, game.user, true);
-  await updateCardTarget(message, "attack", index, { dodge, hit: resolveHit(data.attack, dodge) });
+  const hit = resolveHit(data.attack, dodge);
+  await updateCardTarget(message, "attack", index, { dodge, hit });
+  /**
+   * A character rolled its Dodge Check against an attack (the Samurai's Waiting Blade). Only on this client.
+   * @param {ChatMessage} message
+   * @param {{actor: Actor, attacker: Actor|null, item: Item|null, hit: boolean}} context
+   */
+  Hooks.callAll("eternia.dodge", message, { actor, attacker: item?.actor ?? null, item, hit });
 }
 
 /* -------------------------------------------- */
@@ -435,7 +451,7 @@ export async function createDamageCard(item, attacker, formula, flavor, attackMe
     type: type || fallbackType,
     recovery,
     tags: attackTags(item, attacker),
-    onHit: recovery ? [] : onHitOf(attacker ?? item.actor),
+    onHit: recovery ? [] : [...onHitOf(attacker ?? item.actor), ...motorOnHit(attacker ?? item.actor, item)],
     attackerUuid: (attacker ?? item.actor)?.uuid ?? "",
     attackerType: attack?.attackerType ?? attacker?.type ?? item.actor?.type ?? null,
     hateMultiplier: attack?.hateMultiplier ?? hateMultiplier(attacker ?? item.actor),
@@ -582,6 +598,12 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   const spent = consumedBy(actor, ["damage"]);
   if (spent.length) await actor.deleteEmbeddedDocuments("ActiveEffect", spent).catch(() => null);
   if ((hp <= 0) && !before.incapacitated) await actor.toggleStatusEffect("incapacitated", { active: true });
+  /**
+   * A damage card took an actor from above 0 HP to 0 (the Samurai's Chiburi). Only on this client.
+   * @param {Actor} actor
+   * @param {object} card     The damage card data (itemUuid, attackerUuid…)
+   */
+  if ((before.hp > 0) && (hp <= 0)) Hooks.callAll("eternia.defeated", actor, card);
   for (const fn of after.after) await fn();
   // Statuses the attacker's effects give on a hit (an Engineer's Spark Stone): Undo takes them back.
   if (card.onHit?.length) {

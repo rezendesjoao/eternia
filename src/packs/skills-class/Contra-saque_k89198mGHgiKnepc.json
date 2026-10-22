@@ -1,0 +1,82 @@
+{
+  "name": "Contra-saque",
+  "type": "skill",
+  "system": {
+    "description": "<p>Use logo depois de se esquivar de um ataque de um inimigo engajado com você, com a lâmina Embainhada e pelo menos 1 Corte: você saca contra ele. [Poder de Ataque + (1 + 2×Cortes)D + Cortes×NP] de dano físico, sem Corte Perfeito.</p><p>Não gasta a sua Ação Maior; gasta todos os Cortes e deixa a lâmina Desembainhada.</p>",
+    "tags": [
+      "Weapon Attack",
+      "Iai"
+    ],
+    "timing": "After Check",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/light/beam-deflect-path-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "samurai-contra-saque",
+      "kind": "spends",
+      "branch": "espera",
+      "minRank": 3,
+      "requires": [
+        "samurai-lamina-que-espera"
+      ],
+      "motor": {
+        "id": "samurai",
+        "needs": {
+          "state": "sheathed",
+          "min": 1,
+          "weapon": [
+            "Katana",
+            "Blade"
+          ]
+        },
+        "spend": "all",
+        "set": "drawn",
+        "action": "none",
+        "draw": true
+      },
+      "damageText": "[Poder de Ataque] + (1+2×Cortes)D + Cortes×NP Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.7.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 80000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "k89198mGHgiKnepc",
+  "folder": "C4ytsEa3HxzTigcG",
+  "_key": "!items!k89198mGHgiKnepc"
+}

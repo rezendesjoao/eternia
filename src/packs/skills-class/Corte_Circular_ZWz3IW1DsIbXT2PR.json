@@ -1,0 +1,82 @@
+{
+  "name": "Corte Circular",
+  "type": "skill",
+  "system": {
+    "description": "<p>Use no Processo de Iniciativa: gasta a sua Ação Maior desta rodada. Com a lâmina Embainhada e pelo menos 1 Corte, você gira no saque e corta todos os inimigos do seu quadrado: [Poder de Ataque + (2×Cortes − 1)D + (Cortes×NP)÷2] de dano físico em cada um, sem Corte Perfeito. Gasta todos os Cortes e deixa a lâmina Desembainhada.</p>",
+    "tags": [
+      "Weapon Attack",
+      "Iai"
+    ],
+    "timing": "Initiative",
+    "checkType": "",
+    "range": "Close",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2+Cortes",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2*@spent-1",
+      "mod": "floor(@spent*@cr/2)",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/strike-slashes-red.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "samurai-corte-circular",
+      "kind": "spends",
+      "branch": "fio",
+      "minRank": 5,
+      "requires": [
+        "samurai-corte-do-vento"
+      ],
+      "motor": {
+        "id": "samurai",
+        "needs": {
+          "state": "sheathed",
+          "min": 1,
+          "weapon": [
+            "Katana",
+            "Blade"
+          ]
+        },
+        "spend": "all",
+        "set": "drawn",
+        "action": "major",
+        "draw": true
+      },
+      "damageText": "[Poder de Ataque] + (2×Cortes−1)D + (Cortes×NP)÷2 Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.7.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 110000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ZWz3IW1DsIbXT2PR",
+  "folder": "C4ytsEa3HxzTigcG",
+  "_key": "!items!ZWz3IW1DsIbXT2PR"
+}

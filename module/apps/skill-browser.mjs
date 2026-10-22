@@ -8,14 +8,19 @@
  * (`flags.eternia.skillProgress`): the window counts them down. Opened from the sheet without pending
  * picks it has no quota. Basic skills are never counted.
  *
- * Which skills a character can learn comes from the compendium folders: Archetype (Warrior, Weapon
- * Master...), Main Class (Guardian...), Race (Human...) and Common, plus the skills its Subclass
- * allows (`system.skills` of the Subclass item).
+ * Which skills a character can learn comes from the compendium folders: Main Class (the folder named like the
+ * class, docs/classes.md), Race (Human...) and Common, plus the skills its Subclass allows (`system.skills` of the
+ * Subclass item) and those its Dedications open.
  *
- * Two flags of a compendium skill narrow that down:
+ * Flags of a compendium skill narrow that down:
  *   flags.eternia.minRank     the CR from which it can be learned (the race skills unlocked by leveling up)
- *   flags.eternia.choiceOnly  it is only given by a choice (a race's starting skill, a Blessing): listed
- *                             only once the character has it, to raise its SR
+ *   flags.eternia.choiceOnly  it is only given by a choice (a race's starting skill, a Blessing, a class Path):
+ *                             listed only once the character has it, to raise its SR
+ *   flags.eternia.requires    identifiers of the skills it needs first (a branch of class talents)
+ *   flags.eternia.pathTalent  { class, id }: a talent of a class Path, listed only for who follows that Path
+ *   flags.eternia.dedication  { name, id }: the Dedication of a class (the multiclass, from CR 5), listed for
+ *                             characters of other classes: it opens that class's [Dedication] talents, two CR later.
+ *                             At most two Dedications, the second after two talents of the first.
  */
 
 import { getOption } from "../helpers/character-options.mjs";
@@ -60,13 +65,6 @@ export function rankUpSkills(rank) {
   return { combat: (rank >= LATE_RANK) ? 1 : 2, general: 1 };
 }
 
-/** Compendium folder names of each archetype (the Skill List calls Weapon Attackers "Weapon Master"). */
-const ARCHETYPE_FOLDERS = {
-  warrior: ["warrior"],
-  weaponAttacker: ["weapon master", "weapon attacker"],
-  healer: ["healer"],
-  mage: ["mage"]
-};
 
 /** Folder of the skills every character can learn. */
 const COMMON_FOLDER = "common";
@@ -75,13 +73,24 @@ const COMMON_FOLDER = "common";
 const BASIC_PACKS = ["eternia.skills-basic", "eternia.skills-mounts"];
 
 /** Source filter values, in display order. */
-const SOURCES = ["eligible", "archetype", "class", "race", "subclass", "common", "all"];
+const SOURCES = ["eligible", "class", "dedication", "race", "subclass", "common", "all"];
+/** Tag of the class talents a Dedication opens. */
+const DEDICATION_TAG = "dedication";
+/** Dedications a character can have, and the talents of the first one it needs before a second. */
+const MAX_DEDICATIONS = 2;
+const TALENTS_BEFORE_SECOND = 2;
+/** CR a Dedication adds to the CR from which a talent it opens can be learned. */
+const DEDICATION_DELAY = 2;
 
 /* -------------------------------------------- */
 /*  Index                                       */
 /* -------------------------------------------- */
 
-const INDEX_FIELDS = ["system.subtype", "system.skillRank", "system.tags", "folder", "flags.eternia.minRank", "flags.eternia.choiceOnly"];
+const INDEX_FIELDS = [
+  "system.subtype", "system.skillRank", "system.tags", "folder", "flags.eternia.minRank", "flags.eternia.choiceOnly",
+  "flags.eternia.requires", "flags.eternia.pathTalent", "flags.eternia.dedication", "flags.eternia.identifier"
+];
+const listOf = value => (Array.isArray(value) ? value : ((typeof value === "string") ? [value] : Object.values(value ?? {})));
 
 let indexPromise = null;
 
@@ -105,21 +114,28 @@ async function buildIndex() {
       if ((e.type !== "skill") || !TABS.includes(e.system?.subtype)) continue;
       // Folder placeholders left in the compendiums by the old Compendium Folders module.
       if (e.name?.startsWith("#[CF_tempEntity]")) continue;
-      // Folder names from the skill up to the root, lowercased, to match archetypes / classes / races.
+      // Folder names from the skill up to the root, lowercased, to match classes / races.
       const folders = [];
       let folder = e.folder ? pack.folders.get(e.folder) : null;
       while (folder) {
         folders.push(folder.name);
         folder = folder.folder;
       }
+      const flags = e.flags?.eternia ?? {};
+      const path = flags.pathTalent;
       entries.push({
         uuid: e.uuid ?? pack.getUuid(e._id),
         name: e.name,
         img: e.img,
         subtype: e.system.subtype,
         maxSR: Number(e.system.skillRank?.max) || 1,
-        minRank: Number(e.flags?.eternia?.minRank) || 0,
-        choiceOnly: !!e.flags?.eternia?.choiceOnly,
+        minRank: Number(flags.minRank) || 0,
+        choiceOnly: !!flags.choiceOnly,
+        identifier: String(flags.identifier ?? ""),
+        requires: listOf(flags.requires).map(String).filter(Boolean),
+        pathTalent: path?.class ? `${path.class}.${path.id}` : "",
+        dedicationOf: flags.dedication?.name ? { name: normalize(flags.dedication.name), id: String(flags.dedication.id ?? "") } : null,
+        dedicationTalent: (e.system.tags ?? []).some(t => normalize(t) === DEDICATION_TAG),
         tags: e.system.tags ?? [],
         folder: folders[0] ?? "",
         folders: folders.map(f => f.toLowerCase()),
@@ -136,31 +152,59 @@ function normalize(name) {
 }
 
 /**
- * Where a character can learn a skill from: "archetype", "class", "race", "common" or null.
+ * Where a character can learn a skill from: "class", "dedication", "race", "subclass", "common" or null.
  * @param {object} entry  Index entry
- * @param {{archetype: string[], class: string, race: string, subclass: Set<string>}} lists  The character's skill lists
+ * @param {{class: string, race: string, subclass: Set<string>, dedications: string[]}} lists  The character's skill lists
  */
 function sourceOf(entry, lists) {
   // Basic skills of the system compendiums belong to every character.
   if (entry.subtype === "Basic") return BASIC_PACKS.includes(entry.packId) ? "basic" : null;
   const folders = entry.folders;
+  // A class's Dedication is for the characters of the other classes.
+  if (entry.dedicationOf) return (lists.class && (entry.dedicationOf.name !== lists.class)) ? "dedication" : null;
   if (lists.class && folders.includes(lists.class)) return "class";
-  if (lists.archetype.some(f => folders.includes(f))) return "archetype";
+  if (entry.dedicationTalent && lists.dedications.some(c => folders.includes(c))) return "dedication";
   if (lists.race && folders.includes(lists.race)) return "race";
   if (lists.subclass.has(entry.uuid)) return "subclass";
   if (folders.includes(COMMON_FOLDER)) return "common";
   return null;
 }
 
-/** The skill lists of a character: its archetype folders, class name, race name and Subclass skills. */
+/**
+ * The skill lists of a character: its class name, race name and Subclass skills, the classes of its Dedications,
+ * the Paths it follows ("class.id") and the identifiers of its skills.
+ */
 function skillLists(actor) {
   const job = getOption(actor, "class");
+  const skills = actor.items.filter(i => i.type === "skill");
+  const dedications = skills.map(i => i.getFlag("eternia", "dedication")).filter(d => d?.name);
   return {
-    archetype: ARCHETYPE_FOLDERS[job?.system.archetype] ?? [],
     class: normalize(job?.name),
     race: normalize(getOption(actor, "race")?.name),
-    subclass: new Set(getOption(actor, "subclass")?.system.skills ?? [])
+    subclass: new Set(getOption(actor, "subclass")?.system.skills ?? []),
+    dedications: dedications.map(d => normalize(d.name)),
+    dedicationIds: dedications.map(d => String(d.id ?? "")),
+    paths: new Set(skills.map(i => i.getFlag("eternia", "path")).filter(p => p?.class).map(p => `${p.class}.${p.id}`)),
+    identifiers: new Set(skills.map(i => i.getFlag("eternia", "identifier")).filter(Boolean))
   };
+}
+
+/**
+ * Why a Dedication can't be taken yet: at most two, and the second after two talents of the first.
+ * @param {Actor} actor
+ * @param {object} lists   See skillLists
+ * @returns {string}
+ */
+function dedicationIssue(actor, lists) {
+  if (lists.dedications.length >= MAX_DEDICATIONS) {
+    return game.i18n.format("ETERNIA.SkillBrowser.DedicationMax", { max: MAX_DEDICATIONS });
+  }
+  if (!lists.dedicationIds.length) return "";
+  const first = lists.dedicationIds[0];
+  const talents = actor.items.filter(i => (i.type === "skill") && String(i.getFlag("eternia", "identifier") ?? "").startsWith(`${first}-`)
+    && (i.system.tags ?? []).some(t => normalize(t) === DEDICATION_TAG)).length;
+  return (talents < TALENTS_BEFORE_SECOND)
+    ? game.i18n.format("ETERNIA.SkillBrowser.DedicationNext", { n: TALENTS_BEFORE_SECOND, have: talents }) : "";
 }
 
 /** The character's copy of a skill (same compendium entry, or same name). */
@@ -443,7 +487,9 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     if (training !== null) training -= [...this.picks.values()].filter(p => p.training && !p.owned).length;
 
     const entries = [];
-    for (const entry of await getSkillIndex()) {
+    const index = await getSkillIndex();
+    const nameOf = identifier => index.find(e => e.identifier === identifier)?.name ?? identifier;
+    for (const entry of index) {
       if (entry.subtype !== this.tab) continue;
       const source = sourceOf(entry, lists);
       if ((this.source === "eligible") && !source) continue;
@@ -451,6 +497,12 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
 
       const owned = ownedSkill(actor, entry);
       if (entry.choiceOnly && !owned) continue;
+      // A Path's talents are for who follows it.
+      if (entry.pathTalent && !owned && !lists.paths.has(entry.pathTalent)) continue;
+      // The skills a talent needs first, and the limits of the Dedications.
+      const missing = owned ? [] : entry.requires.filter(r => !lists.identifiers.has(r));
+      const dedication = (!owned && entry.dedicationOf) ? dedicationIssue(actor, lists) : "";
+      const minRank = entry.minRank + (((source === "dedication") && entry.dedicationTalent) ? DEDICATION_DELAY : 0);
       const sr = owned ? (Number(owned.system.skillRank?.value) || 1) : 0;
       const maxSR = owned ? (Number(owned.system.skillRank?.max) || entry.maxSR) : entry.maxSR;
       const picked = this.picks.has(entry.uuid);
@@ -458,8 +510,10 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       const capped = (sr + 1 > maxSR) || (sr + 1 > rank);
       const trainingFull = !owned && (training !== null) && (training <= 0) && isTraining(entry);
       // Not yet: learned from a higher CR.
-      const locked = !owned && (entry.minRank > rank);
+      const locked = !owned && (minRank > rank);
       const counted = PICK_SUBTYPES.includes(entry.subtype);
+      const blocked = missing.length
+        ? game.i18n.format("ETERNIA.SkillBrowser.Requires", { names: missing.map(nameOf).join(", ") }) : dedication;
       entries.push({
         ...entry,
         sourceLabel: (source === "basic") ? entry.pack
@@ -470,8 +524,8 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
         next: sr + 1,
         picked,
         capped,
-        disabled: !picked && (locked || capped || (counted && full) || trainingFull),
-        reason: locked ? game.i18n.format("ETERNIA.SkillBrowser.MinCR", { rank: entry.minRank }) : capped
+        disabled: !picked && (locked || capped || (counted && full) || trainingFull || !!blocked),
+        reason: locked ? game.i18n.format("ETERNIA.SkillBrowser.MinCR", { rank: minRank }) : blocked || capped
           ? game.i18n.format((sr + 1 > maxSR) ? "ETERNIA.SkillBrowser.MaxSR" : "ETERNIA.SkillBrowser.MaxCR", { max: Math.min(maxSR, rank) })
           : ((counted && full) ? game.i18n.localize("ETERNIA.SkillBrowser.Full")
             : (trainingFull ? game.i18n.format("ETERNIA.SkillBrowser.TrainingFull", { max: CREATION_TRAINING }) : "")),
@@ -678,6 +732,8 @@ export function registerSkillBrowser() {
   };
   Hooks.on("updateActor", actor => refresh(actor));
   Hooks.on("deleteItem", item => (item.type === "skill") && refresh(item.parent));
+  // A skill given by a choice (a class Path) opens its own talents.
+  Hooks.on("createItem", item => (item.type === "skill") && refresh(item.parent));
 
   // CR lowered (by hand, e.g. a GM fixing a wrong CR Up): offer to undo the picks of the ranks removed.
   Hooks.on("preUpdateActor", (actor, changes, options) => {

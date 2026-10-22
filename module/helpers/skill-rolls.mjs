@@ -3,6 +3,7 @@ import { createAttackCard, createDamageCard, findAttackMessage, isAttack } from 
 import { evaluateFormula, formulaData, formulaLabel, isFormula } from "./effect-formulas.mjs";
 import { rollBonuses, rollBonusesLabel } from "./roll-bonuses.mjs";
 import { applyModifier, checkModifier, consumeAfterRoll, damageModifier } from "../conditions/rolls.mjs";
+import { motorAutoHit, motorRollBonuses } from "../classes/motor.mjs";
 
 /**
  * Skill Check and Damage, set directly on the skill sheet:
@@ -122,7 +123,9 @@ export function prepareSkillRolls(item) {
   };
 
   system.checkLabel = isLegacy ? legacyText : checkLabel(system.check, monster);
-  system.damageLabel = damageLabel(system.damage, monster);
+  // A skill whose damage formula reads a class Motor shows the text of its rule instead (flags.eternia.damageText:
+  // "[Poder de Ataque] + (1+2×Cortes)D + Cortes×NP Físico").
+  system.damageLabel = item.flags?.eternia?.damageText || damageLabel(system.damage, monster);
 }
 
 /** A stored modifier: a number, or a formula ("@sr*5") kept apart. */
@@ -262,9 +265,11 @@ export async function rollSkill(item, which, { targets } = {}) {
   }
 
   const attack = (which === "check") && isAttack(item);
+  // A class Motor's Perfect Cut hits without a Dodge Check (classes/motor.mjs).
+  const autoHit = (which === "check") && attack && motorAutoHit(item);
   // Automatic success: nothing to roll, just announce it (or hit every target).
-  if ((which === "check") && (values.vs === "auto")) {
-    if (attack) return createAttackCard(item, item.actor, null, flavor);
+  if ((which === "check") && ((values.vs === "auto") || autoHit)) {
+    if (attack) return createAttackCard(item, item.actor, null, flavor, { auto: autoHit });
     const data = { speaker: ChatMessage.getSpeaker({ actor: item.actor }), flavor: title, content: game.i18n.localize(VS_LABELS.auto) };
     ChatMessage.applyMode(data);
     return ChatMessage.create(data);
@@ -292,6 +297,8 @@ export async function rollSkill(item, which, { targets } = {}) {
   // Bonuses of the roller's effects to this skill's rolls (White Robe Style -> «Reactive Heal»…)
   const attackMessage = (which === "damage") ? findAttackMessage(item) : null;
   const bonuses = rollBonuses(actor, item, which, { targets: rollTargets(attackMessage, targets) });
+  // Bonuses of the roller's class Motor (the Samurai's Echo of Steel)
+  bonuses.push(...motorRollBonuses(actor ?? item.actor, item, which));
   for (const bonus of bonuses) {
     dice += bonus.dice;
     mod += bonus.mod;

@@ -28,6 +28,8 @@ export const TAGS = {
   "Swift": "Veloz", "Scout": "Reconhecimento", "Summon": "Invocação", "Combat": "Combate",
   "General": "Geral", "Movement": "Movimento", "Auto": "Automático", "Constant": "Constante",
   "Support": "Suporte", "Standby": "Espera", "EX Power": "Poder EX", "GM": "Mestre", "Special": "Especial",
+  // Class skills and class roles (module/classes/)
+  "Iai": "Iai", "Dedication": "Dedicação", "Damage": "Dano", "Defense": "Defesa", "Healing": "Cura", "Control": "Controle",
   // Attacks
   "Weapon Attack": "Ataque com Arma", "Melee Attack": "Ataque Corpo a Corpo",
   "Ranged Attack": "Ataque à Distância", "Magic Attack": "Ataque Mágico", "Physical Attack": "Ataque Físico",
@@ -223,6 +225,11 @@ const FORMULA = rules([
   [/\bOff-hand Attack Power\b/g, "Poder de Ataque da Mão Secundária"],
   [/\bOff-hand Magic Power\b/g, "Poder Mágico da Mão Secundária"],
   [/\bSR max\b/g, "NH máx."],
+  [/\bMotor max\b/g, "Teto do Motor"],
+  [/\bMotor last\b/g, "último gasto do Motor"],
+  [/\bSpent\b/g, "Gastos"],
+  [/\bPerfect\b/g, "Perfeito"],
+  [/\bPer\b/g, "Por ponto"],
   [/\bAttack Power\b/g, "Poder de Ataque"],
   [/\bMagic Power\b/g, "Poder Mágico"],
   [/\bRecovery\b/g, "Recuperação"],

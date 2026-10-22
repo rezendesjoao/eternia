@@ -9,6 +9,9 @@
  *                        bonuses (evaluated when rolling): while effects apply they aren't computed yet.
  *   @weapon.attack, @weapon.magic    Attack / Magic Power of the main-hand weapon (see hands.mjs), 0 without one
  *   @offhand.attack, @offhand.magic  Same for the weapon in the other hand (a shield there counts as none).
+ *   @spent, @perfect, @per  What the skill's last use spent of its class Motor, whether it was a Perfect Cut
+ *                        (its multiplier) and the dice per point (classes/motor.mjs)
+ *   @motor.value, @motor.max, @motor.last   The class Motor of the skill (or the actor's first one)
  *                        Usable anywhere: the items are prepared before the actor's effects apply. The Attack
  *                        Power base already is the main weapon's, so "Attack Power becomes [Weapon's x2]" is
  *                        "+@weapon.attack" on Attack Power, and "[both weapons' combined]" is "+@offhand.attack".
@@ -20,6 +23,7 @@
  */
 
 import { getHands } from "./hands.mjs";
+import { motorFormulaData } from "../classes/motor.mjs";
 
 const ATTRIBUTES = ["str", "dex", "pow", "int"];
 const ATTRIBUTE_REF = /@(str|dex|pow|int)\b/i;
@@ -70,6 +74,7 @@ export function formulaData(actor, item) {
   const { main, off } = getHands(actor);
   data.weapon = weaponPowers(main);
   data.offhand = weaponPowers((off?.type === "weapon") ? off : null);
+  if (actor.type === "character") Object.assign(data, motorFormulaData(actor, item));
   return data;
 }
 
@@ -108,6 +113,12 @@ export function formulaLabel(value) {
     .replace(/@weapon\.magic\b/g, "Weapon Magic Power")
     .replace(/@offhand\.attack\b/g, "Off-hand Attack Power")
     .replace(/@offhand\.magic\b/g, "Off-hand Magic Power")
+    .replace(/@motor\.value\b/g, "Motor")
+    .replace(/@motor\.max\b/g, "Motor max")
+    .replace(/@motor\.last\b/g, "Motor last")
+    .replace(/@spent\b/g, "Spent")
+    .replace(/@perfect\b/g, "Perfect")
+    .replace(/@per\b/g, "Per")
     .replace(/@srMax\b/g, "SR max")
     .replace(/@sr\b/g, "SR")
     .replace(/@cr\b/g, "CR")

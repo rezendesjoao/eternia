@@ -556,12 +556,6 @@
         "usable": "Usables"
       }
     },
-    "Archetype": {
-      "Warrior": "Warrior",
-      "WeaponAttacker": "Weapon Attacker",
-      "Healer": "Healer",
-      "Mage": "Mage"
-    },
     "SkillBrowser": {
       "Title": "Skills: {name}",
       "Open": "Browse the skills this character can acquire or rank up",
@@ -595,22 +589,25 @@
         "Keep": "Keep all"
       },
       "Source": {
-        "archetype": "Archetype",
-        "class": "Main Class",
-        "race": "Race",
-        "subclass": "Subclass",
-        "common": "Common"
-      },
-      "Filter": {
-        "eligible": "All my lists",
-        "archetype": "Archetype",
         "class": "Main Class",
         "race": "Race",
         "subclass": "Subclass",
         "common": "Common",
-        "all": "Every skill (no restriction)"
+        "dedication": "Dedication"
       },
-      "MinCR": "Unlocks at CR {rank}"
+      "Filter": {
+        "eligible": "All my lists",
+        "class": "Main Class",
+        "race": "Race",
+        "subclass": "Subclass",
+        "common": "Common",
+        "all": "Every skill (no restriction)",
+        "dedication": "Dedication"
+      },
+      "MinCR": "Unlocks at CR {rank}",
+      "Requires": "Needs: {names}.",
+      "DedicationMax": "At most {max} Dedications.",
+      "DedicationNext": "Before another Dedication, learn {n} talents of the first (has {have})."
     },
     "RankUp": {
       "Button": "CR Up",
@@ -640,7 +637,6 @@
       }
     },
     "CharacterOptions": {
-      "Archetype": "Archetype",
       "Identifier": "ID",
       "HpPerRank": "HP / Rank",
       "World": "World",
@@ -677,7 +673,9 @@
         "RemoveStale": "Remove the skills granted by the previous {type}:",
         "SheetHint": "Skills a character gets when taking this item. Drag a skill onto a line to make it a choice between several, or onto the area below to add a new one.",
         "Drop": "Drop a skill here",
-        "OnlySkills": "Only Skill items from a compendium or the world can be starting skills."
+        "OnlySkills": "Only Skill items from a compendium or the world can be starting skills.",
+        "HintRank": "What {name} gives at CR {rank}:",
+        "TitleRank": "{name}: CR {rank}"
       }
     },
     "Combat": {
@@ -916,17 +914,6 @@
         "firstRound": "First round of combat",
         "preAction": "Pre-Action (hasn't acted this round)",
         "standby": "Declared Standby this round",
-        "kudenResource": "Kuden: Resource ≥ N",
-        "kudenResourceFull": "Kuden: Resource at maximum",
-        "sceneDay": "Scene: by day",
-        "sceneNight": "Scene: at night",
-        "sceneNoon": "Scene: at noon",
-        "sceneOpenSky": "Scene: under the open sky",
-        "sceneDarkness": "Scene: in darkness",
-        "sceneMiasma": "Scene: in miasma",
-        "sceneNoMiasma": "Scene: out of miasma",
-        "targetBossRaid": "Target: Boss or Raid",
-        "hpAtMost": "HP ≤ N% of maximum",
         "hasSkill": "Has the skill"
       },
       "Summary": {
@@ -951,17 +938,6 @@
         "firstRound": "First round",
         "preAction": "[Pre-Action]",
         "standby": "[Standby]",
-        "kudenResource": "Resource ≥ {value}",
-        "kudenResourceFull": "Resource at maximum",
-        "sceneDay": "By day",
-        "sceneNight": "At night",
-        "sceneNoon": "At noon",
-        "sceneOpenSky": "Under the open sky",
-        "sceneDarkness": "In darkness",
-        "sceneMiasma": "In miasma",
-        "sceneNoMiasma": "Out of miasma",
-        "targetBossRaid": "Targeting a Boss or Raid",
-        "hpAtMost": "HP at {value}% of maximum or less",
         "hasSkill": "With {value}"
       }
     },
@@ -1088,10 +1064,6 @@
         "Name": "Item and monster content",
         "Hint": "The trigger powers of items become skills of whoever carries them, potions and jewels heal and food removes Fatigue from whoever uses them, equipped items give their statuses at the start of the scene, and homebrew monsters get their attack damage read from their text. Only what is missing is filled; nothing edited by hand is replaced."
       },
-      "kuden": {
-        "Name": "Kuden (house rule)",
-        "Hint": "Turns on the Kuden tab of the sheet: signature pieces paid with the skill picks, the Core's Resource, the environment of each scene (hour, sky, darkness and miasma) and new effect conditions."
-      },
       "chatTheme": {
         "Name": "Parchment chat theme",
         "Hint": "Skill, attack and damage cards and the rolls on parchment, with the speaker's portrait."
@@ -1106,7 +1078,7 @@
       },
       "hud": {
         "Name": "Action HUD",
-        "Hint": "Shows a bar above the macro hotbar for the selected token: HP, Barrier, Fate, Hate and Fatigue, the checks, the skills by Timing, the Kuden, the items, the statuses, the turn and the pending dodges, to roll and use everything without opening the sheet. Your own setting: each player chooses."
+        "Hint": "Shows a bar above the macro hotbar for the selected token: HP, Barrier, Fate, Hate and Fatigue, the checks, the skills by Timing, the items, the statuses, the turn and the pending dodges, to roll and use everything without opening the sheet. Your own setting: each player chooses."
       },
       "hudCharacter": {
         "Name": "HUD with no token selected",
@@ -1283,7 +1255,7 @@
     "Content": {
       "Fed": "Fatigue −{amount}: {names}",
       "Healed": "Healing: {names}",
-      "NotHealer": "{name} is not of the Healer archetype (no effect)",
+      "NotHealer": "{name} has no class with the [Healing] role (no effect)",
       "Dead": "{name} is Dead (no effect)"
     },
     "Sheet": {
@@ -1292,11 +1264,11 @@
         "character": "Character",
         "checks": "Checks",
         "skills": "Skills",
-        "kuden": "Kuden",
         "inventory": "Inventory",
         "effects": "Effects & statuses",
         "biography": "Biography",
-        "profession": "Profession"
+        "profession": "Profession",
+        "class": "Class"
       },
       "HitPoints": "Hit Points",
       "Max": "Max",
@@ -1404,135 +1376,6 @@
     "Chat": {
       "Description": "Description"
     },
-    "Kuden": {
-      "Title": "Kuden",
-      "Piece": {
-        "core": "Core",
-        "technique": "Technique",
-        "gift": "Gift",
-        "greaterGift": "Greater Gift",
-        "apex": "Apex"
-      },
-      "Pieces": {
-        "technique": "Techniques",
-        "gift": "Gifts",
-        "greaterGift": "Greater Gifts",
-        "apex": "Apex"
-      },
-      "PieceNone": "Not Kuden",
-      "PieceNoneHint": "Pick the piece to make this skill part of the Kuden (it gets the Kuden tag).",
-      "PieceHint": {
-        "core": "Free. The rule that defines the character, the size of a class starting skill. It may define the Resource.",
-        "technique": "2 PK per SR when Combat, 1 PK per SR when General.",
-        "gift": "1 PK. The size of an official General skill.",
-        "greaterGift": "2 PK, or 1 PK with a Medium or Heavy Restriction. The size of a Combat skill at SR 1.",
-        "apex": "4 PK. The finishing move, 1/Scenario, one per character."
-      },
-      "Tier": {
-        "none": "No Restriction",
-        "light": "Light",
-        "medium": "Medium",
-        "heavy": "Heavy"
-      },
-      "TierHint": {
-        "light": "+50% or +1D",
-        "medium": "+100% or +2D",
-        "heavy": "+200% or +3D"
-      },
-      "Field": {
-        "Piece": "Kuden piece",
-        "Restriction": "Restriction",
-        "RestrictionText": "Weakness",
-        "Origin": "Source material",
-        "Ruler": "Ruler or official twin",
-        "CostLine": "Costs {cost} PK; the picks marked on it paid {paid} PK."
-      },
-      "Resource": {
-        "Title": "Resource",
-        "Hint": "The Resource goes from 0 to 5. Pieces read it with the Resource ≥ N and Resource at maximum conditions.",
-        "Name": "Name",
-        "NamePlaceholder": "Sun, Fury, Charges...",
-        "Max": "Maximum",
-        "Source": "Source",
-        "Dark": "Goes to 0 in darkness",
-        "ResetOnScene": "Back to 0 at the end of the scene"
-      },
-      "Source": {
-        "manual": "Manual",
-        "hour": "Hour of the scene"
-      },
-      "Hour": {
-        "lateNight": "Late night",
-        "dawn": "Dawn",
-        "morning": "Morning",
-        "noon": "Noon",
-        "afternoon": "Afternoon",
-        "dusk": "Dusk",
-        "night": "Night"
-      },
-      "Env": {
-        "Title": "Environment (Kuden)",
-        "Hint": "The Kuden scene conditions and the Resources that follow the hour read these fields.",
-        "Hour": "Hour of the day",
-        "OpenSky": "Open sky",
-        "Darkness": "Darkness",
-        "Miasma": "Miasma",
-        "OpenSkyShort": "open sky",
-        "CoveredShort": "no sky",
-        "DarknessShort": "darkness",
-        "MiasmaShort": "miasma",
-        "Viewed": "Viewed scene: {name}",
-        "NoScene": "No scene is viewed.",
-        "Apply": "Apply the environment",
-        "Applied": "Environment of {name}: {env}."
-      },
-      "Ledger": {
-        "Title": "Kuden Points",
-        "Paid": "PK paid",
-        "Cost": "PK cost",
-        "Kept": "saved",
-        "Pending": "Pending picks: Combat {combat}, General {general}",
-        "Settle": "Settle PK",
-        "SettleHint": "Pays what is missing with the pending picks and gives back the picks that paid beyond the cost and the 1 saved PK.",
-        "Missing": "{n} PK missing. Use Settle PK to pay with the pending picks.",
-        "MissingNoPicks": "{n} PK missing and no pending picks. The GM checks it.",
-        "Surplus": "{n} PK left over; only 1 PK can be saved.",
-        "TwoCores": "There is more than one Core.",
-        "TwoApexes": "There is more than one Apex.",
-        "NoCore": "The Core is missing.",
-        "NoPicks": "{n} PK missing and no pending picks to pay with. The GM checks it."
-      },
-      "Sheet": {
-        "NoCore": "This character has no Core yet.",
-        "CreateCore": "Create Core",
-        "NoPieces": "No pieces yet.",
-        "Less": "−1",
-        "More": "+1",
-        "Raise": "+1 SR (paid with a pending pick)",
-        "Lower": "−1 SR (gives the pick back)",
-        "AtMax": "The SR is already at the piece's maximum or at your CR.",
-        "AtMin": "The SR is already 1.",
-        "PaidTip": "Costs {cost} PK; {paid} PK paid.",
-        "ResourceHour": "Follows the hour: {hour}",
-        "Color": "Color gifts",
-        "NoColor": "None yet.",
-        "ColorPlaceholder": "New color gift (story only)",
-        "ColorRemove": "Remove",
-        "ColorOver": "More than 3 color gifts: only if the Core allows it.",
-        "Env": "Scene environment",
-        "BadgeTip": "Kuden piece: see the Kuden tab."
-      },
-      "New": {
-        "core": "New Core",
-        "technique": "New Technique",
-        "gift": "New Gift",
-        "greaterGift": "New Greater Gift",
-        "apex": "New Apex"
-      },
-      "Use": {
-        "Unmet": "Kuden Restriction not met: {condition}."
-      }
-    },
     "Hud": {
       "OpenSheet": "Open the sheet",
       "Collapse": "Collapse the HUD",
@@ -1540,14 +1383,12 @@
       "Panel": {
         "checks": "Checks",
         "skills": "Skills",
-        "kuden": "Kuden",
         "items": "Items",
         "effects": "Statuses"
       },
       "Hint": {
         "checks": "Click: roll · Shift or right click: roll with a modifier · Pin: fix on the bar",
         "skills": "Click: use · Shift + click: use and roll the Check · Right click: open · Pin: fix on the bar",
-        "kuden": "Click: use (Constants go to the chat) · Shift + click: use and roll the Check · Right click: open",
         "items": "Click: use · Right click: open · Pin: fix on the bar",
         "effects": "× removes the status or effect; the running icon ends the status by spending its rule's action"
       },
@@ -1562,7 +1403,6 @@
       "Effects": "Effects",
       "NoSkills": "No skill to use.",
       "NoItems": "Nothing to use.",
-      "Constant": "Constant",
       "Pin": "Pin on the bar",
       "PinsFull": "The bar already has {n} shortcuts: unpin one first.",
       "RemoveBad": "Fate",
@@ -1594,7 +1434,6 @@
       "hudPanel": {
         "checks": "Action HUD: Checks",
         "skills": "Action HUD: Skills",
-        "kuden": "Action HUD: Kuden",
         "items": "Action HUD: Items",
         "effects": "Action HUD: Statuses"
       }
@@ -1627,7 +1466,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.6: the Sword Art Online items</strong></p><ul><li><strong>108 new items</strong> in the Items compendium, in the Aincrad, Alfheim and Submundo (Underworld) folders: 59 weapons and 49 armor pieces and accessories, from level 1 to 30, each with its own painted icon.</li><li><strong>Skills of their own:</strong> the rare items ([M4] to [M7]) bring bonuses, statuses in every combat and automated powers, which show up as skills of whoever carries the item.</li><li><strong>Legendaries strong on purpose:</strong> Excalibur, Liberator, Elucidator and the Underworld swords go beyond what the rules would give an item of their level.</li><li><strong>As a pair:</strong> Elucidator's Explosão Estelar only works with Dark Repulser also equipped.</li></ul><p>Since 0.5: one icon per item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
+      "Body": "<p><strong>What's new in Eternia 0.7: the classes</strong></p><ul><li><strong>The Samurai</strong>, Eternia's first class, in the Races and Classes compendium (Classes folder), with 36 automated skills.</li><li><strong>Motor: the Sheath.</strong> The sheathed blade gathers Cuts in the Setup Process; the Iai draws before anyone else and spends them all at once. With a full Sheath it is a Perfect Cut.</li><li><strong>Class tab</strong> on the sheet: the base, the Motor, the talents by branch, the Path (CR 3), the Apex (CR 10) and the Dedications. The Motor also shows in the HUD and on the token.</li><li><strong>Dedication:</strong> from CR 5, characters of other classes can take the Lesser Sheath and the Samurai's [Dedication] talents.</li><li><strong>Removed:</strong> the Kuden and Log Horizon's archetypes. The new rules are on page XI. CLASSES of the AS REGRAS journal.</li></ul><p>Since 0.6: the Sword Art Online items. Since 0.5: an icon for every item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -2338,6 +2177,101 @@
         "Region": "Trap: {item}",
         "Name": "Trap"
       }
+    },
+    "Motor": {
+      "Issue": {
+        "NoMotor": "You don't have the {motor} Motor.",
+        "State": "Needs to be {state}.",
+        "Min": "Needs {unit}: at least {n} (has {have}).",
+        "Full": "Needs the {unit} at the cap ({max}).",
+        "Weapon": "Needs a {tags} weapon in the main hand."
+      },
+      "Choose": "How many {unit} to spend? You have {have}.",
+      "ChooseOk": "Spend",
+      "Samurai": {
+        "Name": "Sheath",
+        "Unit": "Cuts",
+        "State": {
+          "sheathed": "Sheathed",
+          "drawn": "Drawn"
+        },
+        "FullMoonIssue": "Full Moon Path: the Iai only with a full Sheath ({n} Cuts).",
+        "PerfectReady": "Perfect Cut ready",
+        "Card": {
+          "Gain": "In the Setup Process, with the blade sheathed: +1 Cut.",
+          "Spend": "The Iai (Initiative, spends the Major Action) draws and spends them all: each Cut adds 2D + CR to the damage.",
+          "Cap": "2 Cuts, +1 every 5 CR. With a full Sheath, a Perfect Cut: automatic hit and +[CR×2+10].",
+          "Reset": "Any other weapon attack draws the blade and loses the Cuts. Sheathing is a Minor Action.",
+          "Decision": "Draw now, or wait for one more Cut?",
+          "GainLesser": "In the Setup Process, with the blade sheathed: +1 Cut.",
+          "SpendLesser": "The Iai draws and spends them all: each Cut adds 2D + CR to the damage, without a Perfect Cut.",
+          "CapLesser": "Half the Sheath's cap, at least 1.",
+          "ResetLesser": "Any other weapon attack draws the blade and loses the Cuts.",
+          "DecisionLesser": "Draw now, or wait for one more Cut?"
+        }
+      }
+    },
+    "Classes": {
+      "Card": {
+        "Gain": "Gains",
+        "Spend": "Spends",
+        "Cap": "Cap",
+        "Reset": "Resets",
+        "Decision": "The question"
+      },
+      "Kind": {
+        "motor": "Motor",
+        "feeds": "Feeds",
+        "spends": "Spends",
+        "bends": "Bends"
+      },
+      "samurai": {
+        "Branch": {
+          "espera": "The Wait",
+          "fio": "The Edge",
+          "bainha": "The Sheath",
+          "aco": "The Steel"
+        }
+      },
+      "Attr": {
+        "str": "STR",
+        "dex": "DEX",
+        "pow": "POW",
+        "int": "INT"
+      },
+      "Band": {
+        "frail": "Frail band: 35 HP, +4 per CR",
+        "light": "Light band: 40 HP, +5 per CR",
+        "firm": "Firm band: 40 HP, +6 per CR",
+        "robust": "Robust band: 50 HP, +8 per CR",
+        "colossal": "Colossal band: 55 HP, +9 per CR"
+      },
+      "HpPer": "HP · +{n}/CR",
+      "Milestone": {
+        "kit": "Kit",
+        "path": "Path",
+        "dedication": "Dedication",
+        "apex": "Apex"
+      },
+      "DedicationTag": "Dedication",
+      "Owned": "Learned",
+      "FromRank": "CR {n}",
+      "Motor": "Class Motor",
+      "LesserMotor": "Lesser Motor",
+      "StateTip": "Switch to {state}",
+      "ChooseTitle": "No class",
+      "ChooseHint": "The class gives the character's base and its Motor: the rule only it has.",
+      "Choose": "Choose the class",
+      "OpenClass": "Open the class",
+      "Eyebrow": "Class",
+      "Kit": "CR 1 kit",
+      "NoTalents": "No talents.",
+      "Path": "Path",
+      "ChoosePath": "Choose the Path",
+      "Apex": "Apex",
+      "General": "General talents",
+      "Dedications": "Dedications",
+      "Milestones": "Class milestones"
     }
   }
 }

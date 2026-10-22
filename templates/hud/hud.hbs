@@ -39,6 +39,14 @@
 			{{#if hate}}<span class="lhh-hate{{#if hate.rank}} {{hate.rank}}{{/if}}" data-tooltip-text="{{hate.tooltip}}" data-tooltip-direction="UP"><b>{{localize 'ETERNIA.Sheet.Hate'}}</b>{{hate.value}}{{#if (eq hate.rank 'top')}}<i class="fa-solid fa-crown"></i>{{/if}}{{#if (eq hate.rank 'under')}}<i class="fa-solid fa-angles-down"></i>{{/if}}</span>{{/if}}
 			{{#if fatigue}}<span class="lhh-fatigue" data-tooltip-text="{{localize 'ETERNIA.Hud.FatigueTip' value=fatigue}}" data-tooltip-direction="UP"><b>{{localize 'ETERNIA.Sheet.Fatigue'}}</b>{{fatigue}}</span>{{/if}}
 		</div>
+		{{#each motors as |m|}}
+		<div class="lhh-motor {{m.state}}{{#if m.ready}} ready{{/if}}" data-motor="{{m.id}}" data-tooltip-text="{{m.tooltip}}" data-tooltip-direction="UP">
+			<b class="lhh-motor-name">{{m.name}}</b>
+			<span class="lhh-motor-state">{{m.stateLabel}}</span>
+			<span class="lhh-motor-pips">{{#each m.pips as |pip|}}<a class="pip{{#if pip.on}} on{{/if}}" data-action="lhh-motor" data-value="{{pip.value}}"></a>{{/each}}</span>
+			{{#if m.ready}}<i class="fa-solid fa-star lhh-motor-ready"></i>{{/if}}
+		</div>
+		{{/each}}
 		{{/if}}
 		{{#if (or combat dodge)}}
 		<div class="lhh-side{{#if combat.active}} active{{/if}}">

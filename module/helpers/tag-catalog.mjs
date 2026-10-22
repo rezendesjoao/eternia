@@ -93,6 +93,14 @@ export const TAG_CATALOG = [
   { label: "Standby", group: G.skill },
   { label: "EX Power", group: G.skill },
   { label: "GM", group: G.skill },
+  // Class skills (module/classes/): the Samurai's draws, the talents a Dedication opens
+  { label: "Iai", group: G.skill },
+  { label: "Dedication", group: G.skill, aliases: ["Dedicação"] },
+  // Class roles (the tags of a class item): only descriptive, but [Healing] lets the Jewels of the Call of Life work
+  { label: "Damage", group: G.other },
+  { label: "Defense", group: G.other },
+  { label: "Healing", group: G.other },
+  { label: "Control", group: G.other },
 
   // Attack kinds: weapon attacks add the equipped weapon's tags to the damage.
   { label: "Weapon Attack", group: G.attack },

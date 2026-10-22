@@ -1,5 +1,5 @@
 /**
- * Settings of the table automation, the look, the HUD and the Kuden: one switch per automation, so a table can
+ * Settings of the table automation, the look and the HUD: one switch per automation, so a table can
  * turn off what it doesn't want.
  * They are read when the automation runs, so changing them needs no reload.
  * The world settings come first, by theme; the client ones (HUD, turn helpers) are each player's.
@@ -64,9 +64,8 @@ export function registerSettings() {
   toggle("fate");
   toggle("statusLinks");
   toggle("quickEffect");
-  // Content and house rules
+  // Content
   toggle("content");
-  toggle("kuden");
   // Look
   toggle("chatTheme");
   game.settings.register(SYSTEM_ID, "windowTheme", {

@@ -444,7 +444,8 @@ function renderFood(message, html) {
  * Character Rank plus `mod`), else its damage when it is a healing nobody resists ("Recovers 25 points of
  * target's [HP]").
  * @param {ChatMessage} message
- * @returns {{dice?: number, mod: number|string, targetCr?: boolean, healer?: boolean}|null}
+ * @returns {{dice?: number, mod: number|string, targetCr?: boolean, healer?: boolean}|null}  healer: only on characters
+ *   whose class has the role [Healing] (the Jewels of the Call of Life)
  */
 function healOf(message) {
   const item = message.getFlag("eternia", "use")?.item;
@@ -482,7 +483,7 @@ async function drink(message) {
 /** Heal a character: up to its Max HP; back on its feet if it was Incapacitated (not Dead). */
 async function healActor(actor, amount, heal) {
   const name = actorName(actor);
-  if (heal.healer && !actor.items.some(i => (i.type === "class") && (i.system.archetype === "healer"))) {
+  if (heal.healer && !actor.items.some(i => (i.type === "class") && (i.system.tags ?? []).some(t => /^healing$/i.test(String(t).trim())))) {
     return { ok: true, line: L("Content.NotHealer", { name }) };
   }
   if (actor.statuses.has("dead")) return { ok: true, line: L("Content.Dead", { name }) };

@@ -21,14 +21,6 @@ export const OPTION_ICONS = {
   subclass: "icons/skills/trades/academics-study-reading-book.webp"
 };
 
-/** Class archetypes: key -> localization key. */
-export const ARCHETYPES = {
-  warrior: "ETERNIA.Archetype.Warrior",
-  weaponAttacker: "ETERNIA.Archetype.WeaponAttacker",
-  healer: "ETERNIA.Archetype.Healer",
-  mage: "ETERNIA.Archetype.Mage"
-};
-
 /** The Race / Class / Subclass item of a character, if any. */
 export function getOption(actor, type) {
   return actor.items.find(i => i.type === type) ?? null;

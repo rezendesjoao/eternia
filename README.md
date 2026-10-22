@@ -5,9 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.6.0
+## Versão 0.7.0
 
-- **Novo na 0.6.0: 108 itens de Sword Art Online** no compêndio de Itens (Aincrad, Alfheim e Submundo), com
+- **Novo na 0.7.0: as classes.** A primeira é o **Samurai**, com o Motor **Bainha** (a lâmina Embainhada junta
+  Cortes; o Iai saca antes de todos e gasta todos de uma vez), 16 talentos, 4 Gerais, três Caminhos, o Ápice e a
+  Dedicação para outras classes, tudo automatizado, com a aba **Classe** na ficha (veja [As classes](#as-classes)).
+  O Kuden e os arquétipos de Log Horizon saíram do sistema.
+- **Desde a 0.6.0: 108 itens de Sword Art Online** no compêndio de Itens (Aincrad, Alfheim e Submundo), com
   habilidades automatizadas e ícones pintados; os lendários são fortes de propósito (veja
   [Os itens de Sword Art Online](#os-itens-de-sword-art-online)).
 - **Desde a 0.5.0: um ícone para cada item**, sem repetir, com molduras pelo grau mágico e efeitos nas armas de nível
@@ -18,15 +22,13 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
 - **Desde a 0.2.0: 31 condições** somadas aos 23 estados de base, todas automatizadas (veja
   [As condições](#as-condições)).
 - **Já vem pronto:** a ficha de personagem e a de monstro, o HUD de ações, o chat, os tokens e as outras janelas no
-  mesmo visual; toda a automação de combate e de uso de habilidades; o Kuden (regra da casa); a interface em
-  português do Brasil.
+  mesmo visual; toda a automação de combate e de uso de habilidades; a interface em português do Brasil.
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
-- **Compêndios da Eternia:** Raças e Classes (as 8 raças e as 10 profissões) e Habilidades Raciais; no compêndio de
-  Itens, as Engenhocas, as Canções e os 108 itens de Sword Art Online (veja
-  [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazios, à espera das
-  classes: Habilidades Comuns e de Subclasse, de Arquétipo e de Classe. As raças, classes e habilidades gerais e de
-  combate de Log Horizon foram tiradas do sistema.
+- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e o Samurai), Habilidades Raciais e
+  Habilidades de Classe (as 36 do Samurai); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
+  Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
+  raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
 
 ## A ficha de personagem
 
@@ -47,9 +49,12 @@ rótulos em versalete. Fontes Eczar e Gelasio.
 - **Habilidades:** Básicas, Gerais e de Combate, agrupadas pelo Momento (Ação Maior, Menor, Movimento, Instantânea,
   Reações, Abertura, Encerramento, Constantes…), com NH, custo e limite. Clique na imagem para usar e no nome para
   abrir os detalhes ali mesmo; o botão Explorar abre o navegador de habilidades.
-- **Kuden:** o Núcleo, o Recurso, os Pontos de Kuden e as peças (só com a regra da casa ligada).
 - **Inventário:** a riqueza (receber e gastar ouro fica registrado no chat), o boneco de equipamento (sete espaços
   ligados por linhas às partes do corpo), o que se carrega, os tíquetes e o espaço da bolsa.
+- **Classe:** o brasão da classe com a base (atributos e PV); o Motor, com o estado e os pontos (no Samurai, a katana
+  sai da bainha quando a lâmina é sacada e os Cortes brilham quando o próximo Iai é um Corte Perfeito); o kit, os
+  talentos por ramo com o que cada um faz no Motor, o Caminho, o Ápice, os talentos Gerais, as Dedicações e os
+  marcos da classe. Sem classe, o botão de escolher uma.
 - **Profissão:** o brasão da profissão com o Rank, a EXP e as tentativas do cenário, os botões da bancada (Oficina,
   Fusão, talentos), as chances, os materiais, o talento, as obras e os Ranks; sem profissão, as dez para escolher.
 - **Efeitos e estados** e a **Biografia**.
@@ -95,8 +100,9 @@ aparecem na tela são desenhados. A configuração **Ícones animados** (de cada
 
 ## Os tokens
 
-A barra de PV (com a Fadiga hachurada e a Barreira num filete azul-aço), o Destino em losangos dourados e o nome em
-versalete numa faixa na cor da disposição. Uma configuração escolhe quem vê a barra de PV: todos; todos, mas os
+A barra de PV (com a Fadiga hachurada e a Barreira num filete azul-aço), o Destino em losangos dourados, o Motor da
+classe numa fileira de losangos logo acima da barra de PV (com um disco do estado: verde Embainhada, carmim
+Desembainhada) e o nome em versalete numa faixa na cor da disposição. Uma configuração escolhe quem vê a barra de PV: todos; todos, mas os
 jogadores só veem a de um inimigo [Identificado]; ou cada token por conta própria.
 
 ## O HUD de ações
@@ -104,16 +110,55 @@ jogadores só veem a de um inimigo [Identificado]; ou cada token por conta próp
 Com um token selecionado (ou, para um jogador, o personagem atribuído a ele), uma barra de pergaminho fica no pé da
 tela, no lugar da barra de macros do Foundry:
 
-- **Recursos:** PV, Barreira, Destino, Ódio e Fadiga.
+- **Recursos:** PV, Barreira, Destino, Ódio, Fadiga e o Motor da classe (o estado e os pontos; um clique num losango
+  marca os pontos à mão).
 - **Turno:** a rodada e o Processo, as ações que restam no seu Processo Principal, Espera e **Encerrar**; **Entrar**
   coloca o token num combate em que ele ainda não está.
 - **Esquivas pendentes:** quando um ataque mira o seu personagem, **Esquivar** rola pelo próprio cartão.
-- **Painéis:** Testes, Habilidades (as que não dá para usar agora ficam esmaecidas, com o motivo), Kuden, Itens (com
+- **Painéis:** Testes, Habilidades (as que não dá para usar agora ficam esmaecidas, com o motivo), Itens (com
   os poderes de gatilho) e Estados. **Shift + clique** usa e já rola o Teste.
 - **Atalhos fixos** pelo alfinete, **Esc** fecha o painel, e o HUD se ajusta às telas menores, ao chat flutuante, à
   lista de jogadores e à barra lateral aberta.
 - A barra de macros fica escondida, mas as teclas 1 a 0 continuam executando as macros. Cada jogador escolhe entre
   esconder, trocar ou mostrar.
+
+## As classes
+
+Cada classe da Eternia tem um **Motor**, uma regra que só ela tem e que muda o que se decide na rodada; tudo o mais
+gira em volta dele (veja `docs/classes.md` e a página **XI. CLASSES** do diário AS REGRAS):
+
+- **Base:** atributos (10 pontos) e PV numa das cinco faixas, que a própria classe define. Não há arquétipos.
+- **Kit do NP 1:** o Motor e as habilidades de entrada, oferecidos ao escolher a classe.
+- **Talentos:** escolhidos a cada NP; todos mexem no Motor (alimentam, gastam ou dobram uma regra dele). Os ramos
+  pedem talentos anteriores, e o navegador de habilidades mostra o que falta.
+- **Caminho (NP 3):** um de três, oferecido na subida de NP; cada um reescreve uma regra do Motor e traz dois
+  talentos próprios.
+- **Dedicação (NP 5):** a multiclasse. Um personagem de outra classe ganha o Motor Menor (Teto pela metade) e abre os
+  talentos [Dedicação], dois NP depois.
+- **Ápice (NP 10):** dado sem pedir, transforma o Motor.
+
+### O Samurai
+
+**Motor: Bainha.** A lâmina fica Embainhada ou Desembainhada. Embainhada, ganha 1 Corte no Processo de Abertura (Teto
+2, +1 a cada 5 NP). O **Iai** se usa no Processo de Iniciativa de qualquer personagem, gasta a Ação Maior da rodada e
+saca gastando todos os Cortes: cada Corte soma 2D + NP ao dano; com a Bainha cheia é um **Corte Perfeito** (acerto
+sem Esquiva e +[NP×2+10]). O custo é Ódio 1 + os Cortes gastos. Qualquer outro ataque com arma desembainha a lâmina e
+perde os Cortes; Embainhar é uma Ação Menor.
+
+- **Base:** Força 4, Destreza 2, Poder 2, Inteligência 2; PV 50, +8 por NP (faixa Robusta). Papéis: Dano e Defesa.
+- **Kit:** Bainha, Embainhar, Iai e Respiração (+1 Corte).
+- **Talentos (16):** A Espera (Silêncio Antes do Golpe, Grito do Saque, Lâmina que Espera, Contra-saque, Desafio do
+  Samurai), O Fio (Corte do Vento, Corte Circular, Aparar com o Saque, Primeira Lâmina), A Bainha (Mão no Cabo,
+  Bainha Longa, Passo do Saque, Respiração Profunda) e O Aço (Kesagiri, Eco do Aço, Chiburi). Gerais: Primeiro a
+  Sacar, Corte Limpo, Postura de Vigília e Duelo de Olhares.
+- **Caminhos:** Lua Cheia (Teto +2, o Iai só com a Bainha cheia, Corte Perfeito em dobro), Água Corrente (ganha
+  Cortes quando atacado, em vez da Abertura) e Relâmpago (o Iai corre em linha e atinge todos no caminho).
+- **Ápice:** Mente Vazia, o Iai deixa de gastar a Ação Maior.
+- **Automação:** o estado e os Cortes na aba Classe, no HUD e no token; os ganhos no Processo de Abertura e no
+  Encerramento, na esquiva, no ataque sofrido e no inimigo derrubado; o Iai e os saques com o dano dos Cortes, o
+  Corte Perfeito com acerto automático, o custo de Ódio pelos Cortes, a ação que cada um gasta e o **Desfazer** do
+  cartão devolvendo o Motor; os talentos que pedem a lâmina Embainhada ou Desembainhada, ou uma [Katana]/[Lâmina] na
+  mão, avisam antes do uso.
 
 ## As raças
 
@@ -282,15 +327,8 @@ ataques lido do texto, em português ou inglês.
 
 ### Ferramentas do Mestre
 Em **Configurar Opções → Eternia → Ferramentas do Mestre**: encerrar a cena ou o cenário dos tokens selecionados ou
-de todos os personagens, completar o que falta no mundo (dano de monstros feitos à mão e habilidades dos poderes de
-itens) e o ambiente da cena para o Kuden.
-
-## Kuden (regra da casa)
-
-Uma assinatura própria para cada personagem, paga com as mesmas escolhas de habilidade das comuns: Núcleo, Técnicas,
-Dons, Dons maiores, Ápice, Restrições, Recurso do Núcleo (manual ou pela hora da cena), ambiente da cena (hora, céu
-aberto, escuridão e miasma) e condições novas de efeito (Recurso, ambiente, alvo Chefe ou Raide, PV ≤ N%). Fica na
-aba Kuden da ficha do personagem e da ficha da habilidade, e pode ser desligado nas configurações.
+de todos os personagens e completar o que falta no mundo (dano de monstros feitos à mão e habilidades dos poderes de
+itens).
 
 ## Configurações
 
@@ -316,7 +354,6 @@ janelas em pergaminho, que pedem para recarregar.
 | Estados clicáveis no chat | ligado |
 | Criar efeito a partir de um cartão | ligado |
 | Conteúdo dos itens e monstros | ligado |
-| Kuden (regra da casa) | ligado |
 | Tema pergaminho no chat | ligado |
 | Janelas do sistema em pergaminho | ligado |
 | Barras e nomes dos tokens no estilo da ficha | ligado |
@@ -357,8 +394,10 @@ eternia.fillWorld({ dryRun: true });  // conta (ou completa) o que falta no mund
 eternia.syncItemSkills(actor);        // habilidades dos poderes dos itens do personagem
 eternia.parseMonsterDamage(html);     // lê o dano de um ataque de monstro escrito em texto
 eternia.hud();                        // o HUD de ações desta tela
-eternia.kuden.ledgerOf(actor);        // Pontos de Kuden: custo, pago, guardado, escolhas pendentes
-eternia.kuden.settle(actor);          // paga o que falta com as escolhas pendentes
+eternia.motor.get(actor, "samurai");  // o Motor da classe: estado, pontos e o resto da regra
+eternia.motor.add(actor, "samurai", 1); // +1 Corte (dentro do Teto)
+eternia.motor.change(actor, "samurai", { state: "drawn" }); // muda o estado
+eternia.motor.max(actor, "samurai");  // o Teto
 eternia.professions.open(actor, "craft"); // a bancada da profissão num modo (craft, fusion, gather, retouch…)
 eternia.professions.of(actor);        // profissão, Rank, EXP, tentativas e nível máximo
 eternia.professions.addExp(actor, 10); // EXP da profissão (anuncia o Rank novo)
@@ -385,8 +424,9 @@ eternia.icons.refresh();              // desenha de novo os ícones da tela
 ## Desenvolvimento
 
 - `module/` é o código (entrada em `module/eternia.mjs`): `documents/`, `sheets/` (as fichas de pergaminho estendem as
-  classes base), `helpers/`, `apps/`, `piles/`, `automation/`, `chat/`, `content/`, `hud/`, `canvas/`, `kuden/`,
-  `conditions/` (as condições da Eternia) e `i18n/` (os termos em português). `templates/`, `css/` e `lang/` seguem a
+  classes base), `helpers/`, `apps/`, `piles/`, `automation/`, `chat/`, `content/`, `hud/`, `canvas/`, `classes/`
+  (os Motores das classes e a aba Classe), `professions/`, `conditions/` (as condições da Eternia) e `i18n/` (os termos
+  em português). `templates/`, `css/` e `lang/` seguem a
   mesma divisão.
 - O visual de pergaminho (`css/automation.css`, `sheet.css`, `chat.css`, `windows.css`, `hud.css` e `tbg.css`) entra
   na camada de CSS `modules` (veja `styles` no `system.json`), acima do CSS base do sistema e do Foundry.
@@ -398,6 +438,7 @@ eternia.icons.refresh();              // desenha de novo os ícones da tela
 - `tools/make-textures.py` gera as texturas da ficha e `tools/make-logo.py` o logo, sem arte de terceiros.
 - `tools/make-status-icons.mjs` gera os ícones dos estados a partir dos ícones do game-icons.net.
 - `docs/condicoes.md` explica onde cada regra das condições está no código e como criar uma condição nova.
+- `docs/classes.md` tem as regras de construção das classes e a referência técnica dos Motores.
 
 ## Créditos
 

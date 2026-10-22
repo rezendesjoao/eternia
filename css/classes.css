@@ -1,0 +1,442 @@
+/* ==========================================================================
+   Classes (module/classes/): the class tab of the character sheet, the Motor in the HUD and its chat lines.
+   The parchment and green of the sheet with gold trims, as the profession tab, and the class's own color
+   (--lhcl-color) on its crest and Motor. The Samurai's Sheath is drawn as a katana that leaves its scabbard.
+   ========================================================================== */
+
+.lhpf .tab.class {
+  --lhcl-gold: #c9a24a;
+  --lhcl-gold-light: #f2db94;
+  --lhcl-gold-dark: #8a6a25;
+  --lhcl-night: #10291b;
+  --lhcl-forest: #1b4430;
+  --lhcl-paper: #fbf6e8;
+  --lhcl-line: #c8b79a;
+  --lhcl-color: #1f5137;
+}
+
+@keyframes lhcl-ready { 0%, 100% { box-shadow: 0 0 4px rgba(242, 219, 148, 0.6); } 50% { box-shadow: 0 0 12px 3px rgba(242, 219, 148, 0.95); } }
+@keyframes lhcl-glint { from { transform: translateX(-60%); opacity: 0; } 30% { opacity: 0.9; } to { transform: translateX(160%); opacity: 0; } }
+
+/* Choosing a class
+   ------------------------------------------------------------------------ */
+.lhpf .tab.class .lhcl-choose {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  margin: 18px 8px;
+  padding: 22px 18px;
+  border: 1px solid var(--lhcl-line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--lhcl-paper), #f1e7cf);
+  text-align: center;
+}
+.lhpf .tab.class .lhcl-choose > i { color: var(--pf-primary); font-size: 30px; }
+.lhpf .tab.class .lhcl-choose h2 { margin: 0; border: none; font: 600 20px/1.1 var(--pf-serif); }
+.lhpf .tab.class .lhcl-choose p { margin: 0; color: var(--pf-text-soft); font: 13px/1.4 var(--pf-body); }
+.lhpf .tab.class .lhcl-choose button { width: auto; margin-top: 6px; padding: 4px 14px; }
+
+/* Crest
+   ------------------------------------------------------------------------ */
+.lhpf .tab.class .lhcl-crest {
+  position: relative;
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px 14px;
+  margin: 2px 0 10px;
+  padding: 14px 16px 14px 14px;
+  border-radius: 8px;
+  background:
+    radial-gradient(130% 160% at 0% 50%, color-mix(in srgb, var(--lhcl-color) 62%, transparent) 0%, transparent 58%),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 9px),
+    linear-gradient(135deg, var(--lhcl-forest) 0%, var(--lhcl-night) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(242, 219, 148, 0.35),
+    inset 0 0 0 4px rgba(16, 41, 27, 0.9),
+    inset 0 0 0 5px rgba(201, 162, 74, 0.5),
+    0 4px 10px rgba(0, 0, 0, 0.3);
+  color: var(--pf-tertiary-light);
+  overflow: hidden;
+}
+.lhpf .tab.class .lhcl-medallion {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  margin: 2px 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 32%, color-mix(in srgb, var(--lhcl-color) 80%, #fff 20%), color-mix(in srgb, var(--lhcl-color) 55%, #000) 75%);
+  box-shadow:
+    0 0 0 3px var(--lhcl-night),
+    0 0 0 5px var(--lhcl-gold),
+    0 0 0 6px var(--lhcl-night),
+    0 0 20px color-mix(in srgb, var(--lhcl-color) 75%, transparent),
+    inset 0 0 14px rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
+.lhpf .tab.class .lhcl-medallion img {
+  width: 54px;
+  height: 54px;
+  border: none;
+  filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.6));
+}
+.lhpf .tab.class .lhcl-crest-body { min-width: 0; }
+.lhpf .tab.class .lhcl-eyebrow {
+  display: block;
+  color: var(--lhcl-gold);
+  font: 600 9.5px/1 var(--pf-sans);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+.lhpf .tab.class .lhcl-name {
+  margin: 3px 0 6px;
+  overflow: hidden;
+  border: none;
+  color: #f8eed3;
+  font: 600 27px/1 var(--pf-serif);
+  text-overflow: ellipsis;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
+  white-space: nowrap;
+}
+.lhpf .tab.class .lhcl-roles { display: flex; flex-wrap: wrap; gap: 4px; }
+.lhpf .tab.class .lhcl-role {
+  padding: 1px 7px;
+  border: 1px solid rgba(242, 219, 148, 0.45);
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--lhcl-gold-light);
+  font: 600 10px/1.5 var(--pf-sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.lhpf .tab.class .lhcl-medallion { grid-row: span 2; }
+.lhpf .tab.class .lhcl-base {
+  display: grid;
+  grid-column: 2;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.4fr);
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .tab.class .lhcl-base li {
+  display: grid;
+  justify-items: center;
+  min-width: 46px;
+  padding: 5px 6px 4px;
+  border: 1px solid rgba(242, 219, 148, 0.3);
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.28);
+}
+.lhpf .tab.class .lhcl-base b { color: #f8eed3; font: 700 17px/1 var(--pf-serif); }
+.lhpf .tab.class .lhcl-base span { color: var(--pf-tertiary); font: 600 9px/1.3 var(--pf-sans); letter-spacing: 0.04em; text-transform: uppercase; }
+.lhpf .tab.class .lhcl-base li.hp { border-color: color-mix(in srgb, #b8261b 60%, var(--lhcl-gold)); }
+
+/* Motor
+   ------------------------------------------------------------------------ */
+.lhpf .tab.class .lhcl-motor {
+  --lhcl-steel: #e9edf2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin: 0 0 12px;
+  border: 1px solid var(--lhcl-line);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 40%),
+    linear-gradient(180deg, var(--lhcl-paper), #f0e5cb);
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.4), 0 2px 6px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+.lhpf .tab.class .lhcl-motor.lesser { opacity: 0.95; }
+.lhpf .tab.class .lhcl-motor-art {
+  position: relative;
+  height: 64px;
+  border-bottom: 1px solid var(--lhcl-line);
+  background:
+    radial-gradient(90% 140% at 50% 120%, color-mix(in srgb, var(--lhcl-color) 45%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--lhcl-forest), var(--lhcl-night));
+  overflow: hidden;
+}
+.lhpf .tab.class .lhcl-sheath {
+  position: absolute;
+  inset: 6px 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 12px);
+}
+.lhpf .tab.class .lhcl-sword { transition: transform 0.55s cubic-bezier(0.2, 0.9, 0.2, 1); }
+.lhpf .tab.class .lhcl-motor.drawn .lhcl-sword { transform: translate(-104px, -1px) rotate(-3deg); }
+.lhpf .tab.class .lhcl-blade { fill: var(--lhcl-steel); stroke: #6b7480; stroke-width: 0.8; }
+.lhpf .tab.class .lhcl-hamon { fill: none; stroke: rgba(255, 255, 255, 0.9); stroke-width: 1; }
+.lhpf .tab.class .lhcl-habaki { fill: var(--lhcl-gold); }
+.lhpf .tab.class .lhcl-tsuba { fill: #2b2116; stroke: var(--lhcl-gold); stroke-width: 1.4; }
+.lhpf .tab.class .lhcl-tsuka { fill: #ece2c9; stroke: #3b2a1a; stroke-width: 1; }
+.lhpf .tab.class .lhcl-ito { stroke: var(--lhcl-color); stroke-width: 2.4; }
+.lhpf .tab.class .lhcl-kashira { fill: var(--lhcl-gold-dark); }
+.lhpf .tab.class .lhcl-saya {
+  fill: color-mix(in srgb, var(--lhcl-color) 78%, #000);
+  stroke: var(--lhcl-gold);
+  stroke-width: 1.2;
+}
+.lhpf .tab.class .lhcl-kojiri { fill: var(--lhcl-gold); }
+.lhpf .tab.class .lhcl-sageo { fill: none; stroke: var(--lhcl-gold-light); stroke-width: 1.6; stroke-linecap: round; opacity: 0.85; }
+.lhpf .tab.class .lhcl-motor.ready .lhcl-motor-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255, 246, 214, 0.45), transparent);
+  animation: lhcl-glint 2.6s ease-in-out infinite;
+  pointer-events: none;
+}
+.lhpf .tab.class .lhcl-motor-body { padding: 8px 12px 10px; }
+.lhpf .tab.class .lhcl-motor-body header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.lhpf .tab.class .lhcl-motor-body .lhcl-eyebrow { color: var(--lhcl-gold-dark); }
+.lhpf .tab.class .lhcl-motor-body h3 {
+  flex: 1;
+  margin: 0;
+  border: none;
+  color: var(--pf-text);
+  font: 600 19px/1 var(--pf-serif);
+}
+.lhpf .tab.class .lhcl-state {
+  padding: 2px 9px;
+  border-radius: 10px;
+  background: var(--pf-primary);
+  color: var(--pf-tertiary-light);
+  font: 600 11px/1.4 var(--pf-sans);
+  letter-spacing: 0.04em;
+}
+.lhpf .tab.class .lhcl-motor.drawn .lhcl-state { background: color-mix(in srgb, var(--lhcl-color) 85%, #000); }
+.lhpf .tab.class a.lhcl-state:hover { filter: brightness(1.15); }
+.lhpf .tab.class .lhcl-points {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 2px 0 8px;
+}
+.lhpf .tab.class .lhcl-pips { display: inline-flex; gap: 7px; padding-left: 3px; }
+.lhpf .tab.class .lhcl-pip {
+  display: block;
+  width: 13px;
+  height: 13px;
+  transform: rotate(45deg);
+  border: 1px solid var(--lhcl-gold-dark);
+  background: rgba(0, 0, 0, 0.08);
+}
+.lhpf .tab.class a.lhcl-pip { cursor: pointer; }
+.lhpf .tab.class a.lhcl-pip:hover { border-color: var(--lhcl-color); }
+.lhpf .tab.class .lhcl-pip.on {
+  border-color: var(--lhcl-gold-dark);
+  background: linear-gradient(135deg, #fff3c4, var(--lhcl-gold) 55%, var(--lhcl-gold-dark));
+  box-shadow: 0 0 5px rgba(201, 162, 74, 0.7);
+}
+.lhpf .tab.class .lhcl-motor.ready .lhcl-pip.on { animation: lhcl-ready 1.6s ease-in-out infinite; }
+.lhpf .tab.class .lhcl-count { color: var(--pf-text-soft); font: 13px/1 var(--pf-body); }
+.lhpf .tab.class .lhcl-count b { color: var(--pf-text); font: 700 17px/1 var(--pf-serif); }
+.lhpf .tab.class .lhcl-ready {
+  padding: 2px 8px;
+  border: 1px solid var(--lhcl-gold);
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fff6d6, #f1dc9c);
+  color: var(--lhcl-gold-dark);
+  font: 700 11px/1.4 var(--pf-sans);
+}
+.lhpf .tab.class .lhcl-card {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 3px 10px;
+  margin: 0;
+  padding: 7px 0 0;
+  border-top: 1px dashed var(--lhcl-line);
+  font: 12.5px/1.4 var(--pf-body);
+}
+.lhpf .tab.class .lhcl-card dt {
+  color: var(--pf-primary);
+  font: 700 10.5px/1.6 var(--pf-sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.lhpf .tab.class .lhcl-card dd { margin: 0; color: var(--pf-text); }
+
+/* Skill lists
+   ------------------------------------------------------------------------ */
+.lhpf .tab.class .lhcl-group > header { display: flex; align-items: center; gap: 8px; }
+.lhpf .tab.class .lhcl-group > header > span:first-child { flex: 1; }
+.lhpf .tab.class .lhcl-header-note { opacity: 0.85; font: 600 10px/1 var(--pf-sans); letter-spacing: 0.06em; }
+.lhpf .tab.class .lhcl-browse { color: inherit; font: 600 11px/1 var(--pf-sans); white-space: nowrap; }
+.lhpf .tab.class .lhcl-browse.attention { color: var(--lhcl-gold-light); text-shadow: 0 0 6px rgba(242, 219, 148, 0.8); }
+.lhpf .tab.class .lhcl-skills { margin: 0; padding: 0; list-style: none; }
+.lhpf .tab.class .lhcl-skill {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  border-bottom: 1px solid rgba(186, 169, 145, 0.45);
+}
+.lhpf .tab.class .lhcl-skill:last-child { border-bottom: none; }
+.lhpf .tab.class .lhcl-skill:not(.owned) .lhcl-skill-img img { filter: grayscale(0.85) opacity(0.65); }
+.lhpf .tab.class .lhcl-skill.locked .lhcl-skill-name { color: var(--pf-text-soft); }
+.lhpf .tab.class .lhcl-skill-img { position: relative; display: block; width: 32px; height: 32px; }
+.lhpf .tab.class .lhcl-skill-img img {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--pf-frame);
+  border-radius: 4px;
+}
+.lhpf .tab.class a.lhcl-skill-img i {
+  position: absolute;
+  inset: 0;
+  display: none;
+  place-items: center;
+  border-radius: 4px;
+  background: rgba(16, 41, 27, 0.65);
+  color: var(--pf-tertiary-light);
+}
+.lhpf .tab.class a.lhcl-skill-img:hover i { display: grid; }
+.lhpf .tab.class .lhcl-skill-body { display: grid; min-width: 0; }
+.lhpf .tab.class .lhcl-skill-name {
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 600 14px/1.25 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .tab.class .lhcl-skill-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  color: var(--pf-text-soft);
+  font: 11px/1.35 var(--pf-sans);
+}
+.lhpf .tab.class .lhcl-kind { font-weight: 700; }
+.lhpf .tab.class .lhcl-kind.feeds { color: var(--pf-primary); }
+.lhpf .tab.class .lhcl-kind.spends { color: var(--pf-red); }
+.lhpf .tab.class .lhcl-kind.bends { color: #4b3f8f; }
+.lhpf .tab.class .lhcl-kind.motor { color: var(--lhcl-gold-dark); }
+.lhpf .tab.class .lhcl-dedication-tag {
+  padding: 0 5px;
+  border: 1px solid var(--lhcl-line);
+  border-radius: 6px;
+  font-size: 10px;
+}
+.lhpf .tab.class .lhcl-skill-state { color: var(--pf-primary); font: 600 11px/1 var(--pf-sans); white-space: nowrap; }
+.lhpf .tab.class .lhcl-rank { color: var(--pf-text-soft); }
+.lhpf .tab.class .lhcl-paths {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin: 4px 0 2px;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .tab.class .lhcl-path-option a {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 8px 6px;
+  border: 1px solid var(--lhcl-line);
+  border-radius: 6px;
+  background: linear-gradient(180deg, var(--lhcl-paper), #efe4c8);
+  color: var(--pf-text);
+  font: 600 12.5px/1.2 var(--pf-serif);
+  text-align: center;
+}
+.lhpf .tab.class .lhcl-path-option a:hover { border-color: var(--lhcl-color); box-shadow: 0 0 6px color-mix(in srgb, var(--lhcl-color) 40%, transparent); }
+.lhpf .tab.class .lhcl-path-option img { width: 36px; height: 36px; border: 1px solid var(--pf-frame); border-radius: 50%; }
+
+/* Milestones
+   ------------------------------------------------------------------------ */
+.lhpf .tab.class .lhcl-ladder ol {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin: 4px 0;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .tab.class .lhcl-ladder li {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 6px 4px;
+  border: 1px solid var(--lhcl-line);
+  border-radius: 6px;
+  color: var(--pf-text-soft);
+  font: 600 11.5px/1.2 var(--pf-sans);
+  text-align: center;
+}
+.lhpf .tab.class .lhcl-step {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--lhcl-line);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+}
+.lhpf .tab.class .lhcl-step b { font: 700 13px/1 var(--pf-serif); }
+.lhpf .tab.class .lhcl-ladder li.reached { color: var(--pf-text); }
+.lhpf .tab.class .lhcl-ladder li.reached .lhcl-step {
+  border-color: var(--lhcl-gold-dark);
+  background: linear-gradient(135deg, #fff3c4, var(--lhcl-gold) 55%, var(--lhcl-gold-dark));
+  color: var(--lhcl-night);
+}
+.lhpf .tab.class .lhcl-ladder li.current { border-color: var(--lhcl-gold); box-shadow: 0 0 0 1px var(--lhcl-gold); }
+
+@media (prefers-reduced-motion: reduce) {
+  .lhpf .tab.class .lhcl-sword { transition: none; }
+  .lhpf .tab.class .lhcl-motor.ready .lhcl-motor-art::after,
+  .lhpf .tab.class .lhcl-motor.ready .lhcl-pip.on { animation: none; }
+}
+
+/* HUD: the Motor next to Fate, Hate and Fatigue
+   ------------------------------------------------------------------------ */
+#lhauto-hud .lhh-motor {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-left: 1px solid var(--pf-divider);
+  white-space: nowrap;
+}
+#lhauto-hud .lhh-motor-name {
+  color: var(--pf-tertiary-dark);
+  font: 700 10px/1 var(--pf-sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+#lhauto-hud .lhh-motor-state {
+  padding: 1px 6px;
+  border-radius: 8px;
+  background: var(--pf-primary);
+  color: var(--pf-tertiary-light);
+  font: 600 10px/1.4 var(--pf-sans);
+}
+#lhauto-hud .lhh-motor.drawn .lhh-motor-state { background: #6e2522; }
+#lhauto-hud .lhh-motor-pips { display: inline-flex; gap: 5px; padding: 0 3px; }
+#lhauto-hud .lhh-motor-pips .pip {
+  display: block;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  border: 1px solid var(--pf-tertiary-darker);
+  background: rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+#lhauto-hud .lhh-motor-pips .pip.on {
+  background: linear-gradient(135deg, #fff3c4, #c9a24a 55%, #8a6a25);
+  box-shadow: 0 0 5px rgba(242, 219, 148, 0.7);
+}
+#lhauto-hud .lhh-motor.ready .lhh-motor-pips .pip.on { animation: lhcl-ready 1.6s ease-in-out infinite; }
+#lhauto-hud .lhh-motor-ready { color: #f2db94; font-size: 11px; }
+#lhauto-hud.narrow .lhh-motor-name,
+#lhauto-hud.tiny .lhh-motor-state { display: none; }

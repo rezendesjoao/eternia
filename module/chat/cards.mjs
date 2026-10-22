@@ -22,6 +22,7 @@ import { isSelfTarget } from "../helpers/item-use.mjs";
 import { rollBonuses, rollBonusesLabel } from "../helpers/roll-bonuses.mjs";
 import { confirm, escape, sameTarget, targetActor, toInt } from "../helpers/utils.mjs";
 import { withCloseReach } from "../automation/reach.mjs";
+import { motorRollBonuses } from "../classes/motor.mjs";
 
 /** Battle status a character skill's damage adds, by type (as the system's skill-rolls.mjs). */
 const DAMAGE_POWER = { physical: "attack", magical: "magic" };
@@ -108,6 +109,8 @@ export async function rollDamage(item, attackMessage) {
   if (values.diceFormula) dice += Math.max(0, evaluateFormula(values.diceFormula, data) ?? 0);
   if (values.formula) mod += evaluateFormula(values.formula, data) ?? 0;
   const bonuses = rollBonuses(actor, item, "damage", { targets: rollTargets(attackMessage) });
+  // Bonuses of the roller's class Motor (the Samurai's Echo of Steel)
+  bonuses.push(...motorRollBonuses(actor ?? item.actor, item, "damage"));
   for (const bonus of bonuses) {
     dice += bonus.dice;
     mod += bonus.mod;

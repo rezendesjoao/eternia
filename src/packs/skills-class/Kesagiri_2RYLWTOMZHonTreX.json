@@ -1,0 +1,70 @@
+{
+  "name": "Kesagiri",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com a lâmina Desembainhada: um corte em diagonal, do ombro ao quadril. [Poder de Ataque + (2 + NP÷3)D] de dano físico. Depois do golpe, a lâmina volta à bainha: fica Embainhada, com 0 Cortes.</p>",
+    "tags": [
+      "Weapon Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+floor(@cr/3)",
+      "mod": 0,
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/strike-sword-blood-red.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "samurai-kesagiri",
+      "kind": "bends",
+      "branch": "aco",
+      "minRank": 1,
+      "motor": {
+        "id": "samurai",
+        "needs": {
+          "state": "drawn"
+        },
+        "set": "sheathed"
+      },
+      "damageText": "[Poder de Ataque] + (2+NP÷3)D Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.7.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 180000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "2RYLWTOMZHonTreX",
+  "folder": "C4ytsEa3HxzTigcG",
+  "_key": "!items!2RYLWTOMZHonTreX"
+}

@@ -1,0 +1,114 @@
+{
+  "name": "Desafio do Samurai",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com a lâmina Embainhada, você encara um inimigo a até 3 Qd e o desafia: ele fica [Provocado] por você, e você ganha +1 Corte.</p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/social/peace-luck-insult.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "taunted"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.7.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Desafio do Samurai",
+      "img": "systems/eternia/assets/ui/status/taunted.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "taunted"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "qRYcVLhwTReb5Tz9",
+      "_key": "!items.effects!wwbdgOlvh59UUArw.qRYcVLhwTReb5Tz9"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "samurai-desafio",
+      "kind": "feeds",
+      "branch": "espera",
+      "minRank": 1,
+      "motor": {
+        "id": "samurai",
+        "needs": {
+          "state": "sheathed"
+        },
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.7.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 90000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "wwbdgOlvh59UUArw",
+  "folder": "C4ytsEa3HxzTigcG",
+  "_key": "!items!wwbdgOlvh59UUArw"
+}

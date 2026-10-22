@@ -25,9 +25,11 @@ import { skillModifiers } from "../helpers/roll-bonuses.mjs";
 import { actorName, combatantOf, combatOf, confirm, escape, toInt, wrap } from "../helpers/utils.mjs";
 import { counter } from "./scenes.mjs";
 import { ITEM_SKILL, linkedSkill } from "../content/content.mjs";
-import { kudenUseIssues } from "../kuden/conditions.mjs";
 import { actionAllowance, conditionUseIssues } from "../conditions/actions.mjs";
 import { afterAction } from "../conditions/turns.mjs";
+import {
+  commitMotorUse, motorActionOf, motorCostValues, motorUseIssues, planMotorUse, skillMotor, undoMotorUse
+} from "../classes/motor.mjs";
 
 /** The action a Timing spends in the Main Process. */
 const ACTIONS = { Major: "major", Minor: "minor", Move: "move" };
@@ -91,7 +93,10 @@ export function amount(text, item) {
   const sr = rankOf(item);
   const actor = item?.actor;
   const cr = Math.max(1, toInt(actor?.system?.infos?.crank ?? actor?.system?.rank));
-  const expr = String(text ?? "").toUpperCase()
+  let expr = String(text ?? "").toUpperCase();
+  // A class Motor's points ("Hate 1+Cortes": the Samurai's Cuts, see classes/motor.mjs)
+  for (const [word, value] of Object.entries(motorCostValues(item))) expr = expr.replaceAll(word, `(${value})`);
+  expr = expr
     .replace(/[\s()[\]]/g, "")
     .replace(/[X×]/g, "*")
     .replace(/SR/g, `(${sr})`)
@@ -230,8 +235,6 @@ function itemIssues(item, actor, combat, combatant) {
   const of = item.getFlag(SYSTEM_ID, "srOf");
   if (of && !rankOf(item)) issues.push(L("Use.NoRankSkill", { skill: of.name }));
   if (item.getFlag(SYSTEM_ID, "notActed") && combatant && combat.isPostAction?.(combatant)) issues.push(L("Use.AlreadyActed"));
-  // Kuden pieces: the conditions of the skill itself (Restrictions such as "only against a Boss").
-  issues.push(...kudenUseIssues(item, actor));
   return issues;
 }
 
@@ -300,7 +303,9 @@ export function inspectUse(item, { targets = null } = {}) {
   // Timing and action economy (in a started combat): [Hasted] has two Minor Actions, [Slowed] no Move Action.
   if (combatant && actionsMode && (actionsMode !== "off")) {
     for (const text of timingIssues(timing, combat, combatant)) issues.push({ text, mode: actionsMode });
-    action = ACTIONS[timing] ?? null;
+    // A class Motor may change the action (the Samurai's Iai, at Initiative, spends the Major Action).
+    const motorAction = motorActionOf(item, actor);
+    action = (motorAction !== undefined) ? motorAction : (ACTIONS[timing] ?? null);
     if (action && (spentActions(actor, combat)[action] >= actionAllowance(actor)[action])) {
       issues.push({ text: L(`Use.ActionSpent.${action}`), mode: actionsMode });
     }
@@ -319,6 +324,8 @@ export function inspectUse(item, { targets = null } = {}) {
   }
   if (limitsMode && (limitsMode !== "off")) {
     for (const text of itemIssues(item, actor, combat, combatant)) issues.push({ text, mode: limitsMode });
+    // What a class Motor needs (the blade sheathed, enough Cuts…), see classes/motor.mjs
+    for (const text of motorUseIssues(item, actor)) issues.push({ text, mode: limitsMode });
   }
 
   // Costs: the Fate must be there to pay
@@ -368,7 +375,10 @@ async function planUse(item) {
   const state = inspectUse(item, { targets: [...game.user.targets] });
   const forced = await decide(item, state.issues);
   if (!forced) return null;
-  return { ...state, forced };
+  // What a class Motor will spend: kept on the skill before its card, for its formulas (null: cancelled).
+  const motor = await planMotorUse(item, item.actor);
+  if (motor === null) return null;
+  return { ...state, forced, motor };
 }
 
 /**
@@ -386,11 +396,16 @@ async function commitUse(item, plan, message) {
   };
   const updates = {};
 
-  if (plan.action && plan.combat) {
+  // The actions it spends: the Timing's (or the one its Motor says), and any other its Motor takes too
+  // (Silence Before the Strike: no Move Action this Main Process).
+  const also = plan.combat ? (skillMotor(item)?.alsoSpends ?? []).filter(a => Object.values(ACTIONS).includes(a)) : [];
+  if ((plan.action || also.length) && plan.combat) {
     const spent = spentActions(actor, plan.combat);
-    spent[plan.action] += 1;
+    if (plan.action) spent[plan.action] += 1;
+    for (const a of also) spent[a] += 1;
     updates[`flags.${SYSTEM_ID}.actions`] = spent;
     record.action = plan.action;
+    if (also.length) record.alsoSpent = also;
   }
 
   const cost = plan.cost;
@@ -420,7 +435,11 @@ async function commitUse(item, plan, message) {
     record.limit = { type: plan.limit.type, max: plan.limit.max, n, key: plan.key };
   }
 
-  if (record.hate || record.fate || record.action || record.limit || record.group || record.forced.length) {
+  // The class Motor: what the use spent and set, or the blade a weapon attack draws (classes/motor.mjs)
+  record.motor = await commitMotorUse(item, actor, plan.motor ?? {})
+    .catch(err => (console.error(`${SYSTEM_ID} | Motor of ${item.uuid}`, err), null));
+
+  if (record.hate || record.fate || record.action || record.limit || record.group || record.forced.length || record.motor) {
     await message.setFlag(SYSTEM_ID, "usage", record);
   }
   // The conditions an action sets off: [Shocked] hurts on a Major Action, which also ends [Intangible] and
@@ -444,11 +463,15 @@ export async function undoUse(message) {
     if (record.hate) updates["system.infos.hate"] = Math.max(0, toInt(actor._source.system.infos?.hate) - record.hate);
     if (record.fate) updates["system.fate.value"] = toInt(actor._source.system.fate?.value) + record.fate;
     const spent = actor.getFlag(SYSTEM_ID, "actions");
-    if (record.action && (spent?.key === `${record.combatId}.${record.round}`)) {
-      updates[`flags.${SYSTEM_ID}.actions.${record.action}`] = Math.max(0, toInt(spent[record.action]) - 1);
+    if (spent?.key === `${record.combatId}.${record.round}`) {
+      for (const action of [record.action, ...(record.alsoSpent ?? [])].filter(Boolean)) {
+        updates[`flags.${SYSTEM_ID}.actions.${action}`] = Math.max(0, toInt(spent[action]) - 1);
+      }
     }
     if (!foundry.utils.isEmpty(updates)) await actor.update(updates);
   }
+
+  if (record.motor) await undoMotorUse(record.motor);
 
   const uses = item?.getFlag(SYSTEM_ID, "uses");
   if (record.limit && item?.isOwner && (uses?.key === record.limit.key)) {
