@@ -5,9 +5,12 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.8.1
+## Versão 0.8.2
 
-- **Novo na 0.8.1: caixas de mensagem e colchetes.** Todos os avisos, confirmações e escolhas seguem um padrão só,
+- **Novo na 0.8.2: o Switch.** Uma habilidade básica nova para todo personagem: você e um aliado a até 2 Qd trocam
+  de lugar e de Ódio, e o aliado fica [Concentrado] (veja [Combate](#combate)). O Momento Constante passou a se
+  chamar **Passiva**, e cada Anima-mundi mostra a cor do seu nível nos Materiais da profissão.
+- **Desde a 0.8.1: caixas de mensagem e colchetes.** Todos os avisos, confirmações e escolhas seguem um padrão só,
   e os "[...]" dos textos viram etiquetas coloridas pela função, com o valor do personagem nas fórmulas e uma
   explicação ao passar o mouse (veja [As outras janelas](#as-outras-janelas) e
   [Os colchetes dos textos](#os-colchetes-dos-textos)).
@@ -55,7 +58,7 @@ rótulos em versalete. Fontes Eczar e Gelasio.
   molduras, com o botão de distribuir pontos.
 - **Testes:** os oito testes de atributo e os três de combate, cada um com o modificador e os dados.
 - **Habilidades:** Básicas, Gerais e de Combate, agrupadas pelo Momento (Ação Maior, Menor, Movimento, Instantânea,
-  Reações, Manutenção, Encerramento, Constantes…), com NH, custo e limite. Clique na imagem para usar e no nome para
+  Reações, Manutenção, Encerramento, Passivas…), com NH, custo e limite. Clique na imagem para usar e no nome para
   abrir os detalhes ali mesmo; o botão Explorar abre o navegador de habilidades.
 - **Inventário:** a riqueza (receber e gastar ouro fica registrado no chat), o boneco de equipamento (sete espaços
   ligados por linhas às partes do corpo), o que se carrega, os tíquetes e o espaço da bolsa.
@@ -335,6 +338,8 @@ O que o sistema faz sozinho:
   quem esquivou, pergunta antes de aplicar de novo, e cartões privados aparecem para os donos dos alvos.
 - **Corpo a corpo encostado** (regra da casa): um token encostado, de lado ou na diagonal, conta como Corpo a corpo.
 - **Destino:** +1D no Teste, rerrolar o acerto, a esquiva ou qualquer 2D6, e remover um Estado Negativo.
+- **Switch** (habilidade básica): você e um aliado a até 2 Qd trocam de lugar e de Ódio, e o aliado fica
+  [Concentrado]; os tokens e o Ódio trocam sozinhos.
 
 ### Turno (cada jogador escolhe)
 Aviso com som quando começa a sua vez, selecionar o token na sua vez, levar a tela até quem age e limpar os alvos no

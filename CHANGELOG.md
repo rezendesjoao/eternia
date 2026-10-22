@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.8.2 — 2026-10-22
+
+### Adicionado
+- **Switch**, habilidade básica nova (Ação de Movimento, 1 por rodada, um aliado a até 2 Qd): vocês trocam de lugar e de
+  Ódio, e o aliado fica [Concentrado]. Quem segurava o inimigo passa o Ódio para quem chega descansado. A troca dos
+  tokens e do Ódio é automática (`useActions` `{ type: "switch" }`, só entre aliados), e o diário AS REGRAS fala dela
+  no Ódio (IV.b).
+
+### Alterado
+- O Momento **Constante** se chama **Passiva** em português (a habilidade que está sempre valendo): no campo Momento
+  das habilidades, na tag, no grupo de habilidades da ficha e do HUD (**Passivas**), nos textos dos compêndios (os
+  poderes dos itens, os talentos das classes e o diário AS REGRAS) e no README. O campo lido pela automação continua
+  `Constant`, então os mundos não mudam; nomes como Vigília Constante ficam.
+
+### Corrigido
+- Profissões: a faixa de Materiais da aba Profissão, a bancada (a Oficina e a Coleta) e o cartão do chat mostram cada
+  Anima-mundi com a cor do seu nível; antes todas apareciam com a cor da Anima-mundi 1.
+
 ## 0.8.1 — 2026-10-22
 
 ### Adicionado

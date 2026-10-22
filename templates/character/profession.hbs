@@ -108,7 +108,7 @@
 			<div class="lhp-shelf">
 				{{#each p.materials as |m|}}
 				<span class="lhp-crystal{{#unless m.count}} none{{/unless}}" data-tooltip="{{localize 'ETERNIA.Profession.Bench.MaterialName' n=m.level}}: {{m.count}}">
-					<img src="icons/commodities/gems/gem-cluster-teal.webp" alt="">
+					<img src="icons/commodities/gems/gem-cluster-teal.webp" alt="{{localize 'ETERNIA.Profession.Bench.MaterialName' n=m.level}}">
 					<span class="lhp-crystal-level">{{m.level}}</span>
 					{{#if m.count}}<span class="lhp-crystal-count">×{{m.count}}</span>{{/if}}
 				</span>

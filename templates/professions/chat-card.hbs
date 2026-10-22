@@ -13,7 +13,7 @@
 	{{#if qualityLabel}}<div class="lhp-card-quality">{{qualityLabel}}</div>{{/if}}
 	{{#each items as |item|}}
 	<div class="lhp-card-item">
-		<img src="{{item.img}}" alt="">
+		<img src="{{item.img}}" alt="{{item.name}}">
 		<div><span class="lhp-card-link">{{item.link}}</span>
 		{{#if item.enhancements.length}}<span class="lhp-card-enh">{{#each item.enhancements}}<i class="{{icon}}{{#if legendary}} legendary{{/if}}"></i>{{/each}}</span>{{/if}}</div>
 	</div>

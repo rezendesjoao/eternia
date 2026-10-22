@@ -12,6 +12,8 @@
  *   { type: "fatigue", value: "-@cr*5" }        changes the Fatigue (never below 0)
  *   { type: "doubleStatus", status: "berserk" } doubles the Rating of a status the actor has
  *   { type: "removeStatus", statuses: ["burning", …] } ends those statuses (a purifying potion, professions/forge.mjs)
+ *   { type: "switch" }                          the user and the (first) target trade places and Hate (the basic
+ *                                               skill Switch); only between allies
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
@@ -57,12 +59,16 @@ export async function runUseActions(item, { targets, caster }) {
   const names = [];
   for (const action of actions) {
     const to = action.recipients ?? "targets";
-    const actors = new Set([...(to !== "self" ? targets : []), ...((to !== "targets") && caster ? [caster] : [])]);
+    let actors = [...new Set([...(to !== "self" ? targets : []), ...((to !== "targets") && caster ? [caster] : [])])];
+    // A Switch is with one ally
+    if (action.type === "switch") actors = actors.filter(a => a !== caster).slice(0, 1);
     const value = isFormula(action.value) ? (evaluateFormula(action.value, values) ?? 0) : toInt(action.value);
     for (const actor of actors) {
-      const payload = { actorUuid: actor.uuid, type: action.type, value, status: action.status ?? "", statuses: listOf(action.statuses) };
-      const line = actor.isOwner ? await doAction(actor, payload)
-        : (await request("conditionAction", { ...payload, casterUuid: caster?.uuid ?? "" }))?.line;
+      const payload = {
+        actorUuid: actor.uuid, type: action.type, value, status: action.status ?? "", statuses: listOf(action.statuses),
+        casterUuid: caster?.uuid ?? "", sceneId: canvas?.scene?.id ?? ""
+      };
+      const line = actor.isOwner ? await doAction(actor, payload) : (await request("conditionAction", payload))?.line;
       if (line) {
         lines.push(line);
         names.push(actorName(actor));
@@ -74,7 +80,8 @@ export async function runUseActions(item, { targets, caster }) {
 }
 
 /** One use action on one actor. Returns the chat line. */
-async function doAction(actor, { type, value, status, statuses = [] }) {
+async function doAction(actor, { type, value, status, statuses = [], casterUuid = "", sceneId = "" }) {
+  if (type === "switch") return switchPlaces(actor, await actorOf(casterUuid), sceneId);
   if (type === "fatigue") {
     const before = toInt(actor._source.system?.infos?.fatigue);
     const after = Math.max(0, before + toInt(value));
@@ -98,15 +105,54 @@ async function doAction(actor, { type, value, status, statuses = [] }) {
   return null;
 }
 
-/** GM side of a use action on an actor the user doesn't own: only from the owner of the user. */
-async function onActionRequest({ actorUuid, casterUuid, type, value, status, statuses }, user) {
-  const doc = await fromUuid(actorUuid);
+/** The actor of a uuid (a token's uuid gives its actor), or null. */
+async function actorOf(uuid) {
+  const doc = uuid ? await fromUuid(uuid).catch(() => null) : null;
   const actor = (doc instanceof TokenDocument) ? doc.actor : doc;
-  const caster = casterUuid ? await fromUuid(casterUuid) : null;
-  const owner = (caster instanceof TokenDocument) ? caster.actor : caster;
-  if (!(actor instanceof Actor) || !owner?.testUserPermission(user, "OWNER")) return { ok: false };
+  return (actor instanceof Actor) ? actor : null;
+}
+
+/**
+ * Switch: the user and an ally trade places (their tokens on the scene the user was looking at) and Hate. Returns the
+ * chat line.
+ * @param {Actor} ally
+ * @param {Actor|null} user
+ * @param {string} sceneId
+ */
+async function switchPlaces(ally, user, sceneId) {
+  if (!user || (user.uuid === ally.uuid)) return null;
+  const scene = game.scenes.get(sceneId) ?? canvas?.scene ?? null;
+  const tokenOf = actor => ((actor.token?.parent === scene) ? actor.token
+    : (scene?.tokens.find(t => t.actorLink && (t.actorId === actor.id)) ?? null));
+  const mine = tokenOf(user);
+  const theirs = tokenOf(ally);
+  const allies = (mine && theirs) ? (mine.disposition === theirs.disposition) : (user.type === ally.type);
+  if (!allies) return L("Conditions.Actions.SwitchFoe", { name: actorName(user), ally: actorName(ally) });
+  if (mine && theirs) {
+    await scene.updateEmbeddedDocuments("Token", [
+      { _id: mine.id, x: theirs.x, y: theirs.y, elevation: theirs.elevation },
+      { _id: theirs.id, x: mine.x, y: mine.y, elevation: mine.elevation }
+    ]);
+  }
+  const hateOf = actor => toInt(actor._source.system?.infos?.hate);
+  const before = { mine: hateOf(user), theirs: hateOf(ally) };
+  if (before.mine !== before.theirs) {
+    await user.update({ "system.infos.hate": before.theirs });
+    await ally.update({ "system.infos.hate": before.mine });
+  }
+  return L("Conditions.Actions.Switch", { name: actorName(user), ally: actorName(ally), mine: before.theirs, theirs: before.mine });
+}
+
+/** GM side of a use action on an actor the user doesn't own: only from the owner of the user. */
+async function onActionRequest({ actorUuid, casterUuid, sceneId, type, value, status, statuses }, user) {
+  const actor = await actorOf(actorUuid);
+  const owner = await actorOf(casterUuid);
+  if (!actor || !owner?.testUserPermission(user, "OWNER")) return { ok: false };
   const ids = listOf(statuses).filter(id => (typeof id === "string") && statusDefinition(id));
-  return { ok: true, line: await doAction(actor, { type, value: Math.max(-999, Math.min(999, toInt(value))), status, statuses: ids }) };
+  return {
+    ok: true,
+    line: await doAction(actor, { type, value: Math.max(-999, Math.min(999, toInt(value))), status, statuses: ids, casterUuid, sceneId })
+  };
 }
 
 /* -------------------------------------------- */

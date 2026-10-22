@@ -26,7 +26,7 @@ export const TAGS = {
   "Harmony": "Harmonia", "Servant Summon": "Invocação de Servo", "Enchantment": "Encantamento",
   "Spell": "Feitiço", "Song": "Canção",
   "Swift": "Veloz", "Scout": "Reconhecimento", "Summon": "Invocação", "Combat": "Combate",
-  "General": "Geral", "Movement": "Movimento", "Auto": "Automático", "Constant": "Constante",
+  "General": "Geral", "Movement": "Movimento", "Auto": "Automático", "Constant": "Passiva",
   "Support": "Suporte", "Standby": "Espera", "EX Power": "Poder EX", "GM": "Mestre", "Special": "Especial",
   // Class skills and class roles (module/classes/)
   "Iai": "Iai", "Dedication": "Dedicação", "Damage": "Dano", "Defense": "Defesa", "Healing": "Cura", "Control": "Controle",
@@ -80,7 +80,7 @@ export function translateTag(tag) {
 const simplify = s => String(s ?? "").toLowerCase().replace(/[^a-z]/g, "");
 
 const TIMING = {
-  "Constant": "Constante", "Pre-Play": "Pré-Jogo", "Interlude": "Interlúdio", "Briefing": "Preparação",
+  "Constant": "Passiva", "Pre-Play": "Pré-Jogo", "Interlude": "Interlúdio", "Briefing": "Preparação",
   "Rest Time": "Descanso", "Major": "Maior", "Minor": "Menor", "Move": "Movimento", "Movement": "Movimento",
   "Instant": "Instantânea", "Main Process": "Turno", "Setup": "Manutenção", "Initiative": "Iniciativa",
   "Cleanup": "Encerramento", "Before Check": "Antes do Teste", "After Check": "Após o Teste",
@@ -164,7 +164,7 @@ const CHECK_WORDS = rules([
   [/\bNone\b/g, "Nenhum"],
   [/\bAutomatic\b/gi, "Automático"],
   [/\bAuto\b/g, "Automático"],
-  [/\bConstant\b/g, "Constante"],
+  [/\bConstant\b/g, "Passiva"],
   [/\bOpposed\b/gi, "Oposto"],
   [/\bBasic\b/g, "Básico"],
   [/\bConfrontation\b/gi, "Confronto"],

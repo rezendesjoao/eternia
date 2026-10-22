@@ -2,7 +2,7 @@
      panel with what was chosen and its button. --}}
 {{#*inline "lhpCard"}}
 <a class="lhp-pick{{#if selected}} selected{{/if}}{{#if locked}} locked{{/if}}" data-action="select" data-key="{{key}}"{{#if locked}} data-tooltip="{{lockHint}}"{{/if}}{{#if quality}} style="--lhp-quality: {{quality}}"{{/if}}>
-	<span class="lhp-pick-art{{#if quality}} magic{{/if}}"><img src="{{img}}" alt="">{{#if level}}<b class="lhp-pick-level">{{level}}</b>{{/if}}{{#if count}}<b class="lhp-pick-count">×{{count}}</b>{{/if}}</span>
+	<span class="lhp-pick-art{{#if quality}} magic{{/if}}"><img src="{{img}}" alt="{{name}}">{{#if level}}<b class="lhp-pick-level">{{level}}</b>{{/if}}{{#if count}}<b class="lhp-pick-count">×{{count}}</b>{{/if}}</span>
 	<span class="lhp-pick-text"><span class="lhp-pick-name" data-tooltip="{{name}}">{{name}}</span>{{#if meta}}<span class="lhp-pick-meta">{{meta}}</span>{{/if}}</span>
 	{{#if material}}<span class="lhp-pick-mat{{#unless hasMaterial}} missing{{/unless}}" data-tooltip="{{localize 'ETERNIA.Profession.Bench.MaterialName' n=material}}"><i class="fa-solid fa-cube"></i>{{material}}</span>{{/if}}
 	{{#if locked}}<i class="fa-solid fa-lock lhp-pick-lock"></i>{{/if}}
@@ -57,7 +57,7 @@
 				<span class="lhp-forge-kind">{{s.kind}} · {{localize "ETERNIA.Profession.Bench.Level" n=s.level}}</span>
 				{{#if s.stats.length}}<ul class="lhp-forge-stats">{{#each s.stats}}<li><span>{{label}}</span><b>{{value}}</b></li>{{/each}}</ul>{{/if}}
 				<div class="lhp-material{{#unless s.have}} missing{{/unless}}">
-					<img src="icons/commodities/gems/gem-cluster-teal.webp" alt="">
+					<img src="icons/commodities/gems/gem-cluster-teal.webp" alt="{{s.materialName}}">
 					<div><b>{{s.materialName}}</b><span>{{localize "ETERNIA.Profession.Bench.Have" n=s.have}}</span></div>
 					<i class="fa-solid {{#if s.have}}fa-circle-check{{else}}fa-circle-xmark{{/if}}"></i>
 				</div>
@@ -95,7 +95,7 @@
 
 		{{#if s.gather}}
 			<div class="lhp-gather">
-				<div class="lhp-forge-art"><img src="icons/commodities/gems/gem-cluster-teal.webp" alt="">{{#if s.level}}<b class="lhp-pick-level">{{s.level}}</b>{{/if}}</div>
+				<div class="lhp-forge-art"><img src="icons/commodities/gems/gem-cluster-teal.webp" alt="{{#if s.level}}{{localize 'ETERNIA.Profession.Bench.MaterialName' n=s.level}}{{/if}}">{{#if s.level}}<b class="lhp-pick-level">{{s.level}}</b>{{/if}}</div>
 				<h3>{{#if s.level}}{{localize "ETERNIA.Profession.Bench.MaterialName" n=s.level}}{{else}}{{localize "ETERNIA.Profession.Bench.PickLevel"}}{{/if}}</h3>
 				<ul class="lhp-gather-chances">{{#each s.chances}}<li class="g-{{id}}"><span>{{label}}</span><b>{{pct}}%</b></li>{{/each}}</ul>
 				<button type="button" class="lhp-big-button" data-action="roll" {{#unless s.can}}disabled{{/unless}}><i class="fa-solid fa-person-digging"></i> {{localize "ETERNIA.Profession.Bench.Gather"}}</button>
