@@ -98,7 +98,7 @@ export class EterniaMonsterSheet extends EterniaActorMonsterSheet {
         mod: signed(toInt(base.mod)),
         tier: Math.clamp(toInt(base.dice) - 1, 1, 5),
         modified: modified[key],
-        rollTip: `${game.i18n.localize("ETERNIA.ButtonLabel.Roll")}: ${dice}D${mod ? signed(mod) : ""}`
+        rollTip: `${game.i18n.localize("ETERNIA.ButtonLabel.Roll")}: ${dice}d6${mod ? signed(mod) : ""}`
       };
     });
 

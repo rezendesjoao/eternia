@@ -4,12 +4,12 @@
 		<header>{{localize 'ETERNIA.Sheet.AbilityChecks'}}</header>
 		<ul class="proficiencies-list">
 			{{#each lh.checks}}
-			<li data-action="roll-check" data-name="{{name}}" data-dice="{{dice}}" data-bonus="{{total}}" data-tooltip="{{localize 'ETERNIA.ButtonLabel.Roll'}}: {{dice}}D{{mod}}">
+			<li data-action="roll-check" data-name="{{name}}" data-dice="{{dice}}" data-bonus="{{total}}" data-tooltip="{{localize 'ETERNIA.ButtonLabel.Roll'}}: {{dice}}d6{{mod}}">
 				<span class="d6"><i class="fa-solid fa-dice-d6"></i></span>
 				<span class="modifier">{{mod}}</span>
 				<span class="name" title="{{label}}">{{label}}</span>
 				<span class="attr">{{attr}}</span>
-				<span class="lhpf-dice" data-tier="{{tier}}">{{dice}}D</span>
+				<span class="lhpf-dice" data-tier="{{tier}}">{{dice}}d6</span>
 			</li>
 			{{/each}}
 		</ul>
@@ -17,11 +17,11 @@
 		<header>{{localize 'ETERNIA.Sheet.CombatChecks'}}</header>
 		<ul class="proficiencies-list combat">
 			{{#each lh.combatChecks}}
-			<li data-action="roll-check" data-name="{{name}}" data-dice="{{dice}}" data-bonus="{{total}}" data-tooltip="{{localize 'ETERNIA.ButtonLabel.Roll'}}: {{dice}}D{{mod}}">
+			<li data-action="roll-check" data-name="{{name}}" data-dice="{{dice}}" data-bonus="{{total}}" data-tooltip="{{localize 'ETERNIA.ButtonLabel.Roll'}}: {{dice}}d6{{mod}}">
 				<span class="d6"><i class="fa-solid fa-dice-d6"></i></span>
 				<span class="modifier">{{mod}}</span>
 				<span class="name" title="{{label}}">{{label}}</span>
-				<span class="lhpf-dice" data-tier="{{tier}}">{{dice}}D</span>
+				<span class="lhpf-dice" data-tier="{{tier}}">{{dice}}d6</span>
 			</li>
 			{{/each}}
 		</ul>

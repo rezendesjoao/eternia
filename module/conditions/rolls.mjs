@@ -35,9 +35,9 @@ function tally() {
     add(id, dice = 0, mod = 0, name = label(id)) {
       this.dice += dice;
       this.mod += mod;
-      if (dice || mod) parts.push(`${name} ${dice ? `${dice > 0 ? "+" : ""}${dice}D` : `${mod > 0 ? "+" : ""}${mod}`}`);
+      if (dice || mod) parts.push(`${name} ${dice ? `${dice > 0 ? "+" : ""}${dice}d6` : `${mod > 0 ? "+" : ""}${mod}`}`);
     },
-    /** "Confuso −1D, Concentrado +1D" for the roll's flavor. */
+    /** "Confuso −1d6, Concentrado +1d6" for the roll's flavor. */
     get text() { return parts.join(", ").replace(/-/g, "−"); }
   };
 }

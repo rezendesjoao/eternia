@@ -209,11 +209,11 @@ export function skillModifiers(actor, item) {
   return result;
 }
 
-/** "White Robe Style +6, Reactive Mastery +2D" */
+/** "White Robe Style +6, Reactive Mastery +2d6" */
 export function rollBonusesLabel(bonuses) {
   const signed = n => (n >= 0 ? `+${n}` : `${n}`);
   return bonuses.map(b => {
-    const parts = [b.dice ? `${signed(b.dice)}D` : "", b.mod ? signed(b.mod) : ""].filter(Boolean).join(" ");
+    const parts = [b.dice ? `${signed(b.dice)}d6` : "", b.mod ? signed(b.mod) : ""].filter(Boolean).join(" ");
     return `${b.label} ${parts}`;
   }).join(", ");
 }

@@ -5,9 +5,12 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.8.2
+## Versão 0.8.3
 
-- **Novo na 0.8.2: o Switch.** Uma habilidade básica nova para todo personagem: você e um aliado a até 2 Qd trocam
+- **Novo na 0.8.3: os dados se escrevem 2d6, na frente da fórmula.** "[Poder de Ataque + 2D]" virou
+  "[2d6 + Poder de Ataque]" e "+1D no teste" virou "+1d6 no teste", em todos os textos, nas fichas e nos
+  cartões; os textos antigos dos mundos aparecem no padrão novo sozinhos.
+- **Desde a 0.8.2: o Switch.** Uma habilidade básica nova para todo personagem: você e um aliado a até 2 Qd trocam
   de lugar e de Ódio, e o aliado fica [Concentrado] (veja [Combate](#combate)). O Momento Constante passou a se
   chamar **Passiva**, e cada Anima-mundi mostra a cor do seu nível nos Materiais da profissão.
 - **Desde a 0.8.1: caixas de mensagem e colchetes.** Todos os avisos, confirmações e escolhas seguem um padrão só,
@@ -105,7 +108,7 @@ Os "[...]" das descrições de habilidades e itens, dos cartões do chat, do di�
 avisos de uso viram etiquetas pela função: **fórmulas** em verde, **estados** em vermelho, **tags** em pergaminho,
 **valores do personagem** em azul, **Momentos** em dourado e os outros termos em cor neutra. Quando o texto é de um
 personagem, a fórmula mostra o valor ao lado ([NP+3] de um personagem de NP 10 aparece como "NP+3 | 13";
-[Poder Mágico + 2D], como "… | 2D+12"). Passar o mouse explica a etiqueta: o que é NP ou NH e quanto vale agora, a
+[2d6 + Poder Mágico], como "… | 2d6 + 12"). Passar o mouse explica a etiqueta: o que é NP ou NH e quanto vale agora, a
 regra do estado ou da tag. Rolagens embutidas ([[/r 2d6]]) e links (@UUID[…]) ficam como estão.
 
 ## Os ícones dos itens
@@ -170,7 +173,7 @@ gira em volta dele (veja `docs/classes.md` e as páginas **XI. CLASSES** do diá
 | Caçador | Dano, Controle | **Mira**: parado, a Mira cresce a cada rodada; o Tiro Certeiro gasta tudo, e mover o token zera. |
 | Comandante | Suporte, Controle | **Táticas**: junta Ordens e gasta a própria ação para um aliado agir fora do turno dele. |
 | Druida | Defesa, Cura | **Formas**: a Seiva paga a transformação em fera, e cada forma troca o que ele pode fazer. |
-| Estrategista | Suporte, Controle | **Leitura**: na Manutenção rola 2D e guarda os dados, para trocar depois os de um teste pelo que leu. |
+| Estrategista | Suporte, Controle | **Leitura**: na Manutenção rola 2d6 e guarda os dados, para trocar depois os de um teste pelo que leu. |
 | Feiticeiro | Dano | **Calor**: cada feitiço esquenta e bate mais forte; no Teto, a Erupção solta tudo ou a Sobrecarga queima o próprio feiticeiro. |
 | Guardião | Defesa | **Baluarte**: cada ataque contra ele vira uma Camada da muralha (Anulação), que o Golpe do Baluarte transforma em dano e provocação. |
 | Invocador | Dano, Controle | **Pacto**: paga PV para dar Laços a um espírito (lobo, golem ou fada), que luta, protege ou cura gastando os Laços. |
@@ -234,7 +237,7 @@ trocar de profissão guarda a EXP de cada uma. As regras completas estão em **X
 - **Rank 1 a 5** (EXP 20, 40, 80 e 160): +Rank na rolagem, Rank + 1 tentativas por cenário e itens até o nível
   Rank × 6. O fim do cenário (Ferramentas do Mestre) devolve as tentativas.
 - **A Oficina:** escolha a base (da mochila, que vira a obra, ou do catálogo, que você paga), gaste 1
-  Anima-mundi do nível dela e role 2D + Rank: Falha, Aproveitamento (o material volta), Incomum [M1], Raro [M2] ou
+  Anima-mundi do nível dela e role 2d6 + Rank: Falha, Aproveitamento (o material volta), Incomum [M1], Raro [M2] ou
   Perfeito [M3], com 1 a 3 aprimoramentos à escolha. Dois 6 sobem um degrau.
 - **Fusão:** dois itens feitos iguais viram um do grau acima, com mais um aprimoramento; dois Perfeitos e uma
   Quintessência viram um **Lendário [M4]**, com o aprimoramento lendário da lista (Fio do Destino, Égide,
@@ -264,10 +267,10 @@ luvas, cinto, anéis e brincos), cada um com o seu ícone pintado.
 
 | Item | Nível | Destaque |
 |---|---|---|
-| Elucidator e Dark Repulser | 27 [M6] | Explosão Estelar, só com as duas equipadas: [8D + Ataque] e Fadiga 10 em quem usa |
+| Elucidator e Dark Repulser | 27 [M6] | Explosão Estelar, só com as duas equipadas: [8d6 + Ataque] e Fadiga 10 em quem usa |
 | Mate Chopper | 24 [M6] | todo dano que causa deixa Deterioração 10 |
 | Liberator | 30 [M7] | espada e escudo num item só: +10 nas Defesas e Último Fôlego em todo combate |
-| Espada Sagrada Excalibur | 30 [M7] | dano de [Radiância], Anulação 15 em todo combate e [8D + Ataque] em área, com Atordoado |
+| Espada Sagrada Excalibur | 30 [M7] | dano de [Radiância], Anulação 15 em todo combate e [8d6 + Ataque] em área, com Atordoado |
 | Radiant Light | 30 [M7] | Barreira 60 nos aliados e Enraizado nos inimigos, numa área de 20 quadrados |
 | Espada Perfura-Tempo | 30 [M7] | anula todo o dano de um ataque, uma vez por cenário |
 
@@ -293,7 +296,7 @@ cada uma aparece ao passar o mouse (na ficha, no HUD e nos estados clicáveis do
 
 O que o sistema faz sozinho:
 
-- **Dados:** −1D e +1D nos testes e nas Esquivas (Confuso, Cego, Medo contra quem o causou, Derrubado, Marcado,
+- **Dados:** −1d6 e +1d6 nos testes e nas Esquivas (Confuso, Cego, Medo contra quem o causou, Derrubado, Marcado,
   Envenenado, Encantado, Concentrado, Despertado…) e o dano a mais de Fortalecido, Fúria e Despertado, com o motivo
   no cartão. Adormecido falha na Esquiva.
 - **Dano aplicado:** Exposto fica sem Defesa e sem Anulação, Intangível não sofre dano físico, Marcado soma o seu
@@ -337,7 +340,7 @@ O que o sistema faz sozinho:
 - **Cartões de ataque e dano:** o dano fica ligado ao ataque certo, não aplica em quem ainda precisa esquivar nem em
   quem esquivou, pergunta antes de aplicar de novo, e cartões privados aparecem para os donos dos alvos.
 - **Corpo a corpo encostado** (regra da casa): um token encostado, de lado ou na diagonal, conta como Corpo a corpo.
-- **Destino:** +1D no Teste, rerrolar o acerto, a esquiva ou qualquer 2D6, e remover um Estado Negativo.
+- **Destino:** +1d6 no Teste, rerrolar o acerto, a esquiva ou qualquer 2d6, e remover um Estado Negativo.
 - **Switch** (habilidade básica): você e um aliado a até 2 Qd trocam de lugar e de Ódio, e o aliado fica
   [Concentrado]; os tokens e o Ódio trocam sozinhos.
 

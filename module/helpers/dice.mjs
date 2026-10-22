@@ -1,14 +1,14 @@
 /**
- * Helpers for the "XD6 + N" values set directly on sheets (monster checks, skill damage).
+ * Helpers for the "Xd6 + N" values set directly on sheets (monster checks, skill damage).
  */
 
 /**
- * Options for a dice-count select: { 0: "0D6", 1: "1D6", ... }.
+ * Options for a dice-count select: { 0: "0d6", 1: "1d6", ... }.
  * @param {number} max   The highest number of dice
  * @returns {Object<number, string>}
  */
 export function diceOptions(max) {
-  return Object.fromEntries(Array.from({ length: max + 1 }, (_, i) => [i, `${i}D6`]));
+  return Object.fromEntries(Array.from({ length: max + 1 }, (_, i) => [i, `${i}d6`]));
 }
 
 /**

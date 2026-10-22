@@ -5,7 +5,7 @@
         {{#if isMonsterSkill}}
           <input class="skill-roll-dice lh-formula-mod" type="text" name="system.check.dice" list="lh-skill-dice"
             value="{{#if system.check.diceFormula}}{{system.check.diceFormula}}{{else}}{{system.check.dice}}{{/if}}"
-            placeholder="0" data-tooltip="{{localize 'ETERNIA.Skill.Label.DiceFormulaHint'}}" {{disabled (eq system.check.vs "auto")}}><span>D</span>
+            placeholder="0" data-tooltip="{{localize 'ETERNIA.Skill.Label.DiceFormulaHint'}}" {{disabled (eq system.check.vs "auto")}}><span>d6</span>
         {{else}}
           {{!-- Character skill: the character's check, plus extra dice --}}
           <select class="skill-roll-stat" name="system.check.stat" {{disabled (eq system.check.vs "auto")}}>
@@ -14,7 +14,7 @@
           <span>+</span>
           <input class="skill-roll-dice lh-formula-mod" type="text" name="system.check.dice" list="lh-skill-dice"
             value="{{#if system.check.diceFormula}}{{system.check.diceFormula}}{{else}}{{system.check.dice}}{{/if}}"
-            placeholder="0" data-tooltip="{{localize 'ETERNIA.Skill.Label.ExtraDice'}} — {{localize 'ETERNIA.Skill.Label.DiceFormulaHint'}}" {{disabled (eq system.check.vs "auto")}}><span>D</span>
+            placeholder="0" data-tooltip="{{localize 'ETERNIA.Skill.Label.ExtraDice'}} — {{localize 'ETERNIA.Skill.Label.DiceFormulaHint'}}" {{disabled (eq system.check.vs "auto")}}><span>d6</span>
         {{/if}}
         <span>+</span>
         <input class="skill-roll-mod lh-formula-mod" type="text" name="system.check.mod"

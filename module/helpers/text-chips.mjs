@@ -2,8 +2,8 @@
  * Bracket chips: the "[...]" of the system's texts read at a glance (css/text-chips.css). Wherever a rich text is
  * shown (skill and item descriptions, chat cards, the rules journal), on the class Motor card and in the use
  * warnings, each one becomes a small label of its kind, with a tooltip that explains it:
- *   formula  [NP+3], [Poder Mágico + 2D], [Cortes × NP]: green, with its value when the text belongs to a character
- *            ([NP+3] of a CR 10 character reads "NP+3 | 13"; [Poder Mágico + 2D] "… | 2D+12")
+ *   formula  [NP+3], [2d6 + Poder Mágico], [Cortes × NP]: green, with its value when the text belongs to a character
+ *            ([NP+3] of a CR 10 character reads "NP+3 | 13"; [2d6 + Poder Mágico] "… | 2d6 + 12")
  *   status   [Atordoado], [Barreira: NP+5]: red, the status's rules as tooltip; in the chat a click applies it
  *            (chat/status-links.mjs)
  *   tag      [Chefe], [Chama], [Dedicação]: parchment, the tag's rules as tooltip
@@ -12,6 +12,9 @@
  *   term     anything else ([Movimento Normal], [M1]): plain
  * Inline rolls ([[/r 2d6]]), document links (@UUID[...]{...}) and links written as [text](...) are left alone, and so
  * is a bare number ([1]).
+ *
+ * Dice read "2d6", first in a formula. Texts written the old way show that way too: a chip "[Poder de Ataque + 2D]"
+ * reads "2d6 + Poder de Ataque", and the dice of the prose ("+1D no teste") read "+1d6".
  */
 import { L } from "../settings.mjs";
 import { toInt } from "./utils.mjs";
@@ -22,8 +25,11 @@ import { FIELD_OPTIONS, TAGS } from "../i18n/pt-br.mjs";
 import { formulaData } from "./effect-formulas.mjs";
 import { allMotors, motorData, motorDef, motorMax, motorName, motorUnit, motorsOf } from "../classes/motor.mjs";
 
-/** A "[...]" that is not part of an inline roll, a document link or a [text](link). */
-export const BRACKETS = /(?<![@\w\[])\[([^\[\]\n]{1,90})\](?![\]{(])/g;
+/** A "[...]" that is not part of an inline roll, a document link or a [text](link), and the "D" of "[NH]D" after it. */
+export const BRACKETS = /(?<![@\w\[])\[([^\[\]\n]{1,90})\](?![\]{(])(D6?(?![\p{L}\d]))?/gu;
+
+/** Dice in the prose written the old way: "+1D", "2D". */
+const PROSE_DICE = /(?<![\p{L}\d\[@/])(\d+)D6?(?![\p{L}\d])/gu;
 
 /** Names of the character's values (both languages), by the formula variable that holds them ("" = none). */
 const STATS = {
@@ -47,6 +53,81 @@ const OPERATORS = { "+": "+", "-": "-", "−": "-", "–": "-", "×": "×", "*":
 const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" })[c]);
 const tidy = value => String(value ?? "").normalize("NFC").replace(/\s+/g, " ").trim();
 const norm = value => tidy(value).toLowerCase();
+
+/* -------------------------------------------- */
+/*  Dice notation                               */
+/* -------------------------------------------- */
+
+/**
+ * Dice written the old way read as d6: "2D" → "2d6", "(1 + Cortes)D" → "(1 + Cortes)d6", "[NH]D" → "[NH]d6", and with
+ * `words`, "Fardo D" → "(Fardo)d6".
+ * @param {string} text
+ * @param {{words?: boolean}} [options]
+ * @returns {string}
+ */
+export function dice6(text, { words = false } = {}) {
+  let out = String(text ?? "")
+    .replace(/(\d+)D[x×](?=\d)/g, "$1d6×")
+    .replace(/(\d+)\s?D6?(?![\p{L}\d])/gu, "$1d6")
+    .replace(/([)\]])D6?(?![\p{L}\d])/gu, "$1d6");
+  if (words) out = out.replace(/(?<!\p{L})(\p{L}+(?: gast[oa]s?)?) D6?(?![\p{L}\d])/gu, "($1)d6");
+  return out;
+}
+
+/** Whether the + or − at i joins two terms (not a hyphen inside a word). */
+function joinsTerms(expr, i) {
+  if (expr[i] === "+") return true;
+  const before = expr[i - 1] ?? " ";
+  const after = expr[i + 1] ?? " ";
+  return /[\s\d)\]]/.test(before) && /[\s\d([]/.test(after);
+}
+
+/** The top-level terms of a sum and their signs: "Poder + (1 + Ira)d6 − 1" → [["+", "Poder"], ["+", "(1 + Ira)d6"], ["−", "1"]]. */
+function termsOf(expr) {
+  const terms = [];
+  let depth = 0;
+  let current = "";
+  let sign = "+";
+  for (let i = 0; i < expr.length; i++) {
+    const ch = expr[i];
+    if ("([".includes(ch)) depth += 1;
+    else if (")]".includes(ch)) depth -= 1;
+    if (!depth && "+−-".includes(ch) && current.trim() && joinsTerms(expr, i)) {
+      terms.push([sign, current.trim()]);
+      sign = ch;
+      current = "";
+    }
+    else current += ch;
+  }
+  terms.push([sign, current.trim()]);
+  return terms;
+}
+
+/**
+ * A sum with dice, the dice first and " + " between the terms: "Poder de Ataque + 2d6" → "2d6 + Poder de Ataque",
+ * "65+2d6" → "2d6 + 65". Anything else stays as it is.
+ * @param {string} expr
+ * @returns {string}
+ */
+export function diceFirst(expr) {
+  const terms = termsOf(expr);
+  const isDice = term => /d6/.test(term);
+  if ((terms.length < 2) || !terms.some(([, t]) => isDice(t)) || terms.some(([, t]) => !t)) return expr;
+  const dice = terms.filter(([, t]) => isDice(t));
+  if (dice.some(([s]) => s !== "+")) return expr;
+  return [...dice, ...terms.filter(([, t]) => !isDice(t))]
+    .map(([s, t], i) => (i ? ` ${s} ${t}` : t)).join("");
+}
+
+/** The text a chip shows: the dice as d6 and, in a formula, first. */
+function shownText(info, text) {
+  if (info.kind === "formula") return diceFirst(dice6(text, { words: true }));
+  if ((info.kind === "status") && info.value) {
+    const head = text.slice(0, text.indexOf(":") + 1);
+    return `${head} ${diceFirst(dice6(info.value, { words: true }))}`;
+  }
+  return dice6(text);
+}
 
 /* -------------------------------------------- */
 /*  Names                                       */
@@ -153,7 +234,8 @@ function tagOf(text, known) {
 /*  Formulas                                    */
 /* -------------------------------------------- */
 
-/** The tokens of a formula ("NP×2+10", "Poder de Ataque + (1 + Cortes)D"), or null when it holds something else. */
+/** The tokens of a formula ("NP×2+10", "(1 + Cortes)d6 + Poder de Ataque"), or null when it holds something else.
+ * Dice read as "d6" or, in older texts, "D". */
 function tokenize(text, vars) {
   const shown = tidy(text);
   const source = shown.toLowerCase();
@@ -183,9 +265,10 @@ function tokenize(text, vars) {
       i += word.name.length;
       continue;
     }
-    if (/^d(?!\p{L})/u.test(rest)) {
+    const dice = /^d6?(?![\p{L}\d])/u.exec(rest);
+    if (dice) {
       tokens.push({ type: "dice" });
-      i += 1;
+      i += dice[0].length;
       continue;
     }
     if (/^x(?!\p{L})/u.test(rest)) {
@@ -198,7 +281,7 @@ function tokenize(text, vars) {
   return tokens;
 }
 
-/** The tree of a formula: + and − over × and ÷, a "D" after a value makes it dice; null when it doesn't parse. */
+/** The tree of a formula: + and − over × and ÷, a "d6" after a value makes it dice; null when it doesn't parse. */
 function parse(tokens) {
   let pos = 0;
   const peek = () => tokens[pos];
@@ -289,11 +372,11 @@ function evaluate(node, value) {
   return null;
 }
 
-/** "2D+12", "3D", "13". */
+/** "2d6 + 12", "3d6", "13". */
 function showValue({ c, d }) {
   if (!d) return String(c);
-  if (!c) return `${d}D`;
-  return `${d}D${c > 0 ? "+" : ""}${c}`;
+  if (!c) return `${d}d6`;
+  return `${d}d6 ${c > 0 ? "+" : "−"} ${Math.abs(c)}`;
 }
 
 /** What a word of a formula means. */
@@ -317,7 +400,7 @@ function formulaParts(formula, context) {
     const value = values.get(token.value);
     return `<span class="lhb-tip-line"><b>${esc(token.text)}</b><span>${esc(wordMeaning(token.value))}</span>${(value === null) ? "" : `<em>${esc(value)}</em>`}</span>`;
   });
-  if (formula.dice) lines.push(`<span class="lhb-tip-line"><b>D</b><span>${esc(L("Chips.Var.dice"))}</span></span>`);
+  if (formula.dice) lines.push(`<span class="lhb-tip-line"><b>d6</b><span>${esc(L("Chips.Var.dice"))}</span></span>`);
   let foot = "";
   if (result && formula.words.length) foot = `<span class="lhb-tip-total">${esc(L("Chips.Total", { value: showValue(result) }))}</span>`;
   else if (formula.words.some(token => token.value.spent || (token.value.unknown && !token.value.meaning))) foot = `<span class="lhb-tip-note">${esc(L("Chips.Pending"))}</span>`;
@@ -399,26 +482,29 @@ export function chipHTML(inner, context = {}) {
   }
   const attrs = Object.entries(data).filter(([, v]) => v).map(([k, v]) => ` data-${k}="${esc(v)}"`).join("");
   const tooltip = tip ? ` data-tooltip-html="${esc(`<div class="lhb-tip">${tip}</div>`)}" data-tooltip-class="lhb-tooltip"` : "";
-  const long = (text.length > LONG) ? " lhb-long" : "";
-  return `<span class="lhb lhb-${info.kind}${long}"${attrs}${tooltip}><span class="lhb-text">${esc(text)}</span>`
+  const shown = shownText(info, text);
+  const long = (shown.length > LONG) ? " lhb-long" : "";
+  return `<span class="lhb lhb-${info.kind}${long}"${attrs}${tooltip}><span class="lhb-text">${esc(shown)}</span>`
     + `${(value === null) ? "" : `<span class="lhb-value">${esc(value)}</span>`}</span>`;
 }
 
 /**
- * A plain text with its brackets as chips: the rest is escaped.
+ * A plain text with its brackets as chips and its dice as d6: the rest is escaped.
  * @param {string} text
  * @param {{actor?: Actor, item?: Item}} [context]
  * @returns {string}  HTML
  */
 export function chipText(text, context = {}) {
   const source = String(text ?? "");
+  const plain = part => esc(dice6(part));
   let html = "";
   let last = 0;
   for (const match of source.matchAll(BRACKETS)) {
-    html += esc(source.slice(last, match.index)) + (chipHTML(match[1], context) ?? esc(match[0]));
+    const chip = chipHTML(match[1], context);
+    html += plain(source.slice(last, match.index)) + (chip ? chip + (match[2] ? "d6" : "") : plain(match[0]));
     last = match.index + match[0].length;
   }
-  return html + esc(source.slice(last));
+  return html + plain(source.slice(last));
 }
 
 /** Whose text a rich text is (the `relativeTo` of the enrichment). */
@@ -429,7 +515,7 @@ function contextOf(options) {
   return {};
 }
 
-/** Call during the `init` hook: the chips in every rich text the system shows. */
+/** Call during the `init` hook: the chips in every rich text the system shows, and its dice as d6. */
 export function registerTextChips() {
   CONFIG.TextEditor.enrichers.push({
     pattern: BRACKETS,
@@ -438,7 +524,20 @@ export function registerTextChips() {
       if (!html) return null;
       const template = document.createElement("template");
       template.innerHTML = html;
-      return template.content.firstElementChild;
+      const chip = template.content.firstElementChild;
+      if (!match[2]) return chip;
+      // "[NH]D": the chip and its dice
+      const wrap = document.createElement("span");
+      wrap.append(chip, "d6");
+      return wrap;
+    }
+  }, {
+    pattern: PROSE_DICE,
+    enricher: async match => {
+      const span = document.createElement("span");
+      span.className = "lhb-dice";
+      span.textContent = `${match[1]}d6`;
+      return span;
     }
   });
 }

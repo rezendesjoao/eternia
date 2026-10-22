@@ -160,7 +160,11 @@ const LIMIT = rules([
 ]);
 const CHECK_WORDS = rules([
   // "(2D+4vsEvasion)", "(2+3D)vsResistance": separate a glued "vs" first
-  [/([\d)])\s*vs\.?\s*(?=[A-Za-z(\d])/g, "$1 vs "],
+  [/([\dD)])\s*vs\.?\s*(?=[A-Za-z(\d])/g, "$1 vs "],
+  // Dice the old way, the dice first: "5+2D" → "2d6 + 5", "2D+5" → "2d6 + 5", "3D" → "3d6"
+  [/(\d+)\s*\+\s*(\d+)\s*D6?(?![A-Za-z])/g, "$2d6 + $1"],
+  [/(\d+)\s*D6?\s*([+-])\s*(\d+)/g, "$1d6 $2 $3"],
+  [/(\d+)\s*D6?(?![A-Za-z])/g, "$1d6"],
   [/\bNone\b/g, "Nenhum"],
   [/\bAutomatic\b/gi, "Automático"],
   [/\bAuto\b/g, "Automático"],

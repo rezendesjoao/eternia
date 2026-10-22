@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.8.3 — 2026-10-22
+
+### Alterado
+- **Os dados se escrevem 2d6, na frente da fórmula:** "[Poder de Ataque + 2D]" virou "[2d6 + Poder de Ataque]",
+  "[65+2D]" virou "[2d6 + 65]", "+1D no teste" virou "+1d6 no teste" e "(1 + Cortes)D" virou "(1 + Cortes)d6", em
+  todos os textos dos compêndios (habilidades, itens, bestiário e o diário AS REGRAS), nos cartões do Motor, nas
+  descrições dos estados, nos textos da interface e nos documentos. O que o sistema mostra segue o mesmo padrão: os
+  dados dos testes na ficha (2d6), o Teste e o Dano dos cartões ("2d6 + 4 vs Esquiva", "2d6 + [Poder de Ataque]
+  Físico"), a ficha de monstro, os bônus das rolagens, o HUD, a bancada e os valores dos destaques ("2d6 + 12").
+  Textos antigos, feitos à mão nos mundos, continuam sendo lidos ("5+2D") e aparecem no padrão novo no campo Teste.
+
 ## 0.8.2 — 2026-10-22
 
 ### Adicionado

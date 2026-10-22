@@ -18,7 +18,7 @@ import { motorAutoHit, motorRollBonuses } from "../classes/motor.mjs";
  * Skills made before this stored the Check as free text (system.checkType); until they are edited,
  * that text is still shown and their stat/dice/modifier/vs are read from it.
  * The modifier may be a formula ("@sr*5", see effect-formulas.mjs): it is kept in `formula` (`mod` is
- * then 0) and evaluated when rolling. So may the dice ("@sr+3" → [(SR+3)D]): kept in `diceFormula`. Roll bonuses of the roller's effects are added then too
+ * then 0) and evaluated when rolling. So may the dice ("@sr+3" → [(SR+3)d6]): kept in `diceFormula`. Roll bonuses of the roller's effects are added then too
  * (see roll-bonuses.mjs).
  */
 
@@ -45,7 +45,7 @@ const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
 const statLabel = stat => game.i18n.localize(`ETERNIA.Check.${capitalize(stat)}`);
 
 /**
- * Read dice and modifier from text like "Opposed (5+2D vs Evasion)", "2D + 4", "13 Fixed".
+ * Read dice and modifier from text like "Opposed (2d6 + 5 vs Evasion)", "2d6 + 4", "13 Fixed" (and the old "5+2D").
  * @param {string} text
  * @returns {{dice: number, mod: number}}
  */
@@ -124,7 +124,7 @@ export function prepareSkillRolls(item) {
 
   system.checkLabel = isLegacy ? legacyText : checkLabel(system.check, monster);
   // A skill whose damage formula reads a class Motor shows the text of its rule instead (flags.eternia.damageText:
-  // "[Poder de Ataque] + (1+2×Cortes)D + Cortes×NP Físico").
+  // "(1+2×Cortes)d6 + [Poder de Ataque] + Cortes×NP Físico").
   system.damageLabel = item.flags?.eternia?.damageText || damageLabel(system.damage, monster);
 }
 
@@ -139,32 +139,32 @@ function diceOrFormula(value) {
     : { dice: Math.clamp(toInt(value), 0, SKILL_MAX_DICE), diceFormula: "" };
 }
 
-/** Parts of a roll value: ["[SR+3]D", "3", "[SR×5]"] */
+/** Parts of a roll value, the dice first: ["[SR+3]d6", "3", "[SR×5]"] */
 function rollParts({ dice, diceFormula, mod, formula }) {
   return [
-    diceFormula ? `[${formulaLabel(diceFormula)}]D` : (dice ? `${dice}D` : ""),
+    diceFormula ? `[${formulaLabel(diceFormula)}]d6` : (dice ? `${dice}d6` : ""),
     mod ? String(mod) : "",
     formula ? `[${formulaLabel(formula)}]` : ""
   ].filter(Boolean);
 }
 
-/** "2D + 3", "[SR+3]D + [SR×5]", "2D - 1" */
+/** "2d6 + 3", "[SR+3]d6 + [SR×5]", "2d6 - 1" */
 const joinParts = parts => parts.join(" + ").replace(/\+ -/g, "- ");
 
-/** " + 2D + 3", " - 1", " + [SR×5]", "" */
+/** " + 2d6 + 3", " - 1", " + [SR×5]", "" */
 function extraText(values) {
   const parts = rollParts(values);
   return parts.length ? ` + ${joinParts(parts)}`.replace(/\+ -/g, "- ") : "";
 }
 
-/** "4+2D vs Evasion", "Accuracy + 1 vs Evasion", "Auto", or "" when nothing is set. */
+/** "2d6 + 4 vs Evasion", "Accuracy + 1d6 vs Evasion", "Auto", or "" when nothing is set. */
 function checkLabel(check, monster) {
   const { stat, dice, mod, formula, diceFormula, vs } = check;
   if (vs === "auto") return game.i18n.localize(VS_LABELS.auto);
   let value;
   if (!monster && stat) value = statLabel(stat) + extraText(check);
   else if (formula || diceFormula) value = joinParts(rollParts(check));
-  else value = (dice && mod) ? `${mod}+${dice}D` : dice ? `${dice}D` : mod ? String(mod) : "";
+  else value = joinParts(rollParts(check));
   const against = vs ? `vs ${game.i18n.localize(VS_LABELS[vs])}` : "";
   return [value, against].filter(Boolean).join(" ");
 }
@@ -180,7 +180,7 @@ function damagePowers({ type, recovery, noPower }) {
 }
 
 /**
- * "2D+12 Physical", "[Attack Power] + 1D Physical", "[Magic Power] + [Recovery Power] + 3D",
+ * "2d6 + 12 Physical", "1d6 + [Attack Power] Physical", "3d6 + [Magic Power] + [Recovery Power]" (the dice first),
  * or "" when nothing is set.
  */
 function damageLabel(damage, monster) {
@@ -188,13 +188,14 @@ function damageLabel(damage, monster) {
   // Healing is not physical/magical damage: "Recovery" replaces the type.
   const suffix = game.i18n.localize(recovery ? RECOVERY_LABEL : (TYPE_LABELS[type] ?? ""));
   const powers = monster ? [] : damagePowers(damage);
+  const parts = rollParts(damage);
   if (powers.length) {
-    const value = powers.map(p => `[${game.i18n.localize(POWER_LABELS[p])}]`).join(" + ") + extraText(damage);
+    const named = powers.map(p => `[${game.i18n.localize(POWER_LABELS[p])}]`);
+    const value = joinParts([...parts.filter(p => p.endsWith("d6")), ...named, ...parts.filter(p => !p.endsWith("d6"))]);
     return recovery ? value : `${value} ${suffix}`.trim();
   }
   if (!dice && !mod && !formula && !diceFormula) return "";
-  const value = (formula || diceFormula) ? joinParts(rollParts(damage))
-    : (dice && mod) ? `${dice}D${mod > 0 ? "+" : ""}${mod}` : dice ? `${dice}D` : String(mod);
+  const value = joinParts(parts);
   return suffix ? `${value} ${suffix}` : value;
 }
 

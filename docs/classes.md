@@ -15,7 +15,7 @@ Uma classe é um **Motor**, uma regra que só ela tem, com tudo o mais girando e
 - **Dedicação:** a partir do NP 5, a versão menor do Motor de outra classe.
 - **Ápice:** no NP 10, transforma o Motor.
 
-Da base de Log Horizon fica a gramática: teste de 2D com crítico em dois ou mais 6, as fases da rodada (Manutenção,
+Da base de Log Horizon fica a gramática: teste de 2d6 com crítico em dois ou mais 6, as fases da rodada (Manutenção,
 Iniciativa, Turno, Encerramento), os Momentos das habilidades, Ódio, Destino, quadrados, engajamento, as condições
 e as habilidades básicas. Saíram os arquétipos e o Kuden (veja [O que saiu do sistema](#o-que-saiu-do-sistema)).
 
@@ -74,7 +74,7 @@ Regras do Motor:
   de combate (viagem, conversa, investigação).
 - **Todo talento mexe no Motor:** alimenta (outra forma de ganhar), gasta (outra forma de usar) ou dobra (muda uma
   regra dele). Cada talento diz qual dos três ele é.
-- **Nada de número solto.** "+1D de dano" sozinho não é talento. O dano cresce com o NP e com a arma, dentro da
+- **Nada de número solto.** "+1d6 de dano" sozinho não é talento. O dano cresce com o NP e com a arma, dentro da
   fórmula (`@cr`, poder de ataque), igual para toda a classe.
 - **NH de 1 a 3** (5 só como exceção). O NH aumenta a frequência, a capacidade ou o alcance da regra ((NH)/Cena, +1 no
   teto, +1 alvo), nunca o dano direto.
@@ -161,7 +161,7 @@ O mapa da lista de classes: cada Motor mexe numa parte da regra que nenhuma outr
 | Posição | Caçador | Mira: parado, cresce; mover o token zera |
 | Risco | Feiticeiro | Calor: cada feitiço esquenta e bate mais forte; no Teto, Erupção ou Sobrecarga |
 | Dados dos outros | Tecelão | Padrão: dois dados que somam o número dão Fios, que mudam dados nos cartões |
-| Seus dados | Estrategista | Leitura: 2D guardados na Manutenção trocam os dados de um teste |
+| Seus dados | Estrategista | Leitura: 2d6 guardados na Manutenção trocam os dados de um teste |
 | Maldição | Oráculo | Fardo: o milagre fica mais forte e a maldição pesa junto |
 | PV dos aliados | Sacerdote | Graça: cada ferida de um aliado vira cura depois ou barreira antes |
 | Forma | Druida | Formas: a Seiva paga a fera, e cada forma troca o menu |
@@ -197,14 +197,14 @@ conferir na mesa e ajustar os números (Teto, dados por ponto, o pagamento do Mo
 ### Assassino
 
 O Motor **Contrato** mexe no inimigo: o Assassino firma o Contrato com um Alvo, e cada acerto de qualquer personagem
-nele abre uma Brecha. A Execução, só no Alvo, gasta todas (cada uma soma 1D + NP) e, se o Alvo ficar com PV iguais ou
+nele abre uma Brecha. A Execução, só no Alvo, gasta todas (cada uma soma 1d6 + NP) e, se o Alvo ficar com PV iguais ou
 menores que [Brechas gastas × (NP+5)], ele cai (não vale contra [Chefe]). Trocar de Alvo perde as Brechas; o Alvo
 caído cumpre o Contrato.
 
 | Parte | O que tem |
 |---|---|
 | Base | FOR 2, DES 4, POD 1, INT 3; faixa Leve (40, +5/NP); papel Damage |
-| Kit | Contrato (Motor), Firmar Contrato (Menor), Punhalada (Maior, [Poder de Ataque + 2D]; no Alvo +1 Brecha a mais), Execução (Maior, com 2 Brechas, gasta todas) |
+| Kit | Contrato (Motor), Firmar Contrato (Menor), Punhalada (Maior, [2d6 + Poder de Ataque]; no Alvo +1 Brecha a mais), Execução (Maior, com 2 Brechas, gasta todas) |
 | A Sombra | Golpe das Sombras*, Sumir*, Emboscada, Sombra Viva |
 | O Veneno | Lâmina Envenenada*, Toxina Lenta, Dose Certa, Ferida que Não Fecha |
 | A Lâmina | Corte de Tendão*, Golpe Duplo*, Na Garganta, Segunda Execução |
@@ -228,7 +228,7 @@ Invisível e a linha do Fantasma no Ápice), Marcar a Presa e Rede Fechada ([Mar
 ### Berserker
 
 O Motor **Ira** mexe nos PV baixos: cada ataque de um inimigo que tira PV do Berserker dá 1 Ira (2 com metade dos PV
-ou menos), e com Ira os Ataques com Arma somam +[Ira × 2] ao dano. O Golpe Selvagem gasta toda (+(2+Ira)D + Ira×NP),
+ou menos), e com Ira os Ataques com Arma somam +[Ira × 2] ao dano. O Golpe Selvagem gasta toda (+(2+Ira)d6 + Ira×NP),
 o Fôlego de Sangue a troca por PV e Sangrar troca PV por Ira. Uma rodada sem atacar nem perder PV custa 1 Ira no
 Encerramento.
 
@@ -247,7 +247,7 @@ Encerramento.
 
 \* talentos [Dedicação].
 
-Código: `module/classes/berserker.mjs` (`BERSERKER`): o Teto, o bônus de dano (`rollBonuses`, +1D por 2 de Ira no
+Código: `module/classes/berserker.mjs` (`BERSERKER`): o Teto, o bônus de dano (`rollBonuses`, +1d6 por 2 de Ira no
 Gigante), o custo em PV de Sangrar (`after`), a cura do Fôlego (`onUse`), o [Último Fôlego] de Recusar a Queda e do
 Ápice (`statuses`; o `onDamaged` percebe quando ele salvou e cobra a Ira), os ganhos por dano sofrido, por acertos em
 [Fúria], por inimigos derrubados e, nos Ancestrais, pelos aliados (`onAnyDamaged`, `onAnyKill`), e os estados dos
@@ -257,13 +257,13 @@ golpes (`onHit`: Arrancada, Esmagar, Terremoto, Coração de Dragão).
 
 O Motor **Mira** mexe na posição: parado, o Caçador junta Mira (na Manutenção, se o token não se moveu na rodada
 anterior, e com Firmar a Mira, que gasta a Ação de Movimento sem andar); mover o token perde tudo. O Tiro Certeiro
-gasta toda a Mira (cada ponto soma 1D + NP) e, com a Mira cheia, deixa o alvo [Exposto]. Código em
+gasta toda a Mira (cada ponto soma 1d6 + NP) e, com a Mira cheia, deixa o alvo [Exposto]. Código em
 `module/classes/cacador.mjs` (`onMove` zera, `onSetup` confere `moved`, passos livres em `free`).
 
 | Parte | O que tem |
 |---|---|
 | Base | FOR 2, DES 4, POD 2, INT 2; faixa Firme (40, +6/NP); papéis Damage e Control |
-| Kit | Mira (Motor), Firmar a Mira (Movimento, +1), Disparo (Maior, [Poder de Ataque + 2D], não gasta), Tiro Certeiro (Maior, gasta tudo) |
+| Kit | Mira (Motor), Firmar a Mira (Movimento, +1), Disparo (Maior, [2d6 + Poder de Ataque], não gasta), Tiro Certeiro (Maior, gasta tudo) |
 | O Olho | Paciência do Caçador*, Respiração Contida*, Concentração do Atirador, Olhar Frio |
 | A Aljava | Flecha-Rede*, Flecha de Sinal*, Flecha Incendiária, Flecha Perfurante |
 | O Rastro | Rastreador*, Paciência da Tocaia, Abate Limpo, Presa Ferida |
@@ -325,7 +325,7 @@ forma e somem fora de combate. O alcance do Falcão e a Esquiva do Enxame são e
 
 ### Estrategista
 
-O Motor **Leitura** mexe nos próprios dados: na Manutenção, Estudar o Campo rola 2D e guarda os dois dados como uma
+O Motor **Leitura** mexe nos próprios dados: na Manutenção, Estudar o Campo rola 2d6 e guarda os dois dados como uma
 Leitura. Nos cartões de ataque, a Leitura toma o lugar dos dois dados mais baixos de um teste do Estrategista (e, com
 talentos, dos aliados; ou dos dois mais altos de um inimigo), e o cartão julga o acerto de novo. Outras habilidades
 gastam uma Leitura pela soma dela (2 a 12): uma marca, uma barreira, um golpe, uma ordem. Teto 1 + ⌊NP/5⌋ (passou,
@@ -347,7 +347,7 @@ escolhe qual descartar); zera no fim do combate.
 \* talentos [Dedicação].
 
 Automático (`module/classes/estrategista.mjs`): as rolagens das Leituras (Estudar o Campo, Estudo Rápido, Olhar
-Adiante, Plano Prévio, com 3D/4D e a escolha dos dois dados na Antevisão, duas com o Ápice) e o descarte acima do Teto;
+Adiante, Plano Prévio, com 3d6/4d6 e a escolha dos dois dados na Antevisão, duas com o Ápice) e o descarte acima do Teto;
 os botões do cartão (`cardActions`, nos seus testes, nos dos aliados com Lição Ensinada ou Xadrez, nos dos inimigos com
 Prever) que trocam os dados por `adjustCardRoll`; a escolha da Leitura nos gastos (a soma em `@use.reading` nas
 fórmulas); o que vem depois (a Leitura que volta no Xadrez, Roque, Formação Ensaiada, Ler o Inimigo, Desmontar a
@@ -360,7 +360,7 @@ Ficam no texto: o movimento de Mudar a Formação e os talentos Gerais Mapa Ment
 O Motor **Calor** mexe no risco: cada Feitiço da classe esquenta o feiticeiro (+1, os grandes +2), e o Calor soma
 +[Calor × 2] ao dano dos Feitiços. No Teto (3 + ⌊NP/5⌋) ele fica Incandescente e, no Encerramento, sofre a Sobrecarga
 ([Calor × NP] de dano direto), a menos que solte o fogo antes: a Erupção (área, precisa de 2) gasta todo o Calor, com
-1D + NP por ponto; Respirar a Chama tira 2 sem efeito.
+1d6 + NP por ponto; Respirar a Chama tira 2 sem efeito.
 
 | Parte | O que tem |
 |---|---|
@@ -387,7 +387,7 @@ Explosão Controlada (diálogo), Estrela Fixa (`autoHit`) e o Ápice.
 
 O Motor **Baluarte** mexe no Ódio: cada ataque que um inimigo faz contra o Guardião assenta uma Camada, e cada Camada
 é [Anulação: 2] contra todo dano (o efeito passivo `eternia.passive.cancel` = `@motor.value × @motor.layer`). O Golpe
-do Baluarte gasta todas (+(1+Camadas)D + Camadas×NP) e prende o alvo com [Provocado]. Uma rodada sem ser atacado
+do Baluarte gasta todas (+(1+Camadas)d6 + Camadas×NP) e prende o alvo com [Provocado]. Uma rodada sem ser atacado
 custa uma Camada no Encerramento.
 
 | Parte | O que tem |
@@ -416,7 +416,7 @@ Protegido (`onAnyHit`/`onAnyMiss`), os Espinhos de Ferro ([Espelho] pelo `status
 O Motor **Pacto** mexe numa criatura extra: um espírito (Lobo, Golem ou Fada) fica preso ao Invocador por Laços que
 ele compra com os próprios PV ([NP+3] cada), sem token: o espírito age pelas habilidades do Invocador. O Comando:
 Ataque soma os Laços ao dano, os comandos especiais gastam Laços, e com 0 Laços o espírito se desfaz. Cada espírito tem
-um traço (Lobo +1D, Golem [Anulação: Laços], Fada [Regeneração: Laços × 2]). Código em `module/classes/invocador.mjs`.
+um traço (Lobo +1d6, Golem [Anulação: Laços], Fada [Regeneração: Laços × 2]). Código em `module/classes/invocador.mjs`.
 
 | Parte | O que tem |
 |---|---|
@@ -476,14 +476,14 @@ Manutenção, todos os do Menestrel saem e voltam no Movimento novo. As habilida
 ### Monge
 
 O Motor **Corrente** mexe na sequência de golpes: o Golpe de Entrada e o Elo Rápido somam Elos, e o Golpe Final gasta
-todos (cada um soma 2D + NP; com a Corrente cheia, o alvo fica [Atordoado]). Um turno sem habilidade da Corrente a
+todos (cada um soma 2d6 + NP; com a Corrente cheia, o alvo fica [Atordoado]). Um turno sem habilidade da Corrente a
 quebra, e cada ataque de um inimigo que tira PV do monge tira 1 Elo. Os golpes pedem [Artes Marciais] ou as duas mãos
 vazias.
 
 | Parte | O que tem |
 |---|---|
 | Base | FOR 3, DES 4, POD 2, INT 1; faixa Firme (40, +6/NP); papéis Damage e Defense |
-| Kit | Corrente (Motor), Golpe de Entrada (Maior, +1), Elo Rápido (Menor, com 1 Elo, [1D + NP], +1), Golpe Final (Maior, com 2 Elos, gasta todos) |
+| Kit | Corrente (Motor), Golpe de Entrada (Maior, +1), Elo Rápido (Menor, com 1 Elo, [1d6 + NP], +1), Golpe Final (Maior, com 2 Elos, gasta todos) |
 | O Punho | Palma Atordoante*, Chute Giratório, Punho que Atravessa, Último Elo |
 | O Fluxo | Desviar e Seguir*, Postura do Grou*, Contra-golpe, Fluxo Ininterrupto |
 | O Vento | Passo do Vento*, Investida do Tigre, Pés Leves, Vento Cortante |
@@ -563,7 +563,7 @@ uma [Barreira] na hora. A Anulação da Armadura é um estado passivo do Motor (
 ### Sacerdote
 
 O Motor **Graça** mexe nos PV dos aliados: cada ataque de um inimigo que tira PV de um aliado dá +1 Graça (+1 se ele
-ficar com metade dos PV ou menos). A Oração de Cura ([Recuperação + (2+Graça)D + (Graça×NP)÷2]) e o Escudo de Fé
+ficar com metade dos PV ou menos). A Oração de Cura ([(2+Graça)d6 + Recuperação + (Graça×NP)÷2]) e o Escudo de Fé
 ([Barreira: Graça × (NP+5)]) gastam quanta Graça o Sacerdote quiser: curar depois, ou proteger antes. Teto 3 + ⌊NP/5⌋;
 zera no fim do combate.
 
@@ -592,7 +592,7 @@ Corpo-Escudo (o dano vai para você pelo cartão) e os talentos Gerais.
 ### Samurai
 
 O Motor **Bainha** mexe no tempo: a lâmina Embainhada junta Cortes na Manutenção, e o Iai, no Processo de
-Iniciativa de qualquer personagem, saca gastando todos (cada um soma 2D + NP; com a Bainha cheia, Corte Perfeito:
+Iniciativa de qualquer personagem, saca gastando todos (cada um soma 2d6 + NP; com a Bainha cheia, Corte Perfeito:
 acerto sem Esquiva e +[NP×2+10]).
 
 | Parte | O que tem |
@@ -699,7 +699,7 @@ O cabeçalho de `module/classes/motor.mjs` tem a lista completa. Em resumo:
 | `apex` | a classe de quem é o Ápice |
 | `dedication` | `{ name, id }`: a Dedicação de uma classe |
 | `dedicationGrants` | uuids das habilidades que a Dedicação dá |
-| `damageText` | o texto do dano no lugar da fórmula (`[Poder de Ataque] + (1+2×Cortes)D + Cortes×NP Físico`) |
+| `damageText` | o texto do dano no lugar da fórmula (`[Poder de Ataque] + (1+2×Cortes)d6 + Cortes×NP Físico`) |
 | `minRank`, `choiceOnly` | como nas raças: NP mínimo; listada só depois de dada (kit, Caminhos, Ápice, Motor Menor) |
 
 O item `class` leva `identifier`, atributos, `hp`, `hpPerRank`, as tags de papel (`Damage`, `Defense`, `Healing`,

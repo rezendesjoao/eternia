@@ -333,9 +333,9 @@ function formatChangeSummary(change, data) {
     return num >= 0 ? `+${num}` : `${num}`;
   };
 
-  // Formulas: "Recovery +[SR×3] (6)", "Accuracy +[SR]D (2D)"; the value only when the effect has an actor.
+  // Formulas: "Recovery +[SR×3] (6)", "Accuracy +[SR]d6 (2d6)"; the value only when the effect has an actor.
   if (isFormula(rawVal) && !["tags", "text"].includes(target?.kind)) {
-    const dice = target?.kind === "dice" ? "D" : "";
+    const dice = target?.kind === "dice" ? "d6" : "";
     const sign = prefix ?? ((type === "subtract") ? "-" : "+");
     const value = data ? evaluateFormula(rawVal, data) : null;
     const result = (value === null) ? "" : ` (${value}${dice})`;
@@ -352,12 +352,12 @@ function formatChangeSummary(change, data) {
     return `${label} +[${escape(cleanTag)}]`;
   }
 
-  // Check Dice: +1D, -1D, = 2D, etc.
+  // Check Dice: +1d6, -1d6, = 2d6, etc.
   if (target?.kind === "dice") {
-    const match = rawVal.match(/^([+-]?\d+)\s*d?$/i);
+    const match = rawVal.match(/^([+-]?\d+)\s*(?:d6?)?$/i);
     const num = match ? Number(match[1]) : Number(rawVal);
     const valPart = Number.isFinite(num)
-      ? `${signed(num)}D`
+      ? `${signed(num)}d6`
       : (rawVal.startsWith("+") || rawVal.startsWith("-") ? rawVal : `+${rawVal}`);
     return `${label} ${valPart}`.trim();
   }

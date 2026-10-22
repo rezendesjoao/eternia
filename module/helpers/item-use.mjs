@@ -401,9 +401,9 @@ export function isUsableGear(system) {
  */
 export function damageFromText(html) {
   const text = String(html ?? "").replace(/<[^>]+>/g, " ");
-  const damage = text.match(/\[?(\d+)D\s*\+\s*(\d+)\]?\s*(physical|magic(?:al)?)\s+damage/i);
+  const damage = text.match(/\[?(\d+)D6?\s*\+\s*(\d+)\]?\s*(physical|magic(?:al)?)\s+damage/i);
   if (damage) return { dice: Number(damage[1]), mod: Number(damage[2]), type: /^phys/i.test(damage[3]) ? "physical" : "magical", recovery: false };
-  const heal = text.match(/recovers?\s+(?:\[?(\d+)D\s*\+\s*)?(\d+)\]?\s*(?:points of\s+)?(?:the\s+)?(?:target's\s+)?\[?HP/i);
+  const heal = text.match(/recovers?\s+(?:\[?(\d+)D6?\s*\+\s*)?(\d+)\]?\s*(?:points of\s+)?(?:the\s+)?(?:target's\s+)?\[?HP/i);
   if (heal) return { dice: Number(heal[1] ?? 0), mod: Number(heal[2]), type: "", recovery: true };
   return {};
 }

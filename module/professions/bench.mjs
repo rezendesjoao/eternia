@@ -67,8 +67,8 @@ function statsOf(data) {
         { label: L("Profession.Stat.target"), value: term("target", s.target || "-") }
       ];
       const dice = toInt(damage.dice), mod = damage.mod;
-      if (flags.heal || (damage.recovery && (dice || toInt(mod)))) out.push({ label: L("Profession.Stat.heal"), value: flags.heal ? toInt(flags.heal.mod) : `${dice ? `${dice}D+` : ""}${mod}` });
-      else if (dice || toInt(mod)) out.push({ label: L("Profession.Stat.damage"), value: `${dice ? `${dice}D+` : ""}${mod}` });
+      if (flags.heal || (damage.recovery && (dice || toInt(mod)))) out.push({ label: L("Profession.Stat.heal"), value: flags.heal ? toInt(flags.heal.mod) : `${dice ? `${dice}d6 + ` : ""}${mod}` });
+      else if (dice || toInt(mod)) out.push({ label: L("Profession.Stat.damage"), value: `${dice ? `${dice}d6 + ` : ""}${mod}` });
       if (toInt(flags.fatigue)) out.push({ label: L("Profession.Stat.fatigue"), value: `−${toInt(flags.fatigue)}` });
       return out;
     }

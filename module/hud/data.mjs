@@ -45,7 +45,7 @@ const ACTION_ICONS = [["major", "fa-burst"], ["minor", "fa-hand"], ["move", "fa-
 const EQUIPMENT = ["weapon", "shield", "armor", "accessory", "bag"];
 const checkName = key => key.charAt(0).toUpperCase() + key.slice(1);
 const signed = n => (n >= 0 ? `+${n}` : `${n}`);
-const diceText = (dice, mod) => (dice ? `${dice}D${mod ? signed(mod) : ""}` : String(mod));
+const diceText = (dice, mod) => (dice ? `${dice}d6${mod ? signed(mod) : ""}` : String(mod));
 const timingOf = item => parseSkillField("timing", item.system.timing).type;
 const localizeCheck = key => game.i18n.localize(`ETERNIA.Check.${checkName(key)}`);
 

@@ -2,7 +2,7 @@
   "name": "Costurar a Ferida",
   "type": "skill",
   "system": {
-    "description": "<p>Gaste quantos Fios quiser (pelo menos 1): você costura a ferida de um aliado a até 4 Qd (ou a sua) com fios de luz. Ele recupera [Recuperação + (1 + Fios gastos)D] PV.</p>",
+    "description": "<p>Gaste quantos Fios quiser (pelo menos 1): você costura a ferida de um aliado a até 4 Qd (ou a sua) com fios de luz. Ele recupera [(1 + Fios gastos)d6 + Recuperação] PV.</p>",
     "tags": [],
     "timing": "Major",
     "checkType": "",
@@ -45,7 +45,7 @@
         "spend": "choose",
         "max": "@motor.value"
       },
-      "damageText": "[Recuperação] + (1+Fios)D"
+      "damageText": "(1+Fios)d6 + [Recuperação]"
     }
   },
   "_stats": {

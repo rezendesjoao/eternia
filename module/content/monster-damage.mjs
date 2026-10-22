@@ -2,7 +2,7 @@
  * Read a monster attack's damage from its rules text (no Foundry dependency: also used by the tools).
  *
  * The bestiary writes damage in many ways, in English and, through the pt-BR translation, in Portuguese:
- *   "[20+2D] physical damage", "[2D +30] Magic Damage", "[40+2 D] inflicts physical damage",
+ *   "[2d6 + 20] de dano físico", "[20+2D] physical damage", "[2D +30] Magic Damage", "[40+2 D] inflicts physical damage",
  *   "Deal [[/gmr 2d6 + 12]]{[2D+12]} physical damage", "37+2D physical damage", "10 pts [piercing] damage",
  *   "[20+2D] de dano físico", "Causa [[/gmr 2d6 + 12]]{[2D+12]} de dano físico ao alvo".
  * The Hit Check is often written right before the damage ("[[/gmr 2d6 + 5]]{CHECK} [[/gmr 2d6 + 16]]…"):
@@ -47,7 +47,7 @@ function expressions(text) {
     add(m, dice, mod);
   }
   for (const m of text.matchAll(/(\d+)\s*\+\s*(\d+)\s*D(?![a-z])/gi)) add(m, Number(m[2]), Number(m[1]));
-  for (const m of text.matchAll(/(\d+)\s*D\s*\+\s*(\d+)/gi)) add(m, Number(m[1]), Number(m[2]));
+  for (const m of text.matchAll(/(\d+)\s*D6?\s*\+\s*(\d+)/gi)) add(m, Number(m[1]), Number(m[2]));
   for (const m of text.matchAll(/(\d+)\s*(?:pts?|points|pontos)\b/gi)) add(m, 0, Number(m[1]));
   // Inside an inline roll token the plain patterns also match: keep the outer token only.
   return found
@@ -58,7 +58,7 @@ function expressions(text) {
 /** Inline rolls ("[[/gmr 2d6 + 15]]{[2D+15]}") become "⟦2d6+15⟧", keeping label words such as "Magic Damage". */
 function flattenInlineRolls(text) {
   return text.replace(/\[\[\/(?:gm|b|s)?r(?:oll)?\s+([^\]]+?)\]\](?:\{([^{}]*)\}?)?/gi, (match, formula, label = "") => {
-    const words = label.replace(/[[\]]/g, " ").replace(/\d+\s*D\s*[+-]?\s*\d*|\d+\s*\+\s*\d+\s*D/gi, " ").trim();
+    const words = label.replace(/[[\]]/g, " ").replace(/\d+\s*D6?\s*[+-]?\s*\d*|\d+\s*\+\s*\d+\s*D6?/gi, " ").trim();
     const keep = /damage|dano/i.test(words) ? ` ${words}` : "";
     return ` ⟦${formula.replace(/\s+/g, "")}⟧${keep} `;
   });

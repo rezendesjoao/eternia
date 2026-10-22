@@ -12,7 +12,7 @@ has a skill, the system applies what it can on its own:
 - **Bonuses to other skills**: *White Robe Style* and *Reactive Mastery* add to the HP healed by
   «Reactive Heal»; *Weapon Mastery: Blade* adds dice to Weapon Attacks made with a [Blade].
 - **Changes to other skills**: lower Hate costs, longer ranges, extra notes on the chat card.
-- **Active skills** have their Check and Damage ready to roll (`[(SR+3)D]` included) and apply their
+- **Active skills** have their Check and Damage ready to roll (`[(SR+3)d6]` included) and apply their
   effects when used: stances, bonuses for this Main Process, Bad Statuses with their Rating on the target.
 
 What can't be automated (choices, movement, tables, permissions to equip something, effects triggered by
@@ -39,8 +39,8 @@ it does, followed by the current value in parentheses:
 ![Effects tab of a character](images/skills/actor-effects-passive.webp)
 
 - `Attack Power +[SR×2] (6)`: *Attack Mastery* at SR 3 gives +6. Raise its SR and the number updates.
-- `Negotiation +1D, Operation +1D`: the SR2 tier of *Troubadour*.
-- `Skill Damage/Recovery bonus (dice) +[SR]D (2D) → [Weapon Attack], weapon [Blade]`: a bonus that only
+- `Negotiation +1d6, Operation +1d6`: the SR2 tier of *Troubadour*.
+- `Skill Damage/Recovery bonus (dice) +[SR]d6 (2d6) → [Weapon Attack], weapon [Blade]`: a bonus that only
   applies to some rolls (see [section 2](#2-for-players-using-skills)).
 
 You don't need to do anything: the bonuses are already included in the stats, checks and battle statuses of
@@ -70,7 +70,7 @@ other skills that apply to that roll are added on their own, and the card lists 
 
 ![Damage card with bonuses from other skills](images/skills/chat-roll-bonuses.webp)
 
-*Reactive Heal* heals 2D; with *Reactive Mastery* SR 2 (+[SR]D) and *White Robe Style* SR 2 (+[SR×3]) the roll
+*Reactive Heal* heals 2d6; with *Reactive Mastery* SR 2 (+[SR]d6) and *White Robe Style* SR 2 (+[SR×3]) the roll
 becomes `4d6 + 6`, and the card says where each part comes from.
 
 A bonus can depend on the skill rolled, its tags, the weapon in your main hand, the tags of your target, your
@@ -170,13 +170,13 @@ done from the skill sheet and the Active Effect editor; no code is needed.
 
 ![Check and Damage of Magic Missiles](images/skills/skill-check-damage.webp)
 
-*Magic Missiles*: "[(SR+3)D + Magic Power] magical damage" → Damage dice `@sr+3`, type **Magical**, vs
+*Magic Missiles*: "[(SR+3)d6 + Magic Power] magical damage" → Damage dice `@sr+3`, type **Magical**, vs
 **Evasion**.
 
 - The dice and the modifier accept a number or a formula: `@sr`, `@sr+3`, `@sr*2`, `@sr*5`, `@cr`…
   The dice field also suggests common values.
 - **Physical** adds Attack Power, **Magical** adds Magic Power. **Recovery** marks a heal (adds Recovery
-  Power). **No power** adds nothing: use it when the text gives its own total ("[4D + Magic Power] physical
+  Power). **No power** adds nothing: use it when the text gives its own total ("[4d6 + Magic Power] physical
   damage" → No power, modifier `@magic`).
 - Also available: **Penetrating** and **Direct** damage types.
 
@@ -198,7 +198,7 @@ of the variables):
 | +[SR×2] [Attack Power] | Attack Power | `@sr*2` |
 | +[DEX mod] to [Initiative] | Initiative | `@dex` |
 | +16 [Max HP] | Max. HP | `16` |
-| +1D to [Athletics] | Athletics (dice) | `1` |
+| +1d6 to [Athletics] | Athletics (dice) | `1` |
 | [Attack Power] becomes [weapon's Attack Power × 2] | Attack Power | `@weapon.attack` (the base is already the weapon's) |
 
 Results are rounded down, as in the rules. The full list of variables is in the
@@ -218,14 +218,14 @@ not equipped with [Shield]:
 ![Condition of an effect: SR at least 2](images/skills/effect-tier-condition.webp)
 
 When a tier **adds** something, one effect for the base and another with `SR at least 2`. When it **replaces**
-the previous value ("the bonus becomes +1D instead"), two effects: one with `SR at most 1` and another with
+the previous value ("the bonus becomes +1d6 instead"), two effects: one with `SR at most 1` and another with
 `SR at least 2`. The same with CR (`CR at least 11`, `CR at most 10`…).
 
 All the conditions of a list must be met. The available types are in the [reference](#condition-types).
 
 ### Bonuses to other skills (skill filter)
 
-For texts like "+[SR×3] to the HP recovered when using «Reactive Heal»" or "+[(SR)D] to [Weapon Attack]
+For texts like "+[SR×3] to the HP recovered when using «Reactive Heal»" or "+[(SR)d6] to [Weapon Attack]
 damage rolls with a [Blade] weapon":
 
 1. In **Changes**, choose a destination from the **Skill Rolls** group:
@@ -293,8 +293,8 @@ the highest Rating remains.
 
 #### Conditions of an effect applied when used
 
-They are checked against the **user** when the skill is used, and the copy loses them. *Divine Might* (+2D,
-CR11: +4D, CR21: +6D) = three effects with `CR at most 10` / `CR at least 11 + CR at most 20` /
+They are checked against the **user** when the skill is used, and the copy loses them. *Divine Might* (+2d6,
+CR11: +4d6, CR21: +6d6) = three effects with `CR at most 10` / `CR at least 11 + CR at most 20` /
 `CR at least 21`.
 
 ## 5. Reference

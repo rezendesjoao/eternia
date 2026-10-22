@@ -130,9 +130,9 @@ export class EterniaActorMonsterSheet extends HandlebarsApplicationMixin(foundry
     context.source = source;
 
 
-    // Evasion / Resistance: one indicator with the whole effective check ("→ 3D+4"), since the row
+    // Evasion / Resistance: one indicator with the whole effective check ("→ 3d6+4"), since the row
     // has no room for one per field; `dice` / `mod` flag which of the two fields has a bonus.
-    const formula = ({ dice, mod }, six = "") => `${dice}D${six}${mod ? `${mod > 0 ? "+" : ""}${mod}` : ""}`;
+    const formula = ({ dice, mod }) => `${dice}d6${mod ? `${mod > 0 ? "+" : ""}${mod}` : ""}`;
     const checkFormulaModified = (base, effective) => {
       const e = { dice: Number(effective?.dice) || 0, mod: Number(effective?.mod) || 0 };
       if ((base.dice === e.dice) && (base.mod === e.mod)) return null;
@@ -140,7 +140,7 @@ export class EterniaActorMonsterSheet extends HandlebarsApplicationMixin(foundry
         dice: base.dice !== e.dice,
         mod: base.mod !== e.mod,
         display: `→ ${formula(e)}`,
-        tooltip: game.i18n.format("ETERNIA.Effect.ModifiedTooltip", { base: formula(base, "6"), effective: formula(e, "6") })
+        tooltip: game.i18n.format("ETERNIA.Effect.ModifiedTooltip", { base: formula(base), effective: formula(e) })
       };
     };
 
