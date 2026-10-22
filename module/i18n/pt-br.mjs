@@ -80,9 +80,9 @@ export function translateTag(tag) {
 const simplify = s => String(s ?? "").toLowerCase().replace(/[^a-z]/g, "");
 
 const TIMING = {
-  "Constant": "Constante", "Pre-Play": "Pré-Jogo", "Interlude": "Interlúdio", "Briefing": "Briefing",
+  "Constant": "Constante", "Pre-Play": "Pré-Jogo", "Interlude": "Interlúdio", "Briefing": "Preparação",
   "Rest Time": "Descanso", "Major": "Maior", "Minor": "Menor", "Move": "Movimento", "Movement": "Movimento",
-  "Instant": "Instantânea", "Main Process": "Processo Principal", "Setup": "Abertura", "Initiative": "Iniciativa",
+  "Instant": "Instantânea", "Main Process": "Turno", "Setup": "Manutenção", "Initiative": "Iniciativa",
   "Cleanup": "Encerramento", "Before Check": "Antes do Teste", "After Check": "Após o Teste",
   "Damage Roll": "Rolagem de Dano", "Before Damage": "Antes do Dano", "After Damage": "Após o Dano",
   "Action": "Ação", "Refer": "Ver texto", "Interrupt": "Interrupção", "Continuous": "Contínuo",

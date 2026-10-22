@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.7.1 — 2026-10-21
+
+### Alterado
+- Termos mais claros em português: o Processo de Abertura virou **Manutenção**, o Processo Principal virou
+  **Turno** (o seu turno) e o Briefing virou **Preparação**, no rastreador de combate, nos Momentos das habilidades,
+  nos textos dos compêndios e no diário AS REGRAS. Os campos lidos pela automação continuam em inglês (`Setup`,
+  `Main Process`, `Briefing`), então os mundos não mudam.
+- A migração `kudenCleanup` (versão 2) troca a imagem dos itens que ainda apontam para o ícone antigo do Samurai.
+
+### Removido
+- O campo "A pergunta" do cartão do Motor na aba Classe.
+- Os ícones das classes, por enquanto: o medalhão da aba Classe é só o verde, e o item de classe e a Dedicação usam
+  uma imagem em branco (`assets/icons/classes/blank.svg`) até cada classe ganhar o seu.
+
 ## 0.7.0 — 2026-10-21
 
 ### Adicionado

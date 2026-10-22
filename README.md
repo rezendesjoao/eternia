@@ -47,7 +47,7 @@ rótulos em versalete. Fontes Eczar e Gelasio.
   molduras, com o botão de distribuir pontos.
 - **Testes:** os oito testes de atributo e os três de combate, cada um com o modificador e os dados.
 - **Habilidades:** Básicas, Gerais e de Combate, agrupadas pelo Momento (Ação Maior, Menor, Movimento, Instantânea,
-  Reações, Abertura, Encerramento, Constantes…), com NH, custo e limite. Clique na imagem para usar e no nome para
+  Reações, Manutenção, Encerramento, Constantes…), com NH, custo e limite. Clique na imagem para usar e no nome para
   abrir os detalhes ali mesmo; o botão Explorar abre o navegador de habilidades.
 - **Inventário:** a riqueza (receber e gastar ouro fica registrado no chat), o boneco de equipamento (sete espaços
   ligados por linhas às partes do corpo), o que se carrega, os tíquetes e o espaço da bolsa.
@@ -112,7 +112,7 @@ tela, no lugar da barra de macros do Foundry:
 
 - **Recursos:** PV, Barreira, Destino, Ódio, Fadiga e o Motor da classe (o estado e os pontos; um clique num losango
   marca os pontos à mão).
-- **Turno:** a rodada e o Processo, as ações que restam no seu Processo Principal, Espera e **Encerrar**; **Entrar**
+- **Turno:** a rodada e o Processo, as ações que restam no seu turno, Espera e **Encerrar**; **Entrar**
   coloca o token num combate em que ele ainda não está.
 - **Esquivas pendentes:** quando um ataque mira o seu personagem, **Esquivar** rola pelo próprio cartão.
 - **Painéis:** Testes, Habilidades (as que não dá para usar agora ficam esmaecidas, com o motivo), Itens (com
@@ -139,7 +139,7 @@ gira em volta dele (veja `docs/classes.md` e a página **XI. CLASSES** do diári
 
 ### O Samurai
 
-**Motor: Bainha.** A lâmina fica Embainhada ou Desembainhada. Embainhada, ganha 1 Corte no Processo de Abertura (Teto
+**Motor: Bainha.** A lâmina fica Embainhada ou Desembainhada. Embainhada, ganha 1 Corte na Manutenção (Teto
 2, +1 a cada 5 NP). O **Iai** se usa no Processo de Iniciativa de qualquer personagem, gasta a Ação Maior da rodada e
 saca gastando todos os Cortes: cada Corte soma 2D + NP ao dano; com a Bainha cheia é um **Corte Perfeito** (acerto
 sem Esquiva e +[NP×2+10]). O custo é Ódio 1 + os Cortes gastos. Qualquer outro ataque com arma desembainha a lâmina e
@@ -152,9 +152,9 @@ perde os Cortes; Embainhar é uma Ação Menor.
   Bainha Longa, Passo do Saque, Respiração Profunda) e O Aço (Kesagiri, Eco do Aço, Chiburi). Gerais: Primeiro a
   Sacar, Corte Limpo, Postura de Vigília e Duelo de Olhares.
 - **Caminhos:** Lua Cheia (Teto +2, o Iai só com a Bainha cheia, Corte Perfeito em dobro), Água Corrente (ganha
-  Cortes quando atacado, em vez da Abertura) e Relâmpago (o Iai corre em linha e atinge todos no caminho).
+  Cortes quando atacado, em vez da Manutenção) e Relâmpago (o Iai corre em linha e atinge todos no caminho).
 - **Ápice:** Mente Vazia, o Iai deixa de gastar a Ação Maior.
-- **Automação:** o estado e os Cortes na aba Classe, no HUD e no token; os ganhos no Processo de Abertura e no
+- **Automação:** o estado e os Cortes na aba Classe, no HUD e no token; os ganhos na Manutenção e no
   Encerramento, na esquiva, no ataque sofrido e no inimigo derrubado; o Iai e os saques com o dano dos Cortes, o
   Corte Perfeito com acerto automático, o custo de Ódio pelos Cortes, a ação que cada um gasta e o **Desfazer** do
   cartão devolvendo o Motor; os talentos que pedem a lâmina Embainhada ou Desembainhada, ou uma [Katana]/[Lâmina] na
@@ -269,14 +269,14 @@ O que o sistema faz sozinho:
 - **Dano aplicado:** Exposto fica sem Defesa e sem Anulação, Intangível não sofre dano físico, Marcado soma o seu
   Valor quando a Esquiva falha, Último Fôlego segura em 1 PV, Vínculo divide o dano, Espelho devolve, Maldito não
   recupera PV, [Chama] derrete o Congelando e o Adormecido acorda.
-- **Turnos:** Envenenado no início do Processo Principal, Eletrificado a cada Ação Maior, Queimando e Sentença no
+- **Turnos:** Envenenado no início do turno, Eletrificado a cada Ação Maior, Queimando e Sentença no
   Encerramento; Lento age depois dos outros, Acelerado tem duas Ações Menores, Paralisado e Adormecido perdem a vez.
 - **Acúmulos:** o terceiro Congelando paralisa; o terceiro Fissurado quebra a guarda (a Barreira some e vem Exposto).
 - **Ficha:** Exposto e Fissurado baixam as defesas; Congelando, a Velocidade e a Iniciativa; Enraizado, Agarrado,
   Paralisado e Adormecido zeram a Velocidade.
 - **Proibições:** as ações, os alvos e o movimento que as condições impedem (Silenciado, Desarmado, Selado,
   Agarrado, Provocado, Encantado, Cego, Fúria, Enraizado, Medo…) avisam ou bloqueiam, como os limites de uso.
-- **Fim:** cada condição acaba quando a regra manda (fim do Processo Principal, Encerramento, fim da cena) e
+- **Fim:** cada condição acaba quando a regra manda (fim do turno, Encerramento, fim da cena) e
   respeita o Aflito; Agarrado e Vínculo acabam quando quem os causou fica Incapacitado; Despertado deixa Fadiga.
 - **Livrar-se com uma ação:** no HUD, o ícone de corrida ao lado da condição gasta a ação da regra (Ação Menor para
   Queimando, de Movimento para Derrubado, Maior para Envenenado…).
@@ -289,8 +289,8 @@ O que o sistema faz sozinho:
 ### Uso de habilidades
 - **Custos de Ódio e Destino** pagos ao usar (o Ódio só conta em combate iniciado).
 - **Limites de uso** (1/Cena, (NH)/Cenário, 1/Rodada…) contados por personagem.
-- **Momento e economia de ações:** cada ação no seu Processo, a Abertura na Abertura, o Encerramento no
-  Encerramento, a Ação Maior, a Menor e a de Movimento uma vez por Processo Principal.
+- **Momento e economia de ações:** cada ação no seu Processo, a Manutenção na Manutenção, o Encerramento no
+  Encerramento, a Ação Maior, a Menor e a de Movimento uma vez por turno.
 - **Habilidades de itens:** o item equipado, a trava de NP, o Ódio mínimo e a Pré-Ação.
 - **Avisar ou bloquear:** cada conferência pergunta se é para usar mesmo assim ou bloqueia o jogador (o Mestre
   sempre pode forçar).
@@ -299,7 +299,7 @@ O que o sistema faz sozinho:
 ### Combate
 - **Topo e Abaixo no Ódio por combate**, certos mesmo com vários combates ao mesmo tempo.
 - **Encerramento:** a Regeneração cura e depois a Deterioração causa dano, com um resumo no chat.
-- **Atordoado, Cambaleante, Paralisado, Silenciado e Provocado** acabam no fim do Processo Principal de quem os
+- **Atordoado, Cambaleante, Paralisado, Silenciado e Provocado** acabam no fim do turno de quem os
   recebeu.
 - **Incapacitado** com PV 0; Incapacitados, Mortos e Ausentes passam a vez.
 - **Fim de cena ao encerrar o combate:** Aventureiros Incapacitados voltam, Mortos revivem com Fadiga, inimigos
@@ -342,7 +342,7 @@ janelas em pergaminho, que pedem para recarregar.
 | Momento e economia de ações | avisar |
 | Topo e Abaixo no Ódio por combate | ligado |
 | Regeneração e Deterioração no Encerramento | ligado |
-| Estados que acabam no fim do Processo Principal | ligado |
+| Estados que acabam no fim do turno | ligado |
 | Incapacitado automático | ligado |
 | Fim de cena ao encerrar o combate | ligado |
 | Aventureiros mortos revivem no fim da cena | ligado |

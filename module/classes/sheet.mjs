@@ -1,5 +1,6 @@
 /**
- * The class tab of the character sheet (templates/character/class.hbs): the class crest and its base, the Motor
+ * The class tab of the character sheet (templates/character/class.hbs): the class crest (no icon yet: an empty green
+ * medallion) and its base, the Motor
  * (its state and points, which the owner can set by hand), the kit, the talents by branch with what each does to the
  * Motor, the Path (chosen at CR 3), the Apex (CR 10), the Dedications and the milestones. The class's skills are read
  * from the compendiums (the folder named like the class, see apps/skill-browser.mjs); the character's own copies
@@ -108,7 +109,7 @@ function motorView(actor, def, lesser, editable) {
     pips: Array.from({ length: max }, (_, i) => ({ value: i + 1, on: i < value, ready: !!extra.ready })),
     ready: !!extra.ready,
     readyLabel: extra.readyLabel ?? "",
-    card: ["Gain", "Spend", "Cap", "Reset", "Decision"].map(part => ({
+    card: ["Gain", "Spend", "Cap", "Reset"].map(part => ({
       label: L(`Classes.Card.${part}`),
       text: L(`${def.i18n}.Card.${part}${lesser ? "Lesser" : ""}`)
     }))
@@ -163,7 +164,6 @@ export async function classContext(actor, { editable }) {
     id: def?.id ?? job.system.identifier,
     itemId: job.id,
     name: job.name,
-    img: def?.img ?? job.img,
     color: def?.color ?? "#1f5137",
     roles: (job.system.tags ?? []).map(tagLabel),
     base,

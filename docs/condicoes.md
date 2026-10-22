@@ -8,19 +8,19 @@ diz onde cada regra está no código e como criar uma condição nova.
 
 | Arquivo | O que faz |
 |---|---|
-| `module/conditions/catalog.mjs` | As 31 condições (id, grupo, família, ícone, campo do Valor, acúmulo, origem) e as tabelas das regras: quem perde a vez (`NO_ACTIONS`), sem movimento (`NO_MOVEMENT`), sem reações (`NO_REACTIONS`), tags que o Silenciado impede, o que acaba no fim do próprio Processo Principal, no Encerramento e no fim da cena, o que o Aflito protege, a ação para se livrar (`RECOVERY`) e os limiares dos acúmulos. |
+| `module/conditions/catalog.mjs` | As 31 condições (id, grupo, família, ícone, campo do Valor, acúmulo, origem) e as tabelas das regras: quem perde a vez (`NO_ACTIONS`), sem movimento (`NO_MOVEMENT`), sem reações (`NO_REACTIONS`), tags que o Silenciado impede, o que acaba no fim do próprio turno, no Encerramento e no fim da cena, o que o Aflito protege, a ação para se livrar (`RECOVERY`) e os limiares dos acúmulos. |
 | `module/conditions/rules.mjs` | Consultas comuns: `has`, `rating`, `sourcesOf`, `isHostile`, `removeStatuses`, `addStatus` e as duas configurações. |
 | `module/conditions/rolls.mjs` | −1D e +1D dos testes e das Esquivas, o dano a mais e o Concentrado que se gasta. Chamado pelas rolagens de habilidade, pelos cartões de ataque, pelas fichas, pelo HUD e pelo Destino. |
 | `module/conditions/damage.mjs` | O dano dos cartões (antes: Exposto, Intangível; depois: Último Fôlego, Vínculo, Espelho, Adormecido, Encantado, Chama no Congelando), o que o Desfazer devolve, o Maldito e o `takeDamage` (o dano das próprias condições, com Barreira, Anulação da tag e linha no chat; quem não é dono pede ao Mestre pelo socket). |
-| `module/conditions/actions.mjs` | O que as condições proíbem ao usar uma habilidade (lido por `automation/use.mjs`) e ao mover o token, e as ações de cada Processo Principal (Acelerado, Lento). |
-| `module/conditions/turns.mjs` | Início do Processo Principal (Envenenado, Confuso), Ação Maior (Eletrificado, Intangível, Oculto), Encerramento (Queimando, Sentença, o que acaba na rodada), limiares dos acúmulos, Despertado que deixa Fadiga, Selado sem nome e a origem Incapacitada. |
+| `module/conditions/actions.mjs` | O que as condições proíbem ao usar uma habilidade (lido por `automation/use.mjs`) e ao mover o token, e as ações de cada turno (Acelerado, Lento). |
+| `module/conditions/turns.mjs` | Início do turno (Envenenado, Confuso), Ação Maior (Eletrificado, Intangível, Oculto), Encerramento (Queimando, Sentença, o que acaba na rodada), limiares dos acúmulos, Despertado que deixa Fadiga, Selado sem nome e a origem Incapacitada. |
 | `module/conditions/derived.mjs` | Defesas, Velocidade e Iniciativa na ficha. |
 | `module/conditions/recovery.mjs` | Livrar-se gastando a ação da regra (botão do HUD). |
 | `module/conditions/index.mjs` | Registra os ganchos. |
 
 Também tocam nas condições: `helpers/statuses.mjs` (a lista dos 54 estados, o painel da ficha por família, a
 sincronia campo ↔ efeito e os acúmulos), `automation/round.mjs` (perder a vez, o Encerramento, o fim do próprio
-Processo Principal), `automation/scenes.mjs` (fim de cena), `documents/eterniaCombat.mjs` (a ordem do Lento),
+Turno), `automation/scenes.mjs` (fim de cena), `documents/eterniaCombat.mjs` (a ordem do Lento),
 `chat/status-links.mjs` (estados clicáveis), `hud/` (painel de Estados) e `template.json` (os campos de Valor em
 `system.bad-status`).
 
@@ -53,7 +53,7 @@ Processo Principal), `automation/scenes.mjs` (fim de cena), `documents/eterniaCo
 - `conditionRules` (ligado): toda a automação das condições (`rulesOn()`). Desligada, as condições continuam como
   estados, sem efeito automático.
 - `conditionLimits` (avisar): o que as condições proíbem, em `off`, `warn` ou `block` (o Mestre sempre pode seguir).
-- `endOfProcess` (ligado): os estados que acabam no fim do Processo Principal de quem os recebeu.
+- `endOfProcess` (ligado): os estados que acabam no fim do turno de quem os recebeu.
 
 ## Flags de efeito e de habilidade
 

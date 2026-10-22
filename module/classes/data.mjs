@@ -16,7 +16,6 @@ export const CLASSES = {
     id: "samurai",
     motor: "samurai",
     color: "#8b2e2b",
-    img: "systems/eternia/assets/icons/classes/samurai.svg",
     // HP band of docs/classes.md
     band: "robust",
     // Talent branches, in the order of the tab

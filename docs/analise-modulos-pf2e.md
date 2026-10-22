@@ -18,10 +18,10 @@ Legenda do veredito:
 | HUD com painéis por categoria, atalhos fixos e tooltips | PF2e HUD, Token Action HUD, Argon | HUD de ações acima da barra de macros: testes, habilidades por Momento, Kuden, itens, estados, turno |
 | Rolar as defesas dos alvos sem caçar o cartão | Toolbelt (Target Helper) | Esquivas pendentes no HUD, roladas pelo botão do próprio cartão |
 | Pips de ações por rodada | Argon, Sundry (Reaction tracker) | Ações Maior, Menor e Movimento restantes no HUD |
-| Aviso quando começa a vez | Workbench (lembrete de ações) | Aviso com som no começo do seu Processo Principal |
+| Aviso quando começa a vez | Workbench (lembrete de ações) | Aviso com som no começo do seu turno |
 | Selecionar o token da vez | Workbench | Seleciona o token do dono (para o Mestre, os inimigos) |
 | Levar a tela até quem age | Sundry | Configuração de cliente |
-| Limpar os alvos no fim da vez | Toolbelt (antigo Untarget), Workbench | Limpa ao acabar o seu Processo Principal |
+| Limpar os alvos no fim da vez | Toolbelt (antigo Untarget), Workbench | Limpa ao acabar o seu turno |
 | Ctrl+clique num efeito do chat aplica nos selecionados | Ctrl-Click Effects | Estados escritos nos cartões viram links que aplicam pelo motor de estados do sistema |
 | Criar efeito a partir de qualquer cartão | Extempore Effects | "Criar efeito nos alvos" com as durações do sistema (Processo, Rodada, Cena) |
 | Bloquear ataque de quem não pode agir | Workbench (Cannot attack) | Aviso de Incapacitado ou Morto antes de usar uma habilidade |

@@ -60,7 +60,6 @@ export const SAMURAI = {
   states: ["sheathed", "drawn"],
   defaults: DEFAULTS,
   costKeyword: "Cortes",
-  icon: "systems/eternia/assets/icons/classes/samurai.svg",
 
   /** The cap of Cuts. */
   max(actor, { lesser }) {

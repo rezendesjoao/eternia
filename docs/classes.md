@@ -15,7 +15,7 @@ Uma classe é um **Motor**, uma regra que só ela tem, com tudo o mais girando e
 - **Dedicação:** a partir do NP 5, a versão menor do Motor de outra classe.
 - **Ápice:** no NP 10, transforma o Motor.
 
-Da base de Log Horizon fica a gramática: teste de 2D com crítico em dois ou mais 6, os Processos (Abertura,
+Da base de Log Horizon fica a gramática: teste de 2D com crítico em dois ou mais 6, os Processos (Manutenção,
 Iniciativa, Principal, Encerramento), os Momentos das habilidades, Ódio, Destino, quadrados, engajamento, as condições
 e as habilidades básicas. Saíram os arquétipos e o Kuden (veja [O que saiu do sistema](#o-que-saiu-do-sistema)).
 
@@ -154,7 +154,7 @@ O mapa que a lista de classes vai seguir. Se duas classes mexem na mesma parte d
 | Parte da regra | Exemplo de Motor | Ideia de classe |
 |---|---|---|
 | Tempo | Bainha: junta Cortes embainhado e saca no Processo de Iniciativa | Samurai |
-| Seus dados | Leitura: rola 2D na Abertura e guarda, para trocar um teste seu | Estrategista |
+| Seus dados | Leitura: rola 2D na Manutenção e guarda, para trocar um teste seu | Estrategista |
 | Dados dos outros | Padrão: um total de 2 a 12; quando ele sai, ganha Fios, que mudam dados em ±1 | Tecelão |
 | Ódio | Baluarte: um dado que cresce a cada Proteger | Guardião |
 | Risco | Calor: a magia esquenta e soma dano; no topo, Erupção ou Sobrecarga | Feiticeiro |
@@ -182,11 +182,12 @@ Na mesma versão da classe piloto, para o sistema nunca ter os dois:
   habilidades e o pacote `skills-archetype`. As Joias do Chamado da Vida olham a tag [Healing] (Cura) da classe.
 - **Forja:** era o construtor das peças do Kuden e nunca chegou a ser feita.
 - A migração `kudenCleanup` (`module/classes/migration.mjs`) tira dos mundos as condições dos tipos do Kuden, as flags
-  das peças, a tag e o ambiente das cenas, e o `archetype` dos itens de classe.
+  das peças, a tag e o ambiente das cenas, e o `archetype` dos itens de classe. Na versão 2 ela troca a imagem dos
+  itens que ainda apontam para um ícone de classe que saiu (o `samurai.svg`) pela imagem em branco.
 
 ## A classe piloto: o Samurai
 
-O Motor **Bainha** mexe no tempo: a lâmina Embainhada junta Cortes no Processo de Abertura, e o Iai, no Processo de
+O Motor **Bainha** mexe no tempo: a lâmina Embainhada junta Cortes na Manutenção, e o Iai, no Processo de
 Iniciativa de qualquer personagem, saca gastando todos (cada um soma 2D + NP; com a Bainha cheia, Corte Perfeito:
 acerto sem Esquiva e +[NP×2+10]). As regras como o jogador lê estão na página **XI. CLASSES** do diário AS REGRAS e
 na descrição de cada habilidade; o resumo está no README ("As classes").
@@ -216,11 +217,11 @@ Perfeito) antes da lista final.
 | Arquivo | O que faz |
 |---|---|
 | `module/classes/motor.mjs` | O Motor genérico: o registro (`registerMotor`), o estado no ator, o Teto, as habilidades de Motor e de Motor Menor, os requisitos (`motorUseIssues`), a ação que a habilidade gasta (`motorActionOf`), o plano antes do cartão (`planMotorUse`, que guarda `flags.eternia.motorUse`), a mudança depois (`commitMotorUse`) e o Desfazer, os valores das fórmulas e do custo, os bônus de rolagem, os estados que o dano dá e os eventos. |
-| `module/classes/samurai.mjs` | A Bainha: o Teto, o Corte Perfeito, os Caminhos, o Ápice e as reações (Abertura, Encerramento, início e fim do combate, ataque com arma, ataque sofrido, esquiva, inimigo derrubado). |
-| `module/classes/index.mjs` | Registra os Motores, embrulha `EterniaCombat#_onPhaseStart` (Abertura e Encerramento, uma vez, na janela do Mestre que mudou a fase) e ouve os eventos dos cartões (`eternia.attack`, `eternia.dodge`, `eternia.defeated`); a API `game.eternia.motor`. |
+| `module/classes/samurai.mjs` | A Bainha: o Teto, o Corte Perfeito, os Caminhos, o Ápice e as reações (Manutenção, Encerramento, início e fim do combate, ataque com arma, ataque sofrido, esquiva, inimigo derrubado). |
+| `module/classes/index.mjs` | Registra os Motores, embrulha `EterniaCombat#_onPhaseStart` (Manutenção e Encerramento, uma vez, na janela do Mestre que mudou a fase) e ouve os eventos dos cartões (`eternia.attack`, `eternia.dodge`, `eternia.defeated`); a API `game.eternia.motor`. |
 | `module/classes/progression.mjs` | O NP mudado à mão oferece o que a classe dá no NP; a Dedicação dá as habilidades dela ao ser aprendida e as tira junto. |
-| `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`) e os dados de cada classe para a aba (cor, ícone, faixa, ramos, Caminhos). |
-| `module/classes/migration.mjs` | A limpeza do Kuden e dos arquétipos. |
+| `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`) e os dados de cada classe para a aba (cor, faixa, ramos, Caminhos). |
+| `module/classes/migration.mjs` | A limpeza do Kuden e dos arquétipos, e dos ícones antigos das classes. |
 
 Também tocam nas classes: `automation/use.mjs` (requisitos, ação, plano, mudança e Desfazer do Motor; o custo
 "Hate 1+Cortes"), `helpers/skill-rolls.mjs` (acerto automático do Corte Perfeito, bônus do Motor, `damageText`),
@@ -256,9 +257,12 @@ O item `class` leva `identifier`, atributos, `hp`, `hpPerRank`, as tags de papel
    `costKeyword`, `max`, e o que a classe precisar de `issues`, `actionOf`, `plan`, `rollBonuses`, `onHit`,
    `display` e dos eventos), registrada em `index.mjs`.
 2. Os dados da aba em `data.mjs` (`CLASSES`) e os textos em `lang/pt-BR.json` e `lang/en.json` (`Motor.<Classe>`:
-   `Name`, `Unit`, `State`, `Card`; `Classes.<id>.Branch`).
+   `Name`, `Unit`, `State`, `Card` com `Gain`, `Spend`, `Cap` e `Reset`, e as versões `Lesser` da Dedicação;
+   `Classes.<id>.Branch`).
 3. O item de classe na pasta Classes de `races-classes` e as habilidades numa pasta com o nome da classe em
-   `skills-class` (o Samurai foi gerado por um script; a fonte é o JSON em `src/packs`).
+   `skills-class` (o Samurai foi gerado por um script; a fonte é o JSON em `src/packs`). Por enquanto as classes não
+   têm ícone: o item e a Dedicação usam `assets/icons/classes/blank.svg` (só o verde do emblema), e o medalhão da aba
+   Classe é só o verde.
 4. A página XI do diário AS REGRAS, o README e o CHANGELOG; `npm run packs:build` com o mundo fechado.
 
 As cópias das habilidades nas fichas guardam as flags de quando foram ganhas: a ferramenta de atualizar habilidades

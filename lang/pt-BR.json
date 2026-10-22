@@ -127,7 +127,7 @@
       "EndOfProcess": "Fim do processo",
       "EndOfRound": "Fim da rodada",
       "EndOfScene": "Fim da cena",
-      "Hint": "Fim do processo: expira quando o processo atual termina (o Processo Principal do personagem ativo, ou o Processo de Abertura/Encerramento). Fim da rodada: expira quando a próxima rodada começa. Fim da cena: expira quando o combate termina. Fora de combate, as durações não expiram sozinhas.",
+      "Hint": "Fim do processo: expira quando o processo atual termina (o turno do personagem ativo, ou a Manutenção ou o Processo de Encerramento). Fim da rodada: expira quando a próxima rodada começa. Fim da cena: expira quando o combate termina. Fora de combate, as durações não expiram sozinhas.",
       "Legend": "Duração de Eternia",
       "CoreLegend": "Duração do Foundry",
       "CoreHint": "Contada pelo Foundry em tempo ou em rodadas de combate, e só em efeitos que estão em um ator. Efeitos de Eternia normalmente usam a duração acima: deixe isto vazio. Efeitos aplicados ao usar uma habilidade ou item não a mantêm.",
@@ -223,7 +223,7 @@
         "Blocked": "Não é possível usar {name} agora: Momento {timing} ({reason}).",
         "GMOverride": "Momento {timing} ({reason}): uso liberado pelo Mestre.",
         "Reason": {
-          "NotTurn": "não é o seu Processo Principal",
+          "NotTurn": "não é o seu turno",
           "Phase": "fase atual: {phase}",
           "OutOfCombat": "apenas fora de combate",
           "Briefing": "apenas antes do início do combate"
@@ -732,24 +732,24 @@
       "Reveal": "Revelar",
       "Close": "Corpo a corpo",
       "Phase": {
-        "briefing": "Briefing",
-        "setup": "Abertura",
-        "main": "Principal",
+        "briefing": "Preparação",
+        "setup": "Manutenção",
+        "main": "Turno",
         "cleanup": "Encerramento"
       },
       "PhaseHint": {
         "briefing": "Antes do combate: perguntas sobre os inimigos, Reconhecimento e habilidades de [Preparação]. Não se ganha Ódio.",
-        "setup": "Processo de Abertura: todos voltam à Pré-Ação. Use ações de [Momento: Abertura].",
-        "main": "Iniciativa / Processo Principal: quem tem a maior Iniciativa age primeiro (PJs vencem empates). Ações de [Momento: Iniciativa] entre os turnos.",
+        "setup": "Manutenção: todos voltam à Pré-Ação. Use ações de [Momento: Manutenção].",
+        "main": "Iniciativa / Turno: quem tem a maior Iniciativa age primeiro (PJs vencem empates). Ações de [Momento: Iniciativa] entre os turnos.",
         "cleanup": "Processo de Encerramento: Regeneração/Deterioração, ações de [Momento: Encerramento], efeitos sustentados e, por fim, expiram os efeitos que duram até o fim da rodada."
       },
       "Setting": {
         "AnnouncePhases": "Anunciar as fases do combate no chat",
-        "AnnouncePhasesHint": "Publica uma mensagem no chat quando começam o Processo de Abertura e o de Encerramento de cada rodada."
+        "AnnouncePhasesHint": "Publica uma mensagem no chat quando começam a Manutenção e o Processo de Encerramento de cada rodada."
       },
       "AttackTags": "Tags de ataque",
       "Standby": "Espera",
-      "StandbyHint": "Espera: pule o seu Processo Principal por enquanto e aja depois de todos que não estão em Espera (a menor Iniciativa primeiro). Uma vez por rodada, antes de realizar qualquer ação.",
+      "StandbyHint": "Espera: pule o seu turno por enquanto e aja depois de todos que não estão em Espera (a menor Iniciativa primeiro). Uma vez por rodada, antes de realizar qualquer ação.",
       "StandbyDeclared": "Entra em <strong>Espera</strong>.",
       "ActionState": {
         "pre": "Pré",
@@ -757,8 +757,8 @@
         "standby": "Espera"
       },
       "ActionStateHint": {
-        "pre": "Pré-Ação: ainda não realizou o seu Processo Principal nesta rodada.",
-        "post": "Pós-Ação: já realizou o seu Processo Principal nesta rodada.",
+        "pre": "Pré-Ação: ainda não realizou o seu turno nesta rodada.",
+        "post": "Pós-Ação: já realizou o seu turno nesta rodada.",
         "standby": "Em Espera: age depois de todos os outros, a menor Iniciativa primeiro."
       }
     },
@@ -818,8 +818,8 @@
       "Arms": "Usado nos braços.",
       "Legs": "Usado nas pernas.",
       "DualWield": "Exige uma arma em cada mão.",
-      "Consumable": "O item é perdido ao ser usado. Diferente de outras ações, vários itens Consumíveis podem ser usados no mesmo Processo ou durante o Briefing.",
-      "Preparation": "Também pode ser usada com [Momento: Briefing] antes do combate sem gastar a ação do Briefing (ainda assim, só uma vez).",
+      "Consumable": "O item é perdido ao ser usado. Diferente de outras ações, vários itens Consumíveis podem ser usados no mesmo Processo ou durante a Preparação.",
+      "Preparation": "Também pode ser usada com [Momento: Preparação] antes do combate sem gastar a ação da Preparação (ainda assim, só uma vez).",
       "NotForSale": "Não pode ser comprado nem vendido em lojas.",
       "Untradeable": "Não pode ser trocado com outros personagens.",
       "Rare": "Item raro, normalmente um prêmio ou fabricado.",
@@ -843,13 +843,13 @@
       "M5": "Item de Grau Mágico 5.",
       "M6": "Item de Grau Mágico 6.",
       "Training": "Condicionamento ou treinamento. No máximo 2 habilidades de Treinamento no NP 1, 3 no NP 11 e 4 no NP 21 (o Nível de Habilidade não conta).",
-      "Style": "Estilo de luta. Só uma habilidade de [Estilo] beneficia o personagem por vez; troque-a como a ação do Processo de Abertura.",
+      "Style": "Estilo de luta. Só uma habilidade de [Estilo] beneficia o personagem por vez; troque-a como a ação da Manutenção.",
       "Stance": "Só uma [Postura] beneficia o personagem por vez; usar outra encerra a anterior.",
       "Harmony": "Canções de Bardo. Duram até o fim da Cena; por padrão só uma Harmonia ativa por vez, e cada alvo só recebe uma do mesmo tipo.",
       "ServantSummon": "Servos de Druida/Invocador. Duram até o fim da Cena; por padrão só um ativo por vez.",
       "Enchantment": "Habilidades de Encantador. Duram até o fim da Cena; por padrão só DUAS ativas por vez.",
-      "Swift": "Concede ações extras. No máximo uma ação [Veloz] durante o Briefing e durante cada Processo.",
-      "Scout": "Reúne informações sobre a próxima Cena quando usada durante o Briefing (só a situação inicial dela).",
+      "Swift": "Concede ações extras. No máximo uma ação [Veloz] durante a Preparação e durante cada Processo.",
+      "Scout": "Reúne informações sobre a próxima Cena quando usada durante a Preparação (só a situação inicial dela).",
       "Summon": "Invoca uma criatura.",
       "Combat": "Habilidade de combate.",
       "General": "Habilidade geral.",
@@ -1022,7 +1022,7 @@
       },
       "actions": {
         "Name": "Momento e economia de ações",
-        "Hint": "Em combate, confere se a habilidade é usada na hora certa (Ação Maior, Menor, de Movimento e Instantânea no seu Processo Principal, Abertura na Abertura, Encerramento no Encerramento) e se a ação do Processo Principal já foi gasta."
+        "Hint": "Em combate, confere se a habilidade é usada na hora certa (Ação Maior, Menor, de Movimento e Instantânea no seu turno, Manutenção na Manutenção, Encerramento no Encerramento) e se a ação do turno já foi gasta."
       },
       "hatePerCombat": {
         "Name": "Topo e Abaixo no Ódio por combate",
@@ -1033,8 +1033,8 @@
         "Hint": "No Processo de Encerramento de cada rodada, cura a Regeneração e depois aplica a Deterioração (que passa pela Barreira). Posta um resumo no chat."
       },
       "endOfProcess": {
-        "Name": "Estados que acabam no fim do Processo Principal",
-        "Hint": "Cambaleante, Atordoado, Paralisado, Silenciado e Provocado acabam no fim do Processo Principal de quem os recebeu. Com Aflito, os que ele protege continuam."
+        "Name": "Estados que acabam no fim do turno",
+        "Hint": "Cambaleante, Atordoado, Paralisado, Silenciado e Provocado acabam no fim do turno de quem os recebeu. Com Aflito, os que ele protege continuam."
       },
       "incapacitated": {
         "Name": "Incapacitado automático",
@@ -1086,19 +1086,19 @@
       },
       "turnNotice": {
         "Name": "Aviso da sua vez",
-        "Hint": "Avisa, com um som, quando começa o Processo Principal de um personagem seu."
+        "Hint": "Avisa, com um som, quando começa o turno de um personagem seu."
       },
       "turnSelect": {
         "Name": "Selecionar o token na sua vez",
-        "Hint": "Quando começa o Processo Principal de um personagem seu, o token dele fica selecionado (para o Mestre: os inimigos e PdMs que nenhum jogador controla)."
+        "Hint": "Quando começa o turno de um personagem seu, o token dele fica selecionado (para o Mestre: os inimigos e PdMs que nenhum jogador controla)."
       },
       "turnPan": {
         "Name": "Levar a tela até quem age",
-        "Hint": "Quando começa um Processo Principal, a tela vai até o token de quem age."
+        "Hint": "Quando começa um turno, a tela vai até o token de quem age."
       },
       "turnUntarget": {
         "Name": "Limpar os alvos no fim da sua vez",
-        "Hint": "Quando acaba o Processo Principal de um personagem seu, os seus alvos são desmarcados, para a próxima habilidade não ir para o alvo antigo."
+        "Hint": "Quando acaba o turno de um personagem seu, os seus alvos são desmarcados, para a próxima habilidade não ir para o alvo antigo."
       },
       "statusLinks": {
         "Name": "Estados clicáveis no chat",
@@ -1151,15 +1151,15 @@
       "UseAnyway": "Usar mesmo assim",
       "Cancel": "Cancelar",
       "Blocked": "{name} não pode ser usada agora. {reasons}",
-      "OutsideProcess": "Não é o seu Processo Principal.",
-      "OnlySetup": "Habilidades de Abertura só no Processo de Abertura.",
+      "OutsideProcess": "Não é o seu turno.",
+      "OnlySetup": "Habilidades de Manutenção só na Manutenção.",
       "OnlyCleanup": "Habilidades de Encerramento só no Processo de Encerramento.",
-      "OnlyBriefing": "Habilidades de Briefing só antes de o combate começar.",
+      "OnlyBriefing": "Habilidades de Preparação só antes de o combate começar.",
       "OnlyOutOfCombat": "Esta habilidade é usada fora de combate.",
       "ActionSpent": {
-        "major": "A Ação Maior deste Processo Principal já foi usada.",
-        "minor": "A Ação Menor deste Processo Principal já foi usada.",
-        "move": "A Ação de Movimento deste Processo Principal já foi usada."
+        "major": "A Ação Maior deste turno já foi usada.",
+        "minor": "A Ação Menor deste turno já foi usada.",
+        "move": "A Ação de Movimento deste turno já foi usada."
       },
       "LimitReached": "Limite atingido: {uses}/{max} {per}.",
       "Per": {
@@ -1188,7 +1188,7 @@
       "CrLocked": "A partir do NP {lock}, o efeito deste item não pode ser usado.",
       "MinHate": "Ódio insuficiente: precisa de {need}, tem {have}.",
       "NoRankSkill": "O limite de usos vem do NH de \"{skill}\", que o personagem não tem.",
-      "AlreadyActed": "Só antes do seu Processo Principal nesta rodada (Pré-Ação).",
+      "AlreadyActed": "Só antes do seu turno nesta rodada (Pré-Ação).",
       "Incapacitated": "{name} está Incapacitado e não pode agir."
     },
     "Cards": {
@@ -1319,7 +1319,7 @@
         "move": "Ação de Movimento",
         "instant": "Ação Instantânea",
         "reaction": "Reações",
-        "setup": "Abertura e Iniciativa",
+        "setup": "Manutenção e Iniciativa",
         "cleanup": "Encerramento",
         "constant": "Constantes",
         "downtime": "Fora de combate",
@@ -1413,7 +1413,7 @@
       "JoinFailed": "Não foi possível entrar no combate. Peça ao Mestre.",
       "NoToken": "Este personagem não tem token nesta cena.",
       "End": "Encerrar",
-      "EndHint": "Encerrar o seu Processo Principal",
+      "EndHint": "Encerrar o seu turno",
       "Action": {
         "major": "Ação Maior",
         "minor": "Ação Menor",
@@ -1439,7 +1439,7 @@
       }
     },
     "Turn": {
-      "Notice": "Começou o Processo Principal de {name}!"
+      "Notice": "Começou o turno de {name}!"
     },
     "StatusLink": {
       "Hint": "Clique: aplicar nos seus alvos (ou nos tokens selecionados)",
@@ -1466,17 +1466,17 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.7: as classes</strong></p><ul><li><strong>O Samurai</strong>, a primeira classe da Eternia, no compêndio Raças e Classes (pasta Classes), com 36 habilidades automatizadas.</li><li><strong>Motor: Bainha.</strong> A lâmina Embainhada junta Cortes no Processo de Abertura; o Iai saca antes de todos e gasta todos de uma vez. Com a Bainha cheia, é um Corte Perfeito.</li><li><strong>Aba Classe</strong> na ficha: a base, o Motor, os talentos por ramo, o Caminho (NP 3), o Ápice (NP 10) e as Dedicações. O Motor também aparece no HUD e no token.</li><li><strong>Dedicação:</strong> a partir do NP 5, personagens de outras classes podem pegar a Bainha Menor e os talentos [Dedicação] do Samurai.</li><li><strong>Saíram</strong> o Kuden e os arquétipos de Log Horizon. As regras novas estão na página XI. CLASSES do diário AS REGRAS.</li></ul><p>Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.7: as classes</strong></p><ul><li><strong>O Samurai</strong>, a primeira classe da Eternia, no compêndio Raças e Classes (pasta Classes), com 36 habilidades automatizadas.</li><li><strong>Motor: Bainha.</strong> A lâmina Embainhada junta Cortes na Manutenção; o Iai saca antes de todos e gasta todos de uma vez. Com a Bainha cheia, é um Corte Perfeito.</li><li><strong>Aba Classe</strong> na ficha: a base, o Motor, os talentos por ramo, o Caminho (NP 3), o Ápice (NP 10) e as Dedicações. O Motor também aparece no HUD e no token.</li><li><strong>Dedicação:</strong> a partir do NP 5, personagens de outras classes podem pegar a Bainha Menor e os talentos [Dedicação] do Samurai.</li><li><strong>Saíram</strong> o Kuden e os arquétipos de Log Horizon. As regras novas estão na página XI. CLASSES do diário AS REGRAS.</li></ul><p>Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
       "weakness": "[Fraqueza (Tag): n]: ao falhar na Esquiva contra um ataque com essa tag (ou qualquer um, sem tag), sofre +n de dano direto. Só a de maior Valor vale em cada ataque.",
       "incapacitated": "Com 0 PV: não age, não faz testes e fica sempre em Pós-Ação. Aventureiros se recuperam no fim da cena; inimigos morrem.",
       "dead": "Fora de jogo pela cena. Aventureiros revivem no fim da cena com 1 PV e Fadiga igual ao resto dos PV máximos.",
-      "staggered": "−1D nas ações de Momento Maior e Processo Principal. Sai no fim do seu Processo Principal.",
-      "dazed": "−1D nas Esquivas; não reage a testes contra si nem usa Obstrução. Sai no fim do seu Processo Principal.",
+      "staggered": "−1D nas ações de Momento Maior e Turno. Sai no fim do seu turno.",
+      "dazed": "−1D nas Esquivas; não reage a testes contra si nem usa Obstrução. Sai no fim do seu turno.",
       "rigor": "Não realiza ações com a tag [Movimento], não move o token nem usa Obstrução. Sai com uma Ação Menor ou Maior.",
-      "confused": "−1D em todos os testes e +1 de Ódio no início de cada Processo Principal. Sai com uma Ação Maior.",
+      "confused": "−1D em todos os testes e +1 de Ódio no início de cada turno. Sai com uma Ação Maior.",
       "decay": "[Deterioração: n]: sofre n de dano no Encerramento. Fica a de maior Valor. Sai com uma Ação Maior.",
       "pursuit": "[Perseguição: n]: ao falhar na Esquiva, sofre +n de dano direto e essa Perseguição sai. Várias se acumulam.",
       "afflicted": "Impede que Cambaleante, Atordoado, Confuso, Fraqueza, Presunçoso, Medo e Encantado saiam. Sai com uma Ação Menor ou Maior.",
@@ -1488,26 +1488,26 @@
       "swimming": "−1D em todos os testes. Apaga Queimando.",
       "flying": "Ignora objetos de cena com [Terreno] e só sofre Obstrução de quem também voa.",
       "identified": "O Mestre revela as defesas, o multiplicador de Ódio e as habilidades do inimigo.",
-      "standby": "Adiou o Processo Principal: age depois de todos os que não estão em Espera.",
+      "standby": "Adiou o turno: age depois de todos os que não estão em Espera.",
       "hateTop": "Tem o maior Ódio do combate: recebe o dano de Ódio dos ataques inimigos.",
       "hateUnder": "Ódio abaixo do Topo: +2 nas Esquivas.",
       "absent": "Fora da cena: passa a vez.",
-      "paralyzed": "Não realiza nenhuma ação do Processo Principal nem reações, e sofre −1D nas Esquivas. Perde a vez: sai no fim do seu Processo Principal.",
+      "paralyzed": "Não realiza nenhuma ação do turno nem reações, e sofre −1D nas Esquivas. Perde a vez: sai no fim do seu turno.",
       "asleep": "Não age nem reage, e falha automaticamente nas Esquivas. Sai ao sofrer dano, ou quando alguém gasta uma Ação Menor para acordá-lo.",
       "rooted": "Preso ao chão: não realiza ações com a tag [Movimento], não move o token e sofre −1D nas Esquivas. Sai no Encerramento.",
       "prone": "No chão: −1D nos seus ataques Corpo a corpo e nas Esquivas contra ataques Corpo a corpo. Levantar gasta a Ação de Movimento.",
       "slowed": "Fica sem a Ação de Movimento e age depois de todos os que não estão Lentos. Sai no Encerramento.",
       "grappled": "Preso por quem o agarrou: não realiza ações com a tag [Movimento], não move o token e só ataca quem o agarrou. Sai com uma Ação Maior ou se quem agarrou ficar Incapacitado.",
-      "silenced": "Não usa habilidades com as tags [Ataque Mágico], [Feitiço] ou [Canção]. Sai no fim do seu Processo Principal.",
+      "silenced": "Não usa habilidades com as tags [Ataque Mágico], [Feitiço] ou [Canção]. Sai no fim do seu turno.",
       "disarmed": "Não usa ataques com arma ([Ataque com Arma], [Ataque Corpo a Corpo], [Ataque à Distância], [Ataque com Espada] ou Alcance: Arma). Recuperar a arma gasta uma Ação Menor.",
       "blinded": "−1D em todos os testes (menos Resistência) e só ataca quem está a até 1 quadrado. Sai no Encerramento.",
       "sealed": "[Selado (Habilidade)]: essa habilidade não pode ser usada. Sem nome, sela a última que o personagem usou. Sai no fim da cena.",
       "frightened": "−1D em todos os testes contra quem causou o Medo, e não se aproxima dele. Sai no Encerramento.",
       "charmed": "Não ataca quem o encantou e sofre −1D nas Esquivas contra ele. Sai se essa pessoa lhe causar dano, ou com uma Ação Maior.",
-      "taunted": "As suas habilidades hostis precisam ter como alvo quem o provocou. Sai no fim do seu Processo Principal.",
+      "taunted": "As suas habilidades hostis precisam ter como alvo quem o provocou. Sai no fim do seu turno.",
       "berserk": "[Fúria: n]: +n de dano nos ataques, −1D nas Esquivas, e só usa habilidades que atacam (e as de movimento). Sai com uma Ação Maior ou no fim da cena.",
       "burning": "[Queimando: n]: sofre n de dano de [Chama] no Encerramento. Fica o de maior Valor. Sai com uma Ação Menor (apagar o fogo) ou ao ficar Nadando.",
-      "poisoned": "[Envenenado: n]: sofre n de dano direto no início de cada Processo Principal e −1D nas Resistências. Fica o de maior Valor. Sai com uma Ação Maior.",
+      "poisoned": "[Envenenado: n]: sofre n de dano direto no início de cada turno e −1D nas Resistências. Fica o de maior Valor. Sai com uma Ação Maior.",
       "freezing": "[Congelando: n] (até 3 acúmulos): −1 de Velocidade e de Iniciativa por acúmulo. No terceiro, congela: fica Paralisado e os acúmulos zeram. Dano de [Chama] remove tudo. Sai com uma Ação Maior.",
       "shocked": "[Eletrificado: n]: sofre n de dano direto sempre que usa uma Ação Maior, e não usa reações. Fica o de maior Valor. Sai no Encerramento.",
       "cursed": "Não recupera PV (cura, Regeneração e itens) e efeitos não lhe dão Barreira nem Regeneração. Sai no fim da cena.",
@@ -1515,7 +1515,7 @@
       "fissured": "[Fissurado: n] (até 3 acúmulos): −2 de Defesa Física e Mágica por acúmulo. No terceiro, a guarda quebra: os acúmulos zeram, a Barreira some e ele fica Exposto. Sai com uma Ação Maior.",
       "marked": "[Marcado: n]: −1D nas Esquivas; ao falhar numa Esquiva, sofre +n de dano direto e a marca sai. Fica a de maior Valor.",
       "doom": "[Sentença: n]: o Valor cai 1 em cada Encerramento; ao chegar a 0, o personagem fica Incapacitado. Só sai antes com o que remove Estados Negativos.",
-      "hasted": "Tem uma segunda Ação Menor em cada Processo Principal.",
+      "hasted": "Tem uma segunda Ação Menor em cada turno.",
       "empowered": "[Fortalecido: n]: +n de dano nos ataques. Fica o de maior Valor.",
       "focused": "+1D no próximo teste que fizer (Esquiva inclusive); sai depois dele.",
       "mirror": "[Espelho: n]: quando sofre dano de um ataque, quem atacou sofre n de dano direto.",
@@ -1559,7 +1559,7 @@
       },
       "Freed": "{name} se livra de {status}: {source} está Incapacitado.",
       "LostTurnTitle": "Perdeu a vez",
-      "LostTurn": "{name} ({statuses}) perde o Processo Principal.",
+      "LostTurn": "{name} ({statuses}) perde o turno.",
       "Use": {
         "NoActions": "{name} está {status} e não age.",
         "NoMovement": "{name} está {status}: sem ações de [Movimento].",
@@ -1580,8 +1580,8 @@
       "Recover": {
         "Hint": "Livrar-se com {actions}",
         "Or": " ou ",
-        "NotYourProcess": "{name} só se livra disso no próprio Processo Principal.",
-        "NoAction": "{name} não tem mais {actions} neste Processo Principal.",
+        "NotYourProcess": "{name} só se livra disso no próprio turno.",
+        "NoAction": "{name} não tem mais {actions} neste turno.",
         "Done": "{name} gasta a {action} e se livra de {status}.",
         "DoneFree": "{name} se livra de {status}.",
         "Afflicted": "{name} está Aflito: não se livra de {status}."
@@ -1842,7 +1842,7 @@
         },
         "trap": {
           "name": "Armadilha",
-          "text": "Na Abertura (ou fora de combate), arme uma bomba ou uma rede num quadrado da cena: ela dispara no primeiro inimigo que entrar nele."
+          "text": "Na Manutenção (ou fora de combate), arme uma bomba ou uma rede num quadrado da cena: ela dispara no primeiro inimigo que entrar nele."
         },
         "masterpiece": {
           "name": "Obra-prima",
@@ -1949,7 +1949,7 @@
         "NoSkill": "Escolha uma habilidade sua.",
         "NotTrap": "Só bombas e redes viram armadilhas.",
         "NoScene": "Abra uma cena para armar a armadilha.",
-        "TrapPhase": "Armadilhas se armam na Abertura (ou fora de combate).",
+        "TrapPhase": "Armadilhas se armam na Manutenção (ou fora de combate).",
         "Missing": "A profissão não está no compêndio."
       },
       "Gather": {
@@ -2198,16 +2198,14 @@
         "FullMoonIssue": "Caminho da Lua Cheia: o Iai só sai com a Bainha cheia ({n} Cortes).",
         "PerfectReady": "Corte Perfeito pronto",
         "Card": {
-          "Gain": "No Processo de Abertura, com a lâmina Embainhada: +1 Corte.",
+          "Gain": "Na Manutenção, com a lâmina Embainhada: +1 Corte.",
           "Spend": "O Iai (Iniciativa, gasta a Ação Maior) saca e gasta todos: cada Corte soma 2D + NP ao dano.",
           "Cap": "2 Cortes, +1 a cada 5 NP. Com a Bainha cheia, Corte Perfeito: acerto automático e +[NP×2+10].",
           "Reset": "Qualquer outro ataque com arma desembainha a lâmina e perde os Cortes. Embainhar é uma Ação Menor.",
-          "Decision": "Sacar agora, ou esperar mais um Corte?",
-          "GainLesser": "No Processo de Abertura, com a lâmina Embainhada: +1 Corte.",
+          "GainLesser": "Na Manutenção, com a lâmina Embainhada: +1 Corte.",
           "SpendLesser": "O Iai saca e gasta todos: cada Corte soma 2D + NP ao dano, sem Corte Perfeito.",
           "CapLesser": "Metade do Teto da Bainha, no mínimo 1.",
-          "ResetLesser": "Qualquer outro ataque com arma desembainha a lâmina e perde os Cortes.",
-          "DecisionLesser": "Sacar agora, ou esperar mais um Corte?"
+          "ResetLesser": "Qualquer outro ataque com arma desembainha a lâmina e perde os Cortes."
         }
       }
     },
@@ -2216,8 +2214,7 @@
         "Gain": "Ganha",
         "Spend": "Gasta",
         "Cap": "Teto",
-        "Reset": "Zera",
-        "Decision": "A pergunta"
+        "Reset": "Zera"
       },
       "Kind": {
         "motor": "Motor",
