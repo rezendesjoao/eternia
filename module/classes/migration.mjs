@@ -8,6 +8,8 @@
  * - The `archetype` of the class items.
  * Version 2, the class icons that left the system (a class is only the green until it has its own): the `img` of the
  * items that still point at one.
+ * Version 3, the class emblems (tools/make-class-icons.mjs): the class items and the Dedications of the system's
+ * classes that still have the blank picture (or the old icon) take their emblem.
  */
 const KUDEN_TYPES = new Set(["kudenResource", "kudenResourceFull", "sceneDay", "sceneNight", "sceneNoon", "sceneOpenSky",
   "sceneDarkness", "sceneMiasma", "sceneNoMiasma", "targetBossRaid", "hpAtMost"]);
@@ -15,6 +17,20 @@ const KUDEN_TYPES = new Set(["kudenResource", "kudenResourceFull", "sceneDay", "
 /** The class icons that no longer exist, and the picture of a class without its icon. */
 const OLD_ICONS = new Set(["systems/eternia/assets/icons/classes/samurai.svg"]);
 const CLASS_IMG = "systems/eternia/assets/icons/classes/blank.svg";
+
+/** The classes with an emblem: assets/icons/classes/<id>.svg, and <id>-dedicacao.svg for their Dedication. */
+const EMBLEMS = new Set(["assassino", "berserker", "cacador", "comandante", "druida", "estrategista", "feiticeiro",
+  "guardiao", "invocador", "menestrel", "monge", "oraculo", "ressonante", "sacerdote", "samurai", "tecelao"]);
+const emblem = id => `systems/eternia/assets/icons/classes/${id}.svg`;
+
+/** The emblem an item of a class (or of its Dedication) takes, or null. */
+function emblemOf(item) {
+  const source = item._source;
+  if ((item.type === "class") && EMBLEMS.has(source.system?.identifier)) return emblem(source.system.identifier);
+  const dedication = source.flags?.eternia?.dedication?.id;
+  if ((item.type === "skill") && EMBLEMS.has(dedication)) return emblem(`${dedication}-dedicacao`);
+  return null;
+}
 
 const listOf = value => (Array.isArray(value) ? value : Object.values(value ?? {}));
 const stale = list => listOf(list).some(c => KUDEN_TYPES.has(c?.type));
@@ -32,6 +48,8 @@ function itemChanges(item, done) {
     if (stale(source.system?.conditions)) update["system.conditions"] = kept(source.system.conditions);
   }
   if (OLD_ICONS.has(source.img)) update.img = CLASS_IMG;
+  if (OLD_ICONS.has(source.img) || (source.img === CLASS_IMG)) update.img = emblemOf(item) ?? update.img;
+  if (update.img === source.img) delete update.img;
   return foundry.utils.isEmpty(update) ? null : update;
 }
 
@@ -74,4 +92,4 @@ async function run(done) {
   return true;
 }
 
-export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 2, run };
+export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 3, run };

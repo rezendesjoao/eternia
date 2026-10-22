@@ -167,6 +167,7 @@ export async function classContext(actor, { editable }) {
     id: def?.id ?? job.system.identifier,
     itemId: job.id,
     name: job.name,
+    img: (job.img && !job.img.endsWith("/blank.svg")) ? job.img : "",
     color: def?.color ?? "#1f5137",
     roles: (job.system.tags ?? []).map(tagLabel),
     base,

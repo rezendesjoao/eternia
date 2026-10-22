@@ -59,7 +59,7 @@
 
 		{{!-- Crest: the class and its base --}}
 		<div class="lhcl-crest" style="--lhcl-color: {{c.color}}">
-			<a class="lhcl-medallion" data-action="class-img" data-tooltip="{{localize 'ETERNIA.Classes.OpenClass'}}" aria-label="{{c.name}}"></a>
+			<a class="lhcl-medallion{{#if c.img}} has-img{{/if}}" data-action="class-img" data-tooltip="{{localize 'ETERNIA.Classes.OpenClass'}}" aria-label="{{c.name}}">{{#if c.img}}<img src="{{c.img}}" alt="">{{/if}}</a>
 			<div class="lhcl-crest-body">
 				<span class="lhcl-eyebrow">{{localize "ETERNIA.Classes.Eyebrow"}}</span>
 				<h2 class="lhcl-name">{{c.name}}</h2>

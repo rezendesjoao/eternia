@@ -5,9 +5,12 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.8.3
+## Versão 0.8.4
 
-- **Novo na 0.8.3: os dados se escrevem 2d6, na frente da fórmula.** "[Poder de Ataque + 2D]" virou
+- **Novo na 0.8.4: os emblemas das 16 classes**, no jeito dos de Log Horizon: a moldura e as cores dizem a família
+  e o símbolo diz a classe. Aparecem na aba Classe, no item da classe e, com um selo "+", na Dedicação (veja
+  [As classes](#as-classes)).
+- **Desde a 0.8.3: os dados se escrevem 2d6, na frente da fórmula.** "[Poder de Ataque + 2D]" virou
   "[2d6 + Poder de Ataque]" e "+1D no teste" virou "+1d6 no teste", em todos os textos, nas fichas e nos
   cartões; os textos antigos dos mundos aparecem no padrão novo sozinhos.
 - **Desde a 0.8.2: o Switch.** Uma habilidade básica nova para todo personagem: você e um aliado a até 2 Qd trocam
@@ -165,6 +168,10 @@ gira em volta dele (veja `docs/classes.md` e as páginas **XI. CLASSES** do diá
 - **Dedicação (NP 5):** a multiclasse. Um personagem de outra classe ganha o Motor Menor (Teto pela metade) e abre os
   talentos [Dedicação], dois NP depois.
 - **Ápice (NP 10):** dado sem pedir, transforma o Motor.
+- **Emblema:** cada classe tem o seu, no jeito dos emblemas de Log Horizon: a moldura e as cores dizem a família
+  (losango verde para quem segura a linha de frente, quadrado creme para quem ataca com arma, círculo rosa para quem
+  cura, hexágono turquesa para a magia) e o símbolo diz a classe. Aparece na aba Classe, no item da classe e, com um
+  selo "+", na Dedicação.
 
 | Classe | Papéis | Motor |
 |---|---|---|

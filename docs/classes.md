@@ -186,7 +186,8 @@ Na mesma versão da classe piloto, para o sistema nunca ter os dois:
 - **Forja:** era o construtor das peças do Kuden e nunca chegou a ser feita.
 - A migração `kudenCleanup` (`module/classes/migration.mjs`) tira dos mundos as condições dos tipos do Kuden, as flags
   das peças, a tag e o ambiente das cenas, e o `archetype` dos itens de classe. Na versão 2 ela troca a imagem dos
-  itens que ainda apontam para um ícone de classe que saiu (o `samurai.svg`) pela imagem em branco.
+  itens que ainda apontam para um ícone de classe que saiu (o `samurai.svg`) pela imagem em branco. Na versão 3, o
+  item de classe e a Dedicação das 16 classes que ainda têm a imagem em branco ganham o emblema da classe.
 
 ## As classes
 
@@ -716,9 +717,12 @@ O item `class` leva `identifier`, atributos, `hp`, `hpPerRank`, as tags de papel
 3. O item de classe na pasta Classes de `races-classes` e as habilidades numa pasta com o nome da classe em
    `skills-class` (as classes foram geradas por scripts; a fonte é o JSON em `src/packs`). A classe tem 36 habilidades:
    o kit, 16 talentos (6 [Dedicação]), 4 Gerais, 3 Caminhos com 2 talentos, o Ápice, a Dedicação e o Motor Menor; cada
-   habilidade com um ícone só seu e um nome que nenhuma outra usa. Por enquanto as classes não
-   têm ícone: o item e a Dedicação usam `assets/icons/classes/blank.svg` (só o verde do emblema), e o medalhão da aba
-   Classe é só o verde.
+   habilidade com um ícone só seu e um nome que nenhuma outra usa. O emblema da classe sai de
+   `tools/make-class-icons.mjs` (no jeito dos emblemas de Log Horizon: a família dá a moldura e as cores, losango verde
+   para guerreiro, quadrado creme para ataque com arma, círculo rosa para cura e hexágono turquesa para magia, e a classe
+   dá o símbolo): `assets/icons/classes/<id>.svg` no item de classe e no medalhão da aba Classe, e `<id>-dedicacao.svg`
+   (com o selo "+") na Dedicação. Uma classe nova ganha a família em `CLASS_FAMILY` e o símbolo em `GLYPHS`; sem
+   emblema, usa `blank.svg` (só o verde).
 4. A página da classe no diário AS REGRAS (e a linha dela em XI.b), o README e o CHANGELOG; `npm run packs:build` com o
    mundo fechado.
 

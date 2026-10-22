@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.8.4 — 2026-10-22
+
+### Adicionado
+- **Os emblemas das 16 classes**, no jeito dos emblemas de Log Horizon: a família dá a moldura e as cores (losango
+  verde para Guardião, Samurai, Monge e Ressonante; quadrado creme para Assassino, Berserker, Caçador, Comandante e
+  Menestrel; círculo rosa para Sacerdote, Druida e Oráculo; hexágono turquesa para Feiticeiro, Invocador, Estrategista
+  e Tecelão) e a classe dá o símbolo (o escudo, a katana, o punho, a gema, o punhal, o machado duplo, o arco, o
+  estandarte, a lira, o sol, a pegada, o olho, a chama, o círculo de invocação, os dados, o carretel). Aparecem no
+  brasão da aba Classe, no item da classe e, com um selo "+", na Dedicação. Gerados por `tools/make-class-icons.mjs`.
+- A migração `kudenCleanup` (versão 3) põe o emblema nos itens de classe e nas Dedicações dos mundos que ainda têm a
+  imagem em branco.
+
 ## 0.8.3 — 2026-10-22
 
 ### Alterado
