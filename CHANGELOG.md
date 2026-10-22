@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.5 — 2026-10-22
+
+### Alterado
+- A ficha de habilidade ganhou a aba **Detalhes**, entre Descrição e Efeitos: NH, Momento, Teste, Alvo, Alcance, Custo,
+  Limite, Dano e Macro saíram de cima da descrição e foram para ela. A aba Descrição, que abre primeiro, mostra só o
+  texto da habilidade.
+
 ## 0.8.4 — 2026-10-22
 
 ### Adicionado

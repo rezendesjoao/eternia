@@ -5,9 +5,11 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.8.4
+## Versão 0.8.5
 
-- **Novo na 0.8.4: os emblemas das 16 classes**, no jeito dos de Log Horizon: a moldura e as cores dizem a família
+- **Novo na 0.8.5: a aba Detalhes na ficha de habilidade.** NH, Momento, Teste, Alvo, Alcance, Custo, Limite, Dano e
+  Macro ficam nela, entre Descrição e Efeitos; a Descrição mostra só o texto.
+- **Desde a 0.8.4: os emblemas das 16 classes**, no jeito dos de Log Horizon: a moldura e as cores dizem a família
   e o símbolo diz a classe. Aparecem na aba Classe, no item da classe e, com um selo "+", na Dedicação (veja
   [As classes](#as-classes)).
 - **Desde a 0.8.3: os dados se escrevem 2d6, na frente da fórmula.** "[Poder de Ataque + 2D]" virou
