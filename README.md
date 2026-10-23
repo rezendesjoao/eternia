@@ -5,9 +5,12 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.10.0
+## Versão 0.10.1
 
-- **Novo na 0.10.0: o Mago Negro e as Magias.** A classe diz como você conjura e a Magia diz o que você conjura: o
+- **Novo na 0.10.1: vários NH de uma vez no navegador de habilidades.** Depois de escolher, o botão de subir fica no
+  lugar: cada clique põe mais um NH na seleção (adquirir e subir, ou subir duas vezes), até o NH Máximo e o NP, e um
+  talento pode ser escolhido junto com o que ele pede.
+- **Desde a 0.10.0: o Mago Negro e as Magias.** A classe diz como você conjura e a Magia diz o que você conjura: o
   Mago Negro escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10, entre Água, Artes Negras, Corpos Celestes
   e Esmagamento, e a Pressão sobe a cada feitiço até a Liberação (veja [As Magias](#as-magias)). Também novo: o resumo
   ao mudar o NP (pelo botão ou digitando), com os atributos, os PV, as escolhas e o que a classe dá, e o navegador de
@@ -117,6 +120,8 @@ texto.
 O **navegador de habilidades** abre mostrando só o que o personagem pode escolher agora: as habilidades de NP acima
 do dele, as que pedem outra antes e as que já estão no NH máximo ficam escondidas, com uma nota de quantas são. A
 caixa "Só o que posso escolher" (ou o link "Mostrar todas") mostra a lista inteira, com o motivo de cada bloqueio.
+Clicar de novo no botão de subir põe mais um NH da mesma habilidade na seleção (adquirir e subir, ou subir duas vezes),
+até o NH Máximo e o NP do personagem, e um talento pode ser escolhido junto com o que ele pede.
 
 As **caixas de mensagem** (avisos, confirmações e escolhas) seguem um padrão só: a barra verde com borda dourada, o
 pergaminho e dois botões do mesmo tamanho, a ação em verde e Cancelar em pergaminho (quando a ação vai contra um

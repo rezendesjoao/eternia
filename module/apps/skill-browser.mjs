@@ -2,8 +2,9 @@
  * Skill selection window (in the spirit of the PF2e Compendium Browser): Combat / General / Basic tabs,
  * search and source filter over every skill of the Item compendiums, and a selection confirmed at
  * once. It opens showing only what the character can pick now: the skills of a higher CR, those missing a
- * requirement and those at their Maximum SR are hidden until "only what I can pick" is unchecked. A skill is either
- * acquired (SR 1) or, when the character has it, raised by one SR, never beyond its Maximum SR or the character's CR.
+ * requirement and those at their Maximum SR are hidden until "only what I can pick" is unchecked. Each pick acquires
+ * a skill (SR 1) or raises it by one SR, and one skill can take several picks of a selection (acquired and raised, or
+ * raised twice), never beyond its Maximum SR or the character's CR. A talent can be picked with the one it requires.
  *
  * At character creation and after a CR Up the character has skills to choose
  * (`flags.eternia.skillProgress`): the window counts them down. Opened from the sheet without pending
@@ -86,6 +87,9 @@ const MAX_DEDICATIONS = 2;
 const TALENTS_BEFORE_SECOND = 2;
 /** CR a Dedication adds to the CR from which a talent it opens can be learned. */
 const DEDICATION_DELAY = 2;
+
+/** A string of the window. */
+const T = (key, data) => (data ? game.i18n.format(`ETERNIA.SkillBrowser.${key}`, data) : game.i18n.localize(`ETERNIA.SkillBrowser.${key}`));
 
 /* -------------------------------------------- */
 /*  Index                                       */
@@ -450,7 +454,7 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     this.query = "";
     /** Only the skills the character can pick now (not those of a higher CR, missing a requirement or capped) */
     this.available = true;
-    /** uuid -> index entry picked (acquire or raise one SR) */
+    /** uuid -> pick: the skill and `count`, the SRs it gains (the first acquires it when the character lacks it) */
     this.picks = new Map();
     /** uuids whose description is shown */
     this.expanded = new Set();
@@ -511,27 +515,71 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     return PICK_SUBTYPES.some(s => pending[s] > 0) ? pending : null;
   }
 
-  /** Picks of a subtype in the current selection. */
+  /** Picks of a subtype in the current selection (a skill raised twice counts two). */
   #picked(subtype) {
-    return [...this.picks.values()].filter(p => p.subtype === subtype).length;
+    return [...this.picks.values()].filter(p => p.subtype === subtype).reduce((n, p) => n + p.count, 0);
+  }
+
+  /**
+   * What judging the skills needs: the character's lists (with the identifiers of the selection, so a talent can be
+   * picked with the one it requires), its CR, the picks owed and the [Training] skills left.
+   * @param {object[]} index  The skill index
+   */
+  #context(index) {
+    const actor = this.actor;
+    const lists = skillLists(actor);
+    for (const pick of this.picks.values()) if (pick.identifier) lists.identifiers.add(pick.identifier);
+    // [Training] skills left at creation: the limit minus the new ones picked.
+    let training = getTrainingLimit(actor);
+    if (training !== null) training -= [...this.picks.values()].filter(p => p.training && !p.owned).length;
+    return { index, lists, rank: rankOf(actor), quota: this.quota, training };
+  }
+
+  /**
+   * Where a skill stands: the SR it has, the picks it has in the selection and why one SR more can't be picked now
+   * (`reason`, empty when it can).
+   * @param {object} entry   Index entry
+   * @param {object} ctx     See #context
+   * @param {Item} [owned]   The character's copy of the skill
+   */
+  #state(entry, { index, lists, rank, quota, training }, owned = ownedSkill(this.actor, entry)) {
+    const source = sourceOf(entry, lists);
+    const count = this.picks.get(entry.uuid)?.count ?? 0;
+    const sr = owned ? (Number(owned.system.skillRank?.value) || 1) : 0;
+    const maxSR = owned ? (Number(owned.system.skillRank?.max) || entry.maxSR) : entry.maxSR;
+    // The SR one pick more takes it to.
+    const next = sr + count + 1;
+    const counted = PICK_SUBTYPES.includes(entry.subtype);
+    // The skills a talent needs first, and the limits of the Dedications.
+    const missing = (owned || count) ? [] : entry.requires.filter(r => !lists.identifiers.has(r));
+    const blocked = missing.length
+      ? T("Requires", { names: missing.map(r => index.find(e => e.identifier === r)?.name ?? r).join(", ") })
+      : ((!owned && !count && entry.dedicationOf) ? dedicationIssue(this.actor, lists) : "");
+    const minRank = entry.minRank + (((source === "dedication") && entry.dedicationTalent) ? DEDICATION_DELAY : 0);
+    // Not yet: learned from a higher CR.
+    const locked = !owned && (minRank > rank);
+    // Can't go beyond the Maximum SR of the skill or the character's CR.
+    const capped = (next > maxSR) || (next > rank);
+    const full = counted && !!quota && (this.#picked(entry.subtype) >= quota[entry.subtype]);
+    const trainingFull = !owned && !count && (training !== null) && (training <= 0) && isTraining(entry);
+    // Without picks owed, only the GM adds Combat and General skills (the free mode).
+    const noPicks = counted && !quota && !game.user.isGM;
+    const reason = locked ? T("MinCR", { rank: minRank })
+      : noPicks ? T("NoPending")
+      : blocked || (capped ? T((next > maxSR) ? "MaxSR" : "MaxCR", { max: Math.min(maxSR, rank) })
+        : (full ? T("Full") : (trainingFull ? T("TrainingFull", { max: CREATION_TRAINING }) : "")));
+    return { source, count, sr, maxSR, next, locked, capped, blocked, reason };
   }
 
   /** @override */
   async _prepareContext(options) {
     const actor = this.actor;
-    const rank = Number(actor.system.infos?.crank) || 1;
-    const lists = skillLists(actor);
-    const quota = this.quota;
-    const full = (quota && PICK_SUBTYPES.includes(this.tab)) ? (this.#picked(this.tab) >= quota[this.tab]) : false;
-    // [Training] skills left at creation: the limit minus the new ones picked.
-    let training = getTrainingLimit(actor);
-    if (training !== null) training -= [...this.picks.values()].filter(p => p.training && !p.owned).length;
+    const ctx = this.#context(await getSkillIndex());
+    const { lists, rank, quota, training } = ctx;
 
     const entries = [];
     let hidden = 0;
-    const index = await getSkillIndex();
-    const nameOf = identifier => index.find(e => e.identifier === identifier)?.name ?? identifier;
-    for (const entry of index) {
+    for (const entry of ctx.index) {
       if (entry.subtype !== this.tab) continue;
       const source = sourceOf(entry, lists);
       if ((this.source === "eligible") && !source) continue;
@@ -543,28 +591,15 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       if (entry.pathTalent && !owned && !lists.paths.has(entry.pathTalent)) continue;
       // An element's talents are for who has it.
       if (entry.elementTalent && !owned && !lists.elements.has(entry.elementTalent)) continue;
-      // The skills a talent needs first, and the limits of the Dedications.
-      const missing = owned ? [] : entry.requires.filter(r => !lists.identifiers.has(r));
-      const dedication = (!owned && entry.dedicationOf) ? dedicationIssue(actor, lists) : "";
-      const minRank = entry.minRank + (((source === "dedication") && entry.dedicationTalent) ? DEDICATION_DELAY : 0);
-      const sr = owned ? (Number(owned.system.skillRank?.value) || 1) : 0;
-      const maxSR = owned ? (Number(owned.system.skillRank?.max) || entry.maxSR) : entry.maxSR;
-      const picked = this.picks.has(entry.uuid);
-      // Can't go beyond the Maximum SR of the skill or the character's CR.
-      const capped = (sr + 1 > maxSR) || (sr + 1 > rank);
-      const trainingFull = !owned && (training !== null) && (training <= 0) && isTraining(entry);
-      // Not yet: learned from a higher CR.
-      const locked = !owned && (minRank > rank);
-      const counted = PICK_SUBTYPES.includes(entry.subtype);
-      // Without picks owed, only the GM adds Combat and General skills (the free mode).
-      const noPicks = counted && !quota && !game.user.isGM;
-      const blocked = missing.length
-        ? game.i18n.format("ETERNIA.SkillBrowser.Requires", { names: missing.map(nameOf).join(", ") }) : dedication;
+      const { count, sr, maxSR, next, locked, capped, blocked, reason } = this.#state(entry, ctx, owned);
       // What can't be picked now, whatever the selection (the quotas only wait for a pick to be undone).
-      if (this.available && !picked && (locked || capped || !!blocked)) {
+      if (this.available && !count && (locked || capped || !!blocked)) {
         hidden += 1;
         continue;
       }
+      // Picked, the button stays where it was: one click more raises it one SR more.
+      const raise = !!owned || (count > 0);
+      const planned = sr + count;
       entries.push({
         ...entry,
         sourceLabel: (source === "basic") ? entry.pack
@@ -572,15 +607,15 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
         owned: !!owned,
         sr,
         maxSR,
-        next: sr + 1,
-        picked,
-        capped,
-        disabled: !picked && (locked || capped || (counted && full) || trainingFull || !!blocked || noPicks),
-        reason: locked ? game.i18n.format("ETERNIA.SkillBrowser.MinCR", { rank: minRank })
-          : noPicks ? game.i18n.localize("ETERNIA.SkillBrowser.NoPending") : blocked || capped
-          ? game.i18n.format((sr + 1 > maxSR) ? "ETERNIA.SkillBrowser.MaxSR" : "ETERNIA.SkillBrowser.MaxCR", { max: Math.min(maxSR, rank) })
-          : ((counted && full) ? game.i18n.localize("ETERNIA.SkillBrowser.Full")
-            : (trainingFull ? game.i18n.format("ETERNIA.SkillBrowser.TrainingFull", { max: CREATION_TRAINING }) : "")),
+        picked: count > 0,
+        // The SR it has, or the one the selection takes it to.
+        badge: count ? (owned ? T("SRTo", { from: sr, to: planned }) : T("SR", { sr: planned })) : (owned ? T("SR", { sr }) : ""),
+        disabled: !!reason,
+        reason,
+        pickIcon: raise ? "fa-arrow-up" : "fa-plus",
+        pickTip: raise ? T("Raise", { sr: next }) : T("Acquire"),
+        unpickIcon: (count > 1) ? "fa-minus" : "fa-xmark",
+        unpickTip: (count > 1) ? T("UnpickOne", { sr: planned - 1 }) : T("Unpick"),
         expanded: this.expanded.has(entry.uuid),
         description: this.descriptions.get(entry.uuid) ?? "",
         search: `${entry.name} ${entry.folder} ${entry.tags.join(" ")}`.toLowerCase()
@@ -600,7 +635,8 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     }));
     const picks = [...this.picks.values()].map(p => ({
       ...p,
-      label: p.owned ? `${p.name} (SR ${p.sr} → ${p.sr + 1})` : p.name
+      label: p.owned ? T("PickRaise", { name: p.name, from: p.sr, to: p.sr + p.count })
+        : ((p.count > 1) ? T("PickNew", { name: p.name, sr: p.count }) : p.name)
     }));
 
     return {
@@ -678,18 +714,26 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     this.render();
   }
 
+  /** Pick a skill, or one SR more of a skill already picked. */
   static async #onPick(event, target) {
     const entry = await this.#entry(target);
     if (!entry) return;
-    const owned = ownedSkill(this.actor, entry);
-    this.picks.set(entry.uuid, {
+    // Checked here too, not only by the button: two quick clicks come before the window renders again.
+    const state = this.#state(entry, this.#context(await getSkillIndex()));
+    if (state.reason) return;
+    const pick = this.picks.get(entry.uuid);
+    if (pick) pick.count += 1;
+    else this.picks.set(entry.uuid, {
       uuid: entry.uuid,
       name: entry.name,
       img: entry.img,
       subtype: entry.subtype,
-      owned: !!owned,
+      identifier: entry.identifier,
+      requires: entry.requires,
+      owned: state.sr > 0,
       training: isTraining(entry),
-      sr: owned ? (Number(owned.system.skillRank?.value) || 1) : 0
+      sr: state.sr,
+      count: 1
     });
     this.render();
   }
@@ -700,9 +744,31 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     this.render();
   }
 
+  /** One SR less of a pick (its row), or the whole pick (its chip); the talents picked with it leave too. */
   static #onUnpick(event, target) {
-    this.picks.delete(target.closest("[data-uuid]").dataset.uuid);
+    const uuid = target.closest("[data-uuid]").dataset.uuid;
+    const pick = this.picks.get(uuid);
+    if (!pick) return;
+    if ((pick.count > 1) && !target.dataset.all) pick.count -= 1;
+    else {
+      this.picks.delete(uuid);
+      this.#dropOrphans();
+    }
     this.render();
+  }
+
+  /** Take out the picks whose required talent left the selection (and the ones that required those). */
+  #dropOrphans() {
+    const owned = skillLists(this.actor).identifiers;
+    for (let dropped = true; dropped;) {
+      dropped = false;
+      const have = new Set([...owned, ...[...this.picks.values()].map(p => p.identifier).filter(Boolean)]);
+      for (const [uuid, pick] of this.picks) {
+        if (pick.owned || pick.requires.every(r => have.has(r))) continue;
+        this.picks.delete(uuid);
+        dropped = true;
+      }
+    }
   }
 
   static async #onExpand(event, target) {
@@ -731,20 +797,25 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     const toCreate = [];
     const toUpdate = [];
     const lines = [];
-    // Picks that count (Combat / General while some are owed) get a hidden mark with the current CR.
+    // Picks that count (Combat / General while some are owed) get a hidden mark with the current CR, one per SR.
     const quota = this.quota;
     const rank = rankOf(actor);
     const mark = (pick, kind, fromSR) => (quota && PICK_SUBTYPES.includes(pick.subtype))
       ? [{ rank, subtype: pick.subtype, kind, ...(kind === "raise" ? { fromSR } : {}) }] : [];
+    // The SRs raised from an SR, each marked with the one it raised from (undoing goes back to the first).
+    const raises = (pick, from, n) => Array.from({ length: n }, (_, i) => mark(pick, "raise", from + i)).flat();
+    const index = await getSkillIndex();
     for (const pick of this.picks.values()) {
-      const entry = (await getSkillIndex()).find(e => e.uuid === pick.uuid);
+      const entry = index.find(e => e.uuid === pick.uuid);
       const owned = entry && ownedSkill(actor, entry);
       if (owned) {
         const from = Number(owned.system.skillRank?.value) || 1;
-        const sr = from + 1;
-        const picks = [...picksOf(owned), ...mark(pick, "raise", from)];
+        // Never beyond the Maximum SR or the CR (the skill may have changed since it was picked).
+        const sr = Math.min(from + pick.count, Number(owned.system.skillRank?.max) || entry.maxSR, rank);
+        if (sr <= from) continue;
+        const picks = [...picksOf(owned), ...raises(pick, from, sr - from)];
         toUpdate.push({ _id: owned.id, "system.skillRank.value": sr, [`flags.eternia.${PICK_FLAG}`]: picks });
-        lines.push(game.i18n.format("ETERNIA.SkillBrowser.ChatRaise", { name: owned.name, sr }));
+        lines.push(T("ChatRaise", { name: owned.name, sr }));
         continue;
       }
       const skill = await fromUuid(pick.uuid);
@@ -754,12 +825,14 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       delete data.folder;
       delete data.sort;
       delete data.ownership;
+      const sr = Math.max(1, Math.min(pick.count, Number(data.system.skillRank?.max) || 1, rank));
       foundry.utils.setProperty(data, "_stats.compendiumSource", skill.uuid);
-      foundry.utils.setProperty(data, "system.skillRank.value", 1);
-      const picks = mark(pick, "new");
+      foundry.utils.setProperty(data, "system.skillRank.value", sr);
+      // Acquired at SR 1, then raised for each pick more.
+      const picks = [...mark(pick, "new"), ...raises(pick, 1, sr - 1)];
       if (picks.length) foundry.utils.setProperty(data, `flags.eternia.${PICK_FLAG}`, picks);
       toCreate.push(data);
-      lines.push(game.i18n.format("ETERNIA.SkillBrowser.ChatNew", { name: skill.name }));
+      lines.push(T("ChatNew", { name: skill.name, sr }));
     }
     if (toUpdate.length) await actor.updateEmbeddedDocuments("Item", toUpdate);
     if (toCreate.length) await actor.createEmbeddedDocuments("Item", toCreate);

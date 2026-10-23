@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.10.1 — 2026-10-23
+
+### Alterado
+- O **navegador de habilidades** deixa empilhar escolhas na mesma habilidade: depois de escolher, o botão de subir
+  continua no lugar e cada clique sobe mais um NH na seleção (adquirir e subir, ou subir duas vezes), até o NH Máximo e
+  o NP do personagem. O "−" da linha tira um NH e o X do rodapé tira a escolha inteira. Cada NH gasta uma escolha, e
+  descer o NP oferece desfazer todos eles.
+- Um talento pode ser escolhido junto com o que ele pede, na mesma seleção; se o pedido sai da seleção, ele sai junto.
+- O NH das linhas e do rodapé do navegador aparece como "NH" no pt-BR (antes, "SR"), e o motivo de um talento travado
+  por requisito volta a dizer o que falta (antes, mostrava o limite de NH).
+- AS REGRAS, II. PERSONAGENS: várias escolhas podem ir para a mesma habilidade, dentro do NH Máximo e do NP.
+
 ## 0.10.0 — 2026-10-23
 
 ### Adicionado

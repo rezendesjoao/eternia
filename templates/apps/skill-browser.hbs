@@ -32,7 +32,7 @@
         <a class="skill-text" data-action="expand">
           <span class="skill-name">
             <i class="fa-solid fa-caret-{{#if expanded}}down{{else}}right{{/if}}"></i> {{name}}
-            {{#if owned}}<span class="skill-owned">SR {{sr}}</span>{{/if}}
+            {{#if badge}}<span class="skill-owned{{#if picked}} planned{{/if}}">{{badge}}</span>{{/if}}
           </span>
           <span class="skill-meta">{{sourceLabel}} · {{localize "ETERNIA.SkillBrowser.MaxSRShort" max=maxSR}}{{#each tags}} · [{{this}}]{{/each}}</span>
         </a>
@@ -40,14 +40,10 @@
           <button type="button" data-action="view" data-tooltip="ETERNIA.CharacterOptions.View"><i class="fa-solid fa-book-open"></i></button>
           {{#if @root.editable}}
           {{#if picked}}
-          <button type="button" class="skill-unpick" data-action="unpick" data-tooltip="ETERNIA.SkillBrowser.Unpick"><i class="fa-solid fa-xmark"></i></button>
-          {{else if owned}}
-          <button type="button" class="skill-pick" data-action="pick" {{disabled disabled}}
-            data-tooltip="{{#if reason}}{{reason}}{{else}}{{localize 'ETERNIA.SkillBrowser.Raise' sr=next}}{{/if}}"><i class="fa-solid fa-arrow-up"></i></button>
-          {{else}}
-          <button type="button" class="skill-pick" data-action="pick" {{disabled disabled}}
-            data-tooltip="{{#if reason}}{{reason}}{{else}}{{localize 'ETERNIA.SkillBrowser.Acquire'}}{{/if}}"><i class="fa-solid fa-plus"></i></button>
+          <button type="button" class="skill-unpick" data-action="unpick" data-tooltip="{{unpickTip}}"><i class="fa-solid {{unpickIcon}}"></i></button>
           {{/if}}
+          <button type="button" class="skill-pick" data-action="pick" {{disabled disabled}}
+            data-tooltip="{{#if reason}}{{reason}}{{else}}{{pickTip}}{{/if}}"><i class="fa-solid {{pickIcon}}"></i></button>
           {{/if}}
         </div>
       </div>
@@ -67,7 +63,7 @@
       {{#each picks}}
       <li class="skill-chip" data-uuid="{{uuid}}">
         <img src="{{img}}" alt=""> {{label}}
-        <a data-action="unpick"><i class="fa-solid fa-xmark"></i></a>
+        <a data-action="unpick" data-all="true" data-tooltip="ETERNIA.SkillBrowser.Unpick"><i class="fa-solid fa-xmark"></i></a>
       </li>
       {{else}}
       <li class="skill-picks-empty">{{localize "ETERNIA.SkillBrowser.NoPicks"}}</li>
