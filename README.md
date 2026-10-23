@@ -5,9 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.8.5
+## Versão 0.9.0
 
-- **Novo na 0.8.5: a aba Detalhes na ficha de habilidade.** NH, Momento, Teste, Alvo, Alcance, Custo, Limite, Dano e
+- **Novo na 0.9.0: o Matador de Dragões**, a primeira das classes de magia. Ele come o próprio elemento (Fogo,
+  Ferro, Céu ou Raio, escolhido junto com a classe) e o transforma em Escamas, que os golpes de dragão gastam; no
+  Teto vem a Força do Dragão, e quem abusa dela vê a Semente do Dragão crescer. As gerações são os Caminhos, e o
+  Ápice é o Modo Rei Dragão (veja [As classes](#as-classes)).
+- **Desde a 0.8.5: a aba Detalhes na ficha de habilidade.** NH, Momento, Teste, Alvo, Alcance, Custo, Limite, Dano e
   Macro ficam nela, entre Descrição e Efeitos; a Descrição mostra só o texto.
 - **Desde a 0.8.4: os emblemas das 16 classes**, no jeito dos de Log Horizon: a moldura e as cores dizem a família
   e o símbolo diz a classe. Aparecem na aba Classe, no item da classe e, com um selo "+", na Dedicação (veja
@@ -44,8 +48,8 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   mesmo visual; toda a automação de combate e de uso de habilidades; a interface em português do Brasil.
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
-- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 16 classes), Habilidades Raciais e
-  Habilidades de Classe (36 por classe, 576 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
+- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 17 classes), Habilidades Raciais e
+  Habilidades de Classe (36 por classe, 52 no Matador de Dragões: 628 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
 
@@ -170,6 +174,9 @@ gira em volta dele (veja `docs/classes.md` e as páginas **XI. CLASSES** do diá
 - **Dedicação (NP 5):** a multiclasse. Um personagem de outra classe ganha o Motor Menor (Teto pela metade) e abre os
   talentos [Dedicação], dois NP depois.
 - **Ápice (NP 10):** dado sem pedir, transforma o Motor.
+- **Elemento (NP 1):** no Matador de Dragões, um elemento escolhido junto com a classe (Fogo, Ferro, Céu ou Raio) dá
+  a tag e o estado dos golpes, a imunidade e três talentos próprios; o navegador de habilidades só mostra os do
+  elemento escolhido, e a Dedicação também deixa escolher um.
 - **Emblema:** cada classe tem o seu, no jeito dos emblemas de Log Horizon: a moldura e as cores dizem a família
   (losango verde para quem segura a linha de frente, quadrado creme para quem ataca com arma, círculo rosa para quem
   cura, hexágono turquesa para a magia) e o símbolo diz a classe. Aparece na aba Classe, no item da classe e, com um
@@ -186,6 +193,7 @@ gira em volta dele (veja `docs/classes.md` e as páginas **XI. CLASSES** do diá
 | Feiticeiro | Dano | **Calor**: cada feitiço esquenta e bate mais forte; no Teto, a Erupção solta tudo ou a Sobrecarga queima o próprio feiticeiro. |
 | Guardião | Defesa | **Baluarte**: cada ataque contra ele vira uma Camada da muralha (Anulação), que o Golpe do Baluarte transforma em dano e provocação. |
 | Invocador | Dano, Controle | **Pacto**: paga PV para dar Laços a um espírito (lobo, golem ou fada), que luta, protege ou cura gastando os Laços. |
+| Matador de Dragões | Dano | **Escamas**: come o próprio elemento (Fogo, Ferro, Céu ou Raio) e o transforma em Escamas, que os golpes de dragão gastam; no Teto vem a Força do Dragão, e cada vez que ela acaba a Semente do Dragão cresce. |
 | Menestrel | Suporte | **Movimentos**: a canção sobe a cada Manutenção e reforça os aliados; trocar de canção volta ao começo, e o Finale gasta tudo. |
 | Monge | Dano, Defesa | **Corrente**: golpes encadeados juntam Elos, e o Golpe Final gasta a corrente inteira; apanhar ou parar quebra os Elos. |
 | Oráculo | Cura, Dano | **Fardo**: cada milagre fica mais forte e pesa mais; com Fardo alto vem a maldição, e a Revelação descarrega tudo de uma vez. |
@@ -199,6 +207,8 @@ alvo do Contrato, o Padrão, as Leituras), no HUD e no token. Os ganhos e os gas
 Manutenção e o Encerramento, o começo e o fim de cada turno, o movimento do token, os ataques declarados, os acertos e
 as esquivas, o dano e a cura aplicados pelos cartões, os testes rolados e os inimigos derrubados. O Tecelão e o
 Estrategista ganham botões nos cartões de ataque, que mudam os dados de um teste já rolado e refazem o acerto. O
+elemento do Matador de Dragões entra sozinho no dano dos golpes (a tag e o estado no acerto), e um ataque do elemento
+vindo de um aliado não causa dano: o Matador come o ataque. O
 Desfazer do cartão devolve o Motor junto com o Ódio e a ação. O que não dá para automatizar (escolher alvos de área,
 mover tokens) fica no texto da habilidade.
 

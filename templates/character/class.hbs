@@ -1,5 +1,6 @@
 {{!-- CLASS (module/classes/sheet.mjs): the crest with the base, the Motor (state, points, the Perfect Cut), the kit,
-     the talents by branch, the Path (CR 3), the Apex (CR 10), the general talents, the Dedications and the milestones.
+     the element (the Dragon Slayer's, CR 1), the talents by branch, the Path (CR 3), the Apex (CR 10), the general
+     talents, the Dedications and the milestones.
      Without a class: the button that opens the class browser. --}}
 {{#*inline "lhclRow"}}
 <li class="item lhcl-skill{{#if r.owned}} owned{{else}}{{#if r.locked}} locked{{/if}}{{/if}}"{{#if r.id}} data-item-id="{{r.id}}"{{/if}}>
@@ -79,6 +80,28 @@
 		<div class="subsection lhcl-group" style="--lhcl-color: {{c.color}}">
 			<header><span>{{localize "ETERNIA.Classes.Kit"}}</span>{{#if c.editable}}<a class="lhcl-browse" data-action="lhcl" data-op="browse" data-tooltip="{{localize 'ETERNIA.SkillBrowser.Open'}}"><i class="fa-solid fa-book-open-reader"></i> {{localize "ETERNIA.SkillBrowser.Browse"}}</a>{{/if}}</header>
 			<ol class="lhcl-skills">{{#each c.kit as |r|}}{{> lhclRow r=r}}{{/each}}</ol>
+		</div>
+		{{/if}}
+
+		{{!-- Element (the Dragon Slayer's, chosen at CR 1) --}}
+		{{#if c.element}}
+		<div class="subsection lhcl-group lhcl-path-group" style="--lhcl-color: {{c.color}}">
+			<header><span>{{localize "ETERNIA.Classes.Element"}}</span><span class="lhcl-header-note">{{localize "ETERNIA.Classes.FromRank" n=1}}</span>
+				{{#unless c.element.chosen}}{{#if c.editable}}<a class="lhcl-browse attention" data-action="lhcl" data-op="element"><i class="fa-solid fa-dragon"></i> {{localize "ETERNIA.Classes.ChooseElement"}}</a>{{/if}}{{/unless}}
+			</header>
+			{{#if c.element.chosen}}
+			<div class="lhcl-path chosen">
+				<ol class="lhcl-skills">{{> lhclRow r=c.element.chosen}}{{#each c.element.chosen.talents as |r|}}{{> lhclRow r=r}}{{/each}}</ol>
+			</div>
+			{{else}}
+			<ul class="lhcl-paths">
+				{{#each c.element.options as |p|}}
+				<li class="lhcl-path-option">
+					<a data-action="lhcl" data-op="open" data-uuid="{{p.uuid}}"><img src="{{p.img}}" alt=""><span>{{p.name}}</span></a>
+				</li>
+				{{/each}}
+			</ul>
+			{{/if}}
 		</div>
 		{{/if}}
 

@@ -1,0 +1,71 @@
+{
+  "name": "Rugido do Dragão",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste quantas Escamas quiser (pelo menos 1): você ruge o seu elemento numa linha de até 4 Qd. Teste de Precisão contra a Resistência de cada alvo da Linha; [(2 + Escamas gastas)d6 + Poder de Ataque + Escamas gastas×NP÷2] de dano mágico do seu elemento, e o estado do elemento em quem ele acerta.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Você enche o peito, e o que sai da garganta não é voz: é o elemento inteiro, numa coluna.</em></p>",
+    "tags": [
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Line",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+@spent",
+      "mod": "@attack+floor(@spent*@cr/2)",
+      "type": "magical",
+      "recovery": false,
+      "noPower": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/abilities/dragon-breath-purple.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "matador-rugido",
+      "kind": "spends",
+      "branch": "kit",
+      "choiceOnly": true,
+      "motor": {
+        "id": "matador",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose"
+      },
+      "damageText": "(2+Escamas gastas)d6 + [Poder de Ataque] + Escamas gastas×NP÷2 Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "NRJmEICkB4StgFUk",
+  "folder": "bdHvEVmVji5CDKYr",
+  "_key": "!items!NRJmEICkB4StgFUk"
+}

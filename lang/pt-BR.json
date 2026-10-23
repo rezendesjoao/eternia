@@ -888,7 +888,9 @@
       "Boss": "Inimigo chefe.",
       "NightVision": "Não é atrapalhado pela escuridão.",
       "Spell": "Habilidade de magia que não ataca (bênçãos, curas, proteções). Silenciado impede.",
-      "Song": "Canção, hino ou som mágico. Silenciado impede."
+      "Song": "Canção, hino ou som mágico. Silenciado impede.",
+      "Iron": "Elemento ferro. Interage com Fraqueza/Anulação (Ferro).",
+      "Wind": "Elemento vento. Interage com Fraqueza/Anulação (Vento)."
     },
     "Condition": {
       "Title": "Condições",
@@ -1474,7 +1476,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.8: as 16 classes</strong></p><ul><li><strong>15 classes novas</strong> junto com o Samurai, no compêndio Raças e Classes (pasta Classes): Assassino, Berserker, Caçador, Comandante, Druida, Estrategista, Feiticeiro, Guardião, Invocador, Menestrel, Monge, Oráculo, Ressonante, Sacerdote e Tecelão.</li><li>Cada uma tem o seu <strong>Motor</strong>, uma regra que só ela tem (o Contrato do Assassino, a Ira do Berserker, a Mira do Caçador, a Graça do Sacerdote…), e 36 habilidades automatizadas: o kit, 16 talentos, 4 Gerais, três Caminhos, o Ápice e a Dedicação.</li><li>O Motor acompanha o combate sozinho: turnos, movimento do token, acertos, dano, cura e os testes de todo mundo. O Tecelão e o Estrategista mudam os dados dos testes direto nos cartões de ataque.</li><li>A aba <strong>Classe</strong> mostra o Motor de cada classe (com uma nota quando ela guarda algo além dos pontos), e o diário AS REGRAS tem uma página para cada classe (XI.1 a XI.16).</li></ul><p>Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.9: o Matador de Dragões</strong></p><ul><li>A primeira das <strong>classes de magia</strong>, no compêndio Raças e Classes (pasta Classes). O Motor <strong>Escamas</strong>: o Matador come o próprio elemento e gasta as Escamas nos golpes de dragão (o Rugido, a Garra, a Asa…).</li><li>O <strong>elemento</strong> é escolhido junto com a classe: Fogo, Ferro, Céu ou Raio. Ele dá a tag e o estado dos golpes, a imunidade e três talentos próprios, com uma Arte Secreta. A aba <strong>Classe</strong> mostra o elemento, e o navegador de habilidades só mostra os talentos dele.</li><li>No Teto vem a <strong>Força do Dragão</strong>. Cada vez que ela acaba, deixa Fadiga e a <strong>Semente do Dragão</strong> cresce: a Força seguinte fica mais forte e mais cara.</li><li>Os Caminhos são as gerações (Primeira, Segunda e Terceira), e o Ápice é o Modo Rei Dragão. As regras estão na página XI.10 do diário AS REGRAS.</li></ul><p>Desde a 0.8: as 16 classes. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -2612,7 +2614,55 @@
         "NoDie": "Nenhum dado desse teste pode mudar assim.",
         "NoThreads": "Fios de menos: precisa de {n}."
       },
-      "Pick": "Escolher"
+      "Pick": "Escolher",
+      "Matador": {
+        "Name": "Escamas",
+        "Unit": "Escamas",
+        "State": {
+          "humano": "Forma Humana",
+          "forca": "Força do Dragão"
+        },
+        "Card": {
+          "Gain": "Devorar: +1 (+2 com uma fonte do seu elemento). Punho de Ferro do Dragão: +1. Ataque do seu elemento que atinge você: +1.",
+          "Spend": "Os golpes de dragão: o Rugido, a Garra, a Asa e os outros.",
+          "Cap": "3 Escamas, +1 a cada 5 NP. No Teto, a Força do Dragão: [Despertado: NP + 2×Semente] e −1 Escama no Encerramento, até zerar.",
+          "Reset": "O fim do combate zera as Escamas. Quando a Força acaba, deixa [Fadiga] e a Semente cresce 1 (zera no fim do cenário).",
+          "GainLesser": "Devorar: +1 (+2 com uma fonte do seu elemento). Punho de Ferro do Dragão: +1. Ataque do seu elemento que atinge você: +1.",
+          "SpendLesser": "Os golpes de dragão.",
+          "CapLesser": "Metade do Teto das Escamas, no mínimo 1. Sem a Força do Dragão.",
+          "ResetLesser": "O fim do combate zera as Escamas."
+        },
+        "Force": "Força do Dragão",
+        "ForceReady": "Força do Dragão pronta",
+        "Eats": "come o ataque do seu elemento, sem dano",
+        "Element": {
+          "fogo": "Fogo",
+          "ferro": "Ferro",
+          "ceu": "Céu",
+          "raio": "Raio"
+        },
+        "Dual": "{element}, Modo Dragão Duplo com {dual}",
+        "SeedNote": "Semente {n}",
+        "InnerDragon": "O dragão interior de {name} acorda: as Escamas enchem e vem a Força do Dragão.",
+        "Source": {
+          "Yes": "Há uma fonte (+2 Escamas)",
+          "No": "Sem fonte (+1 Escama)",
+          "Hint": {
+            "fogo": "Há fogo ao seu alcance (uma tocha, uma lareira, um incêndio)? O Mestre confirma.",
+            "ferro": "Há metal ao seu alcance (uma grade, uma bigorna, uma espada caída)? O Mestre confirma.",
+            "ceu": "Há ar ao seu alcance? O Mestre confirma.",
+            "raio": "Há raio ao seu alcance (uma tempestade, uma lacrima de raio, um gerador)? O Mestre confirma."
+          }
+        },
+        "Issue": {
+          "Combat": "Só em combate.",
+          "InForce": "Você já está na Força do Dragão.",
+          "Half": "Precisa de {n} Escamas (metade do Teto); você tem {have}."
+        },
+        "Chips": {
+          "seed": "Semente do Dragão: quantas Forças do Dragão já acabaram neste cenário"
+        }
+      }
     },
     "Classes": {
       "Card": {
@@ -2793,7 +2843,18 @@
           "trama": "A Trama",
           "tesoura": "A Tesoura"
         }
-      }
+      },
+      "matador": {
+        "Branch": {
+          "fome": "A Fome",
+          "escama": "A Escama",
+          "garra": "A Garra",
+          "rugido": "O Rugido"
+        }
+      },
+      "Element": "Elemento",
+      "ChooseElement": "Escolher o elemento",
+      "DedicationChoice": "Escolha o elemento desta Dedicação."
     },
     "Chips": {
       "Kind": {

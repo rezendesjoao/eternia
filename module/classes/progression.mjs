@@ -3,19 +3,36 @@
  * - its Path at CR 3 and its Apex at CR 10: slots of the class's `system.grants` with a `rank` (and `auto` for the
  *   Apex), offered by apps/option-grants.mjs at the rank up (apps/rank-up.mjs) and here when the CR is raised by hand;
  * - a Dedication (the multiclass) gives the other class's Lesser Motor and its skills at once
- *   (`flags.eternia.dedicationGrants`, compendium uuids), and they go away with it.
+ *   (`flags.eternia.dedicationGrants`, compendium uuids), and one skill of `flags.eternia.dedicationChoice` the player
+ *   picks (the Dragon Slayer's element); they go away with it.
  * Which talents can be picked (requirements, Path talents, the talents a Dedication opens) is the skill browser's
  * (apps/skill-browser.mjs).
  */
 import { isLocalChange } from "../helpers/clients.mjs";
 import { getOption } from "../helpers/character-options.mjs";
 import { createGranted, grantedBy, offerGrants } from "../apps/option-grants.mjs";
+import { chooseOption } from "./motor.mjs";
 
 const listOf = value => (Array.isArray(value) ? value : Object.values(value ?? {}));
 
 /** A skill of a character that gives skills when learned (a Dedication). */
 const givesSkills = item => (item.type === "skill") && (item.parent instanceof Actor)
-  && (item.parent.type === "character") && listOf(item.getFlag("eternia", "dedicationGrants")).length;
+  && (item.parent.type === "character")
+  && (listOf(item.getFlag("eternia", "dedicationGrants")).length || listOf(item.getFlag("eternia", "dedicationChoice")).length);
+
+/** Give a Dedication's skills: the fixed ones, then the one the player picks of its choice (if any). */
+async function grantDedication(item) {
+  const actor = item.parent;
+  await createGranted(actor, item, listOf(item.getFlag("eternia", "dedicationGrants")).map(String));
+  const choice = listOf(item.getFlag("eternia", "dedicationChoice")).map(String);
+  if (!choice.length) return;
+  const skills = (await Promise.all(choice.map(uuid => fromUuid(uuid).catch(() => null)))).filter(Boolean);
+  if (skills.some(s => actor.items.some(i => i._stats?.compendiumSource === s.uuid))) return;
+  const picked = await chooseOption(item.name, skills.map(s => ({ value: s.uuid, label: s.name })), {
+    hint: game.i18n.localize("ETERNIA.Classes.DedicationChoice"), selected: skills[0]?.uuid
+  });
+  if (picked) await createGranted(actor, item, [picked]);
+}
 
 /** Call during the `init` hook. */
 export function registerClassProgression() {
@@ -31,7 +48,7 @@ export function registerClassProgression() {
 
   Hooks.on("createItem", (item, options, userId) => {
     if (!isLocalChange(options, userId) || options.eterniaMigration || !givesSkills(item)) return;
-    createGranted(item.parent, item, listOf(item.getFlag("eternia", "dedicationGrants")).map(String));
+    grantDedication(item);
   });
   Hooks.on("deleteItem", (item, options, userId) => {
     if (!isLocalChange(options, userId) || !givesSkills(item)) return;

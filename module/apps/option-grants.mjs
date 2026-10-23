@@ -36,8 +36,9 @@ function owns(actor, skill) {
  * @param {object} [options]
  * @param {number} [options.above]       Only the slots of a CR above this one (1 at a rank up: not the starting kit)
  * @param {boolean} [options.withStale]  Offer to remove the skills of the previous option of the same type
+ * @param {boolean} [options.onlyChoices]  Only the slots with several skills (the Dragon Slayer's element)
  */
-export async function offerGrants(actor, item, { above = 0, withStale = true } = {}) {
+export async function offerGrants(actor, item, { above = 0, withStale = true, onlyChoices = false } = {}) {
   const source = sourceOf(item);
   const cr = Number(actor.system.infos?.crank) || 1;
   const stale = withStale ? actor.items.filter(i => {
@@ -51,6 +52,7 @@ export async function offerGrants(actor, item, { above = 0, withStale = true } =
     // The slots of a CR the character hasn't reached (or, at a rank up, the starting ones) wait.
     const rank = Number(grant.rank) || 1;
     if ((rank > cr) || (rank <= above)) continue;
+    if (onlyChoices && ((grant.uuids ?? []).length < 2)) continue;
     const skills = (await Promise.all((grant.uuids ?? []).map(uuid => fromUuid(uuid).catch(() => null)))).filter(Boolean);
     if (!skills.length) continue;
     const options = skills.map(s => ({ uuid: s.uuid, name: s.name, img: s.img, owned: owns(actor, s) }));

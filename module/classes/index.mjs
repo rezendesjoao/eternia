@@ -25,6 +25,7 @@ import { ESTRATEGISTA } from "./estrategista.mjs";
 import { FEITICEIRO } from "./feiticeiro.mjs";
 import { GUARDIAO } from "./guardiao.mjs";
 import { INVOCADOR } from "./invocador.mjs";
+import { MATADOR } from "./matador.mjs";
 import { MENESTREL } from "./menestrel.mjs";
 import { MONGE } from "./monge.mjs";
 import { ORACULO } from "./oraculo.mjs";
@@ -47,6 +48,7 @@ export function registerClasses() {
   registerMotor(FEITICEIRO);
   registerMotor(GUARDIAO);
   registerMotor(INVOCADOR);
+  registerMotor(MATADOR);
   registerMotor(MENESTREL);
   registerMotor(MONGE);
   registerMotor(ORACULO);
@@ -168,11 +170,15 @@ async function onDodge(message, { actor, attacker, item, hit }) {
   if ((hit === false) && motorsOf(actor).length) await motorEvent(actor, "onDodged", attacker, item, message);
 }
 
-/** A damage card took HP from an actor (Barrier first): its Motors, then everyone's in its combat. */
+/**
+ * A damage card was applied to an actor: its Motors hear of it whatever HP it took (onStruck: the Dragon Slayer eats
+ * its element); when it took HP (Barrier first), its Motors, then everyone's in its combat.
+ */
 async function onDamaged(actor, card, { amount, attacker, item }) {
-  if (!(amount > 0)) return;
-  if (motorsOf(actor).length) await motorEvent(actor, "onDamaged", amount, attacker, item, card);
-  await motorBroadcast([actor, attacker], "onAnyDamaged", actor, amount, attacker, item);
+  const own = motorsOf(actor).length > 0;
+  if (own && (amount > 0)) await motorEvent(actor, "onDamaged", amount, attacker, item, card);
+  if (own) await motorEvent(actor, "onStruck", card, Math.max(0, amount), attacker, item);
+  if (amount > 0) await motorBroadcast([actor, attacker], "onAnyDamaged", actor, amount, attacker, item);
 }
 
 /** A damage card's healing gave HP back. */

@@ -2,7 +2,8 @@
  * Damage and healing under the conditions.
  *
  * Applying a damage card (helpers/combat-cards.mjs) asks here:
- * - before: [Exposed] ignores the Defense and [Cancel]; [Intangible] takes no physical damage;
+ * - before: a class Motor may take the whole card (the Dragon Slayer eats an ally's attack of its element); [Exposed]
+ *   ignores the Defense and [Cancel]; [Intangible] takes no physical damage;
  * - on a failed Dodge Check: [Marked] adds its Rating as direct damage, then the mark ends;
  * - after: [Last Stand] keeps the character at 1 HP once; [Bond] sends half the HP loss to its source; [Mirror]
  *   deals its Rating to the attacker; [Asleep] wakes up; [Charmed] ends when its source deals the damage; [Flame]
@@ -19,6 +20,7 @@ import { actorName, postSummary, toInt } from "../helpers/utils.mjs";
 import { listStatusEntries } from "../helpers/statuses.mjs";
 import { has, isSourceOf, rating, removeStatuses, rulesOn, sameActor, sourcesOf } from "./rules.mjs";
 import { passiveCancels } from "./effects.mjs";
+import { motorAbsorbs } from "../classes/motor.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -38,7 +40,14 @@ const ENDED_BY_DAMAGE = ["asleep", "lastStand", "charmed", "hidden"];
  */
 export function beforeDamage(actor, card, direct) {
   const result = { noDefense: false, noCancel: false, immune: false, notes: [] };
-  if (!rulesOn() || card.recovery) return result;
+  if (card.recovery) return result;
+  const eaten = motorAbsorbs(actor, card);
+  if (eaten) {
+    result.immune = true;
+    result.notes.push(eaten);
+    return result;
+  }
+  if (!rulesOn()) return result;
   if (has(actor, "exposed") && !direct) {
     result.noDefense = true;
     result.noCancel = true;

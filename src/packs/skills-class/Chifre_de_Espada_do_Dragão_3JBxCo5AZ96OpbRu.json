@@ -1,0 +1,71 @@
+{
+  "name": "Chifre de Espada do Dragão",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você avança até 3 Qd em linha reta, de cabeça, contra um inimigo, coberto pelo seu elemento (gasta também a Ação de Movimento): Teste de Precisão contra a Esquiva; [2d6 + Poder de Ataque] de dano mágico do seu elemento. Depois do golpe, +1 Escama.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Você vira uma flecha do seu elemento, e a cabeça é a ponta.</em></p>",
+    "tags": [
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": "@attack",
+      "type": "magical",
+      "recovery": false,
+      "noPower": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "matador-chifre",
+      "kind": "feeds",
+      "branch": "garra",
+      "minRank": 3,
+      "motor": {
+        "id": "matador",
+        "gain": 1,
+        "alsoSpends": [
+          "move"
+        ]
+      },
+      "damageText": "2d6 + [Poder de Ataque] Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 310000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "3JBxCo5AZ96OpbRu",
+  "folder": "vM6sEkxnxAe4bVks",
+  "_key": "!items!3JBxCo5AZ96OpbRu"
+}

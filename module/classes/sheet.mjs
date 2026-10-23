@@ -1,10 +1,9 @@
 /**
- * The class tab of the character sheet (templates/character/class.hbs): the class crest (no icon yet: an empty green
- * medallion) and its base, the Motor
- * (its state and points, which the owner can set by hand), the kit, the talents by branch with what each does to the
- * Motor, the Path (chosen at CR 3), the Apex (CR 10), the Dedications and the milestones. The class's skills are read
- * from the compendiums (the folder named like the class, see apps/skill-browser.mjs); the character's own copies
- * can be used and opened from here like in the skills tab.
+ * The class tab of the character sheet (templates/character/class.hbs): the class crest (its emblem) and its base, the
+ * Motor (its state and points, which the owner can set by hand), the kit, the element (the Dragon Slayer's, chosen at
+ * CR 1), the talents by branch with what each does to the Motor, the Path (chosen at CR 3), the Apex (CR 10), the
+ * Dedications and the milestones. The class's skills are read from the compendiums (the folder named like the class,
+ * see apps/skill-browser.mjs); the character's own copies can be used and opened from here like in the skills tab.
  */
 import { L } from "../settings.mjs";
 import { getOption } from "../helpers/character-options.mjs";
@@ -22,7 +21,7 @@ const FIELDS = [
   "system.subtype", "system.skillRank", "system.tags", "system.timing", "folder",
   "flags.eternia.identifier", "flags.eternia.kind", "flags.eternia.branch", "flags.eternia.minRank",
   "flags.eternia.requires", "flags.eternia.path", "flags.eternia.pathTalent", "flags.eternia.apex",
-  "flags.eternia.dedication"
+  "flags.eternia.dedication", "flags.eternia.element", "flags.eternia.elementTalent"
 ];
 
 /** Class skills of the compendiums by class name (lowercase), built once and cleared when a compendium changes. */
@@ -156,6 +155,17 @@ export async function classContext(actor, { editable }) {
   const paths = pathSkills.map(pathView).sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
   const apex = entries.find(e => flag(e, "apex") === def?.id);
 
+  // Element (the Dragon Slayer's, chosen at CR 1): the one chosen, with its talents, or the ones to choose from
+  const elementSkills = entries.filter(e => flag(e, "element")?.class === def?.id);
+  const ownElement = elementSkills.find(e => ownedCopy(actor, e));
+  const elementOrder = def?.elements ?? [];
+  const elements = elementSkills.map(e => ({
+    ...skillRow(actor, e, cr),
+    id: flag(e, "element").id,
+    talents: entries.filter(t => (flag(t, "elementTalent")?.id === flag(e, "element").id)).map(t => skillRow(actor, t, cr))
+      .sort((a, b) => a.minRank - b.minRank)
+  })).sort((a, b) => elementOrder.indexOf(a.id) - elementOrder.indexOf(b.id));
+
   // Base: attributes and HP of the class item
   const a = job.system.attributes ?? {};
   const base = ["str", "dex", "pow", "int"].map(key => ({ label: L(`Classes.Attr.${key}`), value: toInt(a[key]) }));
@@ -183,6 +193,10 @@ export async function classContext(actor, { editable }) {
       pending: (cr >= 3) && !followed && paths.length > 0
     },
     apex: apex ? { ...skillRow(actor, apex, cr), reached: cr >= 10 } : null,
+    element: elements.length ? {
+      chosen: ownElement ? elements.find(e => e.uuid === ownElement.uuid) : null,
+      options: ownElement ? [] : elements
+    } : null,
     dedications: lesserMotors,
     ladder: MILESTONES.map(m => ({
       rank: m.rank,
@@ -199,6 +213,7 @@ export async function classContext(actor, { editable }) {
  *   state   the Motor's next state
  *   browse  the skill browser
  *   grants  what the class still has to give (the Path, when skipped at the rank up)
+ *   element the class's choices of CR 1 (the Dragon Slayer's element, when skipped)
  *   open    open a compendium skill (to read it)
  * @param {ActorSheet} sheet
  * @param {HTMLElement} target
@@ -231,6 +246,10 @@ export async function classAction(sheet, target) {
     case "grants": {
       const job = getOption(actor, "class");
       return job ? offerGrants(actor, job, { above: 1, withStale: false }) : null;
+    }
+    case "element": {
+      const job = getOption(actor, "class");
+      return job ? offerGrants(actor, job, { withStale: false, onlyChoices: true }) : null;
     }
   }
   return null;

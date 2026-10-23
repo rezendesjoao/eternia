@@ -1,0 +1,119 @@
+{
+  "name": "Dragão de Fogo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Elemento do Matador de Dragões.</strong> Você mata dragões com o fogo.</p><ul><li><strong>Golpes de dragão:</strong> causam dano de [Chama] e deixam quem acertam [Queimando: NP÷2 + 2].</li><li><strong>Imune:</strong> você não fica [Queimando] e tem [Anulação (Chama): NP×2 + 10]. A [Chama] de um aliado não te causa dano: você come o ataque.</li><li><strong>Fonte do Devorar:</strong> um alvo [Queimando] (o fogo sai dele), ou fogo na cena: uma tocha, uma lareira, um incêndio.</li></ul><p><strong>Talentos do elemento:</strong> Chama Brilhante do Dragão de Fogo (NP 3), Chama das Emoções (NP 5) e Lótus Carmesim: Lâmina da Chama Explosiva (NP 7).</p><hr><p><em>As chamas se curvam na sua direção quando você passa, como cachorros que reconhecem o dono.</em></p>",
+    "tags": [
+      "Flame"
+    ],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/elemental-fire-flying.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "cancelTag": "Flame",
+          "immune": [
+            "burning"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Dragão de Fogo",
+      "img": "icons/magic/fire/elemental-fire-flying.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "eternia.passive.cancel",
+            "type": "add",
+            "value": "@cr*2+10",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "AEFmoUy3yhWGmq3c",
+      "_key": "!items.effects!2LZiyVdS3eA4cfL9.AEFmoUy3yhWGmq3c"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "matador-fogo",
+      "kind": "bends",
+      "branch": "element",
+      "choiceOnly": true,
+      "element": {
+        "class": "matador",
+        "id": "fogo"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "2LZiyVdS3eA4cfL9",
+  "folder": "WvnXFIVnimUybzJX",
+  "_key": "!items!2LZiyVdS3eA4cfL9"
+}

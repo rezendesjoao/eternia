@@ -8,6 +8,7 @@
  *   branch       the group of the tab: "kit", a branch of talents, "general", "path", "apex" or "dedication"
  *   motor        its Motor part (motor.mjs)
  *   path / pathTalent / apex / dedication   see motor.mjs and apps/skill-browser.mjs
+ *   element / elementTalent   { class, id }: an element skill chosen at CR 1 (the Dragon Slayer's) and its talents
  */
 
 /** Static data of each class, by the class item's `system.identifier`. */
@@ -83,6 +84,16 @@ export const CLASSES = {
     band: "light",
     branches: ["lobo", "golem", "fada", "pacto"],
     paths: ["legiao", "fusao", "tita"]
+  },
+  matador: {
+    id: "matador",
+    motor: "matador",
+    color: "#b4182d",
+    band: "firm",
+    branches: ["fome", "escama", "garra", "rugido"],
+    paths: ["primeira", "segunda", "terceira"],
+    // Elements (chosen at CR 1, module/classes/matador.mjs), in the order of the tab
+    elements: ["fogo", "ferro", "ceu", "raio"]
   },
   menestrel: {
     id: "menestrel",

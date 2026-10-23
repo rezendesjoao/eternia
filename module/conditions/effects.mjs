@@ -79,6 +79,22 @@ export async function runUseActions(item, { targets, caster }) {
   return names;
 }
 
+/**
+ * End statuses on an actor for a skill's user, through the GM when the user doesn't own it (the Dragon Slayer eats the
+ * flames off a target). Returns the chat line, or null.
+ * @param {Actor} actor
+ * @param {string[]} statuses
+ * @param {Actor} caster
+ * @returns {Promise<string|null>}
+ */
+export async function endStatuses(actor, statuses, caster) {
+  const payload = {
+    actorUuid: actor.uuid, type: "removeStatus", value: 0, status: "", statuses, casterUuid: caster?.uuid ?? "",
+    sceneId: canvas?.scene?.id ?? ""
+  };
+  return actor.isOwner ? doAction(actor, payload) : ((await request("conditionAction", payload))?.line ?? null);
+}
+
 /** One use action on one actor. Returns the chat line. */
 async function doAction(actor, { type, value, status, statuses = [], casterUuid = "", sceneId = "" }) {
   if (type === "switch") return switchPlaces(actor, await actorOf(casterUuid), sceneId);

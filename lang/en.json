@@ -888,7 +888,9 @@
       "Boss": "Boss enemy.",
       "NightVision": "Not hindered by darkness.",
       "Spell": "A magic skill that doesn't attack (blessings, healing, wards). Silenced forbids it.",
-      "Song": "A song, hymn or magic sound. Silenced forbids it."
+      "Song": "A song, hymn or magic sound. Silenced forbids it.",
+      "Iron": "Iron element. Interacts with Weakness/Cancel (Iron).",
+      "Wind": "Wind element. Interacts with Weakness/Cancel (Wind)."
     },
     "Condition": {
       "Title": "Conditions",
@@ -1474,7 +1476,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.8: the sixteen classes</strong></p><ul><li><strong>15 new classes</strong> next to the Samurai, in the Races and Classes compendium (Classes folder): Assassin, Berserker, Hunter, Commander, Druid, Strategist, Sorcerer, Guardian, Summoner, Minstrel, Monk, Oracle, Resonant, Priest and Weaver.</li><li>Each has its own <strong>Motor</strong>, a rule only that class has, and 36 automated skills: the kit, 16 talents, 4 general talents, three Paths, the Apex and the Dedication.</li><li>The Motor follows the combat by itself: turns, token movement, hits, damage, healing and everyone's checks. The Weaver and the Strategist change the dice of checks right on the attack cards.</li><li>The <strong>Class</strong> tab shows each class's Motor, and the AS REGRAS journal has one page per class (XI.1 to XI.16).</li></ul><p>Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
+      "Body": "<p><strong>What's new in Eternia 0.9: the Dragon Slayer</strong></p><ul><li>The first of the <strong>magic classes</strong>, in the Races and Classes compendium (Classes folder). Its Motor, the <strong>Scales</strong>: the slayer eats its own element and spends the Scales on dragon moves (the Roar, the Claw, the Wing…).</li><li>The <strong>element</strong> is chosen with the class: Fire, Iron, Sky or Lightning. It gives the tag and status of the moves, the immunity and three talents of its own, with a Secret Art. The <strong>Class</strong> tab shows the element, and the skill browser only lists its talents.</li><li>At the cap comes the <strong>Dragon Force</strong>. Each time it ends it leaves Fatigue and the <strong>Dragon Seed</strong> grows: the next Force is stronger and costs more.</li><li>The Paths are the generations (First, Second and Third), and the Apex is the Dragon King Mode. The rules are on page XI.10 of the AS REGRAS journal.</li></ul><p>Since 0.8: the sixteen classes. Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -2612,7 +2614,55 @@
         "NoDie": "No die of that check can change that way.",
         "NoThreads": "Too few Threads: it needs {n}."
       },
-      "Pick": "Choose"
+      "Pick": "Choose",
+      "Matador": {
+        "Name": "Scales",
+        "Unit": "Scales",
+        "State": {
+          "humano": "Human Form",
+          "forca": "Dragon Force"
+        },
+        "Card": {
+          "Gain": "Devour: +1 (+2 with a source of your element). Dragon's Iron Fist: +1. An attack of your element that strikes you: +1.",
+          "Spend": "The dragon moves: the Roar, the Claw, the Wing and the others.",
+          "Cap": "3 Scales, +1 every 5 CR. At the cap, the Dragon Force: [Awakened: CR + 2×Seed] and −1 Scale at the Cleanup, until none are left.",
+          "Reset": "The end of the combat empties the Scales. When the Force ends it leaves [Fatigue] and the Seed grows by 1 (it empties at the end of the scenario).",
+          "GainLesser": "Devour: +1 (+2 with a source of your element). Dragon's Iron Fist: +1. An attack of your element that strikes you: +1.",
+          "SpendLesser": "The dragon moves.",
+          "CapLesser": "Half the Scales cap, at least 1. No Dragon Force.",
+          "ResetLesser": "The end of the combat empties the Scales."
+        },
+        "Force": "Dragon Force",
+        "ForceReady": "Dragon Force ready",
+        "Eats": "eats the attack of its element, no damage",
+        "Element": {
+          "fogo": "Fire",
+          "ferro": "Iron",
+          "ceu": "Sky",
+          "raio": "Lightning"
+        },
+        "Dual": "{element}, Dual Dragon Mode with {dual}",
+        "SeedNote": "Seed {n}",
+        "InnerDragon": "The inner dragon of {name} wakes up: the Scales fill and the Dragon Force comes.",
+        "Source": {
+          "Yes": "There is a source (+2 Scales)",
+          "No": "No source (+1 Scale)",
+          "Hint": {
+            "fogo": "Is there fire within your reach (a torch, a hearth, a blaze)? The GM confirms.",
+            "ferro": "Is there metal within your reach (a grate, an anvil, a fallen sword)? The GM confirms.",
+            "ceu": "Is there air within your reach? The GM confirms.",
+            "raio": "Is there lightning within your reach (a storm, a lightning lacrima, a generator)? The GM confirms."
+          }
+        },
+        "Issue": {
+          "Combat": "Only in combat.",
+          "InForce": "You are already in the Dragon Force.",
+          "Half": "Needs {n} Scales (half the cap); you have {have}."
+        },
+        "Chips": {
+          "seed": "Dragon Seed: how many Dragon Forces already ended this scenario"
+        }
+      }
     },
     "Classes": {
       "Card": {
@@ -2793,7 +2843,18 @@
           "trama": "The Weft",
           "tesoura": "The Shears"
         }
-      }
+      },
+      "matador": {
+        "Branch": {
+          "fome": "The Hunger",
+          "escama": "The Scale",
+          "garra": "The Claw",
+          "rugido": "The Roar"
+        }
+      },
+      "Element": "Element",
+      "ChooseElement": "Choose the element",
+      "DedicationChoice": "Choose the element of this Dedication."
     },
     "Chips": {
       "Kind": {

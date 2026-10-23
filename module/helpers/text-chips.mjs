@@ -187,8 +187,9 @@ function lookups() {
     const unit = motorUnit(def);
     const name = motorName(def);
     add(["gastos", "gastas", "gasto", "gasta"].map(word => `${unit} ${word}`), { motor: def.id, spent: true });
-    add(["da", "do", "de"].map(word => `Teto ${word} ${name}`), { motor: def.id, max: true });
+    add(["da", "do", "de", "das", "dos"].map(word => `Teto ${word} ${name}`), { motor: def.id, max: true });
     add([unit], { motor: def.id });
+    for (const chip of def.chips ?? []) add(chip.words, { motor: def.id, field: chip.key });
   }
   vars.sort((a, b) => b.name.length - a.name.length);
 
@@ -341,7 +342,13 @@ function wordValue(word, context) {
   const { actor, item } = context;
   if (!actor || word.unknown || word.spent) return null;
   if (word.motor) {
-    if (!motorsOf(actor).some(m => m.def.id === word.motor)) return null;
+    const owned = motorsOf(actor).find(m => m.def.id === word.motor);
+    if (!owned) return null;
+    if (word.field) {
+      const ctx = { lesser: owned.lesser, data: motorData(actor, word.motor), max: motorMax(actor, word.motor) };
+      const value = owned.def.formulaData?.(actor, item ?? null, ctx)?.[word.field];
+      return Number.isFinite(value) ? value : null;
+    }
     return word.max ? motorMax(actor, word.motor) : toInt(motorData(actor, word.motor).value);
   }
   context.data ??= formulaData(actor, item);
@@ -385,6 +392,7 @@ function wordMeaning(word) {
   if (word.unknown) return L("Chips.Var.unknown");
   if (word.motor) {
     const def = motorDef(word.motor);
+    if (word.field && def) return L(`${def.i18n}.Chips.${word.field}`);
     const motor = def ? motorName(def) : word.motor;
     return L(`Chips.Var.${word.spent ? "spent" : (word.max ? "max" : "motor")}`, { motor });
   }

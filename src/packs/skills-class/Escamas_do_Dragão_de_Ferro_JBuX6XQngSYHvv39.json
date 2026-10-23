@@ -1,0 +1,123 @@
+{
+  "name": "Escamas do Dragão de Ferro",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Dragão de Ferro.</strong> Gaste até [NH+1] Escamas: a sua pele vira ferro. Até o fim da rodada, você tem [Anulação: Escamas gastas × (NP÷2 + 2)]. Uma vez por rodada.</p><p><em>Lâminas batem em você e escorregam, como em armadura.</em></p>",
+    "tags": [
+      "Iron"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 2
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/shield-block-gray-yellow.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "cancel",
+            "value": "@spent*(floor(@cr/2)+2)"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Escamas do Dragão de Ferro",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "JNGrd0KT32iCqwPn",
+      "_key": "!items.effects!JBuX6XQngSYHvv39.JNGrd0KT32iCqwPn"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "matador-escamas-de-ferro",
+      "kind": "spends",
+      "branch": "elementTalent",
+      "minRank": 3,
+      "motor": {
+        "id": "matador",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose",
+        "max": "@sr+1"
+      },
+      "elementTalent": {
+        "class": "matador",
+        "id": "ferro"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 120000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "JBuX6XQngSYHvv39",
+  "folder": "WvnXFIVnimUybzJX",
+  "_key": "!items!JBuX6XQngSYHvv39"
+}

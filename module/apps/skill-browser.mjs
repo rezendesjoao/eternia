@@ -18,6 +18,8 @@
  *                             listed only once the character has it, to raise its SR
  *   flags.eternia.requires    identifiers of the skills it needs first (a branch of class talents)
  *   flags.eternia.pathTalent  { class, id }: a talent of a class Path, listed only for who follows that Path
+ *   flags.eternia.elementTalent  { class, id }: a talent of an element (the Dragon Slayer's), listed only for who has
+ *                             that element's skill (flags.eternia.element)
  *   flags.eternia.dedication  { name, id }: the Dedication of a class (the multiclass, from CR 5), listed for
  *                             characters of other classes: it opens that class's [Dedication] talents, two CR later.
  *                             At most two Dedications, the second after two talents of the first.
@@ -88,7 +90,8 @@ const DEDICATION_DELAY = 2;
 
 const INDEX_FIELDS = [
   "system.subtype", "system.skillRank", "system.tags", "folder", "flags.eternia.minRank", "flags.eternia.choiceOnly",
-  "flags.eternia.requires", "flags.eternia.pathTalent", "flags.eternia.dedication", "flags.eternia.identifier"
+  "flags.eternia.requires", "flags.eternia.pathTalent", "flags.eternia.elementTalent", "flags.eternia.dedication",
+  "flags.eternia.identifier"
 ];
 const listOf = value => (Array.isArray(value) ? value : ((typeof value === "string") ? [value] : Object.values(value ?? {})));
 
@@ -123,6 +126,7 @@ async function buildIndex() {
       }
       const flags = e.flags?.eternia ?? {};
       const path = flags.pathTalent;
+      const element = flags.elementTalent;
       entries.push({
         uuid: e.uuid ?? pack.getUuid(e._id),
         name: e.name,
@@ -134,6 +138,7 @@ async function buildIndex() {
         identifier: String(flags.identifier ?? ""),
         requires: listOf(flags.requires).map(String).filter(Boolean),
         pathTalent: path?.class ? `${path.class}.${path.id}` : "",
+        elementTalent: element?.class ? `${element.class}.${element.id}` : "",
         dedicationOf: flags.dedication?.name ? { name: normalize(flags.dedication.name), id: String(flags.dedication.id ?? "") } : null,
         dedicationTalent: (e.system.tags ?? []).some(t => normalize(t) === DEDICATION_TAG),
         tags: e.system.tags ?? [],
@@ -185,6 +190,7 @@ function skillLists(actor) {
     dedications: dedications.map(d => normalize(d.name)),
     dedicationIds: dedications.map(d => String(d.id ?? "")),
     paths: new Set(skills.map(i => i.getFlag("eternia", "path")).filter(p => p?.class).map(p => `${p.class}.${p.id}`)),
+    elements: new Set(skills.map(i => i.getFlag("eternia", "element")).filter(e => e?.class).map(e => `${e.class}.${e.id}`)),
     identifiers: new Set(skills.map(i => i.getFlag("eternia", "identifier")).filter(Boolean))
   };
 }
@@ -499,6 +505,8 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       if (entry.choiceOnly && !owned) continue;
       // A Path's talents are for who follows it.
       if (entry.pathTalent && !owned && !lists.paths.has(entry.pathTalent)) continue;
+      // An element's talents are for who has it.
+      if (entry.elementTalent && !owned && !lists.elements.has(entry.elementTalent)) continue;
       // The skills a talent needs first, and the limits of the Dedications.
       const missing = owned ? [] : entry.requires.filter(r => !lists.identifiers.has(r));
       const dedication = (!owned && entry.dedicationOf) ? dedicationIssue(actor, lists) : "";

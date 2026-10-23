@@ -219,6 +219,16 @@ const GLYPHS = {
     cut(circle(52.5, 50.5, 3.1), 10), cut(circle(69.5, 50.5, 3.1), 10), cut(circle(61, 59, 3.1), 10),
     cut(circle(52.5, 67.5, 3.1), 10), cut(circle(69.5, 67.5, 3.1), 10)
   ],
+  // The Dragon Slayer's Scales: a dragon's head, roaring, its horns swept back
+  matador: () => [
+    solid("M27 90 C20 75 20 59 28 48.5 C30.4 45.4 32 43.4 34 41.4 L17 28.5 L38.4 34.6 L24 18.5 L44.6 31.4 C50 30 56 30 61 31.6 L66 33.6 L84 38.4 L86.6 37 C89 38.6 91 40.6 91.6 43.4 L91 48.6 L66.6 49.6 L60.6 52.8 L84.6 61.2 C87.4 62.6 87.6 65.6 85.4 67.2 C77.6 71.6 66.6 73.2 57 72.6 C51.4 76.6 48.6 82.6 48 90 Z"),
+    cut(poly([[51.6, 41.6], [63, 36.8], [60.6, 41.8]])),
+    cut(rrect(81.4, 41.2, 4.6, 1.6, 0.8)),
+    cut(poly([[68.8, 49.4], [72.4, 49.2], [70.8, 54.4]])), cut(poly([[76.4, 49], [80, 48.8], [78.4, 54]])),
+    cut(poly([[83.6, 48.8], [87, 48.6], [85.6, 53]])),
+    cut(poly([[67.6, 57.8], [71.6, 59.2], [68.2, 62.4]])), cut(poly([[74.6, 60.2], [78.6, 61.6], [75.2, 64.8]])),
+    { kind: "cutline", d: "M30.8 56 C34.6 59.4 39 61 43.6 60.6 M28.8 67.4 C33 71 37.8 72.6 43 72 M29.4 79 C33.4 82.2 38 83.6 43 83", width: 1.7 }
+  ],
   // The Weaver's Pattern: a spool of thread and its needle
   tecelao: () => [
     solid(rrect(28, 20, 36, 7.6, 2.8)), solid(rrect(28, 72.4, 36, 7.6, 2.8)),
@@ -235,7 +245,7 @@ const CLASS_FAMILY = {
   guardiao: "warrior", samurai: "warrior", monge: "warrior", ressonante: "warrior",
   assassino: "weapon", berserker: "weapon", cacador: "weapon", comandante: "weapon", menestrel: "weapon",
   sacerdote: "healer", druida: "healer", oraculo: "healer",
-  feiticeiro: "magic", invocador: "magic", estrategista: "magic", tecelao: "magic"
+  feiticeiro: "magic", invocador: "magic", estrategista: "magic", tecelao: "magic", matador: "magic"
 };
 
 /* -------------------------------------------- */

@@ -1,0 +1,77 @@
+{
+  "name": "Trovão Rugente",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Dragão do Raio. Arte Secreta do Matador de Dragões.</strong> Só na Força do Dragão: você puxa o céu para baixo numa área a até 4 Qd. Teste de Precisão contra a Resistência de cada alvo; [(1 + Escamas)d6 + Poder de Ataque + Escamas×NP] de dano mágico de [Choque], e quem ele acerta fica [Atordoado]. Gasta todas as Escamas, e a Força acaba.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Primeiro o silêncio. Depois, uma coluna de luz amarela.</em></p>",
+    "tags": [
+      "Magic Attack",
+      "Shock"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@attack+@spent*@cr",
+      "type": "magical",
+      "recovery": false,
+      "noPower": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/lightning/bolts-salvo-clouds-sky.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "matador-trovao-rugente",
+      "kind": "spends",
+      "branch": "elementTalent",
+      "minRank": 7,
+      "motor": {
+        "id": "matador",
+        "needs": {
+          "state": "forca"
+        },
+        "spend": "all",
+        "art": true
+      },
+      "elementTalent": {
+        "class": "matador",
+        "id": "raio"
+      },
+      "damageText": "(1+Escamas)d6 + [Poder de Ataque] + Escamas×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Z92oeCObG6E9cCtF",
+  "folder": "WvnXFIVnimUybzJX",
+  "_key": "!items!Z92oeCObG6E9cCtF"
+}

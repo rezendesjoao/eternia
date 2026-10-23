@@ -25,7 +25,7 @@ import { applyModifier, consumeAfterRoll, dodgeModifier } from "../conditions/ro
 import { afterDamage, beforeDamage, canHeal, markDamage, restoreForUndo, snapshotForUndo } from "../conditions/damage.mjs";
 import { consumedBy, passiveCancels } from "../conditions/effects.mjs";
 import { statusEffectData } from "../chat/status-links.mjs";
-import { motorOnHit } from "../classes/motor.mjs";
+import { motorDamageTags, motorOnHit } from "../classes/motor.mjs";
 
 const TEMPLATES = {
   attack: "systems/eternia/templates/chat/attack-card.hbs",
@@ -193,7 +193,8 @@ function attackWeapon(item, attacker) {
 
 /**
  * Tags of an attack's damage: the skill's tags, plus the main weapon's tags when the skill attacks
- * with the weapon (Range "Weapon", or a [Weapon / Melee / Ranged Attack] tag).
+ * with the weapon (Range "Weapon", or a [Weapon / Melee / Ranged Attack] tag), the attacker's effects' and its
+ * class Motors' (the Dragon Slayer's element).
  * @param {Item} item
  * @param {Actor} [attacker]
  * @returns {string[]}
@@ -202,9 +203,11 @@ function attackTags(item, attacker) {
   const tags = [...(item.system.tags ?? [])];
   const weapon = attackWeapon(item, attacker);
   if (weapon) tags.push(...(weapon.system.tags ?? []));
-  for (const effect of (attacker ?? item.actor)?.effects ?? []) {
+  const actor = attacker ?? item.actor;
+  for (const effect of actor?.effects ?? []) {
     if (effect.active) tags.push(...(effect.getFlag("eternia", "damageTags") ?? []));
   }
+  if (actor?.type === "character") tags.push(...motorDamageTags(actor, item));
   const seen = new Set();
   return tags.filter(t => {
     const key = normalizeTag(t);

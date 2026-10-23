@@ -1,0 +1,83 @@
+{
+  "name": "Sopro Curativo do Dragão do Céu",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Dragão do Céu.</strong> Gaste quantas Escamas quiser (pelo menos 1): um sopro morno de vento num aliado a até 4 Qd (ou em você). Ele recupera [(2 + Escamas gastas)d6 + Recuperação] PV e se livra de [Cambaleante] (o enjoo de viagem também passa).</p><p><em>Um vento que cheira a chuva limpa, e a dor vai embora com ele.</em></p>",
+    "tags": [
+      "Wind"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": "2+@spent",
+      "mod": 0,
+      "type": "",
+      "recovery": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/air/weather-clouds-sunlight.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "matador-sopro-curativo",
+      "kind": "spends",
+      "branch": "elementTalent",
+      "useActions": [
+        {
+          "type": "removeStatus",
+          "statuses": [
+            "staggered"
+          ],
+          "recipients": "targets"
+        }
+      ],
+      "minRank": 3,
+      "motor": {
+        "id": "matador",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose"
+      },
+      "elementTalent": {
+        "class": "matador",
+        "id": "ceu"
+      },
+      "damageText": "(2+Escamas gastas)d6 + [Recuperação]"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 150000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "XRRgZ2IvgtqnESN8",
+  "folder": "WvnXFIVnimUybzJX",
+  "_key": "!items!XRRgZ2IvgtqnESN8"
+}

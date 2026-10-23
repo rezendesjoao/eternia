@@ -39,7 +39,10 @@
  *   which, ctx), onHit?(actor, item, ctx), display?(actor, ctx) → { ready, readyLabel, note }, formulaData?(actor,
  *   item, ctx) → more @motor.* values, statuses?(actor, ctx) → passive statuses kept on the actor
  *   ([{ key, statusId, value, tag }], see syncMotorStatuses), cardActions?(actor, ctx, card) and onCardAction?(actor,
- *   ctx, action, card): buttons on attack cards (index.mjs)
+ *   ctx, action, card): buttons on attack cards (index.mjs), damageTags?(actor, item, ctx) → more tags for the damage
+ *   of a skill (the Dragon Slayer's element), absorbs?(actor, card, ctx) → a note when a damage card does the actor
+ *   no damage at all (the Dragon Slayer eats an ally's attack of its element), chips: [{ key, words }] → words of the
+ *   texts that read formulaData's key (helpers/text-chips.mjs)
  *   and the events, each called as fn(actor, { lesser }, ...args) on the window where it happened:
  *     onCombatStart(combat), onSetup(combat, round), onCleanup(combat, round), onCombatEnd(combat),
  *     onTurnStart(combat), onTurnEnd(combat)          the actor's own Main Process
@@ -48,6 +51,7 @@
  *     onAttacked(attacker, item, message), onDodged(attacker, item, message)
  *     onHitTarget(target, item, message), onMissTarget(target, item, message)
  *     onDamaged(amount, attacker, item, card), onHealed(amount, healer, item, card)
+ *     onStruck(card, amount, attacker, item)          any damage card applied to the actor, whatever HP it took
  *     onKill(target, item, card), onMove(squares), onCheck(roll, context)
  *   and the same seen by everyone with a Motor in the actor's combat (allies and enemies alike):
  *     onAnyHit(attacker, target, item, message), onAnyMiss(attacker, target, item, message),
@@ -634,6 +638,47 @@ export function motorOnHit(actor, item) {
     if (def.onHit) statuses.push(...(def.onHit(actor, item, { lesser }) ?? []));
   }
   return statuses;
+}
+
+/**
+ * Tags the actor's Motors add to the damage of a skill (the Dragon Slayer's element on its dragon moves).
+ * @param {Actor} actor
+ * @param {Item} item
+ * @returns {string[]}
+ */
+export function motorDamageTags(actor, item) {
+  const tags = [];
+  for (const { def, lesser } of motorsOf(actor)) {
+    if (!def.damageTags) continue;
+    try {
+      tags.push(...(def.damageTags(actor, item, { lesser }) ?? []));
+    }
+    catch (err) {
+      console.error(`${SYSTEM_ID} | Motor ${def.id}: damageTags failed`, err);
+    }
+  }
+  return tags;
+}
+
+/**
+ * Whether a damage card does the actor no damage because one of its Motors takes it (the Dragon Slayer eats an ally's
+ * attack of its element): the note for the summary, or "".
+ * @param {Actor} actor
+ * @param {object} card     The damage card data (tags, attackerUuid…)
+ * @returns {string}
+ */
+export function motorAbsorbs(actor, card) {
+  for (const { def, lesser } of motorsOf(actor)) {
+    if (!def.absorbs) continue;
+    try {
+      const note = def.absorbs(actor, card, { lesser });
+      if (note) return note;
+    }
+    catch (err) {
+      console.error(`${SYSTEM_ID} | Motor ${def.id}: absorbs failed`, err);
+    }
+  }
+  return "";
 }
 
 /**

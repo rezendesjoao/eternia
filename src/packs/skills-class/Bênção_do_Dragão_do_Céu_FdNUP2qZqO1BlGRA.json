@@ -1,0 +1,212 @@
+{
+  "name": "Bênção do Dragão do Céu",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Dragão do Céu.</strong> Gaste 2 Escamas e escolha uma bênção para um aliado a até 4 Qd (ou para você), até o fim da cena: <strong>Força</strong>, [Fortalecido: NP÷2 + 2]; <strong>Armadura</strong>, [Anulação: NP÷2 + 2]; ou <strong>Velocidade</strong>, [Acelerado]. Uma vez por rodada.</p><p><em>Um círculo de vento gira em volta do aliado e não vai mais embora.</em></p>",
+    "tags": [
+      "Wind"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/air/weather-clouds-rainbow.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "empowered",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Bênção do Céu: Força",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "9iNtQOK44pVA4Rqp",
+      "_key": "!items.effects!FdNUP2qZqO1BlGRA.9iNtQOK44pVA4Rqp"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "cancel",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Bênção do Céu: Armadura",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "quiAVfy2pCiZdASz",
+      "_key": "!items.effects!FdNUP2qZqO1BlGRA.quiAVfy2pCiZdASz"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Bênção do Céu: Velocidade",
+      "img": "systems/eternia/assets/ui/status/hasted.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "hasted"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "x9RybpkcLdoIbl1J",
+      "_key": "!items.effects!FdNUP2qZqO1BlGRA.x9RybpkcLdoIbl1J"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "matador-bencao-do-ceu",
+      "kind": "spends",
+      "branch": "elementTalent",
+      "chooseEffect": true,
+      "minRank": 5,
+      "motor": {
+        "id": "matador",
+        "needs": {
+          "min": 2
+        },
+        "spend": 2
+      },
+      "elementTalent": {
+        "class": "matador",
+        "id": "ceu"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 160000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "FdNUP2qZqO1BlGRA",
+  "folder": "WvnXFIVnimUybzJX",
+  "_key": "!items!FdNUP2qZqO1BlGRA"
+}

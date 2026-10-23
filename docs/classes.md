@@ -1,6 +1,6 @@
 # Classes: o esqueleto
 
-As regras de construção das classes da Eternia, fechadas em 2026-10-21, as [16 classes](#as-classes) e a referência
+As regras de construção das classes da Eternia, fechadas em 2026-10-21, as [17 classes](#as-classes) e a referência
 técnica dos Motores. As regras como o jogador lê estão nas páginas **XI. CLASSES** (a geral e uma por classe) do diário
 AS REGRAS.
 
@@ -166,6 +166,7 @@ O mapa da lista de classes: cada Motor mexe numa parte da regra que nenhuma outr
 | PV dos aliados | Sacerdote | Graça: cada ferida de um aliado vira cura depois ou barreira antes |
 | Forma | Druida | Formas: a Seiva paga a fera, e cada forma troca o menu |
 | Criatura extra | Invocador | Pacto: PV pagos viram Laços de um espírito, gastos nos comandos |
+| Elemento do dano | Matador de Dragões | Escamas: come o próprio elemento (e o ataque dele); no Teto, a Força do Dragão |
 | Aliados | Menestrel | Movimentos: a canção sobe a cada Manutenção; trocar volta ao I |
 | Comando | Comandante | Táticas: Ordens que dão a sua ação a um aliado |
 | Itens | Ressonante | Centelha: o poder mora numa peça e salta para outra soltando o que juntou |
@@ -174,6 +175,9 @@ A lista fechou em 16 classes, cruzando as classes do Pathfinder 2e e do Daggerhe
 sobravam. O Duelista da primeira lista saiu (jogaria como o Monge e o Samurai), e entraram o Sacerdote (a cura que
 faltava) e o Caçador (o ataque à distância). As que o cruzamento deixou de fora ou ficam para Dedicações
 (Samurai + Feiticeiro faz o guerreiro arcano) ou batem com profissões (Alquimista, Engenheiro, Bardo).
+
+Depois entrou o Matador de Dragões (2026-10-23), a primeira das classes de magia: o Motor dele mexe nos elementos do
+dano, que nenhuma outra classe usa como recurso.
 
 ## O que saiu do sistema
 
@@ -192,7 +196,7 @@ Na mesma versão da classe piloto, para o sistema nunca ter os dois:
 ## As classes
 
 Cada seção diz o Motor da classe e o que ela tem; as regras como o jogador lê estão na página da classe no diário AS
-REGRAS (XI.1 a XI.16) e na descrição de cada habilidade. A calibragem do dano é a primeira de cada classe: vale
+REGRAS (XI.1 a XI.17) e na descrição de cada habilidade. A calibragem do dano é a primeira de cada classe: vale
 conferir na mesa e ajustar os números (Teto, dados por ponto, o pagamento do Motor cheio).
 
 ### Assassino
@@ -439,6 +443,54 @@ Estado em `flags.eternia.motor.invocador`: `state` (`vazio`, `lobo`, `golem`, `f
 espírito dizem qual em `flags.eternia.motor.spirit` (`"any"` ou o espírito). O PV pago sai direto da ficha (sem
 Barreira) e o Desfazer do cartão não o devolve.
 
+### Matador de Dragões
+
+O Motor **Escamas** mexe nos elementos do dano: o Matador come o próprio elemento (o Devorar: +1, ou +2 com uma fonte;
+o Punho de Ferro do Dragão: +1; cada ataque do elemento que o atinge: +1, e o de um aliado não causa dano) e gasta as
+Escamas nos golpes de dragão, magias ([Ataque Mágico]) que somam o Poder de Ataque e causam dano mágico do elemento. No
+Teto (3 + ⌊NP/5⌋) vem a **Força do Dragão**: [Despertado: NP + 2×Semente] e −1 Escama no Encerramento, até zerar. Quando
+ela acaba, o [Despertado] deixa a [Fadiga] dele e a **Semente do Dragão** (o Tabu, contada por cenário) cresce 1, o que
+deixa a Força seguinte mais forte e mais cara. O elemento, escolhido no NP 1 num espaço de escolha do item de classe, dá
+a tag e o estado dos golpes, a imunidade ([Anulação (tag): NP×2 + 10] e o estado), a fonte do Devorar e três talentos
+próprios. Código em `module/classes/matador.mjs`.
+
+| Parte | O que tem |
+|---|---|
+| Base | FOR 3, DES 3, POD 3, INT 1; faixa Firme (40, +6/NP); papel Damage |
+| Kit | Escamas (Motor), Devorar (Menor, 1/rodada), Punho de Ferro do Dragão (Maior, +1), Rugido do Dragão (Maior, gasta à escolha) |
+| Elementos (NP 1) | Dragão de Fogo (Chama Brilhante do Dragão de Fogo, Chama das Emoções, Lótus Carmesim), Dragão de Ferro (Escamas do Dragão de Ferro, Espada do Dragão de Ferro, Carma Demoníaco), Dragão do Céu (Sopro Curativo, Bênção do Dragão do Céu, Luz Despedaçadora), Dragão do Raio (Alabarda Celeste, Corpo de Raio, Trovão Rugente) |
+| A Fome | Barriga Cheia*, Sabor da Vitória, Alimento do Dragão, Fome Insaciável |
+| A Escama | Pele de Escamas*, Estômago de Dragão*, Instinto do Dragão, Semente Contida |
+| A Garra | Garra do Dragão*, Cotovelo do Dragão*, Chifre de Espada do Dragão, Presa Esmagadora do Dragão |
+| O Rugido | Asa do Dragão*, Rugido Prolongado, Rugido que Ecoa, Rugido Absoluto |
+| Gerais | Faro de Dragão, Parceiro Alado, Banquete do Dragão, Engolir o Perigo |
+| Caminhos (NP 3) | Primeira Geração (O Dragão Interior, Despertar do Dragão Interior), Segunda Geração (Lacrima Carregada, Lacrima Sem Freio), Terceira Geração (Dragões Gêmeos, Força Sem Limite) |
+| Ápice (NP 10) | Modo Rei Dragão |
+| Dedicação (NP 5) | Dedicação: Matador de Dragões, que dá as Escamas Menores, o Devorar, o Punho de Ferro do Dragão e um elemento à escolha |
+
+\* talentos [Dedicação].
+
+Os Caminhos são as gerações e cada um reescreve uma regra: a Primeira, o que se come (os outros elementos de dragão
+também dão Escamas e põem o Matador no Modo Dragão Duplo, com a tag e o estado deles nos golpes); a Segunda, o ganho
+(+1 na Manutenção pela lacrima; o elemento que atinge não dá); a Terceira, a entrada na Força (a habilidade do Caminho,
+Menor, com metade do Teto). As Artes Secretas (os talentos de NP 7 de cada elemento) só saem na Força e gastam tudo.
+
+Estado em `flags.eternia.motor.matador`: `state` (`humano`, `forca`), `value` (Escamas), `dual` (o elemento do Modo
+Dragão Duplo), `seed` (`{ n, scenario }`: a Semente e o cenário em que conta, pelo contador `flags.eternia.scenario`),
+`awoken` (o cenário em que o Dragão Interior já acordou), `stored` (Lacrima Carregada), `twins` (Dragões Gêmeos) e
+`emotion` (Chama das Emoções). A tabela `ELEMENTS` do arquivo diz a tag, o estado e a fonte de cada elemento; um
+elemento novo é uma linha nela, uma habilidade com `flags.eternia.element` (passiva, com a [Anulação] e a imunidade num
+efeito) e os talentos com `elementTalent`. As tags [Ferro] (`Iron`) e [Vento] (`Wind`) entraram no catálogo para o
+Ferro e o Céu.
+
+Automação: os ganhos e os gastos, a Força pelo valor (o [Despertado] é um estado passivo do Motor, e a [Fadiga] vem da
+regra dele ao sair), o dreno no Encerramento, a Semente, a tag do elemento no dano dos golpes (`damageTags`), o estado
+no acerto (`onHit`), o ataque de aliado comido (`absorbs`), ser atingido pelo elemento (`onStruck`), o Devorar (o estado
+comido sai do alvo pelo Mestre quando o jogador não é dono; sem estado, o diálogo pergunta pela fonte), Alimento do
+Dragão, Chama das Emoções, Dragões Gêmeos, o Dragão Interior ([Último Fôlego] uma vez por cenário), a lacrima, a Força
+por vontade, a Semente Contida (metade da Força como [Despertado], a outra metade no dano) e o Ápice. Ficam com o
+Mestre: o enjoo em veículos, as fontes da cena e o deslocamento do Cotovelo, do Chifre de Espada e do Corpo de Raio.
+
 ### Menestrel
 
 O Motor **Movimentos** mexe nos aliados: o Menestrel canta uma canção de cada vez, e ela sobe um Movimento a cada
@@ -649,20 +701,21 @@ estados no alvo atingido (`onHit`), o acerto automático do Desenlace e o Ponto 
 | Arquivo | O que faz |
 |---|---|
 | `module/classes/motor.mjs` | O Motor genérico: o registro (`registerMotor`), o estado no ator, o Teto, as habilidades de Motor e de Motor Menor, os requisitos (`motorUseIssues`), a ação que a habilidade gasta (`motorActionOf`), o plano antes do cartão (`planMotorUse`, que guarda `flags.eternia.motorUse`), a mudança depois (`commitMotorUse`, que avisa todos os Motores com `onUse`) e o Desfazer, os valores das fórmulas e do custo, os bônus de rolagem, os estados que o dano dá, os estados passivos (`syncMotorStatuses`), os eventos (em fila por ator) e os ajudantes das classes (lados, combate, escolha). |
-| `module/classes/<classe>.mjs` | O Motor de cada classe (`ASSASSINO`, `BERSERKER`, `CACADOR`, `COMANDANTE`, `DRUIDA`, `ESTRATEGISTA`, `FEITICEIRO`, `GUARDIAO`, `INVOCADOR`, `MENESTREL`, `MONGE`, `ORACULO`, `RESSONANTE`, `SACERDOTE`, `SAMURAI`, `TECELAO`): o Teto, as regras do kit e dos talentos, os Caminhos, o Ápice e as reações aos eventos. O cabeçalho de cada arquivo diz a regra e o que fica guardado no ator. |
-| `module/classes/index.mjs` | Registra os Motores, embrulha `EterniaCombat#_onPhaseStart` (Manutenção e Encerramento, uma vez, na janela do Mestre que mudou a fase), segue os turnos e o movimento dos tokens, ouve os eventos dos cartões (`eternia.attack`, `eternia.attackResult`, `eternia.dodge`, `eternia.damaged`, `eternia.healed`, `eternia.check`, `eternia.defeated`), põe os botões das classes nos cartões de ataque e tem a API `game.eternia.motor`. |
-| `module/classes/progression.mjs` | O NP mudado à mão oferece o que a classe dá no NP; a Dedicação dá as habilidades dela ao ser aprendida e as tira junto. |
-| `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`) e os dados de cada classe para a aba (cor, faixa, ramos, Caminhos). |
+| `module/classes/<classe>.mjs` | O Motor de cada classe (`ASSASSINO`, `BERSERKER`, `CACADOR`, `COMANDANTE`, `DRUIDA`, `ESTRATEGISTA`, `FEITICEIRO`, `GUARDIAO`, `INVOCADOR`, `MATADOR`, `MENESTREL`, `MONGE`, `ORACULO`, `RESSONANTE`, `SACERDOTE`, `SAMURAI`, `TECELAO`): o Teto, as regras do kit e dos talentos, os Caminhos, o Ápice e as reações aos eventos. O cabeçalho de cada arquivo diz a regra e o que fica guardado no ator. |
+| `module/classes/index.mjs` | Registra os Motores, embrulha `EterniaCombat#_onPhaseStart` (Manutenção e Encerramento, uma vez, na janela do Mestre que mudou a fase), segue os turnos e o movimento dos tokens, ouve os eventos dos cartões (`eternia.attack`, `eternia.attackResult`, `eternia.dodge`, `eternia.damaged`, `eternia.healed`, `eternia.check`, `eternia.defeated`; um cartão de dano aplicado, com ou sem PV tirado, também vira `onStruck`), põe os botões das classes nos cartões de ataque e tem a API `game.eternia.motor`. |
+| `module/classes/progression.mjs` | O NP mudado à mão oferece o que a classe dá no NP; a Dedicação dá as habilidades dela ao ser aprendida (e uma à escolha, `dedicationChoice`) e as tira junto. |
+| `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`) e os dados de cada classe para a aba (cor, faixa, ramos, Caminhos, elementos). |
 | `module/classes/migration.mjs` | A limpeza do Kuden e dos arquétipos, e dos ícones antigos das classes. |
 
 Também tocam nas classes: `automation/use.mjs` (requisitos, ação, plano, mudança e Desfazer do Motor; o custo
 "Hate 1+Cortes"), `helpers/skill-rolls.mjs` (acerto automático, bônus do Motor, `damageText`, o evento dos testes),
-`chat/cards.mjs` (bônus do Motor no Dano dos cartões), `helpers/combat-cards.mjs` (os eventos dos cartões, os
-estados que o Motor dá no acerto e `adjustCardRoll`, que muda um teste do cartão depois da rolagem e julga o acerto
+`chat/cards.mjs` (bônus do Motor no Dano dos cartões), `helpers/combat-cards.mjs` (os eventos dos cartões, as tags
+e os estados que o Motor dá ao dano e `adjustCardRoll`, que muda um teste do cartão depois da rolagem e julga o acerto
 de novo), `helpers/effect-conditions.mjs` (as condições `motorState` e `motorAtLeast`), `hud/hud.mjs` e
 `sheets/actor-sheet.mjs` (o evento dos testes de atributo), `helpers/effect-formulas.mjs` (as variáveis), `apps/option-grants.mjs` e `apps/rank-up.mjs`
-(o que chega pelo NP), `apps/skill-browser.mjs` (requisitos, Caminhos, Dedicação), `hud/` e `canvas/token-style.mjs`
-(o Motor no HUD e no token).
+(o que chega pelo NP e a escolha do elemento), `apps/skill-browser.mjs` (requisitos, Caminhos, elementos, Dedicação),
+`conditions/damage.mjs` (o cartão que o Motor come), `helpers/text-chips.mjs` (as palavras do Motor nos colchetes),
+`hud/` e `canvas/token-style.mjs` (o Motor no HUD e no token).
 
 ### A definição de um Motor
 
@@ -675,10 +728,14 @@ O cabeçalho de `module/classes/motor.mjs` tem a lista completa. Em resumo:
   classe coerentes a cada gravação).
 - **Efeitos:** `rollBonuses` (dados e somas nas rolagens), `onHit` (estados no atingido), `statuses` (estados passivos
   no próprio ator, sincronizados a cada mudança do Motor), `formulaData` (`@motor.<chave>`), `display` (`ready`,
-  `readyLabel`, `note`: a aba e o HUD), `cardActions` e `onCardAction` (botões nos cartões de ataque).
+  `readyLabel`, `note`: a aba e o HUD), `cardActions` e `onCardAction` (botões nos cartões de ataque), `damageTags`
+  (tags a mais no dano de uma habilidade: o elemento do Matador), `absorbs` (uma nota quando o cartão de dano não faz
+  dano nenhum ao ator: o Matador come o ataque de um aliado) e `chips` (palavras dos textos que leem uma chave de
+  `formulaData`: a Semente nos colchetes).
 - **Eventos** (`fn(actor, { lesser }, ...)`, em fila por ator, na janela onde aconteceu): `onCombatStart`, `onSetup`,
   `onCleanup`, `onCombatEnd`, `onTurnStart`, `onTurnEnd`, `onUse`, `onWeaponAttack`, `onAttacked`, `onDodged`,
-  `onHitTarget`, `onMissTarget`, `onDamaged`, `onHealed`, `onKill`, `onMove`, `onCheck`; e os vistos por todos com Motor
+  `onHitTarget`, `onMissTarget`, `onDamaged`, `onHealed`, `onStruck` (um cartão de dano aplicado, com ou sem PV
+  tirado), `onKill`, `onMove`, `onCheck`; e os vistos por todos com Motor
   no combate: `onAnyHit`, `onAnyMiss`, `onAnyDamaged`, `onAnyHealed`, `onAnyCheck`, `onAnyKill`.
 - **Condições de efeito:** `motorState` (um Motor do ator nesse estado: uma forma, uma canção, uma peça) e `motorAtLeast`
   (o Motor da habilidade com pelo menos n pontos).
@@ -692,20 +749,24 @@ O cabeçalho de `module/classes/motor.mjs` tem a lista completa. Em resumo:
 |---|---|
 | `identifier` | `<classe>-<nome>`; requisitos, regras do Motor e aba Classe acham a habilidade por ele |
 | `kind` | `motor`, `feeds` (alimenta), `spends` (gasta) ou `bends` (dobra): o selo da aba |
-| `branch` | o grupo da aba: `kit`, um ramo da classe, `general`, `path`, `pathTalent`, `apex` ou `dedication` |
-| `motor` | `{ id, role, needs: { state, min, full, weapon }, spend, max, gain, set, action, alsoSpends, draw, perfect, inCombat }` |
+| `branch` | o grupo da aba: `kit`, um ramo da classe, `general`, `path`, `pathTalent`, `element`, `elementTalent`, `apex` ou `dedication` |
+| `motor` | `{ id, role, needs: { state, min, full, weapon }, spend, max, gain, set, action, alsoSpends, draw, perfect, inCombat }` (e chaves da classe, como `art`, a Arte Secreta do Matador) |
 | `requires` | identificadores dos talentos que vêm antes |
 | `path` | `{ class, id }`: a habilidade do Caminho |
 | `pathTalent` | `{ class, id }`: um talento do Caminho |
+| `element` | `{ class, id }`: um elemento da classe (o do Matador), escolhido no NP 1 |
+| `elementTalent` | `{ class, id }`: um talento do elemento; o navegador só o mostra para quem tem o elemento |
 | `apex` | a classe de quem é o Ápice |
 | `dedication` | `{ name, id }`: a Dedicação de uma classe |
 | `dedicationGrants` | uuids das habilidades que a Dedicação dá |
+| `dedicationChoice` | uuids entre os quais a Dedicação deixa escolher uma (o elemento do Matador) |
 | `damageText` | o texto do dano no lugar da fórmula (`[Poder de Ataque] + (1+2×Cortes)d6 + Cortes×NP Físico`) |
 | `minRank`, `choiceOnly` | como nas raças: NP mínimo; listada só depois de dada (kit, Caminhos, Ápice, Motor Menor) |
 
 O item `class` leva `identifier`, atributos, `hp`, `hpPerRank`, as tags de papel (`Damage`, `Defense`, `Healing`,
-`Control`, `Support`) e `grants`: um espaço por habilidade do kit, `{ rank: 3, uuids: [os três Caminhos] }` e
-`{ rank: 10, auto: true, uuids: [o Ápice] }`.
+`Control`, `Support`) e `grants`: um espaço por habilidade do kit, um espaço de escolha quando a classe tem elementos
+(`{ uuids: [os elementos] }`, no NP 1), `{ rank: 3, uuids: [os três Caminhos] }` e `{ rank: 10, auto: true, uuids: [o
+Ápice] }`.
 
 ### Criar uma classe nova
 
@@ -716,7 +777,8 @@ O item `class` leva `identifier`, atributos, `hp`, `hpPerRank`, as tags de papel
    `Classes.<id>.Branch`).
 3. O item de classe na pasta Classes de `races-classes` e as habilidades numa pasta com o nome da classe em
    `skills-class` (as classes foram geradas por scripts; a fonte é o JSON em `src/packs`). A classe tem 36 habilidades:
-   o kit, 16 talentos (6 [Dedicação]), 4 Gerais, 3 Caminhos com 2 talentos, o Ápice, a Dedicação e o Motor Menor; cada
+   o kit, 16 talentos (6 [Dedicação]), 4 Gerais, 3 Caminhos com 2 talentos, o Ápice, a Dedicação e o Motor Menor (o
+   Matador de Dragões tem mais 16: quatro elementos com três talentos cada, na subpasta Elementos); cada
    habilidade com um ícone só seu e um nome que nenhuma outra usa. O emblema da classe sai de
    `tools/make-class-icons.mjs` (no jeito dos emblemas de Log Horizon: a família dá a moldura e as cores, losango verde
    para guerreiro, quadrado creme para ataque com arma, círculo rosa para cura e hexágono turquesa para magia, e a classe

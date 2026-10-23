@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.9.0 — 2026-10-23
+
+### Adicionado
+- **O Matador de Dragões**, a primeira das classes de magia (compêndio Raças e Classes, pasta Classes; 52 habilidades
+  em Habilidades de Classe). Motor **Escamas**: o Matador come o próprio elemento (o Devorar dá +1, ou +2 com uma
+  fonte; o Punho de Ferro do Dragão, +1; cada ataque do elemento que o atinge, +1, e o de um aliado não causa dano) e
+  gasta as Escamas nos golpes de dragão (o Rugido, a Garra, a Asa, a Presa, o Chifre de Espada...), magias que somam o
+  Poder de Ataque das luvas e causam dano mágico do elemento. No Teto vem a **Força do Dragão** ([Despertado: NP +
+  2×Semente], −1 Escama no Encerramento, até zerar); quando ela acaba, deixa a [Fadiga] e a **Semente do Dragão**
+  cresce 1. É o Tabu da classe: cada Força seguinte é mais forte e mais cara, e a Semente só zera no fim do cenário.
+- **Os elementos**, escolhidos junto com a classe: Fogo ([Chama], [Queimando]), Ferro ([Ferro], [Fissurado]), Céu
+  ([Vento], [Lento]) e Raio ([Choque], [Eletrificado]). Cada um dá a tag e o estado dos golpes, a imunidade
+  ([Anulação (tag): NP×2 + 10] e o estado), a fonte do Devorar e três talentos próprios, com uma Arte Secreta no NP 7.
+  A aba Classe ganhou a seção **Elemento**, e o navegador de habilidades só mostra os talentos do elemento escolhido.
+- Os Caminhos do Matador são as gerações: a **Primeira** come os outros elementos e entra no Modo Dragão Duplo, a
+  **Segunda** tem a lacrima (+1 Escama por rodada) e a **Terceira** entra na Força do Dragão quando quiser. O Ápice é o
+  **Modo Rei Dragão**.
+- O emblema do Matador de Dragões (a cabeça de dragão, no hexágono turquesa da magia) e a página **XI.10** do diário AS
+  REGRAS.
+- A Dedicação pode deixar escolher uma habilidade entre várias (`dedicationChoice`): a do Matador dá as Escamas
+  Menores, o Devorar, o Punho de Ferro do Dragão e um elemento à escolha.
+- Tags de elemento novas: [Ferro] (`Iron`) e [Vento] (`Wind`).
+- O Motor de uma classe pode pôr tags no dano das habilidades (`damageTags`), tomar um cartão de dano inteiro sem dano
+  (`absorbs`), ouvir todo cartão de dano aplicado, com ou sem PV tirado (`onStruck`), e ter palavras próprias nos
+  colchetes (`chips`, como a Semente).
+
+### Alterado
+- As páginas de classe do diário AS REGRAS depois do Invocador foram renumeradas (do Menestrel, XI.11, ao Tecelão,
+  XI.17), e a XI. CLASSES fala das 17 classes.
+- O aviso de novidades fala da 0.9.
+
 ## 0.8.5 — 2026-10-22
 
 ### Alterado
