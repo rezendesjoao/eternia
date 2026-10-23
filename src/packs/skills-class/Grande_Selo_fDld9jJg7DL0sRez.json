@@ -1,0 +1,74 @@
+{
+  "name": "Grande Selo",
+  "type": "skill",
+  "system": {
+    "description": "<p>Precisa de pelo menos 2 Runas e gasta todas: um selo de runas cobre uma área a até 4 Qd. Teste de Precisão contra a Resistência de cada inimigo da área; [(Runas gastas)d6 + Poder Mágico] de dano mágico, e quem é atingido fica [Lento]. Com 4 Runas ou mais, também [Enraizado].</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Primeiro é uma runa. Depois, cem. Depois, ninguém mais se mexe.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "@spent",
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/control/debuff-chains-shackles-movement-purple.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "magobranco-grande-selo",
+      "kind": "spends",
+      "branch": "selo",
+      "minRank": 5,
+      "requires": [
+        "magobranco-selo-de-luz"
+      ],
+      "motor": {
+        "id": "magobranco",
+        "needs": {
+          "min": 2
+        },
+        "spend": "all"
+      },
+      "damageText": "(Runas)d6 + [Poder Mágico] Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 120000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "fDld9jJg7DL0sRez",
+  "folder": "wFitdxbyAtN1TEvk",
+  "_key": "!items!fDld9jJg7DL0sRez"
+}

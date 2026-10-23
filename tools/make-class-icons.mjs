@@ -219,6 +219,20 @@ const GLYPHS = {
     cut(circle(52.5, 50.5, 3.1), 10), cut(circle(69.5, 50.5, 3.1), 10), cut(circle(61, 59, 3.1), 10),
     cut(circle(52.5, 67.5, 3.1), 10), cut(circle(69.5, 67.5, 3.1), 10)
   ],
+  // The White Mage's Law: the hood over a face of shadow, a rune on its brow and the saw-tooth trim of the hem
+  magobranco: () => {
+    const robe = "M50 8 C57.6 12.6 64.6 21 68 32 C70.6 40.6 70.8 50 69 58.6 C68.4 61.6 68.8 64 70.6 66 C74.4 70.2 75.6 76 74 88"
+      + " L26 88 C24.4 76 25.6 70.2 29.4 66 C31.2 64 31.6 61.6 31 58.6 C29.2 50 29.4 40.6 32 32 C35.4 21 42.4 12.6 50 8 Z";
+    const teeth = [26, 34, 42, 50, 58, 66].map(x => cut(poly([[x, 88.6], [x + 4, 81.8], [x + 8, 88.6]])));
+    return [
+      solid(robe),
+      cut("M50 30 C57.4 33.4 61.6 41 61.6 50.4 C61.6 59.4 56.4 65.6 50 65.6 C43.6 65.6 38.4 59.4 38.4 50.4 C38.4 41 42.6 33.4 50 30 Z"),
+      solid(ellipse(45.2, 50.8, 2.3, 3.3)), solid(ellipse(54.8, 50.8, 2.3, 3.3)),
+      { kind: "cutline", d: "M31.4 62 C37 69.6 63 69.6 68.6 62", width: 1.6 },
+      cut(star(50, 20.6, 4, 4.6, 1.3)),
+      ...teeth
+    ];
+  },
   // The Black Mage's Pressure: the pointed hat over a face of shadow, two eyes glowing under the brim
   magonegro: () => [
     solid("M30 90 C30 77 36 66 44 61.5 L56 61.5 C64 66 70 77 70 90 Z"),
@@ -288,7 +302,7 @@ const CLASS_FAMILY = {
   assassino: "weapon", berserker: "weapon", cacador: "weapon", comandante: "weapon", menestrel: "weapon",
   sacerdote: "healer", druida: "healer", oraculo: "healer",
   feiticeiro: "magic", invocador: "magic", estrategista: "magic", tecelao: "magic", matador: "magic", magonegro: "magic",
-  magovermelho: "magic", pictomante: "magic"
+  magovermelho: "magic", pictomante: "magic", magobranco: "magic"
 };
 
 /* -------------------------------------------- */

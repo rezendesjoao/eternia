@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.14.0 — 2026-10-23
+
+### Adicionado
+- **O Mago Branco**, a quarta classe com Magias (compêndio Raças e Classes, pasta Classes; 36 habilidades). Motor
+  **Lei**: escreve em runas um número de 2 a 12, e cada teste de qualquer personagem no combate com dois dados que somam
+  a Lei acende Runas (os Feitiços também acendem: +1, os grandes +2); cada Runa reescreve um dado de um teste nos cartões
+  de ataque, o do aliado para cima e o do inimigo para baixo. Kit: Lei, Escrever a Lei, Reescrever e Cura. Ramos: A
+  Runa, O Selo, A Barreira e O Julgamento; Caminhos: Augúrio, Lei Absoluta e Cerco; Ápice: Lei Perfeita.
+- **Três Magias novas**: **Escrita Rúnica** (Runa da Prisão, Escrita Negra: Dor, Runa do Revide, Escrita Negra: Asas,
+  Escrita Negra: Escuridão e o supremo Escrita Rúnica: Regra Absoluta), **Escrita Sólida** (as palavras Fogo, Guarda,
+  Silêncio, Ferro e Trovão, e o supremo A Palavra Final) e **Magia das Fadas**, a primeira Magia Ancestral (Luz, Ilusão,
+  Bênção, Esfera e Brilho das Fadas, e o supremo Lei das Fadas, no NP 10). O catálogo chega a 17 Magias.
+- O emblema do Mago Branco (o capuz com a runa na testa e a barra serrilhada do manto), a página **XI.10** do diário
+  AS REGRAS e as páginas XII.6, XII.7 e XII.11 do capítulo XII. MAGIAS.
+
+### Alterado
+- **O Tecelão saiu da lista de classes e das Dedicações**: o Mago Branco tomou o lugar dele (`flags.eternia.retired` no
+  item de classe e na Dedicação, como o Ressonante). As fichas que já o usam continuam funcionando.
+- As páginas de classe do diário depois do Invocador foram renumeradas (Mago Negro XI.11 a Tecelão XI.21), e as do
+  capítulo XII também (Esmagamento é a XII.8); a página do Ressonante aponta para a nova XI.12 do Mago Vermelho.
+- XII.a cita as Runas do Mago Branco entre os Motores das Magias, e as Magias Ancestrais têm o supremo no NP 10.
+- O aviso de novidades fala da 0.14.
+
 ## 0.13.0 — 2026-10-23
 
 ### Adicionado

@@ -5,9 +5,15 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.13.0
+## Versão 0.14.0
 
-- **Novo na 0.13.0: o Invocador vira classe de magia, e mais três Magias.** O Invocador continua com o Lobo, o Golem e
+- **Novo na 0.14.0: o Mago Branco e mais três Magias.** O Mago Branco escreve em runas uma Lei, um número de 2 a 12:
+  quando dois dados de qualquer teste da luta somam a Lei, acendem Runas, que reescrevem os dados dos testes (o do
+  aliado sobe, o do inimigo desce; veja [As classes](#as-classes)). O Tecelão saiu da lista de classes, e o Mago
+  Branco tomou o lugar dele; as fichas que já o usam continuam funcionando. As Magias novas servem a qualquer classe
+  de magia: Escrita Rúnica, Escrita Sólida e Magia das Fadas, a primeira Magia Ancestral (veja
+  [As Magias](#as-magias)).
+- **Desde a 0.13.0: o Invocador vira classe de magia, e mais três Magias.** O Invocador continua com o Lobo, o Golem e
   a Fada, e agora escolhe Magias no NP 1, 5 e 10: com um espírito presente, os feitiços delas dão Laços a ele (veja
   [As classes](#as-classes)). As fichas que já têm o Invocador ganham as vagas de Magia sozinhas. As Magias novas
   servem a qualquer classe de magia: Espíritos Celestiais, Magia Seith e Teatro de Bonecas (veja
@@ -70,8 +76,8 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   mesmo visual; toda a automação de combate e de uso de habilidades; a interface em português do Brasil.
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
-- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 20 classes), Habilidades Raciais e
-  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 14 Magias com os feitiços: 835 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
+- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 21 classes), Habilidades Raciais e
+  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 17 Magias com os feitiços: 892 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
 
@@ -227,6 +233,7 @@ gira em volta dele (veja `docs/classes.md` e as páginas **XI. CLASSES** do diá
 | Feiticeiro | Dano | **Calor**: cada feitiço esquenta e bate mais forte; no Teto, a Erupção solta tudo ou a Sobrecarga queima o próprio feiticeiro. |
 | Guardião | Defesa | **Baluarte**: cada ataque contra ele vira uma Camada da muralha (Anulação), que o Golpe do Baluarte transforma em dano e provocação. |
 | Invocador | Dano, Controle | **Pacto**: paga PV para dar Laços a um espírito (lobo, golem ou fada), que luta, protege ou cura gastando os Laços; com o espírito presente, os Feitiços das Magias também dão Laços. Escolhe uma Magia no NP 1, 5 e 10. |
+| Mago Branco | Cura, Controle | **Lei**: escreve em runas um número de 2 a 12; quando dois dados de qualquer teste o formam, acende Runas (os Feitiços também acendem), que reescrevem os dados dos testes: o do aliado sobe, o do inimigo desce. Escolhe uma Magia no NP 1, 5 e 10. |
 | Mago Negro | Dano | **Pressão**: cada feitiço, da classe ou das Magias, puxa mais poder e bate mais forte; no Teto, a Liberação solta tudo ou a Sobrecarga cobra do próprio mago. Escolhe uma Magia no NP 1, 5 e 10. |
 | Mago Vermelho | Dano, Defesa | **Arsenal**: a magia mora na peça que está na mão (Espada, Armadura ou Foco) e cresce ali; o Reequipar troca de peça e solta a Descarga da antiga. Escolhe uma Magia no NP 1, 5 e 10. |
 | Matador de Dragões | Dano | **Escamas**: come o próprio elemento (Fogo, Ferro, Céu ou Raio) e o transforma em Escamas, que os golpes de dragão gastam; no Teto vem a Força do Dragão, e cada vez que ela acaba a Semente do Dragão cresce. |
@@ -237,12 +244,12 @@ gira em volta dele (veja `docs/classes.md` e as páginas **XI. CLASSES** do diá
 | Ressonante | Dano, Defesa | **Centelha**: o poder mora numa peça do equipamento (arma, armadura ou joia) e cresce ali; saltar para outra peça solta o que juntou. *Classe antiga: saiu da lista na 0.11, e o Mago Vermelho tomou o lugar dela; as fichas que já a usam continuam funcionando.* |
 | Sacerdote | Cura, Defesa | **Graça**: cada ferida de um aliado vira Graça, gasta em curas depois ou em barreiras antes do golpe. |
 | Samurai | Dano, Defesa | **Bainha**: embainhada, a lâmina junta Cortes; o Iai, na Iniciativa, saca e gasta todos, e com a Bainha cheia é um Corte Perfeito. |
-| Tecelão | Controle, Suporte | **Padrão**: escolhe um número de 2 a 12; quando dois dados de qualquer teste o formam, ganha Fios, que mudam os dados dos outros. |
+| Tecelão | Controle, Suporte | **Padrão**: escolhe um número de 2 a 12; quando dois dados de qualquer teste o formam, ganha Fios, que mudam os dados dos outros. *Classe antiga: saiu da lista na 0.14, e o Mago Branco tomou o lugar dela; as fichas que já a usam continuam funcionando.* |
 
 **Automação:** o Motor fica na aba Classe (o estado, os pontos e uma nota quando a classe guarda algo além deles: o
-alvo do Contrato, o Padrão, as Leituras), no HUD e no token. Os ganhos e os gastos seguem o combate sozinhos: a
+alvo do Contrato, a Lei, as Leituras), no HUD e no token. Os ganhos e os gastos seguem o combate sozinhos: a
 Manutenção e o Encerramento, o começo e o fim de cada turno, o movimento do token, os ataques declarados, os acertos e
-as esquivas, o dano e a cura aplicados pelos cartões, os testes rolados e os inimigos derrubados. O Tecelão e o
+as esquivas, o dano e a cura aplicados pelos cartões, os testes rolados e os inimigos derrubados. O Mago Branco e o
 Estrategista ganham botões nos cartões de ataque, que mudam os dados de um teste já rolado e refazem o acerto. O
 elemento do Matador de Dragões entra sozinho no dano dos golpes (a tag e o estado no acerto), e um ataque do elemento
 vindo de um aliado não causa dano: o Matador come o ataque. O
@@ -251,11 +258,11 @@ mover tokens) fica no texto da habilidade.
 
 ## As Magias
 
-Nas classes de magia (o Mago Negro, o Mago Vermelho, o Pictomante e o Invocador), a classe diz **como** você conjura e a **Magia** diz **o que** você
+Nas classes de magia (o Mago Branco, o Mago Negro, o Mago Vermelho, o Pictomante e o Invocador), a classe diz **como** você conjura e a **Magia** diz **o que** você
 conjura. A primeira Magia vem com a classe, a segunda no NP 5 e a terceira no NP 10; a aba Classe mostra as Magias com
 os feitiços de cada uma, e o navegador de habilidades mostra os feitiços das suas Magias (a origem "Magia") nas
 escolhas de Combate e Geral. Os feitiços alimentam o Motor da sua classe (+1; os grandes, +2), e o feitiço supremo de
-cada Magia (NP 7) pede o Motor no Teto e gasta tudo. As regras estão em **XII. MAGIAS**, no diário AS REGRAS.
+cada Magia (NP 7; NP 10 nas Ancestrais) pede o Motor no Teto e gasta tudo. As regras estão em **XII. MAGIAS**, no diário AS REGRAS.
 
 | Magia | Categoria | O que faz |
 |---|---|---|
@@ -264,9 +271,12 @@ cada Magia (NP 7) pede o Motor no Teto e gasta tudo. As regras estão em **XII. 
 | Cajados Mágicos | Portadora | Cinco cajados: o raio de [Choque], a névoa que protege, o [Adormecido], o [Medo] da ilusão e a luz do Canto Sagrado, que deixa [Cego]. |
 | Cartas | Portadora | O baralho: cartas que cortam, o raio de [Choque], a Leitura da Sorte ([Concentrado]) e a gaiola que deixa [Enraizado] e [Silenciado]. |
 | Corpos Celestes | Conjuração | As estrelas: [Radiância] de longe, o Meteoro, a gravidade de Altairis, Grand Chariot e o meteoro gigante de Sema. |
+| Escrita Rúnica | Conjuração | As regras escritas: o círculo que prende ([Enraizado]), a palavra DOR ([Deterioração]), a runa que devolve o golpe ([Espelho]), as asas negras, a escuridão que transforma ([Despertado]) e a Regra Absoluta. |
+| Escrita Sólida | Conjuração | As palavras que ficam de pé: FOGO ([Queimando]), GUARDA ([Anulação]), SILÊNCIO ([Silenciado]), FERRO ([Derrubado]), TROVÃO ([Eletrificado]) e A Palavra Final ([Atordoado]). |
 | Esmagamento | Conjuração | Quebra tudo: [Fissurado] e [Exposto] de perto, e a Desmontagem, que desfaz o golpe que vem. |
 | Espíritos Celestiais | Portadora | As chaves dos portões: o machado do touro, a lã do carneiro ([Barreira]), as flechas do sagitário, a onda do aguadeiro (que pega aliados também), o punho do leão, o Vestido Estelar e Urano Metria. |
 | Gravidade | Conjuração | O peso das coisas: [Lento], [Derrubado] e [Enraizado], o golpe [Fortalecido] e o voo da Gravidade Zero. |
+| Magia das Fadas | Ancestral | A luz das fadas: [Radiância], a ilusão que dá [Medo], a [Regeneração], a esfera que protege os aliados ([Barreira]), o brilho que deixa [Cego] e a Lei das Fadas, o supremo do NP 10, que só fere os inimigos. |
 | Magia Seith | Conjuração | As almas nos bonecos: raios em linha, em X e em estrela, a Possessão ([Encantado]), os Olhos de Boneco ([Confuso]) e o Ritual das Almas. |
 | Matador de Demônios | Perdida | O gelo negro feito para matar demônios: [Frio], [Congelando] e [Fissurado], o golpe congelado no ar e a magia calada ([Silenciado]). Tabu: em combate, as Defesas Física e Mágica caem [NP]. |
 | Moldagem de Gelo | Conjuração | O gelo moldado com as mãos: lanças e o martelo de [Frio] ([Congelando]), o escudo em forma de flor, o chão que derruba, as águias de gelo e a Dança dos Sete Cortes. |

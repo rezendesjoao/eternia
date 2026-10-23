@@ -1,0 +1,168 @@
+{
+  "name": "Cerco Fechado",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Caminho do Cerco.</strong> Precisa de pelo menos 3 Runas e gasta todas: o cerco se fecha. Os inimigos numa área a até 3 Qd ficam [Lento] e [Enraizado] e sofrem [1d6 + Runas × NP] de dano direto.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>As paredes de runas aparecem todas juntas, e o campo vira uma sala sem porta.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 1,
+      "mod": "@spent*@cr",
+      "type": "direct",
+      "recovery": false,
+      "noPower": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/control/debuff-chains-shackle-movement-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "slowed"
+          },
+          "recipients": "enemies",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Cerco Fechado",
+      "img": "systems/eternia/assets/ui/status/slowed.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "slowed"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "Igr20X3EGNYpaWUK",
+      "_key": "!items.effects!yE32YEBGSbSWOHY9.Igr20X3EGNYpaWUK"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "rooted"
+          },
+          "recipients": "enemies",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Cerco Fechado",
+      "img": "systems/eternia/assets/ui/status/rooted.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "rooted"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "oEPwJB7w8GkNslZD",
+      "_key": "!items.effects!yE32YEBGSbSWOHY9.oEPwJB7w8GkNslZD"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "magobranco-cerco-fechado",
+      "kind": "spends",
+      "branch": "pathTalent",
+      "minRank": 7,
+      "motor": {
+        "id": "magobranco",
+        "needs": {
+          "min": 3
+        },
+        "spend": "all"
+      },
+      "pathTalent": {
+        "class": "magobranco",
+        "id": "cerco"
+      },
+      "damageText": "1d6 + Runas×NP Direto"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 330000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "yE32YEBGSbSWOHY9",
+  "folder": "pqLi6yPTe5uCzpDw",
+  "_key": "!items!yE32YEBGSbSWOHY9"
+}

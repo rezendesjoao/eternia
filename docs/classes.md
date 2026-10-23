@@ -1,6 +1,6 @@
 # Classes: o esqueleto
 
-As regras de construção das classes da Eternia, fechadas em 2026-10-21, as [20 classes](#as-classes), as [Magias](#as-magias) e a referência
+As regras de construção das classes da Eternia, fechadas em 2026-10-21, as [21 classes](#as-classes), as [Magias](#as-magias) e a referência
 técnica dos Motores. As regras como o jogador lê estão nas páginas **XI. CLASSES** (a geral e uma por classe) do diário
 AS REGRAS.
 
@@ -166,7 +166,7 @@ O mapa da lista de classes: cada Motor mexe numa parte da regra que nenhuma outr
 | Inimigo | Assassino | Contrato: acertos de qualquer aliado no alvo viram Brechas; a Execução derruba |
 | Posição | Caçador | Mira: parado, cresce; mover o token zera |
 | Risco | Feiticeiro | Calor: cada feitiço esquenta e bate mais forte; no Teto, Erupção ou Sobrecarga |
-| Dados dos outros | Tecelão | Padrão: dois dados que somam o número dão Fios, que mudam dados nos cartões |
+| Dados dos outros | Tecelão | Padrão: dois dados que somam o número dão Fios, que mudam dados nos cartões (classe antiga: virou o Mago Branco) |
 | Seus dados | Estrategista | Leitura: 2d6 guardados na Manutenção trocam os dados de um teste |
 | Maldição | Oráculo | Fardo: o milagre fica mais forte e a maldição pesa junto |
 | PV dos aliados | Sacerdote | Graça: cada ferida de um aliado vira cura depois ou barreira antes |
@@ -176,6 +176,7 @@ O mapa da lista de classes: cada Motor mexe numa parte da regra que nenhuma outr
 | Risco, com as Magias | Mago Negro | Pressão: cada feitiço, da classe ou das Magias, aumenta; no Teto, Liberação ou Sobrecarga |
 | Itens, com as Magias | Mago Vermelho | Arsenal: a magia mora na peça da mão (Espada, Armadura, Foco); o Reequipar troca e solta a Descarga |
 | Campo, com as Magias | Pictomante | Moldes: cada feitiço deixa uma construção no campo; quebrar vira dano (Estilhaçar) ou defesa (Escudo Esculpido) |
+| Dados dos outros, com as Magias | Mago Branco | Lei: dois dados que somam o número acendem Runas (os feitiços também), que reescrevem dados nos cartões |
 | Aliados | Menestrel | Movimentos: a canção sobe a cada Manutenção; trocar volta ao I |
 | Comando | Comandante | Táticas: Ordens que dão a sua ação a um aliado |
 | Itens | Ressonante | Centelha: o poder mora numa peça e salta para outra soltando o que juntou (classe antiga: virou o Mago Vermelho) |
@@ -194,7 +195,9 @@ Ressonante saiu da lista de classes e das Dedicações (`flags.eternia.retired` 
 fichas que já o usam continuam funcionando. O Pictomante é a primeira classe de magia sem antecessora: o Motor dele mexe
 no campo (as construções que cada feitiço deixa e que ficam lá até serem quebradas), que nenhuma outra classe usa.
 Na 0.13 o Invocador virou classe de magia sem mudar de nome nem de habilidades: ganhou as vagas de Magia, e os Feitiços
-das Magias passaram a dar Laços ao espírito presente.
+das Magias passaram a dar Laços ao espírito presente. Na 0.14 veio o Mago Branco, que herda os dados do Tecelão (a Lei é
+o Padrão feito motor das Magias: os Feitiços também acendem Runas, e o kit troca o Laço pela Cura); com ele, o Tecelão
+saiu da lista de classes e das Dedicações, como o Ressonante.
 
 ## O que saiu do sistema
 
@@ -214,7 +217,7 @@ Na mesma versão da classe piloto, para o sistema nunca ter os dois:
 ## As classes
 
 Cada seção diz o Motor da classe e o que ela tem; as regras como o jogador lê estão na página da classe no diário AS
-REGRAS (XI.1 a XI.20) e na descrição de cada habilidade. A calibragem do dano é a primeira de cada classe: vale
+REGRAS (XI.1 a XI.21) e na descrição de cada habilidade. A calibragem do dano é a primeira de cada classe: vale
 conferir na mesa e ajustar os números (Teto, dados por ponto, o pagamento do Motor cheio).
 
 ### Assassino
@@ -464,6 +467,49 @@ Estado em `flags.eternia.motor.invocador`: `state` (`vazio`, `lobo`, `golem`, `f
 em que o espírito chegou, para os supremos), `freeUsed` e `eternalUsed` (o Ápice, por combate) e as rodadas dos ganhos de uma vez por rodada. As habilidades que pedem um
 espírito dizem qual em `flags.eternia.motor.spirit` (`"any"` ou o espírito). O PV pago sai direto da ficha (sem
 Barreira) e o Desfazer do cartão não o devolve.
+
+### Mago Branco
+
+O Motor **Lei** mexe nos dados dos outros e é o motor das Magias: o Padrão do Tecelão com outra cara. O Mago Branco
+escreve um número de 2 a 12, e cada teste de qualquer personagem no combate (Esquivas incluídas) com dois dados que
+somam esse número acende Runas (1 para 6 a 8, 2 para 4, 5, 9 e 10, 3 para 2, 3, 11 e 12); cada Feitiço, da classe ou
+das Magias, acende mais uma (os grandes, duas). Nos cartões de ataque, cada Runa reescreve um dado de um teste já
+rolado: o menor sobe 1 ou o maior desce 1 (2 Runas quando isso cria ou desfaz um Crítico ou uma Falha Crítica); os
+feitiços supremos das Magias pedem o Teto e gastam todas. Teto 3 + ⌊NP/5⌋; zera no fim do combate, e trocar a Lei no
+meio do combate apaga as Runas. É uma **classe de magia**: escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP
+10. Código em `module/classes/magobranco.mjs`.
+
+| Parte | O que tem |
+|---|---|
+| Base | FOR 1, DES 2, POD 3, INT 4; faixa Leve (40, +5/NP); papéis Healing e Control |
+| Kit | Lei (Motor), Escrever a Lei (Manutenção), Reescrever (os botões do cartão), Cura (Maior, Feitiço, [2d6 + Recuperação], +1); a primeira Magia |
+| A Runa | Inscrever\*, Runa Gêmea, Círculo Rúnico\*, Segunda Lei |
+| O Selo | Selo de Luz, Selo Cego\*, Selo de Marca, Grande Selo |
+| A Barreira | Bênção Rúnica\*, Barreira Rúnica\*, Restauração, Runa Guia |
+| O Julgamento | Runa Sagrada\*, Runa Partida, Duas Sentenças, Sentença Final |
+| Gerais | Runas Gravadas, Ler as Runas, Runa de Retorno, Selo de Porta |
+| Caminhos (NP 3) | Augúrio (Grande Augúrio, Roda do Céu), Lei Absoluta (Lei Dourada, Veredicto), Cerco (Runa do Cerco, Cerco Fechado) |
+| Ápice (NP 10) | Lei Perfeita |
+| Dedicação (NP 5) | Dedicação: Mago Branco, que dá a Lei Menor e Escrever a Lei (sem Magias) |
+
+\* talentos [Dedicação].
+
+O que mudou do Tecelão: o kit troca o Laço pela Cura (o Laço virou o Selo de Luz, no ramo O Selo, e o Laço Apertado
+saiu), os Feitiços acendem Runas pelo `motor.gain`, a Runa Sagrada e as Duas Sentenças batem de [Radiância], a
+Restauração é um Feitiço e o Geral Costurar Mentiras virou o Selo de Porta (Desarmar). Os Caminhos são os do Tecelão:
+Augúrio (o Acaso), Lei Absoluta (o Destino) e Cerco (o Bordado).
+
+Estado em `flags.eternia.motor.magobranco`: `state` (`escrita`, um só), `value` (Runas), `pattern` (a Lei), `second` (o
+segundo número), `doubles` (a Runa Gêmea da rodada), `siege` (a Runa do Cerco da rodada), `pulled` (a correção mais
+barata do Ápice na rodada) e `fate` (o combate do Veredicto).
+
+Automação: o ganho em qualquer teste do combate (`onAnyCheck`, com a Runa Gêmea e a Runa a mais do Selo de Luz), os
+Feitiços (`motor.gain`), os botões do cartão de ataque (`cardActions`: +1/−1, → 6/→ 1 na Lei Absoluta, Veredicto) que
+mudam os dados por `adjustCardRoll` e cobram as Runas (2 quando muda Crítico ou Falha Crítica; Runa Guia e a correção
+mais barata do Ápice), o que a correção causa ([Marcado] do Selo de Marca, [Lento]/[Enraizado] do Cerco, o dano da
+Runa Partida, o [Fortalecido] da Lei Dourada), a Lei rolada do Augúrio (`onSetup`) e a Roda do Céu, os estados no alvo
+atingido (`onHit`), o acerto automático da Sentença Final e a Runa do Cerco. Ficam no texto os talentos Gerais
+(presságios, caminho de volta, selos de porta).
 
 ### Mago Negro
 
@@ -805,6 +851,9 @@ acerto sem Esquiva e +[NP×2+10]).
 
 ### Tecelão
 
+**Classe antiga.** Desde a 0.14 o Tecelão está fora da lista de classes e das Dedicações: o Mago Branco tomou o lugar
+dele. As fichas que já o usam continuam funcionando com as regras abaixo.
+
 O Motor **Padrão** mexe nos dados dos outros: o Tecelão guarda um número de 2 a 12, e cada teste de qualquer
 personagem no combate (Esquivas incluídas) com dois dados que somam esse número dá Fios (1 para 6 a 8, 2 para 4, 5, 9 e
 10, 3 para 2, 3, 11 e 12). Nos cartões de ataque, cada Fio puxa um dado de um teste já rolado: o menor sobe 1 ou o
@@ -836,10 +885,10 @@ estados no alvo atingido (`onHit`), o acerto automático do Desenlace e o Ponto 
 
 ## As Magias
 
-A classe diz **como** se conjura; a Magia diz **o que**. As classes de magia (o Mago Negro, o Mago Vermelho, o Pictomante e o Invocador) escolhem uma
+A classe diz **como** se conjura; a Magia diz **o que**. As classes de magia (o Mago Branco, o Mago Negro, o Mago Vermelho, o Pictomante e o Invocador) escolhem uma
 Magia no NP 1, outra no NP 5 e a terceira no NP 10, e os feitiços dela entram nas escolhas de Combate e Geral, cada um
 com o seu NP mínimo. Os feitiços alimentam e gastam o Motor da classe de quem conjura: cada um +1 (os grandes, +2), e
-os supremos (NP 7) pedem o Motor no Teto e gastam tudo. As regras como o jogador lê estão em **XII. MAGIAS** no diário AS
+os supremos (NP 7; NP 10 nas Ancestrais) pedem o Motor no Teto e gastam tudo. As regras como o jogador lê estão em **XII. MAGIAS** no diário AS
 REGRAS (a geral e uma página por Magia).
 
 | Magia | Categoria | Feitiços |
@@ -849,9 +898,12 @@ REGRAS (a geral e uma página por Magia).
 | Cajados Mágicos | Portadora | Raio do Cajado, Muro de Névoa, Sono, Arranha-Céu, Dança dos Cinco Cajados, Círculo de Cinco Camadas: Canto Sagrado (supremo) |
 | Cartas | Portadora | Cartas Lançadas, Carta do Trovão, Leitura da Sorte, Prisão de Cartas, Tempestade de Cartas, Os Vinte e Dois Arcanos (supremo) |
 | Corpos Celestes | Conjuração | Estrela Cadente, Meteoro, Velocidade da Luz, Altairis, Sete Estrelas do Julgamento: Grand Chariot, Sema (supremo) |
+| Escrita Rúnica | Conjuração | Runa da Prisão, Escrita Negra: Dor, Runa do Revide, Escrita Negra: Asas, Escrita Negra: Escuridão, Escrita Rúnica: Regra Absoluta (supremo) |
+| Escrita Sólida | Conjuração | Escrita Sólida: Fogo, Escrita Sólida: Guarda, Escrita Sólida: Silêncio, Escrita Sólida: Ferro, Escrita Sólida: Trovão, A Palavra Final (supremo) |
 | Esmagamento | Conjuração | Toque Esmagador, Onda de Esmagamento, Desmontagem, Quebrar a Guarda, Ruptura, Esmagamento Absoluto (supremo) |
 | Espíritos Celestiais | Portadora (as chaves) | Portão do Touro, Portão do Carneiro, Portão do Sagitário, Portão do Aguadeiro (pega aliados também), Portão do Leão: Impacto de Régulo, Vestido Estelar, Urano Metria (supremo) |
 | Gravidade | Conjuração | Queda, Mudança de Gravidade, Campo Gravitacional, Gravidade Zero, Buraco Negro, Peso do Mundo (supremo) |
+| Magia das Fadas | Ancestral (o supremo no NP 10) | Luz das Fadas, Ilusão das Fadas, Bênção das Fadas, Esfera das Fadas, Brilho das Fadas, Lei das Fadas (supremo, NP 10) |
 | Magia Seith | Conjuração | Bonecos: Formação Linha, Possessão, Bonecos: Formação X, Olhos de Boneco, Bonecos: Formação Bárion, Ritual das Almas (supremo) |
 | Matador de Demônios | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP]) | Fúria do Demônio de Gelo, Garra do Demônio de Gelo, Gelo do Demônio, Gelo que Cala, Arco da Destruição do Demônio de Gelo, Lâmina da Destruição do Demônio de Gelo (supremo) |
 | Moldagem de Gelo | Conjuração | Moldagem de Gelo: Lança, Moldagem de Gelo: Escudo, Moldagem de Gelo: Martelo, Moldagem de Gelo: Chão, Moldagem de Gelo: Águias, Lâmina de Gelo: Dança dos Sete Cortes, Impacto de Gelo (supremo) |
@@ -876,7 +928,7 @@ na pasta `Magias/<Magia>` de `skills-class`, com identificadores `<magia>-<nome>
 | Arquivo | O que faz |
 |---|---|
 | `module/classes/motor.mjs` | O Motor genérico: o registro (`registerMotor`), o estado no ator, o Teto, as habilidades de Motor e de Motor Menor, os requisitos (`motorUseIssues`), a ação que a habilidade gasta (`motorActionOf`), o plano antes do cartão (`planMotorUse`, que guarda `flags.eternia.motorUse`), a mudança depois (`commitMotorUse`, que avisa todos os Motores com `onUse`) e o Desfazer, os valores das fórmulas e do custo, os bônus de rolagem, os estados que o dano dá, os estados passivos (`syncMotorStatuses`), os eventos (em fila por ator) e os ajudantes das classes (lados, combate, escolha). |
-| `module/classes/<classe>.mjs` | O Motor de cada classe (`ASSASSINO`, `BERSERKER`, `CACADOR`, `COMANDANTE`, `DRUIDA`, `ESTRATEGISTA`, `FEITICEIRO`, `GUARDIAO`, `INVOCADOR`, `MAGONEGRO`, `MAGOVERMELHO`, `MATADOR`, `MENESTREL`, `MONGE`, `ORACULO`, `PICTOMANTE`, `RESSONANTE`, `SACERDOTE`, `SAMURAI`, `TECELAO`): o Teto, as regras do kit e dos talentos, os Caminhos, o Ápice e as reações aos eventos. O cabeçalho de cada arquivo diz a regra e o que fica guardado no ator. |
+| `module/classes/<classe>.mjs` | O Motor de cada classe (`ASSASSINO`, `BERSERKER`, `CACADOR`, `COMANDANTE`, `DRUIDA`, `ESTRATEGISTA`, `FEITICEIRO`, `GUARDIAO`, `INVOCADOR`, `MAGOBRANCO`, `MAGONEGRO`, `MAGOVERMELHO`, `MATADOR`, `MENESTREL`, `MONGE`, `ORACULO`, `PICTOMANTE`, `RESSONANTE`, `SACERDOTE`, `SAMURAI`, `TECELAO`): o Teto, as regras do kit e dos talentos, os Caminhos, o Ápice e as reações aos eventos. O cabeçalho de cada arquivo diz a regra e o que fica guardado no ator. |
 | `module/classes/index.mjs` | Registra os Motores, embrulha `EterniaCombat#_onPhaseStart` (Manutenção e Encerramento, uma vez, na janela do Mestre que mudou a fase), segue os turnos e o movimento dos tokens, ouve os eventos dos cartões (`eternia.attack`, `eternia.attackResult`, `eternia.dodge`, `eternia.damaged`, `eternia.healed`, `eternia.check`, `eternia.defeated`; um cartão de dano aplicado, com ou sem PV tirado, também vira `onStruck`), põe os botões das classes nos cartões de ataque e tem a API `game.eternia.motor`. |
 | `module/classes/progression.mjs` | O NP mudado à mão oferece o que a classe dá no NP; a Dedicação dá as habilidades dela ao ser aprendida (e uma à escolha, `dedicationChoice`) e as tira junto. |
 | `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`) e os dados de cada classe para a aba (cor, faixa, ramos, Caminhos, elementos, `magic` das classes de magia). |
@@ -947,7 +999,7 @@ O item `class` leva `identifier`, atributos, `hp`, `hpPerRank`, as tags de papel
 `Control`, `Support`) e `grants`: um espaço por habilidade do kit, um espaço de escolha quando a classe tem elementos
 (`{ uuids: [os elementos] }`, no NP 1), as vagas de Magia de uma classe de magia (`{ rank: 1, magic: true }`, 5 e 10: a
 n-ésima fica aberta enquanto o personagem tem menos de n Magias), `{ rank: 3, uuids: [os três Caminhos] }` e
-`{ rank: 10, auto: true, uuids: [o Ápice] }`. Uma classe que saiu da lista (o Ressonante, que virou o Mago Vermelho) leva
+`{ rank: 10, auto: true, uuids: [o Ápice] }`. Uma classe que saiu da lista (o Ressonante, que virou o Mago Vermelho, e o Tecelão, que virou o Mago Branco) leva
 `flags.eternia.retired` (o id da classe que tomou o lugar) no item e na Dedicação: o navegador de classes e o de
 habilidades só os mostram para quem já os tem.
 

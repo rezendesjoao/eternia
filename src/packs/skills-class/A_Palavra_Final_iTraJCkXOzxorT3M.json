@@ -1,0 +1,79 @@
+{
+  "name": "A Palavra Final",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Escrita Sólida. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você escreve FIM no céu, em letras do tamanho de uma casa, e elas caem sobre uma área ampla a até 5 Qd. Teste de Precisão contra a Esquiva de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico, e quem elas acertam fica [Atordoado]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Depois da última letra, não sobra nada para dizer.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/sundries/books/book-open-turquoise.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "escrita-solida-palavra-final",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "dazed"
+        }
+      ],
+      "magicSpell": {
+        "id": "escrita-solida"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "iTraJCkXOzxorT3M",
+  "folder": "Zp9v6iTof68VFI7M",
+  "_key": "!items!iTraJCkXOzxorT3M"
+}

@@ -1518,7 +1518,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.13: o Invocador vira classe de magia, e mais três Magias</strong></p><ul><li>O <strong>Invocador</strong> agora escolhe Magias no NP 1, 5 e 10. Com um espírito presente, os feitiços delas dão <strong>Laços</strong> a ele; os supremos gastam todos os Laços. O Lobo, o Golem, a Fada e os talentos continuam os mesmos, e as fichas que já têm o Invocador ganham as vagas de Magia sozinhas.</li><li>Três Magias novas, para qualquer classe de magia: <strong>Espíritos Celestiais</strong>, <strong>Magia Seith</strong> e <strong>Teatro de Bonecas</strong>. As regras estão no capítulo XII. MAGIAS do diário AS REGRAS.</li><li>Desde a 0.12: o Pictomante, a Moldagem de Gelo, a Moldagem de Memória e o Matador de Demônios.</li></ul><p>Desde a 0.11: o Mago Vermelho. Desde a 0.10: o Mago Negro e as Magias. Desde a 0.9: o Matador de Dragões. Desde a 0.8: as 16 classes. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.14: o Mago Branco e mais três Magias</strong></p><ul><li>O <strong>Mago Branco</strong>, a nova classe de magia: escreve em runas uma <strong>Lei</strong>, um número de 2 a 12. Quando dois dados de qualquer teste da luta somam a Lei, acendem <strong>Runas</strong>, que reescrevem os dados dos testes nos cartões de ataque: o do aliado sobe, o do inimigo desce. Escolhe Magias no NP 1, 5 e 10.</li><li>O <strong>Tecelão</strong> saiu da lista de classes e das Dedicações: o Mago Branco tomou o lugar dele. As fichas que já o usam continuam funcionando.</li><li>Três Magias novas, para qualquer classe de magia: <strong>Escrita Rúnica</strong>, <strong>Escrita Sólida</strong> e <strong>Magia das Fadas</strong>, a primeira Magia Ancestral (o feitiço supremo dela chega no NP 10). As regras estão no capítulo XII. MAGIAS do diário AS REGRAS.</li><li>Desde a 0.13: o Invocador como classe de magia, os Espíritos Celestiais, a Magia Seith e o Teatro de Bonecas.</li></ul><p>Desde a 0.12: o Pictomante. Desde a 0.11: o Mago Vermelho. Desde a 0.10: o Mago Negro e as Magias. Desde a 0.9: o Matador de Dragões. Desde a 0.8: as 16 classes. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -2706,6 +2706,51 @@
           "seed": "Semente do Dragão: quantas Forças do Dragão já acabaram neste cenário"
         }
       },
+      "MagoBranco": {
+        "Name": "Lei",
+        "Unit": "Runas",
+        "State": {
+          "escrita": "Escrita"
+        },
+        "Card": {
+          "Gain": "Um teste de qualquer personagem no combate com dois dados que somam a Lei: +1 Runa (6 a 8), +2 (4, 5, 9, 10) ou +3 (2, 3, 11, 12). Cada Feitiço, da classe ou das Magias, acende +1 (os grandes, +2).",
+          "Spend": "Nos cartões de ataque, 1 Runa: o menor dado de um teste sobe 1 ou o maior desce 1 (2 Runas se criar ou desfizer um Crítico ou uma Falha Crítica). Os feitiços supremos pedem o Teto e gastam todas.",
+          "Cap": "3 Runas, +1 a cada 5 NP. A Lei, um número de 2 a 12, se escreve na Manutenção.",
+          "Reset": "No fim do combate. Trocar a Lei no meio do combate apaga as Runas.",
+          "GainLesser": "Um teste de qualquer personagem no combate com dois dados que somam a Lei: +1 Runa (6 a 8), +2 (4, 5, 9, 10) ou +3 (2, 3, 11, 12).",
+          "SpendLesser": "Nos cartões de ataque, 1 Runa: o menor dado de um teste sobe 1 (2 Runas se criar um Crítico ou desfizer uma Falha Crítica).",
+          "CapLesser": "Metade do Teto da Lei, no mínimo 1.",
+          "ResetLesser": "No fim do combate. Trocar a Lei no meio do combate apaga as Runas."
+        },
+        "Note": "Lei: {n}",
+        "NoteTwo": "Lei: {a} e {b}",
+        "ReadyLabel": "Sentença Final pronta",
+        "ChooseHint": "A Lei: o número que dois dados de um teste precisam somar. Os raros acendem mais Runas.",
+        "ChooseSecond": "O segundo número da Lei.",
+        "Option": "{n} ({runas} Runa)",
+        "Options": "{n} ({runas} Runas)",
+        "AuguryIssue": "Caminho do Augúrio: a Lei é rolada na Manutenção.",
+        "AuguryFlavor": "Caminho do Augúrio: a Lei da rodada",
+        "Up": "Runa +1",
+        "Down": "Runa −1",
+        "Six": "Runa → 6",
+        "One": "Runa → 1",
+        "Fate": "Veredicto",
+        "UpTip": "1 Runa: o menor dado do teste sobe 1. Custa 2 se criar ou desfizer um Crítico ou uma Falha Crítica.",
+        "DownTip": "1 Runa: o maior dado do teste desce 1. Custa 2 se criar ou desfizer um Crítico ou uma Falha Crítica.",
+        "SixTip": "1 Runa: o menor dado do teste vira 6. Custa 2 se criar um Crítico ou desfizer uma Falha Crítica.",
+        "OneTip": "1 Runa: o maior dado do teste vira 1. Custa 2 se criar uma Falha Crítica ou desfizer um Crítico.",
+        "FateTip": "Todas as Runas (pelo menos 3): o teste vira Falha Crítica. Uma vez por combate.",
+        "Cost": "{label} ({n} Runas)",
+        "Free": "{label} (grátis)",
+        "NoteUp": "{name}: Runa +1",
+        "NoteDown": "{name}: Runa −1",
+        "NoteSix": "{name}: Runa → 6",
+        "NoteOne": "{name}: Runa → 1",
+        "NoteFate": "{name}: Veredicto",
+        "NoDie": "Nenhum dado desse teste pode mudar assim.",
+        "NoRunes": "Runas de menos: precisa de {n}."
+      },
       "MagoNegro": {
         "Name": "Pressão",
         "Unit": "Pressão",
@@ -2964,6 +3009,14 @@
       "Element": "Elemento",
       "ChooseElement": "Escolher o elemento",
       "DedicationChoice": "Escolha o elemento desta Dedicação.",
+      "magobranco": {
+        "Branch": {
+          "runa": "A Runa",
+          "selo": "O Selo",
+          "barreira": "A Barreira",
+          "julgamento": "O Julgamento"
+        }
+      },
       "magonegro": {
         "Branch": {
           "fluxo": "O Fluxo",

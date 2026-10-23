@@ -1,0 +1,163 @@
+{
+  "name": "Escrita Negra: Asas",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Escrita Rúnica.</strong> Você escreve asas negras nas próprias costas e voa até 5 Qd, por cima dos obstáculos e sem sofrer Obstrução. Até o fim da rodada fica [Voando] e [Fortalecido: NP÷2 + 2]. Uma vez por rodada.</p><p><em>O golpe que vem de cima pesa mais.</em></p>",
+    "tags": [
+      "Spell",
+      "Movement"
+    ],
+    "timing": "Move",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/control/buff-flight-wings-runes-purple.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Escrita Negra: Asas",
+      "img": "systems/eternia/assets/ui/status/flying.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "flying"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "KMhDLaNwhXVjWTmT",
+      "_key": "!items.effects!L6gfFsdygvH5xmn9.KMhDLaNwhXVjWTmT"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "empowered",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Escrita Negra: Asas: mergulho",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "yTeGAeQdQkaH86L6",
+      "_key": "!items.effects!L6gfFsdygvH5xmn9.yTeGAeQdQkaH86L6"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "escrita-runica-asas",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "escrita-runica"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "L6gfFsdygvH5xmn9",
+  "folder": "ulMBAuBHDwg6wkFi",
+  "_key": "!items!L6gfFsdygvH5xmn9"
+}

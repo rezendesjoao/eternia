@@ -1,0 +1,119 @@
+{
+  "name": "Barreira Rúnica",
+  "type": "skill",
+  "system": {
+    "description": "<p>Use quando um aliado a até 4 Qd (ou você) for sofrer dano: as runas se erguem num muro na frente do golpe. Gaste até [NH+1] Runas; o alvo ganha [Barreira: Runas gastas × (NP+5)] até o fim do processo. Não gasta ação. Uma vez por rodada.</p>",
+    "tags": [
+      "Dedication"
+    ],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 3
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/equipment/shield/kite-wooden-sigil-purple.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "barrier",
+            "value": "@spent*(@cr+5)"
+          },
+          "expires": "endOfProcess"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Barreira Rúnica",
+      "img": "systems/eternia/assets/ui/status/barrier.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "barrier"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "4Rsd5DDhCJphwB6v",
+      "_key": "!items.effects!2H4DEgqmC4C3sC1Z.4Rsd5DDhCJphwB6v"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "magobranco-barreira-runica",
+      "kind": "spends",
+      "branch": "barreira",
+      "minRank": 3,
+      "motor": {
+        "id": "magobranco",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose",
+        "max": "@sr+1",
+        "action": "none"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 140000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "2H4DEgqmC4C3sC1Z",
+  "folder": "wFitdxbyAtN1TEvk",
+  "_key": "!items!2H4DEgqmC4C3sC1Z"
+}

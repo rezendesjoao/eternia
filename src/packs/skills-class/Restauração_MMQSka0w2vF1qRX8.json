@@ -1,0 +1,71 @@
+{
+  "name": "Restauração",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste quantas Runas quiser (pelo menos 1): você escreve runas de cura na pele de um aliado a até 4 Qd (ou na sua). Ele recupera [(1 + Runas gastas)d6 + Recuperação] PV.</p><p><strong>Custo:</strong> Ódio 1.</p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": 0,
+      "type": "",
+      "recovery": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/life/heart-cross-strong-purple-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "magobranco-restauracao",
+      "kind": "spends",
+      "branch": "barreira",
+      "minRank": 3,
+      "motor": {
+        "id": "magobranco",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose",
+        "max": "@motor.value"
+      },
+      "damageText": "(1+Runas)d6 + [Recuperação]"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 150000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "MMQSka0w2vF1qRX8",
+  "folder": "wFitdxbyAtN1TEvk",
+  "_key": "!items!MMQSka0w2vF1qRX8"
+}
