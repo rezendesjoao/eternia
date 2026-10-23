@@ -1,0 +1,77 @@
+{
+  "name": "Arco da Destruição do Demônio de Gelo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Matador de Demônios.</strong> Feitiço grande. Você molda um arco de gelo negro e solta uma flecha contra um alvo a até 6 Qd: Teste de Precisão contra a Esquiva; [4d6 + Poder Mágico] de dano mágico de [Frio], e ele fica [Fissurado: 2].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>A flecha atravessa o alvo e o que está atrás dele.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Cold"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/water/projectile-arrow-ice-gray-blue.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "matador-demonios-arco",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "fissured",
+          "value": 2
+        }
+      ],
+      "magicSpell": {
+        "id": "matador-demonios"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "0dWkSXRxoYyk857j",
+  "folder": "YqwU8MVCshoPTaCo",
+  "_key": "!items!0dWkSXRxoYyk857j"
+}

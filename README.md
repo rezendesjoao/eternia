@@ -5,9 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.11.0
+## Versão 0.12.0
 
-- **Novo na 0.11.0: o Mago Vermelho e mais quatro Magias.** A magia do Mago Vermelho mora na peça que está na mão (a
+- **Novo na 0.12.0: o Pictomante e mais três Magias.** A magia do Pictomante é construída no campo: cada feitiço deixa
+  um Molde, que fica lá até ser quebrado, e quebrar vira dano (o Estilhaçar) ou defesa (o Escudo Esculpido) (veja
+  [As classes](#as-classes)). As Magias novas servem a qualquer classe de magia: Moldagem de Gelo, Moldagem de Memória
+  e Matador de Demônios, a primeira Magia Perdida (veja [As Magias](#as-magias)).
+- **Desde a 0.11.0: o Mago Vermelho e mais quatro Magias.** A magia do Mago Vermelho mora na peça que está na mão (a
   Espada, a Armadura ou o Foco): a Carga cresce a cada rodada e a cada feitiço, e o Reequipar troca de peça e solta a
   Descarga da antiga (veja [As classes](#as-classes)). As Magias novas servem a qualquer classe de magia: Reequipar: O
   Cavaleiro, Cartas, Gravidade e Cajados Mágicos (veja [As Magias](#as-magias)). O Ressonante saiu da lista de classes,
@@ -61,8 +65,8 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   mesmo visual; toda a automação de combate e de uso de habilidades; a interface em português do Brasil.
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
-- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 19 classes), Habilidades Raciais e
-  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 8 Magias com os feitiços: 755 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
+- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 20 classes), Habilidades Raciais e
+  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 11 Magias com os feitiços: 813 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
 
@@ -224,6 +228,7 @@ gira em volta dele (veja `docs/classes.md` e as páginas **XI. CLASSES** do diá
 | Menestrel | Suporte | **Movimentos**: a canção sobe a cada Manutenção e reforça os aliados; trocar de canção volta ao começo, e o Finale gasta tudo. |
 | Monge | Dano, Defesa | **Corrente**: golpes encadeados juntam Elos, e o Golpe Final gasta a corrente inteira; apanhar ou parar quebra os Elos. |
 | Oráculo | Cura, Dano | **Fardo**: cada milagre fica mais forte e pesa mais; com Fardo alto vem a maldição, e a Revelação descarrega tudo de uma vez. |
+| Pictomante | Controle, Defesa | **Moldes**: cada feitiço deixa uma construção no campo (uma lança, um muro, uma fera), que fica lá até ser quebrada; quebrar vira dano (o Estilhaçar) ou defesa (o Escudo Esculpido). Escolhe uma Magia no NP 1, 5 e 10. |
 | Ressonante | Dano, Defesa | **Centelha**: o poder mora numa peça do equipamento (arma, armadura ou joia) e cresce ali; saltar para outra peça solta o que juntou. *Classe antiga: saiu da lista na 0.11, e o Mago Vermelho tomou o lugar dela; as fichas que já a usam continuam funcionando.* |
 | Sacerdote | Cura, Defesa | **Graça**: cada ferida de um aliado vira Graça, gasta em curas depois ou em barreiras antes do golpe. |
 | Samurai | Dano, Defesa | **Bainha**: embainhada, a lâmina junta Cortes; o Iai, na Iniciativa, saca e gasta todos, e com a Bainha cheia é um Corte Perfeito. |
@@ -241,7 +246,7 @@ mover tokens) fica no texto da habilidade.
 
 ## As Magias
 
-Nas classes de magia (o Mago Negro e o Mago Vermelho), a classe diz **como** você conjura e a **Magia** diz **o que** você
+Nas classes de magia (o Mago Negro, o Mago Vermelho e o Pictomante), a classe diz **como** você conjura e a **Magia** diz **o que** você
 conjura. A primeira Magia vem com a classe, a segunda no NP 5 e a terceira no NP 10; a aba Classe mostra as Magias com
 os feitiços de cada uma, e o navegador de habilidades mostra os feitiços das suas Magias (a origem "Magia") nas
 escolhas de Combate e Geral. Os feitiços alimentam o Motor da sua classe (+1; os grandes, +2), e o feitiço supremo de
@@ -256,6 +261,9 @@ cada Magia (NP 7) pede o Motor no Teto e gasta tudo. As regras estão em **XII. 
 | Corpos Celestes | Conjuração | As estrelas: [Radiância] de longe, o Meteoro, a gravidade de Altairis, Grand Chariot e o meteoro gigante de Sema. |
 | Esmagamento | Conjuração | Quebra tudo: [Fissurado] e [Exposto] de perto, e a Desmontagem, que desfaz o golpe que vem. |
 | Gravidade | Conjuração | O peso das coisas: [Lento], [Derrubado] e [Enraizado], o golpe [Fortalecido] e o voo da Gravidade Zero. |
+| Matador de Demônios | Perdida | O gelo negro feito para matar demônios: [Frio], [Congelando] e [Fissurado], o golpe congelado no ar e a magia calada ([Silenciado]). Tabu: em combate, as Defesas Física e Mágica caem [NP]. |
+| Moldagem de Gelo | Conjuração | O gelo moldado com as mãos: lanças e o martelo de [Frio] ([Congelando]), o escudo em forma de flor, o chão que derruba, as águias de gelo e a Dança dos Sete Cortes. |
+| Moldagem de Memória | Conjuração | A memória das magias vistas: Memorizar ([Concentrado]), o feitiço lembrado, o Esquecimento ([Selado]), a terra em chamas ([Queimando]) e a noite das estrelas cadentes. |
 | Reequipar: O Cavaleiro | Portadora | As armaduras de batalha: os feitiços são Ataques com Arma (espadas em área, o golpe da asa negra), a defesa adamantina, o traje sem armadura e a armadura que corta a magia ([Selado]). |
 
 ## As raças

@@ -1,0 +1,278 @@
+{
+  "name": "Escudo Esculpido",
+  "type": "skill",
+  "system": {
+    "description": "<p>Antes do Dano de um ataque contra você ou contra um aliado engajado com você, quebre quantos Moldes quiser: quem ia sofrer o golpe ganha [Anulação: Moldes quebrados × (NP+5)] contra esse dano. Não gasta ação.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>O golpe para numa parede que não estava ali um segundo antes, e a parede vira pó.</em></p>",
+    "tags": [],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/defensive/shield-barrier-glowing-triangle-teal.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "cancel",
+            "value": "@spent*(@cr+5)"
+          },
+          "consumeOn": "damage",
+          "expires": "endOfRound",
+          "conditions": [
+            {
+              "type": "notSkill",
+              "value": "Caminho da Paisagem"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Escudo Esculpido",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "ZuNKmfDqdCLG9koT",
+      "_key": "!items.effects!NT049cA9WnaoAkyk.ZuNKmfDqdCLG9koT"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "cancel",
+            "value": "floor(@spent*(@cr+5)/2)"
+          },
+          "expires": "endOfRound",
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Caminho da Paisagem"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Escudo Esculpido: muralha",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "BEvnQmcysRwsIFZE",
+      "_key": "!items.effects!NT049cA9WnaoAkyk.BEvnQmcysRwsIFZE"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "expires": "endOfScene",
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Paisagem Inspiradora"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Paisagem Inspiradora",
+      "img": "systems/eternia/assets/ui/status/focused.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "focused"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "RyITD0IunVPdh2ZH",
+      "_key": "!items.effects!NT049cA9WnaoAkyk.RyITD0IunVPdh2ZH"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "mirror",
+            "value": "@cr"
+          },
+          "expires": "endOfRound",
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Escudo que Corta"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Escudo que Corta",
+      "img": "systems/eternia/assets/ui/status/mirror.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "mirror"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "uESbcHYMDiOG3Fqt",
+      "_key": "!items.effects!NT049cA9WnaoAkyk.uESbcHYMDiOG3Fqt"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "pictomante-escudo-esculpido",
+      "kind": "spends",
+      "branch": "kit",
+      "choiceOnly": true,
+      "motor": {
+        "id": "pictomante",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose",
+        "action": "none"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "NT049cA9WnaoAkyk",
+  "folder": "F6kD33W4QB9eI089",
+  "_key": "!items!NT049cA9WnaoAkyk"
+}

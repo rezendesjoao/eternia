@@ -139,6 +139,15 @@ export const CLASSES = {
     branches: ["cura", "juizo", "presagio", "veu"],
     paths: ["vida", "chamas", "ossos"]
   },
+  pictomante: {
+    id: "pictomante",
+    motor: "pictomante",
+    color: "#3d6fa8",
+    band: "light",
+    branches: ["lamina", "escudo", "prisao", "gesto"],
+    paths: ["arma", "criatura", "paisagem"],
+    magic: true
+  },
   ressonante: {
     id: "ressonante",
     motor: "ressonante",

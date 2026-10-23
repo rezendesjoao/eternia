@@ -1,0 +1,79 @@
+{
+  "name": "Moldagem de Memória: Lembrança Absoluta",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Moldagem de Memória. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você solta de uma vez todas as magias que já guardou, sobre uma área ampla a até 5 Qd. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico, e a última habilidade de quem ela acerta fica [Selado]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Fogo, raio, gelo e luz, cada um de uma luta diferente, chegam ao mesmo tempo.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/light/explosion-beam-impact-silhouette.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "moldagem-memoria-lembranca-absoluta",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "sealed"
+        }
+      ],
+      "magicSpell": {
+        "id": "moldagem-memoria"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "YeBg6qeuABUiTBrs",
+  "folder": "ncdGGLBSMmv7bpPU",
+  "_key": "!items!YeBg6qeuABUiTBrs"
+}

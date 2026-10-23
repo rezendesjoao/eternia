@@ -31,6 +31,7 @@ import { MATADOR } from "./matador.mjs";
 import { MENESTREL } from "./menestrel.mjs";
 import { MONGE } from "./monge.mjs";
 import { ORACULO } from "./oraculo.mjs";
+import { PICTOMANTE } from "./pictomante.mjs";
 import { RESSONANTE } from "./ressonante.mjs";
 import { SACERDOTE } from "./sacerdote.mjs";
 import { SAMURAI } from "./samurai.mjs";
@@ -56,6 +57,7 @@ export function registerClasses() {
   registerMotor(MENESTREL);
   registerMotor(MONGE);
   registerMotor(ORACULO);
+  registerMotor(PICTOMANTE);
   registerMotor(RESSONANTE);
   registerMotor(SACERDOTE);
   registerMotor(SAMURAI);

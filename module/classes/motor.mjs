@@ -43,7 +43,8 @@
  *   ctx, action, card): buttons on attack cards (index.mjs), damageTags?(actor, item, ctx) → more tags for the damage
  *   of a skill (the Dragon Slayer's element), absorbs?(actor, card, ctx) → a note when a damage card does the actor
  *   no damage at all (the Dragon Slayer eats an ally's attack of its element), chips: [{ key, words }] → words of the
- *   texts that read formulaData's key (helpers/text-chips.mjs)
+ *   texts that read formulaData's key (helpers/text-chips.mjs), spentWords: more words that, after the unit, mean
+ *   the points a use spends (besides "gastos": the Pictomancer's "Moldes quebrados")
  *   and the events, each called as fn(actor, { lesser }, ...args) on the window where it happened:
  *     onCombatStart(combat), onSetup(combat, round), onCleanup(combat, round), onCombatEnd(combat),
  *     onTurnStart(combat), onTurnEnd(combat)          the actor's own Main Process

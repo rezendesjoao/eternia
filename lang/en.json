@@ -960,6 +960,7 @@
         "preAction": "Pre-Action (hasn't acted this round)",
         "standby": "Declared Standby this round",
         "hasSkill": "Has the skill",
+        "notSkill": "Doesn't have the skill",
         "motorState": "Class Motor in state",
         "motorAtLeast": "Class Motor at least"
       },
@@ -986,6 +987,7 @@
         "preAction": "[Pre-Action]",
         "standby": "[Standby]",
         "hasSkill": "With {value}",
+        "notSkill": "Without {value}",
         "motorState": "With the Motor in {value}",
         "motorAtLeast": "With the Motor at {value} or more"
       }
@@ -1516,7 +1518,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.11: the Red Mage and four more Magias</strong></p><ul><li>The <strong>Red Mage</strong>, the second class with Magias: the magic lives in the piece in hand (the Sword, the Armor or the Focus), the <strong>Charge</strong> grows every round and with every spell, and <strong>Requip</strong> swaps the piece and releases the old one's Discharge.</li><li>Four new Magias, for any magic class: <strong>Requip: The Knight</strong>, <strong>Cards</strong>, <strong>Gravity</strong> and <strong>Magic Staves</strong>. The rules are in chapter XII. MAGIAS of the AS REGRAS journal.</li><li>The <strong>Resonant</strong> left the class list: the Red Mage took its place. The sheets that already use it keep working.</li><li>Since 0.10.1: the skill browser raises the same skill by several SR at once.</li></ul><p>Since 0.10: the Black Mage and the Magias. Since 0.9: the Dragon Slayer. Since 0.8: the sixteen classes. Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
+      "Body": "<p><strong>What's new in Eternia 0.12: the Pictomancer and three more Magias</strong></p><ul><li>The <strong>Pictomancer</strong>, the third class with Magias: every spell leaves a <strong>Mold</strong> on the field, which stands until it is broken. Breaking it turns into damage, with <strong>Shatter</strong>, or defense, with the <strong>Sculpted Shield</strong>.</li><li>Three new Magias, for any magic class: <strong>Ice Molding</strong>, <strong>Memory Molding</strong> and <strong>Devil Slayer</strong>, the first Lost Magia, with a Taboo. The rules are in chapter XII. MAGIAS of the AS REGRAS journal.</li><li>Since 0.11: the Red Mage, four more Magias, and the Resonant out of the class list.</li></ul><p>Since 0.10: the Black Mage and the Magias. Since 0.9: the Dragon Slayer. Since 0.8: the sixteen classes. Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -2746,6 +2748,28 @@
         "SealedLocked": "Sealed Weapon Path: you don't swap pieces in combat.",
         "Discharge": "Discharge",
         "Waiting": "Discharge ready: {list}"
+      },
+      "Pictomante": {
+        "Name": "Molds",
+        "Unit": "Molds",
+        "State": {
+          "erguido": "Raised"
+        },
+        "Card": {
+          "Gain": "Every Spell, the class's or the Magias', raises +1 Mold (the big ones, +2; the ones that break Molds raise none).",
+          "Spend": "Breaking turns into damage or defense: Shatter adds 1d6 + CR per Mold broken; the Sculpted Shield gives [Cancel: Molds broken × (CR+5)] against one hit. The supreme spells need the cap and break them all.",
+          "Cap": "3 Molds, +1 every 5 CR. The Molds stay standing from one round to the next, until you break them.",
+          "Reset": "At the end of the combat, the constructs fall apart.",
+          "GainLesser": "Brushstroke raises +1 Mold.",
+          "SpendLesser": "The Sculpted Shield breaks Molds: [Cancel: Molds broken × (CR+5)] against one hit.",
+          "CapLesser": "Half the cap of the Molds, at least 1.",
+          "ResetLesser": "At the end of the combat, the constructs fall apart."
+        },
+        "ChooseBreak": "Weapon Path: how many Molds does this Spell break? You have {n}; each adds 1d6 + CR to the damage.",
+        "Broken": "Molds broken ({n})",
+        "Hunt": "The beasts hunt",
+        "Return": "Back at the Setup: {n}",
+        "NeedsRooted": "Still Life: target a Rooted enemy."
       }
     },
     "Classes": {
@@ -2953,6 +2977,14 @@
           "armadura": "The Armor",
           "foco": "The Focus",
           "troca": "The Requip"
+        }
+      },
+      "pictomante": {
+        "Branch": {
+          "lamina": "The Blade",
+          "escudo": "The Shield",
+          "prisao": "The Prison",
+          "gesto": "The Gesture"
         }
       },
       "Magic": "Magias",

@@ -1,0 +1,81 @@
+{
+  "name": "Lâmina da Destruição do Demônio de Gelo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Matador de Demônios. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: uma espada longa de gelo negro nasce do seu braço, e você corta um inimigo engajado com você. Teste de Precisão contra a Esquiva; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Frio], e ele fica [Congelando: 2]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>O corte não sangra: congela de dentro para fora.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Cold"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/water/strike-ice-blade-fang.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "matador-demonios-lamina-da-destruicao",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "freezing",
+          "value": 2
+        }
+      ],
+      "magicSpell": {
+        "id": "matador-demonios"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "UgUtSC32ZFrU2uBf",
+  "folder": "YqwU8MVCshoPTaCo",
+  "_key": "!items!UgUtSC32ZFrU2uBf"
+}

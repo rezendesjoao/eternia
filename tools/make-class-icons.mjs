@@ -243,6 +243,24 @@ const GLYPHS = {
       { kind: "cutline", d: "M49 33.5 L55 36.5 M55.5 26.4 L61.4 29.4 M63 20.6 L68.6 23.4 M71.4 15.8 L76.4 18.2", width: 1.3 }
     ];
   },
+  // The Pictomancer's Molds: a brush on the diagonal, and the crystals it raised from the ground
+  pictomante: () => {
+    const r = 38;
+    return [
+      solid(poly([[48, 86], [46.6, 64], [55, 48], [63.4, 64], [62, 86]])),
+      { kind: "cutline", d: "M55 48 L55 86 M46.6 64 L55 70 L63.4 64", width: 1.6 },
+      solid(poly([[64, 86], [63.4, 72], [69, 62.5], [74.6, 72], [74, 86]])),
+      { kind: "cutline", d: "M69 62.5 L69 86", width: 1.4 },
+      solid(poly([[38, 86], [37.8, 79], [41, 73.5], [44.2, 79], [44, 86]])),
+      outline(rrect(46.8, 6, 6.4, 42, 3.2), 3, r), solid(rrect(46.8, 6, 6.4, 42, 3.2), r),
+      outline(rrect(45, 46, 10, 10, 1.4), 3, r), solid(rrect(45, 46, 10, 10, 1.4), r),
+      cut(rrect(45, 49.4, 10, 1.4, 0), r), cut(rrect(45, 52.6, 10, 1.4, 0), r),
+      outline("M45 56 H55 C56.4 64 54.4 73 50 82 C45.6 73 43.6 64 45 56 Z", 3, r),
+      solid("M45 56 H55 C56.4 64 54.4 73 50 82 C45.6 73 43.6 64 45 56 Z", r),
+      solid(star(24, 30, 4, 8, 2)),
+      solid(star(36, 18, 4, 4.6, 1.2))
+    ];
+  },
   // The Dragon Slayer's Scales: a dragon's head, roaring, its horns swept back
   matador: () => [
     solid("M27 90 C20 75 20 59 28 48.5 C30.4 45.4 32 43.4 34 41.4 L17 28.5 L38.4 34.6 L24 18.5 L44.6 31.4 C50 30 56 30 61 31.6 L66 33.6 L84 38.4 L86.6 37 C89 38.6 91 40.6 91.6 43.4 L91 48.6 L66.6 49.6 L60.6 52.8 L84.6 61.2 C87.4 62.6 87.6 65.6 85.4 67.2 C77.6 71.6 66.6 73.2 57 72.6 C51.4 76.6 48.6 82.6 48 90 Z"),
@@ -270,7 +288,7 @@ const CLASS_FAMILY = {
   assassino: "weapon", berserker: "weapon", cacador: "weapon", comandante: "weapon", menestrel: "weapon",
   sacerdote: "healer", druida: "healer", oraculo: "healer",
   feiticeiro: "magic", invocador: "magic", estrategista: "magic", tecelao: "magic", matador: "magic", magonegro: "magic",
-  magovermelho: "magic"
+  magovermelho: "magic", pictomante: "magic"
 };
 
 /* -------------------------------------------- */

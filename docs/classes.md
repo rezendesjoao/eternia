@@ -1,6 +1,6 @@
 # Classes: o esqueleto
 
-As regras de construção das classes da Eternia, fechadas em 2026-10-21, as [19 classes](#as-classes), as [Magias](#as-magias) e a referência
+As regras de construção das classes da Eternia, fechadas em 2026-10-21, as [20 classes](#as-classes), as [Magias](#as-magias) e a referência
 técnica dos Motores. As regras como o jogador lê estão nas páginas **XI. CLASSES** (a geral e uma por classe) do diário
 AS REGRAS.
 
@@ -175,6 +175,7 @@ O mapa da lista de classes: cada Motor mexe numa parte da regra que nenhuma outr
 | Elemento do dano | Matador de Dragões | Escamas: come o próprio elemento (e o ataque dele); no Teto, a Força do Dragão |
 | Risco, com as Magias | Mago Negro | Pressão: cada feitiço, da classe ou das Magias, aumenta; no Teto, Liberação ou Sobrecarga |
 | Itens, com as Magias | Mago Vermelho | Arsenal: a magia mora na peça da mão (Espada, Armadura, Foco); o Reequipar troca e solta a Descarga |
+| Campo, com as Magias | Pictomante | Moldes: cada feitiço deixa uma construção no campo; quebrar vira dano (Estilhaçar) ou defesa (Escudo Esculpido) |
 | Aliados | Menestrel | Movimentos: a canção sobe a cada Manutenção; trocar volta ao I |
 | Comando | Comandante | Táticas: Ordens que dão a sua ação a um aliado |
 | Itens | Ressonante | Centelha: o poder mora numa peça e salta para outra soltando o que juntou (classe antiga: virou o Mago Vermelho) |
@@ -190,7 +191,8 @@ ele herda o risco do Feiticeiro (a Pressão é o Calor feito motor das Magias), 
 classes quando as Magias elementais (Fogo, com os feitiços dele) chegarem. Depois veio o Mago Vermelho, que herda os
 itens do Ressonante (a Carga é o Brilho feito motor das Magias, e a peça da mão troca com o Reequipar). Com ele, o
 Ressonante saiu da lista de classes e das Dedicações (`flags.eternia.retired` no item de classe e na Dedicação); as
-fichas que já o usam continuam funcionando.
+fichas que já o usam continuam funcionando. O Pictomante é a primeira classe de magia sem antecessora: o Motor dele mexe
+no campo (as construções que cada feitiço deixa e que ficam lá até serem quebradas), que nenhuma outra classe usa.
 
 ## O que saiu do sistema
 
@@ -209,7 +211,7 @@ Na mesma versão da classe piloto, para o sistema nunca ter os dois:
 ## As classes
 
 Cada seção diz o Motor da classe e o que ela tem; as regras como o jogador lê estão na página da classe no diário AS
-REGRAS (XI.1 a XI.19) e na descrição de cada habilidade. A calibragem do dano é a primeira de cada classe: vale
+REGRAS (XI.1 a XI.20) e na descrição de cada habilidade. A calibragem do dano é a primeira de cada classe: vale
 conferir na mesa e ajustar os números (Teto, dados por ponto, o pagamento do Motor cheio).
 
 ### Assassino
@@ -667,6 +669,51 @@ em PV do Mistério da Vida (`onUse`), Sopro de Vida, Erguer os Caídos e Milagre
 que os Ossos tiram e a Ceifa (`onAnyKill`), Fogo Purificador (`onHit`), Ira Divina (`autoHit`), as Visões e Tocar os
 Mortos (o Fardo do próximo combate) e o Ápice.
 
+### Pictomante
+
+O Motor **Moldes** mexe no campo e é o motor das Magias: cada Feitiço, da classe ou das Magias, ergue Moldes (+1, os
+grandes +2), construções que ficam em pé de uma rodada para a outra, sem prazo, até serem quebradas. Quebrar vira dano
+ou defesa: o Estilhaçar (Maior) quebra quantos o mago quiser, com (1 + quebrados)d6 + quebrados×NP; o Escudo Esculpido
+(Antes do Dano, sem ação) dá [Anulação: quebrados × (NP+5)] contra um golpe, nele ou num aliado engajado; os feitiços
+supremos das Magias pedem o Teto e quebram todos. Teto: 3 + ⌊NP/5⌋; zera no fim do combate. É uma **classe de magia**:
+escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10. Código em `module/classes/pictomante.mjs`.
+
+| Parte | O que tem |
+|---|---|
+| Base | FOR 1, DES 3, POD 4, INT 2; faixa Leve (40, +5/NP); papéis Control e Defense |
+| Kit | Moldes (Motor), Pincelada (Maior, Feitiço, +1), Escudo Esculpido (Antes do Dano, quebra à escolha), Estilhaçar (Maior, quebra à escolha); a primeira Magia |
+| A Lâmina | Golpe Esculpido*, Estilhaços Cravados, Chuva de Estilhaços, Pedaços que Voltam |
+| O Escudo | Guarda Atenta*, Escudo de Longe*, Couraça Moldada, Escudo que Corta |
+| A Prisão | Moldura, Chão Esculpido, Obra Fechada, Natureza-Morta |
+| O Gesto | Moldagem Rápida*, Esboço Prévio*, Ateliê Amplo*, Duas Mãos |
+| Gerais | Retrato Falado, Obra Útil, Ateliê de Campo, Olho de Pintor |
+| Caminhos (NP 3) | Arma (Peso da Obra, Mil Lâminas), Criatura (Instinto de Caça, Fera Colossal), Paisagem (Paisagem Inspiradora, Grande Mural) |
+| Ápice (NP 10) | Obra-Prima |
+| Dedicação (NP 5) | Dedicação: Pictomante, que dá os Moldes Menores, a Pincelada e o Escudo Esculpido (sem Magias) |
+
+\* talentos [Dedicação].
+
+Os Caminhos são os três jeitos de moldar: a Arma reescreve como os Moldes viram dano (qualquer Feitiço de dano quebra
+Moldes junto, +1d6 + NP cada, e então não ergue nenhum), a Criatura reescreve o que eles fazem em pé (no Encerramento,
+as feras atacam o inimigo mais perto, a até 3 Qd: [Moldes × (NP÷2 + 1)] de dano direto) e a Paisagem reescreve como
+viram defesa (o Escudo Esculpido vira muralha: todos os aliados escolhidos num quadrado, até o fim da rodada, com
+metade da Anulação). O Ápice, a Obra-Prima, refaz na Manutenção metade dos Moldes quebrados na rodada anterior.
+
+Estado em `flags.eternia.motor.pictomante`: `state` (`erguido`, um só), `value` (Moldes), `broken` (`{ round, n }`: os
+quebrados na rodada, para o Ápice), `wall` (a muralha que devolveu um Molde na rodada, no Ápice da Paisagem), `guard`
+(Guarda Atenta), `hands` (Duas Mãos), `memory` (Olho de Pintor) e `ember` (Ateliê de Campo). A muralha da Paisagem é um
+segundo efeito do Escudo Esculpido com a condição `hasSkill` do Caminho; o efeito comum leva `notSkill` (a condição que
+vale para quem não tem a habilidade) e fica de fora. Paisagem Inspiradora e Escudo que Corta são efeitos do Escudo do
+mesmo jeito.
+
+Automação: os ganhos (os Feitiços pelo `motor.gain`, Guarda Atenta no `onDamaged`, Olho de Pintor no `onAttacked`,
+Pedaços que Voltam no `onKill`, Instinto de Caça na Manutenção), a escolha de quantos Moldes um Feitiço quebra no
+Caminho da Arma (o `plan` pergunta; o dano soma pelo `rollBonuses`), os estados no acerto (Estilhaços Cravados, Peso da
+Obra: `onHit`), Obra Fechada (acerto automático com todos os alvos presos), Natureza-Morta (o aviso sem alvo
+[Enraizado]), Couraça Moldada (estado passivo), Duas Mãos, o ataque das feras no Encerramento e o Ápice. Ficam no texto:
+o alvo do Escudo Esculpido (você ou o aliado que você marcar), os alvos da muralha e de Mil Lâminas e os talentos Gerais
+fora de combate.
+
 ### Ressonante
 
 **Classe antiga.** Desde a 0.11 o Ressonante está fora da lista de classes e das Dedicações: o Mago Vermelho tomou o
@@ -782,7 +829,7 @@ estados no alvo atingido (`onHit`), o acerto automático do Desenlace e o Ponto 
 
 ## As Magias
 
-A classe diz **como** se conjura; a Magia diz **o que**. As classes de magia (o Mago Negro e o Mago Vermelho) escolhem uma
+A classe diz **como** se conjura; a Magia diz **o que**. As classes de magia (o Mago Negro, o Mago Vermelho e o Pictomante) escolhem uma
 Magia no NP 1, outra no NP 5 e a terceira no NP 10, e os feitiços dela entram nas escolhas de Combate e Geral, cada um
 com o seu NP mínimo. Os feitiços alimentam e gastam o Motor da classe de quem conjura: cada um +1 (os grandes, +2), e
 os supremos (NP 7) pedem o Motor no Teto e gastam tudo. As regras como o jogador lê estão em **XII. MAGIAS** no diário AS
@@ -797,12 +844,14 @@ REGRAS (a geral e uma página por Magia).
 | Corpos Celestes | Conjuração | Estrela Cadente, Meteoro, Velocidade da Luz, Altairis, Sete Estrelas do Julgamento: Grand Chariot, Sema (supremo) |
 | Esmagamento | Conjuração | Toque Esmagador, Onda de Esmagamento, Desmontagem, Quebrar a Guarda, Ruptura, Esmagamento Absoluto (supremo) |
 | Gravidade | Conjuração | Queda, Mudança de Gravidade, Campo Gravitacional, Gravidade Zero, Buraco Negro, Peso do Mundo (supremo) |
+| Matador de Demônios | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP]) | Fúria do Demônio de Gelo, Garra do Demônio de Gelo, Gelo do Demônio, Gelo que Cala, Arco da Destruição do Demônio de Gelo, Lâmina da Destruição do Demônio de Gelo (supremo) |
+| Moldagem de Gelo | Conjuração | Moldagem de Gelo: Lança, Moldagem de Gelo: Escudo, Moldagem de Gelo: Martelo, Moldagem de Gelo: Chão, Moldagem de Gelo: Águias, Lâmina de Gelo: Dança dos Sete Cortes, Impacto de Gelo (supremo) |
+| Moldagem de Memória | Conjuração | Memorizar, Moldagem de Memória: Feitiço Lembrado, Moldagem de Memória: Esquecimento, Moldagem de Memória: Fortaleza da Terra Ardente, Moldagem de Memória: Noite das Estrelas Cadentes, Moldagem de Memória: Lembrança Absoluta (supremo) |
 | Reequipar: O Cavaleiro | Portadora (os feitiços são Ataques com Arma) | Roda Celeste: Círculo de Espadas, Asa Negra: Lampejo Lunar, Armadura Adamantina, Traje do Coração Puro, Roda Celeste: Pétalas de Aço, Armadura de Nakagami: Luz Estelar (supremo) |
 
 As categorias são as da série: Conjuração (a magia sai do corpo), Portadora (precisa de um objeto equipado), Perdida e
 Proibida (mais fortes, com um Tabu), Ancestral (feitiços supremos de NP 10). O catálogo vai crescer em lotes, até cobrir
-a magia de cada personagem (as elementais, Espíritos Celestiais, Moldagem, Take Over, os Matadores de Deuses
-e de Demônios...).
+a magia de cada personagem (as elementais, Espíritos Celestiais, Take Over, os Matadores de Deuses...).
 
 Como se monta: a Magia é uma habilidade passiva com `flags.eternia.magic = { id, category }` (só dada pela vaga de
 Magia da classe; o Tabu, quando há, mora nela, num efeito passivo) e os feitiços têm `flags.eternia.magicSpell = { id }`,
@@ -817,7 +866,7 @@ na pasta `Magias/<Magia>` de `skills-class`, com identificadores `<magia>-<nome>
 | Arquivo | O que faz |
 |---|---|
 | `module/classes/motor.mjs` | O Motor genérico: o registro (`registerMotor`), o estado no ator, o Teto, as habilidades de Motor e de Motor Menor, os requisitos (`motorUseIssues`), a ação que a habilidade gasta (`motorActionOf`), o plano antes do cartão (`planMotorUse`, que guarda `flags.eternia.motorUse`), a mudança depois (`commitMotorUse`, que avisa todos os Motores com `onUse`) e o Desfazer, os valores das fórmulas e do custo, os bônus de rolagem, os estados que o dano dá, os estados passivos (`syncMotorStatuses`), os eventos (em fila por ator) e os ajudantes das classes (lados, combate, escolha). |
-| `module/classes/<classe>.mjs` | O Motor de cada classe (`ASSASSINO`, `BERSERKER`, `CACADOR`, `COMANDANTE`, `DRUIDA`, `ESTRATEGISTA`, `FEITICEIRO`, `GUARDIAO`, `INVOCADOR`, `MAGONEGRO`, `MAGOVERMELHO`, `MATADOR`, `MENESTREL`, `MONGE`, `ORACULO`, `RESSONANTE`, `SACERDOTE`, `SAMURAI`, `TECELAO`): o Teto, as regras do kit e dos talentos, os Caminhos, o Ápice e as reações aos eventos. O cabeçalho de cada arquivo diz a regra e o que fica guardado no ator. |
+| `module/classes/<classe>.mjs` | O Motor de cada classe (`ASSASSINO`, `BERSERKER`, `CACADOR`, `COMANDANTE`, `DRUIDA`, `ESTRATEGISTA`, `FEITICEIRO`, `GUARDIAO`, `INVOCADOR`, `MAGONEGRO`, `MAGOVERMELHO`, `MATADOR`, `MENESTREL`, `MONGE`, `ORACULO`, `PICTOMANTE`, `RESSONANTE`, `SACERDOTE`, `SAMURAI`, `TECELAO`): o Teto, as regras do kit e dos talentos, os Caminhos, o Ápice e as reações aos eventos. O cabeçalho de cada arquivo diz a regra e o que fica guardado no ator. |
 | `module/classes/index.mjs` | Registra os Motores, embrulha `EterniaCombat#_onPhaseStart` (Manutenção e Encerramento, uma vez, na janela do Mestre que mudou a fase), segue os turnos e o movimento dos tokens, ouve os eventos dos cartões (`eternia.attack`, `eternia.attackResult`, `eternia.dodge`, `eternia.damaged`, `eternia.healed`, `eternia.check`, `eternia.defeated`; um cartão de dano aplicado, com ou sem PV tirado, também vira `onStruck`), põe os botões das classes nos cartões de ataque e tem a API `game.eternia.motor`. |
 | `module/classes/progression.mjs` | O NP mudado à mão oferece o que a classe dá no NP; a Dedicação dá as habilidades dela ao ser aprendida (e uma à escolha, `dedicationChoice`) e as tira junto. |
 | `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`) e os dados de cada classe para a aba (cor, faixa, ramos, Caminhos, elementos, `magic` das classes de magia). |
@@ -847,8 +896,9 @@ O cabeçalho de `module/classes/motor.mjs` tem a lista completa. Em resumo:
   no próprio ator, sincronizados a cada mudança do Motor), `formulaData` (`@motor.<chave>`), `display` (`ready`,
   `readyLabel`, `note`: a aba e o HUD), `cardActions` e `onCardAction` (botões nos cartões de ataque), `damageTags`
   (tags a mais no dano de uma habilidade: o elemento do Matador), `absorbs` (uma nota quando o cartão de dano não faz
-  dano nenhum ao ator: o Matador come o ataque de um aliado) e `chips` (palavras dos textos que leem uma chave de
-  `formulaData`: a Semente nos colchetes).
+  dano nenhum ao ator: o Matador come o ataque de um aliado), `chips` (palavras dos textos que leem uma chave de
+  `formulaData`: a Semente nos colchetes) e `spentWords` (outras palavras que, depois da unidade, querem dizer os
+  pontos gastos no uso, além de "gastos": os "Moldes quebrados" do Pictomante).
 - **Eventos** (`fn(actor, { lesser }, ...)`, em fila por ator, na janela onde aconteceu): `onCombatStart`, `onSetup`,
   `onCleanup`, `onCombatEnd`, `onTurnStart`, `onTurnEnd`, `onUse`, `onWeaponAttack`, `onAttacked`, `onDodged`,
   `onHitTarget`, `onMissTarget`, `onDamaged`, `onHealed`, `onStruck` (um cartão de dano aplicado, com ou sem PV

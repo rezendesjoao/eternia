@@ -42,6 +42,7 @@ export const CONDITION_TYPES = [
   { id: "preAction", state: true },
   { id: "standby", state: true },
   { id: "hasSkill", param: "tag" },
+  { id: "notSkill", param: "tag" },
   { id: "motorState", param: "tag" },
   { id: "motorAtLeast", param: "number" }
 ];
@@ -135,6 +136,8 @@ const TESTS = {
   },
   // Has a skill of this name ("the element of your Spirit Pact")
   hasSkill: (c, ctx) => ctx.skills().has(String(c.value ?? "").trim().toLowerCase()),
+  // Doesn't have it (the Sculpted Shield's own effect, left out on the Landscape Path that turns it into a wall)
+  notSkill: (c, ctx) => !ctx.skills().has(String(c.value ?? "").trim().toLowerCase()),
   // A class Motor of the actor is in this state (a Druid's form, a Minstrel's song: classes/motor.mjs)
   motorState: (c, ctx) => ctx.motors().some(m => m.state === String(c.value ?? "").trim()),
   // The Motor of the skill giving the effect (else the actor's first one) has at least this many points

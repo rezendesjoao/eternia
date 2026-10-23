@@ -1,0 +1,80 @@
+{
+  "name": "Fera Colossal",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Caminho da Criatura.</strong> Com pelo menos 3 Moldes, quebre todos: as feras se juntam numa só, enorme, que ataca um alvo a até 4 Qd. Teste de Precisão contra a Esquiva; [(2 + Moldes quebrados)d6 + Poder Mágico + Moldes quebrados×NP] de dano mágico, e ele fica [Derrubado].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Uma fera do tamanho de uma torre, e ela só olha para um.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/magical/construct-gargoyle-stone-gray.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "pictomante-fera-colossal",
+      "kind": "spends",
+      "branch": "pathTalent",
+      "hitStatuses": [
+        {
+          "statusId": "prone"
+        }
+      ],
+      "minRank": 7,
+      "motor": {
+        "id": "pictomante",
+        "needs": {
+          "min": 3
+        },
+        "spend": "all"
+      },
+      "pathTalent": {
+        "class": "pictomante",
+        "id": "criatura"
+      },
+      "damageText": "(2+Moldes quebrados)d6 + [Poder Mágico] + Moldes quebrados×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 310000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Irqj67q3EacYWi8K",
+  "folder": "gQqWwVT6dvA4LgLM",
+  "_key": "!items!Irqj67q3EacYWi8K"
+}

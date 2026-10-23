@@ -189,7 +189,8 @@ function lookups() {
   for (const def of allMotors()) {
     const unit = motorUnit(def);
     const name = motorName(def);
-    add(["gastos", "gastas", "gasto", "gasta"].map(word => `${unit} ${word}`), { motor: def.id, spent: true });
+    const spent = ["gastos", "gastas", "gasto", "gasta", ...(def.spentWords ?? [])];
+    add(spent.map(word => `${unit} ${word}`), { motor: def.id, spent: true });
     add(["da", "do", "de", "das", "dos"].map(word => `Teto ${word} ${name}`), { motor: def.id, max: true });
     add([unit], { motor: def.id });
     for (const chip of def.chips ?? []) add(chip.words, { motor: def.id, field: chip.key });

@@ -960,6 +960,7 @@
         "preAction": "Pré-Ação (ainda não agiu nesta rodada)",
         "standby": "Declarou Espera nesta rodada",
         "hasSkill": "Tem a habilidade",
+        "notSkill": "Não tem a habilidade",
         "motorState": "Motor da classe no estado",
         "motorAtLeast": "Motor da classe com pelo menos"
       },
@@ -986,6 +987,7 @@
         "preAction": "[Pré-Ação]",
         "standby": "[Espera]",
         "hasSkill": "Com {value}",
+        "notSkill": "Sem {value}",
         "motorState": "Com o Motor em {value}",
         "motorAtLeast": "Com o Motor em {value} ou mais"
       }
@@ -1516,7 +1518,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.11: o Mago Vermelho e mais quatro Magias</strong></p><ul><li>O <strong>Mago Vermelho</strong>, a segunda classe com Magias: a magia mora na peça que está na mão (a Espada, a Armadura ou o Foco), a <strong>Carga</strong> cresce a cada rodada e a cada feitiço, e o <strong>Reequipar</strong> troca de peça e solta a Descarga da antiga.</li><li>Quatro Magias novas, para qualquer classe de magia: <strong>Reequipar: O Cavaleiro</strong>, <strong>Cartas</strong>, <strong>Gravidade</strong> e <strong>Cajados Mágicos</strong>. As regras estão no capítulo XII. MAGIAS do diário AS REGRAS.</li><li>O <strong>Ressonante</strong> saiu da lista de classes: o Mago Vermelho tomou o lugar dele. As fichas que já o usam continuam funcionando.</li><li>Desde a 0.10.1: o navegador de habilidades sobe vários NH da mesma habilidade de uma vez.</li></ul><p>Desde a 0.10: o Mago Negro e as Magias. Desde a 0.9: o Matador de Dragões. Desde a 0.8: as 16 classes. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.12: o Pictomante e mais três Magias</strong></p><ul><li>O <strong>Pictomante</strong>, a terceira classe com Magias: cada feitiço deixa no campo um <strong>Molde</strong>, que fica de pé até ser quebrado. Quebrar vira dano, com o <strong>Estilhaçar</strong>, ou defesa, com o <strong>Escudo Esculpido</strong>.</li><li>Três Magias novas, para qualquer classe de magia: <strong>Moldagem de Gelo</strong>, <strong>Moldagem de Memória</strong> e <strong>Matador de Demônios</strong>, a primeira Magia Perdida, com um Tabu. As regras estão no capítulo XII. MAGIAS do diário AS REGRAS.</li><li>Desde a 0.11: o Mago Vermelho, mais quatro Magias, e o Ressonante fora da lista de classes.</li></ul><p>Desde a 0.10: o Mago Negro e as Magias. Desde a 0.9: o Matador de Dragões. Desde a 0.8: as 16 classes. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -2746,6 +2748,28 @@
         "SealedLocked": "Caminho da Arma Selada: você não troca de peça em combate.",
         "Discharge": "Descarga",
         "Waiting": "Descarga pronta: {list}"
+      },
+      "Pictomante": {
+        "Name": "Moldes",
+        "Unit": "Moldes",
+        "State": {
+          "erguido": "Erguido"
+        },
+        "Card": {
+          "Gain": "Cada Feitiço, da classe ou das Magias, ergue +1 Molde (os grandes, +2; os que quebram Moldes não erguem).",
+          "Spend": "Quebrar vira dano ou defesa: o Estilhaçar soma 1d6 + NP por Molde quebrado; o Escudo Esculpido dá [Anulação: Moldes quebrados × (NP+5)] contra um golpe. Os feitiços supremos pedem o Teto e quebram todos.",
+          "Cap": "3 Moldes, +1 a cada 5 NP. Os Moldes ficam em pé de uma rodada para a outra, até você quebrá-los.",
+          "Reset": "No fim do combate, as construções se desfazem.",
+          "GainLesser": "A Pincelada ergue +1 Molde.",
+          "SpendLesser": "O Escudo Esculpido quebra Moldes: [Anulação: Moldes quebrados × (NP+5)] contra um golpe.",
+          "CapLesser": "Metade do Teto dos Moldes, no mínimo 1.",
+          "ResetLesser": "No fim do combate, as construções se desfazem."
+        },
+        "ChooseBreak": "Caminho da Arma: quantos Moldes este Feitiço quebra? Você tem {n}; cada um soma 1d6 + NP ao dano.",
+        "Broken": "Moldes quebrados ({n})",
+        "Hunt": "As feras caçam",
+        "Return": "Voltam na Manutenção: {n}",
+        "NeedsRooted": "Natureza-Morta: marque como alvo um inimigo Enraizado."
       }
     },
     "Classes": {
@@ -2953,6 +2977,14 @@
           "armadura": "A Armadura",
           "foco": "O Foco",
           "troca": "O Reequipar"
+        }
+      },
+      "pictomante": {
+        "Branch": {
+          "lamina": "A Lâmina",
+          "escudo": "O Escudo",
+          "prisao": "A Prisão",
+          "gesto": "O Gesto"
         }
       },
       "Magic": "Magias",

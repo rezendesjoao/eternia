@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.12.0 — 2026-10-23
+
+### Adicionado
+- **O Pictomante**, a terceira classe com Magias (compêndio Raças e Classes, pasta Classes; 36 habilidades). Motor
+  **Moldes**: cada Feitiço, da classe ou das Magias, deixa uma construção no campo, que fica em pé de uma rodada para a
+  outra até ser quebrada; quebrar vira dano (o Estilhaçar: 1d6 + NP por Molde) ou defesa (o Escudo Esculpido:
+  [Anulação: Moldes × (NP+5)] contra um golpe). Caminhos: Arma (qualquer Feitiço de dano quebra Moldes junto), Criatura
+  (os Moldes viram feras que atacam sozinhas no Encerramento) e Paisagem (o escudo vira muralha para o grupo); Ápice:
+  Obra-Prima.
+- **Três Magias novas**: **Moldagem de Gelo** (Lança, Escudo, Martelo, Chão, Águias, Lâmina de Gelo: Dança dos Sete
+  Cortes e o supremo Impacto de Gelo), **Moldagem de Memória** (Memorizar, Feitiço Lembrado, Esquecimento, Fortaleza da
+  Terra Ardente, Noite das Estrelas Cadentes e o supremo Lembrança Absoluta) e **Matador de Demônios**, a primeira Magia
+  Perdida (o gelo negro do demônio, com o Tabu das Marcas do Demônio: em combate, as Defesas caem [NP]). Servem a
+  qualquer classe de magia.
+- O emblema do Pictomante (o pincel e os cristais que ele ergue), a página **XI.16** do diário AS REGRAS e as páginas
+  XII.8, XII.9 e XII.10 do capítulo XII. MAGIAS.
+- A condição de efeito **Não tem a habilidade** (`notSkill`), o contrário de "Tem a habilidade".
+
+### Alterado
+- As páginas de classe do diário depois do Pictomante foram renumeradas (Ressonante XI.17 a Tecelão XI.20), e Reequipar:
+  O Cavaleiro virou a XII.11.
+- As Magias que já existiam citam os Moldes do Pictomante junto da Pressão e da Carga.
+- O aviso de novidades fala da 0.12.
+
 ## 0.11.0 — 2026-10-23
 
 ### Adicionado

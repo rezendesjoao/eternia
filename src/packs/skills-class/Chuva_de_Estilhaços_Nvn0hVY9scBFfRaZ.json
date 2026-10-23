@@ -1,0 +1,71 @@
+{
+  "name": "Chuva de Estilhaços",
+  "type": "skill",
+  "system": {
+    "description": "<p>Quebre quantos Moldes quiser (pelo menos 2): os pedaços sobem e caem como chuva numa área a até 3 Qd. Teste de Precisão contra a Esquiva de cada alvo; [(Moldes quebrados)d6 + Poder Mágico + Moldes quebrados×NP] de dano mágico.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Por um momento o céu brilha, cheio de cacos.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/light/projectile-bolts-salvo-white.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "pictomante-chuva-de-estilhacos",
+      "kind": "spends",
+      "branch": "lamina",
+      "minRank": 3,
+      "motor": {
+        "id": "pictomante",
+        "needs": {
+          "min": 2
+        },
+        "spend": "choose"
+      },
+      "damageText": "(Moldes quebrados)d6 + [Poder Mágico] + Moldes quebrados×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Nvn0hVY9scBFfRaZ",
+  "folder": "HNW3CNP3DhbpZAGx",
+  "_key": "!items!Nvn0hVY9scBFfRaZ"
+}

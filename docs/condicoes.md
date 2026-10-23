@@ -69,6 +69,7 @@ Usados pelas raças, servem para qualquer habilidade (`conditions/effects.mjs`, 
 | Efeito | `damageTags`, `onHit` | tags que o dano de quem o tem ganha; estado que esse dano dá em quem atinge (`docs/profissoes.md`) |
 | Efeito | chave `eternia.passive.cancel` | Anulação passiva (tag em `cancelTag`) |
 | Efeito | condição `hasSkill` | só vale se quem usa tiver a habilidade com esse nome |
+| Efeito | condição `notSkill` | só vale se quem usa não tiver a habilidade com esse nome (o Escudo Esculpido do Pictomante, que vira muralha no Caminho da Paisagem) |
 | Habilidade | `chooseEffect` | os efeitos são alternativas: quem usa escolhe um |
 | Habilidade | `useActions` | `{ type: "fatigue", value }`, `{ type: "doubleStatus", status }`, `{ type: "removeStatus", statuses }` ou `{ type: "switch" }` (quem usa e o primeiro alvo trocam de lugar e de Ódio, só entre aliados: a habilidade básica Switch), com `recipients` (também em itens usáveis) |
 | Habilidade | `withItem` | nome de outro item que precisa estar equipado junto (habilidade de item, como um par de espadas) |

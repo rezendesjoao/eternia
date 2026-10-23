@@ -1,0 +1,81 @@
+{
+  "name": "Impacto de Gelo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Moldagem de Gelo. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: um martelo de gelo do tamanho de um prédio cai sobre uma área ampla a até 5 Qd. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Frio], e quem ele acerta fica [Congelando: 2]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>O chão inteiro congela com o impacto, e o silêncio vem depois.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Cold"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/water/beam-ice-impact.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "moldagem-gelo-impacto",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "freezing",
+          "value": 2
+        }
+      ],
+      "magicSpell": {
+        "id": "moldagem-gelo"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 80000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "V0MSUexdryvYKu8i",
+  "folder": "eFjns0ZF3qKxha7t",
+  "_key": "!items!V0MSUexdryvYKu8i"
+}

@@ -1,0 +1,70 @@
+{
+  "name": "Moldagem de Memória: Feitiço Lembrado",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Moldagem de Memória.</strong> Você molda de novo um ataque que já viu e o solta contra um alvo a até 4 Qd: Teste de Precisão contra a Resistência; [2d6 + Poder Mágico] de dano mágico.</p><p><strong>Custo:</strong> Ódio 1.</p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/light/projectiles-trio-pink.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "moldagem-memoria-lembrado",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "moldagem-memoria"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "RLvXz1KIA2bHo9aH",
+  "folder": "ncdGGLBSMmv7bpPU",
+  "_key": "!items!RLvXz1KIA2bHo9aH"
+}

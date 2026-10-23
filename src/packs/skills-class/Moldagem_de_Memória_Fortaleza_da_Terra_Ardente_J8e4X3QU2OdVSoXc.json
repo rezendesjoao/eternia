@@ -1,0 +1,77 @@
+{
+  "name": "Moldagem de Memória: Fortaleza da Terra Ardente",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Moldagem de Memória.</strong> Feitiço grande. Você lembra de uma terra em chamas e ela volta: o chão de uma área a até 3 Qd se abre em fogo. Teste de Precisão contra a Resistência de cada alvo; [2d6 + Poder Mágico] de dano mágico de [Chama], e quem ele acerta fica [Queimando: NP÷2 + 2].</p><p><strong>Custo:</strong> Ódio 3.</p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/earth/lava-explosion-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "moldagem-memoria-fortaleza",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "burning",
+          "value": "floor(@cr/2)+2"
+        }
+      ],
+      "magicSpell": {
+        "id": "moldagem-memoria"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "J8e4X3QU2OdVSoXc",
+  "folder": "ncdGGLBSMmv7bpPU",
+  "_key": "!items!J8e4X3QU2OdVSoXc"
+}
