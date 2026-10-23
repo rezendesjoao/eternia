@@ -1,0 +1,118 @@
+{
+  "name": "Muro de Névoa",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Cajados Mágicos.</strong> Uma névoa espessa sobe do chão do seu quadrado: você e os aliados que você escolher nele ganham [Anulação: NP÷2 + 3] até o fim da rodada. Uma vez por rodada.</p><p><em>Os golpes atravessam a névoa e chegam sem força.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Close",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/air/fog-gas-smoke-swirling-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "allies",
+          "statusData": {
+            "statusId": "cancel",
+            "value": "floor(@cr/2)+3"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Muro de Névoa",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "euFyGqjmbtXXe5nE",
+      "_key": "!items.effects!fGq3Q3RpyubKc6HO.euFyGqjmbtXXe5nE"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "cajados-muro-de-nevoa",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "cajados"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "fGq3Q3RpyubKc6HO",
+  "folder": "k9QwuhvOhxVuVe0G",
+  "_key": "!items!fGq3Q3RpyubKc6HO"
+}

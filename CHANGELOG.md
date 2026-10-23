@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.11.0 — 2026-10-23
+
+### Adicionado
+- **O Mago Vermelho**, a segunda classe com Magias (compêndio Raças e Classes, pasta Classes; 36 habilidades). Motor
+  **Arsenal**: o mago guarda as peças num espaço mágico e tem uma na mão, a Espada, a Armadura ou o Foco; a Carga cresce
+  na Manutenção e com os Feitiços e dá o poder da peça (Espada: +[Carga × 2] nos Ataques com Arma; Armadura: [Anulação:
+  Carga × 2]; Foco: +[Carga × 2] em Feitiços e curas). O Reequipar troca de peça e solta a Descarga da antiga.
+  Caminhos: Arma Selada, Panóplia e Troca Relâmpago; Ápice: Arsenal Infinito. É o Motor do Ressonante feito motor das
+  Magias.
+- **Quatro Magias novas**: **Reequipar: O Cavaleiro** (Portadora: as armaduras de batalha, com feitiços que são Ataques
+  com Arma: Roda Celeste, Asa Negra, Armadura Adamantina, Traje do Coração Puro e o supremo Armadura de Nakagami: Luz
+  Estelar), **Cartas** (Portadora: Cartas Lançadas, Carta do Trovão, Leitura da Sorte, Prisão de Cartas, Tempestade de
+  Cartas e Os Vinte e Dois Arcanos), **Gravidade** (Queda, Mudança de Gravidade, Campo Gravitacional, Gravidade Zero,
+  Buraco Negro e Peso do Mundo) e **Cajados Mágicos** (Portadora: Raio do Cajado, Muro de Névoa, Sono, Arranha-Céu, Dança
+  dos Cinco Cajados e Círculo de Cinco Camadas: Canto Sagrado). Servem a qualquer classe de magia.
+- O emblema do Mago Vermelho (o chapéu de aba larga com a pluma), a página **XI.11** do diário AS REGRAS e as páginas
+  XII.3, XII.4, XII.7 e XII.8 do capítulo XII. MAGIAS.
+
+### Alterado
+- **O Ressonante saiu da lista de classes** e das Dedicações: o Mago Vermelho tomou o lugar dele. As fichas que já o
+  usam continuam funcionando, e a página dele no diário diz que é uma classe antiga. Para quem cria conteúdo:
+  `flags.eternia.retired` no item de classe e na Dedicação esconde a classe dos navegadores para quem ainda não a tem.
+- As páginas de classe do diário depois do Mago Vermelho foram renumeradas (Matador de Dragões XI.12 a Tecelão XI.19), e
+  as Magias do capítulo XII foram renumeradas em ordem alfabética.
+- As Magias que já existiam citam a Carga do Mago Vermelho junto da Pressão do Mago Negro.
+- O aviso de novidades fala da 0.11.
+
 ## 0.10.1 — 2026-10-23
 
 ### Alterado

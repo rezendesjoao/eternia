@@ -1,0 +1,75 @@
+{
+  "name": "Queda",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Gravidade.</strong> O peso de um alvo a até 4 Qd dobra de uma vez: Teste de Precisão contra a Resistência; [2d6 + Poder Mágico] de dano mágico, e ele fica [Lento].</p><p><strong>Custo:</strong> Ódio 1.</p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/control/silhouette-fall-slip-prone.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "gravidade-queda",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "slowed"
+        }
+      ],
+      "magicSpell": {
+        "id": "gravidade"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Y5FDfP7FoZDo5Buq",
+  "folder": "0Q7XkNALmMgNlGVJ",
+  "_key": "!items!Y5FDfP7FoZDo5Buq"
+}

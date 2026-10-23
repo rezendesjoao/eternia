@@ -1516,7 +1516,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.10: o Mago Negro e as Magias</strong></p><ul><li>O <strong>Mago Negro</strong>, a primeira classe com <strong>Magias</strong>: a classe diz como você conjura, a Magia diz o que você conjura. Ele escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10, e a <strong>Pressão</strong> sobe a cada feitiço até a Liberação.</li><li>As quatro primeiras Magias: <strong>Água</strong>, <strong>Artes Negras</strong> (Proibida, com Tabu), <strong>Corpos Celestes</strong> e <strong>Esmagamento</strong>, cada uma com um feitiço supremo. As regras estão no capítulo XII. MAGIAS do diário AS REGRAS.</li><li>Mudar o NP (pelo botão ou digitando o número na ficha) mostra antes um resumo com os atributos, os PV, as escolhas de habilidade e o que a classe dá em cada NP.</li><li>O navegador de habilidades abre só com o que dá para escolher agora; \"Mostrar todas\" mostra o resto.</li></ul><p>Desde a 0.9: o Matador de Dragões. Desde a 0.8: as 16 classes. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.11: o Mago Vermelho e mais quatro Magias</strong></p><ul><li>O <strong>Mago Vermelho</strong>, a segunda classe com Magias: a magia mora na peça que está na mão (a Espada, a Armadura ou o Foco), a <strong>Carga</strong> cresce a cada rodada e a cada feitiço, e o <strong>Reequipar</strong> troca de peça e solta a Descarga da antiga.</li><li>Quatro Magias novas, para qualquer classe de magia: <strong>Reequipar: O Cavaleiro</strong>, <strong>Cartas</strong>, <strong>Gravidade</strong> e <strong>Cajados Mágicos</strong>. As regras estão no capítulo XII. MAGIAS do diário AS REGRAS.</li><li>O <strong>Ressonante</strong> saiu da lista de classes: o Mago Vermelho tomou o lugar dele. As fichas que já o usam continuam funcionando.</li><li>Desde a 0.10.1: o navegador de habilidades sobe vários NH da mesma habilidade de uma vez.</li></ul><p>Desde a 0.10: o Mago Negro e as Magias. Desde a 0.9: o Matador de Dragões. Desde a 0.8: as 16 classes. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -2723,6 +2723,29 @@
         "Overload": "Sobrecarga",
         "ChooseRelease": "Quanta Pressão a Liberação gasta? Você tem {have}.",
         "ReleaseReady": "Liberação no Teto"
+      },
+      "MagoVermelho": {
+        "Name": "Arsenal",
+        "Unit": "Carga",
+        "State": {
+          "espada": "Espada",
+          "armadura": "Armadura",
+          "foco": "Foco"
+        },
+        "Card": {
+          "Gain": "Na Manutenção: +1 Carga. Os Feitiços, da classe ou das Magias: +1 (os grandes, +2). A Lâmina Convocada, com a Espada: +1.",
+          "Spend": "Reequipar: a peça que sai solta a Descarga, e a nova começa com metade da Carga. Os feitiços supremos das Magias pedem o Teto e gastam tudo.",
+          "Cap": "3 de Carga, +1 a cada 5 NP. Espada: +[Carga × 2] nos Ataques com Arma. Armadura: [Anulação: Carga × 2]. Foco: +[Carga × 2] em Feitiços e curas.",
+          "Reset": "O fim do combate zera a Carga; a peça fica na mão.",
+          "GainLesser": "Na Manutenção: +1 Carga. A Lâmina Convocada, com a Espada: +1.",
+          "SpendLesser": "Reequipar entre a Espada e a Armadura: a peça que sai solta a Descarga.",
+          "CapLesser": "Metade do Teto do Arsenal, no mínimo 1. Só a Espada e a Armadura.",
+          "ResetLesser": "O fim do combate zera a Carga; a peça fica na mão."
+        },
+        "ChooseSlot": "Para qual peça você troca? A Carga é {n}.",
+        "SealedLocked": "Caminho da Arma Selada: você não troca de peça em combate.",
+        "Discharge": "Descarga",
+        "Waiting": "Descarga pronta: {list}"
       }
     },
     "Classes": {
@@ -2922,6 +2945,14 @@
           "reserva": "A Reserva",
           "muralha": "A Muralha",
           "ruina": "A Ruína"
+        }
+      },
+      "magovermelho": {
+        "Branch": {
+          "espada": "A Espada",
+          "armadura": "A Armadura",
+          "foco": "O Foco",
+          "troca": "O Reequipar"
         }
       },
       "Magic": "Magias",

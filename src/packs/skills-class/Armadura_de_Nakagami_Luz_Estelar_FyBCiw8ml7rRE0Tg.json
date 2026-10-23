@@ -1,0 +1,79 @@
+{
+  "name": "Armadura de Nakagami: Luz Estelar",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Reequipar: O Cavaleiro. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você veste a armadura que corta a própria magia e golpeia um alvo ao alcance da arma. Teste de Precisão contra a Esquiva; [(2 + 2×pontos gastos)d6 + Poder de Ataque + pontos gastos×NP] de dano físico, e a última habilidade que ele usou fica [Selado]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>O golpe passa pela magia dele como se ela não estivesse lá.</em></p>",
+    "tags": [
+      "Spell",
+      "Weapon Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/light/explosion-star-blue-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "cavaleiro-luz-estelar",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "sealed"
+        }
+      ],
+      "magicSpell": {
+        "id": "cavaleiro"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder de Ataque] + pontos gastos×NP Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "FyBCiw8ml7rRE0Tg",
+  "folder": "NgaodfRbKsqAs3oa",
+  "_key": "!items!FyBCiw8ml7rRE0Tg"
+}

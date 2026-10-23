@@ -1,0 +1,72 @@
+{
+  "name": "Fio Encantado",
+  "type": "skill",
+  "system": {
+    "description": "<p>Com a Espada na mão, gaste até [NH+1] de Carga: o fio acende de uma ponta à outra. Um ataque contra um alvo ao alcance da arma: Teste de Precisão contra a Esquiva; [(2 + Carga gasta)d6 + Poder de Ataque + Carga gasta × NP] de dano físico.</p><p><strong>Custo:</strong> Ódio 2.</p>",
+    "tags": [
+      "Weapon Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Weapon",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 3
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+@spent",
+      "mod": "@spent*@cr",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/dagger-rune-enchant-flame-strong-red.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "magovermelho-fio-encantado",
+      "kind": "spends",
+      "branch": "espada",
+      "minRank": 1,
+      "motor": {
+        "id": "magovermelho",
+        "needs": {
+          "state": "espada",
+          "min": 1
+        },
+        "spend": "choose",
+        "max": "@sr+1"
+      },
+      "damageText": "(2+Carga gasta)d6 + [Poder de Ataque] + Carga gasta×NP Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "3VILqea6gm2ysZHy",
+  "folder": "Oye3RJZ0oUAdgaHC",
+  "_key": "!items!3VILqea6gm2ysZHy"
+}

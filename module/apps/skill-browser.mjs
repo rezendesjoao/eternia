@@ -27,6 +27,8 @@
  *   flags.eternia.dedication  { name, id }: the Dedication of a class (the multiclass, from CR 5), listed for
  *                             characters of other classes: it opens that class's [Dedication] talents, two CR later.
  *                             At most two Dedications, the second after two talents of the first.
+ *   flags.eternia.retired     it left the lists (the Dedication of a class another one replaced): listed only for
+ *                             who already has it
  */
 
 import { getOption } from "../helpers/character-options.mjs";
@@ -98,7 +100,7 @@ const T = (key, data) => (data ? game.i18n.format(`ETERNIA.SkillBrowser.${key}`,
 const INDEX_FIELDS = [
   "system.subtype", "system.skillRank", "system.tags", "folder", "flags.eternia.minRank", "flags.eternia.choiceOnly",
   "flags.eternia.requires", "flags.eternia.pathTalent", "flags.eternia.elementTalent", "flags.eternia.magicSpell",
-  "flags.eternia.dedication", "flags.eternia.identifier"
+  "flags.eternia.dedication", "flags.eternia.identifier", "flags.eternia.retired"
 ];
 const listOf = value => (Array.isArray(value) ? value : ((typeof value === "string") ? [value] : Object.values(value ?? {})));
 
@@ -149,6 +151,7 @@ async function buildIndex() {
         magicSpell: String(flags.magicSpell?.id ?? ""),
         dedicationOf: flags.dedication?.name ? { name: normalize(flags.dedication.name), id: String(flags.dedication.id ?? "") } : null,
         dedicationTalent: (e.system.tags ?? []).some(t => normalize(t) === DEDICATION_TAG),
+        retired: !!flags.retired,
         tags: e.system.tags ?? [],
         folder: folders[0] ?? "",
         folders: folders.map(f => f.toLowerCase()),
@@ -587,6 +590,8 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
 
       const owned = ownedSkill(actor, entry);
       if (entry.choiceOnly && !owned) continue;
+      // What left the lists (the Dedication of a class another one replaced) stays only for who has it.
+      if (entry.retired && !owned) continue;
       // A Path's talents are for who follows it.
       if (entry.pathTalent && !owned && !lists.paths.has(entry.pathTalent)) continue;
       // An element's talents are for who has it.

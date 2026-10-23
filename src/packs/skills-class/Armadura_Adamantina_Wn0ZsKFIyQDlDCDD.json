@@ -1,0 +1,118 @@
+{
+  "name": "Armadura Adamantina",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Reequipar: O Cavaleiro.</strong> Antes do Dano de um ataque contra você ou contra um aliado engajado com você: você veste a armadura mais dura que tem e ergue os dois escudos dela na frente dele. [Anulação: NP + 5] contra esse dano. Uma vez por rodada.</p><p><em>Os dois escudos se encaixam numa parede, e o golpe para nela.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/equipment/shield/heater-steel-spiral.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "cancel",
+            "value": "@cr+5"
+          },
+          "consumeOn": "damage",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Armadura Adamantina",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "sbmrFDe3nNdbX1ZP",
+      "_key": "!items.effects!Wn0ZsKFIyQDlDCDD.sbmrFDe3nNdbX1ZP"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "cavaleiro-armadura-adamantina",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "cavaleiro"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Wn0ZsKFIyQDlDCDD",
+  "folder": "NgaodfRbKsqAs3oa",
+  "_key": "!items!Wn0ZsKFIyQDlDCDD"
+}

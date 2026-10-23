@@ -96,6 +96,15 @@ export const CLASSES = {
     // A magic class: its grants have Magia slots (CR 1, 5 and 10) and the tab shows the Magias
     magic: true
   },
+  magovermelho: {
+    id: "magovermelho",
+    motor: "magovermelho",
+    color: "#7a1f3d",
+    band: "firm",
+    branches: ["espada", "armadura", "foco", "troca"],
+    paths: ["arma-selada", "panoplia", "troca-relampago"],
+    magic: true
+  },
   matador: {
     id: "matador",
     motor: "matador",

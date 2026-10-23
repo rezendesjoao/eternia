@@ -7,8 +7,11 @@ const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 /*  Index                                       */
 /* -------------------------------------------- */
 
-/** Extra index fields read from the compendiums (the full documents are never loaded). */
-const INDEX_FIELDS = ["system.identifier", "system.tags"];
+/**
+ * Extra index fields read from the compendiums (the full documents are never loaded). `flags.eternia.retired` marks an
+ * option that left the list (a class another one replaced): it stays only for who already has it.
+ */
+const INDEX_FIELDS = ["system.identifier", "system.tags", "flags.eternia.retired"];
 
 /** Option type -> Promise of its entries, built on first use. */
 const cache = new Map();
@@ -37,6 +40,7 @@ async function buildIndex(type) {
     img: e.img,
     identifier: e.system?.identifier ?? "",
     roles: e.system?.tags ?? [],
+    retired: !!(e.flags?.eternia?.retired),
     source,
     order
   });
@@ -145,7 +149,7 @@ export class OptionBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       subtitle: [...(e.roles ?? []).map(tagLabel), e.source].filter(Boolean).join(" · "),
       selected: !!current && ((e.uuid === currentSource)
         || (!!e.identifier && (e.identifier === current.system.identifier)))
-    }));
+    })).filter(e => !e.retired || e.selected);
     return {
       entries,
       query: this.query,

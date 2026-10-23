@@ -1,6 +1,6 @@
 # Classes: o esqueleto
 
-As regras de construção das classes da Eternia, fechadas em 2026-10-21, as [18 classes](#as-classes), as [Magias](#as-magias) e a referência
+As regras de construção das classes da Eternia, fechadas em 2026-10-21, as [19 classes](#as-classes), as [Magias](#as-magias) e a referência
 técnica dos Motores. As regras como o jogador lê estão nas páginas **XI. CLASSES** (a geral e uma por classe) do diário
 AS REGRAS.
 
@@ -174,9 +174,10 @@ O mapa da lista de classes: cada Motor mexe numa parte da regra que nenhuma outr
 | Criatura extra | Invocador | Pacto: PV pagos viram Laços de um espírito, gastos nos comandos |
 | Elemento do dano | Matador de Dragões | Escamas: come o próprio elemento (e o ataque dele); no Teto, a Força do Dragão |
 | Risco, com as Magias | Mago Negro | Pressão: cada feitiço, da classe ou das Magias, aumenta; no Teto, Liberação ou Sobrecarga |
+| Itens, com as Magias | Mago Vermelho | Arsenal: a magia mora na peça da mão (Espada, Armadura, Foco); o Reequipar troca e solta a Descarga |
 | Aliados | Menestrel | Movimentos: a canção sobe a cada Manutenção; trocar volta ao I |
 | Comando | Comandante | Táticas: Ordens que dão a sua ação a um aliado |
-| Itens | Ressonante | Centelha: o poder mora numa peça e salta para outra soltando o que juntou |
+| Itens | Ressonante | Centelha: o poder mora numa peça e salta para outra soltando o que juntou (classe antiga: virou o Mago Vermelho) |
 
 A lista fechou em 16 classes, cruzando as classes do Pathfinder 2e e do Daggerheart com as partes da regra que
 sobravam. O Duelista da primeira lista saiu (jogaria como o Monge e o Samurai), e entraram o Sacerdote (a cura que
@@ -186,7 +187,10 @@ faltava) e o Caçador (o ataque à distância). As que o cruzamento deixou de fo
 Depois entrou o Matador de Dragões (2026-10-23), a primeira das classes de magia: o Motor dele mexe nos elementos do
 dano, que nenhuma outra classe usa como recurso. Em seguida o Mago Negro, a primeira classe com [Magias](#as-magias):
 ele herda o risco do Feiticeiro (a Pressão é o Calor feito motor das Magias), e o Feiticeiro sai do navegador de
-classes quando as Magias elementais (Fogo, com os feitiços dele) chegarem.
+classes quando as Magias elementais (Fogo, com os feitiços dele) chegarem. Depois veio o Mago Vermelho, que herda os
+itens do Ressonante (a Carga é o Brilho feito motor das Magias, e a peça da mão troca com o Reequipar). Com ele, o
+Ressonante saiu da lista de classes e das Dedicações (`flags.eternia.retired` no item de classe e na Dedicação); as
+fichas que já o usam continuam funcionando.
 
 ## O que saiu do sistema
 
@@ -205,7 +209,7 @@ Na mesma versão da classe piloto, para o sistema nunca ter os dois:
 ## As classes
 
 Cada seção diz o Motor da classe e o que ela tem; as regras como o jogador lê estão na página da classe no diário AS
-REGRAS (XI.1 a XI.18) e na descrição de cada habilidade. A calibragem do dano é a primeira de cada classe: vale
+REGRAS (XI.1 a XI.19) e na descrição de cada habilidade. A calibragem do dano é a primeira de cada classe: vale
 conferir na mesa e ajustar os números (Teto, dados por ponto, o pagamento do Motor cheio).
 
 ### Assassino
@@ -485,6 +489,43 @@ Estado em `flags.eternia.motor.magonegro`: `state` (`estavel`, `critico`), `valu
 Classe S), `ember` (Repouso Arcano) e `emotion` (Ressonância Emocional). A Pressão vale para qualquer habilidade com a
 tag Spell: os feitiços das Magias também somam a Pressão ao dano e usam o Transbordar.
 
+### Mago Vermelho
+
+O Motor **Arsenal** mexe nos itens, como a Centelha do Ressonante, e é o motor das Magias: o mago guarda as peças num
+espaço mágico e tem uma na mão, a Espada, a Armadura ou o Foco. A Carga cresce na Manutenção (+1) e com os Feitiços
+(+1, os grandes +2) e dá o poder da peça: Espada +[Carga × 2] no dano dos Ataques com Arma, Armadura [Anulação: Carga ×
+2], Foco +[Carga × 2] em Feitiços e curas. O Reequipar (Menor) troca a peça: a que sai solta a Descarga (Espada:
++[Carga × NP] no próximo Ataque com Arma; Armadura: [Barreira: Carga × (NP+5)]; Foco: +[Carga × NP] no próximo Feitiço
+ou cura) e a nova começa com metade da Carga. Teto: 3 + ⌊NP/5⌋. A peça fica na mão de um combate para o outro. É uma
+**classe de magia**: escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10. Código em
+`module/classes/magovermelho.mjs`.
+
+| Parte | O que tem |
+|---|---|
+| Base | FOR 3, DES 2, POD 3, INT 2; faixa Firme (40, +6/NP); papéis Damage e Defense |
+| Kit | Arsenal (Motor), Reequipar (Menor), Lâmina Convocada (Maior, +1 com a Espada), Disparo do Foco (Maior, Feitiço, +1); a primeira Magia |
+| A Espada | Fio Encantado, Aço que Responde*, Golpe da Descarga, Lâmina Longa |
+| A Armadura | Couraça Encantada*, Golpe Aparado, Escudo Convocado*, Armadura Inabalável |
+| O Foco | Rajada do Foco, Luz Restauradora, Foco Amplo, Bênção do Foco |
+| O Reequipar | Reequipar Veloz*, Carga Contínua*, Arsenal Ampliado*, Peça Renovada |
+| Gerais | Avaliar Equipamento, Espaço do Arsenal, Troca de Traje, Cuidar das Peças |
+| Caminhos (NP 3) | Arma Selada (Peça Jurada, Selo Rompido), Panóplia (Peça Mestra, Arsenal Desperto), Troca Relâmpago (Escudo dos Companheiros, Recarga Veloz) |
+| Ápice (NP 10) | Arsenal Infinito |
+| Dedicação (NP 5) | Dedicação: Mago Vermelho, que dá o Arsenal Menor (só Espada e Armadura), o Reequipar e a Lâmina Convocada (sem Magias) |
+
+\* talentos [Dedicação].
+
+Os Caminhos são os do Ressonante com outra cara: a Arma Selada reescreve o Reequipar (não troca em combate, +2 no Teto),
+a Panóplia reescreve o que a Carga faz (as três peças a meio valor) e a Troca Relâmpago reescreve o Reequipar de outro
+jeito (a Descarga em dobro, a peça nova em 0). O Ápice, Arsenal Infinito, tira o custo do Reequipar e deixa a peça que
+saiu valendo até o fim da rodada.
+
+Estado em `flags.eternia.motor.magovermelho`: `state` (`espada`, `armadura`, `foco`), `value` (Carga), `release` (as
+Descargas da Espada e do Foco esperando um ataque), `bound` (a Descarga que um uso tomou, para o dano dele), `prev` e
+`prevRound` (o Ápice), `recharge` (Recarga Veloz), `answered` (Aço que Responde) e `ember` (Cuidar das Peças). Uma
+Descarga espera a próxima habilidade que rola dano ou cura: um Ataque com Arma (a da Espada) ou um Feitiço ou cura (a
+do Foco); os feitiços sem rolagem não a gastam.
+
 ### Matador de Dragões
 
 O Motor **Escamas** mexe nos elementos do dano: o Matador come o próprio elemento (o Devorar: +1, ou +2 com uma fonte;
@@ -628,6 +669,9 @@ Mortos (o Fardo do próximo combate) e o Ápice.
 
 ### Ressonante
 
+**Classe antiga.** Desde a 0.11 o Ressonante está fora da lista de classes e das Dedicações: o Mago Vermelho tomou o
+lugar dele. As fichas que já o usam continuam funcionando com as regras abaixo.
+
 O Motor **Centelha** mexe nos itens: a Centelha vive na Arma, na Armadura ou na Joia (um acessório) e junta Brilho (+1
 na Manutenção, +1 no Golpe Ressonante com ela na Arma). Onde está, dá o poder da peça: Arma +[Brilho × 2] no dano dos
 Ataques com Arma, Armadura [Anulação: Brilho × 2], Joia +[Brilho × 2] em ataques mágicos e curas. Saltar a Centelha
@@ -738,7 +782,7 @@ estados no alvo atingido (`onHit`), o acerto automático do Desenlace e o Ponto 
 
 ## As Magias
 
-A classe diz **como** se conjura; a Magia diz **o que**. As classes de magia (por enquanto, o Mago Negro) escolhem uma
+A classe diz **como** se conjura; a Magia diz **o que**. As classes de magia (o Mago Negro e o Mago Vermelho) escolhem uma
 Magia no NP 1, outra no NP 5 e a terceira no NP 10, e os feitiços dela entram nas escolhas de Combate e Geral, cada um
 com o seu NP mínimo. Os feitiços alimentam e gastam o Motor da classe de quem conjura: cada um +1 (os grandes, +2), e
 os supremos (NP 7) pedem o Motor no Teto e gastam tudo. As regras como o jogador lê estão em **XII. MAGIAS** no diário AS
@@ -748,12 +792,16 @@ REGRAS (a geral e uma página por Magia).
 |---|---|---|
 | Água | Conjuração | Lâmina de Água, Prisão de Água, Corpo de Água, Nebulosa de Água, Sierra, Maremoto (supremo) |
 | Artes Negras | Proibida (Tabu: [Maldito] em combate; a Predação da Morte pega aliados) | Toque da Morte, Esfera da Morte, Véu das Trevas, Predação da Morte, Sentença Negra (supremo) |
+| Cajados Mágicos | Portadora | Raio do Cajado, Muro de Névoa, Sono, Arranha-Céu, Dança dos Cinco Cajados, Círculo de Cinco Camadas: Canto Sagrado (supremo) |
+| Cartas | Portadora | Cartas Lançadas, Carta do Trovão, Leitura da Sorte, Prisão de Cartas, Tempestade de Cartas, Os Vinte e Dois Arcanos (supremo) |
 | Corpos Celestes | Conjuração | Estrela Cadente, Meteoro, Velocidade da Luz, Altairis, Sete Estrelas do Julgamento: Grand Chariot, Sema (supremo) |
 | Esmagamento | Conjuração | Toque Esmagador, Onda de Esmagamento, Desmontagem, Quebrar a Guarda, Ruptura, Esmagamento Absoluto (supremo) |
+| Gravidade | Conjuração | Queda, Mudança de Gravidade, Campo Gravitacional, Gravidade Zero, Buraco Negro, Peso do Mundo (supremo) |
+| Reequipar: O Cavaleiro | Portadora (os feitiços são Ataques com Arma) | Roda Celeste: Círculo de Espadas, Asa Negra: Lampejo Lunar, Armadura Adamantina, Traje do Coração Puro, Roda Celeste: Pétalas de Aço, Armadura de Nakagami: Luz Estelar (supremo) |
 
 As categorias são as da série: Conjuração (a magia sai do corpo), Portadora (precisa de um objeto equipado), Perdida e
 Proibida (mais fortes, com um Tabu), Ancestral (feitiços supremos de NP 10). O catálogo vai crescer em lotes, até cobrir
-a magia de cada personagem (as elementais, Reequipar, Espíritos Celestiais, Moldagem, Take Over, os Matadores de Deuses
+a magia de cada personagem (as elementais, Espíritos Celestiais, Moldagem, Take Over, os Matadores de Deuses
 e de Demônios...).
 
 Como se monta: a Magia é uma habilidade passiva com `flags.eternia.magic = { id, category }` (só dada pela vaga de
@@ -769,7 +817,7 @@ na pasta `Magias/<Magia>` de `skills-class`, com identificadores `<magia>-<nome>
 | Arquivo | O que faz |
 |---|---|
 | `module/classes/motor.mjs` | O Motor genérico: o registro (`registerMotor`), o estado no ator, o Teto, as habilidades de Motor e de Motor Menor, os requisitos (`motorUseIssues`), a ação que a habilidade gasta (`motorActionOf`), o plano antes do cartão (`planMotorUse`, que guarda `flags.eternia.motorUse`), a mudança depois (`commitMotorUse`, que avisa todos os Motores com `onUse`) e o Desfazer, os valores das fórmulas e do custo, os bônus de rolagem, os estados que o dano dá, os estados passivos (`syncMotorStatuses`), os eventos (em fila por ator) e os ajudantes das classes (lados, combate, escolha). |
-| `module/classes/<classe>.mjs` | O Motor de cada classe (`ASSASSINO`, `BERSERKER`, `CACADOR`, `COMANDANTE`, `DRUIDA`, `ESTRATEGISTA`, `FEITICEIRO`, `GUARDIAO`, `INVOCADOR`, `MAGONEGRO`, `MATADOR`, `MENESTREL`, `MONGE`, `ORACULO`, `RESSONANTE`, `SACERDOTE`, `SAMURAI`, `TECELAO`): o Teto, as regras do kit e dos talentos, os Caminhos, o Ápice e as reações aos eventos. O cabeçalho de cada arquivo diz a regra e o que fica guardado no ator. |
+| `module/classes/<classe>.mjs` | O Motor de cada classe (`ASSASSINO`, `BERSERKER`, `CACADOR`, `COMANDANTE`, `DRUIDA`, `ESTRATEGISTA`, `FEITICEIRO`, `GUARDIAO`, `INVOCADOR`, `MAGONEGRO`, `MAGOVERMELHO`, `MATADOR`, `MENESTREL`, `MONGE`, `ORACULO`, `RESSONANTE`, `SACERDOTE`, `SAMURAI`, `TECELAO`): o Teto, as regras do kit e dos talentos, os Caminhos, o Ápice e as reações aos eventos. O cabeçalho de cada arquivo diz a regra e o que fica guardado no ator. |
 | `module/classes/index.mjs` | Registra os Motores, embrulha `EterniaCombat#_onPhaseStart` (Manutenção e Encerramento, uma vez, na janela do Mestre que mudou a fase), segue os turnos e o movimento dos tokens, ouve os eventos dos cartões (`eternia.attack`, `eternia.attackResult`, `eternia.dodge`, `eternia.damaged`, `eternia.healed`, `eternia.check`, `eternia.defeated`; um cartão de dano aplicado, com ou sem PV tirado, também vira `onStruck`), põe os botões das classes nos cartões de ataque e tem a API `game.eternia.motor`. |
 | `module/classes/progression.mjs` | O NP mudado à mão oferece o que a classe dá no NP; a Dedicação dá as habilidades dela ao ser aprendida (e uma à escolha, `dedicationChoice`) e as tira junto. |
 | `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`) e os dados de cada classe para a aba (cor, faixa, ramos, Caminhos, elementos, `magic` das classes de magia). |
@@ -839,7 +887,9 @@ O item `class` leva `identifier`, atributos, `hp`, `hpPerRank`, as tags de papel
 `Control`, `Support`) e `grants`: um espaço por habilidade do kit, um espaço de escolha quando a classe tem elementos
 (`{ uuids: [os elementos] }`, no NP 1), as vagas de Magia de uma classe de magia (`{ rank: 1, magic: true }`, 5 e 10: a
 n-ésima fica aberta enquanto o personagem tem menos de n Magias), `{ rank: 3, uuids: [os três Caminhos] }` e
-`{ rank: 10, auto: true, uuids: [o Ápice] }`.
+`{ rank: 10, auto: true, uuids: [o Ápice] }`. Uma classe que saiu da lista (o Ressonante, que virou o Mago Vermelho) leva
+`flags.eternia.retired` (o id da classe que tomou o lugar) no item e na Dedicação: o navegador de classes e o de
+habilidades só os mostram para quem já os tem.
 
 ### Criar uma classe nova
 

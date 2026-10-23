@@ -228,6 +228,21 @@ const GLYPHS = {
     solid("M30.6 53.4 C37.6 41.4 42.6 28.6 50.4 19.4 C55 14.2 61.6 10.8 70.4 11.8 C64.4 15.4 60.2 21.4 58.2 29.6 C61 38.6 65.6 46.6 69.4 53.4 Z"),
     cut("M33.8 47.6 C44.4 45.6 55.6 45.6 66.2 47.6 L67.7 50.6 C56 48.6 44 48.6 32.3 50.6 Z")
   ],
+  // The Red Mage's Arsenal: the wide-brimmed hat with its plume, over a face of shadow
+  magovermelho: () => {
+    const plume = "M38 48 C40 36 50 24 62 17 C70 12.5 79 10.6 88 11.4 C82 15 76 20 70 26 C62 34 52 41 44 49 Z";
+    return [
+      solid("M28 90 C28 78 35 68 43 63 L57 63 C65 68 72 78 72 90 Z"),
+      cut(ellipse(50, 69, 12.6, 9.6)),
+      solid(ellipse(45.4, 68.8, 2.3, 3.2)), solid(ellipse(54.6, 68.8, 2.3, 3.2)),
+      solid(ellipse(50, 57, 38, 7), -6),
+      solid("M33.5 55 C32.5 43 39 34 50 34 C61 34 67.5 43 66.5 55 Z"),
+      cut("M33.4 48.4 C44.4 46.2 55.6 46.2 66.6 48.4 L66.8 52.2 C55.8 50.2 44.2 50.2 33.2 52.2 Z"),
+      outline(plume, 3),
+      solid(plume),
+      { kind: "cutline", d: "M49 33.5 L55 36.5 M55.5 26.4 L61.4 29.4 M63 20.6 L68.6 23.4 M71.4 15.8 L76.4 18.2", width: 1.3 }
+    ];
+  },
   // The Dragon Slayer's Scales: a dragon's head, roaring, its horns swept back
   matador: () => [
     solid("M27 90 C20 75 20 59 28 48.5 C30.4 45.4 32 43.4 34 41.4 L17 28.5 L38.4 34.6 L24 18.5 L44.6 31.4 C50 30 56 30 61 31.6 L66 33.6 L84 38.4 L86.6 37 C89 38.6 91 40.6 91.6 43.4 L91 48.6 L66.6 49.6 L60.6 52.8 L84.6 61.2 C87.4 62.6 87.6 65.6 85.4 67.2 C77.6 71.6 66.6 73.2 57 72.6 C51.4 76.6 48.6 82.6 48 90 Z"),
@@ -254,7 +269,8 @@ const CLASS_FAMILY = {
   guardiao: "warrior", samurai: "warrior", monge: "warrior", ressonante: "warrior",
   assassino: "weapon", berserker: "weapon", cacador: "weapon", comandante: "weapon", menestrel: "weapon",
   sacerdote: "healer", druida: "healer", oraculo: "healer",
-  feiticeiro: "magic", invocador: "magic", estrategista: "magic", tecelao: "magic", matador: "magic", magonegro: "magic"
+  feiticeiro: "magic", invocador: "magic", estrategista: "magic", tecelao: "magic", matador: "magic", magonegro: "magic",
+  magovermelho: "magic"
 };
 
 /* -------------------------------------------- */

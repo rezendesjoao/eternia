@@ -1,0 +1,76 @@
+{
+  "name": "Buraco Negro",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Gravidade.</strong> Feitiço grande. Um ponto negro se abre no meio de uma área a até 4 Qd e puxa tudo para dentro: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico de [Corrupção], e quem ele acerta fica [Enraizado].</p><p><strong>Custo:</strong> Ódio 3.</p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/air/wind-vortex-swirl-purple.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "gravidade-buraco-negro",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "rooted"
+        }
+      ],
+      "magicSpell": {
+        "id": "gravidade"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "9oZvnxF7QIyz1uPL",
+  "folder": "0Q7XkNALmMgNlGVJ",
+  "_key": "!items!9oZvnxF7QIyz1uPL"
+}
