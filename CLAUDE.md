@@ -31,7 +31,9 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   `flags.eternia.retired` no item e na Dedicação (o Ressonante, que virou o Mago Vermelho).
 - Magia = habilidade passiva com `flags.eternia.magic` (dada pelas vagas de Magia das classes de magia, NP 1, 5 e 10) e
   os feitiços com `flags.eternia.magicSpell`, em `skills-class`, pasta `Magias/<Magia>`; o Motor dos feitiços é o da
-  classe de quem conjura (`motor.id: "@class"`). Veja "As Magias" em `docs/classes.md`.
+  classe de quem conjura (`motor.id: "@class"`). Veja "As Magias" em `docs/classes.md`. Uma classe que já existia e vira
+  classe de magia (o Invocador) entra em `MAGIC_CLASSES` de `module/classes/migration.mjs`: a migração `kudenCleanup`
+  põe as vagas no item de classe das fichas.
 - Um efeito de habilidade que depende de outra habilidade (um Caminho, um talento) usa as condições `hasSkill` e
   `notSkill`, pelo nome, conferidas em quem usa (o Escudo Esculpido do Pictomante vira muralha no Caminho da Paisagem).
 - Raça = item `race` com atributos, `hp`, `fate` e `grants` (as 2 inatas, uma Geral e uma de Combate; uma escolha vira

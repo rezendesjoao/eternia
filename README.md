@@ -5,9 +5,14 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.12.0
+## Versão 0.13.0
 
-- **Novo na 0.12.0: o Pictomante e mais três Magias.** A magia do Pictomante é construída no campo: cada feitiço deixa
+- **Novo na 0.13.0: o Invocador vira classe de magia, e mais três Magias.** O Invocador continua com o Lobo, o Golem e
+  a Fada, e agora escolhe Magias no NP 1, 5 e 10: com um espírito presente, os feitiços delas dão Laços a ele (veja
+  [As classes](#as-classes)). As fichas que já têm o Invocador ganham as vagas de Magia sozinhas. As Magias novas
+  servem a qualquer classe de magia: Espíritos Celestiais, Magia Seith e Teatro de Bonecas (veja
+  [As Magias](#as-magias)).
+- **Desde a 0.12.0: o Pictomante e mais três Magias.** A magia do Pictomante é construída no campo: cada feitiço deixa
   um Molde, que fica lá até ser quebrado, e quebrar vira dano (o Estilhaçar) ou defesa (o Escudo Esculpido) (veja
   [As classes](#as-classes)). As Magias novas servem a qualquer classe de magia: Moldagem de Gelo, Moldagem de Memória
   e Matador de Demônios, a primeira Magia Perdida (veja [As Magias](#as-magias)).
@@ -66,7 +71,7 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
 - **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 20 classes), Habilidades Raciais e
-  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 11 Magias com os feitiços: 813 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
+  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 14 Magias com os feitiços: 835 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
 
@@ -221,7 +226,7 @@ gira em volta dele (veja `docs/classes.md` e as páginas **XI. CLASSES** do diá
 | Estrategista | Suporte, Controle | **Leitura**: na Manutenção rola 2d6 e guarda os dados, para trocar depois os de um teste pelo que leu. |
 | Feiticeiro | Dano | **Calor**: cada feitiço esquenta e bate mais forte; no Teto, a Erupção solta tudo ou a Sobrecarga queima o próprio feiticeiro. |
 | Guardião | Defesa | **Baluarte**: cada ataque contra ele vira uma Camada da muralha (Anulação), que o Golpe do Baluarte transforma em dano e provocação. |
-| Invocador | Dano, Controle | **Pacto**: paga PV para dar Laços a um espírito (lobo, golem ou fada), que luta, protege ou cura gastando os Laços. |
+| Invocador | Dano, Controle | **Pacto**: paga PV para dar Laços a um espírito (lobo, golem ou fada), que luta, protege ou cura gastando os Laços; com o espírito presente, os Feitiços das Magias também dão Laços. Escolhe uma Magia no NP 1, 5 e 10. |
 | Mago Negro | Dano | **Pressão**: cada feitiço, da classe ou das Magias, puxa mais poder e bate mais forte; no Teto, a Liberação solta tudo ou a Sobrecarga cobra do próprio mago. Escolhe uma Magia no NP 1, 5 e 10. |
 | Mago Vermelho | Dano, Defesa | **Arsenal**: a magia mora na peça que está na mão (Espada, Armadura ou Foco) e cresce ali; o Reequipar troca de peça e solta a Descarga da antiga. Escolhe uma Magia no NP 1, 5 e 10. |
 | Matador de Dragões | Dano | **Escamas**: come o próprio elemento (Fogo, Ferro, Céu ou Raio) e o transforma em Escamas, que os golpes de dragão gastam; no Teto vem a Força do Dragão, e cada vez que ela acaba a Semente do Dragão cresce. |
@@ -246,7 +251,7 @@ mover tokens) fica no texto da habilidade.
 
 ## As Magias
 
-Nas classes de magia (o Mago Negro, o Mago Vermelho e o Pictomante), a classe diz **como** você conjura e a **Magia** diz **o que** você
+Nas classes de magia (o Mago Negro, o Mago Vermelho, o Pictomante e o Invocador), a classe diz **como** você conjura e a **Magia** diz **o que** você
 conjura. A primeira Magia vem com a classe, a segunda no NP 5 e a terceira no NP 10; a aba Classe mostra as Magias com
 os feitiços de cada uma, e o navegador de habilidades mostra os feitiços das suas Magias (a origem "Magia") nas
 escolhas de Combate e Geral. Os feitiços alimentam o Motor da sua classe (+1; os grandes, +2), e o feitiço supremo de
@@ -260,11 +265,14 @@ cada Magia (NP 7) pede o Motor no Teto e gasta tudo. As regras estão em **XII. 
 | Cartas | Portadora | O baralho: cartas que cortam, o raio de [Choque], a Leitura da Sorte ([Concentrado]) e a gaiola que deixa [Enraizado] e [Silenciado]. |
 | Corpos Celestes | Conjuração | As estrelas: [Radiância] de longe, o Meteoro, a gravidade de Altairis, Grand Chariot e o meteoro gigante de Sema. |
 | Esmagamento | Conjuração | Quebra tudo: [Fissurado] e [Exposto] de perto, e a Desmontagem, que desfaz o golpe que vem. |
+| Espíritos Celestiais | Portadora | As chaves dos portões: o machado do touro, a lã do carneiro ([Barreira]), as flechas do sagitário, a onda do aguadeiro (que pega aliados também), o punho do leão, o Vestido Estelar e Urano Metria. |
 | Gravidade | Conjuração | O peso das coisas: [Lento], [Derrubado] e [Enraizado], o golpe [Fortalecido] e o voo da Gravidade Zero. |
+| Magia Seith | Conjuração | As almas nos bonecos: raios em linha, em X e em estrela, a Possessão ([Encantado]), os Olhos de Boneco ([Confuso]) e o Ritual das Almas. |
 | Matador de Demônios | Perdida | O gelo negro feito para matar demônios: [Frio], [Congelando] e [Fissurado], o golpe congelado no ar e a magia calada ([Silenciado]). Tabu: em combate, as Defesas Física e Mágica caem [NP]. |
 | Moldagem de Gelo | Conjuração | O gelo moldado com as mãos: lanças e o martelo de [Frio] ([Congelando]), o escudo em forma de flor, o chão que derruba, as águias de gelo e a Dança dos Sete Cortes. |
 | Moldagem de Memória | Conjuração | A memória das magias vistas: Memorizar ([Concentrado]), o feitiço lembrado, o Esquecimento ([Selado]), a terra em chamas ([Queimando]) e a noite das estrelas cadentes. |
 | Reequipar: O Cavaleiro | Portadora | As armaduras de batalha: os feitiços são Ataques com Arma (espadas em área, o golpe da asa negra), a defesa adamantina, o traje sem armadura e a armadura que corta a magia ([Selado]). |
+| Teatro de Bonecas | Conjuração | As coisas que ganham vida: a rocha que soca, a árvore que agarra ([Enraizado]), os fios da Marionete ([Agarrado]), a nuvem que voa e o chão que derruba. |
 
 ## As raças
 

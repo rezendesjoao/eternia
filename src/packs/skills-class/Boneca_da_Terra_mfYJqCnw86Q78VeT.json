@@ -1,0 +1,75 @@
+{
+  "name": "Boneca da Terra",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Teatro de Bonecas.</strong> Feitiço grande. O chão de uma área a até 3 Qd se levanta como um gigante e cai de volta: Teste de Precisão contra a Esquiva de cada alvo; [3d6 + Poder Mágico] de dano mágico, e quem ele acerta fica [Derrubado].</p><p><strong>Custo:</strong> Ódio 3.</p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/earth/projectile-stone-landslide.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "bonecas-terra",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "prone"
+        }
+      ],
+      "magicSpell": {
+        "id": "bonecas"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "mfYJqCnw86Q78VeT",
+  "folder": "WWPYFuB8N4MJvtXB",
+  "_key": "!items!mfYJqCnw86Q78VeT"
+}

@@ -10,6 +10,8 @@
  * items that still point at one.
  * Version 3, the class emblems (tools/make-class-icons.mjs): the class items and the Dedications of the system's
  * classes that still have the blank picture (or the old icon) take their emblem.
+ * Version 4, the Summoner became a magic class (0.13): its class items without the Magia slots take them (CR 1, 5 and
+ * 10, after the kit), so the characters that already have it can choose their Magias.
  */
 const KUDEN_TYPES = new Set(["kudenResource", "kudenResourceFull", "sceneDay", "sceneNight", "sceneNoon", "sceneOpenSky",
   "sceneDarkness", "sceneMiasma", "sceneNoMiasma", "targetBossRaid", "hpAtMost"]);
@@ -36,6 +38,19 @@ const listOf = value => (Array.isArray(value) ? value : Object.values(value ?? {
 const stale = list => listOf(list).some(c => KUDEN_TYPES.has(c?.type));
 const kept = list => listOf(list).filter(c => !KUDEN_TYPES.has(c?.type));
 
+/** The classes that became magic classes, and the Magia slots their class items take. */
+const MAGIC_CLASSES = new Set(["invocador"]);
+const MAGIC_SLOTS = [1, 5, 10].map(rank => ({ rank, magic: true }));
+
+/** The grants of a class item of a magic class without its Magia slots, with them after the kit; or null. */
+function magicGrants(item) {
+  const source = item._source;
+  if ((item.type !== "class") || !MAGIC_CLASSES.has(source.system?.identifier)) return null;
+  const grants = listOf(source.system?.grants);
+  if (grants.some(g => g?.magic)) return null;
+  return [...grants.filter(g => !g?.rank), ...MAGIC_SLOTS, ...grants.filter(g => g?.rank)];
+}
+
 /** The changes of an item, or null. */
 function itemChanges(item, done) {
   const source = item._source;
@@ -50,6 +65,10 @@ function itemChanges(item, done) {
   if (OLD_ICONS.has(source.img)) update.img = CLASS_IMG;
   if (OLD_ICONS.has(source.img) || (source.img === CLASS_IMG)) update.img = emblemOf(item) ?? update.img;
   if (update.img === source.img) delete update.img;
+  if (done < 4) {
+    const grants = magicGrants(item);
+    if (grants) update["system.grants"] = grants;
+  }
   return foundry.utils.isEmpty(update) ? null : update;
 }
 
@@ -92,4 +111,4 @@ async function run(done) {
   return true;
 }
 
-export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 3, run };
+export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 4, run };

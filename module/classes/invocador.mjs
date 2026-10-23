@@ -1,12 +1,16 @@
 /**
  * The Summoner's Motor: the Pact (Pacto). docs/classes.md has the class; AS REGRAS, page XI, the rules as the
- * player reads them.
+ * player reads them. A magic class since 0.13: the Summoner chooses a Magia at CR 1, 5 and 10 (skills with
+ * flags.eternia.magic), and the spells of the Magias feed and spend the Pact ("@class" in their flags.eternia.motor,
+ * see motor.mjs).
  *
  * A spirit (the wolf, the golem or the fairy) is bound to the summoner by Links (Laços), bought with the summoner's
- * own HP: CR+3 each (the Legion Path, CR/2+2; the Titan Path, twice as much). It has no token: it acts through the
- * summoner's skills. Its Command: Attack reads the Links, its special commands spend them, and with 0 Links it fades
- * away. Each spirit has a trait: the wolf's strikes roll +1D, the golem gives [Cancel: Links], the fairy
- * [Regen: Links × 2]; on the Fusion Path the spirit merges with the summoner instead ([Empowered: Links × 2],
+ * own HP: CR+3 each (the Legion Path, CR/2+2; the Titan Path, twice as much). With a spirit there, the spells of the
+ * Magias give it Links too (+1, the big ones +2: their own motor.gain); with none, they give nothing. It has no token:
+ * it acts through the summoner's skills. Its Command: Attack reads the Links, its special commands spend them, the
+ * supreme spells of the Magias need the cap and spend them all (only with a spirit that came before this round), and
+ * with 0 Links it fades away. Each spirit has a trait: the wolf's strikes roll +1d6, the golem gives [Cancel: Links],
+ * the fairy [Regen: Links × 2]; on the Fusion Path the spirit merges with the summoner instead ([Empowered: Links × 2],
  * [Cancel: Links × 2], [Regen: Links × 3]).
  *
  * A skill that needs a spirit says which in its flags.eternia.motor.spirit: "any", or one spirit ("lobo").
@@ -14,6 +18,7 @@
  * State in flags.eternia.motor.invocador:
  *   state        "vazio" | "lobo" | "golem" | "fada"
  *   value        Links
+ *   since        "<combat>.<round>" when the spirit there came (a supreme spell waits for the next round)
  *   freeUsed     the Apex's free summon was used in this combat
  *   eternalUsed  the Apex kept the spirit at 1 Link in this combat
  *   foundation, cycle, fist   "<combat>.<round>" of the last once-per-round gain of those talents
@@ -33,7 +38,9 @@ const T = name => `invocador-${name}`;
 /** The spirits, in the order the dialogs show them. */
 const SPIRITS = ["lobo", "golem", "fada"];
 
-const DEFAULTS = { state: "vazio", value: 0, freeUsed: false, eternalUsed: false, foundation: null, cycle: null, fist: null };
+const DEFAULTS = {
+  state: "vazio", value: 0, since: null, freeUsed: false, eternalUsed: false, foundation: null, cycle: null, fist: null
+};
 
 /** The Path the actor follows (none with only the Lesser Pact). */
 const path = (actor, lesser) => (lesser ? null : pathOf(actor, INVOCADOR_ID));
@@ -67,6 +74,12 @@ function chatLine(actor, text) {
 /** Once per round: whether the key of this round is already in `key`. */
 const spentThisRound = (actor, data, key) => !!roundKey(actor) && (data[key] === roundKey(actor));
 
+/** Whether a skill is a Spell (the Magias' spells). */
+const isSpell = item => (item?.system?.tags ?? []).includes("Spell");
+
+/** Whether a Motor part is a Magia's supreme spell: the cap needed, all of it spent. */
+const isSupreme = motor => !!motor?.needs?.full && (motor.spend === "all");
+
 export const INVOCADOR = {
   id: INVOCADOR_ID,
   i18n: "Motor.Invocador",
@@ -84,9 +97,13 @@ export const INVOCADOR = {
     return max + talentRank(actor, T("laco-de-sangue"));
   },
 
-  /** The spirit a command needs; Summon: enough HP for one Link; Swap: another spirit to swap to. */
+  /**
+   * The spirit a command needs; Summon: enough HP for one Link; Swap: another spirit to swap to; a supreme spell: a
+   * spirit that came before this round.
+   */
   issues(actor, item, motor, { data, max, lesser }) {
     const id = identifierOf(item);
+    if (isSupreme(motor) && data.since && (data.since === roundKey(actor))) return [L("Motor.Invocador.SupremeWait")];
     if (motor.spirit) {
       const wanted = (motor.spirit === "any") ? SPIRITS : [motor.spirit].flat();
       if (!wanted.includes(data.state)) {
@@ -111,9 +128,10 @@ export const INVOCADOR = {
     return action;
   },
 
-  /** Summon (the spirit and the Links bought), Swap, the Living Shield, the Titan's Fury. */
+  /** Summon (the spirit and the Links bought), Swap, the Living Shield; a spell with no spirit there gives nothing. */
   async plan(actor, item, motor, { data, max, lesser, plan }) {
     const id = identifierOf(item);
+    if ((data.state === "vazio") && isSpell(item) && (toInt(plan.gain) > 0)) plan.gain = 0;
     if (id === T("invocar")) {
       const options = spiritsOf(lesser).map(s => ({ value: s, label: spiritLabel(s) }));
       const spirit = await chooseOption(item.name, options, {
@@ -140,8 +158,11 @@ export const INVOCADOR = {
       if (!chosen) return null;
       plan.set = spirit;
       plan.gain = chosen;
-      // Another spirit takes the place of the one there: its Links go with it.
-      if (!same) plan.spent = toInt(data.value);
+      // Another spirit takes the place of the one there: its Links go with it, and it came this round.
+      if (!same) {
+        plan.spent = toInt(data.value);
+        plan.changes.since = roundKey(actor);
+      }
       plan.vars.hp = chosen * cost;
       if (free) plan.changes.freeUsed = true;
       return plan;
@@ -174,6 +195,7 @@ export const INVOCADOR = {
     }
     next.state = "vazio";
     next.value = 0;
+    next.since = null;
     plan.vars.vanished = true;
     return next;
   },

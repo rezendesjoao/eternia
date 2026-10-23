@@ -1,0 +1,166 @@
+{
+  "name": "Vestido Estelar",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Espíritos Celestiais.</strong> Você veste o poder de um espírito até o fim da rodada: [Fortalecido: NP÷2 + 2] e [Anulação: NP÷2 + 2]. Uma vez por rodada.</p><p><em>A roupa muda de cor e de forma, e o símbolo do espírito aparece no seu ombro.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/equipment/back/cloak-collared-pink-gold.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "empowered",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Vestido Estelar",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "fySIUold825i7Ygd",
+      "_key": "!items.effects!V9Vo6diPJJA6gjVt.fySIUold825i7Ygd"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "cancel",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Vestido Estelar: proteção",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "n26B4GXEQBwSmSGY",
+      "_key": "!items.effects!V9Vo6diPJJA6gjVt.n26B4GXEQBwSmSGY"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "espiritos-celestiais-vestido-estelar",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "espiritos-celestiais"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "V9Vo6diPJJA6gjVt",
+  "folder": "UJ2jiF1CEel0wGBl",
+  "_key": "!items!V9Vo6diPJJA6gjVt"
+}

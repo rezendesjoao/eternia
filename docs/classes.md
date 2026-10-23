@@ -171,7 +171,7 @@ O mapa da lista de classes: cada Motor mexe numa parte da regra que nenhuma outr
 | Maldição | Oráculo | Fardo: o milagre fica mais forte e a maldição pesa junto |
 | PV dos aliados | Sacerdote | Graça: cada ferida de um aliado vira cura depois ou barreira antes |
 | Forma | Druida | Formas: a Seiva paga a fera, e cada forma troca o menu |
-| Criatura extra | Invocador | Pacto: PV pagos viram Laços de um espírito, gastos nos comandos |
+| Criatura extra, com as Magias | Invocador | Pacto: PV pagos e Feitiços viram Laços de um espírito, gastos nos comandos |
 | Elemento do dano | Matador de Dragões | Escamas: come o próprio elemento (e o ataque dele); no Teto, a Força do Dragão |
 | Risco, com as Magias | Mago Negro | Pressão: cada feitiço, da classe ou das Magias, aumenta; no Teto, Liberação ou Sobrecarga |
 | Itens, com as Magias | Mago Vermelho | Arsenal: a magia mora na peça da mão (Espada, Armadura, Foco); o Reequipar troca e solta a Descarga |
@@ -193,6 +193,8 @@ itens do Ressonante (a Carga é o Brilho feito motor das Magias, e a peça da m�
 Ressonante saiu da lista de classes e das Dedicações (`flags.eternia.retired` no item de classe e na Dedicação); as
 fichas que já o usam continuam funcionando. O Pictomante é a primeira classe de magia sem antecessora: o Motor dele mexe
 no campo (as construções que cada feitiço deixa e que ficam lá até serem quebradas), que nenhuma outra classe usa.
+Na 0.13 o Invocador virou classe de magia sem mudar de nome nem de habilidades: ganhou as vagas de Magia, e os Feitiços
+das Magias passaram a dar Laços ao espírito presente.
 
 ## O que saiu do sistema
 
@@ -206,7 +208,8 @@ Na mesma versão da classe piloto, para o sistema nunca ter os dois:
 - A migração `kudenCleanup` (`module/classes/migration.mjs`) tira dos mundos as condições dos tipos do Kuden, as flags
   das peças, a tag e o ambiente das cenas, e o `archetype` dos itens de classe. Na versão 2 ela troca a imagem dos
   itens que ainda apontam para um ícone de classe que saiu (o `samurai.svg`) pela imagem em branco. Na versão 3, o
-  item de classe e a Dedicação das 16 classes que ainda têm a imagem em branco ganham o emblema da classe.
+  item de classe e a Dedicação das 16 classes que ainda têm a imagem em branco ganham o emblema da classe. Na versão
+  4, o item de classe do Invocador nas fichas ganha as vagas de Magia (NP 1, 5 e 10, depois do kit).
 
 ## As classes
 
@@ -436,12 +439,16 @@ Protegido (`onAnyHit`/`onAnyMiss`), os Espinhos de Ferro ([Espelho] pelo `status
 O Motor **Pacto** mexe numa criatura extra: um espírito (Lobo, Golem ou Fada) fica preso ao Invocador por Laços que
 ele compra com os próprios PV ([NP+3] cada), sem token: o espírito age pelas habilidades do Invocador. O Comando:
 Ataque soma os Laços ao dano, os comandos especiais gastam Laços, e com 0 Laços o espírito se desfaz. Cada espírito tem
-um traço (Lobo +1d6, Golem [Anulação: Laços], Fada [Regeneração: Laços × 2]). Código em `module/classes/invocador.mjs`.
+um traço (Lobo +1d6, Golem [Anulação: Laços], Fada [Regeneração: Laços × 2]). É uma **classe de magia** desde a
+0.13: escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10. Com um espírito presente, os Feitiços das Magias
+dão +1 Laço (os grandes, +2; sem espírito, nada), e os supremos pedem o Teto, gastam todos os Laços e só saem com um
+espírito que chegou antes da rodada (senão, Chamado Rápido e Legião fariam um supremo por turno). Código em
+`module/classes/invocador.mjs`.
 
 | Parte | O que tem |
 |---|---|
 | Base | FOR 1, DES 2, POD 4, INT 3; faixa Leve (40, +5/NP); papéis Damage e Control |
-| Kit | Pacto (Motor), Invocar Espírito (Maior), Comando: Ataque (Menor), Escudo Vivo (Antes do Dano, gasta 1) |
+| Kit | Pacto (Motor), Invocar Espírito (Maior), Comando: Ataque (Menor), Escudo Vivo (Antes do Dano, gasta 1); a primeira Magia |
 | O Lobo | Investida do Lobo*, Uivo da Matilha*, Caçada*, Presas Fundas |
 | O Golem | Muralha do Golem, Punho de Pedra, Corpo de Pedra, Fundação |
 | A Fada | Pó de Fada, Luz Errante, Brilho Curativo, Ciclo da Fada |
@@ -449,12 +456,12 @@ um traço (Lobo +1d6, Golem [Anulação: Laços], Fada [Regeneração: Laços ×
 | Gerais | Conversar com Espíritos, Montaria Espiritual, Sentir o Além, Selo de Guarda |
 | Caminhos (NP 3) | Legião (Muitas Vozes, Reforço Constante), Fusão (Golpe Fundido, Avatar), Titã (Passo do Titã, Fúria do Titã) |
 | Ápice (NP 10) | Pacto Eterno |
-| Dedicação (NP 5) | Dedicação: Invocador, que dá o Pacto Menor (só o Lobo), Invocar Espírito e o Comando: Ataque |
+| Dedicação (NP 5) | Dedicação: Invocador, que dá o Pacto Menor (só o Lobo), Invocar Espírito e o Comando: Ataque (sem Magias) |
 
 \* talentos [Dedicação].
 
-Estado em `flags.eternia.motor.invocador`: `state` (`vazio`, `lobo`, `golem`, `fada`), `value` (Laços), `freeUsed` e
-`eternalUsed` (o Ápice, por combate) e as rodadas dos ganhos de uma vez por rodada. As habilidades que pedem um
+Estado em `flags.eternia.motor.invocador`: `state` (`vazio`, `lobo`, `golem`, `fada`), `value` (Laços), `since` (a rodada
+em que o espírito chegou, para os supremos), `freeUsed` e `eternalUsed` (o Ápice, por combate) e as rodadas dos ganhos de uma vez por rodada. As habilidades que pedem um
 espírito dizem qual em `flags.eternia.motor.spirit` (`"any"` ou o espírito). O PV pago sai direto da ficha (sem
 Barreira) e o Desfazer do cartão não o devolve.
 
@@ -829,7 +836,7 @@ estados no alvo atingido (`onHit`), o acerto automático do Desenlace e o Ponto 
 
 ## As Magias
 
-A classe diz **como** se conjura; a Magia diz **o que**. As classes de magia (o Mago Negro, o Mago Vermelho e o Pictomante) escolhem uma
+A classe diz **como** se conjura; a Magia diz **o que**. As classes de magia (o Mago Negro, o Mago Vermelho, o Pictomante e o Invocador) escolhem uma
 Magia no NP 1, outra no NP 5 e a terceira no NP 10, e os feitiços dela entram nas escolhas de Combate e Geral, cada um
 com o seu NP mínimo. Os feitiços alimentam e gastam o Motor da classe de quem conjura: cada um +1 (os grandes, +2), e
 os supremos (NP 7) pedem o Motor no Teto e gastam tudo. As regras como o jogador lê estão em **XII. MAGIAS** no diário AS
@@ -843,15 +850,18 @@ REGRAS (a geral e uma página por Magia).
 | Cartas | Portadora | Cartas Lançadas, Carta do Trovão, Leitura da Sorte, Prisão de Cartas, Tempestade de Cartas, Os Vinte e Dois Arcanos (supremo) |
 | Corpos Celestes | Conjuração | Estrela Cadente, Meteoro, Velocidade da Luz, Altairis, Sete Estrelas do Julgamento: Grand Chariot, Sema (supremo) |
 | Esmagamento | Conjuração | Toque Esmagador, Onda de Esmagamento, Desmontagem, Quebrar a Guarda, Ruptura, Esmagamento Absoluto (supremo) |
+| Espíritos Celestiais | Portadora (as chaves) | Portão do Touro, Portão do Carneiro, Portão do Sagitário, Portão do Aguadeiro (pega aliados também), Portão do Leão: Impacto de Régulo, Vestido Estelar, Urano Metria (supremo) |
 | Gravidade | Conjuração | Queda, Mudança de Gravidade, Campo Gravitacional, Gravidade Zero, Buraco Negro, Peso do Mundo (supremo) |
+| Magia Seith | Conjuração | Bonecos: Formação Linha, Possessão, Bonecos: Formação X, Olhos de Boneco, Bonecos: Formação Bárion, Ritual das Almas (supremo) |
 | Matador de Demônios | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP]) | Fúria do Demônio de Gelo, Garra do Demônio de Gelo, Gelo do Demônio, Gelo que Cala, Arco da Destruição do Demônio de Gelo, Lâmina da Destruição do Demônio de Gelo (supremo) |
 | Moldagem de Gelo | Conjuração | Moldagem de Gelo: Lança, Moldagem de Gelo: Escudo, Moldagem de Gelo: Martelo, Moldagem de Gelo: Chão, Moldagem de Gelo: Águias, Lâmina de Gelo: Dança dos Sete Cortes, Impacto de Gelo (supremo) |
 | Moldagem de Memória | Conjuração | Memorizar, Moldagem de Memória: Feitiço Lembrado, Moldagem de Memória: Esquecimento, Moldagem de Memória: Fortaleza da Terra Ardente, Moldagem de Memória: Noite das Estrelas Cadentes, Moldagem de Memória: Lembrança Absoluta (supremo) |
 | Reequipar: O Cavaleiro | Portadora (os feitiços são Ataques com Arma) | Roda Celeste: Círculo de Espadas, Asa Negra: Lampejo Lunar, Armadura Adamantina, Traje do Coração Puro, Roda Celeste: Pétalas de Aço, Armadura de Nakagami: Luz Estelar (supremo) |
+| Teatro de Bonecas | Conjuração | Boneca de Pedra, Boneca de Madeira, Marionete, Boneca de Nuvem, Boneca da Terra, Grande Teatro (supremo) |
 
 As categorias são as da série: Conjuração (a magia sai do corpo), Portadora (precisa de um objeto equipado), Perdida e
 Proibida (mais fortes, com um Tabu), Ancestral (feitiços supremos de NP 10). O catálogo vai crescer em lotes, até cobrir
-a magia de cada personagem (as elementais, Espíritos Celestiais, Take Over, os Matadores de Deuses...).
+a magia de cada personagem (as elementais, Take Over, os Matadores de Deuses...).
 
 Como se monta: a Magia é uma habilidade passiva com `flags.eternia.magic = { id, category }` (só dada pela vaga de
 Magia da classe; o Tabu, quando há, mora nela, num efeito passivo) e os feitiços têm `flags.eternia.magicSpell = { id }`,

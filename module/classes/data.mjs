@@ -84,7 +84,9 @@ export const CLASSES = {
     color: "#3f6f8f",
     band: "light",
     branches: ["lobo", "golem", "fada", "pacto"],
-    paths: ["legiao", "fusao", "tita"]
+    paths: ["legiao", "fusao", "tita"],
+    // A magic class since 0.13 (its grants have the Magia slots)
+    magic: true
   },
   magonegro: {
     id: "magonegro",

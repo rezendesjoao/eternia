@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.13.0 — 2026-10-23
+
+### Adicionado
+- **Três Magias novas**, para as classes de magia: **Espíritos Celestiais** (Portadora, as chaves dos portões: Portão do
+  Touro, do Carneiro, do Sagitário, do Aguadeiro, do Leão: Impacto de Régulo, o Vestido Estelar e o supremo Urano
+  Metria), **Magia Seith** (as almas nos bonecos: Formação Linha, X e Bárion, Possessão, Olhos de Boneco e o supremo
+  Ritual das Almas) e **Teatro de Bonecas** (Boneca de Pedra, de Madeira, de Nuvem e da Terra, Marionete e o supremo
+  Grande Teatro). O catálogo chega a 14 Magias.
+- Páginas XII.7, XII.9 e XII.14 do capítulo XII. MAGIAS do diário AS REGRAS.
+
+### Alterado
+- **O Invocador virou classe de magia**: escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10, e, com um
+  espírito presente, os Feitiços das Magias dão Laços a ele (+1, os grandes +2). Os feitiços supremos pedem o Teto,
+  gastam todos os Laços e só saem com um espírito que chegou antes da rodada. A classe, o kit e os talentos continuam os
+  mesmos; a página XI.9 do diário, o Pacto e a Dedicação explicam a regra nova.
+- As fichas que já têm o Invocador ganham as vagas de Magia sozinhas (migração `kudenCleanup`, versão 4).
+- A linha do Motor de cada Magia agora diz só "o Motor da sua classe de magia"; a lista dos Motores fica em XII.a.
+- O aviso de novidades fala da 0.13.
+
 ## 0.12.0 — 2026-10-23
 
 ### Adicionado

@@ -1,0 +1,79 @@
+{
+  "name": "Ritual das Almas",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Seith. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: todas as almas que você guarda saem dos bonecos de uma vez e atravessam uma área ampla a até 5 Qd. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico, e quem elas acertam fica [Encantado] por você. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Por um instante, o campo inteiro tem duas almas para cada corpo.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/unholy/strike-body-life-soul-green.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "seith-ritual",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "charmed"
+        }
+      ],
+      "magicSpell": {
+        "id": "seith"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "hv4506CNqSeHuWOL",
+  "folder": "T6VDFmTyhJuPfsii",
+  "_key": "!items!hv4506CNqSeHuWOL"
+}
