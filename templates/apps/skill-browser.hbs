@@ -19,6 +19,9 @@
       <option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>
       {{/each}}
     </select>
+    <label class="skill-available" data-tooltip="ETERNIA.SkillBrowser.AvailableTip">
+      <input type="checkbox" name="available" {{checked available}}> {{localize "ETERNIA.SkillBrowser.Available"}}
+    </label>
   </div>
 
   <ol class="skill-list">
@@ -51,9 +54,12 @@
       {{#if expanded}}<div class="skill-description">{{{description}}}</div>{{/if}}
     </li>
     {{else}}
-    <li class="skill-empty">{{localize "ETERNIA.SkillBrowser.Empty"}}</li>
+    <li class="skill-empty">{{emptyText}}</li>
     {{/each}}
     <li class="skill-empty skill-empty-search" hidden>{{localize "ETERNIA.CharacterOptions.NoMatch"}}</li>
+    {{#if hidden}}
+    <li class="skill-hidden-note"><i class="fa-solid fa-eye-slash"></i> {{hiddenNote}} <a data-action="showAll">{{localize "ETERNIA.SkillBrowser.ShowAll"}}</a></li>
+    {{/if}}
   </ol>
 
   <footer class="skill-footer">

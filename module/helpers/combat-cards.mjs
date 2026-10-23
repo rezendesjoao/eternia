@@ -10,7 +10,8 @@
  * failed its Dodge Check, Hate Damage, [Pursuit] and [Weakness] follow, each through [Barrier] on
  * its own, and a character loses 1 Hate. Every application posts a summary with an Undo button.
  * The attacker's effects may give the damage tags (`flags.eternia.damageTags`) and statuses to whoever it hits
- * (`flags.eternia.onHit: {statusId, value}`), like an Engineer's Spark Stone (professions/).
+ * (`flags.eternia.onHit: {statusId, value}`), like an Engineer's Spark Stone (professions/); so may the skill itself
+ * (`flags.eternia.hitStatuses: [{statusId, value}]`, the value a formula: the spells of the Magias).
  *
  * Players can't update messages they didn't write, so dodges and "applied" marks made on someone
  * else's card go through the active GM (see pile-socket.mjs).
@@ -26,6 +27,7 @@ import { afterDamage, beforeDamage, canHeal, markDamage, restoreForUndo, snapsho
 import { consumedBy, passiveCancels } from "../conditions/effects.mjs";
 import { statusEffectData } from "../chat/status-links.mjs";
 import { motorDamageTags, motorOnHit } from "../classes/motor.mjs";
+import { evaluateFormula, formulaData, isFormula } from "./effect-formulas.mjs";
 
 const TEMPLATES = {
   attack: "systems/eternia/templates/chat/attack-card.hbs",
@@ -233,6 +235,18 @@ function bestTagged(bad, list, legacy, tags, extra = []) {
   return entries
     .filter(e => !e.tag || keys.has(normalizeTag(e.tag)))
     .reduce((best, e) => (!best || (e.value > best.value)) ? e : best, null);
+}
+
+/** The statuses a skill gives to whoever its damage hits (flags.eternia.hitStatuses; formulas read the use). */
+function skillHitStatuses(item, attacker) {
+  const list = item?.flags?.eternia?.hitStatuses ?? [];
+  if (!list.length) return [];
+  const data = formulaData(attacker ?? item.actor, item);
+  return list.filter(h => h?.statusId).map(h => ({
+    statusId: h.statusId,
+    value: (isFormula(h.value) ? evaluateFormula(h.value, data) : toInt(h.value)) || null,
+    name: item.name
+  }));
 }
 
 /** The statuses the attacker's effects give to whoever its damage hits. */
@@ -573,7 +587,8 @@ export async function createDamageCard(item, attacker, formula, flavor, attackMe
     type: type || fallbackType,
     recovery,
     tags: attackTags(item, attacker),
-    onHit: recovery ? [] : [...onHitOf(attacker ?? item.actor), ...motorOnHit(attacker ?? item.actor, item)],
+    onHit: recovery ? [] : [...onHitOf(attacker ?? item.actor), ...motorOnHit(attacker ?? item.actor, item),
+      ...skillHitStatuses(item, attacker)],
     attackerUuid: (attacker ?? item.actor)?.uuid ?? "",
     attackerType: attack?.attackerType ?? attacker?.type ?? item.actor?.type ?? null,
     hateMultiplier: attack?.hateMultiplier ?? hateMultiplier(attacker ?? item.actor),

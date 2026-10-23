@@ -1,0 +1,76 @@
+{
+  "name": "Altairis",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Corpos Celestes.</strong> Feitiço grande. Você junta a gravidade de um astro numa esfera negra e a solta numa área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; [2d6 + Poder Mágico] de dano mágico de [Corrupção], e quem ela acerta fica [Lento].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>A esfera não brilha: ela engole a luz em volta.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/unholy/orb-swirling-pink.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "corpos-celestes-altairis",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "slowed"
+        }
+      ],
+      "magicSpell": {
+        "id": "corpos-celestes"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "vYBqNSdqsYGobr5t",
+  "folder": "TSWQUkWKi4oqrQwo",
+  "_key": "!items!vYBqNSdqsYGobr5t"
+}

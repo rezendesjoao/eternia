@@ -28,6 +28,9 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   elementos, o Caminho no NP 3 e o Ápice no NP 10) + habilidades na pasta com o nome da classe em `skills-class`, com o
   Motor em código em `module/classes/` (estado em `flags.eternia.motor.<classe>`). Regras de construção, flags e como
   criar uma classe: `docs/classes.md`. Não há arquétipos nem Kuden.
+- Magia = habilidade passiva com `flags.eternia.magic` (dada pelas vagas de Magia das classes de magia, NP 1, 5 e 10) e
+  os feitiços com `flags.eternia.magicSpell`, em `skills-class`, pasta `Magias/<Magia>`; o Motor dos feitiços é o da
+  classe de quem conjura (`motor.id: "@class"`). Veja "As Magias" em `docs/classes.md`.
 - Raça = item `race` com atributos, `hp`, `fate` e `grants` (as 2 inatas, uma Geral e uma de Combate; uma escolha vira
   um espaço com várias opções). As habilidades ficam em `skills-racial`, na pasta com o nome da raça: as inatas e as
   variantes levam `flags.eternia.choiceOnly` (só aparecem no navegador depois de concedidas) e as 2 desbloqueáveis

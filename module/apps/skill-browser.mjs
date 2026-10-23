@@ -1,8 +1,9 @@
 /**
  * Skill selection window (in the spirit of the PF2e Compendium Browser): Combat / General / Basic tabs,
  * search and source filter over every skill of the Item compendiums, and a selection confirmed at
- * once. A skill is either acquired (SR 1) or, when the character has it, raised by one SR, never
- * beyond its Maximum SR or the character's CR.
+ * once. It opens showing only what the character can pick now: the skills of a higher CR, those missing a
+ * requirement and those at their Maximum SR are hidden until "only what I can pick" is unchecked. A skill is either
+ * acquired (SR 1) or, when the character has it, raised by one SR, never beyond its Maximum SR or the character's CR.
  *
  * At character creation and after a CR Up the character has skills to choose
  * (`flags.eternia.skillProgress`): the window counts them down. Opened from the sheet without pending
@@ -20,6 +21,8 @@
  *   flags.eternia.pathTalent  { class, id }: a talent of a class Path, listed only for who follows that Path
  *   flags.eternia.elementTalent  { class, id }: a talent of an element (the Dragon Slayer's), listed only for who has
  *                             that element's skill (flags.eternia.element)
+ *   flags.eternia.magicSpell  { id }: a spell of a Magia (the source "magic"), listed only for who has that Magia
+ *                             (flags.eternia.magic), whatever its class
  *   flags.eternia.dedication  { name, id }: the Dedication of a class (the multiclass, from CR 5), listed for
  *                             characters of other classes: it opens that class's [Dedication] talents, two CR later.
  *                             At most two Dedications, the second after two talents of the first.
@@ -75,7 +78,7 @@ const COMMON_FOLDER = "common";
 const BASIC_PACKS = ["eternia.skills-basic", "eternia.skills-mounts"];
 
 /** Source filter values, in display order. */
-const SOURCES = ["eligible", "class", "dedication", "race", "subclass", "common", "all"];
+const SOURCES = ["eligible", "class", "magic", "dedication", "race", "subclass", "common", "all"];
 /** Tag of the class talents a Dedication opens. */
 const DEDICATION_TAG = "dedication";
 /** Dedications a character can have, and the talents of the first one it needs before a second. */
@@ -90,8 +93,8 @@ const DEDICATION_DELAY = 2;
 
 const INDEX_FIELDS = [
   "system.subtype", "system.skillRank", "system.tags", "folder", "flags.eternia.minRank", "flags.eternia.choiceOnly",
-  "flags.eternia.requires", "flags.eternia.pathTalent", "flags.eternia.elementTalent", "flags.eternia.dedication",
-  "flags.eternia.identifier"
+  "flags.eternia.requires", "flags.eternia.pathTalent", "flags.eternia.elementTalent", "flags.eternia.magicSpell",
+  "flags.eternia.dedication", "flags.eternia.identifier"
 ];
 const listOf = value => (Array.isArray(value) ? value : ((typeof value === "string") ? [value] : Object.values(value ?? {})));
 
@@ -139,6 +142,7 @@ async function buildIndex() {
         requires: listOf(flags.requires).map(String).filter(Boolean),
         pathTalent: path?.class ? `${path.class}.${path.id}` : "",
         elementTalent: element?.class ? `${element.class}.${element.id}` : "",
+        magicSpell: String(flags.magicSpell?.id ?? ""),
         dedicationOf: flags.dedication?.name ? { name: normalize(flags.dedication.name), id: String(flags.dedication.id ?? "") } : null,
         dedicationTalent: (e.system.tags ?? []).some(t => normalize(t) === DEDICATION_TAG),
         tags: e.system.tags ?? [],
@@ -164,6 +168,8 @@ function normalize(name) {
 function sourceOf(entry, lists) {
   // Basic skills of the system compendiums belong to every character.
   if (entry.subtype === "Basic") return BASIC_PACKS.includes(entry.packId) ? "basic" : null;
+  // The spells of a Magia are for who has it, whatever the class.
+  if (entry.magicSpell) return lists.magics.has(entry.magicSpell) ? "magic" : null;
   const folders = entry.folders;
   // A class's Dedication is for the characters of the other classes.
   if (entry.dedicationOf) return (lists.class && (entry.dedicationOf.name !== lists.class)) ? "dedication" : null;
@@ -191,6 +197,7 @@ function skillLists(actor) {
     dedicationIds: dedications.map(d => String(d.id ?? "")),
     paths: new Set(skills.map(i => i.getFlag("eternia", "path")).filter(p => p?.class).map(p => `${p.class}.${p.id}`)),
     elements: new Set(skills.map(i => i.getFlag("eternia", "element")).filter(e => e?.class).map(e => `${e.class}.${e.id}`)),
+    magics: new Set(skills.map(i => i.getFlag("eternia", "magic")?.id).filter(Boolean)),
     identifiers: new Set(skills.map(i => i.getFlag("eternia", "identifier")).filter(Boolean))
   };
 }
@@ -286,13 +293,38 @@ function getTrainingLimit(actor) {
 }
 
 /**
- * Start counting the skill picks of a character that has no record yet: from its current CR, before
- * its first CR Up.
+ * Start counting the skill picks of a character that has no record yet: from its current CR (or the CR given: the
+ * one it is leaving), before its first CR Up.
  * @param {Actor} actor
+ * @param {number} [base]
  */
-export async function startSkillProgress(actor) {
+export async function startSkillProgress(actor, base = rankOf(actor)) {
   if (getProgress(actor)) return;
-  await actor.setFlag("eternia", PROGRESS_FLAG, { base: rankOf(actor), creation: false });
+  await actor.setFlag("eternia", PROGRESS_FLAG, { base: Math.max(1, Number(base) || 1), creation: false });
+}
+
+/**
+ * How many skills a character could start learning between two CRs (minRank in (from, to]), by source: the class's
+ * talents, its Magias' spells, its race's unlockable skills and its Dedications' talents (the rank-up box).
+ * @param {Actor} actor
+ * @param {number} from
+ * @param {number} to
+ * @returns {Promise<{class: number, magic: number, race: number, dedication: number}>}
+ */
+export async function unlocksBetween(actor, from, to) {
+  const lists = skillLists(actor);
+  const out = { class: 0, magic: 0, race: 0, dedication: 0 };
+  for (const entry of await getSkillIndex()) {
+    if (!PICK_SUBTYPES.includes(entry.subtype) || entry.choiceOnly || entry.dedicationOf) continue;
+    const source = sourceOf(entry, lists);
+    if (!(source in out)) continue;
+    if (entry.pathTalent && !lists.paths.has(entry.pathTalent)) continue;
+    if (entry.elementTalent && !lists.elements.has(entry.elementTalent)) continue;
+    if (ownedSkill(actor, entry)) continue;
+    const minRank = entry.minRank + (((source === "dedication") && entry.dedicationTalent) ? DEDICATION_DELAY : 0);
+    if ((minRank > from) && (minRank <= to)) out[source] += 1;
+  }
+  return out;
 }
 
 /**
@@ -416,6 +448,8 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     this.tab = options.tab ?? "Combat";
     this.source = "eligible";
     this.query = "";
+    /** Only the skills the character can pick now (not those of a higher CR, missing a requirement or capped) */
+    this.available = true;
     /** uuid -> index entry picked (acquire or raise one SR) */
     this.picks = new Map();
     /** uuids whose description is shown */
@@ -457,6 +491,7 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       unpick: SkillBrowser.#onUnpick,
       expand: SkillBrowser.#onExpand,
       view: SkillBrowser.#onView,
+      showAll: SkillBrowser.#onShowAll,
       confirm: SkillBrowser.#onConfirm
     }
   };
@@ -493,6 +528,7 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     if (training !== null) training -= [...this.picks.values()].filter(p => p.training && !p.owned).length;
 
     const entries = [];
+    let hidden = 0;
     const index = await getSkillIndex();
     const nameOf = identifier => index.find(e => e.identifier === identifier)?.name ?? identifier;
     for (const entry of index) {
@@ -520,8 +556,15 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       // Not yet: learned from a higher CR.
       const locked = !owned && (minRank > rank);
       const counted = PICK_SUBTYPES.includes(entry.subtype);
+      // Without picks owed, only the GM adds Combat and General skills (the free mode).
+      const noPicks = counted && !quota && !game.user.isGM;
       const blocked = missing.length
         ? game.i18n.format("ETERNIA.SkillBrowser.Requires", { names: missing.map(nameOf).join(", ") }) : dedication;
+      // What can't be picked now, whatever the selection (the quotas only wait for a pick to be undone).
+      if (this.available && !picked && (locked || capped || !!blocked)) {
+        hidden += 1;
+        continue;
+      }
       entries.push({
         ...entry,
         sourceLabel: (source === "basic") ? entry.pack
@@ -532,8 +575,9 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
         next: sr + 1,
         picked,
         capped,
-        disabled: !picked && (locked || capped || (counted && full) || trainingFull || !!blocked),
-        reason: locked ? game.i18n.format("ETERNIA.SkillBrowser.MinCR", { rank: minRank }) : blocked || capped
+        disabled: !picked && (locked || capped || (counted && full) || trainingFull || !!blocked || noPicks),
+        reason: locked ? game.i18n.format("ETERNIA.SkillBrowser.MinCR", { rank: minRank })
+          : noPicks ? game.i18n.localize("ETERNIA.SkillBrowser.NoPending") : blocked || capped
           ? game.i18n.format((sr + 1 > maxSR) ? "ETERNIA.SkillBrowser.MaxSR" : "ETERNIA.SkillBrowser.MaxCR", { max: Math.min(maxSR, rank) })
           : ((counted && full) ? game.i18n.localize("ETERNIA.SkillBrowser.Full")
             : (trainingFull ? game.i18n.format("ETERNIA.SkillBrowser.TrainingFull", { max: CREATION_TRAINING }) : "")),
@@ -565,12 +609,16 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       sources,
       picks,
       query: this.query,
+      available: this.available,
+      hidden,
+      hiddenNote: hidden ? game.i18n.format("ETERNIA.SkillBrowser.Hidden", { n: hidden }) : "",
+      emptyText: game.i18n.localize((hidden > 0) ? "ETERNIA.SkillBrowser.EmptyAvailable" : "ETERNIA.SkillBrowser.Empty"),
       rank,
       quota,
       editable: actor.isOwner,
       hint: [
         quota ? game.i18n.format("ETERNIA.SkillBrowser.HintPending", { combat: quota.Combat, general: quota.General })
-          : game.i18n.localize("ETERNIA.SkillBrowser.HintFree"),
+          : game.i18n.localize(game.user.isGM ? "ETERNIA.SkillBrowser.HintFree" : "ETERNIA.SkillBrowser.HintNone"),
         (training !== null) ? game.i18n.format("ETERNIA.SkillBrowser.HintTraining", { left: Math.max(0, training), max: CREATION_TRAINING }) : ""
       ].filter(Boolean).join(" ")
     };
@@ -598,6 +646,10 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
     });
     this.element.querySelector("select[name=source]").addEventListener("change", ev => {
       this.source = ev.currentTarget.value;
+      this.render();
+    });
+    this.element.querySelector("input[name=available]").addEventListener("change", ev => {
+      this.available = ev.currentTarget.checked;
       this.render();
     });
     this.#applySearch();
@@ -639,6 +691,12 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
       training: isTraining(entry),
       sr: owned ? (Number(owned.system.skillRank?.value) || 1) : 0
     });
+    this.render();
+  }
+
+  /** Show the skills hidden because they can't be picked now. */
+  static #onShowAll() {
+    this.available = false;
     this.render();
   }
 

@@ -1,6 +1,6 @@
 # Classes: o esqueleto
 
-As regras de construção das classes da Eternia, fechadas em 2026-10-21, as [17 classes](#as-classes) e a referência
+As regras de construção das classes da Eternia, fechadas em 2026-10-21, as [18 classes](#as-classes), as [Magias](#as-magias) e a referência
 técnica dos Motores. As regras como o jogador lê estão nas páginas **XI. CLASSES** (a geral e uma por classe) do diário
 AS REGRAS.
 
@@ -122,6 +122,12 @@ a mais para cada Caminho.
 | 10 | Ápice |
 | 11 em diante | 1 escolha de Combate e 1 Geral por NP |
 
+Mudar o NP (o botão de subir ou um NP digitado na ficha, para cima ou para baixo) passa por `module/apps/rank-up.mjs`:
+o resumo do que muda (atributos, PV, escolhas, o que libera e o que a classe dá em cada NP do salto), o registro das
+escolhas a partir do NP de onde saiu (`skillProgress`), as escolhas da classe (`offerGrants`) e o navegador. Um NP
+digitado espera o resumo (`preUpdateActor` segura a mudança); uma atualização com `eterniaRankUp: true` ou
+`eterniaLevelFlow: false` passa direto. Sem escolhas pendentes, o navegador fica no modo livre só para o Mestre.
+
 As escolhas são as que o navegador de habilidades já conta (`rankUpSkills` em `module/apps/skill-browser.mjs`). Com
 uns 16 talentos de NH 1 a 3, mais os 2 do Caminho, a lista da classe absorve as escolhas de Combate até perto do NP 20,
 sem contar as Dedicações.
@@ -167,6 +173,7 @@ O mapa da lista de classes: cada Motor mexe numa parte da regra que nenhuma outr
 | Forma | Druida | Formas: a Seiva paga a fera, e cada forma troca o menu |
 | Criatura extra | Invocador | Pacto: PV pagos viram Laços de um espírito, gastos nos comandos |
 | Elemento do dano | Matador de Dragões | Escamas: come o próprio elemento (e o ataque dele); no Teto, a Força do Dragão |
+| Risco, com as Magias | Mago Negro | Pressão: cada feitiço, da classe ou das Magias, aumenta; no Teto, Liberação ou Sobrecarga |
 | Aliados | Menestrel | Movimentos: a canção sobe a cada Manutenção; trocar volta ao I |
 | Comando | Comandante | Táticas: Ordens que dão a sua ação a um aliado |
 | Itens | Ressonante | Centelha: o poder mora numa peça e salta para outra soltando o que juntou |
@@ -177,7 +184,9 @@ faltava) e o Caçador (o ataque à distância). As que o cruzamento deixou de fo
 (Samurai + Feiticeiro faz o guerreiro arcano) ou batem com profissões (Alquimista, Engenheiro, Bardo).
 
 Depois entrou o Matador de Dragões (2026-10-23), a primeira das classes de magia: o Motor dele mexe nos elementos do
-dano, que nenhuma outra classe usa como recurso.
+dano, que nenhuma outra classe usa como recurso. Em seguida o Mago Negro, a primeira classe com [Magias](#as-magias):
+ele herda o risco do Feiticeiro (a Pressão é o Calor feito motor das Magias), e o Feiticeiro sai do navegador de
+classes quando as Magias elementais (Fogo, com os feitiços dele) chegarem.
 
 ## O que saiu do sistema
 
@@ -196,7 +205,7 @@ Na mesma versão da classe piloto, para o sistema nunca ter os dois:
 ## As classes
 
 Cada seção diz o Motor da classe e o que ela tem; as regras como o jogador lê estão na página da classe no diário AS
-REGRAS (XI.1 a XI.17) e na descrição de cada habilidade. A calibragem do dano é a primeira de cada classe: vale
+REGRAS (XI.1 a XI.18) e na descrição de cada habilidade. A calibragem do dano é a primeira de cada classe: vale
 conferir na mesa e ajustar os números (Teto, dados por ponto, o pagamento do Motor cheio).
 
 ### Assassino
@@ -442,6 +451,39 @@ Estado em `flags.eternia.motor.invocador`: `state` (`vazio`, `lobo`, `golem`, `f
 `eternalUsed` (o Ápice, por combate) e as rodadas dos ganhos de uma vez por rodada. As habilidades que pedem um
 espírito dizem qual em `flags.eternia.motor.spirit` (`"any"` ou o espírito). O PV pago sai direto da ficha (sem
 Barreira) e o Desfazer do cartão não o devolve.
+
+### Mago Negro
+
+O Motor **Pressão** mexe no risco, como o Calor do Feiticeiro, e é o motor das Magias: cada Feitiço, da classe ou das
+Magias, aumenta a Pressão (+1, os grandes +2), e a Pressão soma +[Pressão × 2] ao dano dos Feitiços. No Teto (3 +
+⌊NP/5⌋) vem o Ponto Crítico e, no Encerramento, a Sobrecarga ([Pressão × NP] de dano direto), a menos que o mago solte
+o poder antes: a Liberação (área, precisa de 2) gasta toda a Pressão, com 1d6 + NP por ponto; Conter a Magia tira 2; os
+feitiços supremos das Magias pedem o Teto e gastam tudo. É uma **classe de magia**: escolhe uma Magia no NP 1, outra no
+NP 5 e a terceira no NP 10. Código em `module/classes/magonegro.mjs`.
+
+| Parte | O que tem |
+|---|---|
+| Base | FOR 0, DES 2, POD 4, INT 4; faixa Frágil (35, +4/NP); papel Damage |
+| Kit | Pressão (Motor), Disparo Mágico (Maior, +1), Conter a Magia (Menor, −2), Liberação (Maior, gasta tudo); a primeira Magia |
+| O Fluxo | Canalizar*, Ciclo de Ethernano*, Ressonância Emocional, Combustão Mágica |
+| A Reserva | Reserva Profunda*, Transbordar, Liberação Controlada, Controle Fino |
+| A Muralha | Barreira Mágica*, Aura de Pressão, Pressão Esmagadora, Transferência Mágica* |
+| A Ruína | Rajada Arcana*, Lança Mágica, Nada Sobra, Colapso |
+| Gerais | Sentir Magia, Repouso Arcano, Magia do Cotidiano, Leitura Arcana |
+| Caminhos (NP 3) | Classe S (Prova da Classe S, Desastre Ambulante), Mago Santo (Julgamento, Selo Sagrado), Spriggan (Brilho de Spriggan, Poder Absoluto) |
+| Ápice (NP 10) | Segunda Origem |
+| Dedicação (NP 5) | Dedicação: Mago Negro, que dá a Pressão Menor, o Disparo Mágico e a Liberação (sem Magias) |
+
+\* talentos [Dedicação].
+
+Os Caminhos são os do Feiticeiro com outra cara: a Classe S reescreve o Teto (+2, e a Liberação no Teto soma +[NP×2+10]),
+o Mago Santo reescreve o que a Pressão faz ([Lento] e [Enraizado] no lugar do dano) e Spriggan reescreve o risco
+([Despertado] no lugar da Sobrecarga). O Ápice, a Segunda Origem, dá +1 no Teto e deixa metade da Pressão depois da
+Liberação.
+
+Estado em `flags.eternia.motor.magonegro`: `state` (`estavel`, `critico`), `value` (Pressão), `hotRound` (Prova da
+Classe S), `ember` (Repouso Arcano) e `emotion` (Ressonância Emocional). A Pressão vale para qualquer habilidade com a
+tag Spell: os feitiços das Magias também somam a Pressão ao dano e usam o Transbordar.
 
 ### Matador de Dragões
 
@@ -694,6 +736,32 @@ Fio Dourado), o Padrão rolado do Acaso (`onSetup`) e a Roda da Fortuna, o Laço
 estados no alvo atingido (`onHit`), o acerto automático do Desenlace e o Ponto Cruz. Ficam no texto os talentos Gerais
 (presságios, caminho de volta, mentiras).
 
+## As Magias
+
+A classe diz **como** se conjura; a Magia diz **o que**. As classes de magia (por enquanto, o Mago Negro) escolhem uma
+Magia no NP 1, outra no NP 5 e a terceira no NP 10, e os feitiços dela entram nas escolhas de Combate e Geral, cada um
+com o seu NP mínimo. Os feitiços alimentam e gastam o Motor da classe de quem conjura: cada um +1 (os grandes, +2), e
+os supremos (NP 7) pedem o Motor no Teto e gastam tudo. As regras como o jogador lê estão em **XII. MAGIAS** no diário AS
+REGRAS (a geral e uma página por Magia).
+
+| Magia | Categoria | Feitiços |
+|---|---|---|
+| Água | Conjuração | Lâmina de Água, Prisão de Água, Corpo de Água, Nebulosa de Água, Sierra, Maremoto (supremo) |
+| Artes Negras | Proibida (Tabu: [Maldito] em combate; a Predação da Morte pega aliados) | Toque da Morte, Esfera da Morte, Véu das Trevas, Predação da Morte, Sentença Negra (supremo) |
+| Corpos Celestes | Conjuração | Estrela Cadente, Meteoro, Velocidade da Luz, Altairis, Sete Estrelas do Julgamento: Grand Chariot, Sema (supremo) |
+| Esmagamento | Conjuração | Toque Esmagador, Onda de Esmagamento, Desmontagem, Quebrar a Guarda, Ruptura, Esmagamento Absoluto (supremo) |
+
+As categorias são as da série: Conjuração (a magia sai do corpo), Portadora (precisa de um objeto equipado), Perdida e
+Proibida (mais fortes, com um Tabu), Ancestral (feitiços supremos de NP 10). O catálogo vai crescer em lotes, até cobrir
+a magia de cada personagem (as elementais, Reequipar, Espíritos Celestiais, Moldagem, Take Over, os Matadores de Deuses
+e de Demônios...).
+
+Como se monta: a Magia é uma habilidade passiva com `flags.eternia.magic = { id, category }` (só dada pela vaga de
+Magia da classe; o Tabu, quando há, mora nela, num efeito passivo) e os feitiços têm `flags.eternia.magicSpell = { id }`,
+na pasta `Magias/<Magia>` de `skills-class`, com identificadores `<magia>-<nome>`. A parte do Motor de um feitiço tem
+`id: "@class"`: o Motor da classe de quem conjura. Os estados que um feitiço dá no acerto ficam em
+`flags.eternia.hitStatuses` (`[{ statusId, value }]`, o valor uma fórmula), sem código.
+
 ## Referência técnica
 
 ### Onde fica cada coisa
@@ -701,10 +769,10 @@ estados no alvo atingido (`onHit`), o acerto automático do Desenlace e o Ponto 
 | Arquivo | O que faz |
 |---|---|
 | `module/classes/motor.mjs` | O Motor genérico: o registro (`registerMotor`), o estado no ator, o Teto, as habilidades de Motor e de Motor Menor, os requisitos (`motorUseIssues`), a ação que a habilidade gasta (`motorActionOf`), o plano antes do cartão (`planMotorUse`, que guarda `flags.eternia.motorUse`), a mudança depois (`commitMotorUse`, que avisa todos os Motores com `onUse`) e o Desfazer, os valores das fórmulas e do custo, os bônus de rolagem, os estados que o dano dá, os estados passivos (`syncMotorStatuses`), os eventos (em fila por ator) e os ajudantes das classes (lados, combate, escolha). |
-| `module/classes/<classe>.mjs` | O Motor de cada classe (`ASSASSINO`, `BERSERKER`, `CACADOR`, `COMANDANTE`, `DRUIDA`, `ESTRATEGISTA`, `FEITICEIRO`, `GUARDIAO`, `INVOCADOR`, `MATADOR`, `MENESTREL`, `MONGE`, `ORACULO`, `RESSONANTE`, `SACERDOTE`, `SAMURAI`, `TECELAO`): o Teto, as regras do kit e dos talentos, os Caminhos, o Ápice e as reações aos eventos. O cabeçalho de cada arquivo diz a regra e o que fica guardado no ator. |
+| `module/classes/<classe>.mjs` | O Motor de cada classe (`ASSASSINO`, `BERSERKER`, `CACADOR`, `COMANDANTE`, `DRUIDA`, `ESTRATEGISTA`, `FEITICEIRO`, `GUARDIAO`, `INVOCADOR`, `MAGONEGRO`, `MATADOR`, `MENESTREL`, `MONGE`, `ORACULO`, `RESSONANTE`, `SACERDOTE`, `SAMURAI`, `TECELAO`): o Teto, as regras do kit e dos talentos, os Caminhos, o Ápice e as reações aos eventos. O cabeçalho de cada arquivo diz a regra e o que fica guardado no ator. |
 | `module/classes/index.mjs` | Registra os Motores, embrulha `EterniaCombat#_onPhaseStart` (Manutenção e Encerramento, uma vez, na janela do Mestre que mudou a fase), segue os turnos e o movimento dos tokens, ouve os eventos dos cartões (`eternia.attack`, `eternia.attackResult`, `eternia.dodge`, `eternia.damaged`, `eternia.healed`, `eternia.check`, `eternia.defeated`; um cartão de dano aplicado, com ou sem PV tirado, também vira `onStruck`), põe os botões das classes nos cartões de ataque e tem a API `game.eternia.motor`. |
 | `module/classes/progression.mjs` | O NP mudado à mão oferece o que a classe dá no NP; a Dedicação dá as habilidades dela ao ser aprendida (e uma à escolha, `dedicationChoice`) e as tira junto. |
-| `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`) e os dados de cada classe para a aba (cor, faixa, ramos, Caminhos, elementos). |
+| `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`) e os dados de cada classe para a aba (cor, faixa, ramos, Caminhos, elementos, `magic` das classes de magia). |
 | `module/classes/migration.mjs` | A limpeza do Kuden e dos arquétipos, e dos ícones antigos das classes. |
 
 Também tocam nas classes: `automation/use.mjs` (requisitos, ação, plano, mudança e Desfazer do Motor; o custo
@@ -713,7 +781,8 @@ Também tocam nas classes: `automation/use.mjs` (requisitos, ação, plano, muda
 e os estados que o Motor dá ao dano e `adjustCardRoll`, que muda um teste do cartão depois da rolagem e julga o acerto
 de novo), `helpers/effect-conditions.mjs` (as condições `motorState` e `motorAtLeast`), `hud/hud.mjs` e
 `sheets/actor-sheet.mjs` (o evento dos testes de atributo), `helpers/effect-formulas.mjs` (as variáveis), `apps/option-grants.mjs` e `apps/rank-up.mjs`
-(o que chega pelo NP e a escolha do elemento), `apps/skill-browser.mjs` (requisitos, Caminhos, elementos, Dedicação),
+(o que chega pelo NP, a escolha do elemento e as vagas de Magia), `apps/skill-browser.mjs` (requisitos, Caminhos,
+elementos, a origem Magia, Dedicação),
 `conditions/damage.mjs` (o cartão que o Motor come), `helpers/text-chips.mjs` (as palavras do Motor nos colchetes),
 `hud/` e `canvas/token-style.mjs` (o Motor no HUD e no token).
 
@@ -749,8 +818,8 @@ O cabeçalho de `module/classes/motor.mjs` tem a lista completa. Em resumo:
 |---|---|
 | `identifier` | `<classe>-<nome>`; requisitos, regras do Motor e aba Classe acham a habilidade por ele |
 | `kind` | `motor`, `feeds` (alimenta), `spends` (gasta) ou `bends` (dobra): o selo da aba |
-| `branch` | o grupo da aba: `kit`, um ramo da classe, `general`, `path`, `pathTalent`, `element`, `elementTalent`, `apex` ou `dedication` |
-| `motor` | `{ id, role, needs: { state, min, full, weapon }, spend, max, gain, set, action, alsoSpends, draw, perfect, inCombat }` (e chaves da classe, como `art`, a Arte Secreta do Matador) |
+| `branch` | o grupo da aba: `kit`, um ramo da classe, `general`, `path`, `pathTalent`, `element`, `elementTalent`, `magic`, `apex` ou `dedication` |
+| `motor` | `{ id, role, needs: { state, min, full, weapon }, spend, max, gain, set, action, alsoSpends, draw, perfect, inCombat }` (e chaves da classe, como `art`, a Arte Secreta do Matador); `id: "@class"` é o Motor da classe de quem usa (os feitiços das Magias) |
 | `requires` | identificadores dos talentos que vêm antes |
 | `path` | `{ class, id }`: a habilidade do Caminho |
 | `pathTalent` | `{ class, id }`: um talento do Caminho |
@@ -760,13 +829,17 @@ O cabeçalho de `module/classes/motor.mjs` tem a lista completa. Em resumo:
 | `dedication` | `{ name, id }`: a Dedicação de uma classe |
 | `dedicationGrants` | uuids das habilidades que a Dedicação dá |
 | `dedicationChoice` | uuids entre os quais a Dedicação deixa escolher uma (o elemento do Matador) |
+| `magic` | `{ id, category }`: uma Magia (só dada pela vaga de Magia de uma classe de magia) |
+| `magicSpell` | `{ id }`: um feitiço da Magia; o navegador o mostra (origem Magia) só para quem tem a Magia |
+| `hitStatuses` | `[{ statusId, value }]`: estados que o dano da habilidade dá em quem acerta (o valor é uma fórmula) |
 | `damageText` | o texto do dano no lugar da fórmula (`[Poder de Ataque] + (1+2×Cortes)d6 + Cortes×NP Físico`) |
 | `minRank`, `choiceOnly` | como nas raças: NP mínimo; listada só depois de dada (kit, Caminhos, Ápice, Motor Menor) |
 
 O item `class` leva `identifier`, atributos, `hp`, `hpPerRank`, as tags de papel (`Damage`, `Defense`, `Healing`,
 `Control`, `Support`) e `grants`: um espaço por habilidade do kit, um espaço de escolha quando a classe tem elementos
-(`{ uuids: [os elementos] }`, no NP 1), `{ rank: 3, uuids: [os três Caminhos] }` e `{ rank: 10, auto: true, uuids: [o
-Ápice] }`.
+(`{ uuids: [os elementos] }`, no NP 1), as vagas de Magia de uma classe de magia (`{ rank: 1, magic: true }`, 5 e 10: a
+n-ésima fica aberta enquanto o personagem tem menos de n Magias), `{ rank: 3, uuids: [os três Caminhos] }` e
+`{ rank: 10, auto: true, uuids: [o Ápice] }`.
 
 ### Criar uma classe nova
 

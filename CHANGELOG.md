@@ -1,5 +1,43 @@
 # Changelog
 
+## 0.10.0 — 2026-10-23
+
+### Adicionado
+- **O Mago Negro**, a primeira classe com Magias (compêndio Raças e Classes, pasta Classes; 36 habilidades). Motor
+  **Pressão**: cada Feitiço, da classe ou das Magias, aumenta a Pressão (+1, os grandes +2), e ela soma +[Pressão × 2]
+  ao dano dos Feitiços; no Teto vem o Ponto Crítico e a Sobrecarga no Encerramento, a menos que a Liberação solte tudo
+  numa área. Caminhos: Classe S, Mago Santo e Spriggan; Ápice: Segunda Origem. É o Motor do Feiticeiro feito motor das
+  Magias (o Feiticeiro continua até as Magias elementais chegarem).
+- **As Magias**: a classe diz como você conjura; a Magia diz o que você conjura. As classes de magia escolhem uma Magia
+  no NP 1, outra no NP 5 e a terceira no NP 10; a aba Classe mostra as Magias com os feitiços de cada uma, e o navegador
+  de habilidades mostra os feitiços das suas Magias (a origem "Magia"). Os feitiços alimentam e gastam o Motor da sua
+  classe, e o supremo de cada Magia (NP 7) pede o Teto e gasta tudo. As quatro primeiras: **Água** (Lâmina, Prisão e
+  Corpo de Água, Nebulosa de Água, Sierra, Maremoto), **Artes Negras** (Proibida, com o Tabu: [Maldito] em combate;
+  Toque e Esfera da Morte, Véu das Trevas, Predação da Morte, Sentença Negra), **Corpos Celestes** (Estrela Cadente,
+  Meteoro, Velocidade da Luz, Altairis, Grand Chariot, Sema) e **Esmagamento** (Toque Esmagador, Onda de Esmagamento,
+  Desmontagem, Quebrar a Guarda, Ruptura, Esmagamento Absoluto).
+- **O resumo da mudança de NP**: subir pelo botão ou digitando outro NP no brasão (vários de uma vez, ou para baixo)
+  abre a mesma caixa antes de mudar, com os Atributos Base antes e depois (e os modificadores que mudam), os PV, as
+  escolhas de habilidade, os talentos que liberam e o que a classe dá em cada NP do salto (o Caminho, as Magias, a
+  Dedicação, o Ápice). Confirmado, o chat registra, vêm as escolhas da classe e o navegador abre com as escolhas
+  contadas; descendo, dá para desfazer as escolhas feitas acima do NP novo; cancelar deixa o NP como estava.
+- O emblema do Mago Negro (o chapéu pontudo com os olhos acesos), a página **XI.10** e o capítulo **XII. MAGIAS** do
+  diário AS REGRAS (a geral e uma página por Magia), e a tag de elemento [Água] (`Water`).
+- Para quem cria conteúdo: o Motor `"@class"` (o da classe de quem usa), os estados no acerto sem código
+  (`flags.eternia.hitStatuses`), as vagas de Magia do item de classe (`{ rank, magic: true }`) e as palavras "pontos
+  gastos" e "pontos do Motor" nos colchetes.
+
+### Alterado
+- O **navegador de habilidades** abre mostrando só o que o personagem pode escolher agora: as de NP acima do dele, as
+  que pedem outra antes e as que já estão no NH máximo ficam escondidas, com uma nota de quantas são ("Mostrar todas").
+  A caixa "Só o que posso escolher" mostra a lista inteira.
+- Um NP digitado na ficha passa a contar as escolhas de habilidade a partir do NP de onde o personagem saiu (antes, o
+  navegador podia ficar sem a contagem e deixar escolher sem limite). Sem escolhas pendentes, só o Mestre adiciona
+  habilidades de Combate e Gerais (o modo livre, com o aviso de que não contam); os jogadores veem a lista.
+- As páginas de classe do diário depois do Invocador foram renumeradas (Matador de Dragões XI.11 a Tecelão XI.18), e a
+  XI. CLASSES fala das 18 classes e das Magias.
+- O aviso de novidades fala da 0.10.
+
 ## 0.9.0 — 2026-10-23
 
 ### Adicionado

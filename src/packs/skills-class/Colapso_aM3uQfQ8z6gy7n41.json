@@ -1,0 +1,75 @@
+{
+  "name": "Colapso",
+  "type": "skill",
+  "system": {
+    "description": "<p>Só no Ponto Crítico: você solta toda a Pressão num alvo a até 4 Qd. Teste de Precisão contra a Resistência; [(2 + 2×Pressão)d6 + Poder Mágico + Pressão×NP] de dano mágico, e quem o dano atinge fica [Atordoado].</p><p><strong>Custo:</strong> Ódio 1 + a Pressão gasta.</p><hr><p><em>O alvo some dentro de uma esfera de luz que se fecha num ponto, e o ponto estoura.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1+Pressão",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/unholy/orb-beam-pink.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "magonegro-colapso",
+      "kind": "spends",
+      "branch": "ruina",
+      "minRank": 7,
+      "requires": [
+        "magonegro-lanca-magica"
+      ],
+      "motor": {
+        "id": "magonegro",
+        "needs": {
+          "full": true
+        },
+        "spend": "all",
+        "set": "estavel"
+      },
+      "damageText": "(2+2×Pressão)d6 + [Poder Mágico] + Pressão×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "aM3uQfQ8z6gy7n41",
+  "folder": "hPWY5FJcJShbmG9w",
+  "_key": "!items!aM3uQfQ8z6gy7n41"
+}

@@ -1,0 +1,71 @@
+{
+  "name": "Transferência Mágica",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você passa parte do seu poder mágico para você mesmo ou para um aliado engajado com você. Gaste até [NH+1] de Pressão: o alvo recupera [Recuperação + Pressão gasta × (NP+2)] PV. Uma vez por rodada.</p><p><em>Uma luz passa da sua mão para o peito dele, e ele volta a respirar fundo.</em></p>",
+    "tags": [
+      "Dedication"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 2
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": "@spent*(@cr+2)",
+      "type": "",
+      "recovery": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/unholy/hand-light-pink.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "magonegro-transferencia-magica",
+      "kind": "spends",
+      "branch": "muralha",
+      "minRank": 3,
+      "motor": {
+        "id": "magonegro",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose",
+        "max": "@sr+1"
+      },
+      "damageText": "[Recuperação] + Pressão gasta × (NP+2)"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 160000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "OBA7EB3HwJVkkiBt",
+  "folder": "hPWY5FJcJShbmG9w",
+  "_key": "!items!OBA7EB3HwJVkkiBt"
+}

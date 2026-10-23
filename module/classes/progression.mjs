@@ -1,7 +1,8 @@
 /**
  * What a class gives as the character goes up (docs/classes.md):
  * - its Path at CR 3 and its Apex at CR 10: slots of the class's `system.grants` with a `rank` (and `auto` for the
- *   Apex), offered by apps/option-grants.mjs at the rank up (apps/rank-up.mjs) and here when the CR is raised by hand;
+ *   Apex), offered by apps/option-grants.mjs when the CR goes up (apps/rank-up.mjs, the button or a CR typed in the
+ *   sheet) and here when an update skips that flow;
  * - a Dedication (the multiclass) gives the other class's Lesser Motor and its skills at once
  *   (`flags.eternia.dedicationGrants`, compendium uuids), and one skill of `flags.eternia.dedicationChoice` the player
  *   picks (the Dragon Slayer's element); they go away with it.
@@ -36,7 +37,8 @@ async function grantDedication(item) {
 
 /** Call during the `init` hook. */
 export function registerClassProgression() {
-  // The CR raised by hand (not the rank up, which offers them itself before the picks).
+  // A CR raised without the rank-up flow (an update with `eterniaLevelFlow: false`, apps/rank-up.mjs): the flow
+  // offers them itself, before the picks.
   Hooks.on("updateActor", (actor, changes, options, userId) => {
     if (!isLocalChange(options, userId) || options.eterniaRankUp || (actor.type !== "character")) return;
     const before = options.eterniaPreviousRank;

@@ -183,6 +183,9 @@ function lookups() {
   add(["soma de todas as Leituras", "soma das Leituras", "soma da Leitura"], { unknown: true });
   add(["NP do alvo", "CR of the target", "target's CR"], { unknown: true, meaning: "targetCr" });
   add(["Ataque", "Attack"], { unknown: true, meaning: "enemyAttack" });
+  // The Motor of the class, in the spells of the Magias ("[(1 + pontos gastos)d6 + Poder Mágico]")
+  add(["pontos gastos", "ponto gasto", "points spent", "point spent"], { classMotor: true, spent: true });
+  add(["pontos do Motor", "ponto do Motor", "Motor points"], { classMotor: true });
   for (const def of allMotors()) {
     const unit = motorUnit(def);
     const name = motorName(def);
@@ -341,6 +344,10 @@ function parseFormula(text, known) {
 function wordValue(word, context) {
   const { actor, item } = context;
   if (!actor || word.unknown || word.spent) return null;
+  if (word.classMotor) {
+    const own = motorsOf(actor).find(m => !m.lesser);
+    return own ? toInt(motorData(actor, own.def.id).value) : null;
+  }
   if (word.motor) {
     const owned = motorsOf(actor).find(m => m.def.id === word.motor);
     if (!owned) return null;
@@ -390,6 +397,7 @@ function showValue({ c, d }) {
 function wordMeaning(word) {
   if (word.meaning) return L(`Chips.Var.${word.meaning}`);
   if (word.unknown) return L("Chips.Var.unknown");
+  if (word.classMotor) return L(`Chips.Var.${word.spent ? "classSpent" : "classMotor"}`);
   if (word.motor) {
     const def = motorDef(word.motor);
     if (word.field && def) return L(`${def.i18n}.Chips.${word.field}`);

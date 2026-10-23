@@ -9,6 +9,7 @@
  *   motor        its Motor part (motor.mjs)
  *   path / pathTalent / apex / dedication   see motor.mjs and apps/skill-browser.mjs
  *   element / elementTalent   { class, id }: an element skill chosen at CR 1 (the Dragon Slayer's) and its talents
+ *   magic / magicSpell        { id }: a Magia (chosen in a magic class's Magia slots) and its spells
  */
 
 /** Static data of each class, by the class item's `system.identifier`. */
@@ -84,6 +85,16 @@ export const CLASSES = {
     band: "light",
     branches: ["lobo", "golem", "fada", "pacto"],
     paths: ["legiao", "fusao", "tita"]
+  },
+  magonegro: {
+    id: "magonegro",
+    motor: "magonegro",
+    color: "#2a2540",
+    band: "frail",
+    branches: ["fluxo", "reserva", "muralha", "ruina"],
+    paths: ["classe-s", "mago-santo", "spriggan"],
+    // A magic class: its grants have Magia slots (CR 1, 5 and 10) and the tab shows the Magias
+    magic: true
   },
   matador: {
     id: "matador",

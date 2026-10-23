@@ -1,0 +1,75 @@
+{
+  "name": "Ruptura",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Esmagamento.</strong> Feitiço grande. Você bate o punho no ar e tudo em volta racha: Teste de Precisão contra a Esquiva de cada inimigo do seu quadrado; [3d6 + Poder Mágico] de dano mágico, e quem ela acerta fica [Derrubado].</p><p><strong>Custo:</strong> Ódio 3.</p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/earth/explosion-lava-stone-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "esmagamento-ruptura",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "prone"
+        }
+      ],
+      "magicSpell": {
+        "id": "esmagamento"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "SDr5OeaQAjsLMDPT",
+  "folder": "gfXQ17GJBE5MYH0m",
+  "_key": "!items!SDr5OeaQAjsLMDPT"
+}

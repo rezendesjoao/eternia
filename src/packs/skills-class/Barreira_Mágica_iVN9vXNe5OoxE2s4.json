@@ -1,0 +1,119 @@
+{
+  "name": "Barreira Mágica",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste até [NH+1] de Pressão: o poder se fecha em volta de você e você ganha [Barreira: Pressão gasta × (NP+5)] até o fim da rodada. Uma vez por rodada.</p>",
+    "tags": [
+      "Dedication"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 3
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/defensive/shield-barrier-glowing-triangle-purple-orange.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "barrier",
+            "value": "@spent*(@cr+5)"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Barreira Mágica",
+      "img": "systems/eternia/assets/ui/status/barrier.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "barrier"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "orof4EAb4rU1rO3c",
+      "_key": "!items.effects!iVN9vXNe5OoxE2s4.orof4EAb4rU1rO3c"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "magonegro-barreira-magica",
+      "kind": "spends",
+      "branch": "muralha",
+      "minRank": 1,
+      "motor": {
+        "id": "magonegro",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose",
+        "max": "@sr+1"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 130000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "iVN9vXNe5OoxE2s4",
+  "folder": "hPWY5FJcJShbmG9w",
+  "_key": "!items!iVN9vXNe5OoxE2s4"
+}

@@ -19,6 +19,7 @@ import { registerCharacterOptions } from "./helpers/character-options.mjs";
 import { registerRankGrants } from "./apps/rank-grants.mjs";
 import { OptionBrowser, registerOptionBrowser } from "./apps/option-browser.mjs";
 import { registerSkillBrowser } from "./apps/skill-browser.mjs";
+import { registerLevelFlow } from "./apps/rank-up.mjs";
 import { registerSkillRefresh } from "./apps/skill-refresh.mjs";
 import { rollSkill } from "./helpers/skill-rolls.mjs";
 import { registerCombatCards } from "./helpers/combat-cards.mjs";
@@ -159,6 +160,7 @@ Hooks.once('init', async function () {
   registerRankGrants();
   registerOptionBrowser();
   registerSkillBrowser();
+  registerLevelFlow();
   // GM tool: refresh the skills characters own from the system compendiums
   registerSkillRefresh();
 

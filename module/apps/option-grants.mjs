@@ -6,6 +6,8 @@
  * A slot may also say the Character Rank it comes at (`rank`, docs/classes.md): a class's Path at CR 3 (a choice)
  * and its Apex at CR 10 (`auto`: given without asking). Those slots are offered when the character reaches that
  * CR (the rank up, or the CR changed by hand) and again at the next changes while the choice is still open.
+ * A slot with `magic: true` is a choice among every Magia of the compendiums (skills with flags.eternia.magic) the
+ * character doesn't have yet; the n-th one is open while the character has fewer than n Magias.
  */
 
 const { DialogV2 } = foundry.applications.api;
@@ -21,6 +23,22 @@ function sourceOf(item) {
 function normalize(name) {
   return String(name ?? "").trim().toLowerCase();
 }
+
+/** The Magias of the compendiums (their uuids), in name order. */
+export async function magicUuids() {
+  const found = [];
+  for (const pack of game.packs) {
+    if ((pack.documentName !== "Item") || !pack.visible) continue;
+    const index = await pack.getIndex({ fields: ["flags.eternia.magic"] });
+    for (const e of index) {
+      if ((e.type === "skill") && e.flags?.eternia?.magic?.id) found.push({ uuid: e.uuid ?? pack.getUuid(e._id), name: e.name });
+    }
+  }
+  return found.sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang)).map(e => e.uuid);
+}
+
+/** The Magias an actor has. */
+export const magicsOf = actor => actor.items.filter(i => (i.type === "skill") && i.getFlag("eternia", "magic")?.id);
 
 /** The actor already has this skill (same compendium entry or same name). */
 function owns(actor, skill) {
@@ -48,12 +66,19 @@ export async function offerGrants(actor, item, { above = 0, withStale = true, on
 
   const slots = [];
   const auto = [];
+  const owned = magicsOf(actor).length;
+  let magicSlot = 0;
   for (const [index, grant] of (item.system.grants ?? []).entries()) {
+    // The n-th Magia slot is open while the character has fewer than n Magias.
+    if (grant.magic) magicSlot += 1;
     // The slots of a CR the character hasn't reached (or, at a rank up, the starting ones) wait.
     const rank = Number(grant.rank) || 1;
     if ((rank > cr) || (rank <= above)) continue;
-    if (onlyChoices && ((grant.uuids ?? []).length < 2)) continue;
-    const skills = (await Promise.all((grant.uuids ?? []).map(uuid => fromUuid(uuid).catch(() => null)))).filter(Boolean);
+    if (onlyChoices && !grant.magic && ((grant.uuids ?? []).length < 2)) continue;
+    if (grant.magic && (owned >= magicSlot)) continue;
+    const uuids = grant.magic ? await magicUuids() : (grant.uuids ?? []);
+    const skills = (await Promise.all(uuids.map(uuid => fromUuid(uuid).catch(() => null)))).filter(Boolean)
+      .filter(s => !grant.magic || !owns(actor, s));
     if (!skills.length) continue;
     const options = skills.map(s => ({ uuid: s.uuid, name: s.name, img: s.img, owned: owns(actor, s) }));
     const choice = options.length > 1;

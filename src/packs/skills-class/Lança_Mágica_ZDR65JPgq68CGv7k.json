@@ -1,0 +1,71 @@
+{
+  "name": "Lança Mágica",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste quanta Pressão quiser (pelo menos 1): você a aperta numa lança contra um alvo a até 4 Qd. Teste de Precisão contra a Resistência; [(2 + 2×Pressão gasta)d6 + Poder Mágico + Pressão gasta×NP÷2] de dano mágico.</p><p><strong>Custo:</strong> Ódio 2.</p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "floor(@spent*@cr/2)",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/unholy/projectile-spear-glow-pink.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "magonegro-lanca-magica",
+      "kind": "spends",
+      "branch": "ruina",
+      "minRank": 3,
+      "motor": {
+        "id": "magonegro",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose"
+      },
+      "damageText": "(2+2×Pressão gasta)d6 + [Poder Mágico] + Pressão gasta×NP÷2 Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 180000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ZDR65JPgq68CGv7k",
+  "folder": "hPWY5FJcJShbmG9w",
+  "_key": "!items!ZDR65JPgq68CGv7k"
+}

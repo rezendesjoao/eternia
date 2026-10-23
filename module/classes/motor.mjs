@@ -8,7 +8,8 @@
  * class's peak rules.
  *
  * The skills that touch a Motor say how in flags.eternia.motor:
- *   id      the Motor ("samurai")
+ *   id      the Motor ("samurai"), or "@class": the Motor of the actor's class (the spells of the Magias, which any
+ *           magic class can learn: they feed and spend whatever Motor the caster's class has)
  *   role    "core" | "lesser" (the Motor skills themselves)
  *   needs   { state, min, max, full, weapon: [tags] }  checked before the use, like a usage limit; `state` may be
  *           a list (any of them)
@@ -93,10 +94,23 @@ export const motorStateLabel = (def, state) => ((def.states?.length ?? 0) > 1 ? 
 /** Every registered Motor. */
 export const allMotors = () => [...MOTORS.values()];
 
-/** The Motor part of a skill (flags.eternia.motor), or null. */
+/** The Motor id of a skill's Motor part that means the actor's class Motor (the spells of the Magias). */
+export const CLASS_MOTOR = "@class";
+
+/** The Motor of an actor's class: its first full (not Lesser) Motor, or null. */
+export function classMotorId(actor) {
+  return motorsOf(actor).find(m => !m.lesser)?.def.id ?? null;
+}
+
+/** The Motor part of a skill (flags.eternia.motor), with "@class" resolved to the actor's class Motor; or null. */
 export function skillMotor(item) {
   const motor = item?.flags?.[SYSTEM_ID]?.[MOTOR_FLAG];
-  return (motor?.id && MOTORS.has(motor.id)) ? motor : null;
+  if (!motor?.id) return null;
+  if (motor.id === CLASS_MOTOR) {
+    const id = classMotorId(item.actor);
+    return id ? { ...motor, id } : null;
+  }
+  return MOTORS.has(motor.id) ? motor : null;
 }
 
 /** The identifier of a class skill (flags.eternia.identifier), or "". */
@@ -175,8 +189,9 @@ export function motorsOf(actor) {
   const found = new Map();
   for (const item of actor?.items ?? []) {
     if (item.type !== "skill") continue;
-    const motor = skillMotor(item);
-    if (!["core", "lesser"].includes(motor?.role)) continue;
+    // The Motor skills name their Motor (never "@class", which needs this list to be resolved).
+    const motor = item.flags?.[SYSTEM_ID]?.[MOTOR_FLAG];
+    if (!["core", "lesser"].includes(motor?.role) || !MOTORS.has(motor.id)) continue;
     const lesser = motor.role === "lesser";
     // The full Motor wins over a Lesser one of the same class.
     if (found.has(motor.id) && lesser) continue;

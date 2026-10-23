@@ -1,13 +1,13 @@
 /**
  * The class tab of the character sheet (templates/character/class.hbs): the class crest (its emblem) and its base, the
  * Motor (its state and points, which the owner can set by hand), the kit, the element (the Dragon Slayer's, chosen at
- * CR 1), the talents by branch with what each does to the Motor, the Path (chosen at CR 3), the Apex (CR 10), the
- * Dedications and the milestones. The class's skills are read from the compendiums (the folder named like the class,
+ * CR 1), the Magias of a magic class (chosen at CR 1, 5 and 10, with their spells), the talents by branch with what
+ * each does to the Motor, the Path (chosen at CR 3), the Apex (CR 10), the Dedications and the milestones. The class's skills are read from the compendiums (the folder named like the class,
  * see apps/skill-browser.mjs); the character's own copies can be used and opened from here like in the skills tab.
  */
 import { L } from "../settings.mjs";
 import { getOption } from "../helpers/character-options.mjs";
-import { offerGrants } from "../apps/option-grants.mjs";
+import { magicsOf, offerGrants } from "../apps/option-grants.mjs";
 import { SkillBrowser } from "../apps/skill-browser.mjs";
 import { tagLabel, term } from "../i18n/terms.mjs";
 import { toInt } from "../helpers/utils.mjs";
@@ -21,7 +21,8 @@ const FIELDS = [
   "system.subtype", "system.skillRank", "system.tags", "system.timing", "folder",
   "flags.eternia.identifier", "flags.eternia.kind", "flags.eternia.branch", "flags.eternia.minRank",
   "flags.eternia.requires", "flags.eternia.path", "flags.eternia.pathTalent", "flags.eternia.apex",
-  "flags.eternia.dedication", "flags.eternia.element", "flags.eternia.elementTalent"
+  "flags.eternia.dedication", "flags.eternia.element", "flags.eternia.elementTalent", "flags.eternia.magic",
+  "flags.eternia.magicSpell"
 ];
 
 /** Class skills of the compendiums by class name (lowercase), built once and cleared when a compendium changes. */
@@ -86,6 +87,26 @@ function skillRow(actor, entry, cr, { delay = 0 } = {}) {
     locked: !owned && (minRank > cr),
     dedication: (entry.system?.tags ?? []).includes("Dedication"),
     general: entry.system?.subtype === "General"
+  };
+}
+
+/** A row of the tab for a skill the character has (a Magia). */
+function ownedRow(item, cr) {
+  return {
+    uuid: item._stats?.compendiumSource ?? item.uuid,
+    id: item.id,
+    name: item.name,
+    img: item.img,
+    owned: true,
+    kind: "",
+    kindIcon: "",
+    kindLabel: "",
+    timing: term("timing", item.system.timing ?? ""),
+    sr: "",
+    minRank: 1,
+    locked: false,
+    dedication: false,
+    general: false
   };
 }
 
@@ -166,6 +187,21 @@ export async function classContext(actor, { editable }) {
       .sort((a, b) => a.minRank - b.minRank)
   })).sort((a, b) => elementOrder.indexOf(a.id) - elementOrder.indexOf(b.id));
 
+  // Magias (a magic class: the slots of its grants): the ones chosen, with their spells, and how many are still open
+  let magic = null;
+  if (def?.magic) {
+    const reached = (job.system.grants ?? []).filter(g => g.magic && ((Number(g.rank) || 1) <= cr)).length;
+    const owned = magicsOf(actor);
+    const chosen = [];
+    for (const m of owned) {
+      const spells = (await classSkills(m.name)).filter(e => flag(e, "magicSpell")?.id === m.getFlag("eternia", "magic").id)
+        .map(e => skillRow(actor, e, cr)).sort((a, b) => (a.minRank - b.minRank) || a.name.localeCompare(b.name, game.i18n.lang));
+      chosen.push({ ...ownedRow(m, cr), spells });
+    }
+    magic = { chosen, open: Math.max(0, reached - owned.length), next: (job.system.grants ?? []).filter(g => g.magic)
+      .map(g => Number(g.rank) || 1).find(r => r > cr) ?? null };
+  }
+
   // Base: attributes and HP of the class item
   const a = job.system.attributes ?? {};
   const base = ["str", "dex", "pow", "int"].map(key => ({ label: L(`Classes.Attr.${key}`), value: toInt(a[key]) }));
@@ -193,6 +229,7 @@ export async function classContext(actor, { editable }) {
       pending: (cr >= 3) && !followed && paths.length > 0
     },
     apex: apex ? { ...skillRow(actor, apex, cr), reached: cr >= 10 } : null,
+    magic,
     element: elements.length ? {
       chosen: ownElement ? elements.find(e => e.uuid === ownElement.uuid) : null,
       options: ownElement ? [] : elements

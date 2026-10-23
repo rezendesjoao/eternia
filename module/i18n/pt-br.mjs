@@ -37,7 +37,7 @@ export const TAGS = {
   "Non-Close Attacks": "Ataques Não Corpo a Corpo", "Physical Damage": "Dano Físico", "Magical Damage": "Dano Mágico",
   // Elements
   "Flame": "Chama", "Cold": "Frio", "Shock": "Choque", "Radiance": "Radiância", "Blight": "Corrupção",
-  "Holy": "Sagrado", "Poison": "Veneno", "Iron": "Ferro", "Wind": "Vento", "Psychic": "Psíquico", "Mental": "Mental",
+  "Holy": "Sagrado", "Poison": "Veneno", "Iron": "Ferro", "Wind": "Vento", "Water": "Água", "Psychic": "Psíquico", "Mental": "Mental",
   // Creatures
   "Human": "Humano", "Humanoid": "Humanoide", "Adventurer": "Aventureiro", "Lander": "Nativo",
   "Goblin": "Goblin", "Kobold": "Kobold", "Ratman": "Homem-Rato", "Neirity": "Neirity",

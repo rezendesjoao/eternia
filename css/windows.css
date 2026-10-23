@@ -2734,3 +2734,69 @@
 .application.lhwin.themed.dialog .lhd-field {
   margin-top: 2px;
 }
+
+/* Skill browser: "only what I can pick" and the note of what it hides */
+.application.lhwin.themed .skill-available {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 5px;
+  color: var(--pf-text-soft);
+  font: 400 13px/1 var(--pf-body);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.application.lhwin.themed .skill-available input {
+  margin: 0;
+}
+.application.lhwin.themed .skill-hidden-note {
+  padding: 10px 6px 4px;
+  color: var(--pf-text-soft);
+  font: italic 12px/1.4 var(--pf-body);
+  text-align: center;
+}
+.application.lhwin.themed .skill-hidden-note i {
+  margin-right: 3px;
+  font-size: 11px;
+}
+.application.lhwin.themed .skill-hidden-note a {
+  margin-left: 4px;
+  color: var(--pf-primary);
+  font-style: normal;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* Character Rank box: the Base Stats before and after, side by side */
+.application.lhwin.themed.dialog .lhd-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+  margin-top: 6px;
+}
+.application.lhwin.themed.dialog .lhd-stat {
+  display: grid;
+  justify-items: center;
+  gap: 1px;
+  padding: 4px 2px 5px;
+  border: 1px solid #dacba8;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--pf-text-soft);
+  font: 500 12px/1.2 var(--pf-sans);
+}
+.application.lhwin.themed.dialog .lhd-stat b {
+  color: #9a7a2c;
+  font: 700 10px/1.1 var(--pf-sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.application.lhwin.themed.dialog .lhd-stat strong {
+  color: var(--pf-primary);
+  font: 700 15px/1 var(--pf-serif);
+}
+.application.lhwin.themed.dialog .lhd-stat em {
+  color: var(--pf-primary);
+  font: 600 10px/1.1 var(--pf-sans);
+  font-style: normal;
+}

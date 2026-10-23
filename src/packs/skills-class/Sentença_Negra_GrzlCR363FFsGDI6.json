@@ -1,0 +1,81 @@
+{
+  "name": "Sentença Negra",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Artes Negras. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você marca um alvo a até 4 Qd para morrer. Teste de Precisão contra a Resistência; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Corrupção], e ele fica [Sentença: 3]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Uma marca negra aparece na testa do alvo, e começa a contar.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/death/skull-horned-white-purple.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "artes-negras-sentenca-negra",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "doom",
+          "value": 3
+        }
+      ],
+      "magicSpell": {
+        "id": "artes-negras"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "GrzlCR363FFsGDI6",
+  "folder": "q6EfzcNtdk9eBdBB",
+  "_key": "!items!GrzlCR363FFsGDI6"
+}

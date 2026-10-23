@@ -121,6 +121,7 @@ export const TAG_CATALOG = [
   { label: "Poison", group: G.element },
   { label: "Iron", group: G.element },
   { label: "Wind", group: G.element },
+  { label: "Water", group: G.element },
   { label: "Psychic", group: G.element },
   { label: "Mental", group: G.element },
 

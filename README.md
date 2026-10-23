@@ -5,9 +5,14 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.9.0
+## Versão 0.10.0
 
-- **Novo na 0.9.0: o Matador de Dragões**, a primeira das classes de magia. Ele come o próprio elemento (Fogo,
+- **Novo na 0.10.0: o Mago Negro e as Magias.** A classe diz como você conjura e a Magia diz o que você conjura: o
+  Mago Negro escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10, entre Água, Artes Negras, Corpos Celestes
+  e Esmagamento, e a Pressão sobe a cada feitiço até a Liberação (veja [As Magias](#as-magias)). Também novo: o resumo
+  ao mudar o NP (pelo botão ou digitando), com os atributos, os PV, as escolhas e o que a classe dá, e o navegador de
+  habilidades abrindo só com o que dá para escolher agora.
+- **Desde a 0.9.0: o Matador de Dragões**, a primeira das classes de magia. Ele come o próprio elemento (Fogo,
   Ferro, Céu ou Raio, escolhido junto com a classe) e o transforma em Escamas, que os golpes de dragão gastam; no
   Teto vem a Força do Dragão, e quem abusa dela vê a Semente do Dragão crescer. As gerações são os Caminhos, e o
   Ápice é o Modo Rei Dragão (veja [As classes](#as-classes)).
@@ -48,8 +53,8 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   mesmo visual; toda a automação de combate e de uso de habilidades; a interface em português do Brasil.
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
-- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 17 classes), Habilidades Raciais e
-  Habilidades de Classe (36 por classe, 52 no Matador de Dragões: 628 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
+- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 18 classes), Habilidades Raciais e
+  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e os 27 feitiços das Magias: 691 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
 
@@ -65,7 +70,11 @@ rótulos em versalete. Fontes Eczar e Gelasio.
   número de dados, roláveis com um clique; e os estados ativos, com o botão de remover um Estado Negativo gastando
   Destino.
 - **Cabeçalho:** nome, Destino em estrelas (clique soma 1, botão direito tira 1) e o NP num brasão, com o botão de
-  subir de NP.
+  subir de NP. Subir pelo botão ou digitando outro NP no brasão (vários de uma vez, ou para baixo) abre o mesmo resumo
+  antes de mudar: os Atributos Base antes e depois (com os modificadores que mudam), os PV, as escolhas de habilidade,
+  os talentos que liberam e o que a classe dá em cada NP (o Caminho, as Magias, a Dedicação, o Ápice). Confirmado, o
+  chat registra, vêm as escolhas da classe e o navegador abre com as escolhas contadas; descendo, dá para desfazer as
+  escolhas feitas acima do NP novo. Cancelar deixa o NP como estava.
 - **Personagem:** retrato com Raça, Classe e Subclasse ao lado; as tags; Conexões e Uniões; e os quatro atributos em
   molduras, com o botão de distribuir pontos.
 - **Testes:** os oito testes de atributo e os três de combate, cada um com o modificador e os dados.
@@ -105,10 +114,14 @@ Fichas de item (os 14 tipos), editor de efeitos, navegadores de habilidades e de
 saques, lojas e as Ferramentas do Mestre seguem o visual da ficha. Num compêndio trancado os valores aparecem como
 texto.
 
+O **navegador de habilidades** abre mostrando só o que o personagem pode escolher agora: as habilidades de NP acima
+do dele, as que pedem outra antes e as que já estão no NH máximo ficam escondidas, com uma nota de quantas são. A
+caixa "Só o que posso escolher" (ou o link "Mostrar todas") mostra a lista inteira, com o motivo de cada bloqueio.
+
 As **caixas de mensagem** (avisos, confirmações e escolhas) seguem um padrão só: a barra verde com borda dourada, o
 pergaminho e dois botões do mesmo tamanho, a ação em verde e Cancelar em pergaminho (quando a ação vai contra um
 aviso, ela fica vermelho-tijolo). O aviso antes de usar uma habilidade mostra a imagem e o nome dela e cada motivo com
-o ícone do seu tipo (Momento, Motor, limite, condição); subir NP mostra o retrato e o que o personagem ganha; vender e
+o ícone do seu tipo (Momento, Motor, limite, condição); mudar o NP mostra o retrato e o que o personagem ganha; vender e
 converter itens mostram o item ou o personagem.
 
 ## Os colchetes dos textos
@@ -177,6 +190,8 @@ gira em volta dele (veja `docs/classes.md` e as páginas **XI. CLASSES** do diá
 - **Elemento (NP 1):** no Matador de Dragões, um elemento escolhido junto com a classe (Fogo, Ferro, Céu ou Raio) dá
   a tag e o estado dos golpes, a imunidade e três talentos próprios; o navegador de habilidades só mostra os do
   elemento escolhido, e a Dedicação também deixa escolher um.
+- **Magias (NP 1, 5 e 10):** nas classes de magia, a classe diz como você conjura e a Magia diz o que você conjura (veja
+  [As Magias](#as-magias)).
 - **Emblema:** cada classe tem o seu, no jeito dos emblemas de Log Horizon: a moldura e as cores dizem a família
   (losango verde para quem segura a linha de frente, quadrado creme para quem ataca com arma, círculo rosa para quem
   cura, hexágono turquesa para a magia) e o símbolo diz a classe. Aparece na aba Classe, no item da classe e, com um
@@ -193,6 +208,7 @@ gira em volta dele (veja `docs/classes.md` e as páginas **XI. CLASSES** do diá
 | Feiticeiro | Dano | **Calor**: cada feitiço esquenta e bate mais forte; no Teto, a Erupção solta tudo ou a Sobrecarga queima o próprio feiticeiro. |
 | Guardião | Defesa | **Baluarte**: cada ataque contra ele vira uma Camada da muralha (Anulação), que o Golpe do Baluarte transforma em dano e provocação. |
 | Invocador | Dano, Controle | **Pacto**: paga PV para dar Laços a um espírito (lobo, golem ou fada), que luta, protege ou cura gastando os Laços. |
+| Mago Negro | Dano | **Pressão**: cada feitiço, da classe ou das Magias, puxa mais poder e bate mais forte; no Teto, a Liberação solta tudo ou a Sobrecarga cobra do próprio mago. Escolhe uma Magia no NP 1, 5 e 10. |
 | Matador de Dragões | Dano | **Escamas**: come o próprio elemento (Fogo, Ferro, Céu ou Raio) e o transforma em Escamas, que os golpes de dragão gastam; no Teto vem a Força do Dragão, e cada vez que ela acaba a Semente do Dragão cresce. |
 | Menestrel | Suporte | **Movimentos**: a canção sobe a cada Manutenção e reforça os aliados; trocar de canção volta ao começo, e o Finale gasta tudo. |
 | Monge | Dano, Defesa | **Corrente**: golpes encadeados juntam Elos, e o Golpe Final gasta a corrente inteira; apanhar ou parar quebra os Elos. |
@@ -212,6 +228,21 @@ vindo de um aliado não causa dano: o Matador come o ataque. O
 Desfazer do cartão devolve o Motor junto com o Ódio e a ação. O que não dá para automatizar (escolher alvos de área,
 mover tokens) fica no texto da habilidade.
 
+## As Magias
+
+Nas classes de magia (por enquanto, o Mago Negro), a classe diz **como** você conjura e a **Magia** diz **o que** você
+conjura. A primeira Magia vem com a classe, a segunda no NP 5 e a terceira no NP 10; a aba Classe mostra as Magias com
+os feitiços de cada uma, e o navegador de habilidades mostra os feitiços das suas Magias (a origem "Magia") nas
+escolhas de Combate e Geral. Os feitiços alimentam o Motor da sua classe (+1; os grandes, +2), e o feitiço supremo de
+cada Magia (NP 7) pede o Motor no Teto e gasta tudo. As regras estão em **XII. MAGIAS**, no diário AS REGRAS.
+
+| Magia | Categoria | O que faz |
+|---|---|---|
+| Água | Conjuração | Prende, corta e escorre: [Água], [Lento], [Enraizado] e o Corpo de Água ([Intangível]); o supremo é o Maremoto. |
+| Artes Negras | Proibida | A magia da morte: [Corrupção], [Maldito], [Deterioração] e [Sentença]. Tabu: em combate você fica [Maldito], e a Predação da Morte pega aliados. |
+| Corpos Celestes | Conjuração | As estrelas: [Radiância] de longe, o Meteoro, a gravidade de Altairis, Grand Chariot e o meteoro gigante de Sema. |
+| Esmagamento | Conjuração | Quebra tudo: [Fissurado] e [Exposto] de perto, e a Desmontagem, que desfaz o golpe que vem. |
+
 ## As raças
 
 Oito raças, cada uma com +2 em atributos, PV e Destino, **duas habilidades inatas** (uma Geral e uma de Combate,
@@ -230,8 +261,8 @@ Combate a partir do NP 5, pagas com as escolhas normais de habilidade.
 | Kitsune | POD +2 | 0 | 2 | Mil Faces, Caudas | Encanto da Raposa, Fogo-Raposa |
 
 Escolher a raça na ficha abre a escolha das habilidades inatas (a Bênção do Humano, o elemento do Pacto do Elfo e o
-Astro do Flügel) e, no Humano, dos dois atributos. O navegador de habilidades mostra as desbloqueáveis com o NP em
-que liberam. Cada habilidade traz o efeito direto e, embaixo, como ele aparece em cena; a automação aplica os
+Astro do Flügel) e, no Humano, dos dois atributos. O navegador de habilidades mostra as desbloqueáveis quando o NP
+chega (com "Mostrar todas", também antes, com o NP em que liberam). Cada habilidade traz o efeito direto e, embaixo, como ele aparece em cena; a automação aplica os
 estados, os bônus, as escolhas (como gastar uma Cauda num Truque ou numa Ilusão) e os custos.
 
 ## As profissões

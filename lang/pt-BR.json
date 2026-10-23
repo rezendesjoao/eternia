@@ -563,7 +563,7 @@
       "Browse": "Explorar",
       "Search": "Buscar por nome, classe ou tag",
       "HintPending": "Habilidades a escolher: adquira ou suba {combat} habilidade(s) de Combate e {general} habilidade(s) Geral(is). Uma habilidade não pode passar do seu NH Máximo nem do NP do personagem.",
-      "HintFree": "Adquira novas habilidades (NH 1) ou suba o NH das que o personagem já tem. Uma habilidade não pode passar do seu NH Máximo nem do NP do personagem.",
+      "HintFree": "Modo livre do Mestre: este personagem não tem escolhas pendentes, então o que você adicionar aqui não conta como escolha. Uma habilidade não pode passar do seu NH Máximo nem do NP do personagem.",
       "HintTraining": "Criação de personagem: restam {left} de {max} habilidades [Treinamento].",
       "TrainingFull": "Na criação de personagem você só pode adquirir {max} habilidades [Treinamento]",
       "MaxSRShort": "NH Máx. {max}",
@@ -594,7 +594,8 @@
         "race": "Raça",
         "subclass": "Subclasse",
         "common": "Comum",
-        "dedication": "Dedicação"
+        "dedication": "Dedicação",
+        "magic": "Magia"
       },
       "Filter": {
         "eligible": "Todas as minhas listas",
@@ -603,12 +604,20 @@
         "subclass": "Subclasse",
         "common": "Comum",
         "all": "Todas as habilidades (sem restrição)",
-        "dedication": "Dedicação"
+        "dedication": "Dedicação",
+        "magic": "Magias"
       },
       "MinCR": "Libera no NP {rank}",
       "Requires": "Requer: {names}.",
       "DedicationMax": "No máximo {max} Dedicações.",
-      "DedicationNext": "Antes de outra Dedicação, aprenda {n} talentos da primeira (tem {have})."
+      "DedicationNext": "Antes de outra Dedicação, aprenda {n} talentos da primeira (tem {have}).",
+      "Available": "Só o que posso escolher",
+      "AvailableTip": "Esconde as habilidades de NP acima do seu, as que pedem outra antes e as que já estão no NH máximo",
+      "Hidden": "{n} escondida(s): NP acima do seu, requisito que falta ou NH máximo.",
+      "ShowAll": "Mostrar todas",
+      "EmptyAvailable": "Nada para escolher agora nesta aba.",
+      "HintNone": "Nenhuma escolha pendente: suba de NP para ganhar mais. Você pode ver as habilidades; as Básicas continuam livres.",
+      "NoPending": "Sem escolhas pendentes: suba de NP para ganhar mais"
     },
     "RankUp": {
       "Button": "Subir NP",
@@ -616,10 +625,35 @@
       "Title": "Subir Nível de Personagem: {name}",
       "Window": "Subir Nível de Personagem",
       "Confirm": "Subir o Nível de Personagem de {from} para {to}?",
-      "GainHP": "PV Máx. +{hp} (Modificador de PV da Classe Principal)",
-      "GainStats": "+1 em todos os Atributos Base",
-      "GainSkills": "Adquirir ou subir {combat} habilidade(s) de Combate e {general} habilidade Geral",
-      "Chat": "{name} alcança o NP {to}"
+      "Chat": "{name} alcança o NP {to}",
+      "Down": "Descer NP",
+      "ConfirmMany": "Subir o Nível de Personagem de {from} para {to} ({n} níveis de uma vez)?",
+      "ConfirmDown": "Descer o Nível de Personagem de {from} para {to}?",
+      "Stats": "Atributos Base {sign}{n} em cada",
+      "Mod": "mod. {from} → {to}",
+      "HP": "PV Máx. {from} → {to} ({sign}{gain}: {per} por NP, o Modificador de PV da classe)",
+      "Skills": "Escolhas de habilidade: {combat} de Combate e {general} Geral (adquirir uma nova ou subir o NH de uma que você já tem)",
+      "Unlocks": "Liberam neste salto: {list}",
+      "Unlock": {
+        "class": "{n} talento(s) da classe",
+        "magic": "{n} feitiço(s) das suas Magias",
+        "race": "{n} habilidade(s) da raça",
+        "dedication": "{n} talento(s) das Dedicações"
+      },
+      "Grant": {
+        "choice": "NP {rank}: escolha entre {names}",
+        "magic": "NP {rank}: uma nova Magia",
+        "auto": "NP {rank}: {name} entra sozinho",
+        "skill": "NP {rank}: {name}"
+      },
+      "Dedication": "NP {rank}: a Dedicação a outra classe (multiclasse) fica liberada nas escolhas de Combate",
+      "After": "Depois vêm as escolhas da classe e a janela de habilidades, com as escolhas já contadas.",
+      "DownPicks": "As escolhas de habilidade feitas acima do NP {to} podem ser desfeitas na janela seguinte.",
+      "DownAfter": "Os atributos e os PV voltam sozinhos.",
+      "YesUp": "Subir para o NP {to}",
+      "YesDown": "Descer para o NP {to}",
+      "ChatDown": "{name} volta ao NP {to}",
+      "WindowDown": "Descer Nível de Personagem"
     },
     "StatAllocation": {
       "Confirm": "Confirmar",
@@ -890,7 +924,8 @@
       "Spell": "Habilidade de magia que não ataca (bênçãos, curas, proteções). Silenciado impede.",
       "Song": "Canção, hino ou som mágico. Silenciado impede.",
       "Iron": "Elemento ferro. Interage com Fraqueza/Anulação (Ferro).",
-      "Wind": "Elemento vento. Interage com Fraqueza/Anulação (Vento)."
+      "Wind": "Elemento vento. Interage com Fraqueza/Anulação (Vento).",
+      "Water": "Elemento água. Interage com Fraqueza/Anulação (Água)."
     },
     "Condition": {
       "Title": "Condições",
@@ -1476,7 +1511,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.9: o Matador de Dragões</strong></p><ul><li>A primeira das <strong>classes de magia</strong>, no compêndio Raças e Classes (pasta Classes). O Motor <strong>Escamas</strong>: o Matador come o próprio elemento e gasta as Escamas nos golpes de dragão (o Rugido, a Garra, a Asa…).</li><li>O <strong>elemento</strong> é escolhido junto com a classe: Fogo, Ferro, Céu ou Raio. Ele dá a tag e o estado dos golpes, a imunidade e três talentos próprios, com uma Arte Secreta. A aba <strong>Classe</strong> mostra o elemento, e o navegador de habilidades só mostra os talentos dele.</li><li>No Teto vem a <strong>Força do Dragão</strong>. Cada vez que ela acaba, deixa Fadiga e a <strong>Semente do Dragão</strong> cresce: a Força seguinte fica mais forte e mais cara.</li><li>Os Caminhos são as gerações (Primeira, Segunda e Terceira), e o Ápice é o Modo Rei Dragão. As regras estão na página XI.10 do diário AS REGRAS.</li></ul><p>Desde a 0.8: as 16 classes. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.10: o Mago Negro e as Magias</strong></p><ul><li>O <strong>Mago Negro</strong>, a primeira classe com <strong>Magias</strong>: a classe diz como você conjura, a Magia diz o que você conjura. Ele escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10, e a <strong>Pressão</strong> sobe a cada feitiço até a Liberação.</li><li>As quatro primeiras Magias: <strong>Água</strong>, <strong>Artes Negras</strong> (Proibida, com Tabu), <strong>Corpos Celestes</strong> e <strong>Esmagamento</strong>, cada uma com um feitiço supremo. As regras estão no capítulo XII. MAGIAS do diário AS REGRAS.</li><li>Mudar o NP (pelo botão ou digitando o número na ficha) mostra antes um resumo com os atributos, os PV, as escolhas de habilidade e o que a classe dá em cada NP.</li><li>O navegador de habilidades abre só com o que dá para escolher agora; \"Mostrar todas\" mostra o resto.</li></ul><p>Desde a 0.9: o Matador de Dragões. Desde a 0.8: as 16 classes. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -2662,6 +2697,27 @@
         "Chips": {
           "seed": "Semente do Dragão: quantas Forças do Dragão já acabaram neste cenário"
         }
+      },
+      "MagoNegro": {
+        "Name": "Pressão",
+        "Unit": "Pressão",
+        "State": {
+          "estavel": "Estável",
+          "critico": "Ponto Crítico"
+        },
+        "Card": {
+          "Gain": "+1 Pressão por Feitiço, da classe ou das suas Magias (os grandes, +2). Os seus Feitiços somam +[Pressão × 2] ao dano.",
+          "Spend": "A Liberação (área, precisa de 2) solta toda a Pressão: cada ponto soma 1d6 + NP. Conter a Magia solta 2. Os feitiços supremos das Magias pedem o Teto e gastam tudo.",
+          "Cap": "3 de Pressão, +1 a cada 5 NP. No Teto, o Ponto Crítico: Sobrecarga no Encerramento ([Pressão × NP] de dano direto).",
+          "Reset": "A Liberação zera a Pressão; o fim do combate também.",
+          "GainLesser": "+1 Pressão por Feitiço. Os seus Feitiços somam +[Pressão] ao dano.",
+          "SpendLesser": "A Liberação (precisa de 2) solta toda a Pressão: cada ponto soma 1d6 + NP.",
+          "CapLesser": "Metade do Teto da Pressão, no mínimo 1. No Teto, o Ponto Crítico e a Sobrecarga no Encerramento.",
+          "ResetLesser": "A Liberação zera a Pressão; o fim do combate também."
+        },
+        "Overload": "Sobrecarga",
+        "ChooseRelease": "Quanta Pressão a Liberação gasta? Você tem {have}.",
+        "ReleaseReady": "Liberação no Teto"
       }
     },
     "Classes": {
@@ -2854,7 +2910,20 @@
       },
       "Element": "Elemento",
       "ChooseElement": "Escolher o elemento",
-      "DedicationChoice": "Escolha o elemento desta Dedicação."
+      "DedicationChoice": "Escolha o elemento desta Dedicação.",
+      "magonegro": {
+        "Branch": {
+          "fluxo": "O Fluxo",
+          "reserva": "A Reserva",
+          "muralha": "A Muralha",
+          "ruina": "A Ruína"
+        }
+      },
+      "Magic": "Magias",
+      "MagicRanks": "NP 1, 5 e 10",
+      "ChooseMagic": "Escolher Magia ({n})",
+      "NoMagic": "Nenhuma Magia escolhida ainda.",
+      "NextMagic": "A próxima Magia chega no NP {n}."
     },
     "Chips": {
       "Kind": {
@@ -2880,7 +2949,9 @@
         "unknown": "A classe calcula no uso",
         "dice": "Dados de seis faces: 2d6 são dois dados somados",
         "targetCr": "Nível do alvo",
-        "enemyAttack": "Ataque do inimigo"
+        "enemyAttack": "Ataque do inimigo",
+        "classMotor": "Pontos do Motor da sua classe agora",
+        "classSpent": "Pontos do Motor da sua classe gastos neste uso"
       },
       "Total": "Agora: {value}",
       "NoValue": "O valor aparece quando o texto é de um personagem.",

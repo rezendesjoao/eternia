@@ -563,7 +563,7 @@
       "Browse": "Browse",
       "Search": "Search by name, class or tag",
       "HintPending": "Skills to choose: acquire or rank up {combat} Combat skill(s) and {general} General skill(s). A skill can't go beyond its Maximum SR or the character's CR.",
-      "HintFree": "Acquire new skills (SR 1) or raise the SR of the ones the character has. A skill can't go beyond its Maximum SR or the character's CR.",
+      "HintFree": "GM free mode: this character has no picks owed, so what you add here does not count as a pick. A skill cannot go beyond its Maximum SR or the character's CR.",
       "HintTraining": "Character creation: {left} of {max} [Training] skills left.",
       "TrainingFull": "At character creation you can only acquire {max} [Training] skills",
       "MaxSRShort": "Max SR {max}",
@@ -594,7 +594,8 @@
         "race": "Race",
         "subclass": "Subclass",
         "common": "Common",
-        "dedication": "Dedication"
+        "dedication": "Dedication",
+        "magic": "Magia"
       },
       "Filter": {
         "eligible": "All my lists",
@@ -603,12 +604,20 @@
         "subclass": "Subclass",
         "common": "Common",
         "all": "Every skill (no restriction)",
-        "dedication": "Dedication"
+        "dedication": "Dedication",
+        "magic": "Magias"
       },
       "MinCR": "Unlocks at CR {rank}",
       "Requires": "Needs: {names}.",
       "DedicationMax": "At most {max} Dedications.",
-      "DedicationNext": "Before another Dedication, learn {n} talents of the first (has {have})."
+      "DedicationNext": "Before another Dedication, learn {n} talents of the first (has {have}).",
+      "Available": "Only what I can pick",
+      "AvailableTip": "Hides the skills of a higher CR, those that need another one first and those at their Maximum SR",
+      "Hidden": "{n} hidden: higher CR, missing requirement or Maximum SR.",
+      "ShowAll": "Show all",
+      "EmptyAvailable": "Nothing to pick right now in this tab.",
+      "HintNone": "No picks owed: raise the CR to get more. You can look at the skills; Basic skills stay free.",
+      "NoPending": "No picks owed: raise the CR to get more"
     },
     "RankUp": {
       "Button": "CR Up",
@@ -616,10 +625,35 @@
       "Title": "Character Rank Up: {name}",
       "Window": "Character Rank Up",
       "Confirm": "Raise Character Rank from {from} to {to}?",
-      "GainHP": "Max HP +{hp} (Main Class HP Modifier)",
-      "GainStats": "+1 to every Base Stat",
-      "GainSkills": "Acquire or rank up {combat} Combat skill(s) and {general} General skill",
-      "Chat": "{name} reaches CR {to}"
+      "Chat": "{name} reaches CR {to}",
+      "Down": "Lower CR",
+      "ConfirmMany": "Raise the Character Rank from {from} to {to} ({n} ranks at once)?",
+      "ConfirmDown": "Lower the Character Rank from {from} to {to}?",
+      "Stats": "Base Stats {sign}{n} each",
+      "Mod": "mod. {from} → {to}",
+      "HP": "Max HP {from} → {to} ({sign}{gain}: {per} per CR, the class HP Modifier)",
+      "Skills": "Skill picks: {combat} Combat and {general} General (acquire a new one or raise the SR of one you have)",
+      "Unlocks": "Unlocked by this jump: {list}",
+      "Unlock": {
+        "class": "{n} class talent(s)",
+        "magic": "{n} spell(s) of your Magias",
+        "race": "{n} race skill(s)",
+        "dedication": "{n} Dedication talent(s)"
+      },
+      "Grant": {
+        "choice": "CR {rank}: choose between {names}",
+        "magic": "CR {rank}: a new Magia",
+        "auto": "CR {rank}: {name} comes by itself",
+        "skill": "CR {rank}: {name}"
+      },
+      "Dedication": "CR {rank}: the Dedication to another class (multiclass) opens in the Combat picks",
+      "After": "Then come the class choices and the skill window, with the picks already counted.",
+      "DownPicks": "The skill picks made above CR {to} can be undone in the next window.",
+      "DownAfter": "Stats and HP go back by themselves.",
+      "YesUp": "Raise to CR {to}",
+      "YesDown": "Lower to CR {to}",
+      "ChatDown": "{name} goes back to CR {to}",
+      "WindowDown": "Lower Character Rank"
     },
     "StatAllocation": {
       "Confirm": "Confirm",
@@ -890,7 +924,8 @@
       "Spell": "A magic skill that doesn't attack (blessings, healing, wards). Silenced forbids it.",
       "Song": "A song, hymn or magic sound. Silenced forbids it.",
       "Iron": "Iron element. Interacts with Weakness/Cancel (Iron).",
-      "Wind": "Wind element. Interacts with Weakness/Cancel (Wind)."
+      "Wind": "Wind element. Interacts with Weakness/Cancel (Wind).",
+      "Water": "Water element. Interacts with Weakness/Cancel (Water)."
     },
     "Condition": {
       "Title": "Conditions",
@@ -1476,7 +1511,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.9: the Dragon Slayer</strong></p><ul><li>The first of the <strong>magic classes</strong>, in the Races and Classes compendium (Classes folder). Its Motor, the <strong>Scales</strong>: the slayer eats its own element and spends the Scales on dragon moves (the Roar, the Claw, the Wing…).</li><li>The <strong>element</strong> is chosen with the class: Fire, Iron, Sky or Lightning. It gives the tag and status of the moves, the immunity and three talents of its own, with a Secret Art. The <strong>Class</strong> tab shows the element, and the skill browser only lists its talents.</li><li>At the cap comes the <strong>Dragon Force</strong>. Each time it ends it leaves Fatigue and the <strong>Dragon Seed</strong> grows: the next Force is stronger and costs more.</li><li>The Paths are the generations (First, Second and Third), and the Apex is the Dragon King Mode. The rules are on page XI.10 of the AS REGRAS journal.</li></ul><p>Since 0.8: the sixteen classes. Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
+      "Body": "<p><strong>What's new in Eternia 0.10: the Black Mage and the Magias</strong></p><ul><li>The <strong>Black Mage</strong>, the first class with <strong>Magias</strong>: the class is how you cast, the Magia is what you cast. It picks a Magia at CR 1, another at CR 5 and the third at CR 10, and the <strong>Pressure</strong> rises with every spell until the Release.</li><li>The first four Magias: <strong>Water</strong>, <strong>Black Arts</strong> (Forbidden, with a Taboo), <strong>Heavenly Bodies</strong> and <strong>Crash</strong>, each with a supreme spell. The rules are in chapter XII. MAGIAS of the AS REGRAS journal.</li><li>Changing the CR (the button or typing the number in the sheet) first shows a summary with the stats, the HP, the skill picks and what the class gives at each CR.</li><li>The skill browser opens with only what can be picked now; \"Show all\" shows the rest.</li></ul><p>Since 0.9: the Dragon Slayer. Since 0.8: the sixteen classes. Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -2662,6 +2697,27 @@
         "Chips": {
           "seed": "Dragon Seed: how many Dragon Forces already ended this scenario"
         }
+      },
+      "MagoNegro": {
+        "Name": "Pressure",
+        "Unit": "Pressure",
+        "State": {
+          "estavel": "Stable",
+          "critico": "Critical Point"
+        },
+        "Card": {
+          "Gain": "+1 Pressure per Spell, of the class or of your Magias (the big ones, +2). Your Spells add +[Pressure × 2] to their damage.",
+          "Spend": "The Release (area, needs 2) lets all the Pressure out: each point adds 1d6 + CR. Contain the Magic lets 2 out. The supreme spells of the Magias need the cap and spend it all.",
+          "Cap": "3 Pressure, +1 every 5 CR. At the cap, the Critical Point: Overload at the Cleanup ([Pressure × CR] direct damage).",
+          "Reset": "The Release empties the Pressure; so does the end of the combat.",
+          "GainLesser": "+1 Pressure per Spell. Your Spells add +[Pressure] to their damage.",
+          "SpendLesser": "The Release (needs 2) lets all the Pressure out: each point adds 1d6 + CR.",
+          "CapLesser": "Half the Pressure cap, at least 1. At the cap, the Critical Point and the Overload at the Cleanup.",
+          "ResetLesser": "The Release empties the Pressure; so does the end of the combat."
+        },
+        "Overload": "Overload",
+        "ChooseRelease": "How much Pressure does the Release spend? You have {have}.",
+        "ReleaseReady": "Release at the cap"
       }
     },
     "Classes": {
@@ -2854,7 +2910,20 @@
       },
       "Element": "Element",
       "ChooseElement": "Choose the element",
-      "DedicationChoice": "Choose the element of this Dedication."
+      "DedicationChoice": "Choose the element of this Dedication.",
+      "magonegro": {
+        "Branch": {
+          "fluxo": "The Flow",
+          "reserva": "The Reserve",
+          "muralha": "The Wall",
+          "ruina": "The Ruin"
+        }
+      },
+      "Magic": "Magias",
+      "MagicRanks": "CR 1, 5 and 10",
+      "ChooseMagic": "Choose a Magia ({n})",
+      "NoMagic": "No Magia chosen yet.",
+      "NextMagic": "The next Magia comes at CR {n}."
     },
     "Chips": {
       "Kind": {
@@ -2880,7 +2949,9 @@
         "unknown": "The class works it out on use",
         "dice": "Six-sided dice: 2d6 is two dice added up",
         "targetCr": "The target's rank",
-        "enemyAttack": "The enemy's Attack"
+        "enemyAttack": "The enemy's Attack",
+        "classMotor": "Points of your class's Motor now",
+        "classSpent": "Points of your class's Motor spent in this use"
       },
       "Total": "Now: {value}",
       "NoValue": "The value shows when the text belongs to a character.",

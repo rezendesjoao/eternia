@@ -219,6 +219,15 @@ const GLYPHS = {
     cut(circle(52.5, 50.5, 3.1), 10), cut(circle(69.5, 50.5, 3.1), 10), cut(circle(61, 59, 3.1), 10),
     cut(circle(52.5, 67.5, 3.1), 10), cut(circle(69.5, 67.5, 3.1), 10)
   ],
+  // The Black Mage's Pressure: the pointed hat over a face of shadow, two eyes glowing under the brim
+  magonegro: () => [
+    solid("M30 90 C30 77 36 66 44 61.5 L56 61.5 C64 66 70 77 70 90 Z"),
+    cut(ellipse(50, 67.6, 13.6, 10.4)),
+    solid(ellipse(44.8, 67.4, 2.5, 3.5)), solid(ellipse(55.2, 67.4, 2.5, 3.5)),
+    solid(ellipse(50, 55.4, 35, 6.4)),
+    solid("M30.6 53.4 C37.6 41.4 42.6 28.6 50.4 19.4 C55 14.2 61.6 10.8 70.4 11.8 C64.4 15.4 60.2 21.4 58.2 29.6 C61 38.6 65.6 46.6 69.4 53.4 Z"),
+    cut("M33.8 47.6 C44.4 45.6 55.6 45.6 66.2 47.6 L67.7 50.6 C56 48.6 44 48.6 32.3 50.6 Z")
+  ],
   // The Dragon Slayer's Scales: a dragon's head, roaring, its horns swept back
   matador: () => [
     solid("M27 90 C20 75 20 59 28 48.5 C30.4 45.4 32 43.4 34 41.4 L17 28.5 L38.4 34.6 L24 18.5 L44.6 31.4 C50 30 56 30 61 31.6 L66 33.6 L84 38.4 L86.6 37 C89 38.6 91 40.6 91.6 43.4 L91 48.6 L66.6 49.6 L60.6 52.8 L84.6 61.2 C87.4 62.6 87.6 65.6 85.4 67.2 C77.6 71.6 66.6 73.2 57 72.6 C51.4 76.6 48.6 82.6 48 90 Z"),
@@ -245,7 +254,7 @@ const CLASS_FAMILY = {
   guardiao: "warrior", samurai: "warrior", monge: "warrior", ressonante: "warrior",
   assassino: "weapon", berserker: "weapon", cacador: "weapon", comandante: "weapon", menestrel: "weapon",
   sacerdote: "healer", druida: "healer", oraculo: "healer",
-  feiticeiro: "magic", invocador: "magic", estrategista: "magic", tecelao: "magic", matador: "magic"
+  feiticeiro: "magic", invocador: "magic", estrategista: "magic", tecelao: "magic", matador: "magic", magonegro: "magic"
 };
 
 /* -------------------------------------------- */

@@ -1,5 +1,5 @@
 {{!-- CLASS (module/classes/sheet.mjs): the crest with the base, the Motor (state, points, the Perfect Cut), the kit,
-     the element (the Dragon Slayer's, CR 1), the talents by branch, the Path (CR 3), the Apex (CR 10), the general
+     the element (the Dragon Slayer's, CR 1), the Magias (a magic class), the talents by branch, the Path (CR 3), the Apex (CR 10), the general
      talents, the Dedications and the milestones.
      Without a class: the button that opens the class browser. --}}
 {{#*inline "lhclRow"}}
@@ -102,6 +102,23 @@
 				{{/each}}
 			</ul>
 			{{/if}}
+		</div>
+		{{/if}}
+
+		{{!-- Magias (a magic class: chosen at CR 1, 5 and 10) --}}
+		{{#if c.magic}}
+		<div class="subsection lhcl-group lhcl-path-group" style="--lhcl-color: {{c.color}}">
+			<header><span>{{localize "ETERNIA.Classes.Magic"}}</span><span class="lhcl-header-note">{{localize "ETERNIA.Classes.MagicRanks"}}</span>
+				{{#if c.magic.open}}{{#if c.editable}}<a class="lhcl-browse attention" data-action="lhcl" data-op="element"><i class="fa-solid fa-book-skull"></i> {{localize "ETERNIA.Classes.ChooseMagic" n=c.magic.open}}</a>{{/if}}{{/if}}
+			</header>
+			{{#each c.magic.chosen as |m|}}
+			<div class="lhcl-path chosen">
+				<ol class="lhcl-skills">{{> lhclRow r=m}}{{#each m.spells as |r|}}{{> lhclRow r=r}}{{/each}}</ol>
+			</div>
+			{{else}}
+			<p class="lhpf-empty">{{localize "ETERNIA.Classes.NoMagic"}}</p>
+			{{/each}}
+			{{#if c.magic.next}}<p class="lhcl-magic-next">{{localize "ETERNIA.Classes.NextMagic" n=c.magic.next}}</p>{{/if}}
 		</div>
 		{{/if}}
 

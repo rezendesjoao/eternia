@@ -25,6 +25,7 @@ import { ESTRATEGISTA } from "./estrategista.mjs";
 import { FEITICEIRO } from "./feiticeiro.mjs";
 import { GUARDIAO } from "./guardiao.mjs";
 import { INVOCADOR } from "./invocador.mjs";
+import { MAGONEGRO } from "./magonegro.mjs";
 import { MATADOR } from "./matador.mjs";
 import { MENESTREL } from "./menestrel.mjs";
 import { MONGE } from "./monge.mjs";
@@ -48,6 +49,7 @@ export function registerClasses() {
   registerMotor(FEITICEIRO);
   registerMotor(GUARDIAO);
   registerMotor(INVOCADOR);
+  registerMotor(MAGONEGRO);
   registerMotor(MATADOR);
   registerMotor(MENESTREL);
   registerMotor(MONGE);

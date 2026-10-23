@@ -1,0 +1,76 @@
+{
+  "name": "Nebulosa de Água",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Água.</strong> Feitiço grande. Dois jatos de água em espiral varrem uma área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; [2d6 + Poder Mágico] de dano mágico de [Água], e quem eles acertam fica [Lento].</p><p><strong>Custo:</strong> Ódio 3.</p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Water"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/water/water-drop-swirl-blue.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "agua-nebulosa-de-agua",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "slowed"
+        }
+      ],
+      "magicSpell": {
+        "id": "agua"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "p2t6iXt7KkpsfFCf",
+  "folder": "lQNK2Yg7nRref7tr",
+  "_key": "!items!p2t6iXt7KkpsfFCf"
+}
