@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.23.0 — 2026-10-24
+
+### Adicionado
+- **Quatro Magias**, para qualquer classe: **Neve** (Fúria Branca e Nevasca Branca, que deixam [Congelando], Cópia de
+  Neve, Vento de Nevasca, Avalanche de Neve e o supremo Branco Total), **Perfume Mágico** (Portadora: Perfume do
+  Trovão, Perfume da Força, Perfume Analgésico, que cura o grupo, Perfume da Dor, Perfume Venenoso e o supremo Perfume
+  da Força: Máximo, num alvo só), **Alma de Máquina** (Take Over: Canhão, Blindagem, Propulsores, Rajada, Bombardeio e
+  o supremo Traje de Batalha) e **Onda** (a magia que anula magia: Disparo de Onda, Escudo de Onda contra ataques
+  mágicos, Impulso de Onda, Anular Magia, Explosão de Onda e o supremo Mundo Sem Magia). O catálogo chega a 46 Magias.
+- Páginas XII.4 (Alma de Máquina), XII.31 (Neve), XII.33 (Onda) e XII.34 (Perfume Mágico) do capítulo XII. MAGIAS do
+  diário AS REGRAS.
+
+### Alterado
+- As páginas do capítulo XII foram renumeradas em ordem alfabética (Artes Negras é a XII.10, Vento a XII.46).
+- O aviso de novidades fala da 0.23.
+
 ## 0.22.0 — 2026-10-24
 
 ### Adicionado

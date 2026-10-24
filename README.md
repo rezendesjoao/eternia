@@ -5,9 +5,12 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.22.0
+## Versão 0.23.0
 
-- **Novo na 0.22.0: 14 classes, 7 físicas e 7 mágicas, todas com Magias.** As físicas (Assassino, Berserker, Caçador,
+- **Novo na 0.23.0: mais quatro Magias.** Neve, Perfume Mágico, Alma de Máquina e Onda, para qualquer classe (veja
+  [As Magias](#as-magias)): a neve que congela e cega, os frascos que curam e fortalecem o grupo, o Take Over de
+  máquinas e a onda que anula a magia dos outros. O catálogo chega a 46 Magias.
+- **Desde a 0.22.0: 14 classes, 7 físicas e 7 mágicas, todas com Magias.** As físicas (Assassino, Berserker, Caçador,
   Centurião, Hierofante, Lutador e Samurai) escolhem uma Magia no NP 1 e outra no NP 10, e os feitiços alimentam o
   Motor delas; o Matador de Dragões ganha duas, no NP 5 e no NP 10. O Monge, o Guardião e o Comandante agora se chamam
   Lutador, Centurião e Hierofante; o Druida, o Sacerdote, o Oráculo, o Estrategista e o Menestrel saíram da lista (as
@@ -107,7 +110,7 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
 - **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 22 classes, 14 na lista e 8 antigas), Habilidades Raciais e
-  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 42 Magias com os feitiços: 1103 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
+  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 46 Magias com os feitiços: 1131 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
 
@@ -318,6 +321,7 @@ a lâmina embainhada, o Assassino abre Brechas pelos acertos no Alvo e o Lutador
 | Água | Conjuração | Prende, corta e escorre: [Água], [Lento], [Enraizado] e o Corpo de Água ([Intangível]); o supremo é o Maremoto. |
 | Alma Animal | Conjuração | Os bichos: o gato que some ([Oculto]), o pássaro que mergulha ([Voando]), o coelho que salta ([Acelerado]), o peixe ([Água], [Lento]), o urso ([Derrubado]) e o Estouro da Manada. |
 | Alma de Fera | Conjuração | As feras: o braço de pedra ([Anulação]), os touros ([Derrubado], [Fissurado]), as escamas do lagarto ([Espelho]), o tigre que ataca dois e o Corpo Inteiro, que deixa [Fúria]. |
+| Alma de Máquina | Conjuração | Take Over de máquinas: o canhão de lacrima, a blindagem ([Anulação]), os propulsores ([Voando]), a rajada que deixa [Cambaleante], o bombardeio que deixa [Derrubado] e o Traje de Batalha ([Atordoado]). |
 | Alma de Satã | Conjuração | Os demônios: o raio que deixa [Eletrificado], as mãos de trevas ([Enraizado]), a explosão de [Corrupção], a armadura viva ([Fortalecido]), o fogo de Sitri ([Queimando]) e a Extinção da Alma ([Maldito]). |
 | Alta Velocidade | Conjuração | A pressa: o golpe que deixa [Perseguição], a rajada em dois alvos, a velocidade que deixa [Acelerado] a cena inteira, o chute que atravessa e derruba ([Derrubado]), os Cem Golpes e a Tempestade de Golpes ([Cambaleante]). |
 | Arco do Tempo | Perdida | O tempo nas mãos: as esferas que pulam o tempo, o tempo lento ([Lento], [Atordoado]), a cura que desfaz o golpe, a pressa ([Acelerado]), os anos que racham armaduras ([Fissurado]) e a Última Era, que cura os aliados. Tabu: em combate, as Defesas caem [NP÷2]. |
@@ -344,7 +348,10 @@ a lâmina embainhada, o Assassino abre Brechas pelos acertos no Alvo e o Lutador
 | Moldagem de Gelo | Conjuração | O gelo moldado com as mãos: lanças e o martelo de [Frio] ([Congelando]), o escudo em forma de flor, o chão que derruba, as águias de gelo e a Dança dos Sete Cortes. |
 | Moldagem de Madeira | Conjuração | A madeira moldada: a bola de espinhos, as armas em volta que dão [Espelho], a fusão que deixa [Oculto], a represa que deixa [Enraizado], os pés e as mãos gigantes que deixam [Cambaleante] e o Soco Divino ([Derrubado]). |
 | Moldagem de Memória | Conjuração | A memória das magias vistas: Memorizar ([Concentrado]), o feitiço lembrado, o Esquecimento ([Selado]), a terra em chamas ([Queimando]) e a noite das estrelas cadentes. |
+| Neve | Conjuração | A neve: a fúria branca e a nevasca que deixam [Congelando], a cópia de neve que toma o golpe, o vento que deixa [Derrubado], a avalanche que deixa [Enraizado] e o Branco Total ([Cego]). |
 | Olhos Mágicos | Conjuração | O olhar: o que deixa [Rigidez], o que deixa [Marcado], o que deixa [Encantado], o olho do demônio ([Despertado]), os Mil Olhos ([Medo]) e o Olhar Petrificante ([Paralisado]). |
+| Onda | Conjuração | A onda que anula a magia: o disparo, o escudo contra ataques mágicos, o impulso que deixa [Silenciado], a anulação que arranca os encantos, a explosão que deixa [Cambaleante] e o Mundo Sem Magia ([Selado]). |
+| Perfume Mágico | Portadora | Os frascos: o trovão de [Choque], a força que deixa [Fortalecido], o analgésico que cura o grupo, a dor que deixa [Medo], o veneno que deixa [Envenenado] e o Perfume da Força: Máximo ([Derrubado]). |
 | Pintura Mágica | Portadora | A tinta que vive: a fera pintada, as asas que deixam [Voando], a jaula que deixa [Enraizado] e [Selado], a armadura ([Anulação]), o dragão ([Queimando]) e o Mural Vivo ([Medo]). |
 | Plantas | Portadora | As sementes: o cipó que deixa [Enraizado], o broto que dá [Regeneração], os esporos que deixam [Envenenado], a muralha de raízes ([Barreira]), a floresta que deixa [Lento] e o Jardim Carnívoro. |
 | Projeção de Pensamento | Conjuração | As cópias de pensamento: o eco [Psíquico], a voz que tira o [Medo] e deixa [Concentrado], a projeção que deixa [Intangível], as cópias que deixam os inimigos [Provocado], o exército em três alvos e a Projeção Astral ([Medo]). |

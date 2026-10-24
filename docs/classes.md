@@ -999,6 +999,7 @@ REGRAS (a geral e uma página por Magia).
 | Água | Conjuração | Lâmina de Água, Prisão de Água, Corpo de Água, Nebulosa de Água, Sierra, Maremoto (supremo) |
 | Alma Animal | Conjuração | Alma Animal: Gato, Alma Animal: Pássaro, Alma Animal: Coelho, Alma Animal: Peixe, Alma Animal: Urso, Alma Animal: Estouro da Manada (supremo) |
 | Alma de Fera | Conjuração | Braço de Fera: Pedra, Braço de Fera: Touro de Ferro, Braço de Fera: Touro Negro, Alma de Fera: Homem-Lagarto, Alma de Fera: Homem-Tigre, Alma de Fera: Corpo Inteiro (supremo) |
+| Alma de Máquina | Conjuração (Take Over) | Alma de Máquina: Canhão, Alma de Máquina: Blindagem, Alma de Máquina: Propulsores, Alma de Máquina: Rajada, Alma de Máquina: Bombardeio, Alma de Máquina: Traje de Batalha (supremo) |
 | Alma de Satã | Conjuração | Faísca Maligna, Fluxo das Trevas, Explosão Maligna, Alma de Satã: Halphas, Alma de Satã: Sitri, Extinção da Alma (supremo) |
 | Alta Velocidade | Conjuração | Golpe Veloz, Rajada de Golpes, Velocidade Máxima, Chute Supersônico, Cem Golpes, Tempestade de Golpes (supremo) |
 | Arco do Tempo | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP÷2]) | Avanço Rápido, Tempo Lento, Restaurar, Acelerar, Arco do Tempo: Envelhecer, Última Era (supremo, cura os aliados e deixa [Fadiga] em quem conjura) |
@@ -1025,7 +1026,10 @@ REGRAS (a geral e uma página por Magia).
 | Moldagem de Gelo | Conjuração | Moldagem de Gelo: Lança, Moldagem de Gelo: Escudo, Moldagem de Gelo: Martelo, Moldagem de Gelo: Chão, Moldagem de Gelo: Águias, Lâmina de Gelo: Dança dos Sete Cortes, Impacto de Gelo (supremo) |
 | Moldagem de Madeira | Conjuração | Moldagem de Madeira: Aproximação Violenta, Moldagem de Madeira: Senso de Distância do Coração, Fusão com a Madeira, Moldagem de Madeira: Represa do Amor Tímido, Moldagem de Madeira: A Distância Entre Nós Dois É Eterna, Moldagem de Madeira: Soco Divino (supremo, num alvo só) |
 | Moldagem de Memória | Conjuração | Memorizar, Moldagem de Memória: Feitiço Lembrado, Moldagem de Memória: Esquecimento, Moldagem de Memória: Fortaleza da Terra Ardente, Moldagem de Memória: Noite das Estrelas Cadentes, Moldagem de Memória: Lembrança Absoluta (supremo) |
+| Neve | Conjuração | Fúria Branca, Cópia de Neve, Nevasca Branca, Vento de Nevasca, Avalanche de Neve, Branco Total (supremo) |
 | Olhos Mágicos | Conjuração | Olhar de Pedra, Olho Clínico, Olhar Hipnótico, Olho do Demônio, Mil Olhos, Olhar Petrificante (supremo) |
+| Onda | Conjuração | Disparo de Onda, Escudo de Onda (contra ataques mágicos), Impulso de Onda, Anular Magia, Explosão de Onda, Mundo Sem Magia (supremo) |
+| Perfume Mágico | Portadora (os frascos) | Perfume do Trovão, Perfume da Força, Perfume Analgésico (cura o grupo), Perfume da Dor, Perfume Venenoso, Perfume da Força: Máximo (supremo, num alvo só) |
 | Pintura Mágica | Portadora (pincéis e tintas) | Fera Pintada, Asas Pintadas, Jaula Pintada, Armadura Pintada, Dragão Pintado, Mural Vivo (supremo) |
 | Plantas | Portadora (as sementes) | Chicote de Cipó, Broto da Vida, Esporos Venenosos, Muralha de Raízes, Floresta Súbita, Jardim Carnívoro (supremo) |
 | Projeção de Pensamento | Conjuração | Eco de Pensamento, Voz do Pensamento, Projeção, Muitas Projeções, Exército de Pensamento, Projeção Astral (supremo) |

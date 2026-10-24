@@ -1,0 +1,76 @@
+{
+  "name": "Vento de Nevasca",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Neve.</strong> Você move uma nevasca com as mãos e a joga contra até 3 alvos a até 4 Qd: Teste de Precisão contra a Esquiva de cada um; [2d6 + Poder Mágico] de dano mágico de [Frio] em cada um, e quem ela acerta fica [Derrubado].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>O vento gelado empurra como uma mão enorme.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Cold"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Targets",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/water/projectile-ice-teardrops-salvo.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "neve-vento",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "prone"
+        }
+      ],
+      "magicSpell": {
+        "id": "neve"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ngxCZAswbMtU6Aqc",
+  "folder": "XFF9MsRTRVjAJ14g",
+  "_key": "!items!ngxCZAswbMtU6Aqc"
+}

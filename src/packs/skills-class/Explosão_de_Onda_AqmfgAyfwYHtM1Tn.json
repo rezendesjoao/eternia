@@ -1,0 +1,75 @@
+{
+  "name": "Explosão de Onda",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Onda.</strong> Feitiço grande. A vibração encontra a magia de quem está numa área a até 4 Qd e explode: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico, e quem ela acerta fica [Cambaleante], com cada osso tremendo.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Quanto mais magia o inimigo carrega, maior o estrondo.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/air/wind-vortex-swirl-red.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "onda-explosao",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "staggered"
+        }
+      ],
+      "magicSpell": {
+        "id": "onda"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "AqmfgAyfwYHtM1Tn",
+  "folder": "2jjHeROK740tGVaA",
+  "_key": "!items!AqmfgAyfwYHtM1Tn"
+}

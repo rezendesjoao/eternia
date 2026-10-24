@@ -1,0 +1,76 @@
+{
+  "name": "Avalanche de Neve",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Neve.</strong> Feitiço grande. Uma avalanche desce sobre uma área a até 4 Qd: Teste de Precisão contra a Esquiva de cada alvo; [3d6 + Poder Mágico] de dano mágico de [Frio], e quem ela acerta fica [Enraizado], soterrado até a cintura.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Quando a neve assenta, só as cabeças aparecem.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Cold"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/water/barrier-ice-wall-snow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "neve-avalanche",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "rooted"
+        }
+      ],
+      "magicSpell": {
+        "id": "neve"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "7wiDcy9KKJA45ynb",
+  "folder": "XFF9MsRTRVjAJ14g",
+  "_key": "!items!7wiDcy9KKJA45ynb"
+}

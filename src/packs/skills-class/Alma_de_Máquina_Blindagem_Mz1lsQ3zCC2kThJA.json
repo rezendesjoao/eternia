@@ -1,0 +1,118 @@
+{
+  "name": "Alma de Máquina: Blindagem",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Alma de Máquina.</strong> Placas de aço se fecham sobre o seu corpo até o fim da rodada: você fica com [Anulação: NP÷2 + 3]. Uma vez por rodada.</p><p><em>O golpe bate no metal e o som ecoa como num sino.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/tech/plating-metal-armor-tech-steel-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "cancel",
+            "value": "floor(@cr/2)+3"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Alma de Máquina: Blindagem",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "X9lBQb1CNytBTdnO",
+      "_key": "!items.effects!Mz1lsQ3zCC2kThJA.X9lBQb1CNytBTdnO"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "alma-de-maquina-blindagem",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "alma-de-maquina"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Mz1lsQ3zCC2kThJA",
+  "folder": "Yaq24Bz0bSJIgTMJ",
+  "_key": "!items!Mz1lsQ3zCC2kThJA"
+}

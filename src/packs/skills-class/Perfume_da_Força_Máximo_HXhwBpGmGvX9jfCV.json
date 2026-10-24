@@ -1,0 +1,79 @@
+{
+  "name": "Perfume da Força: Máximo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Perfume Mágico. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você leva o frasco inteiro do perfume da força ao nariz, os músculos dobram de tamanho, e você gira e avança sobre um alvo a até 3 Qd. Teste de Precisão contra a Esquiva; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico, e ele fica [Derrubado]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Depois do golpe, você ajeita o cabelo e sorri como se nada tivesse acontecido.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/consumables/potions/potion-bottle-corked-fancy-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "perfume-maximo",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "prone"
+        }
+      ],
+      "magicSpell": {
+        "id": "perfume"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "HXhwBpGmGvX9jfCV",
+  "folder": "MzBA8OpABlguRDnu",
+  "_key": "!items!HXhwBpGmGvX9jfCV"
+}
