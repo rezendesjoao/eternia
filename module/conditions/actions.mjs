@@ -22,6 +22,7 @@ import { actorName, toInt } from "../helpers/utils.mjs";
 import { NO_ACTIONS, NO_MOVEMENT, NO_REACTIONS, SILENCED_TAGS } from "./catalog.mjs";
 import { has, isHostile, isSourceOf, limitsMode, rulesOn, sameActor, sourcesOf } from "./rules.mjs";
 import { engagedIssues } from "./distance.mjs";
+import { needsIssues } from "./copies.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 const REACTIONS = new Set(["Before Check", "After Check", "Damage Roll", "Before Damage", "After Damage"]);
@@ -79,6 +80,8 @@ export function conditionUseIssues(item, actor, { targets = null } = {}) {
   if (has(actor, "berserk") && !hostile && !tags.includes("movement") && (timing !== "Move") && !requires(item, "berserk")) {
     push("berserk", "Berserk");
   }
+  // A skill that needs a status of its user (a Clone to swap with: copies.mjs)
+  issues.push(...needsIssues(item, actor, mode));
 
   // Targets (only when the skill is used: the user's targets are known then)
   if (targets && hostile) {

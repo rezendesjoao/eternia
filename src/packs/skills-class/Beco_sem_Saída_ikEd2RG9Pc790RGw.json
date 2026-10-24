@@ -1,0 +1,79 @@
+{
+  "name": "Beco sem Saída",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Sangue Demoníaco.</strong> Você fecha a mão, e todas as esferas negras explodem juntas: cada alvo com [Pavio] a até 6 Qd (escolha-os como alvos) sofre, sem Teste de Precisão, [2d6 + Poder Mágico + Pavio] de dano mágico de [Corrupção], e o Pavio sai.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Não tem para onde correr. Elas já estão em você.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "auto",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/ranged/projectile-explosion-black-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "sangue-demoniaco-beco",
+      "kind": "feeds",
+      "branch": "magic",
+      "bonusVs": [
+        {
+          "statusId": "fuse",
+          "value": 1,
+          "perValue": true,
+          "consume": true
+        }
+      ],
+      "magicSpell": {
+        "id": "sangue-demoniaco"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ikEd2RG9Pc790RGw",
+  "folder": "IGHos4dpUhVUgkZj",
+  "_key": "!items!ikEd2RG9Pc790RGw"
+}

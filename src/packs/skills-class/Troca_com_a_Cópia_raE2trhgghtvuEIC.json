@@ -1,0 +1,123 @@
+{
+  "name": "Troca com a Cópia",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Lâmina Divisora.</strong> Antes do Dano de um ataque que acertou você: você troca de lugar com uma das cópias no último instante. Gaste 1 dos seus [Clones]: o golpe acerta a cópia, e nada dele chega a você (nem dano, nem estados). Uma vez por rodada; só com [Clones].</p><p><em>A lâmina atravessa você. Era a cópia.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/weapons/daggers/dagger-twin-curved-black.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "decoy": true,
+          "consumeOn": "damage",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Troca com a Cópia",
+      "img": "icons/weapons/daggers/dagger-twin-curved-black.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "K76K65HsfMLZCoh9",
+      "_key": "!items.effects!raE2trhgghtvuEIC.K76K65HsfMLZCoh9"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "lamina-divisora-troca",
+      "kind": "feeds",
+      "branch": "magic",
+      "needsStatus": "clones",
+      "useActions": [
+        {
+          "type": "addStatus",
+          "status": "clones",
+          "value": -1,
+          "recipients": "self"
+        }
+      ],
+      "magicSpell": {
+        "id": "lamina-divisora"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "raE2trhgghtvuEIC",
+  "folder": "NQVAtT8fRSxZADRX",
+  "_key": "!items!raE2trhgghtvuEIC"
+}

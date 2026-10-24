@@ -1,0 +1,127 @@
+{
+  "name": "Forma Quatro: Girassol",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Lança Espiritual. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: a lança vira um girassol gigante, que bebe a luz do sol e a dispara sobre uma área ampla a até 6 Qd. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Radiância]. Gasta todo o Motor.</p><p><strong>Forma:</strong> enquanto a lança está nesta forma, o girassol continua disparando: [Servo: NP÷2 + 3] de [Radiância] (no Encerramento, um raio no inimigo mais perto a até 4 Qd).</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Ele vira a cabeça para o inimigo, como as flores viram para o sol.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Radiance"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/light/beam-rays-green-large.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "form": "lanca",
+          "expires": "endOfScene",
+          "statusData": {
+            "statusId": "servant",
+            "value": "floor(@cr/2)+3",
+            "tag": "Radiance"
+          },
+          "onUse": true
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Forma Quatro: Girassol",
+      "img": "icons/magic/light/beam-rays-green-large.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "servant"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "lYHQMIrJMpz8QrnY",
+      "_key": "!items.effects!vhhpyG6TI7s0kj7D.lYHQMIrJMpz8QrnY"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "lanca-espiritual-forma-quatro",
+      "kind": "spends",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "lanca-espiritual"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "vhhpyG6TI7s0kj7D",
+  "folder": "DOUsXAGSnEMmZF83",
+  "_key": "!items!vhhpyG6TI7s0kj7D"
+}

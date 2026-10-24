@@ -1,0 +1,138 @@
+{
+  "name": "Transformação Indura",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Forma Indura. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto, uma vez por cena: você entrega à escuridão os corações que restam e vira a Indura, e a fera nasce rasgando um inimigo engajado com você. Teste de Precisão contra a Esquiva; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico. Gasta todo o Motor.</p><p><strong>A fera:</strong> os Sete Corações acabam nesta cena (os que restavam vão todos). Em troca, até o fim da cena, você tem [Ímpeto: NP + corações entregues] (passou do NP: [Fúria]) e é imune a controle: [Paralisado], [Adormecido], [Petrificado], [Enraizado], [Agarrado], [Lento], [Derrubado], [Atordoado], [Cambaleante], [Medo], [Dominado], [Encantado] e [Confuso]. No fim da cena, a fera cai: você fica Incapacitado, e esse fim de cena não o levanta (uma cura levanta, ou o fim da cena seguinte).</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Não tem volta. Ninguém pediu volta.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/death/undead-skeleton-deformed-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "onUse": true,
+          "expires": "endOfScene",
+          "fallOnEnd": true,
+          "surrender": {
+            "statusId": "impetus",
+            "value": "@cr"
+          },
+          "immune": [
+            "paralyzed",
+            "asleep",
+            "petrified",
+            "rooted",
+            "grappled",
+            "slowed",
+            "prone",
+            "dazed",
+            "staggered",
+            "frightened",
+            "dominated",
+            "charmed",
+            "confused"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Transformação Indura",
+      "img": "icons/magic/death/undead-skeleton-deformed-red.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "rl7sfxkeHU15PhAi",
+      "_key": "!items.effects!TElviutw3rnUULu0.rl7sfxkeHU15PhAi"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "forma-indura-transformacao",
+      "kind": "spends",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "forma-indura"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "TElviutw3rnUULu0",
+  "folder": "XOE32cZVdq4FHWDO",
+  "_key": "!items!TElviutw3rnUULu0"
+}

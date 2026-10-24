@@ -1,0 +1,182 @@
+{
+  "name": "Sangue Demoníaco",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Proibida.</strong> Sangue de demônio, bebido de propósito para ter um poder que não é seu. Ele derrete com ácido, cola esferas negras que explodem juntas, solta ondas de fogo negro e, quando ferve de vez, transforma você num demônio cinzento. O corpo nunca aceita direito o que não é dele. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, Sangue que Não é Seu:</strong> o corpo rejeita o sangue e a luz o queima: em combate, a sua Recuperação cai [NP] e você tem [Fraqueza (Radiância): NP÷2] (ao falhar na Esquiva contra um ataque de [Radiância], sofre +NP÷2 de dano direto).</li><li><strong>As esferas negras:</strong> a Neve Negra cola [Pavio] em quem acerta (explode no Encerramento, e os novos somam); o Beco sem Saída detona todos de uma vez.</li><li><strong>Traço, Demônio Cinzento:</strong> no terceiro feitiço de Sangue Demoníaco que você usa na cena, o sangue ferve e você vira demônio: [Despertado: NP÷2 + 2] e [Voando] até o fim da cena.</li><li><strong>Feitiços:</strong> Ácido e Neve Negra (NP 1), Beco sem Saída e Onda do Sangue Negro (NP 3), Despertar do Demônio (NP 5) e o feitiço supremo Nebulosa Negra (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Nebulosa Negra pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Ninguém avisou que o sangue lembra de onde veio.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/toxins/poison-bottle-open-blood-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "weaknessTag": "Radiance",
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Sangue que Não é Seu",
+      "img": "icons/skills/toxins/poison-bottle-open-blood-red.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.power.restoration.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          },
+          {
+            "key": "eternia.passive.weakness",
+            "type": "add",
+            "value": "floor(@cr/2)",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "tYhIBip5BRuwLp7k",
+      "_key": "!items.effects!JGpERGq5fNjPwJ1Q.tYhIBip5BRuwLp7k"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "sangue-demoniaco",
+            "transform": {
+              "at": 3,
+              "statuses": [
+                {
+                  "statusId": "awakened",
+                  "value": "floor(@cr/2)+2"
+                },
+                {
+                  "statusId": "flying"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Demônio Cinzento",
+      "img": "icons/skills/toxins/poison-bottle-open-blood-red.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "icNe1iuFMZSjUA1Y",
+      "_key": "!items.effects!JGpERGq5fNjPwJ1Q.icNe1iuFMZSjUA1Y"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "sangue-demoniaco-sangue-demoniaco",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "sangue-demoniaco",
+        "category": "forbidden",
+        "tagline": "Sangue de demônio nas veias: o terceiro feitiço faz você virar um."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "JGpERGq5fNjPwJ1Q",
+  "folder": "IGHos4dpUhVUgkZj",
+  "_key": "!items!JGpERGq5fNjPwJ1Q"
+}

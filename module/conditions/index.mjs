@@ -22,6 +22,8 @@ import { registerConditionMovement } from "./actions.mjs";
 import { registerConditionEffects } from "./effects.mjs";
 import { registerDecree } from "./decree.mjs";
 import { registerSouls } from "./souls.mjs";
+import { registerConditionForms } from "./forms.mjs";
+import { registerConditionTransformations } from "./transformations.mjs";
 
 /** Call during the `init` hook. */
 export function registerConditions() {
@@ -31,4 +33,6 @@ export function registerConditions() {
   registerConditionEffects();
   registerDecree();
   registerSouls();
+  registerConditionForms();
+  registerConditionTransformations();
 }

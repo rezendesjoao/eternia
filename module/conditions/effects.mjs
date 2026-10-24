@@ -22,6 +22,8 @@
  *   { type: "push", value: n }                  the target's token goes n squares away from the user, in a straight line
  *   { type: "promote" | "doubleStatuses" | "demote" | "raise" | "cancelSpells" }  many statuses at once (the
  *                                               Desastre, the Criação, the Infinito): conditions/status-actions.mjs
+ *   { type: "addStatus", status: "clones", value: 1 }  raises a status by `value` (a stack adds up to its maximum;
+ *                                               with a negative value, a stack goes down and ends at 0: a Clone spent)
  * Pulls and pushes are forced moves (`eterniaForced`: what keeps a token in place doesn't stop them, and they break no
  * Decree of Truth). An action with `onUse: true` comes with the use itself, also on a skill whose targets resist the
  * rest (helpers/sustained.mjs): the vortex pulls them in before the check.
@@ -32,7 +34,7 @@ import { actorName, postSummary, toInt } from "../helpers/utils.mjs";
 import { evaluateFormula, formulaData, isFormula } from "../helpers/effect-formulas.mjs";
 import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { statusDefinition } from "../helpers/statuses.mjs";
-import { has, rating, removeStatuses } from "./rules.mjs";
+import { addStatus, has, rating, removeStatuses } from "./rules.mjs";
 import { agonyPain, freed } from "./damage.mjs";
 import { STATUS_ACTIONS, statusAction } from "./status-actions.mjs";
 
@@ -158,6 +160,7 @@ async function doAction(actor, { type, value, status, statuses = [], casterUuid 
     const pain = (bad && !ids.includes("agony")) ? await agonyPain(actor, { silent: true }) : null;
     return pain ? `${line} · ${pain.line}` : line;
   }
+  if (type === "addStatus") return addToStatus(actor, status, toInt(value));
   if (type === "steal") {
     const thief = await actorOf(casterUuid);
     const ids = listOf(statuses).filter(id => has(actor, id));
@@ -169,6 +172,30 @@ async function doAction(actor, { type, value, status, statuses = [], casterUuid 
   }
   if (STATUS_ACTIONS.includes(type)) return statusAction(actor, { type, value, status, statuses, caster: await actorOf(casterUuid) });
   return null;
+}
+
+/**
+ * A status raised by n (a stack adds up to its maximum, another Rating keeps the highest, a plain status comes on) or,
+ * with a negative n, a stack taken down by that much (it ends at 0: a Clone spent). Returns the chat line, or null.
+ * @param {Actor} actor
+ * @param {string} status
+ * @param {number} n
+ */
+async function addToStatus(actor, status, n) {
+  const def = statusDefinition(status);
+  if (!def) return null;
+  const before = rating(actor, status);
+  if (n < 0) {
+    if (!def.path || !def.rated || !before) return null;
+    const after = Math.max(0, before + n);
+    if (after <= 0) await removeStatuses(actor, [status]);
+    else await actor.update({ [`system.${def.path}`]: after });
+    return L("Conditions.Actions.Add", { name: actorName(actor), status: label(status), before, after });
+  }
+  await addStatus(actor, status, n || null);
+  const after = rating(actor, status);
+  if (after === before) return null;
+  return L("Conditions.Actions.Add", { name: actorName(actor), status: label(status), before, after });
 }
 
 /** The actor of a uuid (a token's uuid gives its actor), or null. */

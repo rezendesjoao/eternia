@@ -27,6 +27,7 @@ import { counter } from "./scenes.mjs";
 import { ITEM_SKILL, linkedSkill } from "../content/content.mjs";
 import { actionAllowance, conditionUseIssues } from "../conditions/actions.mjs";
 import { afterAction } from "../conditions/turns.mjs";
+import { copyUses } from "../conditions/copies.mjs";
 import {
   commitMotorUse, motorActionOf, motorCostValues, motorUseIssues, planMotorUse, skillMotor, undoMotorUse
 } from "../classes/motor.mjs";
@@ -436,7 +437,8 @@ async function commitUse(item, plan, message) {
   }
   if (!foundry.utils.isEmpty(updates)) await actor.update(updates);
 
-  if (plan.key) {
+  // A reaction one of the user's [Clones] makes for it doesn't count (conditions/copies.mjs)
+  if (plan.key && !(await copyUses(item, actor))) {
     const n = plan.uses + 1;
     await item.setFlag(SYSTEM_ID, "uses", { key: plan.key, n });
     record.limit = { type: plan.limit.type, max: plan.limit.max, n, key: plan.key };

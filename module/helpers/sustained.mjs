@@ -3,6 +3,7 @@ import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { whisperRemovedEffects } from "./effect-durations.mjs";
 import { applyItemEffects, isSelfTarget, OPPOSED } from "./item-use.mjs";
 import { runUseActions } from "../conditions/effects.mjs";
+import { effectConditions, unmetCondition } from "./effect-conditions.mjs";
 
 /**
  * Sustained skills and tags (Harmony, Servant Summon, Enchantment).
@@ -363,7 +364,8 @@ function needsTargets(item, only) {
  * @returns {Promise<string|null>}   The effect id, or null when cancelled
  */
 async function chooseEffect(item) {
-  const effects = item.effects.filter(e => e.transfer === false);
+  // Only the alternatives whose conditions the user meets (the forms of the Mudança de Forma it knows)
+  const effects = item.effects.filter(e => (e.transfer === false) && !unmetCondition(effectConditions(e, item), item.actor, item));
   if (effects.length < 2) return effects[0]?.id ?? null;
   // A skill that draws its effect (the Cartas' Leitura da Sorte): one at random, no question
   if (item.getFlag("eternia", "randomEffect")) return effects[Math.floor(Math.random() * effects.length)].id;

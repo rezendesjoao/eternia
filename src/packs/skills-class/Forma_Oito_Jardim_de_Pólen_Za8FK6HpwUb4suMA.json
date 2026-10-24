@@ -1,0 +1,167 @@
+{
+  "name": "Forma Oito: Jardim de Pólen",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Lança Espiritual.</strong> Feitiço grande. A lança se desfaz num jardim de flores numa área a até 4 Qd, e o pólen cobre quem está nele: você e os aliados na área (escolha-os como alvos) ganham [Barreira: NP×2 + 5].</p><p><strong>Forma:</strong> enquanto a lança está nesta forma, o pólen fecha as suas feridas: [Regeneração: NP÷2 + 2].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>O ar fica doce. Os cortes fecham sozinhos.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/flowers/dandelion-pod-white.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "allies",
+          "statusData": {
+            "statusId": "barrier",
+            "value": "@cr*2+5"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Forma Oito: Jardim de Pólen",
+      "img": "systems/eternia/assets/ui/status/barrier.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "barrier"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "84TPuMFqHbv9Sf9l",
+      "_key": "!items.effects!Za8FK6HpwUb4suMA.84TPuMFqHbv9Sf9l"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "form": "lanca",
+          "expires": "endOfScene",
+          "statusData": {
+            "statusId": "regen",
+            "value": "floor(@cr/2)+2"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Forma Oito: Jardim de Pólen",
+      "img": "icons/commodities/flowers/dandelion-pod-white.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "regen"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "36dMhQIThdyA6mTy",
+      "_key": "!items.effects!Za8FK6HpwUb4suMA.36dMhQIThdyA6mTy"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "lanca-espiritual-forma-oito",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "lanca-espiritual"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Za8FK6HpwUb4suMA",
+  "folder": "DOUsXAGSnEMmZF83",
+  "_key": "!items!Za8FK6HpwUb4suMA"
+}

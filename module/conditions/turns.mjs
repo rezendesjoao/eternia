@@ -44,6 +44,7 @@ import { keepsHidden, traitsFor } from "../helpers/magic-traits.mjs";
 import { giveEffects, statusEffectData } from "../chat/status-links.mjs";
 import { naturalEnd } from "./lasting.mjs";
 import { cleanupFeeds } from "./souls.mjs";
+import { countSpell } from "./transformations.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -70,6 +71,8 @@ export async function afterAction(actor, item, action) {
   // A spell of the Magia that keeps the Sun clock raises the Sun (in a combat, until noon).
   const combat = combatOf(actor);
   if (combat && traitsFor(actor, item).some(e => e.getFlag(SYSTEM_ID, "trait")?.sunClock)) await moveSun(actor, combat, { spell: true });
+  // The n-th spell of a Magia in the scene transforms (transformations.mjs)
+  await countSpell(actor, item);
   const major = (action === "major") || (parseSkillField("timing", item.system.timing).type === "Major");
   if (!major) return;
   const shock = rating(actor, "shocked");
