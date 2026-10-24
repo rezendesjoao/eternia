@@ -56,6 +56,7 @@ export async function levelTo(actor, target) {
       title: R(up ? "Window" : "WindowDown"),
       icon: up ? "fa-solid fa-angles-up" : "fa-solid fa-angles-down",
       classes: ["rank-up-dialog"],
+      width: 500,
       img: actor.img,
       eyebrow: R(up ? "Button" : "Down"),
       heading: actor.name,

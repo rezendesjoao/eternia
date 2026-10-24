@@ -5,9 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.29.0
+## Versão 0.29.1
 
-- **Novo na 0.29.0: a ficha nova e o assistente de criação.** A ficha ficou mais larga (940×780), com o nome de cada
+- **Novo na 0.29.1: as habilidades do HUD em três painéis.** O botão Habilidades do HUD de ações virou **Gerais** (as
+  básicas e as da raça), **Magias** (os feitiços agrupados por Magia, cada um com o seu Momento) e **Classe** (as da
+  classe e as de uma Dedicação). E as caixas de mensagem mais altas que a tela, como a de subir vários NP de uma vez,
+  não perdem mais os botões: o texto rola acima deles (veja [O HUD de ações](#o-hud-de-ações)).
+- **Desde a 0.29.0: a ficha nova e o assistente de criação.** A ficha ficou mais larga (940×780), com o nome de cada
   aba ao lado do ícone e um número dourado quando há algo esperando nela; a aba Personagem traz a raça, a classe e a
   profissão em cartões e os atributos com os seus testes, e a aba **Magias** mostra as vagas da classe e todos os
   feitiços de cada Magia, com o Traço e o Tabu, sem nomes cortados. O **assistente de criação** monta o personagem em
@@ -315,8 +319,11 @@ tela, no lugar da barra de macros do Foundry:
 - **Turno:** a rodada e o Processo, as ações que restam no seu turno, Espera e **Encerrar**; **Entrar**
   coloca o token num combate em que ele ainda não está.
 - **Esquivas pendentes:** quando um ataque mira o seu personagem, **Esquivar** rola pelo próprio cartão.
-- **Painéis:** Testes, Habilidades (as que não dá para usar agora ficam esmaecidas, com o motivo), Itens (com
-  os poderes de gatilho) e Estados. **Shift + clique** usa e já rola o Teste.
+- **Painéis:** Testes; as habilidades em três, **Gerais** (as básicas, as da raça e as outras), **Magias** (os
+  feitiços de cada Magia sob o nome dela, na cor da categoria, cada um com o seu Momento; o texto da Magia aparece ao
+  passar o mouse) e **Classe** (as da classe e as de uma Dedicação); Itens (com os poderes de gatilho) e Estados. As
+  habilidades que não dá para usar agora ficam esmaecidas, com o motivo, e um monstro tem um painel só, Habilidades.
+  **Shift + clique** usa e já rola o Teste.
 - **Atalhos fixos** pelo alfinete, **Esc** fecha o painel, e o HUD se ajusta às telas menores, ao chat flutuante, à
   lista de jogadores e à barra lateral aberta.
 - A barra de macros fica escondida, mas as teclas 1 a 0 continuam executando as macros. Cada jogador escolhe entre

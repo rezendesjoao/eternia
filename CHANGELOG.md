@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.29.1 — 2026-10-24
+
+### Alterado
+- **HUD de ações:** o painel Habilidades virou três, **Gerais** (as básicas, as da raça e as outras), **Magias** (os
+  feitiços agrupados por Magia, cada uma com o retrato e a categoria na cor dela e o seu texto ao passar o mouse, e cada
+  feitiço com o seu Momento) e **Classe** (as da classe e as de uma Dedicação, com o nome da classe no título), cada um
+  com a sua tecla em Configurar Teclas. Um monstro continua com um painel só, Habilidades. Em telas estreitas os botões
+  ficam mais justos antes de mostrar só os ícones.
+- A caixa de subir e descer NP ficou mais larga (500 px), para quebrar menos as linhas.
+
+### Corrigido
+- **Caixas de mensagem mais altas que a tela** (subir vários NP de uma vez): os botões sumiam, cortados no pé da
+  janela. Agora eles ficam sempre à vista e o texto acima deles rola, esmaecendo na borda de baixo enquanto há mais
+  para ler.
+
 ## 0.29.0 — 2026-10-24
 
 ### Adicionado

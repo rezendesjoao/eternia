@@ -2,8 +2,9 @@
  * Action HUD — what the bar and its panels show for an actor (the app is in hud.mjs).
  *
  * The bar: portrait, HP and Barrier, Fate, Hate, Fatigue, the class Motor, the combat state (join, the actions left
- * in the Main Process, end it, Standby), the panel buttons and the pinned shortcuts. The panels: the checks, the
- * skills by Timing, the items (hands, trigger powers, usable items) and the statuses.
+ * in the Main Process, end it, Standby), the panel buttons and the pinned shortcuts. The panels: the checks, a
+ * character's skills in three (the general ones and the class's by Timing, the spells by Magia), the items (hands,
+ * trigger powers, usable items) and the statuses. A monster's skills all show in one panel.
  *
  * Skill rows read use.mjs (inspectUse) without asking anything: uses left of a counted limit, the cost to
  * pay, and why the skill can't be used now (dimmed). Panels are only built when open.
@@ -16,17 +17,28 @@ import { skillRollable } from "../helpers/skill-rolls.mjs";
 import { actionsLeft, inspectUse } from "../automation/use.mjs";
 import { itemSkillsOf, linkedSkill } from "../content/content.mjs";
 import { motorData, motorMax, motorName, motorsOf, motorStateLabel, motorUnit } from "../classes/motor.mjs";
+import { categoryOf, categoryView } from "../apps/magic-catalog.mjs";
+import { itemMagia } from "../helpers/magic-traits.mjs";
 import { isEmpty, tagLabel, term } from "../i18n/terms.mjs";
 import { ATTRIBUTES, COMBAT_CHECKS, TIMING_GROUPS } from "../sheets/character-sheet.mjs";
 import { actorName, combatantOf, combatOf, escape, toInt } from "../helpers/utils.mjs";
 
-/** The panels, in the order of their buttons. */
+/**
+ * The panels, in the order of their buttons. A character's skills come apart in three (skillPanelOf): "skills" has
+ * the general ones (basic, racial…), "magic" the spells of its Magias and "class" the class's own; the last two are
+ * only a character's (a monster's skills all show in "skills").
+ */
 export const PANELS = [
   { id: "checks", icon: "fa-solid fa-dice-d6" },
-  { id: "skills", icon: "fa-solid fa-wand-sparkles" },
+  { id: "skills", icon: "fa-solid fa-hand-fist" },
+  { id: "magic", icon: "fa-solid fa-hat-wizard", character: true },
+  { id: "class", icon: "fa-solid fa-chess-knight", character: true },
   { id: "items", icon: "fa-solid fa-sack" },
   { id: "effects", icon: "fa-solid fa-person-rays" }
 ];
+
+/** The three panels of the skills, which share the template's block (panel.skills) and hint. */
+const SKILL_PANELS = ["skills", "magic", "class"];
 
 /**
  * Pinned shortcuts: "item.<id>" or "check.<key>", in the flag `hud.pins` of the actor, or of the base actor of
@@ -207,18 +219,77 @@ function skillsUsedElsewhere(actor) {
   return ids;
 }
 
-/** The skills panel: the skills that are used (not Constant), by Timing. */
-function skillsPanel(actor, pins) {
+/**
+ * The panel of a character's skill: "magic" for a Magia and its spells, "class" for the class's own and a
+ * Dedication's (they carry the class flags, or come from the class compendium), "skills" for the rest.
+ * @param {Item} item
+ * @returns {"skills"|"magic"|"class"}
+ */
+export function skillPanelOf(item) {
+  if (itemMagia(item)) return "magic";
+  const flags = item.flags?.[SYSTEM_ID] ?? {};
+  if (flags.kind || flags.identifier) return "class";
+  return String(item._stats?.compendiumSource ?? "").startsWith(`Compendium.${SYSTEM_ID}.skills-class.`) ? "class" : "skills";
+}
+
+/** The skills that are used (not Constant, nor the trigger powers of the items), in the sheet's order. */
+function usedSkills(actor) {
   const elsewhere = skillsUsedElsewhere(actor);
-  const skills = actor.items.filter(i => (i.type === "skill") && !elsewhere.has(i.id) && (timingOf(i) !== "Constant"))
+  return actor.items.filter(i => (i.type === "skill") && !elsewhere.has(i.id) && (timingOf(i) !== "Constant"))
     .sort((a, b) => (a.sort - b.sort) || a.name.localeCompare(b.name, game.i18n.lang));
-  const groups = TIMING_GROUPS.filter(g => g.id !== "constant").map(g => ({ id: g.id, label: L(`Sheet.Timing.${g.id}`), rows: [] }));
-  for (const skill of skills) {
-    const timing = timingOf(skill);
-    const index = groups.findIndex(g => TIMING_GROUPS.find(t => t.id === g.id).timings.includes(timing));
-    groups[(index >= 0) ? index : groups.length - 1].rows.push(skillRow(skill, pins));
-  }
-  return { groups: groups.filter(g => g.rows.length) };
+}
+
+const TIMINGS = TIMING_GROUPS.filter(g => g.id !== "constant");
+/** The Timing group of a skill, as its index in TIMINGS (the last one, "other", when none fits). */
+function timingGroup(item) {
+  const timing = timingOf(item);
+  const index = TIMINGS.findIndex(g => g.timings.includes(timing));
+  return (index >= 0) ? index : TIMINGS.length - 1;
+}
+
+/** Skill rows by Timing. */
+function byTiming(skills, pins) {
+  const groups = TIMINGS.map(g => ({ id: g.id, label: L(`Sheet.Timing.${g.id}`), rows: [] }));
+  for (const skill of skills) groups[timingGroup(skill)].rows.push(skillRow(skill, pins));
+  return groups.filter(g => g.rows.length);
+}
+
+/** The general skills of a character (a monster: all its skills), by Timing. */
+function skillsPanel(actor, pins) {
+  const all = actor.type !== "character";
+  return { groups: byTiming(usedSkills(actor).filter(i => all || (skillPanelOf(i) === "skills")), pins), empty: L("Hud.NoSkills") };
+}
+
+/** The class's skills (a Dedication's too), by Timing. */
+function classPanel(actor, pins) {
+  return { groups: byTiming(usedSkills(actor).filter(i => skillPanelOf(i) === "class"), pins), empty: L("Hud.NoClassSkills") };
+}
+
+/**
+ * The spells, by Magia in the order of the slots: each Magia in the color of its category, with what it says under
+ * the pointer (right click opens it), and its spells by Timing, each with its own. The spells of a Magia the
+ * character doesn't have come last.
+ */
+function magicPanel(actor, pins) {
+  const spells = usedSkills(actor).filter(i => skillPanelOf(i) === "magic")
+    .sort((a, b) => (timingGroup(a) - timingGroup(b)) || (toInt(a.flags[SYSTEM_ID]?.minRank) - toInt(b.flags[SYSTEM_ID]?.minRank)));
+  const row = spell => ({ ...skillRow(spell, pins), when: isEmpty(spell.system.timing) ? "" : term("timing", spell.system.timing) });
+  const magias = actor.items.filter(i => (i.type === "skill") && i.flags?.[SYSTEM_ID]?.magic?.id)
+    .sort((a, b) => (toInt(a._stats?.createdTime) - toInt(b._stats?.createdTime)) || (a.sort - b.sort));
+  const groups = magias.map(magia => {
+    const id = magia.flags[SYSTEM_ID].magic.id;
+    const category = categoryView(categoryOf(magia.flags[SYSTEM_ID].magic));
+    return {
+      id: magia.id, label: magia.name, img: magia.img, color: category.color, note: category.label, noteIcon: category.icon,
+      tip: `<header><strong>${escape(magia.name)}</strong><span>${escape(`${L("Hud.Magia")} · ${category.label}`)}</span></header>`,
+      none: L("Hud.NoSpells"),
+      rows: spells.filter(s => itemMagia(s) === id).map(row)
+    };
+  });
+  const known = new Set(magias.map(m => m.flags[SYSTEM_ID].magic.id));
+  const others = spells.filter(s => !known.has(itemMagia(s)));
+  if (others.length) groups.push({ label: L("Hud.OtherSpells"), rows: others.map(row) });
+  return { groups, empty: L("Hud.NoMagic") };
 }
 
 /** The items panel: what is in the hands, the trigger powers of the equipment, and the usable items. */
@@ -400,6 +471,17 @@ function motorBlocks(actor) {
   });
 }
 
+/** A panel's button: a character's "skills" are its general ones. */
+const panelLabel = (id, character) => L(`Hud.Panel.${(character && (id === "skills")) ? "general" : id}`);
+
+/** The title over an open panel: as its button, but the general skills in full and the class panel with its name. */
+function panelTitle(actor, id) {
+  const character = actor.type === "character";
+  if (character && (id === "skills")) return L("Hud.Title.general");
+  const job = (id === "class") ? actor.items.find(i => i.type === "class") : null;
+  return job ? L("Hud.Title.class", { name: job.name }) : panelLabel(id, character);
+}
+
 /**
  * Everything the HUD template needs.
  * @param {Actor} actor
@@ -418,8 +500,8 @@ export function hudContext(actor, token, { panel, collapsed }) {
   const rank = actor.statuses.has("hateTop") ? "top" : (actor.statuses.has("hateUnder") ? "under" : null);
   const badCount = getStatusPanel(actor).find(g => g.id === "bad")?.statuses.filter(s => s.active).length ?? 0;
 
-  const panels = PANELS.map(p => ({
-    ...p, label: L(`Hud.Panel.${p.id}`), active: p.id === panel,
+  const panels = PANELS.filter(p => character || !p.character).map(p => ({
+    ...p, label: panelLabel(p.id, character), active: p.id === panel,
     badge: (p.id === "effects" && badCount) ? badCount : null
   }));
   if (!panels.some(p => p.id === panel)) panel = null;
@@ -447,8 +529,11 @@ export function hudContext(actor, token, { panel, collapsed }) {
   };
 
   if (panel && !collapsed) {
-    const build = { checks: checksPanel, skills: skillsPanel, items: itemsPanel, effects: effectsPanel }[panel];
-    context.panel = { id: panel, label: L(`Hud.Panel.${panel}`), hint: L(`Hud.Hint.${panel}`), [panel]: build(actor, pins) };
+    const build = {
+      checks: checksPanel, skills: skillsPanel, magic: magicPanel, class: classPanel, items: itemsPanel, effects: effectsPanel
+    }[panel];
+    const key = SKILL_PANELS.includes(panel) ? "skills" : panel;
+    context.panel = { id: panel, label: panelTitle(actor, panel), hint: L(`Hud.Hint.${key}`), [key]: build(actor, pins) };
   }
   return context;
 }

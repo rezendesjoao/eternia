@@ -575,6 +575,43 @@ body.lhauto-no-hotbar #lhauto-hud {
   color: var(--pf-tertiary);
   font-size: 10px;
 }
+/* A Magia over its spells: its picture, its name and its category, in the category's color */
+#lhauto-hud .lhh-group.magia {
+  height: 28px;
+  padding: 0 8px 0 3px;
+  background: var(--lhh-cat, var(--pf-primary));
+  cursor: help;
+}
+#lhauto-hud .lhh-group.magia img {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(233, 215, 161, 0.7);
+  object-fit: cover;
+}
+#lhauto-hud .lhh-group > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#lhauto-hud .lhh-group small {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  color: var(--pf-tertiary-light);
+  font: 500 11px/1 var(--pf-sans);
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+}
+#lhauto-hud .lhh-group small i {
+  font-size: 9px;
+}
 #lhauto-hud .lhh-empty {
   margin: 6px 4px;
   color: var(--pf-text-soft);
@@ -665,6 +702,12 @@ body.lhauto-no-hotbar #lhauto-hud {
   font-size: 10.5px;
   letter-spacing: 0;
   text-transform: none;
+}
+/* A spell's Timing (the spells are grouped by Magia) */
+#lhauto-hud .lhh-chip.when {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px rgba(31, 81, 55, 0.45);
+  color: var(--pf-primary);
 }
 #lhauto-hud .lhh-uses {
   display: flex;
@@ -897,8 +940,18 @@ body.lhauto-no-hotbar #lhauto-hud {
 }
 
 /* --------------------------------------------------------------------------
-   Narrow bottom column (hud.mjs fit): icon-only panel buttons, then shorter labels, then no resources column
+   Narrow bottom column (hud.mjs fit): tighter panel buttons, then icon-only ones, then shorter labels, then no
+   resources column
    -------------------------------------------------------------------------- */
+#lhauto-hud.compact .lhh-nav {
+  gap: 1px;
+}
+#lhauto-hud.compact .lhh-tab {
+  gap: 3px;
+  padding: 0 4px;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+}
 #lhauto-hud.narrow .lhh-tab {
   padding: 0 7px;
 }

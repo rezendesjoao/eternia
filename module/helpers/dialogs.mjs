@@ -55,13 +55,14 @@ export function boxContent({ img, eyebrow, heading, lead, lines = [], body = "",
  * @param {string} [options.yesIcon]
  * @param {string} [options.noIcon]
  * @param {string[]} [options.classes]  More classes for the window
+ * @param {number} [options.width]      Its width
  * @returns {Promise<boolean>}
  */
-export async function confirmBox({ title, icon, content, yes, no, yesIcon, noIcon, classes = [], ...parts }) {
+export async function confirmBox({ title, icon, content, yes, no, yesIcon, noIcon, classes = [], width = 440, ...parts }) {
   const answer = await foundry.applications.api.DialogV2.confirm({
     window: { title, icon: icon ?? "fa-solid fa-circle-question" },
     classes: ["lhauto-dialog", "lhd-box", ...classes],
-    position: { width: 440 },
+    position: { width },
     content: boxContent({ ...parts, body: content ?? parts.body ?? "" }),
     modal: true,
     rejectClose: false,

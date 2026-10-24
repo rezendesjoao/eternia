@@ -2465,6 +2465,37 @@
   color: var(--pf-text);
   font: 400 14.5px/1.55 var(--pf-body);
 }
+/* A box taller than the screen (a jump of many CRs) keeps its buttons: the text above them scrolls */
+.application.lhwin.themed.dialog .window-content > form {
+  min-height: 0;
+}
+.application.lhwin.themed.dialog .dialog-content {
+  min-height: 0;
+  margin-right: -12px;
+  padding-right: 12px;
+  overflow: hidden auto;
+  scrollbar-width: thin;
+}
+.application.lhwin.themed.dialog .form-footer {
+  flex: none;
+}
+/* While there is more below, the text fades out at the bottom edge (the timeline is inactive when nothing scrolls) */
+@property --lhd-fade {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@keyframes lhd-fade {
+  from, 92% { --lhd-fade: 28px; }
+  to { --lhd-fade: 0px; }
+}
+@supports (animation-timeline: scroll()) {
+  .application.lhwin.themed.dialog .dialog-content {
+    mask-image: linear-gradient(#000 calc(100% - var(--lhd-fade)), transparent);
+    animation: lhd-fade linear both;
+    animation-timeline: scroll(self);
+  }
+}
 .application.lhwin.themed.dialog .dialog-content p {
   margin: 0;
   font: inherit;

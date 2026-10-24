@@ -1,8 +1,9 @@
-{{!-- A usable row of the action HUD (skill, item power, usable item). --}}
+{{!-- A usable row of the action HUD (skill, item power, usable item; a spell shows its Timing). --}}
 <li class="lhh-row{{#if unusable}} unusable{{/if}}{{#if blocked}} blocked{{/if}}{{#if pinned}} pinned{{/if}}" data-action="lhh-use" data-item-id="{{id}}" data-tip-item="{{id}}" data-tooltip-html="{{tip}}" data-tooltip-class="lhh-tip" data-tooltip-direction="RIGHT">
 	<span class="lhh-row-img"><img src="{{img}}" alt=""></span>
 	<span class="lhh-row-name">{{name}}</span>
 	<span class="lhh-row-meta">
+		{{#if when}}<span class="lhh-chip when">{{when}}</span>{{/if}}
 		{{#if qty}}<span class="lhh-chip qty">×{{qty}}</span>{{/if}}
 		{{#if sr}}<span class="lhh-chip sr">{{localize 'ETERNIA.Sheet.SRShort'}} {{sr}}</span>{{/if}}
 		{{#if cost}}<span class="lhh-chip cost">{{cost}}</span>{{/if}}

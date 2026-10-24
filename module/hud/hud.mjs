@@ -6,9 +6,10 @@
  * - The bar: portrait (opens the sheet), resources, the combat state (join the combat, the actions left in the
  *   Main Process, end it, Standby), the Dodge Checks still to roll, the panel buttons and up to 8 pinned
  *   shortcuts.
- * - A panel opens above the bar: checks, skills by Timing, items, statuses. Click uses or rolls; Shift
- *   rolls a skill's Check right after its card (or asks a check's modifier); right click opens the item; the pin
- *   fixes it on the bar. Clicking the board or Escape closes the panel.
+ * - A panel opens above the bar: checks, the general skills, the spells of the Magias, the class's skills (a monster's
+ *   skills all in one), items, statuses. Click uses or rolls; Shift rolls a skill's Check right after its card (or
+ *   asks a check's modifier); right click opens the item; the pin fixes it on the bar. Clicking the board or Escape
+ *   closes the panel.
  * - Skills go through EterniaItem#ItemThrow, so use.mjs checks and records them as from the sheet; usable items
  *   through the system's useItem (after their Character Rank lock); a Dodge Check through the attack card's own
  *   button (rendered off-screen with its listeners).
@@ -149,9 +150,9 @@ export class ActionHud extends HandlebarsApplicationMixin(ApplicationV2) {
   /**
    * Fit the bar in the free space of the bottom column: between the players list and the chat box that floats in the
    * corner when the sidebar is collapsed, when they sit at the bar's height (with the macro hotbar hidden, the bar is
-   * at the bottom of the screen), and short of the open sidebar. Narrower layouts first (icon-only panel buttons, then the name in the portrait,
-   * then fewer pins); if it still doesn't fit beside them, the bar rises above them with the whole column; then it
-   * stays centered, or slides into the free space.
+   * at the bottom of the screen), and short of the open sidebar. Narrower layouts first (tighter panel buttons, then
+   * icon-only ones, then the name in the portrait, then fewer pins); if it still doesn't fit beside them, the bar rises
+   * above them with the whole column; then it stays centered, or slides into the free space.
    */
   fit() {
     const el = this.element;
@@ -173,8 +174,8 @@ export class ActionHud extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   /**
-   * Fit the bar in a width (layout pixels): narrow, then tiny, then fewer pins, then (squeeze) without the column of
-   * Fate, Hate and Fatigue.
+   * Fit the bar in a width (layout pixels): compact, then narrow, then tiny, then fewer pins, then (squeeze) without the
+   * column of Fate, Hate and Fatigue.
    * @param {number} room
    * @param {boolean} squeeze   Whether this is the last try (the bar can't rise any higher).
    * @returns {boolean}   Whether it fits.
@@ -183,14 +184,14 @@ export class ActionHud extends HandlebarsApplicationMixin(ApplicationV2) {
     const el = this.element;
     room = Math.max(0, Math.floor(room));
     el.style.maxWidth = `${room}px`;
-    el.classList.remove("narrow", "tiny", "micro");
+    el.classList.remove("compact", "narrow", "tiny", "micro");
     const bar = el.querySelector(".lhh-bar");
     const name = el.querySelector(".lhh-name");
     // The bar is as wide as its content up to the room; past that its parts are squeezed (scrollWidth grows).
     const overflows = () => (el.offsetWidth > room + 1) || (bar && (bar.scrollWidth > bar.clientWidth + 1))
       || [...el.querySelectorAll(".lhh-side, .lhh-main")].some(part => part.scrollWidth > part.clientWidth + 1)
       || (name && (name.offsetParent !== null) && (name.scrollWidth > name.clientWidth + 1));
-    for (const size of ["narrow", "tiny"]) {
+    for (const size of ["compact", "narrow", "tiny"]) {
       if (!overflows()) break;
       el.classList.add(size);
     }

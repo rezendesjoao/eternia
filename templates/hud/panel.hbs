@@ -24,13 +24,20 @@
 		{{/each}}
 		{{/with}}
 
-		{{!-- SKILLS --}}
+		{{!-- SKILLS: the general ones and the class's by Timing; the spells under their Magia (its picture, its
+		     category, and what it says under the pointer) --}}
 		{{#with panel.skills}}
 		{{#each groups}}
-		<h4 class="lhh-group">{{label}}</h4>
+		<h4 class="lhh-group{{#if img}} magia{{/if}}"{{#if id}} data-item-id="{{id}}" data-tip-item="{{id}}" data-tooltip-html="{{tip}}" data-tooltip-class="lhh-tip" data-tooltip-direction="RIGHT"{{/if}}{{#if color}} style="--lhh-cat: {{color}}"{{/if}}>
+			{{#if img}}<img src="{{img}}" alt="">{{/if}}<span>{{label}}</span>{{#if note}}<small><i class="{{noteIcon}}"></i>{{note}}</small>{{/if}}
+		</h4>
+		{{#if rows.length}}
 		<ul class="lhh-rows">{{#each rows}}{{> "systems/eternia/templates/hud/row.hbs"}}{{/each}}</ul>
 		{{else}}
-		<p class="lhh-empty">{{localize 'ETERNIA.Hud.NoSkills'}}</p>
+		<p class="lhh-empty">{{none}}</p>
+		{{/if}}
+		{{else}}
+		<p class="lhh-empty">{{empty}}</p>
 		{{/each}}
 		{{/with}}
 
