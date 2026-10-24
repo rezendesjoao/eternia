@@ -1,0 +1,118 @@
+{
+  "name": "Olho do Demônio",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Olhos Mágicos.</strong> Você abre o olho do demônio até o fim da cena: fica [Despertado: NP÷2 + 2] (+1d6 nos testes de Precisão e +NP÷2 + 2 de dano nos ataques). Quando ele fecha, você fica com [Fadiga] do mesmo Valor. Uma vez por cena.</p><p><em>O olho novo enxerga a magia como cor. E gosta do que vê.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/perception/eye-ringed-glow-angry-small-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "awakened",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Olho do Demônio",
+      "img": "systems/eternia/assets/ui/status/awakened.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "awakened"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "bECoj6XDswpW5QrL",
+      "_key": "!items.effects!UCDqzKKVxDVKG4zz.bECoj6XDswpW5QrL"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "olhos-magicos-demonio",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "olhos-magicos"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "UCDqzKKVxDVKG4zz",
+  "folder": "AA5NFR8rWLp8xlBB",
+  "_key": "!items!UCDqzKKVxDVKG4zz"
+}

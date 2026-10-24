@@ -1,0 +1,79 @@
+{
+  "name": "Olhar Petrificante",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Olhos Mágicos. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: o seu olhar varre uma área ampla a até 6 Qd e transforma tudo em pedra por um instante. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico, e quem ele acerta fica [Paralisado] (perde a vez). Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Uma praça cheia de estátuas, todas com a mesma cara de surpresa.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/death/skeleton-eye-skull-glow-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "olhos-magicos-petrificante",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "paralyzed"
+        }
+      ],
+      "magicSpell": {
+        "id": "olhos-magicos"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "s185WZFRV5eGkJeQ",
+  "folder": "AA5NFR8rWLp8xlBB",
+  "_key": "!items!s185WZFRV5eGkJeQ"
+}

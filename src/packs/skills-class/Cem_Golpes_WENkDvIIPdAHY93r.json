@@ -1,0 +1,76 @@
+{
+  "name": "Cem Golpes",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Alta Velocidade.</strong> Feitiço grande. Cem golpes num inimigo engajado com você, rápidos demais para contar: Teste de Precisão contra a Esquiva; [4d6 + Poder Mágico] de dano mágico, e ele fica com [Perseguição: NP].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>De fora, parece um golpe só, muito barulhento.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/light/projectile-bolts-salvo-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "alta-velocidade-cem",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "pursuit",
+          "value": "@cr"
+        }
+      ],
+      "magicSpell": {
+        "id": "alta-velocidade"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "WENkDvIIPdAHY93r",
+  "folder": "pNh6skb4BwsCnXEZ",
+  "_key": "!items!WENkDvIIPdAHY93r"
+}

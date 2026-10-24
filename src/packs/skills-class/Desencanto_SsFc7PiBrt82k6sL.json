@@ -1,0 +1,85 @@
+{
+  "name": "Desencanto",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Encantamento.</strong> Você arranca os encantos de um alvo a até 4 Qd (Teste de Precisão contra a Resistência): saem dele [Fortalecido], [Acelerado], [Concentrado], [Anulação], [Barreira], [Regeneração], [Espelho], [Intangível] e [Despertado].</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>As runas dele se desfazem no ar como fios cortados.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/control/debuff-energy-snare-green.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "encantamento-desencanto",
+      "kind": "feeds",
+      "branch": "magic",
+      "useActions": [
+        {
+          "type": "removeStatus",
+          "statuses": [
+            "empowered",
+            "hasted",
+            "focused",
+            "cancel",
+            "barrier",
+            "regen",
+            "mirror",
+            "intangible",
+            "awakened"
+          ]
+        }
+      ],
+      "magicSpell": {
+        "id": "encantamento"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "SsFc7PiBrt82k6sL",
+  "folder": "RpI1vM0snTnqyDAo",
+  "_key": "!items!SsFc7PiBrt82k6sL"
+}

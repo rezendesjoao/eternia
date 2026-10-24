@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.19.0 — 2026-10-23
+
+### Adicionado
+- **Quatro Magias de Conjuração**, para qualquer classe de magia: **Gigante** (Golpe Gigante, Mão Gigante, Corpo
+  Gigante, Pisada do Gigante, Punho do Titã e o supremo Queda do Titã: [Agarrado], [Cambaleante], [Derrubado]),
+  **Encantamento** (Encantamento: Força, Guarda e Pressa nos aliados, Desencanto, Grande Encantamento e o supremo
+  Universo Um), **Olhos Mágicos** (Olhar de Pedra, Olho Clínico, Olhar Hipnótico, Olho do Demônio, Mil Olhos e o
+  supremo Olhar Petrificante: [Rigidez], [Marcado], [Encantado], [Paralisado]) e **Alta Velocidade** (Golpe Veloz,
+  Rajada de Golpes, Velocidade Máxima, Chute Supersônico, Cem Golpes e o supremo Tempestade de Golpes: [Perseguição],
+  [Acelerado]). O catálogo chega a 34 Magias.
+- Páginas XII.5 (Alta Velocidade), XII.11 (Encantamento), XII.17 (Gigante) e XII.26 (Olhos Mágicos) do capítulo XII.
+  MAGIAS do diário AS REGRAS.
+
+### Alterado
+- As páginas do capítulo XII foram renumeradas em ordem alfabética (Arco do Tempo é a XII.6, Vento a XII.34).
+- O aviso de novidades fala da 0.19.
+
 ## 0.18.0 — 2026-10-23
 
 ### Adicionado

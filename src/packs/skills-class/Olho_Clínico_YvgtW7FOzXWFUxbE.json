@@ -1,0 +1,117 @@
+{
+  "name": "Olho Clínico",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Olhos Mágicos.</strong> Você acha a falha na guarda de um alvo a até 6 Qd (Teste de Precisão contra a Resistência): ele fica [Marcado: NP÷2 + 2] (−1d6 nas Esquivas; ao falhar numa, sofre o Valor como dano direto e a marca sai). Uma vez por rodada.</p><p><em>Você aponta o lugar exato. Os aliados só precisam acertar ali.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/eyes/lizard-single-slit-pink.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "marked",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Olho Clínico",
+      "img": "systems/eternia/assets/ui/status/marked.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "marked"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "qMTPJMMJI8NyTFa4",
+      "_key": "!items.effects!YvgtW7FOzXWFUxbE.qMTPJMMJI8NyTFa4"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "olhos-magicos-clinico",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "olhos-magicos"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "YvgtW7FOzXWFUxbE",
+  "folder": "AA5NFR8rWLp8xlBB",
+  "_key": "!items!YvgtW7FOzXWFUxbE"
+}
