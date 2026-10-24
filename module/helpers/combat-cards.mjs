@@ -435,7 +435,9 @@ export async function createAttackCard(item, attacker, formula, flavor, { bonuse
      * @param {Roll} roll
      * @param {{item: Item|null, kind: "check"|"attack"|"dodge", message: ChatMessage, attacker?: Actor}} context
      */
-    if (!auto && rolls[0]) Hooks.callAll("eternia.check", by, rolls[0], { item, kind: "attack", message });
+    // The message's own Roll: creating the message serializes the `rolls` given to it
+    const hitRoll = auto ? null : message.rolls?.[0];
+    if (hitRoll) Hooks.callAll("eternia.check", by, hitRoll, { item, kind: "attack", message });
     for (const entry of targets) {
       const actor = targetActor(entry);
       if (!actor) continue;
