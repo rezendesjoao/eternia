@@ -16,24 +16,26 @@
  *   until the end of the next round).
  *
  * The ten Decrees, what breaks them and the curse (the values are the bearer's: NP = its CR):
- *   amor       deals damage to the bearer (a damage card)                                  [Pacified]
+ *   amor       deals damage to the bearer (a damage card: eternia.damaged)                  [Pacified]
  *   verdade    leaves the engagement with the bearer: its token moves out of the bearer's square (not a forced
- *              move: a pull, a push)                                                       [Petrified]
- *   devocao    engaged with the bearer, uses a hostile skill on others (not on the bearer) [Dominated] by the bearer
- *   pacifismo  takes a creature to 0 HP with a damage card                                  [Doom: 3]
- *   paciencia  recovers HP or gets rid of a Bad Status (eternia.relieved: where [Agony] hurts) [Agony: NP]
- *   repouso    uses a hostile skill in two rounds in a row                                  [Sealed] on that skill
- *   silencio   uses a reaction: Instant, Before / After Check, Damage Roll, Before / After Damage [Silenced]
- *   pureza     uses a hostile skill on a [Prone], [Grappled], [Paralyzed], [Asleep] or [Petrified] target [Poisoned: NP]
+ *              move: a pull, a push, a switch)                                              [Petrified]
+ *   devocao    engaged with the bearer, attacks others and not the bearer (eternia.attack) [Dominated] by the bearer
+ *   pacifismo  takes a creature to 0 HP (eternia.defeated)                                  [Doom: 3]
+ *   paciencia  recovers HP or gets rid of a Bad Status (eternia.recovered, eternia.freed)   [Agony: NP]
+ *   repouso    attacks in two rounds in a row (eternia.attacked)                            [Sealed] on that skill
+ *   silencio   uses a reaction: Instant, Before / After Check, Damage Roll, Before / After Damage (eternia.skillUsed)
+ *                                                                                          [Silenced]
+ *   pureza     attacks a [Prone], [Grappled], [Paralyzed], [Asleep] or [Petrified] target (eternia.attack) [Poisoned: NP]
  *   desapego   has two Combat Statuses or more (gets the second bonus)                      [Amnesia]; loses them all
- *   fe         ends its Main Process without having used a hostile skill that round        [Blinded], [Burning: NP÷2 + 2]
+ *   fe         ends its Main Process without having attacked that round (eternia.processEnd) [Blinded], [Burning: NP÷2 + 2]
  * A curse that ends at the end of the breaker's own Main Process, given during that Main Process, lasts through the
  * next one (`flags.eternia.nextTurn`, conditions/turns.mjs). Every curse carries `flags.eternia.decreeCurse = { by, decree }`: a spell's `bonusVs` entry with `decreeOf` hits
  * harder whoever is under a curse of its caster (the Magia's Trait), and Mandamento Materializado gives on a hit the
  * curses of its caster's own Decrees (`flags.eternia.decreeCurse` on the spell, helpers/magic-traits.mjs).
  *
- * The client that sees a Decree broken (the one that applied the damage, used the skill, moved the token, ended the
- * Main Process…) asks the GM, who gives the curse (a socket request).
+ * The client that sees a Decree broken (the one that applied the damage, made the attack card, moved the token, ended
+ * the Main Process…) asks the GM, who gives the curse (a socket request). An attack is an attack card (the record of
+ * conditions/turns.mjs, flags.eternia.attacked).
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isLocalChange, isPrimaryGM } from "../helpers/clients.mjs";
@@ -44,7 +46,7 @@ import { statusDefinition } from "../helpers/statuses.mjs";
 import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { END_OF_OWN_PROCESS } from "./catalog.mjs";
 import { takeDamage } from "./damage.mjs";
-import { has, isHostile, removeStatuses, rulesOn, sameActor } from "./rules.mjs";
+import { has, removeStatuses, rulesOn, sameActor } from "./rules.mjs";
 
 /** The ten Decrees. */
 export const DECREES = ["amor", "verdade", "devocao", "pacifismo", "paciencia", "repouso", "silencio", "pureza", "desapego", "fe"];
@@ -339,37 +341,56 @@ function onDefeated(actor, card) {
   breakAll(breaker, "pacifismo").catch(err => console.error(`${SYSTEM_ID} | Decree of Pacifism failed`, err));
 }
 
-/** Patience: whoever recovers HP or gets rid of a Bad Status (the points [Agony] hurts at: conditions/damage.mjs). */
-function onRelieved(actor) {
+/** Patience: whoever recovers HP or gets rid of a Bad Status (conditions/damage.mjs: eternia.recovered, eternia.freed). */
+function onRelief(actor) {
+  if (!actor) return;
   breakAll(actor, "paciencia").catch(err => console.error(`${SYSTEM_ID} | Decree of Patience failed`, err));
 }
 
-/**
- * A skill was used: Silence (a reaction), Devotion (engaged with the bearer, attacks someone else), Purity (attacks a
- * defenseless target), Rest (attacks in two rounds in a row; the round of each attack is kept in
- * flags.eternia.attacked = { combat, round, prev }, read by the Decree of Faith).
- * @param {Item} item
- * @param {{actor: Actor, targets: Actor[]}} context
- */
-async function onSkillUsed(item, { actor = item?.actor, targets = [] } = {}) {
+/** Silence: a skill used as a reaction (automation/use.mjs: eternia.skillUsed). */
+async function onSkillUsed(item, { actor = item?.actor } = {}) {
   if (!rulesOn() || !actor || (item?.type !== "skill")) return;
-  const timing = parseSkillField("timing", item.system.timing).type;
-  if (REACTIONS.has(timing)) await breakAll(actor, "silencio");
-  if (!isHostile(item)) return;
+  if (REACTIONS.has(parseSkillField("timing", item.system.timing).type)) await breakAll(actor, "silencio");
+}
+
+/**
+ * An attack was declared (an attack card, on the attacker's client: eternia.attack): Devotion (engaged with the bearer,
+ * it attacks others and not the bearer) and Purity (one of its targets is defenseless).
+ * @param {ChatMessage} message
+ * @param {{item: Item, attacker: Actor|null, targets: Actor[]}} context
+ */
+async function onAttack(message, { item = null, attacker = null, targets = [] } = {}) {
+  const actor = attacker ?? item?.actor;
+  if (!rulesOn() || !actor) return;
   const others = (targets ?? []).filter(t => t && !sameActor(t, actor));
-  if (others.length) {
-    await breakAll(actor, "devocao", { only: bearer => !others.some(t => sameActor(t, bearer)) && engaged(bearer, actor) });
-    if (others.some(t => DEFENSELESS.some(id => has(t, id)))) await breakAll(actor, "pureza");
-  }
-  const combat = combatOf(actor);
-  if (!combat) return;
-  const before = actor.getFlag(SYSTEM_ID, "attacked");
-  const same = before?.combat === combat.id;
-  const prev = same ? ((before.round === combat.round) ? before.prev : before.round) : null;
-  if (prev === (combat.round - 1)) await breakAll(actor, "repouso", { skill: item.name });
-  if (!same || (before.round !== combat.round)) {
-    await actor.setFlag(SYSTEM_ID, "attacked", { combat: combat.id, round: combat.round, prev }).catch(() => null);
-  }
+  if (!others.length) return;
+  await breakAll(actor, "devocao", { only: bearer => !others.some(t => sameActor(t, bearer)) && engaged(bearer, actor) });
+  if (others.some(t => DEFENSELESS.some(id => has(t, id)))) await breakAll(actor, "pureza");
+}
+
+/**
+ * Rest: an attack the round right after another one (conditions/turns.mjs: eternia.attacked, on the primary GM). The
+ * curse seals the skill of that attack.
+ * @param {Actor} attacker
+ * @param {{message: ChatMessage, round: number, previous: number|null}} context
+ */
+function onAttacked(attacker, { message = null, round = 0, previous = null } = {}) {
+  if (!attacker || (previous === null) || (previous !== (round - 1))) return;
+  const uuid = message?.getFlag?.(SYSTEM_ID, "attack")?.itemUuid;
+  const skill = (uuid ? fromUuidSync(uuid)?.name : "") ?? "";
+  breakAll(attacker, "repouso", { skill }).catch(err => console.error(`${SYSTEM_ID} | Decree of Rest failed`, err));
+}
+
+/**
+ * Faith: a Main Process ended without an attack that round (conditions/turns.mjs: eternia.processEnd, on the window
+ * that ended it); not a Main Process lost to a status.
+ * @param {Actor} actor
+ * @param {Combat} combat
+ * @param {{attacked: boolean, lost: boolean}} context
+ */
+function onProcessEnd(actor, combat, { attacked = false, lost = false } = {}) {
+  if (!actor || attacked || lost || actor.statuses.has("incapacitated") || actor.statuses.has("dead")) return;
+  breakAll(actor, "fe").catch(err => console.error(`${SYSTEM_ID} | Decree of Faith failed`, err));
 }
 
 /** Whether two actors stand in the same square in a started combat (engaged). */
@@ -408,24 +429,6 @@ function onCreateEffect(effect, options, userId) {
   const gives = [...(effect.statuses ?? []), flag(effect, "statusData")?.statusId].filter(Boolean);
   if (!gives.some(id => statusDefinition(id)?.group === "combat") || (bonusesOf(actor).length < 2)) return;
   breakAll(actor, "desapego").catch(err => console.error(`${SYSTEM_ID} | Decree of Detachment failed`, err));
-}
-
-/** Faith: who is taking its Main Process before a combat update. */
-function onPreUpdateCombat(combat, changes, options) {
-  options.eterniaDecreeActive = combat.progress?.active ?? null;
-}
-
-/** Faith: a Main Process ended without a hostile skill used that round. */
-async function onUpdateCombat(combat, changes, options, userId) {
-  if (!rulesOn() || !isLocalChange(options, userId)) return;
-  const acted = foundry.utils.getProperty(changes, "flags.eternia.acted");
-  const was = options.eterniaDecreeActive;
-  if (!Array.isArray(acted) || !was || !acted.includes(was)) return;
-  const actor = combat.combatants.get(was)?.actor;
-  if (!actor || actor.statuses.has("incapacitated") || actor.statuses.has("dead")) return;
-  const record = actor.getFlag(SYSTEM_ID, "attacked");
-  const attacked = (record?.combat === combat.id) && (record.round === combat.round);
-  if (!attacked) await breakAll(actor, "fe");
 }
 
 /** Os Dez Mandamentos and the like: `decreeRounds` counts down in each Cleanup Process, and the effect ends at 0. */
@@ -498,12 +501,14 @@ export function registerDecree() {
   registerHandler("decreeBreak", onBreakRequest);
   Hooks.on("eternia.damaged", onDamaged);
   Hooks.on("eternia.defeated", onDefeated);
-  Hooks.on("eternia.relieved", onRelieved);
-  Hooks.on("eternia.skillUsed", (...args) => onSkillUsed(...args).catch(err => console.error(`${SYSTEM_ID} | Decrees failed`, err)));
+  Hooks.on("eternia.recovered", actor => onRelief(actor));
+  Hooks.on("eternia.freed", (actor, { statuses = [] } = {}) => { if (statuses.length) onRelief(actor); });
+  Hooks.on("eternia.skillUsed", (...args) => onSkillUsed(...args).catch(err => console.error(`${SYSTEM_ID} | Decree of Silence failed`, err)));
+  Hooks.on("eternia.attack", (...args) => onAttack(...args).catch(err => console.error(`${SYSTEM_ID} | Decrees failed`, err)));
+  Hooks.on("eternia.attacked", onAttacked);
+  Hooks.on("eternia.processEnd", onProcessEnd);
   Hooks.on("preUpdateToken", onPreUpdateToken);
   Hooks.on("updateToken", onUpdateToken);
   Hooks.on("createActiveEffect", onCreateEffect);
-  Hooks.on("preUpdateCombat", onPreUpdateCombat);
-  Hooks.on("updateCombat", (...args) => onUpdateCombat(...args).catch(err => console.error(`${SYSTEM_ID} | Decree of Faith failed`, err)));
   Hooks.on("eternia.combatPhase", (...args) => onCombatPhase(...args).catch(err => console.error(`${SYSTEM_ID} | Decree rounds failed`, err)));
 }
