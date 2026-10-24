@@ -73,6 +73,8 @@ export const SAMURAI = {
     const id = identifierOf(item);
     const followed = path(actor, lesser);
     if ((id === T("respiracao")) && talentOf(actor, T("respiracao-profunda"))) plan.gain = 2;
+    // The spells of the Magias only gather Cuts with the blade sheathed.
+    if (item.flags?.eternia?.magicSpell && (data.state !== "sheathed")) plan.gain = 0;
     if (motor.draw) {
       plan.changes.last = plan.spent;
       plan.changes.perfectLast = 0;

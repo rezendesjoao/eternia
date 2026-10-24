@@ -29,12 +29,16 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   Motor em código em `module/classes/` (estado em `flags.eternia.motor.<classe>`). Regras de construção, flags e como
   criar uma classe: `docs/classes.md`. Não há arquétipos nem Kuden. Uma classe que saiu da lista leva
   `flags.eternia.retired` no item e na Dedicação (o Ressonante, que virou o Mago Vermelho, o Tecelão, que virou o Mago
-  Branco, e o Feiticeiro, que virou o Mago Negro com a Magia Fogo).
-- Magia = habilidade passiva com `flags.eternia.magic` (dada pelas vagas de Magia das classes de magia, NP 1, 5 e 10) e
-  os feitiços com `flags.eternia.magicSpell`, em `skills-class`, pasta `Magias/<Magia>`; o Motor dos feitiços é o da
-  classe de quem conjura (`motor.id: "@class"`). Veja "As Magias" em `docs/classes.md`. Uma classe que já existia e vira
-  classe de magia (o Invocador) entra em `MAGIC_CLASSES` de `module/classes/migration.mjs`: a migração `kudenCleanup`
-  põe as vagas no item de classe das fichas.
+  Branco, o Feiticeiro, que virou o Mago Negro com a Magia Fogo, e, na 0.22, o Druida, o Sacerdote, o Oráculo, o
+  Estrategista e o Menestrel). As 14 classes da lista têm família (física ou mágica) e função no grupo em `CLASSES`
+  (`module/classes/data.mjs`), que dão a cor do emblema e da aba. O Monge, o Guardião e o Comandante se chamam Lutador,
+  Centurião e Hierofante desde a 0.22, com os mesmos ids.
+- Magia = habilidade passiva com `flags.eternia.magic` (dada pelas vagas de Magia da classe: NP 1, 5 e 10 nas
+  mágicas, 1 e 10 nas físicas, 5 e 10 no Matador de Dragões) e os feitiços com `flags.eternia.magicSpell`, em
+  `skills-class`, pasta `Magias/<Magia>`; o Motor dos feitiços é o da classe de quem conjura (`motor.id: "@class"`). Veja "As Magias" em `docs/classes.md`. Uma classe que já existia e ganha
+  vagas de Magia (o Invocador na 0.13; as físicas e o Matador de Dragões na 0.22) entra em `MAGIC_CLASSES` de
+  `module/classes/migration.mjs`, com os NP das vagas: a migração `kudenCleanup` põe as vagas no item de classe das
+  fichas.
 - Um efeito de habilidade que depende de outra habilidade (um Caminho, um talento) usa as condições `hasSkill` e
   `notSkill`, pelo nome, conferidas em quem usa (o Escudo Esculpido do Pictomante vira muralha no Caminho da Paisagem).
 - Raça = item `race` com atributos, `hp`, `fate` e `grants` (as 2 inatas, uma Geral e uma de Combate; uma escolha vira

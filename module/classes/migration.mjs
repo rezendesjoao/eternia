@@ -12,6 +12,10 @@
  * classes that still have the blank picture (or the old icon) take their emblem.
  * Version 4, the Summoner became a magic class (0.13): its class items without the Magia slots take them (CR 1, 5 and
  * 10, after the kit), so the characters that already have it can choose their Magias.
+ * Version 5, the 14 classes (0.22): the Monk, the Guardian and the Commander are the Lutador, the Centurião and the
+ * Hierofante (the class items, the Dedications with their flag, the skill browser finds the class by its name, and the
+ * Palavra de Guardião); the physical classes take their Magia slots (CR 1 and 10) and the Dragon Slayer its own (CR 5
+ * and 10).
  */
 const KUDEN_TYPES = new Set(["kudenResource", "kudenResourceFull", "sceneDay", "sceneNight", "sceneNoon", "sceneOpenSky",
   "sceneDarkness", "sceneMiasma", "sceneNoMiasma", "targetBossRaid", "hpAtMost"]);
@@ -38,17 +42,43 @@ const listOf = value => (Array.isArray(value) ? value : Object.values(value ?? {
 const stale = list => listOf(list).some(c => KUDEN_TYPES.has(c?.type));
 const kept = list => listOf(list).filter(c => !KUDEN_TYPES.has(c?.type));
 
-/** The classes that became magic classes, and the Magia slots their class items take. */
-const MAGIC_CLASSES = new Set(["invocador"]);
-const MAGIC_SLOTS = [1, 5, 10].map(rank => ({ rank, magic: true }));
+/** The classes that took Magia slots after they existed, and the Character Ranks of the slots. */
+const MAGIC_CLASSES = {
+  invocador: [1, 5, 10],
+  assassino: [1, 10], berserker: [1, 10], cacador: [1, 10], comandante: [1, 10], guardiao: [1, 10], monge: [1, 10],
+  samurai: [1, 10],
+  matador: [5, 10]
+};
 
-/** The grants of a class item of a magic class without its Magia slots, with them after the kit; or null. */
+/** The classes renamed in 0.22, by identifier, and the class skill renamed with them. */
+const RENAMED = { monge: "Lutador", guardiao: "Centurião", comandante: "Hierofante" };
+const RENAMED_SKILLS = { "guardiao-palavra-de-guardiao": "Palavra de Centurião" };
+
+/** The grants of a class item without the Magia slots of its class, with them after the kit; or null. */
 function magicGrants(item) {
   const source = item._source;
-  if ((item.type !== "class") || !MAGIC_CLASSES.has(source.system?.identifier)) return null;
+  const ranks = (item.type === "class") ? MAGIC_CLASSES[source.system?.identifier] : null;
+  if (!ranks) return null;
   const grants = listOf(source.system?.grants);
   if (grants.some(g => g?.magic)) return null;
-  return [...grants.filter(g => !g?.rank), ...MAGIC_SLOTS, ...grants.filter(g => g?.rank)];
+  return [...grants.filter(g => !g?.rank), ...ranks.map(rank => ({ rank, magic: true })), ...grants.filter(g => g?.rank)];
+}
+
+/** The new names of a renamed class's item, Dedication or skill. */
+function renameChanges(item) {
+  const source = item._source;
+  const update = {};
+  const name = (item.type === "class") ? RENAMED[source.system?.identifier] : null;
+  if (name && (source.name !== name)) update.name = name;
+  const dedication = source.flags?.eternia?.dedication;
+  const renamed = (item.type === "skill") ? RENAMED[dedication?.id] : null;
+  if (renamed && (source.flags?.eternia?.branch === "dedication") && (dedication.name !== renamed)) {
+    update.name = `Dedicação: ${renamed}`;
+    update["flags.eternia.dedication.name"] = renamed;
+  }
+  const skill = (item.type === "skill") ? RENAMED_SKILLS[source.flags?.eternia?.identifier] : null;
+  if (skill && (source.name !== skill)) update.name = skill;
+  return update;
 }
 
 /** The changes of an item, or null. */
@@ -65,9 +95,10 @@ function itemChanges(item, done) {
   if (OLD_ICONS.has(source.img)) update.img = CLASS_IMG;
   if (OLD_ICONS.has(source.img) || (source.img === CLASS_IMG)) update.img = emblemOf(item) ?? update.img;
   if (update.img === source.img) delete update.img;
-  if (done < 4) {
+  if (done < 5) {
     const grants = magicGrants(item);
     if (grants) update["system.grants"] = grants;
+    Object.assign(update, renameChanges(item));
   }
   return foundry.utils.isEmpty(update) ? null : update;
 }
@@ -111,4 +142,4 @@ async function run(done) {
   return true;
 }
 
-export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 4, run };
+export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 5, run };

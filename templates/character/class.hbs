@@ -1,6 +1,6 @@
 {{!-- CLASS (module/classes/sheet.mjs), made to fit without scrolling: the class band (emblem, roles, base), the Motor,
      the CR trail (what each CR gives; the choices still open glow; a click opens their section) and the sections, one at
-     a time: the kit with how the Motor works, the element (the Dragon Slayer's), the Magias (a magic class), the talents
+     a time: the kit with how the Motor works, the element (the Dragon Slayer's), the Magias, the talents
      by branch, the Path with the Apex, the general talents and the Dedications. Every skill is a tile: the picture uses
      it (when the character has it), the name opens it, and the pointer over it shows what it does.
      Without a class: the button that opens the class browser. --}}
@@ -58,7 +58,7 @@
 		<header class="lhcl-band">
 			<a class="lhcl-emblem{{#if c.img}} has-img{{/if}}" data-action="class-img" data-tooltip="{{localize 'ETERNIA.Classes.OpenClass'}}" aria-label="{{c.name}}">{{#if c.img}}<img src="{{c.img}}" alt="">{{else}}<i class="fa-solid fa-chess-knight"></i>{{/if}}</a>
 			<div class="lhcl-band-text">
-				<span class="lhcl-eyebrow">{{#if c.magicClass}}{{localize "ETERNIA.Classes.MagicClass"}}{{else}}{{localize "ETERNIA.Classes.Eyebrow"}}{{/if}}</span>
+				<span class="lhcl-eyebrow">{{c.eyebrow}}</span>
 				<h2 class="lhcl-name{{#if c.longName}} long{{/if}}">{{c.name}}</h2>
 				{{#if c.roles.length}}<span class="lhcl-roles">{{#each c.roles}}<span class="lhcl-role">{{this}}</span>{{/each}}</span>{{/if}}
 			</div>

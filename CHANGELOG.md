@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.22.0 — 2026-10-24
+
+### Adicionado
+- **As 14 classes: 7 físicas e 7 mágicas, todas com Magias.** As físicas (Assassino, Berserker, Caçador, Centurião,
+  Hierofante, Lutador e Samurai) escolhem uma Magia no NP 1 e outra no NP 10, e os feitiços alimentam o Motor da
+  classe: a Bainha do Samurai (só com a lâmina embainhada), a Corrente do Lutador (o feitiço conta como golpe e a
+  Corrente não quebra), a Ira do Berserker, o Contrato do Assassino (as Brechas vêm dos acertos no Alvo), a Mira do
+  Caçador, o Baluarte do Centurião e as Táticas do Hierofante. O Matador de Dragões ganha duas Magias, no NP 5 e no
+  NP 10 (o elemento é a magia dele no NP 1). As fichas que já existem ganham as vagas pela migração.
+- **Família e função de cada classe:** a aba Classe diz "Classe física · Tanque", "Classe mágica · Suporte" e assim
+  por diante (uma classe antiga diz "Classe antiga").
+
+### Alterado
+- Monge, Guardião e Comandante agora se chamam **Lutador**, **Centurião** e **Hierofante** (nomes, textos, Dedicações e
+  a Palavra de Centurião). Os ids ficaram, e a migração renomeia o item de classe e a Dedicação nas fichas.
+- **Emblemas e cores:** a cor diz a família e a função no grupo. Físicas em tons quentes (Tanque bronze, Dano
+  carmesim, Precisão laranja, Suporte ouro), mágicas em tons frios (Dano violeta, Híbrida azul, Controle turquesa,
+  Suporte prata); a faixa da aba Classe usa a mesma cor. As classes antigas ficam com as cores de antes.
+- As Magias dizem "o Motor da sua classe", não mais "da sua classe de magia". A janela de escolha da Magia diz as
+  vagas da sua classe (no NP 1 e no NP 10, por exemplo).
+- Diário AS REGRAS: o capítulo XI reorganizado (XI.1 a XI.7 as físicas, XI.8 a XI.14 as mágicas, XI.15 a XI.22 as
+  antigas); XI.a explica a família, a função e as Magias; as páginas das físicas e a do Matador de Dragões dizem como
+  os feitiços entram no Motor; XII.a diz quem tem Magias.
+- O aviso de novidades fala da 0.22.
+
+### Removido
+- Druida, Sacerdote, Oráculo, Estrategista e Menestrel saíram da lista de classes e das Dedicações, como o Feiticeiro,
+  o Tecelão e o Ressonante; as fichas que já os usam continuam funcionando.
+
 ## 0.21.0 — 2026-10-24
 
 ### Adicionado

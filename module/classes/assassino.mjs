@@ -123,6 +123,8 @@ export const ASSASSINO = {
   plan(actor, item, motor, { data, max, lesser, plan }) {
     const id = identifierOf(item);
     const followed = path(actor, lesser);
+    // The spells of the Magias open Breaches by their hits on the Target, as any hit does, not by being cast.
+    if (item.flags?.eternia?.magicSpell) plan.gain = 0;
     if (id === T("firmar-contrato")) {
       const [chosen] = targeted();
       if (!chosen) return null;

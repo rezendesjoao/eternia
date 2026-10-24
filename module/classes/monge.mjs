@@ -85,7 +85,8 @@ export const MONGE = {
   plan(actor, item, motor, { data, max, lesser, plan }) {
     const id = identifierOf(item);
     const followed = path(actor, lesser);
-    if (motor.chain || motor.keep) plan.changes.struck = roundKey(actor);
+    // The spells of the Magias count as Chain skills: they keep the Chain whole at the end of the turn.
+    if (motor.chain || motor.keep || item.flags?.eternia?.magicSpell) plan.changes.struck = roundKey(actor);
     if (id === T("golpe-final")) {
       const full = !lesser && (max > 0) && (toInt(data.value) >= max);
       plan.vars = { ...plan.vars, full: full ? 1 : 0, flat: (followed === "tempestade") ? 1 : 2 };

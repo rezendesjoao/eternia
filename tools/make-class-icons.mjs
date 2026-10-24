@@ -1,6 +1,8 @@
 // Class icons: the emblem of each class, drawn from shapes in the manner of the Log Horizon class logos. The family
-// gives the frame and the colors (warrior: green diamond; weapon: cream square; healer: pink circle; magic: cyan
-// hexagon), the class gives the glyph: a flat light-to-color silhouette over the dark inside, details cut out of it.
+// gives the frame (warrior: diamond; weapon: square; healer: circle; magic: hexagon), the class gives the glyph: a flat
+// light-to-color silhouette over the dark inside, details cut out of it. The colors of the 14 classes come from their
+// function in the group (ROLE_COLORS, 0.22): warm for the physical classes, cool for the magic ones, one shade for each
+// function; the old classes keep the colors of their family (warrior green, weapon cream, healer pink, magic cyan).
 // Writes assets/icons/classes/<id>.svg and <id>-dedicacao.svg (the emblem with the "+" seal of a Dedication).
 // Usage: node tools/make-class-icons.mjs
 import fs from "fs";
@@ -18,6 +20,27 @@ const FAMILIES = {
   weapon: { frame: "square", top: "#f8f6e4", bottom: "#d3c873", dark: "#25261d", line: "#f3f0e2", scale: 0.92 },
   healer: { frame: "circle", top: "#fad3de", bottom: "#c56ec5", dark: "#4a3341", line: "#f7eaf0", scale: 0.9 },
   magic: { frame: "hexagon", top: "#d5f7f5", bottom: "#4ccfbf", dark: "#181d1d", line: "#e9f7f6", scale: 0.88 }
+};
+
+/** The colors of each function in the group (module/classes/data.mjs, CLASS_COLORS, has the darker ones of the tab). */
+const ROLE_COLORS = {
+  // Physical classes: warm
+  tanque: { top: "#f6e4cf", bottom: "#b9773f", dark: "#2a1b10", line: "#f8eee3" },
+  dano: { top: "#fcdad4", bottom: "#de4b43", dark: "#321313", line: "#fbedeb" },
+  precisao: { top: "#fde9cf", bottom: "#f09a3c", dark: "#33210d", line: "#fdf2e5" },
+  suporte: { top: "#fdf4cf", bottom: "#e0b836", dark: "#2e2710", line: "#fdf8e4" },
+  // Magic classes: cool
+  danoMagico: { top: "#ebe0fe", bottom: "#9466ef", dark: "#1c1535", line: "#f4effe" },
+  hibrida: { top: "#dce8fe", bottom: "#4b86ec", dark: "#131e37", line: "#eef3fe" },
+  controle: { top: "#d5f7f3", bottom: "#36c3b2", dark: "#122625", line: "#e9f7f5" },
+  suporteMagico: { top: "#ffffff", bottom: "#a9c4d9", dark: "#1b242e", line: "#f4f8fb" }
+};
+
+/** The function of each of the 14 classes (the old ones have none). */
+const CLASS_ROLE = {
+  guardiao: "tanque", samurai: "dano", monge: "dano", berserker: "dano", assassino: "precisao", cacador: "precisao",
+  comandante: "suporte", magonegro: "danoMagico", matador: "danoMagico", magovermelho: "hibrida", magoazul: "hibrida",
+  pictomante: "controle", invocador: "controle", magobranco: "suporteMagico"
 };
 
 /** Outer and inner shape of each frame (viewBox 0 0 100 100). */
@@ -312,7 +335,7 @@ const GLYPHS = {
   ]
 };
 
-/** The family of each class: its frame and colors. */
+/** The family of each class: its frame (and the colors of the old classes). */
 const CLASS_FAMILY = {
   guardiao: "warrior", samurai: "warrior", monge: "warrior", ressonante: "warrior",
   assassino: "weapon", berserker: "weapon", cacador: "weapon", comandante: "weapon", menestrel: "weapon",
@@ -338,7 +361,7 @@ function layerSVG(layer, fam) {
 }
 
 function emblem(id, { dedication = false } = {}) {
-  const fam = FAMILIES[CLASS_FAMILY[id]];
+  const fam = { ...FAMILIES[CLASS_FAMILY[id]], ...ROLE_COLORS[CLASS_ROLE[id]] };
   const [outer, inner] = FRAMES[fam.frame];
   const glyph = GLYPHS[id]().map(l => layerSVG(l, fam)).filter(Boolean).join("\n    ");
   const seal = dedication ? `

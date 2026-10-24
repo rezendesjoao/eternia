@@ -5,9 +5,15 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.21.0
+## Versão 0.22.0
 
-- **Novo na 0.21.0: mais quatro Magias.** Moldagem de Madeira, Areia, Telepatia e Teleporte, para qualquer classe de
+- **Novo na 0.22.0: 14 classes, 7 físicas e 7 mágicas, todas com Magias.** As físicas (Assassino, Berserker, Caçador,
+  Centurião, Hierofante, Lutador e Samurai) escolhem uma Magia no NP 1 e outra no NP 10, e os feitiços alimentam o
+  Motor delas; o Matador de Dragões ganha duas, no NP 5 e no NP 10. O Monge, o Guardião e o Comandante agora se chamam
+  Lutador, Centurião e Hierofante; o Druida, o Sacerdote, o Oráculo, o Estrategista e o Menestrel saíram da lista (as
+  fichas antigas continuam funcionando). Os emblemas e a aba Classe ganharam cores por família e função (veja
+  [As classes](#as-classes)).
+- **Desde a 0.21.0: mais quatro Magias.** Moldagem de Madeira, Areia, Telepatia e Teleporte, para qualquer classe de
   magia (veja [As Magias](#as-magias)): a madeira moldada em armas e punhos gigantes, a areia que cega e engole, a
   mente ligada ao grupo e o salto que leva um aliado junto. O catálogo chega a 42 Magias.
 - **Desde a 0.20.0: quatro Magias Portadoras.** Armas Mágicas, Plantas, Fumaça e Pintura Mágica, para qualquer classe
@@ -100,7 +106,7 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   mesmo visual; toda a automação de combate e de uso de habilidades; a interface em português do Brasil.
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
-- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 22 classes), Habilidades Raciais e
+- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 22 classes, 14 na lista e 8 antigas), Habilidades Raciais e
   Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 42 Magias com os feitiços: 1103 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
@@ -243,43 +249,51 @@ gira em volta dele (veja `docs/classes.md` e as páginas **XI. CLASSES** do diá
 - **Elemento (NP 1):** no Matador de Dragões, um elemento escolhido junto com a classe (Fogo, Ferro, Céu ou Raio) dá
   a tag e o estado dos golpes, a imunidade e três talentos próprios; o navegador de habilidades só mostra os do
   elemento escolhido, e a Dedicação também deixa escolher um.
-- **Magias (NP 1, 5 e 10):** nas classes de magia, a classe diz como você conjura e a Magia diz o que você conjura (veja
-  [As Magias](#as-magias)).
-- **Emblema:** cada classe tem o seu, no jeito dos emblemas de Log Horizon: a moldura e as cores dizem a família
-  (losango verde para quem segura a linha de frente, quadrado creme para quem ataca com arma, círculo rosa para quem
-  cura, hexágono turquesa para a magia) e o símbolo diz a classe. Aparece na aba Classe, no item da classe e, com um
-  selo "+", na Dedicação.
+- **Família e função:** 7 classes físicas e 7 mágicas, cada uma com uma função no grupo (Tanque, Dano, Precisão ou
+  Suporte nas físicas; Dano, Híbrida, Controle ou Suporte nas mágicas).
+- **Magias:** toda classe tem (veja [As Magias](#as-magias)): as mágicas no NP 1, 5 e 10, o Matador de Dragões no NP 5
+  e 10 (o elemento é a magia do NP 1) e as físicas no NP 1 e 10. Nas físicas, a Magia se mistura ao jeito de lutar: os
+  feitiços alimentam o Motor da classe.
+- **Emblema:** cada classe tem o seu, no jeito dos emblemas de Log Horizon: o símbolo diz a classe e a cor diz a
+  família e a função (tons quentes nas físicas: Tanque bronze, Dano carmesim, Precisão laranja, Suporte ouro; tons frios
+  nas mágicas: Dano violeta, Híbrida azul, Controle turquesa, Suporte prata). A faixa da aba Classe usa a mesma cor.
+  Aparece na aba Classe, no item da classe e, com um selo "+", na Dedicação.
+
+| Classe | Família e função | Motor |
+|---|---|---|
+| Assassino | Física · Precisão | **Contrato**: escolhe um alvo, e cada acerto de qualquer aliado nele abre uma Brecha; a Execução gasta as Brechas e derruba quem ficou fraco demais. Escolhe uma Magia no NP 1 e 10. |
+| Berserker | Física · Dano | **Ira**: cada ferida sofrida vira Ira, que soma dano a todo golpe; gastar a Ira é escolher entre um golpe brutal e o fôlego para continuar de pé. Escolhe uma Magia no NP 1 e 10. |
+| Caçador | Física · Precisão | **Mira**: parado, a Mira cresce a cada rodada; o Tiro Certeiro gasta tudo, e mover o token zera. Escolhe uma Magia no NP 1 e 10. |
+| Centurião | Física · Tanque | **Baluarte**: cada ataque contra ele vira uma Camada da muralha (Anulação), que o Golpe do Baluarte transforma em dano e provocação. Escolhe uma Magia no NP 1 e 10. |
+| Hierofante | Física · Suporte | **Táticas**: junta Ordens e gasta a própria ação para um aliado agir fora do turno dele. Escolhe uma Magia no NP 1 e 10. |
+| Lutador | Física · Dano | **Corrente**: golpes encadeados juntam Elos, e o Golpe Final gasta a corrente inteira; apanhar ou parar quebra os Elos. Escolhe uma Magia no NP 1 e 10. |
+| Samurai | Física · Dano | **Bainha**: embainhada, a lâmina junta Cortes; o Iai, na Iniciativa, saca e gasta todos, e com a Bainha cheia é um Corte Perfeito. Escolhe uma Magia no NP 1 e 10. |
+| Invocador | Mágica · Controle | **Pacto**: paga PV para dar Laços a um espírito (lobo, golem ou fada), que luta, protege ou cura gastando os Laços; com o espírito presente, os Feitiços das Magias também dão Laços. Escolhe uma Magia no NP 1, 5 e 10. |
+| Mago Azul | Mágica · Híbrida | **Almas**: absorve a alma dos monstros que derruba e a guarda num grimório; com o Take Over, veste uma delas e luta com a natureza (Fera, Animal, Demônio ou Espírito) e o elemento do monstro, e a Essência que junta vira o Golpe da Alma. Escolhe uma Magia no NP 1, 5 e 10. |
+| Mago Branco | Mágica · Suporte | **Lei**: escreve em runas um número de 2 a 12; quando dois dados de qualquer teste o formam, acende Runas (os Feitiços também acendem), que reescrevem os dados dos testes: o do aliado sobe, o do inimigo desce. Escolhe uma Magia no NP 1, 5 e 10. |
+| Mago Negro | Mágica · Dano | **Pressão**: cada feitiço, da classe ou das Magias, puxa mais poder e bate mais forte; no Teto, a Liberação solta tudo ou a Sobrecarga cobra do próprio mago. Escolhe uma Magia no NP 1, 5 e 10. |
+| Mago Vermelho | Mágica · Híbrida | **Arsenal**: a magia mora na peça que está na mão (Espada, Armadura ou Foco) e cresce ali; o Reequipar troca de peça e solta a Descarga da antiga. Escolhe uma Magia no NP 1, 5 e 10. |
+| Matador de Dragões | Mágica · Dano | **Escamas**: come o próprio elemento (Fogo, Ferro, Céu ou Raio) e o transforma em Escamas, que os golpes de dragão gastam; no Teto vem a Força do Dragão, e cada vez que ela acaba a Semente do Dragão cresce. Escolhe uma Magia no NP 5 e 10. |
+| Pictomante | Mágica · Controle | **Moldes**: cada feitiço deixa uma construção no campo (uma lança, um muro, uma fera), que fica lá até ser quebrada; quebrar vira dano (o Estilhaçar) ou defesa (o Escudo Esculpido). Escolhe uma Magia no NP 1, 5 e 10. |
+
+**Classes antigas** (fora da lista e das Dedicações; as fichas que já as usam continuam funcionando):
 
 | Classe | Papéis | Motor |
 |---|---|---|
-| Assassino | Dano | **Contrato**: escolhe um alvo, e cada acerto de qualquer aliado nele abre uma Brecha; a Execução gasta as Brechas e derruba quem ficou fraco demais. |
-| Berserker | Dano | **Ira**: cada ferida sofrida vira Ira, que soma dano a todo golpe; gastar a Ira é escolher entre um golpe brutal e o fôlego para continuar de pé. |
-| Caçador | Dano, Controle | **Mira**: parado, a Mira cresce a cada rodada; o Tiro Certeiro gasta tudo, e mover o token zera. |
-| Comandante | Suporte, Controle | **Táticas**: junta Ordens e gasta a própria ação para um aliado agir fora do turno dele. |
-| Druida | Defesa, Cura | **Formas**: a Seiva paga a transformação em fera, e cada forma troca o que ele pode fazer. |
-| Estrategista | Suporte, Controle | **Leitura**: na Manutenção rola 2d6 e guarda os dados, para trocar depois os de um teste pelo que leu. |
+| Druida | Defesa, Cura | **Formas**: a Seiva paga a transformação em fera, e cada forma troca o que ele pode fazer. *Classe antiga: saiu da lista na 0.22; as fichas que já a usam continuam funcionando.* |
+| Estrategista | Suporte, Controle | **Leitura**: na Manutenção rola 2d6 e guarda os dados, para trocar depois os de um teste pelo que leu. *Classe antiga: saiu da lista na 0.22; as fichas que já a usam continuam funcionando.* |
 | Feiticeiro | Dano | **Calor**: cada feitiço esquenta e bate mais forte; no Teto, a Erupção solta tudo ou a Sobrecarga queima o próprio feiticeiro. *Classe antiga: saiu da lista na 0.16, e o Mago Negro, com a Magia Fogo, tomou o lugar dela; as fichas que já a usam continuam funcionando.* |
-| Guardião | Defesa | **Baluarte**: cada ataque contra ele vira uma Camada da muralha (Anulação), que o Golpe do Baluarte transforma em dano e provocação. |
-| Invocador | Dano, Controle | **Pacto**: paga PV para dar Laços a um espírito (lobo, golem ou fada), que luta, protege ou cura gastando os Laços; com o espírito presente, os Feitiços das Magias também dão Laços. Escolhe uma Magia no NP 1, 5 e 10. |
-| Mago Azul | Dano, Defesa | **Almas**: absorve a alma dos monstros que derruba e a guarda num grimório; com o Take Over, veste uma delas e luta com a natureza (Fera, Animal, Demônio ou Espírito) e o elemento do monstro, e a Essência que junta vira o Golpe da Alma. Escolhe uma Magia no NP 1, 5 e 10. |
-| Mago Branco | Cura, Controle | **Lei**: escreve em runas um número de 2 a 12; quando dois dados de qualquer teste o formam, acende Runas (os Feitiços também acendem), que reescrevem os dados dos testes: o do aliado sobe, o do inimigo desce. Escolhe uma Magia no NP 1, 5 e 10. |
-| Mago Negro | Dano | **Pressão**: cada feitiço, da classe ou das Magias, puxa mais poder e bate mais forte; no Teto, a Liberação solta tudo ou a Sobrecarga cobra do próprio mago. Escolhe uma Magia no NP 1, 5 e 10. |
-| Mago Vermelho | Dano, Defesa | **Arsenal**: a magia mora na peça que está na mão (Espada, Armadura ou Foco) e cresce ali; o Reequipar troca de peça e solta a Descarga da antiga. Escolhe uma Magia no NP 1, 5 e 10. |
-| Matador de Dragões | Dano | **Escamas**: come o próprio elemento (Fogo, Ferro, Céu ou Raio) e o transforma em Escamas, que os golpes de dragão gastam; no Teto vem a Força do Dragão, e cada vez que ela acaba a Semente do Dragão cresce. |
-| Menestrel | Suporte | **Movimentos**: a canção sobe a cada Manutenção e reforça os aliados; trocar de canção volta ao começo, e o Finale gasta tudo. |
-| Monge | Dano, Defesa | **Corrente**: golpes encadeados juntam Elos, e o Golpe Final gasta a corrente inteira; apanhar ou parar quebra os Elos. |
-| Oráculo | Cura, Dano | **Fardo**: cada milagre fica mais forte e pesa mais; com Fardo alto vem a maldição, e a Revelação descarrega tudo de uma vez. |
-| Pictomante | Controle, Defesa | **Moldes**: cada feitiço deixa uma construção no campo (uma lança, um muro, uma fera), que fica lá até ser quebrada; quebrar vira dano (o Estilhaçar) ou defesa (o Escudo Esculpido). Escolhe uma Magia no NP 1, 5 e 10. |
+| Menestrel | Suporte | **Movimentos**: a canção sobe a cada Manutenção e reforça os aliados; trocar de canção volta ao começo, e o Finale gasta tudo. *Classe antiga: saiu da lista na 0.22; as fichas que já a usam continuam funcionando.* |
+| Oráculo | Cura, Dano | **Fardo**: cada milagre fica mais forte e pesa mais; com Fardo alto vem a maldição, e a Revelação descarrega tudo de uma vez. *Classe antiga: saiu da lista na 0.22; as fichas que já a usam continuam funcionando.* |
 | Ressonante | Dano, Defesa | **Centelha**: o poder mora numa peça do equipamento (arma, armadura ou joia) e cresce ali; saltar para outra peça solta o que juntou. *Classe antiga: saiu da lista na 0.11, e o Mago Vermelho tomou o lugar dela; as fichas que já a usam continuam funcionando.* |
-| Sacerdote | Cura, Defesa | **Graça**: cada ferida de um aliado vira Graça, gasta em curas depois ou em barreiras antes do golpe. |
-| Samurai | Dano, Defesa | **Bainha**: embainhada, a lâmina junta Cortes; o Iai, na Iniciativa, saca e gasta todos, e com a Bainha cheia é um Corte Perfeito. |
+| Sacerdote | Cura, Defesa | **Graça**: cada ferida de um aliado vira Graça, gasta em curas depois ou em barreiras antes do golpe. *Classe antiga: saiu da lista na 0.22; as fichas que já a usam continuam funcionando.* |
 | Tecelão | Controle, Suporte | **Padrão**: escolhe um número de 2 a 12; quando dois dados de qualquer teste o formam, ganha Fios, que mudam os dados dos outros. *Classe antiga: saiu da lista na 0.14, e o Mago Branco tomou o lugar dela; as fichas que já a usam continuam funcionando.* |
 
 **Automação:** o Motor fica na aba Classe (o estado, os pontos e uma nota quando a classe guarda algo além deles: o
-alvo do Contrato, a Lei, as Leituras), no HUD e no token. Os ganhos e os gastos seguem o combate sozinhos: a
+alvo do Contrato, a Lei), no HUD e no token. Os ganhos e os gastos seguem o combate sozinhos: a
 Manutenção e o Encerramento, o começo e o fim de cada turno, o movimento do token, os ataques declarados, os acertos e
-as esquivas, o dano e a cura aplicados pelos cartões, os testes rolados e os inimigos derrubados. O Mago Branco e o
-Estrategista ganham botões nos cartões de ataque, que mudam os dados de um teste já rolado e refazem o acerto. O
+as esquivas, o dano e a cura aplicados pelos cartões, os testes rolados e os inimigos derrubados. O Mago Branco ganha
+botões nos cartões de ataque, que mudam os dados de um teste já rolado e refazem o acerto. O
 elemento do Matador de Dragões entra sozinho no dano dos golpes (a tag e o estado no acerto), e um ataque do elemento
 vindo de um aliado não causa dano: o Matador come o ataque. O
 Desfazer do cartão devolve o Motor junto com o Ódio e a ação. O que não dá para automatizar (escolher alvos de área,
@@ -287,13 +301,17 @@ mover tokens) fica no texto da habilidade.
 
 ## As Magias
 
-Nas classes de magia (o Mago Azul, o Mago Branco, o Mago Negro, o Mago Vermelho, o Pictomante e o Invocador), a classe diz **como** você conjura e a **Magia** diz **o que** você
-conjura. A primeira Magia vem com a classe, a segunda no NP 5 e a terceira no NP 10, cada uma escolhida numa janela
-própria: um cartão por Magia (a categoria, uma frase curta e o que os feitiços fazem), filtros por categoria e por
+Toda classe tem Magias. Nas mágicas (o Invocador, o Mago Azul, o Mago Branco, o Mago Negro, o Mago Vermelho, o
+Pictomante e o Matador de Dragões), a classe diz **como** você conjura e a **Magia** diz **o que** você conjura; nas
+físicas (o Assassino, o Berserker, o Caçador, o Centurião, o Hierofante, o Lutador e o Samurai), a Magia se mistura ao
+jeito de lutar da classe. As mágicas escolhem a primeira Magia com a classe, a segunda no NP 5 e a terceira no NP 10
+(o Matador de Dragões, uma no NP 5 e outra no NP 10); as físicas, a primeira com a classe e a segunda no NP 10. Cada
+uma é escolhida numa janela própria: um cartão por Magia (a categoria, uma frase curta e o que os feitiços fazem), filtros por categoria e por
 função, busca por Magia ou feitiço e, ao passar o mouse, a página da Magia com o Tabu e os feitiços por NP. A aba Classe
 mostra as Magias com os feitiços de cada uma, e o navegador de habilidades mostra os feitiços das suas Magias (a origem "Magia") nas
 escolhas de Combate e Geral. Os feitiços alimentam o Motor da sua classe (+1; os grandes, +2), e o feitiço supremo de
-cada Magia (NP 7; NP 10 nas Ancestrais) pede o Motor no Teto e gasta tudo. As regras estão em **XII. MAGIAS**, no diário AS REGRAS.
+cada Magia (NP 7; NP 10 nas Ancestrais) pede o Motor no Teto e gasta tudo. Nas físicas, o Samurai só junta Cortes com
+a lâmina embainhada, o Assassino abre Brechas pelos acertos no Alvo e o Lutador conta o feitiço como golpe da Corrente. As regras estão em **XII. MAGIAS**, no diário AS REGRAS.
 
 | Magia | Categoria | O que faz |
 |---|---|---|

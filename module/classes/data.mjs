@@ -9,42 +9,64 @@
  *   motor        its Motor part (motor.mjs)
  *   path / pathTalent / apex / dedication   see motor.mjs and apps/skill-browser.mjs
  *   element / elementTalent   { class, id }: an element skill chosen at CR 1 (the Dragon Slayer's) and its talents
- *   magic / magicSpell        { id }: a Magia (chosen in a magic class's Magia slots) and its spells
+ *   magic / magicSpell        { id }: a Magia (chosen in the class's Magia slots) and its spells
  */
+
+/**
+ * The colors of the classes by family and function: the physical classes in warm colors, the magic ones in cool
+ * colors, one shade for each function in the group. The same as the emblems (tools/make-class-icons.mjs), darker: the
+ * band and the accents of the class tab.
+ */
+export const CLASS_COLORS = {
+  physical: { tanque: "#8a5a2b", dano: "#a3302b", precisao: "#b5631c", suporte: "#9a7816" },
+  magic: { dano: "#5d3fa8", hibrida: "#2f5fb3", controle: "#1f7f75", suporte: "#5c7a90" }
+};
 
 /** Static data of each class, by the class item's `system.identifier`. */
 export const CLASSES = {
   assassino: {
     id: "assassino",
     motor: "assassino",
-    color: "#4a3b5c",
+    family: "physical",
+    role: "precisao",
+    color: CLASS_COLORS.physical.precisao,
     band: "light",
     branches: ["sombra", "veneno", "lamina", "rede"],
-    paths: ["fantasma", "carrasco", "teia"]
+    paths: ["fantasma", "carrasco", "teia"],
+    magic: true
   },
   berserker: {
     id: "berserker",
     motor: "berserker",
-    color: "#8c2f1d",
+    family: "physical",
+    role: "dano",
+    color: CLASS_COLORS.physical.dano,
     band: "robust",
     branches: ["sangue", "furia", "massacre", "couro"],
-    paths: ["gigante", "dragao", "ancestrais"]
+    paths: ["gigante", "dragao", "ancestrais"],
+    magic: true
   },
   cacador: {
     id: "cacador",
     motor: "cacador",
-    color: "#4f6b2e",
+    family: "physical",
+    role: "precisao",
+    color: CLASS_COLORS.physical.precisao,
     band: "firm",
     branches: ["olho", "aljava", "rastro", "vento"],
-    paths: ["falcao", "chuva", "aguia"]
+    paths: ["falcao", "chuva", "aguia"],
+    magic: true
   },
   comandante: {
     id: "comandante",
     motor: "comandante",
-    color: "#6b5a2a",
+    family: "physical",
+    role: "suporte",
+    color: CLASS_COLORS.physical.suporte,
     band: "firm",
     branches: ["vanguarda", "formacao", "estandarte", "mapa"],
-    paths: ["marechal", "capitao", "bandeira"]
+    paths: ["marechal", "capitao", "bandeira"],
+    magic: true
   },
   druida: {
     id: "druida",
@@ -73,15 +95,20 @@ export const CLASSES = {
   guardiao: {
     id: "guardiao",
     motor: "guardiao",
-    color: "#3b5b7a",
+    family: "physical",
+    role: "tanque",
+    color: CLASS_COLORS.physical.tanque,
     band: "colossal",
     branches: ["muralha", "desafio", "martelo", "guarda"],
-    paths: ["fortaleza", "escudo", "retaliacao"]
+    paths: ["fortaleza", "escudo", "retaliacao"],
+    magic: true
   },
   invocador: {
     id: "invocador",
     motor: "invocador",
-    color: "#3f6f8f",
+    family: "magic",
+    role: "controle",
+    color: CLASS_COLORS.magic.controle,
     band: "light",
     branches: ["lobo", "golem", "fada", "pacto"],
     paths: ["legiao", "fusao", "tita"],
@@ -91,7 +118,9 @@ export const CLASSES = {
   magoazul: {
     id: "magoazul",
     motor: "magoazul",
-    color: "#2a4fb0",
+    family: "magic",
+    role: "hibrida",
+    color: CLASS_COLORS.magic.hibrida,
     band: "firm",
     branches: ["grimorio", "forma", "garra", "guarda"],
     paths: ["corpo-inteiro", "metamorfose", "grimorio-azul"],
@@ -100,7 +129,9 @@ export const CLASSES = {
   magobranco: {
     id: "magobranco",
     motor: "magobranco",
-    color: "#6f8796",
+    family: "magic",
+    role: "suporte",
+    color: CLASS_COLORS.magic.suporte,
     band: "light",
     branches: ["runa", "selo", "barreira", "julgamento"],
     paths: ["augurio", "lei-absoluta", "cerco"],
@@ -109,7 +140,9 @@ export const CLASSES = {
   magonegro: {
     id: "magonegro",
     motor: "magonegro",
-    color: "#2a2540",
+    family: "magic",
+    role: "dano",
+    color: CLASS_COLORS.magic.dano,
     band: "frail",
     branches: ["fluxo", "reserva", "muralha", "ruina"],
     paths: ["classe-s", "mago-santo", "spriggan"],
@@ -119,7 +152,9 @@ export const CLASSES = {
   magovermelho: {
     id: "magovermelho",
     motor: "magovermelho",
-    color: "#7a1f3d",
+    family: "magic",
+    role: "hibrida",
+    color: CLASS_COLORS.magic.hibrida,
     band: "firm",
     branches: ["espada", "armadura", "foco", "troca"],
     paths: ["arma-selada", "panoplia", "troca-relampago"],
@@ -128,12 +163,15 @@ export const CLASSES = {
   matador: {
     id: "matador",
     motor: "matador",
-    color: "#b4182d",
+    family: "magic",
+    role: "dano",
+    color: CLASS_COLORS.magic.dano,
     band: "firm",
     branches: ["fome", "escama", "garra", "rugido"],
     paths: ["primeira", "segunda", "terceira"],
     // Elements (chosen at CR 1, module/classes/matador.mjs), in the order of the tab
-    elements: ["fogo", "ferro", "ceu", "raio"]
+    elements: ["fogo", "ferro", "ceu", "raio"],
+    magic: true
   },
   menestrel: {
     id: "menestrel",
@@ -146,10 +184,13 @@ export const CLASSES = {
   monge: {
     id: "monge",
     motor: "monge",
-    color: "#b5651d",
+    family: "physical",
+    role: "dano",
+    color: CLASS_COLORS.physical.dano,
     band: "firm",
     branches: ["punho", "fluxo", "vento", "centro"],
-    paths: ["montanha", "rio", "tempestade"]
+    paths: ["montanha", "rio", "tempestade"],
+    magic: true
   },
   oraculo: {
     id: "oraculo",
@@ -162,7 +203,9 @@ export const CLASSES = {
   pictomante: {
     id: "pictomante",
     motor: "pictomante",
-    color: "#3d6fa8",
+    family: "magic",
+    role: "controle",
+    color: CLASS_COLORS.magic.controle,
     band: "light",
     branches: ["lamina", "escudo", "prisao", "gesto"],
     paths: ["arma", "criatura", "paisagem"],
@@ -187,13 +230,16 @@ export const CLASSES = {
   samurai: {
     id: "samurai",
     motor: "samurai",
-    color: "#8b2e2b",
+    family: "physical",
+    role: "dano",
+    color: CLASS_COLORS.physical.dano,
     // HP band of docs/classes.md
     band: "robust",
     // Talent branches, in the order of the tab
     branches: ["espera", "fio", "bainha", "aco"],
     // Paths (CR 3), in the order of the tab
-    paths: ["lua", "agua", "relampago"]
+    paths: ["lua", "agua", "relampago"],
+    magic: true
   },
   tecelao: {
     id: "tecelao",

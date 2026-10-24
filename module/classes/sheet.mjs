@@ -294,7 +294,8 @@ export async function classContext(actor, { editable }) {
     img: (job.img && !job.img.endsWith("/blank.svg")) ? job.img : "",
     color: def?.color ?? "#1f5137",
     roles: (job.system.tags ?? []).map(tagLabel),
-    magicClass: !!def?.magic,
+    // Physical or magic class and its function in the group (the color); a class without them left the lists
+    eyebrow: def?.family ? `${L(`Classes.Family.${def.family}`)} · ${L(`Classes.Function.${def.role}`)}` : L("Classes.Retired"),
     base,
     hp: { start: toInt(job.system.hp), per: toInt(job.system.hpPerRank), band: def?.band ? L(`Classes.Band.${def.band}`) : "" },
     motor: own ? motorView(actor, own.def, false, editable) : null,

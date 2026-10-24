@@ -1,6 +1,6 @@
 # Classes: o esqueleto
 
-As regras de construção das classes da Eternia, fechadas em 2026-10-21, as [22 classes](#as-classes), as [Magias](#as-magias) e a referência
+As regras de construção das classes da Eternia, fechadas em 2026-10-21, as [14 classes](#as-classes) (7 físicas e 7 mágicas, mais as 8 antigas), as [Magias](#as-magias) e a referência
 técnica dos Motores. As regras como o jogador lê estão nas páginas **XI. CLASSES** (a geral e uma por classe) do diário
 AS REGRAS.
 
@@ -14,6 +14,12 @@ Uma classe é um **Motor**, uma regra que só ela tem, com tudo o mais girando e
 - **Caminho:** no NP 3, um de três; cada um reescreve uma regra do Motor.
 - **Dedicação:** a partir do NP 5, a versão menor do Motor de outra classe.
 - **Ápice:** no NP 10, transforma o Motor.
+- **Magias:** escolhidas nas vagas de Magia da classe (veja [As Magias](#as-magias)): as físicas no NP 1 e 10, as
+  mágicas no NP 1, 5 e 10, o Matador de Dragões no NP 5 e 10. Os feitiços alimentam o Motor.
+
+As 14 classes são 7 **físicas** (Assassino, Berserker, Caçador, Centurião, Hierofante, Lutador e Samurai) e 7
+**mágicas** (Invocador, Mago Azul, Mago Branco, Mago Negro, Mago Vermelho, Matador de Dragões e Pictomante), cada uma
+com uma função no grupo (veja [A base da classe](#a-base-da-classe)).
 
 Da base de Log Horizon fica a gramática: teste de 2d6 com crítico em dois ou mais 6, as fases da rodada (Manutenção,
 Iniciativa, Turno, Encerramento), os Momentos das habilidades, Ódio, Destino, quadrados, engajamento, as condições
@@ -43,6 +49,11 @@ Cada classe define a sua, sem família de arquétipo, com os campos que o item `
   Depois vêm as escolhas da criação (3 de Combate e 1 Geral), como hoje.
 - **Papéis:** tags só descritivas (Defesa, Cura, Dano, Controle, Apoio). A única regra que olha papel é a das Joias
   do Chamado da Vida, que hoje pede o arquétipo Curandeiro e passa a pedir a tag Cura.
+- **Família e função:** física ou mágica (`family` em `CLASSES`, `module/classes/data.mjs`) e a função no grupo
+  (`role`): Tanque, Dano, Precisão ou Suporte nas físicas; Dano, Híbrida, Controle ou Suporte nas mágicas. A função dá
+  a cor: tons quentes nas físicas (bronze, carmesim, laranja, ouro) e frios nas mágicas (violeta, azul, turquesa,
+  prata), no emblema (`ROLE_COLORS` em `tools/make-class-icons.mjs`) e na faixa da aba Classe (`CLASS_COLORS`). O topo da
+  faixa diz "Classe física · Tanque"; uma classe antiga, sem família, diz "Classe antiga".
 
 ## O Motor
 
@@ -115,11 +126,11 @@ a mais para cada Caminho.
 
 | NP | O que a classe dá |
 |---|---|
-| 1 | Base, Motor e 2 talentos de entrada; 3 escolhas de Combate e 1 Geral |
+| 1 | Base, Motor e 2 talentos de entrada; 3 escolhas de Combate e 1 Geral; a primeira Magia (no Matador de Dragões, o elemento) |
 | 2 a 10 | 2 escolhas de Combate e 1 Geral por NP |
 | 3 | Caminho |
-| 5 | Dedicação liberada |
-| 10 | Ápice |
+| 5 | Dedicação liberada; a segunda Magia das mágicas (a primeira do Matador de Dragões) |
+| 10 | Ápice; a última Magia |
 | 11 em diante | 1 escolha de Combate e 1 Geral por NP |
 
 Mudar o NP (o botão de subir ou um NP digitado na ficha, para cima ou para baixo) passa por `module/apps/rank-up.mjs`:
@@ -160,17 +171,17 @@ O mapa da lista de classes: cada Motor mexe numa parte da regra que nenhuma outr
 | Parte da regra | Classe | Motor |
 |---|---|---|
 | Tempo | Samurai | Bainha: junta Cortes embainhado e saca no Processo de Iniciativa |
-| Ser atacado (Ódio) | Guardião | Baluarte: cada ataque contra ele é uma Camada de Anulação |
+| Ser atacado (Ódio) | Centurião | Baluarte: cada ataque contra ele é uma Camada de Anulação |
 | PV baixo | Berserker | Ira: cada ferida vira dano a mais; gastar é escolher entre golpe e fôlego |
-| Sequência de golpes | Monge | Corrente: golpes encadeados juntam Elos; o Golpe Final gasta todos |
+| Sequência de golpes | Lutador | Corrente: golpes encadeados juntam Elos; o Golpe Final gasta todos |
 | Inimigo | Assassino | Contrato: acertos de qualquer aliado no alvo viram Brechas; a Execução derruba |
 | Posição | Caçador | Mira: parado, cresce; mover o token zera |
 | Risco | Feiticeiro | Calor: cada feitiço esquenta e bate mais forte; no Teto, Erupção ou Sobrecarga (classe antiga: virou o Mago Negro, com a Magia Fogo) |
 | Dados dos outros | Tecelão | Padrão: dois dados que somam o número dão Fios, que mudam dados nos cartões (classe antiga: virou o Mago Branco) |
-| Seus dados | Estrategista | Leitura: 2d6 guardados na Manutenção trocam os dados de um teste |
-| Maldição | Oráculo | Fardo: o milagre fica mais forte e a maldição pesa junto |
-| PV dos aliados | Sacerdote | Graça: cada ferida de um aliado vira cura depois ou barreira antes |
-| Forma | Druida | Formas: a Seiva paga a fera, e cada forma troca o menu |
+| Seus dados | Estrategista | Leitura: 2d6 guardados na Manutenção trocam os dados de um teste (classe antiga desde a 0.22) |
+| Maldição | Oráculo | Fardo: o milagre fica mais forte e a maldição pesa junto (classe antiga desde a 0.22) |
+| PV dos aliados | Sacerdote | Graça: cada ferida de um aliado vira cura depois ou barreira antes (classe antiga desde a 0.22) |
+| Forma | Druida | Formas: a Seiva paga a fera, e cada forma troca o menu (classe antiga desde a 0.22) |
 | Criatura extra, com as Magias | Invocador | Pacto: PV pagos e Feitiços viram Laços de um espírito, gastos nos comandos |
 | Elemento do dano | Matador de Dragões | Escamas: come o próprio elemento (e o ataque dele); no Teto, a Força do Dragão |
 | Risco, com as Magias | Mago Negro | Pressão: cada feitiço, da classe ou das Magias, aumenta; no Teto, Liberação ou Sobrecarga |
@@ -178,8 +189,8 @@ O mapa da lista de classes: cada Motor mexe numa parte da regra que nenhuma outr
 | Campo, com as Magias | Pictomante | Moldes: cada feitiço deixa uma construção no campo; quebrar vira dano (Estilhaçar) ou defesa (Escudo Esculpido) |
 | Dados dos outros, com as Magias | Mago Branco | Lei: dois dados que somam o número acendem Runas (os feitiços também), que reescrevem dados nos cartões |
 | Monstros vencidos, com as Magias | Mago Azul | Almas: absorve a alma dos monstros que derruba e veste a natureza e o elemento deles (Take Over); a Essência vira o Golpe da Alma |
-| Aliados | Menestrel | Movimentos: a canção sobe a cada Manutenção; trocar volta ao I |
-| Comando | Comandante | Táticas: Ordens que dão a sua ação a um aliado |
+| Aliados | Menestrel | Movimentos: a canção sobe a cada Manutenção; trocar volta ao I (classe antiga desde a 0.22) |
+| Comando | Hierofante | Táticas: Ordens que dão a sua ação a um aliado |
 | Itens | Ressonante | Centelha: o poder mora numa peça e salta para outra soltando o que juntou (classe antiga: virou o Mago Vermelho) |
 
 A lista fechou em 16 classes, cruzando as classes do Pathfinder 2e e do Daggerheart com as partes da regra que
@@ -202,6 +213,15 @@ saiu da lista de classes e das Dedicações, como o Ressonante. Na 0.15 chegou o
 magia: o Motor dele mexe nos monstros vencidos (a natureza da alma é o maior atributo do monstro derrubado, e o elemento
 sai das tags dele), que nenhuma outra classe usa; as formas dele são as dos monstros, e não as fixas do Druida.
 
+Na 0.22 a lista virou 14 classes, 7 físicas e 7 mágicas, e toda classe passou a ter Magias. As 7 físicas são as que
+ficaram das 16 (o Monge, o Guardião e o Comandante com os nomes novos de Lutador, Centurião e Hierofante); o Druida, o
+Sacerdote, o Oráculo, o Estrategista e o Menestrel saíram da lista e das Dedicações, como o Feiticeiro, o Tecelão e o
+Ressonante, e os Motores e os talentos deles ficam como matéria-prima de Magias futuras (o Fardo do Oráculo para a
+Magia dos Anjos, a Graça do Sacerdote e as canções do Menestrel para o Perfume, as formas e as raízes do Druida para o
+Arco da Grande Árvore, a Leitura do Estrategista para uma Magia de previsão). Os ids, os identificadores e os emblemas
+das classes renomeadas ficaram (`monge`, `guardiao`, `comandante`): a migração `kudenCleanup` 5 renomeia o item de
+classe e a Dedicação nas fichas, porque o navegador de habilidades acha a classe pelo nome.
+
 ## O que saiu do sistema
 
 Na mesma versão da classe piloto, para o sistema nunca ter os dois:
@@ -220,7 +240,7 @@ Na mesma versão da classe piloto, para o sistema nunca ter os dois:
 ## As classes
 
 Cada seção diz o Motor da classe e o que ela tem; as regras como o jogador lê estão na página da classe no diário AS
-REGRAS (XI.1 a XI.22) e na descrição de cada habilidade. A calibragem do dano é a primeira de cada classe: vale
+REGRAS (XI.1 a XI.7 as físicas, XI.8 a XI.14 as mágicas, XI.15 a XI.22 as antigas) e na descrição de cada habilidade. A calibragem do dano é a primeira de cada classe: vale
 conferir na mesa e ajustar os números (Teto, dados por ponto, o pagamento do Motor cheio).
 
 ### Assassino
@@ -233,6 +253,7 @@ caído cumpre o Contrato.
 | Parte | O que tem |
 |---|---|
 | Base | FOR 2, DES 4, POD 1, INT 3; faixa Leve (40, +5/NP); papel Damage |
+| Magias | uma no NP 1 e outra no NP 10; os feitiços abrem Brechas só pelos acertos no Alvo (o `plan` zera o ganho) |
 | Kit | Contrato (Motor), Firmar Contrato (Menor), Punhalada (Maior, [2d6 + Poder de Ataque]; no Alvo +1 Brecha a mais), Execução (Maior, com 2 Brechas, gasta todas) |
 | A Sombra | Golpe das Sombras*, Sumir*, Emboscada, Sombra Viva |
 | O Veneno | Lâmina Envenenada*, Toxina Lenta, Dose Certa, Ferida que Não Fecha |
@@ -264,6 +285,7 @@ Encerramento.
 | Parte | O que tem |
 |---|---|
 | Base | FOR 4, DES 3, POD 2, INT 1; faixa Robusta (50, +8/NP); papel Damage |
+| Magias | uma no NP 1 e outra no NP 10; os feitiços somam Ira |
 | Kit | Ira (Motor), Sangrar (Menor, −[NP+5] PV, +2), Golpe Selvagem (Maior, gasta toda), Fôlego de Sangue (Menor, gasta à escolha, cura) |
 | O Sangue | Sede de Batalha*, Rugido, Ferida Aberta, Sangue Fervente |
 | A Fúria | Explosão de Fúria*, Uivo de Guerra, Fúria Cega, Olhos Vermelhos |
@@ -292,6 +314,7 @@ gasta toda a Mira (cada ponto soma 1d6 + NP) e, com a Mira cheia, deixa o alvo [
 | Parte | O que tem |
 |---|---|
 | Base | FOR 2, DES 4, POD 2, INT 2; faixa Firme (40, +6/NP); papéis Damage e Control |
+| Magias | uma no NP 1 e outra no NP 10; os feitiços somam Mira (mover ainda zera) |
 | Kit | Mira (Motor), Firmar a Mira (Movimento, +1), Disparo (Maior, [2d6 + Poder de Ataque], não gasta), Tiro Certeiro (Maior, gasta tudo) |
 | O Olho | Paciência do Caçador*, Respiração Contida*, Concentração do Atirador, Olhar Frio |
 | A Aljava | Flecha-Rede*, Flecha de Sinal*, Flecha Incendiária, Flecha Perfurante |
@@ -304,30 +327,39 @@ gasta toda a Mira (cada ponto soma 1d6 + NP) e, com a Mira cheia, deixa o alvo [
 
 \* talentos [Dedicação].
 
-### Comandante
+### Centurião
 
-O Motor **Táticas** mexe no comando: o Comandante junta Ordens (+1 na Manutenção, +1 com Avaliar o Campo) e cada
-Ordem gasta faz um aliado agir fora do turno dele. A Ordem: Atacar! dá [Concentrado] ao aliado e guarda quem foi mandado
-atacar (`ordered`); quando o resultado do ataque básico dele sai (`onAnyHit`/`onAnyMiss`), a Ação Maior gasta volta,
-na janela de quem rolou. Código em `module/classes/comandante.mjs` (a aura do Caminho da Bandeira na Manutenção, pelo
-Mestre, com `flags.eternia.commandAura`).
+O Motor **Baluarte** mexe no Ódio: cada ataque que um inimigo faz contra o Centurião assenta uma Camada, e cada Camada
+é [Anulação: 2] contra todo dano (o efeito passivo `eternia.passive.cancel` = `@motor.value × @motor.layer`). O Golpe
+do Baluarte gasta todas (+(1+Camadas)d6 + Camadas×NP) e prende o alvo com [Provocado]. Uma rodada sem ser atacado
+custa uma Camada no Encerramento.
 
 | Parte | O que tem |
 |---|---|
-| Base | FOR 3, DES 2, POD 2, INT 3; faixa Firme (40, +6/NP); papéis Support e Control |
-| Kit | Táticas (Motor), Avaliar o Campo (Menor, +1, [Identificado]), Ordem: Atacar! (Maior), Ordem: Avançar! (Menor) |
-| A Vanguarda | Alvo Prioritário*, Comandar pelo Exemplo, Ponto de Ataque, Ordem: Carga! |
-| A Formação | Ordem: Segurar!*, Formação Cerrada*, Recuar em Ordem, Ninguém Fica Para Trás |
-| O Estandarte | Erguer o Estandarte*, Estandarte Inabalável, Clarim de Guerra, Glória do Batalhão |
-| O Mapa | Plano de Batalha*, Reserva Tática*, Antecipar, Contra-ordem |
-| Gerais | Inspirar Tropas, Ler o Mapa, Primeira Ordem, Vigília do Acampamento |
-| Caminhos (NP 3) | Marechal (Comando em Cadeia, Linha de Comando), Capitão (Na Linha de Frente, Exemplo Vivo), Bandeira (Mastro Alto, Juramento da Bandeira) |
-| Ápice (NP 10) | Comando Supremo |
-| Dedicação (NP 5) | Dedicação: Comandante, que dá as Táticas Menores, Avaliar o Campo e a Ordem: Atacar! |
+| Base | FOR 4, DES 2, POD 3, INT 1; faixa Colossal (55, +9/NP); papel Defense |
+| Magias | uma no NP 1 e outra no NP 10; os feitiços assentam Camadas |
+| Kit | Baluarte (Motor), Intercepção (Antes do Dano, +1), Brado do Baluarte (Menor, +1), Golpe do Baluarte (Maior, gasta todas) |
+| A Muralha | Muralha Alta*, Pedra Angular, Muro de Ferro, Inabalável |
+| O Desafio | Grito de Guerra*, Olhos em Mim, Atrair o Ódio*, Juramento de Proteção |
+| O Martelo | Investida de Escudo, Onda de Choque, Contragolpe de Escudo*, Martelo do Bastião |
+| A Guarda | Guarda Estendida*, Escudo Compartilhado*, Postura de Bastião, Último Baluarte |
+| Gerais | Sentinela, Muralha Humana, Palavra de Centurião, Ombros de Ferro |
+| Caminhos (NP 3) | Fortaleza (Pedra sobre Pedra, Fortaleza Viva), Escudo Erguido (Abrigo, Muro Vivo), Retaliação (Espinhos de Ferro, Ira do Bastião) |
+| Ápice (NP 10) | Bastião Eterno |
+| Dedicação (NP 5) | Dedicação: Centurião, que dá o Baluarte Menor, a Intercepção e o Golpe do Baluarte |
 
 \* talentos [Dedicação].
 
+Código: `module/classes/guardiao.mjs` (`GUARDIAO`): o Teto, `@motor.layer`, o Golpe na Fortaleza e com o Martelo do
+Bastião (acerto automático), o Juramento (o Protegido em `ward`), os ataques sofridos (`onAttacked`, e quem atacou na
+rodada para a Ira do Bastião), o Encerramento, a Retaliação e a Pedra sobre Pedra (`onDodged`), o Escudo Erguido e o
+Protegido (`onAnyHit`/`onAnyMiss`), os Espinhos de Ferro ([Espelho] pelo `statuses`) e os estados dos golpes
+(`onHit`).
+
 ### Druida
+
+**Classe antiga.** Desde a 0.22 o Druida está fora da lista de classes e das Dedicações: a Eternia passou a ter 14
+classes, 7 físicas e 7 mágicas. As fichas que já o usam continuam funcionando com as regras abaixo.
 
 O Motor **Formas** mexe na forma: na forma Humana o Druida junta Seiva (+1 na Manutenção, +1 na Seiva da Terra) e
 cura; o Chamado da Fera gasta 1 Seiva para virar Urso ([Anulação: 2 + Seiva] e [Barreira: NP+5] ao virar) ou Lobo
@@ -353,6 +385,9 @@ Os efeitos de cada forma são estados passivos do Motor (`statuses` em `module/c
 forma e somem fora de combate. O alcance do Falcão e a Esquiva do Enxame são efeitos com a condição `motorState`.
 
 ### Estrategista
+
+**Classe antiga.** Desde a 0.22 o Estrategista está fora da lista de classes e das Dedicações: a Eternia passou a ter 14
+classes, 7 físicas e 7 mágicas. As fichas que já o usam continuam funcionando com as regras abaixo.
 
 O Motor **Leitura** mexe nos próprios dados: na Manutenção, Estudar o Campo rola 2d6 e guarda os dois dados como uma
 Leitura. Nos cartões de ataque, a Leitura toma o lugar dos dois dados mais baixos de um teste do Estrategista (e, com
@@ -416,33 +451,29 @@ o bônus de dano (`rollBonuses`, Feitiços com a tag Spell), a Sobrecarga e a Au
 Absoluto: `onHit`), Pele de Lava e o [Despertado] da Estrela (`statuses`), Brilho Cadente ao ficar Incandescente,
 Explosão Controlada (diálogo), Estrela Fixa (`autoHit`) e o Ápice.
 
-### Guardião
+### Hierofante
 
-O Motor **Baluarte** mexe no Ódio: cada ataque que um inimigo faz contra o Guardião assenta uma Camada, e cada Camada
-é [Anulação: 2] contra todo dano (o efeito passivo `eternia.passive.cancel` = `@motor.value × @motor.layer`). O Golpe
-do Baluarte gasta todas (+(1+Camadas)d6 + Camadas×NP) e prende o alvo com [Provocado]. Uma rodada sem ser atacado
-custa uma Camada no Encerramento.
+O Motor **Táticas** mexe no comando: o Hierofante junta Ordens (+1 na Manutenção, +1 com Avaliar o Campo) e cada
+Ordem gasta faz um aliado agir fora do turno dele. A Ordem: Atacar! dá [Concentrado] ao aliado e guarda quem foi mandado
+atacar (`ordered`); quando o resultado do ataque básico dele sai (`onAnyHit`/`onAnyMiss`), a Ação Maior gasta volta,
+na janela de quem rolou. Código em `module/classes/hierofante.mjs` (a aura do Caminho da Bandeira na Manutenção, pelo
+Mestre, com `flags.eternia.commandAura`).
 
 | Parte | O que tem |
 |---|---|
-| Base | FOR 4, DES 2, POD 3, INT 1; faixa Colossal (55, +9/NP); papel Defense |
-| Kit | Baluarte (Motor), Intercepção (Antes do Dano, +1), Brado do Baluarte (Menor, +1), Golpe do Baluarte (Maior, gasta todas) |
-| A Muralha | Muralha Alta*, Pedra Angular, Muro de Ferro, Inabalável |
-| O Desafio | Grito de Guerra*, Olhos em Mim, Atrair o Ódio*, Juramento de Proteção |
-| O Martelo | Investida de Escudo, Onda de Choque, Contragolpe de Escudo*, Martelo do Bastião |
-| A Guarda | Guarda Estendida*, Escudo Compartilhado*, Postura de Bastião, Último Baluarte |
-| Gerais | Sentinela, Muralha Humana, Palavra de Guardião, Ombros de Ferro |
-| Caminhos (NP 3) | Fortaleza (Pedra sobre Pedra, Fortaleza Viva), Escudo Erguido (Abrigo, Muro Vivo), Retaliação (Espinhos de Ferro, Ira do Bastião) |
-| Ápice (NP 10) | Bastião Eterno |
-| Dedicação (NP 5) | Dedicação: Guardião, que dá o Baluarte Menor, a Intercepção e o Golpe do Baluarte |
+| Base | FOR 3, DES 2, POD 2, INT 3; faixa Firme (40, +6/NP); papéis Support e Control |
+| Magias | uma no NP 1 e outra no NP 10; os feitiços viram Ordens |
+| Kit | Táticas (Motor), Avaliar o Campo (Menor, +1, [Identificado]), Ordem: Atacar! (Maior), Ordem: Avançar! (Menor) |
+| A Vanguarda | Alvo Prioritário*, Comandar pelo Exemplo, Ponto de Ataque, Ordem: Carga! |
+| A Formação | Ordem: Segurar!*, Formação Cerrada*, Recuar em Ordem, Ninguém Fica Para Trás |
+| O Estandarte | Erguer o Estandarte*, Estandarte Inabalável, Clarim de Guerra, Glória do Batalhão |
+| O Mapa | Plano de Batalha*, Reserva Tática*, Antecipar, Contra-ordem |
+| Gerais | Inspirar Tropas, Ler o Mapa, Primeira Ordem, Vigília do Acampamento |
+| Caminhos (NP 3) | Marechal (Comando em Cadeia, Linha de Comando), Capitão (Na Linha de Frente, Exemplo Vivo), Bandeira (Mastro Alto, Juramento da Bandeira) |
+| Ápice (NP 10) | Comando Supremo |
+| Dedicação (NP 5) | Dedicação: Hierofante, que dá as Táticas Menores, Avaliar o Campo e a Ordem: Atacar! |
 
 \* talentos [Dedicação].
-
-Código: `module/classes/guardiao.mjs` (`GUARDIAO`): o Teto, `@motor.layer`, o Golpe na Fortaleza e com o Martelo do
-Bastião (acerto automático), o Juramento (o Protegido em `ward`), os ataques sofridos (`onAttacked`, e quem atacou na
-rodada para a Ira do Bastião), o Encerramento, a Retaliação e a Pedra sobre Pedra (`onDodged`), o Escudo Erguido e o
-Protegido (`onAnyHit`/`onAnyMiss`), os Espinhos de Ferro ([Espelho] pelo `statuses`) e os estados dos golpes
-(`onHit`).
 
 ### Invocador
 
@@ -474,6 +505,36 @@ Estado em `flags.eternia.motor.invocador`: `state` (`vazio`, `lobo`, `golem`, `f
 em que o espírito chegou, para os supremos), `freeUsed` e `eternalUsed` (o Ápice, por combate) e as rodadas dos ganhos de uma vez por rodada. As habilidades que pedem um
 espírito dizem qual em `flags.eternia.motor.spirit` (`"any"` ou o espírito). O PV pago sai direto da ficha (sem
 Barreira) e o Desfazer do cartão não o devolve.
+
+### Lutador
+
+O Motor **Corrente** mexe na sequência de golpes: o Golpe de Entrada e o Elo Rápido somam Elos, e o Golpe Final gasta
+todos (cada um soma 2d6 + NP; com a Corrente cheia, o alvo fica [Atordoado]). Um turno sem habilidade da Corrente a
+quebra, e cada ataque de um inimigo que tira PV do lutador tira 1 Elo. Os golpes pedem [Artes Marciais] ou as duas mãos
+vazias.
+
+| Parte | O que tem |
+|---|---|
+| Base | FOR 3, DES 4, POD 2, INT 1; faixa Firme (40, +6/NP); papéis Damage e Defense |
+| Magias | uma no NP 1 e outra no NP 10; os feitiços somam Elos e contam como golpes da Corrente (`struck`) |
+| Kit | Corrente (Motor), Golpe de Entrada (Maior, +1), Elo Rápido (Menor, com 1 Elo, [1d6 + NP], +1), Golpe Final (Maior, com 2 Elos, gasta todos) |
+| O Punho | Palma Atordoante*, Chute Giratório, Punho que Atravessa, Último Elo |
+| O Fluxo | Desviar e Seguir*, Postura do Grou*, Contra-golpe, Fluxo Ininterrupto |
+| O Vento | Passo do Vento*, Investida do Tigre, Pés Leves, Vento Cortante |
+| O Centro | Fôlego do Centro*, Corrente Longa*, Pele de Ferro, Coração Imóvel |
+| Gerais | Primeiro Elo, Salto do Grou, Meditação, Ler o Golpe |
+| Caminhos (NP 3) | Montanha (Raiz da Montanha, Avalanche), Rio (Remanso, Maré Viva), Tempestade (Trovoada, Ciclone) |
+| Ápice (NP 10) | Corrente Infinita |
+| Dedicação (NP 5) | Dedicação: Lutador, que dá a Corrente Menor, o Golpe de Entrada e o Golpe Final |
+
+\* talentos [Dedicação].
+
+Automação (`module/classes/lutador.mjs`): os Elos que cada golpe soma e o Golpe Final gasta (com o custo "Hate 1+Elos" e
+o dano por `@per`, `@spent` e `@use.flat`), a quebra no fim do turno (`onTurnEnd`), o Elo perdido no dano
+(`onDamaged`), a Corrente cheia ([Atordoado] pelo `onHit`; acerto automático com Punho que Atravessa), Desviar e
+Seguir (`onDodged`), Último Elo (`onKill`), Maré Viva (`onCleanup`), Pele de Ferro (estado passivo), Pés Leves e Raiz
+da Montanha (efeitos com `motorAtLeast`), Fluxo Ininterrupto (a segunda vez do Elo Rápido gasta o Movimento) e as
+linhas do Ápice.
 
 ### Mago Azul
 
@@ -651,6 +712,7 @@ próprios. Código em `module/classes/matador.mjs`.
 | Parte | O que tem |
 |---|---|
 | Base | FOR 3, DES 3, POD 3, INT 1; faixa Firme (40, +6/NP); papel Damage |
+| Magias | uma no NP 5 e outra no NP 10 (o elemento é a magia do NP 1); os feitiços somam Escamas |
 | Kit | Escamas (Motor), Devorar (Menor, 1/rodada), Punho de Ferro do Dragão (Maior, +1), Rugido do Dragão (Maior, gasta à escolha) |
 | Elementos (NP 1) | Dragão de Fogo (Chama Brilhante do Dragão de Fogo, Chama das Emoções, Lótus Carmesim), Dragão de Ferro (Escamas do Dragão de Ferro, Espada do Dragão de Ferro, Carma Demoníaco), Dragão do Céu (Sopro Curativo, Bênção do Dragão do Céu, Luz Despedaçadora), Dragão do Raio (Alabarda Celeste, Corpo de Raio, Trovão Rugente) |
 | A Fome | Barriga Cheia*, Sabor da Vitória, Alimento do Dragão, Fome Insaciável |
@@ -687,6 +749,9 @@ Mestre: o enjoo em veículos, as fontes da cena e o deslocamento do Cotovelo, do
 
 ### Menestrel
 
+**Classe antiga.** Desde a 0.22 o Menestrel está fora da lista de classes e das Dedicações: a Eternia passou a ter 14
+classes, 7 físicas e 7 mágicas. As fichas que já o usam continuam funcionando com as regras abaixo.
+
 O Motor **Movimentos** mexe nos aliados: o Menestrel canta uma canção de cada vez, e ela sobe um Movimento a cada
 Manutenção (I, II, III; +1 no NP 10), valendo como aura para todos os aliados no combate (o Lamento, para os
 inimigos). Trocar de canção volta ao I; o Finale gasta tudo numa explosão da canção até o fim da rodada. Código em
@@ -720,36 +785,10 @@ Manutenção, todos os do Menestrel saem e voltam no Movimento novo. As habilida
 (Movimentos), `apexStart`, e as rodadas que os talentos guardam (`hurt`, `switched`, `regency`, `chord`, `applause`) e
 `refrain`.
 
-### Monge
-
-O Motor **Corrente** mexe na sequência de golpes: o Golpe de Entrada e o Elo Rápido somam Elos, e o Golpe Final gasta
-todos (cada um soma 2d6 + NP; com a Corrente cheia, o alvo fica [Atordoado]). Um turno sem habilidade da Corrente a
-quebra, e cada ataque de um inimigo que tira PV do monge tira 1 Elo. Os golpes pedem [Artes Marciais] ou as duas mãos
-vazias.
-
-| Parte | O que tem |
-|---|---|
-| Base | FOR 3, DES 4, POD 2, INT 1; faixa Firme (40, +6/NP); papéis Damage e Defense |
-| Kit | Corrente (Motor), Golpe de Entrada (Maior, +1), Elo Rápido (Menor, com 1 Elo, [1d6 + NP], +1), Golpe Final (Maior, com 2 Elos, gasta todos) |
-| O Punho | Palma Atordoante*, Chute Giratório, Punho que Atravessa, Último Elo |
-| O Fluxo | Desviar e Seguir*, Postura do Grou*, Contra-golpe, Fluxo Ininterrupto |
-| O Vento | Passo do Vento*, Investida do Tigre, Pés Leves, Vento Cortante |
-| O Centro | Fôlego do Centro*, Corrente Longa*, Pele de Ferro, Coração Imóvel |
-| Gerais | Primeiro Elo, Salto do Grou, Meditação, Ler o Golpe |
-| Caminhos (NP 3) | Montanha (Raiz da Montanha, Avalanche), Rio (Remanso, Maré Viva), Tempestade (Trovoada, Ciclone) |
-| Ápice (NP 10) | Corrente Infinita |
-| Dedicação (NP 5) | Dedicação: Monge, que dá a Corrente Menor, o Golpe de Entrada e o Golpe Final |
-
-\* talentos [Dedicação].
-
-Automação (`module/classes/monge.mjs`): os Elos que cada golpe soma e o Golpe Final gasta (com o custo "Hate 1+Elos" e
-o dano por `@per`, `@spent` e `@use.flat`), a quebra no fim do turno (`onTurnEnd`), o Elo perdido no dano
-(`onDamaged`), a Corrente cheia ([Atordoado] pelo `onHit`; acerto automático com Punho que Atravessa), Desviar e
-Seguir (`onDodged`), Último Elo (`onKill`), Maré Viva (`onCleanup`), Pele de Ferro (estado passivo), Pés Leves e Raiz
-da Montanha (efeitos com `motorAtLeast`), Fluxo Ininterrupto (a segunda vez do Elo Rápido gasta o Movimento) e as
-linhas do Ápice.
-
 ### Oráculo
+
+**Classe antiga.** Desde a 0.22 o Oráculo está fora da lista de classes e das Dedicações: a Eternia passou a ter 14
+classes, 7 físicas e 7 mágicas. As fichas que já o usam continuam funcionando com as regras abaixo.
 
 O Motor **Fardo** mexe na maldição: cada milagre pesa (+1, os grandes +2), e o Fardo soma +[Fardo × 2] à cura ou
 ao dano dos milagres. Com 3 de Fardo vem a maldição ([Fraqueza: Fardo × 2]); no Teto (4 + ⌊NP/5⌋), também
@@ -857,6 +896,9 @@ uma [Barreira] na hora. A Anulação da Armadura é um estado passivo do Motor (
 
 ### Sacerdote
 
+**Classe antiga.** Desde a 0.22 o Sacerdote está fora da lista de classes e das Dedicações: a Eternia passou a ter 14
+classes, 7 físicas e 7 mágicas. As fichas que já o usam continuam funcionando com as regras abaixo.
+
 O Motor **Graça** mexe nos PV dos aliados: cada ataque de um inimigo que tira PV de um aliado dá +1 Graça (+1 se ele
 ficar com metade dos PV ou menos). A Oração de Cura ([(2+Graça)d6 + Recuperação + (Graça×NP)÷2]) e o Escudo de Fé
 ([Barreira: Graça × (NP+5)]) gastam quanta Graça o Sacerdote quiser: curar depois, ou proteger antes. Teto 3 + ⌊NP/5⌋;
@@ -893,6 +935,7 @@ acerto sem Esquiva e +[NP×2+10]).
 | Parte | O que tem |
 |---|---|
 | Base | FOR 4, DES 2, POD 2, INT 2; faixa Robusta (50, +8/NP); papéis Damage e Defense |
+| Magias | uma no NP 1 e outra no NP 10; os feitiços juntam Cortes só com a lâmina embainhada (o `plan` da classe) |
 | Kit | Bainha (Motor), Embainhar (Menor), Iai (Iniciativa, gasta a Ação Maior), Respiração (Menor, +1) |
 | A Espera | Silêncio Antes do Golpe, Grito do Saque*, Lâmina que Espera*, Contra-saque, Desafio do Samurai |
 | O Fio | Corte do Vento, Corte Circular, Aparar com o Saque*, Primeira Lâmina |
@@ -941,10 +984,14 @@ estados no alvo atingido (`onHit`), o acerto automático do Desenlace e o Ponto 
 
 ## As Magias
 
-A classe diz **como** se conjura; a Magia diz **o que**. As classes de magia (o Mago Azul, o Mago Branco, o Mago Negro, o Mago Vermelho, o Pictomante e o Invocador) escolhem uma
-Magia no NP 1, outra no NP 5 e a terceira no NP 10, e os feitiços dela entram nas escolhas de Combate e Geral, cada um
-com o seu NP mínimo. Os feitiços alimentam e gastam o Motor da classe de quem conjura: cada um +1 (os grandes, +2), e
-os supremos (NP 7; NP 10 nas Ancestrais) pedem o Motor no Teto e gastam tudo. As regras como o jogador lê estão em **XII. MAGIAS** no diário AS
+A classe diz **como** se luta ou se conjura; a Magia diz **que magia** se usa. Toda classe tem Magias: as mágicas (o
+Invocador, o Mago Azul, o Mago Branco, o Mago Negro, o Mago Vermelho e o Pictomante) escolhem uma no NP 1, outra no NP 5
+e a terceira no NP 10; o Matador de Dragões, uma no NP 5 e outra no NP 10 (o elemento é a magia do NP 1); as físicas (o
+Assassino, o Berserker, o Caçador, o Centurião, o Hierofante, o Lutador e o Samurai), uma no NP 1 e outra no NP 10. Os
+feitiços entram nas escolhas de Combate e Geral, cada um com o seu NP mínimo. Os feitiços alimentam e gastam o Motor da classe de quem conjura: cada um +1 (os grandes, +2), e
+os supremos (NP 7; NP 10 nas Ancestrais) pedem o Motor no Teto e gastam tudo. Nas físicas, três Motores leem o
+feitiço do seu jeito (o `plan` da classe): o Samurai só junta Cortes com a lâmina embainhada, o Assassino abre Brechas
+só pelos acertos no Alvo e o Lutador conta o feitiço como golpe da Corrente. As regras como o jogador lê estão em **XII. MAGIAS** no diário AS
 REGRAS (a geral e uma página por Magia).
 
 | Magia | Categoria | Feitiços |
@@ -1013,8 +1060,8 @@ na pasta `Magias/<Magia>` de `skills-class`, com identificadores `<magia>-<nome>
 | `module/classes/<classe>.mjs` | O Motor de cada classe (`ASSASSINO`, `BERSERKER`, `CACADOR`, `COMANDANTE`, `DRUIDA`, `ESTRATEGISTA`, `FEITICEIRO`, `GUARDIAO`, `INVOCADOR`, `MAGOAZUL`, `MAGOBRANCO`, `MAGONEGRO`, `MAGOVERMELHO`, `MATADOR`, `MENESTREL`, `MONGE`, `ORACULO`, `PICTOMANTE`, `RESSONANTE`, `SACERDOTE`, `SAMURAI`, `TECELAO`): o Teto, as regras do kit e dos talentos, os Caminhos, o Ápice e as reações aos eventos. O cabeçalho de cada arquivo diz a regra e o que fica guardado no ator. |
 | `module/classes/index.mjs` | Registra os Motores, embrulha `EterniaCombat#_onPhaseStart` (Manutenção e Encerramento, uma vez, na janela do Mestre que mudou a fase), segue os turnos e o movimento dos tokens, ouve os eventos dos cartões (`eternia.attack`, `eternia.attackResult`, `eternia.dodge`, `eternia.damaged`, `eternia.healed`, `eternia.check`, `eternia.defeated`; um cartão de dano aplicado, com ou sem PV tirado, também vira `onStruck`), põe os botões das classes nos cartões de ataque e tem a API `game.eternia.motor`. |
 | `module/classes/progression.mjs` | O NP mudado à mão oferece o que a classe dá no NP; a Dedicação dá as habilidades dela ao ser aprendida (e uma à escolha, `dedicationChoice`) e as tira junto. |
-| `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`), feita para caber sem rolar: a faixa da classe, o Motor, a trilha do NP (`trail`: o que chega em cada NP; as escolhas em aberto brilham) e as seções em abas (grupo `lhcl` da ficha; a seção com uma escolha em aberto abre primeiro), com a dica de cada habilidade sob o ponteiro (`activateClassTab`); e os dados de cada classe para a aba (cor, faixa, ramos, Caminhos, elementos, `magic` das classes de magia). |
-| `module/classes/migration.mjs` | A limpeza do Kuden e dos arquétipos, e dos ícones antigos das classes. |
+| `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`), feita para caber sem rolar: a faixa da classe, o Motor, a trilha do NP (`trail`: o que chega em cada NP; as escolhas em aberto brilham) e as seções em abas (grupo `lhcl` da ficha; a seção com uma escolha em aberto abre primeiro), com a dica de cada habilidade sob o ponteiro (`activateClassTab`); e os dados de cada classe para a aba (família e função, com a cor; faixa, ramos, Caminhos, elementos e `magic` das classes com vagas de Magia). |
+| `module/classes/migration.mjs` | A limpeza do Kuden e dos arquétipos e dos ícones antigos das classes; as vagas de Magia das classes que as ganharam depois (o Invocador na 0.13, as físicas e o Matador de Dragões na 0.22, `MAGIC_CLASSES`); os nomes novos do Lutador, do Centurião e do Hierofante (0.22). |
 
 Também tocam nas classes: `automation/use.mjs` (requisitos, ação, plano, mudança e Desfazer do Motor; o custo
 "Hate 1+Cortes"), `helpers/skill-rolls.mjs` (acerto automático, bônus do Motor, `damageText`, o evento dos testes),
@@ -1072,7 +1119,7 @@ O cabeçalho de `module/classes/motor.mjs` tem a lista completa. Em resumo:
 | `dedication` | `{ name, id }`: a Dedicação de uma classe |
 | `dedicationGrants` | uuids das habilidades que a Dedicação dá |
 | `dedicationChoice` | uuids entre os quais a Dedicação deixa escolher uma (o elemento do Matador) |
-| `magic` | `{ id, category, tagline }`: uma Magia (só dada pela vaga de Magia de uma classe de magia); `tagline` é a frase curta do cartão na escolha da Magia |
+| `magic` | `{ id, category, tagline }`: uma Magia (só dada pela vaga de Magia da classe); `tagline` é a frase curta do cartão na escolha da Magia |
 | `magicSpell` | `{ id }`: um feitiço da Magia; o navegador o mostra (origem Magia) só para quem tem a Magia |
 | `hitStatuses` | `[{ statusId, value }]`: estados que o dano da habilidade dá em quem acerta (o valor é uma fórmula) |
 | `damageText` | o texto do dano no lugar da fórmula (`[Poder de Ataque] + (1+2×Cortes)d6 + Cortes×NP Físico`) |
@@ -1080,9 +1127,9 @@ O cabeçalho de `module/classes/motor.mjs` tem a lista completa. Em resumo:
 
 O item `class` leva `identifier`, atributos, `hp`, `hpPerRank`, as tags de papel (`Damage`, `Defense`, `Healing`,
 `Control`, `Support`) e `grants`: um espaço por habilidade do kit, um espaço de escolha quando a classe tem elementos
-(`{ uuids: [os elementos] }`, no NP 1), as vagas de Magia de uma classe de magia (`{ rank: 1, magic: true }`, 5 e 10: a
-n-ésima fica aberta enquanto o personagem tem menos de n Magias), `{ rank: 3, uuids: [os três Caminhos] }` e
-`{ rank: 10, auto: true, uuids: [o Ápice] }`. Uma classe que saiu da lista (o Ressonante, que virou o Mago Vermelho, o Tecelão, que virou o Mago Branco, e o Feiticeiro, que virou o Mago Negro) leva
+(`{ uuids: [os elementos] }`, no NP 1), as vagas de Magia (`{ rank, magic: true }`: NP 1, 5 e 10 nas mágicas, 1 e 10 nas
+físicas, 5 e 10 no Matador de Dragões; a n-ésima fica aberta enquanto o personagem tem menos de n Magias), `{ rank: 3, uuids: [os três Caminhos] }` e
+`{ rank: 10, auto: true, uuids: [o Ápice] }`. Uma classe que saiu da lista (o Ressonante, que virou o Mago Vermelho, o Tecelão, que virou o Mago Branco, o Feiticeiro, que virou o Mago Negro, e, na 0.22, o Druida, o Sacerdote, o Oráculo, o Estrategista e o Menestrel) leva
 `flags.eternia.retired` (o id da classe que tomou o lugar) no item e na Dedicação: o navegador de classes e o de
 habilidades só os mostram para quem já os tem.
 
@@ -1090,7 +1137,7 @@ habilidades só os mostram para quem já os tem.
 
 1. Um arquivo em `module/classes/` com a definição do Motor (veja [A definição de um Motor](#a-definição-de-um-motor)
    e qualquer classe pronta), registrada em `index.mjs`.
-2. Os dados da aba em `data.mjs` (`CLASSES`) e os textos em `lang/pt-BR.json` e `lang/en.json` (`Motor.<Classe>`:
+2. Os dados da aba em `data.mjs` (`CLASSES`, com `family`, `role` e `magic`) e os textos em `lang/pt-BR.json` e `lang/en.json` (`Motor.<Classe>`:
    `Name`, `Unit`, `State`, `Card` com `Gain`, `Spend`, `Cap` e `Reset`, e as versões `Lesser` da Dedicação;
    `Classes.<id>.Branch`).
 3. O item de classe na pasta Classes de `races-classes` e as habilidades numa pasta com o nome da classe em
@@ -1098,10 +1145,9 @@ habilidades só os mostram para quem já os tem.
    o kit, 16 talentos (6 [Dedicação]), 4 Gerais, 3 Caminhos com 2 talentos, o Ápice, a Dedicação e o Motor Menor (o
    Matador de Dragões tem mais 16: quatro elementos com três talentos cada, na subpasta Elementos); cada
    habilidade com um ícone só seu e um nome que nenhuma outra usa. O emblema da classe sai de
-   `tools/make-class-icons.mjs` (no jeito dos emblemas de Log Horizon: a família dá a moldura e as cores, losango verde
-   para guerreiro, quadrado creme para ataque com arma, círculo rosa para cura e hexágono turquesa para magia, e a classe
-   dá o símbolo): `assets/icons/classes/<id>.svg` no item de classe e no medalhão da aba Classe, e `<id>-dedicacao.svg`
-   (com o selo "+") na Dedicação. Uma classe nova ganha a família em `CLASS_FAMILY` e o símbolo em `GLYPHS`; sem
+   `tools/make-class-icons.mjs` (no jeito dos emblemas de Log Horizon: a família dá a moldura, a função no grupo dá as
+   cores, `ROLE_COLORS`, e a classe dá o símbolo): `assets/icons/classes/<id>.svg` no item de classe e no medalhão da aba Classe, e `<id>-dedicacao.svg`
+   (com o selo "+") na Dedicação. Uma classe nova ganha a moldura em `CLASS_FAMILY`, a função em `CLASS_ROLE` e o símbolo em `GLYPHS`; sem
    emblema, usa `blank.svg` (só o verde).
 4. A página da classe no diário AS REGRAS (e a linha dela em XI.b), o README e o CHANGELOG; `npm run packs:build` com o
    mundo fechado.

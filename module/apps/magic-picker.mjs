@@ -246,8 +246,12 @@ export class MagicPicker extends HandlebarsApplicationMixin(ApplicationV2) {
       count: magias.filter(m => m.roles.includes(id)).length
     })).filter(r => r.count);
     const roleView = id => ({ id, icon: ROLES[id], label: L(`MagicPicker.Role.${id}`) });
+    // The guide says the slots of this class (the magic ones at CR 1, 5 and 10, the physical ones at 1 and 10...)
+    const slots = (this.source?.system?.grants ?? []).filter(g => g?.magic).map(g => Number(g.rank) || 1);
+    const ranks = new Intl.ListFormat(game.i18n.lang, { type: "conjunction" }).format(slots.map(rank => L("MagicPicker.SlotRank", { rank })));
 
     return {
+      guideSlots: slots.length ? L("MagicPicker.Guide.Slots", { count: slots.length, ranks }) : L("MagicPicker.Guide.SlotsAny"),
       cr,
       rank: this.rank,
       color: job?.color ?? "#1f5137",
