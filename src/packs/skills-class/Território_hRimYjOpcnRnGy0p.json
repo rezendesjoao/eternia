@@ -2,7 +2,7 @@
   "name": "Território",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia (Conjuração).</strong> O espaço em volta de você é seu: você troca as coisas de lugar, fecha o ar em volta de um inimigo e faz o próprio espaço explodir. É a magia de quem controla o campo inteiro sem sair do lugar.</p><ul><li><strong>Feitiços:</strong> Calor Espacial e Território: Troca (NP 1), Território: Prisão e Território: Domínio (NP 3), Colapso Espacial (NP 5) e o feitiço supremo Território Absoluto (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Território Absoluto pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Dentro do seu território, nada fica onde foi deixado.</em></p>",
+    "description": "<p><strong>Magia (Conjuração).</strong> O espaço em volta de você é seu: você troca as coisas de lugar, fecha o ar em volta de um inimigo e faz o próprio espaço explodir. É a magia de quem controla o campo inteiro sem sair do lugar.</p><ul><li><strong>Traço, Espaço Próprio:</strong> os seus feitiços de Território causam +NP÷2 de dano em quem está [Marcado].</li><li><strong>Feitiços:</strong> Calor Espacial e Território: Troca (NP 1), Território: Prisão e Território: Domínio (NP 3), Colapso Espacial (NP 5) e o feitiço supremo Território Absoluto (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Território Absoluto pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Dentro do seu território, nada fica onde foi deixado.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -30,7 +30,59 @@
     "macroeffect": ""
   },
   "img": "icons/environment/wilderness/portal.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "territorio",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "marked"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Espaço Próprio",
+      "img": "icons/environment/wilderness/portal.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "1fpnAkeOVXvHQcAr",
+      "_key": "!items.effects!hRimYjOpcnRnGy0p.1fpnAkeOVXvHQcAr"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "territorio-territorio",

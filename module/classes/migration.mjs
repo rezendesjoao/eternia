@@ -18,6 +18,8 @@
  * and 10).
  * Version 6, the Slayers (0.25): the Dragon Slayer's class items and Dedications take the new elements (White,
  * Shadow, Poison) in their element choice, and the Magia Matador de Deuses is the Matador de Deuses do Céu.
+ * Version 7, the review of the Magias (0.26): the Magias and their spells that the characters have take their
+ * compendium version again (each Magia's Trait, the spells that changed), keeping their Skill Rank and use records.
  */
 const KUDEN_TYPES = new Set(["kudenResource", "kudenResourceFull", "sceneDay", "sceneNight", "sceneNoon", "sceneOpenSky",
   "sceneDarkness", "sceneMiasma", "sceneNoMiasma", "targetBossRaid", "hpAtMost"]);
@@ -153,11 +155,53 @@ async function cleanItems(items, parent, done) {
   return updates.length;
 }
 
+/** The Magias and spells of the compendium, by identifier (read once per run). */
+async function magiaSources() {
+  const docs = await game.packs.get("eternia.skills-class")?.getDocuments() ?? [];
+  return new Map(docs.filter(d => d.flags?.eternia?.magic || d.flags?.eternia?.magicSpell)
+    .map(d => [d.flags.eternia.identifier, d]));
+}
+
+/**
+ * Version 7: the Magia skills and spells among these items take their compendium version again (name, picture, data,
+ * flags and effects), keeping their Skill Rank and their use record (`flags.eternia.usage`).
+ * @param {Collection<Item>|Item[]} items
+ * @param {Actor|null} parent
+ * @param {Map<string, Item>} sources
+ * @returns {Promise<number>}
+ */
+async function refreshMagias(items, parent, sources) {
+  let count = 0;
+  for (const item of items) {
+    const flags = item._source.flags?.eternia ?? {};
+    if ((item.type !== "skill") || !(flags.magic || flags.magicSpell)) continue;
+    const source = sources.get(flags.identifier);
+    if (!source) continue;
+    const data = source.toObject();
+    const eternia = { ...data.flags.eternia, ...(flags.usage ? { usage: flags.usage } : {}) };
+    const update = {
+      _id: item.id, name: data.name, img: data.img,
+      system: { ...data.system, skillRank: item._source.system?.skillRank ?? data.system.skillRank },
+      flags: { ...item._source.flags, eternia: eternia }
+    };
+    if (parent) await parent.updateEmbeddedDocuments("Item", [update], { recursive: false, diff: false });
+    else await item.update(update, { recursive: false, diff: false });
+    const old = item.effects.map(e => e.id);
+    if (old.length) await item.deleteEmbeddedDocuments("ActiveEffect", old);
+    if (data.effects?.length) await item.createEmbeddedDocuments("ActiveEffect", data.effects, { keepId: true });
+    count++;
+  }
+  return count;
+}
+
 async function run(done) {
   let changed = 0;
+  const sources = (done < 7) ? await magiaSources() : null;
   changed += await cleanItems(game.items, null, done);
+  if (sources) changed += await refreshMagias(game.items, null, sources);
   for (const actor of game.actors) {
     changed += await cleanItems(actor.items, actor, done);
+    if (sources) changed += await refreshMagias(actor.items, actor, sources);
     if (done >= 1) continue;
     const effects = effectChanges(actor);
     if (effects.length) await actor.updateEmbeddedDocuments("ActiveEffect", effects);
@@ -172,4 +216,4 @@ async function run(done) {
   return true;
 }
 
-export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 6, run };
+export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 7, run };

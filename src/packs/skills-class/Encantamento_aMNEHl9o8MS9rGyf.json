@@ -2,7 +2,7 @@
   "name": "Encantamento",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia (Conjuração).</strong> Você encanta o que toca: dá força, guarda e pressa aos aliados, arranca os encantos dos inimigos e, no fim, encanta o próprio mundo. É a magia de quem vence a luta pelas mãos dos outros.</p><ul><li><strong>Feitiços:</strong> Encantamento: Força e Encantamento: Guarda (NP 1), Encantamento: Pressa e Desencanto (NP 3), Grande Encantamento (NP 5) e o feitiço supremo Universo Um (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Universo Um pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>As runas que você desenha no ar continuam brilhando depois que você vai embora.</em></p>",
+    "description": "<p><strong>Magia (Conjuração).</strong> Você encanta o que toca: dá força, guarda e pressa aos aliados, arranca os encantos dos inimigos e, no fim, encanta o próprio mundo. É a magia de quem vence a luta pelas mãos dos outros.</p><ul><li><strong>Traço, Desencantador:</strong> você é imune a [Encantado] (quem encanta não cai em encanto), e os seus feitiços de Encantamento causam +NP÷2 de dano para cada encanto que o alvo tem: [Fortalecido], [Acelerado], [Concentrado], [Anulação], [Barreira], [Regeneração], [Espelho], [Intangível] e [Despertado].</li><li><strong>Feitiços:</strong> Encantamento: Força e Encantamento: Guarda (NP 1), Encantamento: Pressa e Desencanto (NP 3), Grande Encantamento (NP 5) e o feitiço supremo Universo Um (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Universo Um pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>As runas que você desenha no ar continuam brilhando depois que você vai embora.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -30,7 +30,110 @@
     "macroeffect": ""
   },
   "img": "icons/magic/nature/leaf-rune-glow-green.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "encantamento",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "empowered"
+                ],
+                "value": "floor(@cr/2)"
+              },
+              {
+                "statuses": [
+                  "hasted"
+                ],
+                "value": "floor(@cr/2)"
+              },
+              {
+                "statuses": [
+                  "focused"
+                ],
+                "value": "floor(@cr/2)"
+              },
+              {
+                "statuses": [
+                  "cancel"
+                ],
+                "value": "floor(@cr/2)"
+              },
+              {
+                "statuses": [
+                  "barrier"
+                ],
+                "value": "floor(@cr/2)"
+              },
+              {
+                "statuses": [
+                  "regen"
+                ],
+                "value": "floor(@cr/2)"
+              },
+              {
+                "statuses": [
+                  "mirror"
+                ],
+                "value": "floor(@cr/2)"
+              },
+              {
+                "statuses": [
+                  "intangible"
+                ],
+                "value": "floor(@cr/2)"
+              },
+              {
+                "statuses": [
+                  "awakened"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          },
+          "immune": [
+            "charmed"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Desencantador",
+      "img": "icons/magic/nature/leaf-rune-glow-green.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "OhRZNImJGkzojSyB",
+      "_key": "!items.effects!aMNEHl9o8MS9rGyf.OhRZNImJGkzojSyB"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "encantamento-encantamento",

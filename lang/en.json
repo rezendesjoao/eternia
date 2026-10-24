@@ -384,14 +384,18 @@
       "disarmed": "Disarmed",
       "blinded": "Blinded",
       "sealed": "Sealed",
+      "weakened": "Weakened",
       "frightened": "Frightened",
       "charmed": "Charmed",
       "taunted": "Taunted",
+      "dominated": "Dominated",
       "berserk": "Berserk",
       "burning": "Burning",
       "poisoned": "Poisoned",
       "freezing": "Freezing",
       "shocked": "Shocked",
+      "soaked": "Soaked",
+      "fuse": "Fuse",
       "cursed": "Cursed",
       "exposed": "Exposed",
       "fissured": "Fissured",
@@ -404,6 +408,7 @@
       "intangible": "Intangible",
       "lastStand": "Last Stand",
       "awakened": "Awakened",
+      "servant": "Servant",
       "bond": "Bond"
     },
     "StatusGroup": {
@@ -764,7 +769,10 @@
         "PDef": "P.Def",
         "MDef": "M.Def",
         "Hate": "Hate Damage",
-        "HateDown": "Hate −1 (failed Dodge Check)"
+        "HateDown": "Hate −1 (failed Dodge Check)",
+        "Trait": "Trait",
+        "BarrierBroken": "The Barrier broke",
+        "Consumed": "Consumed"
       },
       "Notif": {
         "NoTokens": "Select the tokens to apply it to.",
@@ -1520,7 +1528,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.25: the Slayers, the Curses and sixteen more Magias</strong></p><ul><li>Three new elements for the <strong>Dragon Slayer</strong>: <strong>White</strong> (the light that marks: the White Dragon's Holy Ray, the White Drive and the Secret Art Holy Nova), <strong>Shadow</strong> (the shadow that blinds: the slash under the ground, the Shadow Form and the Abyss) and <strong>Poison</strong> (poisons: the Twin Fang, the Guard and the Jaw). The Dedication can choose them too, and the characters that already have the Dragon Slayer get the new options.</li><li>Sixteen new Magias. With a Taboo: the <strong>Lightning God Slayer</strong> (the black lightning: the 120 mm cannon, the armor that strikes back and the Particle Cannon), the <strong>Fire God Slayer</strong> (black flames that crack instead of burning), the Forbidden <strong>Chains</strong> (hooked chains, finger bullets and the Amaterasu seals), the <strong>Great Tree Arc</strong> (exploding fruits and binding roots), the <strong>Arc of Embodiment</strong> (what you imagine becomes real), the <strong>Doll Curse</strong> (a strand of hair in the doll, and the other body obeys), the <strong>Time Seal</strong> (stopping time and acting alone) and the Forbidden <strong>White Arts</strong> (pleasure, hunger and sleep become weapons). And also: <strong>Shikigami</strong> (paper dolls), <strong>Crimson Hair</strong> (the hair that grabs, shoots and becomes a wolf), <strong>Shades</strong> (phantom soldiers), the Holder <strong>Magic Swords</strong> (cuts beyond the blade), <strong>Copy</strong> (copying the magic of others), <strong>Command M</strong> (shrinking and enlarging anything), <strong>Stories of the Dead</strong> (the dead of the past back to fight) and <strong>Stealth</strong> (vanishing and striking with invisible weapons). The God Slayer is now the Sky God Slayer.</li><li>A new Magia category, the <strong>Curse</strong>: the demons' power, which isn't magic ([Silenced] doesn't stop it), as strong as the Lost and with a Taboo. Seven: <strong>Absorption</strong> (swallowing souls and spells and becoming who you swallowed), <strong>Enhancement</strong> (your allies' strength, your own and your enemies' pain), <strong>Bomb</strong> (everything you touch explodes), <strong>Calamity</strong> (tornadoes, earthquakes, lightning and fire), <strong>Thorns</strong> (the thorns of the underworld and Memento Mori), <strong>Macro</strong> (giving orders to other people's bodies) and <strong>Necromancy</strong> (raising the dead and turning into mist). The catalog reaches 73 Magias.</li><li>Since 0.24: Sense Link, Angel Magic, Darkness and Bind.</li></ul><p>Since 0.23: Snow, Magic Perfume, Machine Soul and Wave. Since 0.22: 14 classes, 7 physical and 7 magic, all with Magias; the Fighter, the Centurion and the Hierophant. Since 0.21: Wood-Make, Sand, Telepathy and Teleportation. Since 0.20: the Holder Magias Magic Guns, Plants, Smoke and Magic Painting. Since 0.19: Giant, Enchantment, Magic Eyes and High Speed. Since 0.18: the Magia choice in a window of its own and the class tab without scrolling. Since 0.17: the Lost Magias. Since 0.16: the elemental Magias. Since 0.15: the Blue Mage and the Take Over Magias. Since 0.14: the White Mage. Since 0.13: the Summoner with Magias. Since 0.12: the Pictomancer. Since 0.11: the Red Mage. Since 0.10: the Black Mage and the Magias. Since 0.9: the Dragon Slayer. Since 0.8: the classes with a Motor. Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
+      "Body": "<p><strong>What's new in Eternia 0.26: the Magia review</strong></p><ul><li>Each of the 73 Magias has a <strong>Trait</strong>, a passive rule of its own for its spells, shown in the description and in the Magia window: <strong>Fire</strong> hits harder on whoever already burns, <strong>Magic Eyes</strong> petrify whoever already has [Rigor], <strong>Water</strong> doesn't burn, <strong>Smoke</strong> attacks without leaving [Hidden], <strong>Enchantment</strong> hurts more the more enchantments the target has.</li><li>Five new conditions: [Soaked] (lightning and cold hurt more, and fire goes out), [Weakened] (less damage), [Fuse] (adds up and explodes at the end of the round), [Servant] (the summoned creature stays in the fight and attacks on its own) and [Dominated] (can't attack whoever dominates it or their allies).</li><li>47 spells changed so that similar Magias feel different: random cards, stealing the target's boosts, the Purple Flame that doubles the fire, bombs with a Fuse, dolls and beasts that stay at your side. Three repeated spells were replaced. Characters get it all automatically, keeping their SR.</li><li>Since 0.25: the Slayers (White, Shadow and Poison), the Curses and sixteen more Magias.</li></ul><p>Since 0.24: Sense Link, Angel Magic, Darkness and Bind. Since 0.23: Snow, Magic Perfume, Machine Soul and Wave. Since 0.22: 14 classes, 7 physical and 7 magic, all with Magias; the Fighter, the Centurion and the Hierophant. Since 0.21: Wood-Make, Sand, Telepathy and Teleportation. Since 0.20: the Holder Magias Magic Guns, Plants, Smoke and Magic Painting. Since 0.19: Giant, Enchantment, Magic Eyes and High Speed. Since 0.18: the Magia choice in a window of its own and the class tab without scrolling. Since 0.17: the Lost Magias. Since 0.16: the elemental Magias. Since 0.15: the Blue Mage and the Take Over Magias. Since 0.14: the White Mage. Since 0.13: the Summoner with Magias. Since 0.12: the Pictomancer. Since 0.11: the Red Mage. Since 0.10: the Black Mage and the Magias. Since 0.9: the Dragon Slayer. Since 0.8: the classes with a Motor. Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -1552,18 +1560,22 @@
       "prone": "On the ground: −1d6 on their Close attacks and on Dodge Checks against Close attacks. Standing up takes the Move Action.",
       "slowed": "No Move Action, and acts after everyone who isn't Slowed. Ends in the Cleanup Process.",
       "grappled": "Held by the grappler: no actions with the [Movement] tag, the token doesn't move, attacks only the grappler. Ends with a Major Action or if the grappler is Incapacitated.",
-      "silenced": "No skills with the [Magic Attack], [Spell] or [Song] tags ([Curse] ones still go). Ends at the end of their Main Process.",
+      "silenced": "No skills with the [Magic Attack], [Spell] or [Song] tags (the Curse ones still go). Ends at the end of their Main Process.",
       "disarmed": "No weapon attacks ([Weapon Attack], [Melee Attack], [Ranged Attack], [Sword Attack] or Range: Weapon). Taking the weapon back takes a Minor Action.",
       "blinded": "−1d6 on every check but Resistance, and attacks only within 1 square. Ends in the Cleanup Process.",
       "sealed": "[Sealed (Skill)]: that skill can't be used. Without a name, it seals the last skill used. Ends at the end of the scene.",
+      "weakened": "[Weakened: n]: −n damage on attacks. The highest Rating stays. Ends at the end of their own Main Process.",
       "frightened": "−1d6 on every check against whoever frightened them, and can't move closer to them. Ends in the Cleanup Process.",
       "charmed": "Can't attack the charmer and −1d6 on Dodge Checks against them. Ends if the charmer deals them damage, or with a Major Action.",
       "taunted": "Their hostile skills must target the taunter. Ends at the end of their Main Process.",
+      "dominated": "The one who dominated them commands their body: their hostile skills can't target that one nor that one's allies (the GM plays the rest). Ends at the end of their own Main Process.",
       "berserk": "[Berserk: n]: +n damage on attacks, −1d6 on Dodge Checks, and only skills that attack (and movement). Ends with a Major Action or at the end of the scene.",
       "burning": "[Burning: n]: n [Flame] damage in the Cleanup Process. The highest Rating stays. Ends with a Minor Action (putting it out) or when Swimming.",
       "poisoned": "[Poisoned: n]: n direct damage at the start of each Main Process and −1d6 on Resistance. The highest Rating stays. Ends with a Major Action.",
       "freezing": "[Freezing: n] (up to 3 stacks): −1 Speed and Initiative per stack. On the third the character freezes: Paralyzed, and the stacks clear. [Flame] damage removes them all. Ends with a Major Action.",
       "shocked": "[Shocked: n]: n direct damage on every Major Action, and no reactions. The highest Rating stays. Ends in the Cleanup Process.",
+      "soaked": "[Soaked: n]: +n damage from [Shock] and [Cold]. Can't be Burning (and loses it when Soaked); [Flame] damage only dries the Soaked. Ends in the Cleanup Process.",
+      "fuse": "[Fuse: n]: in the Cleanup Process it goes off: n [Flame] damage, and the Fuse ends. New Fuses add to the Rating. Ends before with a Major Action (defusing).",
       "cursed": "Recovers no HP (healing, Regen and items) and effects can't give them Barrier nor Regen. Ends at the end of the scene.",
       "exposed": "The guard is down: Physical and Magic Defense are 0 and Cancel doesn't work. Ends in the Cleanup Process.",
       "fissured": "[Fissured: n] (up to 3 stacks): −2 Physical and Magic Defense per stack. On the third the guard breaks: the stacks clear, the Barrier is gone and they are Exposed. Ends with a Major Action.",
@@ -1576,6 +1588,7 @@
       "intangible": "Takes no physical damage. Ends on a Major Action or in the Cleanup Process.",
       "lastStand": "When they would drop to 0 HP, they stay at 1 HP and the status ends.",
       "awakened": "[Awakened: n]: the transformation. +1d6 on Accuracy checks and +n damage on attacks. When it ends, it leaves [Fatigue: n].",
+      "servant": "[Servant: n]: a summoned servant fights at their side. In the Cleanup Process, it strikes the nearest enemy within 4 Sq: n direct damage, with the servant's tag. The highest Rating stays. Ends at the end of the scene.",
       "bond": "Half the HP damage they would take goes to whoever made the Bond, as direct damage. Ends at the end of the scene or if that character is Incapacitated."
     },
     "StatusFamily": {
@@ -1598,7 +1611,9 @@
         "WokeUp": "Woke up",
         "CharmBroken": "The Charm broke",
         "Melted": "The Flame melted the Freezing",
-        "Mirror": "Mirror: {n} damage to {name}"
+        "Mirror": "Mirror: {n} damage to {name}",
+        "Soaked": "Soaked: +{n}",
+        "Dried": "The Flame dried the Soaked"
       },
       "CursedNoHeal": "{name} is Cursed: recovers no HP.",
       "CursedBlocks": "{name} is Cursed: gets no {status}.",
@@ -1625,7 +1640,8 @@
         "Blinded": "{name} is Blinded: attacks only within 1 square ({targets}).",
         "Grappled": "{name} is Grappled: attacks only {source}.",
         "Taunted": "{name} is Taunted: must target {source}.",
-        "Charmed": "{name} is Charmed: can't attack {source}."
+        "Charmed": "{name} is Charmed: can't attack {source}.",
+        "Dominated": "{name} is Dominated: can't attack {source} nor that one's allies."
       },
       "Move": {
         "Stuck": "{name} is {status} and can't move.",
@@ -1647,9 +1663,11 @@
         "Double": "{name}: {status} rises to {n}.",
         "Remove": "{name}: no more {statuses}.",
         "Switch": "{name} and {ally} trade places. Hate: {name} {mine}, {ally} {theirs}.",
-        "SwitchFoe": "{ally} is not an ally of {name}: no switch."
+        "SwitchFoe": "{ally} is not an ally of {name}: no switch.",
+        "Steal": "{name} steals from {from}: {statuses}."
       },
-      "Alone": "Alone"
+      "Alone": "Alone",
+      "ServantStrike": "{name}'s Servant"
     },
     "RankGrants": {
       "Title": "{name}: a new pick",

@@ -3,11 +3,13 @@
  *
  * Applying a damage card (helpers/combat-cards.mjs) asks here:
  * - before: a class Motor may take the whole card (the Dragon Slayer eats an ally's attack of its element); [Exposed]
- *   ignores the Defense and [Cancel]; [Intangible] takes no physical damage;
+ *   ignores the Defense and [Cancel]; [Intangible] takes no physical damage; [Soaked] takes its Rating more from
+ *   [Shock] and [Cold] damage;
  * - on a failed Dodge Check: [Marked] adds its Rating as direct damage, then the mark ends;
  * - after: [Last Stand] keeps the character at 1 HP once; [Bond] sends half the HP loss to its source; [Mirror]
  *   deals its Rating to the attacker; [Asleep] wakes up; [Charmed] ends when its source deals the damage; [Flame]
- *   damage melts [Freezing]; the damage ends [Hidden] on both sides.
+ *   damage melts [Freezing] and dries [Soaked]; the damage ends [Hidden] on both sides (not the attacker's, when its
+ *   spell keeps it: a Magia's Trait).
  * Healing does nothing to a [Cursed] character, and effects can't give it [Regen] nor [Barrier] (the GM still can
  * by hand, in the sheet).
  *
@@ -27,6 +29,13 @@ const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 /** Statuses without a field that an application can end (saved for its Undo). */
 const ENDED_BY_DAMAGE = ["asleep", "lastStand", "charmed", "hidden"];
 
+/**
+ * Rating fields an application can change (the mark spent, the ice melted, the water dried, a status a spell consumed
+ * or stripped), saved for its Undo.
+ */
+const RESTORED_FIELDS = ["marked", "freezing", "soaked", "burning", "poisoned", "shocked", "decay", "fuse", "fissured",
+  "regen", "barrier", "empowered", "awakened", "mirror", "weakened", "doom", "berserk"];
+
 /* -------------------------------------------- */
 /*  Damage cards                                */
 /* -------------------------------------------- */
@@ -36,10 +45,10 @@ const ENDED_BY_DAMAGE = ["asleep", "lastStand", "charmed", "hidden"];
  * @param {Actor} actor
  * @param {object} card    The damage card data (type, tags)
  * @param {boolean} direct
- * @returns {{noDefense: boolean, noCancel: boolean, immune: boolean, notes: string[]}}
+ * @returns {{noDefense: boolean, noCancel: boolean, immune: boolean, bonus: number, notes: string[]}}
  */
 export function beforeDamage(actor, card, direct) {
-  const result = { noDefense: false, noCancel: false, immune: false, notes: [] };
+  const result = { noDefense: false, noCancel: false, immune: false, bonus: 0, notes: [] };
   if (card.recovery) return result;
   const eaten = motorAbsorbs(actor, card);
   if (eaten) {
@@ -56,6 +65,12 @@ export function beforeDamage(actor, card, direct) {
   if (has(actor, "intangible") && !direct && (card.type === "physical")) {
     result.immune = true;
     result.notes.push(L("Conditions.Applied.Intangible"));
+  }
+  // [Soaked]: the water carries the lightning and the cold.
+  const soaked = rating(actor, "soaked");
+  if ((soaked > 0) && (hasTag(card, "shock") || hasTag(card, "cold"))) {
+    result.bonus += soaked;
+    result.notes.push(L("Conditions.Applied.Soaked", { n: soaked }));
   }
   return result;
 }
@@ -105,6 +120,10 @@ export function afterDamage(actor, card, { hp, hpLoss, absorbed, marked }) {
     out.updates["system.bad-status.freezing"] = 0;
     out.lines.push(L("Conditions.Applied.Melted"));
   }
+  if (hurt && has(actor, "soaked") && hasTag(card, "flame")) {
+    out.updates["system.bad-status.soaked"] = 0;
+    out.lines.push(L("Conditions.Applied.Dried"));
+  }
   if (hurt && has(actor, "hidden")) out.end.push("hidden");
   // [Mirror]: the attacker takes the Rating as direct damage.
   const mirror = rating(actor, "mirror");
@@ -112,8 +131,8 @@ export function afterDamage(actor, card, { hp, hpLoss, absorbed, marked }) {
     out.lines.push(L("Conditions.Applied.Mirror", { n: mirror, name: actorName(attacker) }));
     out.after.push(() => takeDamage(attacker, mirror, { reason: "mirror", from: actor }));
   }
-  // Dealing damage ends the attacker's [Hidden].
-  if (hurt && attacker && has(attacker, "hidden")) {
+  // Dealing damage ends the attacker's [Hidden] (unless its spell keeps it).
+  if (hurt && attacker && has(attacker, "hidden") && !card.keepHidden) {
     out.after.push(() => (attacker.isOwner ? removeStatuses(attacker, ["hidden"]) : null));
   }
   return out;
@@ -123,7 +142,7 @@ export function afterDamage(actor, card, { hp, hpLoss, absorbed, marked }) {
 export function snapshotForUndo(actor) {
   const bad = actor._source.system?.["bad-status"] ?? {};
   return {
-    conditionFields: { marked: toInt(bad.marked), freezing: toInt(bad.freezing) },
+    conditionFields: Object.fromEntries(RESTORED_FIELDS.map(id => [id, toInt(bad[id])])),
     conditionEffects: [...actor.effects].filter(e => ENDED_BY_DAMAGE.some(id => e.statuses?.has(id))).map(e => e.toObject())
   };
 }
@@ -131,10 +150,8 @@ export function snapshotForUndo(actor) {
 /** Undo: the fields and the statuses the application had ended come back. */
 export async function restoreForUndo(actor, before) {
   if (!before?.conditionFields) return;
-  await actor.update({
-    "system.bad-status.marked": before.conditionFields.marked,
-    "system.bad-status.freezing": before.conditionFields.freezing
-  });
+  await actor.update(Object.fromEntries(Object.entries(before.conditionFields)
+    .map(([id, value]) => [`system.bad-status.${id}`, toInt(value)])));
   const missing = (before.conditionEffects ?? []).filter(e => !actor.effects.has(e._id));
   if (missing.length) await actor.createEmbeddedDocuments("ActiveEffect", missing, { keepId: true });
 }

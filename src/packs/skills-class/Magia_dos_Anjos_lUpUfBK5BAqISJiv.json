@@ -2,7 +2,7 @@
   "name": "Magia dos Anjos",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia (Conjuração).</strong> Você declara um preço, as moedas douradas dos anjos aparecem na sua mão, e um anjo desce para cumprir a ordem. Os anjos não erram, mas cada um cobra um pedaço da sua vida. É a magia de quem paga caro para não falhar.</p><ul><li><strong>O preço:</strong> os anjos invocados (Mensageiros Angelicais, Anjo do Martelo, Shamsiel, Barakiel e Raguel) acertam sem Teste de Precisão, e cada um deixa [Fadiga] em você ao ser chamado (os seus PV máximos caem até você comer ou descansar). As Penas Angelicais não cobram nada.</li><li><strong>Feitiços:</strong> Penas Angelicais e Mensageiros Angelicais (NP 1), Anjo do Martelo e Shamsiel (NP 3), Barakiel (NP 5) e o feitiço supremo Raguel (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). Raguel pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>As moedas brilham na palma da mão. Cada uma vale um pouco do tempo que você ainda tem.</em></p>",
+    "description": "<p><strong>Magia (Conjuração).</strong> Você declara um preço, as moedas douradas dos anjos aparecem na sua mão, e um anjo desce para cumprir a ordem. Os anjos não erram, mas cada um cobra um pedaço da sua vida. É a magia de quem paga caro para não falhar.</p><ul><li><strong>O preço:</strong> os anjos invocados (Mensageiros Angelicais, Anjo do Martelo, Shamsiel, Barakiel e Raguel) acertam sem Teste de Precisão, e cada um deixa [Fadiga] em você ao ser chamado (os seus PV máximos caem até você comer ou descansar). As Penas Angelicais não cobram nada.</li><li><strong>Traço, Preço Pago:</strong> enquanto você tem [Fadiga], os seus feitiços da Magia dos Anjos causam +NP÷2 de dano.</li><li><strong>Feitiços:</strong> Penas Angelicais e Mensageiros Angelicais (NP 1), Anjo do Martelo e Shamsiel (NP 3), Barakiel (NP 5) e o feitiço supremo Raguel (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). Raguel pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>As moedas brilham na palma da mão. Cada uma vale um pouco do tempo que você ainda tem.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -30,7 +30,58 @@
     "macroeffect": ""
   },
   "img": "icons/commodities/currency/coin-plain-portal-gold.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "anjos",
+            "bonus": "floor(@cr/2)"
+          },
+          "conditions": [
+            {
+              "type": "status",
+              "value": "fatigue"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Preço Pago",
+      "img": "icons/commodities/currency/coin-plain-portal-gold.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "6vswY6DmVo9VJrX2",
+      "_key": "!items.effects!lUpUfBK5BAqISJiv.6vswY6DmVo9VJrX2"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "anjos-anjos",

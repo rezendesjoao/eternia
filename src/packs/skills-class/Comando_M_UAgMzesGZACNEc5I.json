@@ -2,7 +2,7 @@
   "name": "Comando M",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia (Conjuração).</strong> Você muda o tamanho da matéria: encolhe um inimigo, aumenta um aliado, aperta um feitiço até ele sumir, e faz uma ilha inteira crescer ou caber na palma da mão. É a magia de quem derruba países.</p><ul><li><strong>Feitiços:</strong> Comando: Redução e Comando: Expansão (NP 1), Comando: Encolher a Magia e Qualidade do Poder Mágico (NP 3), Comando: Terreno (NP 5) e o feitiço supremo Demolidora de Países (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Demolidora de Países pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Tudo tem um tamanho. Você só discorda.</em></p>",
+    "description": "<p><strong>Magia (Conjuração).</strong> Você muda o tamanho da matéria: encolhe um inimigo, aumenta um aliado, aperta um feitiço até ele sumir, e faz uma ilha inteira crescer ou caber na palma da mão. É a magia de quem derruba países.</p><ul><li><strong>Traço, Escala Errada:</strong> você é imune a [Enfraquecido] (ninguém muda o seu tamanho), e os seus feitiços de Comando M causam +NP÷2 de dano em quem está [Enfraquecido].</li><li><strong>Feitiços:</strong> Comando: Redução e Comando: Expansão (NP 1), Comando: Encolher a Magia e Qualidade do Poder Mágico (NP 3), Comando: Terreno (NP 5) e o feitiço supremo Demolidora de Países (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Demolidora de Países pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Tudo tem um tamanho. Você só discorda.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -30,7 +30,62 @@
     "macroeffect": ""
   },
   "img": "icons/magic/earth/projectile-stone-ball-purple.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "comando-m",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "weakened"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          },
+          "immune": [
+            "weakened"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Escala Errada",
+      "img": "icons/magic/earth/projectile-stone-ball-purple.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "TGbGpNGHVVyaZtzX",
+      "_key": "!items.effects!UAgMzesGZACNEc5I.TGbGpNGHVVyaZtzX"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "comando-m-comando-m",

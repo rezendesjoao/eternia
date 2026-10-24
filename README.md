@@ -5,9 +5,16 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.25.0
+## Versão 0.26.0
 
-- **Novo na 0.25.0: os Matadores, as Maldições e mais dezesseis Magias.** Três elementos novos para o Matador de
+- **Novo na 0.26.0: a revisão das Magias.** Cada uma das 73 Magias ganhou um **Traço**, uma regra passiva própria que
+  vale para os feitiços dela: o Fogo bate mais em quem já queima, os Olhos Mágicos petrificam quem já está com
+  Rigidez, a Água não queima, o Esmagamento atravessa a Barreira, o Encantamento fere mais quanto mais encantos o alvo
+  tem. 47 feitiços mudaram para que as Magias parecidas fiquem diferentes, e cinco condições novas (Encharcado,
+  Enfraquecido, Pavio, Servo e Dominado; veja [As condições](#as-condições)) dão regra às invocações que ficam na luta,
+  às bombas que explodem depois e aos corpos controlados. As fichas recebem tudo sozinhas (veja
+  [As Magias](#as-magias)).
+- **Desde a 0.25.0: os Matadores, as Maldições e mais dezesseis Magias.** Três elementos novos para o Matador de
   Dragões, o Branco, as Sombras e o Veneno, cada um com três talentos e uma Arte Secreta (veja
   [As classes](#as-classes)); dezesseis Magias: as Perdidas Matador de Deuses do Raio, Matador de Deuses do Fogo, Arco
   da Grande Árvore, Arco da Materialização, Maldição do Boneco e Selo do Tempo, as Proibidas Correntes e Artes Brancas,
@@ -326,83 +333,83 @@ função, busca por Magia ou feitiço e, ao passar o mouse, a página da Magia c
 mostra as Magias com os feitiços de cada uma, e o navegador de habilidades mostra os feitiços das suas Magias (a origem "Magia") nas
 escolhas de Combate e Geral. Os feitiços alimentam o Motor da sua classe (+1; os grandes, +2), e o feitiço supremo de
 cada Magia (NP 7; NP 10 nas Ancestrais) pede o Motor no Teto e gasta tudo. Nas físicas, o Samurai só junta Cortes com
-a lâmina embainhada, o Assassino abre Brechas pelos acertos no Alvo e o Lutador conta o feitiço como golpe da Corrente. As regras estão em **XII. MAGIAS**, no diário AS REGRAS.
+a lâmina embainhada, o Assassino abre Brechas pelos acertos no Alvo e o Lutador conta o feitiço como golpe da Corrente. Cada Magia tem um **Traço**, uma regra passiva própria que vale para os feitiços dela: dano a mais contra quem já tem um estado (o Fogo em quem queima), um estado que escala (os Olhos Mágicos petrificam quem já está com Rigidez), uma imunidade ou um golpe que atravessa a Barreira ou a Anulação. As regras estão em **XII. MAGIAS**, no diário AS REGRAS.
 
 | Magia | Categoria | O que faz |
 |---|---|---|
-| Absorção | Maldição | As almas: a conexão que bebe a força ([Fortalecido]), o ataque engolido ([Anulação]), a revolução que veste outra alma ([Despertado]), a alma roubada ([Selado]), a ejeção ([Medo]) e o Festim de Almas ([Maldito], [Atordoado]). Tabu: em combate, a Defesa Mágica cai [NP÷2] e −1d6 nas Resistências. |
-| Água | Conjuração | Prende, corta e escorre: [Água], [Lento], [Enraizado] e o Corpo de Água ([Intangível]); o supremo é o Maremoto. |
-| Alma Animal | Conjuração | Os bichos: o gato que some ([Oculto]), o pássaro que mergulha ([Voando]), o coelho que salta ([Acelerado]), o peixe ([Água], [Lento]), o urso ([Derrubado]) e o Estouro da Manada. |
-| Alma de Fera | Conjuração | As feras: o braço de pedra ([Anulação]), os touros ([Derrubado], [Fissurado]), as escamas do lagarto ([Espelho]), o tigre que ataca dois e o Corpo Inteiro, que deixa [Fúria]. |
-| Alma de Máquina | Conjuração | Take Over de máquinas: o canhão de lacrima, a blindagem ([Anulação]), os propulsores ([Voando]), a rajada que deixa [Cambaleante], o bombardeio que deixa [Derrubado] e o Traje de Batalha ([Atordoado]). |
-| Alma de Satã | Conjuração | Os demônios: o raio que deixa [Eletrificado], as mãos de trevas ([Enraizado]), a explosão de [Corrupção], a armadura viva ([Fortalecido]), o fogo de Sitri ([Queimando]) e a Extinção da Alma ([Maldito]). |
-| Alta Velocidade | Conjuração | A pressa: o golpe que deixa [Perseguição], a rajada em dois alvos, a velocidade que deixa [Acelerado] a cena inteira, o chute que atravessa e derruba ([Derrubado]), os Cem Golpes e a Tempestade de Golpes ([Cambaleante]). |
-| Amarras | Conjuração | Os tubos: o chicote, a amarra que deixa [Agarrado] e [Silenciado], o arranhão que deixa [Marcado], a rede que deixa [Enraizado], a explosão felina que deixa [Lento] e a Prisão de Mil Tubos ([Agarrado]). |
-| Aprimoramento | Maldição | O aprimoramento: as garras-chicote, o corpo aprimorado de um aliado ([Fortalecido]), a dor amplificada ([Fraqueza]), o aprimoramento por segundo ([Despertado]), a dor em massa e a Privação dos Sentidos ([Cego], [Atordoado]). Tabu: na primeira rodada do combate, as Defesas caem [NP]. |
-| Arco da Grande Árvore | Perdida | A árvore e a força da terra: as explosões em linha de [Chama], o esconderijo no tronco ([Oculto], [Regeneração]), as folhas que caçam três alvos, a bomba-relógio de raízes ([Enraizado], [Deterioração]), o estouro da torre ([Derrubado]) e o Terra Clamare ([Atordoado]). Tabu: em combate, −1d6 nas Esquivas. |
-| Arco da Materialização | Perdida | A imaginação feita real: a espada negra, o escudo dourado ([Anulação]), as asas de pégaso ([Voando]), os fantasmas que deixam [Enraizado], a fera sagrada do trovão ([Atordoado]) e a Torre de Dingir ([Enraizado], [Derrubado]). Tabu: em combate, a Iniciativa cai [NP] e a Defesa Física cai [NP÷2]. |
-| Arco do Tempo | Perdida | O tempo nas mãos: as esferas que pulam o tempo, o tempo lento ([Lento], [Atordoado]), a cura que desfaz o golpe, a pressa ([Acelerado]), os anos que racham armaduras ([Fissurado]) e a Última Era, que cura os aliados. Tabu: em combate, as Defesas caem [NP÷2]. |
-| Areia | Conjuração | A areia: o redemoinho que explode, a lufada que deixa [Cego], o corpo que fica [Intangível], a areia movediça que deixa [Rigidez], a onda que deixa [Deterioração] e o Mundo de Areia ([Lento]). |
-| Armas Mágicas | Portadora | As balas: o tiro mágico, a bolha que deixa [Silenciado], a teleguiada que não erra, a mira que deixa [Concentrado], a explosiva ([Chama], [Derrubado]) e a Chuva de Balas ([Atordoado]). |
-| Artes Brancas | Proibida | As necessidades do corpo: as lâminas de luz, a fome que deixa [Confuso], o sono que deixa [Adormecido], os dois dedos que seguram a lâmina, o Prazer ([Atordoado], que pega aliados) e o Êxtase ([Adormecido]). Tabu: em combate, a Recuperação cai [NP]. |
-| Artes Negras | Proibida | A magia da morte: [Corrupção], [Maldito], [Deterioração] e [Sentença]. Tabu: em combate você fica [Maldito], e a Predação da Morte pega aliados. |
-| Bomba | Maldição | As explosões de [Chama]: a explosão no ar, a insígnia em quem toca em você ([Marcado]), a mina ([Enraizado]), a esfera de captura ([Agarrado]), a espiral ([Derrubado]) e a Detonação ([Derrubado], [Fissurado]). Tabu: em combate, a Defesa Física cai [NP]. |
-| Cabelo Carmesim | Conjuração | O cabelo: o que agarra ([Agarrado]), o que bebe a água ([Anulação]), as mechas que disparam em três alvos, a marca em brasa ([Marcado]), os vaga-lumes que deixam [Queimando] e a Presa de Lobo ([Agarrado]). |
-| Cajados Mágicos | Portadora | Cinco cajados: o raio de [Choque], a névoa que protege, o [Adormecido], o [Medo] da ilusão e a luz do Canto Sagrado, que deixa [Cego]. |
-| Calamidade | Maldição | As calamidades: o tornado de [Vento], o aguaceiro que apaga o fogo ([Anulação]), o terremoto ([Atordoado]), a esfera do trovão ([Eletrificado]), o inferno ([Queimando]) e as Partículas Antimagia ([Silenciado], [Maldito]), que pegam aliados. Tabu: em combate, a Defesa Física cai [NP÷2]. |
-| Cartas | Portadora | O baralho: cartas que cortam, o raio de [Choque], a Leitura da Sorte ([Concentrado]) e a gaiola que deixa [Enraizado] e [Silenciado]. |
-| Comando M | Conjuração | O tamanho das coisas: a redução que deixa [Lento] e [Cambaleante], a expansão ([Fortalecido]), o feitiço encolhido ([Anulação]), o golpe de terra ([Derrubado]), o terreno que deixa [Enraizado] e a Demolidora de Países ([Fissurado: 3]). |
-| Cópia | Conjuração | A cópia: o Copiar e a Imitação, que repete a tag e o estado do feitiço copiado; ouvir a alma (+1d6 nas Esquivas), copiar e anular ([Anulação]), o Derreter ([Queimando]) e a Ars Magia ([Selado]). |
-| Corpos Celestes | Conjuração | As estrelas: [Radiância] de longe, o Meteoro, a gravidade de Altairis, Grand Chariot e o meteoro gigante de Sema. |
-| Correntes | Proibida | O grimório das trevas: a corrente com gancho ([Agarrado]), as balas dos dedos em dois alvos, o raio que explode ([Derrubado]), as Fórmulas 28 ([Atordoado]) e 100 ([Fissurado]) de Amaterasu e a Lei do Grimório ([Medo]). Tabu: em combate, −1d6 nas Resistências. |
-| Elo dos Sentidos | Perdida | Os sentidos ligados: as lâminas de [Psíquico], o elo que dá [Vínculo] a um aliado, a Lâmina de Sodoma ([Cambaleante]), os sentidos trocados que deixam [Confuso], a tempestade de lâminas ([Atordoado]) e o Elo Final ([Marcado]). Tabu: em combate, a Defesa Física cai [NP]. |
-| Encantamento | Conjuração | Os encantos: a força ([Fortalecido]), a guarda ([Anulação]) e a pressa ([Acelerado]) nos aliados, o Desencanto que arranca os encantos do inimigo, o Grande Encantamento no grupo e o Universo Um ([Lento]). |
-| Escrita Rúnica | Conjuração | As regras escritas: o círculo que prende ([Enraizado]), a palavra DOR ([Deterioração]), a runa que devolve o golpe ([Espelho]), as asas negras, a escuridão que transforma ([Despertado]) e a Regra Absoluta. |
-| Escrita Sólida | Conjuração | As palavras que ficam de pé: FOGO ([Queimando]), GUARDA ([Anulação]), SILÊNCIO ([Silenciado]), FERRO ([Derrubado]), TROVÃO ([Eletrificado]) e A Palavra Final ([Atordoado]). |
-| Esmagamento | Conjuração | Quebra tudo: [Fissurado] e [Exposto] de perto, e a Desmontagem, que desfaz o golpe que vem. |
-| Espadas Mágicas | Portadora | A espada: o corte que deixa [Fissurado], a corrida rente ao chão ([Concentrado]), o lampejo que parte armaduras a distância, o salto que corta em volta ([Derrubado]), a Chama de Garuda e a Lâmina Desembainhada ([Exposto]). |
-| Espinhos | Maldição | Os espinhos do submundo: as vinhas ([Agarrado]), o manto ([Espelho]), o jardim ([Enraizado]), a rosa explosiva ([Derrubado]), a Dea Yggdrasil ([Atordoado]) e o Memento Mori ([Sentença: 3]). Tabu: em combate, a Recuperação cai [NP] e −1d6 nas Esquivas. |
-| Espíritos Celestiais | Portadora | As chaves dos portões: o machado do touro, a lã do carneiro ([Barreira]), as flechas do sagitário, a onda do aguadeiro (que pega aliados também), o punho do leão, o Vestido Estelar e Urano Metria. |
-| Fogo | Conjuração | As cores do fogo: a laranja de [Chama], a roxa que deixa [Queimando], a azul de [Frio] ([Congelando]), a amarela que deixa [Confuso], a Coluna de Fogo e a Chama Arco-Íris. |
-| Fumaça | Portadora | A fumaça do cachimbo: o punho, a corda que deixa [Lento], a cortina que deixa [Oculto], a nuvem que deixa [Cego], o gigante que deixa [Confuso] e o Mar de Fumaça ([Silenciado]). |
-| Furtividade | Conjuração | O assassino invisível: apagar a presença ([Oculto]), a arma invisível ([Cambaleante]), revelar o escondido, a tortura ([Medo]), as mil lâminas ([Marcado]) e o Assassinato Perfeito ([Exposto]). |
-| Gigante | Conjuração | O tamanho: o golpe gigante, a mão que deixa [Agarrado], o corpo [Fortalecido] e com [Anulação], a pisada que deixa [Cambaleante], o Punho do Titã ([Atordoado]) e a Queda do Titã ([Derrubado]). |
-| Gravidade | Conjuração | O peso das coisas: [Lento], [Derrubado] e [Enraizado], o golpe [Fortalecido] e o voo da Gravidade Zero. |
-| Histórias dos Mortos | Conjuração | Os mortos do passado: a rajada, ler o coração ([Marcado]), a história que deixa [Confuso], o redemoinho ([Derrubado]), a cidade dos mortos ([Medo]) e O Mais Forte dos Mortos ([Atordoado]). |
-| Macro | Maldição | As ordens: os livros em dois alvos, a ordem ao corpo ([Encantado]), o macro em si mesmo ([Despertado], [Voando]), os olhos demoníacos ([Cambaleante]), a avalanche da biblioteca ([Derrubado]) e o Olho Demoníaco Liberto ([Atordoado]). Tabu: em combate, a Iniciativa cai [NP] e −1d6 nas Resistências, menos enquanto [Despertado]. |
-| Magia das Fadas | Ancestral | A luz das fadas: [Radiância], a ilusão que dá [Medo], a [Regeneração], a esfera que protege os aliados ([Barreira]), o brilho que deixa [Cego] e a Lei das Fadas, o supremo do NP 10, que só fere os inimigos. |
-| Magia dos Anjos | Conjuração | Os anjos, pagos com a sua vida: as penas de [Radiância], os mensageiros que deixam [Enraizado], o anjo do martelo ([Derrubado]), Shamsiel ([Cego]), Barakiel ([Atordoado]) e Raguel ([Medo]). Os anjos acertam sem teste e deixam [Fadiga] em você. |
-| Magia Seith | Conjuração | As almas nos bonecos: raios em linha, em X e em estrela, a Possessão ([Encantado]), os Olhos de Boneco ([Confuso]) e o Ritual das Almas. |
-| Magia Viva | Perdida | A vida criada: a centelha que cura sem a Recuperação, a cria de barro ([Lento]), o sangue que apodrece ([Deterioração]), o corpo refeito (tira os estados), a fera criada e a Gênese ([Medo]). Tabu: em combate, a Recuperação e a Defesa Mágica caem [NP]. |
-| Maldição do Boneco | Perdida | A maldição no boneco: o fio que deixa o corpo do outro [Agarrado], o Dodoskoi ([Derrubado]), o boneco de ferro ([Fortalecido], [Anulação]), o de névoa ([Intangível]), o foguete metálico e o Dodoskoi Brilhante ([Cego]). Tabu: em combate, a Recuperação cai [NP] e a Defesa Mágica cai [NP÷2]. |
-| Matador de Demônios | Perdida | O gelo negro feito para matar demônios: [Frio], [Congelando] e [Fissurado], o golpe congelado no ar e a magia calada ([Silenciado]). Tabu: em combate, as Defesas Física e Mágica caem [NP]. |
-| Matador de Deuses do Céu | Perdida | O vento negro dos deuses: o rugido que derruba, o sopro que cura, a dança que deixa [Atordoado], a bênção ([Fortalecido], [Acelerado]), o Bóreas ([Lento]) e a Lança Celestial ([Exposto]). Tabu: em combate, a Iniciativa cai [NP] e a Velocidade cai 1. |
-| Matador de Deuses do Fogo | Perdida | As chamas negras que racham em vez de queimar: o rugido e a foice que deixam [Fissurado], o fogo comido ([Anulação], [Fortalecido]), a chama explosiva ([Derrubado]), o Kagutsuchi ([Atordoado]) e a Ceia do Deus do Fogo ([Exposto], [Enraizado]). Tabu: em combate, a Recuperação cai [NP] e a Defesa Física cai [NP÷2]. |
-| Matador de Deuses do Raio | Perdida | O raio negro: o rugido que deixa [Eletrificado], o raio comido (tira [Fadiga], dá [Fortalecido]), o canhão de 120 mm ([Cambaleante]), a couraça ([Espelho]), o trovão negro ([Atordoado]) e o Canhão de Partículas ([Eletrificado: NP]). Tabu: em combate, a Defesa Mágica cai [NP]. |
-| Moldagem de Gelo | Conjuração | O gelo moldado com as mãos: lanças e o martelo de [Frio] ([Congelando]), o escudo em forma de flor, o chão que derruba, as águias de gelo e a Dança dos Sete Cortes. |
-| Moldagem de Madeira | Conjuração | A madeira moldada: a bola de espinhos, as armas em volta que dão [Espelho], a fusão que deixa [Oculto], a represa que deixa [Enraizado], os pés e as mãos gigantes que deixam [Cambaleante] e o Soco Divino ([Derrubado]). |
-| Moldagem de Memória | Conjuração | A memória das magias vistas: Memorizar ([Concentrado]), o feitiço lembrado, o Esquecimento ([Selado]), a terra em chamas ([Queimando]) e a noite das estrelas cadentes. |
-| Necromancia | Maldição | Os mortos, de [Corrupção]: as mãos da cova ([Enraizado]), o corpo de partículas ([Intangível]), o Primeiro Selo ([Silenciado]), a guarda dos mortos ([Anulação]), o exército de ossos ([Agarrado]) e o Julgamento da Estrela Maligna ([Medo], [Maldito]). Tabu: [Maldito] em combate. |
-| Neve | Conjuração | A neve: a fúria branca e a nevasca que deixam [Congelando], a cópia de neve que toma o golpe, o vento que deixa [Derrubado], a avalanche que deixa [Enraizado] e o Branco Total ([Cego]). |
-| Olhos Mágicos | Conjuração | O olhar: o que deixa [Rigidez], o que deixa [Marcado], o que deixa [Encantado], o olho do demônio ([Despertado]), os Mil Olhos ([Medo]) e o Olhar Petrificante ([Paralisado]). |
-| Onda | Conjuração | A onda que anula a magia: o disparo, o escudo contra ataques mágicos, o impulso que deixa [Silenciado], a anulação que arranca os encantos, a explosão que deixa [Cambaleante] e o Mundo Sem Magia ([Selado]). |
-| Perfume Mágico | Portadora | Os frascos: o trovão de [Choque], a força que deixa [Fortalecido], o analgésico que cura o grupo, a dor que deixa [Medo], o veneno que deixa [Envenenado] e o Perfume da Força: Máximo ([Derrubado]). |
-| Pintura Mágica | Portadora | A tinta que vive: a fera pintada, as asas que deixam [Voando], a jaula que deixa [Enraizado] e [Selado], a armadura ([Anulação]), o dragão ([Queimando]) e o Mural Vivo ([Medo]). |
-| Plantas | Portadora | As sementes: o cipó que deixa [Enraizado], o broto que dá [Regeneração], os esporos que deixam [Envenenado], a muralha de raízes ([Barreira]), a floresta que deixa [Lento] e o Jardim Carnívoro. |
-| Projeção de Pensamento | Conjuração | As cópias de pensamento: o eco [Psíquico], a voz que tira o [Medo] e deixa [Concentrado], a projeção que deixa [Intangível], as cópias que deixam os inimigos [Provocado], o exército em três alvos e a Projeção Astral ([Medo]). |
-| Raio | Conjuração | O raio: [Choque] de longe, a corrente que deixa [Eletrificado], o passo que deixa [Acelerado], o trovão que deixa [Atordoado], a tempestade em três alvos e o Palácio do Trovão. |
-| Reequipar: O Cavaleiro | Portadora | As armaduras de batalha: os feitiços são Ataques com Arma (espadas em área, o golpe da asa negra), a defesa adamantina, o traje sem armadura e a armadura que corta a magia ([Selado]). |
-| Reflexão | Conjuração | Tudo torcido: o corpo que fica com [Rigidez], o golpe que volta ([Espelho]), a luz que deixa [Oculto], o corpo [Cambaleante], o mundo que deixa [Atordoado] e a Reflexão Total ([Confuso]). |
-| Selo do Tempo | Perdida | O tempo parado: o raio sem teste, o selo que dá [Acelerado], os ponteiros que deixam [Marcado], o passo fora do tempo, o transbordamento ([Derrubado]) e a Alma Divina: Cronos ([Paralisado]). Tabu: em combate, as Defesas caem [NP÷2]. |
-| Shikigami | Conjuração | Os bonecos de papel: a torrente, o véu de ilusão ([Oculto]), a prisão de papel ([Enraizado], [Silenciado]), a bomba negra ([Atordoado]), a revoada ([Enraizado]) e os Mil Bonecos de Papel ([Selado]). |
-| Sombras | Conjuração | Os fantasmas, tudo de [Corrupção]: os soldados em dois alvos, a guarda ([Anulação]), o abraço que deixa [Agarrado] e [Deterioração], o pulso ([Atordoado]), a Onda da Morte ([Fissurado: 2]) e o Exército de Sombras ([Medo]). |
-| Teatro de Bonecas | Conjuração | As coisas que ganham vida: a rocha que soca, a árvore que agarra ([Enraizado]), os fios da Marionete ([Agarrado]), a nuvem que voa e o chão que derruba. |
-| Telepatia | Conjuração | A mente ligada: as telas que explodem, a leitura que deixa [Concentrado], o escudo de [Barreira] do grupo, o ruído que deixa [Confuso], a transferência que deixa o grupo [Concentrado] e [Acelerado] e a Sobrecarga Total ([Atordoado]). |
-| Teleporte | Conjuração | O salto no espaço: a investida, a linha direta que leva um aliado junto, o lançamento que deixa [Derrubado], a memória falsa que deixa [Encantado], o ponto cego em três alvos ([Marcado]) e o Transporte ([Confuso]). |
-| Terra | Conjuração | O chão que luta: o punho de rocha, a muralha ([Anulação]), a avalanche que deixa [Enraizado], a pele de pedra, o chão que derruba ([Derrubado]) e a Fúria da Montanha ([Fissurado]). |
-| Território | Conjuração | O espaço é seu: o calor que explode de [Chama], a troca de lugar com um aliado ([Anulação]), a prisão de ar ([Enraizado]), o domínio que deixa [Marcado], o colapso ([Derrubado]) e o Território Absoluto ([Marcado]). |
-| Trevas | Conjuração | As trevas, tudo de [Corrupção]: o raio que perfura, a mão que deixa [Agarrado], a gravidade que deixa [Derrubado], o escuro que deixa [Cego], o rondó que deixa [Medo] e a Gênese Zero ([Maldito]). |
-| Vento | Conjuração | O vento: a lâmina de [Vento], a rajada que derruba, a armadura de tempestade ([Voando], [Anulação]), o redemoinho que deixa [Atordoado], o furacão ([Lento]) e o Espaço Aéreo: Zero ([Silenciado]). |
+| Absorção | Maldição | As almas: a conexão que drena ([Enfraquecido]) e bebe a força ([Fortalecido]), o ataque engolido ([Anulação], [Fortalecido]), a revolução que veste outra alma ([Despertado]), a alma roubada ([Selado], e os bônus do alvo passam para você), a ejeção ([Medo]) e o Festim de Almas ([Maldito], [Atordoado]). Tabu: em combate, a Defesa Mágica cai [NP÷2] e −1d6 nas Resistências. Traço: Fome de Almas. |
+| Água | Conjuração | Prende, corta e escorre: [Água], [Lento], [Enraizado] e o Corpo de Água ([Intangível]); o supremo é o Maremoto. Traço: Alma de Água. |
+| Alma Animal | Conjuração | Os bichos: o gato que some ([Oculto]), o pássaro que mergulha ([Voando]), o coelho que salta ([Acelerado]), o peixe ([Água], [Lento]), o urso ([Derrubado]) e o Estouro da Manada. Traço: Instinto. |
+| Alma de Fera | Conjuração | As feras: o braço de pedra ([Anulação] e o contra-golpe), os touros ([Derrubado], [Fissurado]), as escamas do lagarto ([Espelho]), o tigre que ataca dois e o Corpo Inteiro, que deixa [Fúria]. Traço: Couro de Fera. |
+| Alma de Máquina | Conjuração | Take Over de máquinas: o canhão de lacrima, a blindagem que não tomba ([Anulação]), os propulsores ([Voando]), a rajada que deixa [Cambaleante], o bombardeio que deixa [Derrubado] e o Traje de Batalha ([Atordoado]). Traço: Metal. |
+| Alma de Satã | Conjuração | Os demônios: o raio que deixa [Eletrificado], as mãos de trevas ([Enraizado]), a explosão de [Corrupção] que dá [Medo], a armadura viva ([Fortalecido]), o fogo de Sitri ([Queimando]) e a Extinção da Alma ([Maldito]). Traço: Alma Demoníaca. |
+| Alta Velocidade | Conjuração | A pressa: o golpe que deixa [Perseguição], a rajada em dois alvos, a velocidade que deixa [Acelerado] a cena inteira, o chute que atravessa e derruba ([Derrubado]), os Cem Golpes e a Tempestade de Golpes ([Cambaleante]). Traço: Mais Rápido que o Olho. |
+| Amarras | Conjuração | Os tubos: o chicote, a amarra que deixa [Agarrado] e [Silenciado], o arranhão que deixa [Marcado], a rede que deixa [Enraizado], a explosão felina que deixa [Lento] e a Prisão de Mil Tubos ([Agarrado]). Traço: Ninguém Foge. |
+| Aprimoramento | Maldição | O aprimoramento: as garras-chicote, o corpo aprimorado de um aliado ([Fortalecido]), a dor amplificada ([Fraqueza]), o aprimoramento por segundo ([Despertado]), a dor em massa e a Privação dos Sentidos ([Cego], [Atordoado]). Tabu: na primeira rodada do combate, as Defesas caem [NP]. Traço: Dor Amplificada. |
+| Arco da Grande Árvore | Perdida | A árvore e a força da terra: as explosões em linha de [Chama], o esconderijo no tronco ([Oculto], [Regeneração]), as folhas que caçam três alvos, a bomba-relógio de raízes ([Enraizado], [Pavio]), o estouro da torre ([Derrubado]) e o Terra Clamare ([Atordoado]). Tabu: em combate, −1d6 nas Esquivas. Traço: Força da Terra. |
+| Arco da Materialização | Perdida | A imaginação feita real: a espada negra, o escudo dourado ([Anulação]), as asas de pégaso ([Voando]), os fantasmas que deixam [Enraizado], a fera sagrada do trovão ([Atordoado], e ela fica como [Servo]) e a Torre de Dingir ([Enraizado], [Derrubado]). Tabu: em combate, a Iniciativa cai [NP] e a Defesa Física cai [NP÷2]. Traço: Mundo Imaginado. |
+| Arco do Tempo | Perdida | O tempo nas mãos: as esferas que pulam o tempo, o tempo lento ([Lento], [Atordoado]), a cura que desfaz o golpe, a pressa ([Acelerado]), os anos que racham armaduras e cansam o corpo ([Fissurado], [Enfraquecido]) e a Última Era, que cura os aliados. Tabu: em combate, as Defesas caem [NP÷2]. Traço: Tempo Emprestado. |
+| Areia | Conjuração | A areia: o redemoinho que explode, a lufada que deixa [Cego], o corpo que fica [Intangível], a areia movediça que deixa [Rigidez], a onda que deixa [Deterioração] e o Mundo de Areia ([Lento]). Traço: Deserto. |
+| Armas Mágicas | Portadora | As balas: o tiro mágico, a bolha que deixa [Silenciado], a teleguiada que não erra e marca ([Marcado]), a mira que deixa [Concentrado], a explosiva ([Chama], [Derrubado]) e a Chuva de Balas ([Atordoado]). Traço: Bala Certa. |
+| Artes Brancas | Proibida | As necessidades do corpo: as lâminas de luz, a fome que deixa [Confuso], o sono que deixa [Adormecido], os dois dedos que seguram a lâmina, o Prazer ([Atordoado], que pega aliados) e o Êxtase ([Adormecido]). Tabu: em combate, a Recuperação cai [NP]. Traço: Corpo sem Vontade. |
+| Artes Negras | Proibida | A magia da morte: [Corrupção], [Maldito] (até a aura em volta de você), [Deterioração] e [Sentença]. Tabu: em combate você fica [Maldito], e a Predação da Morte pega aliados. Traço: Morte em Volta. |
+| Bomba | Maldição | As explosões de [Chama]: a explosão que detona o [Pavio], a insígnia em quem toca em você ([Pavio]), a mina ([Enraizado], [Pavio]), a esfera de captura ([Agarrado]), a espiral ([Derrubado]) e a Detonação ([Derrubado], [Fissurado], detona os Pavios). Tabu: em combate, a Defesa Física cai [NP]. Traço: Tudo Explode. |
+| Cabelo Carmesim | Conjuração | O cabelo: o que agarra ([Agarrado]), o que bebe a água ([Anulação], [Regeneração]), as mechas que disparam em três alvos, a marca em brasa ([Marcado]), os vaga-lumes que deixam [Queimando] e a Presa de Lobo ([Agarrado]). Traço: Cabelo Vivo. |
+| Cajados Mágicos | Portadora | Cinco cajados: o raio de [Choque], a névoa que protege, o [Adormecido], o [Medo] da ilusão e a luz do Canto Sagrado, que deixa [Cego]. Traço: Sono Pesado. |
+| Calamidade | Maldição | As calamidades: o tornado de [Vento], o aguaceiro que apaga o fogo ([Encharcado]), o terremoto ([Atordoado]), a esfera do trovão ([Eletrificado]), o inferno ([Queimando]) e as Partículas Antimagia ([Silenciado], [Maldito]), que pegam aliados. Tabu: em combate, a Defesa Física cai [NP÷2]. Traço: Olho da Tempestade. |
+| Cartas | Portadora | O baralho: cartas que cortam e deixam um estado tirado ao acaso, o raio de [Choque], a sorte que dá um bônus ao acaso, a gaiola que deixa [Enraizado] e [Silenciado], a tempestade de cartas e Os Vinte e Dois Arcanos ([Atordoado]). Traço: Baralho Marcado. |
+| Comando M | Conjuração | O tamanho das coisas: a redução que deixa [Lento] e [Enfraquecido], a expansão ([Fortalecido]), o feitiço encolhido ([Anulação]), o golpe de terra ([Derrubado]), o terreno que deixa [Enraizado] e a Demolidora de Países ([Fissurado: 3]). Traço: Escala Errada. |
+| Cópia | Conjuração | A cópia: o Copiar e a Imitação, que repete a tag e o estado do feitiço copiado; ouvir a alma (+1d6 nas Esquivas), copiar e anular ([Anulação], [Concentrado]), o Derreter ([Queimando]) e a Ars Magia ([Selado]). Traço: Memória Perfeita. |
+| Corpos Celestes | Conjuração | As estrelas: [Radiância] de longe, o Meteoro, a gravidade de Altairis, Grand Chariot e o meteoro gigante de Sema. Traço: Rastro de Luz. |
+| Correntes | Proibida | O grimório das trevas: a corrente com gancho ([Agarrado]), as balas dos dedos em dois alvos, o raio que explode ([Derrubado]), as Fórmulas 28 ([Atordoado]) e 100 ([Fissurado]) de Amaterasu e a Lei do Grimório ([Medo]). Tabu: em combate, −1d6 nas Resistências. Traço: Selos de Amaterasu. |
+| Elo dos Sentidos | Perdida | Os sentidos ligados: as lâminas de [Psíquico], o elo que dá [Vínculo] a um aliado, a Lâmina de Sodoma ([Cambaleante]), os sentidos trocados que deixam [Confuso], a tempestade de lâminas ([Atordoado]) e o Elo Final ([Marcado]). Tabu: em combate, a Defesa Física cai [NP]. Traço: Sentidos Embaralhados. |
+| Encantamento | Conjuração | Os encantos: a força ([Fortalecido]), a guarda ([Anulação]) e a pressa ([Acelerado]) nos aliados, o Desencanto que fere e arranca os encantos do inimigo, o Grande Encantamento no grupo e o Universo Um ([Lento]). Traço: Desencantador. |
+| Escrita Rúnica | Conjuração | As regras escritas: o círculo que prende ([Enraizado]), a palavra DOR ([Deterioração]), a runa que devolve o golpe ([Espelho]), as asas negras, a escuridão que transforma ([Despertado]) e a Regra Absoluta. Traço: Regra Escrita. |
+| Escrita Sólida | Conjuração | As palavras que ficam de pé: FOGO ([Queimando]), GUARDA ([Anulação]), SILÊNCIO ([Silenciado]), FERRO ([Derrubado]), TROVÃO ([Eletrificado]) e A Palavra Final ([Atordoado]). Traço: Palavra Pesada. |
+| Esmagamento | Conjuração | Quebra tudo: [Fissurado] e [Exposto] de perto, e a Desmontagem, que desfaz o golpe que vem. Traço: Desmonte. |
+| Espadas Mágicas | Portadora | A espada: o corte que deixa [Fissurado], a corrida rente ao chão ([Concentrado]), o lampejo que parte armaduras a distância, o salto que corta em volta ([Derrubado]), a Chama de Garuda e a Lâmina Desembainhada ([Exposto]). Traço: Lâmina na Bainha. |
+| Espinhos | Maldição | Os espinhos do submundo: as vinhas ([Agarrado]), o manto ([Espelho]), o jardim ([Enraizado]), a rosa explosiva ([Derrubado]), a Dea Yggdrasil ([Atordoado]) e o Memento Mori ([Sentença: 3]). Tabu: em combate, a Recuperação cai [NP] e −1d6 nas Esquivas. Traço: Espinhos que Entram. |
+| Espíritos Celestiais | Portadora | As chaves dos portões: o touro que fica do seu lado ([Servo]), a lã do carneiro ([Barreira]), as flechas do sagitário, a onda do aguadeiro ([Encharcado], que pega aliados também), o punho do leão, o Vestido Estelar e Urano Metria. Traço: Chaves do Zodíaco. |
+| Fogo | Conjuração | As cores do fogo: a laranja que deixa [Queimando], a roxa que dobra o fogo, a azul de [Frio] ([Congelando]), a amarela que deixa [Confuso], a Coluna de Fogo, que consome o Queimando, e a Chama Arco-Íris ([Exposto] em quem já queimava). Traço: Brasa Viva. |
+| Fumaça | Portadora | A fumaça do cachimbo: o punho, a corda que deixa [Lento], a cortina que deixa [Oculto], a nuvem que deixa [Cego], o gigante que deixa [Confuso] e o Mar de Fumaça ([Silenciado]). Traço: Dentro da Névoa. |
+| Furtividade | Conjuração | O assassino invisível: apagar a presença ([Oculto], e o primeiro golpe [Fortalecido]), a arma invisível ([Cambaleante]), revelar o escondido, a tortura ([Medo]), as mil lâminas ([Marcado]) e o Assassinato Perfeito ([Exposto]). Traço: Lâmina que Ninguém Vê. |
+| Gigante | Conjuração | O tamanho: o golpe gigante, a mão que deixa [Agarrado], o corpo [Fortalecido] e com [Anulação], a pisada que deixa [Cambaleante], o Punho do Titã ([Atordoado]) e a Queda do Titã ([Derrubado]). Traço: Grande Demais. |
+| Gravidade | Conjuração | O peso das coisas: [Lento], [Derrubado] e [Enraizado], o golpe [Fortalecido] e o voo da Gravidade Zero. Traço: Peso Dobrado. |
+| Histórias dos Mortos | Conjuração | Os mortos do passado: a rajada, ler o coração ([Marcado]), a história que deixa [Confuso], o redemoinho ([Derrubado]), a cidade dos mortos ([Medo]) e O Mais Forte dos Mortos ([Atordoado], e ele fica como [Servo]). Traço: Passado que Assombra. |
+| Macro | Maldição | As ordens: os livros em dois alvos, a ordem ao corpo ([Dominado]), o macro em si mesmo ([Despertado], [Voando]), os olhos demoníacos ([Cambaleante]), a avalanche da biblioteca ([Derrubado]) e o Olho Demoníaco Liberto ([Atordoado]). Tabu: em combate, a Iniciativa cai [NP] e −1d6 nas Resistências, menos enquanto [Despertado]. Traço: Ordens. |
+| Magia das Fadas | Ancestral | A luz das fadas: [Radiância], a ilusão que dá [Medo], a [Regeneração], a esfera que protege os aliados ([Barreira]), o brilho que deixa [Cego] e a Lei das Fadas, o supremo do NP 10, que só fere os inimigos. Traço: Luz que Protege. |
+| Magia dos Anjos | Conjuração | Os anjos, pagos com a sua vida: as penas de [Radiância], os mensageiros que deixam [Enraizado], o anjo do martelo ([Derrubado]), Shamsiel ([Cego]), Barakiel ([Atordoado]) e Raguel ([Medo]). Os anjos acertam sem teste e deixam [Fadiga] em você. Traço: Preço Pago. |
+| Magia Seith | Conjuração | As almas nos bonecos: raios em linha e em estrela, os bonecos que ficam do seu lado ([Servo]), a Possessão ([Dominado]), os Olhos de Boneco ([Confuso]) e o Ritual das Almas. Traço: Almas Presas. |
+| Magia Viva | Perdida | A vida criada: a centelha que cura sem a Recuperação ([Regeneração]), a cria de barro ([Lento]), o sangue que apodrece ([Deterioração]), o corpo refeito (tira os estados), a fera criada, que fica ([Servo]) e a Gênese ([Medo]). Tabu: em combate, a Recuperação e a Defesa Mágica caem [NP]. Traço: Fonte de Vida. |
+| Maldição do Boneco | Perdida | A maldição no boneco: o fio que deixa o corpo do outro [Agarrado], o Dodoskoi ([Derrubado]), o boneco de ferro ([Fortalecido], [Anulação]), o de névoa ([Intangível]), o foguete metálico e o Dodoskoi Brilhante ([Cego]). Tabu: em combate, a Recuperação cai [NP] e a Defesa Mágica cai [NP÷2]. Traço: Corpo no Boneco. |
+| Matador de Demônios | Perdida | O gelo negro feito para matar demônios: [Frio], [Congelando] e [Fissurado], o golpe congelado no ar e a magia calada ([Silenciado]). Tabu: em combate, as Defesas Física e Mágica caem [NP]. Traço: Caça-Demônios. |
+| Matador de Deuses do Céu | Perdida | O vento negro dos deuses: o rugido que derruba, o sopro que cura, a dança que deixa [Atordoado], a bênção ([Fortalecido], [Acelerado]), o Bóreas ([Lento]) e a Lança Celestial ([Exposto]). Tabu: em combate, a Iniciativa cai [NP] e a Velocidade cai 1. Traço: Ar dos Deuses. |
+| Matador de Deuses do Fogo | Perdida | As chamas negras que racham em vez de queimar: o rugido e a foice que deixam [Fissurado], o fogo comido ([Anulação], [Fortalecido]), a chama explosiva ([Derrubado]), o Kagutsuchi ([Atordoado]) e a Ceia do Deus do Fogo ([Exposto], [Enraizado]). Tabu: em combate, a Recuperação cai [NP] e a Defesa Física cai [NP÷2]. Traço: Chama que Devora. |
+| Matador de Deuses do Raio | Perdida | O raio negro: o rugido que deixa [Eletrificado], o raio comido (tira [Fadiga], dá [Fortalecido]), o canhão de 120 mm ([Cambaleante]), a couraça ([Espelho]), o trovão negro ([Atordoado]) e o Canhão de Partículas ([Eletrificado: NP]). Tabu: em combate, a Defesa Mágica cai [NP]. Traço: Raio que Apaga. |
+| Moldagem de Gelo | Conjuração | O gelo moldado com as mãos: lanças e o martelo de [Frio] ([Congelando]), o escudo em forma de flor, o chão que derruba, as águias de gelo e a Dança dos Sete Cortes. Traço: Gelo que Não Derrete. |
+| Moldagem de Madeira | Conjuração | A madeira moldada: a bola de espinhos ([Cambaleante]), as armas em volta que dão [Espelho], a fusão que deixa [Oculto], a represa que deixa [Enraizado], os pés e as mãos gigantes que deixam [Cambaleante] e o Soco Divino ([Derrubado]). Traço: Tábuas e Pregos. |
+| Moldagem de Memória | Conjuração | A memória das magias vistas: Memorizar ([Concentrado]), o feitiço lembrado, o Esquecimento ([Selado]), a terra em chamas ([Queimando]) e a noite das estrelas cadentes. Traço: Lembrança Apagada. |
+| Necromancia | Maldição | Os mortos, de [Corrupção]: as mãos da cova ([Enraizado], e um morto fica como [Servo]), o corpo de partículas ([Intangível]), o Primeiro Selo ([Silenciado]), a guarda dos mortos ([Anulação]), o exército de ossos ([Agarrado]) e o Julgamento da Estrela Maligna ([Medo], [Maldito]). Tabu: [Maldito] em combate. Traço: Corpo Morto. |
+| Neve | Conjuração | A neve: a fúria branca ([Congelando]), a nevasca que deixa [Cego], a cópia de neve que toma o golpe, o vento que deixa [Derrubado], a avalanche que deixa [Enraizado] e o Branco Total ([Cego]). Traço: Mundo Branco. |
+| Olhos Mágicos | Conjuração | O olhar: o que deixa [Rigidez], o que deixa [Marcado], o que deixa [Encantado], o olho do demônio ([Despertado]), os Mil Olhos ([Medo]) e o Olhar Petrificante ([Paralisado]). Traço: Olhar que Petrifica. |
+| Onda | Conjuração | A onda que anula a magia: o disparo, o escudo contra ataques mágicos, o impulso que deixa [Silenciado], a anulação que arranca os encantos, a explosão que deixa [Cambaleante] e o Mundo Sem Magia ([Selado]). Traço: Vibração. |
+| Perfume Mágico | Portadora | Os frascos: o trovão de [Choque], a força que deixa [Fortalecido], o analgésico que cura o grupo, a dor que deixa [Medo] e [Envenenado], o veneno que deixa [Envenenado] e o Perfume da Força: Máximo ([Derrubado]). Traço: Nariz Treinado. |
+| Pintura Mágica | Portadora | A tinta que vive: a fera pintada, que fica ([Servo]), as asas que deixam [Voando], a jaula que deixa [Enraizado] e [Selado], a armadura ([Anulação]), o dragão ([Queimando]) e o Mural Vivo ([Medo]). Traço: Grade Pintada. |
+| Plantas | Portadora | As sementes: o cipó que deixa [Enraizado], o broto que dá [Regeneração], os esporos que deixam [Envenenado], a muralha de raízes ([Barreira]), a floresta que deixa [Lento] e o Jardim Carnívoro. Traço: Jardineiro. |
+| Projeção de Pensamento | Conjuração | As cópias de pensamento: o eco [Psíquico], a voz que tira o [Medo] e deixa [Concentrado], a projeção que deixa [Intangível], as cópias que deixam os inimigos [Provocado], o exército em três alvos e a Projeção Astral ([Medo]). Traço: Mente Dividida. |
+| Raio | Conjuração | O raio: o relâmpago ([Eletrificado]), a corrente que deixa [Eletrificado], o passo que deixa [Acelerado], o trovão que deixa [Atordoado], a tempestade em três alvos e o Palácio do Trovão. Traço: Para-raios. |
+| Reequipar: O Cavaleiro | Portadora | As armaduras de batalha: os feitiços são Ataques com Arma (espadas em área, o golpe da asa negra), a defesa adamantina, o traje sem armadura e a armadura que corta a magia ([Selado]). Traço: Arsenal sem Fim. |
+| Reflexão | Conjuração | Tudo torcido: o corpo que fica com [Rigidez], o golpe que volta ([Espelho]), a luz que deixa [Oculto], o corpo [Cambaleante], o mundo que deixa [Atordoado] e a Reflexão Total ([Confuso]). Traço: Golpe Torto. |
+| Selo do Tempo | Perdida | O tempo parado: o raio sem teste, o selo que dá [Acelerado], os ponteiros que deixam [Marcado], o passo fora do tempo, o transbordamento ([Derrubado]) e a Alma Divina: Cronos ([Paralisado]). Tabu: em combate, as Defesas caem [NP÷2]. Traço: O Tempo é Seu. |
+| Shikigami | Conjuração | Os bonecos de papel: a torrente, que fica ([Servo]), o véu de ilusão ([Oculto]), a prisão de papel ([Enraizado], [Silenciado]), a bomba negra ([Atordoado]), a revoada ([Enraizado]) e os Mil Bonecos de Papel ([Selado]). Traço: Mil Papéis. |
+| Sombras | Conjuração | Os fantasmas, tudo de [Corrupção]: os soldados em dois alvos, o soldado de guarda ([Servo]), o abraço que deixa [Agarrado] e [Deterioração], o pulso ([Atordoado]), a Onda da Morte ([Fissurado: 2]) e o Exército de Sombras ([Medo]). Traço: Frio que Drena. |
+| Teatro de Bonecas | Conjuração | As coisas que ganham vida: a rocha que soca e fica ([Servo]), a árvore que agarra ([Enraizado]), os fios da Marionete ([Dominado]), a nuvem que voa e o chão que derruba. Traço: Fios. |
+| Telepatia | Conjuração | A mente ligada: as telas que explodem, a leitura que deixa [Concentrado], o escudo de [Barreira] do grupo, o ruído que deixa [Confuso], a transferência que deixa o grupo [Concentrado] e [Acelerado] e a Sobrecarga Total ([Atordoado]). Traço: Rede Mental. |
+| Teleporte | Conjuração | O salto no espaço: a investida, a linha direta que leva um aliado junto, o lançamento que deixa [Derrubado], a memória falsa que deixa [Encantado], o ponto cego em três alvos ([Marcado]) e o Transporte ([Confuso]). Traço: Sempre de Passagem. |
+| Terra | Conjuração | O chão que luta: o punho de rocha, a muralha que cobre os aliados ([Anulação]), a avalanche que deixa [Enraizado], a pele de pedra, o chão que derruba ([Derrubado]) e a Fúria da Montanha ([Fissurado]). Traço: Pés no Chão. |
+| Território | Conjuração | O espaço é seu: o calor que explode de [Chama], a troca de lugar com um aliado ([Anulação]), a prisão de ar ([Enraizado]), o domínio que deixa [Marcado], o colapso ([Derrubado]) e o Território Absoluto ([Marcado]). Traço: Espaço Próprio. |
+| Trevas | Conjuração | As trevas, tudo de [Corrupção]: o raio que perfura, a mão que deixa [Agarrado], a gravidade que deixa [Derrubado], o escuro que deixa [Cego], o rondó que deixa [Medo] e a Gênese Zero ([Maldito]). Traço: Olhos no Escuro. |
+| Vento | Conjuração | O vento: a lâmina de [Vento], a rajada que derruba, a armadura de tempestade ([Voando], [Anulação]), o redemoinho que deixa [Atordoado], o furacão ([Lento]) e o Espaço Aéreo: Zero ([Silenciado]). Traço: Corrente de Ar. |
 
 ## As raças
 
@@ -491,41 +498,43 @@ os efeitos que vão só para os aliados ou só para os inimigos entre os alvos (
 
 ## As condições
 
-Os 23 estados das regras de base e mais 31 condições da Eternia, feitas para emular poderes de anime. A regra de
+Os 23 estados das regras de base e mais 36 condições da Eternia, feitas para emular poderes de anime. A regra de
 cada uma aparece ao passar o mouse (na ficha, no HUD e nos estados clicáveis do chat), e a página
 **IX. CONDIÇÕES DA ETERNIA** do diário AS REGRAS traz todas por extenso.
 
 | Família | Condições |
 |---|---|
 | Controle | Paralisado, Adormecido, Enraizado, Derrubado, Lento, Agarrado |
-| Bloqueio | Silenciado, Desarmado, Cego, Selado (Habilidade) |
-| Mente | Medo, Encantado, Provocado, Fúria: n |
-| Elementais | Queimando: n, Envenenado: n, Congelando: n (acumula até 3), Eletrificado: n, Maldito |
+| Bloqueio | Silenciado, Desarmado, Cego, Selado (Habilidade), Enfraquecido: n |
+| Mente | Medo, Encantado, Provocado, Fúria: n, Dominado |
+| Elementais | Queimando: n, Envenenado: n, Congelando: n (acumula até 3), Eletrificado: n, Maldito, Encharcado: n, Pavio: n (soma) |
 | Quebra de guarda | Exposto, Fissurado: n (acumula até 3), Marcado: n, Sentença: n |
-| Estados de Combate | Acelerado, Fortalecido: n, Concentrado, Espelho: n, Intangível, Último Fôlego, Despertado: n |
+| Estados de Combate | Acelerado, Fortalecido: n, Concentrado, Espelho: n, Intangível, Último Fôlego, Despertado: n, Servo: n |
 | Outros | Vínculo |
 
 O que o sistema faz sozinho:
 
 - **Dados:** −1d6 e +1d6 nos testes e nas Esquivas (Confuso, Cego, Medo contra quem o causou, Derrubado, Marcado,
-  Envenenado, Encantado, Concentrado, Despertado…) e o dano a mais de Fortalecido, Fúria e Despertado, com o motivo
-  no cartão. Adormecido falha na Esquiva.
+  Envenenado, Encantado, Concentrado, Despertado…) e o dano a mais de Fortalecido, Fúria e Despertado (e o a menos do
+  Enfraquecido), com o motivo no cartão. Adormecido falha na Esquiva.
 - **Dano aplicado:** Exposto fica sem Defesa e sem Anulação, Intangível não sofre dano físico, Marcado soma o seu
   Valor quando a Esquiva falha, Último Fôlego segura em 1 PV, Vínculo divide o dano, Espelho devolve, Maldito não
-  recupera PV, [Chama] derrete o Congelando e o Adormecido acorda.
-- **Turnos:** Envenenado no início do turno, Eletrificado a cada Ação Maior, Queimando e Sentença no
-  Encerramento; Lento age depois dos outros, Acelerado tem duas Ações Menores, Paralisado e Adormecido perdem a vez.
+  recupera PV, [Chama] derrete o Congelando e seca o Encharcado, Encharcado soma o seu Valor ao dano de [Choque] e de
+  [Frio] (e apaga o Queimando), e o Adormecido acorda.
+- **Turnos:** Envenenado no início do turno, Eletrificado a cada Ação Maior, Queimando, Sentença e Pavio (que explode
+  de uma vez) no Encerramento, quando o Servo golpeia o inimigo mais perto; Lento age depois dos outros, Acelerado tem
+  duas Ações Menores, Paralisado e Adormecido perdem a vez.
 - **Acúmulos:** o terceiro Congelando paralisa; o terceiro Fissurado quebra a guarda (a Barreira some e vem Exposto).
 - **Ficha:** Exposto e Fissurado baixam as defesas; Congelando, a Velocidade e a Iniciativa; Enraizado, Agarrado,
   Paralisado e Adormecido zeram a Velocidade.
-- **Proibições:** as ações, os alvos e o movimento que as condições impedem (Silenciado, Desarmado, Selado,
-  Agarrado, Provocado, Encantado, Cego, Fúria, Enraizado, Medo…) avisam ou bloqueiam, como os limites de uso.
+- **Proibições:** as ações, os alvos e o movimento que as condições impedem (Silenciado, Desarmado, Selado, Agarrado,
+  Provocado, Encantado, Dominado, Cego, Fúria, Enraizado, Medo…) avisam ou bloqueiam, como os limites de uso.
 - **Fim:** cada condição acaba quando a regra manda (fim do turno, Encerramento, fim da cena) e
   respeita o Aflito; Agarrado e Vínculo acabam quando quem os causou fica Incapacitado; Despertado deixa Fadiga.
 - **Livrar-se com uma ação:** no HUD, o ícone de corrida ao lado da condição gasta a ação da regra (Ação Menor para
-  Queimando, de Movimento para Derrubado, Maior para Envenenado…).
-- **Origem:** Medo, Encantado, Provocado, Agarrado e Vínculo lembram quem os causou (quem usou a habilidade ou o
-  estado clicável).
+  Queimando, de Movimento para Derrubado, Maior para Envenenado e o Pavio…).
+- **Origem:** Medo, Encantado, Dominado, Provocado, Agarrado e Vínculo lembram quem os causou (quem usou a habilidade
+  ou o estado clicável).
 - Duas tags novas para as habilidades: [Feitiço] e [Canção]. Silenciado impede as duas e o [Ataque Mágico].
 
 ## A automação
@@ -707,7 +716,7 @@ eternia.icons.refresh();              // desenha de novo os ícones da tela
 - **Reki Kawahara / Kadokawa:** criadores de Sword Art Online, de onde vêm os nomes e a inspiração dos itens das pastas
   Aincrad, Alfheim e Submundo. A Eternia não é oficial nem tem vínculo com eles.
 - **Ícones** de [game-icons.net](https://game-icons.net) sob [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
-  (fundos dos estados recoloridos). Autores: Lorc, Delapouite, Skoll, Sbed, Zeromancer e
+  (fundos dos estados recoloridos; Encharcado, Enfraquecido, Pavio, Servo e Dominado são arte própria). Autores: Lorc, Delapouite, Skoll, Sbed, Zeromancer e
   Carl Olsen.
 
 <details>

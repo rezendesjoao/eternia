@@ -2,14 +2,14 @@
   "name": "Muralha de Rocha",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Terra.</strong> Antes do Dano de um ataque contra você ou contra um aliado a até 4 Qd: uma muralha de rocha sobe na frente do golpe, com [Anulação: NP + 5] contra esse dano. Uma vez por rodada.</p><p><em>A muralha racha, e quem estava atrás dela nem se despenteia.</em></p>",
+    "description": "<p><strong>Terra.</strong> Uma muralha de rocha sobe em volta de você: você e os aliados a até 1 Qd (escolha-os como alvos) ficam com [Anulação: NP÷2 + 2] até o fim da rodada. Uma vez por rodada.</p><p><em>A muralha racha, e quem estava atrás dela nem se despenteia.</em></p>",
     "tags": [
       "Spell"
     ],
-    "timing": "Before Damage",
+    "timing": "Minor",
     "checkType": "",
-    "range": "4Sq",
-    "target": "Single",
+    "range": "1Sq",
+    "target": "Area",
     "subtype": "Combat",
     "skillRank": {
       "value": 1,
@@ -46,11 +46,11 @@
       "transfer": false,
       "flags": {
         "eternia": {
+          "recipients": "allies",
           "statusData": {
             "statusId": "cancel",
-            "value": "@cr+5"
+            "value": "floor(@cr/2)+2"
           },
-          "consumeOn": "damage",
           "expires": "endOfRound"
         }
       },

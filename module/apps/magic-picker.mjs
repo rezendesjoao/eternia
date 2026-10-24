@@ -36,11 +36,11 @@ const ROLES = {
   move: "fa-solid fa-wind"
 };
 const CONTROL = new Set(["prone", "slowed", "rooted", "grappled", "dazed", "confused", "frightened", "charmed", "asleep",
-  "paralyzed", "silenced", "sealed", "blinded", "taunted", "staggered", "rigor", "disarmed"]);
+  "paralyzed", "silenced", "sealed", "blinded", "taunted", "staggered", "rigor", "disarmed", "dominated", "weakened"]);
 const WEAR = new Set(["burning", "poisoned", "decay", "freezing", "shocked", "cursed", "fissured", "exposed", "marked",
-  "doom", "pursuit"]);
+  "doom", "pursuit", "soaked", "fuse", "weakness"]);
 const GUARD = new Set(["cancel", "barrier", "mirror", "intangible", "lastStand", "hidden"]);
-const SUPPORT = new Set(["hasted", "empowered", "focused", "awakened", "bond"]);
+const SUPPORT = new Set(["hasted", "empowered", "focused", "awakened", "bond", "servant"]);
 const MULTI = new Set(["Area", "Wide", "Line", "Targets"]);
 
 const statusLabel = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
@@ -57,6 +57,7 @@ function readDescription(html) {
   first?.querySelector("strong")?.remove();
   const intro = first?.textContent.trim() ?? "";
   let tabu = null;
+  let trait = null;
   const notes = [];
   for (const li of root.querySelectorAll("li")) {
     const strong = li.querySelector("strong");
@@ -64,11 +65,12 @@ function readDescription(html) {
     strong?.remove();
     const text = li.textContent.trim();
     if (/^tabu\b/i.test(label)) tabu = { label, text };
+    else if (/^(traço|trait)\b/i.test(label)) trait = { label, text };
     // The spells and the Motor are drawn from the spells themselves.
     else if (label && !/^(feitiços|o motor|spells|the motor)\b/i.test(label)) notes.push({ label, text });
   }
   const visual = [...root.querySelectorAll("p em")].at(-1)?.textContent.trim() ?? "";
-  return { intro, tabu, notes, visual };
+  return { intro, tabu, trait, notes, visual };
 }
 
 /** The statuses a spell gives (on a hit, or with its effects) and what they mean for its roles. */

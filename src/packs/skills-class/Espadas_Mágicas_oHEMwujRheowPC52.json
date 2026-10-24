@@ -2,7 +2,7 @@
   "name": "Espadas Mágicas",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia (Portadora).</strong> A magia passa pela espada: cortes que alcançam além da lâmina, que partem armaduras sem tocar nelas, que saem em chamas, e uma esgrima feita com a espada ainda na bainha. É a magia de quem é, antes de tudo, espadachim.</p><ul><li><strong>Portadora:</strong> a magia passa pela espada na sua mão. Sem uma espada, não há feitiço.</li><li><strong>Feitiços:</strong> Kata do Corte e Kata Rasteira (NP 1), Lampejo Vazio de Yasha e Kata do Voo (NP 3), Chama de Garuda (NP 5) e o feitiço supremo Lâmina Desembainhada (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Lâmina Desembainhada pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>A bainha nunca sai do lugar. O corte chega mesmo assim.</em></p>",
+    "description": "<p><strong>Magia (Portadora).</strong> A magia passa pela espada: cortes que alcançam além da lâmina, que partem armaduras sem tocar nelas, que saem em chamas, e uma esgrima feita com a espada ainda na bainha. É a magia de quem é, antes de tudo, espadachim.</p><ul><li><strong>Portadora:</strong> a magia passa pela espada na sua mão. Sem uma espada, não há feitiço.</li><li><strong>Traço, Lâmina na Bainha:</strong> os seus feitiços de Espadas Mágicas causam +NP÷2 de dano em quem está [Fissurado].</li><li><strong>Feitiços:</strong> Kata do Corte e Kata Rasteira (NP 1), Lampejo Vazio de Yasha e Kata do Voo (NP 3), Chama de Garuda (NP 5) e o feitiço supremo Lâmina Desembainhada (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Lâmina Desembainhada pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>A bainha nunca sai do lugar. O corte chega mesmo assim.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -30,7 +30,59 @@
     "macroeffect": ""
   },
   "img": "icons/skills/melee/weapons-crossed-swords-black.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "espadas-magicas",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "fissured"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Lâmina na Bainha",
+      "img": "icons/skills/melee/weapons-crossed-swords-black.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "OLrMEYoEzVqfqmEe",
+      "_key": "!items.effects!oHEMwujRheowPC52.OLrMEYoEzVqfqmEe"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "espadas-magicas-espadas-magicas",

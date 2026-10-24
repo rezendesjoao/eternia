@@ -2,7 +2,7 @@
   "name": "Arco da Grande Árvore",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia Perdida.</strong> Você manda nas árvores e na força que a terra guarda: frutos que explodem, folhas que cortam, raízes que prendem, e o tronco onde você se esconde. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, o Corpo de Árvore:</strong> quem abusa desta magia vira árvore aos poucos: em combate, a sua pele endurece como casca, e você tem −1d6 nas Esquivas.</li><li><strong>Feitiços:</strong> Explosões em Linha e Fusão com a Árvore (NP 1), Lâminas de Folha e Bomba-Relógio de Raízes (NP 3), Estouro da Torre (NP 5) e o feitiço supremo Terra Clamare (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Terra Clamare pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Onde você pisa brotam raízes. Às vezes elas não querem soltar o seu pé.</em></p>",
+    "description": "<p><strong>Magia Perdida.</strong> Você manda nas árvores e na força que a terra guarda: frutos que explodem, folhas que cortam, raízes que prendem, e o tronco onde você se esconde. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, o Corpo de Árvore:</strong> quem abusa desta magia vira árvore aos poucos: em combate, a sua pele endurece como casca, e você tem −1d6 nas Esquivas.</li><li><strong>Traço, Força da Terra:</strong> os seus feitiços do Arco da Grande Árvore causam +NP÷2 de dano em quem está [Enraizado].</li><li><strong>Feitiços:</strong> Explosões em Linha e Fusão com a Árvore (NP 1), Lâminas de Folha e Bomba-Relógio de Raízes (NP 3), Estouro da Torre (NP 5) e o feitiço supremo Terra Clamare (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Terra Clamare pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Onde você pisa brotam raízes. Às vezes elas não querem soltar o seu pé.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -83,6 +83,57 @@
       "showIcon": 1,
       "_id": "O0yX8PAjAFev322U",
       "_key": "!items.effects!TS9aC4XrIVg67VHQ.O0yX8PAjAFev322U"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "arco-grande-arvore",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "rooted"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Força da Terra",
+      "img": "icons/magic/nature/tree-twisted-glow-yellow.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "bVZtTClqPdmGPgRp",
+      "_key": "!items.effects!TS9aC4XrIVg67VHQ.bVZtTClqPdmGPgRp"
     }
   ],
   "flags": {

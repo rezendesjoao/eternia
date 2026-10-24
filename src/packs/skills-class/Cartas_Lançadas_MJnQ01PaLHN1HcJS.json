@@ -2,7 +2,7 @@
   "name": "Cartas Lançadas",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Cartas.</strong> Três cartas cortam o ar até um alvo a até 4 Qd: Teste de Precisão contra a Resistência; [2d6 + Poder Mágico] de dano mágico.</p><p><strong>Custo:</strong> Ódio 1.</p>",
+    "description": "<p><strong>Cartas.</strong> Três cartas cortam o ar até um alvo a até 4 Qd: Teste de Precisão contra a Resistência; [2d6 + Poder Mágico] de dano mágico, e a carta que fica nele é tirada ao acaso: [Cambaleante], [Lento] ou [Marcado: NP÷2 + 2] (o sistema sorteia).</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Você nem olha qual carta saiu. A sorte olha por você.</em></p>",
     "tags": [
       "Spell",
       "Magic Attack"
@@ -39,6 +39,18 @@
       "identifier": "cartas-cartas-lancadas",
       "kind": "feeds",
       "branch": "magic",
+      "randomHit": [
+        {
+          "statusId": "staggered"
+        },
+        {
+          "statusId": "slowed"
+        },
+        {
+          "statusId": "marked",
+          "value": "floor(@cr/2)+2"
+        }
+      ],
       "magicSpell": {
         "id": "cartas"
       },

@@ -41,7 +41,7 @@ export const TAGS = {
   // Creatures
   "Human": "Humano", "Humanoid": "Humanoide", "Adventurer": "Aventureiro", "Lander": "Nativo",
   "Goblin": "Goblin", "Kobold": "Kobold", "Ratman": "Homem-Rato", "Neirity": "Neirity",
-  "Undead": "Morto-Vivo", "Spirit": "Espírito", "Fairy": "Fada", "Dragon": "Dragão", "Cryptid": "Criptídeo",
+  "Undead": "Morto-Vivo", "Demon": "Demônio", "Spirit": "Espírito", "Fairy": "Fada", "Dragon": "Dragão", "Cryptid": "Criptídeo",
   "Mythic": "Mítico", "Nature": "Natureza", "Natural": "Natural", "Plant": "Planta", "Aquatic": "Aquático",
   "Construct": "Constructo", "Artificial": "Artificial", "Inorganic": "Inorgânico", "Inanimate": "Inanimado",
   "Mechanical": "Mecânico", "Clockwork": "Engrenagem", "Magical": "Mágico", "Genius": "Gênio",

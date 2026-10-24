@@ -79,6 +79,7 @@
 				</header>
 				{{#if allRoles.length}}<div class="mp-page-roles">{{#each allRoles}}<span><i class="{{icon}}"></i>{{label}}</span>{{/each}}</div>{{/if}}
 				{{#if intro}}<p class="mp-page-intro">{{intro}}</p>{{/if}}
+				{{#if trait}}<div class="mp-trait"><i class="fa-solid fa-star"></i><p><b>{{trait.label}}:</b> {{trait.text}}</p></div>{{/if}}
 				{{#if tabu}}<div class="mp-tabu"><i class="fa-solid fa-triangle-exclamation"></i><p><b>{{tabu.label}}:</b> {{tabu.text}}</p></div>{{/if}}
 				{{#each notes}}<p class="mp-note"><b>{{label}}:</b> {{text}}</p>{{/each}}
 				<h4>{{localize "ETERNIA.MagicPicker.Spells"}}{{#if nowCount}}<span class="mp-now-count"><i class="fa-solid fa-circle"></i>{{localize "ETERNIA.MagicPicker.NowCount" n=nowCount}}</span>{{/if}}</h4>

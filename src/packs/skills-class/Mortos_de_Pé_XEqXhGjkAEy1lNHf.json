@@ -2,7 +2,7 @@
   "name": "Mortos de Pé",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Necromancia.</strong> Mãos de mortos saem do chão debaixo de um alvo a até 4 Qd e o seguram: Teste de Precisão contra a Esquiva; [3d6 + Poder Mágico] de dano mágico de [Corrupção], e ele fica [Enraizado].</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Eles não soltam. Os mortos têm tempo.</em></p>",
+    "description": "<p><strong>Necromancia.</strong> Mãos de mortos saem do chão debaixo de um alvo a até 4 Qd e o seguram: Teste de Precisão contra a Esquiva; [3d6 + Poder Mágico] de dano mágico de [Corrupção], e ele fica [Enraizado]. Um dos mortos fica de pé ao seu lado: você ganha [Servo: NP÷2 + 2] de [Corrupção] até o fim da cena.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Eles não soltam. Os mortos têm tempo.</em></p>",
     "tags": [
       "Spell",
       "Magic Attack",
@@ -35,7 +35,58 @@
     "macroeffect": ""
   },
   "img": "icons/magic/death/hand-undead-skeleton-fire-green.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "onUse": true,
+          "statusData": {
+            "statusId": "servant",
+            "value": "floor(@cr/2)+2",
+            "tag": "Blight"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Mortos de Pé",
+      "img": "systems/eternia/assets/ui/status/servant.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "servant"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "COAyUlMVIgT5Xo64",
+      "_key": "!items.effects!XEqXhGjkAEy1lNHf.COAyUlMVIgT5Xo64"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "necromancia-mortos",

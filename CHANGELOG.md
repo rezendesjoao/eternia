@@ -1,5 +1,56 @@
 # Changelog
 
+## 0.26.0 — 2026-10-24
+
+### Adicionado
+- **O Traço das Magias:** cada uma das 73 Magias ganhou uma regra passiva própria, que vale para os feitiços dela e
+  aparece na descrição da Magia, na página dela no diário AS REGRAS (e na lista da XII.b) e numa caixa da janela de
+  Magias. São bônus de dano contra quem já tem um estado (o Fogo em quem queima, as Armas Mágicas em quem está
+  [Marcado], o Encantamento por encanto que o alvo tem), estados que escalam (os Olhos Mágicos petrificam quem já está
+  com [Rigidez], a Magia das Fadas cega quem tem [Medo]), imunidades (a Água não queima, o Gigante não é agarrado, o
+  Comando M não é [Enfraquecido]), golpes que atravessam a [Barreira] (Esmagamento), a [Anulação] (Onda) ou metade da
+  Defesa (Matador de Deuses do Raio), estados arrancados no golpe (Gravidade, Matador de Deuses do Fogo), o [Oculto] que
+  não sai no ataque (Fumaça) e bônus de cura (Arco do Tempo, Magia Viva, Matador de Deuses do Céu).
+- **Cinco condições:** [Encharcado: n] (soma o Valor ao dano de [Choque] e de [Frio], apaga e impede o [Queimando], a
+  [Chama] seca; acaba no Encerramento), [Enfraquecido: n] (−n no dano; acaba no fim do próprio turno), [Pavio: n] (soma
+  a cada aplicação e explode no Encerramento como dano de [Chama]; uma Ação Maior o tira), [Servo: n] (a criatura que
+  fica do seu lado: no Encerramento golpeia o inimigo mais perto a até 4 Qd com n de dano direto; acaba no fim da cena)
+  e [Dominado] (não mira em quem o domina nem nos aliados dele; acaba no fim do próprio turno). Ícones próprios; a
+  página IX do diário AS REGRAS tem as 36.
+- **Mecânicas novas de feitiço:** estado sorteado no acerto (Cartas Lançadas, Tempestade de Cartas), efeito sorteado
+  (Leitura da Sorte), roubar os bônus do alvo (Roubar a Alma), dobrar o [Queimando] (Chama Roxa), dano que consome um
+  estado (Coluna de Fogo no [Queimando]; Explosão e Detonação no [Pavio]) e criaturas que ficam do seu lado como [Servo]
+  (Portão do Touro, Boneca de Pedra, Fera Criada, Fera Pintada, Torrente de Shikigami, Mortos de Pé, Fera Sagrada:
+  Belcusas do Trovão, O Mais Forte dos Mortos, Bonecos de Almas e Soldado de Guarda).
+- A tag de criatura [Demônio]: o Traço do Matador de Demônios causa +NP de dano em Demônios e em quem tem habilidades de
+  [Maldição].
+
+### Alterado
+- **A revisão das Magias:** 47 feitiços de 33 Magias mudaram para que as Magias parecidas fiquem diferentes e as simples
+  ganhem uma mecânica. Absorção (Conexão [Enfraquecido]; Absorver o Ataque [Fortalecido]; Roubar a Alma rouba os bônus),
+  Alma de Fera (Braço de Fera: Pedra [Fortalecido]), Alma de Máquina (a Blindagem não tomba), Alma de Satã (Explosão
+  Maligna [Medo]), Arco do Tempo (Envelhecer [Enfraquecido]), Arco da Grande Árvore (Bomba-Relógio de Raízes [Pavio]),
+  Arco da Materialização (Belcusas [Servo]), Armas Mágicas (Bala Teleguiada [Marcado]), Bomba (o [Pavio] em tudo),
+  Calamidade (Aguaceiro: [Encharcado] numa área), Cabelo Carmesim (Cabelo Esponja [Regeneração]), Cartas (estados e
+  bônus ao acaso), Comando M (Redução [Enfraquecido]), Cópia (Copiar e Anular [Concentrado]), Encantamento (o Desencanto
+  causa dano e atravessa a [Anulação] e a [Barreira]), Espíritos Celestiais (Touro [Servo], Aguadeiro [Encharcado]),
+  Fogo (Laranja [Queimando], Roxa, Coluna, Arco-Íris [Exposto] em quem queimava), Histórias dos Mortos ([Servo] no
+  supremo), Macro (Ordem ao Corpo [Dominado]), Magia Viva (Centelha [Regeneração], Fera [Servo]), Moldagem de Madeira
+  (Aproximação Violenta [Cambaleante]), Necromancia (Mortos de Pé [Servo]), Neve (Nevasca Branca [Cego]), Perfume Mágico
+  (Perfume da Dor [Envenenado]), Pintura Mágica (Fera Pintada [Servo]), Raio (Relâmpago [Eletrificado]), Magia Seith
+  (Possessão [Dominado]), Shikigami (Torrente [Servo]), Teatro de Bonecas (Marionete [Dominado], Boneca de Pedra
+  [Servo]), Terra (a Muralha de Rocha cobre os aliados) e Furtividade (Apagar a Presença: o primeiro golpe
+  [Fortalecido]).
+- Três feitiços mudaram de nome e de regra: Véu das Trevas virou **Aura da Morte** (Artes Negras: [Maldito] nos inimigos
+  engajados), Bonecos: Formação X virou **Bonecos de Almas** (Magia Seith: [Servo]) e Guarda de Sombras virou **Soldado
+  de Guarda** (Sombras: [Servo]).
+- As fichas recebem as Magias e os feitiços revistos sozinhas: a migração (versão 7) refaz cada Magia e cada feitiço
+  pelo compêndio, guardando o NH e o uso.
+- Diário AS REGRAS: a página IX (as cinco condições) e o capítulo XII inteiro (o Traço em cada página, na XII.a e na
+  lista da XII.b). A janela de Magias mostra o Traço numa caixa própria, e os filtros de função contam as condições
+  novas.
+- O aviso de novidades fala da 0.26.
+
 ## 0.25.0 — 2026-10-24
 
 ### Adicionado

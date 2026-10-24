@@ -2,7 +2,7 @@
   "name": "Explosão",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Bomba.</strong> O ar em volta de um alvo a até 4 Qd explode: Teste de Precisão contra a Resistência; [3d6 + Poder Mágico] de dano mágico de [Chama].</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Sem pavio, sem aviso. Só o estouro.</em></p>",
+    "description": "<p><strong>Bomba.</strong> O ar em volta de um alvo a até 4 Qd explode: Teste de Precisão contra a Resistência; [3d6 + Poder Mágico] de dano mágico de [Chama]. Se ele tem [Pavio], a explosão leva o Pavio junto: o dano soma o Valor do Pavio, e o Pavio sai.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Sem pavio, sem aviso. Só o estouro.</em></p>",
     "tags": [
       "Spell",
       "Magic Attack",
@@ -41,6 +41,14 @@
       "identifier": "bomba-explosao",
       "kind": "feeds",
       "branch": "magic",
+      "bonusVs": [
+        {
+          "statusId": "fuse",
+          "value": 1,
+          "perValue": true,
+          "consume": true
+        }
+      ],
       "magicSpell": {
         "id": "bomba"
       },

@@ -2,7 +2,7 @@
   "name": "Alma de Máquina: Blindagem",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Alma de Máquina.</strong> Placas de aço se fecham sobre o seu corpo até o fim da rodada: você fica com [Anulação: NP÷2 + 3]. Uma vez por rodada.</p><p><em>O golpe bate no metal e o som ecoa como num sino.</em></p>",
+    "description": "<p><strong>Alma de Máquina.</strong> Placas de aço se fecham sobre o seu corpo até o fim da rodada: você fica com [Anulação: NP÷2 + 3] e não fica [Derrubado] nem [Cambaleante] (a máquina não tomba). Uma vez por rodada.</p><p><em>O golpe bate no metal e o som ecoa como num sino.</em></p>",
     "tags": [
       "Spell"
     ],
@@ -51,7 +51,11 @@
             "statusId": "cancel",
             "value": "floor(@cr/2)+3"
           },
-          "expires": "endOfRound"
+          "expires": "endOfRound",
+          "immune": [
+            "prone",
+            "staggered"
+          ]
         }
       },
       "_stats": {

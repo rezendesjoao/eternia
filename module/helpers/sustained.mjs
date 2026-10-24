@@ -284,8 +284,13 @@ export async function useSkillEffects(item) {
 
   const opposed = OPPOSED.includes(item.system?.check?.vs);
   let applied = [];
+  // Effects that come with the use itself, even when the targets may resist the rest (a summoned [Servant]):
+  // `flags.eternia.onUse`, given now to their recipients; the card's button gives the others.
+  if (opposed && item.effects.some(e => !e.transfer && e.getFlag("eternia", "onUse"))) {
+    applied = await applyItemEffects(item, item.actor ? [item.actor] : [], { useId, sustained, onUse: true });
+  }
   // Alternatives ("spend a Tail: +1D, or…"): picked now, or later with the card's button.
-  const alternatives = !!item.getFlag("eternia", "chooseEffect");
+  const alternatives = !!(item.getFlag("eternia", "chooseEffect") || item.getFlag("eternia", "randomEffect"));
   const only = (alternatives && !opposed) ? await chooseEffect(item) : null;
 
   if (!opposed && (!alternatives || only) && ((recipients.length > 0) || !needsTargets(item, only))) {
@@ -347,13 +352,15 @@ function needsTargets(item, only) {
 }
 
 /**
- * Ask which of a skill's alternative effects to apply.
+ * Ask which of a skill's alternative effects to apply (`chooseEffect`), or draw one (`randomEffect`).
  * @param {Item} item
  * @returns {Promise<string|null>}   The effect id, or null when cancelled
  */
 async function chooseEffect(item) {
   const effects = item.effects.filter(e => e.transfer === false);
   if (effects.length < 2) return effects[0]?.id ?? null;
+  // A skill that draws its effect (the Cartas' Leitura da Sorte): one at random, no question
+  if (item.getFlag("eternia", "randomEffect")) return effects[Math.floor(Math.random() * effects.length)].id;
   const options = effects.map((e, i) => `<label class="grant-option"><input type="radio" name="effect" value="${e.id}" ${i ? "" : "checked"}>`
     + `<img src="${e.img || item.img}" alt=""><span class="grant-name">${foundry.utils.escapeHTML(e.name)}</span></label>`).join("");
   const content = `<div class="option-grants-body"><p class="grants-hint">${game.i18n.format("ETERNIA.Skill.ChooseEffect.Hint", { name: foundry.utils.escapeHTML(item.name) })}</p>`
@@ -396,7 +403,7 @@ export async function onApplySkillEffects(message, button) {
   const isSelf = isServantSummon || isSelfTarget(item);
 
   // Alternatives ("spend a Tail: +1D, or the blow hits an illusion"): the user picks one.
-  const alternatives = !!item.getFlag("eternia", "chooseEffect");
+  const alternatives = !!(item.getFlag("eternia", "chooseEffect") || item.getFlag("eternia", "randomEffect"));
   const only = alternatives ? await chooseEffect(item) : null;
   if (alternatives && !only) return;
   const recipients = isSelf
@@ -430,7 +437,7 @@ export async function onApplySkillEffects(message, button) {
     }
   }
 
-  const names = await applyItemEffects(item, recipients, { useId, sustained, only });
+  const names = await applyItemEffects(item, recipients, { useId, sustained, only, onUse: false });
   if (names.length) {
     ui.notifications.info(game.i18n.format("ETERNIA.Item.Use.EffectsApplied", { names: names.join(", ") }));
 

@@ -2,7 +2,7 @@
   "name": "Detonação",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Bomba. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: as suas mãos brilham, e o seu corpo inteiro vira a bomba. A explosão toma uma área ampla a até 2 Qd de você: Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Chama], e quem ela acerta fica [Derrubado] e [Fissurado: 2]. Você sai sem um arranhão. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Quando a fumaça baixa, só você está de pé no meio da cratera.</em></p>",
+    "description": "<p><strong>Bomba. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: as suas mãos brilham, e o seu corpo inteiro vira a bomba. A explosão toma uma área ampla a até 2 Qd de você: Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Chama], e quem ela acerta fica [Derrubado] e [Fissurado: 2]. Os [Pavio] de quem ela acerta explodem junto: o dano soma o Valor de cada um, e eles saem. Você sai sem um arranhão. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Quando a fumaça baixa, só você está de pé no meio da cratera.</em></p>",
     "tags": [
       "Spell",
       "Magic Attack",
@@ -48,6 +48,14 @@
         {
           "statusId": "fissured",
           "value": 2
+        }
+      ],
+      "bonusVs": [
+        {
+          "statusId": "fuse",
+          "value": 1,
+          "perValue": true,
+          "consume": true
         }
       ],
       "magicSpell": {

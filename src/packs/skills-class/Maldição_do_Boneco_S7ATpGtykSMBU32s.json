@@ -2,7 +2,7 @@
   "name": "Maldição do Boneco",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia Perdida.</strong> Uma maldição antiga presa a um boneco: com um fio de cabelo de alguém dentro dele, o corpo dessa pessoa faz o que o boneco faz. E o boneco muda de matéria (ferro, névoa, luz), e o seu corpo muda junto. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Portadora:</strong> a maldição mora no boneco. Sem ele, não há magia.</li><li><strong>Tabu, o Preço da Maldição:</strong> toda maldição volta um pouco para quem a lança: em combate, a sua Recuperação cai [NP] e a sua Defesa Mágica cai [NP÷2].</li><li><strong>Feitiços:</strong> Fio no Boneco e Dodoskoi (NP 1), Boneco de Ferro e Boneco de Névoa (NP 3), Foguete Metálico (NP 5) e o feitiço supremo Dodoskoi Brilhante (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Dodoskoi Brilhante pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>O boneco tem cara de bobo. Ninguém ri dele duas vezes.</em></p>",
+    "description": "<p><strong>Magia Perdida.</strong> Uma maldição antiga presa a um boneco: com um fio de cabelo de alguém dentro dele, o corpo dessa pessoa faz o que o boneco faz. E o boneco muda de matéria (ferro, névoa, luz), e o seu corpo muda junto. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Portadora:</strong> a maldição mora no boneco. Sem ele, não há magia.</li><li><strong>Tabu, o Preço da Maldição:</strong> toda maldição volta um pouco para quem a lança: em combate, a sua Recuperação cai [NP] e a sua Defesa Mágica cai [NP÷2].</li><li><strong>Traço, Corpo no Boneco:</strong> quem os seus feitiços da Maldição do Boneco acertam e já está [Agarrado] também fica [Dominado]: o corpo faz o que o boneco faz.</li><li><strong>Feitiços:</strong> Fio no Boneco e Dodoskoi (NP 1), Boneco de Ferro e Boneco de Névoa (NP 3), Foguete Metálico (NP 5) e o feitiço supremo Dodoskoi Brilhante (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Dodoskoi Brilhante pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>O boneco tem cara de bobo. Ninguém ri dele duas vezes.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -90,6 +90,59 @@
       "showIcon": 1,
       "_id": "qG9P3oR4BF8NSbO7",
       "_key": "!items.effects!S7ATpGtykSMBU32s.qG9P3oR4BF8NSbO7"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "maldicao-boneco",
+            "escalate": [
+              {
+                "if": "grappled",
+                "add": [
+                  {
+                    "statusId": "dominated"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Corpo no Boneco",
+      "img": "icons/magic/control/voodoo-doll-pain-damage-yellow.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "WyQeRLrnpvcVIQAE",
+      "_key": "!items.effects!S7ATpGtykSMBU32s.WyQeRLrnpvcVIQAE"
     }
   ],
   "flags": {

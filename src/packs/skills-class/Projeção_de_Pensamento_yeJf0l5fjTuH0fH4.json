@@ -2,7 +2,7 @@
   "name": "Projeção de Pensamento",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia (Conjuração).</strong> Você manda cópias de si feitas de pensamento: elas levam os golpes no seu lugar, falam com os aliados de longe e lutam ao seu lado. É a magia de quem nunca está onde o inimigo acha que está.</p><ul><li><strong>Feitiços:</strong> Eco de Pensamento e Voz do Pensamento (NP 1), Projeção e Muitas Projeções (NP 3), Exército de Pensamento (NP 5) e o feitiço supremo Projeção Astral (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Projeção Astral pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Às vezes nem você sabe se é você ou a cópia que está falando.</em></p>",
+    "description": "<p><strong>Magia (Conjuração).</strong> Você manda cópias de si feitas de pensamento: elas levam os golpes no seu lugar, falam com os aliados de longe e lutam ao seu lado. É a magia de quem nunca está onde o inimigo acha que está.</p><ul><li><strong>Traço, Mente Dividida:</strong> você é imune a [Provocado], [Confuso] e [Encantado]: uma das suas cópias sempre pensa direito.</li><li><strong>Feitiços:</strong> Eco de Pensamento e Voz do Pensamento (NP 1), Projeção e Muitas Projeções (NP 3), Exército de Pensamento (NP 5) e o feitiço supremo Projeção Astral (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Projeção Astral pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Às vezes nem você sabe se é você ou a cópia que está falando.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -30,7 +30,56 @@
     "macroeffect": ""
   },
   "img": "icons/creatures/magical/humanoid-silhouette-green.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "projecao-pensamento"
+          },
+          "immune": [
+            "taunted",
+            "confused",
+            "charmed"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Mente Dividida",
+      "img": "icons/creatures/magical/humanoid-silhouette-green.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "TfgC6oRWK3hkhLOG",
+      "_key": "!items.effects!yeJf0l5fjTuH0fH4.TfgC6oRWK3hkhLOG"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "projecao-pensamento-projecao-pensamento",

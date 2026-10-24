@@ -14,6 +14,8 @@
  *   { type: "removeStatus", statuses: ["burning", …] } ends those statuses (a purifying potion, professions/forge.mjs)
  *   { type: "switch" }                          the user and the (first) target trade places and Hate (the basic
  *                                               skill Switch); only between allies
+ *   { type: "steal", statuses: ["empowered", …] } those statuses pass from the target to the user, with their
+ *                                               Ratings (the Absorção's Roubar a Alma)
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
@@ -117,6 +119,15 @@ async function doAction(actor, { type, value, status, statuses = [], casterUuid 
     if (!ids.length) return null;
     await removeStatuses(actor, ids);
     return L("Conditions.Actions.Remove", { name: actorName(actor), statuses: ids.map(label).join(", ") });
+  }
+  if (type === "steal") {
+    const thief = await actorOf(casterUuid);
+    const ids = listOf(statuses).filter(id => has(actor, id));
+    if (!thief || (thief.uuid === actor.uuid) || !ids.length) return null;
+    const taken = ids.map(id => ({ id, value: statusDefinition(id)?.rated ? rating(actor, id) : null }));
+    await removeStatuses(actor, ids);
+    for (const { id, value } of taken) await game.eternia.applyStatus(thief, id, { value, from: thief });
+    return L("Conditions.Actions.Steal", { name: actorName(thief), from: actorName(actor), statuses: ids.map(label).join(", ") });
   }
   return null;
 }

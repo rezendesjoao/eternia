@@ -2,7 +2,7 @@
   "name": "Alma de Máquina",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia (Conjuração).</strong> Take Over de máquinas: você toca uma máquina e veste o que ela tem, a blindagem de aço, os canhões de lacrima, os propulsores. A roupa de batalha troca de forma no meio da luta. É a magia de quem vira uma arma de cerco quando precisa.</p><ul><li><strong>Feitiços:</strong> Alma de Máquina: Canhão e Alma de Máquina: Blindagem (NP 1), Alma de Máquina: Propulsores e Alma de Máquina: Rajada (NP 3), Alma de Máquina: Bombardeio (NP 5) e o feitiço supremo Alma de Máquina: Traje de Batalha (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Traje de Batalha pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>As engrenagens giram por baixo da pele, e ninguém acredita até ouvir o barulho.</em></p>",
+    "description": "<p><strong>Magia (Conjuração).</strong> Take Over de máquinas: você toca uma máquina e veste o que ela tem, a blindagem de aço, os canhões de lacrima, os propulsores. A roupa de batalha troca de forma no meio da luta. É a magia de quem vira uma arma de cerco quando precisa.</p><ul><li><strong>Traço, Metal:</strong> você é imune a [Envenenado] e [Deterioração], e os seus feitiços de Alma de Máquina causam +NP÷2 de dano em quem está [Cambaleante].</li><li><strong>Feitiços:</strong> Alma de Máquina: Canhão e Alma de Máquina: Blindagem (NP 1), Alma de Máquina: Propulsores e Alma de Máquina: Rajada (NP 3), Alma de Máquina: Bombardeio (NP 5) e o feitiço supremo Alma de Máquina: Traje de Batalha (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Traje de Batalha pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>As engrenagens giram por baixo da pele, e ninguém acredita até ouvir o barulho.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -30,7 +30,63 @@
     "macroeffect": ""
   },
   "img": "icons/creatures/magical/construct-golem-robot-blue.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "alma-de-maquina",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "staggered"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          },
+          "immune": [
+            "poisoned",
+            "decay"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Metal",
+      "img": "icons/creatures/magical/construct-golem-robot-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "O2xqVNOeWq37y9Dz",
+      "_key": "!items.effects!BNMxdk5CVZgnLwGO.O2xqVNOeWq37y9Dz"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "alma-de-maquina-alma-de-maquina",

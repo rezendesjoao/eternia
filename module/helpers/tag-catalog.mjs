@@ -136,6 +136,7 @@ export const TAG_CATALOG = [
   { label: "Ratman", group: G.creature },
   { label: "Neirity", group: G.creature },
   { label: "Undead", group: G.creature },
+  { label: "Demon", group: G.creature },
   { label: "Spirit", group: G.creature },
   { label: "Fairy", group: G.creature },
   { label: "Dragon", group: G.creature },

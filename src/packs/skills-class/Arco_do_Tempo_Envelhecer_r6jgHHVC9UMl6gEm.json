@@ -2,7 +2,7 @@
   "name": "Arco do Tempo: Envelhecer",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Arco do Tempo.</strong> Feitiço grande. Anos passam num segundo sobre uma área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; [4d6 + Poder Mágico] de dano mágico, e quem ele acerta fica [Fissurado: 1], com a armadura velha e rachada.</p><p><strong>Custo:</strong> Ódio 3.</p>",
+    "description": "<p><strong>Arco do Tempo.</strong> Feitiço grande. Anos passam num segundo sobre uma área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; [4d6 + Poder Mágico] de dano mágico, e quem ele acerta fica [Fissurado: 1] e [Enfraquecido: NP÷2 + 2], com a armadura velha e o braço cansado.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Eles saem da luz com cabelo branco nas têmporas.</em></p>",
     "tags": [
       "Spell",
       "Magic Attack"
@@ -43,6 +43,10 @@
         {
           "statusId": "fissured",
           "value": 1
+        },
+        {
+          "statusId": "weakened",
+          "value": "floor(@cr/2)+2"
         }
       ],
       "magicSpell": {

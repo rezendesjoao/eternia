@@ -9,7 +9,8 @@
  *   attack. [Sealed (Skill)]: not that skill.
  * - [Berserk]: only skills that attack.
  * - Targets: [Blinded] only within 1 Sq; [Grappled] attacks only its grappler, [Taunted] must include its taunter,
- *   [Charmed] never attacks its charmer. [Frightened] can't move closer to what frightens it.
+ *   [Charmed] never attacks its charmer, [Dominated] never attacks who dominates it nor that one's side.
+ *   [Frightened] can't move closer to what frightens it.
  * - Actions: [Hasted] has a second Minor Action; [Slowed] has no Move Action.
  */
 import { L, setting } from "../settings.mjs";
@@ -94,6 +95,13 @@ export function conditionUseIssues(item, actor, { targets = null } = {}) {
     }
     const charmers = actors.filter(a => isSourceOf(actor, "charmed", a));
     if (charmers.length) push("charmed", "Charmed", { source: charmers.map(actorName).join(", ") });
+    // [Dominated]: no hostile skill against who dominates it, nor against that one's side (its token's disposition)
+    const masters = sourcesOf(actor, "dominated");
+    if (masters.length) {
+      const sides = new Set(masters.map(m => tokenOf(m)?.document.disposition).filter(d => d));
+      const kept = targets.filter(t => t.actor && (masters.some(m => sameActor(m, t.actor)) || sides.has(t.document?.disposition)));
+      if (kept.length) push("dominated", "Dominated", { source: masters.map(actorName).join(", ") });
+    }
   }
   return issues;
 }

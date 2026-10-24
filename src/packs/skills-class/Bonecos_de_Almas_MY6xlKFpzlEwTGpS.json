@@ -1,8 +1,8 @@
 {
-  "name": "Guarda de Sombras",
+  "name": "Bonecos de Almas",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Sombras.</strong> As sombras se fecham em volta de você até o fim da rodada: [Anulação: NP÷2 + 3]. Uma vez por rodada.</p>",
+    "description": "<p><strong>Magia Seith.</strong> Você prende almas nos bonecos de madeira, e eles ficam do seu lado: você ganha [Servo: NP÷2 + 2] até o fim da cena (no Encerramento, os bonecos atacam o inimigo mais perto). Uma vez por cena.</p><p><em>Os bonecos viram a cabeça ao mesmo tempo, e olham para o mesmo inimigo.</em></p>",
     "tags": [
       "Spell"
     ],
@@ -16,7 +16,7 @@
       "max": 1
     },
     "cost": "-",
-    "limit": "1/Round",
+    "limit": "1/Scene",
     "check": {
       "dice": 0,
       "mod": 0,
@@ -31,7 +31,7 @@
     },
     "macroeffect": ""
   },
-  "img": "icons/magic/air/fog-gas-smoke-purple-blue.webp",
+  "img": "icons/commodities/treasure/totem-wood-face-brown.webp",
   "effects": [
     {
       "origin": null,
@@ -48,10 +48,10 @@
         "eternia": {
           "recipients": "self",
           "statusData": {
-            "statusId": "cancel",
-            "value": "floor(@cr/2)+3"
+            "statusId": "servant",
+            "value": "floor(@cr/2)+2"
           },
-          "expires": "endOfRound"
+          "expires": "endOfScene"
         }
       },
       "_stats": {
@@ -65,32 +65,32 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "name": "Guarda de Sombras",
-      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "name": "Bonecos de Almas",
+      "img": "systems/eternia/assets/ui/status/servant.svg",
       "type": "base",
       "system": {
         "changes": []
       },
       "description": "",
       "statuses": [
-        "cancel"
+        "servant"
       ],
       "sort": 0,
       "start": null,
       "showIcon": 1,
-      "_id": "2EeWXUnUCF2uD6qj",
-      "_key": "!items.effects!pFVoHxoYMxfUl6tw.2EeWXUnUCF2uD6qj"
+      "_id": "WXpuzGBShhQVwLEL",
+      "_key": "!items.effects!MY6xlKFpzlEwTGpS.WXpuzGBShhQVwLEL"
     }
   ],
   "flags": {
     "eternia": {
-      "identifier": "sombras-guarda",
+      "identifier": "seith-formacao-x",
       "kind": "feeds",
       "branch": "magic",
       "magicSpell": {
-        "id": "sombras"
+        "id": "seith"
       },
-      "minRank": 1,
+      "minRank": 3,
       "motor": {
         "id": "@class",
         "gain": 1
@@ -108,11 +108,11 @@
     "duplicateSource": null,
     "exportSource": null
   },
-  "sort": 30000,
+  "sort": 40000,
   "ownership": {
     "default": 0
   },
-  "_id": "pFVoHxoYMxfUl6tw",
-  "folder": "9uLR0ZDeXbySYw7y",
-  "_key": "!items!pFVoHxoYMxfUl6tw"
+  "_id": "MY6xlKFpzlEwTGpS",
+  "folder": "T6VDFmTyhJuPfsii",
+  "_key": "!items!MY6xlKFpzlEwTGpS"
 }

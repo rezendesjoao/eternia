@@ -1,12 +1,12 @@
 /**
- * The conditions of Eternia (docs/condicoes.md): the 31 statuses added to the 23 of the base rules, and what every
+ * The conditions of Eternia (docs/condicoes.md): the 36 statuses added to the 23 of the base rules, and what every
  * status does at the table. The definitions join the system's status list (helpers/statuses.mjs); the tables below
  * are read by the mechanisms of this folder (rolls, actions, damage, turns, recovery).
  *
  * Statuses with a Rating keep it in a field of `system.bad-status` (the status panel edits it, effects with a
  * Rating raise it); `stack` statuses add every new application up to their maximum instead of keeping the highest.
- * Statuses with `source` remember who gave them (the caster of the effect): Fear, Charm, Taunt, Grapple and Bond
- * only act against or through that character.
+ * Statuses with `source` remember who gave them (the caster of the effect): Fear, Charm, Taunt, Grapple, Bond and
+ * Dominated only act against or through that character.
  */
 
 const ICONS = "systems/eternia/assets/ui/status";
@@ -29,16 +29,21 @@ export const NEW_STATUSES = [
   { id: "disarmed", group: "bad", family: "block", img: icon("disarmed") },
   { id: "blinded", group: "bad", family: "block", img: icon("blinded") },
   { id: "sealed", group: "bad", family: "block", img: icon("sealed"), tagged: true },
+  { id: "weakened", group: "bad", family: "block", img: icon("weakened"), path: "bad-status.weakened", rated: true },
   // Mind
   { id: "frightened", group: "bad", family: "mind", img: icon("frightened"), source: true },
   { id: "charmed", group: "bad", family: "mind", img: icon("charmed"), source: true },
   { id: "taunted", group: "bad", family: "mind", img: icon("taunted"), source: true },
+  { id: "dominated", group: "bad", family: "mind", img: icon("dominated"), source: true },
   { id: "berserk", group: "bad", family: "mind", img: icon("berserk"), path: "bad-status.berserk", rated: true },
   // Elements
   { id: "burning", group: "bad", family: "element", img: icon("burning"), path: "bad-status.burning", rated: true },
   { id: "poisoned", group: "bad", family: "element", img: icon("poisoned"), path: "bad-status.poisoned", rated: true },
   { id: "freezing", group: "bad", family: "element", img: icon("freezing"), path: "bad-status.freezing", rated: true, stack: 3 },
   { id: "shocked", group: "bad", family: "element", img: icon("shocked"), path: "bad-status.shocked", rated: true },
+  { id: "soaked", group: "bad", family: "element", img: icon("soaked"), path: "bad-status.soaked", rated: true },
+  // The fuses add up (a big stack, no threshold): each new one makes the blast bigger
+  { id: "fuse", group: "bad", family: "element", img: icon("fuse"), path: "bad-status.fuse", rated: true, stack: 999 },
   { id: "cursed", group: "bad", family: "element", img: icon("cursed") },
   // Guard break
   { id: "exposed", group: "bad", family: "guard", img: icon("exposed") },
@@ -53,6 +58,8 @@ export const NEW_STATUSES = [
   { id: "intangible", group: "combat", img: icon("intangible") },
   { id: "lastStand", group: "combat", img: icon("lastStand") },
   { id: "awakened", group: "combat", img: icon("awakened"), path: "bad-status.awakened", rated: true },
+  // A summoned servant (its effect's statusData.tag is the tag of its blows)
+  { id: "servant", group: "combat", img: icon("servant"), path: "bad-status.servant", rated: true },
   // Other
   { id: "bond", group: "other", img: icon("bond"), source: true }
 ];
@@ -74,10 +81,10 @@ export const NO_REACTIONS = ["dazed", "shocked", "paralyzed", "asleep"];
 export const SILENCED_TAGS = ["Magic Attack", "Spell", "Song"];
 
 /** Statuses that end at the end of their bearer's own Main Process ([Afflicted] keeps the protected ones). */
-export const END_OF_OWN_PROCESS = ["staggered", "dazed", "paralyzed", "silenced", "taunted"];
+export const END_OF_OWN_PROCESS = ["staggered", "dazed", "paralyzed", "silenced", "taunted", "weakened", "dominated"];
 
 /** Statuses that end in the Cleanup Process (after its damage). */
-export const END_OF_ROUND = ["rooted", "slowed", "blinded", "frightened", "shocked", "exposed", "intangible"];
+export const END_OF_ROUND = ["rooted", "slowed", "blinded", "frightened", "shocked", "exposed", "intangible", "soaked"];
 
 /** Statuses [Afflicted] protects: removing them puts them back at once. */
 export const AFFLICTED_PROTECTS = ["staggered", "dazed", "confused", "weakness", "overconfident", "frightened", "charmed"];
@@ -99,7 +106,8 @@ export const RECOVERY = {
   burning: ["minor"],
   poisoned: ["major"],
   freezing: ["major"],
-  fissured: ["major"]
+  fissured: ["major"],
+  fuse: ["major"]
 };
 
 /** Groups whose statuses end with the scene (Bad and Combat Statuses), and the other statuses that do. */

@@ -2,7 +2,7 @@
   "name": "Magia Viva",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia Perdida.</strong> A magia de criar vida: centelhas que curam, criaturas de barro, feras inteiras feitas do nada. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, a Vida Emprestada:</strong> toda vida que você cria sai de você: em combate, a sua Recuperação e a sua Defesa Mágica caem [NP].</li><li><strong>Feitiços:</strong> Centelha da Vida e Cria de Barro (NP 1), Sangue Vivo e Corpo Refeito (NP 3), Fera Criada (NP 5) e o feitiço supremo Gênese (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Gênese pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você sabe o que é preciso para fazer um coração bater. E sabe o preço.</em></p>",
+    "description": "<p><strong>Magia Perdida.</strong> A magia de criar vida: centelhas que curam, criaturas de barro, feras inteiras feitas do nada. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, a Vida Emprestada:</strong> toda vida que você cria sai de você: em combate, a sua Recuperação e a sua Defesa Mágica caem [NP].</li><li><strong>Traço, Fonte de Vida:</strong> você é imune a [Deterioração] e [Sentença] (a vida não acaba), e os seus feitiços de cura da Magia Viva recuperam +NP÷2.</li><li><strong>Feitiços:</strong> Centelha da Vida e Cria de Barro (NP 1), Sangue Vivo e Corpo Refeito (NP 3), Fera Criada (NP 5) e o feitiço supremo Gênese (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Gênese pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você sabe o que é preciso para fazer um coração bater. E sabe o preço.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -90,6 +90,54 @@
       "showIcon": 1,
       "_id": "2DRDsNEVPR7liJ68",
       "_key": "!items.effects!I2ED9vozOwhR1w1b.2DRDsNEVPR7liJ68"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "magia-viva",
+            "healBonus": "floor(@cr/2)"
+          },
+          "immune": [
+            "decay",
+            "doom"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Fonte de Vida",
+      "img": "icons/commodities/biological/organ-heart-pink.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "qu9M6Co7iegk9yTi",
+      "_key": "!items.effects!I2ED9vozOwhR1w1b.qu9M6Co7iegk9yTi"
     }
   ],
   "flags": {

@@ -2,7 +2,7 @@
   "name": "Perfume Mágico",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia (Portadora).</strong> Você carrega frascos de perfume mágico, cada um com um efeito: o que fecha feridas, o que enche os músculos, o que tira a vontade de lutar, o do trovão. Quase tudo é apoio, até o dia em que o perfume da força vai inteiro para o nariz. É a magia de quem cuida do grupo com estilo.</p><ul><li><strong>Portadora:</strong> a magia mora nos frascos. Sem eles, não há perfume.</li><li><strong>Feitiços:</strong> Perfume do Trovão e Perfume da Força (NP 1), Perfume Analgésico e Perfume da Dor (NP 3), Perfume Venenoso (NP 5) e o feitiço supremo Perfume da Força: Máximo (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Perfume da Força: Máximo pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>O perfume chega antes de você, e todo mundo já sabe quem vem.</em></p>",
+    "description": "<p><strong>Magia (Portadora).</strong> Você carrega frascos de perfume mágico, cada um com um efeito: o que fecha feridas, o que enche os músculos, o que tira a vontade de lutar, o do trovão. Quase tudo é apoio, até o dia em que o perfume da força vai inteiro para o nariz. É a magia de quem cuida do grupo com estilo.</p><ul><li><strong>Portadora:</strong> a magia mora nos frascos. Sem eles, não há perfume.</li><li><strong>Traço, Nariz Treinado:</strong> você é imune a [Envenenado] e [Confuso], e os seus feitiços de Perfume Mágico causam +NP÷2 de dano em quem está [Envenenado].</li><li><strong>Feitiços:</strong> Perfume do Trovão e Perfume da Força (NP 1), Perfume Analgésico e Perfume da Dor (NP 3), Perfume Venenoso (NP 5) e o feitiço supremo Perfume da Força: Máximo (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Perfume da Força: Máximo pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>O perfume chega antes de você, e todo mundo já sabe quem vem.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -30,7 +30,63 @@
     "macroeffect": ""
   },
   "img": "icons/consumables/potions/bottle-pear-corked-labeled-ornamental-purple.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "perfume",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "poisoned"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          },
+          "immune": [
+            "poisoned",
+            "confused"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Nariz Treinado",
+      "img": "icons/consumables/potions/bottle-pear-corked-labeled-ornamental-purple.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "rBJiOO78PtvU9ABC",
+      "_key": "!items.effects!2l6gaUmiEhr0lGml.rBJiOO78PtvU9ABC"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "perfume-perfume",

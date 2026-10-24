@@ -2,7 +2,7 @@
   "name": "Explosão Maligna",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Alma de Satã.</strong> Feitiço grande. Você junta as trevas numa esfera e a explode sobre uma área a até 3 Qd: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico de [Corrupção].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Por um instante, a luz some, e o som volta antes dela.</em></p>",
+    "description": "<p><strong>Alma de Satã.</strong> Feitiço grande. Você junta as trevas numa esfera e a explode sobre uma área a até 3 Qd: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico de [Corrupção], e quem ela acerta fica com [Medo] de você.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Por um instante, a luz some, e o som volta antes dela.</em></p>",
     "tags": [
       "Spell",
       "Magic Attack",
@@ -40,6 +40,11 @@
       "identifier": "alma-de-sata-explosao",
       "kind": "feeds",
       "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "frightened"
+        }
+      ],
       "magicSpell": {
         "id": "alma-de-sata"
       },

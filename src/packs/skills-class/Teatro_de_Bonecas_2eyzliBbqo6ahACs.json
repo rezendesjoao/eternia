@@ -2,7 +2,7 @@
   "name": "Teatro de Bonecas",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia (Conjuração).</strong> Você dá vida ao que não tem: a pedra se levanta, a árvore estende os galhos, a nuvem vira montaria, e até uma pessoa pode dançar nos seus fios. É a magia de quem luta com o próprio campo de batalha.</p><ul><li><strong>Feitiços:</strong> Boneca de Pedra e Boneca de Madeira (NP 1), Marionete e Boneca de Nuvem (NP 3), Boneca da Terra (NP 5) e o feitiço supremo Grande Teatro (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Grande Teatro pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você fala com as pedras como quem fala com os amigos, e às vezes elas respondem.</em></p>",
+    "description": "<p><strong>Magia (Conjuração).</strong> Você dá vida ao que não tem: a pedra se levanta, a árvore estende os galhos, a nuvem vira montaria, e até uma pessoa pode dançar nos seus fios. É a magia de quem luta com o próprio campo de batalha.</p><ul><li><strong>Traço, Fios:</strong> os seus feitiços do Teatro de Bonecas causam +NP÷2 de dano em quem está [Dominado] ou [Agarrado].</li><li><strong>Feitiços:</strong> Boneca de Pedra e Boneca de Madeira (NP 1), Marionete e Boneca de Nuvem (NP 3), Boneca da Terra (NP 5) e o feitiço supremo Grande Teatro (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Grande Teatro pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você fala com as pedras como quem fala com os amigos, e às vezes elas respondem.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -30,7 +30,60 @@
     "macroeffect": ""
   },
   "img": "icons/commodities/treasure/doll-voodoo.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "bonecas",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "dominated",
+                  "grappled"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Fios",
+      "img": "icons/commodities/treasure/doll-voodoo.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "7W929AeufhwnzACE",
+      "_key": "!items.effects!2eyzliBbqo6ahACs.7W929AeufhwnzACE"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "bonecas-bonecas",

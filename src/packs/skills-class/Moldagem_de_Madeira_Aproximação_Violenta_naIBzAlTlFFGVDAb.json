@@ -2,7 +2,7 @@
   "name": "Moldagem de Madeira: Aproximação Violenta",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Moldagem de Madeira.</strong> Uma bola de madeira cheia de espinhos voa até um alvo a até 5 Qd: Teste de Precisão contra a Esquiva; [2d6 + Poder Mágico] de dano mágico.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Depois ela rola de volta até os seus pés, obediente.</em></p>",
+    "description": "<p><strong>Moldagem de Madeira.</strong> Uma bola de madeira cheia de espinhos voa até um alvo a até 5 Qd: Teste de Precisão contra a Esquiva; [2d6 + Poder Mágico] de dano mágico, e ele fica [Cambaleante].</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Depois ela rola de volta até os seus pés, obediente.</em></p>",
     "tags": [
       "Spell",
       "Magic Attack"
@@ -39,6 +39,11 @@
       "identifier": "moldagem-madeira-aproximacao",
       "kind": "feeds",
       "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "staggered"
+        }
+      ],
       "magicSpell": {
         "id": "moldagem-madeira"
       },

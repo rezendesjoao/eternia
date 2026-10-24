@@ -2,7 +2,7 @@
   "name": "Torrente de Shikigami",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Shikigami.</strong> Um enxame de bonecos de papel voa contra um alvo a até 5 Qd e se divide em volta dele: Teste de Precisão contra a Esquiva; [2d6 + Poder Mágico] de dano mágico.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Cada boneco corta pouco. Mil bonecos cortam muito.</em></p>",
+    "description": "<p><strong>Shikigami.</strong> Um enxame de bonecos de papel voa contra um alvo a até 5 Qd e se divide em volta dele: Teste de Precisão contra a Esquiva; [2d6 + Poder Mágico] de dano mágico. Parte dos bonecos fica voando em volta de você: [Servo: NP÷2 + 2] até o fim da cena.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Cada boneco corta pouco. Mil bonecos cortam muito.</em></p>",
     "tags": [
       "Spell",
       "Magic Attack"
@@ -33,7 +33,57 @@
     "macroeffect": ""
   },
   "img": "icons/magic/air/wind-tornado-spiral-pink-purple.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "onUse": true,
+          "statusData": {
+            "statusId": "servant",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Torrente de Shikigami",
+      "img": "systems/eternia/assets/ui/status/servant.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "servant"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "RC1T0d1mRnHebfrF",
+      "_key": "!items.effects!P7FVgDcMLLYxiukX.RC1T0d1mRnHebfrF"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "shikigami-torrente",

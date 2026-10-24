@@ -8,7 +8,7 @@
  * Dodge Checks: −1D for [Dazed], [Paralyzed], [Rooted], [Berserk], [Marked], [Confused], [Swimming], [Blinded]
  * (against Evasion), [Poisoned] (against Resistance), [Prone] (against Close attacks) and [Charmed] (against its
  * source); +1D for [Focused]. [Asleep] fails it outright. The dice never go below 1D.
- * Damage Rolls: +Rating for [Empowered], [Berserk] and [Awakened].
+ * Damage Rolls: +Rating for [Empowered], [Berserk] and [Awakened]; −Rating for [Weakened].
  * Race skills: the Pack (a skill with `flags.eternia.special: "pack"`) adds +[SR×2] damage with an ally within
  * 2 Sq and −1D on Accuracy with no ally within 5 Sq; effects with `consumeOn` end after the roll they help
  * (conditions/effects.mjs).
@@ -122,6 +122,8 @@ export function damageModifier(actor, item = null) {
     const n = rating(actor, id);
     if (n > 0) t.add(id, 0, n);
   }
+  const weakened = rating(actor, "weakened");
+  if (weakened > 0) t.add("weakened", 0, -weakened);
   return t;
 }
 

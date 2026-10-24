@@ -2,7 +2,7 @@
   "name": "Chama Roxa",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Fogo.</strong> Uma chama roxa salta dos seus dedos e gruda num alvo a até 4 Qd: ele fica [Queimando: NP÷2 + 2]. Uma vez por rodada.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Ela não solta. Só apaga quando acaba.</em></p>",
+    "description": "<p><strong>Fogo.</strong> Uma chama roxa salta dos seus dedos e gruda no fogo de um alvo a até 4 Qd que está [Queimando]: o Queimando dele dobra. Uma vez por rodada.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Ela não solta. Só apaga quando acaba.</em></p>",
     "tags": [
       "Spell",
       "Flame"
@@ -33,60 +33,19 @@
     "macroeffect": ""
   },
   "img": "icons/magic/fire/projectile-fireball-purple.webp",
-  "effects": [
-    {
-      "origin": null,
-      "duration": {
-        "value": null,
-        "units": "seconds",
-        "expiry": null,
-        "expired": false
-      },
-      "disabled": false,
-      "tint": "#ffffff",
-      "transfer": false,
-      "flags": {
-        "eternia": {
-          "statusData": {
-            "statusId": "burning",
-            "value": "floor(@cr/2)+2"
-          },
-          "expires": "endOfScene"
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "eternia",
-        "systemVersion": "0.9.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "name": "Chama Roxa",
-      "img": "systems/eternia/assets/ui/status/burning.svg",
-      "type": "base",
-      "system": {
-        "changes": []
-      },
-      "description": "",
-      "statuses": [
-        "burning"
-      ],
-      "sort": 0,
-      "start": null,
-      "showIcon": 1,
-      "_id": "St79nu8MAvR7zFuD",
-      "_key": "!items.effects!fF8WBgiOrKPFvDpG.St79nu8MAvR7zFuD"
-    }
-  ],
+  "effects": [],
   "flags": {
     "eternia": {
       "identifier": "fogo-roxa",
       "kind": "feeds",
       "branch": "magic",
+      "useActions": [
+        {
+          "type": "doubleStatus",
+          "status": "burning",
+          "recipients": "targets"
+        }
+      ],
       "magicSpell": {
         "id": "fogo"
       },

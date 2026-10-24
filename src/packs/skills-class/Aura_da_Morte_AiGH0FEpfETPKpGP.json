@@ -1,27 +1,28 @@
 {
-  "name": "Véu das Trevas",
+  "name": "Aura da Morte",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Artes Negras.</strong> As trevas se fecham em volta de você até o fim da rodada: [Anulação: NP÷2 + 3]. Uma vez por rodada.</p>",
+    "description": "<p><strong>Artes Negras.</strong> A morte transborda de você: Teste de Precisão contra a Resistência de cada inimigo engajado com você; quem ela pega fica [Maldito] até o fim da cena (não recupera PV nem ganha [Regeneração] ou [Barreira]). Uma vez por rodada.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>As plantas em volta secam primeiro. Depois, eles.</em></p>",
     "tags": [
-      "Spell"
+      "Spell",
+      "Blight"
     ],
     "timing": "Minor",
     "checkType": "",
-    "range": "-",
-    "target": "Self",
+    "range": "Close",
+    "target": "Area",
     "subtype": "Combat",
     "skillRank": {
       "value": 1,
       "max": 1
     },
-    "cost": "-",
+    "cost": "Hate 1",
     "limit": "1/Round",
     "check": {
       "dice": 0,
       "mod": 0,
-      "vs": "",
-      "stat": ""
+      "vs": "resistance",
+      "stat": "accuracy"
     },
     "damage": {
       "dice": 0,
@@ -46,12 +47,7 @@
       "transfer": false,
       "flags": {
         "eternia": {
-          "recipients": "self",
-          "statusData": {
-            "statusId": "cancel",
-            "value": "floor(@cr/2)+3"
-          },
-          "expires": "endOfRound"
+          "expires": "endOfScene"
         }
       },
       "_stats": {
@@ -65,21 +61,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "name": "Véu das Trevas",
-      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "name": "Aura da Morte",
+      "img": "systems/eternia/assets/ui/status/cursed.svg",
       "type": "base",
       "system": {
         "changes": []
       },
       "description": "",
       "statuses": [
-        "cancel"
+        "cursed"
       ],
       "sort": 0,
       "start": null,
       "showIcon": 1,
-      "_id": "P0XGfT5PdLU1cEls",
-      "_key": "!items.effects!AiGH0FEpfETPKpGP.P0XGfT5PdLU1cEls"
+      "_id": "g3OF5HQ9SGFv17Ac",
+      "_key": "!items.effects!AiGH0FEpfETPKpGP.g3OF5HQ9SGFv17Ac"
     }
   ],
   "flags": {

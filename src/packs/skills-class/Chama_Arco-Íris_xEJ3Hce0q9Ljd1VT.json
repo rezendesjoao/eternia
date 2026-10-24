@@ -2,7 +2,7 @@
   "name": "Chama Arco-Íris",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Fogo. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: o fogo de todas as cores cai sobre uma área ampla a até 6 Qd. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Chama], e quem ele acerta fica [Queimando: NP]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Bonito de longe. De perto, não dá tempo de achar bonito.</em></p>",
+    "description": "<p><strong>Fogo. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: o fogo de todas as cores cai sobre uma área ampla a até 6 Qd. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Chama], e quem ele acerta fica [Queimando: NP]; quem já estava Queimando fica também [Exposto]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Bonito de longe. De perto, não dá tempo de achar bonito.</em></p>",
     "tags": [
       "Spell",
       "Magic Attack",
@@ -44,6 +44,16 @@
         {
           "statusId": "burning",
           "value": "@cr"
+        }
+      ],
+      "escalate": [
+        {
+          "if": "burning",
+          "add": [
+            {
+              "statusId": "exposed"
+            }
+          ]
         }
       ],
       "magicSpell": {

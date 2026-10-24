@@ -2,7 +2,7 @@
   "name": "Escrita Sólida",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia (Conjuração).</strong> Você escreve uma palavra no ar, e ela fica de pé: FOGO queima, FERRO pesa, GUARDA protege. É a magia de quem lê muito e sempre tem a palavra certa para a hora certa.</p><ul><li><strong>Feitiços:</strong> Escrita Sólida: Fogo e Escrita Sólida: Guarda (NP 1), Escrita Sólida: Silêncio e Escrita Sólida: Ferro (NP 3), Escrita Sólida: Trovão (NP 5) e o feitiço supremo A Palavra Final (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Palavra Final pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você carrega uma pena atrás da orelha e escreve mais rápido do que fala.</em></p>",
+    "description": "<p><strong>Magia (Conjuração).</strong> Você escreve uma palavra no ar, e ela fica de pé: FOGO queima, FERRO pesa, GUARDA protege. É a magia de quem lê muito e sempre tem a palavra certa para a hora certa.</p><ul><li><strong>Traço, Palavra Pesada:</strong> você é imune a [Confuso], e os seus feitiços de Escrita Sólida causam +NP÷2 de dano em quem está [Derrubado].</li><li><strong>Feitiços:</strong> Escrita Sólida: Fogo e Escrita Sólida: Guarda (NP 1), Escrita Sólida: Silêncio e Escrita Sólida: Ferro (NP 3), Escrita Sólida: Trovão (NP 5) e o feitiço supremo A Palavra Final (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Palavra Final pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você carrega uma pena atrás da orelha e escreve mais rápido do que fala.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -30,7 +30,62 @@
     "macroeffect": ""
   },
   "img": "icons/tools/scribal/ink-quill-pink.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "escrita-solida",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "prone"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          },
+          "immune": [
+            "confused"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Palavra Pesada",
+      "img": "icons/tools/scribal/ink-quill-pink.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "lWktiFwH7MosN3jX",
+      "_key": "!items.effects!AbONem0Benuuom4u.lWktiFwH7MosN3jX"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "escrita-solida-escrita-solida",

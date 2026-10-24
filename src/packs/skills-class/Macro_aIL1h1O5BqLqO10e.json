@@ -2,7 +2,7 @@
   "name": "Macro",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Maldição.</strong> Você dá ordens, e os corpos obedecem: o inimigo para de lutar contra você, os livros voam, as estantes desabam. No fim, você manda no próprio corpo que tire os limites, e um olho se abre na palma da sua mão. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, o Limitador:</strong> o seu corpo de sempre é uma tranca que segura a sua força: em combate, a sua Iniciativa cai [NP] e você sofre −1d6 nas Resistências. Enquanto você está [Despertado] (o Macro em Si Mesmo tira a tranca), o Tabu não vale.</li><li><strong>Feitiços:</strong> Arremesso de Livros e Ordem ao Corpo (NP 1), Macro em Si Mesmo e Olhos Demoníacos (NP 3), Avalanche da Biblioteca (NP 5) e o feitiço supremo Olho Demoníaco Liberto (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Olho Demoníaco Liberto pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você não pede. Você manda, e o corpo dos outros obedece antes deles.</em></p>",
+    "description": "<p><strong>Maldição.</strong> Você dá ordens, e os corpos obedecem: o inimigo para de lutar contra você, os livros voam, as estantes desabam. No fim, você manda no próprio corpo que tire os limites, e um olho se abre na palma da sua mão. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, o Limitador:</strong> o seu corpo de sempre é uma tranca que segura a sua força: em combate, a sua Iniciativa cai [NP] e você sofre −1d6 nas Resistências. Enquanto você está [Despertado] (o Macro em Si Mesmo tira a tranca), o Tabu não vale.</li><li><strong>Traço, Ordens:</strong> os seus feitiços de Macro causam +NP÷2 de dano em quem está [Dominado].</li><li><strong>Feitiços:</strong> Arremesso de Livros e Ordem ao Corpo (NP 1), Macro em Si Mesmo e Olhos Demoníacos (NP 3), Avalanche da Biblioteca (NP 5) e o feitiço supremo Olho Demoníaco Liberto (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Olho Demoníaco Liberto pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você não pede. Você manda, e o corpo dos outros obedece antes deles.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -94,6 +94,57 @@
       "showIcon": 1,
       "_id": "JCGSZYogoWIFE04L",
       "_key": "!items.effects!aIL1h1O5BqLqO10e.JCGSZYogoWIFE04L"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "macro",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "dominated"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Ordens",
+      "img": "icons/sundries/books/book-tooled-eye-gold-red.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "xN67w7U8Abh9AY81",
+      "_key": "!items.effects!aIL1h1O5BqLqO10e.xN67w7U8Abh9AY81"
     }
   ],
   "flags": {

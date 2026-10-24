@@ -2,7 +2,7 @@
   "name": "Mina Terrestre",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Bomba.</strong> Você marca o chão de uma área a até 4 Qd com círculos escuros, e eles explodem debaixo dos pés: Teste de Precisão contra a Esquiva de cada alvo; [3d6 + Poder Mágico] de dano mágico de [Chama], e quem elas acertam fica [Enraizado] (quem se mexe explode de novo).</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Ninguém mais tem coragem de dar um passo.</em></p>",
+    "description": "<p><strong>Bomba.</strong> Você marca o chão de uma área a até 4 Qd com círculos escuros, e eles explodem debaixo dos pés: Teste de Precisão contra a Esquiva de cada alvo; [3d6 + Poder Mágico] de dano mágico de [Chama], e quem elas acertam fica [Enraizado] e com [Pavio: NP÷2 + 2]: a mina ainda não acabou.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Ninguém mais tem coragem de dar um passo.</em></p>",
     "tags": [
       "Spell",
       "Magic Attack",
@@ -44,6 +44,10 @@
       "hitStatuses": [
         {
           "statusId": "rooted"
+        },
+        {
+          "statusId": "fuse",
+          "value": "floor(@cr/2)+2"
         }
       ],
       "magicSpell": {

@@ -18,7 +18,10 @@ export const LINKABLE = {
   burning: { rated: true }, poisoned: { rated: true }, freezing: { rated: true }, shocked: { rated: true }, cursed: {},
   exposed: {}, fissured: { rated: true }, marked: { rated: true }, doom: { rated: true },
   hasted: {}, empowered: { rated: true }, focused: {}, mirror: { rated: true }, intangible: {}, lastStand: {},
-  awakened: { rated: true }, bond: {}
+  awakened: { rated: true }, bond: {},
+  // The conditions of the Magias' review (0.26)
+  soaked: { rated: true }, weakened: { rated: true }, fuse: { rated: true }, servant: { rated: true, tagged: true },
+  dominated: {}
 };
 
 /** Extra names some texts use. */
@@ -31,5 +34,7 @@ export const SYNONYMS = {
   frozen: "freezing", congelado: "freezing", shock: "shocked", choque: "shocked", curse: "cursed", maldição: "cursed",
   crack: "fissured", fissura: "fissured", mark: "marked", marca: "marked", sentence: "doom", haste: "hasted",
   focus: "focused", foco: "focused", reflect: "mirror", reflexo: "mirror", "último fôlego": "lastStand",
-  "last stand": "lastStand", awaken: "awakened", transformação: "awakened", link: "bond"
+  "last stand": "lastStand", awaken: "awakened", transformação: "awakened", link: "bond",
+  soak: "soaked", molhado: "soaked", weaken: "weakened", enfraquecer: "weakened", dominate: "dominated",
+  dominação: "dominated", servo: "servant"
 };

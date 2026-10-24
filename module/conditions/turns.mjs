@@ -4,13 +4,16 @@
  * - Start of a Main Process: [Poisoned] deals its Rating as direct damage; [Confused] raises the Hate by 1.
  * - [Paralyzed] and [Asleep] combatants lose their Main Process (they are skipped, see automation/round.mjs).
  * - End of the bearer's own Main Process: the statuses of END_OF_OWN_PROCESS end (automation/round.mjs).
- * - Cleanup Process: [Burning] deals its Rating as [Flame] damage, [Doom] counts down (at 0: Incapacitated), then
- *   the statuses of END_OF_ROUND end (automation/round.mjs calls cleanupConditions).
- * - A Major Action: [Shocked] deals its Rating as direct damage; it ends [Intangible] and [Hidden].
+ * - Cleanup Process: [Burning] deals its Rating as [Flame] damage, [Doom] counts down (at 0: Incapacitated), [Fuse]
+ *   explodes (its Rating as [Flame] damage, then it ends), a [Servant] strikes the nearest enemy within 4 squares
+ *   (its Rating as direct damage, with the tag of its effect), then the statuses of END_OF_ROUND end
+ *   (automation/round.mjs calls cleanupConditions).
+ * - A Major Action: [Shocked] deals its Rating as direct damage; it ends [Intangible] and [Hidden] (not the
+ *   [Hidden] of a skill that keeps it: the Fumaça's Trait, see helpers/magic-traits.mjs).
  * - Stacks: the third [Freezing] freezes ([Paralyzed]); the third [Fissured] breaks the guard ([Exposed], no
  *   [Barrier]); the stacks are cleared.
- * - [Awakened] ends with [Fatigue] equal to its Rating; [Swimming] puts out [Burning]; [Sealed] without a skill
- *   seals the last skill used; [Grappled] and [Bond] end when their source is Incapacitated.
+ * - [Awakened] ends with [Fatigue] equal to its Rating; [Swimming] and [Soaked] put out [Burning] (and don't catch it);
+ *   [Sealed] without a skill seals the last skill used; [Grappled] and [Bond] end when their source is Incapacitated.
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isPrimaryGM, isLocalChange } from "../helpers/clients.mjs";
@@ -19,9 +22,16 @@ import { statusDefinition } from "../helpers/statuses.mjs";
 import { actorName, postSummary, toInt } from "../helpers/utils.mjs";
 import { AFFLICTED_PROTECTS, END_OF_ROUND, STACK_THRESHOLDS } from "./catalog.mjs";
 import { takeDamage } from "./damage.mjs";
-import { addStatus, has, rating, removeStatuses, rulesOn, sameActor, sourcesOf } from "./rules.mjs";
+import { addStatus, has, rating, removeStatuses, rulesOn, sameActor, sourcesOf, statusEffects } from "./rules.mjs";
+import { keepsHidden } from "../helpers/magic-traits.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
+
+/** How far a [Servant] reaches (squares, counted like the attack cards). */
+const SERVANT_REACH = 4;
+
+/** Statuses that put out [Burning] when they come, and keep it from taking. */
+const PUTS_OUT_FIRE = ["swimming", "soaked"];
 
 /* -------------------------------------------- */
 /*  Actions                                     */
@@ -41,7 +51,7 @@ export async function afterAction(actor, item, action) {
   if (!major) return;
   const shock = rating(actor, "shocked");
   if (shock > 0) await takeDamage(actor, shock, { reason: "shocked" });
-  const ended = ["intangible", "hidden"].filter(id => has(actor, id));
+  const ended = ["intangible", "hidden"].filter(id => has(actor, id) && !((id === "hidden") && keepsHidden(item, actor)));
   if (ended.length) await removeStatuses(actor, ended);
 }
 
@@ -86,6 +96,14 @@ export async function cleanupConditions(actor) {
     }
     else lines.push(L("Conditions.DoomCount", { name: actorName(actor), n: next }));
   }
+  const fuse = rating(actor, "fuse");
+  if (fuse > 0) {
+    await removeStatuses(actor, ["fuse"]);
+    const result = await takeDamage(actor, fuse, { reason: "fuse", tag: "Flame", silent: true });
+    if (result) lines.push(result.line);
+  }
+  const strike = await servantStrike(actor);
+  if (strike) lines.push(strike.line);
   // [Afflicted] keeps the statuses it protects ([Frightened]).
   const afflicted = has(actor, "afflicted");
   const ending = END_OF_ROUND.filter(id => has(actor, id) && !(afflicted && AFFLICTED_PROTECTS.includes(id)));
@@ -94,6 +112,38 @@ export async function cleanupConditions(actor) {
     lines.push(L("Conditions.RoundEnds", { name: actorName(actor), statuses: ending.map(label).join(", ") }));
   }
   return lines;
+}
+
+/**
+ * [Servant]: the servant strikes the nearest enemy within SERVANT_REACH squares of its master's token (the other side
+ * by disposition, not down): the Rating as direct damage, with the tag of the servant's effect (a shadow soldier's
+ * [Blight]), through takeDamage.
+ * @param {Actor} actor
+ * @returns {Promise<{loss: number, line: string}|null>}
+ */
+async function servantStrike(actor) {
+  const value = rating(actor, "servant");
+  if ((value <= 0) || !canvas.ready) return null;
+  const token = actor.token?.object ?? actor.getActiveTokens(true)[0];
+  const side = token?.document.disposition ?? 0;
+  if (!token || !side) return null;
+  const at = canvas.grid.getOffset(token.center);
+  const [nearest] = canvas.tokens.placeables
+    .filter(t => (t !== token) && t.actor && (t.document.disposition === -side)
+      && !t.actor.statuses.has("incapacitated") && !t.actor.statuses.has("dead"))
+    .map(t => {
+      const p = canvas.grid.getOffset(t.center);
+      return { actor: t.actor, squares: Math.abs(p.i - at.i) + Math.abs(p.j - at.j) };
+    })
+    .filter(e => e.squares <= SERVANT_REACH)
+    .sort((a, b) => a.squares - b.squares);
+  if (!nearest) return null;
+  const effect = statusEffects(actor, "servant")
+    .sort((a, b) => toInt(b.getFlag(SYSTEM_ID, "statusData")?.value) - toInt(a.getFlag(SYSTEM_ID, "statusData")?.value))[0];
+  const tag = effect?.getFlag(SYSTEM_ID, "statusData")?.tag ?? "";
+  return takeDamage(nearest.actor, value, {
+    what: L("Conditions.ServantStrike", { name: actorName(actor) }), from: actor, tag, silent: true
+  });
 }
 
 /** Whose Main Process starts: the combatant set active by this update. */
@@ -147,8 +197,10 @@ function onPreCreateEffect(effect, data, options, userId) {
   const actor = effect.parent;
   if (!(actor instanceof Actor)) return;
   const statusData = effect.getFlag(SYSTEM_ID, "statusData") ?? {};
-  // Effects that give [Burning] (skills, chat links) don't take on a swimmer; the GM can still set it in the sheet.
-  if ((statusData.statusId === "burning") && has(actor, "swimming")) return false;
+  // Effects that give [Burning] (skills, chat links) don't take on a swimmer or a [Soaked] actor; the GM can still set
+  // it in the sheet.
+  const burns = (statusData.statusId === "burning") || effect.statuses?.has("burning");
+  if (burns && PUTS_OUT_FIRE.some(id => has(actor, id))) return false;
   if (!effect.statuses?.has("sealed") || statusData.tag) return;
   const skill = actor.getFlag(SYSTEM_ID, "lastSkill");
   if (!skill) return;
@@ -161,7 +213,7 @@ function onPreCreateEffect(effect, data, options, userId) {
 async function onCreateEffect(effect, options, userId) {
   const actor = effect.parent;
   if (!rulesOn() || !(actor instanceof Actor)) return;
-  if (effect.statuses?.has("swimming") && isLocalChange(options, userId) && has(actor, "burning")) {
+  if (PUTS_OUT_FIRE.some(id => effect.statuses?.has(id)) && isLocalChange(options, userId) && has(actor, "burning")) {
     await removeStatuses(actor, ["burning"]);
   }
   // A source Incapacitated (by whoever applied the damage): what it holds ([Grappled]) or is bound to ([Bond]) is

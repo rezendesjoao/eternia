@@ -2,7 +2,7 @@
   "name": "Elo dos Sentidos",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia Perdida.</strong> Você liga os sentidos de duas ou mais pessoas: o que uma sente, as outras sentem junto. As lâminas que você cria cortam direto o sentido da dor, sem passar pela armadura. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, a Dor Partilhada:</strong> o elo também prende você à dor dos outros: em combate, a sua Defesa Física cai [NP].</li><li><strong>Feitiços:</strong> Lâminas Sensoriais e Elo Sensorial (NP 1), Lâmina de Sodoma e Sentidos Trocados (NP 3), Tempestade de Lâminas (NP 5) e o feitiço supremo Elo Final (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Elo Final pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Um coração pequeno aparece no pulso de quem você liga. Ninguém consegue apagar.</em></p>",
+    "description": "<p><strong>Magia Perdida.</strong> Você liga os sentidos de duas ou mais pessoas: o que uma sente, as outras sentem junto. As lâminas que você cria cortam direto o sentido da dor, sem passar pela armadura. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, a Dor Partilhada:</strong> o elo também prende você à dor dos outros: em combate, a sua Defesa Física cai [NP].</li><li><strong>Traço, Sentidos Embaralhados:</strong> os seus feitiços do Elo dos Sentidos causam +NP÷2 de dano em quem está [Confuso].</li><li><strong>Feitiços:</strong> Lâminas Sensoriais e Elo Sensorial (NP 1), Lâmina de Sodoma e Sentidos Trocados (NP 3), Tempestade de Lâminas (NP 5) e o feitiço supremo Elo Final (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Elo Final pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Um coração pequeno aparece no pulso de quem você liga. Ninguém consegue apagar.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -83,6 +83,57 @@
       "showIcon": 1,
       "_id": "B7va70qrstjGSJez",
       "_key": "!items.effects!zpFDmecgleCDwOAd.B7va70qrstjGSJez"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "elo-dos-sentidos",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "confused"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Sentidos Embaralhados",
+      "img": "icons/commodities/gems/gem-rough-heart-pink.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "6ff7VivE0JBGgslM",
+      "_key": "!items.effects!zpFDmecgleCDwOAd.6ff7VivE0JBGgslM"
     }
   ],
   "flags": {

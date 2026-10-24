@@ -211,13 +211,18 @@ export function isMatchingSource(s, source) {
  * @param {string} [options.useId]
  * @param {string} [options.sustained]
  * @param {string} [options.only]   Id of the one effect to apply (a skill whose effects are alternatives)
+ * @param {boolean} [options.onUse]  true: only the effects that come with the use (`flags.eternia.onUse`, a summoned
+ *                                   servant); false: all but those (they were given when it was used)
  * @returns {Promise<string[]>}   Names of the actors that received them
  */
-export async function applyItemEffects(item, actors, { useId, sustained, only } = {}) {
+export async function applyItemEffects(item, actors, { useId, sustained, only, onUse } = {}) {
   // Effects whose conditions the caster doesn't meet (Skill Rank tiers…) are left out.
   const rawEffects = ((item.type === "skill")
     ? item.effects.filter(e => e.transfer === false)
-    : [...item.effects]).filter(e => (!only || (e.id === only)) && !unmetCondition(effectConditions(e, item), item.actor, item));
+    : [...item.effects]).filter(e => (!only || (e.id === only)) && !unmetCondition(effectConditions(e, item), item.actor, item)
+      && ((onUse === undefined) || (!!e.getFlag?.("eternia", "onUse") === onUse)));
+  // Only the use's own effects: the use actions wait for the card's button.
+  if ((onUse === true) && !rawEffects.length) return [];
 
   // A skill with use actions only (conditions/effects.mjs)
   if (!rawEffects.length) return runUseActions(item, { targets: [...new Set(actors)].filter(Boolean), caster: item.actor ?? null });
@@ -291,7 +296,7 @@ export async function applyItemEffects(item, actors, { useId, sustained, only } 
   // effects are alternatives only replaces the same alternative (a Tail spent on a trick keeps the illusion).
   const replace = item.type === "skill";
   const sampleSource = replace ? effects[0]?.flags?.eternia?.source : null;
-  const alternatives = !!item.getFlag?.("eternia", "chooseEffect");
+  const alternatives = !!(item.getFlag?.("eternia", "chooseEffect") || item.getFlag?.("eternia", "randomEffect"));
 
   for (const [actor, list] of plan) {
     if (!list.length) continue;
@@ -313,7 +318,7 @@ export async function applyItemEffects(item, actors, { useId, sustained, only } 
     }
     names.push(actor.name);
   }
-  const acted = await runUseActions(item, { targets: [...new Set(actors)].filter(Boolean), caster });
+  const acted = (onUse === true) ? [] : await runUseActions(item, { targets: [...new Set(actors)].filter(Boolean), caster });
   return [...new Set([...names, ...acted])];
 }
 

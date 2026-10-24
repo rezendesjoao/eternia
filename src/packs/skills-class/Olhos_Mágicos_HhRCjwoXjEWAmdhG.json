@@ -2,7 +2,7 @@
   "name": "Olhos Mágicos",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia (Conjuração).</strong> A sua magia mora nos olhos: o olhar que endurece a carne, o que acha a falha na guarda, o que encanta e o que faz o inimigo ter medo de ser visto. É a magia de quem vence a luta só de olhar.</p><ul><li><strong>Feitiços:</strong> Olhar de Pedra e Olho Clínico (NP 1), Olhar Hipnótico e Olho do Demônio (NP 3), Mil Olhos (NP 5) e o feitiço supremo Olhar Petrificante (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Olhar Petrificante pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Quem cruza o olhar com você desvia primeiro. Sempre.</em></p>",
+    "description": "<p><strong>Magia (Conjuração).</strong> A sua magia mora nos olhos: o olhar que endurece a carne, o que acha a falha na guarda, o que encanta e o que faz o inimigo ter medo de ser visto. É a magia de quem vence a luta só de olhar.</p><ul><li><strong>Traço, Olhar que Petrifica:</strong> você é imune a [Encantado], e quem os seus feitiços de Olhos Mágicos acertam e já está com [Rigidez] vira pedra: fica [Paralisado].</li><li><strong>Feitiços:</strong> Olhar de Pedra e Olho Clínico (NP 1), Olhar Hipnótico e Olho do Demônio (NP 3), Mil Olhos (NP 5) e o feitiço supremo Olhar Petrificante (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Olhar Petrificante pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Quem cruza o olhar com você desvia primeiro. Sempre.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -30,7 +30,64 @@
     "macroeffect": ""
   },
   "img": "icons/creatures/eyes/humanoid-single-blue.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "olhos-magicos",
+            "escalate": [
+              {
+                "if": "rigor",
+                "add": [
+                  {
+                    "statusId": "paralyzed"
+                  }
+                ]
+              }
+            ]
+          },
+          "immune": [
+            "charmed"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Olhar que Petrifica",
+      "img": "icons/creatures/eyes/humanoid-single-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "HyeTX5FNPA335Ivs",
+      "_key": "!items.effects!HhRCjwoXjEWAmdhG.HyeTX5FNPA335Ivs"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "olhos-magicos-olhos-magicos",

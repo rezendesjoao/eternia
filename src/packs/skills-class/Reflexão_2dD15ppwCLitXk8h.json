@@ -2,7 +2,7 @@
   "name": "Reflexão",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia (Conjuração).</strong> Você torce o que vê: o corpo do inimigo, o golpe que vem na sua direção, a luz em volta de você. É a magia de quem faz o mundo dobrar a favor dele.</p><ul><li><strong>Feitiços:</strong> Torção e Reflexo (NP 1), Miragem e Corpo Torcido (NP 3), Mundo Torcido (NP 5) e o feitiço supremo Reflexão Total (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Reflexão Total pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>No seu espelho, o reflexo às vezes demora a acompanhar.</em></p>",
+    "description": "<p><strong>Magia (Conjuração).</strong> Você torce o que vê: o corpo do inimigo, o golpe que vem na sua direção, a luz em volta de você. É a magia de quem faz o mundo dobrar a favor dele.</p><ul><li><strong>Traço, Golpe Torto:</strong> quem os seus feitiços de Reflexão acertam e já está [Cambaleante] também fica [Atordoado].</li><li><strong>Feitiços:</strong> Torção e Reflexo (NP 1), Miragem e Corpo Torcido (NP 3), Mundo Torcido (NP 5) e o feitiço supremo Reflexão Total (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Reflexão Total pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>No seu espelho, o reflexo às vezes demora a acompanhar.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -30,7 +30,61 @@
     "macroeffect": ""
   },
   "img": "icons/sundries/survival/mirror-plain.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "reflexao",
+            "escalate": [
+              {
+                "if": "staggered",
+                "add": [
+                  {
+                    "statusId": "dazed"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Golpe Torto",
+      "img": "icons/sundries/survival/mirror-plain.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "1BFd337Hclw1FFvz",
+      "_key": "!items.effects!2dD15ppwCLitXk8h.1BFd337Hclw1FFvz"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "reflexao-reflexao",

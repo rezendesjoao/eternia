@@ -2,7 +2,7 @@
   "name": "Calamidade",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Maldição.</strong> As calamidades da natureza obedecem você: o tornado que arranca casas, o terremoto num lugar só, o raio dentro de uma esfera, o incêndio que cobre o campo e a chuva que apaga tudo. No fim, o seu corpo explode numa névoa negra que mata a magia. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, a Calamidade que Não Escolhe:</strong> a tempestade também bate em você e não escolhe quem atinge: em combate, a sua Defesa Física cai [NP÷2], e as Partículas Antimagia pegam aliados na área também.</li><li><strong>Feitiços:</strong> Tornado e Aguaceiro (NP 1), Impacto e Esfera do Trovão (NP 3), Inferno (NP 5) e o feitiço supremo Partículas Antimagia (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). As Partículas Antimagia pedem o Motor no Teto e gastam tudo.</li></ul><hr><p><em>Dizem que você não morre. Só troca de corpo, e esquece o próprio nome.</em></p>",
+    "description": "<p><strong>Maldição.</strong> As calamidades da natureza obedecem você: o tornado que arranca casas, o terremoto num lugar só, o raio dentro de uma esfera, o incêndio que cobre o campo e a chuva que apaga tudo. No fim, o seu corpo explode numa névoa negra que mata a magia. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, a Calamidade que Não Escolhe:</strong> a tempestade também bate em você e não escolhe quem atinge: em combate, a sua Defesa Física cai [NP÷2], e as Partículas Antimagia pegam aliados na área também.</li><li><strong>Traço, Olho da Tempestade:</strong> você é imune a [Encharcado] e [Derrubado], e os seus feitiços de Calamidade causam +NP÷2 de dano em quem está [Encharcado].</li><li><strong>Feitiços:</strong> Tornado e Aguaceiro (NP 1), Impacto e Esfera do Trovão (NP 3), Inferno (NP 5) e o feitiço supremo Partículas Antimagia (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). As Partículas Antimagia pedem o Motor no Teto e gastam tudo.</li></ul><hr><p><em>Dizem que você não morre. Só troca de corpo, e esquece o próprio nome.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -83,6 +83,61 @@
       "showIcon": 1,
       "_id": "t4GZGR4LEX9n8tBD",
       "_key": "!items.effects!0JjEfP5kun9v0sRM.t4GZGR4LEX9n8tBD"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "calamidade",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "soaked"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          },
+          "immune": [
+            "soaked",
+            "prone"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Olho da Tempestade",
+      "img": "icons/magic/lightning/bolt-cloud-sky-green.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "9DzyLP2W5KK5wnNH",
+      "_key": "!items.effects!0JjEfP5kun9v0sRM.9DzyLP2W5KK5wnNH"
     }
   ],
   "flags": {

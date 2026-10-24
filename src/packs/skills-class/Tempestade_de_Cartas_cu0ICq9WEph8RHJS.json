@@ -2,7 +2,7 @@
   "name": "Tempestade de Cartas",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Cartas.</strong> Feitiço grande. O baralho inteiro sai da sua mão num redemoinho sobre uma área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico.</p><p><strong>Custo:</strong> Ódio 3.</p>",
+    "description": "<p><strong>Cartas.</strong> Feitiço grande. O baralho inteiro sai da sua mão num redemoinho sobre uma área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico, e uma carta tirada ao acaso vale para todos que ela acerta: [Atordoado], [Derrubado] ou [Silenciado] (o sistema sorteia).</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>As cartas caem no chão em volta deles, todas viradas para cima.</em></p>",
     "tags": [
       "Spell",
       "Magic Attack"
@@ -39,6 +39,17 @@
       "identifier": "cartas-tempestade-de-cartas",
       "kind": "feeds",
       "branch": "magic",
+      "randomHit": [
+        {
+          "statusId": "dazed"
+        },
+        {
+          "statusId": "prone"
+        },
+        {
+          "statusId": "silenced"
+        }
+      ],
       "magicSpell": {
         "id": "cartas"
       },

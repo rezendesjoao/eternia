@@ -2,7 +2,7 @@
   "name": "Perfume da Dor",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Perfume Mágico.</strong> Você quebra o frasco da dor numa área a até 3 Qd (Teste de Precisão contra a Resistência de cada alvo): quem ele acerta perde a vontade de lutar contra você e fica com [Medo] de você (−1d6 nos testes contra você; não pode se aproximar).</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Ninguém sabe dizer de onde vem a dor. Só que vem de você.</em></p>",
+    "description": "<p><strong>Perfume Mágico.</strong> Você quebra o frasco da dor numa área a até 3 Qd (Teste de Precisão contra a Resistência de cada alvo): quem ele acerta perde a vontade de lutar contra você, fica com [Medo] de você (−1d6 nos testes contra você; não pode se aproximar) e [Envenenado: NP÷2 + 2] (a dor arde por dentro).</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Ninguém sabe dizer de onde vem a dor. Só que vem de você.</em></p>",
     "tags": [
       "Spell"
     ],
@@ -75,6 +75,53 @@
       "showIcon": 1,
       "_id": "wvVJs82oq73CAHGn",
       "_key": "!items.effects!lOxGByGlWb11lEe4.wvVJs82oq73CAHGn"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "poisoned",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Perfume da Dor: ardência",
+      "img": "systems/eternia/assets/ui/status/poisoned.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "poisoned"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "n1PV32FGy0M0aawz",
+      "_key": "!items.effects!lOxGByGlWb11lEe4.n1PV32FGy0M0aawz"
     }
   ],
   "flags": {

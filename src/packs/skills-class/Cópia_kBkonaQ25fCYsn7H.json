@@ -2,7 +2,7 @@
   "name": "Cópia",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia (Conjuração).</strong> Você copia a magia que vê: decora o feitiço do outro, devolve com a sua força e, quando quer, desfaz o que copiou. Só não copia magia de Portadora, que precisa do objeto. É a magia de quem aprende lutando.</p><ul><li><strong>A cópia:</strong> o Copiar decora um feitiço; até o fim da cena, a Imitação repete a tag de dano e o estado dele (o Mestre confirma qual).</li><li><strong>Feitiços:</strong> Copiar e Ouvir a Alma (NP 1), Imitação e Copiar e Anular (NP 3), Derreter (NP 5) e o feitiço supremo Ars Magia (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Ars Magia pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você vê o feitiço uma vez. Na segunda, ele é seu.</em></p>",
+    "description": "<p><strong>Magia (Conjuração).</strong> Você copia a magia que vê: decora o feitiço do outro, devolve com a sua força e, quando quer, desfaz o que copiou. Só não copia magia de Portadora, que precisa do objeto. É a magia de quem aprende lutando.</p><ul><li><strong>A cópia:</strong> o Copiar decora um feitiço; até o fim da cena, a Imitação repete a tag de dano e o estado dele (o Mestre confirma qual).</li><li><strong>Traço, Memória Perfeita:</strong> você é imune a [Selado] e [Confuso]: o que você decorou não se apaga.</li><li><strong>Feitiços:</strong> Copiar e Ouvir a Alma (NP 1), Imitação e Copiar e Anular (NP 3), Derreter (NP 5) e o feitiço supremo Ars Magia (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Ars Magia pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você vê o feitiço uma vez. Na segunda, ele é seu.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -30,7 +30,55 @@
     "macroeffect": ""
   },
   "img": "icons/commodities/treasure/mask-jeweled-gold.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "copia"
+          },
+          "immune": [
+            "sealed",
+            "confused"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Memória Perfeita",
+      "img": "icons/commodities/treasure/mask-jeweled-gold.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "zAMO3NEHie20KfV3",
+      "_key": "!items.effects!kBkonaQ25fCYsn7H.zAMO3NEHie20KfV3"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "copia-copia",

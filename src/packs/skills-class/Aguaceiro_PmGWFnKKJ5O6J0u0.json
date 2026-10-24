@@ -2,15 +2,15 @@
   "name": "Aguaceiro",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Calamidade.</strong> Antes do Dano de um ataque contra você ou um aliado a até 4 Qd: uma chuva pesada cai entre o golpe e o alvo, que fica com [Anulação: NP + 5] contra esse dano e perde o [Queimando]. Uma vez por rodada.</p><p><em>Nenhum fogo aguenta essa chuva.</em></p>",
+    "description": "<p><strong>Calamidade.</strong> Uma chuva pesada cai sobre uma área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; quem ela pega fica [Encharcado: NP÷2 + 2] (o próximo raio e o próximo frio doem mais, e o fogo apaga). Uma vez por rodada.</p><p><em>Nenhum fogo aguenta essa chuva.</em></p>",
     "tags": [
       "Spell",
       "Curse"
     ],
-    "timing": "Before Damage",
+    "timing": "Minor",
     "checkType": "",
     "range": "4Sq",
-    "target": "Single",
+    "target": "Area",
     "subtype": "Combat",
     "skillRank": {
       "value": 1,
@@ -21,8 +21,8 @@
     "check": {
       "dice": 0,
       "mod": 0,
-      "vs": "",
-      "stat": ""
+      "vs": "resistance",
+      "stat": "accuracy"
     },
     "damage": {
       "dice": 0,
@@ -48,10 +48,9 @@
       "flags": {
         "eternia": {
           "statusData": {
-            "statusId": "cancel",
-            "value": "@cr+5"
+            "statusId": "soaked",
+            "value": "floor(@cr/2)+2"
           },
-          "consumeOn": "damage",
           "expires": "endOfRound"
         }
       },
@@ -67,20 +66,20 @@
         "exportSource": null
       },
       "name": "Aguaceiro",
-      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "img": "systems/eternia/assets/ui/status/soaked.svg",
       "type": "base",
       "system": {
         "changes": []
       },
       "description": "",
       "statuses": [
-        "cancel"
+        "soaked"
       ],
       "sort": 0,
       "start": null,
       "showIcon": 1,
-      "_id": "Vzmmd4DB5h7mGn9h",
-      "_key": "!items.effects!PmGWFnKKJ5O6J0u0.Vzmmd4DB5h7mGn9h"
+      "_id": "nVAePGLwdGb2T0oW",
+      "_key": "!items.effects!PmGWFnKKJ5O6J0u0.nVAePGLwdGb2T0oW"
     }
   ],
   "flags": {
@@ -88,15 +87,6 @@
       "identifier": "calamidade-aguaceiro",
       "kind": "feeds",
       "branch": "magic",
-      "useActions": [
-        {
-          "type": "removeStatus",
-          "statuses": [
-            "burning"
-          ],
-          "recipients": "targets"
-        }
-      ],
       "magicSpell": {
         "id": "calamidade"
       },

@@ -2,7 +2,7 @@
   "name": "Absorver o Ataque",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Absorção.</strong> Antes do Dano de um ataque mágico ([Ataque Mágico] ou [Feitiço]) contra você: você abre as mãos e engole o ataque, com [Anulação: NP×2 + 5] contra esse dano. Uma vez por rodada.</p><p><em>O feitiço entra pelas suas palmas e some.</em></p>",
+    "description": "<p><strong>Absorção.</strong> Antes do Dano de um ataque mágico ([Ataque Mágico] ou [Feitiço]) contra você: você abre as mãos e engole o ataque, com [Anulação: NP×2 + 5] contra esse dano, e o feitiço engolido vira força: [Fortalecido: NP÷2 + 2] até o fim da rodada. Uma vez por rodada.</p><p><em>O feitiço entra pelas suas palmas e some.</em></p>",
     "tags": [
       "Spell",
       "Curse"
@@ -82,6 +82,54 @@
       "showIcon": 1,
       "_id": "SqTi93WsWloiLujY",
       "_key": "!items.effects!xptAF3CKoH7dDmVm.SqTi93WsWloiLujY"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "empowered",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Absorver o Ataque: força",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "8b6wUOPOP6tFHVZv",
+      "_key": "!items.effects!xptAF3CKoH7dDmVm.8b6wUOPOP6tFHVZv"
     }
   ],
   "flags": {

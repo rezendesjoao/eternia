@@ -2,7 +2,7 @@
   "name": "Bomba-Relógio de Raízes",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Arco da Grande Árvore.</strong> Raízes saem do chão e prendem um alvo a até 4 Qd (Teste de Precisão contra a Esquiva), e começam a contar: ele fica [Enraizado] e com [Deterioração: NP + 2] (a raiz estoura em chamas a cada Encerramento, até ele se soltar com uma Ação Maior).</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Dá para ouvir o tique-taque dentro da madeira.</em></p>",
+    "description": "<p><strong>Arco da Grande Árvore.</strong> Raízes saem do chão e prendem um alvo a até 4 Qd (Teste de Precisão contra a Esquiva), e começam a contar: ele fica [Enraizado] e com [Pavio: NP×2] (no Encerramento a raiz explode em chamas; uma Ação Maior arranca a raiz antes).</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Dá para ouvir o tique-taque dentro da madeira.</em></p>",
     "tags": [
       "Spell",
       "Flame"
@@ -91,8 +91,8 @@
       "flags": {
         "eternia": {
           "statusData": {
-            "statusId": "decay",
-            "value": "@cr+2"
+            "statusId": "fuse",
+            "value": "@cr*2"
           },
           "expires": "endOfScene"
         }
@@ -108,21 +108,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "name": "Bomba-Relógio de Raízes: contagem",
-      "img": "systems/eternia/assets/ui/status/decay.svg",
+      "name": "Bomba-Relógio de Raízes: pavio",
+      "img": "systems/eternia/assets/ui/status/fuse.svg",
       "type": "base",
       "system": {
         "changes": []
       },
       "description": "",
       "statuses": [
-        "decay"
+        "fuse"
       ],
       "sort": 0,
       "start": null,
       "showIcon": 1,
-      "_id": "F8h8LfbgRfVzdIdH",
-      "_key": "!items.effects!Dg8rAXk9GPUfRBmX.F8h8LfbgRfVzdIdH"
+      "_id": "Efpv81VQsDK9HbZT",
+      "_key": "!items.effects!Dg8rAXk9GPUfRBmX.Efpv81VQsDK9HbZT"
     }
   ],
   "flags": {

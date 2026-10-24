@@ -2,7 +2,7 @@
   "name": "Água",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia (Conjuração).</strong> Você é feito de água tanto quanto a controla: prende, corta e escorre por entre os golpes. É a magia de quem luta no meio da confusão sem ser atingido, e afoga o inimigo devagar.</p><ul><li><strong>Feitiços:</strong> Lâmina de Água, Prisão de Água e Corpo de Água (NP 1), Nebulosa de Água (NP 3), Sierra (NP 5) e o feitiço supremo Maremoto (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Maremoto pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Sempre chove um pouco quando você está triste.</em></p>",
+    "description": "<p><strong>Magia (Conjuração).</strong> Você é feito de água tanto quanto a controla: prende, corta e escorre por entre os golpes. É a magia de quem luta no meio da confusão sem ser atingido, e afoga o inimigo devagar.</p><ul><li><strong>Traço, Alma de Água:</strong> você é imune a [Queimando], e os seus feitiços de Água deixam [Encharcado: NP÷2 + 2] em quem acertam.</li><li><strong>Feitiços:</strong> Lâmina de Água, Prisão de Água e Corpo de Água (NP 1), Nebulosa de Água (NP 3), Sierra (NP 5) e o feitiço supremo Maremoto (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Maremoto pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Sempre chove um pouco quando você está triste.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -30,7 +30,60 @@
     "macroeffect": ""
   },
   "img": "icons/magic/water/elemental-water.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "agua",
+            "onHit": [
+              {
+                "statusId": "soaked",
+                "value": "floor(@cr/2)+2"
+              }
+            ]
+          },
+          "immune": [
+            "burning"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Alma de Água",
+      "img": "icons/magic/water/elemental-water.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "zIIpaS26pZBKQSAn",
+      "_key": "!items.effects!WzE4yFtEGkOZ5Sqn.zIIpaS26pZBKQSAn"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "agua-agua",

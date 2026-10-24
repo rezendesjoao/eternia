@@ -2,7 +2,7 @@
   "name": "Fera Criada",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia Viva.</strong> Feitiço grande. Você cria uma fera que nunca existiu, e ela ataca até 2 alvos a até 4 Qd antes de se desfazer: Teste de Precisão contra a Esquiva de cada um; [4d6 + Poder Mágico] de dano mágico em cada um.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Ela não tem nome. Viveu três segundos e não precisou de um.</em></p>",
+    "description": "<p><strong>Magia Viva.</strong> Feitiço grande. Você cria uma fera que nunca existiu, e ela ataca até 2 alvos a até 4 Qd: Teste de Precisão contra a Esquiva de cada um; [4d6 + Poder Mágico] de dano mágico em cada um. Depois, ela fica do seu lado: [Servo: NP÷2 + 2] até o fim da cena.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Ela não tem nome. Ainda.</em></p>",
     "tags": [
       "Spell",
       "Magic Attack"
@@ -33,7 +33,57 @@
     "macroeffect": ""
   },
   "img": "icons/magic/nature/plant-maneater-purple.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "onUse": true,
+          "statusData": {
+            "statusId": "servant",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Fera Criada",
+      "img": "systems/eternia/assets/ui/status/servant.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "servant"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "NDuxGG3PpXADFNoj",
+      "_key": "!items.effects!4LpUnfSBykDOluBw.NDuxGG3PpXADFNoj"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "magia-viva-fera",

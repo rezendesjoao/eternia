@@ -2,7 +2,7 @@
   "name": "Bomba",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Maldição.</strong> Tudo o que você toca vira bomba: o chão, o ar, quem encostou em você. Você explode de perto e de longe, planta minas no chão e prende os inimigos em esferas que explodem quando você manda. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, o Corpo-Bomba:</strong> o seu corpo é a bomba, e você vive no meio das explosões: em combate, a sua Defesa Física cai [NP].</li><li><strong>Feitiços:</strong> Explosão e Conversão em Bomba (NP 1), Mina Terrestre e Bomba de Captura (NP 3), Espiral Explosiva (NP 5) e o feitiço supremo Detonação (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Detonação pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você nunca precisou de pavio.</em></p>",
+    "description": "<p><strong>Maldição.</strong> Tudo o que você toca vira bomba: o chão, o ar, quem encostou em você. Você explode de perto e de longe, planta minas no chão e prende os inimigos em esferas que explodem quando você manda. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, o Corpo-Bomba:</strong> o seu corpo é a bomba, e você vive no meio das explosões: em combate, a sua Defesa Física cai [NP].</li><li><strong>Traço, Tudo Explode:</strong> você é imune a [Queimando], e os seus feitiços de Bomba causam +NP÷2 de dano em quem tem [Pavio].</li><li><strong>Feitiços:</strong> Explosão e Conversão em Bomba (NP 1), Mina Terrestre e Bomba de Captura (NP 3), Espiral Explosiva (NP 5) e o feitiço supremo Detonação (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Detonação pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você nunca precisou de pavio.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -83,6 +83,60 @@
       "showIcon": 1,
       "_id": "pCL7SWzld01hB46X",
       "_key": "!items.effects!vPUzrkh2zm5TDIJs.pCL7SWzld01hB46X"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "bomba",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "fuse"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          },
+          "immune": [
+            "burning"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Tudo Explode",
+      "img": "icons/weapons/thrown/bomb-fuse-black-pink.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "a26nDdbo3dN6eWTM",
+      "_key": "!items.effects!vPUzrkh2zm5TDIJs.a26nDdbo3dN6eWTM"
     }
   ],
   "flags": {
