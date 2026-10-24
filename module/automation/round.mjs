@@ -2,12 +2,14 @@
  * Round flow (Rules III.b ROUND STRUCTURE, VI.a STATUSES).
  *
  * - Setup Process: the Sun clock of conditions/turns.mjs (setupConditions); a summary is posted when it moves.
- * - Cleanup Process: [Regen] heals (not a [Cursed] character, nor one with [Black Flame]), then [Decay] deals its
- *   Rating as damage through [Barrier] ("perform the effects that would heal first"); a summary is posted.
+ * - Cleanup Process: [Regen] heals (not a [Cursed] character, nor one with [Black Flame]; under [Inversion] it hurts,
+ *   and [Agony] hurts after it), then [Decay] deals its Rating as damage through [Barrier] ("perform the effects that
+ *   would heal first"), with [Last Stand] and the Extra Breaths; a summary is posted.
  * - [Staggered], [Dazed] and the other statuses of END_OF_OWN_PROCESS (conditions/catalog.mjs) end at the end of
- *   the affected character's Main Process; [Afflicted] keeps the ones it protects.
+ *   the affected character's Main Process; [Afflicted] keeps the ones it protects; [Impetus] rises and [Combo] may
+ *   break then (conditions/turns.mjs endOwnStatuses, endOwnProcess).
  * - The conditions of the Cleanup ([Burning], [Doom], the statuses that end with the round) and the combatants
- *   that lose their Main Process ([Paralyzed], [Asleep]): see conditions/turns.mjs.
+ *   that lose their Main Process ([Paralyzed], [Asleep], [Petrified], [Nightmare]): see conditions/turns.mjs.
  * - Incapacitated: at 0 HP, or 0 Max HP from Fatigue; a character made Incapacitated above 0 HP drops
  *   to 0. Incapacitated, Dead and Absent combatants are always Post-Action: their turn is skipped.
  * - The end of a started combat is the end of the scene of those who fought in it (scenes.mjs).
@@ -19,11 +21,11 @@ import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
 import { actorName, combatActors, outOfAction, postSummary, toInt, wrap } from "../helpers/utils.mjs";
 import { bumpCounter, endOfSceneFor } from "./scenes.mjs";
-import { AFFLICTED_PROTECTS, END_OF_OWN_PROCESS } from "../conditions/catalog.mjs";
-import { cleanupConditions, setupConditions } from "../conditions/turns.mjs";
+import { NO_ACTIONS } from "../conditions/catalog.mjs";
+import { cleanupConditions, endOwnProcess, endOwnStatuses, setupConditions } from "../conditions/turns.mjs";
+import { agonyPain, healBlocker, healingHurts, spendExtraBreath } from "../conditions/damage.mjs";
 import { losesTurn } from "../conditions/actions.mjs";
 import { has, removeStatuses } from "../conditions/rules.mjs";
-import { naturalEnd } from "../conditions/lasting.mjs";
 
 /** Call during the `init` hook. */
 export function registerRound() {
@@ -45,9 +47,10 @@ export function registerRound() {
     return original.call(this, skipLostTurns(this, setting("incapacitated") ? skipOutOfAction(this, state) : state));
   });
 
-  // Who was Post-Action before a combat update, to find whose Main Process just ended.
+  // Who was Post-Action before a combat update (and the round), to find whose Main Process just ended.
   Hooks.on("preUpdateCombat", (combat, changes, options) => {
     options.eterniaActed = [...(combat.progress?.acted ?? [])];
+    options.eterniaRound = combat.round;
   });
   Hooks.on("updateCombat", onUpdateCombat);
   Hooks.on("updateActor", onUpdateActor);
@@ -92,37 +95,67 @@ async function cleanup(combat, round) {
   for (const actor of combatActors(combat)) {
     if (actor.statuses.has("dead") || actor.statuses.has("incapacitated")) continue;
     const bad = actor.system["bad-status"] ?? {};
-    // A [Cursed] character, or one with [Black Flame], recovers no HP (conditions/damage.mjs).
-    const regen = (has(actor, "cursed") || has(actor, "blackFlame")) ? 0 : toInt(bad.regen);
+    // A [Cursed] character, or one with [Black Flame], recovers no HP; under [Inversion] the [Regen] hurts instead
+    // (conditions/damage.mjs).
+    const blocked = !!healBlocker(actor);
+    const inverted = !blocked && (toInt(bad.regen) > 0) && healingHurts(actor);
+    const regen = (blocked || inverted) ? 0 : toInt(bad.regen);
+    const turned = inverted ? toInt(bad.regen) : 0;
     const decay = toInt(bad.decay);
     const own = actor.hasPlayerOwner ? lines : gmLines;
     // [Burning], [Doom] and the statuses that end with the round (conditions/turns.mjs)
     const conditionLines = async () => own.push(...await cleanupConditions(actor));
-    if ((regen <= 0) && (decay <= 0)) {
+    if ((regen <= 0) && (decay <= 0) && (turned <= 0)) {
       await conditionLines();
       continue;
     }
 
     const max = toInt(actor.system.health?.max);
-    let hp = toInt(actor.system.health?.value);
+    const start = toInt(actor.system.health?.value);
+    let hp = start;
+    let healed = 0;
     const parts = [];
     const updates = {};
     if (regen > 0) {
-      const healed = Math.max(0, Math.min(regen, max - hp));
+      healed = Math.max(0, Math.min(regen, max - hp));
       hp += healed;
       parts.push(L("Round.Regen", { n: healed }));
     }
-    if (decay > 0) {
-      const barrier = toInt(bad.barrier);
-      const absorbed = Math.min(barrier, decay);
-      if (absorbed) updates["system.bad-status.barrier"] = barrier - absorbed;
-      hp = Math.max(0, hp - (decay - absorbed));
-      parts.push(L("Round.Decay", { n: decay - absorbed }) + (absorbed ? ` ${L("Round.Barrier", { n: absorbed })}` : ""));
+    // [Decay], and the [Regen] an [Inversion] turned into damage, through [Barrier]
+    let barrier = toInt(bad.barrier);
+    for (const [n, key] of [[decay, "Round.Decay"], [turned, "Round.RegenInverted"]]) {
+      if (n <= 0) continue;
+      const absorbed = Math.min(barrier, n);
+      barrier -= absorbed;
+      if (absorbed) updates["system.bad-status.barrier"] = barrier;
+      hp = Math.max(0, hp - (n - absorbed));
+      parts.push(L(key, { n: n - absorbed }) + (absorbed ? ` ${L("Round.Barrier", { n: absorbed })}` : ""));
+    }
+    // At 0 HP: [Last Stand], then an Extra Breath (conditions/damage.mjs)
+    let breath = null;
+    let stood = false;
+    if ((hp <= 0) && (start > 0) && has(actor, "lastStand")) {
+      hp = 1;
+      stood = true;
+      parts.push(game.i18n.localize("ETERNIA.StatusEffect.lastStand"));
+    }
+    else if ((hp <= 0) && (start > 0)) {
+      breath = spendExtraBreath(actor);
+      if (breath) {
+        hp = breath.hp;
+        Object.assign(updates, breath.updates);
+        parts.push(breath.line);
+      }
     }
     updates["system.health.value"] = hp;
     await actor.update(updates);
+    if (stood) await removeStatuses(actor, ["lastStand"]);
+    if (breath) Hooks.callAll("eternia.revived", actor, { effect: breath.effect, hp: breath.hp, left: breath.left });
     const line = L("Round.Line", { name: actorName(actor), parts: parts.join(", "), hp, max });
     own.push(line);
+    // [Agony]: the [Regen] hurts too
+    const pain = (healed > 0) ? await agonyPain(actor, { silent: true }) : null;
+    if (pain) own.push(pain.line);
     await conditionLines();
   }
   if (lines.length || gmLines.length) {
@@ -154,29 +187,36 @@ function skipLostTurns(combat, state) {
   // Only the next one in the Initiative Process is skipped now: the others keep their place until their turn.
   const next = combat._nextActor(state);
   if (!next || !skipped.includes(next)) return state;
-  const statuses = ["paralyzed", "asleep"].filter(id => has(next.actor, id));
+  const statuses = NO_ACTIONS.filter(id => has(next.actor, id));
   postSummary(L("Conditions.LostTurnTitle"), [L("Conditions.LostTurn", {
     name: next.name, statuses: statuses.map(id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`)).join(", ")
   })]).catch(() => null);
   return skipLostTurns(combat, { ...state, acted: [...state.acted, next.id] });
 }
 
-/** Main Processes that just ended: [Staggered], [Dazed] and the other statuses of END_OF_OWN_PROCESS end with them. */
+/**
+ * Main Processes that just ended: [Staggered], [Dazed] and the other statuses of END_OF_OWN_PROCESS end with them,
+ * [Impetus] rises and a [Combo] without an attack breaks (conditions/turns.mjs). Not when stepping back a round.
+ */
 async function onUpdateCombat(combat, changes, options, userId) {
-  if (!setting("endOfProcess") || !isLocalChange(options, userId)) return;
+  if (!isLocalChange(options, userId)) return;
   const acted = foundry.utils.getProperty(changes, "flags.eternia.acted");
-  if (!Array.isArray(acted)) return;
+  if (!Array.isArray(acted) || (combat.round < (options.eterniaRound ?? combat.round))) return;
   const before = options.eterniaActed ?? [];
+  const lines = [];
+  const gmLines = [];
   for (const id of acted.filter(id => !before.includes(id))) {
     const actor = combat.combatants.get(id)?.actor;
     if (!actor) continue;
-    const afflicted = actor.statuses.has("afflicted");
-    // Not those an infinite effect holds, nor a renewed one (conditions/lasting.mjs)
-    const ending = await naturalEnd(actor, END_OF_OWN_PROCESS.filter(status => has(actor, status) && !(afflicted && AFFLICTED_PROTECTS.includes(status))));
-    if (ending.length) {
-      await removeStatuses(actor, ending).catch(err => console.error(`${SYSTEM_ID} | Could not end the statuses of ${actor.uuid}`, err));
+    try {
+      if (setting("endOfProcess")) await endOwnStatuses(actor, combat);
+      (actor.hasPlayerOwner ? lines : gmLines).push(...await endOwnProcess(actor, combat));
+    }
+    catch (err) {
+      console.error(`${SYSTEM_ID} | Could not end the Main Process of ${actor.uuid}`, err);
     }
   }
+  if (lines.length || gmLines.length) await postSummary(L("Round.ProcessEndTitle"), lines, gmLines);
 }
 
 /** HP or Fatigue changed: Incapacitated at 0 HP (characters also at 0 Max HP). */

@@ -8,16 +8,19 @@
  * Dodge Checks: −1D for [Dazed], [Paralyzed], [Rooted], [Berserk], [Marked], [Confused], [Swimming], [Blinded]
  * (against Evasion), [Poisoned] (against Resistance), [Prone] (against Close attacks), [Charmed] (against its
  * source) and a Taboo's `eternia.passive.closeDodge` (against Close attacks: conditions/distance.mjs); +1D for
- * [Focused]. [Asleep] fails it outright. The dice never go below 1D.
- * Damage Rolls: +Rating for [Empowered], [Berserk], [Awakened] and [Sun]; +CR for [The One]; −Rating for [Weakened].
+ * [Focused]. [Asleep], [Petrified] and [Nightmare] fail it outright. The dice never go below 1D.
+ * Damage Rolls: +Rating for [Empowered], [Berserk], [Awakened], [Sun], [Impetus] and [Combo]; +CR for [The One];
+ * +Rating for [Clones] on Close attacks; +Rating d6 for [Rhythm] on a spell (then it ends); −Rating for [Weakened].
  * Race skills: the Pack (a skill with `flags.eternia.special: "pack"`) adds +[SR×2] damage with an ally within
  * 2 Sq and −1D on Accuracy with no ally within 5 Sq; effects with `consumeOn` end after the roll they help
  * (conditions/effects.mjs).
  */
 import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { parseRange } from "../helpers/hands.mjs";
+import { findTag } from "../helpers/tag-catalog.mjs";
 import { crOf, has, isSourceOf, rating, removeStatuses, rulesOn } from "./rules.mjs";
 import { consumedBy } from "./effects.mjs";
+import { NO_DODGE } from "./catalog.mjs";
 import { closeDodge } from "./distance.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
@@ -27,6 +30,16 @@ export function isCloseAttack(item, actor) {
   if (!item) return false;
   if ((item.system.tags ?? []).some(t => /^melee attack$/i.test(String(t).trim()))) return true;
   return parseRange(item.system.range, actor ?? item.actor) === 0;
+}
+
+/** Tags of the skills that are spells for [Rhythm], besides the spells of the Magias. */
+const SPELL_TAGS = ["magic attack", "spell"];
+
+/** Whether a skill is a spell: one of a Magia (`flags.eternia.magicSpell`), or a [Magic Attack] / [Spell]. */
+export function isSpell(item) {
+  if (!item) return false;
+  if (item.flags?.eternia?.magicSpell) return true;
+  return (item.system?.tags ?? []).some(t => SPELL_TAGS.includes((findTag(t)?.label ?? String(t)).trim().toLowerCase()));
 }
 
 /** A running total of dice and modifiers with the statuses that gave them. */
@@ -83,17 +96,18 @@ export function checkModifier(actor, { item = null, stat = "", targets = [] } = 
  * @param {"evasion"|"resistance"} [context.vs]
  * @param {Actor} [context.attacker]
  * @param {Item} [context.item]   The attack
- * @returns {{dice: number, mod: number, text: string, consume: string[], autoFail: boolean}}
+ * @returns {{dice: number, mod: number, text: string, consume: string[], autoFail: string|null}}
+ *   `autoFail`: the status that fails it outright ([Asleep], [Petrified], [Nightmare]), or null
  */
 export function dodgeModifier(actor, { vs = "evasion", attacker = null, item = null } = {}) {
   const t = tally();
-  t.autoFail = false;
+  t.autoFail = null;
   if (!actor) return t;
   t.consume.push(...consumedBy(actor, ["dodge", vs]).map(id => `effect:${id}`));
   // [Dazed] is a rule of the base system: it stays on with the conditions' automation off.
   if (has(actor, "dazed")) t.add("dazed", -1);
   if (!rulesOn()) return t;
-  if (has(actor, "asleep")) t.autoFail = true;
+  t.autoFail = NO_DODGE.find(id => has(actor, id)) ?? null;
   for (const id of ["paralyzed", "rooted", "berserk", "marked", "confused", "swimming"]) if (has(actor, id)) t.add(id, -1);
   if (has(actor, "blinded") && (vs === "evasion")) t.add("blinded", -1);
   if (has(actor, "poisoned") && (vs === "resistance")) t.add("poisoned", -1);
@@ -122,11 +136,20 @@ export function damageModifier(actor, item = null) {
   const pack = packSkill(actor);
   if (pack && (alliesWithin(actor, 2) > 0)) t.add("pack", 0, 2 * (Number(pack.system.skillRank?.value) || 1), pack.name);
   if (!rulesOn()) return t;
-  for (const id of ["empowered", "berserk", "awakened", "sun"]) {
+  for (const id of ["empowered", "berserk", "awakened", "sun", "impetus", "combo"]) {
     const n = rating(actor, id);
     if (n > 0) t.add(id, 0, n);
   }
   if (has(actor, "theOne")) t.add("theOne", 0, crOf(actor));
+  // [Clones]: the copies strike with the blow
+  const clones = rating(actor, "clones");
+  if ((clones > 0) && item && isCloseAttack(item, actor)) t.add("clones", 0, clones);
+  // [Rhythm]: the dance goes into the next spell, and ends with it
+  const rhythm = rating(actor, "rhythm");
+  if ((rhythm > 0) && isSpell(item)) {
+    t.add("rhythm", rhythm, 0);
+    t.consume.push("rhythm");
+  }
   const weakened = rating(actor, "weakened");
   if (weakened > 0) t.add("weakened", 0, -weakened);
   return t;

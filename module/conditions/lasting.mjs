@@ -9,16 +9,18 @@
  *   Major Action: the Livrar-se of the action HUD (conditions/recovery.mjs).
  * - Renewed: `flags.eternia.renew: n` on the effects of a status: its next n natural ends pass by (the promotion of the
  *   Desastre, conditions/status-actions.mjs); its effects with a duration of a process or of the round get a round more.
- * The statuses a spell's hit gives (a damage card) carry the same marks: `infinite`, and `fromSpell` for the Cancelamento
- * Absoluto. Read by automation/round.mjs and conditions/turns.mjs (naturalEnd), helpers/item-use.mjs (lastingEffectData)
- * and helpers/combat-cards.mjs (lastingCard, lastingHitData).
+ * The statuses that take the whole turn (NO_ACTIONS: [Paralyzed], [Asleep], [Petrified], [Nightmare]) are never held nor
+ * renewed: their bearer couldn't spend the Major Action, and would lose every turn. The statuses a spell's hit gives (a
+ * damage card) carry the same marks: `infinite`, and `fromSpell` for the Cancelamento Absoluto. Read by
+ * conditions/turns.mjs (naturalEnd, at the end of a Main Process and in the Cleanup), helpers/item-use.mjs
+ * (lastingEffectData) and helpers/combat-cards.mjs (lastingCard, lastingHitData).
  */
 import { SYSTEM_ID } from "../settings.mjs";
 import { statusDefinition } from "../helpers/statuses.mjs";
 import { traitsFor } from "../helpers/magic-traits.mjs";
-import { canonicalTag } from "../helpers/tag-catalog.mjs";
 import { toInt } from "../helpers/utils.mjs";
-import { END_OF_OWN_PROCESS, END_OF_ROUND } from "./catalog.mjs";
+import { END_OF_OWN_PROCESS, END_OF_ROUND, NO_ACTIONS } from "./catalog.mjs";
+import { isSpell } from "./rolls.mjs";
 import { statusEffects } from "./rules.mjs";
 
 const flag = (effect, key) => effect.getFlag?.(SYSTEM_ID, key) ?? effect.flags?.[SYSTEM_ID]?.[key];
@@ -26,12 +28,8 @@ const flag = (effect, key) => effect.getFlag?.(SYSTEM_ID, key) ?? effect.flags?.
 /** Eternia durations that end before the scene does (helpers/effect-durations.mjs). */
 const SHORT = ["endOfProcess", "endOfRound"];
 
-/** Whether an item is a spell: the [Spell] tag, or a spell of a Magia. */
-export function isSpell(item) {
-  if (!item) return false;
-  if (item.flags?.[SYSTEM_ID]?.magicSpell) return true;
-  return (item.system?.tags ?? []).some(t => canonicalTag(String(t)) === "Spell");
-}
+/** Whether a status may last longer than its rule: not one that takes the whole turn. */
+export const mayLast = id => !NO_ACTIONS.includes(id);
 
 /** Whether the effects of a skill are infinite for its user: the skill's own flag, else a Trait of its Magia. */
 export function isInfinite(item, actor = item?.actor) {
@@ -78,6 +76,10 @@ export async function naturalEnd(actor, ids) {
   const renewed = new Map();
   for (const id of ids) {
     const effects = statusEffects(actor, id);
+    if (!mayLast(id)) {
+      ending.push(id);
+      continue;
+    }
     if (effects.some(e => flag(e, "infinite"))) continue;
     const kept = effects.filter(e => toInt(flag(e, "renew")) > 0);
     if (!kept.length) {
@@ -102,7 +104,7 @@ export async function renewStatuses(actor, ids) {
   const updates = new Map();
   const done = [];
   for (const id of ids) {
-    const effects = statusEffects(actor, id);
+    const effects = mayLast(id) ? statusEffects(actor, id) : [];
     if (!effects.length) continue;
     done.push(id);
     for (const e of effects) {
@@ -125,6 +127,6 @@ export async function renewStatuses(actor, ids) {
  * @returns {string[]|null}
  */
 export function breakFreeActions(actor, id) {
-  if (!actor || (statusDefinition(id)?.group !== "bad")) return null;
+  if (!actor || (statusDefinition(id)?.group !== "bad") || !mayLast(id)) return null;
   return statusEffects(actor, id).some(e => flag(e, "infinite")) ? ["major"] : null;
 }

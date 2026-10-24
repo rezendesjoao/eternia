@@ -3,13 +3,16 @@
  *   { type: "promote", value }        every Bad Status with a Rating rises by `value` (a [Doom] counts down: it falls, to 1
  *                                     at least; the stacking ones stop at their top, and reaching it sets off their
  *                                     threshold), and those without a Rating are renewed: their next end by their own rule
- *                                     passes by (conditions/lasting.mjs). The Desastre's Promoção de Estado.
+ *                                     passes by (conditions/lasting.mjs; not those that take the whole turn). The
+ *                                     Desastre's Promoção de Estado.
  *   { type: "doubleStatuses" }        the same, doubled (a [Doom] halves): the Floresta Desperta.
  *   { type: "demote", statuses }      the bonuses go at once: BONUSES, or the statuses listed. The Murchar.
- *   { type: "raise", status, value }  a status's Rating rises by `value` (up to its top when it stacks), given when the
- *                                     actor doesn't have it: the [Rhythm] of the Dança do Rei Gigante.
+ *   { type: "raise", status, value }  a status's Rating rises by `value` (a stacking one or a running count through
+ *                                     addStatus, up to its top), given when the actor doesn't have it: the [Rhythm] of the
+ *                                     Dança do Rei Gigante.
  *   { type: "cancelSpells" }          the effects spells gave go: the good ones from an enemy of the user, the bad ones
- *                                     (they give a Bad Status) from an ally or the user. The Cancelamento Absoluto.
+ *                                     (they give a Bad Status) from an ally or the user, whose [Agony] hurts then. The
+ *                                     Cancelamento Absoluto.
  * A Rating set here goes to the status's field and to the effects that carry it (the highest, or the sum when it
  * stacks), so that one of them ending later leaves the right Rating.
  */
@@ -17,8 +20,10 @@ import { L, SYSTEM_ID } from "../settings.mjs";
 import { LH_STATUSES, statusDefinition } from "../helpers/statuses.mjs";
 import { ratedBadStatuses } from "../helpers/magic-traits.mjs";
 import { actorName, toInt } from "../helpers/utils.mjs";
-import { endsSoon, isSpell, renewStatuses } from "./lasting.mjs";
-import { has, rating, removeStatuses, sameActor } from "./rules.mjs";
+import { agonyPain } from "./damage.mjs";
+import { endsSoon, mayLast, renewStatuses } from "./lasting.mjs";
+import { isSpell } from "./rolls.mjs";
+import { addStatus, has, rating, removeStatuses, sameActor } from "./rules.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 const flag = (effect, key) => effect.getFlag?.(SYSTEM_ID, key) ?? effect.flags?.[SYSTEM_ID]?.[key];
@@ -90,8 +95,8 @@ async function promote(actor, { add = 0, double = false }) {
     await setRating(actor, id, next);
     risen.push(`${label(id)} ${current} → ${next}`);
   }
-  const plain = LH_STATUSES.filter(s => (s.group === "bad") && !s.rated && !s.list && has(actor, s.id) && endsSoon(actor, s.id))
-    .map(s => s.id);
+  const plain = LH_STATUSES.filter(s => (s.group === "bad") && !s.rated && !s.list && mayLast(s.id) && has(actor, s.id)
+    && endsSoon(actor, s.id)).map(s => s.id);
   const renewed = plain.length ? await renewStatuses(actor, plain) : [];
   const lines = [];
   if (risen.length) lines.push(L("Conditions.Actions.Promote", { name: actorName(actor), statuses: risen.join(", ") }));
@@ -114,7 +119,9 @@ async function raise(actor, id, value) {
   const current = rating(actor, id);
   const next = def.stack ? Math.min(current + value, def.stack) : current + value;
   if (next === current) return L("Conditions.Actions.RaiseTop", { name: actorName(actor), status: label(id), n: current });
-  await setRating(actor, id, next);
+  // A stacking status or a running count lives in its field (conditions/rules.mjs addStatus)
+  if (def.stack) await addStatus(actor, id, value);
+  else await setRating(actor, id, next);
   return L("Conditions.Actions.Raise", { name: actorName(actor), status: label(id), n: next });
 }
 
@@ -139,6 +146,10 @@ async function cancelSpells(actor, caster) {
   const gone = actor.effects.filter(e => fromSpell(e) && (givesBad(e) === ally));
   if (!gone.length) return null;
   const names = [...new Set(gone.map(e => e.name))];
+  const agony = gone.some(e => e.statuses?.has("agony") || (flag(e, "statusData")?.statusId === "agony"));
   await actor.deleteEmbeddedDocuments("ActiveEffect", gone.map(e => e.id));
-  return L("Conditions.Actions.Cancel", { name: actorName(actor), effects: names.join(", ") });
+  const line = L("Conditions.Actions.Cancel", { name: actorName(actor), effects: names.join(", ") });
+  // [Agony]: getting rid of a Bad Status hurts (not when the Agony itself goes)
+  const pain = (ally && !agony) ? await agonyPain(actor, { silent: true }) : null;
+  return pain ? `${line} · ${pain.line}` : line;
 }

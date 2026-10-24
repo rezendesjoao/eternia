@@ -1,34 +1,45 @@
 /**
  * The conditions over the turns of a combat and as they come and go.
  *
- * - Setup Process: the Sun clock. For whoever has a Trait with `sunClock` (the Magia Sol), the [Sun] rises by 1 (up to
- *   SUN_NOON; SUN_NIGHT in a scene at least half dark); at noon it gives [The One] for the round, once per combat, and
- *   from then on it sets by 1 every round (automation/round.mjs calls setupConditions). A spell of that Magia raises
- *   it by 1 too, until noon.
+ * - Setup Process: the Extra Breaths that come back every round (`revive` with `per: "round"`) are whole again; the
+ *   Sun clock: for whoever has a Trait with `sunClock` (the Magia Sol), the [Sun] rises by 1 (up to SUN_NOON;
+ *   SUN_NIGHT in a scene at least half dark); at noon it gives [The One] for the round, once per combat, and from then
+ *   on it sets by 1 every round (automation/round.mjs calls setupConditions). A spell of that Magia raises it by 1
+ *   too, until noon.
  * - Start of a Main Process: [Poisoned] deals its Rating as direct damage; [Confused] raises the Hate by 1.
- * - [Paralyzed] and [Asleep] combatants lose their Main Process (they are skipped, see automation/round.mjs).
- * - End of the bearer's own Main Process: the statuses of END_OF_OWN_PROCESS end (automation/round.mjs).
- * - Cleanup Process: [Burning] and [Black Flame] deal their Rating as [Flame] damage, [Doom] counts down (at 0:
- *   Incapacitated), [Fuse] explodes (its Rating as [Flame] damage, then it ends), a [Servant] strikes the nearest enemy
- *   within 4 squares (its Rating as direct damage, with the tag of its effect), [The One] counts down (its Rating is
- *   the rounds it has left), then the statuses of END_OF_ROUND end (automation/round.mjs calls cleanupConditions).
+ * - [Paralyzed], [Asleep], [Petrified] and [Nightmare] combatants lose their Main Process (they are skipped, see
+ *   automation/round.mjs).
+ * - End of the bearer's own Main Process (automation/round.mjs calls endOwnStatuses and endOwnProcess): the statuses
+ *   of END_OF_OWN_PROCESS end, but those of WHOLE_TURN (or an effect with `nextTurn`) given during that very Main
+ *   Process stay until the end of the next one, and those an infinite effect holds or a renewal keeps stay too
+ *   (conditions/lasting.mjs, also in the Cleanup); [Impetus] rises by 1 (past the CR: [Berserk] until it ends); [Combo]
+ *   breaks when the bearer didn't attack this round.
+ * - Cleanup Process: [Burning] and [Black Flame] deal their Rating as [Flame] damage, [Nightmare] as direct damage,
+ *   [Doom] counts down (at 0: Incapacitated), [Fuse] explodes (its Rating as [Flame] damage, then it ends), a [Servant]
+ *   strikes the nearest enemy within 4 squares (its Rating as direct damage, with the tag of its effect; not the
+ *   servant of a [Pacified] master), [The One] counts down (its Rating is the rounds it has left), then the statuses of
+ *   END_OF_ROUND end (automation/round.mjs calls cleanupConditions).
  * - A Major Action: [Shocked] deals its Rating as direct damage; it ends [Intangible] and [Hidden] (not the
  *   [Hidden] of a skill that keeps it: the Fumaça's Trait, see helpers/magic-traits.mjs).
+ * - Attack cards (on the primary GM): once every target of one is resolved, the [Combo] of its attacker grows (1, or
+ *   the skill's `comboGain`, per target hit with `comboPerTarget`) when it hit anyone and breaks when it hit no one.
  * - Stacks: the third [Freezing] freezes ([Paralyzed]); the third [Fissured] breaks the guard ([Exposed], no
  *   [Barrier]); the stacks are cleared.
- * - [Awakened] ends with [Fatigue] equal to its Rating; [Swimming] and [Soaked] put out [Burning] (and don't catch it);
- *   [Sealed] without a skill seals the last skill used; [Grappled], [Bond] and [Black Flame] end when their source is
+ * - [Awakened] and [Impetus] end with [Fatigue] equal to their Rating (not when an update says
+ *   `eterniaNoFatigue`); [Swimming] and [Soaked] put out [Burning] (and don't catch it); [Sealed] without a skill
+ *   seals the last skill used; [Grappled], [Bond], [Black Flame] and [Petrified] end when their source is
  *   Incapacitated.
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isPrimaryGM, isLocalChange } from "../helpers/clients.mjs";
 import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { statusDefinition } from "../helpers/statuses.mjs";
-import { actorName, postSummary, toInt } from "../helpers/utils.mjs";
-import { AFFLICTED_PROTECTS, END_OF_ROUND, STACK_THRESHOLDS, SUN_NIGHT, SUN_NOON } from "./catalog.mjs";
-import { takeDamage } from "./damage.mjs";
-import { addStatus, has, rating, removeStatuses, rulesOn, sameActor, sourcesOf, statusEffects } from "./rules.mjs";
+import { actorName, combatantOf, postSummary, toInt } from "../helpers/utils.mjs";
+import { AFFLICTED_PROTECTS, END_OF_OWN_PROCESS, END_OF_ROUND, STACK_THRESHOLDS, SUN_NIGHT, SUN_NOON, WHOLE_TURN } from "./catalog.mjs";
+import { extraBreaths, takeDamage } from "./damage.mjs";
+import { addStatus, crOf, has, rating, removeStatuses, rulesOn, sameActor, sourcesOf, statusEffects } from "./rules.mjs";
 import { keepsHidden, traitsFor } from "../helpers/magic-traits.mjs";
+import { giveEffects, statusEffectData } from "../chat/status-links.mjs";
 import { naturalEnd } from "./lasting.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
@@ -118,16 +129,142 @@ async function moveSun(actor, combat, { spell = false } = {}) {
 }
 
 /**
- * The conditions of one actor in the Setup Process of a combat: the Sun clock. Called by automation/round.mjs for
- * everyone in the combat, on the GM that started the phase.
+ * The conditions of one actor in the Setup Process of a combat: the Extra Breaths that come back every round, and the
+ * Sun clock. Called by automation/round.mjs for everyone in the combat, on the GM that started the phase.
  * @param {Actor} actor
  * @param {Combat} combat
  * @returns {Promise<string[]>}   Lines for the chat
  */
 export async function setupConditions(actor, combat) {
-  if (!rulesOn() || !keepsSunClock(actor)) return [];
-  const line = await moveSun(actor, combat);
-  return line ? [line] : [];
+  if (!rulesOn()) return [];
+  const lines = [];
+  const breath = await refreshBreaths(actor);
+  if (breath) lines.push(breath);
+  const sun = keepsSunClock(actor) ? await moveSun(actor, combat) : null;
+  if (sun) lines.push(sun);
+  return lines;
+}
+
+/** The Extra Breaths of an actor that come back every round (`per: "round"`) and were spent: whole again. */
+async function refreshBreaths(actor) {
+  const spent = actor.getFlag(SYSTEM_ID, "reviveSpent");
+  if (!spent) return null;
+  const back = extraBreaths(actor).filter(b => (b.per === "round") && (toInt(spent[b.key]) > 0));
+  if (!back.length) return null;
+  await actor.update(Object.fromEntries(back.map(b => [`flags.${SYSTEM_ID}.reviveSpent.${b.key}`, 0])));
+  return L("Conditions.BreathBack", { name: actorName(actor), effects: back.map(b => b.effect.name).join(", ") });
+}
+
+/* -------------------------------------------- */
+/*  End of the bearer's own Main Process        */
+/* -------------------------------------------- */
+
+/** The key of a combat's round, for what counts per round of a combat. */
+const roundKey = combat => `${combat.id}.${combat.round}`;
+
+/** The round key of the actor's own Main Process going on now, or null. */
+function ownProcessKey(actor) {
+  const combat = combatOf(actor);
+  const combatant = combat ? combatantOf(combat, actor) : null;
+  if (!combatant || (combat.phase !== "main") || (combat.progress?.active !== combatant.id)) return null;
+  return roundKey(combat);
+}
+
+/**
+ * The statuses that end with the bearer's own Main Process (END_OF_OWN_PROCESS; [Afflicted] keeps the ones it
+ * protects). Those of WHOLE_TURN, or of an effect with `nextTurn`, given during this very Main Process stay until the
+ * end of the next one. Called by automation/round.mjs on the window that ended the process.
+ * @param {Actor} actor
+ * @param {Combat} combat
+ */
+export async function endOwnStatuses(actor, combat) {
+  const fresh = actor.effects.filter(e => e.getFlag(SYSTEM_ID, "keepThrough") === roundKey(combat));
+  const kept = new Set(fresh.flatMap(e => [...e.statuses]));
+  const afflicted = actor.statuses.has("afflicted");
+  // Not those an infinite effect holds, nor a renewed one (conditions/lasting.mjs)
+  const ending = await naturalEnd(actor, END_OF_OWN_PROCESS.filter(id => has(actor, id) && !kept.has(id) && !(afflicted && AFFLICTED_PROTECTS.includes(id))));
+  if (ending.length) await removeStatuses(actor, ending);
+  if (fresh.length) {
+    await actor.updateEmbeddedDocuments("ActiveEffect", fresh.map(e => ({ _id: e.id, [`flags.${SYSTEM_ID}.-=keepThrough`]: null })));
+  }
+}
+
+/**
+ * The conditions of the end of the bearer's own Main Process: [Impetus] rises by 1 (past its CR, it loses control:
+ * [Berserk: CR] until the Impetus ends); [Combo] breaks when the bearer didn't attack this round. Called by
+ * automation/round.mjs on the window that ended the process.
+ * @param {Actor} actor
+ * @param {Combat} combat
+ * @returns {Promise<string[]>}   Lines for the chat
+ */
+export async function endOwnProcess(actor, combat) {
+  if (!rulesOn() || actor.statuses.has("dead") || actor.statuses.has("incapacitated")) return [];
+  const lines = [];
+  const impetus = rating(actor, "impetus");
+  if (impetus > 0) {
+    const next = Math.min(impetus + 1, statusDefinition("impetus").stack);
+    await actor.update({ "system.bad-status.impetus": next });
+    lines.push(L("Conditions.ImpetusRises", { name: actorName(actor), n: next }));
+    const cr = crOf(actor);
+    const raging = actor.effects.some(e => e.active && (e.getFlag(SYSTEM_ID, "endsWith") === "impetus") && e.statuses.has("berserk"));
+    if ((next > cr) && !raging) {
+      const effect = statusEffectData("berserk", Math.max(1, cr), "", { caster: actor });
+      effect.flags[SYSTEM_ID].endsWith = "impetus";
+      await giveEffects(actor, [effect]);
+      lines.push(L("Conditions.ImpetusOver", { name: actorName(actor), n: Math.max(1, cr) }));
+    }
+  }
+  const combo = rating(actor, "combo");
+  if ((combo > 0) && (actor.getFlag(SYSTEM_ID, "comboRound") !== roundKey(combat))) {
+    await actor.update({ "system.bad-status.combo": 0 });
+    lines.push(L("Conditions.ComboFades", { name: actorName(actor) }));
+  }
+  return lines;
+}
+
+/* -------------------------------------------- */
+/*  [Combo]                                     */
+/* -------------------------------------------- */
+
+/** Whether an actor counts its hits: it has [Combo], or a Trait with `combo` (the Magia that builds it). */
+function countsCombo(actor) {
+  if (has(actor, "combo")) return true;
+  return [...(actor?.allApplicableEffects?.() ?? [])].some(e => e.active && e.getFlag(SYSTEM_ID, "trait")?.combo);
+}
+
+/** Attack cards whose [Combo] was counted in this window (the card's flag keeps it for the others). */
+const comboCounted = new Set();
+
+/**
+ * An attack card was made or changed (a character's Dodge Check): its attacker attacked this round; once every target
+ * is resolved, its [Combo] grows when it hit anyone (1 by default; the skill's `comboGain`, times the targets hit with
+ * `comboPerTarget`) and breaks when it hit no one. On the primary GM, once per card.
+ * @param {ChatMessage} message
+ * @param {boolean} created
+ */
+async function onAttackCard(message, created) {
+  const data = message.getFlag(SYSTEM_ID, "attack");
+  if (!data?.targets?.length || !rulesOn() || !isPrimaryGM()) return;
+  const item = data.itemUuid ? await fromUuid(data.itemUuid).catch(() => null) : null;
+  const attacker = item?.actor ?? ChatMessage.getSpeakerActor(message.speaker);
+  if (!attacker || !countsCombo(attacker)) return;
+  const combat = combatOf(attacker);
+  if (created && combat) await attacker.setFlag(SYSTEM_ID, "comboRound", roundKey(combat));
+  if (data.targets.some(t => typeof t.hit !== "boolean")) return;
+  if (comboCounted.has(message.id) || message.getFlag(SYSTEM_ID, "comboCounted")) return;
+  comboCounted.add(message.id);
+  await message.setFlag(SYSTEM_ID, "comboCounted", true);
+  const hits = data.targets.filter(t => t.hit).length;
+  const name = actorName(attacker);
+  if (!hits) {
+    if (rating(attacker, "combo") <= 0) return;
+    await attacker.update({ "system.bad-status.combo": 0 });
+    await postSummary(game.i18n.localize("ETERNIA.StatusEffect.combo"), [L("Conditions.ComboMissed", { name })]);
+    return;
+  }
+  const gain = Math.max(1, toInt(item?.getFlag(SYSTEM_ID, "comboGain")) || 1) * (item?.getFlag(SYSTEM_ID, "comboPerTarget") ? hits : 1);
+  await addStatus(attacker, "combo", gain);
+  await postSummary(game.i18n.localize("ETERNIA.StatusEffect.combo"), [L("Conditions.ComboUp", { name, n: rating(attacker, "combo") })]);
 }
 
 /* -------------------------------------------- */
@@ -164,6 +301,11 @@ export async function cleanupConditions(actor) {
   const blackFlame = rating(actor, "blackFlame");
   if (blackFlame > 0) {
     const result = await takeDamage(actor, blackFlame, { reason: "blackFlame", tag: "Flame", silent: true });
+    if (result) lines.push(result.line);
+  }
+  const nightmare = rating(actor, "nightmare");
+  if (nightmare > 0) {
+    const result = await takeDamage(actor, nightmare, { reason: "nightmare", silent: true });
     if (result) lines.push(result.line);
   }
   const doom = rating(actor, "doom");
@@ -210,7 +352,8 @@ export async function cleanupConditions(actor) {
  */
 async function servantStrike(actor) {
   const value = rating(actor, "servant");
-  if ((value <= 0) || !canvas.ready) return null;
+  // The servant of a [Pacified] master hurts no one either.
+  if ((value <= 0) || !canvas.ready || has(actor, "pacified")) return null;
   const token = actor.token?.object ?? actor.getActiveTokens(true)[0];
   const side = token?.document.disposition ?? 0;
   if (!token || !side) return null;
@@ -250,7 +393,8 @@ function onUpdateCombat(combat, changes, options, userId) {
 function onPreUpdateActor(actor, changes, options) {
   if (!foundry.utils.hasProperty(changes, "system.bad-status")) return;
   const bad = actor._source.system?.["bad-status"] ?? {};
-  options.eterniaConditions = { awakened: toInt(bad.awakened), freezing: toInt(bad.freezing), fissured: toInt(bad.fissured) };
+  options.eterniaConditions = { awakened: toInt(bad.awakened), impetus: toInt(bad.impetus), freezing: toInt(bad.freezing),
+    fissured: toInt(bad.fissured) };
 }
 
 async function onUpdateActor(actor, changes, options, userId) {
@@ -258,11 +402,14 @@ async function onUpdateActor(actor, changes, options, userId) {
   const bad = actor._source.system?.["bad-status"] ?? {};
   const before = options.eterniaConditions;
 
-  // [Awakened] ends: [Fatigue] equal to its Rating (characters).
-  if ((before.awakened > 0) && !toInt(bad.awakened) && (actor.type === "character")) {
-    const fatigue = toInt(actor._source.system.infos?.fatigue) + before.awakened;
+  // [Awakened] and [Impetus] end (this very update clears them): [Fatigue] equal to their Rating (characters; not when
+  // the update says so: a blow that lets the Impetus out for free).
+  for (const id of ["awakened", "impetus"]) {
+    const now = foundry.utils.getProperty(changes, `system.bad-status.${id}`);
+    if ((now === undefined) || toInt(now) || !(before[id] > 0) || (actor.type !== "character") || options.eterniaNoFatigue) continue;
+    const fatigue = toInt(actor._source.system.infos?.fatigue) + before[id];
     await actor.update({ "system.infos.fatigue": fatigue });
-    await postSummary(label("awakened"), [L("Conditions.AwakenedEnds", { name: actorName(actor), n: before.awakened })]);
+    await postSummary(label(id), [L(`Conditions.${(id === "awakened") ? "AwakenedEnds" : "ImpetusEnds"}`, { name: actorName(actor), n: before[id] })]);
   }
 
   // Thresholds of the stacks
@@ -288,6 +435,12 @@ function onPreCreateEffect(effect, data, options, userId) {
   // it in the sheet.
   const burns = (statusData.statusId === "burning") || effect.statuses?.has("burning");
   if (burns && PUTS_OUT_FIRE.some(id => has(actor, id))) return false;
+  // A status that takes a whole turn, given during its bearer's own Main Process, lasts until the end of the next one.
+  const ids = [...(effect.statuses ?? []), statusData.statusId].filter(Boolean);
+  if (ids.some(id => END_OF_OWN_PROCESS.includes(id)) && (ids.some(id => WHOLE_TURN.includes(id)) || effect.getFlag(SYSTEM_ID, "nextTurn"))) {
+    const key = ownProcessKey(actor);
+    if (key) effect.updateSource({ [`flags.${SYSTEM_ID}.keepThrough`]: key });
+  }
   if (!effect.statuses?.has("sealed") || statusData.tag) return;
   const skill = actor.getFlag(SYSTEM_ID, "lastSkill");
   if (!skill) return;
@@ -308,12 +461,15 @@ async function onCreateEffect(effect, options, userId) {
   if (effect.statuses?.has("incapacitated") && isPrimaryGM()) await freeFrom(actor);
 }
 
-/** End the [Grappled], [Bond] and [Black Flame] that this actor gave, on every actor of the world and of the scenes. */
+/**
+ * End the [Grappled], [Bond], [Black Flame] and [Petrified] that this actor gave, on every actor of the world and of
+ * the scenes.
+ */
 async function freeFrom(source) {
   const actors = [...game.actors];
   for (const scene of game.scenes) for (const token of scene.tokens) if (!token.actorLink && token.actor) actors.push(token.actor);
   for (const actor of actors) {
-    for (const id of ["grappled", "bond", "blackFlame"]) {
+    for (const id of ["grappled", "bond", "blackFlame", "petrified"]) {
       if (!has(actor, id) || !sourcesOf(actor, id).some(s => sameActor(s, source))) continue;
       await removeStatuses(actor, [id]);
       await postSummary(label(id), [L("Conditions.Freed", { name: actorName(actor), status: label(id), source: actorName(source) })]);
@@ -328,4 +484,6 @@ export function registerConditionTurns() {
   Hooks.on("updateActor", (...args) => onUpdateActor(...args).catch(err => console.error(`${SYSTEM_ID} | Condition update failed`, err)));
   Hooks.on("preCreateActiveEffect", onPreCreateEffect);
   Hooks.on("createActiveEffect", (...args) => onCreateEffect(...args).catch(err => console.error(`${SYSTEM_ID} | Condition effect failed`, err)));
+  Hooks.on("createChatMessage", message => onAttackCard(message, true).catch(err => console.error(`${SYSTEM_ID} | Combo failed`, err)));
+  Hooks.on("updateChatMessage", message => onAttackCard(message, false).catch(err => console.error(`${SYSTEM_ID} | Combo failed`, err)));
 }

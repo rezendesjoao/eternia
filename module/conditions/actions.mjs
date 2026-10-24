@@ -2,11 +2,12 @@
  * What the conditions forbid, by the setting "conditionLimits" (warn: ask to go on; block: players can't, the GM
  * may still go on). The action HUD reads the same issues to dim what can't be used now.
  *
- * - No action at all: [Paralyzed], [Asleep] (their combatants are skipped, see turns.mjs).
- * - No [Movement] skill, and the token doesn't move: [Rigor], [Rooted], [Grappled] (and the two above).
+ * - No action at all: [Paralyzed], [Asleep], [Petrified], [Nightmare] (their combatants are skipped, see turns.mjs).
+ * - No [Movement] skill, and the token doesn't move: [Rigor], [Rooted], [Grappled] (and the four above).
  * - No reaction (Before / After Check, Damage Roll, Before / After Damage): [Dazed], [Shocked].
  * - [Silenced]: no [Magic Attack], [Spell] or [Song], but a [Curse] isn't magic and goes on. [Disarmed]: no weapon
- *   attack. [Sealed (Skill)]: not that skill.
+ *   attack. [Sealed (Skill)]: not that skill. [Amnesia]: only the Basic skills (and the skills of items); a monster
+ *   keeps the skills without a Cost or a Limit.
  * - [Berserk]: only skills that attack.
  * - Targets: [Blinded] only within 1 Sq; [Grappled] attacks only its grappler, [Taunted] must include its taunter,
  *   [Charmed] never attacks its charmer, [Dominated] never attacks who dominates it nor that one's side.
@@ -70,6 +71,7 @@ export function conditionUseIssues(item, actor, { targets = null } = {}) {
     push("silenced", "Silenced");
   }
   if (has(actor, "disarmed") && isWeaponAttack(item)) push("disarmed", "Disarmed");
+  if (has(actor, "amnesia") && !isBasicSkill(item, actor)) push("amnesia", "Amnesia");
   if (has(actor, "sealed") && sealedSkills(actor).includes(item.name.trim().toLowerCase())) push("sealed", "Sealed");
   const hostile = isHostile(item);
   // [Berserk] still moves, and uses the skills made for it (those that require it): only the other skills that
@@ -107,6 +109,23 @@ export function conditionUseIssues(item, actor, { targets = null } = {}) {
     for (const text of engagedIssues(item, actor, targets)) issues.push({ text, mode });
   }
   return issues;
+}
+
+/**
+ * Whether a skill is one an [Amnesia] leaves: not a skill at all (an item), a Basic skill, the skill of an item, or,
+ * for a monster, a skill without a Cost or a Limit (its plain attacks).
+ * @param {Item} item
+ * @param {Actor} actor
+ */
+function isBasicSkill(item, actor) {
+  if (item.type !== "skill") return true;
+  const subtype = item.system.subtype;
+  if (["Basic", "Item"].includes(subtype)) return true;
+  if ((actor.type !== "monster") && (subtype !== "Monster")) return false;
+  const cost = parseSkillField("cost", item.system.cost ?? "").type;
+  const limit = parseSkillField("limit", item.system.limit ?? "").type;
+  return !["Hate", "Fate"].includes(cost) && !String(item.system.cost ?? "").trim().match(/^H\s*\(/i)
+    && !["Scene", "Scenario", "Round"].includes(limit);
 }
 
 /** Whether a skill only works with a status (its conditions ask for it). */

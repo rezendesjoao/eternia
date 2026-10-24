@@ -508,7 +508,7 @@ os efeitos que vão só para os aliados ou só para os inimigos entre os alvos (
 
 ## As condições
 
-Os 23 estados das regras de base e mais 41 condições da Eternia, feitas para emular poderes de anime. A regra de
+Os 23 estados das regras de base e mais 52 condições da Eternia, feitas para emular poderes de anime. A regra de
 cada uma aparece ao passar o mouse (na ficha, no HUD e nos estados clicáveis do chat), e a página
 **IX. CONDIÇÕES DA ETERNIA** do diário AS REGRAS traz todas por extenso.
 
