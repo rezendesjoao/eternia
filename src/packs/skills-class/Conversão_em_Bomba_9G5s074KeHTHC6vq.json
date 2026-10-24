@@ -1,0 +1,118 @@
+{
+  "name": "Conversão em Bomba",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Bomba.</strong> Após o Dano de um ataque corpo a corpo contra você: quem tocou em você ganha a insígnia da bomba e fica [Marcado: NP÷2 + 2] (quando falhar numa Esquiva, ela explode). Uma vez por rodada.</p><p><em>Uma marca redonda acende na pele dele e começa a piscar.</em></p>",
+    "tags": [
+      "Spell",
+      "Curse"
+    ],
+    "timing": "After Damage",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/weapons/thrown/bomb-fuse-black.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "marked",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Conversão em Bomba",
+      "img": "systems/eternia/assets/ui/status/marked.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "marked"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "kgxBbxCHmhZJhkAg",
+      "_key": "!items.effects!9G5s074KeHTHC6vq.kgxBbxCHmhZJhkAg"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "bomba-conversao",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "bomba"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "9G5s074KeHTHC6vq",
+  "folder": "A9C6UMfcizsLkrp9",
+  "_key": "!items!9G5s074KeHTHC6vq"
+}

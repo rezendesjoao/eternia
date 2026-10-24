@@ -1,0 +1,83 @@
+{
+  "name": "Festim de Almas",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Absorção. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você abre a boca e come a alma de um alvo a até 5 Qd. Teste de Precisão contra a Resistência; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico, e ele fica [Maldito] (o pedaço de alma que falta não volta) e [Atordoado]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Você lambe os dentes. Ainda tem gosto de magia.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/biological/mouth-toothed-purple.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "absorcao-banquete",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "cursed"
+        },
+        {
+          "statusId": "dazed"
+        }
+      ],
+      "magicSpell": {
+        "id": "absorcao"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "gudN5qJV27aHCxsT",
+  "folder": "7M82T6fT7rsi8J1F",
+  "_key": "!items!gudN5qJV27aHCxsT"
+}

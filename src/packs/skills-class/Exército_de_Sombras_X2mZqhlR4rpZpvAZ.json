@@ -1,0 +1,80 @@
+{
+  "name": "Exército de Sombras",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Sombras. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: um exército de sombras toma uma área ampla a até 6 Qd, e os fantasmas se juntam numa água-viva gigante de muitos punhos. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Corrupção], e quem eles acertam fica com [Medo] de você. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>A água-viva flutua alto, e os punhos descem como chuva.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/fish/jellyfish-swarm-eyed-teal.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "sombras-exercito",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "frightened"
+        }
+      ],
+      "magicSpell": {
+        "id": "sombras"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "X2mZqhlR4rpZpvAZ",
+  "folder": "9uLR0ZDeXbySYw7y",
+  "_key": "!items!X2mZqhlR4rpZpvAZ"
+}

@@ -1,0 +1,126 @@
+{
+  "name": "Selo do Tempo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Perdida.</strong> Você para o tempo: tudo congela, e só você se move. Os raios saem rápidos demais para serem vistos, os ponteiros cobram de uma vez a dor de uma vida, e no fim o próprio deus do tempo toma o seu corpo. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, o Tempo Cobrado pelo Deus:</strong> o deus que te empresta o tempo cobra do seu corpo: em combate, as suas Defesas Física e Mágica caem [NP÷2].</li><li><strong>Feitiços:</strong> Raio de Âge e Selar o Tempo (NP 1), Arranhão de Âge e Passo Fora do Tempo (NP 3), Transbordamento (NP 5) e o feitiço supremo Alma Divina: Cronos (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Alma Divina: Cronos pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você bate os dentes, e o mundo para de respirar.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/tech/clock-watch-stopwatch.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Tempo Cobrado pelo Deus",
+      "img": "icons/equipment/wrist/clock-wrist-watch.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.defense.phys.mod",
+            "type": "add",
+            "value": "-floor(@cr/2)",
+            "phase": "initial",
+            "priority": null
+          },
+          {
+            "key": "system.battle-status.defense.magic.mod",
+            "type": "add",
+            "value": "-floor(@cr/2)",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "hJVdCHYH8A1OuDbP",
+      "_key": "!items.effects!HtOcxJ4EzfEC4zcI.hJVdCHYH8A1OuDbP"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "selo-do-tempo-selo-do-tempo",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "selo-do-tempo",
+        "category": "lost",
+        "tagline": "Parar o tempo e agir sozinho num mundo congelado."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "HtOcxJ4EzfEC4zcI",
+  "folder": "IUZysPybOG7BAksi",
+  "_key": "!items!HtOcxJ4EzfEC4zcI"
+}

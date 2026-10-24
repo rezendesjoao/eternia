@@ -1,0 +1,128 @@
+{
+  "name": "Aguaceiro",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Calamidade.</strong> Antes do Dano de um ataque contra você ou um aliado a até 4 Qd: uma chuva pesada cai entre o golpe e o alvo, que fica com [Anulação: NP + 5] contra esse dano e perde o [Queimando]. Uma vez por rodada.</p><p><em>Nenhum fogo aguenta essa chuva.</em></p>",
+    "tags": [
+      "Spell",
+      "Curse"
+    ],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/air/weather-clouds-rain.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "cancel",
+            "value": "@cr+5"
+          },
+          "consumeOn": "damage",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Aguaceiro",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "Vzmmd4DB5h7mGn9h",
+      "_key": "!items.effects!PmGWFnKKJ5O6J0u0.Vzmmd4DB5h7mGn9h"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "calamidade-aguaceiro",
+      "kind": "feeds",
+      "branch": "magic",
+      "useActions": [
+        {
+          "type": "removeStatus",
+          "statuses": [
+            "burning"
+          ],
+          "recipients": "targets"
+        }
+      ],
+      "magicSpell": {
+        "id": "calamidade"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "PmGWFnKKJ5O6J0u0",
+  "folder": "XRUhJyCiyWSBiaP3",
+  "_key": "!items!PmGWFnKKJ5O6J0u0"
+}

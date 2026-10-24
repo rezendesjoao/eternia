@@ -1,0 +1,76 @@
+{
+  "name": "Pulso Sombrio",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Sombras.</strong> Você passa a mão num arco, e uma área a até 4 Qd explode seguindo o gesto: Teste de Precisão contra a Resistência de cada alvo; [2d6 + Poder Mágico] de dano mágico de [Corrupção], e quem ela acerta fica [Atordoado].</p><p><strong>Custo:</strong> Ódio 3.</p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/unholy/beam-impact-green.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "sombras-pulso",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "dazed"
+        }
+      ],
+      "magicSpell": {
+        "id": "sombras"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "xnFVk4CzY4lHKnXl",
+  "folder": "9uLR0ZDeXbySYw7y",
+  "_key": "!items!xnFVk4CzY4lHKnXl"
+}

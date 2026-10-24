@@ -70,7 +70,7 @@ export const NO_MOVEMENT = ["rigor", "rooted", "grappled", "paralyzed", "asleep"
 /** Statuses that forbid reactions (Before / After Check, Damage Roll, Before / After Damage). */
 export const NO_REACTIONS = ["dazed", "shocked", "paralyzed", "asleep"];
 
-/** Tags of the skills [Silenced] forbids. */
+/** Tags of the skills [Silenced] forbids (unless the skill is also a [Curse]: the demons' power isn't magic). */
 export const SILENCED_TAGS = ["Magic Attack", "Spell", "Song"];
 
 /** Statuses that end at the end of their bearer's own Main Process ([Afflicted] keeps the protected ones). */

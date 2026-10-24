@@ -21,7 +21,8 @@ export const MAGIC_CATEGORIES = {
   holder: { icon: "fa-solid fa-key", color: "#8a6a25" },
   lost: { icon: "fa-solid fa-book-skull", color: "#8c2f2f" },
   forbidden: { icon: "fa-solid fa-skull", color: "#4a2b57" },
-  ancestral: { icon: "fa-solid fa-feather-pointed", color: "#2a6f73" }
+  ancestral: { icon: "fa-solid fa-feather-pointed", color: "#2a6f73" },
+  curse: { icon: "fa-solid fa-eye-evil", color: "#33302d" }
 };
 
 /** What the spells do, read from their data. */

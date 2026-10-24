@@ -53,7 +53,10 @@ export const ELEMENTS = {
   fogo: { tag: "Flame", status: "burning", value: cr => Math.floor(cr / 2) + 2 },
   ferro: { tag: "Iron", status: "fissured", value: () => 1 },
   ceu: { tag: "Wind", status: "slowed", value: () => null, air: true },
-  raio: { tag: "Shock", status: "shocked", value: cr => Math.floor(cr / 2) + 2 }
+  raio: { tag: "Shock", status: "shocked", value: cr => Math.floor(cr / 2) + 2 },
+  branco: { tag: "Radiance", status: "marked", value: cr => Math.floor(cr / 2) + 2 },
+  sombras: { tag: "Blight", status: "blinded", value: () => null },
+  veneno: { tag: "Poison", status: "poisoned", value: cr => Math.floor(cr / 2) + 2 }
 };
 
 /** Each element's Secret Art and the status it leaves (besides the element's). */
@@ -61,7 +64,10 @@ const SECRET_ARTS = {
   "lotus-carmesim": { statusId: "burning", value: spent => spent * 2 },
   "carma-demoniaco": { statusId: "exposed" },
   "luz-despedacadora": { statusId: "prone" },
-  "trovao-rugente": { statusId: "dazed" }
+  "trovao-rugente": { statusId: "dazed" },
+  "nova-sagrada": { statusId: "blinded" },
+  abismo: { statusId: "frightened" },
+  mandibula: { statusId: "decay", value: spent => spent * 2 }
 };
 
 const DEFAULTS = { state: "humano", value: 0, dual: null, seed: null, awoken: null, stored: 0, twins: null, emotion: null };

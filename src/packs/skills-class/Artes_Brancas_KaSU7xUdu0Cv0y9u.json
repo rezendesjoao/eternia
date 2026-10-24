@@ -1,0 +1,119 @@
+{
+  "name": "Artes Brancas",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Proibida.</strong> A magia branca que mexe nas necessidades do corpo: um prazer tão forte que tira a alma, uma fome que faz os amigos parecerem comida, um sono impossível de vencer. E lâminas de luz para quem ainda estiver de pé. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, as Necessidades:</strong> quem mexe nas necessidades dos outros perde o controle das próprias: em combate, a sua Recuperação cai [NP]. E o Prazer não escolhe quem atinge: pega aliados na área também.</li><li><strong>Feitiços:</strong> Lâminas de Luz e Alma Faminta (NP 1), Descanse em Paz e Dois Dedos (NP 3), Prazer (NP 5) e o feitiço supremo Êxtase (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Êxtase pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Ninguém resiste ao que o próprio corpo pede.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/light/projectile-smoke-yellow.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "As Necessidades",
+      "img": "icons/magic/death/skull-fire-white-yellow.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.power.restoration.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "89ng7ktqETmguzdz",
+      "_key": "!items.effects!KaSU7xUdu0Cv0y9u.89ng7ktqETmguzdz"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "artes-brancas-artes-brancas",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "artes-brancas",
+        "category": "forbidden",
+        "tagline": "Prazer, fome e sono: as necessidades viram armas."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "KaSU7xUdu0Cv0y9u",
+  "folder": "cQNFF8lCtZZ0Vv2F",
+  "_key": "!items!KaSU7xUdu0Cv0y9u"
+}

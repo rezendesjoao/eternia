@@ -1,0 +1,77 @@
+{
+  "name": "Chuva de Cabelo: Vaga-lumes",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Cabelo Carmesim.</strong> Feitiço grande. Fios do seu cabelo se espalham no ar sobre uma área a até 4 Qd, pegam fogo como vaga-lumes e explodem todos juntos: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico de [Chama], e quem eles acertam fica [Queimando: NP÷2 + 2].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Por um segundo é bonito. Depois, explode.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/projectile-embers-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "cabelo-carmesim-vaga-lumes",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "burning",
+          "value": "floor(@cr/2)+2"
+        }
+      ],
+      "magicSpell": {
+        "id": "cabelo-carmesim"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Gnzs1ZV1jWu01w0l",
+  "folder": "c5yogghgjt48r8GQ",
+  "_key": "!items!Gnzs1ZV1jWu01w0l"
+}

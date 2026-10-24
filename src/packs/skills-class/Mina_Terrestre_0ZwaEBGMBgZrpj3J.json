@@ -1,0 +1,77 @@
+{
+  "name": "Mina Terrestre",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Bomba.</strong> Você marca o chão de uma área a até 4 Qd com círculos escuros, e eles explodem debaixo dos pés: Teste de Precisão contra a Esquiva de cada alvo; [3d6 + Poder Mágico] de dano mágico de [Chama], e quem elas acertam fica [Enraizado] (quem se mexe explode de novo).</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Ninguém mais tem coragem de dar um passo.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/weapons/thrown/bomb-detonator.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "bomba-mina",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "rooted"
+        }
+      ],
+      "magicSpell": {
+        "id": "bomba"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "0ZwaEBGMBgZrpj3J",
+  "folder": "A9C6UMfcizsLkrp9",
+  "_key": "!items!0ZwaEBGMBgZrpj3J"
+}

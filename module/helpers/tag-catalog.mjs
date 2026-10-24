@@ -81,6 +81,7 @@ export const TAG_CATALOG = [
   { label: "Enchantment", group: G.skill },
   { label: "Spell", group: G.skill },
   { label: "Song", group: G.skill },
+  { label: "Curse", group: G.skill },
   { label: "Swift", group: G.skill },
   { label: "Scout", group: G.skill },
   { label: "Summon", group: G.skill },

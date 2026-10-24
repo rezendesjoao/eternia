@@ -1,0 +1,117 @@
+{
+  "name": "Ler o Coração",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Histórias dos Mortos.</strong> Você olha o coração de um alvo a até 6 Qd e vê o passado dele (Teste de Precisão contra a Resistência): ele fica [Marcado: NP÷2 + 2] (−1d6 nas Esquivas; ao falhar numa, sofre o Valor como dano direto e a marca sai), e você sabe quem foram os mortos que o marcaram. Uma vez por cena.</p><p><em>Ele sente que alguém mexeu numa gaveta que estava fechada.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/water/heart-ice-freeze.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "marked",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Ler o Coração",
+      "img": "systems/eternia/assets/ui/status/marked.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "marked"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "vYELUwOWuizamWIE",
+      "_key": "!items.effects!oGsvRJw9jjMpCWdf.vYELUwOWuizamWIE"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "historias-dos-mortos-ler",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "historias-dos-mortos"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "oGsvRJw9jjMpCWdf",
+  "folder": "9URs5wzAer2BWiPc",
+  "_key": "!items!oGsvRJw9jjMpCWdf"
+}

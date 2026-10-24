@@ -1,5 +1,69 @@
 # Changelog
 
+## 0.25.0 — 2026-10-24
+
+### Adicionado
+- **Três elementos do Matador de Dragões:** Branco (a luz: [Radiância] e [Marcado]; Raio Sagrado do Dragão Branco,
+  Impulso Branco e a Arte Secreta Nova Sagrada), Sombras ([Corrupção] e [Cego]; Corte do Dragão das Sombras, Forma de
+  Sombra e a Arte Secreta Abismo do Dragão das Sombras) e Veneno ([Veneno] e [Envenenado]; Dente Duplo do Dragão do
+  Veneno, Guarda do Dragão do Veneno e a Arte Secreta Mandíbula do Dragão do Veneno). A Dedicação também deixa
+  escolher os três, e o Modo Dragão Duplo da Primeira Geração come os elementos novos.
+- **Duas Magias Perdidas:** Matador de Deuses do Raio (Tabu: Defesa Mágica −NP; Rugido do Deus do Raio, Devorar o
+  Raio, Canhão de Raio Negro de 120 mm, Couraça de Raio Negro, Trovão Negro do Deus do Raio e o supremo Canhão de
+  Partículas do Deus do Raio) e Matador de Deuses do Fogo (chamas negras que racham em vez de queimar; Tabu:
+  Recuperação −NP e Defesa Física −NP÷2; Rugido do Deus do Fogo, Devorar as Chamas, Foice do Deus do Fogo, Chama
+  Explosiva do Deus do Fogo, Kagutsuchi do Deus do Fogo e o supremo Ceia do Deus do Fogo).
+- **Mais quatro Magias**, cada uma com o seu Tabu: **Correntes** (Proibida; Tabu: −1d6 nas Resistências; Corrente do
+  Grimório, Balas Mágicas, Raio do Grimório, Amaterasu: Fórmula 28, Amaterasu: Fórmula 100 e o supremo Lei do Grimório),
+  **Arco da Grande Árvore** (Perdida; Tabu: −1d6 nas Esquivas; Explosões em Linha, Fusão com a Árvore, Lâminas de Folha,
+  Bomba-Relógio de Raízes, Estouro da Torre e o supremo Terra Clamare), **Arco da Materialização** (Perdida; Tabu:
+  Iniciativa −NP e Defesa Física −NP÷2; Espada Negra, Escudo Dourado, Asas de Pégaso, Fantasmas de Brittia, Fera
+  Sagrada: Belcusas do Trovão e o supremo Torre de Dingir) e **Maldição do Boneco** (Perdida, no boneco; Tabu:
+  Recuperação −NP e Defesa Mágica −NP÷2; Fio no Boneco, Dodoskoi, Boneco de Ferro, Boneco de Névoa, Foguete Metálico e o
+  supremo Dodoskoi Brilhante).
+- **Mais quatro Magias:** **Shikigami** (Torrente de Shikigami, Véu de Ilusão, Prisão de Papel, Bomba Negra de
+  Shikigami, Revoada de Shikigami e o supremo Mil Bonecos de Papel, que deixa [Selado]), **Cabelo Carmesim** (Cabelo que
+  Prende, Cabelo Esponja, Chuva de Cabelo: Mil Pássaros, Marca em Brasa, Chuva de Cabelo: Vaga-lumes e o supremo Chuva
+  de Cabelo: Presa de Lobo), **Sombras** (Soldados de Sombra, Guarda de Sombras, Abraço das Sombras, Pulso Sombrio, Onda
+  da Morte e o supremo Exército de Sombras) e a Portadora **Espadas Mágicas** (Kata do Corte, Kata Rasteira, Lampejo
+  Vazio de Yasha, Kata do Voo, Chama de Garuda e o supremo Lâmina Desembainhada).
+- **Mais seis Magias:** **Cópia** (Copiar, Ouvir a Alma, Imitação, que repete a tag e o estado do feitiço copiado,
+  Copiar e Anular, Derreter e o supremo Ars Magia), **Comando M** (Comando: Redução, Comando: Expansão, Comando:
+  Encolher a Magia, Qualidade do Poder Mágico, Comando: Terreno e o supremo Demolidora de Países), **Histórias dos
+  Mortos** (Rajada de Energia, Ler o Coração, História dos Mortos, Redemoinho Cortante, Cidade dos Mortos e o supremo O
+  Mais Forte dos Mortos), **Furtividade** (Apagar a Presença, Arma Invisível, Revelar, Tortura Invisível, Mil Lâminas
+  Invisíveis e o supremo Assassinato Perfeito), a Perdida **Selo do Tempo** (Tabu: Defesas Física e Mágica −NP÷2; Raio
+  de Âge, Selar o Tempo, Arranhão de Âge, Passo Fora do Tempo, Transbordamento e o supremo Alma Divina: Cronos) e a
+  Proibida **Artes Brancas** (Tabu: Recuperação −NP, e o Prazer pega aliados; Lâminas de Luz, Alma Faminta, Descanse em
+  Paz, Dois Dedos, Prazer e o supremo Êxtase).
+- **As Maldições, uma categoria nova de Magia:** o poder dos demônios, que não é magia. Batem como as Perdidas, cada uma
+  tem um Tabu, e o [Silenciado] não impede os feitiços (todos têm a tag nova [Maldição]). Sete: **Absorção** (Tabu:
+  Defesa Mágica −NP÷2 e −1d6 nas Resistências; Conexão, Absorver o Ataque, Revolução, Roubar a Alma, Ejeção e o supremo
+  Festim de Almas), **Aprimoramento** (Tabu: as Defesas −NP na primeira rodada do combate; Garras-Chicote, Aprimorar o
+  Corpo, Amplificação da Dor, Aprimoramento por Segundo, Amplificação da Dor em Massa e o supremo Privação dos
+  Sentidos), **Bomba** (Tabu: Defesa Física −NP; Explosão, Conversão em Bomba, Mina Terrestre, Bomba de Captura, Espiral
+  Explosiva e o supremo Detonação), **Calamidade** (Tabu: Defesa Física −NP÷2, e as Partículas Antimagia pegam aliados;
+  Tornado, Aguaceiro, Impacto, Esfera do Trovão, Inferno e o supremo Partículas Antimagia), **Espinhos** (Tabu:
+  Recuperação −NP e −1d6 nas Esquivas; Vinhas de Espinhos, Manto de Espinhos, Jardim de Espinhos, Rosa Explosiva, Dea
+  Yggdrasil e o supremo Memento Mori), **Macro** (Tabu: Iniciativa −NP e −1d6 nas Resistências, menos enquanto
+  [Despertado]; Arremesso de Livros, Ordem ao Corpo, Macro em Si Mesmo, Olhos Demoníacos, Avalanche da Biblioteca e o
+  supremo Olho Demoníaco Liberto) e **Necromancia** (Tabu: [Maldito] em combate; Mortos de Pé, Corpo de Partículas,
+  Primeiro Selo, Guarda dos Mortos, Exército de Ossos e o supremo Julgamento da Estrela Maligna). A janela de Magias
+  ganhou o filtro Maldição. O catálogo chega a 73 Magias.
+- Páginas XII.1 (Absorção), XII.9 (Aprimoramento), XII.10 (Arco da Grande Árvore), XII.11 (Arco da Materialização),
+  XII.15 (Artes Brancas), XII.17 (Bomba), XII.18 (Cabelo Carmesim), XII.20 (Calamidade), XII.22 (Comando M), XII.23
+  (Cópia), XII.25 (Correntes), XII.31 (Espadas Mágicas), XII.32 (Espinhos), XII.36 (Furtividade), XII.39 (Histórias dos
+  Mortos), XII.40 (Macro), XII.45 (Maldição do Boneco), XII.48 (Matador de Deuses do Fogo), XII.49 (Matador de Deuses do
+  Raio), XII.53 (Necromancia), XII.64 (Selo do Tempo), XII.65 (Shikigami) e XII.66 (Sombras) do capítulo XII. MAGIAS do
+  diário AS REGRAS, e as Maldições na XII.a; a página XI.13 ganhou os três elementos novos.
+
+### Alterado
+- O Matador de Deuses agora se chama **Matador de Deuses do Céu** (a migração troca o nome nas fichas).
+- As fichas que já têm o Matador de Dragões (e a Dedicação dele) ganham os três elementos novos na escolha do elemento.
+- O [Silenciado] não impede as habilidades com a tag [Maldição] (o poder dos demônios não é magia).
+- As páginas do capítulo XII foram renumeradas em ordem alfabética (Artes Negras é a XII.16, Vento a XII.73).
+- O aviso de novidades fala da 0.25.
+
 ## 0.24.0 — 2026-10-24
 
 ### Adicionado

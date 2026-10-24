@@ -16,6 +16,8 @@
  * Hierofante (the class items, the Dedications with their flag, the skill browser finds the class by its name, and the
  * Palavra de Guardião); the physical classes take their Magia slots (CR 1 and 10) and the Dragon Slayer its own (CR 5
  * and 10).
+ * Version 6, the Slayers (0.25): the Dragon Slayer's class items and Dedications take the new elements (White,
+ * Shadow, Poison) in their element choice, and the Magia Matador de Deuses is the Matador de Deuses do Céu.
  */
 const KUDEN_TYPES = new Set(["kudenResource", "kudenResourceFull", "sceneDay", "sceneNight", "sceneNoon", "sceneOpenSky",
   "sceneDarkness", "sceneMiasma", "sceneNoMiasma", "targetBossRaid", "hpAtMost"]);
@@ -50,9 +52,17 @@ const MAGIC_CLASSES = {
   matador: [5, 10]
 };
 
-/** The classes renamed in 0.22, by identifier, and the class skill renamed with them. */
+/** The classes renamed in 0.22, by identifier, and the skills renamed: with them, and the Magia of 0.25. */
 const RENAMED = { monge: "Lutador", guardiao: "Centurião", comandante: "Hierofante" };
-const RENAMED_SKILLS = { "guardiao-palavra-de-guardiao": "Palavra de Centurião" };
+const RENAMED_SKILLS = {
+  "guardiao-palavra-de-guardiao": "Palavra de Centurião",
+  "matador-deuses-matador-deuses": "Matador de Deuses do Céu"
+};
+
+/** The Dragon Slayer's element choice (found by the Fire Dragon) and the elements of 0.25: White, Shadow, Poison. */
+const FIRE_DRAGON = "Compendium.eternia.skills-class.Item.2LZiyVdS3eA4cfL9";
+const NEW_ELEMENTS = ["vxbsKYsv0rW5pxNG", "I06j5U06avxb6mHH", "V5UtR116rb1xfxWz"]
+  .map(id => `Compendium.eternia.skills-class.Item.${id}`);
 
 /** The grants of a class item without the Magia slots of its class, with them after the kit; or null. */
 function magicGrants(item) {
@@ -81,6 +91,26 @@ function renameChanges(item) {
   return update;
 }
 
+/** The new elements in a Dragon Slayer class item's choice (after `grants`, its grants so far) or its Dedication's. */
+function elementChanges(item, grants) {
+  const source = item._source;
+  if ((item.type === "class") && (source.system?.identifier === "matador")) {
+    const list = listOf(grants ?? source.system?.grants).map(g => ({ ...g }));
+    const choice = list.find(g => listOf(g?.uuids).includes(FIRE_DRAGON));
+    const missing = choice ? NEW_ELEMENTS.filter(u => !listOf(choice.uuids).includes(u)) : [];
+    if (!missing.length) return {};
+    choice.uuids = [...listOf(choice.uuids), ...missing];
+    return { "system.grants": list };
+  }
+  const flags = source.flags?.eternia;
+  if ((item.type === "skill") && (flags?.dedication?.id === "matador") && (flags.branch === "dedication")) {
+    const choice = listOf(flags.dedicationChoice);
+    const missing = NEW_ELEMENTS.filter(u => !choice.includes(u));
+    if (choice.length && missing.length) return { "flags.eternia.dedicationChoice": [...choice, ...missing] };
+  }
+  return {};
+}
+
 /** The changes of an item, or null. */
 function itemChanges(item, done) {
   const source = item._source;
@@ -98,8 +128,8 @@ function itemChanges(item, done) {
   if (done < 5) {
     const grants = magicGrants(item);
     if (grants) update["system.grants"] = grants;
-    Object.assign(update, renameChanges(item));
   }
+  if (done < 6) Object.assign(update, renameChanges(item), elementChanges(item, update["system.grants"]));
   return foundry.utils.isEmpty(update) ? null : update;
 }
 
@@ -142,4 +172,4 @@ async function run(done) {
   return true;
 }
 
-export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 5, run };
+export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 6, run };

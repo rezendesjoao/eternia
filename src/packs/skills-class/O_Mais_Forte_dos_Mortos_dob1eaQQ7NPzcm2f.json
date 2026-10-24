@@ -1,0 +1,80 @@
+{
+  "name": "O Mais Forte dos Mortos",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Histórias dos Mortos. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: do passado de um alvo a até 6 Qd volta o morto mais forte que ele já conheceu, com toda a força que tinha. Teste de Precisão contra a Resistência; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico [Psíquico], e ele fica [Atordoado]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Ele reconhece o morto. E sabe que já perdeu para ele uma vez.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Psychic"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/death/skull-horned-worn-fire-blue.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "historias-dos-mortos-mais-forte",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "dazed"
+        }
+      ],
+      "magicSpell": {
+        "id": "historias-dos-mortos"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "dob1eaQQ7NPzcm2f",
+  "folder": "9URs5wzAer2BWiPc",
+  "_key": "!items!dob1eaQQ7NPzcm2f"
+}

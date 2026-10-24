@@ -1,0 +1,76 @@
+{
+  "name": "Cidade dos Mortos",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Histórias dos Mortos.</strong> Feitiço grande. Você estala os dedos, e os mortos do passado de todos numa área a até 5 Qd se levantam ao mesmo tempo: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico [Psíquico], e quem eles acertam fica com [Medo] de você.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>A cidade inteira fica cheia de rostos que não deviam estar ali.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Psychic"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/death/skull-trio-badge-purple.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "historias-dos-mortos-cidade",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "frightened"
+        }
+      ],
+      "magicSpell": {
+        "id": "historias-dos-mortos"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "2SYtVN9tq5kJv1MH",
+  "folder": "9URs5wzAer2BWiPc",
+  "_key": "!items!2SYtVN9tq5kJv1MH"
+}

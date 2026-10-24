@@ -1,0 +1,129 @@
+{
+  "name": "Aprimoramento",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Maldição.</strong> Você aprimora o que quiser num corpo: a força de um aliado, a sua (mais a cada segundo que passa) e a sensibilidade dos inimigos, até um arranhão doer como uma facada. No fim, você tira de alguém os cinco sentidos. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, o Começo Lento:</strong> a sua força cresce com o tempo, e no começo ainda é pouca: na primeira rodada de cada combate, as suas Defesas Física e Mágica caem [NP].</li><li><strong>Feitiços:</strong> Garras-Chicote e Aprimorar o Corpo (NP 1), Amplificação da Dor e Aprimoramento por Segundo (NP 3), Amplificação da Dor em Massa (NP 5) e o feitiço supremo Privação dos Sentidos (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Privação dos Sentidos pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você não tem pressa. Cada segundo a mais é um pouco mais de força.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/biological/hand-clawed-green.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            },
+            {
+              "type": "firstRound"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Começo Lento",
+      "img": "icons/magic/movement/chevrons-down-yellow.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.defense.phys.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          },
+          {
+            "key": "system.battle-status.defense.magic.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "FBnLMomvMv9rgyi7",
+      "_key": "!items.effects!CQ0hAIhy6tINv8dP.FBnLMomvMv9rgyi7"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "aprimoramento-aprimoramento",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "aprimoramento",
+        "category": "curse",
+        "tagline": "Aumentar tudo: a força dos aliados, a sua e a dor dos inimigos."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "CQ0hAIhy6tINv8dP",
+  "folder": "xeOxGCFjMHfJ8m8e",
+  "_key": "!items!CQ0hAIhy6tINv8dP"
+}

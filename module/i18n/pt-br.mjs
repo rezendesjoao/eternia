@@ -24,7 +24,7 @@ export const TAGS = {
   // Skill keywords
   "Preparation": "Preparação", "Training": "Treinamento", "Style": "Estilo", "Stance": "Postura",
   "Harmony": "Harmonia", "Servant Summon": "Invocação de Servo", "Enchantment": "Encantamento",
-  "Spell": "Feitiço", "Song": "Canção",
+  "Spell": "Feitiço", "Song": "Canção", "Curse": "Maldição",
   "Swift": "Veloz", "Scout": "Reconhecimento", "Summon": "Invocação", "Combat": "Combate",
   "General": "Geral", "Movement": "Movimento", "Auto": "Automático", "Constant": "Passiva",
   "Support": "Suporte", "Standby": "Espera", "EX Power": "Poder EX", "GM": "Mestre", "Special": "Especial",

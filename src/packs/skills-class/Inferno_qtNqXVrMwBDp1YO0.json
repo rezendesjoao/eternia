@@ -1,0 +1,78 @@
+{
+  "name": "Inferno",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Calamidade.</strong> Feitiço grande. Você sopra fogo, e as chamas cobrem o campo numa área a até 5 Qd: Teste de Precisão contra a Resistência de cada alvo; [4d6 + Poder Mágico] de dano mágico de [Chama], e quem elas acertam fica [Queimando: NP÷2 + 2].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>O chão continua queimando depois que você fecha a boca.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/flame-burning-earth-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "calamidade-inferno",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "burning",
+          "value": "floor(@cr/2)+2"
+        }
+      ],
+      "magicSpell": {
+        "id": "calamidade"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "qtNqXVrMwBDp1YO0",
+  "folder": "XRUhJyCiyWSBiaP3",
+  "_key": "!items!qtNqXVrMwBDp1YO0"
+}

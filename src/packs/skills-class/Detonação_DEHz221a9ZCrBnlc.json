@@ -1,0 +1,85 @@
+{
+  "name": "Detonação",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Bomba. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: as suas mãos brilham, e o seu corpo inteiro vira a bomba. A explosão toma uma área ampla a até 2 Qd de você: Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Chama], e quem ela acerta fica [Derrubado] e [Fissurado: 2]. Você sai sem um arranhão. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Quando a fumaça baixa, só você está de pé no meio da cratera.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "2Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/explosion-fireball-medium-purple-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "bomba-detonacao",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "prone"
+        },
+        {
+          "statusId": "fissured",
+          "value": 2
+        }
+      ],
+      "magicSpell": {
+        "id": "bomba"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "DEHz221a9ZCrBnlc",
+  "folder": "A9C6UMfcizsLkrp9",
+  "_key": "!items!DEHz221a9ZCrBnlc"
+}

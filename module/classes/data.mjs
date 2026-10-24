@@ -170,7 +170,7 @@ export const CLASSES = {
     branches: ["fome", "escama", "garra", "rugido"],
     paths: ["primeira", "segunda", "terceira"],
     // Elements (chosen at CR 1, module/classes/matador.mjs), in the order of the tab
-    elements: ["fogo", "ferro", "ceu", "raio"],
+    elements: ["fogo", "ferro", "ceu", "raio", "branco", "sombras", "veneno"],
     magic: true
   },
   menestrel: {

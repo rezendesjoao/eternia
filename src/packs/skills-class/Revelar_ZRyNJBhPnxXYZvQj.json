@@ -1,0 +1,79 @@
+{
+  "name": "Revelar",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Furtividade.</strong> Você enxerga o que ninguém vê: os inimigos numa área a até 6 Qd perdem [Oculto] e [Intangível]. Uma vez por rodada.</p><p><em>Quem se esconde dos outros não se esconde de você.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/biological/eye-blue-gold.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "furtividade-revelar",
+      "kind": "feeds",
+      "branch": "magic",
+      "useActions": [
+        {
+          "type": "removeStatus",
+          "statuses": [
+            "hidden",
+            "intangible"
+          ],
+          "recipients": "targets"
+        }
+      ],
+      "magicSpell": {
+        "id": "furtividade"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ZRyNJBhPnxXYZvQj",
+  "folder": "9Bo9jaHuOrAXnzsh",
+  "_key": "!items!ZRyNJBhPnxXYZvQj"
+}

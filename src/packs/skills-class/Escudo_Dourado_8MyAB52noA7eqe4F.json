@@ -1,0 +1,119 @@
+{
+  "name": "Escudo Dourado",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Arco da Materialização.</strong> Antes do Dano de um ataque contra você: o seu braço esquerdo vira um grande escudo dourado, com [Anulação: NP + 5] contra esse dano. Uma vez por rodada.</p><p><em>O escudo tem desenhos que você nem sabia que imaginava.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/defensive/shield-barrier-glowing-triangle-orange.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "cancel",
+            "value": "@cr+5"
+          },
+          "consumeOn": "damage",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Escudo Dourado",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "6vGcCUCdPnA39AUt",
+      "_key": "!items.effects!8MyAB52noA7eqe4F.6vGcCUCdPnA39AUt"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "arco-materializacao-escudo",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "arco-materializacao"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "8MyAB52noA7eqe4F",
+  "folder": "PRrPU4idsZd4JqWw",
+  "_key": "!items!8MyAB52noA7eqe4F"
+}

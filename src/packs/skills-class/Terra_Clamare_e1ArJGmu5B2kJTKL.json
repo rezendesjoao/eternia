@@ -1,0 +1,80 @@
+{
+  "name": "Terra Clamare",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Arco da Grande Árvore. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: galhos prendem um alvo a até 5 Qd, e você solta nele, de uma vez, toda a magia que a terra guarda. Teste de Precisão contra a Resistência; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Chama], e ele fica [Atordoado]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>A terra grita. Dá para ouvir.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/nature/root-vine-thorned-fire-purple.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "arco-grande-arvore-terra-clamare",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "dazed"
+        }
+      ],
+      "magicSpell": {
+        "id": "arco-grande-arvore"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "e1ArJGmu5B2kJTKL",
+  "folder": "StFARncjLUM0StDh",
+  "_key": "!items!e1ArJGmu5B2kJTKL"
+}

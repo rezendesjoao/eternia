@@ -1,0 +1,130 @@
+{
+  "name": "Macro",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Maldição.</strong> Você dá ordens, e os corpos obedecem: o inimigo para de lutar contra você, os livros voam, as estantes desabam. No fim, você manda no próprio corpo que tire os limites, e um olho se abre na palma da sua mão. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, o Limitador:</strong> o seu corpo de sempre é uma tranca que segura a sua força: em combate, a sua Iniciativa cai [NP] e você sofre −1d6 nas Resistências. Enquanto você está [Despertado] (o Macro em Si Mesmo tira a tranca), o Tabu não vale.</li><li><strong>Feitiços:</strong> Arremesso de Livros e Ordem ao Corpo (NP 1), Macro em Si Mesmo e Olhos Demoníacos (NP 3), Avalanche da Biblioteca (NP 5) e o feitiço supremo Olho Demoníaco Liberto (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Olho Demoníaco Liberto pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você não pede. Você manda, e o corpo dos outros obedece antes deles.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/sundries/books/book-tooled-eye-gold-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            },
+            {
+              "type": "notStatus",
+              "value": "awakened"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "O Limitador",
+      "img": "icons/magic/control/debuff-chains-ropes-green.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.initiative.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          },
+          {
+            "key": "system.checks.resistance.dice",
+            "type": "add",
+            "value": -1,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "JCGSZYogoWIFE04L",
+      "_key": "!items.effects!aIL1h1O5BqLqO10e.JCGSZYogoWIFE04L"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "macro-macro",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "macro",
+        "category": "curse",
+        "tagline": "Dar ordens ao corpo dos outros, aos livros e ao próprio corpo."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "aIL1h1O5BqLqO10e",
+  "folder": "Zm2QI6ycOlnQKAL0",
+  "_key": "!items!aIL1h1O5BqLqO10e"
+}

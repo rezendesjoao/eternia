@@ -1,0 +1,76 @@
+{
+  "name": "Trovão Negro do Deus do Raio",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Matador de Deuses do Raio.</strong> Feitiço grande. Raios negros caem do céu sobre uma área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; [4d6 + Poder Mágico] de dano mágico de [Choque], e quem eles acertam fica [Atordoado].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Primeiro escurece. Depois, o céu racha em linhas pretas.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Shock"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/lightning/bolts-forked-large-magenta.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "matador-deuses-raio-trovao",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "dazed"
+        }
+      ],
+      "magicSpell": {
+        "id": "matador-deuses-raio"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "a4oF5ughE5IHyI5W",
+  "folder": "Rp6ML1DhDHWgGsXD",
+  "_key": "!items!a4oF5ughE5IHyI5W"
+}

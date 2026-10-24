@@ -8,7 +8,7 @@ diz onde cada regra está no código e como criar uma condição nova.
 
 | Arquivo | O que faz |
 |---|---|
-| `module/conditions/catalog.mjs` | As 31 condições (id, grupo, família, ícone, campo do Valor, acúmulo, origem) e as tabelas das regras: quem perde a vez (`NO_ACTIONS`), sem movimento (`NO_MOVEMENT`), sem reações (`NO_REACTIONS`), tags que o Silenciado impede, o que acaba no fim do próprio turno, no Encerramento e no fim da cena, o que o Aflito protege, a ação para se livrar (`RECOVERY`) e os limiares dos acúmulos. |
+| `module/conditions/catalog.mjs` | As 31 condições (id, grupo, família, ícone, campo do Valor, acúmulo, origem) e as tabelas das regras: quem perde a vez (`NO_ACTIONS`), sem movimento (`NO_MOVEMENT`), sem reações (`NO_REACTIONS`), tags que o Silenciado impede (as habilidades com [Maldição] passam), o que acaba no fim do próprio turno, no Encerramento e no fim da cena, o que o Aflito protege, a ação para se livrar (`RECOVERY`) e os limiares dos acúmulos. |
 | `module/conditions/rules.mjs` | Consultas comuns: `has`, `rating`, `sourcesOf`, `isHostile`, `removeStatuses`, `addStatus` e as duas configurações. |
 | `module/conditions/rolls.mjs` | −1d6 e +1d6 dos testes e das Esquivas, o dano a mais e o Concentrado que se gasta. Chamado pelas rolagens de habilidade, pelos cartões de ataque, pelas fichas, pelo HUD e pelo Destino. |
 | `module/conditions/damage.mjs` | O dano dos cartões (antes: Exposto, Intangível; depois: Último Fôlego, Vínculo, Espelho, Adormecido, Encantado, Chama no Congelando), o que o Desfazer devolve, o Maldito e o `takeDamage` (o dano das próprias condições, com Barreira, Anulação da tag e linha no chat; quem não é dono pede ao Mestre pelo socket). |

@@ -1,0 +1,79 @@
+{
+  "name": "Lâmina Desembainhada",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Espadas Mágicas. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: pela primeira vez na luta, você tira a espada da bainha, e o rastro do golpe alcança um alvo a até 3 Qd. Teste de Precisão contra a Esquiva; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico, e ele fica [Exposto]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>O vento do corte racha a parede atrás dele.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/sword-engraved-glow-purple.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "espadas-magicas-desembainhada",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "exposed"
+        }
+      ],
+      "magicSpell": {
+        "id": "espadas-magicas"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "gMGJiqi3MCmY6r7O",
+  "folder": "rUgVB3szY53X0U7A",
+  "_key": "!items!gMGJiqi3MCmY6r7O"
+}

@@ -1,0 +1,162 @@
+{
+  "name": "Fusão com a Árvore",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Arco da Grande Árvore.</strong> Você entra numa árvore (uma a até 1 Qd, ou uma que você mesmo fez crescer) e as raízes bebem a força da terra por você: fica [Oculto] (não pode ser alvo de ações de outros, só de área) até usar uma Ação Maior, causar ou sofrer dano, e com [Regeneração: NP÷2 + 2] até o fim da cena. Uma vez por cena.</p><p><em>Só quem sente magia percebe que a árvore respira.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/nature/root-vines-face-glow-green.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Fusão com a Árvore",
+      "img": "systems/eternia/assets/ui/status/hidden.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "hidden"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "T8V1I0sM5SPUAAqB",
+      "_key": "!items.effects!L4tsOdr2bfDVQRlX.T8V1I0sM5SPUAAqB"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "regen",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Fusão com a Árvore: raízes",
+      "img": "systems/eternia/assets/ui/status/regen.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "regen"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "VuBKUQUCeUe2ycay",
+      "_key": "!items.effects!L4tsOdr2bfDVQRlX.VuBKUQUCeUe2ycay"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "arco-grande-arvore-fusao",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "arco-grande-arvore"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "L4tsOdr2bfDVQRlX",
+  "folder": "StFARncjLUM0StDh",
+  "_key": "!items!L4tsOdr2bfDVQRlX"
+}

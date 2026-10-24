@@ -5,7 +5,8 @@
  * - No action at all: [Paralyzed], [Asleep] (their combatants are skipped, see turns.mjs).
  * - No [Movement] skill, and the token doesn't move: [Rigor], [Rooted], [Grappled] (and the two above).
  * - No reaction (Before / After Check, Damage Roll, Before / After Damage): [Dazed], [Shocked].
- * - [Silenced]: no [Magic Attack], [Spell] or [Song]. [Disarmed]: no weapon attack. [Sealed (Skill)]: not that skill.
+ * - [Silenced]: no [Magic Attack], [Spell] or [Song], but a [Curse] isn't magic and goes on. [Disarmed]: no weapon
+ *   attack. [Sealed (Skill)]: not that skill.
  * - [Berserk]: only skills that attack.
  * - Targets: [Blinded] only within 1 Sq; [Grappled] attacks only its grappler, [Taunted] must include its taunter,
  *   [Charmed] never attacks its charmer. [Frightened] can't move closer to what frightens it.
@@ -62,7 +63,9 @@ export function conditionUseIssues(item, actor, { targets = null } = {}) {
   if (REACTIONS.has(timing)) {
     for (const id of NO_REACTIONS) if (has(actor, id) && !NO_ACTIONS.includes(id)) push(id, "NoReactions");
   }
-  if (has(actor, "silenced") && SILENCED_TAGS.some(t => tags.includes(t.toLowerCase()))) push("silenced", "Silenced");
+  if (has(actor, "silenced") && !tags.includes("curse") && SILENCED_TAGS.some(t => tags.includes(t.toLowerCase()))) {
+    push("silenced", "Silenced");
+  }
   if (has(actor, "disarmed") && isWeaponAttack(item)) push("disarmed", "Disarmed");
   if (has(actor, "sealed") && sealedSkills(actor).includes(item.name.trim().toLowerCase())) push("sealed", "Sealed");
   const hostile = isHostile(item);

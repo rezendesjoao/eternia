@@ -714,7 +714,7 @@ próprios. Código em `module/classes/matador.mjs`.
 | Base | FOR 3, DES 3, POD 3, INT 1; faixa Firme (40, +6/NP); papel Damage |
 | Magias | uma no NP 5 e outra no NP 10 (o elemento é a magia do NP 1); os feitiços somam Escamas |
 | Kit | Escamas (Motor), Devorar (Menor, 1/rodada), Punho de Ferro do Dragão (Maior, +1), Rugido do Dragão (Maior, gasta à escolha) |
-| Elementos (NP 1) | Dragão de Fogo (Chama Brilhante do Dragão de Fogo, Chama das Emoções, Lótus Carmesim), Dragão de Ferro (Escamas do Dragão de Ferro, Espada do Dragão de Ferro, Carma Demoníaco), Dragão do Céu (Sopro Curativo, Bênção do Dragão do Céu, Luz Despedaçadora), Dragão do Raio (Alabarda Celeste, Corpo de Raio, Trovão Rugente) |
+| Elementos (NP 1) | Dragão de Fogo (Chama Brilhante do Dragão de Fogo, Chama das Emoções, Lótus Carmesim), Dragão de Ferro (Escamas do Dragão de Ferro, Espada do Dragão de Ferro, Carma Demoníaco), Dragão do Céu (Sopro Curativo, Bênção do Dragão do Céu, Luz Despedaçadora), Dragão do Raio (Alabarda Celeste, Corpo de Raio, Trovão Rugente), Dragão Branco (Raio Sagrado do Dragão Branco, Impulso Branco, Nova Sagrada), Dragão das Sombras (Corte do Dragão das Sombras, Forma de Sombra, Abismo do Dragão das Sombras), Dragão do Veneno (Dente Duplo do Dragão do Veneno, Guarda do Dragão do Veneno, Mandíbula do Dragão do Veneno) |
 | A Fome | Barriga Cheia*, Sabor da Vitória, Alimento do Dragão, Fome Insaciável |
 | A Escama | Pele de Escamas*, Estômago de Dragão*, Instinto do Dragão, Semente Contida |
 | A Garra | Garra do Dragão*, Cotovelo do Dragão*, Chifre de Espada do Dragão, Presa Esmagadora do Dragão |
@@ -737,7 +737,9 @@ Dragão Duplo), `seed` (`{ n, scenario }`: a Semente e o cenário em que conta, 
 `emotion` (Chama das Emoções). A tabela `ELEMENTS` do arquivo diz a tag, o estado e a fonte de cada elemento; um
 elemento novo é uma linha nela, uma habilidade com `flags.eternia.element` (passiva, com a [Anulação] e a imunidade num
 efeito) e os talentos com `elementTalent`. As tags [Ferro] (`Iron`) e [Vento] (`Wind`) entraram no catálogo para o
-Ferro e o Céu.
+Ferro e o Céu; o Branco, as Sombras e o Veneno (0.25) usam tags que já existiam: [Radiância], [Corrupção] e [Veneno].
+Os elementos da 0.25 foram gerados à parte (`elementos.mjs` do gerador do Matador), e a migração `kudenCleanup` (versão
+6) os põe na escolha do item de classe e da Dedicação das fichas que já tinham o Matador.
 
 Automação: os ganhos e os gastos, a Força pelo valor (o [Despertado] é um estado passivo do Motor, e a [Fadiga] vem da
 regra dele ao sair), o dreno no Encerramento, a Semente, a tag do elemento no dano dos golpes (`damageTags`), o estado
@@ -745,7 +747,8 @@ no acerto (`onHit`), o ataque de aliado comido (`absorbs`), ser atingido pelo el
 comido sai do alvo pelo Mestre quando o jogador não é dono; sem estado, o diálogo pergunta pela fonte), Alimento do
 Dragão, Chama das Emoções, Dragões Gêmeos, o Dragão Interior ([Último Fôlego] uma vez por cenário), a lacrima, a Força
 por vontade, a Semente Contida (metade da Força como [Despertado], a outra metade no dano) e o Ápice. Ficam com o
-Mestre: o enjoo em veículos, as fontes da cena e o deslocamento do Cotovelo, do Chifre de Espada e do Corpo de Raio.
+Mestre: o enjoo em veículos, as fontes da cena e o deslocamento do Cotovelo, do Chifre de Espada, do Corpo de Raio,
+do Corte do Dragão das Sombras e da Forma de Sombra.
 
 ### Menestrel
 
@@ -996,6 +999,7 @@ REGRAS (a geral e uma página por Magia).
 
 | Magia | Categoria | Feitiços |
 |---|---|---|
+| Absorção | Maldição (Tabu: em combate, a Defesa Mágica cai [NP÷2] e −1d6 nas Resistências) | Conexão ([Fortalecido] em você), Absorver o Ataque, Revolução ([Despertado]), Roubar a Alma ([Selado]), Ejeção, Festim de Almas (supremo, num alvo só) |
 | Água | Conjuração | Lâmina de Água, Prisão de Água, Corpo de Água, Nebulosa de Água, Sierra, Maremoto (supremo) |
 | Alma Animal | Conjuração | Alma Animal: Gato, Alma Animal: Pássaro, Alma Animal: Coelho, Alma Animal: Peixe, Alma Animal: Urso, Alma Animal: Estouro da Manada (supremo) |
 | Alma de Fera | Conjuração | Braço de Fera: Pedra, Braço de Fera: Touro de Ferro, Braço de Fera: Touro Negro, Alma de Fera: Homem-Lagarto, Alma de Fera: Homem-Tigre, Alma de Fera: Corpo Inteiro (supremo) |
@@ -1003,32 +1007,51 @@ REGRAS (a geral e uma página por Magia).
 | Alma de Satã | Conjuração | Faísca Maligna, Fluxo das Trevas, Explosão Maligna, Alma de Satã: Halphas, Alma de Satã: Sitri, Extinção da Alma (supremo) |
 | Alta Velocidade | Conjuração | Golpe Veloz, Rajada de Golpes, Velocidade Máxima, Chute Supersônico, Cem Golpes, Tempestade de Golpes (supremo) |
 | Amarras | Conjuração | Chicote de Tubo, Tubo de Amarra, Arranhão Secreto, Rede de Tubos, Explosão Felina, Prisão de Mil Tubos (supremo) |
+| Aprimoramento | Maldição (Tabu: na primeira rodada do combate, as Defesas Física e Mágica caem [NP]) | Garras-Chicote, Aprimorar o Corpo, Amplificação da Dor ([Fraqueza: NP]), Aprimoramento por Segundo ([Despertado]), Amplificação da Dor em Massa, Privação dos Sentidos (supremo, num alvo só) |
+| Arco da Grande Árvore | Perdida (Tabu: em combate, −1d6 nas Esquivas) | Explosões em Linha, Fusão com a Árvore ([Oculto], [Regeneração]), Lâminas de Folha, Bomba-Relógio de Raízes, Estouro da Torre, Terra Clamare (supremo, num alvo só) |
+| Arco da Materialização | Perdida (Tabu: em combate, a Iniciativa cai [NP] e a Defesa Física cai [NP÷2]) | Espada Negra, Escudo Dourado, Asas de Pégaso, Fantasmas de Brittia, Fera Sagrada: Belcusas do Trovão, Torre de Dingir (supremo) |
 | Arco do Tempo | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP÷2]) | Avanço Rápido, Tempo Lento, Restaurar, Acelerar, Arco do Tempo: Envelhecer, Última Era (supremo, cura os aliados e deixa [Fadiga] em quem conjura) |
 | Areia | Conjuração | Rebelião da Areia, Lufada de Areia, Corpo de Areia, Cova da Formiga-Leão, Areias da Morte, Mundo de Areia (supremo) |
 | Armas Mágicas | Portadora (as armas) | Tiro Mágico, Bala de Bolha, Bala Teleguiada (sem Teste de Precisão), Mira Travada, Bala Explosiva, Chuva de Balas (supremo) |
+| Artes Brancas | Proibida (Tabu: em combate, a Recuperação cai [NP], e o Prazer pega aliados na área) | Lâminas de Luz, Alma Faminta, Descanse em Paz ([Adormecido]), Dois Dedos, Prazer, Êxtase (supremo) |
 | Artes Negras | Proibida (Tabu: [Maldito] em combate; a Predação da Morte pega aliados) | Toque da Morte, Esfera da Morte, Véu das Trevas, Predação da Morte, Sentença Negra (supremo) |
+| Bomba | Maldição (Tabu: em combate, a Defesa Física cai [NP]) | Explosão, Conversão em Bomba (Após o Dano), Mina Terrestre, Bomba de Captura, Espiral Explosiva, Detonação (supremo, a até 2 Qd de você) |
+| Cabelo Carmesim | Conjuração | Cabelo que Prende, Cabelo Esponja (contra [Água]), Chuva de Cabelo: Mil Pássaros, Marca em Brasa, Chuva de Cabelo: Vaga-lumes, Chuva de Cabelo: Presa de Lobo (supremo, num alvo só) |
 | Cajados Mágicos | Portadora | Raio do Cajado, Muro de Névoa, Sono, Arranha-Céu, Dança dos Cinco Cajados, Círculo de Cinco Camadas: Canto Sagrado (supremo) |
+| Calamidade | Maldição (Tabu: em combate, a Defesa Física cai [NP÷2], e as Partículas Antimagia pegam aliados) | Tornado, Aguaceiro (em você ou num aliado), Impacto, Esfera do Trovão, Inferno, Partículas Antimagia (supremo) |
 | Cartas | Portadora | Cartas Lançadas, Carta do Trovão, Leitura da Sorte, Prisão de Cartas, Tempestade de Cartas, Os Vinte e Dois Arcanos (supremo) |
+| Comando M | Conjuração | Comando: Redução, Comando: Expansão, Comando: Encolher a Magia (em você ou num aliado), Qualidade do Poder Mágico, Comando: Terreno, Demolidora de Países (supremo) |
+| Cópia | Conjuração (o Copiar decora um feitiço; a Imitação repete a tag e o estado dele) | Copiar, Ouvir a Alma (+1d6 nas Esquivas na cena), Imitação, Copiar e Anular, Derreter, Ars Magia (supremo) |
 | Corpos Celestes | Conjuração | Estrela Cadente, Meteoro, Velocidade da Luz, Altairis, Sete Estrelas do Julgamento: Grand Chariot, Sema (supremo) |
+| Correntes | Proibida (Tabu: em combate, −1d6 nas Resistências) | Corrente do Grimório, Balas Mágicas, Raio do Grimório, Amaterasu: Fórmula 28, Amaterasu: Fórmula 100, Lei do Grimório (supremo) |
 | Elo dos Sentidos | Perdida (Tabu: em combate, a Defesa Física cai [NP]) | Lâminas Sensoriais, Elo Sensorial ([Vínculo] num aliado), Lâmina de Sodoma, Sentidos Trocados, Tempestade de Lâminas, Elo Final (supremo) |
 | Encantamento | Conjuração | Encantamento: Força, Encantamento: Guarda, Encantamento: Pressa, Desencanto, Grande Encantamento, Universo Um (supremo) |
 | Escrita Rúnica | Conjuração | Runa da Prisão, Escrita Negra: Dor, Runa do Revide, Escrita Negra: Asas, Escrita Negra: Escuridão, Escrita Rúnica: Regra Absoluta (supremo) |
 | Escrita Sólida | Conjuração | Escrita Sólida: Fogo, Escrita Sólida: Guarda, Escrita Sólida: Silêncio, Escrita Sólida: Ferro, Escrita Sólida: Trovão, A Palavra Final (supremo) |
 | Esmagamento | Conjuração | Toque Esmagador, Onda de Esmagamento, Desmontagem, Quebrar a Guarda, Ruptura, Esmagamento Absoluto (supremo) |
+| Espadas Mágicas | Portadora (a espada) | Kata do Corte, Kata Rasteira, Lampejo Vazio de Yasha, Kata do Voo, Chama de Garuda, Lâmina Desembainhada (supremo, num alvo só) |
+| Espinhos | Maldição (Tabu: em combate, a Recuperação cai [NP] e −1d6 nas Esquivas) | Vinhas de Espinhos, Manto de Espinhos ([Espelho]), Jardim de Espinhos, Rosa Explosiva, Dea Yggdrasil, Memento Mori (supremo, [Sentença: 3]) |
 | Espíritos Celestiais | Portadora (as chaves) | Portão do Touro, Portão do Carneiro, Portão do Sagitário, Portão do Aguadeiro (pega aliados também), Portão do Leão: Impacto de Régulo, Vestido Estelar, Urano Metria (supremo) |
 | Fogo | Conjuração | Chama Laranja, Chama Roxa, Chama Azul, Chama Amarela, Coluna de Fogo, Chama Arco-Íris (supremo) |
 | Fumaça | Portadora (o cachimbo) | Punho de Fumaça, Corda de Fumaça, Cortina de Fumaça, Nuvem Sufocante, Gigante de Fumaça, Mar de Fumaça (supremo) |
+| Furtividade | Conjuração | Apagar a Presença, Arma Invisível, Revelar (tira [Oculto] e [Intangível]), Tortura Invisível, Mil Lâminas Invisíveis, Assassinato Perfeito (supremo, num alvo só) |
 | Gigante | Conjuração | Golpe Gigante, Mão Gigante, Corpo Gigante, Pisada do Gigante, Punho do Titã, Queda do Titã (supremo) |
 | Gravidade | Conjuração | Queda, Mudança de Gravidade, Campo Gravitacional, Gravidade Zero, Buraco Negro, Peso do Mundo (supremo) |
+| Histórias dos Mortos | Conjuração | Rajada de Energia, Ler o Coração, História dos Mortos, Redemoinho Cortante, Cidade dos Mortos, O Mais Forte dos Mortos (supremo, num alvo só) |
+| Macro | Maldição (Tabu: em combate, a Iniciativa cai [NP] e −1d6 nas Resistências, menos enquanto [Despertado]) | Arremesso de Livros, Ordem ao Corpo ([Encantado]), Macro em Si Mesmo ([Despertado], tira o Tabu), Olhos Demoníacos, Avalanche da Biblioteca, Olho Demoníaco Liberto (supremo) |
 | Magia das Fadas | Ancestral (o supremo no NP 10) | Luz das Fadas, Ilusão das Fadas, Bênção das Fadas, Esfera das Fadas, Brilho das Fadas, Lei das Fadas (supremo, NP 10) |
 | Magia dos Anjos | Conjuração (os anjos acertam sem teste e deixam [Fadiga] em quem conjura) | Penas Angelicais, Mensageiros Angelicais, Anjo do Martelo, Shamsiel, Barakiel, Raguel (supremo) |
 | Magia Seith | Conjuração | Bonecos: Formação Linha, Possessão, Bonecos: Formação X, Olhos de Boneco, Bonecos: Formação Bárion, Ritual das Almas (supremo) |
 | Magia Viva | Perdida (Tabu: em combate, a Recuperação e a Defesa Mágica caem [NP]) | Centelha da Vida, Cria de Barro, Sangue Vivo, Corpo Refeito, Fera Criada, Gênese (supremo) |
+| Maldição do Boneco | Perdida, no boneco (Tabu: em combate, a Recuperação cai [NP] e a Defesa Mágica cai [NP÷2]) | Fio no Boneco, Dodoskoi, Boneco de Ferro, Boneco de Névoa, Foguete Metálico, Dodoskoi Brilhante (supremo) |
 | Matador de Demônios | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP]) | Fúria do Demônio de Gelo, Garra do Demônio de Gelo, Gelo do Demônio, Gelo que Cala, Arco da Destruição do Demônio de Gelo, Lâmina da Destruição do Demônio de Gelo (supremo) |
-| Matador de Deuses | Perdida (Tabu: em combate, a Iniciativa cai [NP] e a Velocidade cai 1) | Rugido do Deus do Céu, Sopro Curativo, Dança do Deus do Céu, Bênção do Deus do Céu, Bóreas do Deus do Céu, Arte Secreta: Lança Celestial (supremo) |
+| Matador de Deuses do Céu | Perdida (Tabu: em combate, a Iniciativa cai [NP] e a Velocidade cai 1) | Rugido do Deus do Céu, Sopro Curativo, Dança do Deus do Céu, Bênção do Deus do Céu, Bóreas do Deus do Céu, Arte Secreta: Lança Celestial (supremo) |
+| Matador de Deuses do Fogo | Perdida (Tabu: em combate, a Recuperação cai [NP] e a Defesa Física cai [NP÷2]) | Rugido do Deus do Fogo, Devorar as Chamas (contra um ataque de [Chama]), Foice do Deus do Fogo, Chama Explosiva do Deus do Fogo, Kagutsuchi do Deus do Fogo, Ceia do Deus do Fogo (supremo, num alvo só) |
+| Matador de Deuses do Raio | Perdida (Tabu: em combate, a Defesa Mágica cai [NP]) | Rugido do Deus do Raio, Devorar o Raio, Canhão de Raio Negro de 120 mm, Couraça de Raio Negro, Trovão Negro do Deus do Raio, Canhão de Partículas do Deus do Raio (supremo, em linha) |
 | Moldagem de Gelo | Conjuração | Moldagem de Gelo: Lança, Moldagem de Gelo: Escudo, Moldagem de Gelo: Martelo, Moldagem de Gelo: Chão, Moldagem de Gelo: Águias, Lâmina de Gelo: Dança dos Sete Cortes, Impacto de Gelo (supremo) |
 | Moldagem de Madeira | Conjuração | Moldagem de Madeira: Aproximação Violenta, Moldagem de Madeira: Senso de Distância do Coração, Fusão com a Madeira, Moldagem de Madeira: Represa do Amor Tímido, Moldagem de Madeira: A Distância Entre Nós Dois É Eterna, Moldagem de Madeira: Soco Divino (supremo, num alvo só) |
 | Moldagem de Memória | Conjuração | Memorizar, Moldagem de Memória: Feitiço Lembrado, Moldagem de Memória: Esquecimento, Moldagem de Memória: Fortaleza da Terra Ardente, Moldagem de Memória: Noite das Estrelas Cadentes, Moldagem de Memória: Lembrança Absoluta (supremo) |
+| Necromancia | Maldição (Tabu: [Maldito] em combate) | Mortos de Pé, Corpo de Partículas ([Intangível]), Primeiro Selo ([Silenciado]), Guarda dos Mortos (em você ou num aliado), Exército de Ossos, Julgamento da Estrela Maligna (supremo) |
 | Neve | Conjuração | Fúria Branca, Cópia de Neve, Nevasca Branca, Vento de Nevasca, Avalanche de Neve, Branco Total (supremo) |
 | Olhos Mágicos | Conjuração | Olhar de Pedra, Olho Clínico, Olhar Hipnótico, Olho do Demônio, Mil Olhos, Olhar Petrificante (supremo) |
 | Onda | Conjuração | Disparo de Onda, Escudo de Onda (contra ataques mágicos), Impulso de Onda, Anular Magia, Explosão de Onda, Mundo Sem Magia (supremo) |
@@ -1039,6 +1062,9 @@ REGRAS (a geral e uma página por Magia).
 | Raio | Conjuração | Relâmpago, Corrente Elétrica, Passo do Relâmpago, Trovão, Tempestade de Raios, Palácio do Trovão (supremo) |
 | Reequipar: O Cavaleiro | Portadora (os feitiços são Ataques com Arma) | Roda Celeste: Círculo de Espadas, Asa Negra: Lampejo Lunar, Armadura Adamantina, Traje do Coração Puro, Roda Celeste: Pétalas de Aço, Armadura de Nakagami: Luz Estelar (supremo) |
 | Reflexão | Conjuração | Torção, Reflexo, Miragem, Corpo Torcido, Mundo Torcido, Reflexão Total (supremo) |
+| Selo do Tempo | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP÷2]) | Raio de Âge (sem teste), Selar o Tempo, Arranhão de Âge, Passo Fora do Tempo, Transbordamento, Alma Divina: Cronos (supremo, [Paralisado]) |
+| Shikigami | Conjuração | Torrente de Shikigami, Véu de Ilusão ([Oculto] em você ou num aliado), Prisão de Papel, Bomba Negra de Shikigami, Revoada de Shikigami, Mil Bonecos de Papel (supremo) |
+| Sombras | Conjuração | Soldados de Sombra, Guarda de Sombras, Abraço das Sombras, Pulso Sombrio, Onda da Morte, Exército de Sombras (supremo) |
 | Teatro de Bonecas | Conjuração | Boneca de Pedra, Boneca de Madeira, Marionete, Boneca de Nuvem, Boneca da Terra, Grande Teatro (supremo) |
 | Telepatia | Conjuração | Sobrecarga, Leitura de Mente, Proteção, Ruído Mental, Transferência de Informação, Sobrecarga Total (supremo) |
 | Teleporte | Conjuração | Linha Direta: Investida, Linha Direta, Linha Direta: Lançamento, Memória Falsa, Ponto Cego, Transporte (supremo) |
@@ -1048,7 +1074,9 @@ REGRAS (a geral e uma página por Magia).
 | Vento | Conjuração | Lâmina de Vento, Rajada, Armadura de Tempestade, Redemoinho, Furacão, Espaço Aéreo: Zero (supremo) |
 
 As categorias são as da série: Conjuração (a magia sai do corpo), Portadora (precisa de um objeto equipado), Perdida e
-Proibida (mais fortes, com um Tabu), Ancestral (feitiços supremos de NP 10). O catálogo vai crescer em lotes, até cobrir
+Proibida (mais fortes, com um Tabu), Ancestral (feitiços supremos de NP 10) e Maldição (o poder dos
+demônios, que não é magia: forte como as Perdidas, com um Tabu, e o [Silenciado] não impede os feitiços). O catálogo vai
+crescer em lotes, até cobrir
 a magia de cada personagem (as Trevas, a Areia, o Teleporte...). Com o Fogo, o Raio, a
 Terra e o Vento (0.16), mais a Água e a Moldagem de Gelo, os seis elementos clássicos estão no catálogo.
 
@@ -1056,7 +1084,9 @@ Como se monta: a Magia é uma habilidade passiva com `flags.eternia.magic = { id
 Magia da classe; o Tabu, quando há, mora nela, num efeito passivo) e os feitiços têm `flags.eternia.magicSpell = { id }`,
 na pasta `Magias/<Magia>` de `skills-class`, com identificadores `<magia>-<nome>`. A parte do Motor de um feitiço tem
 `id: "@class"`: o Motor da classe de quem conjura. Os estados que um feitiço dá no acerto ficam em
-`flags.eternia.hitStatuses` (`[{ statusId, value }]`, o valor uma fórmula), sem código.
+`flags.eternia.hitStatuses` (`[{ statusId, value }]`, o valor uma fórmula), sem código. As Maldições
+(`category: "curse"`) têm a tag `Curse` em todos os feitiços, além de `Spell` e `Magic Attack` (que os Motores das
+classes leem): o [Silenciado] não as impede (`module/conditions/actions.mjs`).
 
 ## Referência técnica
 

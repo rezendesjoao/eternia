@@ -1,0 +1,77 @@
+{
+  "name": "Tornado",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Calamidade.</strong> Um tornado sai das suas mãos numa linha de 4 Qd e arranca o que encontra: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico de [Vento], e quem ele acerta fica [Derrubado].</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>As pedras da rua sobem junto.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Wind"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Line",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/air/wind-tornado-funnel-green.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "calamidade-tornado",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "prone"
+        }
+      ],
+      "magicSpell": {
+        "id": "calamidade"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Lomv26JvewgUtwB1",
+  "folder": "XRUhJyCiyWSBiaP3",
+  "_key": "!items!Lomv26JvewgUtwB1"
+}

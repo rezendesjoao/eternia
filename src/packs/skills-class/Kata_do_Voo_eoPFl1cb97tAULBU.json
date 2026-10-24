@@ -1,0 +1,75 @@
+{
+  "name": "Kata do Voo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Espadas Mágicas.</strong> Você salta e, no ar, corta tudo à sua volta: Teste de Precisão contra a Esquiva de cada inimigo engajado com você; [2d6 + Poder Mágico] de dano mágico, e quem ela acerta fica [Derrubado].</p><p><strong>Custo:</strong> Ódio 2.</p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/sword-twirl-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "espadas-magicas-voo",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "prone"
+        }
+      ],
+      "magicSpell": {
+        "id": "espadas-magicas"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "eoPFl1cb97tAULBU",
+  "folder": "rUgVB3szY53X0U7A",
+  "_key": "!items!eoPFl1cb97tAULBU"
+}

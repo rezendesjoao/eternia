@@ -1,0 +1,75 @@
+{
+  "name": "Foguete Metálico",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Maldição do Boneco.</strong> Feitiço grande. O boneco vira ferro e você o arremessa: quem tem o fio no boneco (um alvo [Agarrado] por você) vira um foguete de ferro contra outro inimigo. Teste de Precisão contra a Esquiva de até 2 alvos a até 4 Qd (o arremessado e o atingido); [4d6 + Poder Mágico] de dano mágico em cada um, e os dois ficam [Derrubado].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Ele grita o caminho todo. O outro só tem tempo de arregalar os olhos.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Targets",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/weapons/thrown/rocket.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "maldicao-boneco-foguete",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "prone"
+        }
+      ],
+      "magicSpell": {
+        "id": "maldicao-boneco"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "w1XA8mieQYIfEsBc",
+  "folder": "14S5WCyVllus4HKi",
+  "_key": "!items!w1XA8mieQYIfEsBc"
+}

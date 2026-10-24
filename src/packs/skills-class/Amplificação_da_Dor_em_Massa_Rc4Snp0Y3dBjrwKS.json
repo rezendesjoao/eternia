@@ -1,0 +1,78 @@
+{
+  "name": "Amplificação da Dor em Massa",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Aprimoramento.</strong> Feitiço grande. Faíscas que aumentam a dor caem sobre uma área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; [4d6 + Poder Mágico] de dano mágico [Psíquico], e quem elas acertam fica com [Fraqueza: NP÷2 + 2].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Eles gritam antes de a dor chegar. Só de esperar.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Psychic"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/lightning/projectiles-tendril-salvo-pink.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "aprimoramento-dor-em-massa",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "weakness",
+          "value": "floor(@cr/2)+2"
+        }
+      ],
+      "magicSpell": {
+        "id": "aprimoramento"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Rc4Snp0Y3dBjrwKS",
+  "folder": "xeOxGCFjMHfJ8m8e",
+  "_key": "!items!Rc4Snp0Y3dBjrwKS"
+}

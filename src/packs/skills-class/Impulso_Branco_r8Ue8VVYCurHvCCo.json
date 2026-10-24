@@ -1,0 +1,119 @@
+{
+  "name": "Impulso Branco",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Dragão Branco.</strong> A luz branca cobre o seu corpo por dentro e por fora: +1 Escama, e você fica [Fortalecido: NP÷2 + 2] até o fim da cena. Uma vez por cena.</p><p><em>O brilho sai pelos poros, e os seus golpes deixam rastro.</em></p>",
+    "tags": [
+      "Radiance"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/projectile-feathers-embers-gold.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "empowered",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Impulso Branco",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "XvJFdyACANWKHaME",
+      "_key": "!items.effects!r8Ue8VVYCurHvCCo.XvJFdyACANWKHaME"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "matador-impulso-branco",
+      "kind": "feeds",
+      "branch": "elementTalent",
+      "minRank": 5,
+      "motor": {
+        "id": "matador",
+        "gain": 1
+      },
+      "elementTalent": {
+        "class": "matador",
+        "id": "branco"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 200200,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "r8Ue8VVYCurHvCCo",
+  "folder": "WvnXFIVnimUybzJX",
+  "_key": "!items!r8Ue8VVYCurHvCCo"
+}

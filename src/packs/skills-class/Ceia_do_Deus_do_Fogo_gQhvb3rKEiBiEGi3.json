@@ -1,0 +1,83 @@
+{
+  "name": "Ceia do Deus do Fogo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Matador de Deuses do Fogo. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você bate as palmas, e uma boca de chamas negras salta sobre um alvo a até 5 Qd e o fecha numa esfera de fogo. Teste de Precisão contra a Resistência; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Chama], e ele fica [Exposto] e [Enraizado], preso na esfera. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>A boca se fecha devagar. Quem está dentro vê o mundo ficar preto.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/abilities/mouth-teeth-lamprey-red.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "matador-deuses-fogo-ceia",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "exposed"
+        },
+        {
+          "statusId": "rooted"
+        }
+      ],
+      "magicSpell": {
+        "id": "matador-deuses-fogo"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "gQhvb3rKEiBiEGi3",
+  "folder": "i2AOM57kW2aacHEc",
+  "_key": "!items!gQhvb3rKEiBiEGi3"
+}

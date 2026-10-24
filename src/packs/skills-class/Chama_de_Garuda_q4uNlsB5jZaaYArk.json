@@ -1,0 +1,77 @@
+{
+  "name": "Chama de Garuda",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Espadas Mágicas.</strong> Feitiço grande. A lâmina solta uma chama que corta em linha reta, até 4 Qd, e parte até a armadura feita para aguentar fogo: Teste de Precisão contra a Esquiva de cada alvo da Linha; [3d6 + Poder Mágico] de dano mágico de [Chama], e quem ela acerta fica [Fissurado: 2].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>A chama tem a forma de uma ave de asas abertas.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Line",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/strike-sword-slashing-red.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "espadas-magicas-garuda",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "fissured",
+          "value": 2
+        }
+      ],
+      "magicSpell": {
+        "id": "espadas-magicas"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "q4uNlsB5jZaaYArk",
+  "folder": "rUgVB3szY53X0U7A",
+  "_key": "!items!q4uNlsB5jZaaYArk"
+}

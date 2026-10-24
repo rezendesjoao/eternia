@@ -1,0 +1,126 @@
+{
+  "name": "Arco da Materialização",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Perdida.</strong> Tudo o que você imagina vira real: uma espada no lugar do braço, um escudo de ouro, asas nos pés, fantasmas, feras sagradas, uma torre inteira. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, a Imaginação Exposta:</strong> imaginar pede foco, e quem imagina fica aberto: em combate, a sua Iniciativa cai [NP] e a sua Defesa Física cai [NP÷2].</li><li><strong>Feitiços:</strong> Espada Negra e Escudo Dourado (NP 1), Asas de Pégaso e Fantasmas de Brittia (NP 3), Fera Sagrada: Belcusas do Trovão (NP 5) e o feitiço supremo Torre de Dingir (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Torre de Dingir pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você fecha os olhos para imaginar melhor. É quando eles atacam.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/sundries/books/book-embossed-spiral-purple-white.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Imaginação Exposta",
+      "img": "icons/sundries/books/book-open-purple.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.initiative.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          },
+          {
+            "key": "system.battle-status.defense.phys.mod",
+            "type": "add",
+            "value": "-floor(@cr/2)",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "NYcyjvuz8zApHoLP",
+      "_key": "!items.effects!zfsEvs8HfecFiMGT.NYcyjvuz8zApHoLP"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "arco-materializacao-arco-materializacao",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "arco-materializacao",
+        "category": "lost",
+        "tagline": "O que você imagina vira real: espadas, escudos, feras e torres."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "zfsEvs8HfecFiMGT",
+  "folder": "PRrPU4idsZd4JqWw",
+  "_key": "!items!zfsEvs8HfecFiMGT"
+}

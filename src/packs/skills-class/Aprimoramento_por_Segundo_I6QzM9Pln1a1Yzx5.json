@@ -1,0 +1,119 @@
+{
+  "name": "Aprimoramento por Segundo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Aprimoramento.</strong> Você aprimora o próprio corpo, e não para mais: fica [Despertado: NP÷2 + 2] até o fim da cena (+1d6 na Precisão e mais dano; quando sai, deixa [Fadiga] do mesmo Valor). Uma vez por cena.</p><p><em>A cada segundo, um pouco mais rápido. Um pouco mais forte.</em></p>",
+    "tags": [
+      "Spell",
+      "Curse"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/projectile-smoke-swirl-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "awakened",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Aprimoramento por Segundo",
+      "img": "systems/eternia/assets/ui/status/awakened.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "awakened"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "0j5tdQP43nhVKKmC",
+      "_key": "!items.effects!I6QzM9Pln1a1Yzx5.0j5tdQP43nhVKKmC"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "aprimoramento-por-segundo",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "aprimoramento"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "I6QzM9Pln1a1Yzx5",
+  "folder": "xeOxGCFjMHfJ8m8e",
+  "_key": "!items!I6QzM9Pln1a1Yzx5"
+}

@@ -1,0 +1,76 @@
+{
+  "name": "Roubar a Alma",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Absorção.</strong> Você puxa um pedaço da alma de um alvo a até 5 Qd: Teste de Precisão contra a Resistência; [4d6 + Poder Mágico] de dano mágico, e a última habilidade que ele usou fica [Selada] até o fim da cena (a alma dela agora é sua).</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Uma fumaça verde sai do peito dele e entra na sua boca.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/unholy/projectile-smoke-tendril-green.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "absorcao-roubar",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "sealed"
+        }
+      ],
+      "magicSpell": {
+        "id": "absorcao"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "sOGUJEJTq7JmmEEl",
+  "folder": "7M82T6fT7rsi8J1F",
+  "_key": "!items!sOGUJEJTq7JmmEEl"
+}

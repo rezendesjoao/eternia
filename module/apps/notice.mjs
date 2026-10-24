@@ -1,11 +1,12 @@
 /**
- * What's new: once per user and release line, a short window with the news of this version (0.24: four more Magias;
- * 0.23: four more Magias; 0.22: the 14 classes, physical and magic, all with Magias; 0.21: four more Magias; 0.20: four
- * Holder Magias; 0.19: four more Magias; 0.18: the Magia picker, the class tab without scrolling and three more Magias;
- * 0.17: three Lost Magias; 0.16: the elemental Magias, and the Sorcerer leaves the list; 0.15: the Blue Mage and the
- * Take Over Magias; 0.14: the White Mage in the Weaver's place and three more Magias; 0.13: the Summoner as a magic
- * class and three more Magias; 0.12: the Pictomancer and three more Magias; 0.11: the Red Mage and four more Magias;
- * 0.10: the Black Mage and the Magias; 0.9: the Dragon Slayer;
+ * What's new: once per user and release line, a short window with the news of this version (0.25: three Dragon Slayer
+ * elements, sixteen more Magias and the seven Curses; 0.24: four more Magias; 0.23: four more Magias; 0.22: the 14
+ * classes, physical and magic, all with Magias; 0.21: four more Magias; 0.20: four Holder Magias; 0.19: four more
+ * Magias; 0.18: the Magia picker, the class tab without scrolling and three more Magias; 0.17: three Lost Magias; 0.16:
+ * the elemental Magias, and the Sorcerer leaves the list; 0.15: the Blue Mage and the Take Over Magias; 0.14: the White
+ * Mage in the Weaver's place and three more Magias; 0.13: the Summoner as a magic class and three more Magias; 0.12:
+ * the Pictomancer and three more Magias; 0.11: the Red Mage and four more Magias; 0.10: the Black Mage and the Magias;
+ * 0.9: the Dragon Slayer;
  * 0.8: the sixteen classes;
  * 0.7: the classes and the Samurai; 0.6: the Sword Art Online items; 0.5: the item icons; 0.4: the professions; 0.3: the races; 0.2: the conditions; 0.1: the HUD in place of the macro hotbar, the turn helpers, the status links),
  * so the players know what changed.
@@ -13,7 +14,7 @@
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 
 /** The release line the notice speaks about. */
-const NOTICE = "0.24";
+const NOTICE = "0.25";
 
 /** Call during the `init` hook. */
 export function registerNotice() {

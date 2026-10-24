@@ -1,0 +1,82 @@
+{
+  "name": "Memento Mori",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Espinhos. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: a Memória da Morte, a maldição feita para apagar até quem não morre. Uma névoa escura envolve um alvo a até 5 Qd e sobe ao céu num raio de espíritos: Teste de Precisão contra a Resistência; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Corrupção], e ele fica com [Sentença: 3] (nem vivo nem morto: se nada tirar a Sentença, em três rodadas ele cai). Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Não sobra corpo, nem alma, nem lembrança.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/death/skull-flames-white-blue.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "espinhos-memento-mori",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "doom",
+          "value": 3
+        }
+      ],
+      "magicSpell": {
+        "id": "espinhos"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ZylhCsmzHHhpW4Wb",
+  "folder": "8G1y15EUGLTcCIvK",
+  "_key": "!items!ZylhCsmzHHhpW4Wb"
+}

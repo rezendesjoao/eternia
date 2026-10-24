@@ -1,0 +1,77 @@
+{
+  "name": "Marca em Brasa",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Cabelo Carmesim.</strong> A ponta de uma mecha vira brasa, no desenho que você quiser, e você a crava num inimigo engajado com você: Teste de Precisão contra a Esquiva; [2d6 + Poder Mágico] de dano mágico de [Chama], e ele fica [Marcado: NP÷2 + 2] (−1d6 nas Esquivas; ao falhar numa, sofre o Valor como dano direto e a marca sai).</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>A marca fumega por um bom tempo depois.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/dagger-rune-enchant-flame-strong-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "cabelo-carmesim-marca",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "marked",
+          "value": "floor(@cr/2)+2"
+        }
+      ],
+      "magicSpell": {
+        "id": "cabelo-carmesim"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "bjGt4GOdCPBcW6UI",
+  "folder": "c5yogghgjt48r8GQ",
+  "_key": "!items!bjGt4GOdCPBcW6UI"
+}

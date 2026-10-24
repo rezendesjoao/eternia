@@ -1,0 +1,84 @@
+{
+  "name": "Privação dos Sentidos",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Aprimoramento. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você tira os cinco sentidos de um alvo a até 5 Qd. Teste de Precisão contra a Resistência; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico [Psíquico], e ele fica [Cego] e [Atordoado]: não vê, não ouve, não sente o chão. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Ele não sabe mais se está de pé.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Psychic"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/eyes/humanoid-single-blind.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "aprimoramento-privacao",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "blinded"
+        },
+        {
+          "statusId": "dazed"
+        }
+      ],
+      "magicSpell": {
+        "id": "aprimoramento"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "8PsY09nhBV6A2Rmi",
+  "folder": "xeOxGCFjMHfJ8m8e",
+  "_key": "!items!8PsY09nhBV6A2Rmi"
+}

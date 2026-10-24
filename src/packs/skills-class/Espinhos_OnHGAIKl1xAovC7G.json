@@ -1,0 +1,126 @@
+{
+  "name": "Espinhos",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Maldição.</strong> A maldição do rei do submundo: vinhas de rosa cheias de espinhos brotam de qualquer chão, prendem e atravessam; uma rosa de maldição explode, a árvore do submundo dispara um tronco inteiro, e no fim a Memória da Morte apaga um alvo da existência. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, as Rosas que Bebem:</strong> os espinhos bebem do seu sangue para crescer: em combate, a sua Recuperação cai [NP] e você sofre −1d6 nas Esquivas.</li><li><strong>Feitiços:</strong> Vinhas de Espinhos e Manto de Espinhos (NP 1), Jardim de Espinhos e Rosa Explosiva (NP 3), Dea Yggdrasil (NP 5) e o feitiço supremo Memento Mori (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Memento Mori pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você nem se levanta do trono. Os espinhos vão até eles.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/flowers/buds-black-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Rosas que Bebem",
+      "img": "icons/commodities/biological/tentacle-thorned-green.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.power.restoration.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          },
+          {
+            "key": "system.checks.evasion.dice",
+            "type": "add",
+            "value": -1,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "y4mF8FZA3mUosrNf",
+      "_key": "!items.effects!OnHGAIKl1xAovC7G.y4mF8FZA3mUosrNf"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "espinhos-espinhos",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "espinhos",
+        "category": "curse",
+        "tagline": "Os espinhos do submundo, que prendem, furam e apagam."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "OnHGAIKl1xAovC7G",
+  "folder": "8G1y15EUGLTcCIvK",
+  "_key": "!items!OnHGAIKl1xAovC7G"
+}

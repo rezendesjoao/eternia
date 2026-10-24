@@ -1,0 +1,76 @@
+{
+  "name": "Estouro da Torre",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Arco da Grande Árvore.</strong> Feitiço grande. Você abre os braços, e uma torre de chamas explode em volta de você: Teste de Precisão contra a Resistência de cada inimigo a até 1 Qd; [4d6 + Poder Mágico] de dano mágico de [Chama], e quem ela acerta fica [Derrubado].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>A torre sobe mais alto que as árvores e cai como chuva de brasas.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "1Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/explosion-mushroom-nuke-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "arco-grande-arvore-torre",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "prone"
+        }
+      ],
+      "magicSpell": {
+        "id": "arco-grande-arvore"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "EEOGKTDIOQE0wjiJ",
+  "folder": "StFARncjLUM0StDh",
+  "_key": "!items!EEOGKTDIOQE0wjiJ"
+}

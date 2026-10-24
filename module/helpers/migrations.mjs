@@ -28,7 +28,7 @@ export const MIGRATIONS = [
   HANDS_MIGRATION,               // Two-Handed + off hand, equipped non-equipment
   EFFECTS_MIGRATION,             // broken active effect keys -> valid effect targets
   ON_USE_SKILLS_MIGRATION,       // skills whose effects apply on use (transfer: false)
-  KUDEN_CLEANUP_MIGRATION        // what the Kuden and the archetypes left, the class icons, the Magia slots and the renamed classes (classes/migration.mjs)
+  KUDEN_CLEANUP_MIGRATION        // what the Kuden and the archetypes left, the class icons, the Magia slots, the renamed classes and Magia, the Dragon Slayer's new elements (classes/migration.mjs)
 ];
 
 /** Register the world setting of every migration. Call during the `init` hook. */

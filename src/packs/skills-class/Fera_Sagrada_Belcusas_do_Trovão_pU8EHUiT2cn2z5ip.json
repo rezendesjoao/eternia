@@ -1,0 +1,76 @@
+{
+  "name": "Fera Sagrada: Belcusas do Trovão",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Arco da Materialização.</strong> Feitiço grande. Você imagina uma fera sagrada coberta de armadura, e ela desce num trovão sobre uma área a até 4 Qd: Teste de Precisão contra a Esquiva de cada alvo; [4d6 + Poder Mágico] de dano mágico de [Choque], e quem ela acerta fica [Atordoado].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Ela não sente golpe nenhum. Você a imaginou assim.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Shock"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/unholy/demon-horned-black-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "arco-materializacao-belcusas",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "dazed"
+        }
+      ],
+      "magicSpell": {
+        "id": "arco-materializacao"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "pU8EHUiT2cn2z5ip",
+  "folder": "PRrPU4idsZd4JqWw",
+  "_key": "!items!pU8EHUiT2cn2z5ip"
+}
