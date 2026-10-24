@@ -3,6 +3,31 @@
 ## Não lançado
 
 ### Adicionado
+- Vinte Magias das categorias altas, cada uma com Traço e página no diário AS REGRAS (as Perdidas, as Proibidas e as
+  Maldições também com Tabu). 97 Magias, 1511 habilidades de classe.
+  - Ancestrais: **Criação** (a dança do Rei Gigante dá [Ritmo]), **Desastre** (promover e rebaixar estados: os
+    Estados Negativos sobem ou dobram de uma vez, os bônus murcham), **Arca** (a luz contra as trevas e a Execução do
+    Purgar, que derruba na hora o demônio com pouco PV), **Caos** (cada feitiço pede uma escolha, a forma que nasce, e
+    o Reino do Caos dá a regra escolhida a uma área em volta de você) e **Lampejo** (agir fora do turno: o Lampejo
+    Divino dá uma Ação de Movimento e uma Ação Menor no fim do turno de outra criatura).
+  - Perdidas: **Invasão** (a mente: [Pesadelo], [Amnésia], [Dominado], flechas de luz que atravessam [Anulação] e
+    [Barreira]; Tabu: não mira quem está engajado e −1d6 nas Esquivas contra corpo a corpo), **Infinito** (os efeitos
+    dos feitiços duram a cena, e quem está preso se livra com uma Ação Maior; o Cubo Perfeito, o Cancelamento
+    Absoluto, o Caixão do Tempo) e **Visão** (o Presságio: dados guardados no começo do combate que trocam um dado de
+    qualquer teste de um cartão de ataque).
+  - Proibidas: **Forma Indura** (os Sete Corações e a transformação que entrega os que restam), **Sangue Demoníaco**
+    (o terceiro feitiço da cena transforma, e as esferas negras explodem juntas) e **Fonte da Juventude** (Imortal:
+    [Regeneração] em combate e um Fôlego Extra por rodada, a vida como moeda).
+  - Maldições: **Mandamentos** (o Decreto: uma lei em volta de você, um dos dez Mandamentos escolhido ao receber a
+    Magia, que amaldiçoa na hora quem a quebra, aliados e você também; Absorver Mandamento dá um segundo, e Os Dez
+    Mandamentos põem os dez por uma rodada), **Ruptura Crítica** (o [Ímpeto], a força que sobe a cada turno até passar
+    do limite), **Combo Estelar** (o [Combo], que soma a cada acerto), **Nebulosa Sinistra** (puxa os inimigos para a
+    sua lâmina e, com Deus, fica [Intocável]), **O Soberano** (a [Inversão] e os bônus virados do avesso), **Portão do
+    Inferno** (comer almas: quem cai perto alimenta o Motor e cura) e **Praga** (o golpe que não mata e a [Sentença]
+    que chega mais cedo).
+  - Portadoras: **Lâmina Divisora** (as cópias de verdade, com os [Clones]) e **Lança Espiritual** (as Formas da
+    lança, uma por vez, cada uma com a sua ação e o seu efeito enquanto dura, e a Mudança de Forma, que vem com a
+    Magia).
 - Onze condições para as Magias das categorias altas, com ícones próprios (52 no total): [Petrificado] (perde o
   turno, falha nas Esquivas, metade do dano), [Pacificado] (os golpes não ferem), [Agonia: n] (curar-se ou
   livrar-se de um Estado Negativo dói), [Amnésia] (só as habilidades básicas), [Pesadelo: n] (perde o turno, dano
@@ -15,14 +40,62 @@
   dele; a flag `nextTurn` faz o mesmo com os outros estados que acabam no fim do turno.
 - Flags: `keepCombo`, `comboGain`, `comboPerTarget`, o Traço `combo` e `selfBonus.spend: "free"`; a fórmula
   `@hpLost`; os estados de contagem (`tally`).
-- Ganchos `eternia.recovered`, `eternia.freed`, `eternia.attacked` e `eternia.processEnd`; o registro dos ataques de
-  cada ator (`flags.eternia.attacked`); `breathsLeft` e `giveUpBreaths` para o Fôlego Extra.
+- Ganchos `eternia.recovered`, `eternia.freed`, `eternia.attacked`, `eternia.processEnd` e `eternia.skillUsed` (uma
+  habilidade foi usada, com os alvos); o registro dos ataques de cada ator (`flags.eternia.attacked`); `breathsLeft` e
+  `giveUpBreaths` para o Fôlego Extra.
+- Os Decretos (`conditions/decree.mjs`), com as flags `decree`, `decreeTabu`, `decreeReach`, `decreeReachMult`,
+  `decreeDamage`, `decreeSelfImmune`, `decreeRounds`, `decreeCurse` e o Traço `decreeImmune`.
+- Escolha dentro de uma Magia: `choiceGrants` (a Magia ou o feitiço pede uma das habilidades da lista ao entrar na
+  ficha).
+- Ações de uso `pull` (puxar até ficar engajado) e `push` (empurrar n Qd), e `onUse` numa ação de uso (vem no uso,
+  antes do teste).
+- `bonusVs` com `decreeOf`, feitiço com `decreeCurse` e entradas de `onHit` com dados extras do efeito.
+- Efeitos infinitos (o Traço `infinite`, `conditions/lasting.mjs`) e estados renovados (`renew`); as ações de uso
+  `promote`, `doubleStatuses`, `demote`, `raise` e `cancelSpells` (`conditions/status-actions.mjs`); o Tabu que não
+  mira quem está engajado (`noEngaged`) e a Esquiva contra corpo a corpo (`eternia.passive.closeDodge`,
+  `conditions/distance.mjs`); o estado do acerto só em quem tem NP menor (`rankBelow`) e o bônus contra qualquer
+  Estado Negativo com Valor (`bonusVs` com `ratedBad`).
+- A Execução, o golpe que não mata e as almas (`conditions/blows.mjs`, `conditions/souls.mjs`): `execute` (Execução),
+  `noKill` (o dano para em 1 PV), `lower` (o Valor de um estado cai a cada acerto), `convert` (um estado vira outro
+  com o mesmo Valor), `soulEater` (comer almas), `harvest` (os inimigos que caem viram [Servo]), `feedSource` (o efeito
+  alimenta o Motor de quem o deu no Encerramento), `cleanse` (tira estados dos aliados em volta), `healingHurts` (a
+  cura de feitiço de um aliado fere), e `targetTags` / `belowHp` nos estados de acerto dos feitiços.
+- As Formas (`form`), o estado em quem bate (`struckStatus`), a cópia que leva o golpe (`decoy`), a reação feita por
+  uma cópia (`cloneReaction`), a habilidade que precisa de um estado (`needsStatus`), o n-ésimo feitiço da cena que
+  transforma (`transform`, `transformNow`), os corações (`reviveStatus`, `surrender`) e a queda quando o efeito acaba
+  (`fallOnEnd`), em `conditions/forms.mjs`, `conditions/copies.mjs` e `conditions/transformations.mjs`; a ação de uso
+  `addStatus`.
+- O Presságio (`conditions/omen.mjs`): dados rolados no começo de cada combate e botões nos cartões de ataque; a
+  fórmula `@omen`.
+- Agir fora do turno (`conditions/window.mjs`): uma janela de ações fora do turno, contada à parte das do turno.
+- O Imortal (`conditions/immortal.mjs`): a [Regeneração] na Manutenção, a cura pela metade (`healTaken`), o golpe
+  recebido no lugar de um aliado (`cover`), o custo em PV (`hpCost`) e as ações de uso `regenNow` e `giveHp`.
+- O Reino (`conditions/realm.mjs`): uma área em volta de quem conjura que segue uma regra a cada Manutenção.
+- Ações de uso de outros módulos (`registerUseAction`, com o campo `data` da ação).
 
 ### Alterado
 - Os dados de dano que uma condição dá (o Ritmo) entram na rolagem de dano.
 - A Deterioração do Encerramento respeita o Último Fôlego e o Fôlego Extra.
 - O Despertado só deixa Fadiga na atualização que o tira (antes, duas atualizações ao mesmo tempo podiam cobrar
   duas vezes).
+- O Teste de Acerto chega como Rolagem aos Motores das classes (antes ia como texto: a Combustão Mágica do Mago Negro
+  dava erro a cada ataque de feitiço, e os Motores que leem o Acerto não o contavam).
+- O Switch troca os tokens como movimento forçado.
+- A janela de Magias não lista como feitiços as habilidades `choiceOnly` (os Decretos, a Mudança de Forma), e a aba
+  Classe só mostra as que o personagem tem.
+- Os estados que acabam no fim do turno e no Encerramento passam por um filtro (os infinitos e os renovados ficam).
+- O Livrar-se do HUD aceita os Estados Negativos de efeitos infinitos (Ação Maior), com o aviso "Infinito" no botão.
+- Os estados que o acerto de um feitiço dá ficam marcados como de feitiço (`fromSpell`).
+- A ação `removeStatus` aceita `value`: tira no máximo esse tanto de estados, na ordem da lista.
+- O Encerramento roda os efeitos que alimentam o Motor de quem os deu (o Casulo das Trevas).
+- A escolha entre efeitos alternativos (`chooseEffect`) mostra só as alternativas cujas condições quem usa cumpre.
+- Uma Magia pode dar habilidades junto com ela (`dedicationGrants`), como uma Dedicação.
+- O uso de uma habilidade em combate consulta a janela fora do turno (uma Ação de Movimento ou Menor fora do turno não
+  é mais um problema enquanto a janela a tiver) e paga o custo em PV; o Desfazer devolve os dois.
+- A cura dos cartões e o `takeHealing` passam pelo `healTaken` do alvo (o `takeHealing` ganhou a opção `natural`, a
+  cura do próprio corpo), e o dano dos cartões pelo `cover` (antes do Contragolpe).
+- A Iniciativa é recalculada logo depois de o combate começar: os efeitos que só valem em combate (os Tabus que baixam
+  a Iniciativa) já contam na ordem da primeira rodada.
 
 ## 0.27.0 — 2026-10-24
 

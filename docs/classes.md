@@ -1008,6 +1008,7 @@ REGRAS (a geral e uma página por Magia).
 | Alta Velocidade | Conjuração | Mais Rápido que o Olho | Golpe Veloz, Rajada de Golpes, Velocidade Máxima, Chute Supersônico, Cem Golpes, Tempestade de Golpes (supremo) |
 | Amarras | Conjuração | Ninguém Foge | Chicote de Tubo, Tubo de Amarra, Arranhão Secreto, Rede de Tubos, Explosão Felina, Prisão de Mil Tubos (supremo) |
 | Aprimoramento | Maldição (Tabu: na primeira rodada do combate, as Defesas Física e Mágica caem [NP]) | Dor Amplificada | Garras-Chicote, Aprimorar o Corpo, Amplificação da Dor ([Fraqueza: NP]), Aprimoramento por Segundo ([Despertado]), Amplificação da Dor em Massa, Privação dos Sentidos (supremo, num alvo só) |
+| Arca | Ancestral (o supremo no NP 10; a Execução) | Luz Sagrada | Faça-se a Luz ([Cego] em demônios e em quem usa Maldição), Revigorar (cura e tira um Estado Negativo), Manto Sagrado (imunes a [Maldito] e [Chama Negra], [Anulação (Corrupção)]), Purgar (Execução), Flecha da Salvação, Arca Ômega (supremo, NP 10; apaga [Chama Negra] e [Maldito] dos aliados) |
 | Arco da Grande Árvore | Perdida (Tabu: em combate, −1d6 nas Esquivas) | Força da Terra | Explosões em Linha, Fusão com a Árvore ([Oculto], [Regeneração]), Lâminas de Folha, Bomba-Relógio de Raízes ([Pavio]), Estouro da Torre, Terra Clamare (supremo, num alvo só) |
 | Arco da Materialização | Perdida (Tabu: em combate, a Iniciativa cai [NP] e a Defesa Física cai [NP÷2]) | Mundo Imaginado | Espada Negra, Escudo Dourado, Asas de Pégaso, Fantasmas de Brittia, Fera Sagrada: Belcusas do Trovão ([Servo]), Torre de Dingir (supremo) |
 | Arco do Tempo | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP÷2]) | Tempo Emprestado | Avanço Rápido, Tempo Lento, Restaurar, Acelerar, Arco do Tempo: Envelhecer, Última Era (supremo, cura os aliados e deixa [Fadiga] em quem conjura) |
@@ -1019,13 +1020,17 @@ REGRAS (a geral e uma página por Magia).
 | Cabelo Carmesim | Conjuração | Cabelo Vivo | Cabelo que Prende, Cabelo Esponja (contra [Água]), Chuva de Cabelo: Mil Pássaros, Marca em Brasa, Chuva de Cabelo: Vaga-lumes, Chuva de Cabelo: Presa de Lobo (supremo, num alvo só) |
 | Cajados Mágicos | Portadora | Sono Pesado | Raio do Cajado, Muro de Névoa, Sono, Arranha-Céu, Dança dos Cinco Cajados, Círculo de Cinco Camadas: Canto Sagrado (supremo) |
 | Calamidade | Maldição (Tabu: em combate, a Defesa Física cai [NP÷2], e as Partículas Antimagia pegam aliados) | Olho da Tempestade | Tornado, Aguaceiro ([Encharcado] numa área), Impacto, Esfera do Trovão, Inferno, Partículas Antimagia (supremo) |
+| Caos | Ancestral (o supremo no NP 10; escolher na hora) | Rei do Caos | Forma do Caos (lança, correntes ou muralha), Gato do Caos ([Servo] de três formas), Boca do Caos (Engolir ou Cuspir), Reino do Caos (uma área com a regra escolhida), Realidade Reescrita (estado sorteado), O Mundo Recriado (supremo, NP 10) |
 | Cartas | Portadora | Baralho Marcado | Cartas Lançadas (estado ao acaso), Carta do Trovão, Leitura da Sorte (bônus ao acaso), Prisão de Cartas, Tempestade de Cartas (estado ao acaso), Os Vinte e Dois Arcanos (supremo) |
 | Chamas do Purgatório | Maldição (Tabu: em combate, [Fraqueza (Radiância): NP]) | Fogo que Não Apaga | Encantamento: Chama Infernal (a arma dá [Chama Negra: 2]), Pássaro Infernal, Onda Infernal, Cão Infernal ([Servo]), Dragão das Cinzas, Mil Cortes Divinos (supremo, num alvo só) |
 | Comando M | Conjuração | Escala Errada | Comando: Redução, Comando: Expansão, Comando: Encolher a Magia (em você ou num aliado), Qualidade do Poder Mágico, Comando: Terreno, Demolidora de Países (supremo) |
+| Combo Estelar | Maldição (Tabu: em combate, a Defesa Física cai [NP]) | Sequência | Golpe Estelar (Combo +2), Passo Estelar ([Concentrado]), Guarda da Sequência (o dano não zera o Combo), Golpe em Dobro (Combo +3), Chuva Estelar (+1 por alvo), Estrela Final (supremo, o Combo dobrado) |
 | Contra-ataque | Perdida (Tabu: em combate, −1d6 nas Esquivas) | Mais que o Dobro | Contra-ataque Total e Contra-ataque Físico ([Contragolpe], só alvo único), Contra-ataque Evanescente ([Anulação] em você e nos aliados), Contra-ataque Vingativo ([Rancor]), Golpe do Rancor (gasta o Rancor), Contra-ataque Absoluto (supremo, Antes do Dano, devolve até área) |
 | Cópia | Conjuração (o Copiar decora um feitiço; a Imitação repete a tag e o estado dele) | Memória Perfeita | Copiar, Ouvir a Alma (+1d6 nas Esquivas na cena), Imitação, Copiar e Anular, Derreter, Ars Magia (supremo) |
 | Corpos Celestes | Conjuração | Rastro de Luz | Estrela Cadente, Meteoro, Velocidade da Luz, Altairis, Sete Estrelas do Julgamento: Grand Chariot, Sema (supremo) |
 | Correntes | Proibida (Tabu: em combate, −1d6 nas Resistências) | Selos de Amaterasu | Corrente do Grimório, Balas Mágicas, Raio do Grimório, Amaterasu: Fórmula 28, Amaterasu: Fórmula 100, Lei do Grimório (supremo) |
+| Criação | Ancestral (o supremo no NP 10; o [Ritmo]) | Areia Movediça | Dança do Rei Gigante (+1 [Ritmo], useAction `raise`), Martelo Duplo ([Agarrado]), Metal Pesado ([Anulação (Física)] e [Enraizado]), Abraço da Rainha, Gládio da Grande Terra, Criação da Grande Terra (supremo, NP 10; o Ritmo conta dobrado: `@status.rhythm` na fórmula) |
+| Desastre | Ancestral (o supremo no NP 10; promover e rebaixar) | Autoridade sobre a Vida | Promoção de Estado (useAction `promote`), Gota Condensada, Boneca de Flores ([Servo], [Regeneração]), Murchar (useAction `demote`), Vinha Amaldiçoada ([Agarrado]), Floresta Desperta (supremo, NP 10; useAction `doubleStatuses`) |
 | Elo dos Sentidos | Perdida (Tabu: em combate, a Defesa Física cai [NP]) | Sentidos Embaralhados | Lâminas Sensoriais, Elo Sensorial ([Vínculo] num aliado), Lâmina de Sodoma, Sentidos Trocados, Tempestade de Lâminas, Elo Final (supremo) |
 | Encantamento | Conjuração | Desencantador | Encantamento: Força, Encantamento: Guarda, Encantamento: Pressa, Desencanto (dano por encanto; arranca os encantos), Grande Encantamento, Universo Um (supremo) |
 | Escrita Rúnica | Conjuração | Regra Escrita | Runa da Prisão, Escrita Negra: Dor, Runa do Revide, Escrita Negra: Asas, Escrita Negra: Escuridão, Escrita Rúnica: Regra Absoluta (supremo) |
@@ -1035,17 +1040,25 @@ REGRAS (a geral e uma página por Magia).
 | Espinhos | Maldição (Tabu: em combate, a Recuperação cai [NP] e −1d6 nas Esquivas) | Espinhos que Entram | Vinhas de Espinhos, Manto de Espinhos ([Espelho]), Jardim de Espinhos, Rosa Explosiva, Dea Yggdrasil, Memento Mori (supremo, [Sentença: 3]) |
 | Espíritos Celestiais | Portadora (as chaves) | Chaves do Zodíaco | Portão do Touro ([Servo]), Portão do Carneiro, Portão do Sagitário, Portão do Aguadeiro (pega aliados também), Portão do Leão: Impacto de Régulo, Vestido Estelar, Urano Metria (supremo) |
 | Fogo | Conjuração | Brasa Viva | Chama Laranja, Chama Roxa (dobra o [Queimando]), Chama Azul, Chama Amarela, Coluna de Fogo (consome o [Queimando]), Chama Arco-Íris (supremo) |
+| Fonte da Juventude | Proibida (Tabu: em combate, a cura de feitiços e itens cura metade) | Imortal | Corpo Imortal (a Regeneração agora), Golpe sem Medo (custa PV), Dádiva (PV para um aliado), Escudo de Carne (o golpe do aliado em você), Vida sem Fim ([Exposto]), Gota da Fonte (supremo: cura e imortalidade) |
+| Forma Indura | Proibida (Tabu: em combate, cada coração perdido dá +1 de [Fúria]) | Sete Corações (o Fôlego Extra, 6 por cena) | Garras da Escuridão, Asas Negras ([Voando]), Rugido Indura ([Medo]), Ressentimento ([Envenenado: NP]; +NP÷2 contra [Demônio]), Fera da Destruição, Transformação Indura (supremo: entrega os corações, [Ímpeto] e imune a controle; cai no fim da cena) |
 | Fumaça | Portadora (o cachimbo) | Dentro da Névoa | Punho de Fumaça, Corda de Fumaça, Cortina de Fumaça, Nuvem Sufocante, Gigante de Fumaça, Mar de Fumaça (supremo) |
 | Furtividade | Conjuração | Lâmina que Ninguém Vê | Apagar a Presença, Arma Invisível, Revelar (tira [Oculto] e [Intangível]), Tortura Invisível, Mil Lâminas Invisíveis, Assassinato Perfeito (supremo, num alvo só) |
 | Gigante | Conjuração | Grande Demais | Golpe Gigante, Mão Gigante, Corpo Gigante, Pisada do Gigante, Punho do Titã, Queda do Titã (supremo) |
 | Gravidade | Conjuração | Peso Dobrado | Queda, Mudança de Gravidade, Campo Gravitacional, Gravidade Zero, Buraco Negro, Peso do Mundo (supremo) |
 | Histórias dos Mortos | Conjuração | Passado que Assombra | Rajada de Energia, Ler o Coração, História dos Mortos, Redemoinho Cortante, Cidade dos Mortos, O Mais Forte dos Mortos (supremo, num alvo só; [Servo]) |
+| Infinito | Perdida (Tabu: em combate, a Defesa Física cai [NP]) | Tempo Parado (`infinite`) | Cubo Perfeito (escolha: [Barreira] ou a prisão [Enraizado] e [Silenciado]), Raio Exterminador, Cancelamento Absoluto (useAction `cancelSpells`), Amplificar Poder ([Fortalecido] nos aliados), Caixão do Tempo ([Paralisado]; `infinite: false`), Encanto: Infinito (supremo; [Deterioração] infinita) |
+| Invasão | Perdida (Tabu: em combate, não mira quem está engajado e −1d6 nas Esquivas contra corpo a corpo) | Mente de Boneco | Luz Espiã ([Identificado], [Marcado]), Luz que Reescreve ([Confuso]), Contador de Pesadelos ([Pesadelo]), Amarra de Boneco ([Dominado]), Mundo Perdido ([Amnésia]), Apagão (supremo; [Adormecido] só em quem tem NP menor: `rankBelow`) |
+| Lâmina Divisora | Portadora (a espada; os [Clones]) | Cópias Reais (uma reação por rodada é da cópia: não conta no limite) | Cópia Real (+1 [Clones]), Golpe das Cópias (+Clones×2), Troca com a Cópia (gasta 1 Clone: o golpe acerta a cópia), Cópias em Volta ([Cambaleante]), Seis Cópias ([Clones: 6]), Sete Golpes (supremo, num alvo só; os Clones viram dano) |
+| Lampejo | Ancestral (o supremo no NP 10; agir fora do turno) | Rápido Demais | Lampejo Divino (Movimento e Menor fora do turno), Brilho Rubi ([Cego], Menor), Sopro da Bênção, Impulso Faiscante, Rajada de Luz, Brilho Dourado (supremo, NP 10; mais Movimento e Menor) |
+| Lança Espiritual | Portadora (a lança; as Formas) | Árvore Sagrada (imune a [Desarmado]) | Forma Um: Lança, Forma Dois: Guardião ([Barreira]; provoca), Forma Três: Fossilização ([Petrificado]), Forma Cinco: Multiplicar, Forma Oito: Jardim de Pólen ([Barreira] nos aliados), Forma Quatro: Girassol (supremo; [Servo]); Mudança de Forma (vem com a Magia) |
 | Macro | Maldição (Tabu: em combate, a Iniciativa cai [NP] e −1d6 nas Resistências, menos enquanto [Despertado]) | Ordens | Arremesso de Livros, Ordem ao Corpo ([Dominado]), Macro em Si Mesmo ([Despertado], tira o Tabu), Olhos Demoníacos, Avalanche da Biblioteca, Olho Demoníaco Liberto (supremo) |
 | Magia das Fadas | Ancestral (o supremo no NP 10) | Luz que Protege | Luz das Fadas, Ilusão das Fadas, Bênção das Fadas, Esfera das Fadas, Brilho das Fadas, Lei das Fadas (supremo, NP 10) |
 | Magia dos Anjos | Conjuração (os anjos acertam sem teste e deixam [Fadiga] em quem conjura) | Preço Pago | Penas Angelicais, Mensageiros Angelicais, Anjo do Martelo, Shamsiel, Barakiel, Raguel (supremo) |
 | Magia Seith | Conjuração | Almas Presas | Bonecos: Formação Linha, Possessão ([Dominado]), Bonecos de Almas ([Servo]), Olhos de Boneco, Bonecos: Formação Bárion, Ritual das Almas (supremo) |
 | Magia Viva | Perdida (Tabu: em combate, a Recuperação e a Defesa Mágica caem [NP]) | Fonte de Vida | Centelha da Vida, Cria de Barro, Sangue Vivo, Corpo Refeito, Fera Criada ([Servo]), Gênese (supremo) |
 | Maldição do Boneco | Perdida, no boneco (Tabu: em combate, a Recuperação cai [NP] e a Defesa Mágica cai [NP÷2]) | Corpo no Boneco | Fio no Boneco, Dodoskoi, Boneco de Ferro, Boneco de Névoa, Foguete Metálico, Dodoskoi Brilhante (supremo) |
+| Mandamentos | Maldição (Tabu: o Decreto pega você e os aliados, em combate) | Marca do Rei Demônio | Revelar o Mandamento (alcance 6 Qd e dano em quem quebra), Espadas da Rebelião, Mandamento Materializado (a maldição no golpe), Forma de Assalto ([Despertado], alcance ×2), Absorver Mandamento (passivo, um segundo Decreto), Os Dez Mandamentos (supremo, os dez por uma rodada); e os 10 Decretos, só por escolha |
 | Matador de Demônios | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP]) | Caça-Demônios | Fúria do Demônio de Gelo, Garra do Demônio de Gelo, Gelo do Demônio, Gelo que Cala, Arco da Destruição do Demônio de Gelo, Lâmina da Destruição do Demônio de Gelo (supremo) |
 | Matador de Deuses do Céu | Perdida (Tabu: em combate, a Iniciativa cai [NP] e a Velocidade cai 1) | Ar dos Deuses | Rugido do Deus do Céu, Sopro Curativo, Dança do Deus do Céu, Bênção do Deus do Céu, Bóreas do Deus do Céu, Arte Secreta: Lança Celestial (supremo) |
 | Matador de Deuses do Fogo | Perdida (Tabu: em combate, a Recuperação cai [NP] e a Defesa Física cai [NP÷2]) | Chama que Devora | Rugido do Deus do Fogo, Devorar as Chamas (contra um ataque de [Chama]), Foice do Deus do Fogo, Chama Explosiva do Deus do Fogo, Kagutsuchi do Deus do Fogo, Ceia do Deus do Fogo (supremo, num alvo só) |
@@ -1053,18 +1066,24 @@ REGRAS (a geral e uma página por Magia).
 | Moldagem de Gelo | Conjuração | Gelo que Não Derrete | Moldagem de Gelo: Lança, Moldagem de Gelo: Escudo, Moldagem de Gelo: Martelo, Moldagem de Gelo: Chão, Moldagem de Gelo: Águias, Lâmina de Gelo: Dança dos Sete Cortes, Impacto de Gelo (supremo) |
 | Moldagem de Madeira | Conjuração | Tábuas e Pregos | Moldagem de Madeira: Aproximação Violenta, Moldagem de Madeira: Senso de Distância do Coração, Fusão com a Madeira, Moldagem de Madeira: Represa do Amor Tímido, Moldagem de Madeira: A Distância Entre Nós Dois É Eterna, Moldagem de Madeira: Soco Divino (supremo, num alvo só) |
 | Moldagem de Memória | Conjuração | Lembrança Apagada | Memorizar, Moldagem de Memória: Feitiço Lembrado, Moldagem de Memória: Esquecimento, Moldagem de Memória: Fortaleza da Terra Ardente, Moldagem de Memória: Noite das Estrelas Cadentes, Moldagem de Memória: Lembrança Absoluta (supremo) |
+| Nebulosa Sinistra | Maldição (Tabu: em combate, a Defesa Física cai [NP]) | Carrasco | Vórtice Sinistro (puxa), Amarra Sinistra ([Agarrado]), Deus ([Intocável] ou [Silenciado]), Chuva Impiedosa, Relâmpago Negro, Dies Irae (supremo, num alvo só) |
 | Necromancia | Maldição (Tabu: [Maldito] em combate) | Corpo Morto | Mortos de Pé ([Servo]), Corpo de Partículas ([Intangível]), Primeiro Selo ([Silenciado]), Guarda dos Mortos (em você ou num aliado), Exército de Ossos, Julgamento da Estrela Maligna (supremo) |
 | Neve | Conjuração | Mundo Branco | Fúria Branca, Cópia de Neve, Nevasca Branca, Vento de Nevasca, Avalanche de Neve, Branco Total (supremo) |
+| O Soberano | Maldição (Tabu: em combate, a cura de feitiço dos aliados vira dano em você) | Rei dos Demônios | Inverter ([Inversão]), Morte Zero ([Derrubado]), Espada do Portão Infernal ([Maldito]), Transferir Poder ([Despertado] num aliado), Fera das Trevas ([Servo]), Reencarnação Eterna (supremo, num alvo só; [Sentença: 3]) |
 | Olhos Mágicos | Conjuração | Olhar que Petrifica | Olhar de Pedra, Olho Clínico, Olhar Hipnótico, Olho do Demônio, Mil Olhos, Olhar Petrificante (supremo) |
 | Onda | Conjuração | Vibração | Disparo de Onda, Escudo de Onda (contra ataques mágicos), Impulso de Onda, Anular Magia, Explosão de Onda, Mundo Sem Magia (supremo) |
 | Perfume Mágico | Portadora (os frascos) | Nariz Treinado | Perfume do Trovão, Perfume da Força, Perfume Analgésico (cura o grupo), Perfume da Dor, Perfume Venenoso, Perfume da Força: Máximo (supremo, num alvo só) |
 | Pintura Mágica | Portadora (pincéis e tintas) | Grade Pintada | Fera Pintada ([Servo]), Asas Pintadas, Jaula Pintada, Armadura Pintada, Dragão Pintado, Mural Vivo (supremo) |
 | Plantas | Portadora (as sementes) | Jardineiro | Chicote de Cipó, Broto da Vida, Esporos Venenosos, Muralha de Raízes, Floresta Súbita, Jardim Carnívoro (supremo) |
+| Portão do Inferno | Maldição (Tabu: em combate, a Recuperação cai [NP]) | Banquete de Almas | Anel de Invocação ([Servo]), Chamado das Almas ([Atordoado]; [Paralisado] com pouco PV), Atravessar o Portão ([Concentrado]), Casulo das Trevas ([Agarrado], [Pesadelo]; alimenta o Motor), Veneno Mortal, Rito do Rancor dos Mortos (supremo; quem cai vira [Servo]) |
+| Praga | Maldição (Tabu: em combate, o seu dano para em 1 PV) | A Hora Chega | Correntes do Rancor ([Agarrado], [Agonia]), Cinco Perdas ([Cego], [Silenciado], [Atordoado]), Enxame Descartável ([Envenenado], [Servo]), Rosto Emprestado ([Oculto]; o golpe deixa [Confuso]), Tempo Roubado ([Sentença: 4]), Grande Praga (supremo; [Sentença: 3], [Agonia: NP]) |
 | Projeção de Pensamento | Conjuração | Mente Dividida | Eco de Pensamento, Voz do Pensamento, Projeção, Muitas Projeções, Exército de Pensamento, Projeção Astral (supremo) |
 | Raio | Conjuração | Para-raios | Relâmpago, Corrente Elétrica, Passo do Relâmpago, Trovão, Tempestade de Raios, Palácio do Trovão (supremo) |
 | Reequipar: O Cavaleiro | Portadora (os feitiços são Ataques com Arma) | Arsenal sem Fim | Roda Celeste: Círculo de Espadas, Asa Negra: Lampejo Lunar, Armadura Adamantina, Traje do Coração Puro, Roda Celeste: Pétalas de Aço, Armadura de Nakagami: Luz Estelar (supremo) |
 | Reflexão | Conjuração | Golpe Torto | Torção, Reflexo, Miragem, Corpo Torcido, Mundo Torcido, Reflexão Total (supremo) |
 | Roubo | Proibida (Tabu: em combate, a Defesa Mágica cai [NP], e o Festival pega aliados) | Mão Leve | Caça Física, Caça da Raposa ([Desarmado]), Sinal Zero ([Oculto]), Caçada de Assalto, Caçada Louca (Dreno), Festival da Caça (supremo, Dreno) |
+| Ruptura Crítica | Maldição (Tabu: em combate, a Iniciativa cai [NP] e a Defesa Mágica [NP÷2]) | Armadura Viva | Romper o Limite ([Ímpeto]), Corte Certeiro, Estocadas do Céu, Vendaval de Cortes, Onda do Caos (metade da Defesa), Golpe que Parte Montanhas (supremo, o Ímpeto dobrado, sem Fadiga) |
+| Sangue Demoníaco | Proibida (Tabu: em combate, a Recuperação cai [NP] e [Fraqueza (Radiância): NP÷2]) | Demônio Cinzento (o terceiro feitiço da cena: [Despertado] e [Voando]) | Ácido ([Deterioração], [Fissurado]), Neve Negra ([Pavio] em até 3), Beco sem Saída (detona os [Pavio], sem teste), Onda do Sangue Negro ([Chama Negra]), Despertar do Demônio (transforma na hora; [Medo]), Nebulosa Negra (supremo; [Cego]) |
 | Selo do Tempo | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP÷2]) | O Tempo é Seu | Raio de Âge (sem teste), Selar o Tempo, Arranhão de Âge, Passo Fora do Tempo, Transbordamento, Alma Divina: Cronos (supremo, [Paralisado]) |
 | Shikigami | Conjuração | Mil Papéis | Torrente de Shikigami ([Servo]), Véu de Ilusão ([Oculto] em você ou num aliado), Prisão de Papel, Bomba Negra de Shikigami, Revoada de Shikigami, Mil Bonecos de Papel (supremo) |
 | Sol | Ancestral (o supremo no NP 10; o Relógio do Sol) | Orgulho do Leão | Sol Cruel ([Espelho] igual ao Sol), Punho de Hélio, Proeminência Louca, Chama do Orgulho, Espada Divina, Proeminência Final (supremo, NP 10; estende o [O Único]) |
@@ -1076,6 +1095,7 @@ REGRAS (a geral e uma página por Magia).
 | Território | Conjuração | Espaço Próprio | Calor Espacial, Território: Troca, Território: Prisão, Território: Domínio, Colapso Espacial, Território Absoluto (supremo) |
 | Trevas | Conjuração | Olhos no Escuro | Capricho das Trevas, Agarrar das Trevas, Gravidade Sombria, Momento Sombrio, Rondó das Trevas, Gênese Zero (supremo) |
 | Vento | Conjuração | Corrente de Ar | Lâmina de Vento, Rajada, Armadura de Tempestade, Redemoinho, Furacão, Espaço Aéreo: Zero (supremo) |
+| Visão | Perdida (Tabu: em combate, a Iniciativa cai [NP]; o Presságio) | Olhos do Oráculo | Ver o Golpe, Profecia (um 6), Destino Fixo ([Marcado] e um 1), Caleidoscópio (dois dados), Futuro Visto, O Fim Já Escrito (supremo, sem teste, os dados viram dano) |
 
 As categorias são as da série: Conjuração (a magia sai do corpo), Portadora (precisa de um objeto equipado), Perdida e
 Proibida (mais fortes, com um Tabu), Ancestral (feitiços supremos de NP 10) e Maldição (o poder dos
@@ -1101,10 +1121,29 @@ o [Oculto] que não sai (`keepHidden`) e o bônus fixo de dano (`bonus`) ou de c
 Dreno (`drain`, a fração do PV tirado que volta para quem conjura), o roubo de um bônus a cada
 acerto (`steal`), o dano a mais pelo Valor de um estado próprio, gasto ou não (`selfBonus`, nos feitiços: o Golpe do
 Rancor), o bônus do [Contragolpe] (`counterBonus`) e o Relógio do Sol (`sunClock`: o [Sol] sobe para quem tem a Magia,
-em `conditions/turns.mjs`). Os feitiços usam as
+em `conditions/turns.mjs`). Desde a 0.28: o Infinito (`infinite`: os efeitos dos feitiços daquela Magia que acabariam
+no turno ou na rodada duram a cena, em `conditions/lasting.mjs`) e o bônus contra qualquer Estado Negativo com Valor
+(`bonusVs` com `ratedBad`); a Execução (`execute`, no feitiço: o Purgar), a [Sentença] que cai a cada acerto
+(`lower`), os bônus virados do avesso (`convert`) e comer almas (`soulEater`), em `conditions/blows.mjs` e
+`conditions/souls.mjs`; os Tabus que não matam (`noKill`) e que fazem a cura dos aliados ferir (`healingHurts`); a
+reação feita por uma cópia (`cloneReaction`: a primeira reação da rodada com [Clones] é de uma cópia e não conta no
+limite, em `conditions/copies.mjs`) e a transformação (`transform: { at, statuses }`: o n-ésimo feitiço da Magia na
+cena transforma quem conjura, em `conditions/transformations.mjs`; um feitiço com `transformNow` transforma na hora);
+o Presságio (`omen`, uma fórmula: os dados rolados no começo do combate, em `conditions/omen.mjs`; `omenFocus`:
+[Concentrado] quando um dado muda o resultado de um ataque), o Imortal (`immortal: { regen }`, a [Regeneração] dada
+na Manutenção, em `conditions/immortal.mjs`) e a imunidade aos Decretos (`decreeImmune`, lida pelo Decreto dos
+Mandamentos: a Marca do Rei Demônio e o Rei do Caos). O efeito do Traço também pode levar flags próprias
+(`TRAITS[x].flags` no gerador): o Fôlego Extra (`revive`) dos Sete Corações e o do Imortal. Os feitiços usam as
 mesmas flags e mais `randomHit` e `randomEffect` (veja `docs/condicoes.md`). O texto do Traço fica na descrição da
 Magia (a linha "Traço, nome:", que a janela de Magias mostra numa caixa própria). A migração `kudenCleanup` 7 refaz
 as Magias e os feitiços das fichas pelo compêndio, guardando o NH e o uso.
+
+Uma Magia pode pedir uma escolha ao entrar na ficha: `flags.eternia.choiceGrants` lista os identificadores das
+habilidades oferecidas (com `choiceOnly`, na pasta da própria Magia), e o jogador escolhe uma que ainda não tem; ela
+fica marcada como dada pela Magia (`grantedBy`) e sai junto. Um feitiço pode ter a mesma flag (Absorver Mandamento dá
+um segundo Decreto). A janela de Magias não lista as habilidades `choiceOnly` como feitiços, e a aba Classe só as
+mostra para quem as tem (`module/apps/choice-grants.mjs`). Uma Magia também pode dar habilidades junto com ela, sem
+escolha (`dedicationGrants`, como uma Dedicação: a Mudança de Forma da Lança Espiritual, `choiceOnly`).
 
 ## Referência técnica
 

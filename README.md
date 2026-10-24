@@ -135,7 +135,7 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
 - **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 22 classes, 14 na lista e 8 antigas), Habilidades Raciais e
-  Habilidades de Classe (36 por classe, 64 no Matador de Dragões, e as 77 Magias com os feitiços: 1360 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
+  Habilidades de Classe (36 por classe, 64 no Matador de Dragões, e as 97 Magias com os feitiços: 1511 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
 
@@ -352,6 +352,7 @@ a lâmina embainhada, o Assassino abre Brechas pelos acertos no Alvo e o Lutador
 | Alta Velocidade | Conjuração | A pressa: o golpe que deixa [Perseguição], a rajada em dois alvos, a velocidade que deixa [Acelerado] a cena inteira, o chute que atravessa e derruba ([Derrubado]), os Cem Golpes e a Tempestade de Golpes ([Cambaleante]). Traço: Mais Rápido que o Olho. |
 | Amarras | Conjuração | Os tubos: o chicote, a amarra que deixa [Agarrado] e [Silenciado], o arranhão que deixa [Marcado], a rede que deixa [Enraizado], a explosão felina que deixa [Lento] e a Prisão de Mil Tubos ([Agarrado]). Traço: Ninguém Foge. |
 | Aprimoramento | Maldição | O aprimoramento: as garras-chicote, o corpo aprimorado de um aliado ([Fortalecido]), a dor amplificada ([Fraqueza]), o aprimoramento por segundo ([Despertado]), a dor em massa e a Privação dos Sentidos ([Cego], [Atordoado]). Tabu: na primeira rodada do combate, as Defesas caem [NP]. Traço: Dor Amplificada. |
+| Arca | Ancestral | A luz das deusas contra as trevas: a estrela de [Radiância] (cega quem é demônio ou usa Maldição), a cura que tira o pior Estado Negativo, o Manto Sagrado (imunes a [Maldito] e [Chama Negra], [Anulação (Corrupção)]), o Purgar, que derruba na hora o demônio com pouco PV (a Execução), a Flecha da Salvação (atravessa [Anulação] e [Barreira]) e a Arca Ômega, o supremo do NP 10, que apaga [Chama Negra] e [Maldito] dos aliados. Traço: Luz Sagrada (+NP contra demônios e quem usa Maldição). |
 | Arco da Grande Árvore | Perdida | A árvore e a força da terra: as explosões em linha de [Chama], o esconderijo no tronco ([Oculto], [Regeneração]), as folhas que caçam três alvos, a bomba-relógio de raízes ([Enraizado], [Pavio]), o estouro da torre ([Derrubado]) e o Terra Clamare ([Atordoado]). Tabu: em combate, −1d6 nas Esquivas. Traço: Força da Terra. |
 | Arco da Materialização | Perdida | A imaginação feita real: a espada negra, o escudo dourado ([Anulação]), as asas de pégaso ([Voando]), os fantasmas que deixam [Enraizado], a fera sagrada do trovão ([Atordoado], e ela fica como [Servo]) e a Torre de Dingir ([Enraizado], [Derrubado]). Tabu: em combate, a Iniciativa cai [NP] e a Defesa Física cai [NP÷2]. Traço: Mundo Imaginado. |
 | Arco do Tempo | Perdida | O tempo nas mãos: as esferas que pulam o tempo, o tempo lento ([Lento], [Atordoado]), a cura que desfaz o golpe, a pressa ([Acelerado]), os anos que racham armaduras e cansam o corpo ([Fissurado], [Enfraquecido]) e a Última Era, que cura os aliados. Tabu: em combate, as Defesas caem [NP÷2]. Traço: Tempo Emprestado. |
@@ -363,13 +364,17 @@ a lâmina embainhada, o Assassino abre Brechas pelos acertos no Alvo e o Lutador
 | Cabelo Carmesim | Conjuração | O cabelo: o que agarra ([Agarrado]), o que bebe a água ([Anulação], [Regeneração]), as mechas que disparam em três alvos, a marca em brasa ([Marcado]), os vaga-lumes que deixam [Queimando] e a Presa de Lobo ([Agarrado]). Traço: Cabelo Vivo. |
 | Cajados Mágicos | Portadora | Cinco cajados: o raio de [Choque], a névoa que protege, o [Adormecido], o [Medo] da ilusão e a luz do Canto Sagrado, que deixa [Cego]. Traço: Sono Pesado. |
 | Calamidade | Maldição | As calamidades: o tornado de [Vento], o aguaceiro que apaga o fogo ([Encharcado]), o terremoto ([Atordoado]), a esfera do trovão ([Eletrificado]), o inferno ([Queimando]) e as Partículas Antimagia ([Silenciado], [Maldito]), que pegam aliados. Tabu: em combate, a Defesa Física cai [NP÷2]. Traço: Olho da Tempestade. |
+| Caos | Ancestral | Criar do nada: em cada feitiço você escolhe na hora o que nasce. A forma que vira lança ([Deterioração]), correntes ([Agarrado]) ou muralha ([Barreira]), o gato que muda de forma ([Servo] de [Chama], [Frio] ou [Choque]), a boca que engole ([Anulação]) ou cospe ([Espelho]) o golpe, o Reino do Caos (por uma cena, uma área em volta de você segue a regra que você escolhe: [Enraizado] e [Lento], [Silenciado], [Cego] ou [Regeneração]), a Realidade Reescrita (um estado sorteado) e O Mundo Recriado ([Petrificado], [Adormecido] ou [Dominado]). Traço: Rei do Caos (imune a [Dominado] e aos Decretos). |
 | Cartas | Portadora | O baralho: cartas que cortam e deixam um estado tirado ao acaso, o raio de [Choque], a sorte que dá um bônus ao acaso, a gaiola que deixa [Enraizado] e [Silenciado], a tempestade de cartas e Os Vinte e Dois Arcanos ([Atordoado]). Traço: Baralho Marcado. |
 | Chamas do Purgatório | Maldição | O fogo negro dos demônios: [Chama] e [Chama Negra], que não apaga e não deixa ninguém se curar; a lâmina encantada, o pássaro, a onda em linha, o cão que fica ([Servo]), o dragão das cinzas e os Mil Cortes Divinos ([Chama Negra: NP]). Tabu: em combate, [Fraqueza (Radiância): NP]. Traço: Fogo que Não Apaga (arranca a [Regeneração]). |
 | Comando M | Conjuração | O tamanho das coisas: a redução que deixa [Lento] e [Enfraquecido], a expansão ([Fortalecido]), o feitiço encolhido ([Anulação]), o golpe de terra ([Derrubado]), o terreno que deixa [Enraizado] e a Demolidora de Países ([Fissurado: 3]). Traço: Escala Errada. |
+| Combo Estelar | Maldição | A sequência: cada acerto soma [Combo] (+1 de dano por ponto, zera com um erro), golpes que somam mais (2, 3), o passo até o inimigo ([Concentrado]), a guarda que segura o Combo ([Anulação] igual ao Combo), a chuva em todos os engajados e a Estrela Final (o Combo dobrado). Tabu: em combate, a Defesa Física cai [NP]. Traço: Sequência (imune a [Cambaleante] e [Atordoado]). |
 | Contra-ataque | Perdida | Devolver o golpe: o [Contragolpe] contra um ataque mágico ou físico de alvo único (o dobro de volta), o feitiço desfeito no ar ([Anulação] em você e nos aliados), o [Rancor] que guarda o dano, o golpe que solta tudo ([Atordoado]) e o Contra-ataque Absoluto, que devolve até área. Tabu: em combate, −1d6 nas Esquivas. Traço: Mais que o Dobro. |
 | Cópia | Conjuração | A cópia: o Copiar e a Imitação, que repete a tag e o estado do feitiço copiado; ouvir a alma (+1d6 nas Esquivas), copiar e anular ([Anulação], [Concentrado]), o Derreter ([Queimando]) e a Ars Magia ([Selado]). Traço: Memória Perfeita. |
 | Corpos Celestes | Conjuração | As estrelas: [Radiância] de longe, o Meteoro, a gravidade de Altairis, Grand Chariot e o meteoro gigante de Sema. Traço: Rastro de Luz. |
 | Correntes | Proibida | O grimório das trevas: a corrente com gancho ([Agarrado]), as balas dos dedos em dois alvos, o raio que explode ([Derrubado]), as Fórmulas 28 ([Atordoado]) e 100 ([Fissurado]) de Amaterasu e a Lei do Grimório ([Medo]). Tabu: em combate, −1d6 nas Resistências. Traço: Selos de Amaterasu. |
+| Criação | Ancestral | A terra e o [Ritmo]: a dança do Rei Gigante, que soma +1d6 por ponto no próximo feitiço de dano ([Concentrado]), os punhos de rocha ([Agarrado]), o corpo de metal ([Anulação (Física)], mas [Enraizado]), a lama ([Enraizado]), a lâmina de pedra ([Derrubado]) e a Criação da Grande Terra, o supremo do NP 10, em que o Ritmo conta dobrado. Traço: Areia Movediça (quem já está Enraizado cai Derrubado). |
+| Desastre | Ancestral | Promover e rebaixar: a Promoção de Estado sobe de uma vez todos os Estados Negativos do alvo (os sem Valor duram mais um turno), a gota que conta metade da Defesa, a boneca de flores ([Servo] e [Regeneração]), o Murchar (tira todos os bônus), as vinhas ([Agarrado]) e a Floresta Desperta, o supremo do NP 10, que dobra os Estados Negativos. Traço: Autoridade sobre a Vida. |
 | Elo dos Sentidos | Perdida | Os sentidos ligados: as lâminas de [Psíquico], o elo que dá [Vínculo] a um aliado, a Lâmina de Sodoma ([Cambaleante]), os sentidos trocados que deixam [Confuso], a tempestade de lâminas ([Atordoado]) e o Elo Final ([Marcado]). Tabu: em combate, a Defesa Física cai [NP]. Traço: Sentidos Embaralhados. |
 | Encantamento | Conjuração | Os encantos: a força ([Fortalecido]), a guarda ([Anulação]) e a pressa ([Acelerado]) nos aliados, o Desencanto que fere e arranca os encantos do inimigo, o Grande Encantamento no grupo e o Universo Um ([Lento]). Traço: Desencantador. |
 | Escrita Rúnica | Conjuração | As regras escritas: o círculo que prende ([Enraizado]), a palavra DOR ([Deterioração]), a runa que devolve o golpe ([Espelho]), as asas negras, a escuridão que transforma ([Despertado]) e a Regra Absoluta. Traço: Regra Escrita. |
@@ -379,17 +384,25 @@ a lâmina embainhada, o Assassino abre Brechas pelos acertos no Alvo e o Lutador
 | Espinhos | Maldição | Os espinhos do submundo: as vinhas ([Agarrado]), o manto ([Espelho]), o jardim ([Enraizado]), a rosa explosiva ([Derrubado]), a Dea Yggdrasil ([Atordoado]) e o Memento Mori ([Sentença: 3]). Tabu: em combate, a Recuperação cai [NP] e −1d6 nas Esquivas. Traço: Espinhos que Entram. |
 | Espíritos Celestiais | Portadora | As chaves dos portões: o touro que fica do seu lado ([Servo]), a lã do carneiro ([Barreira]), as flechas do sagitário, a onda do aguadeiro ([Encharcado], que pega aliados também), o punho do leão, o Vestido Estelar e Urano Metria. Traço: Chaves do Zodíaco. |
 | Fogo | Conjuração | As cores do fogo: a laranja que deixa [Queimando], a roxa que dobra o fogo, a azul de [Frio] ([Congelando]), a amarela que deixa [Confuso], a Coluna de Fogo, que consome o Queimando, e a Chama Arco-Íris ([Exposto] em quem já queimava). Traço: Brasa Viva. |
+| Fonte da Juventude | Proibida | Imortal: [Regeneração] em combate e um Fôlego Extra por rodada. A vida como moeda: o golpe pago com PV, a Dádiva (os seus PV para um aliado), o Escudo de Carne (o golpe de um aliado em você), a Vida sem Fim (área, e você [Exposto]), o corpo que se refaz na hora e a Gota da Fonte (cura e imortalidade por uma cena). Tabu: em combate, a cura de feitiços e itens cura metade em você. Traço: Imortal. |
+| Forma Indura | Proibida | Sete Corações: seis vezes por cena você fica com 1 PV em vez de cair (o Fôlego Extra); as garras ([Fissurado]), as asas ([Voando]), o rugido ([Medo]), o veneno do ressentimento ([Envenenado: NP], pega até demônio), a fera ([Derrubado]) e a Transformação Indura, que entrega os corações que restam ([Ímpeto] e imunidade a controle até o fim da cena; depois a fera cai e o fim da cena não a levanta). Tabu: em combate, cada coração perdido dá +1 de [Fúria]. Traço: Sete Corações. |
 | Fumaça | Portadora | A fumaça do cachimbo: o punho, a corda que deixa [Lento], a cortina que deixa [Oculto], a nuvem que deixa [Cego], o gigante que deixa [Confuso] e o Mar de Fumaça ([Silenciado]). Traço: Dentro da Névoa. |
 | Furtividade | Conjuração | O assassino invisível: apagar a presença ([Oculto], e o primeiro golpe [Fortalecido]), a arma invisível ([Cambaleante]), revelar o escondido, a tortura ([Medo]), as mil lâminas ([Marcado]) e o Assassinato Perfeito ([Exposto]). Traço: Lâmina que Ninguém Vê. |
 | Gigante | Conjuração | O tamanho: o golpe gigante, a mão que deixa [Agarrado], o corpo [Fortalecido] e com [Anulação], a pisada que deixa [Cambaleante], o Punho do Titã ([Atordoado]) e a Queda do Titã ([Derrubado]). Traço: Grande Demais. |
 | Gravidade | Conjuração | O peso das coisas: [Lento], [Derrubado] e [Enraizado], o golpe [Fortalecido] e o voo da Gravidade Zero. Traço: Peso Dobrado. |
 | Histórias dos Mortos | Conjuração | Os mortos do passado: a rajada, ler o coração ([Marcado]), a história que deixa [Confuso], o redemoinho ([Derrubado]), a cidade dos mortos ([Medo]) e O Mais Forte dos Mortos ([Atordoado], e ele fica como [Servo]). Traço: Passado que Assombra. |
+| Infinito | Perdida | O Infinito: os efeitos dos feitiços que acabariam no turno ou na rodada duram a cena, e quem está preso num deles se livra com uma Ação Maior. O cubo que protege ([Barreira]) ou prende ([Enraizado] e [Silenciado]), o raio que conta metade da Defesa, o Cancelamento Absoluto (desfaz a magia sobre um alvo), o [Fortalecido] que não passa, o Caixão do Tempo ([Paralisado], que não dura) e o Encanto: Infinito ([Deterioração] que não acaba). Tabu: em combate, a Defesa Física cai [NP]. Traço: Tempo Parado. |
+| Invasão | Perdida | A mente: a luz que acha e marca ([Identificado], [Marcado]), as flechas que reescrevem ([Confuso]), o pesadelo ([Pesadelo]), o boneco ([Dominado]), a névoa do esquecimento ([Amnésia]) e o Apagão ([Adormecido] em quem tem NP menor que o seu). Tabu: em combate, os feitiços não miram quem está engajado, e −1d6 nas Esquivas contra golpes corpo a corpo. Traço: Mente de Boneco (atravessa [Anulação] e [Barreira]). |
+| Lâmina Divisora | Portadora | As cópias de verdade: os [Clones] (um por rodada, ou seis de uma vez), o golpe das cópias (+Clones×2), a troca com a cópia (o golpe acerta a cópia), as cópias em volta ([Cambaleante]) e os Sete Golpes (os Clones viram dano e zeram). Traço: Cópias Reais (uma vez por rodada, uma cópia usa um feitiço de reação seu sem gastar o uso). |
+| Lampejo | Ancestral | Agir fora do turno: o Lampejo Divino dá uma Ação de Movimento e uma Ação Menor no fim do turno de outra criatura. O clarão que cega ([Cego], uma Ação Menor), o sopro que abençoa ([Concentrado] e [Barreira]), o rastro de faíscas em linha ([Queimando]), a rajada em até 5 alvos e o Brilho Dourado ([Cego], e mais uma Ação de Movimento e uma Ação Menor). Traço: Rápido Demais. |
+| Lança Espiritual | Portadora | As Formas da lança, uma por vez, cada uma com a sua ação e o seu efeito enquanto dura: a lança (+NP÷2 de dano), o urso ([Barreira]; quem bate fica [Provocado]), a pedra ([Petrificado]; [Rigidez]), as lâminas (até 5 alvos; [Espelho]), o jardim ([Barreira] nos aliados; [Regeneração]) e o girassol (supremo; [Servo] de [Radiância]). A Mudança de Forma vem com a Magia. Traço: Árvore Sagrada (imune a [Desarmado]; trocar de forma é uma Ação Menor). |
 | Macro | Maldição | As ordens: os livros em dois alvos, a ordem ao corpo ([Dominado]), o macro em si mesmo ([Despertado], [Voando]), os olhos demoníacos ([Cambaleante]), a avalanche da biblioteca ([Derrubado]) e o Olho Demoníaco Liberto ([Atordoado]). Tabu: em combate, a Iniciativa cai [NP] e −1d6 nas Resistências, menos enquanto [Despertado]. Traço: Ordens. |
 | Magia das Fadas | Ancestral | A luz das fadas: [Radiância], a ilusão que dá [Medo], a [Regeneração], a esfera que protege os aliados ([Barreira]), o brilho que deixa [Cego] e a Lei das Fadas, o supremo do NP 10, que só fere os inimigos. Traço: Luz que Protege. |
 | Magia dos Anjos | Conjuração | Os anjos, pagos com a sua vida: as penas de [Radiância], os mensageiros que deixam [Enraizado], o anjo do martelo ([Derrubado]), Shamsiel ([Cego]), Barakiel ([Atordoado]) e Raguel ([Medo]). Os anjos acertam sem teste e deixam [Fadiga] em você. Traço: Preço Pago. |
 | Magia Seith | Conjuração | As almas nos bonecos: raios em linha e em estrela, os bonecos que ficam do seu lado ([Servo]), a Possessão ([Dominado]), os Olhos de Boneco ([Confuso]) e o Ritual das Almas. Traço: Almas Presas. |
 | Magia Viva | Perdida | A vida criada: a centelha que cura sem a Recuperação ([Regeneração]), a cria de barro ([Lento]), o sangue que apodrece ([Deterioração]), o corpo refeito (tira os estados), a fera criada, que fica ([Servo]) e a Gênese ([Medo]). Tabu: em combate, a Recuperação e a Defesa Mágica caem [NP]. Traço: Fonte de Vida. |
 | Maldição do Boneco | Perdida | A maldição no boneco: o fio que deixa o corpo do outro [Agarrado], o Dodoskoi ([Derrubado]), o boneco de ferro ([Fortalecido], [Anulação]), o de névoa ([Intangível]), o foguete metálico e o Dodoskoi Brilhante ([Cego]). Tabu: em combate, a Recuperação cai [NP] e a Defesa Mágica cai [NP÷2]. Traço: Corpo no Boneco. |
+| Mandamentos | Maldição | O Decreto: uma lei a até 4 Qd (um dos dez Mandamentos, escolhido ao receber a Magia) que amaldiçoa na hora quem a quebra ([Pacificado], [Petrificado], [Dominado], [Sentença], [Agonia], [Selado], [Silenciado], [Envenenado], [Amnésia], [Cego] e [Queimando]); a marca que aumenta o alcance e fere, as espadas negras, a maldição no golpe (Mandamento Materializado), a Forma de Assalto ([Despertado], alcance em dobro), um segundo Mandamento e os dez de uma vez no supremo. Tabu: em combate, o Decreto pega você e os aliados. Traço: Marca do Rei Demônio (imune aos Decretos dos outros). |
 | Matador de Demônios | Perdida | O gelo negro feito para matar demônios: [Frio], [Congelando] e [Fissurado], o golpe congelado no ar e a magia calada ([Silenciado]). Tabu: em combate, as Defesas Física e Mágica caem [NP]. Traço: Caça-Demônios. |
 | Matador de Deuses do Céu | Perdida | O vento negro dos deuses: o rugido que derruba, o sopro que cura, a dança que deixa [Atordoado], a bênção ([Fortalecido], [Acelerado]), o Bóreas ([Lento]) e a Lança Celestial ([Exposto]). Tabu: em combate, a Iniciativa cai [NP] e a Velocidade cai 1. Traço: Ar dos Deuses. |
 | Matador de Deuses do Fogo | Perdida | As chamas negras que racham em vez de queimar: o rugido e a foice que deixam [Fissurado], o fogo comido ([Anulação], [Fortalecido]), a chama explosiva ([Derrubado]), o Kagutsuchi ([Atordoado]) e a Ceia do Deus do Fogo ([Exposto], [Enraizado]). Tabu: em combate, a Recuperação cai [NP] e a Defesa Física cai [NP÷2]. Traço: Chama que Devora. |
@@ -397,18 +410,24 @@ a lâmina embainhada, o Assassino abre Brechas pelos acertos no Alvo e o Lutador
 | Moldagem de Gelo | Conjuração | O gelo moldado com as mãos: lanças e o martelo de [Frio] ([Congelando]), o escudo em forma de flor, o chão que derruba, as águias de gelo e a Dança dos Sete Cortes. Traço: Gelo que Não Derrete. |
 | Moldagem de Madeira | Conjuração | A madeira moldada: a bola de espinhos ([Cambaleante]), as armas em volta que dão [Espelho], a fusão que deixa [Oculto], a represa que deixa [Enraizado], os pés e as mãos gigantes que deixam [Cambaleante] e o Soco Divino ([Derrubado]). Traço: Tábuas e Pregos. |
 | Moldagem de Memória | Conjuração | A memória das magias vistas: Memorizar ([Concentrado]), o feitiço lembrado, o Esquecimento ([Selado]), a terra em chamas ([Queimando]) e a noite das estrelas cadentes. Traço: Lembrança Apagada. |
+| Nebulosa Sinistra | Maldição | O vórtice: puxa os alvos para o seu quadrado e os corta de [Corrupção], os fios que prendem ([Agarrado]), Deus ([Intocável] em você ou [Silenciado] num alvo), a chuva de esferas, o relâmpago negro ([Atordoado]) e o Dies Irae ([Eletrificado: NP]). Tabu: em combate, a Defesa Física cai [NP]. Traço: Carrasco (+NP em quem está [Agarrado] ou [Enraizado]). |
 | Necromancia | Maldição | Os mortos, de [Corrupção]: as mãos da cova ([Enraizado], e um morto fica como [Servo]), o corpo de partículas ([Intangível]), o Primeiro Selo ([Silenciado]), a guarda dos mortos ([Anulação]), o exército de ossos ([Agarrado]) e o Julgamento da Estrela Maligna ([Medo], [Maldito]). Tabu: [Maldito] em combate. Traço: Corpo Morto. |
 | Neve | Conjuração | A neve: a fúria branca ([Congelando]), a nevasca que deixa [Cego], a cópia de neve que toma o golpe, o vento que deixa [Derrubado], a avalanche que deixa [Enraizado] e o Branco Total ([Cego]). Traço: Mundo Branco. |
+| O Soberano | Maldição | O avesso: o Inverter ([Inversão]: o dano mágico vira cura), as trevas que esmagam ([Derrubado]), o portão em linha ([Maldito]), o poder emprestado a um aliado ([Despertado]), a fera que fica ([Servo]) e a Reencarnação Eterna ([Sentença: 3]). Tabu: em combate, a cura de feitiço dos aliados vira dano em você. Traço: Rei dos Demônios (vira do avesso os bônus de quem acerta). |
 | Olhos Mágicos | Conjuração | O olhar: o que deixa [Rigidez], o que deixa [Marcado], o que deixa [Encantado], o olho do demônio ([Despertado]), os Mil Olhos ([Medo]) e o Olhar Petrificante ([Paralisado]). Traço: Olhar que Petrifica. |
 | Onda | Conjuração | A onda que anula a magia: o disparo, o escudo contra ataques mágicos, o impulso que deixa [Silenciado], a anulação que arranca os encantos, a explosão que deixa [Cambaleante] e o Mundo Sem Magia ([Selado]). Traço: Vibração. |
 | Perfume Mágico | Portadora | Os frascos: o trovão de [Choque], a força que deixa [Fortalecido], o analgésico que cura o grupo, a dor que deixa [Medo] e [Envenenado], o veneno que deixa [Envenenado] e o Perfume da Força: Máximo ([Derrubado]). Traço: Nariz Treinado. |
 | Pintura Mágica | Portadora | A tinta que vive: a fera pintada, que fica ([Servo]), as asas que deixam [Voando], a jaula que deixa [Enraizado] e [Selado], a armadura ([Anulação]), o dragão ([Queimando]) e o Mural Vivo ([Medo]). Traço: Grade Pintada. |
 | Plantas | Portadora | As sementes: o cipó que deixa [Enraizado], o broto que dá [Regeneração], os esporos que deixam [Envenenado], a muralha de raízes ([Barreira]), a floresta que deixa [Lento] e o Jardim Carnívoro. Traço: Jardineiro. |
+| Portão do Inferno | Maldição | Comer almas: quem cai perto de você alimenta o seu Motor e cura você; os demônios menores ([Servo]), a alma puxada para fora ([Atordoado]; [Paralisado] com pouco PV), o portal que leva você ou um aliado, o casulo ([Agarrado] e [Pesadelo], que alimentam o seu Motor a cada Encerramento), o veneno em linha e o Rito do Rancor dos Mortos ([Medo]; quem cai vira o seu [Servo]). Tabu: em combate, a Recuperação cai [NP]. Traço: Banquete de Almas. |
+| Praga | Maldição | Sem matar: as correntes ([Agarrado] e [Agonia]), os sentidos apagados ([Cego], [Silenciado] e [Atordoado]), o enxame ([Envenenado] e [Servo] de [Veneno]), o rosto emprestado ([Oculto]; o primeiro golpe deixa [Confuso]), o tempo roubado ([Sentença: 4]) e a Grande Praga ([Sentença: 3] e [Agonia: NP]). Tabu: em combate, o seu golpe para em 1 PV; só as condições derrubam. Traço: A Hora Chega (a [Sentença] de quem você acerta cai 1). |
 | Projeção de Pensamento | Conjuração | As cópias de pensamento: o eco [Psíquico], a voz que tira o [Medo] e deixa [Concentrado], a projeção que deixa [Intangível], as cópias que deixam os inimigos [Provocado], o exército em três alvos e a Projeção Astral ([Medo]). Traço: Mente Dividida. |
 | Raio | Conjuração | O raio: o relâmpago ([Eletrificado]), a corrente que deixa [Eletrificado], o passo que deixa [Acelerado], o trovão que deixa [Atordoado], a tempestade em três alvos e o Palácio do Trovão. Traço: Para-raios. |
 | Reequipar: O Cavaleiro | Portadora | As armaduras de batalha: os feitiços são Ataques com Arma (espadas em área, o golpe da asa negra), a defesa adamantina, o traje sem armadura e a armadura que corta a magia ([Selado]). Traço: Arsenal sem Fim. |
 | Reflexão | Conjuração | Tudo torcido: o corpo que fica com [Rigidez], o golpe que volta ([Espelho]), a luz que deixa [Oculto], o corpo [Cambaleante], o mundo que deixa [Atordoado] e a Reflexão Total ([Confuso]). Traço: Golpe Torto. |
 | Roubo | Proibida | O que eles perdem, você ganha: a força ([Enfraquecido] nele, [Fortalecido] em você), a arma ([Desarmado]), sumir ([Oculto]), atravessar cortando, os órgãos ([Fissurado], Dreno) e o Festival da Caça ([Enfraquecido: NP] em todos em volta, aliados também, com Dreno). Tabu: em combate, a Defesa Mágica cai [NP]. Traço: Mão Leve (rouba um bônus a cada acerto). |
+| Ruptura Crítica | Maldição | O [Ímpeto]: a força que sobe a cada turno (dano e Defesas), o corte que racha ([Fissurado]), o salto que derruba ([Derrubado]), o giro em todos os engajados ([Cambaleante]), a onda em linha que conta metade da Defesa e o golpe que solta o Ímpeto dobrado, sem Fadiga. Tabu: em combate, a Iniciativa cai [NP] e a Defesa Mágica [NP÷2]. Traço: Armadura Viva (com Ímpeto, imune a [Fissurado] e [Derrubado]). |
+| Sangue Demoníaco | Proibida | O sangue que ferve: o terceiro feitiço da cena transforma você em demônio ([Despertado] e [Voando]); o ácido ([Deterioração], [Fissurado]), as esferas negras ([Pavio]) que o Beco sem Saída detona juntas, sem teste, a onda de fogo negro ([Chama Negra]), o despertar que transforma na hora ([Medo]) e a Nebulosa Negra ([Cego]). Tabu: em combate, a Recuperação cai [NP] e [Fraqueza (Radiância): NP÷2]. Traço: Demônio Cinzento. |
 | Selo do Tempo | Perdida | O tempo parado: o raio sem teste, o selo que dá [Acelerado], os ponteiros que deixam [Marcado], o passo fora do tempo, o transbordamento ([Derrubado]) e a Alma Divina: Cronos ([Paralisado]). Tabu: em combate, as Defesas caem [NP÷2]. Traço: O Tempo é Seu. |
 | Shikigami | Conjuração | Os bonecos de papel: a torrente, que fica ([Servo]), o véu de ilusão ([Oculto]), a prisão de papel ([Enraizado], [Silenciado]), a bomba negra ([Atordoado]), a revoada ([Enraizado]) e os Mil Bonecos de Papel ([Selado]). Traço: Mil Papéis. |
 | Sol | Ancestral | O Relógio do Sol: o [Sol] sobe a cada rodada e a cada feitiço até o meio-dia, que dá [O Único], e depois desce; de noite, não passa de 2. O sol pequeno que gira ([Espelho]), o punho de fogo ([Derrubado]), os sóis em três alvos, a explosão que derrete armadura ([Fissurado]), a Espada Divina (atravessa [Anulação] e [Barreira]) e a Proeminência Final, o supremo do NP 10, que estende o meio-dia. Traço: Orgulho do Leão. |
@@ -420,6 +439,7 @@ a lâmina embainhada, o Assassino abre Brechas pelos acertos no Alvo e o Lutador
 | Território | Conjuração | O espaço é seu: o calor que explode de [Chama], a troca de lugar com um aliado ([Anulação]), a prisão de ar ([Enraizado]), o domínio que deixa [Marcado], o colapso ([Derrubado]) e o Território Absoluto ([Marcado]). Traço: Espaço Próprio. |
 | Trevas | Conjuração | As trevas, tudo de [Corrupção]: o raio que perfura, a mão que deixa [Agarrado], a gravidade que deixa [Derrubado], o escuro que deixa [Cego], o rondó que deixa [Medo] e a Gênese Zero ([Maldito]). Traço: Olhos no Escuro. |
 | Vento | Conjuração | O vento: a lâmina de [Vento], a rajada que derruba, a armadura de tempestade ([Voando], [Anulação]), o redemoinho que deixa [Atordoado], o furacão ([Lento]) e o Espaço Aéreo: Zero ([Silenciado]). Traço: Corrente de Ar. |
+| Visão | Perdida | O Presságio: dados rolados no começo do combate e guardados, cada um troca um dado de qualquer teste de um cartão de ataque (o seu, o de um aliado ou o de um inimigo). Ver o Golpe, a Profecia (um 6), o Destino Fixo ([Marcado] e um 1), o Caleidoscópio (dois dados), o Futuro Visto ([Concentrado] e +1d6 na Esquiva para os aliados) e O Fim Já Escrito (acerta sem teste, e os dados que sobram viram dano). Tabu: em combate, a Iniciativa cai [NP]. Traço: Olhos do Oráculo. |
 
 ## As raças
 
@@ -514,40 +534,60 @@ cada uma aparece ao passar o mouse (na ficha, no HUD e nos estados clicáveis do
 
 | Família | Condições |
 |---|---|
-| Controle | Paralisado, Adormecido, Enraizado, Derrubado, Lento, Agarrado |
-| Bloqueio | Silenciado, Desarmado, Cego, Selado (Habilidade), Enfraquecido: n |
-| Mente | Medo, Encantado, Provocado, Fúria: n, Dominado |
+| Controle | Paralisado, Adormecido, Enraizado, Derrubado, Lento, Agarrado, Petrificado |
+| Bloqueio | Silenciado, Desarmado, Cego, Selado (Habilidade), Enfraquecido: n, Amnésia |
+| Mente | Medo, Encantado, Provocado, Fúria: n, Dominado, Pacificado, Agonia: n, Pesadelo: n |
 | Elementais | Queimando: n, Envenenado: n, Congelando: n (acumula até 3), Eletrificado: n, Maldito, Encharcado: n, Pavio: n (soma), Chama Negra: n |
 | Quebra de guarda | Exposto, Fissurado: n (acumula até 3), Marcado: n, Sentença: n |
-| Estados de Combate | Acelerado, Fortalecido: n, Concentrado, Espelho: n, Intangível, Último Fôlego, Despertado: n, Servo: n, Sol: n, O Único, Contragolpe, Rancor: n |
+| Estados de Combate | Acelerado, Fortalecido: n, Concentrado, Espelho: n, Intangível, Último Fôlego, Despertado: n, Servo: n, Sol: n, O Único, Contragolpe, Rancor: n, Ímpeto: n (soma), Combo: n (soma), Intocável, Inversão, Ritmo: n (até 3), Clones: n (até 6) |
 | Outros | Vínculo |
 
 O que o sistema faz sozinho:
 
 - **Dados:** −1d6 e +1d6 nos testes e nas Esquivas (Confuso, Cego, Medo contra quem o causou, Derrubado, Marcado,
-  Envenenado, Encantado, Concentrado, Despertado…) e o dano a mais de Fortalecido, Fúria e Despertado (e o a menos do
-  Enfraquecido), com o motivo no cartão. Adormecido falha na Esquiva.
+  Envenenado, Encantado, Concentrado, Despertado…) e o dano a mais de Fortalecido, Fúria, Despertado, Ímpeto, Combo e
+  Clones (no corpo a corpo), os d6 do Ritmo no próximo feitiço (e o a menos do Enfraquecido), com o motivo no cartão.
+  Adormecido, Petrificado e Pesadelo falham na Esquiva.
 - **Dano aplicado:** Exposto fica sem Defesa e sem Anulação, Intangível não sofre dano físico, Marcado soma o seu
   Valor quando a Esquiva falha, Último Fôlego segura em 1 PV, Vínculo divide o dano, Espelho devolve, Maldito não
   recupera PV, [Chama] derrete o Congelando e seca o Encharcado, Encharcado soma o seu Valor ao dano de [Choque] e de
   [Frio] (e apaga o Queimando), e o Adormecido acorda. O Contragolpe devolve ao atacante o dobro do dano que o golpe
   causaria, O Único não sofre nada de ataques, o Rancor guarda o PV perdido e a Chama Negra não deixa ninguém se curar
-  (nem com Regeneração) e não apaga com água.
+  (nem com Regeneração) e não apaga com água. Intocável não sofre dano mágico, Petrificado sofre metade, os Clones
+  podem levar o golpe (1d6 até o Valor), a Inversão faz o dano mágico curar e a cura ferir, o golpe de quem está
+  Pacificado não fere, a Agonia dói a cada cura e a cada Estado Negativo tirado, e o Fôlego Extra (Sete Corações,
+  Imortal) segura em alguns PV. Uma Execução (o Purgar da Arca) derruba na hora quem é demônio ou usa
+  Maldição e fica com pouco PV; o golpe de quem tem o Tabu da Praga para em 1 PV (só as condições derrubam); e a cura
+  de feitiço de um aliado fere quem tem o Tabu d'O Soberano.
 - **Turnos:** o Sol sobe na Manutenção (até o meio-dia, que dá O Único, e depois desce; de noite, não passa de 2),
   Envenenado no início do turno, Eletrificado a cada Ação Maior, Queimando, Chama Negra, Sentença e Pavio (que explode
-  de uma vez) no Encerramento, quando o Servo golpeia o inimigo mais perto; Lento age depois dos outros, Acelerado tem
-  duas Ações Menores, Paralisado e Adormecido perdem a vez.
+  de uma vez) no Encerramento, quando o Servo golpeia o inimigo mais perto e o Casulo das Trevas alimenta o Motor de
+  quem o lançou, e o Pesadelo fere; o Ímpeto sobe no fim de cada turno (passou do NP, vem a Fúria) e o Combo zera num
+  turno sem ataque; Lento age depois dos outros, Acelerado tem duas Ações Menores, Paralisado, Adormecido, Petrificado
+  e Pesadelo perdem a vez.
 - **Acúmulos:** o terceiro Congelando paralisa; o terceiro Fissurado quebra a guarda (a Barreira some e vem Exposto).
-- **Ficha:** Exposto e Fissurado baixam as defesas; Congelando, a Velocidade e a Iniciativa; Enraizado, Agarrado,
-  Paralisado e Adormecido zeram a Velocidade.
+- **Ficha:** Exposto e Fissurado baixam as defesas, Sol e Ímpeto as sobem; Congelando, a Velocidade e a Iniciativa;
+  Enraizado, Agarrado, Paralisado, Adormecido, Petrificado e Pesadelo zeram a Velocidade.
 - **Proibições:** as ações, os alvos e o movimento que as condições impedem (Silenciado, Desarmado, Selado, Agarrado,
-  Provocado, Encantado, Dominado, Cego, Fúria, Enraizado, Medo…) avisam ou bloqueiam, como os limites de uso.
-- **Fim:** cada condição acaba quando a regra manda (fim do turno, Encerramento, fim da cena) e
-  respeita o Aflito; Agarrado e Vínculo acabam quando quem os causou fica Incapacitado; Despertado deixa Fadiga.
+  Provocado, Encantado, Dominado, Cego, Fúria, Enraizado, Medo…) avisam ou bloqueiam, como os limites de uso. Um Tabu
+  pode proibir mirar quem está engajado (a Distância, da Invasão).
+- **Fim:** cada condição acaba quando a regra manda (fim do turno, Encerramento, fim da cena) e respeita o Aflito; os
+  efeitos infinitos (a Magia Infinito) não acabam assim, e duram a cena; um estado renovado (a Promoção de Estado) pula
+  o próximo fim (nos dois casos, menos os estados que tiram o turno); Petrificado, Amnésia e Pesadelo dados no
+  próprio turno duram até o fim do seguinte; Agarrado, Vínculo, Chama Negra e Petrificado acabam quando quem os causou
+  fica Incapacitado; Despertado e Ímpeto deixam Fadiga.
+- **Quedas:** quem tem o Traço do Portão do Inferno come a alma de quem cai a até 4 Qd (+1 no Motor da classe e NP
+  de PV, uma vez por rodada), e o Rito do Rancor dos Mortos transforma em [Servo] os inimigos que caem na rodada.
 - **Livrar-se com uma ação:** no HUD, o ícone de corrida ao lado da condição gasta a ação da regra (Ação Menor para
-  Queimando, de Movimento para Derrubado, Maior para Envenenado e o Pavio…).
+  Queimando, de Movimento para Derrubado, Maior para Envenenado e o Pavio…). Um Estado Negativo de um efeito infinito
+  sai com uma Ação Maior (o efeito inteiro sai).
 - **Origem:** Medo, Encantado, Dominado, Provocado, Agarrado e Vínculo lembram quem os causou (quem usou a habilidade
   ou o estado clicável).
+- **Presságio, fora do turno, Imortal e Reino:** quem tem a Magia Visão rola dados no começo do combate e os guarda;
+  botões nos cartões de ataque trocam um dado do Teste de Acerto ou da Esquiva por eles. O Lampejo Divino abre uma
+  janela de ações fora do turno (uma Ação de Movimento e uma Ação Menor, contadas à parte). O Imortal ganha
+  [Regeneração] na Manutenção e um Fôlego Extra por rodada; o Escudo de Carne recebe no lugar de um aliado o golpe que
+  o acertou; o Reino do Caos dá a regra escolhida a quem está perto de quem conjura, a cada Manutenção.
 - Duas tags novas para as habilidades: [Feitiço] e [Canção]. Silenciado impede as duas e o [Ataque Mágico].
 
 ## A automação
@@ -730,7 +770,8 @@ eternia.icons.refresh();              // desenha de novo os ícones da tela
   Aincrad, Alfheim e Submundo. A Eternia não é oficial nem tem vínculo com eles.
 - **Ícones** de [game-icons.net](https://game-icons.net) sob [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
   (fundos dos estados recoloridos; Encharcado, Enfraquecido, Pavio, Servo, Dominado, Chama Negra, Sol, O Único,
-  Contragolpe e Rancor são arte própria). Autores: Lorc, Delapouite, Skoll, Sbed, Zeromancer e
+  Contragolpe, Rancor, Petrificado, Pacificado, Agonia, Amnésia, Pesadelo, Ímpeto, Combo, Intocável, Inversão, Ritmo e
+  Clones são arte própria). Autores: Lorc, Delapouite, Skoll, Sbed, Zeromancer e
   Carl Olsen.
 
 <details>
