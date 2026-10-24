@@ -1,0 +1,107 @@
+{{!-- CLASS: the classes (physical or magic) as cards and, beside them, the page of the one under the pointer (or chosen):
+     its base, its Motor and how it works, the choice of CR 1 (the Dragon Slayer's element), the kit and the road from
+     CR 1 to 10 (Magias, Path, Dedication, Apex). --}}
+<div class="wz-toolbar">
+	{{#each families}}
+	<button type="button" class="wz-chip{{#if active}} active{{/if}}" data-action="family" data-family="{{id}}">{{#if icon}}<i class="{{icon}}"></i>{{/if}}{{label}}<b>{{count}}</b></button>
+	{{/each}}
+</div>
+<div class="wz-split">
+	<ol class="wz-grid wz-grid-class" role="listbox" aria-label="{{localize 'ETERNIA.Wizard.Step.class'}}">
+		{{#each classes}}
+		<li class="wz-card class{{#if selected}} selected{{/if}}" role="option" aria-selected="{{#if selected}}true{{else}}false{{/if}}" tabindex="0"
+			data-kind="class" data-key="{{uuid}}" data-action="pick" style="--wz-card: {{color}}"{{#if hidden}} hidden{{/if}}>
+			<span class="wz-emblem"><img src="{{img}}" alt=""></span>
+			<span class="wz-card-text">
+				<span class="wz-card-eyebrow">{{eyebrow}}</span>
+				<span class="wz-card-name">{{name}}</span>
+				{{#if motor}}<span class="wz-card-line"><i class="fa-solid fa-gear"></i>{{motor.name}}</span>{{/if}}
+			</span>
+			<i class="wz-card-check fa-solid fa-check"></i>
+		</li>
+		{{/each}}
+	</ol>
+
+	<aside class="wz-detail">
+		<article class="wz-page wz-guide">
+			<header class="wz-page-head">
+				<span class="wz-medal big plain"><i class="fa-solid fa-chess-knight"></i></span>
+				<div>
+					<span class="wz-page-eyebrow">{{localize "ETERNIA.Wizard.Guide.Eyebrow"}}</span>
+					<h3>{{localize "ETERNIA.Wizard.Guide.class.Title"}}</h3>
+				</div>
+			</header>
+			<ol class="wz-guide-steps">
+				<li><i class="fa-solid fa-gear"></i><p>{{localize "ETERNIA.Wizard.Guide.class.One"}}</p></li>
+				<li><i class="fa-solid fa-hat-wizard"></i><p>{{localize "ETERNIA.Wizard.Guide.class.Two"}}</p></li>
+				<li><i class="fa-solid fa-route"></i><p>{{localize "ETERNIA.Wizard.Guide.class.Three"}}</p></li>
+			</ol>
+		</article>
+
+		{{#each classes as |job|}}
+		<article class="wz-page" data-key="{{job.uuid}}" style="--wz-card: {{job.color}}" hidden>
+			<header class="wz-page-head">
+				<span class="wz-emblem big"><img src="{{job.img}}" alt=""></span>
+				<div>
+					<span class="wz-page-eyebrow">{{job.eyebrow}}</span>
+					<h3>{{job.name}}</h3>
+					{{#if job.roles.length}}<div class="wz-roles">{{#each job.roles}}<span>{{this}}</span>{{/each}}</div>{{/if}}
+				</div>
+			</header>
+
+			<ul class="wz-base">
+				{{#each job.base}}<li><b>{{value}}</b><small>{{abbr}}</small></li>{{/each}}
+				<li class="hp" data-tooltip="{{job.band}}"><b>{{job.hp}}</b><small>{{localize "ETERNIA.Classes.HpPer" n=job.hpPerRank}}</small></li>
+			</ul>
+
+			{{#each job.choices as |g|}}
+			<div class="wz-grant choice" data-grant="{{g.index}}" data-kind="class" data-key="{{job.uuid}}">
+				<h4>{{localize "ETERNIA.Wizard.Class.Choice"}}</h4>
+				<ul class="wz-tiles options">
+					{{#each g.options as |o|}}
+					<li class="wz-tile{{#if o.checked}} checked{{/if}}" data-action="grant" data-uuid="{{o.uuid}}" data-wz-tip="{{o.tip}}">
+						<img src="{{o.img}}" alt="">
+						<span class="wz-tile-body"><b>{{o.name}}</b><small>{{o.meta}}</small></span>
+						<i class="wz-tile-radio fa-{{#if o.checked}}solid fa-circle-dot{{else}}regular fa-circle{{/if}}"></i>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+			{{/each}}
+
+			{{#if job.motor}}
+			<section class="wz-motor">
+				<header>
+					<span class="wz-page-eyebrow">{{localize "ETERNIA.Classes.Motor"}}</span>
+					<h4>{{job.motor.name}}</h4>
+				</header>
+				{{#if job.motor.text}}<p>{{job.motor.text}}</p>{{/if}}
+				<dl>{{#each job.motor.card}}<div><dt>{{label}}</dt><dd>{{{html}}}</dd></div>{{/each}}</dl>
+			</section>
+			{{/if}}
+
+			<h4>{{localize "ETERNIA.Classes.Kit"}}</h4>
+			<ul class="wz-tiles">
+				{{#each job.kit}}
+				<li class="wz-tile" data-wz-tip="{{tip}}">
+					<img src="{{img}}" alt="">
+					<span class="wz-tile-body"><b>{{name}}</b><small>{{#if kindLabel}}<i class="{{kindIcon}}"></i> {{kindLabel}} · {{/if}}{{meta}}</small></span>
+				</li>
+				{{/each}}
+			</ul>
+
+			<h4>{{localize "ETERNIA.Wizard.Class.Road"}}</h4>
+			<ol class="wz-road">
+				{{#each job.road}}
+				<li>
+					<span class="wz-road-rank"><small>{{localize "ETERNIA.Sheet.CRShort"}}</small>{{rank}}</span>
+					<span class="wz-road-items">{{#each items}}<span class="wz-road-item"{{#if tip}} data-wz-tip="{{tip}}"{{/if}}><i class="{{icon}}"></i>{{label}}</span>{{/each}}</span>
+				</li>
+				{{/each}}
+			</ol>
+
+			{{#if job.lore}}<p class="wz-lore closing">{{job.lore}}</p>{{/if}}
+		</article>
+		{{/each}}
+	</aside>
+</div>

@@ -52,7 +52,13 @@ export function lhEffectDuration(effect) {
     const key = EFFECT_EXPIRY_SHORT_LABELS[expires];
     return globalThis.game?.i18n?.localize ? game.i18n.localize(key) : expires;
   }
-  return effect?.duration?.label ?? "";
+  const label = effect?.duration?.label ?? "";
+  // No duration: core says "None" (untranslated without a core translation); an item's passive effect says so
+  const none = !label || (label === "None") || (globalThis.game?.i18n && (label === game.i18n.localize("None")));
+  if (none && globalThis.game?.i18n) {
+    return game.i18n.localize(effect?.transfer ? "ETERNIA.EffectDuration.Short.Passive" : "ETERNIA.EffectDuration.Short.Unlimited");
+  }
+  return label;
 }
 
 /**

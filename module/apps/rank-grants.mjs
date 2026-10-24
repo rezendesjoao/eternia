@@ -89,7 +89,7 @@ export function registerRankGrants() {
   const ofCharacter = item => (item.type === "skill") && (item.parent instanceof Actor)
     && (item.parent.type === "character") && listOf(item).length;
   Hooks.on("createItem", (item, options, userId) => {
-    if (!isLocalChange(options, userId) || options.eterniaMigration || !ofCharacter(item)) return;
+    if (!isLocalChange(options, userId) || options.eterniaMigration || options.eterniaCreation || !ofCharacter(item)) return;
     offerRankGrants(item.parent, item);
   });
   Hooks.on("updateItem", (item, changes, options, userId) => {
@@ -99,7 +99,7 @@ export function registerRankGrants() {
   });
   // The skills it gave go away with it.
   Hooks.on("deleteItem", (item, options, userId) => {
-    if (!isLocalChange(options, userId) || !ofCharacter(item)) return;
+    if (!isLocalChange(options, userId) || options.eterniaCreation || !ofCharacter(item)) return;
     const ids = givenBy(item.parent, item).map(i => i.id);
     if (ids.length) item.parent.deleteEmbeddedDocuments("Item", ids);
   });

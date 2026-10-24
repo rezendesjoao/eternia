@@ -1,0 +1,7 @@
+{{!-- The choice a Magia asks for in the creation wizard (the Mandamentos' Decree). --}}
+<span class="wz-decree-label"><i class="fa-solid fa-scroll"></i>{{localize "ETERNIA.Wizard.Magic.Decree" name=name}}</span>
+<ul class="wz-decree-options">
+	{{#each options}}
+	<li><button type="button" class="wz-chip{{#if checked}} active{{/if}}" data-action="decree" data-uuid="{{uuid}}"><img src="{{img}}" alt="">{{name}}</button></li>
+	{{/each}}
+</ul>

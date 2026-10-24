@@ -1,0 +1,31 @@
+{{!-- The page of one Magia in the Magia browser (module/apps/magic-picker.mjs): what it is, its Trait and Tabu, its
+     spells by CR and the closing line of its description. Drawn the first time it is shown. --}}
+<article class="mp-page" data-uuid="{{uuid}}" style="--mp-cat: {{categoryColor}}">
+	<header class="mp-page-head">
+		<span class="mp-page-art"><img src="{{img}}" alt=""></span>
+		<div>
+			<span class="mp-page-cat"><i class="{{categoryIcon}}"></i>{{categoryLabel}}</span>
+			<h3>{{name}}</h3>
+			<p class="mp-page-tag">{{tagline}}</p>
+		</div>
+	</header>
+	{{#if allRoles.length}}<div class="mp-page-roles">{{#each allRoles}}<span><i class="{{icon}}"></i>{{label}}</span>{{/each}}</div>{{/if}}
+	{{#if intro}}<p class="mp-page-intro">{{intro}}</p>{{/if}}
+	{{#if trait}}<div class="mp-trait"><i class="fa-solid fa-star"></i><p><b>{{trait.label}}:</b> {{trait.text}}</p></div>{{/if}}
+	{{#if tabu}}<div class="mp-tabu"><i class="fa-solid fa-triangle-exclamation"></i><p><b>{{tabu.label}}:</b> {{tabu.text}}</p></div>{{/if}}
+	{{#each notes}}<p class="mp-note"><b>{{label}}:</b> {{text}}</p>{{/each}}
+	<h4>{{localize "ETERNIA.MagicPicker.Spells"}}{{#if nowCount}}<span class="mp-now-count"><i class="fa-solid fa-circle"></i>{{localize "ETERNIA.MagicPicker.NowCount" n=nowCount}}</span>{{/if}}</h4>
+	<ol class="mp-spells">
+		{{#each spells}}
+		<li class="mp-spell{{#if tier}} {{tier}}{{/if}}{{#if now}} now{{/if}}">
+			<span class="mp-spell-rank"><small>{{localize "ETERNIA.MagicPicker.CR"}}</small>{{minRank}}</span>
+			<img src="{{img}}" alt="">
+			<span class="mp-spell-body">
+				<span class="mp-spell-name"><span>{{name}}</span>{{#if tierLabel}}<em class="mp-tier">{{tierLabel}}</em>{{/if}}</span>
+				<span class="mp-spell-meta">{{meta}}{{#each statuses}}<span class="mp-status">{{this}}</span>{{/each}}</span>
+			</span>
+		</li>
+		{{/each}}
+	</ol>
+	{{#if visual}}<p class="mp-page-visual">{{visual}}</p>{{/if}}
+</article>

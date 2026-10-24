@@ -47,6 +47,14 @@
     "systems/eternia/templates/chat/damage-applied.hbs",
     "systems/eternia/templates/chat/use-card.hbs",
 
+    // The Magia browser (the Magia picker and the creation wizard)
+    "systems/eternia/templates/apps/magic-browser.hbs",
+    "systems/eternia/templates/apps/magic-page.hbs",
+
+    // The creation wizard's steps
+    ...["race", "class", "magic", "profession", "attributes", "skills", "summary", "decree"]
+      .map(step => `systems/eternia/templates/apps/creation/${step}.hbs`),
+
     // ActiveEffect sheets
     "systems/eternia/templates/effects/effect-changes.hbs",
     "systems/eternia/templates/effects/effect-status.hbs",

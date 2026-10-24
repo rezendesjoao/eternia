@@ -5,9 +5,16 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.28.0
+## Versão 0.29.0
 
-- **Novo na 0.28.0: vinte Magias das categorias altas e onze condições.** Os **Mandamentos** dão um Decreto, uma lei
+- **Novo na 0.29.0: a ficha nova e o assistente de criação.** A ficha ficou mais larga (940×780), com o nome de cada
+  aba ao lado do ícone e um número dourado quando há algo esperando nela; a aba Personagem traz a raça, a classe e a
+  profissão em cartões e os atributos com os seus testes, e a aba **Magias** mostra as vagas da classe e todos os
+  feitiços de cada Magia, com o Traço e o Tabu, sem nomes cortados. O **assistente de criação** monta o personagem em
+  sete passos (Raça, Classe, Magia, Profissão, Atributos, Habilidades e Resumo), explicando cada opção, com a ficha
+  montando ao lado; ele abre sozinho quando um personagem novo é criado. A janela de Magias e os navegadores abrem na
+  hora (veja [A ficha de personagem](#a-ficha-de-personagem) e [A criação de personagem](#a-criação-de-personagem)).
+- **Desde a 0.28.0: vinte Magias das categorias altas e onze condições.** Os **Mandamentos** dão um Decreto, uma lei
   em volta de você que amaldiçoa na hora quem a quebra; a **Ruptura Crítica** liga o [Ímpeto], o **Combo Estelar** soma
   o [Combo] a cada acerto e a **Nebulosa Sinistra** puxa os inimigos. O **Infinito** faz os feitiços durarem a cena, a
   **Invasão** prende a mente ([Pesadelo], [Amnésia]), a **Criação** dança com o [Ritmo] e o **Desastre** promove e
@@ -150,40 +157,82 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
 
 ## A ficha de personagem
 
-Do tamanho e com a organização da ficha de Pathfinder 2e (750×750): um estandarte verde à esquerda com o que se usa
-em jogo, o nome numa faixa escura, ícones redondos para as abas e o conteúdo em pergaminho, com molduras finas e
-rótulos em versalete. Fontes Eczar e Gelasio.
+Com a organização da ficha de Pathfinder 2e, num tamanho que cabe as três vagas de Magia lado a lado (940×780): um
+estandarte verde à esquerda com o que se usa em jogo, o nome numa faixa escura e o conteúdo em pergaminho, com
+molduras finas e rótulos em versalete. Cada aba tem o ícone e o nome, e um número dourado quando há algo esperando nela
+(escolhas de habilidade, uma vaga de Magia, o Caminho). Fontes Eczar e Gelasio.
 
 - **Estandarte:** PV atual e máximo com a Barreira ao lado e uma barra vermelha do que resta; Ódio numa caixa laranja
   (com a coroa quando está no Topo) e Fadiga numa caixa azul, que enchem conforme o valor; Defesa Física e Mágica em
   escudos, Iniciativa e Velocidade; Poder de Ataque, Mágico e de Recuperação; Precisão, Esquiva e Resistência com o
   número de dados, roláveis com um clique; e os estados ativos, com o botão de remover um Estado Negativo gastando
   Destino.
-- **Cabeçalho:** nome, Destino em estrelas (clique soma 1, botão direito tira 1) e o NP num brasão, com o botão de
-  subir de NP. Subir pelo botão ou digitando outro NP no brasão (vários de uma vez, ou para baixo) abre o mesmo resumo
+- **Cabeçalho:** nome, raça · classe · profissão (cada uma abre o seu item), Destino em estrelas (clique soma 1, botão
+  direito tira 1) e o NP num brasão, com o botão de subir de NP (e, no NP 1, o da pena, que abre o assistente de
+  criação). Subir pelo botão ou digitando outro NP no brasão (vários de uma vez, ou para baixo) abre o mesmo resumo
   antes de mudar: os Atributos Base antes e depois (com os modificadores que mudam), os PV, as escolhas de habilidade,
   os talentos que liberam e o que a classe dá em cada NP (o Caminho, as Magias, a Dedicação, o Ápice). Confirmado, o
   chat registra, vêm as escolhas da classe e o navegador abre com as escolhas contadas; descendo, dá para desfazer as
   escolhas feitas acima do NP novo. Cancelar deixa o NP como estava.
-- **Personagem:** retrato com Raça, Classe e Subclasse ao lado; as tags; Conexões e Uniões; e os quatro atributos em
-  molduras, com o botão de distribuir pontos.
-- **Testes:** os oito testes de atributo e os três de combate, cada um com o modificador e os dados.
-- **Habilidades:** Básicas, Gerais e de Combate, agrupadas pelo Momento (Ação Maior, Menor, Movimento, Instantânea,
-  Reações, Manutenção, Encerramento, Passivas…), com NH, custo e limite. Clique na imagem para usar e no nome para
-  abrir os detalhes ali mesmo; o botão Explorar abre o navegador de habilidades.
-- **Inventário:** a riqueza (receber e gastar ouro fica registrado no chat), o boneco de equipamento (sete espaços
-  ligados por linhas às partes do corpo), o que se carrega, os tíquetes e o espaço da bolsa.
+- **Personagem:** o retrato com a raça, a classe e a profissão em cartões, cada um com uma linha do que dá (os
+  atributos e PV da raça, a família, a função e o Motor da classe, o Rank e o talento da profissão); os quatro
+  atributos, cada um com o modificador e os dois testes que ele dá (um clique rola), com o botão de distribuir pontos;
+  e as tags. Um personagem ainda em branco mostra o convite para o assistente de criação.
+- **Habilidades:** de Combate, Gerais e Básicas, agrupadas pelo Momento (Ação Maior, Menor, Movimento, Instantânea,
+  Reações, Manutenção, Encerramento, Passivas…), com NH, custo e limite, e uma busca pelo nome. Clique na imagem para
+  usar e no nome para abrir os detalhes ali mesmo; o botão Explorar abre o navegador de habilidades.
 - **Classe:** cabe na ficha sem rolar. No alto, a faixa da classe (o emblema, os papéis, os atributos e os PV) e o
   Motor, com o estado e os pontos (no Samurai, a katana sai da bainha quando a lâmina é sacada e os Cortes brilham
   quando o próximo Iai é um Corte Perfeito); depois, a trilha do NP, com o que a classe dá em cada NP (o kit, as Magias,
   o Caminho, a Dedicação, o Ápice e quantos talentos chegam), em que as escolhas em aberto brilham; e as seções, uma
-  de cada vez: o kit com as regras do Motor, o elemento (no Matador de Dragões), as Magias (as três vagas, com os
-  feitiços), os talentos por ramo, o Caminho com o Ápice, os talentos Gerais e as Dedicações. A seção com uma escolha
-  em aberto abre primeiro, e o ponteiro sobre uma habilidade mostra o que ela faz. Sem classe, o botão de escolher
-  uma.
+  de cada vez: o kit com as regras do Motor, o elemento (no Matador de Dragões), os talentos por ramo, o Caminho com o
+  Ápice, os talentos Gerais e as Dedicações. A seção com uma escolha em aberto abre primeiro, e o ponteiro sobre uma
+  habilidade mostra o que ela faz. Sem classe, o botão de escolher uma.
+- **Magias:** as vagas da classe (NP 1, 5 e 10 nas mágicas; 1 e 10 nas físicas) à esquerda, com a Magia de cada uma e
+  quantos feitiços dela o personagem já tem, e a página da vaga aberta: a categoria, a frase da Magia, o Traço e o Tabu
+  e todos os feitiços em blocos, com o nome inteiro (a imagem usa os que o personagem tem, o nome abre, o ponteiro
+  mostra o que fazem; os do NP acima ficam apagados com o NP em que chegam). Uma vaga aberta brilha e tem o botão de
+  escolher a Magia.
+- **Inventário:** o boneco de equipamento (sete espaços ligados por linhas às partes do corpo) e, ao lado, a riqueza
+  (receber e gastar ouro fica registrado no chat), o espaço da bolsa e os tíquetes; embaixo, o que se carrega.
 - **Profissão:** o brasão da profissão com o Rank, a EXP e as tentativas do cenário, os botões da bancada (Oficina,
   Fusão, talentos), as chances, os materiais, o talento, as obras e os Ranks; sem profissão, as dez para escolher.
-- **Efeitos e estados** e a **Biografia**.
+- **Efeitos e estados** (os efeitos dos itens dizem "Passivo" na duração) e a **Biografia**, com as Conexões e as
+  Uniões.
+
+## A criação de personagem
+
+Um assistente de sete passos numa janela grande, com a ficha montando numa faixa verde à esquerda (o retrato, o nome,
+o que foi escolhido, os atributos, os PV, o Destino e as defesas). Ele abre sozinho quando um usuário cria um
+personagem (a configuração "Assistente de criação" desliga), pelo convite da aba Personagem, pelos campos vazios de
+raça, classe e profissão e pelo botão da pena no cabeçalho de um personagem de NP 1.
+
+1. **Raça:** os cartões das raças com a frase de cada uma e o bônus de atributos. A página da que está sob o ponteiro
+   (ou escolhida) conta a história, mostra os atributos, os PV e o Destino, as duas habilidades inatas (uma escolha
+   entre várias, como o elemento do Pacto Espiritual dos Elfos ou a Bênção do Humano, é feita ali mesmo; o Humano marca
+   os dois atributos do +1) e as habilidades que a raça libera no NP 3 e no NP 5.
+2. **Classe:** as 14 classes, com o filtro de físicas e mágicas. A página mostra a base de atributos, os PV, o Motor
+   com o que ele ganha, gasta, o teto e o que o zera, o kit do NP 1, a escolha do NP 1 (o elemento do Matador de
+   Dragões) e o caminho do NP 1 ao 10 (as vagas de Magia, os três Caminhos, a Dedicação e o Ápice).
+3. **Magia:** a janela de Magias dentro do passo, para a vaga do NP 1; uma Magia que pede uma escolha (o Decreto dos
+   Mandamentos) pede ali embaixo. Uma classe cuja primeira vaga vem depois (o Matador de Dragões, no NP 5) só avisa.
+4. **Profissão:** as dez profissões, com o que cada uma faz, o talento, a Oficina e como sobe de Rank, ou "Decidir
+   depois".
+5. **Atributos:** os cinco pontos bônus sobre a classe e a raça (nenhum atributo acima de 7), com o modificador, os
+   testes de cada atributo e os números de jogo (PV, Destino, Defesas, Iniciativa, Precisão, Esquiva e Resistência)
+   mudando na hora.
+6. **Habilidades:** as três de Combate e a Geral da criação (no máximo duas de [Treino]), entre os talentos da classe
+   e os feitiços da Magia do NP 1, cada uma com as primeiras linhas; as regras são as do navegador de habilidades (um
+   talento aparece com o que ele pede, e entra junto). No alto, o que a raça, a classe e a Magia já dão.
+7. **Resumo:** o nome e o retrato (o token pega o retrato), a opção de dar as 16 habilidades básicas e tudo o que foi
+   escolhido.
+
+Nada muda na ficha até **Criar personagem**: aí vêm, de uma vez, a raça (com o +1 do Humano), a classe, a profissão, o
+kit, a escolha do NP 1, a Magia (com o Decreto), as escolhas da criação marcadas como escolhas (o navegador de
+habilidades as conta como feitas, e descer de NP as desfaz como antes) e as habilidades básicas, com PV e Destino
+cheios e um cartão no chat com a raça, a classe, a Magia e a profissão (a configuração "Cartão de personagem novo"
+desliga). Abrir o assistente num personagem de NP 1 já criado começa das escolhas dele; criar de novo troca o que veio
+da raça, da classe e das escolhas, e o resto da ficha fica.
 
 ## A ficha de monstro
 
@@ -207,6 +256,10 @@ vista; efeitos, estados e descrição. Todo campo é editável na própria ficha
 Fichas de item (os 14 tipos), editor de efeitos, navegadores de habilidades e de raça e classe, diálogos, baús,
 saques, lojas e as Ferramentas do Mestre seguem o visual da ficha. Num compêndio trancado os valores aparecem como
 texto.
+
+Os índices dos compêndios de itens são pedidos uma vez com todos os campos que o sistema lê, e o que as janelas usam
+(o catálogo de Magias, as habilidades de classe, as raças, as classes e as profissões) é preparado enquanto o jogo está
+ocioso: a janela de Magias, o navegador de habilidades e a aba Classe abrem na hora.
 
 O **navegador de habilidades** abre mostrando só o que o personagem pode escolher agora: as habilidades de NP acima
 do dele, as que pedem outra antes e as que já estão no NH máximo ficam escondidas, com uma nota de quantas são. A

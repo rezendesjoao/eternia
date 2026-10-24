@@ -69,7 +69,8 @@ export function optionDataFrom(item) {
 export function registerCharacterOptions() {
   // A character holds a single Race, Class and Subclass: adding one replaces the previous one.
   Hooks.on("createItem", (item, options, userId) => {
-    if (!isLocalChange(options, userId) || !OPTION_TYPES.includes(item.type)) return;
+    // The creation wizard (apps/creation-wizard.mjs) gives everything at once, with its own choices
+    if (!isLocalChange(options, userId) || !OPTION_TYPES.includes(item.type) || options.eterniaCreation) return;
     const actor = item.parent;
     if (!(actor instanceof Actor) || (actor.type !== "character")) return;
     const previous = actor.items.filter(i => (i.type === item.type) && (i.id !== item.id)).map(i => i.id);
@@ -98,7 +99,7 @@ export function registerCharacterOptions() {
   // Main Class removed (not replaced): offer to undo the skills chosen with it. Without a class the
   // character has no picks left to choose.
   Hooks.on("deleteItem", (item, options, userId) => {
-    if (!isLocalChange(options, userId) || (item.type !== "class")) return;
+    if (!isLocalChange(options, userId) || (item.type !== "class") || options.eterniaCreation) return;
     const actor = item.parent;
     if (!(actor instanceof Actor) || (actor.type !== "character")) return;
     if (!actor.items.some(i => i.type === "class")) rollbackPicks(actor, { reason: "ETERNIA.SkillBrowser.Undo.HintClass" });

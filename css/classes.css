@@ -843,3 +843,348 @@
   cursor: pointer;
 }
 .lhm-card-action:hover { border-color: #1f5137; background: #1f5137; color: #f8eed3; }
+
+/* ==========================================================================
+   The Magias tab of the character sheet (templates/character/magic.hbs): the class's slots on the left (the Magia
+   taken in each, or the slot to fill), and the page of the one open: the Magia with its category color, its Trait
+   and Tabu, and every spell as a tile (the picture uses, the name opens, the pointer tells what it does).
+   ========================================================================== */
+.lhpf .tab.magic {
+  --mg-gold: #c9a24a;
+  --mg-gold-light: #f2db94;
+  --mg-gold-dark: #8a6a25;
+  --mg-line: #c8b79a;
+  --mg-paper: #fffaf0;
+  --mg-paper-dark: #f1e5c8;
+}
+.lhpf .tab.magic > .tab-content:has(> .lhmg-board) { display: flex; flex-direction: column; padding: 10px 12px 10px; overflow: hidden; }
+.lhpf .tab.magic .lhmg-board {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 12px;
+  min-height: 0;
+}
+.lhpf .tab.magic .lhmg-rail {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 6px;
+  line-height: normal;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.lhpf .tab.magic .lhmg-rail-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 2px 2px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--pf-divider);
+  color: var(--pf-primary);
+  font: 600 15px/1.2 var(--pf-serif);
+}
+.lhpf .tab.magic .lhmg-rail-title b {
+  padding: 1px 7px;
+  border-radius: 8px;
+  background: rgba(31, 81, 55, 0.12);
+  color: var(--pf-primary-dark);
+  font: 700 11px/1.4 var(--pf-sans);
+}
+.lhpf .tab.magic .lhmg-slot {
+  --mp-cat: var(--pf-primary);
+  position: relative;
+  display: grid;
+  grid-template-columns: 30px 38px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px 7px 7px;
+  border: 1px solid var(--mg-line);
+  border-radius: 9px;
+  background:
+    radial-gradient(90% 120% at 0% 50%, color-mix(in srgb, var(--mp-cat) 10%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--mg-paper), var(--mg-paper-dark));
+  color: var(--pf-text);
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease, transform 0.12s ease;
+}
+.lhpf .tab.magic .lhmg-slot > * { pointer-events: none; }
+.lhpf .tab.magic .lhmg-slot:hover { border-color: color-mix(in srgb, var(--mp-cat) 60%, var(--mg-line)); transform: translateX(2px); }
+.lhpf .tab.magic .lhmg-slot.active {
+  border-color: var(--mp-cat);
+  box-shadow: 0 0 0 1px var(--mp-cat), 0 3px 10px rgba(40, 28, 8, 0.18);
+}
+.lhpf .tab.magic .lhmg-slot:not(.filled) { grid-template-columns: 30px minmax(0, 1fr); border-style: dashed; background: rgba(255, 255, 255, 0.3); }
+.lhpf .tab.magic .lhmg-slot.open { border-color: var(--mg-gold); animation: lhcl-pulse 1.8s ease-in-out infinite; }
+.lhpf .tab.magic .lhmg-slot.locked { opacity: 0.7; }
+.lhpf .tab.magic .lhmg-slot-rank {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--mg-gold-dark);
+  border-radius: 50%;
+  background: #f8f0da;
+  color: var(--pf-alt-dark);
+  font: 700 14px/0.9 var(--pf-serif);
+}
+.lhpf .tab.magic .lhmg-slot-rank small { font: 700 6.5px/1 var(--pf-sans); letter-spacing: 0.1em; }
+.lhpf .tab.magic .lhmg-slot.filled .lhmg-slot-rank,
+.lhpf .tab.magic .lhmg-slot.open .lhmg-slot-rank {
+  border-color: var(--pf-primary-dark);
+  background: radial-gradient(circle at 50% 35%, var(--pf-primary-light), var(--pf-primary-dark));
+  color: #fbf4df;
+}
+.lhpf .tab.magic .lhmg-slot-art {
+  width: 38px;
+  height: 38px;
+  padding: 2px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--mp-cat) 80%, #000), 0 0 0 2px rgba(255, 250, 235, 0.9), 0 0 0 3px color-mix(in srgb, var(--mp-cat) 55%, var(--mg-gold));
+}
+.lhpf .tab.magic .lhmg-slot-art img { width: 100%; height: 100%; border: none; border-radius: 50%; object-fit: cover; }
+.lhpf .tab.magic .lhmg-slot-text { display: grid; justify-items: start; min-width: 0; text-align: left; }
+.lhpf .tab.magic .lhmg-slot-text small {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+  color: color-mix(in srgb, var(--mp-cat) 85%, #000);
+  font: 700 8px/1.3 var(--pf-sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.lhpf .tab.magic .lhmg-slot-text b {
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 600 14px/1.2 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .tab.magic .lhmg-slot:not(.filled) .lhmg-slot-text b { color: var(--pf-text-soft); font: italic 13px/1.3 var(--pf-body); white-space: normal; }
+.lhpf .tab.magic .lhmg-slot.open .lhmg-slot-text b { color: var(--mg-gold-dark); font-weight: 600; }
+.lhpf .tab.magic .lhmg-slot-text em { color: var(--pf-text-soft); font: italic 11px/1.2 var(--pf-body); }
+.lhpf .tab.magic .lhmg-choose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 2px;
+  padding: 7px 10px;
+  border: 1px solid var(--pf-primary-dark);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--pf-primary-light), var(--pf-primary-dark));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 5px rgba(0, 0, 0, 0.22);
+  color: #fbf4df;
+  font: 600 12px/1.2 var(--pf-sans);
+  cursor: pointer;
+}
+.lhpf .tab.magic .lhmg-choose i { color: var(--mg-gold-light); }
+.lhpf .tab.magic .lhmg-choose:hover { filter: brightness(1.12); }
+
+/* The page */
+.lhpf .tab.magic .lhmg-pages { position: relative; min-height: 0; }
+.lhpf .tab.magic .lhmg-page {
+  --mp-cat: var(--pf-primary);
+  display: none;
+  height: 100%;
+  padding: 12px 14px 10px;
+  border: 1px solid var(--mg-line);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 252, 243, 0.95), rgba(243, 232, 206, 0.95));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 2px 10px rgba(60, 40, 10, 0.12);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-alt) transparent;
+}
+.lhpf .tab.magic .lhmg-page.active { display: block; animation: lhcl-in 0.16s ease-out; }
+.lhpf .tab.magic .lhmg-head { display: grid; grid-template-columns: 70px minmax(0, 1fr); align-items: center; gap: 14px; margin-bottom: 8px; }
+.lhpf .tab.magic .lhmg-art {
+  display: block;
+  width: 66px;
+  height: 66px;
+  margin: 2px;
+  padding: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #e3cd98);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--mp-cat) 80%, #000),
+    0 0 0 4px rgba(255, 250, 235, 0.95),
+    0 0 0 5px color-mix(in srgb, var(--mp-cat) 55%, var(--mg-gold)),
+    0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.lhpf .tab.magic .lhmg-art img { width: 100%; height: 100%; border: none; border-radius: 50%; object-fit: cover; }
+.lhpf .tab.magic .lhmg-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 9px;
+  background: var(--mp-cat);
+  color: #fbf4df;
+  font: 700 9px/1.4 var(--pf-sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.lhpf .tab.magic .lhmg-head h3 { margin: 4px 0 1px; border: none; font: 600 22px/1.1 var(--pf-serif); }
+.lhpf .tab.magic .lhmg-head h3 a { color: var(--pf-text); }
+.lhpf .tab.magic .lhmg-head h3 a:hover { color: color-mix(in srgb, var(--mp-cat) 80%, #000); }
+.lhpf .tab.magic .lhmg-tag { margin: 0; color: var(--pf-text-soft); font: italic 13px/1.35 var(--pf-body); }
+.lhpf .tab.magic .lhmg-note {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  gap: 8px;
+  margin: 0 0 8px;
+  padding: 7px 10px;
+  border-radius: 7px;
+}
+.lhpf .tab.magic .lhmg-note i { margin-top: 2px; }
+.lhpf .tab.magic .lhmg-note p { margin: 0; font: 12.5px/1.45 var(--pf-body); }
+.lhpf .tab.magic .lhmg-note.trait { border: 1px solid rgba(47, 107, 74, 0.35); border-left: 4px solid #2f6b4a; background: rgba(47, 107, 74, 0.07); }
+.lhpf .tab.magic .lhmg-note.trait i { color: #2f6b4a; }
+.lhpf .tab.magic .lhmg-note.trait p { color: #1f3d2c; }
+.lhpf .tab.magic .lhmg-note.tabu { border: 1px solid rgba(140, 47, 47, 0.35); border-left: 4px solid #8c2f2f; background: rgba(140, 47, 47, 0.07); }
+.lhpf .tab.magic .lhmg-note.tabu i { color: #8c2f2f; }
+.lhpf .tab.magic .lhmg-note.tabu p { color: #4a1d1d; }
+.lhpf .tab.magic .lhmg-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 6px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(186, 169, 145, 0.7);
+  color: var(--pf-primary-dark);
+  font: 700 11px/1.4 var(--pf-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.lhpf .tab.magic .lhmg-title em { margin-left: auto; color: var(--pf-text-soft); font: 600 11px/1 var(--pf-sans); font-style: normal; letter-spacing: 0.04em; }
+.lhpf .tab.magic .lhmg-spells {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .tab.magic .lhmg-spell {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 9px 5px 5px;
+  border: 1px solid rgba(186, 169, 145, 0.8);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.5);
+}
+.lhpf .tab.magic .lhmg-spell.owned {
+  border-left: 3px solid var(--mp-cat);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--mp-cat) 10%, #fffdf7), rgba(255, 255, 255, 0.55));
+}
+.lhpf .tab.magic .lhmg-spell.locked { opacity: 0.62; }
+.lhpf .tab.magic .lhmg-spell-img { position: relative; display: block; width: 34px; height: 34px; }
+.lhpf .tab.magic .lhmg-spell-img img { width: 34px; height: 34px; border: 1px solid #8a7a62; border-radius: 6px; }
+.lhpf .tab.magic .lhmg-spell.locked .lhmg-spell-img img { filter: grayscale(0.7); }
+.lhpf .tab.magic .lhmg-spell-img i {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  color: #fbf4df;
+  font-size: 12px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+.lhpf .tab.magic a.lhmg-spell-img i { display: none; background: rgba(16, 41, 27, 0.7); }
+.lhpf .tab.magic a.lhmg-spell-img:hover i { display: grid; }
+.lhpf .tab.magic .lhmg-spell-body { display: grid; min-width: 0; }
+.lhpf .tab.magic .lhmg-spell-name {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 600 13.5px/1.25 var(--pf-serif);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  cursor: pointer;
+}
+.lhpf .tab.magic .lhmg-spell-name:hover { color: color-mix(in srgb, var(--mp-cat) 80%, #000); }
+.lhpf .tab.magic .lhmg-spell-meta { display: flex; gap: 6px; overflow: hidden; color: var(--pf-text-soft); font: 10.5px/1.3 var(--pf-sans); white-space: nowrap; }
+.lhpf .tab.magic .lhmg-spell-meta span + span::before { content: "·"; margin-right: 6px; }
+.lhpf .tab.magic .lhmg-spell-state {
+  padding: 1px 7px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.07);
+  color: var(--pf-alt-dark);
+  font: 700 10px/1.5 var(--pf-sans);
+  white-space: nowrap;
+}
+.lhpf .tab.magic .lhmg-spell.owned .lhmg-spell-state { background: none; color: var(--mp-cat); font-size: 12px; }
+.lhpf .tab.magic .lhmg-visual {
+  position: relative;
+  margin: 14px 4px 2px;
+  padding-top: 10px;
+  color: var(--pf-alt-dark);
+  font: italic 12.5px/1.45 var(--pf-body);
+  text-align: center;
+}
+.lhpf .tab.magic .lhmg-visual::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 25%;
+  right: 25%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--mg-gold), transparent);
+}
+.lhpf .tab.magic .lhmg-open {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  margin: 40px auto 0;
+  max-width: 380px;
+  text-align: center;
+}
+.lhpf .tab.magic .lhmg-open-rank {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid var(--mg-gold-dark);
+  border-radius: 50%;
+  background: #f8f0da;
+  color: var(--pf-alt-dark);
+  font: 700 22px/0.9 var(--pf-serif);
+}
+.lhpf .tab.magic .lhmg-open-rank small { font: 700 8px/1 var(--pf-sans); letter-spacing: 0.1em; }
+.lhpf .tab.magic .lhmg-open.open .lhmg-open-rank { border-color: var(--mg-gold); box-shadow: 0 0 0 4px rgba(201, 162, 74, 0.25); }
+.lhpf .tab.magic .lhmg-open h3 { margin: 4px 0 0; border: none; color: var(--pf-primary-dark); font: 600 20px/1.2 var(--pf-serif); }
+.lhpf .tab.magic .lhmg-open p { margin: 0; color: var(--pf-text-soft); font: italic 13px/1.45 var(--pf-body); }
+.lhpf .tab.magic .lhmg-open button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  margin-top: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--pf-primary-dark);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--pf-primary-light), var(--pf-primary-dark));
+  color: #fbf4df;
+  font: 600 13px/1 var(--pf-sans);
+  cursor: pointer;
+}
+.lhpf .tab.magic .lhmg-open button i { color: var(--mg-gold-light); }
+.lhpf .tab.magic .lhmg-empty { display: grid; justify-items: center; gap: 6px; margin: 30px 20px; text-align: center; }
+.lhpf .tab.magic .lhmg-empty > i { color: var(--pf-primary); font-size: 30px; }
+.lhpf .tab.magic .lhmg-empty h2 { margin: 0; border: none; font: 600 20px/1.1 var(--pf-serif); }
+.lhpf .tab.magic .lhmg-empty p { margin: 0; color: var(--pf-text-soft); font: 13px/1.4 var(--pf-body); }

@@ -1,0 +1,22 @@
+{{!-- MAGIA: the Magia browser (templates/apps/magic-browser.hbs) for the class's slot of CR 1, with the choice a Magia
+     asks for under it (the Mandamentos' Decree). A class whose first slot comes later says so. --}}
+{{#if noSlot}}
+<div class="wz-empty-step">
+	<span class="wz-medal big plain"><i class="fa-solid fa-hat-wizard"></i></span>
+	<h3>{{localize "ETERNIA.Wizard.Magic.NoSlotTitle" name=className}}</h3>
+	<p>{{localize "ETERNIA.Wizard.Magic.NoSlot" name=className rank=firstRank}}</p>
+	{{#if slots.length}}<ul class="wz-slot-ranks">{{#each slots}}<li><small>{{localize "ETERNIA.Sheet.CRShort"}}</small>{{rank}}</li>{{/each}}</ul>{{/if}}
+</div>
+{{else}}
+<div class="magic-picker wz-magic" style="--mp-class: {{color}}">
+	<div class="wz-magic-head">
+		<p>{{localize "ETERNIA.Wizard.Magic.Lead" name=className}}</p>
+		<label class="mp-search">
+			<i class="fa-solid fa-magnifying-glass"></i>
+			<input type="search" placeholder="{{localize 'ETERNIA.MagicPicker.Search'}}" autocomplete="off" spellcheck="false">
+		</label>
+	</div>
+	{{> (lookup . "magicBrowser")}}
+	<div class="wz-decree" hidden></div>
+</div>
+{{/if}}

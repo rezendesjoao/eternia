@@ -1,0 +1,19 @@
+{{!-- The creation wizard's head (module/apps/creation-wizard.mjs): what the step asks, and the steps (done ones with a
+     check; a step opens when every step before it is done). --}}
+<header class="wz-head">
+	<div class="wz-head-text">
+		<span class="wz-eyebrow">{{eyebrow}}</span>
+		<h2>{{heading}}</h2>
+		<p>{{lead}}</p>
+	</div>
+	<ol class="wz-steps">
+		{{#each steps}}
+		<li class="wz-stepper{{#if done}} done{{/if}}{{#if current}} current{{/if}}{{#unless reachable}} locked{{/unless}}">
+			<a {{#if reachable}}data-action="step" data-step="{{id}}"{{/if}} aria-label="{{label}}" aria-current="{{#if current}}step{{else}}false{{/if}}">
+				<span class="wz-step-node">{{#if done}}{{#unless current}}<i class="fa-solid fa-check"></i>{{else}}<i class="{{icon}}"></i>{{/unless}}{{else}}<i class="{{icon}}"></i>{{/if}}</span>
+				<span class="wz-step-label"><small>{{n}}</small>{{label}}</span>
+			</a>
+		</li>
+		{{/each}}
+	</ol>
+</header>

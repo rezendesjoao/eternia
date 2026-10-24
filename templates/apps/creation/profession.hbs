@@ -1,0 +1,62 @@
+{{!-- PROFESSION: the ten professions as cards and, beside them, the page of the one under the pointer (or chosen): what
+     it makes, its talent, the Workshop and how it rises. Or none for now. --}}
+<div class="wz-toolbar">
+	<p class="wz-toolbar-note">{{localize "ETERNIA.Wizard.Profession.Note"}}</p>
+	<button type="button" class="wz-chip{{#if later}} active{{/if}}" data-action="later"><i class="fa-solid fa-hourglass-half"></i>{{localize "ETERNIA.Wizard.Profession.Later"}}</button>
+</div>
+<div class="wz-split">
+	<ol class="wz-grid wz-grid-profession" role="listbox" aria-label="{{localize 'ETERNIA.Wizard.Step.profession'}}">
+		{{#each professions}}
+		<li class="wz-card{{#if selected}} selected{{/if}}" role="option" aria-selected="{{#if selected}}true{{else}}false{{/if}}" tabindex="0"
+			data-kind="profession" data-key="{{id}}" data-action="pick" style="--wz-card: {{color}}">
+			<span class="wz-medal"><img src="{{img}}" alt=""></span>
+			<span class="wz-card-text">
+				<span class="wz-card-name">{{name}}</span>
+				<span class="wz-card-line"><i class="{{talent.icon}}"></i>{{talent.name}}</span>
+			</span>
+			<i class="wz-card-check fa-solid fa-check"></i>
+		</li>
+		{{/each}}
+	</ol>
+
+	<aside class="wz-detail">
+		<article class="wz-page wz-guide">
+			<header class="wz-page-head">
+				<span class="wz-medal big plain"><i class="fa-solid fa-hammer"></i></span>
+				<div>
+					<span class="wz-page-eyebrow">{{localize "ETERNIA.Wizard.Guide.Eyebrow"}}</span>
+					<h3>{{localize "ETERNIA.Wizard.Guide.profession.Title"}}</h3>
+				</div>
+			</header>
+			<ol class="wz-guide-steps">
+				<li><i class="fa-solid fa-hammer"></i><p>{{localize "ETERNIA.Wizard.Guide.profession.One"}}</p></li>
+				<li><i class="fa-solid fa-gem"></i><p>{{localize "ETERNIA.Wizard.Guide.profession.Two"}}</p></li>
+				<li><i class="fa-solid fa-stairs"></i><p>{{localize "ETERNIA.Wizard.Guide.profession.Three"}}</p></li>
+			</ol>
+		</article>
+
+		{{#each professions as |p|}}
+		<article class="wz-page" data-key="{{p.id}}" style="--wz-card: {{p.color}}" hidden>
+			<header class="wz-page-head">
+				<span class="wz-medal big"><img src="{{p.img}}" alt=""></span>
+				<div>
+					<span class="wz-page-eyebrow">{{localize "ETERNIA.Profession.Sheet.Eyebrow"}}</span>
+					<h3>{{p.name}}</h3>
+					<p class="wz-page-tag"><i class="fa-solid fa-screwdriver-wrench"></i> {{p.crafts}}</p>
+				</div>
+			</header>
+			<section class="wz-talent">
+				<span class="wz-talent-icon"><i class="{{p.talent.icon}}"></i></span>
+				<div>
+					<span class="wz-page-eyebrow">{{localize "ETERNIA.Profession.Sheet.Talent"}}{{#if p.talent.passive}} · {{localize "ETERNIA.Profession.Sheet.Always"}}{{/if}}</span>
+					<h4>{{p.talent.name}}</h4>
+					<p>{{p.talent.text}}</p>
+				</div>
+			</section>
+			{{#if p.workshop}}<p class="wz-text"><b>{{localize "ETERNIA.Wizard.Profession.Workshop"}}</b> {{p.workshop}}</p>{{/if}}
+			{{#if p.rank}}<p class="wz-text"><b>{{localize "ETERNIA.Wizard.Profession.Rank"}}</b> {{p.rank}}</p>{{/if}}
+			{{#if p.lore}}<p class="wz-lore closing">{{p.lore}}</p>{{/if}}
+		</article>
+		{{/each}}
+	</aside>
+</div>

@@ -1,0 +1,27 @@
+{{!-- The character as it stands, beside every step of the creation wizard: the portrait and the name, what was chosen
+     (a click opens that step), the attributes and the numbers of play. --}}
+<aside class="wz-rail">
+	<div class="wz-rail-card">
+		<div class="wz-portrait"><img src="{{portrait}}" alt=""></div>
+		<h3 class="wz-rail-name">{{name}}</h3>
+		<span class="wz-rail-sub">{{subtitle}}</span>
+	</div>
+	<ul class="wz-rail-lines">
+		{{#each lines}}
+		<li class="{{#if name}}set{{else}}{{#if note}}set note{{/if}}{{/if}}">
+			<a data-action="step" data-step="{{step}}">
+				<span class="wz-rail-icon">{{#if img}}<img src="{{img}}" alt="">{{else}}<i class="{{icon}}"></i>{{/if}}</span>
+				<span class="wz-rail-text"><small>{{label}}</small><b>{{#if name}}{{name}}{{else}}{{#if note}}{{note}}{{else}}—{{/if}}{{/if}}</b>{{#if name}}{{#if note}}<em>{{note}}</em>{{/if}}{{/if}}</span>
+			</a>
+		</li>
+		{{/each}}
+	</ul>
+	<div class="wz-rail-attrs{{#unless ready}} faded{{/unless}}">
+		{{#each attributes}}<div data-tooltip="{{abbr}} {{total}}"><small>{{abbr}}</small><b>{{modLabel}}</b><span>{{total}}</span></div>{{/each}}
+	</div>
+	<div class="wz-rail-numbers{{#unless ready}} faded{{/unless}}">
+		<div><i class="fa-solid fa-heart"></i><b>{{hp}}</b><small>{{localize "ETERNIA.Label.HP"}}</small></div>
+		<div><i class="fa-solid fa-star"></i><b>{{fate}}</b><small>{{localize "ETERNIA.Label.Fate"}}</small></div>
+		<div><i class="fa-solid fa-shield-halved"></i><b>{{defense}}</b><small>{{localize "ETERNIA.Sheet.Defenses"}}</small></div>
+	</div>
+</aside>

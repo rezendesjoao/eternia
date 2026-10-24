@@ -1,0 +1,39 @@
+{{!-- ATTRIBUTES: the five bonus points over the class's and the race's attributes (none above the cap), each with its
+     modifier and its checks, and the numbers of play they give. --}}
+<div class="wz-attrs wz-scroll">
+	<header class="wz-points">
+		<div class="wz-points-text">
+			<span class="wz-page-eyebrow">{{localize "ETERNIA.Wizard.Attr.Points"}}</span>
+			<b>{{left}}</b><span>{{localize "ETERNIA.Wizard.Attr.Left"}}</span>
+		</div>
+		<span class="wz-pips">{{#each points}}<i class="{{#if on}}on{{/if}}"></i>{{/each}}</span>
+		<button type="button" class="wz-chip" data-action="resetStats"><i class="fa-solid fa-rotate-left"></i>{{localize "ETERNIA.Wizard.Attr.Reset"}}</button>
+	</header>
+
+	<div class="wz-attr-grid">
+		{{#each attributes}}
+		<section class="wz-attr" data-stat="{{key}}">
+			<header><b>{{abbr}}</b><span>{{name}}</span></header>
+			<div class="wz-attr-mod" data-tooltip="{{localize 'ETERNIA.Wizard.Attr.ModTip'}}">{{modLabel}}</div>
+			<div class="wz-attr-total"><span>{{localize "ETERNIA.Wizard.Attr.Total"}}</span><b>{{total}}</b>{{#if canAdd}}<em>{{localize "ETERNIA.Wizard.Attr.ToNext" n=toNext}}</em>{{/if}}</div>
+			<ul class="wz-attr-parts">
+				<li><span>{{localize "ETERNIA.Wizard.Step.class"}}</span><b>{{fromClass}}</b></li>
+				<li><span>{{localize "ETERNIA.Wizard.Step.race"}}</span><b>{{fromRace}}</b></li>
+				<li class="bonus">
+					<span>{{localize "ETERNIA.Wizard.Attr.Bonus"}}</span>
+					<button type="button" data-action="stat" data-stat="{{key}}" data-delta="-1" aria-label="−1" {{#unless canRemove}}disabled{{/unless}}><i class="fa-solid fa-minus"></i></button>
+					<b>{{bonus}}</b>
+					<button type="button" data-action="stat" data-stat="{{key}}" data-delta="1" aria-label="+1" {{#unless canAdd}}disabled{{/unless}}><i class="fa-solid fa-plus"></i></button>
+				</li>
+			</ul>
+			<ul class="wz-attr-checks">{{#each checks}}<li><span>{{label}}</span><b>{{mod}}</b></li>{{/each}}</ul>
+			<p class="wz-attr-hint">{{hint}}</p>
+		</section>
+		{{/each}}
+	</div>
+
+	<ul class="wz-numbers">
+		{{#each numbers}}<li><i class="{{icon}}"></i><b>{{value}}</b><small>{{label}}</small></li>{{/each}}
+	</ul>
+	<p class="wz-note"><i class="fa-solid fa-circle-info"></i> {{localize "ETERNIA.Wizard.Attr.Note" max=max}}</p>
+</div>

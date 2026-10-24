@@ -59,6 +59,11 @@ import { MOTOR_API, registerClasses } from "./classes/index.mjs";
 import { registerClassProgression } from "./classes/progression.mjs";
 import { registerClassSheet } from "./classes/sheet.mjs";
 import { iconsApi, registerIcons } from "./icons/index.mjs";
+import { registerPackIndex } from "./helpers/pack-index.mjs";
+import { registerMagicCatalog } from "./apps/magic-catalog.mjs";
+import { registerPrewarm } from "./helpers/prewarm.mjs";
+import { CreationWizard, registerCreationWizard } from "./apps/creation-wizard.mjs";
+import { registerCreationCatalog } from "./apps/creation-catalog.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -77,6 +82,8 @@ Hooks.once('init', async function () {
     EterniaCombat,
     EterniaActiveEffect,
     OptionBrowser,
+    // The creation wizard of a character (apps/creation-wizard.mjs)
+    createCharacter: actor => CreationWizard.open(actor),
     // For macros: scenes, checks, Fate, statuses and conditions, the HUD and the class Motors.
     endScene,
     endScenario: actors => endScene(actors, { scenario: true }),
@@ -209,6 +216,13 @@ Hooks.once('init', async function () {
   registerClassSheet();
   // Item icons: the frame of the magic grade and the effects of the level
   registerIcons();
+  // The compendium indexes with every field the windows read, the Magia catalog, and both prepared when idle
+  registerPackIndex();
+  registerMagicCatalog();
+  registerPrewarm();
+  // The creation wizard: race, class, Magia, profession, attributes and skills, step by step
+  registerCreationCatalog();
+  registerCreationWizard();
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();

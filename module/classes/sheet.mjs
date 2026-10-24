@@ -11,7 +11,7 @@
 import { L } from "../settings.mjs";
 import { getOption } from "../helpers/character-options.mjs";
 import { magicsOf, offerGrants } from "../apps/option-grants.mjs";
-import { MAGIC_CATEGORIES } from "../apps/magic-picker.mjs";
+import { MAGIC_CATEGORIES, readDescription } from "../apps/magic-catalog.mjs";
 import { SkillBrowser } from "../apps/skill-browser.mjs";
 import { tagLabel, term } from "../i18n/terms.mjs";
 import { toInt } from "../helpers/utils.mjs";
@@ -52,7 +52,7 @@ async function buildIndex() {
 }
 
 /** The compendium skills of a class (by its name). */
-async function classSkills(name) {
+export async function classSkills(name) {
   indexPromise ??= buildIndex();
   return (await indexPromise).get(String(name ?? "").trim().toLowerCase()) ?? [];
 }
@@ -208,10 +208,14 @@ export async function classContext(actor, { editable }) {
       const spells = (await classSkills(m.name))
         .filter(e => (flag(e, "magicSpell")?.id === data.id) && (!flag(e, "choiceOnly") || ownedCopy(actor, e)))
         .map(e => skillRow(actor, e, cr)).sort((a, b) => (a.minRank - b.minRank) || a.name.localeCompare(b.name, game.i18n.lang));
+      // What its description says: the Trait, the Tabu and the opening (the Magias tab shows them)
+      const text = readDescription(m.system.description);
       return {
         ...ownedRow(m, cr), spells, tally: tally(spells), tagline: data.tagline ?? "", category,
         categoryLabel: L(`MagicPicker.Category.${category}`), categoryIcon: MAGIC_CATEGORIES[category].icon,
-        categoryColor: MAGIC_CATEGORIES[category].color
+        categoryColor: MAGIC_CATEGORIES[category].color,
+        intro: text.intro, trait: text.trait, tabu: text.tabu, visual: text.visual,
+        learned: spells.filter(r => r.owned).length, total: spells.length
       };
     };
     const slots = [];
@@ -246,7 +250,6 @@ export async function classContext(actor, { editable }) {
   const sections = [
     { id: "kit", icon: "fa-solid fa-toolbox", label: L("Classes.Section.kit"), count: tally(kit) },
     element && { id: "element", icon: "fa-solid fa-dragon", label: L("Classes.Element"), pending: !element.chosen },
-    magic && { id: "magic", icon: "fa-solid fa-hat-wizard", label: L("Classes.Magic"), count: magic.count, pending: magic.open > 0 },
     branches.length && { id: "talents", icon: "fa-solid fa-sitemap", label: L("Classes.Section.talents"), count: tally(talents) },
     { id: "path", icon: "fa-solid fa-route", label: L("Classes.Path"), pending: path.pending },
     general.length && { id: "general", icon: "fa-solid fa-feather", label: L("Classes.Section.general"), count: tally(general) },
@@ -268,6 +271,7 @@ export async function classContext(actor, { editable }) {
     if (rank === at("dedication")) marks.push({ icon: "fa-solid fa-link", label: L("Classes.Milestone.dedication"), section: "dedications" });
     if (apex && (rank === at("apex"))) marks.push({ icon: "fa-solid fa-crown", label: L("Classes.Milestone.apex"), section: "path" });
     const lead = marks.find(m => m.pending) ?? marks[0];
+    // The Magias are a tab of the sheet; the other marks open a section of this tab
     const fresh = learned.filter(r => r.minRank === rank).length;
     const lines = [...marks.map(m => m.label), fresh ? L("Classes.TrailTalents", { n: fresh }) : ""].filter(Boolean);
     return {
@@ -278,6 +282,7 @@ export async function classContext(actor, { editable }) {
       pending: marks.some(m => m.pending),
       icon: lead?.icon ?? "",
       section: lead?.section ?? "talents",
+      group: (lead?.section === "magic") ? "primary" : "lhcl",
       label: marks.map(m => m.label).join(" · "),
       fresh,
       tooltip: [`<strong>${L("Classes.FromRank", { n: rank })}</strong>`, ...lines,
@@ -349,8 +354,11 @@ export function activateClassTab(sheet, root) {
   // The tooltip of a tile this render replaced would stay forever
   const shown = game.tooltip.element;
   if (shown?.classList?.contains("lhcl-tile") && !shown.isConnected) game.tooltip.deactivate();
-  const tab = root.querySelector(".tab.class .lhcl-board");
-  if (!tab) return;
+  for (const board of root.querySelectorAll(".tab.class .lhcl-board, .tab.magic .lhmg-board")) tipsOn(sheet, board);
+}
+
+/** The tooltip of each skill tile of a board, under the pointer. */
+function tipsOn(sheet, tab) {
   let timer = null;
   tab.addEventListener("pointerover", event => {
     const tile = event.target.closest?.(".lhcl-tile");

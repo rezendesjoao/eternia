@@ -1,6 +1,7 @@
 {{!-- Parchment character sheet (eternia), laid out like the Pathfinder 2e character sheet:
-     sidebar banner, header with the name, navigation band, tabs. Keeps every selector and data-action
-     the system's sheet logic relies on (see module/sheets/character-sheet.mjs); the look is in css/sheet.css. --}}
+     sidebar banner, header with the name and what the character is, the tabs (each with its name and what waits in
+     it), the content. Keeps every selector and data-action the system's sheet logic relies on
+     (see module/sheets/character-sheet.mjs); the look is in css/sheet.css. --}}
 <div class="lhpf-sheet">
 
 	<aside class="lhpf-sidebar">
@@ -12,14 +13,24 @@
 	<header class="lhpf-header">
 		<div class="char-details">
 			<input class="char-name" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'ETERNIA.Placeholder.Name'}}" spellcheck="false">
-			<div class="dots">
-				<span class="label">{{localize 'ETERNIA.Label.Fate'}}</span>
-				<a class="pips" data-action="lhauto-fate" data-tooltip="{{lh.fate.tooltip}}">
-					{{#each lh.fate.pips}}<i class="{{#if this}}fa-solid{{else}}fa-regular{{/if}} fa-star"></i>{{else}}<i class="fa-regular fa-star"></i>{{/each}}
-				</a>
+			<div class="char-line">
+				{{#if lh.identity.length}}
+				<span class="char-identity">{{#each lh.identity}}<a data-action="lhpf-open-item" data-item-id="{{id}}" class="{{type}}">{{name}}</a>{{/each}}</span>
+				{{else if lh.creation.can}}
+				<a class="char-identity empty" data-action="lhpf-wizard"><i class="fa-solid fa-feather-pointed"></i>{{localize 'ETERNIA.Sheet.CreateHint'}}</a>
+				{{/if}}
+				<span class="dots">
+					<span class="label">{{localize 'ETERNIA.Label.Fate'}}</span>
+					<a class="pips" data-action="lhauto-fate" data-tooltip="{{lh.fate.tooltip}}">
+						{{#each lh.fate.pips}}<i class="{{#if this}}fa-solid{{else}}fa-regular{{/if}} fa-star"></i>{{else}}<i class="fa-regular fa-star"></i>{{/each}}
+					</a>
+				</span>
 			</div>
 		</div>
 		<div class="char-level">
+			{{#if lh.creation.can}}
+			<button type="button" class="rank-up wizard" data-action="lhpf-wizard" data-tooltip="{{localize 'ETERNIA.Sheet.Wizard'}}"><i class="fa-solid fa-feather-pointed"></i></button>
+			{{/if}}
 			{{#if editable}}
 			<button type="button" class="rank-up" data-action="rank-up" data-tooltip="ETERNIA.RankUp.Tooltip"><i class="fa-solid fa-angles-up"></i></button>
 			{{/if}}
@@ -31,19 +42,18 @@
 		</div>
 	</header>
 
-	<nav class="lhpf-nav tabs" data-group="primary">
-		<span class="panel-title">{{lh.tabLabel}}</span>
+	<nav class="lhpf-nav lhpf-tabs tabs" data-group="primary" aria-label="{{localize 'ETERNIA.Sheet.Label'}}">
 		{{#each lh.tabs}}
-		<a class="item" data-action="tab" data-group="primary" data-tab="{{id}}" data-tooltip="{{label}}" aria-label="{{label}}"><i class="{{icon}}"></i></a>
+		<a class="item lhpf-tab" data-action="tab" data-group="primary" data-tab="{{id}}"><i class="{{icon}}"></i><span>{{label}}</span>{{#if badge}}<b class="lhpf-badge">{{badge}}</b>{{/if}}</a>
 		{{/each}}
 	</nav>
 
 	<section class="lhpf-body">
 		{{> "systems/eternia/templates/character/character.hbs"}}
-		{{> "systems/eternia/templates/character/checks.hbs"}}
 		{{> "systems/eternia/templates/character/skills.hbs"}}
-		{{> "systems/eternia/templates/character/inventory.hbs"}}
 		{{> "systems/eternia/templates/character/class.hbs"}}
+		{{> "systems/eternia/templates/character/magic.hbs"}}
+		{{> "systems/eternia/templates/character/inventory.hbs"}}
 		{{> "systems/eternia/templates/character/profession.hbs"}}
 		{{> "systems/eternia/templates/character/effects.hbs"}}
 		{{> "systems/eternia/templates/character/biography.hbs"}}

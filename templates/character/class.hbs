@@ -75,7 +75,7 @@
 		<ol class="lhcl-trail">
 			{{#each c.trail as |t|}}
 			<li class="lhcl-step{{#if t.reached}} reached{{/if}}{{#if t.current}} current{{/if}}{{#if t.milestone}} milestone{{/if}}{{#if t.pending}} pending{{/if}}" data-tooltip-html="{{t.tooltip}}">
-				{{#if t.milestone}}<a class="lhcl-node" data-action="tab" data-group="lhcl" data-tab="{{t.section}}" aria-label="{{t.label}}"><i class="{{t.icon}}"></i></a>
+				{{#if t.milestone}}<a class="lhcl-node" data-action="tab" data-group="{{t.group}}" data-tab="{{t.section}}" aria-label="{{t.label}}"><i class="{{t.icon}}"></i></a>
 				{{else}}<span class="lhcl-node">{{#if t.fresh}}<b>{{t.fresh}}</b>{{/if}}</span>{{/if}}
 				<span class="lhcl-step-rank">{{t.rank}}</span>
 				{{#if t.milestone}}<span class="lhcl-step-label">{{t.label}}</span>{{/if}}
@@ -121,41 +121,6 @@
 					{{/each}}
 				</ul>
 				{{/if}}
-			</div>
-			{{/if}}
-
-			{{!-- Magias: a slot at CR 1, 5 and 10 --}}
-			{{#if c.magic}}
-			<div class="tab lhcl-panel" data-group="lhcl" data-tab="magic">
-				<h4 class="lhcl-panel-title"><span>{{localize "ETERNIA.Classes.Magic"}}</span><em>{{localize "ETERNIA.Classes.MagicRanks"}}</em>
-					{{#if c.magic.open}}{{#if c.editable}}<a class="lhcl-action" data-action="lhcl" data-op="element"><i class="fa-solid fa-hat-wizard"></i> {{localize "ETERNIA.Classes.ChooseMagic" n=c.magic.open}}</a>{{/if}}{{/if}}
-				</h4>
-				<div class="lhcl-slots">
-					{{#each c.magic.slots as |s|}}
-					{{#if s.magia}}
-					<section class="lhcl-slot filled" style="--mp-cat: {{s.magia.categoryColor}}">
-						<header class="item" data-item-id="{{s.magia.id}}">
-							<a class="lhcl-slot-art" data-action="item-edit"><img src="{{s.magia.img}}" alt=""></a>
-							<div>
-								<span class="lhcl-slot-cat"><i class="{{s.magia.categoryIcon}}"></i>{{s.magia.categoryLabel}}{{#if s.rank}} · {{localize "ETERNIA.Classes.FromRank" n=s.rank}}{{/if}}</span>
-								<a class="lhcl-slot-name" data-action="item-edit">{{s.magia.name}}</a>
-							</div>
-						</header>
-						<ol class="lhcl-tiles mini">{{#each s.magia.spells as |r|}}{{> lhclTile r=r}}{{/each}}</ol>
-					</section>
-					{{else}}
-					<section class="lhcl-slot empty{{#if s.open}} open{{/if}}">
-						<span class="lhcl-slot-rank"><small>{{localize "ETERNIA.MagicPicker.CR"}}</small>{{s.rank}}</span>
-						{{#if s.open}}
-						<p>{{localize "ETERNIA.Classes.SlotOpen"}}</p>
-						{{#if c.editable}}<a class="lhcl-action" data-action="lhcl" data-op="element"><i class="fa-solid fa-hat-wizard"></i> {{localize "ETERNIA.Classes.SlotChoose"}}</a>{{/if}}
-						{{else}}
-						<p>{{localize "ETERNIA.Classes.SlotLocked" n=s.rank}}</p>
-						{{/if}}
-					</section>
-					{{/if}}
-					{{/each}}
-				</div>
 			</div>
 			{{/if}}
 

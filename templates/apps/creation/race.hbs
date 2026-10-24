@@ -1,0 +1,98 @@
+{{!-- RACE: the races as cards and, beside them, the page of the one under the pointer (or chosen): its story, its
+     numbers, the Human's +1, its two innate skills (a choice is made right there) and what it unlocks later. --}}
+<div class="wz-split">
+	<ol class="wz-grid wz-grid-race" role="listbox" aria-label="{{localize 'ETERNIA.Wizard.Step.race'}}">
+		{{#each races}}
+		<li class="wz-card{{#if selected}} selected{{/if}}" role="option" aria-selected="{{#if selected}}true{{else}}false{{/if}}" tabindex="0"
+			data-kind="race" data-key="{{uuid}}" data-action="pick" style="--wz-card: {{color}}">
+			<span class="wz-medal"><img src="{{img}}" alt=""></span>
+			<span class="wz-card-text">
+				<span class="wz-card-name">{{name}}</span>
+				<span class="wz-card-tag">{{tagline}}</span>
+				<span class="wz-card-chips"><span class="wz-card-bonus">{{bonusLabel}}</span></span>
+			</span>
+			<i class="wz-card-check fa-solid fa-check"></i>
+		</li>
+		{{/each}}
+	</ol>
+
+	<aside class="wz-detail">
+		<article class="wz-page wz-guide">
+			<header class="wz-page-head">
+				<span class="wz-medal big plain"><i class="fa-solid fa-people-group"></i></span>
+				<div>
+					<span class="wz-page-eyebrow">{{localize "ETERNIA.Wizard.Guide.Eyebrow"}}</span>
+					<h3>{{localize "ETERNIA.Wizard.Guide.race.Title"}}</h3>
+				</div>
+			</header>
+			<ol class="wz-guide-steps">
+				<li><i class="fa-solid fa-chart-simple"></i><p>{{localize "ETERNIA.Wizard.Guide.race.One"}}</p></li>
+				<li><i class="fa-solid fa-hand-sparkles"></i><p>{{localize "ETERNIA.Wizard.Guide.race.Two"}}</p></li>
+				<li><i class="fa-solid fa-stairs"></i><p>{{localize "ETERNIA.Wizard.Guide.race.Three"}}</p></li>
+			</ol>
+		</article>
+
+		{{#each races as |race|}}
+		<article class="wz-page" data-key="{{race.uuid}}" style="--wz-card: {{race.color}}" hidden>
+			<header class="wz-page-head">
+				<span class="wz-medal big"><img src="{{race.img}}" alt=""></span>
+				<div>
+					<span class="wz-page-eyebrow">{{localize "ETERNIA.Wizard.Race.Eyebrow"}}</span>
+					<h3>{{race.name}}</h3>
+					<div class="wz-page-stats">
+						{{#if race.human}}<span class="wz-stat">{{localize "ETERNIA.Wizard.Race.HumanBonus"}}</span>
+						{{else}}{{#each race.stats}}{{#if value}}<span class="wz-stat">{{abbr}} +{{value}}</span>{{/if}}{{/each}}{{/if}}
+						<span class="wz-stat hp"><i class="fa-solid fa-heart"></i>{{localize "ETERNIA.Label.HP"}} +{{race.hp}}</span>
+						<span class="wz-stat fate"><i class="fa-solid fa-star"></i>{{localize "ETERNIA.Label.Fate"}} +{{race.fate}}</span>
+					</div>
+				</div>
+			</header>
+			{{#if race.lore}}<p class="wz-lore">{{race.lore}}</p>{{/if}}
+
+			{{#if race.human}}
+			<h4>{{localize "ETERNIA.Wizard.Race.HumanPick"}}</h4>
+			<div class="wz-toggles">
+				{{#each race.stats}}
+				<button type="button" class="wz-toggle{{#if on}} on{{/if}}" data-action="human" data-stat="{{key}}" {{#if full}}disabled{{/if}}{{#unless race.selected}} disabled{{/unless}}>
+					<b>{{abbr}}</b><small>{{name}}</small>{{#if on}}<em>+1</em>{{/if}}
+				</button>
+				{{/each}}
+			</div>
+			{{#unless race.selected}}<p class="wz-note">{{localize "ETERNIA.Wizard.Race.PickFirst"}}</p>{{/unless}}
+			{{/if}}
+
+			<h4>{{localize "ETERNIA.Wizard.Race.Innate"}}</h4>
+			{{#each race.grants as |g|}}
+			{{#if g.choice}}
+			<div class="wz-grant choice" data-grant="{{g.index}}" data-kind="race" data-key="{{race.uuid}}">
+				<span class="wz-grant-label"><i class="fa-solid fa-hand-pointer"></i>{{localize "ETERNIA.Wizard.ChooseOne"}}</span>
+				<ul class="wz-tiles options">
+					{{#each g.options as |o|}}
+					<li class="wz-tile{{#if o.checked}} checked{{/if}}" data-action="grant" data-uuid="{{o.uuid}}" data-wz-tip="{{o.tip}}">
+						<img src="{{o.img}}" alt="">
+						<span class="wz-tile-body"><b>{{o.name}}</b><small>{{o.meta}}</small></span>
+						<i class="wz-tile-radio fa-{{#if o.checked}}solid fa-circle-dot{{else}}regular fa-circle{{/if}}"></i>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+			{{else}}
+			{{#each g.options as |o|}}
+			<div class="wz-feature" data-wz-tip="{{o.tip}}">
+				<img src="{{o.img}}" alt="">
+				<div><b>{{o.name}}</b><small>{{o.meta}}</small><p>{{o.text}}</p></div>
+			</div>
+			{{/each}}
+			{{/if}}
+			{{/each}}
+
+			{{#if race.unlocks.length}}
+			<h4>{{localize "ETERNIA.Wizard.Race.Unlocks"}}</h4>
+			<ul class="wz-unlocks">
+				{{#each race.unlocks}}<li><img src="{{img}}" alt=""><span>{{name}}</span><em>{{localize "ETERNIA.Classes.FromRank" n=minRank}}</em></li>{{/each}}
+			</ul>
+			{{/if}}
+		</article>
+		{{/each}}
+	</aside>
+</div>

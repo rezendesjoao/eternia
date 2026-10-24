@@ -31,11 +31,12 @@
   --pf-condensed: "Modesto Condensed", "Eternia Eczar", serif;
   --pf-frame-elegant: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='33' height='33'%3E%3Cg fill='none' stroke='%23231f20' stroke-opacity='.3'%3E%3Cpath d='M.5.5h32v32H.5z'/%3E%3Cpath d='M3.5 10V3.5H10M23 3.5h6.5V10M29.5 23v6.5H23M10 29.5H3.5V23'/%3E%3C/g%3E%3C/svg%3E");
 }
-/* Smallest size of the open sheet (the paper doll of the inventory is 480px wide). Not while Foundry minimizes or
-   restores it: a min-width beats the max-width that minimizing uses, and the window would stay full size. */
+/* Smallest size of the open sheet (the paper doll of the inventory is 480px wide, the wealth and tickets beside it).
+   Not while Foundry minimizes or restores it: a min-width beats the max-width that minimizing uses, and the window
+   would stay full size. */
 .lhpf:not(.minimizing, .minimized, .maximizing) {
-  min-width: 750px;
-  min-height: 560px;
+  min-width: 860px;
+  min-height: 600px;
 }
 
 /* --------------------------------------------------------------------------
@@ -80,12 +81,12 @@
 .lhpf .lhpf-sheet {
   display: grid;
   grid-template:
-    "sidebar header" 74px
-    "sidebar nav" 20px
+    "sidebar header" 76px
+    "sidebar nav" 34px
     "sidebar content" minmax(0, 1fr)
     / 230px minmax(0, 1fr);
   height: 100%;
-  background: url("../assets/sheet/header.webp") repeat-x 0 0 / auto 90px;
+  background: url("../assets/sheet/header.webp") repeat-x 0 0 / auto 110px;
 }
 
 /* --------------------------------------------------------------------------
@@ -528,12 +529,45 @@
   border-bottom-color: var(--pf-text-light);
   outline: none;
 }
-.lhpf .lhpf-header .dots {
+.lhpf .lhpf-header .char-line {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 14px;
+  min-width: 0;
   margin-top: 3px;
   padding-left: 3px;
+}
+/* What the character is: race · class · profession (each opens its item) */
+.lhpf .lhpf-header .char-identity {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--pf-tertiary);
+  font: italic 14px/1.2 var(--pf-body);
+  white-space: nowrap;
+}
+.lhpf .lhpf-header .char-identity a {
+  overflow: hidden;
+  color: var(--pf-tertiary);
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.lhpf .lhpf-header .char-identity a + a::before {
+  content: "·";
+  margin: 0 7px;
+  color: var(--pf-tertiary-darker);
+  font-style: normal;
+}
+.lhpf .lhpf-header .char-identity a:hover { color: #fbf4df; text-shadow: 0 0 6px rgba(233, 215, 161, 0.6); }
+.lhpf .lhpf-header .char-identity.empty { gap: 6px; color: var(--pf-tertiary-dark); font-style: italic; cursor: pointer; }
+.lhpf .lhpf-header .char-identity.empty:hover { color: #fbf4df; }
+.lhpf .lhpf-header .char-identity.empty i { font-size: 11px; font-style: normal; }
+.lhpf .lhpf-header .dots {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
 }
 .lhpf .lhpf-header .dots .label {
   color: var(--pf-tertiary-dark);
@@ -627,11 +661,81 @@
   background: var(--pf-tertiary);
   color: var(--pf-primary-dark);
 }
+.lhpf .char-level .rank-up.wizard { margin-right: -4px; }
 
 /* --------------------------------------------------------------------------
-   Navigation band
+   The tabs: icon and name on the green band, the open one a parchment tab joined to the page; a number on a tab says
+   what waits in it (skills to choose, a Magia slot open). On a narrow sheet only the open tab keeps its name.
    -------------------------------------------------------------------------- */
-.lhpf nav.lhpf-nav {
+.lhpf nav.lhpf-tabs {
+  grid-area: nav;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 34px;
+  margin: 0;
+  padding: 0 10px 0 6px;
+  border: none;
+  background: transparent;
+  container: lhpf-tabs / inline-size;
+}
+.lhpf nav.lhpf-tabs > a.lhpf-tab {
+  position: relative;
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  height: 29px;
+  margin: 0;
+  padding: 0 8px;
+  border: none;
+  border-radius: 7px 7px 0 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pf-tertiary-dark);
+  font: 600 11.5px/1 var(--pf-sans);
+  letter-spacing: 0.01em;
+  text-shadow: none;
+  white-space: nowrap;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.lhpf nav.lhpf-tabs > a.lhpf-tab > * { pointer-events: none; }
+.lhpf nav.lhpf-tabs > a.lhpf-tab span { overflow: hidden; text-overflow: ellipsis; }
+.lhpf nav.lhpf-tabs > a.lhpf-tab i { flex: 0 0 auto; color: var(--pf-tertiary-darker); font-size: 11px; }
+.lhpf nav.lhpf-tabs > a.lhpf-tab:hover { background: rgba(255, 255, 255, 0.07); color: #fbf4df; }
+.lhpf nav.lhpf-tabs > a.lhpf-tab:hover i { color: var(--pf-tertiary); }
+.lhpf nav.lhpf-tabs > a.lhpf-tab.active {
+  background: linear-gradient(180deg, #fbf7ee, #f3eee2);
+  box-shadow: 0 -1px 0 rgba(233, 215, 161, 0.7), inset 1px 0 0 rgba(255, 255, 255, 0.6), inset -1px 0 0 rgba(255, 255, 255, 0.6);
+  color: var(--pf-primary-dark);
+}
+.lhpf nav.lhpf-tabs > a.lhpf-tab.active i { color: var(--pf-primary); }
+.lhpf nav.lhpf-tabs .lhpf-badge {
+  flex: 0 0 auto;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #f2db94, #c9a24a);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+  color: #2b1d05;
+  font: 700 10px/16px var(--pf-sans);
+  text-align: center;
+  animation: lhpf-badge 1.6s ease-in-out infinite;
+}
+@keyframes lhpf-badge { 0%, 100% { box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25); } 50% { box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), 0 0 8px 2px rgba(242, 219, 148, 0.75); } }
+@container lhpf-tabs (max-width: 640px) {
+  .lhpf nav.lhpf-tabs > a.lhpf-tab:not(.active) span { display: none; }
+  .lhpf nav.lhpf-tabs > a.lhpf-tab { padding: 0 9px; }
+}
+
+/* --------------------------------------------------------------------------
+   Navigation band of the monster sheet: the title of the open tab and round icons on a dark band
+   -------------------------------------------------------------------------- */
+.lhpf nav.lhpf-nav:not(.lhpf-tabs) {
   grid-area: nav;
   position: relative;
   z-index: 3; /* the round icons stick out of the band: above the sub-navigation bars below */
@@ -651,7 +755,7 @@
     var(--pf-secondary);
   box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
 }
-.lhpf nav.lhpf-nav .panel-title {
+.lhpf nav.lhpf-nav:not(.lhpf-tabs) .panel-title {
   margin-right: auto;
   padding-left: 14px;
   color: var(--pf-text-light);
@@ -659,7 +763,7 @@
   letter-spacing: 0.02em;
   white-space: nowrap;
 }
-.lhpf nav.lhpf-nav > a.item {
+.lhpf nav.lhpf-nav:not(.lhpf-tabs) > a.item {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -677,14 +781,14 @@
   transition: transform 0.1s ease-out, box-shadow 0.1s ease-out, background 0.1s ease-out;
   z-index: 1;
 }
-.lhpf nav.lhpf-nav > a.item:hover,
-.lhpf nav.lhpf-nav > a.item.active {
+.lhpf nav.lhpf-nav:not(.lhpf-tabs) > a.item:hover,
+.lhpf nav.lhpf-nav:not(.lhpf-tabs) > a.item.active {
   z-index: 2;
   transform: scale(1.2);
   background: radial-gradient(circle at 35% 30%, #3d8f61, #1a4a31 72%);
   color: var(--pf-text-light);
 }
-.lhpf nav.lhpf-nav > a.item.active {
+.lhpf nav.lhpf-nav:not(.lhpf-tabs) > a.item.active {
   box-shadow: 0 0 0 1px var(--pf-tertiary), 0 0 0 2px var(--pf-ring), inset 0 0 4px rgba(0, 0, 0, 0.25), 0 0 8px var(--pf-tertiary);
 }
 
@@ -884,61 +988,6 @@
   display: block;
   margin: 0 0 6px;
 }
-.lhpf .subsection.details {
-  display: grid;
-  grid-template-columns: 128px minmax(0, 1fr);
-  gap: 0 14px;
-  align-items: start;
-  margin: 4px 0 4px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--pf-divider);
-}
-.lhpf .details .image-container {
-  position: relative;
-  width: 128px;
-  height: 128px;
-}
-.lhpf .details .actor-image {
-  display: block;
-  width: 128px;
-  height: 128px;
-  border: none;
-  border-radius: 0;
-  background: #2a2a24;
-  box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39, inset 0 0 8px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.8);
-  object-fit: cover;
-  object-position: center;
-  cursor: pointer;
-}
-.lhpf .details .abcd {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 10px;
-  align-content: start;
-}
-.lhpf .details .detail {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  min-width: 0;
-}
-.lhpf .details-label {
-  color: var(--pf-text-soft);
-  font: 400 10px/1.2 var(--pf-sans);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-.lhpf .details .detail h3 {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  min-height: 32px;
-  margin: 0;
-  padding: 0 6px;
-  background: rgba(28, 28, 28, 0.1);
-  color: var(--pf-text);
-  font: 700 14px/1.1 var(--pf-body);
-}
 .lhpf .option-field {
   display: flex;
   flex: 1;
@@ -978,22 +1027,6 @@
 .lhpf .option-field .option-browse:hover {
   color: var(--pf-primary);
 }
-.lhpf .detail.class .emblem {
-  display: flex;
-  flex: 0 0 auto;
-  margin-right: -2px;
-}
-.lhpf .detail.class .emblem img {
-  width: 26px;
-  height: 26px;
-  padding: 2px;
-  border: none;
-  border-radius: 50%;
-  background: var(--pf-primary-dark);
-  box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39, 0 0 4px rgba(0, 0, 0, 0.6);
-  object-fit: contain;
-}
-
 /* Tags (system tag input) */
 .lhpf .lh-tag-input .tag-list {
   display: flex;
@@ -1048,33 +1081,137 @@
   background: rgba(255, 255, 255, 0.5);
 }
 
-/* Connections and unions (tags, like the languages of a Pathfinder sheet) */
-.lhpf .lhpf-social {
+/* A blank character: the creation wizard */
+.lhpf .lhpf-create {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 16px;
+  grid-template-columns: 54px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  margin: 2px 0 14px;
+  padding: 12px 16px 12px 14px;
+  border: 1px solid #c8b79a;
+  border-radius: 10px;
+  background:
+    radial-gradient(120% 160% at 0% 50%, rgba(47, 107, 74, 0.18), transparent 60%),
+    linear-gradient(180deg, #fffaf0, #f1e5c8);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 2px 8px rgba(60, 40, 10, 0.15);
 }
-.lhpf .lhpf-social .column > header {
+.lhpf .lhpf-create-medal {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, var(--pf-primary-light), var(--pf-primary-dark));
+  box-shadow: 0 0 0 2px #fbf4df, 0 0 0 3px #c9a24a, 0 3px 8px rgba(0, 0, 0, 0.3);
+  color: #f2db94;
+  font-size: 22px;
+}
+.lhpf .lhpf-create .lhpf-eyebrow,
+.lhpf .lhpf-option-label {
+  display: block;
+  color: #8a6a25;
+  font: 700 9.5px/1.3 var(--pf-sans);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.lhpf .lhpf-create h2 { margin: 1px 0 2px; border: none; color: var(--pf-primary-dark); font: 600 19px/1.15 var(--pf-serif); }
+.lhpf .lhpf-create p { margin: 0; color: var(--pf-text-soft); font: italic 12.5px/1.4 var(--pf-body); }
+.lhpf .lhpf-create button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  height: 36px;
+  margin: 0;
+  padding: 0 16px;
+  border: 1px solid var(--pf-primary-dark);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--pf-primary-light), var(--pf-primary-dark));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 6px rgba(0, 0, 0, 0.25);
+  color: #fbf4df;
+  font: 600 13px/1 var(--pf-sans);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.lhpf .lhpf-create button i { color: #f2db94; }
+.lhpf .lhpf-create button:hover { filter: brightness(1.12); }
+
+/* The portrait and what the character is: race, class and profession, each a card */
+.lhpf .lhpf-identity {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  margin: 4px 0 4px;
+}
+.lhpf .lhpf-identity .image-container { position: relative; width: 150px; height: 150px; }
+.lhpf .lhpf-identity .actor-image {
+  display: block;
+  width: 150px;
+  height: 150px;
+  border: none;
+  border-radius: 0;
+  background: #2a2a24;
+  box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39, inset 0 0 8px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.8);
+  object-fit: cover;
+  object-position: center;
+  cursor: pointer;
+}
+.lhpf .lhpf-option-cards { display: grid; gap: 7px; margin: 0; padding: 0; list-style: none; }
+.lhpf .lhpf-option-card {
   position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin: 14px 0 8px;
-  padding: 0 0 2px;
-  border-bottom: 1px solid var(--pf-divider);
-  color: var(--pf-primary);
-  font: 600 16px/1 var(--pf-serif);
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: center;
+  gap: 11px;
+  min-height: 46px;
+  padding: 3px 8px 3px 8px;
+  border: 1px solid #c8b79a;
+  border-left: 3px solid var(--opt-color);
+  border-radius: 8px;
+  background:
+    radial-gradient(90% 130% at 0% 50%, color-mix(in srgb, var(--opt-color) 12%, transparent), transparent 70%),
+    linear-gradient(180deg, rgba(255, 252, 243, 0.9), rgba(241, 229, 200, 0.85));
 }
-.lhpf .lhpf-social .column > header button {
-  position: absolute;
-  right: 0;
-  bottom: -1px;
+.lhpf .lhpf-option-card.empty { border-left-style: dashed; background: rgba(255, 255, 255, 0.3); }
+.lhpf .lhpf-option-art {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--opt-color) 80%, #000), 0 0 0 3px rgba(255, 250, 235, 0.9), 0 0 0 4px color-mix(in srgb, var(--opt-color) 55%, #c9a24a);
+  color: color-mix(in srgb, var(--opt-color) 80%, #000);
+  font-size: 15px;
+}
+.lhpf .lhpf-option-art a { display: block; width: 100%; height: 100%; }
+.lhpf .lhpf-option-art img { width: 100%; height: 100%; border: none; border-radius: 50%; object-fit: cover; }
+.lhpf .lhpf-option-art.emblem { border-radius: 0; background: none; box-shadow: none; }
+.lhpf .lhpf-option-art.emblem img { border-radius: 0; object-fit: contain; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35)); }
+.lhpf .lhpf-option-body { display: grid; gap: 0; min-width: 0; }
+.lhpf .lhpf-option-label { color: color-mix(in srgb, var(--opt-color) 80%, #000); font-size: 8.5px; }
+.lhpf .lhpf-option-body .option-field { min-height: 21px; }
+.lhpf .lhpf-option-body .option-name { font: 600 16px/1.2 var(--pf-serif); }
+.lhpf .lhpf-option-body .option-browse { font: italic 14px/1.3 var(--pf-body); }
+.lhpf .lhpf-option-line {
+  overflow: hidden;
+  color: var(--pf-text-soft);
+  font: 11.5px/1.3 var(--pf-sans);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .lhpf-option-line i { color: color-mix(in srgb, var(--opt-color) 80%, #000); font-size: 10px; }
+
+/* The attributes, each with the two checks it gives (a click rolls) */
+.lhpf .lhpf-attrs .lhpf-section > button {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 3px;
   width: auto;
   height: 20px;
-  margin: 0;
+  margin: 0 0 -1px;
   padding: 0 6px;
   border: 1px solid var(--pf-divider);
   border-bottom: none;
@@ -1086,135 +1223,76 @@
   text-transform: uppercase;
   cursor: pointer;
 }
-.lhpf .lhpf-social .column > header button:hover {
-  background: rgba(31, 81, 55, 0.08);
-}
-.lhpf .lhpf-social .tags {
-  gap: 4px;
-}
-.lhpf .lhpf-social .tags .tag {
-  padding: 3px 6px;
-  font-size: 10px;
-}
-.lhpf .lhpf-social .tags .tag {
-  gap: 6px;
-}
-.lhpf .lhpf-social .tags .tag a:hover {
-  color: var(--pf-tertiary-light);
-}
-.lhpf .lhpf-social .tags .tag .remove {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 9px;
-}
-.lhpf .lhpf-social .tags .tag .remove:hover {
-  color: #fff;
-}
-.lhpf .lhpf-social .tags .none {
-  color: var(--pf-text-soft);
-  font: italic 13px/1.2 var(--pf-body);
-}
-
-/* Attributes */
-.lhpf .attributes ul {
+.lhpf .lhpf-attrs .lhpf-section > button:hover { background: rgba(31, 81, 55, 0.08); }
+.lhpf .lhpf-attr-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; }
+.lhpf .lhpf-attr {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: 16px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.lhpf .attributes .attribute {
-  display: flex;
-  flex-direction: column;
-}
-.lhpf .attributes .abbreviation {
-  margin: 0;
-  padding: 0;
-  color: var(--pf-primary);
-  font: 400 22px/1.1 var(--pf-condensed);
-  text-align: center;
-  text-transform: uppercase;
-}
-.lhpf .attributes .modifier {
-  display: flex;
+  grid-template:
+    "name name" auto
+    "mod checks" auto
+    / 48px minmax(0, 1fr);
   align-items: center;
-  justify-content: center;
-  height: 46px;
-  margin: 2px 0 0;
+  gap: 3px 10px;
+  padding: 6px 8px 7px 8px;
   border: 3px double transparent;
   border-image: var(--pf-frame-elegant) 11 / 14px repeat;
   background: rgba(255, 255, 255, 0.22);
-  color: var(--pf-text);
-  font: 700 24px/1 var(--pf-serif);
 }
-.lhpf .attributes .label {
-  margin: 3px 0 0;
-  padding: 2px;
-  color: var(--pf-text);
-  font: 400 10px/1.2 var(--pf-sans);
-  letter-spacing: 0.05em;
-  opacity: 0.5;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-/* --------------------------------------------------------------------------
-   Checks tab (framed rows, like the proficiencies list)
-   -------------------------------------------------------------------------- */
-.lhpf .proficiencies-list {
+.lhpf .lhpf-attr-mod {
+  grid-area: mod;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-  margin: 0 0 12px;
-  padding: 0;
-  list-style: none;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, var(--pf-primary-light), var(--pf-primary-dark));
+  box-shadow: 0 0 0 2px #fbf4df, 0 0 0 3px #c9a24a, 0 2px 6px rgba(0, 0, 0, 0.3);
+  color: #fbf4df;
+  font: 600 20px/1 var(--pf-serif);
 }
-.lhpf .proficiencies-list > li {
+.lhpf .lhpf-attr-name {
+  grid-area: name;
   display: flex;
-  align-items: center;
-  gap: 5px; /* tight enough for the longest check name, "Conhecimento" (pt-BR), at the sheet's minimum width */
-  min-height: 36px;
-  padding: 0 6px 0 4px;
-  border: 3px double transparent;
-  border-image: var(--pf-frame-elegant) 11 / 14px repeat;
-  font: 400 16px/1 var(--pf-serif);
-  cursor: pointer;
-  transition: background-color 0.15s ease-out;
-}
-.lhpf .proficiencies-list > li:hover {
-  background: rgba(31, 81, 55, 0.07);
-}
-.lhpf .proficiencies-list .d6 {
-  padding: 4px 3px;
-  color: var(--pf-primary);
-  font-size: 17px;
-  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.35));
-}
-.lhpf .proficiencies-list > li:hover .d6 i {
-  animation: lhpf-spin 1.4s linear infinite;
-}
-.lhpf .proficiencies-list .modifier {
-  flex: 0 0 26px;
-  width: 26px;
-  padding-top: 2px;
-  color: var(--pf-primary);
-  font-weight: 600;
-  text-align: end;
-}
-.lhpf .proficiencies-list .name {
-  flex: 1;
+  align-items: baseline;
+  gap: 8px;
   min-width: 0;
-  padding-top: 2px;
+  padding-bottom: 2px;
+  border-bottom: 1px dotted var(--pf-divider);
+}
+.lhpf .lhpf-attr-name b {
   overflow: hidden;
+  color: var(--pf-primary-dark);
+  font: 600 15px/1.15 var(--pf-serif);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.lhpf .proficiencies-list .attr {
-  color: var(--pf-text-soft);
-  font: 400 10px/1 var(--pf-sans);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+.lhpf .lhpf-attr-name small { margin-left: auto; color: var(--pf-text-soft); font: 700 10px/1.3 var(--pf-sans); letter-spacing: 0.08em; }
+.lhpf .lhpf-attr-checks { grid-area: checks; }
+.lhpf .lhpf-attr-checks { display: grid; gap: 3px; margin: 0; padding: 0; list-style: none; }
+.lhpf .lhpf-attr-checks li {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto 24px;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 5px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: background 0.12s ease;
 }
+.lhpf .lhpf-attr-checks li:hover { background: rgba(31, 81, 55, 0.1); }
+.lhpf .lhpf-attr-checks li > i { color: var(--pf-primary); font-size: 12px; }
+.lhpf .lhpf-attr-checks li:hover > i { animation: lhpf-spin 1.4s linear infinite; }
+.lhpf .lhpf-attr-checks .name {
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 13px/1.2 var(--pf-body);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .lhpf-attr-checks .modifier { color: var(--pf-primary-dark); font: 700 13px/1 var(--pf-sans); text-align: right; }
+.lhpf .lhpf-tagbox { margin-top: 10px; }
 
 /* --------------------------------------------------------------------------
    Lists: skills, effects, connections
@@ -1229,7 +1307,32 @@
 .lhpf .lhpf-toolbar .count {
   color: var(--pf-text-soft);
   font: italic 12px/1 var(--pf-body);
+  white-space: nowrap;
 }
+.lhpf .lhpf-skill-search { position: relative; flex: 1; max-width: 300px; margin: 0; }
+.lhpf .lhpf-skill-search i {
+  position: absolute;
+  top: 50%;
+  left: 9px;
+  transform: translateY(-50%);
+  color: var(--pf-alt);
+  font-size: 11px;
+  pointer-events: none;
+}
+.lhpf .lhpf-skill-search input {
+  width: 100%;
+  height: 26px;
+  margin: 0;
+  padding: 0 10px 0 27px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 1px 2px rgba(60, 40, 10, 0.1);
+  color: var(--pf-text);
+  font: 13px var(--pf-body);
+}
+.lhpf .lhpf-skill-search input:focus { border-color: var(--pf-primary-light); outline: none; box-shadow: 0 0 0 2px rgba(43, 103, 71, 0.2); }
+.lhpf .lhpf-list > li[hidden] { display: none; }
 .lhpf .lhpf-toolbar button {
   display: flex;
   align-items: center;
@@ -1465,7 +1568,7 @@
 }
 .lhpf .effects-list .source,
 .lhpf .effects-list .duration {
-  flex: 0 0 78px;
+  flex: 0 0 96px;
   overflow: hidden;
   color: var(--pf-text-soft);
   font: 400 11px/1.2 var(--pf-body);
@@ -1481,6 +1584,7 @@
   text-transform: uppercase;
   opacity: 0.85;
 }
+.lhpf .effects-list .source { flex-basis: 140px; text-align: left; }
 .lhpf .effects-list .item-controls {
   flex: 0 0 70px;
   justify-content: flex-end;
@@ -1564,6 +1668,29 @@
   background: var(--pf-primary);
   color: #fff;
 }
+
+/* The paper doll and, beside it, the wealth, the space and the tickets */
+.lhpf .lhpf-inv-top {
+  display: grid;
+  grid-template-columns: 480px minmax(0, 1fr);
+  gap: 0 16px;
+  align-items: start;
+}
+.lhpf .lhpf-inv-side { display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; min-width: 0; }
+.lhpf .lhpf-inv-side .lhpf-section:first-child { margin-top: 2px; }
+.lhpf .lhpf-inv-side .currency { flex-wrap: wrap; gap: 4px 0; padding: 4px; }
+.lhpf .lhpf-inv-side .currency .denomination { flex: 1 1 100%; min-width: 0; margin: 0 0 2px; }
+.lhpf .lhpf-inv-side .currency .gold-input { flex: 1; min-width: 0; width: auto; }
+.lhpf .lhpf-inv-side .currency li > button { width: 34px; }
+.lhpf .lhpf-inv-side .encumbrance { flex-wrap: wrap; gap: 6px 8px; }
+.lhpf .lhpf-inv-side .encumbrance .bar { flex: 1 1 60px; }
+.lhpf .lhpf-inv-side .encumbrance .text { flex: 1 1 100%; color: var(--pf-text-soft); }
+.lhpf .lhpf-inv-side .lhpf-tickets { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.lhpf .lhpf-inv-side .lhpf-tickets .ticket-slot--ranked { grid-column: 1 / -1; }
+.lhpf .lhpf-inv-side .lhpf-tickets .ticket-slot { padding: 5px 2px; }
+.lhpf .lhpf-inv-side .lhpf-tickets .ticket-slot img { width: 30px; height: 30px; }
+.lhpf .lhpf-inv-side .lhpf-tickets .ticket-slot:not(.ticket-slot--ranked) .slot-label { font-size: 8px; line-height: 1.15; white-space: normal; }
+.lhpf .lhpf-inv-doll .lhpf-section:first-child { margin-top: 2px; }
 
 /* Equipment: the paper doll (figure in the middle, slot cards around it, a line to each body part) */
 .lhpf .lhpf-doll {

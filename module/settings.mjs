@@ -64,6 +64,8 @@ export function registerSettings() {
   toggle("fate");
   toggle("statusLinks");
   toggle("quickEffect");
+  // A card in the chat for a character made in the creation wizard
+  toggle("creationCard");
   // Content
   toggle("content");
   // Look
@@ -128,6 +130,8 @@ export function registerClientSettings() {
   toggle("turnSelect", false);
   toggle("turnPan", false);
   toggle("turnUntarget", true);
+  // The creation wizard opens when this user makes a character (apps/creation-wizard.mjs)
+  toggle("creationWizard", true);
   // The release notice already seen (notice.mjs).
   game.settings.register(SYSTEM_ID, "noticeSeen", { scope: "client", config: false, type: String, default: "" });
 

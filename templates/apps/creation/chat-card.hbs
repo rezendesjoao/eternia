@@ -1,0 +1,10 @@
+{{!-- The chat card of a character made in the creation wizard. --}}
+<div class="eternia chat-card eternia-new-character" style="--wz-color: {{color}}">
+	<header>
+		<img src="{{img}}" alt="">
+		<div><small>{{localize "ETERNIA.Wizard.Chat.Eyebrow"}}</small><h3>{{name}}</h3></div>
+	</header>
+	<ul>
+		{{#each lines}}<li><img src="{{img}}" alt=""><span><small>{{label}}</small>{{value}}</span></li>{{/each}}
+	</ul>
+</div>

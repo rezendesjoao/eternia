@@ -1,67 +1,70 @@
-{{!-- CHARACTER: square portrait (the token art fits whole) with race / class / subclass beside it, tags,
-     connections, unions and attributes. --}}
+{{!-- CHARACTER: the portrait with what the character is (race, class and profession, each a card with one line
+     about it; a blank character gets the creation wizard), the four attributes with the checks each one gives (a
+     click rolls) and the tags. The connections and unions are in the bio. --}}
 <section class="tab major character" data-group="primary" data-tab="character">
 	<div class="tab-content">
-		<div class="subsection details">
+
+		{{#if lh.creation.blank}}{{#if lh.creation.can}}
+		<section class="lhpf-create">
+			<span class="lhpf-create-medal"><i class="fa-solid fa-feather-pointed"></i></span>
+			<div class="lhpf-create-text">
+				<span class="lhpf-eyebrow">{{localize "ETERNIA.Sheet.Create.Eyebrow"}}</span>
+				<h2>{{localize "ETERNIA.Sheet.Create.Title"}}</h2>
+				<p>{{localize "ETERNIA.Sheet.Create.Lead"}}</p>
+			</div>
+			<button type="button" data-action="lhpf-wizard"><i class="fa-solid fa-wand-magic-sparkles"></i>{{localize "ETERNIA.Sheet.Create.Button"}}</button>
+		</section>
+		{{/if}}{{/if}}
+
+		<div class="lhpf-identity">
 			<div class="image-container">
 				<img class="actor-image" src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-edit="img">
 			</div>
-			<div class="abcd">
-				<div class="detail">
-					<span class="details-label">{{localize 'ETERNIA.Label.Race'}}</span>
-					<h3>{{> "systems/eternia/templates/actor/parts/actor-option.html" type="race" option=characterOptions.race placeholder=(localize 'ETERNIA.Placeholder.Race')}}</h3>
-				</div>
-				<div class="detail class">
-					<span class="details-label">{{localize 'ETERNIA.Placeholder.Class'}}</span>
-					<h3>
-						{{> "systems/eternia/templates/actor/parts/actor-option.html" type="class" option=characterOptions.class placeholder=(localize 'ETERNIA.Placeholder.Class')}}
-						<a class="emblem" data-action="class-img" data-tooltip="{{#if characterOptions.class}}{{characterOptions.class.name}}{{else}}{{localize 'ETERNIA.Placeholder.Class'}}{{/if}}"><img src="{{classImg}}" alt=""></a>
-					</h3>
-				</div>
-				<div class="detail">
-					<span class="details-label">{{localize 'ETERNIA.Placeholder.SubClass'}}</span>
-					<h3>{{> "systems/eternia/templates/actor/parts/actor-option.html" type="subclass" option=characterOptions.subclass placeholder=(localize 'ETERNIA.Placeholder.SubClass')}}</h3>
-				</div>
-			</div>
+			<ul class="lhpf-option-cards">
+				{{#each lh.options as |o|}}
+				<li class="lhpf-option-card {{o.type}}{{#unless o.item}} empty{{/unless}}" style="--opt-color: {{o.color}}">
+					<span class="lhpf-option-art{{#if o.emblem}}{{#if o.item}} emblem{{/if}}{{/if}}">
+						{{#if o.item}}<a data-action="{{#if o.emblem}}class-img{{else}}lhpf-open-item{{/if}}" data-item-id="{{o.item._id}}"><img src="{{o.img}}" alt=""></a>
+						{{else}}<i class="fa-solid {{#if (eq o.type 'race')}}fa-people-group{{else if (eq o.type 'class')}}fa-chess-knight{{else}}fa-hammer{{/if}}"></i>{{/if}}
+					</span>
+					<div class="lhpf-option-body">
+						<span class="lhpf-option-label">{{o.label}}</span>
+						{{> "systems/eternia/templates/actor/parts/actor-option.html" type=o.type option=o.item placeholder=o.placeholder}}
+						<span class="lhpf-option-line">{{#if o.icon}}<i class="{{o.icon}}"></i> {{/if}}{{o.line}}</span>
+					</div>
+				</li>
+				{{/each}}
+			</ul>
 		</div>
+
+		<section class="lhpf-attrs">
+			<header class="lhpf-section">
+				<span>{{localize 'ETERNIA.Sheet.AttributesChecks'}}</span>
+				{{#if editable}}<button type="button" data-action="lhauto-allocate"><i class="fa-solid fa-fw fa-pen-to-square"></i>{{localize 'ETERNIA.Sheet.Allocate'}}</button>{{/if}}
+			</header>
+			<div class="lhpf-attr-grid">
+				{{#each lh.attributes}}
+				<div class="lhpf-attr" data-attribute="{{key}}">
+					<span class="lhpf-attr-name"><b>{{label}}</b><small>{{abbr}} {{base}}</small></span>
+					<span class="lhpf-attr-mod" data-tooltip="{{localize 'ETERNIA.Sheet.AttrTip' name=label total=base}}">{{modLabel}}</span>
+					<ul class="lhpf-attr-checks">
+						{{#each checks}}
+						<li data-action="roll-check" data-name="{{name}}" data-dice="{{dice}}" data-bonus="{{total}}" data-tooltip="{{localize 'ETERNIA.ButtonLabel.Roll'}}: {{dice}}d6{{mod}}">
+							<i class="fa-solid fa-dice-d6"></i>
+							<span class="name">{{label}}</span>
+							<span class="lhpf-dice" data-tier="{{tier}}">{{dice}}d6</span>
+							<b class="modifier">{{mod}}</b>
+						</li>
+						{{/each}}
+					</ul>
+				</div>
+				{{/each}}
+			</div>
+		</section>
 
 		<div class="subsection lhpf-tagbox">
 			<header><span>{{localize 'ETERNIA.Label.Tags'}}</span></header>
 			{{> "systems/eternia/templates/parts/tag-input.html"}}
-		</div>
-
-		<div class="subsection lhpf-social">
-			{{#each lh.social as |group|}}
-			<div class="column">
-				<header>
-					<span>{{group.label}}</span>
-					{{#if @root.editable}}<button type="button" data-action="item-create" data-type="{{group.type}}"><i class="fa-solid fa-fw fa-plus"></i>{{localize 'ETERNIA.Add'}}</button>{{/if}}
-				</header>
-				<ul class="tags">
-					{{#each group.items as |item|}}
-					<li class="tag tag_alt item" data-item-id="{{item._id}}"><a data-action="item-edit" data-tooltip="{{#if item.lhTags.length}}{{#each item.lhTags}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}{{else}}{{item.name}}{{/if}}">{{item.name}}</a>{{#if @root.editable}}<a class="remove" data-action="lhauto-delete" data-tooltip="ETERNIA.ButtonLabel.Delete"><i class="fa-solid fa-xmark"></i></a>{{/if}}</li>
-					{{else}}
-					<li class="none">{{localize 'ETERNIA.Sheet.NoneYet'}}</li>
-					{{/each}}
-				</ul>
-			</div>
-			{{/each}}
-		</div>
-
-		<div class="subsection attributes">
-			<header>
-				<span>{{localize 'ETERNIA.Sheet.Attributes'}}</span>
-				{{#if editable}}<button type="button" data-action="lhauto-allocate"><i class="fa-solid fa-fw fa-pen-to-square"></i>{{localize 'ETERNIA.Sheet.Allocate'}}</button>{{/if}}
-			</header>
-			<ul>
-				{{#each lh.attributes}}
-				<li class="attribute" data-attribute="{{key}}">
-					<h2 class="abbreviation">{{abbr}}</h2>
-					<h3 class="modifier">{{mod}}</h3>
-					<div class="label">{{label}} · {{base}}</div>
-				</li>
-				{{/each}}
-			</ul>
 		</div>
 	</div>
 </section>

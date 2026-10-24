@@ -54,6 +54,22 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
 - Fórmulas de rolagem ficam no próprio campo: `damage.dice: "@sr+1"`, `damage.mod: "@cr*2+10"` (nunca em
   `diceFormula`/`formula`, que são derivados). Flags de efeito e de habilidade: veja `docs/condicoes.md`.
 - `npm run packs:build` (Foundry CLI, com o mundo fechado) gera `packs/`; `npm run packs:unpack` volta para `src/`.
+- Índices de compêndio: todo campo que o código lê de um índice de Item entra em `ITEM_INDEX_FIELDS`
+  (`module/helpers/pack-index.mjs`, posto em `CONFIG.Item.compendiumIndexFields`). O Foundry guarda um índice por
+  compêndio com os campos do último pedido: um `getIndex({ fields })` com um campo de fora dessa lista busca o índice
+  inteiro de novo (e o seguinte, também). As descrições ficam de fora (pesariam todos os compêndios): quem as lê carrega
+  os documentos (o catálogo de Magias carrega só as 97 Magias, uma vez).
+- O que as janelas leem dos compêndios é preparado com o jogo ocioso (`module/helpers/prewarm.mjs`): o índice das
+  habilidades de classe, o do navegador de habilidades, as opções, o catálogo de Magias (`apps/magic-catalog.mjs`) e o do
+  assistente de criação (`apps/creation-catalog.mjs`). Cada um se refaz quando um item de compêndio muda.
+
+## Criação de personagem
+- O assistente (`module/apps/creation-wizard.mjs`, `templates/apps/creation/`, `css/creation-wizard.css`) não muda o ator
+  até o fim: cria tudo num `createEmbeddedDocuments` só, com a opção `eterniaCreation: true`, que os ganchos das caixas
+  antigas (character-options, choice-grants, rank-grants, progression) respeitam. As marcas são as mesmas das caixas:
+  `grantedBy` da raça, da classe e da Magia de escolha, `skillPicks` de NP 1 nas escolhas e `skillProgress` `{ base: 1,
+  creation: true }`. A lista de escolhas vem de `creationCandidates` (`apps/skill-browser.mjs`), com as regras do
+  navegador no NP 1: uma regra nova do navegador vale para os dois.
 
 ## Teste local
 - `Data/systems/eternia` é uma junction para este repositório; mundo de teste `eternia-teste`.

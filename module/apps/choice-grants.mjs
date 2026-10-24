@@ -69,12 +69,12 @@ export async function offerChoice(actor, item) {
 /** Call during the `init` hook. */
 export function registerChoiceGrants() {
   Hooks.on("createItem", (item, options, userId) => {
-    if (!isLocalChange(options, userId) || options.eterniaMigration || !offers(item)) return;
+    if (!isLocalChange(options, userId) || options.eterniaMigration || options.eterniaCreation || !offers(item)) return;
     offerChoice(item.parent, item).catch(err => console.error(`${SYSTEM_ID} | Choice failed`, err));
   });
   // The skill it gave goes away with it.
   Hooks.on("deleteItem", (item, options, userId) => {
-    if (!isLocalChange(options, userId) || !offers(item)) return;
+    if (!isLocalChange(options, userId) || options.eterniaCreation || !offers(item)) return;
     const ids = grantedBy(item.parent, item).map(i => i.id);
     if (ids.length) item.parent.deleteEmbeddedDocuments("Item", ids);
   });

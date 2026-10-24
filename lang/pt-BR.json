@@ -134,7 +134,9 @@
       "Short": {
         "EndOfProcess": "Fim proc.",
         "EndOfRound": "Fim rodada",
-        "EndOfScene": "Fim cena"
+        "EndOfScene": "Fim cena",
+        "Passive": "Passivo",
+        "Unlimited": "Sem prazo"
       }
     },
     "EffectExpiry": {
@@ -1222,6 +1224,14 @@
       "conditionLimits": {
         "Name": "O que as condições proíbem",
         "Hint": "Ações, alvos e movimento que as condições proíbem (Paralisado, Silenciado, Desarmado, Agarrado, Provocado, Cego…): avisar pergunta se é para seguir; bloquear impede os jogadores (o Mestre pode forçar)."
+      },
+      "creationWizard": {
+        "Name": "Assistente de criação",
+        "Hint": "Abre o assistente de criação, passo a passo, quando você cria um personagem novo."
+      },
+      "creationCard": {
+        "Name": "Cartão de personagem novo",
+        "Hint": "Um cartão no chat quando um personagem é criado pelo assistente, com a raça, a classe, a Magia e a profissão."
       }
     },
     "Use": {
@@ -1352,7 +1362,8 @@
         "effects": "Efeitos e estados",
         "biography": "Biografia",
         "profession": "Profissão",
-        "class": "Classe"
+        "class": "Classe",
+        "magic": "Magias"
       },
       "HitPoints": "Pontos de Vida",
       "Max": "Máx.",
@@ -1455,6 +1466,47 @@
         "NoAbilities": "Nenhuma habilidade. Arraste uma de um compêndio ou clique em Adicionar.",
         "Edit": "Editar",
         "StatusesHint": "Abrir o painel de estados"
+      },
+      "TabShort": {
+        "character": "Personagem",
+        "skills": "Habilidades",
+        "class": "Classe",
+        "magic": "Magias",
+        "inventory": "Inventário",
+        "profession": "Profissão",
+        "effects": "Efeitos",
+        "biography": "Biografia"
+      },
+      "CreateHint": "Criar o personagem",
+      "Wizard": "Assistente de criação",
+      "Create": {
+        "Eyebrow": "Personagem novo",
+        "Title": "Crie o seu personagem passo a passo",
+        "Lead": "Raça, classe, Magia, profissão, atributos e habilidades, com a explicação de cada uma e a ficha montando ao lado.",
+        "Button": "Abrir o assistente"
+      },
+      "Option": {
+        "race": "Raça",
+        "class": "Classe",
+        "subclass": "Profissão",
+        "raceHint": "Atributos, PV, Destino e duas habilidades inatas",
+        "classHint": "A base, os PV e o Motor da classe",
+        "subclassHint": "Faz itens e tem um talento próprio"
+      },
+      "HPShort": "PV",
+      "MotorLine": "Motor: {name}",
+      "AttributesChecks": "Atributos e testes",
+      "AttrTip": "{name} {total}: o modificador é o atributo ÷ 3 (arredondado para baixo).",
+      "SkillSearch": "Buscar habilidade",
+      "MagicTab": {
+        "NoClassTitle": "Sem classe",
+        "NoClass": "As vagas de Magia vêm da classe: as mágicas escolhem no NP 1, 5 e 10; as físicas no NP 1 e 10.",
+        "NoSlotsTitle": "Esta classe não tem Magias",
+        "NoSlots": "Uma classe antiga não tem vagas de Magia. As 14 classes da lista têm.",
+        "Slots": "Vagas",
+        "Learned": "{n} de {total} feitiços",
+        "OpenHint": "Escolha a Magia desta vaga: a janela mostra todas, com os feitiços de cada uma.",
+        "LockedHint": "Esta vaga abre no NP {n}."
       }
     },
     "Chat": {
@@ -1550,7 +1602,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.28: vinte Magias e onze condições</strong></p><ul><li><strong>Mandamentos, Ruptura Crítica, Combo Estelar e Nebulosa Sinistra</strong> (Maldições): o Decreto, uma lei em volta de você que amaldiçoa na hora quem a quebra (aliados e você também); o [Ímpeto] que sobe a cada turno até passar do limite; o [Combo] que soma a cada acerto; puxar os inimigos e ficar [Intocável].</li><li><strong>Invasão e Infinito</strong> (Perdidas), <strong>Criação e Desastre</strong> (Ancestrais): o [Pesadelo] e a [Amnésia]; os feitiços que duram a cena; a dança do [Ritmo]; os Estados Negativos que sobem ou dobram de uma vez.</li><li><strong>Arca</strong> (Ancestral), <strong>O Soberano, Portão do Inferno e Praga</strong> (Maldições): a Execução dos demônios; a [Inversão] (o dano mágico cura e a cura fere); comer almas; o golpe que não mata.</li><li><strong>Lâmina Divisora e Lança Espiritual</strong> (Portadoras), <strong>Forma Indura e Sangue Demoníaco</strong> (Proibidas): os [Clones]; as Formas da lança; os Sete Corações; a transformação no terceiro feitiço.</li><li><strong>Caos e Lampejo</strong> (Ancestrais), <strong>Visão</strong> (Perdida) e <strong>Fonte da Juventude</strong> (Proibida): criar na hora e o Reino do Caos; agir fora do turno; o Presságio, que troca dados de qualquer teste de ataque; o Imortal.</li><li>Onze condições com ícones próprios: [Petrificado], [Pacificado], [Agonia], [Amnésia], [Pesadelo], [Ímpeto], [Combo], [Intocável], [Inversão], [Ritmo] e [Clones]. E o Fôlego Extra, que segura o personagem em pé.</li><li>Desde a 0.27: o Sol, o Contra-ataque, as Chamas do Purgatório e o Roubo, com cinco condições.</li></ul><p>Desde a 0.26: a revisão das Magias, com o Traço de cada uma e cinco condições novas. Desde a 0.25: os Matadores (Branco, Sombras e Veneno), as Maldições e mais dezesseis Magias. Desde a 0.24: Elo dos Sentidos, Magia dos Anjos, Trevas e Amarras. Desde a 0.23: Neve, Perfume Mágico, Alma de Máquina e Onda. Desde a 0.22: 14 classes, 7 físicas e 7 mágicas, todas com Magias; o Lutador, o Centurião e o Hierofante. Desde a 0.21: Moldagem de Madeira, Areia, Telepatia e Teleporte. Desde a 0.20: as Magias Portadoras Armas Mágicas, Plantas, Fumaça e Pintura Mágica. Desde a 0.19: Gigante, Encantamento, Olhos Mágicos e Alta Velocidade. Desde a 0.18: a escolha da Magia numa janela própria e a aba Classe sem rolar. Desde a 0.17: as Magias Perdidas. Desde a 0.16: as Magias elementais. Desde a 0.15: o Mago Azul e as Magias de Take Over. Desde a 0.14: o Mago Branco. Desde a 0.13: o Invocador com Magias. Desde a 0.12: o Pictomante. Desde a 0.11: o Mago Vermelho. Desde a 0.10: o Mago Negro e as Magias. Desde a 0.9: o Matador de Dragões. Desde a 0.8: as classes com Motor. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.29: a ficha nova e o assistente de criação</strong></p><ul><li><strong>Assistente de criação:</strong> o personagem é montado em sete passos (Raça, Classe, Magia, Profissão, Atributos, Habilidades e Resumo). Passe o mouse numa raça, classe ou profissão para ler tudo dela; as escolhas (o elemento, a Bênção, o Decreto) são feitas ali mesmo, e a ficha vai montando ao lado. Nada muda até \"Criar personagem\". Ele abre sozinho num personagem novo e pela pena no cabeçalho de um personagem de NP 1.</li><li><strong>A ficha mais larga e mais clara:</strong> cada aba tem o nome ao lado do ícone e um número quando há algo esperando nela; a raça, a classe e a profissão viraram cartões, e os atributos mostram os seus testes (a aba Testes saiu).</li><li><strong>Aba Magias:</strong> as vagas da classe e todos os feitiços de cada Magia, com o Traço e o Tabu, sem nomes cortados.</li><li><strong>Tudo mais rápido:</strong> a janela de Magias, o navegador de habilidades e o de raças e classes abrem na hora.</li><li>Desde a 0.28: vinte Magias das categorias altas e onze condições.</li></ul><p>Desde a 0.27: o Sol, o Contra-ataque, as Chamas do Purgatório e o Roubo, com cinco condições. Desde a 0.26: a revisão das Magias, com o Traço de cada uma e cinco condições novas. Desde a 0.25: os Matadores (Branco, Sombras e Veneno), as Maldições e mais dezesseis Magias. Desde a 0.24: Elo dos Sentidos, Magia dos Anjos, Trevas e Amarras. Desde a 0.23: Neve, Perfume Mágico, Alma de Máquina e Onda. Desde a 0.22: 14 classes, 7 físicas e 7 mágicas, todas com Magias; o Lutador, o Centurião e o Hierofante. Desde a 0.21: Moldagem de Madeira, Areia, Telepatia e Teleporte. Desde a 0.20: as Magias Portadoras Armas Mágicas, Plantas, Fumaça e Pintura Mágica. Desde a 0.19: Gigante, Encantamento, Olhos Mágicos e Alta Velocidade. Desde a 0.18: a escolha da Magia numa janela própria e a aba Classe sem rolar. Desde a 0.17: as Magias Perdidas. Desde a 0.16: as Magias elementais. Desde a 0.15: o Mago Azul e as Magias de Take Over. Desde a 0.14: o Mago Branco. Desde a 0.13: o Invocador com Magias. Desde a 0.12: o Pictomante. Desde a 0.11: o Mago Vermelho. Desde a 0.10: o Mago Negro e as Magias. Desde a 0.9: o Matador de Dragões. Desde a 0.8: as classes com Motor. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -3404,6 +3456,152 @@
         "Motor": "Cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O supremo pede o Motor no Teto e gasta tudo.",
         "Categories": "As categorias"
       }
+    },
+    "Wizard": {
+      "Title": "Criação de personagem: {name}",
+      "Eyebrow": "Criação de personagem",
+      "Heading": {
+        "race": "De onde você vem?",
+        "class": "Como você luta?",
+        "magic": "Qual é a sua Magia?",
+        "profession": "O que você faz fora da luta?",
+        "attributes": "Onde está a sua força?",
+        "skills": "O que você já sabe fazer?",
+        "summary": "Quem é você?"
+      },
+      "Lead": {
+        "race": "A raça dá atributos, PV, Destino e duas habilidades inatas. Passe o mouse para ler; clique para escolher.",
+        "class": "A classe dá a base dos atributos, os PV e o Motor: a regra que só ela tem. As físicas e as mágicas escolhem Magias.",
+        "magic": "A classe diz como você conjura; a Magia diz o que você conjura. Os feitiços dela entram nas suas escolhas.",
+        "profession": "A profissão é a subclasse: faz itens com aprimoramentos e tem um talento próprio.",
+        "attributes": "Cinco pontos bônus para distribuir. O modificador (o atributo ÷ 3) é o que entra nos testes.",
+        "skills": "Três habilidades de Combate e uma Geral, entre os talentos da classe e os feitiços da Magia.",
+        "summary": "O nome e o retrato, e tudo o que foi escolhido. Ao criar, a ficha recebe tudo de uma vez."
+      },
+      "Step": {
+        "race": "Raça",
+        "class": "Classe",
+        "magic": "Magia",
+        "profession": "Profissão",
+        "attributes": "Atributos",
+        "skills": "Habilidades",
+        "summary": "Resumo"
+      },
+      "Back": "Voltar",
+      "Next": "Próximo: {step}",
+      "Create": "Criar personagem",
+      "Done": {
+        "race": "Raça escolhida.",
+        "class": "Classe escolhida.",
+        "magic": "Magia pronta.",
+        "profession": "Profissão decidida.",
+        "attributes": "Pontos distribuídos.",
+        "skills": "Habilidades escolhidas.",
+        "summary": "Tudo pronto. Confira e crie o personagem."
+      },
+      "Hint": {
+        "race": "Escolha uma raça.",
+        "human": "Escolha mais {n} atributo(s) para o +1 do Humano.",
+        "raceChoice": "{name}: escolha uma das habilidades inatas.",
+        "class": "Escolha uma classe.",
+        "classChoice": "{name}: falta a escolha do NP 1.",
+        "magic": "Escolha a primeira Magia.",
+        "decree": "{name}: falta a escolha da Magia, embaixo.",
+        "profession": "Escolha uma profissão, ou decida depois.",
+        "attributes": "Faltam {n} ponto(s) bônus.",
+        "skills": "Faltam {combat} de Combate e {general} Geral.",
+        "summary": "Dê um nome ao personagem."
+      },
+      "Rail": {
+        "Empty": "Ainda sem raça nem classe",
+        "Magia": "Magia",
+        "MagiaLater": "A primeira no NP {rank}",
+        "Later": "Depois"
+      },
+      "ChooseOne": "Escolha uma",
+      "Guide": {
+        "Eyebrow": "Antes de escolher",
+        "race": {
+          "Title": "O que a raça dá",
+          "One": "Atributos (+2 no total), PV e Destino, que somam aos da classe.",
+          "Two": "Duas habilidades inatas: uma Geral e uma de Combate. Algumas raças pedem uma escolha entre várias.",
+          "Three": "Mais duas habilidades que a raça libera depois: uma no NP 3 e outra no NP 5."
+        },
+        "class": {
+          "Title": "O que a classe dá",
+          "One": "A base dos atributos, os PV e o Motor: o recurso que só ela tem e que muda cada rodada.",
+          "Two": "Vagas de Magia: as classes mágicas escolhem no NP 1, 5 e 10; as físicas no NP 1 e 10.",
+          "Three": "Um Caminho no NP 3, a Dedicação a outra classe no NP 5 e o Ápice no NP 10."
+        },
+        "profession": {
+          "Title": "O que a profissão dá",
+          "One": "Uma oficina: armas, armaduras, poções, comidas, pergaminhos... cada profissão faz o seu tipo de item.",
+          "Two": "Um talento próprio, que vale para o grupo inteiro.",
+          "Three": "Ela sobe de Rank com EXP: mais tentativas por cenário e itens de nível maior."
+        }
+      },
+      "Race": {
+        "Eyebrow": "Raça",
+        "HumanBonus": "+1 em dois atributos à escolha",
+        "HumanPick": "Os dois atributos do +1",
+        "PickFirst": "Escolha esta raça para marcar os atributos.",
+        "Innate": "Habilidades inatas",
+        "Unlocks": "Desbloqueáveis",
+        "HumanShort": "+1 em dois à escolha"
+      },
+      "Class": {
+        "All": "Todas",
+        "Choice": "A escolha do NP 1",
+        "Road": "Do NP 1 ao 10"
+      },
+      "Magic": {
+        "NoSlotTitle": "{name} recebe a Magia mais tarde",
+        "NoSlot": "A primeira Magia de {name} chega no NP {rank}. Por enquanto não há o que escolher aqui: siga para a profissão.",
+        "Lead": "{name}: a vaga de Magia do NP 1. Passe o mouse sobre uma Magia para ler os feitiços dela; clique para escolher.",
+        "Decree": "{name} pede uma escolha:"
+      },
+      "Profession": {
+        "Note": "Dá para escolher a profissão depois, na aba Profissão da ficha.",
+        "Later": "Decidir depois",
+        "Workshop": "Oficina:",
+        "Rank": "Rank:"
+      },
+      "Attr": {
+        "Points": "Pontos bônus",
+        "Left": "para distribuir",
+        "Reset": "Recomeçar",
+        "ModTip": "Modificador: o atributo ÷ 3, arredondado para baixo. É o que entra nos testes.",
+        "Total": "Atributo",
+        "ToNext": "+{n} para subir",
+        "Bonus": "Bônus",
+        "str": "Defesa Física (×2), Iniciativa, Atletismo e Vigor.",
+        "dex": "Esquiva, Desarme e Operação.",
+        "pow": "Resistência, Percepção e Negociação.",
+        "int": "Defesa Mágica (×2), Iniciativa, Conhecimento e Análise.",
+        "Note": "Nenhum atributo passa de {max} agora. A Precisão usa o maior modificador, e cada NP depois do 1 soma +1 em todos os atributos."
+      },
+      "Numbers": {
+        "hp": "PV",
+        "fate": "Destino"
+      },
+      "Skills": {
+        "Granted": "Já vêm com a raça, a classe e a Magia",
+        "Training": "Treino",
+        "None": "Nada para escolher aqui.",
+        "Note": "No máximo {max} habilidades de [Treino] na criação. As escolhas dos próximos NP são feitas no navegador de habilidades, ao subir de NP."
+      },
+      "Summary": {
+        "Portrait": "Trocar o retrato",
+        "Name": "Nome",
+        "Basics": "Dar as {n} habilidades básicas (Ataque Básico com Arma, Deslocar-se, Switch...)",
+        "Rebuild": "Este personagem já tem raça ou classe. Criar de novo troca a raça, a classe, a profissão e as habilidades que vieram delas e das escolhas; o inventário e o resto ficam.",
+        "Skills": "Habilidades"
+      },
+      "Chat": {
+        "Eyebrow": "Novo personagem"
+      },
+      "Error": "Não foi possível criar o personagem: {error}",
+      "StepOf": "Passo {n} de {total}"
     }
   },
   "Cancel": "Cancelar"

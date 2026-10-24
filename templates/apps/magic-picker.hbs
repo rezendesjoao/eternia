@@ -1,5 +1,5 @@
-{{!-- The Magia picker (module/apps/magic-picker.mjs): the filters, a card for each Magia, beside them the page of the
-     Magia under the pointer (or of the one selected; with none, the guide), and the choice. --}}
+{{!-- The Magia picker (module/apps/magic-picker.mjs): what this choice is and the search, the Magia browser (filters,
+     cards and the page of the Magia under the pointer) and the choice. --}}
 <div class="mp-body" style="--mp-class: {{color}}">
 
 	<header class="mp-head">
@@ -14,92 +14,7 @@
 		</label>
 	</header>
 
-	<nav class="mp-filters">
-		<div class="mp-chips">
-			<button type="button" class="mp-chip active" data-action="category" data-value="">{{localize "ETERNIA.MagicPicker.All"}}<b>{{total}}</b></button>
-			{{#each categories}}
-			<button type="button" class="mp-chip cat" data-action="category" data-value="{{id}}" style="--mp-cat: {{color}}" data-tooltip-text="{{hint}}"><i class="{{icon}}"></i>{{label}}<b>{{count}}</b></button>
-			{{/each}}
-		</div>
-		<div class="mp-chips roles">
-			{{#each roles}}
-			<button type="button" class="mp-chip role" data-action="role" data-value="{{id}}" data-tooltip-text="{{hint}}"><i class="{{icon}}"></i>{{label}}</button>
-			{{/each}}
-		</div>
-	</nav>
-
-	<div class="mp-main">
-		<ol class="mp-grid" role="listbox" aria-label="{{localize 'ETERNIA.MagicPicker.Heading'}}">
-			{{#each magias}}
-			<li class="mp-card" role="option" tabindex="0" aria-selected="false" style="--mp-cat: {{categoryColor}}"
-				data-uuid="{{uuid}}" data-name="{{name}}" data-category="{{category}}" data-roles="{{rolesKey}}" data-search="{{search}}">
-				<span class="mp-card-art"><img src="{{img}}" alt=""></span>
-				<span class="mp-card-text">
-					<span class="mp-card-cat"><i class="{{categoryIcon}}"></i>{{categoryLabel}}</span>
-					<span class="mp-card-name">{{name}}</span>
-					<span class="mp-card-tag">{{tagline}}</span>
-				</span>
-				<span class="mp-card-roles">{{#each cardRoles}}<i class="{{icon}}" data-tooltip-text="{{label}}"></i>{{/each}}</span>
-				<i class="mp-card-check fa-solid fa-check"></i>
-			</li>
-			{{/each}}
-			<li class="mp-empty" hidden><i class="fa-solid fa-wand-sparkles"></i>{{localize "ETERNIA.MagicPicker.Empty"}}</li>
-		</ol>
-
-		<aside class="mp-detail">
-			{{!-- With no Magia under the pointer nor selected: how the Magias work --}}
-			<article class="mp-page mp-guide" data-uuid="guide">
-				<header class="mp-page-head">
-					<span class="mp-page-art"><i class="fa-solid fa-hat-wizard"></i></span>
-					<div>
-						<span class="mp-page-cat">{{localize "ETERNIA.MagicPicker.Guide.Eyebrow"}}</span>
-						<h3>{{localize "ETERNIA.MagicPicker.Guide.Title"}}</h3>
-					</div>
-				</header>
-				<ol class="mp-guide-steps">
-					<li><i class="fa-solid fa-bookmark"></i><p>{{guideSlots}}</p></li>
-					<li><i class="fa-solid fa-stairs"></i><p>{{localize "ETERNIA.MagicPicker.Guide.Ranks"}}</p></li>
-					<li><i class="fa-solid fa-gear"></i><p>{{localize "ETERNIA.MagicPicker.Guide.Motor"}}</p></li>
-				</ol>
-				<h4>{{localize "ETERNIA.MagicPicker.Guide.Categories"}}</h4>
-				<ul class="mp-legend">
-					{{#each categories}}<li style="--mp-cat: {{color}}"><i class="{{icon}}"></i><p><b>{{label}}.</b> {{hint}}</p></li>{{/each}}
-				</ul>
-			</article>
-
-			{{#each magias}}
-			<article class="mp-page" data-uuid="{{uuid}}" style="--mp-cat: {{categoryColor}}" hidden>
-				<header class="mp-page-head">
-					<span class="mp-page-art"><img src="{{img}}" alt=""></span>
-					<div>
-						<span class="mp-page-cat"><i class="{{categoryIcon}}"></i>{{categoryLabel}}</span>
-						<h3>{{name}}</h3>
-						<p class="mp-page-tag">{{tagline}}</p>
-					</div>
-				</header>
-				{{#if allRoles.length}}<div class="mp-page-roles">{{#each allRoles}}<span><i class="{{icon}}"></i>{{label}}</span>{{/each}}</div>{{/if}}
-				{{#if intro}}<p class="mp-page-intro">{{intro}}</p>{{/if}}
-				{{#if trait}}<div class="mp-trait"><i class="fa-solid fa-star"></i><p><b>{{trait.label}}:</b> {{trait.text}}</p></div>{{/if}}
-				{{#if tabu}}<div class="mp-tabu"><i class="fa-solid fa-triangle-exclamation"></i><p><b>{{tabu.label}}:</b> {{tabu.text}}</p></div>{{/if}}
-				{{#each notes}}<p class="mp-note"><b>{{label}}:</b> {{text}}</p>{{/each}}
-				<h4>{{localize "ETERNIA.MagicPicker.Spells"}}{{#if nowCount}}<span class="mp-now-count"><i class="fa-solid fa-circle"></i>{{localize "ETERNIA.MagicPicker.NowCount" n=nowCount}}</span>{{/if}}</h4>
-				<ol class="mp-spells">
-					{{#each spells}}
-					<li class="mp-spell{{#if tier}} {{tier}}{{/if}}{{#if now}} now{{/if}}">
-						<span class="mp-spell-rank"><small>{{localize "ETERNIA.MagicPicker.CR"}}</small>{{minRank}}</span>
-						<img src="{{img}}" alt="">
-						<span class="mp-spell-body">
-							<span class="mp-spell-name"><span>{{name}}</span>{{#if tierLabel}}<em class="mp-tier">{{tierLabel}}</em>{{/if}}</span>
-							<span class="mp-spell-meta">{{meta}}{{#each statuses}}<span class="mp-status">{{this}}</span>{{/each}}</span>
-						</span>
-					</li>
-					{{/each}}
-				</ol>
-				{{#if visual}}<p class="mp-page-visual">{{visual}}</p>{{/if}}
-			</article>
-			{{/each}}
-		</aside>
-	</div>
+	{{> "systems/eternia/templates/apps/magic-browser.hbs"}}
 
 	<footer class="mp-foot">
 		<span class="mp-foot-note">{{#if owned}}<i class="fa-solid fa-book"></i>{{localize "ETERNIA.MagicPicker.Owned" names=owned}}{{else}}<i class="fa-solid fa-circle-info"></i>{{localize "ETERNIA.MagicPicker.Hint"}}{{/if}}</span>

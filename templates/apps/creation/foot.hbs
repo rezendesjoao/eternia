@@ -1,0 +1,10 @@
+{{!-- The creation wizard's foot: back, what the step still asks for, and next (on the last step: create). --}}
+<footer class="wz-foot">
+	<button type="button" class="wz-back" data-action="back" {{#if first}}disabled{{/if}}><i class="fa-solid fa-arrow-left"></i><span>{{#if backLabel}}{{backLabel}}{{else}}{{localize "ETERNIA.Wizard.Back"}}{{/if}}</span></button>
+	<p class="wz-hint{{#if complete}} done{{/if}}"><i class="fa-solid {{#if complete}}fa-circle-check{{else}}fa-circle-info{{/if}}"></i><span>{{hint}}</span></p>
+	{{#if last}}
+	<button type="button" class="wz-create" data-action="create" {{#unless allDone}}disabled{{/unless}}><i class="fa-solid fa-feather-pointed"></i><span>{{localize "ETERNIA.Wizard.Create"}}</span></button>
+	{{else}}
+	<button type="button" class="wz-next" data-action="next" {{#unless complete}}disabled{{/unless}}><span>{{localize "ETERNIA.Wizard.Next" step=next}}</span><i class="fa-solid fa-arrow-right"></i></button>
+	{{/if}}
+</footer>

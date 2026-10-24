@@ -112,7 +112,7 @@ export function clearSkillIndex() {
 }
 
 /** Every Combat / General / Basic skill of the visible Item compendiums. */
-function getSkillIndex() {
+export function getSkillIndex() {
   indexPromise ??= buildIndex();
   return indexPromise;
 }
@@ -349,6 +349,80 @@ export async function offerClassSkills(actor) {
   }
   const pending = getPendingSkills(actor);
   if (PICK_SUBTYPES.some(s => pending[s] > 0)) return SkillBrowser.open(actor);
+}
+
+/* -------------------------------------------- */
+/*  Creation picks (the creation wizard)        */
+/* -------------------------------------------- */
+
+/** How many skills of each subtype a character picks at creation, and the [Training] ones it can take. */
+export const CREATION_PICKS = { Combat: CREATION_SKILLS.combat, General: CREATION_SKILLS.general, training: CREATION_TRAINING };
+
+/**
+ * The skill lists of a character being made (the shape of skillLists), from what it will have.
+ * @param {object} draft
+ * @param {string} [draft.className]
+ * @param {string} [draft.raceName]
+ * @param {string[]} [draft.subclassSkills]  The skills its Subclass allows
+ * @param {string[]} [draft.magics]          The ids of its Magias
+ * @param {string[]} [draft.elements]        Its elements ("class.id")
+ * @param {string[]} [draft.identifiers]     The identifiers of the skills it will have
+ */
+export function creationLists({ className = "", raceName = "", subclassSkills = [], magics = [], elements = [], identifiers = [] } = {}) {
+  return {
+    class: normalize(className),
+    race: normalize(raceName),
+    subclass: new Set(subclassSkills),
+    dedications: [],
+    dedicationIds: [],
+    paths: new Set(),
+    elements: new Set(elements),
+    magics: new Set(magics),
+    identifiers: new Set(identifiers.filter(Boolean))
+  };
+}
+
+/**
+ * The Combat and General skills a character being made can take with its creation picks: those of its lists at CR 1,
+ * without the ones it gets anyway, and why each can't be picked now (`reason`, empty when it can). A talent shows when
+ * what it requires can be picked too, and is picked with it. The rules are the window's at CR 1.
+ * @param {object} lists                 See creationLists
+ * @param {object} [options]
+ * @param {Set<string>} [options.picked]  The uuids picked so far
+ * @param {Set<string>} [options.owned]   The uuids of the skills it gets anyway (the kit, the race, the Magia...)
+ * @returns {Promise<object[]>}  Index entries with { source, picked, reason, training }
+ */
+export async function creationCandidates(lists, { picked = new Set(), owned = new Set() } = {}) {
+  const index = await getSkillIndex();
+  const ownedNames = new Set(index.filter(e => owned.has(e.uuid)).map(e => normalize(e.name)));
+  const open = [];
+  for (const entry of index) {
+    if (!PICK_SUBTYPES.includes(entry.subtype)) continue;
+    if (owned.has(entry.uuid) || ownedNames.has(normalize(entry.name))) continue;
+    if (entry.choiceOnly || entry.retired || entry.dedicationOf) continue;
+    const source = sourceOf(entry, lists);
+    if (!source) continue;
+    if (entry.pathTalent && !lists.paths.has(entry.pathTalent)) continue;
+    if (entry.elementTalent && !lists.elements.has(entry.elementTalent)) continue;
+    const minRank = entry.minRank + (((source === "dedication") && entry.dedicationTalent) ? DEDICATION_DELAY : 0);
+    if (minRank > 1) continue;
+    open.push({ entry, source });
+  }
+  // What can be had at CR 1: the identifiers it will have and those of the skills open now
+  const reachable = new Set([...lists.identifiers, ...open.map(o => o.entry.identifier).filter(Boolean)]);
+  const have = new Set([...lists.identifiers, ...open.filter(o => picked.has(o.entry.uuid)).map(o => o.entry.identifier).filter(Boolean)]);
+  const count = subtype => open.filter(o => picked.has(o.entry.uuid) && (o.entry.subtype === subtype)).length;
+  const training = open.filter(o => picked.has(o.entry.uuid) && isTraining(o.entry)).length;
+  const name = id => index.find(e => e.identifier === id)?.name ?? id;
+  return open.filter(({ entry }) => entry.requires.every(r => reachable.has(r))).map(({ entry, source }) => {
+    const isPicked = picked.has(entry.uuid);
+    const missing = isPicked ? [] : entry.requires.filter(r => !have.has(r));
+    const full = !isPicked && (count(entry.subtype) >= CREATION_PICKS[entry.subtype]);
+    const trainingFull = !isPicked && isTraining(entry) && (training >= CREATION_TRAINING);
+    const reason = missing.length ? T("Requires", { names: missing.map(name).join(", ") })
+      : (full ? T("Full") : (trainingFull ? T("TrainingFull", { max: CREATION_TRAINING }) : ""));
+    return { ...entry, source, picked: isPicked, reason, training: isTraining(entry) };
+  });
 }
 
 /* -------------------------------------------- */

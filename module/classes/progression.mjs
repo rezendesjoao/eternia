@@ -51,11 +51,11 @@ export function registerClassProgression() {
   });
 
   Hooks.on("createItem", (item, options, userId) => {
-    if (!isLocalChange(options, userId) || options.eterniaMigration || !givesSkills(item)) return;
+    if (!isLocalChange(options, userId) || options.eterniaMigration || options.eterniaCreation || !givesSkills(item)) return;
     grantDedication(item);
   });
   Hooks.on("deleteItem", (item, options, userId) => {
-    if (!isLocalChange(options, userId) || !givesSkills(item)) return;
+    if (!isLocalChange(options, userId) || options.eterniaCreation || !givesSkills(item)) return;
     const ids = grantedBy(item.parent, item).map(i => i.id);
     if (ids.length) item.parent.deleteEmbeddedDocuments("Item", ids);
   });

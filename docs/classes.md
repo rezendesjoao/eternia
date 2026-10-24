@@ -1155,7 +1155,7 @@ escolha (`dedicationGrants`, como uma Dedicação: a Mudança de Forma da Lança
 | `module/classes/<classe>.mjs` | O Motor de cada classe (`ASSASSINO`, `BERSERKER`, `CACADOR`, `COMANDANTE`, `DRUIDA`, `ESTRATEGISTA`, `FEITICEIRO`, `GUARDIAO`, `INVOCADOR`, `MAGOAZUL`, `MAGOBRANCO`, `MAGONEGRO`, `MAGOVERMELHO`, `MATADOR`, `MENESTREL`, `MONGE`, `ORACULO`, `PICTOMANTE`, `RESSONANTE`, `SACERDOTE`, `SAMURAI`, `TECELAO`): o Teto, as regras do kit e dos talentos, os Caminhos, o Ápice e as reações aos eventos. O cabeçalho de cada arquivo diz a regra e o que fica guardado no ator. |
 | `module/classes/index.mjs` | Registra os Motores, embrulha `EterniaCombat#_onPhaseStart` (Manutenção e Encerramento, uma vez, na janela do Mestre que mudou a fase), segue os turnos e o movimento dos tokens, ouve os eventos dos cartões (`eternia.attack`, `eternia.attackResult`, `eternia.dodge`, `eternia.damaged`, `eternia.healed`, `eternia.check`, `eternia.defeated`; um cartão de dano aplicado, com ou sem PV tirado, também vira `onStruck`), põe os botões das classes nos cartões de ataque e tem a API `game.eternia.motor`. |
 | `module/classes/progression.mjs` | O NP mudado à mão oferece o que a classe dá no NP; a Dedicação dá as habilidades dela ao ser aprendida (e uma à escolha, `dedicationChoice`) e as tira junto. |
-| `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`), feita para caber sem rolar: a faixa da classe, o Motor, a trilha do NP (`trail`: o que chega em cada NP; as escolhas em aberto brilham) e as seções em abas (grupo `lhcl` da ficha; a seção com uma escolha em aberto abre primeiro), com a dica de cada habilidade sob o ponteiro (`activateClassTab`); e os dados de cada classe para a aba (família e função, com a cor; faixa, ramos, Caminhos, elementos e `magic` das classes com vagas de Magia). |
+| `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`), feita para caber sem rolar: a faixa da classe, o Motor, a trilha do NP (`trail`: o que chega em cada NP; as escolhas em aberto brilham; a marca de uma vaga de Magia abre a aba Magias) e as seções em abas (grupo `lhcl` da ficha; a seção com uma escolha em aberto abre primeiro), com a dica de cada habilidade sob o ponteiro (`activateClassTab`, que vale também para a aba Magias); os dados das vagas de Magia (com o Traço e o Tabu de cada Magia) que a aba Magias mostra; e os dados de cada classe para a aba (família e função, com a cor; faixa, ramos, Caminhos, elementos e `magic` das classes com vagas de Magia). |
 | `module/classes/migration.mjs` | A limpeza do Kuden e dos arquétipos e dos ícones antigos das classes; as vagas de Magia das classes que as ganharam depois (o Invocador na 0.13, as físicas e o Matador de Dragões na 0.22, `MAGIC_CLASSES`); os nomes novos do Lutador, do Centurião e do Hierofante (0.22). |
 
 Também tocam nas classes: `automation/use.mjs` (requisitos, ação, plano, mudança e Desfazer do Motor; o custo
@@ -1165,8 +1165,13 @@ e os estados que o Motor dá ao dano e `adjustCardRoll`, que muda um teste do ca
 de novo), `helpers/effect-conditions.mjs` (as condições `motorState` e `motorAtLeast`), `hud/hud.mjs` e
 `sheets/actor-sheet.mjs` (o evento dos testes de atributo), `helpers/effect-formulas.mjs` (as variáveis), `apps/option-grants.mjs` e `apps/rank-up.mjs`
 (o que chega pelo NP, a escolha do elemento e as vagas de Magia), `apps/magic-picker.mjs` (a janela que escolhe a
-Magia de uma vaga: os cartões, os filtros, a página de cada Magia; as funções vêm dos dados dos feitiços), `apps/skill-browser.mjs` (requisitos, Caminhos,
-elementos, a origem Magia, Dedicação),
+Magia de uma vaga e o navegador de Magias que o assistente de criação também usa: os cartões, os filtros, a página de
+cada Magia, desenhada quando aparece), `apps/magic-catalog.mjs` (o catálogo das Magias, lido do índice dos compêndios
+uma vez por sessão; as funções vêm dos dados dos feitiços, e o Traço e o Tabu, das descrições), `apps/skill-browser.mjs`
+(requisitos, Caminhos, elementos, a origem Magia, Dedicação, e as escolhas da criação, `creationCandidates`),
+`apps/creation-wizard.mjs` (o assistente de criação: o kit, a escolha do NP 1 e a Magia do NP 1 entram com a marca da
+classe, como no fluxo das caixas; a Magia de escolha pede o Decreto ali mesmo), `templates/character/magic.hbs` (a aba
+Magias da ficha: as vagas e a página de cada Magia, com o Traço, o Tabu e os feitiços),
 `conditions/damage.mjs` (o cartão que o Motor come), `helpers/text-chips.mjs` (as palavras do Motor nos colchetes),
 `hud/` e `canvas/token-style.mjs` (o Motor no HUD e no token).
 

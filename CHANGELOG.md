@@ -1,5 +1,44 @@
 # Changelog
 
+## 0.29.0 — 2026-10-24
+
+### Adicionado
+- **Assistente de criação de personagem** (`apps/creation-wizard.mjs`): sete passos numa janela só (Raça, Classe,
+  Magia, Profissão, Atributos, Habilidades e Resumo), com a ficha montando ao lado. Cada raça, classe e profissão é um
+  cartão, e a página da que está sob o ponteiro explica tudo: a história, os números, as habilidades inatas (a
+  escolha entre várias é feita ali, e o Humano marca os dois atributos do +1), o que libera no NP 3 e 5; na classe, a
+  base, o Motor e como ele funciona, o kit, a escolha do NP 1 (o elemento do Matador de Dragões) e o caminho do NP 1
+  ao 10. A Magia usa a mesma janela de Magias (com a escolha do Decreto nos Mandamentos); os atributos mostram os
+  modificadores, os testes e os números de jogo enquanto os pontos são distribuídos; as habilidades de Combate e Geral
+  seguem as regras do navegador de habilidades. Nada muda na ficha até "Criar personagem": aí vêm a raça, a classe, a
+  profissão, o kit, a Magia, as escolhas (marcadas como escolhas da criação) e, se marcadas, as 16 habilidades
+  básicas, com PV e Destino cheios e um cartão no chat. Abre sozinho quando um usuário cria um personagem (a
+  configuração "Assistente de criação" desliga) e pelo botão da pena na ficha de um personagem de NP 1; refazer um
+  personagem de NP 1 troca o que veio da raça, da classe e das escolhas.
+- Aba **Magias** na ficha: as vagas da classe à esquerda e, ao lado, a Magia de cada uma com o Traço, o Tabu e todos
+  os feitiços (os que o personagem tem, os que ainda pode aprender e os do NP acima), sem nomes cortados.
+- Configurações "Assistente de criação" (do jogador) e "Cartão de personagem novo" (do mundo).
+
+### Alterado
+- **A ficha de personagem foi reorganizada**: mais larga (940×780), com o nome de cada aba ao lado do ícone e um
+  número na aba quando há algo esperando (escolhas de habilidade, vaga de Magia aberta, Caminho). O cabeçalho mostra
+  raça, classe e profissão sob o nome. A aba Personagem traz a raça, a classe e a profissão em cartões, cada um com
+  uma linha do que dá, e os atributos com os seus testes ao lado (a aba Testes saiu: os testes de combate continuam no
+  estandarte); as Conexões e Uniões ficam só na Biografia. As Habilidades abrem em Combate e ganharam uma busca. A
+  aba Classe ficou sem a seção de Magias. O Inventário põe a riqueza, o espaço e os tíquetes ao lado do boneco de
+  equipamento. Os efeitos sem duração dizem "Passivo" ou "Sem prazo" (antes "None").
+- **A janela de Magias abre na hora** (de 0,5–0,8 s para menos de 0,1 s): o catálogo de Magias é lido do índice dos
+  compêndios uma vez por sessão (`apps/magic-catalog.mjs`), a página de cada Magia só é desenhada quando aparece, e
+  tudo é preparado enquanto o jogo está ocioso.
+- Os índices dos compêndios de itens pedem todos os campos que o sistema lê
+  (`CONFIG.Item.compendiumIndexFields`, `helpers/pack-index.mjs`): cada janela pedia campos diferentes e o Foundry
+  buscava o índice inteiro de novo a cada uma. O navegador de habilidades, o de raças e classes e a aba Classe abrem
+  sem esperar.
+- O aviso de novidades fala da 0.29.
+
+### Removido
+- A aba Testes da ficha de personagem (os testes estão na aba Personagem).
+
 ## 0.28.0 — 2026-10-24
 
 ### Adicionado

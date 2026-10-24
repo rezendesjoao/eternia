@@ -1,9 +1,10 @@
 /**
  * The parchment character sheet: the system's sheet logic (EterniaActorSheet) with new templates, laid
  * out like the Pathfinder 2e character sheet. A green banner on the left keeps what is used in play
- * (HP, Barrier, Hate, Fatigue, defenses, combat checks, statuses); the header has the name, Fate and
- * the CR; the tabs hold the character, the checks, the skills, the inventory, the class, the profession, the effects
- * and the bio.
+ * (HP, Barrier, Hate, Fatigue, defenses, combat checks, statuses); the header has the name, what the character is
+ * (race, class, profession), Fate and the CR; the tabs, each with its name and what waits in it, hold the character
+ * (portrait, race / class / profession, the attributes with their checks), the skills, the class, the Magias, the
+ * inventory, the profession, the effects and the bio. A character still blank opens the creation wizard from here.
  *
  * Every selector and data-action the parent class relies on is kept in templates/character/
  * (.item[data-item-id], .equip-slot, .inventory-list, .option-field, the status panel, tag input and
@@ -21,17 +22,25 @@ import { EterniaActorSheet } from "./actor-sheet.mjs";
 import { allocateBonusPoints } from "../apps/stat-allocation.mjs";
 import { professionAction, professionContext } from "../professions/sheet.mjs";
 import { activateClassTab, classAction, classContext } from "../classes/sheet.mjs";
+import { CreationWizard } from "../apps/creation-wizard.mjs";
+import { OptionBrowser } from "../apps/option-browser.mjs";
+import { CLASSES } from "../classes/data.mjs";
+import { motorDef, motorName } from "../classes/motor.mjs";
+import { professionOf, rankTitle } from "../professions/state.mjs";
+import { PROFESSIONS, TALENTS } from "../professions/data.mjs";
 
 const DIR = `systems/eternia/templates/character`;
-const PARTIALS = ["sidebar", "character", "checks", "skills", "inventory", "class", "profession", "effects", "biography"];
+const PARTIALS = ["sidebar", "character", "skills", "inventory", "class", "magic", "profession", "effects", "biography"];
 
 const TABS = [
+  // Portrait, race / class / profession, the attributes with their checks
   { id: "character", icon: "fa-solid fa-address-card" },
-  { id: "checks", icon: "fa-solid fa-dice-d6" },
   { id: "skills", icon: "fa-solid fa-wand-sparkles" },
-  { id: "inventory", icon: "fa-solid fa-backpack" },
   // The class and its Motor (module/classes/)
   { id: "class", icon: "fa-solid fa-chess-knight" },
+  // The Magias of the class's slots, with their spells
+  { id: "magic", icon: "fa-solid fa-hat-wizard" },
+  { id: "inventory", icon: "fa-solid fa-backpack" },
   // The profession (the subclass, module/professions/)
   { id: "profession", icon: "fa-solid fa-hammer" },
   { id: "effects", icon: "fa-solid fa-person-rays" },
@@ -175,10 +184,14 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
 
   static DEFAULT_OPTIONS = {
     classes: ["lhauto", "lhpf", "character", "themed", "theme-light"],
-    position: { width: 750, height: 750 },
+    position: { width: 940, height: 780 },
     window: { resizable: true },
     actions: {
       "lhauto-summary": EterniaCharacterSheet.#onSummary,
+      // A blank character's race / class / subclass field opens the creation wizard (else the option browser)
+      "option-browse": EterniaCharacterSheet.#onOptionBrowse,
+      "lhpf-open-item": EterniaCharacterSheet.#onOpenItem,
+      "lhpf-wizard": EterniaCharacterSheet.#onWizard,
       "lhauto-fate": EterniaCharacterSheet.#onFate,
       "lhauto-remove-bad": EterniaCharacterSheet.#onRemoveBad,
       "lhauto-allocate": EterniaCharacterSheet.#onAllocate,
@@ -197,15 +210,19 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       template: `${DIR}/sheet.hbs`,
       scrollable: [".sidebar", ...TABS.map(t => `.tab[data-tab="${t.id}"] > .tab-content`),
         ...["basic", "general", "combat"].map(t => `.tab[data-group="skills"][data-tab="${t}"] > .tab-content`),
-        ".tab[data-group='effects'][data-tab='list'] > .tab-content", ".tab[data-group='effects'][data-tab='status'] > .tab-content"]
+        ".tab[data-group='effects'][data-tab='list'] > .tab-content", ".tab[data-group='effects'][data-tab='status'] > .tab-content",
+        ".lhmg-page", ".lhcl-panels"]
     }
   };
 
   /** Tab group states (survive re-renders). */
-  tabGroups = { primary: "character", skills: "basic", effects: "list", bio: "bio", lhcl: "kit" };
+  tabGroups = { primary: "character", skills: "combat", effects: "list", bio: "bio", lhcl: "kit", lhmg: "slot-0" };
 
   /** The player picked a section of the class tab (until then it opens on a choice still open). */
   #classSectionPicked = false;
+
+  /** The player picked a page of the Magias tab (until then it opens on a slot still open). */
+  #magicPicked = false;
 
   /** Summaries opened from the names (kept open across re-renders). */
   #summaries = new Summaries(this);
@@ -234,10 +251,8 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     const battle = system["battle-status"] ?? {};
     const lh = {};
 
-    // Tabs
-    if (!TABS.some(t => t.id === this.tabGroups.primary)) this.tabGroups.primary = "skills";
-    lh.tabs = TABS.map(t => ({ ...t, label: L(`Sheet.Tab.${t.id}`) }));
-    lh.tabLabel = L(`Sheet.Tab.${this.tabGroups.primary}`);
+    // Tabs (their badges come below, once what waits in them is known)
+    if (!TABS.some(t => t.id === this.tabGroups.primary)) this.tabGroups.primary = "character";
 
     // Sidebar: HP, Barrier, Hate, Fatigue
     const hp = toInt(system.health?.value), hpMax = Math.max(0, toInt(system.health?.max));
@@ -287,14 +302,16 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
         dice, total: value, mod: signed(value), tier: Math.clamp(dice - 1, 1, 5)
       };
     };
-    lh.attributes = ATTRIBUTES.map(({ key }) => ({
+    // Each attribute with the two checks it gives (the character tab)
+    lh.attributes = ATTRIBUTES.map(({ key, checks }) => ({
       key,
       abbr: L(`Sheet.Attr.${key}.abbr`),
       label: L(`Sheet.Attr.${key}.name`),
       base: toInt(system.attributes?.[key]?.total),
-      mod: toInt(system.attributes?.[key]?.mod)
+      mod: toInt(system.attributes?.[key]?.mod),
+      modLabel: signed(toInt(system.attributes?.[key]?.mod)),
+      checks: checks.map(c => check(c, L(`Sheet.Attr.${key}.abbr`)))
     }));
-    lh.checks = ATTRIBUTES.flatMap(({ key, checks }) => checks.map(c => check(c, L(`Sheet.Attr.${key}.abbr`))));
     lh.combatChecks = COMBAT_CHECKS.map(c => check(c));
 
     // Active statuses (sidebar tags)
@@ -331,9 +348,9 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     }));
     const browse = context.skillBrowse ?? {};
     lh.skillTabs = [
-      { id: "basic", subtype: "Basic", skills: listed(context.skills.basic) },
+      { id: "combat", subtype: "Combat", skills: listed(context.skills.combat) },
       { id: "general", subtype: "General", skills: listed(context.skills.general) },
-      { id: "combat", subtype: "Combat", skills: listed(context.skills.combat) }
+      { id: "basic", subtype: "Basic", skills: listed(context.skills.basic) }
     ].map(tab => ({
       ...tab, groups: group(tab.skills), count: tab.skills.length,
       browse: browse[tab.subtype], pending: toInt(browse[tab.subtype]?.pending)
@@ -379,8 +396,89 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     // Profession: crest, bench, chances, materials, talent, works, Rank ladder
     lh.profession = professionContext(actor, { editable: this.isEditable });
 
+    // What the character is: the race, class and profession (the header and the character tab)
+    lh.options = this.#optionCards(context);
+    lh.identity = lh.options.filter(o => o.item).map(o => ({ id: o.item._id, name: o.item.name, type: o.type }));
+    lh.creation = {
+      blank: CreationWizard.isBlank(actor),
+      can: this.isEditable && CreationWizard.canCreate(actor)
+    };
+
+    // The Magias tab: the slots of the class, the Magia of each and its spells
+    lh.magic = this.#magicContext(lh.classTab);
+
+    // The tabs, each with what waits in it
+    const pendingSkills = lh.skillTabs.reduce((n, t) => n + t.pending, 0);
+    const badges = {
+      skills: pendingSkills,
+      class: (lh.classTab.sections ?? []).filter(s => s.pending).length,
+      magic: toInt(lh.classTab.magic?.open)
+    };
+    lh.tabs = TABS.map(t => ({ ...t, label: L(`Sheet.TabShort.${t.id}`), badge: badges[t.id] || 0 }));
+
     context.lh = lh;
     return context;
+  }
+
+  /**
+   * The race, class and profession cards of the character tab: each one's picture, name and one line about it.
+   * @param {object} context
+   */
+  #optionCards(context) {
+    const actor = this.actor;
+    const race = context.characterOptions.race;
+    const job = context.characterOptions.class;
+    const subclass = context.characterOptions.subclass;
+    const raceLine = () => {
+      const a = race.system.attributes ?? {};
+      const stats = ["str", "dex", "pow", "int"].filter(k => toInt(a[k])).map(k => `${L(`Sheet.Attr.${k}.abbr`)} +${toInt(a[k])}`);
+      return [stats.join(", "), `${L("Sheet.HPShort")} +${toInt(race.system.hp)}`, `${game.i18n.localize("ETERNIA.Label.Fate")} +${toInt(race.system.fate)}`]
+        .filter(Boolean).join(" · ");
+    };
+    const classLine = () => {
+      const def = CLASSES[job.system.identifier];
+      const motor = def ? motorDef(def.motor) : null;
+      return [def?.family ? `${L(`Classes.Family.${def.family}`)} · ${L(`Classes.Function.${def.role}`)}` : L("Classes.Retired"),
+        motor ? L("Sheet.MotorLine", { name: motorName(motor) }) : ""].filter(Boolean).join(" · ");
+    };
+    const professionLine = () => {
+      const p = professionOf(actor);
+      if (!p) return "";
+      return [`${L("Profession.RankShort", { n: p.rank })} · ${rankTitle(p.rank)}`, L(`Profession.Talent.${p.def.talent}.name`)].join(" · ");
+    };
+    const profession = subclass ? PROFESSIONS[subclass.system.identifier] : null;
+    return [
+      { type: "race", label: L("Sheet.Option.race"), item: race, img: race?.img, line: race ? raceLine() : L("Sheet.Option.raceHint"),
+        color: "#2f6b4a", placeholder: game.i18n.localize("ETERNIA.Placeholder.Race") },
+      { type: "class", label: L("Sheet.Option.class"), item: job, img: job?.img, emblem: true, line: job ? classLine() : L("Sheet.Option.classHint"),
+        color: CLASSES[job?.system.identifier]?.color ?? "#1f5137", placeholder: game.i18n.localize("ETERNIA.Placeholder.Class") },
+      { type: "subclass", label: L("Sheet.Option.subclass"), item: subclass, img: subclass?.img, line: subclass ? professionLine() : L("Sheet.Option.subclassHint"),
+        color: profession?.color ?? "#8a6a25", icon: profession ? TALENTS[profession.talent]?.icon : "",
+        placeholder: L("Sheet.Option.subclass") }
+    ];
+  }
+
+  /**
+   * The Magias tab: a page for each slot of the class (the Magia taken there with its Trait, its Tabu and its spells,
+   * or the slot still to fill) and the rail to pick one.
+   * @param {object} classTab  The class tab's data (classes/sheet.mjs)
+   */
+  #magicContext(classTab) {
+    const magic = classTab?.magic;
+    if (!magic) return { none: true, noClass: !!classTab?.none, editable: this.isEditable };
+    const pages = magic.slots.map((slot, index) => ({ ...slot, id: `slot-${index}` }));
+    if (!pages.some(p => p.id === this.tabGroups.lhmg)) this.tabGroups.lhmg = pages[0]?.id ?? "slot-0";
+    // An open slot shows first, until the player picks another one
+    const open = pages.find(p => p.open);
+    if (open && !this.#magicPicked) this.tabGroups.lhmg = open.id;
+    return {
+      none: false,
+      editable: this.isEditable,
+      pages,
+      open: magic.open,
+      count: magic.count,
+      ranks: pages.filter(p => p.rank).map(p => p.rank).join(", ")
+    };
   }
 
   /* -------------------------------------------- */
@@ -391,9 +489,7 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
   changeTab(tab, group, options = {}) {
     super.changeTab(tab, group, options);
     if (group === "lhcl") this.#classSectionPicked = true;
-    if (group !== "primary") return;
-    const title = this.element.querySelector(".lhpf-nav .panel-title");
-    if (title) title.textContent = L(`Sheet.Tab.${tab}`);
+    if (group === "lhmg") this.#magicPicked = true;
   }
 
   /** @override */
@@ -410,10 +506,6 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     await super._onRender(context, options);
     const root = this.element;
     root.classList.remove("eternia");
-
-    // The band's title follows the open tab (a render prepared before a tab change would show the old one).
-    const title = root.querySelector(".lhpf-nav .panel-title");
-    if (title) title.textContent = L(`Sheet.Tab.${this.tabGroups.primary}`);
 
     // Barrier: its own field is also in the status panel, so this copy saves by itself (no form name).
     const barrier = root.querySelector(".lhpf-barrier");
@@ -433,14 +525,71 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     for (const field of root.querySelectorAll(".lhpf-sidebar input, .lhpf-header input, .gold-input")) {
       field.addEventListener("keydown", event => { if (event.key === "Enter") { event.preventDefault(); field.blur(); } });
     }
+    // The skills tab: the search narrows the list of the open pane (the headers of empty groups hide).
+    for (const input of root.querySelectorAll(".lhpf-skill-search input")) {
+      input.value = this.#skillQuery;
+      input.addEventListener("input", () => {
+        this.#skillQuery = input.value;
+        this.#filterSkills(root);
+      });
+    }
+    this.#filterSkills(root);
     // Summaries left open before this render.
     this.#summaries.restore(root);
     // The class tab: what each skill does, under the pointer
     activateClassTab(this, root);
   }
 
+  /** What the skills tab's search has (kept across renders). */
+  #skillQuery = "";
+
+  /** Show the skills whose name has the search, in every pane of the skills tab. */
+  #filterSkills(root) {
+    const fold = text => String(text ?? "").normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+    const query = fold(this.#skillQuery.trim());
+    for (const pane of root.querySelectorAll('.tab[data-group="skills"]')) {
+      let header = null;
+      let shown = 0;
+      const flush = () => { if (header) header.hidden = !shown; };
+      for (const row of pane.querySelectorAll(".lhpf-list > li")) {
+        if (row.classList.contains("action-header")) {
+          flush();
+          header = row;
+          shown = 0;
+          continue;
+        }
+        if (!row.classList.contains("skill")) continue;
+        const match = !query || fold(row.querySelector(".name")?.textContent).includes(query);
+        row.hidden = !match;
+        if (match) shown += 1;
+      }
+      flush();
+    }
+  }
+
   static #onSummary(event, target) {
     return this.#summaries.toggle(target);
+  }
+
+  /** The race / class / subclass field of a blank character: the creation wizard, on that step. */
+  static #onOptionBrowse(event, target) {
+    if (!this.isEditable) return;
+    const type = target.closest(".option-field")?.dataset.optionType;
+    if (!type) return;
+    if (CreationWizard.isBlank(this.actor) && CreationWizard.canCreate(this.actor)) {
+      return CreationWizard.open(this.actor, { step: { race: "race", class: "class", subclass: "profession" }[type] });
+    }
+    return OptionBrowser.open(this.actor, type);
+  }
+
+  /** Open an item of the character (the race, class or profession of the header). */
+  static #onOpenItem(event, target) {
+    this.actor.items.get(target.dataset.itemId)?.sheet.render(true);
+  }
+
+  /** The creation wizard. */
+  static #onWizard() {
+    if (this.isEditable) return CreationWizard.open(this.actor);
   }
 
   /* -------------------------------------------- */

@@ -1,15 +1,19 @@
-{{!-- SKILLS: Basic / General / Combat, each grouped by Timing. Click the image to use (send to chat),
-     the name to open the details. --}}
+{{!-- SKILLS: Combat / General / Basic, each grouped by Timing, with a search over the names. Click the image to use
+     (send to chat), the name to open the details. --}}
 <section class="tab major skills" data-group="primary" data-tab="skills">
 	<nav class="sub-nav tabs" data-group="skills">
 		{{#each lh.skillTabs as |tab|}}
-		<a data-action="tab" data-group="skills" data-tab="{{tab.id}}">{{localize (concat 'ETERNIA.Skill.Type.' tab.subtype)}}{{#if tab.pending}}<span class="pending">{{tab.pending}}</span>{{/if}}</a>
+		<a data-action="tab" data-group="skills" data-tab="{{tab.id}}">{{localize (concat 'ETERNIA.Skill.Type.' tab.subtype)}}<span class="pending quiet">{{tab.count}}</span>{{#if tab.pending}}<span class="pending">+{{tab.pending}}</span>{{/if}}</a>
 		{{/each}}
 	</nav>
 	{{#each lh.skillTabs as |tab|}}
 	<div class="tab lhpf-pane" data-group="skills" data-tab="{{tab.id}}">
 		<div class="tab-content">
 			<div class="lhpf-toolbar">
+				<label class="lhpf-skill-search">
+					<i class="fa-solid fa-magnifying-glass"></i>
+					<input type="search" placeholder="{{localize 'ETERNIA.Sheet.SkillSearch'}}" autocomplete="off" spellcheck="false">
+				</label>
 				<span class="count">{{localize 'ETERNIA.Sheet.SkillCount' n=tab.count}}</span>
 				{{#if tab.browse}}
 				<button type="button" class="{{#if tab.pending}}attention{{/if}}" data-action="skill-browse" data-subtype="{{tab.subtype}}" data-tooltip="{{localize 'ETERNIA.SkillBrowser.Open'}}">

@@ -1,0 +1,77 @@
+{{!-- MAGIAS: the slots of the class (CR 1, 5 and 10 in the magic classes; 1 and 10 in the physical ones) on the left,
+     and the page of the one open: the Magia taken there (its category, its line, its Trait, its Tabu) with all its
+     spells as tiles (the picture uses the ones the character has, the name opens them, the pointer tells what they
+     do), or the slot still to fill. --}}
+{{#*inline "lhmgSpell"}}
+<li class="item lhcl-tile lhmg-spell{{#if r.owned}} owned{{else}}{{#if r.locked}} locked{{else}} learnable{{/if}}{{/if}}"{{#if r.id}} data-item-id="{{r.id}}"{{/if}} data-uuid="{{r.uuid}}">
+	{{#if r.owned}}<a class="lhmg-spell-img" data-action="item-throw" aria-label="{{localize 'ETERNIA.Sheet.Use'}}"><img src="{{r.img}}" alt=""><i class="fa-solid fa-comment"></i></a>
+	{{else}}<span class="lhmg-spell-img"><img src="{{r.img}}" alt="">{{#if r.locked}}<i class="fa-solid fa-lock"></i>{{/if}}</span>{{/if}}
+	<span class="lhmg-spell-body">
+		<a class="lhmg-spell-name" {{#if r.owned}}data-action="item-edit"{{else}}data-action="lhcl" data-op="open" data-uuid="{{r.uuid}}"{{/if}}>{{r.name}}</a>
+		<span class="lhcl-tile-meta lhmg-spell-meta">{{#if r.timing}}<span>{{r.timing}}</span>{{/if}}{{#if r.sr}}<span>{{localize "ETERNIA.Sheet.SRShort"}} {{r.sr}}</span>{{/if}}</span>
+	</span>
+	<span class="lhmg-spell-state">{{#if r.owned}}<i class="fa-solid fa-check"></i>{{else}}{{localize "ETERNIA.Classes.FromRank" n=r.minRank}}{{/if}}</span>
+</li>
+{{/inline}}
+<section class="tab major magic" data-group="primary" data-tab="magic">
+	<div class="tab-content">
+	{{#with lh.magic as |mg|}}
+	{{#if mg.none}}
+		<div class="lhmg-empty">
+			<i class="fa-solid fa-hat-wizard"></i>
+			<h2>{{#if mg.noClass}}{{localize "ETERNIA.Sheet.MagicTab.NoClassTitle"}}{{else}}{{localize "ETERNIA.Sheet.MagicTab.NoSlotsTitle"}}{{/if}}</h2>
+			<p>{{#if mg.noClass}}{{localize "ETERNIA.Sheet.MagicTab.NoClass"}}{{else}}{{localize "ETERNIA.Sheet.MagicTab.NoSlots"}}{{/if}}</p>
+		</div>
+	{{else}}
+		<div class="lhmg-board">
+			<nav class="lhmg-rail tabs" data-group="lhmg">
+				<span class="lhmg-rail-title">{{localize "ETERNIA.Sheet.MagicTab.Slots"}}<b>{{mg.count}}</b></span>
+				{{#each mg.pages as |p|}}
+				<a class="lhmg-slot{{#if p.magia}} filled{{else}}{{#if p.open}} open{{else}} locked{{/if}}{{/if}}" data-action="tab" data-group="lhmg" data-tab="{{p.id}}"{{#if p.magia}} style="--mp-cat: {{p.magia.categoryColor}}"{{/if}}>
+					<span class="lhmg-slot-rank"><small>{{localize "ETERNIA.Sheet.CRShort"}}</small>{{#if p.rank}}{{p.rank}}{{else}}+{{/if}}</span>
+					{{#if p.magia}}
+					<span class="lhmg-slot-art"><img src="{{p.magia.img}}" alt=""></span>
+					<span class="lhmg-slot-text"><small><i class="{{p.magia.categoryIcon}}"></i>{{p.magia.categoryLabel}}</small><b>{{p.magia.name}}</b><em>{{localize "ETERNIA.Sheet.MagicTab.Learned" n=p.magia.learned total=p.magia.total}}</em></span>
+					{{else}}
+					<span class="lhmg-slot-text"><b>{{#if p.open}}{{localize "ETERNIA.Classes.SlotOpen"}}{{else}}{{localize "ETERNIA.Classes.SlotLocked" n=p.rank}}{{/if}}</b></span>
+					{{/if}}
+				</a>
+				{{/each}}
+				{{#if mg.open}}{{#if mg.editable}}
+				<a class="lhmg-choose" data-action="lhcl" data-op="element"><i class="fa-solid fa-hat-wizard"></i><span>{{localize "ETERNIA.Classes.ChooseMagic" n=mg.open}}</span></a>
+				{{/if}}{{/if}}
+			</nav>
+
+			<div class="lhmg-pages">
+				{{#each mg.pages as |p|}}
+				<article class="tab lhmg-page" data-group="lhmg" data-tab="{{p.id}}"{{#if p.magia}} style="--mp-cat: {{p.magia.categoryColor}}"{{/if}}>
+					{{#if p.magia}}
+					<header class="lhmg-head item" data-item-id="{{p.magia.id}}">
+						<a class="lhmg-art" data-action="item-edit"><img src="{{p.magia.img}}" alt=""></a>
+						<div class="lhmg-head-text">
+							<span class="lhmg-cat"><i class="{{p.magia.categoryIcon}}"></i>{{p.magia.categoryLabel}}{{#if p.rank}} · {{localize "ETERNIA.Classes.FromRank" n=p.rank}}{{/if}}</span>
+							<h3><a data-action="item-edit">{{p.magia.name}}</a></h3>
+							{{#if p.magia.tagline}}<p class="lhmg-tag">{{p.magia.tagline}}</p>{{/if}}
+						</div>
+					</header>
+					{{#if p.magia.trait}}<div class="lhmg-note trait"><i class="fa-solid fa-star"></i><p><b>{{p.magia.trait.label}}:</b> {{p.magia.trait.text}}</p></div>{{/if}}
+					{{#if p.magia.tabu}}<div class="lhmg-note tabu"><i class="fa-solid fa-triangle-exclamation"></i><p><b>{{p.magia.tabu.label}}:</b> {{p.magia.tabu.text}}</p></div>{{/if}}
+					<h4 class="lhmg-title"><span>{{localize "ETERNIA.MagicPicker.Spells"}}</span><em>{{p.magia.learned}}/{{p.magia.total}}</em></h4>
+					<ol class="lhmg-spells">{{#each p.magia.spells as |r|}}{{> lhmgSpell r=r}}{{/each}}</ol>
+					{{#if p.magia.visual}}<p class="lhmg-visual">{{p.magia.visual}}</p>{{/if}}
+					{{else}}
+					<div class="lhmg-open{{#if p.open}} open{{/if}}">
+						<span class="lhmg-open-rank"><small>{{localize "ETERNIA.Sheet.CRShort"}}</small>{{p.rank}}</span>
+						<h3>{{#if p.open}}{{localize "ETERNIA.Classes.SlotOpen"}}{{else}}{{localize "ETERNIA.Classes.SlotLocked" n=p.rank}}{{/if}}</h3>
+						<p>{{#if p.open}}{{localize "ETERNIA.Sheet.MagicTab.OpenHint"}}{{else}}{{localize "ETERNIA.Sheet.MagicTab.LockedHint" n=p.rank}}{{/if}}</p>
+						{{#if p.open}}{{#if mg.editable}}<button type="button" data-action="lhcl" data-op="element"><i class="fa-solid fa-hat-wizard"></i>{{localize "ETERNIA.Classes.SlotChoose"}}</button>{{/if}}{{/if}}
+					</div>
+					{{/if}}
+				</article>
+				{{/each}}
+			</div>
+		</div>
+	{{/if}}
+	{{/with}}
+	</div>
+</section>

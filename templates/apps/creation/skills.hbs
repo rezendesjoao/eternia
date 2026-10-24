@@ -1,0 +1,39 @@
+{{!-- SKILLS: the creation picks (three Combat skills and one General), among what the class, the Magia and the
+     profession open at CR 1, each with its first lines; what the character gets anyway is listed on top. --}}
+<div class="wz-skills">
+	<div class="wz-skill-lists wz-scroll">
+		{{#if granted.length}}
+		<section class="wz-granted">
+			<h4><i class="fa-solid fa-gift"></i>{{localize "ETERNIA.Wizard.Skills.Granted"}}</h4>
+			<ul class="wz-chip-list">{{#each granted}}<li><img src="{{img}}" alt="">{{name}}</li>{{/each}}</ul>
+		</section>
+		{{/if}}
+
+		{{#each groups as |g|}}
+		<section class="wz-skill-group">
+			<header>
+				<h4>{{g.label}}</h4>
+				<span class="wz-quota{{#if g.full}} full{{/if}}"><span class="wz-pips">{{#each g.pips}}<i class="{{#if on}}on{{/if}}"></i>{{/each}}</span><b>{{g.picked}}/{{g.quota}}</b></span>
+			</header>
+			{{#each g.sources as |s|}}
+			<h5>{{s.label}}</h5>
+			<ul class="wz-skill-grid">
+				{{#each s.rows as |r|}}
+				<li class="wz-skill{{#if r.picked}} picked{{/if}}{{#if r.disabled}} disabled{{/if}}" data-uuid="{{r.uuid}}" data-name="{{r.name}}" data-img="{{r.img}}" data-reason="{{r.reason}}"{{#if r.clickable}} data-action="skill" tabindex="0"{{/if}}{{#if r.reason}} data-tooltip="{{r.reason}}"{{/if}}>
+					<img src="{{r.img}}" alt="">
+					<span class="wz-skill-body">
+						<b>{{r.name}}{{#if r.training}}<em>{{localize "ETERNIA.Wizard.Skills.Training"}}</em>{{/if}}</b>
+						<small>{{r.text}}</small>
+					</span>
+					<i class="wz-skill-check fa-{{#if r.picked}}solid fa-square-check{{else}}regular fa-square{{/if}}"></i>
+				</li>
+				{{/each}}
+			</ul>
+			{{else}}
+			<p class="wz-note">{{localize "ETERNIA.Wizard.Skills.None"}}</p>
+			{{/each}}
+		</section>
+		{{/each}}
+		<p class="wz-note"><i class="fa-solid fa-circle-info"></i> {{localize "ETERNIA.Wizard.Skills.Note" max=training.max}}</p>
+	</div>
+</div>

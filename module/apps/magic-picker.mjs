@@ -2,176 +2,232 @@
  * The Magia picker: a magic class's Magia slot (CR 1, 5 and 10; apps/option-grants.mjs). A large window with every
  * Magia the character can still take as a card (its picture, category, a short line and the roles of its spells),
  * filters by category and by role, a search (Magia, line or spell) and, beside the cards, the page of the Magia under
- * the pointer (or of the one selected): what it is, its Tabu, its spells by CR and the closing line of its description.
- * With no Magia under the pointer nor selected, the page says how the Magias work. Resolves with the uuid chosen, or
- * null ("Not now", Escape or the window closed).
+ * the pointer (or of the one selected): what it is, its Trait and Tabu, its spells by CR and the closing line of its
+ * description. With no Magia under the pointer nor selected, the page says how the Magias work. Resolves with the uuid
+ * chosen, or null ("Not now", Escape or the window closed).
  *
- * The short line is the Magia's `flags.eternia.magic.tagline` (else the first words of its description). The roles come
- * from the spells' own data (target, damage, the statuses they give), so a new Magia gets them by itself.
+ * The cards, the filters and the pages are the Magia browser (MagicBrowser, templates/apps/magic-browser.hbs), which the
+ * creation wizard uses too. The data comes from the Magia catalog (apps/magic-catalog.mjs), read from the compendium
+ * indexes once per session; the page of a Magia is drawn only when it is shown.
  */
 import { L } from "../settings.mjs";
-import { term } from "../i18n/terms.mjs";
 import { CLASSES } from "../classes/data.mjs";
+import {
+  MAGIC_CATEGORIES, MAGIC_ROLES, categoryView, fold, magicCatalog, magicTexts, roleView
+} from "./magic-catalog.mjs";
+
+export { MAGIC_CATEGORIES } from "./magic-catalog.mjs";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
-/** The categories, in the order of the filters. */
-export const MAGIC_CATEGORIES = {
-  caster: { icon: "fa-solid fa-wand-magic-sparkles", color: "#2f6b4a" },
-  holder: { icon: "fa-solid fa-key", color: "#8a6a25" },
-  lost: { icon: "fa-solid fa-book-skull", color: "#8c2f2f" },
-  forbidden: { icon: "fa-solid fa-skull", color: "#4a2b57" },
-  ancestral: { icon: "fa-solid fa-feather-pointed", color: "#2a6f73" },
-  curse: { icon: "fa-solid fa-eye-evil", color: "#33302d" }
-};
-
-/** What the spells do, read from their data. */
-const ROLES = {
-  area: "fa-solid fa-burst",
-  control: "fa-solid fa-link",
-  wear: "fa-solid fa-droplet",
-  heal: "fa-solid fa-heart-pulse",
-  guard: "fa-solid fa-shield-halved",
-  support: "fa-solid fa-hand-sparkles",
-  move: "fa-solid fa-wind"
-};
-const CONTROL = new Set(["prone", "slowed", "rooted", "grappled", "dazed", "confused", "frightened", "charmed", "asleep",
-  "paralyzed", "silenced", "sealed", "blinded", "taunted", "staggered", "rigor", "disarmed", "dominated", "weakened",
-  "petrified", "pacified", "amnesia", "nightmare"]);
-const WEAR = new Set(["burning", "poisoned", "decay", "freezing", "shocked", "cursed", "fissured", "exposed", "marked",
-  "doom", "pursuit", "soaked", "fuse", "weakness", "blackFlame", "agony"]);
-const GUARD = new Set(["cancel", "barrier", "mirror", "intangible", "lastStand", "hidden", "counter", "grudge",
-  "untouchable", "inversion", "clones"]);
-const SUPPORT = new Set(["hasted", "empowered", "focused", "awakened", "bond", "servant", "sun", "theOne", "impetus",
-  "combo", "rhythm"]);
-const MULTI = new Set(["Area", "Wide", "Line", "Targets"]);
-
-const statusLabel = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
-const fold = text => String(text ?? "").normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+/** The template of one Magia's page (drawn when shown). */
+export const MAGIC_PAGE = "systems/eternia/templates/apps/magic-page.hbs";
+/** The template of the browser (filters, cards, the pages). */
+export const MAGIC_BROWSER = "systems/eternia/templates/apps/magic-browser.hbs";
 
 /* -------------------------------------------- */
-/*  Catalog                                     */
+/*  The browser's data                          */
 /* -------------------------------------------- */
 
-/** What a Magia's description says: the opening, the Tabu, other notes and the closing line. */
-function readDescription(html) {
-  const root = new DOMParser().parseFromString(`<div>${html ?? ""}</div>`, "text/html").body.firstElementChild;
-  const first = root.querySelector("p");
-  first?.querySelector("strong")?.remove();
-  const intro = first?.textContent.trim() ?? "";
-  let tabu = null;
-  let trait = null;
-  const notes = [];
-  for (const li of root.querySelectorAll("li")) {
-    const strong = li.querySelector("strong");
-    const label = (strong?.textContent ?? "").replace(/[:.]\s*$/, "").trim();
-    strong?.remove();
-    const text = li.textContent.trim();
-    if (/^tabu\b/i.test(label)) tabu = { label, text };
-    else if (/^(traço|trait)\b/i.test(label)) trait = { label, text };
-    // The spells and the Motor are drawn from the spells themselves.
-    else if (label && !/^(feitiços|o motor|spells|the motor)\b/i.test(label)) notes.push({ label, text });
-  }
-  const visual = [...root.querySelectorAll("p em")].at(-1)?.textContent.trim() ?? "";
-  return { intro, tabu, trait, notes, visual };
-}
+/** The Magia slots of a class item (their CR), in order. */
+export const magicSlotsOf = job => (job?.system?.grants ?? []).filter(g => g?.magic).map(g => Number(g.rank) || 1);
 
-/** The statuses a spell gives (on a hit, or with its effects) and what they mean for its roles. */
-function readSpell(doc, cr) {
-  const f = doc.flags?.eternia ?? {};
-  const system = doc.system ?? {};
-  const damage = system.damage ?? {};
-  const motor = f.motor ?? {};
-  const effects = (doc.effects ?? []).filter(e => !e.transfer);
-  const hit = (f.hitStatuses ?? []).map(s => s.statusId).filter(Boolean);
-  const given = effects.flatMap(e => [...(e.statuses ?? []), e.flags?.eternia?.statusData?.statusId]).filter(Boolean);
-  const statuses = [...new Set([...hit, ...given])];
-  const dice = damage.dice;
-  const deals = !damage.recovery && (!!Number(dice) || /@/.test(String(dice ?? "")));
-  const heals = !!damage.recovery && (!!Number(dice) || /@/.test(String(dice ?? "")) || !!damage.mod);
-
-  const roles = new Set();
-  if (deals && MULTI.has(system.target)) roles.add("area");
-  if (heals || statuses.includes("regen")) roles.add("heal");
-  for (const id of statuses) {
-    if (CONTROL.has(id)) roles.add("control");
-    if (WEAR.has(id)) roles.add("wear");
-    if (GUARD.has(id)) roles.add("guard");
-    if (SUPPORT.has(id)) roles.add("support");
-  }
-  if ((f.useActions ?? []).some(a => a.type === "removeStatus")) roles.add("support");
-  if ((system.tags ?? []).includes("Movement") || statuses.includes("flying")) roles.add("move");
-
-  // "Major · Area 4Qd · 4d6": the timing, who it reaches and how hard
-  const target = system.target;
-  const reach = (!target || ["-", "Self"].includes(target)) ? L("MagicPicker.You")
-    : [term("target", target), (system.range && (system.range !== "-")) ? term("range", system.range) : ""].filter(Boolean).join(" ");
-  const numeric = Number(dice);
-  const power = (deals || heals)
-    ? (numeric ? L(heals ? "MagicPicker.HealDice" : "MagicPicker.Dice", { n: numeric }) : L("MagicPicker.MotorDice"))
-    : "";
-  const minRank = Math.max(1, Number(f.minRank) || 1);
+/**
+ * What the Magia browser shows: the Magias still to take (not the ones the character has), with what the page of each
+ * needs, the categories and roles with their counts, and the guide.
+ * @param {object} options
+ * @param {number} options.cr                 The character's CR (which spells it reaches now)
+ * @param {Set<string>} [options.ownedIds]    The ids of the Magias it has
+ * @param {Set<string>} [options.ownedNames]  Their names (folded)
+ * @param {number[]} [options.slots]          The CRs of the class's Magia slots (the guide says them)
+ * @returns {Promise<object>}
+ */
+export async function magicBrowserContext({ cr = 1, ownedIds = new Set(), ownedNames = new Set(), slots = [] } = {}) {
+  const [catalog, texts] = await Promise.all([magicCatalog(), magicTexts(), foundry.applications.handlebars.getTemplate(MAGIC_PAGE)]);
+  const magias = catalog.filter(m => !ownedIds.has(m.id) && !ownedNames.has(fold(m.name))).map(m => {
+    const category = categoryView(m.category);
+    const text = texts.get(m.uuid) ?? {};
+    return {
+      ...m,
+      ...text,
+      tagline: m.tagline || (text.intro ?? "").split(/[:.;]/)[0],
+      categoryLabel: category.label,
+      categoryIcon: category.icon,
+      categoryColor: category.color,
+      rolesKey: m.roles.join(" "),
+      cardRoles: m.roles.slice(0, 4).map(roleView),
+      allRoles: m.roles.map(roleView),
+      nowCount: m.spells.filter(s => s.minRank <= cr).length,
+      spells: m.spells.map(s => ({ ...s, now: s.minRank <= cr }))
+    };
+  });
+  const categories = Object.keys(MAGIC_CATEGORIES).map(id => ({ ...categoryView(id), count: magias.filter(m => m.category === id).length }))
+    .filter(c => c.count);
+  const roles = Object.keys(MAGIC_ROLES).map(id => ({ ...roleView(id), count: magias.filter(m => m.roles.includes(id)).length }))
+    .filter(r => r.count);
+  const ranks = new Intl.ListFormat(game.i18n.lang, { type: "conjunction" }).format(slots.map(rank => L("MagicPicker.SlotRank", { rank })));
   return {
-    uuid: doc.uuid,
-    name: doc.name,
-    img: doc.img,
-    minRank,
-    now: minRank <= cr,
-    tier: motor.needs?.full ? "supreme" : ((Number(motor.gain) >= 2) ? "big" : ""),
-    meta: [term("timing", system.timing ?? ""), reach, power].filter(Boolean).join(" · "),
-    statuses: statuses.map(statusLabel),
-    roles
+    magias,
+    total: magias.length,
+    categories,
+    roles,
+    guideSlots: slots.length ? L("MagicPicker.Guide.Slots", { count: slots.length, ranks }) : L("MagicPicker.Guide.SlotsAny")
   };
 }
 
+/* -------------------------------------------- */
+/*  The browser                                 */
+/* -------------------------------------------- */
+
 /**
- * Every Magia of the compendiums with its spells, in name order.
- * @param {number} cr  The character's CR (which spells it already reaches)
+ * The behavior of the Magia browser on its HTML (templates/apps/magic-browser.hbs): the filters and the search, the
+ * page of the Magia under the pointer (drawn the first time it is shown), the selection, the keyboard.
  */
-async function magicCatalog(cr) {
-  const magias = [];
-  for (const pack of game.packs) {
-    if ((pack.documentName !== "Item") || !pack.visible) continue;
-    const index = await pack.getIndex({ fields: ["flags.eternia.magic", "flags.eternia.magicSpell"] });
-    const ids = index.filter(e => (e.type === "skill") && (e.flags?.eternia?.magic?.id || e.flags?.eternia?.magicSpell?.id))
-      .map(e => e._id);
-    if (!ids.length) continue;
-    const docs = await pack.getDocuments({ _id__in: ids });
-    const spellsOf = new Map();
-    for (const doc of docs) {
-      const of = doc.flags?.eternia?.magicSpell?.id;
-      // The skills only a choice gives (the Decrees of the Mandamentos) are not spells to learn
-      if (!of || doc.flags.eternia.choiceOnly) continue;
-      if (!spellsOf.has(of)) spellsOf.set(of, []);
-      spellsOf.get(of).push(doc);
+export class MagicBrowser {
+
+  /**
+   * @param {HTMLElement} root       An element with the browser inside
+   * @param {object} options
+   * @param {object[]} options.magias  The Magias of magicBrowserContext
+   * @param {string|null} [options.selected]  The uuid selected at first
+   * @param {(uuid: string) => void} [options.onSelect]  A Magia was selected
+   * @param {(uuid: string) => void} [options.onChoose]  A Magia was chosen (double click, or Enter on the selected one)
+   */
+  constructor(root, { magias, selected = null, onSelect = null, onChoose = null }) {
+    this.root = root;
+    this.magias = new Map(magias.map(m => [m.uuid, m]));
+    this.onSelect = onSelect;
+    this.onChoose = onChoose;
+    this.selected = null;
+    this.#listen();
+    if (selected && this.magias.has(selected)) this.select(selected);
+    else this.show(null);
+  }
+
+  /** The filters: one category, the roles every Magia shown must have, the search. */
+  #category = "";
+  #roles = new Set();
+  #query = "";
+
+  #listen() {
+    const root = this.root;
+    const grid = root.querySelector(".mp-grid");
+    const cardOf = event => event.target.closest?.(".mp-card");
+    grid.addEventListener("pointerover", event => {
+      const card = cardOf(event);
+      if (card) this.show(card.dataset.uuid);
+    });
+    grid.addEventListener("pointerleave", () => this.show(null));
+    grid.addEventListener("focusin", event => {
+      const card = cardOf(event);
+      if (card) this.show(card.dataset.uuid);
+    });
+    grid.addEventListener("click", event => {
+      const card = cardOf(event);
+      if (card) this.select(card.dataset.uuid);
+    });
+    grid.addEventListener("dblclick", event => {
+      const card = cardOf(event);
+      if (card) this.onChoose?.(card.dataset.uuid);
+    });
+    grid.addEventListener("keydown", event => this.#onKey(event));
+    root.querySelector(".mp-search input")?.addEventListener("input", event => {
+      this.#query = fold(event.currentTarget.value.trim());
+      this.#filter();
+    });
+    for (const chip of root.querySelectorAll(".mp-chip[data-filter='category']")) {
+      chip.addEventListener("click", () => {
+        this.#category = chip.dataset.value ?? "";
+        for (const other of root.querySelectorAll(".mp-chip[data-filter='category']")) other.classList.toggle("active", other === chip);
+        this.#filter();
+      });
     }
-    for (const doc of docs) {
-      const magic = doc.flags?.eternia?.magic;
-      if (!magic?.id) continue;
-      const text = readDescription(doc.system?.description);
-      const spells = (spellsOf.get(magic.id) ?? []).sort((a, b) => ((Number(a.flags.eternia.minRank) || 1)
-        - (Number(b.flags.eternia.minRank) || 1)) || (a.sort - b.sort)).map(s => readSpell(s, cr));
-      // The roles of the Magia: those of its spells, the most frequent first
-      const counts = new Map();
-      for (const spell of spells) for (const role of spell.roles) counts.set(role, (counts.get(role) ?? 0) + 1);
-      const roles = [...counts.entries()].sort((a, b) => b[1] - a[1]).map(([id]) => id);
-      const category = MAGIC_CATEGORIES[magic.category] ? magic.category : "caster";
-      const tagline = magic.tagline || text.intro.split(/[:.;]/)[0];
-      magias.push({
-        uuid: doc.uuid,
-        id: magic.id,
-        name: doc.name,
-        img: doc.img,
-        category,
-        tagline,
-        ...text,
-        spells,
-        roles,
-        search: fold([doc.name, tagline, ...spells.map(s => s.name)].join(" "))
+    for (const chip of root.querySelectorAll(".mp-chip[data-filter='role']")) {
+      chip.addEventListener("click", () => {
+        const role = chip.dataset.value;
+        if (this.#roles.has(role)) this.#roles.delete(role);
+        else this.#roles.add(role);
+        chip.classList.toggle("active", this.#roles.has(role));
+        this.#filter();
       });
     }
   }
-  return magias.sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang));
+
+  /** The page of a Magia, drawn the first time it is shown. */
+  #page(uuid) {
+    const pages = this.root.querySelector(".mp-pages");
+    let page = pages.querySelector(`.mp-page[data-uuid="${CSS.escape(uuid)}"]`);
+    if (page) return page;
+    const magia = this.magias.get(uuid);
+    const template = Handlebars.partials[MAGIC_PAGE];
+    if (!magia || (typeof template !== "function")) return null;
+    pages.insertAdjacentHTML("beforeend", template(magia, { allowProtoMethodsByDefault: true, allowProtoPropertiesByDefault: true }));
+    page = pages.lastElementChild;
+    page.hidden = true;
+    return page;
+  }
+
+  /** Show the page of a Magia (the one under the pointer; with none, the one selected; else the guide). */
+  show(uuid) {
+    const shown = uuid ?? this.selected;
+    const page = shown ? this.#page(shown) : null;
+    const guide = this.root.querySelector(".mp-page.mp-guide");
+    for (const other of this.root.querySelectorAll(".mp-page")) {
+      const on = page ? (other === page) : (other === guide);
+      if (on && other.hidden) other.animate?.([{ opacity: 0, transform: "translateY(4px)" }, { opacity: 1, transform: "none" }],
+        { duration: 140, easing: "ease-out" });
+      other.hidden = !on;
+    }
+    this.root.querySelector(".mp-detail")?.classList.toggle("preview", !!uuid && (uuid !== this.selected));
+  }
+
+  /** Select a Magia: its card is marked. */
+  select(uuid) {
+    this.selected = this.magias.has(uuid) ? uuid : null;
+    for (const card of this.root.querySelectorAll(".mp-card")) {
+      const on = card.dataset.uuid === this.selected;
+      card.classList.toggle("selected", on);
+      card.setAttribute("aria-selected", String(on));
+    }
+    this.show(this.selected);
+    this.onSelect?.(this.selected);
+  }
+
+  /** Show the cards that pass the filters (the selected one stays selected even when hidden). */
+  #filter() {
+    let shown = 0;
+    for (const card of this.root.querySelectorAll(".mp-card")) {
+      const roles = (card.dataset.roles ?? "").split(" ");
+      const ok = (!this.#category || (card.dataset.category === this.#category))
+        && [...this.#roles].every(r => roles.includes(r))
+        && (!this.#query || card.dataset.search.includes(this.#query));
+      card.hidden = !ok;
+      if (ok) shown += 1;
+    }
+    const empty = this.root.querySelector(".mp-empty");
+    if (empty) empty.hidden = shown > 0;
+  }
+
+  /** Arrows move between the cards, Enter selects (twice: chooses). */
+  #onKey(event) {
+    const card = event.target.closest?.(".mp-card");
+    if (!card) return;
+    if ((event.key === "Enter") || (event.key === " ")) {
+      event.preventDefault();
+      if (this.selected === card.dataset.uuid) this.onChoose?.(card.dataset.uuid);
+      else this.select(card.dataset.uuid);
+      return;
+    }
+    const steps = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: "row", ArrowUp: "-row" };
+    if (!(event.key in steps)) return;
+    event.preventDefault();
+    const cards = [...this.root.querySelectorAll(".mp-card:not([hidden])")];
+    const index = cards.indexOf(card);
+    const columns = getComputedStyle(card.parentElement).gridTemplateColumns.split(" ").length || 1;
+    const step = steps[event.key];
+    const next = (step === "row") ? index + columns : (step === "-row") ? index - columns : index + step;
+    cards[Math.clamp(next, 0, cards.length - 1)]?.focus();
+  }
 }
 
 /* -------------------------------------------- */
@@ -208,8 +264,6 @@ export class MagicPicker extends HandlebarsApplicationMixin(ApplicationV2) {
     tag: "div",
     window: { icon: "fa-solid fa-hat-wizard", resizable: true },
     actions: {
-      category: MagicPicker.#onCategory,
-      role: MagicPicker.#onRole,
       choose: MagicPicker.#onChoose,
       skip: MagicPicker.#onSkip
     }
@@ -222,13 +276,8 @@ export class MagicPicker extends HandlebarsApplicationMixin(ApplicationV2) {
   /** Resolves the promise of `choose` (once). */
   #resolve;
 
-  /** The Magia selected (uuid). */
-  #selected = null;
-
-  /** The filters: one category, the roles every Magia shown must have, the search. */
-  #category = "";
-  #roles = new Set();
-  #query = "";
+  /** The browser of the cards. */
+  #browser = null;
 
   /** @override */
   get title() {
@@ -239,80 +288,40 @@ export class MagicPicker extends HandlebarsApplicationMixin(ApplicationV2) {
   async _prepareContext(options) {
     const cr = Math.max(1, Number(this.actor.system.infos?.crank) || 1);
     const owned = this.actor.items.filter(i => (i.type === "skill") && i.getFlag("eternia", "magic")?.id);
-    const ownedIds = new Set(owned.map(i => i.getFlag("eternia", "magic").id));
-    const ownedNames = new Set(owned.map(i => fold(i.name)));
-    const magias = (await magicCatalog(cr)).filter(m => !ownedIds.has(m.id) && !ownedNames.has(fold(m.name)));
     const job = CLASSES[this.source?.system?.identifier] ?? null;
-
-    const categories = Object.entries(MAGIC_CATEGORIES).map(([id, c]) => ({
-      id, icon: c.icon, color: c.color, label: L(`MagicPicker.Category.${id}`), hint: L(`MagicPicker.CategoryHint.${id}`),
-      count: magias.filter(m => m.category === id).length
-    })).filter(c => c.count);
-    const roles = Object.entries(ROLES).map(([id, icon]) => ({
-      id, icon, label: L(`MagicPicker.Role.${id}`), hint: L(`MagicPicker.RoleHint.${id}`),
-      count: magias.filter(m => m.roles.includes(id)).length
-    })).filter(r => r.count);
-    const roleView = id => ({ id, icon: ROLES[id], label: L(`MagicPicker.Role.${id}`) });
-    // The guide says the slots of this class (the magic ones at CR 1, 5 and 10, the physical ones at 1 and 10...)
-    const slots = (this.source?.system?.grants ?? []).filter(g => g?.magic).map(g => Number(g.rank) || 1);
-    const ranks = new Intl.ListFormat(game.i18n.lang, { type: "conjunction" }).format(slots.map(rank => L("MagicPicker.SlotRank", { rank })));
-
+    const browser = await magicBrowserContext({
+      cr,
+      ownedIds: new Set(owned.map(i => i.getFlag("eternia", "magic").id)),
+      ownedNames: new Set(owned.map(i => fold(i.name))),
+      slots: magicSlotsOf(this.source)
+    });
     return {
-      guideSlots: slots.length ? L("MagicPicker.Guide.Slots", { count: slots.length, ranks }) : L("MagicPicker.Guide.SlotsAny"),
+      ...browser,
       cr,
       rank: this.rank,
       color: job?.color ?? "#1f5137",
       slot: L("MagicPicker.Slot", { rank: this.rank }),
       className: this.source?.name ?? "",
-      total: magias.length,
-      categories,
-      roles,
-      owned: owned.map(i => i.name).join(", "),
-      magias: magias.map(m => ({
-        ...m,
-        categoryLabel: L(`MagicPicker.Category.${m.category}`),
-        categoryIcon: MAGIC_CATEGORIES[m.category].icon,
-        categoryColor: MAGIC_CATEGORIES[m.category].color,
-        rolesKey: m.roles.join(" "),
-        cardRoles: m.roles.slice(0, 4).map(roleView),
-        allRoles: m.roles.map(roleView),
-        nowCount: m.spells.filter(s => s.now).length,
-        spells: m.spells.map(s => ({ ...s, tierLabel: s.tier ? L(`MagicPicker.Tier.${s.tier}`) : "" }))
-      }))
+      owned: owned.map(i => i.name).join(", ")
     };
   }
 
   /** @override */
   async _onRender(context, options) {
     await super._onRender(context, options);
-    const root = this.element;
-    const grid = root.querySelector(".mp-grid");
-    const cardOf = event => event.target.closest?.(".mp-card");
-
-    grid.addEventListener("pointerover", event => {
-      const card = cardOf(event);
-      if (card) this.#show(card.dataset.uuid);
+    const button = this.element.querySelector(".mp-choose");
+    this.#browser = new MagicBrowser(this.element, {
+      magias: context.magias,
+      selected: this.#browser?.selected ?? null,
+      onSelect: uuid => {
+        if (!button) return;
+        const magia = context.magias.find(m => m.uuid === uuid);
+        button.disabled = !magia;
+        button.querySelector("span").textContent = magia ? L("MagicPicker.Choose", { name: magia.name }) : L("MagicPicker.ChooseNone");
+      },
+      onChoose: uuid => this.#finish(uuid)
     });
-    grid.addEventListener("pointerleave", () => this.#show(null));
-    grid.addEventListener("focusin", event => {
-      const card = cardOf(event);
-      if (card) this.#show(card.dataset.uuid);
-    });
-    grid.addEventListener("click", event => {
-      const card = cardOf(event);
-      if (card) this.#select(card.dataset.uuid);
-    });
-    grid.addEventListener("dblclick", event => {
-      const card = cardOf(event);
-      if (card) this.#finish(card.dataset.uuid);
-    });
-    grid.addEventListener("keydown", event => this.#onKey(event));
-    root.querySelector(".mp-search input")?.addEventListener("input", event => {
-      this.#query = fold(event.currentTarget.value.trim());
-      this.#filter();
-    });
-    this.#show(null);
-    root.querySelector(".mp-search input")?.focus();
+    this.element.querySelector(".mp-search input")?.focus();
   }
 
   /** @override */
@@ -320,43 +329,6 @@ export class MagicPicker extends HandlebarsApplicationMixin(ApplicationV2) {
     super._onClose(options);
     this.#resolve?.(null);
     this.#resolve = null;
-  }
-
-  /* -------------------------------------------- */
-  /*  Behavior                                    */
-  /* -------------------------------------------- */
-
-  /** Show the page of a Magia (the one under the pointer; with none, the one selected; else the guide). */
-  #show(uuid) {
-    const shown = uuid ?? this.#selected;
-    let found = false;
-    for (const page of this.element.querySelectorAll(".mp-page")) {
-      const on = page.dataset.uuid === (shown ?? "guide");
-      if (on && page.hidden) page.animate?.([{ opacity: 0, transform: "translateY(4px)" }, { opacity: 1, transform: "none" }],
-        { duration: 140, easing: "ease-out" });
-      page.hidden = !on;
-      found ||= on;
-    }
-    if (!found) this.element.querySelector('.mp-page[data-uuid="guide"]').hidden = false;
-    this.element.querySelector(".mp-detail")?.classList.toggle("preview", !!uuid && (uuid !== this.#selected));
-  }
-
-  /** Select a Magia: its card is marked and the button says its name. */
-  #select(uuid) {
-    this.#selected = uuid;
-    for (const card of this.element.querySelectorAll(".mp-card")) {
-      const on = card.dataset.uuid === uuid;
-      card.classList.toggle("selected", on);
-      card.setAttribute("aria-selected", String(on));
-    }
-    const card = this.element.querySelector(`.mp-card[data-uuid="${uuid}"]`);
-    const button = this.element.querySelector(".mp-choose");
-    if (button) {
-      button.disabled = !card;
-      button.querySelector("span").textContent = card
-        ? L("MagicPicker.Choose", { name: card.dataset.name }) : L("MagicPicker.ChooseNone");
-    }
-    this.#show(uuid);
   }
 
   /** Close with this Magia. */
@@ -367,63 +339,8 @@ export class MagicPicker extends HandlebarsApplicationMixin(ApplicationV2) {
     this.close();
   }
 
-  /** Show the cards that pass the filters (the selected one stays selected even when hidden). */
-  #filter() {
-    let shown = 0;
-    for (const card of this.element.querySelectorAll(".mp-card")) {
-      const roles = (card.dataset.roles ?? "").split(" ");
-      const ok = (!this.#category || (card.dataset.category === this.#category))
-        && [...this.#roles].every(r => roles.includes(r))
-        && (!this.#query || card.dataset.search.includes(this.#query));
-      card.hidden = !ok;
-      if (ok) shown += 1;
-    }
-    this.element.querySelector(".mp-empty").hidden = shown > 0;
-  }
-
-  /** Arrows move between the cards, Enter selects (twice: chooses), Escape closes. */
-  #onKey(event) {
-    const card = event.target.closest?.(".mp-card");
-    if (!card) return;
-    if ((event.key === "Enter") || (event.key === " ")) {
-      event.preventDefault();
-      if (this.#selected === card.dataset.uuid) this.#finish(card.dataset.uuid);
-      else this.#select(card.dataset.uuid);
-      return;
-    }
-    const steps = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: "row", ArrowUp: "-row" };
-    if (!(event.key in steps)) return;
-    event.preventDefault();
-    const cards = [...this.element.querySelectorAll(".mp-card:not([hidden])")];
-    const index = cards.indexOf(card);
-    const columns = getComputedStyle(card.parentElement).gridTemplateColumns.split(" ").length || 1;
-    const step = steps[event.key];
-    const next = (step === "row") ? index + columns : (step === "-row") ? index - columns : index + step;
-    cards[Math.clamp(next, 0, cards.length - 1)]?.focus();
-  }
-
-  /* -------------------------------------------- */
-  /*  Actions                                     */
-  /* -------------------------------------------- */
-
-  static #onCategory(event, target) {
-    this.#category = target.dataset.value ?? "";
-    for (const chip of this.element.querySelectorAll('[data-action="category"]')) {
-      chip.classList.toggle("active", chip === target);
-    }
-    this.#filter();
-  }
-
-  static #onRole(event, target) {
-    const role = target.dataset.value;
-    if (this.#roles.has(role)) this.#roles.delete(role);
-    else this.#roles.add(role);
-    target.classList.toggle("active", this.#roles.has(role));
-    this.#filter();
-  }
-
   static #onChoose() {
-    this.#finish(this.#selected);
+    this.#finish(this.#browser?.selected);
   }
 
   static #onSkip() {
