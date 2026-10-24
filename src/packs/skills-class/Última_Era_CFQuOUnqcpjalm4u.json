@@ -1,0 +1,81 @@
+{
+  "name": "Última Era",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Arco do Tempo. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você volta um minuto do tempo para todos os aliados numa área ampla a até 6 Qd (escolha-os como alvos): cada um recupera [(1 + 2×pontos gastos)d6 + NP×2] PV. O tempo cobra de você: você fica com [Fadiga: NP]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Por um instante, todo mundo lembra de um minuto que nunca aconteceu.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": "1+2*@spent",
+      "mod": "@cr*2",
+      "type": "",
+      "recovery": true,
+      "noPower": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/tools/navigation/hourglass.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "arco-do-tempo-ultima-era",
+      "kind": "spends",
+      "branch": "magic",
+      "useActions": [
+        {
+          "type": "fatigue",
+          "value": "@cr",
+          "recipients": "self"
+        }
+      ],
+      "magicSpell": {
+        "id": "arco-do-tempo"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+2×pontos gastos)d6 + NP×2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "CFQuOUnqcpjalm4u",
+  "folder": "DqjFTaUCoxGHLh25",
+  "_key": "!items!CFQuOUnqcpjalm4u"
+}

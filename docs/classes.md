@@ -953,6 +953,7 @@ REGRAS (a geral e uma página por Magia).
 | Alma Animal | Conjuração | Alma Animal: Gato, Alma Animal: Pássaro, Alma Animal: Coelho, Alma Animal: Peixe, Alma Animal: Urso, Alma Animal: Estouro da Manada (supremo) |
 | Alma de Fera | Conjuração | Braço de Fera: Pedra, Braço de Fera: Touro de Ferro, Braço de Fera: Touro Negro, Alma de Fera: Homem-Lagarto, Alma de Fera: Homem-Tigre, Alma de Fera: Corpo Inteiro (supremo) |
 | Alma de Satã | Conjuração | Faísca Maligna, Fluxo das Trevas, Explosão Maligna, Alma de Satã: Halphas, Alma de Satã: Sitri, Extinção da Alma (supremo) |
+| Arco do Tempo | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP÷2]) | Avanço Rápido, Tempo Lento, Restaurar, Acelerar, Arco do Tempo: Envelhecer, Última Era (supremo, cura os aliados e deixa [Fadiga] em quem conjura) |
 | Artes Negras | Proibida (Tabu: [Maldito] em combate; a Predação da Morte pega aliados) | Toque da Morte, Esfera da Morte, Véu das Trevas, Predação da Morte, Sentença Negra (supremo) |
 | Cajados Mágicos | Portadora | Raio do Cajado, Muro de Névoa, Sono, Arranha-Céu, Dança dos Cinco Cajados, Círculo de Cinco Camadas: Canto Sagrado (supremo) |
 | Cartas | Portadora | Cartas Lançadas, Carta do Trovão, Leitura da Sorte, Prisão de Cartas, Tempestade de Cartas, Os Vinte e Dois Arcanos (supremo) |
@@ -965,7 +966,9 @@ REGRAS (a geral e uma página por Magia).
 | Gravidade | Conjuração | Queda, Mudança de Gravidade, Campo Gravitacional, Gravidade Zero, Buraco Negro, Peso do Mundo (supremo) |
 | Magia das Fadas | Ancestral (o supremo no NP 10) | Luz das Fadas, Ilusão das Fadas, Bênção das Fadas, Esfera das Fadas, Brilho das Fadas, Lei das Fadas (supremo, NP 10) |
 | Magia Seith | Conjuração | Bonecos: Formação Linha, Possessão, Bonecos: Formação X, Olhos de Boneco, Bonecos: Formação Bárion, Ritual das Almas (supremo) |
+| Magia Viva | Perdida (Tabu: em combate, a Recuperação e a Defesa Mágica caem [NP]) | Centelha da Vida, Cria de Barro, Sangue Vivo, Corpo Refeito, Fera Criada, Gênese (supremo) |
 | Matador de Demônios | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP]) | Fúria do Demônio de Gelo, Garra do Demônio de Gelo, Gelo do Demônio, Gelo que Cala, Arco da Destruição do Demônio de Gelo, Lâmina da Destruição do Demônio de Gelo (supremo) |
+| Matador de Deuses | Perdida (Tabu: em combate, a Iniciativa cai [NP] e a Velocidade cai 1) | Rugido do Deus do Céu, Sopro Curativo, Dança do Deus do Céu, Bênção do Deus do Céu, Bóreas do Deus do Céu, Arte Secreta: Lança Celestial (supremo) |
 | Moldagem de Gelo | Conjuração | Moldagem de Gelo: Lança, Moldagem de Gelo: Escudo, Moldagem de Gelo: Martelo, Moldagem de Gelo: Chão, Moldagem de Gelo: Águias, Lâmina de Gelo: Dança dos Sete Cortes, Impacto de Gelo (supremo) |
 | Moldagem de Memória | Conjuração | Memorizar, Moldagem de Memória: Feitiço Lembrado, Moldagem de Memória: Esquecimento, Moldagem de Memória: Fortaleza da Terra Ardente, Moldagem de Memória: Noite das Estrelas Cadentes, Moldagem de Memória: Lembrança Absoluta (supremo) |
 | Raio | Conjuração | Relâmpago, Corrente Elétrica, Passo do Relâmpago, Trovão, Tempestade de Raios, Palácio do Trovão (supremo) |
@@ -976,7 +979,7 @@ REGRAS (a geral e uma página por Magia).
 
 As categorias são as da série: Conjuração (a magia sai do corpo), Portadora (precisa de um objeto equipado), Perdida e
 Proibida (mais fortes, com um Tabu), Ancestral (feitiços supremos de NP 10). O catálogo vai crescer em lotes, até cobrir
-a magia de cada personagem (os Matadores de Deuses, a Magia Viva, a Projeção de Pensamento...). Com o Fogo, o Raio, a
+a magia de cada personagem (a Projeção de Pensamento, o Território, a Reflexão...). Com o Fogo, o Raio, a
 Terra e o Vento (0.16), mais a Água e a Moldagem de Gelo, os seis elementos clássicos estão no catálogo.
 
 Como se monta: a Magia é uma habilidade passiva com `flags.eternia.magic = { id, category }` (só dada pela vaga de

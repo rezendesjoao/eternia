@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.17.0 — 2026-10-23
+
+### Adicionado
+- **Três Magias Perdidas**, para qualquer classe de magia, cada uma com o seu Tabu: **Matador de Deuses** (o vento
+  negro: Rugido, Sopro Curativo, Dança, Bênção e Bóreas do Deus do Céu, e o supremo Arte Secreta: Lança Celestial; Tabu:
+  em combate, Iniciativa −NP e Velocidade −1), **Magia Viva** (Centelha da Vida, Cria de Barro, Sangue Vivo, Corpo
+  Refeito, Fera Criada e o supremo Gênese; Tabu: em combate, Recuperação e Defesa Mágica −NP) e **Arco do Tempo**
+  (Avanço Rápido, Tempo Lento, Restaurar, Acelerar, Envelhecer e o supremo Última Era, que cura os aliados e deixa
+  [Fadiga] em quem conjura; Tabu: em combate, Defesas −NP÷2). O catálogo chega a 27 Magias.
+- Páginas XII.5 (Arco do Tempo), XII.18 (Magia Viva) e XII.20 (Matador de Deuses) do capítulo XII. MAGIAS do diário AS
+  REGRAS.
+
+### Alterado
+- As páginas do capítulo XII foram renumeradas em ordem alfabética (Artes Negras é a XII.6).
+- O aviso de novidades fala da 0.17.
+
 ## 0.16.0 — 2026-10-23
 
 ### Adicionado

@@ -5,9 +5,12 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.16.0
+## Versão 0.17.0
 
-- **Novo na 0.16.0: as Magias elementais.** Fogo, Raio, Terra e Vento, para qualquer classe de magia (veja
+- **Novo na 0.17.0: três Magias Perdidas.** Matador de Deuses, Magia Viva e Arco do Tempo, para qualquer classe de
+  magia (veja [As Magias](#as-magias)): os feitiços batem mais forte que os das outras Magias do mesmo NP, e cada uma
+  tem o seu Tabu, o preço que cobra do corpo em combate.
+- **Desde a 0.16.0: as Magias elementais.** Fogo, Raio, Terra e Vento, para qualquer classe de magia (veja
   [As Magias](#as-magias)); com a Água e a Moldagem de Gelo, os seis elementos clássicos estão no catálogo. O
   Feiticeiro saiu da lista de classes, e o Mago Negro, com a Magia Fogo, tomou o lugar dele; as fichas que já o usam
   continuam funcionando.
@@ -85,7 +88,7 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
 - **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 22 classes), Habilidades Raciais e
-  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 24 Magias com os feitiços: 977 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
+  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 27 Magias com os feitiços: 998 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
 
@@ -279,6 +282,7 @@ cada Magia (NP 7; NP 10 nas Ancestrais) pede o Motor no Teto e gasta tudo. As re
 | Alma Animal | Conjuração | Os bichos: o gato que some ([Oculto]), o pássaro que mergulha ([Voando]), o coelho que salta ([Acelerado]), o peixe ([Água], [Lento]), o urso ([Derrubado]) e o Estouro da Manada. |
 | Alma de Fera | Conjuração | As feras: o braço de pedra ([Anulação]), os touros ([Derrubado], [Fissurado]), as escamas do lagarto ([Espelho]), o tigre que ataca dois e o Corpo Inteiro, que deixa [Fúria]. |
 | Alma de Satã | Conjuração | Os demônios: o raio que deixa [Eletrificado], as mãos de trevas ([Enraizado]), a explosão de [Corrupção], a armadura viva ([Fortalecido]), o fogo de Sitri ([Queimando]) e a Extinção da Alma ([Maldito]). |
+| Arco do Tempo | Perdida | O tempo nas mãos: as esferas que pulam o tempo, o tempo lento ([Lento], [Atordoado]), a cura que desfaz o golpe, a pressa ([Acelerado]), os anos que racham armaduras ([Fissurado]) e a Última Era, que cura os aliados. Tabu: em combate, as Defesas caem [NP÷2]. |
 | Artes Negras | Proibida | A magia da morte: [Corrupção], [Maldito], [Deterioração] e [Sentença]. Tabu: em combate você fica [Maldito], e a Predação da Morte pega aliados. |
 | Cajados Mágicos | Portadora | Cinco cajados: o raio de [Choque], a névoa que protege, o [Adormecido], o [Medo] da ilusão e a luz do Canto Sagrado, que deixa [Cego]. |
 | Cartas | Portadora | O baralho: cartas que cortam, o raio de [Choque], a Leitura da Sorte ([Concentrado]) e a gaiola que deixa [Enraizado] e [Silenciado]. |
@@ -291,7 +295,9 @@ cada Magia (NP 7; NP 10 nas Ancestrais) pede o Motor no Teto e gasta tudo. As re
 | Gravidade | Conjuração | O peso das coisas: [Lento], [Derrubado] e [Enraizado], o golpe [Fortalecido] e o voo da Gravidade Zero. |
 | Magia das Fadas | Ancestral | A luz das fadas: [Radiância], a ilusão que dá [Medo], a [Regeneração], a esfera que protege os aliados ([Barreira]), o brilho que deixa [Cego] e a Lei das Fadas, o supremo do NP 10, que só fere os inimigos. |
 | Magia Seith | Conjuração | As almas nos bonecos: raios em linha, em X e em estrela, a Possessão ([Encantado]), os Olhos de Boneco ([Confuso]) e o Ritual das Almas. |
+| Magia Viva | Perdida | A vida criada: a centelha que cura sem a Recuperação, a cria de barro ([Lento]), o sangue que apodrece ([Deterioração]), o corpo refeito (tira os estados), a fera criada e a Gênese ([Medo]). Tabu: em combate, a Recuperação e a Defesa Mágica caem [NP]. |
 | Matador de Demônios | Perdida | O gelo negro feito para matar demônios: [Frio], [Congelando] e [Fissurado], o golpe congelado no ar e a magia calada ([Silenciado]). Tabu: em combate, as Defesas Física e Mágica caem [NP]. |
+| Matador de Deuses | Perdida | O vento negro dos deuses: o rugido que derruba, o sopro que cura, a dança que deixa [Atordoado], a bênção ([Fortalecido], [Acelerado]), o Bóreas ([Lento]) e a Lança Celestial ([Exposto]). Tabu: em combate, a Iniciativa cai [NP] e a Velocidade cai 1. |
 | Moldagem de Gelo | Conjuração | O gelo moldado com as mãos: lanças e o martelo de [Frio] ([Congelando]), o escudo em forma de flor, o chão que derruba, as águias de gelo e a Dança dos Sete Cortes. |
 | Moldagem de Memória | Conjuração | A memória das magias vistas: Memorizar ([Concentrado]), o feitiço lembrado, o Esquecimento ([Selado]), a terra em chamas ([Queimando]) e a noite das estrelas cadentes. |
 | Raio | Conjuração | O raio: [Choque] de longe, a corrente que deixa [Eletrificado], o passo que deixa [Acelerado], o trovão que deixa [Atordoado], a tempestade em três alvos e o Palácio do Trovão. |

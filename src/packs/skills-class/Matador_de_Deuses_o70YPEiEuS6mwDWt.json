@@ -1,0 +1,125 @@
+{
+  "name": "Matador de Deuses",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Perdida.</strong> A magia feita para matar deuses: um vento negro que corta o que nada mais corta, e que também sopra a vida de volta para os aliados. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, a Soberba dos Deuses:</strong> em combate o poder pesa no corpo: a sua Iniciativa cai [NP] e a sua Velocidade cai 1.</li><li><strong>Feitiços:</strong> Rugido do Deus do Céu e Sopro Curativo (NP 1), Dança do Deus do Céu e Bênção do Deus do Céu (NP 3), Bóreas do Deus do Céu (NP 5) e o feitiço supremo Arte Secreta: Lança Celestial (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe de magia (+1; os grandes, +2). A Lança Celestial pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>O vento que sai de você é negro e, mesmo assim, cheira a céu limpo.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/air/wind-tornado-funnel-gray.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Soberba dos Deuses",
+      "img": "icons/magic/air/fog-gas-smoke-gray.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.initiative.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          },
+          {
+            "key": "system.battle-status.speed.mod",
+            "type": "add",
+            "value": "-1",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "Si6swGYMPYFDKyW4",
+      "_key": "!items.effects!o70YPEiEuS6mwDWt.Si6swGYMPYFDKyW4"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "matador-deuses-matador-deuses",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "matador-deuses",
+        "category": "lost"
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "o70YPEiEuS6mwDWt",
+  "folder": "PjlqCm12CitE968v",
+  "_key": "!items!o70YPEiEuS6mwDWt"
+}
