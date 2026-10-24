@@ -1,0 +1,87 @@
+{
+  "name": "Raguel",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia dos Anjos. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: dez moedas, e desce o anjo que toca a trombeta do fim do mundo sobre uma área ampla a até 6 Qd, sem Teste de Precisão. [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Radiância], e quem ele acerta fica com [Medo] de você. Gasta todo o Motor. O preço: [Fadiga: NP] em você.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Todos param para ouvir. Ninguém quer ouvir de novo.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Radiance"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "auto",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/bones/horn-jagged-gold.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "anjos-raguel",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "frightened"
+        }
+      ],
+      "useActions": [
+        {
+          "type": "fatigue",
+          "value": "@cr",
+          "recipients": "self"
+        }
+      ],
+      "magicSpell": {
+        "id": "anjos"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "biT2FWwHAbOCkpuM",
+  "folder": "OVqVuGBn6IcZzjCn",
+  "_key": "!items!biT2FWwHAbOCkpuM"
+}

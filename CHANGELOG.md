@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.24.0 — 2026-10-24
+
+### Adicionado
+- **Quatro Magias**, para qualquer classe: **Elo dos Sentidos** (Perdida, com o Tabu da Dor Partilhada: Lâminas
+  Sensoriais de [Psíquico], Elo Sensorial, que dá [Vínculo] a um aliado, Lâmina de Sodoma, Sentidos Trocados, Tempestade
+  de Lâminas e o supremo Elo Final), **Magia dos Anjos** (os anjos acertam sem teste e deixam [Fadiga] em quem conjura:
+  Penas Angelicais, Mensageiros Angelicais, Anjo do Martelo, Shamsiel, Barakiel e o supremo Raguel), **Trevas**
+  (Capricho das Trevas, Agarrar das Trevas, Gravidade Sombria, Momento Sombrio, Rondó das Trevas e o supremo Gênese
+  Zero, que deixa [Maldito]) e **Amarras** (Chicote de Tubo, Tubo de Amarra, que deixa [Agarrado] e [Silenciado],
+  Arranhão Secreto, Rede de Tubos, Explosão Felina e o supremo Prisão de Mil Tubos). O catálogo chega a 50 Magias.
+- Páginas XII.7 (Amarras), XII.15 (Elo dos Sentidos), XII.26 (Magia dos Anjos) e XII.49 (Trevas) do capítulo XII.
+  MAGIAS do diário AS REGRAS.
+
+### Alterado
+- As páginas do capítulo XII foram renumeradas em ordem alfabética (Artes Negras é a XII.11, Vento a XII.50).
+- O aviso de novidades fala da 0.24.
+
 ## 0.23.0 — 2026-10-24
 
 ### Adicionado

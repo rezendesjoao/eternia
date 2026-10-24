@@ -1,0 +1,156 @@
+{
+  "name": "Tubo de Amarra",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Amarras.</strong> Tubos mágicos voam e se enrolam num alvo a até 4 Qd (Teste de Precisão contra a Esquiva): ele fica [Agarrado] por você e [Silenciado] (sem [Feitiço], [Ataque Mágico] nem [Canção] até o fim do turno dele), com a magia presa pelos tubos.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Ele tenta conjurar, e a magia escorre pelos tubos e some.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/control/debuff-chains-green.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Tubo de Amarra",
+      "img": "systems/eternia/assets/ui/status/grappled.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "grappled"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "7eZUfpG3tQ6vaCR2",
+      "_key": "!items.effects!v3hk7atqZm7oF1dg.7eZUfpG3tQ6vaCR2"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Tubo de Amarra: silêncio",
+      "img": "systems/eternia/assets/ui/status/silenced.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "silenced"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "TJltLoVzAEplOC3D",
+      "_key": "!items.effects!v3hk7atqZm7oF1dg.TJltLoVzAEplOC3D"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "amarras-tubo",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "amarras"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "v3hk7atqZm7oF1dg",
+  "folder": "3W37LSOEEB1oGpMx",
+  "_key": "!items!v3hk7atqZm7oF1dg"
+}

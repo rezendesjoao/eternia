@@ -1002,6 +1002,7 @@ REGRAS (a geral e uma página por Magia).
 | Alma de Máquina | Conjuração (Take Over) | Alma de Máquina: Canhão, Alma de Máquina: Blindagem, Alma de Máquina: Propulsores, Alma de Máquina: Rajada, Alma de Máquina: Bombardeio, Alma de Máquina: Traje de Batalha (supremo) |
 | Alma de Satã | Conjuração | Faísca Maligna, Fluxo das Trevas, Explosão Maligna, Alma de Satã: Halphas, Alma de Satã: Sitri, Extinção da Alma (supremo) |
 | Alta Velocidade | Conjuração | Golpe Veloz, Rajada de Golpes, Velocidade Máxima, Chute Supersônico, Cem Golpes, Tempestade de Golpes (supremo) |
+| Amarras | Conjuração | Chicote de Tubo, Tubo de Amarra, Arranhão Secreto, Rede de Tubos, Explosão Felina, Prisão de Mil Tubos (supremo) |
 | Arco do Tempo | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP÷2]) | Avanço Rápido, Tempo Lento, Restaurar, Acelerar, Arco do Tempo: Envelhecer, Última Era (supremo, cura os aliados e deixa [Fadiga] em quem conjura) |
 | Areia | Conjuração | Rebelião da Areia, Lufada de Areia, Corpo de Areia, Cova da Formiga-Leão, Areias da Morte, Mundo de Areia (supremo) |
 | Armas Mágicas | Portadora (as armas) | Tiro Mágico, Bala de Bolha, Bala Teleguiada (sem Teste de Precisão), Mira Travada, Bala Explosiva, Chuva de Balas (supremo) |
@@ -1009,6 +1010,7 @@ REGRAS (a geral e uma página por Magia).
 | Cajados Mágicos | Portadora | Raio do Cajado, Muro de Névoa, Sono, Arranha-Céu, Dança dos Cinco Cajados, Círculo de Cinco Camadas: Canto Sagrado (supremo) |
 | Cartas | Portadora | Cartas Lançadas, Carta do Trovão, Leitura da Sorte, Prisão de Cartas, Tempestade de Cartas, Os Vinte e Dois Arcanos (supremo) |
 | Corpos Celestes | Conjuração | Estrela Cadente, Meteoro, Velocidade da Luz, Altairis, Sete Estrelas do Julgamento: Grand Chariot, Sema (supremo) |
+| Elo dos Sentidos | Perdida (Tabu: em combate, a Defesa Física cai [NP]) | Lâminas Sensoriais, Elo Sensorial ([Vínculo] num aliado), Lâmina de Sodoma, Sentidos Trocados, Tempestade de Lâminas, Elo Final (supremo) |
 | Encantamento | Conjuração | Encantamento: Força, Encantamento: Guarda, Encantamento: Pressa, Desencanto, Grande Encantamento, Universo Um (supremo) |
 | Escrita Rúnica | Conjuração | Runa da Prisão, Escrita Negra: Dor, Runa do Revide, Escrita Negra: Asas, Escrita Negra: Escuridão, Escrita Rúnica: Regra Absoluta (supremo) |
 | Escrita Sólida | Conjuração | Escrita Sólida: Fogo, Escrita Sólida: Guarda, Escrita Sólida: Silêncio, Escrita Sólida: Ferro, Escrita Sólida: Trovão, A Palavra Final (supremo) |
@@ -1019,6 +1021,7 @@ REGRAS (a geral e uma página por Magia).
 | Gigante | Conjuração | Golpe Gigante, Mão Gigante, Corpo Gigante, Pisada do Gigante, Punho do Titã, Queda do Titã (supremo) |
 | Gravidade | Conjuração | Queda, Mudança de Gravidade, Campo Gravitacional, Gravidade Zero, Buraco Negro, Peso do Mundo (supremo) |
 | Magia das Fadas | Ancestral (o supremo no NP 10) | Luz das Fadas, Ilusão das Fadas, Bênção das Fadas, Esfera das Fadas, Brilho das Fadas, Lei das Fadas (supremo, NP 10) |
+| Magia dos Anjos | Conjuração (os anjos acertam sem teste e deixam [Fadiga] em quem conjura) | Penas Angelicais, Mensageiros Angelicais, Anjo do Martelo, Shamsiel, Barakiel, Raguel (supremo) |
 | Magia Seith | Conjuração | Bonecos: Formação Linha, Possessão, Bonecos: Formação X, Olhos de Boneco, Bonecos: Formação Bárion, Ritual das Almas (supremo) |
 | Magia Viva | Perdida (Tabu: em combate, a Recuperação e a Defesa Mágica caem [NP]) | Centelha da Vida, Cria de Barro, Sangue Vivo, Corpo Refeito, Fera Criada, Gênese (supremo) |
 | Matador de Demônios | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP]) | Fúria do Demônio de Gelo, Garra do Demônio de Gelo, Gelo do Demônio, Gelo que Cala, Arco da Destruição do Demônio de Gelo, Lâmina da Destruição do Demônio de Gelo (supremo) |
@@ -1041,6 +1044,7 @@ REGRAS (a geral e uma página por Magia).
 | Teleporte | Conjuração | Linha Direta: Investida, Linha Direta, Linha Direta: Lançamento, Memória Falsa, Ponto Cego, Transporte (supremo) |
 | Terra | Conjuração | Punho de Rocha, Muralha de Rocha, Avalanche de Rocha, Pele de Pedra, Chão Partido, Fúria da Montanha (supremo) |
 | Território | Conjuração | Calor Espacial, Território: Troca, Território: Prisão, Território: Domínio, Colapso Espacial, Território Absoluto (supremo) |
+| Trevas | Conjuração | Capricho das Trevas, Agarrar das Trevas, Gravidade Sombria, Momento Sombrio, Rondó das Trevas, Gênese Zero (supremo) |
 | Vento | Conjuração | Lâmina de Vento, Rajada, Armadura de Tempestade, Redemoinho, Furacão, Espaço Aéreo: Zero (supremo) |
 
 As categorias são as da série: Conjuração (a magia sai do corpo), Portadora (precisa de um objeto equipado), Perdida e

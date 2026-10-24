@@ -1,0 +1,79 @@
+{
+  "name": "Prisão de Mil Tubos",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Amarras. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: mil tubos saem do chão numa área ampla a até 6 Qd e enrolam todo mundo, presos a você. Teste de Precisão contra a Esquiva de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico, e quem ela acerta fica [Agarrado] por você (sem [Movimento]; as habilidades hostis dele só podem ter você como alvo; sai com uma Ação Maior). Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Todos os tubos terminam na sua mão. Você só precisa segurar.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/control/encase-creature-spider-hold.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "amarras-prisao",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "grappled"
+        }
+      ],
+      "magicSpell": {
+        "id": "amarras"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "dhjy5nJ6mWmKt31Y",
+  "folder": "3W37LSOEEB1oGpMx",
+  "_key": "!items!dhjy5nJ6mWmKt31Y"
+}

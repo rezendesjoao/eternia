@@ -1,0 +1,83 @@
+{
+  "name": "Mensageiros Angelicais",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia dos Anjos.</strong> Um bando de anjinhos redondos e cheios de dentes cerca um alvo a até 4 Qd e o prende debaixo da pilha, sem Teste de Precisão: [2d6 + Poder Mágico] de dano mágico de [Radiância], e ele fica [Enraizado]. O preço: [Fadiga: 2] em você.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>São fofos de longe. De perto, são só dentes.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Radiance"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "auto",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/unholy/demon-hairy-winged-pink.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "anjos-mensageiros",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "rooted"
+        }
+      ],
+      "useActions": [
+        {
+          "type": "fatigue",
+          "value": 2,
+          "recipients": "self"
+        }
+      ],
+      "magicSpell": {
+        "id": "anjos"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "MmfLq41Va3fcLqV5",
+  "folder": "OVqVuGBn6IcZzjCn",
+  "_key": "!items!MmfLq41Va3fcLqV5"
+}

@@ -1,0 +1,80 @@
+{
+  "name": "Gênese Zero",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Trevas. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: uma onda de fantasmas sai da ponta dos seus dedos e varre uma área ampla a até 6 Qd, querendo apagar a alma de quem está ali. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Corrupção], e quem ela acerta fica [Maldito] (não recupera PV de jeito nenhum até o fim da cena). Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Os fantasmas passam e levam alguma coisa junto. Ninguém sabe dizer o quê.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/death/projectile-skull-fire-purple.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "trevas-genese",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "cursed"
+        }
+      ],
+      "magicSpell": {
+        "id": "trevas"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "gqeYkRq2rk6la8Mt",
+  "folder": "8dxxAkyxArhX1DE0",
+  "_key": "!items!gqeYkRq2rk6la8Mt"
+}

@@ -1,0 +1,75 @@
+{
+  "name": "Explosão Felina",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Amarras.</strong> Feitiço grande. Você solta uma espiral de tubos com toda a força sobre uma área a até 4 Qd: Teste de Precisão contra a Esquiva de cada alvo; [3d6 + Poder Mágico] de dano mágico, e quem ela acerta fica [Lento], com os tubos nos tornozelos.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>A espiral sobe como um novelo jogado para o alto.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/sundries/survival/rope-coiled-thick-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "amarras-explosao",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "slowed"
+        }
+      ],
+      "magicSpell": {
+        "id": "amarras"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "C2YPPYuiGyBRr0HC",
+  "folder": "3W37LSOEEB1oGpMx",
+  "_key": "!items!C2YPPYuiGyBRr0HC"
+}

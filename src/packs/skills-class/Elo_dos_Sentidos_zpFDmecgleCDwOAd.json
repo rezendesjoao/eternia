@@ -1,0 +1,119 @@
+{
+  "name": "Elo dos Sentidos",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Perdida.</strong> Você liga os sentidos de duas ou mais pessoas: o que uma sente, as outras sentem junto. As lâminas que você cria cortam direto o sentido da dor, sem passar pela armadura. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, a Dor Partilhada:</strong> o elo também prende você à dor dos outros: em combate, a sua Defesa Física cai [NP].</li><li><strong>Feitiços:</strong> Lâminas Sensoriais e Elo Sensorial (NP 1), Lâmina de Sodoma e Sentidos Trocados (NP 3), Tempestade de Lâminas (NP 5) e o feitiço supremo Elo Final (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Elo Final pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Um coração pequeno aparece no pulso de quem você liga. Ninguém consegue apagar.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/gems/gem-rough-heart-pink.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Dor Partilhada",
+      "img": "icons/magic/control/voodoo-doll-pain-damage-tan.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.defense.phys.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "B7va70qrstjGSJez",
+      "_key": "!items.effects!zpFDmecgleCDwOAd.B7va70qrstjGSJez"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "elo-dos-sentidos-elo-dos-sentidos",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "elo-dos-sentidos",
+        "category": "lost",
+        "tagline": "Ligar os sentidos: a dor de um vira a dor de todos."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "zpFDmecgleCDwOAd",
+  "folder": "o4iHhdO1FQ2ak8Di",
+  "_key": "!items!zpFDmecgleCDwOAd"
+}
