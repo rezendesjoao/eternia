@@ -1,0 +1,128 @@
+{
+  "name": "Alma de Fera: Corpo Inteiro",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Alma de Fera. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: o corpo inteiro vira a fera, e ela acerta um inimigo engajado com você. Teste de Precisão contra a Esquiva; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico, e ele fica [Derrubado]. A fera não volta logo: você fica [Fúria: NP÷2 + 2] até o fim da cena. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Depois do golpe, alguém precisa chamar o seu nome umas três vezes.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/unholy/demon-fanged-horned-yellow.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "berserk",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Alma de Fera: Corpo Inteiro",
+      "img": "systems/eternia/assets/ui/status/berserk.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "berserk"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "dy7nfIlAK5fI0OSn",
+      "_key": "!items.effects!oMj0sZpF5qIyWZPa.dy7nfIlAK5fI0OSn"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "alma-de-fera-corpo-inteiro",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "prone"
+        }
+      ],
+      "magicSpell": {
+        "id": "alma-de-fera"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "oMj0sZpF5qIyWZPa",
+  "folder": "9wG9mSLornBCdMwB",
+  "_key": "!items!oMj0sZpF5qIyWZPa"
+}

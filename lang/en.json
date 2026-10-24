@@ -1518,7 +1518,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.14: the White Mage, and three more Magias</strong></p><ul><li>The <strong>White Mage</strong>, the new magic class: it writes a <strong>Law</strong> in runes, a number from 2 to 12. When two dice of any check in the fight add up to the Law, <strong>Runes</strong> light up, and they rewrite the dice of the checks on the attack cards: the ally's goes up, the enemy's goes down. It chooses Magias at CR 1, 5 and 10.</li><li>The <strong>Weaver</strong> left the class list and the Dedications: the White Mage took its place. The sheets that already use it keep working.</li><li>Three new Magias, for any magic class: <strong>Runic Script</strong>, <strong>Solid Script</strong> and <strong>Fairy Magic</strong>, the first Ancestral Magia (its supreme spell comes at CR 10). The rules are in chapter XII. MAGIAS of the AS REGRAS journal.</li><li>Since 0.13: the Summoner as a magic class, Celestial Spirits, Seith Magic and Doll Theater.</li></ul><p>Since 0.12: the Pictomancer. Since 0.11: the Red Mage. Since 0.10: the Black Mage and the Magias. Since 0.9: the Dragon Slayer. Since 0.8: the sixteen classes. Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
+      "Body": "<p><strong>What's new in Eternia 0.15: the Blue Mage and the Take Over Magias</strong></p><ul><li>The <strong>Blue Mage</strong>, the last of the seven magic classes: Absorb keeps in a <strong>grimoire</strong> the soul of the monster it brings down, and <strong>Take Over</strong> wears that soul: the monster's nature (Beast, Animal, Demon or Spirit) becomes a status, and its element goes into the damage of your spells. It chooses Magias at CR 1, 5 and 10.</li><li>Three new Magias, the Take Over ones, for any magic class: <strong>Satan Soul</strong>, <strong>Beast Soul</strong> and <strong>Animal Soul</strong>. The rules are in chapter XII. MAGIAS of the AS REGRAS journal.</li><li>Since 0.14: the White Mage in the Weaver's place, Runic Script, Solid Script and Fairy Magic.</li></ul><p>Since 0.13: the Summoner as a magic class. Since 0.12: the Pictomancer. Since 0.11: the Red Mage. Since 0.10: the Black Mage and the Magias. Since 0.9: the Dragon Slayer. Since 0.8: the sixteen classes. Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -2706,6 +2706,44 @@
           "seed": "Dragon Seed: how many Dragon Forces already ended this scenario"
         }
       },
+      "MagoAzul": {
+        "Name": "Souls",
+        "Unit": "Essence",
+        "State": {
+          "humano": "Human",
+          "fera": "Beast",
+          "animal": "Animal",
+          "demonio": "Demon",
+          "espirito": "Spirit"
+        },
+        "Card": {
+          "Gain": "Every Spell, the class's or the Magias', +1 Essence (the big ones, +2); absorbing a soul, +1; in a form, +1 at each Setup Process.",
+          "Spend": "The Soul Strike spends all the Essence and leaves the nature's mark. The supreme spells need the cap and spend it all.",
+          "Cap": "3 Essence, +1 every 5 CR. The grimoire keeps 3 souls (+1 every 5 CR) besides the First.",
+          "Reset": "At the end of the combat, the Essence and the form. The grimoire stays.",
+          "GainLesser": "Absorb gives +1 Essence (and +1 when it absorbs a soul); in a form, +1 at each Setup Process.",
+          "SpendLesser": "The Dedication talents spend the Essence. The grimoire keeps 1 soul besides the First.",
+          "CapLesser": "Half the cap of the Souls, at least 1.",
+          "ResetLesser": "At the end of the combat, the Essence and the form. The grimoire stays."
+        },
+        "First": "First Soul",
+        "ChooseFirst": "The First Soul's nature, for good: Beast (Strength), Animal (Dexterity), Demon (Power) or Spirit (Intelligence).",
+        "ChooseSoul": "The soul you wear now.",
+        "ChooseSecond": "The second soul (Sovereign Soul).",
+        "SoulOption": "{name}: {nature}, level {rank}{element}",
+        "ElementOf": ", {element}",
+        "Human": "Human form",
+        "None": "None",
+        "Book": "Grimoire: {n}/{max}",
+        "ReadyLabel": "Inescapable Strike ready",
+        "WholeLock": "Whole Body: the soul only leaves with the Essence at the cap.",
+        "NoSouls": "No absorbed soul in the grimoire.",
+        "NeedsSoul": "Wear an absorbed soul (not the First).",
+        "FeastHint": "The soul you let go of (it is gone).",
+        "Absorbed": "{name} absorbed the soul of {soul}.",
+        "Replaced": "The soul of {soul} left the grimoire.",
+        "Escaped": "The soul of {soul} escaped: the grimoire's are stronger."
+      },
       "MagoBranco": {
         "Name": "Law",
         "Unit": "Runes",
@@ -3009,6 +3047,14 @@
       "Element": "Element",
       "ChooseElement": "Choose the element",
       "DedicationChoice": "Choose the element of this Dedication.",
+      "magoazul": {
+        "Branch": {
+          "grimorio": "The Grimoire",
+          "forma": "The Form",
+          "garra": "The Claw",
+          "guarda": "The Guard"
+        }
+      },
       "magobranco": {
         "Branch": {
           "runa": "The Rune",

@@ -219,6 +219,22 @@ const GLYPHS = {
     cut(circle(52.5, 50.5, 3.1), 10), cut(circle(69.5, 50.5, 3.1), 10), cut(circle(61, 59, 3.1), 10),
     cut(circle(52.5, 67.5, 3.1), 10), cut(circle(69.5, 67.5, 3.1), 10)
   ],
+  // The Blue Mage's Souls: a monster's horned mask, its eyes and fangs cut out, a soul burning on its brow
+  magoazul: () => {
+    const mask = "M50 20 C61 20 69 25 70.5 34 C72 43 71.4 53 68.6 62 C65.4 72.4 58.6 80.6 50 86 C41.4 80.6 34.6 72.4 31.4 62"
+      + " C28.6 53 28 43 29.5 34 C31 25 39 20 50 20 Z";
+    return [
+      solid("M33.6 28.6 C27.6 23.4 23.6 15.6 24.8 7.4 C28.8 13.6 34.4 17.8 41.2 20.6 Z"),
+      solid("M66.4 28.6 C72.4 23.4 76.4 15.6 75.2 7.4 C71.2 13.6 65.6 17.8 58.8 20.6 Z"),
+      outline(mask, 3),
+      solid(mask),
+      cut(poly([[35.2, 44.6], [46.4, 48.4], [45.4, 53.2], [36.4, 50.4]])),
+      cut(poly([[64.8, 44.6], [53.6, 48.4], [54.6, 53.2], [63.6, 50.4]])),
+      cut("M38.6 64.6 C45 67.8 55 67.8 61.4 64.6 L59.6 70.6 C53.8 73 46.2 73 40.4 70.6 Z"),
+      solid(poly([[43.6, 66.6], [45.6, 66.6], [44.6, 70.6]])), solid(poly([[54.4, 66.6], [56.4, 66.6], [55.4, 70.6]])),
+      cut("M50 26.4 C53.4 30.4 54.2 33.6 52.6 36.4 C51.8 37.8 50.8 38.6 50 38.6 C49.2 38.6 48.2 37.8 47.4 36.4 C45.8 33.6 46.6 30.4 50 26.4 Z")
+    ];
+  },
   // The White Mage's Law: the hood over a face of shadow, a rune on its brow and the saw-tooth trim of the hem
   magobranco: () => {
     const robe = "M50 8 C57.6 12.6 64.6 21 68 32 C70.6 40.6 70.8 50 69 58.6 C68.4 61.6 68.8 64 70.6 66 C74.4 70.2 75.6 76 74 88"
@@ -302,7 +318,7 @@ const CLASS_FAMILY = {
   assassino: "weapon", berserker: "weapon", cacador: "weapon", comandante: "weapon", menestrel: "weapon",
   sacerdote: "healer", druida: "healer", oraculo: "healer",
   feiticeiro: "magic", invocador: "magic", estrategista: "magic", tecelao: "magic", matador: "magic", magonegro: "magic",
-  magovermelho: "magic", pictomante: "magic", magobranco: "magic"
+  magovermelho: "magic", pictomante: "magic", magobranco: "magic", magoazul: "magic"
 };
 
 /* -------------------------------------------- */

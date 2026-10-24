@@ -1,0 +1,117 @@
+{
+  "name": "Alma Sacrificada",
+  "type": "skill",
+  "system": {
+    "description": "<p>Use quando você for sofrer dano, vestindo uma alma do grimório que não seja a Primeira: a alma recebe o golpe por você e some do grimório. Você ganha [Anulação: NP × 3 + 5] contra esse dano e volta à forma humana. Não gasta ação. Uma vez por cena.</p><p><em>Ela grita uma vez, e o golpe para nela.</em></p>",
+    "tags": [],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/death/skull-energy-light-white.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "cancel",
+            "value": "@cr*3+5"
+          },
+          "consumeOn": "damage",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Alma Sacrificada",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "mkYVmcpoEc6P4f1t",
+      "_key": "!items.effects!kD64ZiRGi7c6weLe.mkYVmcpoEc6P4f1t"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "magoazul-alma-sacrificada",
+      "kind": "spends",
+      "branch": "guarda",
+      "minRank": 5,
+      "requires": [
+        "magoazul-couraca-de-alma"
+      ],
+      "motor": {
+        "id": "magoazul",
+        "action": "none"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "kD64ZiRGi7c6weLe",
+  "folder": "7Klj9ZCN019kXyNV",
+  "_key": "!items!kD64ZiRGi7c6weLe"
+}

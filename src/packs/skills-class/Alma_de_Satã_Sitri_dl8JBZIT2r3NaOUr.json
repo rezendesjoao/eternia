@@ -1,0 +1,77 @@
+{
+  "name": "Alma de Satã: Sitri",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Alma de Satã.</strong> Feitiço grande. Você vira o demônio de fogo e solta as chamas dele sobre uma área a até 3 Qd: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico de [Chama], e quem ele acerta fica [Queimando: NP÷2 + 1].</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>As chamas dele não são vermelhas. São da cor das trevas acesas.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/unholy/demon-fire-horned-clawed.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "alma-de-sata-sitri",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "burning",
+          "value": "floor(@cr/2)+1"
+        }
+      ],
+      "magicSpell": {
+        "id": "alma-de-sata"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "dl8JBZIT2r3NaOUr",
+  "folder": "N4tVdOFIxdDOgBye",
+  "_key": "!items!dl8JBZIT2r3NaOUr"
+}

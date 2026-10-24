@@ -1,0 +1,76 @@
+{
+  "name": "Alma Animal: Peixe",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Alma Animal.</strong> Você vira o peixe e nada pelo ar numa linha reta, até 3 Qd, atravessando quem estiver no caminho: Teste de Precisão contra a Esquiva de cada alvo da Linha; [2d6 + Poder Mágico] de dano mágico de [Água], e quem você acerta fica [Lento].</p><p><strong>Custo:</strong> Ódio 2.</p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Water"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Line",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/fish/fish-bluefin-yellow-blue.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "alma-animal-peixe",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "slowed"
+        }
+      ],
+      "magicSpell": {
+        "id": "alma-animal"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "gmCi2xN8ZxGisSlC",
+  "folder": "100pxnCs38T2gs00",
+  "_key": "!items!gmCi2xN8ZxGisSlC"
+}

@@ -88,6 +88,15 @@ export const CLASSES = {
     // A magic class since 0.13 (its grants have the Magia slots)
     magic: true
   },
+  magoazul: {
+    id: "magoazul",
+    motor: "magoazul",
+    color: "#2a4fb0",
+    band: "firm",
+    branches: ["grimorio", "forma", "garra", "guarda"],
+    paths: ["corpo-inteiro", "metamorfose", "grimorio-azul"],
+    magic: true
+  },
   magobranco: {
     id: "magobranco",
     motor: "magobranco",

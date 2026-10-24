@@ -1,6 +1,6 @@
 # Classes: o esqueleto
 
-As regras de construção das classes da Eternia, fechadas em 2026-10-21, as [21 classes](#as-classes), as [Magias](#as-magias) e a referência
+As regras de construção das classes da Eternia, fechadas em 2026-10-21, as [22 classes](#as-classes), as [Magias](#as-magias) e a referência
 técnica dos Motores. As regras como o jogador lê estão nas páginas **XI. CLASSES** (a geral e uma por classe) do diário
 AS REGRAS.
 
@@ -177,6 +177,7 @@ O mapa da lista de classes: cada Motor mexe numa parte da regra que nenhuma outr
 | Itens, com as Magias | Mago Vermelho | Arsenal: a magia mora na peça da mão (Espada, Armadura, Foco); o Reequipar troca e solta a Descarga |
 | Campo, com as Magias | Pictomante | Moldes: cada feitiço deixa uma construção no campo; quebrar vira dano (Estilhaçar) ou defesa (Escudo Esculpido) |
 | Dados dos outros, com as Magias | Mago Branco | Lei: dois dados que somam o número acendem Runas (os feitiços também), que reescrevem dados nos cartões |
+| Monstros vencidos, com as Magias | Mago Azul | Almas: absorve a alma dos monstros que derruba e veste a natureza e o elemento deles (Take Over); a Essência vira o Golpe da Alma |
 | Aliados | Menestrel | Movimentos: a canção sobe a cada Manutenção; trocar volta ao I |
 | Comando | Comandante | Táticas: Ordens que dão a sua ação a um aliado |
 | Itens | Ressonante | Centelha: o poder mora numa peça e salta para outra soltando o que juntou (classe antiga: virou o Mago Vermelho) |
@@ -197,7 +198,9 @@ no campo (as construções que cada feitiço deixa e que ficam lá até serem qu
 Na 0.13 o Invocador virou classe de magia sem mudar de nome nem de habilidades: ganhou as vagas de Magia, e os Feitiços
 das Magias passaram a dar Laços ao espírito presente. Na 0.14 veio o Mago Branco, que herda os dados do Tecelão (a Lei é
 o Padrão feito motor das Magias: os Feitiços também acendem Runas, e o kit troca o Laço pela Cura); com ele, o Tecelão
-saiu da lista de classes e das Dedicações, como o Ressonante.
+saiu da lista de classes e das Dedicações, como o Ressonante. Na 0.15 chegou o Mago Azul, a última das sete classes de
+magia: o Motor dele mexe nos monstros vencidos (a natureza da alma é o maior atributo do monstro derrubado, e o elemento
+sai das tags dele), que nenhuma outra classe usa; as formas dele são as dos monstros, e não as fixas do Druida.
 
 ## O que saiu do sistema
 
@@ -217,7 +220,7 @@ Na mesma versão da classe piloto, para o sistema nunca ter os dois:
 ## As classes
 
 Cada seção diz o Motor da classe e o que ela tem; as regras como o jogador lê estão na página da classe no diário AS
-REGRAS (XI.1 a XI.21) e na descrição de cada habilidade. A calibragem do dano é a primeira de cada classe: vale
+REGRAS (XI.1 a XI.22) e na descrição de cada habilidade. A calibragem do dano é a primeira de cada classe: vale
 conferir na mesa e ajustar os números (Teto, dados por ponto, o pagamento do Motor cheio).
 
 ### Assassino
@@ -467,6 +470,55 @@ Estado em `flags.eternia.motor.invocador`: `state` (`vazio`, `lobo`, `golem`, `f
 em que o espírito chegou, para os supremos), `freeUsed` e `eternalUsed` (o Ápice, por combate) e as rodadas dos ganhos de uma vez por rodada. As habilidades que pedem um
 espírito dizem qual em `flags.eternia.motor.spirit` (`"any"` ou o espírito). O PV pago sai direto da ficha (sem
 Barreira) e o Desfazer do cartão não o devolve.
+
+### Mago Azul
+
+O Motor **Almas** mexe nos monstros vencidos e é o motor das Magias (Take Over). O Mago Azul guarda num grimório as
+almas dos monstros que leva a 0 PV com o Absorver: o nome, o nível (o NP do monstro) e a natureza, que é o maior
+atributo dele (Força é Fera, Destreza é Animal, Poder é Demônio, Inteligência é Espírito), e o elemento, a primeira tag
+de elemento dele (Chama, Frio, Choque...). O grimório começa com a Primeira Alma (a natureza escolhida no primeiro Take
+Over, o nível sempre o NP do mago) e guarda mais 3 + ⌊NP/5⌋, de um combate para o outro; cheio, sai a de menor nível
+(a mais antiga no empate), que pode ser a nova. O Take Over (Menor) veste uma alma: em combate, a natureza vira um estado
+passivo com o Valor ⌊min(nível, NP) ÷ 2⌋ + 2 (Fera [Fortalecido], Animal [Acelerado] e metade em [Fortalecido], Demônio
+[Despertado], que deixa [Fadiga] ao sair, Espírito [Anulação]) e o elemento entra no dano dos Feitiços do mago. A
+Essência vem dos Feitiços (+1, os grandes +2), da alma absorvida (+1) e de cada Manutenção na forma (+1); o Golpe da
+Alma gasta toda e deixa a marca da natureza (Fera [Derrubado], Animal [Lento], Demônio [Medo], Espírito [Atordoado]).
+Teto 3 + ⌊NP/5⌋; zera no fim do combate (a forma também). É uma **classe de magia**: escolhe uma Magia no NP 1, outra
+no NP 5 e a terceira no NP 10. Código em `module/classes/magoazul.mjs`.
+
+| Parte | O que tem |
+|---|---|
+| Base | FOR 2, DES 2, POD 4, INT 2; faixa Firme (40, +6/NP); papéis Damage e Defense |
+| Kit | Almas (Motor), Take Over (Menor), Absorver (Maior, Feitiço, +1; guarda a alma do monstro que derruba), Golpe da Alma (Maior, gasta toda); a primeira Magia |
+| O Grimório | Fome de Almas\*, Grimório Amplo\*, Grimório Cheio, Banquete de Almas |
+| A Forma | Pele Emprestada\*, Alma Selvagem, Elemento da Alma, Forma Perfeita |
+| A Garra | Garra Possuída\*, Marca da Alma, Fúria Possessa, Golpe Inescapável |
+| A Guarda | Rugido da Alma\*, Couraça de Alma\*, Carne Nova, Alma Sacrificada |
+| Gerais | Ler a Alma, Essência Guardada, Alma Viajante, Voz das Feras |
+| Caminhos (NP 3) | Corpo Inteiro (Dor que Alimenta, Rugido Total), Metamorfose (Pele Trocada, Mil Peles), Grimório Azul (Lição Azul, Magia Azul) |
+| Ápice (NP 10) | Alma Soberana |
+| Dedicação (NP 5) | Dedicação: Mago Azul, que dá as Almas Menores, o Take Over e o Absorver (sem Magias) |
+
+\* talentos [Dedicação].
+
+Os Caminhos reescrevem uma regra cada: o Corpo Inteiro, o ganho (+2 em cada Manutenção na forma, mas a forma só sai no
+meio do combate com a Essência no Teto, gastando toda); a Metamorfose, a troca (um Take Over por rodada sem ação, +1 por
+natureza nova); o Grimório Azul, a absorção (a alma de todo monstro que cai a até 4 Qd entra no grimório). O Ápice, a
+Alma Soberana, veste duas almas ao mesmo tempo.
+
+Estado em `flags.eternia.motor.magoazul`: `state` (`humano`, `fera`, `animal`, `demonio`, `espirito`: a natureza
+vestida), `value` (Essência), `first` (a natureza da Primeira Alma), `souls` (as almas absorvidas: `{ id, name, img,
+rank, nature, element }`), `worn` e `second` (as almas vestidas; `primeira` é a Primeira Alma), `fresh` (as absorvidas no
+combate, para a Lição Azul), `round` (as naturezas vestidas na rodada, para Mil Peles) e as marcas de uma vez por rodada
+(`wild`, `barrier`, `hurt`, `swap`).
+
+Automação: a absorção (`onKill` do Absorver ou de qualquer golpe com Fome de Almas; `onAnyKill` no Grimório Azul, pela
+distância dos tokens), a natureza e o elemento lidos do monstro (atributos e tags), o Take Over (`plan`: a Primeira Alma,
+a alma, a segunda no Ápice; o Corpo Inteiro e a Metamorfose), os estados da forma (`statuses`), o elemento no dano
+(`damageTags`), as marcas e os estados do elemento no acerto (`onHit`), os ganhos (`onSetup`, Alma Selvagem no
+`onHitTarget`, Dor que Alimenta no `onDamaged`), a Pele Emprestada e a Pele Trocada (`onUse`), o Banquete e a Alma
+Sacrificada (soltam a alma) e o Golpe Inescapável. Ficam no texto os talentos Gerais (os sentidos, a conversa com as
+criaturas) e os alvos das áreas.
 
 ### Mago Branco
 
@@ -885,7 +937,7 @@ estados no alvo atingido (`onHit`), o acerto automático do Desenlace e o Ponto 
 
 ## As Magias
 
-A classe diz **como** se conjura; a Magia diz **o que**. As classes de magia (o Mago Branco, o Mago Negro, o Mago Vermelho, o Pictomante e o Invocador) escolhem uma
+A classe diz **como** se conjura; a Magia diz **o que**. As classes de magia (o Mago Azul, o Mago Branco, o Mago Negro, o Mago Vermelho, o Pictomante e o Invocador) escolhem uma
 Magia no NP 1, outra no NP 5 e a terceira no NP 10, e os feitiços dela entram nas escolhas de Combate e Geral, cada um
 com o seu NP mínimo. Os feitiços alimentam e gastam o Motor da classe de quem conjura: cada um +1 (os grandes, +2), e
 os supremos (NP 7; NP 10 nas Ancestrais) pedem o Motor no Teto e gastam tudo. As regras como o jogador lê estão em **XII. MAGIAS** no diário AS
@@ -894,6 +946,9 @@ REGRAS (a geral e uma página por Magia).
 | Magia | Categoria | Feitiços |
 |---|---|---|
 | Água | Conjuração | Lâmina de Água, Prisão de Água, Corpo de Água, Nebulosa de Água, Sierra, Maremoto (supremo) |
+| Alma Animal | Conjuração | Alma Animal: Gato, Alma Animal: Pássaro, Alma Animal: Coelho, Alma Animal: Peixe, Alma Animal: Urso, Alma Animal: Estouro da Manada (supremo) |
+| Alma de Fera | Conjuração | Braço de Fera: Pedra, Braço de Fera: Touro de Ferro, Braço de Fera: Touro Negro, Alma de Fera: Homem-Lagarto, Alma de Fera: Homem-Tigre, Alma de Fera: Corpo Inteiro (supremo) |
+| Alma de Satã | Conjuração | Faísca Maligna, Fluxo das Trevas, Explosão Maligna, Alma de Satã: Halphas, Alma de Satã: Sitri, Extinção da Alma (supremo) |
 | Artes Negras | Proibida (Tabu: [Maldito] em combate; a Predação da Morte pega aliados) | Toque da Morte, Esfera da Morte, Véu das Trevas, Predação da Morte, Sentença Negra (supremo) |
 | Cajados Mágicos | Portadora | Raio do Cajado, Muro de Névoa, Sono, Arranha-Céu, Dança dos Cinco Cajados, Círculo de Cinco Camadas: Canto Sagrado (supremo) |
 | Cartas | Portadora | Cartas Lançadas, Carta do Trovão, Leitura da Sorte, Prisão de Cartas, Tempestade de Cartas, Os Vinte e Dois Arcanos (supremo) |
@@ -913,7 +968,7 @@ REGRAS (a geral e uma página por Magia).
 
 As categorias são as da série: Conjuração (a magia sai do corpo), Portadora (precisa de um objeto equipado), Perdida e
 Proibida (mais fortes, com um Tabu), Ancestral (feitiços supremos de NP 10). O catálogo vai crescer em lotes, até cobrir
-a magia de cada personagem (as elementais, Take Over, os Matadores de Deuses...).
+a magia de cada personagem (as elementais, os Matadores de Deuses...).
 
 Como se monta: a Magia é uma habilidade passiva com `flags.eternia.magic = { id, category }` (só dada pela vaga de
 Magia da classe; o Tabu, quando há, mora nela, num efeito passivo) e os feitiços têm `flags.eternia.magicSpell = { id }`,
@@ -928,7 +983,7 @@ na pasta `Magias/<Magia>` de `skills-class`, com identificadores `<magia>-<nome>
 | Arquivo | O que faz |
 |---|---|
 | `module/classes/motor.mjs` | O Motor genérico: o registro (`registerMotor`), o estado no ator, o Teto, as habilidades de Motor e de Motor Menor, os requisitos (`motorUseIssues`), a ação que a habilidade gasta (`motorActionOf`), o plano antes do cartão (`planMotorUse`, que guarda `flags.eternia.motorUse`), a mudança depois (`commitMotorUse`, que avisa todos os Motores com `onUse`) e o Desfazer, os valores das fórmulas e do custo, os bônus de rolagem, os estados que o dano dá, os estados passivos (`syncMotorStatuses`), os eventos (em fila por ator) e os ajudantes das classes (lados, combate, escolha). |
-| `module/classes/<classe>.mjs` | O Motor de cada classe (`ASSASSINO`, `BERSERKER`, `CACADOR`, `COMANDANTE`, `DRUIDA`, `ESTRATEGISTA`, `FEITICEIRO`, `GUARDIAO`, `INVOCADOR`, `MAGOBRANCO`, `MAGONEGRO`, `MAGOVERMELHO`, `MATADOR`, `MENESTREL`, `MONGE`, `ORACULO`, `PICTOMANTE`, `RESSONANTE`, `SACERDOTE`, `SAMURAI`, `TECELAO`): o Teto, as regras do kit e dos talentos, os Caminhos, o Ápice e as reações aos eventos. O cabeçalho de cada arquivo diz a regra e o que fica guardado no ator. |
+| `module/classes/<classe>.mjs` | O Motor de cada classe (`ASSASSINO`, `BERSERKER`, `CACADOR`, `COMANDANTE`, `DRUIDA`, `ESTRATEGISTA`, `FEITICEIRO`, `GUARDIAO`, `INVOCADOR`, `MAGOAZUL`, `MAGOBRANCO`, `MAGONEGRO`, `MAGOVERMELHO`, `MATADOR`, `MENESTREL`, `MONGE`, `ORACULO`, `PICTOMANTE`, `RESSONANTE`, `SACERDOTE`, `SAMURAI`, `TECELAO`): o Teto, as regras do kit e dos talentos, os Caminhos, o Ápice e as reações aos eventos. O cabeçalho de cada arquivo diz a regra e o que fica guardado no ator. |
 | `module/classes/index.mjs` | Registra os Motores, embrulha `EterniaCombat#_onPhaseStart` (Manutenção e Encerramento, uma vez, na janela do Mestre que mudou a fase), segue os turnos e o movimento dos tokens, ouve os eventos dos cartões (`eternia.attack`, `eternia.attackResult`, `eternia.dodge`, `eternia.damaged`, `eternia.healed`, `eternia.check`, `eternia.defeated`; um cartão de dano aplicado, com ou sem PV tirado, também vira `onStruck`), põe os botões das classes nos cartões de ataque e tem a API `game.eternia.motor`. |
 | `module/classes/progression.mjs` | O NP mudado à mão oferece o que a classe dá no NP; a Dedicação dá as habilidades dela ao ser aprendida (e uma à escolha, `dedicationChoice`) e as tira junto. |
 | `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`) e os dados de cada classe para a aba (cor, faixa, ramos, Caminhos, elementos, `magic` das classes de magia). |

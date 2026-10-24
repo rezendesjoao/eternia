@@ -5,9 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.14.0
+## Versão 0.15.0
 
-- **Novo na 0.14.0: o Mago Branco e mais três Magias.** O Mago Branco escreve em runas uma Lei, um número de 2 a 12:
+- **Novo na 0.15.0: o Mago Azul e as Magias de Take Over.** O Mago Azul absorve a alma dos monstros que derruba e a
+  guarda num grimório; com o Take Over, veste uma delas e luta com a natureza (Fera, Animal, Demônio ou Espírito) e o
+  elemento do monstro (veja [As classes](#as-classes)). É a última das sete classes de magia. As Magias novas servem a
+  qualquer classe de magia: Alma de Satã, Alma de Fera e Alma Animal (veja [As Magias](#as-magias)).
+- **Desde a 0.14.0: o Mago Branco e mais três Magias.** O Mago Branco escreve em runas uma Lei, um número de 2 a 12:
   quando dois dados de qualquer teste da luta somam a Lei, acendem Runas, que reescrevem os dados dos testes (o do
   aliado sobe, o do inimigo desce; veja [As classes](#as-classes)). O Tecelão saiu da lista de classes, e o Mago
   Branco tomou o lugar dele; as fichas que já o usam continuam funcionando. As Magias novas servem a qualquer classe
@@ -76,8 +80,8 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   mesmo visual; toda a automação de combate e de uso de habilidades; a interface em português do Brasil.
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
-- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 21 classes), Habilidades Raciais e
-  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 17 Magias com os feitiços: 892 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
+- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 22 classes), Habilidades Raciais e
+  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 20 Magias com os feitiços: 949 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
 
@@ -233,6 +237,7 @@ gira em volta dele (veja `docs/classes.md` e as páginas **XI. CLASSES** do diá
 | Feiticeiro | Dano | **Calor**: cada feitiço esquenta e bate mais forte; no Teto, a Erupção solta tudo ou a Sobrecarga queima o próprio feiticeiro. |
 | Guardião | Defesa | **Baluarte**: cada ataque contra ele vira uma Camada da muralha (Anulação), que o Golpe do Baluarte transforma em dano e provocação. |
 | Invocador | Dano, Controle | **Pacto**: paga PV para dar Laços a um espírito (lobo, golem ou fada), que luta, protege ou cura gastando os Laços; com o espírito presente, os Feitiços das Magias também dão Laços. Escolhe uma Magia no NP 1, 5 e 10. |
+| Mago Azul | Dano, Defesa | **Almas**: absorve a alma dos monstros que derruba e a guarda num grimório; com o Take Over, veste uma delas e luta com a natureza (Fera, Animal, Demônio ou Espírito) e o elemento do monstro, e a Essência que junta vira o Golpe da Alma. Escolhe uma Magia no NP 1, 5 e 10. |
 | Mago Branco | Cura, Controle | **Lei**: escreve em runas um número de 2 a 12; quando dois dados de qualquer teste o formam, acende Runas (os Feitiços também acendem), que reescrevem os dados dos testes: o do aliado sobe, o do inimigo desce. Escolhe uma Magia no NP 1, 5 e 10. |
 | Mago Negro | Dano | **Pressão**: cada feitiço, da classe ou das Magias, puxa mais poder e bate mais forte; no Teto, a Liberação solta tudo ou a Sobrecarga cobra do próprio mago. Escolhe uma Magia no NP 1, 5 e 10. |
 | Mago Vermelho | Dano, Defesa | **Arsenal**: a magia mora na peça que está na mão (Espada, Armadura ou Foco) e cresce ali; o Reequipar troca de peça e solta a Descarga da antiga. Escolhe uma Magia no NP 1, 5 e 10. |
@@ -258,7 +263,7 @@ mover tokens) fica no texto da habilidade.
 
 ## As Magias
 
-Nas classes de magia (o Mago Branco, o Mago Negro, o Mago Vermelho, o Pictomante e o Invocador), a classe diz **como** você conjura e a **Magia** diz **o que** você
+Nas classes de magia (o Mago Azul, o Mago Branco, o Mago Negro, o Mago Vermelho, o Pictomante e o Invocador), a classe diz **como** você conjura e a **Magia** diz **o que** você
 conjura. A primeira Magia vem com a classe, a segunda no NP 5 e a terceira no NP 10; a aba Classe mostra as Magias com
 os feitiços de cada uma, e o navegador de habilidades mostra os feitiços das suas Magias (a origem "Magia") nas
 escolhas de Combate e Geral. Os feitiços alimentam o Motor da sua classe (+1; os grandes, +2), e o feitiço supremo de
@@ -267,6 +272,9 @@ cada Magia (NP 7; NP 10 nas Ancestrais) pede o Motor no Teto e gasta tudo. As re
 | Magia | Categoria | O que faz |
 |---|---|---|
 | Água | Conjuração | Prende, corta e escorre: [Água], [Lento], [Enraizado] e o Corpo de Água ([Intangível]); o supremo é o Maremoto. |
+| Alma Animal | Conjuração | Os bichos: o gato que some ([Oculto]), o pássaro que mergulha ([Voando]), o coelho que salta ([Acelerado]), o peixe ([Água], [Lento]), o urso ([Derrubado]) e o Estouro da Manada. |
+| Alma de Fera | Conjuração | As feras: o braço de pedra ([Anulação]), os touros ([Derrubado], [Fissurado]), as escamas do lagarto ([Espelho]), o tigre que ataca dois e o Corpo Inteiro, que deixa [Fúria]. |
+| Alma de Satã | Conjuração | Os demônios: o raio que deixa [Eletrificado], as mãos de trevas ([Enraizado]), a explosão de [Corrupção], a armadura viva ([Fortalecido]), o fogo de Sitri ([Queimando]) e a Extinção da Alma ([Maldito]). |
 | Artes Negras | Proibida | A magia da morte: [Corrupção], [Maldito], [Deterioração] e [Sentença]. Tabu: em combate você fica [Maldito], e a Predação da Morte pega aliados. |
 | Cajados Mágicos | Portadora | Cinco cajados: o raio de [Choque], a névoa que protege, o [Adormecido], o [Medo] da ilusão e a luz do Canto Sagrado, que deixa [Cego]. |
 | Cartas | Portadora | O baralho: cartas que cortam, o raio de [Choque], a Leitura da Sorte ([Concentrado]) e a gaiola que deixa [Enraizado] e [Silenciado]. |

@@ -1,0 +1,121 @@
+{
+  "name": "Couraça de Alma",
+  "type": "skill",
+  "system": {
+    "description": "<p>Use quando você for sofrer dano: a alma endurece a sua pele. Gaste até [NH+1] Essência; você ganha [Anulação: Essência gasta × (NP+5)] contra esse dano. Não gasta ação. Uma vez por rodada.</p>",
+    "tags": [
+      "Dedication"
+    ],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 3
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/reptiles/turtle-shell-glowing-green.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "cancel",
+            "value": "@spent*(@cr+5)"
+          },
+          "consumeOn": "damage",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Couraça de Alma",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "9EBwNKYFhgCAhlXo",
+      "_key": "!items.effects!64bVuFRnK7Nhzwpr.9EBwNKYFhgCAhlXo"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "magoazul-couraca-de-alma",
+      "kind": "spends",
+      "branch": "guarda",
+      "minRank": 3,
+      "motor": {
+        "id": "magoazul",
+        "needs": {
+          "min": 1
+        },
+        "spend": "choose",
+        "max": "@sr+1",
+        "action": "none"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 170000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "64bVuFRnK7Nhzwpr",
+  "folder": "7Klj9ZCN019kXyNV",
+  "_key": "!items!64bVuFRnK7Nhzwpr"
+}

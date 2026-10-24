@@ -1,0 +1,71 @@
+{
+  "name": "Golpe da Alma",
+  "type": "skill",
+  "system": {
+    "description": "<p>Precisa de pelo menos 1 Essência e gasta toda: a alma que você veste golpeia um inimigo engajado com você. Teste de Precisão contra a Esquiva; [(1 + Essência)d6 + Poder Mágico + Essência×NP] de dano mágico, e quem ele acerta fica com a marca da natureza: Fera [Derrubado], Animal [Lento], Demônio [Medo] de você, Espírito [Atordoado]. Na forma humana, só o dano.</p><p><strong>Custo:</strong> Ódio 1 + a Essência gasta.</p><hr><p><em>Por um instante, quem apanha vê o monstro, e não você.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1+Essência",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/claws/claw-bear-paw-swipe-red.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "magoazul-golpe-da-alma",
+      "kind": "spends",
+      "branch": "kit",
+      "choiceOnly": true,
+      "motor": {
+        "id": "magoazul",
+        "needs": {
+          "min": 1
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+Essência)d6 + [Poder Mágico] + Essência×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "NNCFAFBqw4X1Ul4A",
+  "folder": "4i43Dr4BWI1dssho",
+  "_key": "!items!NNCFAFBqw4X1Ul4A"
+}

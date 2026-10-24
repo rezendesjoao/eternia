@@ -1,0 +1,116 @@
+{
+  "name": "Carne Nova",
+  "type": "skill",
+  "system": {
+    "description": "<p>Gaste 1 Essência: você fica [Regeneração: NP÷2 + 2] até o fim da cena (recupera esse tanto de PV em cada Encerramento). Uma vez por rodada.</p><p><em>A ferida fecha do jeito que fecharia no monstro.</em></p>",
+    "tags": [],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/reptiles/lizard-iguana-green.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "regen",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Carne Nova",
+      "img": "systems/eternia/assets/ui/status/regen.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "regen"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "u8YD4r84mVmnMkVE",
+      "_key": "!items.effects!krpHTCDAXuJxWnWt.u8YD4r84mVmnMkVE"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "magoazul-carne-nova",
+      "kind": "spends",
+      "branch": "guarda",
+      "minRank": 3,
+      "motor": {
+        "id": "magoazul",
+        "needs": {
+          "min": 1
+        },
+        "spend": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 190000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "krpHTCDAXuJxWnWt",
+  "folder": "7Klj9ZCN019kXyNV",
+  "_key": "!items!krpHTCDAXuJxWnWt"
+}

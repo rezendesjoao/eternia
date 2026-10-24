@@ -1518,7 +1518,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.14: o Mago Branco e mais três Magias</strong></p><ul><li>O <strong>Mago Branco</strong>, a nova classe de magia: escreve em runas uma <strong>Lei</strong>, um número de 2 a 12. Quando dois dados de qualquer teste da luta somam a Lei, acendem <strong>Runas</strong>, que reescrevem os dados dos testes nos cartões de ataque: o do aliado sobe, o do inimigo desce. Escolhe Magias no NP 1, 5 e 10.</li><li>O <strong>Tecelão</strong> saiu da lista de classes e das Dedicações: o Mago Branco tomou o lugar dele. As fichas que já o usam continuam funcionando.</li><li>Três Magias novas, para qualquer classe de magia: <strong>Escrita Rúnica</strong>, <strong>Escrita Sólida</strong> e <strong>Magia das Fadas</strong>, a primeira Magia Ancestral (o feitiço supremo dela chega no NP 10). As regras estão no capítulo XII. MAGIAS do diário AS REGRAS.</li><li>Desde a 0.13: o Invocador como classe de magia, os Espíritos Celestiais, a Magia Seith e o Teatro de Bonecas.</li></ul><p>Desde a 0.12: o Pictomante. Desde a 0.11: o Mago Vermelho. Desde a 0.10: o Mago Negro e as Magias. Desde a 0.9: o Matador de Dragões. Desde a 0.8: as 16 classes. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.15: o Mago Azul e as Magias de Take Over</strong></p><ul><li>O <strong>Mago Azul</strong>, a última das sete classes de magia: o Absorver guarda num <strong>grimório</strong> a alma do monstro que ele derruba, e o <strong>Take Over</strong> veste essa alma: a natureza do monstro (Fera, Animal, Demônio ou Espírito) vira um estado, e o elemento dele entra no dano dos seus feitiços. Escolhe Magias no NP 1, 5 e 10.</li><li>Três Magias novas, as de Take Over, para qualquer classe de magia: <strong>Alma de Satã</strong>, <strong>Alma de Fera</strong> e <strong>Alma Animal</strong>. As regras estão no capítulo XII. MAGIAS do diário AS REGRAS.</li><li>Desde a 0.14: o Mago Branco no lugar do Tecelão, a Escrita Rúnica, a Escrita Sólida e a Magia das Fadas.</li></ul><p>Desde a 0.13: o Invocador como classe de magia. Desde a 0.12: o Pictomante. Desde a 0.11: o Mago Vermelho. Desde a 0.10: o Mago Negro e as Magias. Desde a 0.9: o Matador de Dragões. Desde a 0.8: as 16 classes. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -2706,6 +2706,44 @@
           "seed": "Semente do Dragão: quantas Forças do Dragão já acabaram neste cenário"
         }
       },
+      "MagoAzul": {
+        "Name": "Almas",
+        "Unit": "Essência",
+        "State": {
+          "humano": "Humano",
+          "fera": "Fera",
+          "animal": "Animal",
+          "demonio": "Demônio",
+          "espirito": "Espírito"
+        },
+        "Card": {
+          "Gain": "Cada Feitiço, da classe ou das Magias, +1 Essência (os grandes, +2); absorver uma alma, +1; na forma, +1 em cada Manutenção.",
+          "Spend": "O Golpe da Alma gasta toda a Essência e deixa a marca da natureza. Os feitiços supremos pedem o Teto e gastam tudo.",
+          "Cap": "3 Essência, +1 a cada 5 NP. O grimório guarda 3 almas (+1 a cada 5 NP) além da Primeira.",
+          "Reset": "No fim do combate, a Essência e a forma. O grimório fica.",
+          "GainLesser": "O Absorver dá +1 Essência (e +1 se absorver uma alma); na forma, +1 em cada Manutenção.",
+          "SpendLesser": "Os talentos de Dedicação gastam a Essência. O grimório guarda 1 alma além da Primeira.",
+          "CapLesser": "Metade do Teto das Almas, no mínimo 1.",
+          "ResetLesser": "No fim do combate, a Essência e a forma. O grimório fica."
+        },
+        "First": "Primeira Alma",
+        "ChooseFirst": "A natureza da Primeira Alma, para sempre: Fera (Força), Animal (Destreza), Demônio (Poder) ou Espírito (Inteligência).",
+        "ChooseSoul": "A alma que você veste agora.",
+        "ChooseSecond": "A segunda alma (Alma Soberana).",
+        "SoulOption": "{name}: {nature}, nível {rank}{element}",
+        "ElementOf": ", {element}",
+        "Human": "Forma humana",
+        "None": "Nenhuma",
+        "Book": "Grimório: {n}/{max}",
+        "ReadyLabel": "Golpe Inescapável pronto",
+        "WholeLock": "Corpo Inteiro: a alma só sai com a Essência no Teto.",
+        "NoSouls": "Nenhuma alma absorvida no grimório.",
+        "NeedsSoul": "Vista uma alma absorvida (não a Primeira).",
+        "FeastHint": "A alma que você solta do grimório (ela some).",
+        "Absorbed": "{name} absorveu a alma de {soul}.",
+        "Replaced": "A alma de {soul} saiu do grimório.",
+        "Escaped": "A alma de {soul} escapou: as do grimório são mais fortes."
+      },
       "MagoBranco": {
         "Name": "Lei",
         "Unit": "Runas",
@@ -3009,6 +3047,14 @@
       "Element": "Elemento",
       "ChooseElement": "Escolher o elemento",
       "DedicationChoice": "Escolha o elemento desta Dedicação.",
+      "magoazul": {
+        "Branch": {
+          "grimorio": "O Grimório",
+          "forma": "A Forma",
+          "garra": "A Garra",
+          "guarda": "A Guarda"
+        }
+      },
       "magobranco": {
         "Branch": {
           "runa": "A Runa",

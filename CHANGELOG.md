@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.15.0 — 2026-10-23
+
+### Adicionado
+- **O Mago Azul**, a quinta classe com Magias e a última das sete classes de magia (compêndio Raças e Classes, pasta
+  Classes; 36 habilidades). Motor **Almas**: o Absorver guarda num grimório a alma do monstro que ele derruba, com a
+  natureza (o maior atributo do monstro: Fera, Animal, Demônio ou Espírito) e o elemento dele; o Take Over veste uma
+  alma (Fera [Fortalecido], Animal [Acelerado], Demônio [Despertado], Espírito [Anulação]) e o elemento entra no dano
+  dos Feitiços; a Essência vira o Golpe da Alma, que deixa a marca da natureza. Ramos: O Grimório, A Forma, A Garra e A
+  Guarda; Caminhos: Corpo Inteiro, Metamorfose e Grimório Azul; Ápice: Alma Soberana (duas almas de uma vez).
+- **Três Magias novas**, as de Take Over: **Alma de Satã** (Faísca Maligna, Fluxo das Trevas, Explosão Maligna,
+  Halphas, Sitri e o supremo Extinção da Alma), **Alma de Fera** (os Braços de Fera de Pedra, de Touro de Ferro e de
+  Touro Negro, o Homem-Lagarto, o Homem-Tigre e o supremo Corpo Inteiro) e **Alma Animal** (Gato, Pássaro, Coelho,
+  Peixe, Urso e o supremo Estouro da Manada). O catálogo chega a 20 Magias.
+- O emblema do Mago Azul (a máscara de monstro com chifres e a chama da alma), a página **XI.10** do diário AS REGRAS e
+  as páginas XII.2, XII.3 e XII.4 do capítulo XII. MAGIAS.
+
+### Alterado
+- As páginas de classe do diário depois do Invocador foram renumeradas (Mago Branco XI.11 a Tecelão XI.22), e as do
+  capítulo XII também (Artes Negras é a XII.5); as páginas do Ressonante e do Tecelão apontam para os números novos do
+  Mago Vermelho (XI.13) e do Mago Branco (XI.11).
+- XII.a cita a Essência do Mago Azul entre os Motores das Magias.
+- O aviso de novidades fala da 0.15.
+
 ## 0.14.0 — 2026-10-23
 
 ### Adicionado
