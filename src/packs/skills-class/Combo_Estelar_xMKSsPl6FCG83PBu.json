@@ -2,7 +2,7 @@
   "name": "Combo Estelar",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Maldição.</strong> Golpe atrás de golpe, sem parar: cada um que acerta deixa o próximo mais forte, até a sequência virar uma chuva de estrelas. E tudo zera com um erro. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, Tudo no Ataque:</strong> em combate, a sua Defesa Física cai [NP]. Você não se defende: ataca.</li><li><strong>O Combo:</strong> cada ataque seu que acerta soma 1 no [Combo] (alguns feitiços somam mais), e cada ponto dá +1 de dano nos seus ataques. Ele zera quando você erra um ataque, sofre dano de um ataque ou termina um turno sem ter atacado.</li><li><strong>Traço, Sequência:</strong> você é imune a [Cambaleante] e [Atordoado]: nada interrompe a sequência.</li><li><strong>Feitiços:</strong> Golpe Estelar e Passo Estelar (NP 1), Guarda da Sequência e Golpe em Dobro (NP 3), Chuva Estelar (NP 5) e o feitiço supremo Estrela Final (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Estrela Final pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Quem conta os golpes perde a conta lá pelo trigésimo. Você não.</em></p>",
+    "description": "<p><strong>Maldição.</strong> Golpe atrás de golpe, sem parar: cada um que acerta deixa o próximo mais forte, até a sequência virar uma chuva de estrelas. E tudo zera com um erro. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, Tudo no Ataque:</strong> em combate, a sua Defesa Física cai [NP]. Você não se defende: ataca.</li><li><strong>O Combo:</strong> cada ataque seu que acerta soma 1 no [Combo] (alguns feitiços somam mais), e cada ponto dá +1 de dano nos seus ataques. Ele zera quando você erra um ataque, sofre dano de um ataque ou termina um turno sem ter atacado.</li><li><strong>Traço, Sequência:</strong> você é imune a [Cambaleante] e [Atordoado]: nada interrompe a sequência, e os seus ataques contam o [Combo] desde o primeiro acerto.</li><li><strong>Feitiços:</strong> Golpe Estelar e Passo Estelar (NP 1), Guarda da Sequência e Golpe em Dobro (NP 3), Chuva Estelar (NP 5) e o feitiço supremo Estrela Final (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Estrela Final pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Quem conta os golpes perde a conta lá pelo trigésimo. Você não.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -98,7 +98,8 @@
       "flags": {
         "eternia": {
           "trait": {
-            "magia": "combo-estelar"
+            "magia": "combo-estelar",
+            "combo": true
           },
           "immune": [
             "staggered",

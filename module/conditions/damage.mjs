@@ -330,6 +330,12 @@ export const healingHurts = actor => rulesOn() && has(actor, "inversion");
  * @returns {Promise<{loss: number, line: string}|null>}
  */
 export async function agonyPain(actor, { silent = false } = {}) {
+  /**
+   * An actor got relief: it recovered HP or got rid of a Bad Status (every point [Agony] hurts at). The Decree of
+   * Patience watches it (conditions/decree.mjs). Only on this client.
+   * @param {Actor} actor
+   */
+  if (actor) Hooks.callAll("eternia.relieved", actor);
   const n = rulesOn() ? rating(actor, "agony") : 0;
   if ((n <= 0) || !actor || actor.statuses.has("dead")) return null;
   return takeDamage(actor, n, { reason: "agony", silent });

@@ -21,15 +21,14 @@
  *              move: a pull, a push)                                                       [Petrified]
  *   devocao    engaged with the bearer, uses a hostile skill on others (not on the bearer) [Dominated] by the bearer
  *   pacifismo  takes a creature to 0 HP with a damage card                                  [Doom: 3]
- *   paciencia  recovers HP (a healing card) or gets rid of a Bad Status                     [Agony: NP]
+ *   paciencia  recovers HP or gets rid of a Bad Status (eternia.relieved: where [Agony] hurts) [Agony: NP]
  *   repouso    uses a hostile skill in two rounds in a row                                  [Sealed] on that skill
  *   silencio   uses a reaction: Instant, Before / After Check, Damage Roll, Before / After Damage [Silenced]
  *   pureza     uses a hostile skill on a [Prone], [Grappled], [Paralyzed], [Asleep] or [Petrified] target [Poisoned: NP]
  *   desapego   has two Combat Statuses or more (gets the second bonus)                      [Amnesia]; loses them all
  *   fe         ends its Main Process without having used a hostile skill that round        [Blinded], [Burning: NP÷2 + 2]
  * A curse that ends at the end of the breaker's own Main Process, given during that Main Process, lasts through the
- * next one (`flags.eternia.decreeHold`): the deletion at the end of the Main Process it was given in is turned down.
- * Every curse carries `flags.eternia.decreeCurse = { by, decree }`: a spell's `bonusVs` entry with `decreeOf` hits
+ * next one (`flags.eternia.nextTurn`, conditions/turns.mjs). Every curse carries `flags.eternia.decreeCurse = { by, decree }`: a spell's `bonusVs` entry with `decreeOf` hits
  * harder whoever is under a curse of its caster (the Magia's Trait), and Mandamento Materializado gives on a hit the
  * curses of its caster's own Decrees (`flags.eternia.decreeCurse` on the spell, helpers/magic-traits.mjs).
  *
@@ -38,7 +37,7 @@
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isLocalChange, isPrimaryGM } from "../helpers/clients.mjs";
-import { actorName, combatActors, combatantOf, combatOf, postSummary, toInt } from "../helpers/utils.mjs";
+import { actorName, combatActors, combatOf, postSummary, toInt } from "../helpers/utils.mjs";
 import { evaluateFormula, formulaData, isFormula } from "../helpers/effect-formulas.mjs";
 import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { statusDefinition } from "../helpers/statuses.mjs";
@@ -251,9 +250,8 @@ async function onBreakRequest({ bearerUuid, breakerUuid, decree, skill }) {
  * @param {string} decree
  * @param {object} [options]
  * @param {string} [options.skill]
- * @param {object|null} [options.hold]
  */
-function curseEffect(entry, bearer, decree, { skill = "", hold = null } = {}) {
+function curseEffect(entry, bearer, decree, { skill = "" } = {}) {
   const value = isFormula(entry.value) ? Math.max(1, evaluateFormula(entry.value, formulaData(bearer, null)) ?? 1)
     : (toInt(entry.value) || null);
   const tag = entry.skill ? skill : "";
@@ -270,18 +268,11 @@ function curseEffect(entry, bearer, decree, { skill = "", hold = null } = {}) {
         statusData, expires: "endOfScene", itemUse: true,
         source: { itemUuid: "", itemName: decreeName(decree), casterUuid: bearer.uuid, useId: foundry.utils.randomID() },
         decreeCurse: { by: bearer.uuid, decree },
-        ...(hold && END_OF_OWN_PROCESS.includes(entry.statusId) ? { decreeHold: hold } : {})
+        // Given during the breaker's own Main Process, it lasts through the next one (conditions/turns.mjs)
+        ...(END_OF_OWN_PROCESS.includes(entry.statusId) ? { nextTurn: true } : {})
       }
     }
   };
-}
-
-/** The Main Process an actor is taking now ({ combat, round, active }), or null. */
-function ownProcess(actor) {
-  const combat = combatOf(actor);
-  const combatant = combat ? combatantOf(combat, actor) : null;
-  if (!combatant || (combat.phase !== "main") || (combat.progress.active !== combatant.id)) return null;
-  return { combat: combat.id, round: combat.round, active: combatant.id };
 }
 
 /**
@@ -303,8 +294,7 @@ async function curse(bearer, breaker, decree, { skill }) {
       parts.push(L("Decree.Bonuses", { statuses: bonuses.map(label).join(", ") }));
     }
   }
-  const hold = ownProcess(breaker);
-  const effects = CURSES[decree].map(entry => curseEffect(entry, bearer, decree, { skill, hold }));
+  const effects = CURSES[decree].map(entry => curseEffect(entry, bearer, decree, { skill }));
   const created = (await breaker.createEmbeddedDocuments("ActiveEffect", effects)) ?? [];
   parts.unshift(created.length ? created.map(e => e.name).join(", ") : L("Decree.Immune"));
   // Revelar o Mandamento: whoever breaks it also takes direct damage
@@ -349,21 +339,9 @@ function onDefeated(actor, card) {
   breakAll(breaker, "pacifismo").catch(err => console.error(`${SYSTEM_ID} | Decree of Pacifism failed`, err));
 }
 
-/** Patience: whoever recovers HP. */
-function onHealed(actor, card, { amount = 0 } = {}) {
-  if (amount <= 0) return;
+/** Patience: whoever recovers HP or gets rid of a Bad Status (the points [Agony] hurts at: conditions/damage.mjs). */
+function onRelieved(actor) {
   breakAll(actor, "paciencia").catch(err => console.error(`${SYSTEM_ID} | Decree of Patience failed`, err));
-}
-
-/**
- * Patience: whoever gets rid of a Bad Status (an action, an effect that removes statuses). For the conditions that
- * free an actor (conditions/recovery.mjs…).
- * @param {Actor} actor
- * @param {string[]} statuses
- */
-export async function freedFrom(actor, statuses = []) {
-  if (!statuses.some(id => statusDefinition(id)?.group === "bad")) return;
-  await breakAll(actor, "paciencia");
 }
 
 /**
@@ -450,16 +428,6 @@ async function onUpdateCombat(combat, changes, options, userId) {
   if (!attacked) await breakAll(actor, "fe");
 }
 
-/** A held curse is not taken away at the end of the Main Process it was given in: it lasts through the next one. */
-function onPreDeleteEffect(effect) {
-  const hold = flag(effect, "decreeHold");
-  if (!hold || !(effect.parent instanceof Actor)) return;
-  const combat = game.combats?.get(hold.combat);
-  if (!combat?.started || (combat.round !== hold.round) || !combat.progress.acted.includes(hold.active)) return;
-  effect.unsetFlag(SYSTEM_ID, "decreeHold").catch(() => null);
-  return false;
-}
-
 /** Os Dez Mandamentos and the like: `decreeRounds` counts down in each Cleanup Process, and the effect ends at 0. */
 async function onCombatPhase(combat, after, before) {
   if (!isPrimaryGM() || (after?.phase !== "cleanup") || !before) return;
@@ -530,13 +498,12 @@ export function registerDecree() {
   registerHandler("decreeBreak", onBreakRequest);
   Hooks.on("eternia.damaged", onDamaged);
   Hooks.on("eternia.defeated", onDefeated);
-  Hooks.on("eternia.healed", onHealed);
+  Hooks.on("eternia.relieved", onRelieved);
   Hooks.on("eternia.skillUsed", (...args) => onSkillUsed(...args).catch(err => console.error(`${SYSTEM_ID} | Decrees failed`, err)));
   Hooks.on("preUpdateToken", onPreUpdateToken);
   Hooks.on("updateToken", onUpdateToken);
   Hooks.on("createActiveEffect", onCreateEffect);
   Hooks.on("preUpdateCombat", onPreUpdateCombat);
   Hooks.on("updateCombat", (...args) => onUpdateCombat(...args).catch(err => console.error(`${SYSTEM_ID} | Decree of Faith failed`, err)));
-  Hooks.on("preDeleteActiveEffect", onPreDeleteEffect);
   Hooks.on("eternia.combatPhase", (...args) => onCombatPhase(...args).catch(err => console.error(`${SYSTEM_ID} | Decree rounds failed`, err)));
 }
