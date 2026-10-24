@@ -15,6 +15,8 @@
   dele; a flag `nextTurn` faz o mesmo com os outros estados que acabam no fim do turno.
 - Flags: `keepCombo`, `comboGain`, `comboPerTarget`, o Traço `combo` e `selfBonus.spend: "free"`; a fórmula
   `@hpLost`; os estados de contagem (`tally`).
+- Ganchos `eternia.recovered`, `eternia.freed`, `eternia.attacked` e `eternia.processEnd`; o registro dos ataques de
+  cada ator (`flags.eternia.attacked`); `breathsLeft` e `giveUpBreaths` para o Fôlego Extra.
 
 ### Alterado
 - Os dados de dano que uma condição dá (o Ritmo) entram na rolagem de dano.

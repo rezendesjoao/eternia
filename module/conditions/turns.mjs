@@ -21,8 +21,10 @@
  *   END_OF_ROUND end (automation/round.mjs calls cleanupConditions).
  * - A Major Action: [Shocked] deals its Rating as direct damage; it ends [Intangible] and [Hidden] (not the
  *   [Hidden] of a skill that keeps it: the Fumaça's Trait, see helpers/magic-traits.mjs).
- * - Attack cards (on the primary GM): once every target of one is resolved, the [Combo] of its attacker grows (1, or
- *   the skill's `comboGain`, per target hit with `comboPerTarget`) when it hit anyone and breaks when it hit no one.
+ * - Attack cards (on the primary GM): the attacker's record of attacks (`flags.eternia.attacked = { combat, round,
+ *   previous }`: the rounds of its last attack and of the one before, in that combat) and the hook `eternia.attacked`;
+ *   once every target of one is resolved, the [Combo] of its attacker grows (1, or the skill's `comboGain`, per target
+ *   hit with `comboPerTarget`) when it hit anyone and breaks when it hit no one.
  * - Stacks: the third [Freezing] freezes ([Paralyzed]); the third [Fissured] breaks the guard ([Exposed], no
  *   [Barrier]); the stacks are cleared.
  * - [Awakened] and [Impetus] end with [Fatigue] equal to their Rating (not when an update says
@@ -215,7 +217,7 @@ export async function endOwnProcess(actor, combat) {
     }
   }
   const combo = rating(actor, "combo");
-  if ((combo > 0) && (actor.getFlag(SYSTEM_ID, "comboRound") !== roundKey(combat))) {
+  if ((combo > 0) && !attackedThisRound(actor, combat)) {
     await actor.update({ "system.bad-status.combo": 0 });
     lines.push(L("Conditions.ComboFades", { name: actorName(actor) }));
   }
@@ -225,6 +227,40 @@ export async function endOwnProcess(actor, combat) {
 /* -------------------------------------------- */
 /*  [Combo]                                     */
 /* -------------------------------------------- */
+
+/**
+ * Whether an actor attacked (declared an attack card) in the current round of a combat.
+ * @param {Actor} actor
+ * @param {Combat} combat
+ * @returns {boolean}
+ */
+export function attackedThisRound(actor, combat) {
+  const record = actor?.getFlag(SYSTEM_ID, "attacked");
+  return !!combat && (record?.combat === combat.id) && (record.round === combat.round);
+}
+
+/**
+ * An actor declared an attack: its record of attacks (`flags.eternia.attacked = { combat, round, previous }`, the
+ * rounds of its last attack and of the one before it in that combat), then the hook `eternia.attacked`.
+ * @param {Actor} attacker
+ * @param {ChatMessage} message
+ */
+async function recordAttack(attacker, message) {
+  const combat = combatOf(attacker);
+  if (!combat) return;
+  const last = attacker.getFlag(SYSTEM_ID, "attacked");
+  const same = last?.combat === combat.id;
+  const previous = !same ? null : ((last.round === combat.round) ? (last.previous ?? null) : last.round);
+  const record = { combat: combat.id, round: combat.round, previous };
+  await attacker.setFlag(SYSTEM_ID, "attacked", record);
+  /**
+   * An actor declared an attack in a combat (a Decree that punishes two attacks in a row listens): `round` is now,
+   * `previous` the round of the attack before it in the same combat (null if none). Only on the primary GM.
+   * @param {Actor} attacker
+   * @param {{message: ChatMessage, combat: string, round: number, previous: number|null}} context
+   */
+  Hooks.callAll("eternia.attacked", attacker, { message, ...record });
+}
 
 /** Whether an actor counts its hits: it has [Combo], or a Trait with `combo` (the Magia that builds it). */
 function countsCombo(actor) {
@@ -236,9 +272,9 @@ function countsCombo(actor) {
 const comboCounted = new Set();
 
 /**
- * An attack card was made or changed (a character's Dodge Check): its attacker attacked this round; once every target
- * is resolved, its [Combo] grows when it hit anyone (1 by default; the skill's `comboGain`, times the targets hit with
- * `comboPerTarget`) and breaks when it hit no one. On the primary GM, once per card.
+ * An attack card was made or changed (a character's Dodge Check): made, its attacker attacked (recordAttack); once
+ * every target is resolved, its [Combo] grows when it hit anyone (1 by default; the skill's `comboGain`, times the
+ * targets hit with `comboPerTarget`) and breaks when it hit no one. On the primary GM, once per card.
  * @param {ChatMessage} message
  * @param {boolean} created
  */
@@ -247,9 +283,9 @@ async function onAttackCard(message, created) {
   if (!data?.targets?.length || !rulesOn() || !isPrimaryGM()) return;
   const item = data.itemUuid ? await fromUuid(data.itemUuid).catch(() => null) : null;
   const attacker = item?.actor ?? ChatMessage.getSpeakerActor(message.speaker);
-  if (!attacker || !countsCombo(attacker)) return;
-  const combat = combatOf(attacker);
-  if (created && combat) await attacker.setFlag(SYSTEM_ID, "comboRound", roundKey(combat));
+  if (!attacker) return;
+  if (created) await recordAttack(attacker, message);
+  if (!countsCombo(attacker)) return;
   if (data.targets.some(t => typeof t.hit !== "boolean")) return;
   if (comboCounted.has(message.id) || message.getFlag(SYSTEM_ID, "comboCounted")) return;
   comboCounted.add(message.id);

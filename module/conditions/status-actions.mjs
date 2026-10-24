@@ -11,8 +11,8 @@
  *                                     addStatus, up to its top), given when the actor doesn't have it: the [Rhythm] of the
  *                                     Dança do Rei Gigante.
  *   { type: "cancelSpells" }          the effects spells gave go: the good ones from an enemy of the user, the bad ones
- *                                     (they give a Bad Status) from an ally or the user, whose [Agony] hurts then. The
- *                                     Cancelamento Absoluto.
+ *                                     (they give a Bad Status) from an ally or the user, who is then freed of them (the
+ *                                     `eternia.freed` hook) and whose [Agony] hurts. The Cancelamento Absoluto.
  * A Rating set here goes to the status's field and to the effects that carry it (the highest, or the sum when it
  * stacks), so that one of them ending later leaves the right Rating.
  */
@@ -20,7 +20,7 @@ import { L, SYSTEM_ID } from "../settings.mjs";
 import { LH_STATUSES, statusDefinition } from "../helpers/statuses.mjs";
 import { ratedBadStatuses } from "../helpers/magic-traits.mjs";
 import { actorName, toInt } from "../helpers/utils.mjs";
-import { agonyPain } from "./damage.mjs";
+import { agonyPain, freed } from "./damage.mjs";
 import { endsSoon, mayLast, renewStatuses } from "./lasting.mjs";
 import { isSpell } from "./rolls.mjs";
 import { addStatus, has, rating, removeStatuses, sameActor } from "./rules.mjs";
@@ -146,10 +146,13 @@ async function cancelSpells(actor, caster) {
   const gone = actor.effects.filter(e => fromSpell(e) && (givesBad(e) === ally));
   if (!gone.length) return null;
   const names = [...new Set(gone.map(e => e.name))];
-  const agony = gone.some(e => e.statuses?.has("agony") || (flag(e, "statusData")?.statusId === "agony"));
+  const given = [...new Set(gone.flatMap(e => [...(e.statuses ?? []), flag(e, "statusData")?.statusId]).filter(Boolean))];
   await actor.deleteEmbeddedDocuments("ActiveEffect", gone.map(e => e.id));
   const line = L("Conditions.Actions.Cancel", { name: actorName(actor), effects: names.join(", ") });
-  // [Agony]: getting rid of a Bad Status hurts (not when the Agony itself goes)
-  const pain = (ally && !agony) ? await agonyPain(actor, { silent: true }) : null;
+  if (!ally) return line;
+  // The Bad Statuses it got rid of (the hook), and its [Agony] hurts (not when the Agony itself goes)
+  const ended = given.filter(id => (statusDefinition(id)?.group === "bad") && !has(actor, id));
+  freed(actor, ended);
+  const pain = (ended.length && !ended.includes("agony")) ? await agonyPain(actor, { silent: true }) : null;
   return pain ? `${line} · ${pain.line}` : line;
 }
