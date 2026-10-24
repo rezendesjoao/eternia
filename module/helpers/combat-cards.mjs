@@ -25,8 +25,8 @@ import { mainWeapon, parseRange } from "./hands.mjs";
 import { skillModifiers } from "./roll-bonuses.mjs";
 import { hateRank } from "./effect-conditions.mjs";
 import { applyModifier, consumeAfterRoll, dodgeModifier } from "../conditions/rolls.mjs";
-import { afterDamage, agonyPain, beforeDamage, cloneDecoy, counterBack, healBlocker, healingHurts, markDamage, restoreForUndo,
-  snapshotForUndo, takeDamage, takeHealing } from "../conditions/damage.mjs";
+import { afterDamage, agonyPain, beforeDamage, cloneDecoy, counterBack, healBlocker, healingHurts, markDamage, recovered,
+  restoreForUndo, snapshotForUndo, takeDamage, takeHealing } from "../conditions/damage.mjs";
 import { consumedBy, passiveCancels, passiveWeaknesses, stealStatuses } from "../conditions/effects.mjs";
 import { statusEffectData } from "../chat/status-links.mjs";
 import { motorDamageTags, motorOnHit } from "../classes/motor.mjs";
@@ -708,6 +708,7 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
       amount: hp - before.hp, healer: card.attackerUuid ? fromUuidSync(card.attackerUuid) : null,
       item: card.itemUuid ? fromUuidSync(card.itemUuid) : null
     });
+    recovered(actor, hp - before.hp, { what: card.skillName, from: card.attackerUuid ? fromUuidSync(card.attackerUuid) : null });
     // [Agony]: getting HP back hurts.
     const pain = (hp > before.hp) ? await agonyPain(actor, { silent: true }) : null;
     if (pain) lines.push(pain.line);
@@ -874,6 +875,7 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   for (const fn of after.after) await fn();
   if (countered) await countered.after();
   // [Agony]: the healing of an [Inversion] hurts too.
+  if (healed > 0) recovered(actor, healed, { what: card.skillName, from: card.attackerUuid ? fromUuidSync(card.attackerUuid) : null });
   const pain = (healed > 0) ? await agonyPain(actor, { silent: true }) : null;
   if (pain) lines.push(pain.line);
   const attacker = card.attackerUuid ? fromUuidSync(card.attackerUuid) : null;

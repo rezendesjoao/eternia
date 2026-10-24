@@ -140,6 +140,24 @@ as flags de golpe, nos cartões de dano: `helpers/combat-cards.mjs`, `helpers/ma
 - **Clones** (`clones`, contagem até 6): `cloneDecoy` rola 1d6 em cada cartão de dano; até o Valor, o golpe acerta
   uma cópia (nada chega) e o Valor cai 1 (o Desfazer devolve). +Valor no dano dos ataques corpo a corpo.
 - **Fórmula** `@hpLost`: os PV que faltam (PV máximo − PV).
+- **Fôlego Extra:** `extraBreaths(actor)` (por efeito: `uses`, `left`, `per`, `hp`), `breathsLeft(actor, effect?)` e
+  `giveUpBreaths(actor, n?, { effect })` (entrega usos sem cair: a transformação que gasta os corações que restam), em
+  `conditions/damage.mjs`.
+
+## Ganchos das condições
+
+Rodam só no cliente que fez a mudança (o dono do ator ou o Mestre).
+
+| Gancho | Argumentos | Quando |
+|---|---|---|
+| `eternia.recovered` | `actor, { amount, what, from }` | o ator recuperou PV: cartão de cura, Regeneração do Encerramento, `takeHealing` (Dreno), a cura da Inversão |
+| `eternia.freed` | `actor, { statuses, by }` | saíram Estados Negativos: pelo Livrar-se (`by: "action"`) ou por um efeito que remove estados (`"effect"`) |
+| `eternia.attacked` | `attacker, { message, combat, round, previous }` | o Mestre principal registrou um cartão de ataque (`flags.eternia.attacked`; `previous` = a rodada do ataque anterior no mesmo combate) |
+| `eternia.processEnd` | `actor, combat, { attacked, lost }` | acabou o turno do ator (depois do Ímpeto e do Combo); `lost`: perdeu o turno para um estado |
+| `eternia.revived` | `actor, { effect, hp, left }` | gastou um Fôlego Extra |
+| `eternia.damaged`, `eternia.defeated`, `eternia.healed` | (veja `helpers/combat-cards.mjs`) | o cartão de dano tirou PV, levou a 0, curou |
+
+`attackedThisRound(actor, combat)` (`conditions/turns.mjs`) diz se o ator atacou na rodada atual.
 
 ## Para macros
 
