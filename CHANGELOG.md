@@ -1,5 +1,29 @@
 # Changelog
 
+## Não lançado
+
+### Adicionado
+- Onze condições para as Magias das categorias altas, com ícones próprios (52 no total): [Petrificado] (perde o
+  turno, falha nas Esquivas, metade do dano), [Pacificado] (os golpes não ferem), [Agonia: n] (curar-se ou
+  livrar-se de um Estado Negativo dói), [Amnésia] (só as habilidades básicas), [Pesadelo: n] (perde o turno, dano
+  no Encerramento, o dano não acorda), [Ímpeto: n] (sobe a cada turno; passou do NP, Fúria; deixa Fadiga),
+  [Combo: n] (cada acerto soma, errar ou apanhar zera), [Intocável] (sem dano mágico), [Inversão] (o dano mágico
+  cura e a cura fere), [Ritmo: n] (+n d6 no próximo feitiço) e [Clones: n] (uma cópia toma o golpe).
+- O Fôlego Extra (`flags.eternia.revive`): ao chegar a 0 PV, fica com alguns PV e gasta um uso, por rodada ou por
+  cena; o gancho `eternia.revived`.
+- Petrificado, Amnésia e Pesadelo que chegam no próprio turno de quem os recebe duram até o fim do próximo turno
+  dele; a flag `nextTurn` faz o mesmo com os outros estados que acabam no fim do turno.
+- Flags: `keepCombo`, `comboGain`, `comboPerTarget`, o Traço `combo` e `selfBonus.spend: "free"`; a fórmula
+  `@hpLost`; os estados de contagem (`tally`).
+- Ganchos `eternia.recovered`, `eternia.freed`, `eternia.attacked` e `eternia.processEnd`; o registro dos ataques de
+  cada ator (`flags.eternia.attacked`); `breathsLeft` e `giveUpBreaths` para o Fôlego Extra.
+
+### Alterado
+- Os dados de dano que uma condição dá (o Ritmo) entram na rolagem de dano.
+- A Deterioração do Encerramento respeita o Último Fôlego e o Fôlego Extra.
+- O Despertado só deixa Fadiga na atualização que o tira (antes, duas atualizações ao mesmo tempo podiam cobrar
+  duas vezes).
+
 ## 0.27.0 — 2026-10-24
 
 ### Adicionado

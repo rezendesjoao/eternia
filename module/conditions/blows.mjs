@@ -12,7 +12,8 @@
  * On an effect of the attacker (a Taboo, `conditions: inCombat`):
  *   noKill    true: its damage cards stop at 1 HP. Only the conditions fell (the Praga's Taboo).
  * On a defender's effect:
- *   healingHurts "allySpell": the healing an ally's spell would give turns into direct damage (O Soberano's Taboo).
+ *   healingHurts "allySpell": the healing an ally's spell would give turns into direct damage (O Soberano's Taboo;
+ *             the card's healing branch treats it like [Inversion]: allySpellHurts).
  * And the conditional on-hit statuses (hitStatuses): `targetTags` (only on a target with one of the tags) and
  * `belowHp` (only on a target that ends the hit with that many HP or less, worked out when the card is made).
  */
@@ -135,13 +136,13 @@ export function hitApplies(actor, status, hp) {
  * a [Spell] of an ally, not the actor's own; O Soberano's Taboo, in a combat).
  * @param {Actor} actor
  * @param {object} card     The damage card data (healing)
- * @returns {boolean}
+ * @returns {string|null}   The name of the effect that turns it, or null
  */
-export function healingHurts(actor, card) {
-  if (!rulesOn() || !card?.recovery) return false;
-  const kinds = [...(actor?.allApplicableEffects?.() ?? [])].filter(e => e.active).map(e => e.getFlag(SYSTEM_ID, "healingHurts")).filter(Boolean);
-  if (!kinds.includes("allySpell")) return false;
+export function allySpellHurts(actor, card) {
+  if (!rulesOn() || !card?.recovery) return null;
+  const taboo = [...(actor?.allApplicableEffects?.() ?? [])].find(e => e.active && (e.getFlag(SYSTEM_ID, "healingHurts") === "allySpell"));
+  if (!taboo) return null;
   const { item, attacker } = cardSource(card);
-  if (!attacker || sameActor(attacker, actor) || !areAllies(attacker, actor)) return false;
-  return (item?.system?.tags ?? []).some(t => String(t).toLowerCase() === "spell");
+  if (!attacker || sameActor(attacker, actor) || !areAllies(attacker, actor)) return null;
+  return (item?.system?.tags ?? []).some(t => String(t).toLowerCase() === "spell") ? taboo.name : null;
 }

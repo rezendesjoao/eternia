@@ -28,6 +28,9 @@ const ICONS_PATH = "systems/eternia/assets/ui/status";
  * @property {string[]} [types]  Actor types that show this status in their sheet (default: all).
  * @property {string} [family]   Family of a Bad Status, for the status panel (see conditions/catalog.mjs).
  * @property {number} [stack]    The Rating adds up with every application, up to this many stacks.
+ * @property {boolean} [tally]   With `stack`: a running count kept in the field ([Impetus], [Combo]…), which the
+ *                               rules change directly: an effect of it that goes doesn't take its value back, and
+ *                               one that comes when the status isn't on starts the count from 0.
  * @property {boolean} [source]  The status acts against or through the character who gave it.
  */
 
@@ -370,13 +373,15 @@ function _queueFieldUpdate(actor, status, fn) {
   return next;
 }
 
-async function _applyStatusDataOnCreate(actor, status, statusData) {
+async function _applyStatusDataOnCreate(actor, status, statusData, createdEffect) {
   const value = _fieldValue(actor, status);
   if (value === undefined) return;
 
   if (status.rated && status.stack) {
     const effVal = Math.floor(Number(statusData.value) || 0) || 1;
-    const currentVal = Number(value) || 0;
+    // A count that wasn't on (no other effect shows it) starts from 0, whatever its field kept.
+    const others = status.tally && actor.effects.some(e => (e.id !== createdEffect?.id) && e.statuses.has(status.id));
+    const currentVal = (status.tally && !others) ? 0 : (Number(value) || 0);
     const next = Math.min(currentVal + effVal, status.stack);
     if (next !== currentVal) await actor.update({ [`system.${status.path}`]: next });
   } else if (status.rated) {
@@ -423,6 +428,8 @@ async function _applyStatusDataOnDelete(actor, status, statusData, deletedEffect
       currentList.splice(index, 1);
       await actor.update({ [`system.${status.path}`]: currentList });
     }
+  } else if (status.rated && status.stack && status.tally) {
+    // A running count: the field stays as it is (the rule that ends it, or the end of the scene, clears it).
   } else if (status.rated && status.stack) {
     const currentVal = Number(value) || 0;
     const effVal = Math.floor(Number(statusData.value) || 0) || 1;
@@ -467,7 +474,7 @@ function _onStatusEffectChange(effect, created, options, userId) {
       handledStatuses.add(status.id);
       _queueFieldUpdate(actor, status, async () => {
         if (created) {
-          await _applyStatusDataOnCreate(actor, status, statusData);
+          await _applyStatusDataOnCreate(actor, status, statusData, effect);
         } else {
           await _applyStatusDataOnDelete(actor, status, statusData, effect);
         }

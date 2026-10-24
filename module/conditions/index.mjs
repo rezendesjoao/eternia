@@ -1,5 +1,5 @@
 /**
- * The conditions of Eternia (docs/condicoes.md): 31 statuses added to the 23 of the base rules, every one of them
+ * The conditions of Eternia (docs/condicoes.md): 52 statuses added to the 23 of the base rules, every one of them
  * automated.
  * - catalog.mjs     the new statuses and what each status does (tables read by the other parts);
  * - rules.mjs       whether an actor has a status, its Rating, who gave it, the settings;

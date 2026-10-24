@@ -24,7 +24,10 @@ export const LINKABLE = {
   dominated: {},
   // The conditions of 0.27 (the Sun clock, the Counter, the Grudge, the Black Flame)
   blackFlame: { rated: true }, sun: { rated: true }, theOne: { rated: true }, counter: { tagged: true },
-  grudge: { rated: true }
+  grudge: { rated: true },
+  // The conditions shared by the Magias of the high categories (0.28)
+  petrified: {}, pacified: {}, agony: { rated: true }, amnesia: {}, nightmare: { rated: true }, impetus: { rated: true },
+  combo: { rated: true }, untouchable: {}, inversion: {}, rhythm: { rated: true }, clones: { rated: true }
 };
 
 /** Extra names some texts use. */
@@ -41,5 +44,9 @@ export const SYNONYMS = {
   soak: "soaked", molhado: "soaked", weaken: "weakened", enfraquecer: "weakened", dominate: "dominated",
   dominação: "dominated", servo: "servant",
   "fogo negro": "blackFlame", "chamas negras": "blackFlame", hellblaze: "blackFlame", "the one": "theOne",
-  "contra-ataque": "counter", vingança: "grudge"
+  "contra-ataque": "counter", vingança: "grudge",
+  petrify: "petrified", petrificação: "petrified", pedra: "petrified", pacify: "pacified", pacificar: "pacified",
+  "dor": "agony", amnésia: "amnesia", esquecimento: "amnesia", pesadelos: "nightmare", ímpeto: "impetus",
+  "sequência": "combo", intocáveis: "untouchable", inverter: "inversion", invertido: "inversion", dança: "rhythm",
+  clone: "clones", cópias: "clones"
 };
