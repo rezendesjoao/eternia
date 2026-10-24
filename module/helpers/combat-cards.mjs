@@ -29,6 +29,7 @@ import { afterDamage, agonyPain, beforeDamage, cloneDecoy, counterBack, healBloc
   restoreForUndo, snapshotForUndo, takeDamage, takeHealing } from "../conditions/damage.mjs";
 import { consumedBy, passiveCancels, passiveWeaknesses, stealStatuses } from "../conditions/effects.mjs";
 import { allySpellHurts, blowOutcome, hitApplies } from "../conditions/blows.mjs";
+import { coverFor, healTaken } from "../conditions/immortal.mjs";
 import { statusEffectData } from "../chat/status-links.mjs";
 import { motorDamageTags, motorOnHit } from "../classes/motor.mjs";
 import { evaluateFormula, formulaData, isFormula } from "./effect-formulas.mjs";
@@ -706,10 +707,11 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
       lines.push(game.i18n.format("ETERNIA.Conditions.NoHeal", { name: actor.token?.name ?? actor.name, status: statusLabel(blocker) }));
       return postApplied(actor, card, before, lines, "+0 HP");
     }
-    // A Trait's healing bonus (helpers/magic-traits.mjs)
-    const hp = Math.min(before.hp + card.total + (card.recovery ? Math.max(0, toInt(card.bonus)) : 0), toInt(system.health.max));
+    // A Trait's healing bonus (helpers/magic-traits.mjs); a Tabu that halves it (conditions/immortal.mjs)
+    const healing = healTaken(actor, card.total + (card.recovery ? Math.max(0, toInt(card.bonus)) : 0));
+    const hp = Math.min(before.hp + healing.amount, toInt(system.health.max));
     await actor.update({ "system.health.value": hp });
-    lines.push(`${L("Applied.Heal")}: +${hp - before.hp} HP`);
+    lines.push(`${L("Applied.Heal")}: +${hp - before.hp} HP${healing.note}`);
     if ((hp > 0) && before.incapacitated) await actor.toggleStatusEffect("incapacitated", { active: false });
     /**
      * A damage card's healing gave HP back (the class Motors). Only on this client.
@@ -793,16 +795,20 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
     amount = Math.floor(amount / 2);
     steps.push(`÷ 2 ${statusLabel("petrified")}`);
   }
+  // [Flesh Shield]: an ally takes the blow instead (conditions/immortal.mjs), nothing of it reaches the defender.
+  const covered = condition.untouched ? null : coverFor(actor, card, amount);
+  if (covered) amount = 0;
   // [Counter]: the damage goes back to the attacker, doubled, and nothing of the attack reaches the defender.
-  const countered = condition.counter ? counterBack(actor, card, condition.counter, amount) : null;
+  const countered = (condition.counter && !covered) ? counterBack(actor, card, condition.counter, amount) : null;
   if (countered) amount = 0;
-  const untouched = !!countered || condition.untouched;
+  const untouched = !!countered || !!covered || condition.untouched;
   // [Inversion]: the magic damage heals instead (after the Defense and [Cancel], before [Barrier]).
   const inverted = (condition.invert && !condition.immune) ? amount : 0;
   if (inverted) amount = 0;
   const absorbed = hit(amount);
   if (absorbed) steps.push(`− ${absorbed} ${game.i18n.localize("ETERNIA.StatusEffect.barrier")}`);
   lines.push(`${L(direct ? "Mode.direct" : "Applied.Damage")}: ${steps.join(" ")} → ${amount - absorbed} HP`);
+  if (covered) lines.push(covered.line);
   if (countered) lines.push(countered.line);
   if (inverted) lines.push(game.i18n.format("ETERNIA.Conditions.Applied.Inverted", { n: inverted }));
   if (pierceBarrier && (barrier > 0) && !condition.immune) {
@@ -896,6 +902,7 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   });
   if ((before.hp > 0) && (hp <= 0)) Hooks.callAll("eternia.defeated", actor, card);
   for (const fn of after.after) await fn();
+  if (covered) await covered.after();
   if (countered) await countered.after();
   // [Agony]: the healing of an [Inversion] hurts too.
   if (healed > 0) recovered(actor, healed, { what: card.skillName, from: card.attackerUuid ? fromUuidSync(card.attackerUuid) : null });

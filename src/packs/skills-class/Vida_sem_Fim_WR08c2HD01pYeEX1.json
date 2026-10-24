@@ -1,0 +1,116 @@
+{
+  "name": "Vida sem Fim",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Fonte da Juventude.</strong> Feitiço grande. Você se atira no meio dos inimigos sem se importar com as feridas, numa área a até 2 Qd de você: Teste de Precisão contra a Esquiva de cada alvo; [4d6 + Poder Mágico] de dano mágico. O preço: ao usar, você fica [Exposto] até o Encerramento (sem Defesa nem Anulação).</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Eles acertam você o tempo todo. Não faz diferença nenhuma.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "2Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/unholy/strike-beam-blood-red-teal.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "onUse": true,
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Vida sem Fim",
+      "img": "systems/eternia/assets/ui/status/exposed.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "exposed"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "Ocjw1As1u43OLGnb",
+      "_key": "!items.effects!WR08c2HD01pYeEX1.Ocjw1As1u43OLGnb"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "fonte-juventude-vida",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "fonte-juventude"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "WR08c2HD01pYeEX1",
+  "folder": "qM8BHh8Yat3EWWEA",
+  "_key": "!items!WR08c2HD01pYeEX1"
+}

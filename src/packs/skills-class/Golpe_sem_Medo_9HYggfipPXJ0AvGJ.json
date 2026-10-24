@@ -1,0 +1,72 @@
+{
+  "name": "Golpe sem Medo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Fonte da Juventude.</strong> Você não se defende: deixa o golpe dele entrar e entra junto. Ao usar, você paga [NP×2] PV (nunca o último); depois, contra um inimigo engajado com você: Teste de Precisão contra a Esquiva; [3d6 + Poder Mágico + NP×2] de dano mágico.</p><p><strong>Custo:</strong> Ódio 2 e [NP×2] PV.</p><hr><p><em>Dói. Depois para de doer. Com você, sempre para.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": "@cr*2",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/abilities/stinger-spine-horn-blood.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "fonte-juventude-golpe",
+      "kind": "feeds",
+      "branch": "magic",
+      "hpCost": "@cr*2",
+      "magicSpell": {
+        "id": "fonte-juventude"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      },
+      "damageText": "3d6 + [Poder Mágico] + NP×2 Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "9HYggfipPXJ0AvGJ",
+  "folder": "qM8BHh8Yat3EWWEA",
+  "_key": "!items!9HYggfipPXJ0AvGJ"
+}

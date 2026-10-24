@@ -1,0 +1,121 @@
+{
+  "name": "Caos",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Ancestral.</strong> O poder que veio antes de todos os outros: o Caos, de onde nasceram as deusas, os demônios, as fadas e os gigantes. Quem o carrega não aprende feitiços prontos: cria do nada o que precisa, na hora em que precisa. Uma lança, uma muralha, correntes, um gato que muda de forma, uma boca que engole golpes, um pedaço do mundo que obedece às suas regras. Só uma coisa ele não controla: quando reescreve a própria realidade, o que nasce é sorte.</p><ul><li><strong>Ancestral:</strong> o feitiço supremo só chega no NP 10, e bate mais forte que os das outras Magias.</li><li><strong>Criar na hora:</strong> cada feitiço de Caos pede uma escolha, a forma que nasce: quando é usado ou, nos que pedem teste, quando você aplica os efeitos em quem ele acertou. A Realidade Reescrita é a única que não escolhe: ela sorteia.</li><li><strong>O Reino do Caos:</strong> por uma cena, o espaço a até 3 Qd de você segue a regra que você escolhe, na hora e na Manutenção de cada rodada, sem Esquiva.</li><li><strong>Traço, Rei do Caos:</strong> você é imune a [Dominado] e aos Decretos dos Mandamentos (as leis dos outros não valem para quem cria as leis), e os seus feitiços de Caos causam +NP÷2 de dano em quem está [Agarrado].</li><li><strong>Feitiços:</strong> Forma do Caos e Gato do Caos (NP 1), Boca do Caos (NP 3), Reino do Caos (NP 5), Realidade Reescrita (NP 7) e o feitiço supremo O Mundo Recriado (NP 10).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Mundo Recriado pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Antes de existir o mundo, existia isto. Na sua mão, ele ainda não decidiu o que vai ser.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/slimes/slime-movement-swirling-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "caos",
+            "decreeImmune": true,
+            "bonusVs": [
+              {
+                "statuses": [
+                  "grappled"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          },
+          "immune": [
+            "dominated"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Rei do Caos",
+      "img": "icons/creatures/slimes/slime-movement-swirling-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "y4KR1O1Sn2EkvGz7",
+      "_key": "!items.effects!BRW44j9O5hUMM2CY.y4KR1O1Sn2EkvGz7"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "caos-caos",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "caos",
+        "category": "ancestral",
+        "tagline": "Criar do nada: em cada feitiço, você escolhe na hora o que nasce."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "BRW44j9O5hUMM2CY",
+  "folder": "or8AsPvT2mLa2ucD",
+  "_key": "!items!BRW44j9O5hUMM2CY"
+}

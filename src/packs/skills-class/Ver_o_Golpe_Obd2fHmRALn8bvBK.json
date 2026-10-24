@@ -1,0 +1,121 @@
+{
+  "name": "Ver o Golpe",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Visão.</strong> Antes do Teste da sua Esquiva: você vê o golpe antes de ele vir. Você fica [Concentrado] (+1d6 nessa Esquiva), e um dado novo entra no seu Presságio (role 1d6): troque já um dado da Esquiva por ele, se quiser. Uma vez por rodada.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>O golpe ainda nem saiu, e você já está do outro lado dele.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Before Check",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/eyes/lizard-single-slit-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Ver o Golpe",
+      "img": "systems/eternia/assets/ui/status/focused.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "focused"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "GcLg3DEFMLi0JTIN",
+      "_key": "!items.effects!Obd2fHmRALn8bvBK.GcLg3DEFMLi0JTIN"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "visao-ver",
+      "kind": "feeds",
+      "branch": "magic",
+      "useActions": [
+        {
+          "type": "omen",
+          "value": 1,
+          "recipients": "self"
+        }
+      ],
+      "magicSpell": {
+        "id": "visao"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Obd2fHmRALn8bvBK",
+  "folder": "ZS4X8EsTAX1rCgLS",
+  "_key": "!items!Obd2fHmRALn8bvBK"
+}

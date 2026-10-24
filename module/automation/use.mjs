@@ -10,6 +10,8 @@
  *   go on, or refuses it (see the settings). The action HUD reads the same checks (inspectUse).
  * - after: pay the Hate and Fate costs, count the use and the action, and note it all on the card,
  *   with an Undo button for mistakes.
+ * - an open window of actions out of the Main Process (the Divine Flash, conditions/window.mjs) takes an action the
+ *   Main Process can't; a skill may cost HP too (conditions/immortal.mjs).
  *
  * Constant skills are never "used". Hate is only paid in a started combat (it is reset at the start
  * and end of every combat); Fate is always paid. Monsters pay no costs (they have no Hate).
@@ -28,6 +30,8 @@ import { ITEM_SKILL, linkedSkill } from "../content/content.mjs";
 import { actionAllowance, conditionUseIssues } from "../conditions/actions.mjs";
 import { afterAction } from "../conditions/turns.mjs";
 import { copyUses } from "../conditions/copies.mjs";
+import { closeWindow, offTurnIssues, openWindow, refundWindow, spendWindow, windowCovers } from "../conditions/window.mjs";
+import { payHpCost, refundHpCost } from "../conditions/immortal.mjs";
 import {
   commitMotorUse, motorActionOf, motorCostValues, motorUseIssues, planMotorUse, skillMotor, undoMotorUse
 } from "../classes/motor.mjs";
@@ -292,7 +296,8 @@ export async function checkUsable(item) {
  * show the uses left and to dim what can't be used now.
  * @param {Item} item
  * @returns {{combat: Combat|null, combatant: Combatant|null, timing: string, action: string|null,
- *   limit: object|null, key: string|null, uses: number, cost: object|null, issues: {text: string, mode: string}[]}}
+ *   limit: object|null, key: string|null, uses: number, cost: object|null, issues: {text: string, mode: string}[],
+ *   windowed: boolean}}   `windowed`: the action comes from a window out of the Main Process (conditions/window.mjs)
  */
 export function inspectUse(item, { targets = null } = {}) {
   const actor = item.actor;
@@ -309,13 +314,19 @@ export function inspectUse(item, { targets = null } = {}) {
   }
 
   // Timing and action economy (in a started combat): [Hasted] has two Minor Actions, [Slowed] no Move Action.
+  let windowed = false;
   if (combatant && actionsMode && (actionsMode !== "off")) {
-    for (const text of timingIssues(timing, combat, combatant)) issues.push({ text, mode: actionsMode, kind: "timing" });
     // A class Motor may change the action (the Samurai's Iai, at Initiative, spends the Major Action).
     const motorAction = motorActionOf(item, actor);
     action = (motorAction !== undefined) ? motorAction : (ACTIONS[timing] ?? null);
-    if (action && (spentActions(actor, combat)[action] >= actionAllowance(actor)[action])) {
-      issues.push({ text: L(`Use.ActionSpent.${action}`), mode: actionsMode, kind: "action" });
+    // A skill used only out of turn (the Divine Flash) has its own moment (conditions/window.mjs).
+    const timingProblems = offTurnIssues(item, actor, combat, combatant) ?? timingIssues(timing, combat, combatant);
+    const spent = !!action && (spentActions(actor, combat)[action] >= actionAllowance(actor)[action]);
+    // Out of the Main Process, or with its action spent there: an open window of actions may take it.
+    windowed = ((timingProblems.length > 0) || spent) && windowCovers(actor, combat, action);
+    if (!windowed) {
+      for (const text of timingProblems) issues.push({ text, mode: actionsMode, kind: "timing" });
+      if (spent) issues.push({ text: L(`Use.ActionSpent.${action}`), mode: actionsMode, kind: "action" });
     }
   }
 
@@ -343,7 +354,7 @@ export function inspectUse(item, { targets = null } = {}) {
     if (fate < cost.fate) issues.push({ text: L("Use.NoFate", { need: cost.fate, have: fate }), mode: "block", kind: "fate" });
   }
 
-  return { combat, combatant, timing, action, limit, key, uses, cost, issues };
+  return { combat, combatant, timing, action, limit, key, uses, cost, issues, windowed };
 }
 
 /**
@@ -407,7 +418,12 @@ async function commitUse(item, plan, message) {
   // The actions it spends: the Timing's (or the one its Motor says), and any other its Motor takes too
   // (Silence Before the Strike: no Move Action this Main Process).
   const also = plan.combat ? (skillMotor(item)?.alsoSpends ?? []).filter(a => Object.values(ACTIONS).includes(a)) : [];
-  if ((plan.action || also.length) && plan.combat) {
+  if (plan.windowed && plan.action && plan.combat) {
+    // An action of a window out of the Main Process (the Divine Flash): conditions/window.mjs
+    record.window = await spendWindow(actor, plan.combat, plan.action);
+    record.action = plan.action;
+  }
+  else if ((plan.action || also.length) && plan.combat) {
     const spent = spentActions(actor, plan.combat);
     if (plan.action) spent[plan.action] += 1;
     for (const a of also) spent[a] += 1;
@@ -436,6 +452,9 @@ async function commitUse(item, plan, message) {
     }
   }
   if (!foundry.utils.isEmpty(updates)) await actor.update(updates);
+  // HP as a cost (Golpe sem Medo), and a window of actions the skill opens: conditions/immortal.mjs, window.mjs
+  record.hp = await payHpCost(item, actor);
+  if (plan.combat) record.opened = await openWindow(actor, plan.combat, item);
 
   // A reaction one of the user's [Clones] makes for it doesn't count (conditions/copies.mjs)
   if (plan.key && !(await copyUses(item, actor))) {
@@ -448,7 +467,8 @@ async function commitUse(item, plan, message) {
   record.motor = await commitMotorUse(item, actor, plan.motor ?? {})
     .catch(err => (console.error(`${SYSTEM_ID} | Motor of ${item.uuid}`, err), null));
 
-  if (record.hate || record.fate || record.action || record.limit || record.group || record.forced.length || record.motor) {
+  if (record.hate || record.fate || record.action || record.limit || record.group || record.forced.length || record.motor
+    || record.hp || record.opened) {
     await message.setFlag(SYSTEM_ID, "usage", record);
   }
   // The conditions an action sets off: [Shocked] hurts on a Major Action, which also ends [Intangible] and
@@ -482,11 +502,15 @@ export async function undoUse(message) {
     if (record.fate) updates["system.fate.value"] = toInt(actor._source.system.fate?.value) + record.fate;
     const spent = actor.getFlag(SYSTEM_ID, "actions");
     if (spent?.key === `${record.combatId}.${record.round}`) {
-      for (const action of [record.action, ...(record.alsoSpent ?? [])].filter(Boolean)) {
+      for (const action of [record.window ? null : record.action, ...(record.alsoSpent ?? [])].filter(Boolean)) {
         updates[`flags.${SYSTEM_ID}.actions.${action}`] = Math.max(0, toInt(spent[action]) - 1);
       }
     }
     if (!foundry.utils.isEmpty(updates)) await actor.update(updates);
+    // The window's action, the window the skill opened, the HP it cost (conditions/window.mjs, immortal.mjs)
+    if (record.window) await refundWindow(actor, record.action, record.window);
+    if (record.opened) await closeWindow(actor, record.opened);
+    if (record.hp) await refundHpCost(actor, record.hp);
   }
 
   if (record.motor) await undoMotorUse(record.motor);
@@ -506,7 +530,8 @@ function renderUse(message, html) {
   if (!card) return;
 
   const parts = [];
-  if (record.action) parts.push(L(`Use.Action.${record.action}`));
+  if (record.action) parts.push(L(`Use.Action.${record.action}`) + (record.window ? ` (${L("Window.OutOfTurn")})` : ""));
+  if (record.hp) parts.push(L("Immortal.HpPaid", { n: record.hp }));
   if (record.hate) parts.push(L("Use.Paid.Hate", { n: record.hate, total: record.hateTotal }));
   if (record.fate) parts.push(L("Use.Paid.Fate", { n: record.fate, total: record.fateTotal }));
   if (record.limit) parts.push(L("Use.Uses", { n: record.limit.n, max: record.limit.max, per: L(`Use.Per.${record.limit.type}`) }));

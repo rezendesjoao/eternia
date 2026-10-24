@@ -13,6 +13,7 @@
  *                        (its multiplier) and the dice per point (classes/motor.mjs)
  *   @status.<id>         The Rating of one of the actor's statuses ("@status.sun"), 0 without it
  *   @hpLost              The HP the actor is missing (Max HP − HP)
+ *   @omen                The dice the actor keeps in its Omen, added up (conditions/omen.mjs), 0 without them
  *   @motor.value, @motor.max, @motor.last   The class Motor of the skill (or the actor's first one)
  *                        Usable anywhere: the items are prepared before the actor's effects apply. The Attack
  *                        Power base already is the main weapon's, so "Attack Power becomes [Weapon's x2]" is
@@ -84,6 +85,9 @@ export function formulaData(actor, item) {
   });
   data.hpLost = Math.max(0, (Number(system.health?.max) || 0) - (Number(system.health?.value) || 0));
   if (actor.type === "character") Object.assign(data, motorFormulaData(actor, item));
+  // The dice kept in the actor's Omen, added up (conditions/omen.mjs: O Fim Já Escrito)
+  const omen = actor.flags?.eternia?.omen?.dice;
+  data.omen = Array.isArray(omen) ? omen.reduce((total, n) => total + (Number(n) || 0), 0) : 0;
   return data;
 }
 
@@ -127,6 +131,7 @@ export function formulaLabel(value) {
     .replace(/@motor\.max\b/g, "Motor max")
     .replace(/@motor\.last\b/g, "Motor last")
     .replace(/@spent\b/g, "Spent")
+    .replace(/@omen\b/g, "Omen")
     .replace(/@perfect\b/g, "Perfect")
     .replace(/@per\b/g, "Per")
     .replace(/@srMax\b/g, "SR max")

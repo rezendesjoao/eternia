@@ -1,0 +1,84 @@
+{
+  "name": "Corpo Imortal",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Fonte da Juventude.</strong> Após o Dano que você sofreu: a ferida fecha enquanto todos olham. A sua [Regeneração] age agora, como no Encerramento (você recupera o Valor dela em PV; é o corpo, não é cura de feitiço, e o Tabu não a corta), e o corpo expulsa o que o consome: você se livra de [Envenenado], [Queimando] e [Deterioração]. Uma vez por rodada.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>A carne volta para o lugar como se tivesse vergonha de ter saído.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "After Damage",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/consumables/plants/sprout-glowing-roots-green.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "fonte-juventude-corpo",
+      "kind": "feeds",
+      "branch": "magic",
+      "useActions": [
+        {
+          "type": "regenNow",
+          "recipients": "self"
+        },
+        {
+          "type": "removeStatus",
+          "statuses": [
+            "poisoned",
+            "burning",
+            "decay"
+          ],
+          "recipients": "self"
+        }
+      ],
+      "magicSpell": {
+        "id": "fonte-juventude"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "K1vKmWVzZKrhWOgI",
+  "folder": "qM8BHh8Yat3EWWEA",
+  "_key": "!items!K1vKmWVzZKrhWOgI"
+}

@@ -1,0 +1,90 @@
+{
+  "name": "Realidade Reescrita",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Caos.</strong> Feitiço grande. Você reescreve o mundo numa área a até 4 Qd sem saber o que vai sair: Teste de Precisão contra a Resistência de cada alvo; [4d6 + Poder Mágico] de dano mágico, e quem ela acerta fica com um destes estados, sorteado quando o dano é rolado: [Petrificado], [Adormecido], [Confuso], [Medo], [Cego] ou [Lento].</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Nem você sabe o que a realidade vai virar. É por isso que ela obedece.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/gems/pearl-fire-swirl.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "caos-realidade",
+      "kind": "feeds",
+      "branch": "magic",
+      "randomHit": [
+        {
+          "statusId": "petrified"
+        },
+        {
+          "statusId": "asleep"
+        },
+        {
+          "statusId": "confused"
+        },
+        {
+          "statusId": "frightened"
+        },
+        {
+          "statusId": "blinded"
+        },
+        {
+          "statusId": "slowed"
+        }
+      ],
+      "magicSpell": {
+        "id": "caos"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "PRudv0rSybamWB5R",
+  "folder": "or8AsPvT2mLa2ucD",
+  "_key": "!items!PRudv0rSybamWB5R"
+}

@@ -232,6 +232,7 @@ const FORMULA = rules([
   [/\bMotor max\b/g, "Teto do Motor"],
   [/\bMotor last\b/g, "último gasto do Motor"],
   [/\bSpent\b/g, "Gastos"],
+  [/\bOmen\b/g, "Presságio"],
   [/\bPerfect\b/g, "Perfeito"],
   [/\bPer\b/g, "Por ponto"],
   [/\bAttack Power\b/g, "Poder de Ataque"],

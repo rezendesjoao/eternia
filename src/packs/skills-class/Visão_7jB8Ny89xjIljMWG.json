@@ -1,0 +1,168 @@
+{
+  "name": "Visão",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Perdida.</strong> A visão do oráculo, a mais rara de todas: você vê os próximos segundos antes que eles aconteçam, e às vezes os próximos anos. No começo de cada luta, o futuro se mostra em dados que só você enxerga, e cada um deles muda um momento: o golpe que ia acertar erra, a esquiva que ia falhar dá certo. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, Visões que Pesam:</strong> o futuro chega de uma vez, e você demora a voltar para o presente: em combate, a sua Iniciativa cai [NP].</li><li><strong>O Presságio:</strong> no começo de cada combate (a Manutenção da primeira rodada), role [NP÷2 + 1] dados e guarde-os. Cada dado guardado troca, uma vez, um dado de qualquer Teste de Acerto ou Esquiva de um cartão de ataque: o seu, o de um aliado ou o de um inimigo. No seu teste ou no de um aliado, ele toma o lugar do menor dado (se for maior); no de um inimigo, o do maior (se for menor). Trocar não gasta ação: os botões aparecem no próprio cartão. Os dados que sobram somem no fim do combate.</li><li><strong>Traço, Olhos do Oráculo:</strong> você é imune a [Cego] e [Confuso], e quando um dado do seu Presságio muda o resultado de um ataque (um acerto vira erro, ou um erro vira acerto), você fica [Concentrado].</li><li><strong>Feitiços:</strong> Ver o Golpe e Profecia (NP 1), Destino Fixo e Caleidoscópio (NP 3), Futuro Visto (NP 5) e o feitiço supremo O Fim Já Escrito (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Fim Já Escrito pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você já sabia que ia ler esta frase.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/materials/glass-orb.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Visões que Pesam",
+      "img": "icons/commodities/materials/glass-orb.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.initiative.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "tKeiV7qlXu709BS6",
+      "_key": "!items.effects!7jB8Ny89xjIljMWG.tKeiV7qlXu709BS6"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "visao",
+            "omen": "floor(@cr/2)+1",
+            "omenFocus": true
+          },
+          "immune": [
+            "blinded",
+            "confused"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Olhos do Oráculo",
+      "img": "icons/commodities/materials/glass-orb.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "JVFrWZWjobyn2YR9",
+      "_key": "!items.effects!7jB8Ny89xjIljMWG.JVFrWZWjobyn2YR9"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "visao-visao",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "visao",
+        "category": "lost",
+        "tagline": "O oráculo: os dados do futuro já estão na sua mão."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "7jB8Ny89xjIljMWG",
+  "folder": "ZS4X8EsTAX1rCgLS",
+  "_key": "!items!7jB8Ny89xjIljMWG"
+}

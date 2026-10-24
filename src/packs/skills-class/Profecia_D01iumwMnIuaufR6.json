@@ -1,0 +1,123 @@
+{
+  "name": "Profecia",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Visão.</strong> Você conta a um aliado a até 5 Qd (ou a você mesmo) o que viu: ele fica [Concentrado] (+1d6 no próximo teste), e um 6 entra no seu Presságio, guardado para o teste que importa. Uma vez por cena.</p><hr><p><em>\"Vai dar certo.\" Você nunca diz isso à toa.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/treasure/dreamcatcher-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Profecia",
+      "img": "systems/eternia/assets/ui/status/focused.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "focused"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "lZkPAIecNFvPgSHM",
+      "_key": "!items.effects!D01iumwMnIuaufR6.lZkPAIecNFvPgSHM"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "visao-profecia",
+      "kind": "feeds",
+      "branch": "magic",
+      "useActions": [
+        {
+          "type": "omen",
+          "value": 1,
+          "data": {
+            "face": 6
+          },
+          "recipients": "self"
+        }
+      ],
+      "magicSpell": {
+        "id": "visao"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "D01iumwMnIuaufR6",
+  "folder": "ZS4X8EsTAX1rCgLS",
+  "_key": "!items!D01iumwMnIuaufR6"
+}

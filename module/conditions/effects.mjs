@@ -24,6 +24,8 @@
  *                                               Desastre, the Criação, the Infinito): conditions/status-actions.mjs
  *   { type: "addStatus", status: "clones", value: 1 }  raises a status by `value` (a stack adds up to its maximum;
  *                                               with a negative value, a stack goes down and ends at 0: a Clone spent)
+ * and the types other modules register (registerUseAction: the Omen's "omen", the Immortal's "regenNow" and
+ * "giveHp"), which get the action's `data` as well.
  * Pulls and pushes are forced moves (`eterniaForced`: what keeps a token in place doesn't stop them, and they break no
  * Decree of Truth). An action with `onUse: true` comes with the use itself, also on a skill whose targets resist the
  * rest (helpers/sustained.mjs): the vortex pulls them in before the check.
@@ -60,6 +62,20 @@ const statusesOf = effect => [...(effect.statuses ?? []), flag(effect, "statusDa
 /*  Use actions                                 */
 /* -------------------------------------------- */
 
+/** Use action types of other modules: type → async (actor, payload) => chat line or null. */
+const USE_ACTIONS = new Map();
+
+/**
+ * A use action type of another module (conditions/omen.mjs, conditions/immortal.mjs). The handler runs where the
+ * actor is owned (the GM for the others' actors) and gets the payload: value (worked out), status, statuses,
+ * casterUuid, sceneId and the action's own `data`.
+ * @param {string} type
+ * @param {Function} handler
+ */
+export function registerUseAction(type, handler) {
+  USE_ACTIONS.set(type, handler);
+}
+
 /**
  * Run the use actions of an item on the actors its effects went to.
  * @param {Item} item
@@ -84,7 +100,7 @@ export async function runUseActions(item, { targets, caster, onUse }) {
     for (const actor of actors) {
       const payload = {
         actorUuid: actor.uuid, type: action.type, value, status: action.status ?? "", statuses: listOf(action.statuses),
-        casterUuid: caster?.uuid ?? "", sceneId: canvas?.scene?.id ?? ""
+        casterUuid: caster?.uuid ?? "", sceneId: canvas?.scene?.id ?? "", data: action.data ?? null
       };
       const line = actor.isOwner ? await doAction(actor, payload) : (await request("conditionAction", payload))?.line;
       if (line) {
@@ -130,7 +146,9 @@ export async function stealStatuses(actor, statuses, thief) {
 }
 
 /** One use action on one actor. Returns the chat line. */
-async function doAction(actor, { type, value, status, statuses = [], casterUuid = "", sceneId = "" }) {
+async function doAction(actor, payload) {
+  const { type, value, status, statuses = [], casterUuid = "", sceneId = "" } = payload;
+  if (USE_ACTIONS.has(type)) return USE_ACTIONS.get(type)(actor, payload);
   if (type === "switch") return switchPlaces(actor, await actorOf(casterUuid), sceneId);
   if (type === "pull") return pullTo(actor, await actorOf(casterUuid), sceneId);
   if (type === "push") return pushFrom(actor, await actorOf(casterUuid), sceneId, value);
@@ -298,14 +316,17 @@ async function pushFrom(target, user, sceneId, n) {
 }
 
 /** GM side of a use action on an actor the user doesn't own: only from the owner of the user. */
-async function onActionRequest({ actorUuid, casterUuid, sceneId, type, value, status, statuses }, user) {
+async function onActionRequest({ actorUuid, casterUuid, sceneId, type, value, status, statuses, data }, user) {
   const actor = await actorOf(actorUuid);
   const owner = await actorOf(casterUuid);
   if (!actor || !owner?.testUserPermission(user, "OWNER")) return { ok: false };
   const ids = listOf(statuses).filter(id => (typeof id === "string") && statusDefinition(id));
   return {
     ok: true,
-    line: await doAction(actor, { type, value: Math.max(-999, Math.min(999, toInt(value))), status, statuses: ids, casterUuid, sceneId })
+    line: await doAction(actor, {
+      type, value: Math.max(-999, Math.min(999, toInt(value))), status, statuses: ids, casterUuid, sceneId,
+      data: ((data !== null) && (typeof data === "object")) ? data : null
+    })
   };
 }
 
