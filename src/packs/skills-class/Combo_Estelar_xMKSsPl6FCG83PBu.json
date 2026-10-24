@@ -1,0 +1,166 @@
+{
+  "name": "Combo Estelar",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Maldição.</strong> Golpe atrás de golpe, sem parar: cada um que acerta deixa o próximo mais forte, até a sequência virar uma chuva de estrelas. E tudo zera com um erro. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, Tudo no Ataque:</strong> em combate, a sua Defesa Física cai [NP]. Você não se defende: ataca.</li><li><strong>O Combo:</strong> cada ataque seu que acerta soma 1 no [Combo] (alguns feitiços somam mais), e cada ponto dá +1 de dano nos seus ataques. Ele zera quando você erra um ataque, sofre dano de um ataque ou termina um turno sem ter atacado.</li><li><strong>Traço, Sequência:</strong> você é imune a [Cambaleante] e [Atordoado]: nada interrompe a sequência.</li><li><strong>Feitiços:</strong> Golpe Estelar e Passo Estelar (NP 1), Guarda da Sequência e Golpe em Dobro (NP 3), Chuva Estelar (NP 5) e o feitiço supremo Estrela Final (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Estrela Final pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Quem conta os golpes perde a conta lá pelo trigésimo. Você não.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/explosion-fireball-large-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Tudo no Ataque",
+      "img": "icons/magic/fire/explosion-fireball-large-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.defense.phys.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "IhMVW6zhdYiZTl9H",
+      "_key": "!items.effects!xMKSsPl6FCG83PBu.IhMVW6zhdYiZTl9H"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "combo-estelar"
+          },
+          "immune": [
+            "staggered",
+            "dazed"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Sequência",
+      "img": "icons/magic/fire/explosion-fireball-large-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "CnBlf19tuCBIg7iH",
+      "_key": "!items.effects!xMKSsPl6FCG83PBu.CnBlf19tuCBIg7iH"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "combo-estelar-combo-estelar",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "combo-estelar",
+        "category": "curse",
+        "tagline": "Cada golpe seguido bate mais forte: [Combo]."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "xMKSsPl6FCG83PBu",
+  "folder": "ixPKZjmSW7IHraBm",
+  "_key": "!items!xMKSsPl6FCG83PBu"
+}

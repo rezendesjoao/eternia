@@ -1,0 +1,82 @@
+{
+  "name": "Dies Irae",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Nebulosa Sinistra. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: um portal se abre sobre um alvo a até 8 Qd e solta um raio enorme. Teste de Precisão contra a Resistência; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Choque], e ele fica [Eletrificado: NP]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>O dia da ira não avisa. Só abre o céu.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Shock"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "8Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/lightning/bolt-strike-blue-white.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "nebulosa-sinistra-dies-irae",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "shocked",
+          "value": "@cr"
+        }
+      ],
+      "magicSpell": {
+        "id": "nebulosa-sinistra"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "jHYF9GnhJ2SMnpUH",
+  "folder": "PATim2ymV1zRwdSr",
+  "_key": "!items!jHYF9GnhJ2SMnpUH"
+}

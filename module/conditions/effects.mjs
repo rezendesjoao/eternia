@@ -16,6 +16,12 @@
  *                                               skill Switch); only between allies
  *   { type: "steal", statuses: ["empowered", …] } those statuses pass from the target to the user, with their
  *                                               Ratings (the Absorção's Roubar a Alma)
+ *   { type: "pull" }                            the target's token comes to the user's square, engaged with it (the
+ *                                               Nebulosa Sinistra's vortex)
+ *   { type: "push", value: n }                  the target's token goes n squares away from the user, in a straight line
+ * Pulls and pushes are forced moves (`eterniaForced`: what keeps a token in place doesn't stop them, and they break no
+ * Decree of Truth). An action with `onUse: true` comes with the use itself, also on a skill whose targets resist the
+ * rest (helpers/sustained.mjs): the vortex pulls them in before the check.
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
@@ -53,8 +59,10 @@ const statusesOf = effect => [...(effect.statuses ?? []), flag(effect, "statusDa
  * @param {{targets: Actor[], caster: Actor|null}} recipients
  * @returns {Promise<string[]>}   Names of the actors they changed
  */
-export async function runUseActions(item, { targets, caster }) {
-  const actions = listOf(item.getFlag?.(SYSTEM_ID, "useActions"));
+export async function runUseActions(item, { targets, caster, onUse }) {
+  // `onUse`: true, only the actions that come with the use itself; false, only the others; undefined, all of them
+  const actions = listOf(item.getFlag?.(SYSTEM_ID, "useActions"))
+    .filter(a => (onUse === undefined) || (!!a?.onUse === onUse));
   if (!actions.length) return [];
   const values = formulaData(caster ?? item.actor, item);
   const lines = [];
@@ -62,8 +70,9 @@ export async function runUseActions(item, { targets, caster }) {
   for (const action of actions) {
     const to = action.recipients ?? "targets";
     let actors = [...new Set([...(to !== "self" ? targets : []), ...((to !== "targets") && caster ? [caster] : [])])];
-    // A Switch is with one ally
+    // A Switch is with one ally; nobody pulls or pushes itself
     if (action.type === "switch") actors = actors.filter(a => a !== caster).slice(0, 1);
+    if (["pull", "push"].includes(action.type)) actors = actors.filter(a => a !== caster);
     const value = isFormula(action.value) ? (evaluateFormula(action.value, values) ?? 0) : toInt(action.value);
     for (const actor of actors) {
       const payload = {
@@ -116,6 +125,8 @@ export async function stealStatuses(actor, statuses, thief) {
 /** One use action on one actor. Returns the chat line. */
 async function doAction(actor, { type, value, status, statuses = [], casterUuid = "", sceneId = "" }) {
   if (type === "switch") return switchPlaces(actor, await actorOf(casterUuid), sceneId);
+  if (type === "pull") return pullTo(actor, await actorOf(casterUuid), sceneId);
+  if (type === "push") return pushFrom(actor, await actorOf(casterUuid), sceneId, value);
   if (type === "fatigue") {
     const before = toInt(actor._source.system?.infos?.fatigue);
     const after = Math.max(0, before + toInt(value));
@@ -172,10 +183,11 @@ async function switchPlaces(ally, user, sceneId) {
   const allies = (mine && theirs) ? (mine.disposition === theirs.disposition) : (user.type === ally.type);
   if (!allies) return L("Conditions.Actions.SwitchFoe", { name: actorName(user), ally: actorName(ally) });
   if (mine && theirs) {
+    // A forced move: no one left an engagement by itself (conditions/decree.mjs)
     await scene.updateEmbeddedDocuments("Token", [
       { _id: mine.id, x: theirs.x, y: theirs.y, elevation: theirs.elevation },
       { _id: theirs.id, x: mine.x, y: mine.y, elevation: mine.elevation }
-    ]);
+    ], { eterniaForced: true });
   }
   const hateOf = actor => toInt(actor._source.system?.infos?.hate);
   const before = { mine: hateOf(user), theirs: hateOf(ally) };
@@ -184,6 +196,59 @@ async function switchPlaces(ally, user, sceneId) {
     await ally.update({ "system.infos.hate": before.mine });
   }
   return L("Conditions.Actions.Switch", { name: actorName(user), ally: actorName(ally), mine: before.theirs, theirs: before.mine });
+}
+
+/** The token of an actor on a scene (a token actor's own, else a linked token of it), or null. */
+function sceneToken(scene, actor) {
+  if (!scene || !actor) return null;
+  if (actor.isToken) return (actor.token?.parent === scene) ? actor.token : null;
+  return scene.tokens.find(t => t.actorLink && (t.actorId === actor.id)) ?? null;
+}
+
+/**
+ * Pull: the target's token comes to the user's square (engaged with it), on the scene the user was looking at. A forced
+ * move. Returns the chat line, or null (already engaged, or a token missing).
+ * @param {Actor} target
+ * @param {Actor|null} user
+ * @param {string} sceneId
+ */
+async function pullTo(target, user, sceneId) {
+  if (!user || (user.uuid === target.uuid)) return null;
+  const scene = game.scenes.get(sceneId) ?? canvas?.scene ?? null;
+  const theirs = sceneToken(scene, target);
+  const mine = sceneToken(scene, user);
+  if (!theirs || !mine || ((theirs.x === mine.x) && (theirs.y === mine.y))) return null;
+  await theirs.update({ x: mine.x, y: mine.y, elevation: mine.elevation }, { eterniaForced: true });
+  return L("Conditions.Actions.Pull", { name: actorName(target), to: actorName(user) });
+}
+
+/**
+ * Push: the target's token goes n squares away from the user, in a straight line along the axis it is farther on (out
+ * of the user's square: to the right), kept inside the scene. A forced move. Returns the chat line, or null.
+ * @param {Actor} target
+ * @param {Actor|null} user
+ * @param {string} sceneId
+ * @param {number} n
+ */
+async function pushFrom(target, user, sceneId, n) {
+  const steps = Math.max(1, toInt(n));
+  if (!user || (user.uuid === target.uuid)) return null;
+  const scene = game.scenes.get(sceneId) ?? canvas?.scene ?? null;
+  const theirs = sceneToken(scene, target);
+  const mine = sceneToken(scene, user);
+  if (!theirs || !mine) return null;
+  const size = scene.grid.size;
+  const dx = theirs.x - mine.x;
+  const dy = theirs.y - mine.y;
+  const alongX = (Math.abs(dx) >= Math.abs(dy));
+  const sign = d => Math.sign(d) || 1;
+  const rect = scene.dimensions?.sceneRect ?? { x: 0, y: 0, width: scene.width, height: scene.height };
+  const x = Math.clamp(theirs.x + (alongX ? sign(dx) * steps * size : 0), rect.x, rect.x + rect.width - (theirs.width * size));
+  const y = Math.clamp(theirs.y + (alongX ? 0 : sign(dy) * steps * size), rect.y, rect.y + rect.height - (theirs.height * size));
+  const moved = Math.round((Math.abs(x - theirs.x) + Math.abs(y - theirs.y)) / size);
+  if (!moved) return null;
+  await theirs.update({ x, y }, { eterniaForced: true });
+  return L("Conditions.Actions.Push", { name: actorName(target), from: actorName(user), n: moved });
 }
 
 /** GM side of a use action on an actor the user doesn't own: only from the owner of the user. */

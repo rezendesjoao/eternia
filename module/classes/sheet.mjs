@@ -26,7 +26,7 @@ const FIELDS = [
   "flags.eternia.identifier", "flags.eternia.kind", "flags.eternia.branch", "flags.eternia.minRank",
   "flags.eternia.requires", "flags.eternia.path", "flags.eternia.pathTalent", "flags.eternia.apex",
   "flags.eternia.dedication", "flags.eternia.element", "flags.eternia.elementTalent", "flags.eternia.magic",
-  "flags.eternia.magicSpell"
+  "flags.eternia.magicSpell", "flags.eternia.choiceOnly"
 ];
 
 /** Class skills of the compendiums by class name (lowercase), built once and cleared when a compendium changes. */
@@ -204,7 +204,9 @@ export async function classContext(actor, { editable }) {
     const view = async m => {
       const data = m.getFlag("eternia", "magic");
       const category = MAGIC_CATEGORIES[data.category] ? data.category : "caster";
-      const spells = (await classSkills(m.name)).filter(e => flag(e, "magicSpell")?.id === data.id)
+      // The skills only a choice gives (a Decree) show only when the character has them
+      const spells = (await classSkills(m.name))
+        .filter(e => (flag(e, "magicSpell")?.id === data.id) && (!flag(e, "choiceOnly") || ownedCopy(actor, e)))
         .map(e => skillRow(actor, e, cr)).sort((a, b) => (a.minRank - b.minRank) || a.name.localeCompare(b.name, game.i18n.lang));
       return {
         ...ownedRow(m, cr), spells, tally: tally(spells), tagline: data.tagline ?? "", category,

@@ -1,0 +1,123 @@
+{
+  "name": "Os Dez Mandamentos",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Mandamentos. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: as dez marcas acendem de uma vez, e o poder delas desce sobre uma área ampla a até 6 Qd. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Corrupção]. Até o fim da próxima rodada, os dez Decretos valem em volta de você, com o seu alcance, e você é imune a eles. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Por um instante, o mundo em volta de você tem dez leis. Todo mundo quebra alguma.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/unholy/strike-beam-blood-large-red-teal.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "onUse": true,
+          "decree": "all",
+          "decreeSelfImmune": true,
+          "decreeRounds": 2,
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Os Dez Mandamentos",
+      "img": "icons/magic/unholy/strike-beam-blood-large-red-teal.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "3erN84wDol0LprlB",
+      "_key": "!items.effects!ePcVxzogVPiCeosN.3erN84wDol0LprlB"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "mandamentos-dez",
+      "kind": "spends",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "mandamentos"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ePcVxzogVPiCeosN",
+  "folder": "Sr01O0Zio7mvBSj0",
+  "_key": "!items!ePcVxzogVPiCeosN"
+}

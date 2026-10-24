@@ -1,0 +1,179 @@
+{
+  "name": "Ruptura Crítica",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Maldição.</strong> Você solta o freio do próprio corpo. A força sobe a cada turno até o limite, e passa dele: com uma alabarda ou uma lança na mão, você racha armaduras, cai do céu cravando a arma no chão e corta montanhas. O difícil é parar. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, Sem Freio:</strong> em combate, a sua Iniciativa cai [NP] e a sua Defesa Mágica cai [NP÷2].</li><li><strong>O Ímpeto:</strong> Romper o Limite liga o [Ímpeto]. Ele soma no dano dos seus ataques e nas suas Defesas Física e Mágica, e sobe 1 no fim de cada turno seu. Se passar do seu NP, você perde o controle ([Fúria]) até ele sair. Desligar gasta uma Ação Menor; quando ele sai, você fica com [Fadiga] igual ao Valor. Solte antes de perder a cabeça.</li><li><strong>Traço, Armadura Viva:</strong> enquanto tiver [Ímpeto], você é imune a [Fissurado] e [Derrubado].</li><li><strong>Feitiços:</strong> Romper o Limite e Corte Certeiro (NP 1), Estocadas do Céu e Vendaval de Cortes (NP 3), Onda do Caos (NP 5) e o feitiço supremo Golpe que Parte Montanhas (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Golpe que Parte Montanhas pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>No começo é força. Depois de um tempo, é só o corpo que não sabe mais parar.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/strike-polearm-light-orange.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Sem Freio",
+      "img": "icons/skills/melee/strike-polearm-light-orange.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.initiative.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          },
+          {
+            "key": "system.battle-status.defense.magic.mod",
+            "type": "add",
+            "value": "-floor(@cr/2)",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "GGyZygPD2PVBhEtU",
+      "_key": "!items.effects!MO3e8LQcVBDbfVbD.GGyZygPD2PVBhEtU"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "ruptura-critica"
+          },
+          "immune": [
+            "fissured",
+            "prone"
+          ],
+          "conditions": [
+            {
+              "type": "status",
+              "value": "impetus"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Armadura Viva",
+      "img": "icons/skills/melee/strike-polearm-light-orange.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "wncM3CExTH1P5d1d",
+      "_key": "!items.effects!MO3e8LQcVBDbfVbD.wncM3CExTH1P5d1d"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "ruptura-critica-ruptura-critica",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "ruptura-critica",
+        "category": "curse",
+        "tagline": "A força sobe até o limite e passa dele: [Ímpeto]."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "MO3e8LQcVBDbfVbD",
+  "folder": "8nDWw1Cn1JRrtNTb",
+  "_key": "!items!MO3e8LQcVBDbfVbD"
+}

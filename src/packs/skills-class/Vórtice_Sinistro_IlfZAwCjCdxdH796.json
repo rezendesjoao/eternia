@@ -1,0 +1,78 @@
+{
+  "name": "Vórtice Sinistro",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Nebulosa Sinistra.</strong> Um vórtice negro gira em volta de você numa área de 3 Qd e puxa os alvos até o seu quadrado (engajados com você), na hora; depois a lâmina corta quem chegou: Teste de Precisão contra a Esquiva de cada um; [3d6 + Poder Mágico] de dano mágico de [Corrupção].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Eles tentam fincar o pé. O chão vai junto.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/ranged/projectile-spiral-gray.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "nebulosa-sinistra-vortice",
+      "kind": "feeds",
+      "branch": "magic",
+      "useActions": [
+        {
+          "type": "pull",
+          "onUse": true
+        }
+      ],
+      "magicSpell": {
+        "id": "nebulosa-sinistra"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "IlfZAwCjCdxdH796",
+  "folder": "PATim2ymV1zRwdSr",
+  "_key": "!items!IlfZAwCjCdxdH796"
+}

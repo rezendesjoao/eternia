@@ -224,8 +224,8 @@ export async function applyItemEffects(item, actors, { useId, sustained, only, o
   // Only the use's own effects: the use actions wait for the card's button.
   if ((onUse === true) && !rawEffects.length) return [];
 
-  // A skill with use actions only (conditions/effects.mjs)
-  if (!rawEffects.length) return runUseActions(item, { targets: [...new Set(actors)].filter(Boolean), caster: item.actor ?? null });
+  // A skill with use actions only (conditions/effects.mjs); the card's button leaves out those that came with the use
+  if (!rawEffects.length) return runUseActions(item, { targets: [...new Set(actors)].filter(Boolean), caster: item.actor ?? null, onUse });
 
   const finalUseId = useId || foundry.utils.randomID();
   const sustainedId = sustained ?? getSustainedTag(item)?.id;
@@ -318,7 +318,7 @@ export async function applyItemEffects(item, actors, { useId, sustained, only, o
     }
     names.push(actor.name);
   }
-  const acted = (onUse === true) ? [] : await runUseActions(item, { targets: [...new Set(actors)].filter(Boolean), caster });
+  const acted = (onUse === true) ? [] : await runUseActions(item, { targets: [...new Set(actors)].filter(Boolean), caster, onUse });
   return [...new Set([...names, ...acted])];
 }
 

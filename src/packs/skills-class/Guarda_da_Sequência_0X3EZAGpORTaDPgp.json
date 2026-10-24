@@ -1,0 +1,121 @@
+{
+  "name": "Guarda da Sequência",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Combo Estelar.</strong> Antes do Dano de um ataque que acertou você: você recebe o golpe sem perder o ritmo. Esse dano não zera o seu [Combo], e você ganha [Anulação] igual ao seu Combo contra ele. Uma vez por rodada.</p><p><em>Você usa o golpe dele para girar e continuar.</em></p>",
+    "tags": [
+      "Spell",
+      "Curse"
+    ],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/defensive/shield-hex-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "cancel",
+            "value": "@status.combo"
+          },
+          "comboGuard": true,
+          "consumeOn": "damage",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Guarda da Sequência",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "ro0X7XS40vkpIrAP",
+      "_key": "!items.effects!0X3EZAGpORTaDPgp.ro0X7XS40vkpIrAP"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "combo-estelar-guarda",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "combo-estelar"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "0X3EZAGpORTaDPgp",
+  "folder": "ixPKZjmSW7IHraBm",
+  "_key": "!items!0X3EZAGpORTaDPgp"
+}
