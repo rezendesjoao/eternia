@@ -11,6 +11,7 @@
  *   @offhand.attack, @offhand.magic  Same for the weapon in the other hand (a shield there counts as none).
  *   @spent, @perfect, @per  What the skill's last use spent of its class Motor, whether it was a Perfect Cut
  *                        (its multiplier) and the dice per point (classes/motor.mjs)
+ *   @status.<id>         The Rating of one of the actor's statuses ("@status.sun"), 0 without it
  *   @motor.value, @motor.max, @motor.last   The class Motor of the skill (or the actor's first one)
  *                        Usable anywhere: the items are prepared before the actor's effects apply. The Attack
  *                        Power base already is the main weapon's, so "Attack Power becomes [Weapon's x2]" is
@@ -24,6 +25,7 @@
 
 import { getHands } from "./hands.mjs";
 import { motorFormulaData } from "../classes/motor.mjs";
+import { rating } from "../conditions/rules.mjs";
 
 const ATTRIBUTES = ["str", "dex", "pow", "int"];
 const ATTRIBUTE_REF = /@(str|dex|pow|int)\b/i;
@@ -74,6 +76,11 @@ export function formulaData(actor, item) {
   const { main, off } = getHands(actor);
   data.weapon = weaponPowers(main);
   data.offhand = weaponPowers((off?.type === "weapon") ? off : null);
+  // The Ratings of the actor's statuses (the [Sun] of a spell: "@status.sun"), read only when a formula asks
+  data.status = new Proxy({}, {
+    has: (target, id) => typeof id === "string",
+    get: (target, id) => ((typeof id === "string") ? rating(actor, id) : undefined)
+  });
   if (actor.type === "character") Object.assign(data, motorFormulaData(actor, item));
   return data;
 }
@@ -113,6 +120,7 @@ export function formulaLabel(value) {
     .replace(/@weapon\.magic\b/g, "Weapon Magic Power")
     .replace(/@offhand\.attack\b/g, "Off-hand Attack Power")
     .replace(/@offhand\.magic\b/g, "Off-hand Magic Power")
+    .replace(/@status\.(\w+)\b/g, (m, id) => game.i18n?.localize?.(`ETERNIA.StatusEffect.${id}`) ?? id)
     .replace(/@motor\.value\b/g, "Motor")
     .replace(/@motor\.max\b/g, "Motor max")
     .replace(/@motor\.last\b/g, "Motor last")

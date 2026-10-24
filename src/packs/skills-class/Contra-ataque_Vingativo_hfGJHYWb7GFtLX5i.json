@@ -1,0 +1,133 @@
+{
+  "name": "Contra-ataque Vingativo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Contra-ataque.</strong> Você desliga as próprias defesas de propósito e começa a guardar: você fica com [Rancor: 1] até o fim da cena, e cada PV que você perde para ataques soma 1 no Rancor (até NP×4). Enquanto guarda, as suas Defesas Física e Mágica caem [NP÷2]. O Golpe do Rancor solta tudo. Uma vez por cena.</p><p><em>Cada golpe que você leva fica guardado. Você vai devolver todos de uma vez.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/shield-damaged-broken-orange.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "grudge",
+            "value": 1
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Contra-ataque Vingativo",
+      "img": "systems/eternia/assets/ui/status/grudge.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.defense.phys.mod",
+            "type": "add",
+            "value": "-floor(@cr/2)",
+            "phase": "initial",
+            "priority": null
+          },
+          {
+            "key": "system.battle-status.defense.magic.mod",
+            "type": "add",
+            "value": "-floor(@cr/2)",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [
+        "grudge"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "uDayEMNY3yoAfMbU",
+      "_key": "!items.effects!hfGJHYWb7GFtLX5i.uDayEMNY3yoAfMbU"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "contra-ataque-vingativo",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "contra-ataque"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "hfGJHYWb7GFtLX5i",
+  "folder": "fQB2FvX4Bmj2Dejs",
+  "_key": "!items!hfGJHYWb7GFtLX5i"
+}

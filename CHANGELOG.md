@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.27.0 — 2026-10-24
+
+### Adicionado
+- Quatro Magias das categorias altas: **Sol** (Ancestral; o Relógio do Sol, que sobe a cada rodada e a cada feitiço
+  até o meio-dia, dá [O Único] e depois desce; de noite não passa de 2), **Contra-ataque** (Perdida; devolve o golpe
+  dobrado e guarda o dano no [Rancor]), **Chamas do Purgatório** (Maldição; o fogo negro que não apaga e não deixa
+  curar) e **Roubo** (Proibida; o que o alvo perde vai para você, com Dreno). 77 Magias, 1360 habilidades de classe.
+- Cinco condições, com ícones próprios: [Chama Negra: n], [Sol: n], [O Único], [Contragolpe] e [Rancor: n] (41 no
+  total).
+- Flags dos feitiços e dos Traços: `drain` (Dreno), `steal` (rouba um bônus a cada acerto), `selfBonus` (dano pelo Valor
+  de um estado de quem ataca, gasto ou não), `counterBonus` e `sunClock`; a fórmula `@status.<id>`; a Fraqueza passiva
+  (`eternia.passive.weakness`); a cura de condição `takeHealing`.
+
+### Alterado
+- A Chama Negra bloqueia a cura como o Maldito (cartões de cura, Regeneração no Encerramento e efeitos de
+  Regeneração); a linha do chat diz qual estado bloqueou.
+- A Manutenção de cada rodada agora roda as condições (o Sol), com um resumo no chat quando algo muda.
+- O aviso de novidades fala da 0.27.
+
 ## 0.26.0 — 2026-10-24
 
 ### Adicionado

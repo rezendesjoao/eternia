@@ -1,0 +1,166 @@
+{
+  "name": "Contra-ataque",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Perdida.</strong> Você não ataca: devolve. Você lê o golpe que vem, a força e a hora certa, e o manda de volta para quem o soltou com mais que o dobro da força. Quanto mais forte o inimigo, mais forte a volta. E o dano que você aguenta de propósito vira um golpe só. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, Ler o Golpe:</strong> você espera o golpe chegar em vez de desviar: em combate, você sofre −1d6 nas Esquivas.</li><li><strong>Golpe direto:</strong> o Contra-ataque Total e o Contra-ataque Físico só devolvem ataques de alvo único. Ataques de área, em linha ou em mais de um alvo não dão para ler.</li><li><strong>Traço, Mais que o Dobro:</strong> você é imune a [Atordoado], e o dano que o seu [Contragolpe] devolve soma +NP.</li><li><strong>Feitiços:</strong> Contra-ataque Total e Contra-ataque Físico (NP 1), Contra-ataque Evanescente e Contra-ataque Vingativo (NP 3), Golpe do Rancor (NP 5) e o feitiço supremo Contra-ataque Absoluto (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Contra-ataque Absoluto pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Ninguém entende como o próprio golpe voltou. Você só abriu a mão.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Ler o Golpe",
+      "img": "systems/eternia/assets/ui/status/counter.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.checks.evasion.dice",
+            "type": "add",
+            "value": -1,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "WrJt4gD2k3eVTPR5",
+      "_key": "!items.effects!DnjKQd3U2MTrxEAK.WrJt4gD2k3eVTPR5"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "contra-ataque",
+            "counterBonus": "@cr"
+          },
+          "immune": [
+            "dazed"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Mais que o Dobro",
+      "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "Jz7CgMMQSkNYebSm",
+      "_key": "!items.effects!DnjKQd3U2MTrxEAK.Jz7CgMMQSkNYebSm"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "contra-ataque-contra-ataque",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "contra-ataque",
+        "category": "lost",
+        "tagline": "Você não ataca: devolve o golpe com mais que o dobro da força."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "DnjKQd3U2MTrxEAK",
+  "folder": "fQB2FvX4Bmj2Dejs",
+  "_key": "!items!DnjKQd3U2MTrxEAK"
+}

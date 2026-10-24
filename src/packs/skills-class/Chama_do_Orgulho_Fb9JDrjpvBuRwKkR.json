@@ -1,0 +1,77 @@
+{
+  "name": "Chama do Orgulho",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Sol.</strong> Feitiço grande. O sol que gira sobre você incha e explode numa área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico de [Chama], e o calor derrete a armadura de quem ela acerta: [Fissurado: 1].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Um lago inteiro poderia secar num instante. Ninguém quer descobrir o que acontece com gente.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/blast-jet-stream-embers-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "sol-chama-do-orgulho",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "fissured",
+          "value": 1
+        }
+      ],
+      "magicSpell": {
+        "id": "sol"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Fb9JDrjpvBuRwKkR",
+  "folder": "gnj7AjdDaSKptIz6",
+  "_key": "!items!Fb9JDrjpvBuRwKkR"
+}

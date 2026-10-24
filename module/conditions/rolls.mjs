@@ -8,14 +8,14 @@
  * Dodge Checks: −1D for [Dazed], [Paralyzed], [Rooted], [Berserk], [Marked], [Confused], [Swimming], [Blinded]
  * (against Evasion), [Poisoned] (against Resistance), [Prone] (against Close attacks) and [Charmed] (against its
  * source); +1D for [Focused]. [Asleep] fails it outright. The dice never go below 1D.
- * Damage Rolls: +Rating for [Empowered], [Berserk] and [Awakened]; −Rating for [Weakened].
+ * Damage Rolls: +Rating for [Empowered], [Berserk], [Awakened] and [Sun]; +CR for [The One]; −Rating for [Weakened].
  * Race skills: the Pack (a skill with `flags.eternia.special: "pack"`) adds +[SR×2] damage with an ally within
  * 2 Sq and −1D on Accuracy with no ally within 5 Sq; effects with `consumeOn` end after the roll they help
  * (conditions/effects.mjs).
  */
 import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { parseRange } from "../helpers/hands.mjs";
-import { has, isSourceOf, rating, removeStatuses, rulesOn } from "./rules.mjs";
+import { crOf, has, isSourceOf, rating, removeStatuses, rulesOn } from "./rules.mjs";
 import { consumedBy } from "./effects.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
@@ -118,10 +118,11 @@ export function damageModifier(actor, item = null) {
   const pack = packSkill(actor);
   if (pack && (alliesWithin(actor, 2) > 0)) t.add("pack", 0, 2 * (Number(pack.system.skillRank?.value) || 1), pack.name);
   if (!rulesOn()) return t;
-  for (const id of ["empowered", "berserk", "awakened"]) {
+  for (const id of ["empowered", "berserk", "awakened", "sun"]) {
     const n = rating(actor, id);
     if (n > 0) t.add(id, 0, n);
   }
+  if (has(actor, "theOne")) t.add("theOne", 0, crOf(actor));
   const weakened = rating(actor, "weakened");
   if (weakened > 0) t.add("weakened", 0, -weakened);
   return t;

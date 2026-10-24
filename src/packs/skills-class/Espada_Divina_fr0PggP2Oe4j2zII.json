@@ -1,0 +1,74 @@
+{
+  "name": "Espada Divina",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Sol.</strong> Feitiço grande. Você só desce a mão, como quem corta o ar, e o mundo se parte em linha reta até 6 Qd: Teste de Precisão contra a Esquiva de cada alvo da Linha; [4d6 + Poder Mágico] de dano mágico, que atravessa [Anulação] e [Barreira] (e quebra a Barreira).</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Não precisa de espada. A espada é você.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Line",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/sword-winged-holy-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "sol-espada-divina",
+      "kind": "feeds",
+      "branch": "magic",
+      "pierce": {
+        "cancel": true,
+        "barrier": true
+      },
+      "magicSpell": {
+        "id": "sol"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "fr0PggP2Oe4j2zII",
+  "folder": "gnj7AjdDaSKptIz6",
+  "_key": "!items!fr0PggP2Oe4j2zII"
+}

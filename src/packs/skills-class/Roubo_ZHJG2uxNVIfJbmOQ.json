@@ -1,0 +1,169 @@
+{
+  "name": "Roubo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Proibida.</strong> Tudo pode ser roubado: a arma da mão, a força dos braços, os bônus que protegem, os órgãos de dentro do corpo. O que eles perdem, você ganha. Na hora do festival, você rouba a força de todos à sua volta, e quem estiver perto não escapa, amigo ou inimigo. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, o Festival sem Dono:</strong> a ganância não separa amigo de inimigo: em combate, a sua Defesa Mágica cai [NP], e o Festival da Caça pega aliados na área também.</li><li><strong>Dreno:</strong> a Caçada Louca e o Festival da Caça curam você em metade do PV que os alvos perdem.</li><li><strong>Traço, Mão Leve:</strong> quem os seus feitiços de Roubo acertam perde um bônus ([Fortalecido], [Barreira], [Acelerado], [Concentrado] ou [Regeneração], o primeiro que tiver), e ele passa para você.</li><li><strong>Feitiços:</strong> Caça Física e Caça da Raposa (NP 1), Sinal Zero e Caçada de Assalto (NP 3), Caçada Louca (NP 5) e o feitiço supremo Festival da Caça (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Festival da Caça pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você nem toca neles. Quando percebem, a coisa já está na sua mão.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/containers/bags/coinpouch-leather-orange.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Festival sem Dono",
+      "img": "icons/containers/bags/coinpouch-leather-orange.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.defense.magic.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "2vty5IowO76dPH3O",
+      "_key": "!items.effects!ZHJG2uxNVIfJbmOQ.2vty5IowO76dPH3O"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "roubo",
+            "steal": [
+              "empowered",
+              "barrier",
+              "hasted",
+              "focused",
+              "regen"
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Mão Leve",
+      "img": "icons/containers/bags/coinpouch-leather-orange.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "1MU84QqdM4C7Whof",
+      "_key": "!items.effects!ZHJG2uxNVIfJbmOQ.1MU84QqdM4C7Whof"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "roubo-roubo",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "roubo",
+        "category": "forbidden",
+        "tagline": "O que eles perdem, você ganha: força, armas, até os órgãos."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ZHJG2uxNVIfJbmOQ",
+  "folder": "8FeMq2WPZfh045os",
+  "_key": "!items!ZHJG2uxNVIfJbmOQ"
+}

@@ -1,0 +1,82 @@
+{
+  "name": "Mil Cortes Divinos",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Chamas do Purgatório. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você sobe no ar com a lâmina em chamas e corta um inimigo engajado com você mil vezes num instante. Teste de Precisão contra a Esquiva; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Chama], e ele fica com [Chama Negra: NP]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Ninguém viu os cortes. Só ouviram mil estalos juntos.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/weapons-crossed-swords-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "chamas-purgatorio-mil-cortes",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "blackFlame",
+          "value": "@cr"
+        }
+      ],
+      "magicSpell": {
+        "id": "chamas-purgatorio"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "j9WeE2aaCEAmqRDP",
+  "folder": "u0W01SqyBk2icf8s",
+  "_key": "!items!j9WeE2aaCEAmqRDP"
+}

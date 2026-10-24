@@ -397,6 +397,7 @@
       "soaked": "Soaked",
       "fuse": "Fuse",
       "cursed": "Cursed",
+      "blackFlame": "Black Flame",
       "exposed": "Exposed",
       "fissured": "Fissured",
       "marked": "Marked",
@@ -409,6 +410,10 @@
       "lastStand": "Last Stand",
       "awakened": "Awakened",
       "servant": "Servant",
+      "sun": "Sun",
+      "theOne": "The One",
+      "counter": "Counter",
+      "grudge": "Grudge",
       "bond": "Bond"
     },
     "StatusGroup": {
@@ -1282,6 +1287,7 @@
     },
     "Round": {
       "CleanupTitle": "Cleanup — Round {round}",
+      "SetupTitle": "Setup — Round {round}",
       "Regen": "Regen +{n}",
       "Decay": "Decay −{n}",
       "Barrier": "(Barrier absorbed {n})",
@@ -1528,7 +1534,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.26: the Magia review</strong></p><ul><li>Each of the 73 Magias has a <strong>Trait</strong>, a passive rule of its own for its spells, shown in the description and in the Magia window: <strong>Fire</strong> hits harder on whoever already burns, <strong>Magic Eyes</strong> petrify whoever already has [Rigor], <strong>Water</strong> doesn't burn, <strong>Smoke</strong> attacks without leaving [Hidden], <strong>Enchantment</strong> hurts more the more enchantments the target has.</li><li>Five new conditions: [Soaked] (lightning and cold hurt more, and fire goes out), [Weakened] (less damage), [Fuse] (adds up and explodes at the end of the round), [Servant] (the summoned creature stays in the fight and attacks on its own) and [Dominated] (can't attack whoever dominates it or their allies).</li><li>47 spells changed so that similar Magias feel different: random cards, stealing the target's boosts, the Purple Flame that doubles the fire, bombs with a Fuse, dolls and beasts that stay at your side. Three repeated spells were replaced. Characters get it all automatically, keeping their SR.</li><li>Since 0.25: the Slayers (White, Shadow and Poison), the Curses and sixteen more Magias.</li></ul><p>Since 0.24: Sense Link, Angel Magic, Darkness and Bind. Since 0.23: Snow, Magic Perfume, Machine Soul and Wave. Since 0.22: 14 classes, 7 physical and 7 magic, all with Magias; the Fighter, the Centurion and the Hierophant. Since 0.21: Wood-Make, Sand, Telepathy and Teleportation. Since 0.20: the Holder Magias Magic Guns, Plants, Smoke and Magic Painting. Since 0.19: Giant, Enchantment, Magic Eyes and High Speed. Since 0.18: the Magia choice in a window of its own and the class tab without scrolling. Since 0.17: the Lost Magias. Since 0.16: the elemental Magias. Since 0.15: the Blue Mage and the Take Over Magias. Since 0.14: the White Mage. Since 0.13: the Summoner with Magias. Since 0.12: the Pictomancer. Since 0.11: the Red Mage. Since 0.10: the Black Mage and the Magias. Since 0.9: the Dragon Slayer. Since 0.8: the classes with a Motor. Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
+      "Body": "<p><strong>What's new in Eternia 0.27: four Magias and five conditions</strong></p><ul><li><strong>Sun</strong> (Ancestral): the Sun clock. The [Sun] rises every round and with each spell up to noon, when you become [The One] (no attack reaches you, and you hit +CR); then it sets. At night, it doesn't go past 2.</li><li><strong>Counter</strong> (Lost): the [Counter] sends a blow back doubled, magical or physical, single target; the [Grudge] keeps the damage you take, and the Grudge Strike lets it all out at once.</li><li><strong>Purgatory Flames</strong> (Curse): the [Black Flame] doesn't go out with water or an action, and no one heals while it burns, not even with Regen.</li><li><strong>Theft</strong> (Forbidden): each hit steals a boost from the target, and the Crazy Hunt and the Hunter Fest heal you with the damage (Drain).</li><li>Since 0.26: the Magia review, a Trait for each one and five new conditions.</li></ul><p>Since 0.25: the Slayers (White, Shadow and Poison), the Curses and sixteen more Magias. Since 0.24: Sense Link, Angel Magic, Darkness and Bind. Since 0.23: Snow, Magic Perfume, Machine Soul and Wave. Since 0.22: 14 classes, 7 physical and 7 magic, all with Magias; the Fighter, the Centurion and the Hierophant. Since 0.21: Wood-Make, Sand, Telepathy and Teleportation. Since 0.20: the Holder Magias Magic Guns, Plants, Smoke and Magic Painting. Since 0.19: Giant, Enchantment, Magic Eyes and High Speed. Since 0.18: the Magia choice in a window of its own and the class tab without scrolling. Since 0.17: the Lost Magias. Since 0.16: the elemental Magias. Since 0.15: the Blue Mage and the Take Over Magias. Since 0.14: the White Mage. Since 0.13: the Summoner with Magias. Since 0.12: the Pictomancer. Since 0.11: the Red Mage. Since 0.10: the Black Mage and the Magias. Since 0.9: the Dragon Slayer. Since 0.8: the classes with a Motor. Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -1577,6 +1583,7 @@
       "soaked": "[Soaked: n]: +n damage from [Shock] and [Cold]. Can't be Burning (and loses it when Soaked); [Flame] damage only dries the Soaked. Ends in the Cleanup Process.",
       "fuse": "[Fuse: n]: in the Cleanup Process it goes off: n [Flame] damage, and the Fuse ends. New Fuses add to the Rating. Ends before with a Major Action (defusing).",
       "cursed": "Recovers no HP (healing, Regen and items) and effects can't give them Barrier nor Regen. Ends at the end of the scene.",
+      "blackFlame": "[Black Flame: n]: takes n [Flame] damage in the Cleanup Process and recovers no HP (healing, Regen and items don't work). Nothing puts it out: no action, water, [Soaked] or [Swimming]. The highest Rating stays. Ends at the end of the scene, when whoever lit it is Incapacitated, or with what removes Bad Statuses.",
       "exposed": "The guard is down: Physical and Magic Defense are 0 and Cancel doesn't work. Ends in the Cleanup Process.",
       "fissured": "[Fissured: n] (up to 3 stacks): −2 Physical and Magic Defense per stack. On the third the guard breaks: the stacks clear, the Barrier is gone and they are Exposed. Ends with a Major Action.",
       "marked": "[Marked: n]: −1d6 on Dodge Checks; failing one deals +n direct damage and the mark ends. The highest Rating stays.",
@@ -1589,6 +1596,10 @@
       "lastStand": "When they would drop to 0 HP, they stay at 1 HP and the status ends.",
       "awakened": "[Awakened: n]: the transformation. +1d6 on Accuracy checks and +n damage on attacks. When it ends, it leaves [Fatigue: n].",
       "servant": "[Servant: n]: a summoned servant fights at their side. In the Cleanup Process, it strikes the nearest enemy within 4 Sq: n direct damage, with the servant's tag. The highest Rating stays. Ends at the end of the scene.",
+      "sun": "[Sun: n] (up to 5): +n damage on attacks and +n Physical and Magic Defense. In a combat, it rises by 1 in each Setup Process and with each Sun spell. At 5 it is noon: [The One] for a round, once per combat; then the Sun sets by 1 each round and rises no more. In a dark scene (night), it doesn't go past 2. Ends at the end of the scene.",
+      "theOne": "Noon: takes no damage nor statuses from attacks, and its attacks deal +CR damage. Ends in the Cleanup Process (its Rating is the rounds left).",
+      "counter": "[Counter (Magic or Physical)]: the next attack of that type, with a single target, that hits you does nothing to you: the attacker takes double the damage you would take, as direct damage. With no type, it works against any attack, areas too. Ends after sending back a blow, or in the Cleanup Process.",
+      "grudge": "[Grudge: n]: keeps the damage. Each HP you lose to attacks adds 1 (up to CR×4). A Grudge blow lets the Rating out as extra damage and clears it. Ends at the end of the scene.",
       "bond": "Half the HP damage they would take goes to whoever made the Bond, as direct damage. Ends at the end of the scene or if that character is Incapacitated."
     },
     "StatusFamily": {
@@ -1613,10 +1624,22 @@
         "Melted": "The Flame melted the Freezing",
         "Mirror": "Mirror: {n} damage to {name}",
         "Soaked": "Soaked: +{n}",
-        "Dried": "The Flame dried the Soaked"
+        "Dried": "The Flame dried the Soaked",
+        "TheOne": "The One: the attack doesn't reach",
+        "Counter": "Counter: {n} damage back to {name}",
+        "Grudge": "Grudge: {n}"
       },
       "CursedNoHeal": "{name} is Cursed: recovers no HP.",
       "CursedBlocks": "{name} is Cursed: gets no {status}.",
+      "NoHeal": "{name} has {status}: recovers no HP.",
+      "HealBlocks": "{name} has {by}: gets no {status}.",
+      "Heal": "Healing",
+      "HealLine": "{name}: {what} +{n} HP → HP {before} → {hp}",
+      "SunRises": "{name}: the Sun rises to {n}.",
+      "SunSets": "{name}: the Sun sets to {n}.",
+      "Noon": "{name}: noon. The One until the end of the round.",
+      "TheOneLasts": "{name} stays The One for one more round.",
+      "TheOneEnds": "{name} is no longer The One.",
       "ConfusedHate": "{name} is Confused: Hate goes up to {hate}.",
       "DoomFalls": "{name}: the Doom has come. Incapacitated.",
       "DoomCount": "{name}: Doom {n}.",

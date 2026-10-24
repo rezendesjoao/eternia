@@ -1,6 +1,6 @@
 /**
  * The numbers the conditions change, worked out last in the actor's derived data (the sheets show them):
- * - [Exposed]: Physical and Magic Defense 0; [Fissured]: −2 to both per stack;
+ * - [Exposed]: Physical and Magic Defense 0; [Fissured]: −2 to both per stack; [Sun]: + its Rating to both;
  * - [Freezing]: −1 Speed and −1 Initiative per stack;
  * - [Rooted], [Grappled], [Paralyzed], [Asleep]: Speed 0.
  * Characters keep their values in `battle-status.<x>.total`, monsters directly in `battle-status.<x>`.
@@ -29,9 +29,16 @@ export function applyConditionStats(actor) {
   const defense = battle.defense;
   if (defense) {
     const fissured = rating(actor, "fissured");
+    const sun = rating(actor, "sun");
     for (const key of ["phys", "magic"]) {
-      if (has(actor, "exposed")) write(defense, key, 0);
-      else if (fissured) write(defense, key, Math.max(0, read(defense, key) - (2 * fissured)));
+      if (has(actor, "exposed")) {
+        write(defense, key, 0);
+        continue;
+      }
+      // [Fissured] stops at 0; the [Sun] adds on top (a Taboo may have left the Defense below 0)
+      let value = read(defense, key);
+      if (fissured) value = Math.max(0, value - (2 * fissured));
+      if (fissured || sun) write(defense, key, value + sun);
     }
   }
 

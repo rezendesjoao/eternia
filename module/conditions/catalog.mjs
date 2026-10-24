@@ -1,5 +1,5 @@
 /**
- * The conditions of Eternia (docs/condicoes.md): the 36 statuses added to the 23 of the base rules, and what every
+ * The conditions of Eternia (docs/condicoes.md): the 41 statuses added to the 23 of the base rules, and what every
  * status does at the table. The definitions join the system's status list (helpers/statuses.mjs); the tables below
  * are read by the mechanisms of this folder (rolls, actions, damage, turns, recovery).
  *
@@ -45,6 +45,8 @@ export const NEW_STATUSES = [
   // The fuses add up (a big stack, no threshold): each new one makes the blast bigger
   { id: "fuse", group: "bad", family: "element", img: icon("fuse"), path: "bad-status.fuse", rated: true, stack: 999 },
   { id: "cursed", group: "bad", family: "element", img: icon("cursed") },
+  // The fire of Purgatory: no action, water or swim puts it out, and it stops all healing (conditions/damage.mjs)
+  { id: "blackFlame", group: "bad", family: "element", img: icon("blackFlame"), path: "bad-status.blackFlame", rated: true, source: true },
   // Guard break
   { id: "exposed", group: "bad", family: "guard", img: icon("exposed") },
   { id: "fissured", group: "bad", family: "guard", img: icon("fissured"), path: "bad-status.fissured", rated: true, stack: 3 },
@@ -60,6 +62,13 @@ export const NEW_STATUSES = [
   { id: "awakened", group: "combat", img: icon("awakened"), path: "bad-status.awakened", rated: true },
   // A summoned servant (its effect's statusData.tag is the tag of its blows)
   { id: "servant", group: "combat", img: icon("servant"), path: "bad-status.servant", rated: true },
+  // The Sun clock (conditions/turns.mjs): the Sun rises every round up to noon, [The One] for a round, then sets
+  { id: "sun", group: "combat", img: icon("sun"), path: "bad-status.sun", rated: true },
+  { id: "theOne", group: "combat", img: icon("theOne"), path: "bad-status.theOne", rated: true },
+  // The next direct attack of a type goes back to the attacker, doubled (statusData.tag: magical | physical | any)
+  { id: "counter", group: "combat", img: icon("counter"), tagged: true },
+  // The damage taken, kept for one blow (conditions/damage.mjs)
+  { id: "grudge", group: "combat", img: icon("grudge"), path: "bad-status.grudge", rated: true },
   // Other
   { id: "bond", group: "other", img: icon("bond"), source: true }
 ];
@@ -84,7 +93,11 @@ export const SILENCED_TAGS = ["Magic Attack", "Spell", "Song"];
 export const END_OF_OWN_PROCESS = ["staggered", "dazed", "paralyzed", "silenced", "taunted", "weakened", "dominated"];
 
 /** Statuses that end in the Cleanup Process (after its damage). */
-export const END_OF_ROUND = ["rooted", "slowed", "blinded", "frightened", "shocked", "exposed", "intangible", "soaked"];
+export const END_OF_ROUND = ["rooted", "slowed", "blinded", "frightened", "shocked", "exposed", "intangible", "soaked", "counter"];
+
+/** How high the Sun goes (noon), and at night (a scene at least half dark). */
+export const SUN_NOON = 5;
+export const SUN_NIGHT = 2;
 
 /** Statuses [Afflicted] protects: removing them puts them back at once. */
 export const AFFLICTED_PROTECTS = ["staggered", "dazed", "confused", "weakness", "overconfident", "frightened", "charmed"];

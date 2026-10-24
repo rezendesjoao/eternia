@@ -1020,7 +1020,9 @@ REGRAS (a geral e uma página por Magia).
 | Cajados Mágicos | Portadora | Sono Pesado | Raio do Cajado, Muro de Névoa, Sono, Arranha-Céu, Dança dos Cinco Cajados, Círculo de Cinco Camadas: Canto Sagrado (supremo) |
 | Calamidade | Maldição (Tabu: em combate, a Defesa Física cai [NP÷2], e as Partículas Antimagia pegam aliados) | Olho da Tempestade | Tornado, Aguaceiro ([Encharcado] numa área), Impacto, Esfera do Trovão, Inferno, Partículas Antimagia (supremo) |
 | Cartas | Portadora | Baralho Marcado | Cartas Lançadas (estado ao acaso), Carta do Trovão, Leitura da Sorte (bônus ao acaso), Prisão de Cartas, Tempestade de Cartas (estado ao acaso), Os Vinte e Dois Arcanos (supremo) |
+| Chamas do Purgatório | Maldição (Tabu: em combate, [Fraqueza (Radiância): NP]) | Fogo que Não Apaga | Encantamento: Chama Infernal (a arma dá [Chama Negra: 2]), Pássaro Infernal, Onda Infernal, Cão Infernal ([Servo]), Dragão das Cinzas, Mil Cortes Divinos (supremo, num alvo só) |
 | Comando M | Conjuração | Escala Errada | Comando: Redução, Comando: Expansão, Comando: Encolher a Magia (em você ou num aliado), Qualidade do Poder Mágico, Comando: Terreno, Demolidora de Países (supremo) |
+| Contra-ataque | Perdida (Tabu: em combate, −1d6 nas Esquivas) | Mais que o Dobro | Contra-ataque Total e Contra-ataque Físico ([Contragolpe], só alvo único), Contra-ataque Evanescente ([Anulação] em você e nos aliados), Contra-ataque Vingativo ([Rancor]), Golpe do Rancor (gasta o Rancor), Contra-ataque Absoluto (supremo, Antes do Dano, devolve até área) |
 | Cópia | Conjuração (o Copiar decora um feitiço; a Imitação repete a tag e o estado dele) | Memória Perfeita | Copiar, Ouvir a Alma (+1d6 nas Esquivas na cena), Imitação, Copiar e Anular, Derreter, Ars Magia (supremo) |
 | Corpos Celestes | Conjuração | Rastro de Luz | Estrela Cadente, Meteoro, Velocidade da Luz, Altairis, Sete Estrelas do Julgamento: Grand Chariot, Sema (supremo) |
 | Correntes | Proibida (Tabu: em combate, −1d6 nas Resistências) | Selos de Amaterasu | Corrente do Grimório, Balas Mágicas, Raio do Grimório, Amaterasu: Fórmula 28, Amaterasu: Fórmula 100, Lei do Grimório (supremo) |
@@ -1062,8 +1064,10 @@ REGRAS (a geral e uma página por Magia).
 | Raio | Conjuração | Para-raios | Relâmpago, Corrente Elétrica, Passo do Relâmpago, Trovão, Tempestade de Raios, Palácio do Trovão (supremo) |
 | Reequipar: O Cavaleiro | Portadora (os feitiços são Ataques com Arma) | Arsenal sem Fim | Roda Celeste: Círculo de Espadas, Asa Negra: Lampejo Lunar, Armadura Adamantina, Traje do Coração Puro, Roda Celeste: Pétalas de Aço, Armadura de Nakagami: Luz Estelar (supremo) |
 | Reflexão | Conjuração | Golpe Torto | Torção, Reflexo, Miragem, Corpo Torcido, Mundo Torcido, Reflexão Total (supremo) |
+| Roubo | Proibida (Tabu: em combate, a Defesa Mágica cai [NP], e o Festival pega aliados) | Mão Leve | Caça Física, Caça da Raposa ([Desarmado]), Sinal Zero ([Oculto]), Caçada de Assalto, Caçada Louca (Dreno), Festival da Caça (supremo, Dreno) |
 | Selo do Tempo | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP÷2]) | O Tempo é Seu | Raio de Âge (sem teste), Selar o Tempo, Arranhão de Âge, Passo Fora do Tempo, Transbordamento, Alma Divina: Cronos (supremo, [Paralisado]) |
 | Shikigami | Conjuração | Mil Papéis | Torrente de Shikigami ([Servo]), Véu de Ilusão ([Oculto] em você ou num aliado), Prisão de Papel, Bomba Negra de Shikigami, Revoada de Shikigami, Mil Bonecos de Papel (supremo) |
+| Sol | Ancestral (o supremo no NP 10; o Relógio do Sol) | Orgulho do Leão | Sol Cruel ([Espelho] igual ao Sol), Punho de Hélio, Proeminência Louca, Chama do Orgulho, Espada Divina, Proeminência Final (supremo, NP 10; estende o [O Único]) |
 | Sombras | Conjuração | Frio que Drena | Soldados de Sombra, Soldado de Guarda ([Servo]), Abraço das Sombras, Pulso Sombrio, Onda da Morte, Exército de Sombras (supremo) |
 | Teatro de Bonecas | Conjuração | Fios | Boneca de Pedra ([Servo]), Boneca de Madeira, Marionete ([Dominado]), Boneca de Nuvem, Boneca da Terra, Grande Teatro (supremo) |
 | Telepatia | Conjuração | Rede Mental | Sobrecarga, Leitura de Mente, Proteção, Ruído Mental, Transferência de Informação, Sobrecarga Total (supremo) |
@@ -1093,7 +1097,11 @@ strip, pierce, keepHidden, bonus, healBonus }` (com `immune`, `changes` e `condi
 `module/helpers/magic-traits.mjs` lê nos cartões de dano dos feitiços daquela Magia: dano a mais contra quem tem um
 estado ou uma tag (`bonusVs`, com `perValue` e `consume`), estados no acerto (`onHit`), um estado que escala
 (`escalate`), estados arrancados (`strip`), a Defesa pela metade e a Anulação ou a Barreira atravessadas (`pierce`),
-o [Oculto] que não sai (`keepHidden`) e o bônus fixo de dano (`bonus`) ou de cura (`healBonus`). Os feitiços usam as
+o [Oculto] que não sai (`keepHidden`) e o bônus fixo de dano (`bonus`) ou de cura (`healBonus`). Desde a 0.27: o
+Dreno (`drain`, a fração do PV tirado que volta para quem conjura), o roubo de um bônus a cada
+acerto (`steal`), o dano a mais pelo Valor de um estado próprio, gasto ou não (`selfBonus`, nos feitiços: o Golpe do
+Rancor), o bônus do [Contragolpe] (`counterBonus`) e o Relógio do Sol (`sunClock`: o [Sol] sobe para quem tem a Magia,
+em `conditions/turns.mjs`). Os feitiços usam as
 mesmas flags e mais `randomHit` e `randomEffect` (veja `docs/condicoes.md`). O texto do Traço fica na descrição da
 Magia (a linha "Traço, nome:", que a janela de Magias mostra numa caixa própria). A migração `kudenCleanup` 7 refaz
 as Magias e os feitiços das fichas pelo compêndio, guardando o NH e o uso.

@@ -84,6 +84,8 @@ export const EFFECT_TARGETS = [
   { key: "system.battle-status.initiative", label: "ETERNIA.Monster.Initiative", group: "battle", actorTypes: ["monster"], kind: "number" },
   // Passive [Cancel] (conditions/effects.mjs passiveCancels; tag in flags.eternia.cancelTag)
   { key: "eternia.passive.cancel", label: "ETERNIA.StatusEffect.cancel", group: "battle", actorTypes: ["character", "monster"], kind: "number" },
+  // Passive [Weakness] (conditions/effects.mjs passiveWeaknesses; tag in flags.eternia.weaknessTag): a Magia's Tabu
+  { key: "eternia.passive.weakness", label: "ETERNIA.StatusEffect.weakness", group: "battle", actorTypes: ["character", "monster"], kind: "number" },
   // Max Fate that doesn't add up: only the highest one counts (a crafted Lucky accessory, actor.mjs _luck)
   { key: "eternia.passive.luck", label: "ETERNIA.EffectTarget.Luck", group: "resources", actorTypes: ["character"], kind: "number" },
 

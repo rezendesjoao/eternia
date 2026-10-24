@@ -5,9 +5,15 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.26.0
+## Versão 0.27.0
 
-- **Novo na 0.26.0: a revisão das Magias.** Cada uma das 73 Magias ganhou um **Traço**, uma regra passiva própria que
+- **Novo na 0.27.0: quatro Magias das categorias altas e cinco condições.** O **Sol** (Ancestral) traz o Relógio do
+  Sol: o [Sol] sobe a cada rodada e a cada feitiço até o meio-dia, quando você vira [O Único], e depois desce. O
+  **Contra-ataque** (Perdida) devolve o golpe em dobro com o [Contragolpe] e guarda o dano no [Rancor]. As **Chamas do
+  Purgatório** (Maldição) acendem a [Chama Negra], que não apaga e não deixa ninguém se curar. O **Roubo** (Proibida)
+  tira um bônus do alvo a cada acerto e cura você com o dano (veja [As Magias](#as-magias) e
+  [As condições](#as-condições)).
+- **Desde a 0.26.0: a revisão das Magias.** Cada uma das 73 Magias ganhou um **Traço**, uma regra passiva própria que
   vale para os feitiços dela: o Fogo bate mais em quem já queima, os Olhos Mágicos petrificam quem já está com
   Rigidez, a Água não queima, o Esmagamento atravessa a Barreira, o Encantamento fere mais quanto mais encantos o alvo
   tem. 47 feitiços mudaram para que as Magias parecidas fiquem diferentes, e cinco condições novas (Encharcado,
@@ -129,7 +135,7 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
 - **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 22 classes, 14 na lista e 8 antigas), Habilidades Raciais e
-  Habilidades de Classe (36 por classe, 64 no Matador de Dragões, e as 73 Magias com os feitiços: 1332 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
+  Habilidades de Classe (36 por classe, 64 no Matador de Dragões, e as 77 Magias com os feitiços: 1360 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
 
@@ -358,7 +364,9 @@ a lâmina embainhada, o Assassino abre Brechas pelos acertos no Alvo e o Lutador
 | Cajados Mágicos | Portadora | Cinco cajados: o raio de [Choque], a névoa que protege, o [Adormecido], o [Medo] da ilusão e a luz do Canto Sagrado, que deixa [Cego]. Traço: Sono Pesado. |
 | Calamidade | Maldição | As calamidades: o tornado de [Vento], o aguaceiro que apaga o fogo ([Encharcado]), o terremoto ([Atordoado]), a esfera do trovão ([Eletrificado]), o inferno ([Queimando]) e as Partículas Antimagia ([Silenciado], [Maldito]), que pegam aliados. Tabu: em combate, a Defesa Física cai [NP÷2]. Traço: Olho da Tempestade. |
 | Cartas | Portadora | O baralho: cartas que cortam e deixam um estado tirado ao acaso, o raio de [Choque], a sorte que dá um bônus ao acaso, a gaiola que deixa [Enraizado] e [Silenciado], a tempestade de cartas e Os Vinte e Dois Arcanos ([Atordoado]). Traço: Baralho Marcado. |
+| Chamas do Purgatório | Maldição | O fogo negro dos demônios: [Chama] e [Chama Negra], que não apaga e não deixa ninguém se curar; a lâmina encantada, o pássaro, a onda em linha, o cão que fica ([Servo]), o dragão das cinzas e os Mil Cortes Divinos ([Chama Negra: NP]). Tabu: em combate, [Fraqueza (Radiância): NP]. Traço: Fogo que Não Apaga (arranca a [Regeneração]). |
 | Comando M | Conjuração | O tamanho das coisas: a redução que deixa [Lento] e [Enfraquecido], a expansão ([Fortalecido]), o feitiço encolhido ([Anulação]), o golpe de terra ([Derrubado]), o terreno que deixa [Enraizado] e a Demolidora de Países ([Fissurado: 3]). Traço: Escala Errada. |
+| Contra-ataque | Perdida | Devolver o golpe: o [Contragolpe] contra um ataque mágico ou físico de alvo único (o dobro de volta), o feitiço desfeito no ar ([Anulação] em você e nos aliados), o [Rancor] que guarda o dano, o golpe que solta tudo ([Atordoado]) e o Contra-ataque Absoluto, que devolve até área. Tabu: em combate, −1d6 nas Esquivas. Traço: Mais que o Dobro. |
 | Cópia | Conjuração | A cópia: o Copiar e a Imitação, que repete a tag e o estado do feitiço copiado; ouvir a alma (+1d6 nas Esquivas), copiar e anular ([Anulação], [Concentrado]), o Derreter ([Queimando]) e a Ars Magia ([Selado]). Traço: Memória Perfeita. |
 | Corpos Celestes | Conjuração | As estrelas: [Radiância] de longe, o Meteoro, a gravidade de Altairis, Grand Chariot e o meteoro gigante de Sema. Traço: Rastro de Luz. |
 | Correntes | Proibida | O grimório das trevas: a corrente com gancho ([Agarrado]), as balas dos dedos em dois alvos, o raio que explode ([Derrubado]), as Fórmulas 28 ([Atordoado]) e 100 ([Fissurado]) de Amaterasu e a Lei do Grimório ([Medo]). Tabu: em combate, −1d6 nas Resistências. Traço: Selos de Amaterasu. |
@@ -400,8 +408,10 @@ a lâmina embainhada, o Assassino abre Brechas pelos acertos no Alvo e o Lutador
 | Raio | Conjuração | O raio: o relâmpago ([Eletrificado]), a corrente que deixa [Eletrificado], o passo que deixa [Acelerado], o trovão que deixa [Atordoado], a tempestade em três alvos e o Palácio do Trovão. Traço: Para-raios. |
 | Reequipar: O Cavaleiro | Portadora | As armaduras de batalha: os feitiços são Ataques com Arma (espadas em área, o golpe da asa negra), a defesa adamantina, o traje sem armadura e a armadura que corta a magia ([Selado]). Traço: Arsenal sem Fim. |
 | Reflexão | Conjuração | Tudo torcido: o corpo que fica com [Rigidez], o golpe que volta ([Espelho]), a luz que deixa [Oculto], o corpo [Cambaleante], o mundo que deixa [Atordoado] e a Reflexão Total ([Confuso]). Traço: Golpe Torto. |
+| Roubo | Proibida | O que eles perdem, você ganha: a força ([Enfraquecido] nele, [Fortalecido] em você), a arma ([Desarmado]), sumir ([Oculto]), atravessar cortando, os órgãos ([Fissurado], Dreno) e o Festival da Caça ([Enfraquecido: NP] em todos em volta, aliados também, com Dreno). Tabu: em combate, a Defesa Mágica cai [NP]. Traço: Mão Leve (rouba um bônus a cada acerto). |
 | Selo do Tempo | Perdida | O tempo parado: o raio sem teste, o selo que dá [Acelerado], os ponteiros que deixam [Marcado], o passo fora do tempo, o transbordamento ([Derrubado]) e a Alma Divina: Cronos ([Paralisado]). Tabu: em combate, as Defesas caem [NP÷2]. Traço: O Tempo é Seu. |
 | Shikigami | Conjuração | Os bonecos de papel: a torrente, que fica ([Servo]), o véu de ilusão ([Oculto]), a prisão de papel ([Enraizado], [Silenciado]), a bomba negra ([Atordoado]), a revoada ([Enraizado]) e os Mil Bonecos de Papel ([Selado]). Traço: Mil Papéis. |
+| Sol | Ancestral | O Relógio do Sol: o [Sol] sobe a cada rodada e a cada feitiço até o meio-dia, que dá [O Único], e depois desce; de noite, não passa de 2. O sol pequeno que gira ([Espelho]), o punho de fogo ([Derrubado]), os sóis em três alvos, a explosão que derrete armadura ([Fissurado]), a Espada Divina (atravessa [Anulação] e [Barreira]) e a Proeminência Final, o supremo do NP 10, que estende o meio-dia. Traço: Orgulho do Leão. |
 | Sombras | Conjuração | Os fantasmas, tudo de [Corrupção]: os soldados em dois alvos, o soldado de guarda ([Servo]), o abraço que deixa [Agarrado] e [Deterioração], o pulso ([Atordoado]), a Onda da Morte ([Fissurado: 2]) e o Exército de Sombras ([Medo]). Traço: Frio que Drena. |
 | Teatro de Bonecas | Conjuração | As coisas que ganham vida: a rocha que soca e fica ([Servo]), a árvore que agarra ([Enraizado]), os fios da Marionete ([Dominado]), a nuvem que voa e o chão que derruba. Traço: Fios. |
 | Telepatia | Conjuração | A mente ligada: as telas que explodem, a leitura que deixa [Concentrado], o escudo de [Barreira] do grupo, o ruído que deixa [Confuso], a transferência que deixa o grupo [Concentrado] e [Acelerado] e a Sobrecarga Total ([Atordoado]). Traço: Rede Mental. |
@@ -498,7 +508,7 @@ os efeitos que vão só para os aliados ou só para os inimigos entre os alvos (
 
 ## As condições
 
-Os 23 estados das regras de base e mais 36 condições da Eternia, feitas para emular poderes de anime. A regra de
+Os 23 estados das regras de base e mais 41 condições da Eternia, feitas para emular poderes de anime. A regra de
 cada uma aparece ao passar o mouse (na ficha, no HUD e nos estados clicáveis do chat), e a página
 **IX. CONDIÇÕES DA ETERNIA** do diário AS REGRAS traz todas por extenso.
 
@@ -507,9 +517,9 @@ cada uma aparece ao passar o mouse (na ficha, no HUD e nos estados clicáveis do
 | Controle | Paralisado, Adormecido, Enraizado, Derrubado, Lento, Agarrado |
 | Bloqueio | Silenciado, Desarmado, Cego, Selado (Habilidade), Enfraquecido: n |
 | Mente | Medo, Encantado, Provocado, Fúria: n, Dominado |
-| Elementais | Queimando: n, Envenenado: n, Congelando: n (acumula até 3), Eletrificado: n, Maldito, Encharcado: n, Pavio: n (soma) |
+| Elementais | Queimando: n, Envenenado: n, Congelando: n (acumula até 3), Eletrificado: n, Maldito, Encharcado: n, Pavio: n (soma), Chama Negra: n |
 | Quebra de guarda | Exposto, Fissurado: n (acumula até 3), Marcado: n, Sentença: n |
-| Estados de Combate | Acelerado, Fortalecido: n, Concentrado, Espelho: n, Intangível, Último Fôlego, Despertado: n, Servo: n |
+| Estados de Combate | Acelerado, Fortalecido: n, Concentrado, Espelho: n, Intangível, Último Fôlego, Despertado: n, Servo: n, Sol: n, O Único, Contragolpe, Rancor: n |
 | Outros | Vínculo |
 
 O que o sistema faz sozinho:
@@ -520,8 +530,11 @@ O que o sistema faz sozinho:
 - **Dano aplicado:** Exposto fica sem Defesa e sem Anulação, Intangível não sofre dano físico, Marcado soma o seu
   Valor quando a Esquiva falha, Último Fôlego segura em 1 PV, Vínculo divide o dano, Espelho devolve, Maldito não
   recupera PV, [Chama] derrete o Congelando e seca o Encharcado, Encharcado soma o seu Valor ao dano de [Choque] e de
-  [Frio] (e apaga o Queimando), e o Adormecido acorda.
-- **Turnos:** Envenenado no início do turno, Eletrificado a cada Ação Maior, Queimando, Sentença e Pavio (que explode
+  [Frio] (e apaga o Queimando), e o Adormecido acorda. O Contragolpe devolve ao atacante o dobro do dano que o golpe
+  causaria, O Único não sofre nada de ataques, o Rancor guarda o PV perdido e a Chama Negra não deixa ninguém se curar
+  (nem com Regeneração) e não apaga com água.
+- **Turnos:** o Sol sobe na Manutenção (até o meio-dia, que dá O Único, e depois desce; de noite, não passa de 2),
+  Envenenado no início do turno, Eletrificado a cada Ação Maior, Queimando, Chama Negra, Sentença e Pavio (que explode
   de uma vez) no Encerramento, quando o Servo golpeia o inimigo mais perto; Lento age depois dos outros, Acelerado tem
   duas Ações Menores, Paralisado e Adormecido perdem a vez.
 - **Acúmulos:** o terceiro Congelando paralisa; o terceiro Fissurado quebra a guarda (a Barreira some e vem Exposto).
@@ -716,7 +729,8 @@ eternia.icons.refresh();              // desenha de novo os ícones da tela
 - **Reki Kawahara / Kadokawa:** criadores de Sword Art Online, de onde vêm os nomes e a inspiração dos itens das pastas
   Aincrad, Alfheim e Submundo. A Eternia não é oficial nem tem vínculo com eles.
 - **Ícones** de [game-icons.net](https://game-icons.net) sob [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
-  (fundos dos estados recoloridos; Encharcado, Enfraquecido, Pavio, Servo e Dominado são arte própria). Autores: Lorc, Delapouite, Skoll, Sbed, Zeromancer e
+  (fundos dos estados recoloridos; Encharcado, Enfraquecido, Pavio, Servo, Dominado, Chama Negra, Sol, O Único,
+  Contragolpe e Rancor são arte própria). Autores: Lorc, Delapouite, Skoll, Sbed, Zeromancer e
   Carl Olsen.
 
 <details>

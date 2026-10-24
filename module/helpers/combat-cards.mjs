@@ -25,8 +25,8 @@ import { mainWeapon, parseRange } from "./hands.mjs";
 import { skillModifiers } from "./roll-bonuses.mjs";
 import { hateRank } from "./effect-conditions.mjs";
 import { applyModifier, consumeAfterRoll, dodgeModifier } from "../conditions/rolls.mjs";
-import { afterDamage, beforeDamage, canHeal, markDamage, restoreForUndo, snapshotForUndo } from "../conditions/damage.mjs";
-import { consumedBy, passiveCancels } from "../conditions/effects.mjs";
+import { afterDamage, beforeDamage, counterBack, healBlocker, markDamage, restoreForUndo, snapshotForUndo, takeHealing } from "../conditions/damage.mjs";
+import { consumedBy, passiveCancels, passiveWeaknesses, stealStatuses } from "../conditions/effects.mjs";
 import { statusEffectData } from "../chat/status-links.mjs";
 import { motorDamageTags, motorOnHit } from "../classes/motor.mjs";
 import { evaluateFormula, formulaData, isFormula } from "./effect-formulas.mjs";
@@ -613,6 +613,8 @@ export async function createDamageCard(item, attacker, formula, flavor, attackMe
     strip: recovery ? [] : extras.strip,
     pierce: recovery ? {} : extras.pierce,
     keepHidden: extras.keepHidden,
+    drain: recovery ? 0 : extras.drain,
+    steal: recovery ? [] : extras.steal,
     onHit: recovery ? [] : [...onHitOf(attacker ?? item.actor), ...motorOnHit(attacker ?? item.actor, item),
       ...skillHitStatuses(item, attacker), ...extras.onHit],
     attackerUuid: (attacker ?? item.actor)?.uuid ?? "",
@@ -627,7 +629,11 @@ export async function createDamageCard(item, attacker, formula, flavor, attackMe
     flags: { eternia: { damage: data } }
   };
   ChatMessage.applyMode(messageData);
-  return ChatMessage.create(messageData);
+  const message = await ChatMessage.create(messageData);
+  // The attacker's statuses the spell spends (the [Grudge] a blow lets out): helpers/magic-traits.mjs
+  const spender = attacker ?? item.actor;
+  if (extras.spend.length && spender?.isOwner) await removeStatuses(spender, extras.spend.filter(id => has(spender, id)));
+  return message;
 }
 
 /* -------------------------------------------- */
@@ -667,9 +673,10 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   const lines = [];
 
   if (mode === "heal") {
-    // A [Cursed] character recovers no HP (conditions/damage.mjs).
-    if (!canHeal(actor)) {
-      lines.push(game.i18n.format("ETERNIA.Conditions.CursedNoHeal", { name: actor.token?.name ?? actor.name }));
+    // A [Cursed] character, or one with [Black Flame], recovers no HP (conditions/damage.mjs).
+    const blocker = healBlocker(actor);
+    if (blocker) {
+      lines.push(game.i18n.format("ETERNIA.Conditions.NoHeal", { name: actor.token?.name ?? actor.name, status: statusLabel(blocker) }));
       return postApplied(actor, card, before, lines, "+0 HP");
     }
     // A Trait's healing bonus (helpers/magic-traits.mjs)
@@ -744,9 +751,14 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
     amount -= defense + (cancel?.value ?? 0);
   }
   amount = Math.max(amount, 0);
+  // [Counter]: the damage goes back to the attacker, doubled, and nothing of the attack reaches the defender.
+  const countered = condition.counter ? counterBack(actor, card, condition.counter, amount) : null;
+  if (countered) amount = 0;
+  const untouched = !!countered || condition.untouched;
   const absorbed = hit(amount);
   if (absorbed) steps.push(`− ${absorbed} ${game.i18n.localize("ETERNIA.StatusEffect.barrier")}`);
   lines.push(`${L(direct ? "Mode.direct" : "Applied.Damage")}: ${steps.join(" ")} → ${amount - absorbed} HP`);
+  if (countered) lines.push(countered.line);
   if (pierceBarrier && (barrier > 0) && !condition.immune) {
     barrier = 0;
     lines.push(L("Applied.BarrierBroken"));
@@ -754,7 +766,7 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
 
   // Failed Dodge Check: Hate Damage, Pursuit, Weakness (direct damage, each through Barrier)
   const updates = {};
-  if (dodgeFailed) {
+  if (dodgeFailed && !untouched) {
     const extra = (label, value) => {
       if (value <= 0) return;
       const absorbed = hit(value);
@@ -770,7 +782,7 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
       updates["system.bad-status.pursuits"] = pursuits;
       extra(game.i18n.localize("ETERNIA.StatusEffect.pursuit"), top);
     }
-    const weakness = bestTagged(bad, "weaknesses", "weakness", tags);
+    const weakness = bestTagged(bad, "weaknesses", "weakness", tags, passiveWeaknesses(actor));
     if (weakness) extra(tagLabel("weakness", weakness), weakness.value);
     // [Marked]: its Rating as direct damage, then the mark ends.
     const mark = markDamage(actor);
@@ -820,11 +832,26 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   });
   if ((before.hp > 0) && (hp <= 0)) Hooks.callAll("eternia.defeated", actor, card);
   for (const fn of after.after) await fn();
+  if (countered) await countered.after();
+  const attacker = card.attackerUuid ? fromUuidSync(card.attackerUuid) : null;
+  // Drain: the attacker gets back part of the HP the hit took (helpers/magic-traits.mjs).
+  const drained = Math.floor(Math.max(0, before.hp - hp) * (Number(card.drain) || 0));
+  if ((drained > 0) && attacker && (attacker.uuid !== actor.uuid)) {
+    const healed = await takeHealing(attacker, drained, { what: card.skillName, from: actor, silent: true });
+    if (healed) lines.push(healed.line);
+  }
   // Statuses the attacker's effects give on a hit (an Engineer's Spark Stone), and those that escalate from a status
-  // the target already had (a Magia's Trait): Undo takes them back. Fire on a [Soaked] target only dries it.
+  // the target already had (a Magia's Trait): Undo takes them back. Fire on a [Soaked] target only dries it. Nothing
+  // of an attack that didn't reach the target ([Counter], [The One]).
   const dried = had.has("soaked") && (card.tags ?? []).some(t => /flame/i.test(String(t)));
   const escalated = (card.escalate ?? []).filter(e => had.has(e.if)).flatMap(e => e.add.map(a => ({ ...a, name: e.name })));
-  const onHit = [...(card.onHit ?? []), ...escalated].filter(h => h.statusId && !(dried && (h.statusId === "burning")));
+  const onHit = untouched ? [] : [...(card.onHit ?? []), ...escalated].filter(h => h.statusId && !(dried && (h.statusId === "burning")));
+  // A Trait that steals: the first of these bonuses the target has passes to the attacker (the Roubo).
+  const stolen = (untouched || !attacker) ? null : (card.steal ?? []).find(id => has(actor, id));
+  if (stolen) {
+    const line = await stealStatuses(actor, [stolen], attacker);
+    if (line) lines.push(line);
+  }
   if (onHit.length) {
     const caster = card.attackerUuid ? fromUuidSync(card.attackerUuid) : null;
     const created = await actor.createEmbeddedDocuments("ActiveEffect",
@@ -834,7 +861,7 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   }
   // Statuses the hit consumes or strips (a Trait's bonus that eats the status; Gravity taking [Flying]): those without
   // a field are kept for the Undo (the fields are in the snapshot).
-  const ending = [...new Set([...consumed, ...(card.strip ?? [])])]
+  const ending = untouched ? [] : [...new Set([...consumed, ...(card.strip ?? [])])]
     .filter(id => has(actor, id) && !onHit.some(h => h.statusId === id));
   if (ending.length) {
     before.conditionEffects = [...(before.conditionEffects ?? []), ...actor.effects

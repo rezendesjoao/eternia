@@ -1,0 +1,120 @@
+{
+  "name": "Contra-ataque Evanescente",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Contra-ataque.</strong> Antes do Dano de um ataque mágico, até de área: em vez de devolver, você desfaz o feitiço no ar. Você e os aliados a até 2 Qd que ele atingiu (escolha-os como alvos) ficam com [Anulação: NP×5 + 20] contra esse dano: na prática, ele some. Uma vez por cena.</p><p><em>Você dobra o polegar e o mindinho, e o feitiço vira fumaça.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "2Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/defensive/shield-barrier-flaming-pentagon-purple-orange.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "both",
+          "statusData": {
+            "statusId": "cancel",
+            "value": "@cr*5+20",
+            "tag": "Magic"
+          },
+          "consumeOn": "damage",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Contra-ataque Evanescente",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "ZVFgV0kmyno4wWtC",
+      "_key": "!items.effects!ZeJoX9QiwXDTny1U.ZVFgV0kmyno4wWtC"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "contra-ataque-evanescente",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "contra-ataque"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ZeJoX9QiwXDTny1U",
+  "folder": "fQB2FvX4Bmj2Dejs",
+  "_key": "!items!ZeJoX9QiwXDTny1U"
+}

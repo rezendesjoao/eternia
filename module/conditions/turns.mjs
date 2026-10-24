@@ -1,29 +1,34 @@
 /**
  * The conditions over the turns of a combat and as they come and go.
  *
+ * - Setup Process: the Sun clock. For whoever has a Trait with `sunClock` (the Magia Sol), the [Sun] rises by 1 (up to
+ *   SUN_NOON; SUN_NIGHT in a scene at least half dark); at noon it gives [The One] for the round, once per combat, and
+ *   from then on it sets by 1 every round (automation/round.mjs calls setupConditions). A spell of that Magia raises
+ *   it by 1 too, until noon.
  * - Start of a Main Process: [Poisoned] deals its Rating as direct damage; [Confused] raises the Hate by 1.
  * - [Paralyzed] and [Asleep] combatants lose their Main Process (they are skipped, see automation/round.mjs).
  * - End of the bearer's own Main Process: the statuses of END_OF_OWN_PROCESS end (automation/round.mjs).
- * - Cleanup Process: [Burning] deals its Rating as [Flame] damage, [Doom] counts down (at 0: Incapacitated), [Fuse]
- *   explodes (its Rating as [Flame] damage, then it ends), a [Servant] strikes the nearest enemy within 4 squares
- *   (its Rating as direct damage, with the tag of its effect), then the statuses of END_OF_ROUND end
- *   (automation/round.mjs calls cleanupConditions).
+ * - Cleanup Process: [Burning] and [Black Flame] deal their Rating as [Flame] damage, [Doom] counts down (at 0:
+ *   Incapacitated), [Fuse] explodes (its Rating as [Flame] damage, then it ends), a [Servant] strikes the nearest enemy
+ *   within 4 squares (its Rating as direct damage, with the tag of its effect), [The One] counts down (its Rating is
+ *   the rounds it has left), then the statuses of END_OF_ROUND end (automation/round.mjs calls cleanupConditions).
  * - A Major Action: [Shocked] deals its Rating as direct damage; it ends [Intangible] and [Hidden] (not the
  *   [Hidden] of a skill that keeps it: the Fumaça's Trait, see helpers/magic-traits.mjs).
  * - Stacks: the third [Freezing] freezes ([Paralyzed]); the third [Fissured] breaks the guard ([Exposed], no
  *   [Barrier]); the stacks are cleared.
  * - [Awakened] ends with [Fatigue] equal to its Rating; [Swimming] and [Soaked] put out [Burning] (and don't catch it);
- *   [Sealed] without a skill seals the last skill used; [Grappled] and [Bond] end when their source is Incapacitated.
+ *   [Sealed] without a skill seals the last skill used; [Grappled], [Bond] and [Black Flame] end when their source is
+ *   Incapacitated.
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isPrimaryGM, isLocalChange } from "../helpers/clients.mjs";
 import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { statusDefinition } from "../helpers/statuses.mjs";
 import { actorName, postSummary, toInt } from "../helpers/utils.mjs";
-import { AFFLICTED_PROTECTS, END_OF_ROUND, STACK_THRESHOLDS } from "./catalog.mjs";
+import { AFFLICTED_PROTECTS, END_OF_ROUND, STACK_THRESHOLDS, SUN_NIGHT, SUN_NOON } from "./catalog.mjs";
 import { takeDamage } from "./damage.mjs";
 import { addStatus, has, rating, removeStatuses, rulesOn, sameActor, sourcesOf, statusEffects } from "./rules.mjs";
-import { keepsHidden } from "../helpers/magic-traits.mjs";
+import { keepsHidden, traitsFor } from "../helpers/magic-traits.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -47,12 +52,81 @@ const PUTS_OUT_FIRE = ["swimming", "soaked"];
 export async function afterAction(actor, item, action) {
   if (!actor?.isOwner || !rulesOn()) return;
   await actor.setFlag(SYSTEM_ID, "lastSkill", item.name).catch(() => null);
+  // A spell of the Magia that keeps the Sun clock raises the Sun (in a combat, until noon).
+  const combat = combatOf(actor);
+  if (combat && traitsFor(actor, item).some(e => e.getFlag(SYSTEM_ID, "trait")?.sunClock)) await moveSun(actor, combat, { spell: true });
   const major = (action === "major") || (parseSkillField("timing", item.system.timing).type === "Major");
   if (!major) return;
   const shock = rating(actor, "shocked");
   if (shock > 0) await takeDamage(actor, shock, { reason: "shocked" });
   const ended = ["intangible", "hidden"].filter(id => has(actor, id) && !((id === "hidden") && keepsHidden(item, actor)));
   if (ended.length) await removeStatuses(actor, ended);
+}
+
+/* -------------------------------------------- */
+/*  The Sun clock                               */
+/* -------------------------------------------- */
+
+/** The started combat an actor fights in (the viewed one first), or null. */
+function combatOf(actor) {
+  const fights = combat => combat?.started && combat.combatants.some(c => c.actor && sameActor(c.actor, actor));
+  if (fights(game.combat)) return game.combat;
+  return game.combats?.find(fights) ?? null;
+}
+
+/** Whether a combat's scene is night: at least half dark (the scene's own darkness). */
+function isNight(combat) {
+  const scene = combat?.scene ?? canvas?.scene ?? null;
+  return Number(scene?.environment?.darknessLevel ?? 0) >= 0.5;
+}
+
+/** Whether an actor keeps the Sun clock: an active Trait with `sunClock` (the Magia Sol). */
+function keepsSunClock(actor) {
+  return [...(actor?.allApplicableEffects?.() ?? [])].some(e => e.active && e.getFlag(SYSTEM_ID, "trait")?.sunClock);
+}
+
+/**
+ * The Sun moves for an actor in a combat: before noon it rises by 1 (up to SUN_NOON, SUN_NIGHT at night); reaching
+ * noon gives [The One] for the round, once per combat; after noon, every Setup Process sets it by 1 and spells no
+ * longer raise it.
+ * @param {Actor} actor
+ * @param {Combat} combat
+ * @param {object} [options]
+ * @param {boolean} [options.spell]   Raised by a spell (nothing after noon) rather than by the round
+ * @returns {Promise<string|null>}    A line for the chat
+ */
+async function moveSun(actor, combat, { spell = false } = {}) {
+  const current = rating(actor, "sun");
+  const afterNoon = actor.getFlag(SYSTEM_ID, "sunNoon") === combat.id;
+  if (afterNoon) {
+    if (spell || (current <= 0)) return null;
+    await actor.update({ "system.bad-status.sun": current - 1 });
+    return L("Conditions.SunSets", { name: actorName(actor), n: current - 1 });
+  }
+  const cap = isNight(combat) ? SUN_NIGHT : SUN_NOON;
+  const next = Math.min(current + 1, cap);
+  if (next <= current) return null;
+  await actor.update({ "system.bad-status.sun": next });
+  if (next < SUN_NOON) return L("Conditions.SunRises", { name: actorName(actor), n: next });
+  // Noon: [The One] for the rest of the round.
+  await actor.setFlag(SYSTEM_ID, "sunNoon", combat.id);
+  await addStatus(actor, "theOne", 1);
+  const line = L("Conditions.Noon", { name: actorName(actor) });
+  if (spell) await postSummary(label("theOne"), [line]);
+  return line;
+}
+
+/**
+ * The conditions of one actor in the Setup Process of a combat: the Sun clock. Called by automation/round.mjs for
+ * everyone in the combat, on the GM that started the phase.
+ * @param {Actor} actor
+ * @param {Combat} combat
+ * @returns {Promise<string[]>}   Lines for the chat
+ */
+export async function setupConditions(actor, combat) {
+  if (!rulesOn() || !keepsSunClock(actor)) return [];
+  const line = await moveSun(actor, combat);
+  return line ? [line] : [];
 }
 
 /* -------------------------------------------- */
@@ -86,6 +160,11 @@ export async function cleanupConditions(actor) {
     const result = await takeDamage(actor, burn, { reason: "burning", tag: "Flame", silent: true });
     if (result) lines.push(result.line);
   }
+  const blackFlame = rating(actor, "blackFlame");
+  if (blackFlame > 0) {
+    const result = await takeDamage(actor, blackFlame, { reason: "blackFlame", tag: "Flame", silent: true });
+    if (result) lines.push(result.line);
+  }
   const doom = rating(actor, "doom");
   if (doom > 0) {
     const next = doom - 1;
@@ -104,6 +183,12 @@ export async function cleanupConditions(actor) {
   }
   const strike = await servantStrike(actor);
   if (strike) lines.push(strike.line);
+  // [The One] counts down: its Rating is the rounds it has left (the end of an extended one leaves [Fatigue]).
+  const one = rating(actor, "theOne");
+  if (one > 0) {
+    await actor.update({ "system.bad-status.theOne": one - 1 });
+    lines.push(L((one > 1) ? "Conditions.TheOneLasts" : "Conditions.TheOneEnds", { name: actorName(actor) }));
+  }
   // [Afflicted] keeps the statuses it protects ([Frightened]).
   const afflicted = has(actor, "afflicted");
   const ending = END_OF_ROUND.filter(id => has(actor, id) && !(afflicted && AFFLICTED_PROTECTS.includes(id)));
@@ -221,12 +306,12 @@ async function onCreateEffect(effect, options, userId) {
   if (effect.statuses?.has("incapacitated") && isPrimaryGM()) await freeFrom(actor);
 }
 
-/** End the [Grappled] and [Bond] that this actor gave, on every actor of the world and of the scenes. */
+/** End the [Grappled], [Bond] and [Black Flame] that this actor gave, on every actor of the world and of the scenes. */
 async function freeFrom(source) {
   const actors = [...game.actors];
   for (const scene of game.scenes) for (const token of scene.tokens) if (!token.actorLink && token.actor) actors.push(token.actor);
   for (const actor of actors) {
-    for (const id of ["grappled", "bond"]) {
+    for (const id of ["grappled", "bond", "blackFlame"]) {
       if (!has(actor, id) || !sourcesOf(actor, id).some(s => sameActor(s, source))) continue;
       await removeStatuses(actor, [id]);
       await postSummary(label(id), [L("Conditions.Freed", { name: actorName(actor), status: label(id), source: actorName(source) })]);

@@ -21,7 +21,10 @@ export const LINKABLE = {
   awakened: { rated: true }, bond: {},
   // The conditions of the Magias' review (0.26)
   soaked: { rated: true }, weakened: { rated: true }, fuse: { rated: true }, servant: { rated: true, tagged: true },
-  dominated: {}
+  dominated: {},
+  // The conditions of 0.27 (the Sun clock, the Counter, the Grudge, the Black Flame)
+  blackFlame: { rated: true }, sun: { rated: true }, theOne: { rated: true }, counter: { tagged: true },
+  grudge: { rated: true }
 };
 
 /** Extra names some texts use. */
@@ -36,5 +39,7 @@ export const SYNONYMS = {
   focus: "focused", foco: "focused", reflect: "mirror", reflexo: "mirror", "último fôlego": "lastStand",
   "last stand": "lastStand", awaken: "awakened", transformação: "awakened", link: "bond",
   soak: "soaked", molhado: "soaked", weaken: "weakened", enfraquecer: "weakened", dominate: "dominated",
-  dominação: "dominated", servo: "servant"
+  dominação: "dominated", servo: "servant",
+  "fogo negro": "blackFlame", "chamas negras": "blackFlame", hellblaze: "blackFlame", "the one": "theOne",
+  "contra-ataque": "counter", vingança: "grudge"
 };

@@ -1,0 +1,120 @@
+{
+  "name": "Sol Cruel",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Sol.</strong> Você cria um sol pequeno na ponta do dedo e o lança contra um alvo a até 4 Qd: Teste de Precisão contra a Resistência; [2d6 + Poder Mágico] de dano mágico de [Chama]. No acerto, o sol volta e fica girando sobre você até o fim da cena: você fica com [Espelho] igual ao seu [Sol] (quem acerta você sofre esse tanto de dano direto).</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>As armaduras de quem chega perto começam a pingar.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/explosion-fireball-medium-orange.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "mirror",
+            "value": "@status.sun"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Sol Cruel",
+      "img": "systems/eternia/assets/ui/status/mirror.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "mirror"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "ENBng3wlteElU3Fl",
+      "_key": "!items.effects!Yr8Lhky7xzSXQMMe.ENBng3wlteElU3Fl"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "sol-sol-cruel",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "sol"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Yr8Lhky7xzSXQMMe",
+  "folder": "gnj7AjdDaSKptIz6",
+  "_key": "!items!Yr8Lhky7xzSXQMMe"
+}

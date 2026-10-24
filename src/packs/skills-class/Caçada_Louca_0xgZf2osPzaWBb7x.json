@@ -1,0 +1,77 @@
+{
+  "name": "Caçada Louca",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Roubo.</strong> Feitiço grande. Você estica a mão e arranca de dentro de até 3 alvos a até 4 Qd o que quiser, até os órgãos: Teste de Precisão contra a Resistência de cada um; [4d6 + Poder Mágico] de dano mágico, e eles ficam [Fissurado: 1]. Você recupera metade do PV que eles perderem (Dreno).</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Você nunca conta o que tirou de dentro deles.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Targets",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/biological/organ-liver-red.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "roubo-caca-louca",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "fissured",
+          "value": 1
+        }
+      ],
+      "drain": 0.5,
+      "magicSpell": {
+        "id": "roubo"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "0xgZf2osPzaWBb7x",
+  "folder": "8FeMq2WPZfh045os",
+  "_key": "!items!0xgZf2osPzaWBb7x"
+}

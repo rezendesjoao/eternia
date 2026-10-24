@@ -1,0 +1,78 @@
+{
+  "name": "Onda Infernal",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Chamas do Purgatório.</strong> Você aponta a lâmina e um inferno negro corre em linha reta até 4 Qd: Teste de Precisão contra a Resistência de cada alvo da Linha; [3d6 + Poder Mágico] de dano mágico de [Chama], e quem ele acerta fica com [Chama Negra: 2].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Onde ele passa, a grama não volta.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Flame"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Line",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/projectile-wave-arrow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "chamas-purgatorio-onda",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "blackFlame",
+          "value": 2
+        }
+      ],
+      "magicSpell": {
+        "id": "chamas-purgatorio"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "91NHNZps1YotFWKK",
+  "folder": "u0W01SqyBk2icf8s",
+  "_key": "!items!91NHNZps1YotFWKK"
+}

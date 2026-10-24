@@ -1,8 +1,9 @@
 /**
  * Round flow (Rules III.b ROUND STRUCTURE, VI.a STATUSES).
  *
- * - Cleanup Process: [Regen] heals, then [Decay] deals its Rating as damage through [Barrier]
- *   ("perform the effects that would heal first"); a summary is posted.
+ * - Setup Process: the Sun clock of conditions/turns.mjs (setupConditions); a summary is posted when it moves.
+ * - Cleanup Process: [Regen] heals (not a [Cursed] character, nor one with [Black Flame]), then [Decay] deals its
+ *   Rating as damage through [Barrier] ("perform the effects that would heal first"); a summary is posted.
  * - [Staggered], [Dazed] and the other statuses of END_OF_OWN_PROCESS (conditions/catalog.mjs) end at the end of
  *   the affected character's Main Process; [Afflicted] keeps the ones it protects.
  * - The conditions of the Cleanup ([Burning], [Doom], the statuses that end with the round) and the combatants
@@ -19,7 +20,7 @@ import { isLocalChange } from "../helpers/clients.mjs";
 import { actorName, combatActors, outOfAction, postSummary, toInt, wrap } from "../helpers/utils.mjs";
 import { bumpCounter, endOfSceneFor } from "./scenes.mjs";
 import { AFFLICTED_PROTECTS, END_OF_OWN_PROCESS } from "../conditions/catalog.mjs";
-import { cleanupConditions } from "../conditions/turns.mjs";
+import { cleanupConditions, setupConditions } from "../conditions/turns.mjs";
 import { losesTurn } from "../conditions/actions.mjs";
 import { has, removeStatuses } from "../conditions/rules.mjs";
 
@@ -33,6 +34,9 @@ export function registerRound() {
     const backwards = !!previous && (round < previous.round);
     if ((phase === "cleanup") && !backwards && setting("cleanup")) {
       await cleanup(this, round).catch(err => console.error(`${SYSTEM_ID} | Cleanup Process failed`, err));
+    }
+    if ((phase === "setup") && !backwards) {
+      await setup(this, round).catch(err => console.error(`${SYSTEM_ID} | Setup Process failed`, err));
     }
   });
 
@@ -51,6 +55,28 @@ export function registerRound() {
 }
 
 /* -------------------------------------------- */
+/*  Setup Process                               */
+/* -------------------------------------------- */
+
+/**
+ * The Sun clock for everyone in the combat (conditions/turns.mjs).
+ * @param {Combat} combat
+ * @param {number} round
+ */
+async function setup(combat, round) {
+  const lines = [];
+  const gmLines = [];
+  for (const actor of combatActors(combat)) {
+    if (actor.statuses.has("dead") || actor.statuses.has("incapacitated")) continue;
+    (actor.hasPlayerOwner ? lines : gmLines).push(...await setupConditions(actor, combat));
+  }
+  if (lines.length || gmLines.length) {
+    const scene = combat.scene?.name ? ` · ${combat.scene.name}` : "";
+    await postSummary(L("Round.SetupTitle", { round }) + scene, lines, gmLines);
+  }
+}
+
+/* -------------------------------------------- */
 /*  Cleanup Process                             */
 /* -------------------------------------------- */
 
@@ -65,8 +91,8 @@ async function cleanup(combat, round) {
   for (const actor of combatActors(combat)) {
     if (actor.statuses.has("dead") || actor.statuses.has("incapacitated")) continue;
     const bad = actor.system["bad-status"] ?? {};
-    // A [Cursed] character recovers no HP (conditions/damage.mjs).
-    const regen = has(actor, "cursed") ? 0 : toInt(bad.regen);
+    // A [Cursed] character, or one with [Black Flame], recovers no HP (conditions/damage.mjs).
+    const regen = (has(actor, "cursed") || has(actor, "blackFlame")) ? 0 : toInt(bad.regen);
     const decay = toInt(bad.decay);
     const own = actor.hasPlayerOwner ? lines : gmLines;
     // [Burning], [Doom] and the statuses that end with the round (conditions/turns.mjs)

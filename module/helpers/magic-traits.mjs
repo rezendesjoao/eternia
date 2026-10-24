@@ -16,11 +16,18 @@
  *   keepHidden  true: the spell, and its damage, don't end the user's [Hidden].
  *   bonus       formula: damage added to the spells; `healBonus`: healing added to the spells that heal.
  *   randomHit   [{ statusId, value }] (spells): one of them, drawn when the damage is rolled, on a hit.
+ *   drain       a fraction (0.5): the caster gets back that part of the HP its damage takes.
+ *   steal       [statusId]: the first of them the target has passes to the caster, with its Rating, on a hit.
+ *   selfBonus   [{ statusId, per, spend }] (spells): damage added for the caster's own status, its Rating times
+ *               `per` (1 by default); `spend`: the status ends when the damage is rolled (the [Grudge] let out).
+ * Read elsewhere, on a Trait only: `counterBonus` (formula, added to what a [Counter] sends back: conditions/damage.mjs)
+ * and `sunClock` (true: the [Sun] rises for the caster, and with each spell of that Magia: conditions/turns.mjs).
  * Values are formulas of the caster ("floor(@cr/2)"), worked out when the card is made.
  */
 import { evaluateFormula, formulaData, isFormula } from "./effect-formulas.mjs";
 import { canonicalTag } from "./tag-catalog.mjs";
 import { toInt } from "./utils.mjs";
+import { rating } from "../conditions/rules.mjs";
 
 /** The Magia a skill belongs to: a spell's Magia, or the Magia skill itself. */
 export function itemMagia(item) {
@@ -55,17 +62,18 @@ export function actorHasTag(actor, tag) {
  * @param {Item} item
  * @param {Actor|null} attacker
  * @returns {{vs: object[], onHit: object[], escalate: object[], strip: string[], pierce: object, keepHidden: boolean,
- *   bonus: number, healBonus: number}}
+ *   bonus: number, healBonus: number, drain: number, steal: string[], spend: string[]}}
  */
 export function magicExtras(item, attacker = null) {
-  const out = { vs: [], onHit: [], escalate: [], strip: [], pierce: {}, keepHidden: false, bonus: 0, healBonus: 0 };
+  const out = { vs: [], onHit: [], escalate: [], strip: [], pierce: {}, keepHidden: false, bonus: 0, healBonus: 0, drain: 0,
+    steal: [], spend: [] };
   const actor = attacker ?? item?.actor ?? null;
   if (!item) return out;
   const traits = traitsFor(actor, item);
   const sources = [{ data: item.flags?.eternia ?? {}, name: item.name, own: true },
     ...traits.map(e => ({ data: e.getFlag("eternia", "trait") ?? {}, name: e.name, own: false }))];
   if (!sources.some(s => s.data.bonusVs || s.data.onHit || s.data.escalate || s.data.strip || s.data.pierce
-    || s.data.keepHidden || s.data.bonus || s.data.healBonus)) return out;
+    || s.data.keepHidden || s.data.bonus || s.data.healBonus || s.data.drain || s.data.steal || s.data.selfBonus)) return out;
   const data = formulaData(actor, item);
   const num = value => (isFormula(value) ? evaluateFormula(value, data) : toInt(value)) || 0;
   for (const { data: s, name, own } of sources) {
@@ -74,8 +82,12 @@ export function magicExtras(item, attacker = null) {
       const targetTags = v.targetTags ?? (v.targetTag ? [v.targetTag] : []);
       out.vs.push({ statuses, targetTags, value: num(v.value), perValue: !!v.perValue, consume: !!v.consume, name });
     }
-    // A spell's own on-hit statuses are its hitStatuses: here only the Traits'
-    if (!own) for (const h of s.onHit ?? []) if (h?.statusId) out.onHit.push({ statusId: h.statusId, value: num(h.value) || null, name });
+    // A spell's own on-hit statuses are its hitStatuses: here only the Traits' (none when its formula gives 0: the
+    // [Burning] of a [Sun] that hasn't risen)
+    if (!own) for (const h of s.onHit ?? []) {
+      if (!h?.statusId || (isFormula(h.value) && !(num(h.value) > 0))) continue;
+      out.onHit.push({ statusId: h.statusId, value: num(h.value) || null, name });
+    }
     for (const e of s.escalate ?? []) {
       if (e?.if) out.escalate.push({ if: e.if, add: (e.add ?? []).map(a => ({ statusId: a.statusId, value: num(a.value) || null })), name });
     }
@@ -84,8 +96,18 @@ export function magicExtras(item, attacker = null) {
     if (s.keepHidden) out.keepHidden = true;
     if (s.bonus) out.bonus += num(s.bonus);
     if (s.healBonus) out.healBonus += num(s.healBonus);
+    if (s.drain) out.drain = Math.max(out.drain, Number(s.drain) || 0);
+    out.steal.push(...(s.steal ?? []));
+    // The caster's own status adds to the damage (and may be spent by it)
+    for (const b of s.selfBonus ?? []) {
+      const value = rating(actor, b.statusId);
+      if (value > 0) out.bonus += value * (b.per ? (num(b.per) || 1) : 1);
+      if (b.spend && (value > 0)) out.spend.push(b.statusId);
+    }
   }
   out.strip = [...new Set(out.strip)];
+  out.steal = [...new Set(out.steal)];
+  out.spend = [...new Set(out.spend)];
   return out;
 }
 

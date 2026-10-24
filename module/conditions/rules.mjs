@@ -18,6 +18,9 @@ export function limitsMode() {
 /** Whether an actor has a status. */
 export const has = (actor, id) => !!actor?.statuses?.has(id);
 
+/** The Character Rank of an actor (a monster's Rank), as the formulas read it (@cr). */
+export const crOf = actor => Number((actor?.type === "monster") ? actor.system?.rank : actor?.system?.infos?.crank) || 0;
+
 /** The status effects of an actor for one status (plain toggles and effects that carry it). */
 export function statusEffects(actor, id) {
   return [...(actor?.effects ?? [])].filter(e => e.active && e.statuses?.has(id));

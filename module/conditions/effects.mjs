@@ -97,6 +97,22 @@ export async function endStatuses(actor, statuses, caster) {
   return actor.isOwner ? doAction(actor, payload) : ((await request("conditionAction", payload))?.line ?? null);
 }
 
+/**
+ * Statuses pass from an actor to a thief, with their Ratings, through the GM when the user doesn't own the actor (a
+ * Magia's Trait that steals on a hit: the Roubo). Returns the chat line, or null.
+ * @param {Actor} actor
+ * @param {string[]} statuses
+ * @param {Actor} thief
+ * @returns {Promise<string|null>}
+ */
+export async function stealStatuses(actor, statuses, thief) {
+  const payload = {
+    actorUuid: actor.uuid, type: "steal", value: 0, status: "", statuses, casterUuid: thief?.uuid ?? "",
+    sceneId: canvas?.scene?.id ?? ""
+  };
+  return actor.isOwner ? doAction(actor, payload) : ((await request("conditionAction", payload))?.line ?? null);
+}
+
 /** One use action on one actor. Returns the chat line. */
 async function doAction(actor, { type, value, status, statuses = [], casterUuid = "", sceneId = "" }) {
   if (type === "switch") return switchPlaces(actor, await actorOf(casterUuid), sceneId);
@@ -237,6 +253,19 @@ export function passiveCancels(actor) {
   return (actor?.passiveBonuses ?? []).filter(b => b.key === "eternia.passive.cancel").map(b => ({
     value: isFormula(b.value) ? (evaluateFormula(b.value, formulaData(actor, b.effect.sourceItem)) ?? 0) : toInt(b.value),
     tag: flag(b.effect, "cancelTag") ?? ""
+  })).filter(e => e.value > 0);
+}
+
+/**
+ * The passive [Weakness] of an actor's effects (`eternia.passive.weakness`, tag in `flags.eternia.weaknessTag`: a
+ * Magia's Tabu, weak to the light), as entries like those of its status.
+ * @param {Actor} actor
+ * @returns {{value: number, tag: string}[]}
+ */
+export function passiveWeaknesses(actor) {
+  return (actor?.passiveBonuses ?? []).filter(b => b.key === "eternia.passive.weakness").map(b => ({
+    value: isFormula(b.value) ? (evaluateFormula(b.value, formulaData(actor, b.effect.sourceItem)) ?? 0) : toInt(b.value),
+    tag: flag(b.effect, "weaknessTag") ?? ""
   })).filter(e => e.value > 0);
 }
 

@@ -1,0 +1,75 @@
+{
+  "name": "Caça da Raposa",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Roubo.</strong> Você estica a mão e rouba de um alvo a até 4 Qd o que ele segura, passando por cima de qualquer obstáculo: Teste de Precisão contra a Esquiva; [2d6 + Poder Mágico] de dano mágico, e ele fica [Desarmado]: a arma está na sua mão agora.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Ele ainda está fechando a mão em volta do nada.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/containers/bags/coinpouch-silver-red.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "roubo-caca-da-raposa",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "disarmed"
+        }
+      ],
+      "magicSpell": {
+        "id": "roubo"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "kksKimgEFqHMzQvx",
+  "folder": "8FeMq2WPZfh045os",
+  "_key": "!items!kksKimgEFqHMzQvx"
+}
