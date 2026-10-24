@@ -16,6 +16,8 @@
  *                                               skill Switch); only between allies
  *   { type: "steal", statuses: ["empowered", …] } those statuses pass from the target to the user, with their
  *                                               Ratings (the Absorção's Roubar a Alma)
+ *   { type: "addStatus", status: "clones", value: 1 }  raises a status by `value` (a stack adds up to its maximum;
+ *                                               with a negative value, a stack goes down and ends at 0: a Clone spent)
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
@@ -23,7 +25,7 @@ import { actorName, postSummary, toInt } from "../helpers/utils.mjs";
 import { evaluateFormula, formulaData, isFormula } from "../helpers/effect-formulas.mjs";
 import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { statusDefinition } from "../helpers/statuses.mjs";
-import { has, rating, removeStatuses } from "./rules.mjs";
+import { addStatus, has, rating, removeStatuses } from "./rules.mjs";
 import { agonyPain, freed } from "./damage.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
@@ -142,6 +144,7 @@ async function doAction(actor, { type, value, status, statuses = [], casterUuid 
     const pain = (bad && !ids.includes("agony")) ? await agonyPain(actor, { silent: true }) : null;
     return pain ? `${line} · ${pain.line}` : line;
   }
+  if (type === "addStatus") return addToStatus(actor, status, toInt(value));
   if (type === "steal") {
     const thief = await actorOf(casterUuid);
     const ids = listOf(statuses).filter(id => has(actor, id));
@@ -152,6 +155,30 @@ async function doAction(actor, { type, value, status, statuses = [], casterUuid 
     return L("Conditions.Actions.Steal", { name: actorName(thief), from: actorName(actor), statuses: ids.map(label).join(", ") });
   }
   return null;
+}
+
+/**
+ * A status raised by n (a stack adds up to its maximum, another Rating keeps the highest, a plain status comes on) or,
+ * with a negative n, a stack taken down by that much (it ends at 0: a Clone spent). Returns the chat line, or null.
+ * @param {Actor} actor
+ * @param {string} status
+ * @param {number} n
+ */
+async function addToStatus(actor, status, n) {
+  const def = statusDefinition(status);
+  if (!def) return null;
+  const before = rating(actor, status);
+  if (n < 0) {
+    if (!def.path || !def.rated || !before) return null;
+    const after = Math.max(0, before + n);
+    if (after <= 0) await removeStatuses(actor, [status]);
+    else await actor.update({ [`system.${def.path}`]: after });
+    return L("Conditions.Actions.Add", { name: actorName(actor), status: label(status), before, after });
+  }
+  await addStatus(actor, status, n || null);
+  const after = rating(actor, status);
+  if (after === before) return null;
+  return L("Conditions.Actions.Add", { name: actorName(actor), status: label(status), before, after });
 }
 
 /** The actor of a uuid (a token's uuid gives its actor), or null. */

@@ -1,0 +1,77 @@
+{
+  "name": "Seis Cópias",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Lâmina Divisora.</strong> Feitiço grande. A espada brilha e você se divide de uma vez, em todas as cópias que ela aguenta: os seus [Clones] vão a 6 até o fim da cena. Uma vez por cena.</p><p><em>Sete de você no campo, e todos sabem o que fazer.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/weapons/swords/swords-sharp-worn.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "lamina-divisora-seis-copias",
+      "kind": "feeds",
+      "branch": "magic",
+      "useActions": [
+        {
+          "type": "addStatus",
+          "status": "clones",
+          "value": 6,
+          "recipients": "self"
+        }
+      ],
+      "magicSpell": {
+        "id": "lamina-divisora"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "disjYw2fzglybcfc",
+  "folder": "NQVAtT8fRSxZADRX",
+  "_key": "!items!disjYw2fzglybcfc"
+}

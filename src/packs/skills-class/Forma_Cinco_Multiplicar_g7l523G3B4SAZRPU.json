@@ -1,0 +1,121 @@
+{
+  "name": "Forma Cinco: Multiplicar",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Lança Espiritual.</strong> A lança se parte em dezenas de lâminas pequenas que voam juntas sobre até 5 alvos a até 5 Qd: Teste de Precisão contra a Esquiva de cada um; [2d6 + Poder Mágico] de dano mágico em cada um.</p><p><strong>Forma:</strong> enquanto a lança está nesta forma, as lâminas giram em volta de você: [Espelho: NP÷2 + 2] (quem causa dano a você sofre esse tanto de dano direto).</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Uma lança vira cem, e cem viram uma tempestade.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Targets",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/melee/spear-tips-quintuple-orange.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "form": "lanca",
+          "expires": "endOfScene",
+          "statusData": {
+            "statusId": "mirror",
+            "value": "floor(@cr/2)+2"
+          },
+          "onUse": true
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Forma Cinco: Multiplicar",
+      "img": "icons/skills/melee/spear-tips-quintuple-orange.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "mirror"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "5sNH2HLUWzYzk4OA",
+      "_key": "!items.effects!g7l523G3B4SAZRPU.5sNH2HLUWzYzk4OA"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "lanca-espiritual-forma-cinco",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "lanca-espiritual"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "g7l523G3B4SAZRPU",
+  "folder": "DOUsXAGSnEMmZF83",
+  "_key": "!items!g7l523G3B4SAZRPU"
+}

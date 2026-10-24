@@ -33,6 +33,7 @@ import { evaluateFormula, formulaData, isFormula } from "../helpers/effect-formu
 import { crOf, has, isSourceOf, rating, removeStatuses, rulesOn, sameActor, sourcesOf, statusEffects } from "./rules.mjs";
 import { passiveCancels } from "./effects.mjs";
 import { motorAbsorbs } from "../classes/motor.mjs";
+import { decoyTakes } from "./copies.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -83,6 +84,9 @@ export function beforeDamage(actor, card, direct) {
     return result;
   }
   if (!rulesOn()) return result;
+  // A copy takes the blow (Troca com a Cópia: copies.mjs)
+  const decoy = decoyTakes(actor, card);
+  if (decoy) return { ...result, immune: true, untouched: true, notes: [decoy] };
   // [The One]: noon; no attack reaches it.
   if (has(actor, "theOne")) {
     result.immune = true;

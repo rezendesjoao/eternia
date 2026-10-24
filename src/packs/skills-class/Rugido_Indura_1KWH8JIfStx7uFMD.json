@@ -1,0 +1,75 @@
+{
+  "name": "Rugido Indura",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Forma Indura.</strong> A fera ruge de dentro de você, numa área a até 3 Qd: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico, e quem ele acerta fica com [Medo] de você.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Não é um som de gente. Nunca foi.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/control/fear-fright-monster-red.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "forma-indura-rugido",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "frightened"
+        }
+      ],
+      "magicSpell": {
+        "id": "forma-indura"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "1KWH8JIfStx7uFMD",
+  "folder": "XOE32cZVdq4FHWDO",
+  "_key": "!items!1KWH8JIfStx7uFMD"
+}

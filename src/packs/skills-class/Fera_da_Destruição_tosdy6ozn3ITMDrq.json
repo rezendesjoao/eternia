@@ -1,0 +1,75 @@
+{
+  "name": "Fera da Destruição",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Forma Indura.</strong> Feitiço grande. Por um instante a fera sai inteira e passa por cima de uma área a até 4 Qd, com garras, cauda e dentes: Teste de Precisão contra a Esquiva de cada alvo; [4d6 + Poder Mágico] de dano mágico, e quem ela acerta fica [Derrubado].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Depois que ela passa, o chão tem outro formato.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/abilities/tail-strike-bone-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "forma-indura-fera",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "prone"
+        }
+      ],
+      "magicSpell": {
+        "id": "forma-indura"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "tosdy6ozn3ITMDrq",
+  "folder": "XOE32cZVdq4FHWDO",
+  "_key": "!items!tosdy6ozn3ITMDrq"
+}

@@ -16,6 +16,7 @@ import { actorName, confirm, escape, postSummary, toInt } from "../helpers/utils
 import { fillWorld } from "../content/content.mjs";
 import { LH_STATUSES } from "../helpers/statuses.mjs";
 import { END_OF_SCENE_GROUPS, END_OF_SCENE_OTHERS } from "../conditions/catalog.mjs";
+import { fallAtSceneEnd } from "../conditions/transformations.mjs";
 
 /** The statuses that end with the scene: the Bad and Combat Statuses, and a few others ([Hidden], [Bond]). */
 const endsWithScene = s => END_OF_SCENE_GROUPS.includes(s.group) || END_OF_SCENE_OTHERS.includes(s.id);
@@ -34,6 +35,8 @@ export async function bumpCounter(actor, name) {
  * @returns {Promise<string|null>}   A line for the summary card, if something worth telling happened.
  */
 export async function endOfSceneFor(actor) {
+  // A transformation that ends with the scene drops its bearer, and this end doesn't lift it (conditions/transformations.mjs)
+  const fallen = await fallAtSceneEnd(actor);
   const updates = {};
   const ending = [];
   // The Extra Breaths spent in the scene (conditions/damage.mjs)
@@ -63,7 +66,7 @@ export async function endOfSceneFor(actor) {
       line = book ? L("Scene.RevivedWhole", { name: actorName(actor), skill: book.name })
         : L("Scene.Revived", { name: actorName(actor), fatigue });
     }
-    else if (statuses.has("incapacitated") && !statuses.has("dead")) {
+    else if (statuses.has("incapacitated") && !statuses.has("dead") && !fallen) {
       updates["system.health.value"] = toInt(actor.system.health?.max);
       off.push("incapacitated");
       line = L("Scene.Recovered", { name: actorName(actor) });
