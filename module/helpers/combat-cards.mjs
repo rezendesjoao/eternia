@@ -839,7 +839,10 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
 
   // What the blow does besides the damage: an execution, an attacker that doesn't kill, Ratings lowered, bonuses turned
   // inside out (conditions/blows.mjs)
-  const blow = blowOutcome(actor, card, { hp: Math.max(before.hp - hpLoss, 0), before: before.hp, hpLoss, reached: !untouched && !condition.immune });
+  const blow = blowOutcome(actor, card, {
+    hp: Math.max(before.hp - hpLoss, 0), before: before.hp, hpLoss, reached: !untouched && !condition.immune,
+    harms: !condition.harmless && !inverted
+  });
   lines.push(...blow.lines);
   Object.assign(updates, blow.updates);
   // The defender's conditions after the HP loss: [Bond], [Last Stand], waking up, [Mirror]… (conditions/damage.mjs)

@@ -16,7 +16,8 @@ import { L, SYSTEM_ID } from "../settings.mjs";
 import { isLocalChange, isPrimaryGM } from "../helpers/clients.mjs";
 import { actorName, postSummary, toInt } from "../helpers/utils.mjs";
 import { evaluateFormula, formulaData, isFormula } from "../helpers/effect-formulas.mjs";
-import { addToMotor, areAllies, areEnemies, classMotorId, motorData, motorDef, motorUnit, roundKey } from "../classes/motor.mjs";
+import { addToMotor, classMotorId, motorData, motorDef, motorUnit, roundKey } from "../classes/motor.mjs";
+import { opposed, sideOn } from "./blows.mjs";
 import { takeHealing } from "./damage.mjs";
 import { endStatuses } from "./effects.mjs";
 import { has, rating, rulesOn, sameActor } from "./rules.mjs";
@@ -110,7 +111,7 @@ async function eatSoul(actor, token, fallen, at, { effect, eater }) {
 
 /** An enemy fell while the bearer reaps: its soul joins the bearer's [Servant]. */
 async function reap(actor, effect, fallen) {
-  if (!areEnemies(actor, fallen)) return;
+  if (!opposed(actor, fallen)) return;
   const harvest = effect.getFlag(SYSTEM_ID, "harvest");
   const item = fromUuidOrNull(effect.getFlag(SYSTEM_ID, "source")?.itemUuid);
   const data = formulaData(actor, (item instanceof Item) ? item : null);
@@ -162,7 +163,7 @@ async function cleanse(effect) {
   const from = tokenOf(bearer);
   const reach = toInt(data?.reach);
   const lines = [];
-  const near = standing().filter(({ actor, token }) => !sameActor(actor, bearer) && areAllies(actor, bearer)
+  const near = standing().filter(({ actor, token }) => !sameActor(actor, bearer) && (sideOn(actor) === sideOn(bearer))
     && (squares(from, token) !== null) && (squares(from, token) <= reach)).map(e => e.actor);
   for (const actor of [bearer, ...near]) {
     const ids = statuses.filter(id => has(actor, id));

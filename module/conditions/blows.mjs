@@ -22,10 +22,18 @@ import { actorName, toInt } from "../helpers/utils.mjs";
 import { evaluateFormula, formulaData, isFormula } from "../helpers/effect-formulas.mjs";
 import { actorHasTag, traitsFor } from "../helpers/magic-traits.mjs";
 import { statusDefinition } from "../helpers/statuses.mjs";
-import { areAllies } from "../classes/motor.mjs";
 import { rating, rulesOn, sameActor } from "./rules.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
+
+/**
+ * The side an actor fights on: the disposition of its token in the scene, else its prototype's (a linked actor's
+ * prototype may say otherwise than the token placed on the map).
+ */
+export const sideOn = actor => (actor?.token ?? actor?.getActiveTokens?.(true)?.[0]?.document ?? actor?.prototypeToken)?.disposition ?? 0;
+
+/** Whether two actors fight on opposite sides (a neutral one is on no side). */
+export const opposed = (a, b) => (Math.sign(sideOn(a)) * Math.sign(sideOn(b))) < 0;
 
 /** A formula of the attacker, or a number. */
 const amountOf = (value, data) => (isFormula(value) ? evaluateFormula(value, data) : toInt(value)) || 0;
@@ -54,9 +62,11 @@ export function spares(actor) {
  * @param {number} state.hpLoss         The damage that passed [Barrier]
  * @param {boolean} state.reached       Whether the attack reached the defender ([Counter], [The One] and immunities
  *                                      stop it)
+ * @param {boolean} [state.harms]       Whether it can hurt (not a [Pacified] attacker's, nor one [Inversion] turned
+ *                                      into healing): no execution otherwise
  * @returns {{hp: number, hpLoss: number, lines: string[], updates: object}}
  */
-export function blowOutcome(actor, card, { hp, before, hpLoss, reached }) {
+export function blowOutcome(actor, card, { hp, before, hpLoss, reached, harms = true }) {
   const out = { hp, hpLoss, lines: [], updates: {} };
   if (!rulesOn() || card.recovery || (before <= 0)) return out;
   const { item, attacker } = cardSource(card);
@@ -78,7 +88,7 @@ export function blowOutcome(actor, card, { hp, before, hpLoss, reached }) {
   const data = formulaData(attacker, item);
 
   // Execution: a target of those tags left low enough falls (not by an attacker that spares).
-  const execute = mercy ? null : sources.map(s => s.execute).find(e => e && ((e.targetTags ?? []).length === 0
+  const execute = (mercy || !harms) ? null : sources.map(s => s.execute).find(e => e && ((e.targetTags ?? []).length === 0
     || [].concat(e.targetTags).some(t => actorHasTag(actor, t))));
   if (execute && (out.hp > 0)) {
     const below = amountOf(execute.below, data);
@@ -143,6 +153,6 @@ export function allySpellHurts(actor, card) {
   const taboo = [...(actor?.allApplicableEffects?.() ?? [])].find(e => e.active && (e.getFlag(SYSTEM_ID, "healingHurts") === "allySpell"));
   if (!taboo) return null;
   const { item, attacker } = cardSource(card);
-  if (!attacker || sameActor(attacker, actor) || !areAllies(attacker, actor)) return null;
+  if (!attacker || sameActor(attacker, actor) || (sideOn(attacker) !== sideOn(actor))) return null;
   return (item?.system?.tags ?? []).some(t => String(t).toLowerCase() === "spell") ? taboo.name : null;
 }
