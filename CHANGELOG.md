@@ -1,6 +1,6 @@
 # Changelog
 
-## Não lançado
+## 0.28.0 — 2026-10-24
 
 ### Adicionado
 - Vinte Magias das categorias altas, cada uma com Traço e página no diário AS REGRAS (as Perdidas, as Proibidas e as
@@ -96,6 +96,7 @@
   cura do próprio corpo), e o dano dos cartões pelo `cover` (antes do Contragolpe).
 - A Iniciativa é recalculada logo depois de o combate começar: os efeitos que só valem em combate (os Tabus que baixam
   a Iniciativa) já contam na ordem da primeira rodada.
+- O aviso de novidades fala da 0.28.
 
 ## 0.27.0 — 2026-10-24
 

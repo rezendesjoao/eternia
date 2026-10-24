@@ -5,9 +5,18 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.27.0
+## Versão 0.28.0
 
-- **Novo na 0.27.0: quatro Magias das categorias altas e cinco condições.** O **Sol** (Ancestral) traz o Relógio do
+- **Novo na 0.28.0: vinte Magias das categorias altas e onze condições.** Os **Mandamentos** dão um Decreto, uma lei
+  em volta de você que amaldiçoa na hora quem a quebra; a **Ruptura Crítica** liga o [Ímpeto], o **Combo Estelar** soma
+  o [Combo] a cada acerto e a **Nebulosa Sinistra** puxa os inimigos. O **Infinito** faz os feitiços durarem a cena, a
+  **Invasão** prende a mente ([Pesadelo], [Amnésia]), a **Criação** dança com o [Ritmo] e o **Desastre** promove e
+  rebaixa estados. A **Arca** executa demônios, **O Soberano** vira tudo do avesso ([Inversão]), o **Portão do Inferno**
+  come almas e a **Praga** não mata. A **Lâmina Divisora** luta com [Clones], a **Lança Espiritual** troca de Forma, a
+  **Forma Indura** tem sete corações e o **Sangue Demoníaco** transforma no terceiro feitiço. O **Caos** cria na hora,
+  o **Lampejo** age fora do turno, a **Visão** guarda o Presságio e a **Fonte da Juventude** é imortal (veja
+  [As Magias](#as-magias) e [As condições](#as-condições)).
+- **Desde a 0.27.0: quatro Magias das categorias altas e cinco condições.** O **Sol** (Ancestral) traz o Relógio do
   Sol: o [Sol] sobe a cada rodada e a cada feitiço até o meio-dia, quando você vira [O Único], e depois desce. O
   **Contra-ataque** (Perdida) devolve o golpe em dobro com o [Contragolpe] e guarda o dano no [Rancor]. As **Chamas do
   Purgatório** (Maldição) acendem a [Chama Negra], que não apaga e não deixa ninguém se curar. O **Roubo** (Proibida)
