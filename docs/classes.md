@@ -1249,7 +1249,10 @@ habilidades só os mostram para quem já os tem.
    cores, `ROLE_COLORS`, e a classe dá o símbolo): `assets/icons/classes/<id>.svg` no item de classe e no medalhão da aba Classe, e `<id>-dedicacao.svg`
    (com o selo "+") na Dedicação. Uma classe nova ganha a moldura em `CLASS_FAMILY`, a função em `CLASS_ROLE` e o símbolo em `GLYPHS`; sem
    emblema, usa `blank.svg` (só o verde).
-4. A página da classe no diário AS REGRAS (e a linha dela em XI.b), o README e o CHANGELOG; `npm run packs:build` com o
+4. O kit recomendado no assistente de criação: os nomes dos itens de Nível 1 em `KITS`
+   (`module/apps/starting-gear.mjs`), na ordem de compra (a primeira arma vai para a mão principal), somando no máximo
+   350 de ouro, e o porquê em `Wizard.Items.Kit.<id>`. Sem kit próprio, a classe usa o da família.
+5. A página da classe no diário AS REGRAS (e a linha dela em XI.b), o README e o CHANGELOG; `npm run packs:build` com o
    mundo fechado.
 
 As cópias das habilidades nas fichas guardam as flags de quando foram ganhas: a ferramenta de atualizar habilidades

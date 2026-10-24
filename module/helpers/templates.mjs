@@ -52,7 +52,7 @@
     "systems/eternia/templates/apps/magic-page.hbs",
 
     // The creation wizard's steps
-    ...["race", "class", "magic", "profession", "attributes", "skills", "summary", "decree"]
+    ...["race", "class", "magic", "profession", "attributes", "skills", "items", "summary", "decree"]
       .map(step => `systems/eternia/templates/apps/creation/${step}.hbs`),
 
     // ActiveEffect sheets

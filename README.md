@@ -5,9 +5,14 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.29.1
+## Versão 0.30.0
 
-- **Novo na 0.29.1: as habilidades do HUD em três painéis.** O botão Habilidades do HUD de ações virou **Gerais** (as
+- **Novo na 0.30.0: os itens iniciais e a sugestão de atributos.** O assistente de criação ganhou o passo **Itens**:
+  a Mochila, o Kit de Aventureiro e o Sanduíche vêm de graça, e os 350 de ouro compram o resto numa loja com os itens
+  de Nível 1. Cada classe tem um kit recomendado que um clique compra, e a bolsa ao lado mostra onde cada peça vai e os
+  números que o equipamento dá; ao criar, tudo entra equipado. O passo Atributos sugere os cinco pontos para a classe
+  (veja [A criação de personagem](#a-criação-de-personagem)).
+- **Desde a 0.29.1: as habilidades do HUD em três painéis.** O botão Habilidades do HUD de ações virou **Gerais** (as
   básicas e as da raça), **Magias** (os feitiços agrupados por Magia, cada um com o seu Momento) e **Classe** (as da
   classe e as de uma Dedicação). E as caixas de mensagem mais altas que a tela, como a de subir vários NP de uma vez,
   não perdem mais os botões: o texto rola acima deles (veja [O HUD de ações](#o-hud-de-ações)).
@@ -206,10 +211,10 @@ molduras finas e rótulos em versalete. Cada aba tem o ícone e o nome, e um nú
 
 ## A criação de personagem
 
-Um assistente de sete passos numa janela grande, com a ficha montando numa faixa verde à esquerda (o retrato, o nome,
-o que foi escolhido, os atributos, os PV, o Destino e as defesas). Ele abre sozinho quando um usuário cria um
-personagem (a configuração "Assistente de criação" desliga), pelo convite da aba Personagem, pelos campos vazios de
-raça, classe e profissão e pelo botão da pena no cabeçalho de um personagem de NP 1.
+Um assistente de oito passos numa janela grande, com a ficha montando numa faixa verde à esquerda (o retrato, o nome,
+o que foi escolhido, os itens e o ouro, os atributos, os PV, o Destino e as defesas). Ele abre sozinho quando um
+usuário cria um personagem (a configuração "Assistente de criação" desliga), pelo convite da aba Personagem, pelos
+campos vazios de raça, classe e profissão e pelo botão da pena no cabeçalho de um personagem de NP 1.
 
 1. **Raça:** os cartões das raças com a frase de cada uma e o bônus de atributos. A página da que está sob o ponteiro
    (ou escolhida) conta a história, mostra os atributos, os PV e o Destino, as duas habilidades inatas (uma escolha
@@ -224,19 +229,31 @@ raça, classe e profissão e pelo botão da pena no cabeçalho de um personagem 
    depois".
 5. **Atributos:** os cinco pontos bônus sobre a classe e a raça (nenhum atributo acima de 7), com o modificador, os
    testes de cada atributo e os números de jogo (PV, Destino, Defesas, Iniciativa, Precisão, Esquiva e Resistência)
-   mudando na hora.
+   mudando na hora. No alto, a **sugestão para a classe** (um clique usa): os pontos vão para onde a base da classe é
+   alta, até o próximo modificador; cada atributo mostra quanto a sugestão põe nele.
 6. **Habilidades:** as três de Combate e a Geral da criação (no máximo duas de [Treino]), entre os talentos da classe
    e os feitiços da Magia do NP 1, cada uma com as primeiras linhas; as regras são as do navegador de habilidades (um
    talento aparece com o que ele pede, e entra junto). No alto, o que a raça, a classe e a Magia já dão.
-7. **Resumo:** o nome e o retrato (o token pega o retrato), a opção de dar as 16 habilidades básicas e tudo o que foi
-   escolhido.
+7. **Itens:** a Mochila, o Kit de Aventureiro e o Sanduíche vêm de graça, e o ouro do personagem (350) compra o resto
+   numa loja com os itens de Nível 1 dos compêndios do sistema e do mundo (sem os [Invendáveis], os [Intransferíveis]
+   e os mágicos [M1]–[M7]; um [Raro] aparece com uma gema, para combinar com o mestre). O **kit recomendado para a
+   classe** vem no alto, com o porquê e um botão que compra tudo; os itens dele têm uma estrela na loja. Uma classe que
+   luta com arma e tem uma Magia que ataca ganha a sugestão do Anel Cinzento (+4 no Poder Mágico, com um chapéu de
+   mago). A loja tem filtros por tipo e uma busca; um clique compra mais um, o **−** devolve, e o ponteiro mostra o que
+   o item faz. Ao lado, a bolsa: o ouro que sobra, onde cada peça vai (a primeira arma na mão principal, uma arma de
+   duas mãos ocupa as duas, um escudo ou uma segunda arma na outra, a armadura, três acessórios e a bolsa), o que fica
+   na bolsa com o espaço (2, mais o da bolsa equipada) e os números que o equipamento dá (Poder de Ataque e Mágico,
+   Precisão, Defesas e Iniciativa).
+8. **Resumo:** o nome e o retrato (o token pega o retrato), a opção de dar as 16 habilidades básicas e tudo o que foi
+   escolhido, com os itens e o ouro.
 
 Nada muda na ficha até **Criar personagem**: aí vêm, de uma vez, a raça (com o +1 do Humano), a classe, a profissão, o
 kit, a escolha do NP 1, a Magia (com o Decreto), as escolhas da criação marcadas como escolhas (o navegador de
-habilidades as conta como feitas, e descer de NP as desfaz como antes) e as habilidades básicas, com PV e Destino
-cheios e um cartão no chat com a raça, a classe, a Magia e a profissão (a configuração "Cartão de personagem novo"
-desliga). Abrir o assistente num personagem de NP 1 já criado começa das escolhas dele; criar de novo troca o que veio
-da raça, da classe e das escolhas, e o resto da ficha fica.
+habilidades as conta como feitas, e descer de NP as desfaz como antes), as habilidades básicas e os itens iniciais,
+equipados onde a bolsa mostrou, com o ouro que sobrou, PV e Destino cheios e um cartão no chat com a raça, a classe, a
+Magia, a profissão e o equipamento (a configuração "Cartão de personagem novo" desliga). Abrir o assistente num
+personagem de NP 1 já criado começa das escolhas dele; criar de novo troca o que veio da raça, da classe, das escolhas
+e dos itens iniciais (o ouro deles volta), e o resto da ficha fica.
 
 ## A ficha de monstro
 

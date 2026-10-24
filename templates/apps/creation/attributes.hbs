@@ -1,5 +1,6 @@
 {{!-- ATTRIBUTES: the five bonus points over the class's and the race's attributes (none above the cap), each with its
-     modifier and its checks, and the numbers of play they give. --}}
+     modifier and its checks, and the numbers of play they give; the points suggested for the class on top (one click
+     uses them) and on each attribute. --}}
 <div class="wz-attrs wz-scroll">
 	<header class="wz-points">
 		<div class="wz-points-text">
@@ -10,10 +11,23 @@
 		<button type="button" class="wz-chip" data-action="resetStats"><i class="fa-solid fa-rotate-left"></i>{{localize "ETERNIA.Wizard.Attr.Reset"}}</button>
 	</header>
 
+	{{#with suggest as |s|}}
+	<section class="wz-suggest{{#if s.applied}} on{{/if}}" style="--wz-card: {{s.color}}">
+		<span class="wz-suggest-icon"><i class="fa-solid fa-lightbulb"></i></span>
+		<div class="wz-suggest-text">
+			<b>{{s.title}}</b>
+			<span class="wz-suggest-parts">{{#each s.parts}}<span><small>{{abbr}}</small>+{{n}}</span>{{/each}}</span>
+			<p>{{localize "ETERNIA.Wizard.Attr.SuggestWhy"}}</p>
+		</div>
+		<button type="button" class="wz-chip{{#if s.applied}} active{{/if}}" data-action="suggestStats" {{#if s.applied}}disabled{{/if}}><i class="fa-solid {{#if s.applied}}fa-check{{else}}fa-wand-magic-sparkles{{/if}}"></i>{{#if s.applied}}{{localize "ETERNIA.Wizard.Attr.SuggestOn"}}{{else}}{{localize "ETERNIA.Wizard.Attr.SuggestUse"}}{{/if}}</button>
+	</section>
+	{{/with}}
+
 	<div class="wz-attr-grid">
 		{{#each attributes}}
 		<section class="wz-attr" data-stat="{{key}}">
 			<header><b>{{abbr}}</b><span>{{name}}</span></header>
+			{{#if suggested}}<em class="wz-attr-suggest{{#if (eq bonus suggested)}} on{{/if}}" data-tooltip="{{localize 'ETERNIA.Wizard.Attr.SuggestedTip' n=suggested}}"><i class="fa-solid fa-lightbulb"></i>+{{suggested}}</em>{{/if}}
 			<div class="wz-attr-mod" data-tooltip="{{localize 'ETERNIA.Wizard.Attr.ModTip'}}">{{modLabel}}</div>
 			<div class="wz-attr-total"><span>{{localize "ETERNIA.Wizard.Attr.Total"}}</span><b>{{total}}</b>{{#if canAdd}}<em>{{localize "ETERNIA.Wizard.Attr.ToNext" n=toNext}}</em>{{/if}}</div>
 			<ul class="wz-attr-parts">

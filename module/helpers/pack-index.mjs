@@ -20,7 +20,7 @@ export const ITEM_INDEX_FIELDS = [
   "effects.statuses", "effects.transfer", "effects.flags.eternia.statusData",
   // Races, classes and professions
   "system.identifier", "system.attributes", "system.hp", "system.hpPerRank", "system.fate", "system.grants",
-  // Items: the icons, the professions' catalog and materials, the tickets
+  // Items: the icons, the professions' catalog and materials, the tickets, the creation wizard's shop
   "system.rank", "system.price", "flags.eternia.icon", "flags.eternia.material"
 ];
 

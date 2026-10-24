@@ -41,5 +41,12 @@
 			{{#each granted}}<li><img src="{{img}}" alt="">{{name}}</li>{{/each}}
 			{{#each picks}}<li class="pick"><img src="{{img}}" alt="">{{name}}</li>{{/each}}
 		</ul>
+
+		{{#with gear as |g|}}
+		<h4>{{localize "ETERNIA.Wizard.Summary.Gear"}}<span class="wz-sum-gold"><i class="fa-solid fa-coins"></i>{{localize "ETERNIA.Wizard.Rail.Gold" n=g.gold}}</span></h4>
+		<ul class="wz-chip-list">
+			{{#each g.pieces as |p|}}<li class="{{#if p.equipped}}pick{{/if}}" data-wz-tip="{{p.tip}}"><img src="{{p.img}}" alt="">{{p.name}}{{#if (gt p.count 1)}} ×{{p.count}}{{/if}}</li>{{/each}}
+		</ul>
+		{{/with}}
 	</section>
 </div>

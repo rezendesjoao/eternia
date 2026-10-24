@@ -70,6 +70,13 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   `grantedBy` da raça, da classe e da Magia de escolha, `skillPicks` de NP 1 nas escolhas e `skillProgress` `{ base: 1,
   creation: true }`. A lista de escolhas vem de `creationCandidates` (`apps/skill-browser.mjs`), com as regras do
   navegador no NP 1: uma regra nova do navegador vale para os dois.
+- Itens iniciais (`module/apps/starting-gear.mjs`): a Mochila, o Kit de Aventureiro e o Sanduíche de graça (por uuid
+  do compêndio `eternia.items`) e uma loja com os itens de Nível 1 com preço dos compêndios do sistema e do mundo, sem
+  [Not For Sale], [Untradeable] nem [M1]–[M7]. O orçamento é o ouro do personagem (350 no template). Os itens criados
+  levam `flags.eternia.starting` ("free" ou "bought") e o personagem `flags.eternia.startingGear { spent }`: criar de
+  novo apaga os marcados e devolve o ouro gasto. Onde cada peça vai é `gearLayout` (o mesmo cálculo da prévia e da
+  criação); os números seguem `EterniaActor#_computeBattleStatuses`. O kit de cada classe é `KITS` (nomes de itens) e
+  a sugestão de atributos é `suggestBonus` (a base da classe ao quadrado pesa cada modificador).
 
 ## Teste local
 - `Data/systems/eternia` é uma junction para este repositório; mundo de teste `eternia-teste`.

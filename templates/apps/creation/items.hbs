@@ -1,0 +1,98 @@
+{{!-- ITEMS: the starting gear (apps/starting-gear.mjs). On top, the kit recommended for the class (one click buys it,
+     and what the Magia asks for below it); then the shop of Item Rank 1, by type, with a search (a click buys one more,
+     − gives one back, the pointer tells what it does); beside it, the bag: the gold left, where each piece goes (the
+     hands, the armor, three accessories, the bag), what is carried in the bag's space and the numbers the gear gives. --}}
+<div class="wz-shop">
+	<div class="wz-shop-main">
+		{{#with kit as |k|}}
+		<section class="wz-kit" style="--wz-card: {{k.color}}">
+			<span class="wz-emblem"><img src="{{k.img}}" alt=""></span>
+			<div class="wz-kit-text">
+				<span class="wz-page-eyebrow"><i class="fa-solid fa-star"></i>{{localize "ETERNIA.Wizard.Items.KitFor" name=k.className}}</span>
+				<p>{{{k.reason}}}</p>
+				<ul class="wz-kit-pieces">
+					{{#each k.pieces as |p|}}<li data-wz-tip="{{p.tip}}"><img src="{{p.img}}" alt=""><span>{{p.name}}{{#if (gt p.count 1)}} ×{{p.count}}{{/if}}</span></li>{{/each}}
+				</ul>
+				{{#if k.extra}}
+				<p class="wz-kit-magia" data-wz-tip="{{k.extra.tip}}"><img src="{{k.extra.img}}" alt=""><i class="fa-solid fa-hat-wizard"></i><span>{{{k.extra.text}}}</span>
+					{{#unless k.extra.owned}}{{#if k.extra.canBuy}}<button type="button" class="wz-chip" data-action="buy" data-uuid="{{k.extra.uuid}}"><i class="fa-solid fa-plus"></i>{{localize "ETERNIA.Wizard.Items.Buy"}}</button>{{/if}}{{/unless}}
+				</p>
+				{{/if}}
+			</div>
+			<div class="wz-kit-side">
+				<span class="wz-price big"><i class="fa-solid fa-coins"></i>{{k.cost}}</span>
+				<button type="button" class="wz-kit-buy" data-action="kit" {{#if k.taken}}disabled{{/if}}>
+					<i class="fa-solid {{#if k.taken}}fa-check{{else}}fa-cart-shopping{{/if}}"></i><span>{{#if k.taken}}{{localize "ETERNIA.Wizard.Items.KitTaken"}}{{else}}{{localize "ETERNIA.Wizard.Items.KitBuy"}}{{/if}}</span>
+				</button>
+				{{#if k.short}}<small class="wz-kit-short">{{localize "ETERNIA.Wizard.Items.KitShort" n=k.short}}</small>{{/if}}
+			</div>
+		</section>
+		{{/with}}
+
+		<div class="wz-shop-tools">
+			<label class="wz-shop-search"><i class="fa-solid fa-magnifying-glass"></i><input type="search" value="{{query}}" placeholder="{{localize 'ETERNIA.Wizard.Items.Search'}}" autocomplete="off" spellcheck="false"></label>
+			{{#each filters}}<button type="button" class="wz-chip{{#if active}} active{{/if}}" data-action="shopFilter" data-filter="{{id}}">{{#if icon}}<i class="{{icon}}"></i>{{/if}}{{label}}<b>{{count}}</b></button>{{/each}}
+		</div>
+
+		<ul class="wz-shop-grid">
+			{{#each cards as |c|}}
+			<li class="wz-ware{{#if c.count}} in{{/if}}{{#unless c.canBuy}} off{{/unless}}{{#if c.marked}} marked{{/if}}" data-uuid="{{c.uuid}}" data-type="{{c.type}}" data-search="{{c.search}}"{{#if c.marked}} data-marked="1"{{/if}} data-wz-tip="{{c.tip}}"{{#if c.canBuy}} data-action="buy" tabindex="0"{{/if}}{{#if c.hidden}} hidden{{/if}}>
+				<span class="wz-ware-img"><img src="{{c.img}}" alt="">{{#if c.count}}<b>×{{c.count}}</b>{{/if}}</span>
+				<span class="wz-ware-body">
+					<b>{{c.name}}</b>
+					<small>{{c.line}}</small>
+				</span>
+				<span class="wz-ware-side">
+					<span class="wz-ware-badges">
+						{{#if c.recommended}}<i class="fa-solid fa-star rec" data-tooltip="{{localize 'ETERNIA.Wizard.Items.RecTip'}}"></i>{{/if}}
+						{{#if c.forMagia}}<i class="fa-solid fa-hat-wizard magia" data-tooltip="{{localize 'ETERNIA.Wizard.Items.MagiaTip'}}"></i>{{/if}}
+						{{#if c.rare}}<i class="fa-solid fa-gem rare" data-tooltip="{{localize 'ETERNIA.Wizard.Items.RareBadge'}}"></i>{{/if}}
+					</span>
+					<span class="wz-price{{#unless c.canBuy}} short{{/unless}}"{{#if c.reason}} data-tooltip="{{c.reason}}"{{/if}}><i class="fa-solid {{#if c.canBuy}}fa-coins{{else}}fa-lock{{/if}}"></i>{{c.price}}</span>
+				</span>
+				{{#if c.count}}<button type="button" class="wz-ware-sell" data-action="sell" data-uuid="{{c.uuid}}" aria-label="−1" data-tooltip="{{localize 'ETERNIA.Wizard.Items.Sell'}}"><i class="fa-solid fa-minus"></i></button>{{/if}}
+			</li>
+			{{/each}}
+			<li class="wz-shop-empty" hidden><i class="fa-solid fa-magnifying-glass"></i>{{localize "ETERNIA.Wizard.Items.NoMatch"}}</li>
+		</ul>
+	</div>
+
+	<aside class="wz-cart">
+		<header class="wz-purse">
+			<span class="wz-page-eyebrow"><i class="fa-solid fa-coins"></i>{{localize "ETERNIA.Wizard.Items.Gold"}}</span>
+			<div class="wz-purse-sum"><b>{{gold.left}}</b><span>{{localize "ETERNIA.Wizard.Items.GoldOf" n=gold.budget}}</span></div>
+			<span class="wz-purse-bar"><i style="width: {{gold.pct}}%"></i></span>
+		</header>
+		<ul class="wz-numbers gear">
+			{{#each numbers}}<li><i class="{{icon}}"></i><b>{{value}}</b><small>{{label}}</small></li>{{/each}}
+		</ul>
+		<div class="wz-cart-scroll">
+			<h4>{{localize "ETERNIA.Wizard.Items.Equipped"}}</h4>
+			<ul class="wz-slots">
+				{{#each slots as |s|}}
+				<li class="{{#if s.entry}}set{{/if}}{{#if s.locked}} locked{{/if}}"{{#if s.tip}} data-wz-tip="{{s.tip}}"{{/if}}>
+					<span class="wz-slot-icon">{{#if s.entry}}<img src="{{s.entry.img}}" alt="">{{else}}<i class="{{s.icon}}"></i>{{/if}}</span>
+					<span class="wz-slot-text"><small>{{s.label}}</small><b>{{#if s.entry}}{{s.entry.name}}{{else}}{{#if s.note}}{{s.note}}{{else}}—{{/if}}{{/if}}</b></span>
+					{{#if s.free}}<em>{{localize "ETERNIA.Wizard.Items.Free"}}</em>{{/if}}
+					{{#if s.own}}<em>{{localize "ETERNIA.Wizard.Items.Own"}}</em>{{/if}}
+					{{#if s.sellable}}<button type="button" class="wz-ware-sell" data-action="sell" data-uuid="{{s.entry.uuid}}" aria-label="−1" data-tooltip="{{localize 'ETERNIA.Wizard.Items.Sell'}}"><i class="fa-solid fa-minus"></i></button>{{/if}}
+				</li>
+				{{/each}}
+			</ul>
+			<h4>{{localize "ETERNIA.Wizard.Items.Carried"}}<span class="wz-space{{#if space.over}} over{{/if}}" data-tooltip="{{localize 'ETERNIA.Wizard.Items.SpaceTip'}}"><i class="fa-solid fa-box-open"></i>{{space.used}}/{{space.max}}</span></h4>
+			<ul class="wz-slots carried">
+				{{#each carried as |r|}}
+				<li class="set" data-wz-tip="{{r.tip}}">
+					<span class="wz-slot-icon"><img src="{{r.entry.img}}" alt=""></span>
+					<span class="wz-slot-text"><b>{{r.entry.name}}{{#if (gt r.count 1)}} ×{{r.count}}{{/if}}</b></span>
+					{{#if r.free}}<em>{{localize "ETERNIA.Wizard.Items.Free"}}</em>{{/if}}
+					{{#if r.sellable}}<button type="button" class="wz-ware-sell" data-action="sell" data-uuid="{{r.entry.uuid}}" aria-label="−1" data-tooltip="{{localize 'ETERNIA.Wizard.Items.Sell'}}"><i class="fa-solid fa-minus"></i></button>{{/if}}
+				</li>
+				{{/each}}
+				{{#if ownCarried}}<li class="own"><span class="wz-slot-icon"><i class="fa-solid fa-box"></i></span><span class="wz-slot-text"><b>{{localize "ETERNIA.Wizard.Items.OwnCarried" n=ownCarried}}</b></span></li>{{/if}}
+			</ul>
+			{{#if space.over}}<p class="wz-warn"><i class="fa-solid fa-triangle-exclamation"></i>{{localize "ETERNIA.Wizard.Items.Over" used=space.used max=space.max}}</p>{{/if}}
+		</div>
+		<button type="button" class="wz-chip wz-cart-empty" data-action="emptyCart" {{#unless hasCart}}disabled{{/unless}}><i class="fa-solid fa-rotate-left"></i>{{localize "ETERNIA.Wizard.Items.Empty"}}</button>
+	</aside>
+</div>

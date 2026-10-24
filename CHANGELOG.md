@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.30.0 — 2026-10-24
+
+### Adicionado
+- **Itens iniciais no assistente de criação** (`apps/starting-gear.mjs`): um passo novo, Itens, entre Habilidades e
+  Resumo. A Mochila, o Kit de Aventureiro e o Sanduíche vêm de graça (a regra de AS REGRAS, II. PERSONAGENS) e o ouro
+  do personagem (350) compra o resto numa loja com os itens de Nível 1 dos compêndios do sistema e do mundo, sem os
+  [Invendáveis], os [Intransferíveis] e os mágicos [M1]–[M7] (um [Raro] vem marcado, para combinar com o mestre).
+  Cada classe tem um **kit recomendado** que cabe em 350, com o porquê e um botão que compra tudo; os itens dele levam
+  uma estrela na loja. Uma classe que luta com arma e tem uma Magia que ataca ganha a sugestão do Anel Cinzento (+4 no
+  Poder Mágico). Filtros por tipo, busca, a dica de cada item sob o ponteiro, e a bolsa ao lado: o ouro, onde cada
+  peça vai (as mãos, a armadura, três acessórios, a bolsa), o espaço do inventário e os números que o equipamento dá.
+  Ao criar, os itens entram equipados onde a bolsa mostrou, e o ouro fica com o que sobrou; criar de novo troca os
+  itens iniciais e devolve o ouro deles. O cartão do chat mostra o equipamento.
+- **Sugestão de atributos** no passo Atributos: os cinco pontos para a classe (para onde a base dela é alta, até o
+  próximo modificador), com um botão que usa a sugestão e uma marca em cada atributo.
+
+### Alterado
+- Os números de jogo do assistente (a faixa, os Atributos e o Resumo) contam o equipamento, e os testes somam o que os
+  acessórios dão.
+- Refazer no assistente um personagem de NP 1 com classe e sem profissão lembra o "Decidir depois".
+- O aviso de novidades fala da 0.30.
+
+### Corrigido
+- Criar um personagem pelo assistente com a ficha fechada mostrava "Não foi possível criar o personagem" (a ficha
+  trocava de aba antes de abrir); o personagem era criado, mas o aviso assustava.
+
 ## 0.29.1 — 2026-10-24
 
 ### Alterado

@@ -9,15 +9,20 @@
  *   3. Magia       the Magia browser of the Magia picker, for the class's slot of CR 1 (a Magia that asks for a
  *                  choice, the Mandamentos' Decree, asks it below). A class whose first slot comes later says so.
  *   4. Profession  the ten professions, or none for now.
- *   5. Attributes  the five bonus points (no attribute above 7), with the modifiers, the checks and the numbers of play.
+ *   5. Attributes  the five bonus points (no attribute above 7), with the modifiers, the checks and the numbers of play,
+ *                  and the points suggested for the class (one click uses them).
  *   6. Skills      the creation picks: three Combat skills and one General (at most two [Training]), among the class's
  *                  talents, the Magia's spells and the profession's skills of CR 1 (the skill browser's rules).
- *   7. Summary     the name and the portrait, and everything chosen.
+ *   7. Items       the starting gear (apps/starting-gear.mjs): a Backpack, an Adventurer's Kit and a Sandwich for free,
+ *                  and the character's gold (350) to spend in the shop of Item Rank 1; the kit recommended for the class
+ *                  (one click buys it) and, beside the shop, where each piece goes and the numbers it gives.
+ *   8. Summary     the name and the portrait, and everything chosen.
  *
  * Beside every step, the character as it stands. Nothing changes on the actor until "Create the character": then the
- * race, the class, the profession and every skill they give come in one go, marked like the old dialogs marked them
- * (the grants by their option, the picks with their marks, apps/skill-browser.mjs), so changing class or CR later works
- * as before. A character of CR 1 can be made again: what its old race, class and picks gave leaves first.
+ * race, the class, the profession, every skill they give and the starting gear (equipped where the shop showed it)
+ * come in one go, marked like the old dialogs marked them (the grants by their option, the picks with their marks,
+ * apps/skill-browser.mjs), so changing class or CR later works as before. A character of CR 1 can be made again: what
+ * its old race, class, picks and starting gear gave leaves first, and the gold of that gear comes back.
  */
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { toInt } from "../helpers/utils.mjs";
@@ -30,6 +35,12 @@ import { MAGIC_BROWSER, MagicBrowser, magicBrowserContext } from "./magic-picker
 import { fold } from "./magic-catalog.mjs";
 import { STATS, creationCatalog, loadDocuments, skillSummary, skillTip } from "./creation-catalog.mjs";
 import { BONUS_POINTS, MAX_BASE_STAT } from "./stat-allocation.mjs";
+import {
+  SHOP_CATEGORIES, STARTING_FLAG, STARTING_GEAR_FLAG, gearLayout, gearNumbers, gearOf, magiaSuggestion, recommendedKit,
+  shopCatalog, suggestBonus
+} from "./starting-gear.mjs";
+import { chipText } from "../helpers/text-chips.mjs";
+import { tagLabel } from "../i18n/terms.mjs";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -43,6 +54,7 @@ const STEPS = [
   { id: "profession", icon: "fa-solid fa-hammer" },
   { id: "attributes", icon: "fa-solid fa-chart-simple" },
   { id: "skills", icon: "fa-solid fa-book-open-reader" },
+  { id: "items", icon: "fa-solid fa-backpack" },
   { id: "summary", icon: "fa-solid fa-feather-pointed" }
 ];
 
@@ -119,6 +131,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       position: { width, height, left: Math.max(0, (window.innerWidth - width) / 2), top: Math.max(0, (window.innerHeight - height) / 2) }
     });
     this.actor = actor;
+    this.#have = gearOf(actor);
     this.draft = this.#initialDraft();
     this.step = step ?? "race";
   }
@@ -136,6 +149,12 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       human: CreationWizard.#onHuman,
       stat: CreationWizard.#onStat,
       resetStats: CreationWizard.#onResetStats,
+      suggestStats: CreationWizard.#onSuggestStats,
+      buy: CreationWizard.#onBuy,
+      sell: CreationWizard.#onSell,
+      kit: CreationWizard.#onKit,
+      emptyCart: CreationWizard.#onEmptyCart,
+      shopFilter: CreationWizard.#onShopFilter,
       skill: CreationWizard.#onSkill,
       decree: CreationWizard.#onDecree,
       later: CreationWizard.#onLater,
@@ -148,7 +167,10 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   static PARTS = {
     head: { template: `${DIR}/head.hbs` },
     rail: { template: `${DIR}/rail.hbs` },
-    step: { template: `${DIR}/step.hbs`, scrollable: [".wz-grid", ".wz-detail", ".wz-scroll", ".mp-grid", ".mp-detail"] },
+    step: {
+      template: `${DIR}/step.hbs`,
+      scrollable: [".wz-grid", ".wz-detail", ".wz-scroll", ".mp-grid", ".mp-detail", ".wz-shop-grid", ".wz-cart-scroll"]
+    },
     foot: { template: `${DIR}/foot.hbs` }
   };
 
@@ -166,6 +188,13 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   #family = "";
   /** The descriptions of the skills shown in the skills step (uuid → summary). */
   #texts = new Map();
+  /** What the shop sells (apps/starting-gear.mjs). */
+  #shop = null;
+  /** The gear the character already has (not given by the wizard): the slots it takes, what it carries. */
+  #have = null;
+  /** The shop's filter ("", "recommended" or a type) and the name searched. */
+  #shopFilter = "";
+  #shopQuery = "";
   /** The character is being created. */
   #creating = false;
 
@@ -198,12 +227,17 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       classChoices: {},
       magia: sourceUuid(magia) || null,
       decree: null,
-      profession: profession?.system.identifier || null,
+      // A character made before with a class and no profession left it for later
+      profession: profession?.system.identifier || (job ? "later" : null),
       bonus,
       picks: skills.filter(i => (i.getFlag(SYSTEM_ID, PICK_FLAG) ?? []).length).map(sourceUuid).filter(Boolean),
       name: actor.name,
       img: actor.img,
       basics: true,
+      // The starting gear bought (by compendium entry, in the order bought) and the gold to buy it with: what the
+      // character has, plus what its starting gear cost when it was made before
+      cart: actor.items.filter(i => i.getFlag(SYSTEM_ID, STARTING_FLAG) === "bought").map(sourceUuid).filter(Boolean),
+      budget: Math.max(0, toInt(actor._source.system.inventory?.gold) + toInt(actor.getFlag(SYSTEM_ID, STARTING_GEAR_FLAG)?.spent)),
       // Filled from what the character has, once the catalog is read
       owned: skills.map(sourceUuid).filter(Boolean)
     };
@@ -276,23 +310,78 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     return STATS.reduce((n, k) => n + (this.draft.bonus[k] ?? 0), 0);
   }
 
-  /** The numbers of play at CR 1 (the sheet's rules, without items nor effects). */
+  /** The numbers of play at CR 1 (the sheet's rules, with the starting gear equipped where the shop puts it). */
   #numbers() {
     const attrs = Object.fromEntries(this.#attributes().map(a => [a.key, a]));
     const race = this.#race();
     const job = this.#job();
     const mod = key => attrs[key].mod;
+    const layout = this.#layout();
+    const gear = layout ? gearNumbers(layout) : { attack: 0, magic: 0, accuracy: 0, pdef: 0, mdef: 0, initiative: 0, checks: {} };
     return {
       hp: (job?.hp ?? 0) + (race?.hp ?? 0),
       fate: race?.fate ?? 0,
-      physDef: mod("str") * 2,
-      magicDef: mod("int") * 2,
-      initiative: Math.max(0, mod("str") + mod("int")),
+      physDef: (mod("str") * 2) + gear.pdef,
+      magicDef: (mod("int") * 2) + gear.mdef,
+      initiative: Math.max(0, mod("str") + mod("int") + gear.initiative),
       speed: 2,
-      accuracy: Math.max(...STATS.map(mod)),
+      accuracy: Math.max(...STATS.map(mod)) + gear.accuracy,
       evasion: mod("dex"),
-      resistance: mod("pow")
+      resistance: mod("pow"),
+      attack: gear.attack,
+      magic: gear.magic,
+      checks: gear.checks
     };
+  }
+
+  /* -------------------------------------------- */
+  /*  The starting gear                           */
+  /* -------------------------------------------- */
+
+  /** The free items the character gets: those it doesn't have yet (by name). */
+  #freeEntries() {
+    return (this.#shop?.free ?? []).filter(e => !this.#have.names.has(fold(e.name)));
+  }
+
+  /** The starting gear (the free items, then what was bought, in that order) and where each piece goes. */
+  #layout() {
+    const shop = this.#shop;
+    if (!shop) return null;
+    const bought = this.draft.cart.map(uuid => shop.byUuid.get(uuid)).filter(Boolean);
+    return gearLayout([...this.#freeEntries().map(entry => ({ entry, free: true })), ...bought.map(entry => ({ entry }))], this.#have);
+  }
+
+  /** The gold: what the character has to spend, what the gear bought costs and what is left. */
+  #gold() {
+    const budget = this.draft.budget;
+    const spent = this.draft.cart.reduce((n, uuid) => n + (this.#shop?.byUuid.get(uuid)?.price ?? 0), 0);
+    return { budget, spent, left: budget - spent, pct: budget ? Math.clamp(Math.round(((budget - spent) / budget) * 100), 0, 100) : 0 };
+  }
+
+  /** Whether one more of a piece can be bought: the gold, and the space when it would be carried. */
+  #canBuy(entry, layout = this.#layout(), gold = this.#gold()) {
+    if (entry.price > gold.left) return { ok: false, reason: L("Wizard.Items.NoGold") };
+    const after = gearLayout([...layout.units.map(({ entry: e, free }) => ({ entry: e, free })), { entry }], this.#have);
+    if ((after.space.used > after.space.max) && (after.space.used > layout.space.used)) return { ok: false, reason: L("Wizard.Items.NoSpace") };
+    return { ok: true, reason: "" };
+  }
+
+  /** The kit recommended for the class, and for a Magia whose spells attack, what gives them Magic Power. */
+  #recommendation() {
+    const job = this.#job();
+    if (!job || !this.#shop) return null;
+    const kit = recommendedKit(this.#shop, job.identifier, job.family);
+    const magia = this.#magia();
+    const attacks = !!magia && (this.#skillIndex ?? []).some(e => (e.magicSpell === magia.id) && e.tags.includes("Magic Attack"));
+    return { ...kit, magia, extra: magiaSuggestion(this.#shop, kit.entries, attacks) };
+  }
+
+  /** The bonus points suggested for the class (apps/starting-gear.mjs). */
+  #suggestion() {
+    const job = this.#job();
+    if (!job) return null;
+    const before = Object.fromEntries(this.#attributes().map(a => [a.key, a.fromClass + a.fromRace]));
+    return suggestBonus(job.attributes, before, BONUS_POINTS, MAX_BASE_STAT);
   }
 
   /**
@@ -411,6 +500,8 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       profession: !!this.draft.profession,
       attributes: !!job && (this.#spent() === BONUS_POINTS) && attrs.every(a => a.total <= MAX_BASE_STAT),
       skills: !!job && (combat.picked >= combat.quota) && (general.picked >= general.quota),
+      // Buying is free: the gold not spent stays in the purse
+      items: !!this.#shop && (this.#gold().left >= 0),
       summary: !!this.draft.name?.trim()
     };
   }
@@ -454,6 +545,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       this.#catalog = await creationCatalog();
       this.#restoreChoices();
     }
+    this.#shop ??= await shopCatalog();
     await this.#refreshCandidates();
     const done = this.#done();
     if (!this.#reachable(this.step, done)) this.step = STEPS.find(s => !done[s.id])?.id ?? "race";
@@ -514,7 +606,8 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         line("magic", "fa-solid fa-hat-wizard", L("Wizard.Rail.Magia"), magia ? { name: magia.name, img: magia.img }
           : ((job && !job.firstMagic) ? { note: L("Wizard.Rail.MagiaLater", { rank: job.magicSlots[0] ?? 5 }) } : {})),
         line("profession", "fa-solid fa-hammer", L("Wizard.Step.profession"), profession ? { name: profession.name, img: profession.img }
-          : ((this.draft.profession === "later") ? { note: L("Wizard.Rail.Later") } : {}))
+          : ((this.draft.profession === "later") ? { note: L("Wizard.Rail.Later") } : {})),
+        line("items", "fa-solid fa-backpack", L("Wizard.Step.items"), this.#railGear())
       ],
       attributes: this.#attributes().map(a => ({ ...a, abbr: L(`Sheet.Attr.${a.key}.abbr`), modLabel: signed(a.mod) })),
       hp: numbers.hp,
@@ -525,10 +618,23 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     };
   }
 
+  /** The starting gear on the banner: the main weapon and how many pieces were bought, and the gold left. */
+  #railGear() {
+    if (!this.#shop) return {};
+    const layout = this.#layout();
+    const gold = L("Wizard.Rail.Gold", { n: this.#gold().left });
+    const count = this.draft.cart.length;
+    if (!count) return { note: gold };
+    return { name: L("Wizard.Rail.Items", { n: count }), img: (layout.main ?? layout.armor)?.img, note: gold };
+  }
+
   #footContext(context) {
     const index = STEPS.findIndex(s => s.id === this.step);
+    const done = (this.step === "items")
+      ? L("Wizard.Done.items", { n: this.draft.cart.length, gold: this.#gold().left })
+      : L(`Wizard.Done.${this.step}`);
     return {
-      hint: context.done[this.step] ? L(`Wizard.Done.${this.step}`) : this.#hint(),
+      hint: context.done[this.step] ? done : this.#hint(),
       backLabel: index > 0 ? L(`Wizard.Step.${STEPS[index - 1].id}`) : ""
     };
   }
@@ -558,6 +664,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const general = this.#picksOf("General");
         return L("Wizard.Hint.skills", { combat: combat.quota - combat.picked, general: general.quota - general.picked });
       }
+      case "items": return L("Wizard.Hint.items", { n: this.#gold().left });
       case "summary": return L("Wizard.Hint.summary");
     }
     return "";
@@ -573,6 +680,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       case "profession": return { ...step, ...this.#professionStep() };
       case "attributes": return { ...step, ...this.#attributesStep() };
       case "skills": return { ...step, ...(await this.#skillsStep()) };
+      case "items": return { ...step, ...this.#itemsStep() };
       case "summary": return { ...step, ...(await this.#summaryStep()) };
     }
     return step;
@@ -693,10 +801,19 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     const spent = this.#spent();
     const left = BONUS_POINTS - spent;
     const numbers = this.#numbers();
+    const suggestion = this.#suggestion();
+    const job = this.#job();
     return {
       left,
       points: Array.from({ length: BONUS_POINTS }, (_, i) => ({ on: i < spent })),
       max: MAX_BASE_STAT,
+      // The points suggested for the class, and whether they are the ones in use
+      suggest: suggestion && {
+        title: L("Wizard.Attr.Suggest", { name: job.name }),
+        parts: STATS.filter(k => suggestion[k]).map(k => ({ abbr: L(`Sheet.Attr.${k}.abbr`), n: suggestion[k] })),
+        applied: STATS.every(k => (this.draft.bonus[k] ?? 0) === suggestion[k]),
+        color: job.color
+      },
       attributes: this.#attributes().map(a => ({
         ...a,
         abbr: L(`Sheet.Attr.${a.key}.abbr`),
@@ -706,7 +823,9 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         canRemove: a.bonus > 0,
         // Points to the next modifier (every 3)
         toNext: 3 - (a.total % 3),
-        checks: CHECKS[a.key].map(c => ({ label: checkLabel(c), mod: signed(a.mod) })),
+        suggested: suggestion?.[a.key] ?? 0,
+        // The checks with what the starting gear adds (the Cloak of Agility's +1 in Athletics)
+        checks: CHECKS[a.key].map(c => ({ label: checkLabel(c), mod: signed(a.mod + (numbers.checks[c] ?? 0)) })),
         hint: L(`Wizard.Attr.${a.key}`)
       })),
       numbers: [
@@ -720,6 +839,119 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         { icon: "fa-solid fa-hand-fist", label: checkLabel("resistance"), value: signed(numbers.resistance) }
       ]
     };
+  }
+
+  /**
+   * The shop: the kit recommended for the class (with the Magia's suggestion), the items of Item Rank 1 by type (the
+   * filter and the name searched are applied in the page too, without drawing it again) and, beside them, the bag: the
+   * gold, where each piece goes, what is carried and the numbers the gear gives.
+   */
+  #itemsStep() {
+    const shop = this.#shop;
+    const layout = this.#layout();
+    const gold = this.#gold();
+    const rec = this.#recommendation();
+    const job = this.#job();
+    const marked = new Set([...(rec?.entries ?? []), ...(rec?.extra ? [rec.extra] : [])].map(e => e.uuid));
+    const counts = new Map();
+    for (const uuid of this.draft.cart) counts.set(uuid, (counts.get(uuid) ?? 0) + 1);
+    const query = fold(this.#shopQuery.trim());
+    const filter = this.#shopFilter;
+    const visible = e => (!filter || ((filter === "recommended") ? marked.has(e.uuid) : (e.type === filter)))
+      && (!query || e.search.includes(query));
+    const cards = shop.items.map(e => {
+      const can = this.#canBuy(e, layout, gold);
+      return {
+        uuid: e.uuid, name: e.name, img: e.img, type: e.type, price: e.price, line: e.line, tip: e.tip, rare: e.rare,
+        search: e.search, count: counts.get(e.uuid) ?? 0, marked: marked.has(e.uuid),
+        recommended: !!rec?.entries.some(k => k.uuid === e.uuid), forMagia: rec?.extra?.uuid === e.uuid,
+        canBuy: can.ok, reason: can.reason, hidden: !visible(e)
+      };
+    });
+    const ofType = id => shop.items.filter(e => e.type === id).length;
+    const filters = [
+      { id: "", label: L("Wizard.Items.All"), count: shop.items.length },
+      ...(marked.size ? [{ id: "recommended", icon: "fa-solid fa-star", label: L("Wizard.Items.Recommended"), count: marked.size }] : []),
+      ...SHOP_CATEGORIES.filter(c => ofType(c.id)).map(c => ({ id: c.id, icon: c.icon, label: L(`Wizard.Items.Category.${c.id}`), count: ofType(c.id) }))
+    ].map(f => ({ ...f, active: f.id === filter }));
+
+    // The kit: its pieces (a piece twice shows ×2), what it costs, and whether the bag has exactly it
+    let kit = null;
+    if (rec?.entries.length) {
+      const pieces = new Map();
+      for (const e of rec.entries) pieces.set(e.uuid, { ...e, count: (pieces.get(e.uuid)?.count ?? 0) + 1 });
+      const want = rec.entries.map(e => e.uuid).sort().join("|");
+      kit = {
+        className: job.name,
+        img: job.img,
+        color: job.color,
+        reason: chipText(L(rec.own ? `Wizard.Items.Kit.${job.identifier}` : "Wizard.Items.Kit.family")),
+        pieces: [...pieces.values()].map(p => ({ name: p.name, img: p.img, price: p.price, count: p.count, tip: p.tip })),
+        cost: rec.cost,
+        short: Math.max(0, rec.cost - gold.budget),
+        taken: [...this.draft.cart].sort().join("|") === want,
+        extra: rec.extra && {
+          uuid: rec.extra.uuid, img: rec.extra.img, tip: rec.extra.tip, owned: counts.has(rec.extra.uuid),
+          canBuy: this.#canBuy(rec.extra, layout, gold).ok,
+          text: chipText(L("Wizard.Items.Magia", { name: rec.magia.name, item: rec.extra.name, n: rec.extra.stats.magic + rec.extra.bonus.magic }))
+        }
+      };
+    }
+
+    const numbers = this.#numbers();
+    return {
+      kit,
+      filters,
+      cards,
+      query: this.#shopQuery,
+      gold,
+      slots: this.#gearSlots(layout),
+      carried: this.#carriedRows(layout),
+      ownCarried: this.#have.carried,
+      space: { ...layout.space, over: layout.space.used > layout.space.max },
+      hasCart: this.draft.cart.length > 0,
+      numbers: [
+        { icon: "fa-solid fa-sword", label: L("Tooltip.AttackPower"), value: numbers.attack },
+        { icon: "fa-solid fa-wand-magic-sparkles", label: L("Tooltip.MagicPower"), value: numbers.magic },
+        { icon: "fa-solid fa-crosshairs", label: checkLabel("accuracy"), value: signed(numbers.accuracy) },
+        { icon: "fa-solid fa-shield-halved", label: L("Sheet.PhysDef"), value: numbers.physDef },
+        { icon: "fa-solid fa-shield-heart", label: L("Sheet.MagicDef"), value: numbers.magicDef },
+        { icon: "fa-solid fa-bolt", label: L("Sheet.Initiative"), value: numbers.initiative }
+      ]
+    };
+  }
+
+  /** The equipment slots of the bag: the hands, the armor, the three accessories and the bag, with what is in each. */
+  #gearSlots(layout) {
+    const own = this.#have.equipped;
+    const row = (label, icon, unit, mine) => {
+      const entry = unit?.entry ?? mine?.entry ?? null;
+      return { label, icon, entry, tip: entry?.tip ?? "", free: !!unit?.free, own: !unit && !!mine, sellable: !!unit && !unit.free };
+    };
+    const at = slot => layout.units.find(u => u.slot === slot);
+    const mine = slot => own.find(o => o.slot === slot);
+    const type = id => game.i18n.localize(`TYPES.Item.${id}`);
+    const slots = [row(L("Hands.Main"), "fa-solid fa-hand-fist", at("main"), mine("main"))];
+    // A [Two-Handed] weapon takes the other hand too
+    if (layout.locked) slots.push({ label: L("Hands.Off"), icon: "fa-solid fa-hand", entry: null, note: tagLabel("Two-Handed"), locked: true });
+    else slots.push(row(L("Hands.Off"), "fa-solid fa-shield", at("off"), mine("off")));
+    slots.push(row(type("armor"), "fa-solid fa-shirt", at("armor"), mine("armor")));
+    const accessories = [...own.filter(o => o.slot === "accessory").map(o => ({ mine: o })), ...layout.units.filter(u => u.slot === "accessory").map(u => ({ unit: u }))];
+    for (let i = 0; i < 3; i++) slots.push(row(type("accessory"), "fa-solid fa-ring", accessories[i]?.unit, accessories[i]?.mine));
+    slots.push(row(type("bag"), "fa-solid fa-sack", at("bag"), mine("bag")));
+    return slots;
+  }
+
+  /** What is carried (takes the bag's space), a row per piece with how many. */
+  #carriedRows(layout) {
+    const rows = new Map();
+    for (const unit of layout.carried) {
+      const key = `${unit.entry.uuid}${unit.free ? ":free" : ""}`;
+      const row = rows.get(key) ?? { entry: unit.entry, tip: unit.entry.tip, count: 0, free: !!unit.free, sellable: !unit.free };
+      row.count += 1;
+      rows.set(key, row);
+    }
+    return [...rows.values()];
   }
 
   async #skillsStep() {
@@ -797,8 +1029,23 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       numbers: this.#numbers(),
       granted: this.#granted().map(g => named(g.uuid)),
       picks: this.draft.picks.map(uuid => index.find(e => e.uuid === uuid)).filter(Boolean).map(e => ({ uuid: e.uuid, name: e.name, img: e.img })),
+      gear: this.#summaryGear(),
       rebuild: !CreationWizard.isBlank(this.actor)
     };
+  }
+
+  /** The starting gear of the summary: each piece (equipped first) with how many, and the gold left. */
+  #summaryGear() {
+    const layout = this.#layout();
+    if (!layout) return null;
+    const rows = new Map();
+    for (const unit of [...layout.units].sort((a, b) => (a.slot === "carried") - (b.slot === "carried"))) {
+      const key = unit.entry.uuid;
+      const row = rows.get(key) ?? { name: unit.entry.name, img: unit.entry.img, tip: unit.entry.tip, count: 0, equipped: unit.slot !== "carried" };
+      row.count += 1;
+      rows.set(key, row);
+    }
+    return { pieces: [...rows.values()], gold: this.#gold().left };
   }
 
   /* -------------------------------------------- */
@@ -865,6 +1112,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       event.preventDefault();
       card.click();
     });
+    if (this.step === "items") this.#activateShop(step);
     // The Magia browser
     if (this.step === "magic") {
       const browser = step.querySelector(".magic-picker");
@@ -883,6 +1131,33 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       }
       this.#renderDecree();
     }
+  }
+
+  /** The shop's search box: the cards whose name (or numbers) don't match hide as you type. */
+  #activateShop(step) {
+    const input = step.querySelector(".wz-shop-search input");
+    input?.addEventListener("input", () => {
+      this.#shopQuery = input.value;
+      this.#applyShopFilter(step);
+    });
+    this.#applyShopFilter(step);
+  }
+
+  /** Show the cards of the filter and of the name searched (and the line that says there are none). */
+  #applyShopFilter(step) {
+    if (!step) return;
+    const query = fold(this.#shopQuery.trim());
+    const filter = this.#shopFilter;
+    let shown = 0;
+    for (const card of step.querySelectorAll(".wz-ware")) {
+      const { type, search, marked } = card.dataset;
+      const on = (!filter || ((filter === "recommended") ? !!marked : (type === filter))) && (!query || (search ?? "").includes(query));
+      card.hidden = !on;
+      if (on) shown += 1;
+    }
+    for (const chip of step.querySelectorAll("[data-action='shopFilter']")) chip.classList.toggle("active", (chip.dataset.filter ?? "") === filter);
+    const empty = step.querySelector(".wz-shop-empty");
+    if (empty) empty.hidden = shown > 0;
   }
 
   /** The choice the Magia chosen asks for (the Decree), under the browser. */
@@ -1010,6 +1285,59 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     this.#refresh();
   }
 
+  /** The bonus points suggested for the class. */
+  static #onSuggestStats() {
+    const suggestion = this.#suggestion();
+    if (!suggestion) return;
+    this.draft.bonus = { ...suggestion };
+    this.#refresh();
+  }
+
+  /** One more of a piece of the shop (the gold and the bag's space allowing). */
+  static #onBuy(event, target) {
+    const uuid = target.closest("[data-uuid]")?.dataset.uuid;
+    const entry = this.#shop?.byUuid.get(uuid);
+    if (!entry || !this.#canBuy(entry).ok) return;
+    this.draft.cart.push(uuid);
+    this.#refresh();
+  }
+
+  /** One of a piece back to the shop (the last one bought). */
+  static #onSell(event, target) {
+    const uuid = target.dataset.uuid ?? target.closest("[data-uuid]")?.dataset.uuid;
+    const index = this.draft.cart.lastIndexOf(uuid);
+    if (index < 0) return;
+    this.draft.cart.splice(index, 1);
+    this.#refresh();
+  }
+
+  /** The kit recommended for the class instead of what the bag had (what fits in the gold, in its order). */
+  static #onKit() {
+    const rec = this.#recommendation();
+    if (!rec?.entries.length) return;
+    const cart = [];
+    let left = this.draft.budget;
+    for (const entry of rec.entries) {
+      if (entry.price > left) continue;
+      cart.push(entry.uuid);
+      left -= entry.price;
+    }
+    this.draft.cart = cart;
+    this.#refresh();
+  }
+
+  /** Everything bought back to the shop. */
+  static #onEmptyCart() {
+    this.draft.cart = [];
+    this.#refresh();
+  }
+
+  /** The shop's filter: everything, what is recommended, or one type. */
+  static #onShopFilter(event, target) {
+    this.#shopFilter = target.dataset.filter ?? "";
+    this.#applyShopFilter(this.element.querySelector(".wz-step"));
+  }
+
   /** No attribute above the cap: the bonus points over it come back (a race or class changed). */
   #clampBonus() {
     for (const a of this.#attributes()) {
@@ -1090,13 +1418,17 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       this.#creating = false;
     }
     await this.close();
-    this.actor.sheet?.render({ force: true });
-    this.actor.sheet?.changeTab?.("character", "primary", { force: true });
+    // The sheet opens (or comes back) on the character tab
+    const sheet = this.actor.sheet;
+    if (!sheet) return;
+    sheet.tabGroups.primary = "character";
+    await sheet.render({ force: true });
   }
 
   /**
    * Make the character: what an earlier creation gave leaves, then the actor (name, portrait, CR 1, bonus points,
-   * the picks record) and all the items at once, and the HP and Fate full.
+   * the picks record, the gold left) and all the items at once (the starting gear equipped where the shop showed it),
+   * and the HP and Fate full.
    */
   async #make() {
     const actor = this.actor;
@@ -1113,7 +1445,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     const doc = uuid => docs.get(uuid) ?? null;
 
     // What an earlier creation gave (a CR 1 character made again)
-    const stale = actor.items.filter(i => OPTION_TYPES.includes(i.type)
+    const stale = actor.items.filter(i => OPTION_TYPES.includes(i.type) || i.getFlag(SYSTEM_ID, STARTING_FLAG)
       || ((i.type === "skill") && (i.getFlag(SYSTEM_ID, GRANT_FLAG) || (i.getFlag(SYSTEM_ID, PICK_FLAG) ?? []).length)));
     if (stale.length) await actor.deleteEmbeddedDocuments("Item", stale.map(i => i.id), { eterniaCreation: true });
 
@@ -1156,13 +1488,35 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     }
     for (const uuid of basics) items.push(skillData(uuid));
 
+    // The starting gear: the free items and what was bought, equipped where the shop showed them (the first weapon
+    // in the main hand), each marked so that making the character again takes it back
+    const layout = this.#layout();
+    const gold = this.#gold();
+    const gearDocs = await loadDocuments(layout.units.map(u => u.entry.uuid));
+    for (const unit of layout.units) {
+      const piece = gearDocs.get(unit.entry.uuid);
+      if (!piece) continue;
+      const data = piece.toObject();
+      delete data._id;
+      delete data.folder;
+      delete data.sort;
+      delete data.ownership;
+      foundry.utils.setProperty(data, "_stats.compendiumSource", piece.uuid);
+      foundry.utils.setProperty(data, `flags.${SYSTEM_ID}.${STARTING_FLAG}`, unit.free ? "free" : "bought");
+      data.system.equipped = unit.slot !== "carried";
+      if (data.type === "weapon") data.system.main = unit.slot === "main";
+      items.push(data);
+    }
+
     // The actor
     const name = d.name.trim() || actor.name;
     const update = {
       name,
       img: d.img,
       "system.infos.crank": 1,
+      "system.inventory.gold": Math.max(0, gold.left),
       [`flags.${SYSTEM_ID}.${PROGRESS_FLAG}`]: { base: 1, creation: true },
+      [`flags.${SYSTEM_ID}.${STARTING_GEAR_FLAG}`]: { spent: gold.spent },
       "prototypeToken.name": name
     };
     for (const key of STATS) update[`system.attributes.${key}.value`] = d.bonus[key] ?? 0;
@@ -1184,6 +1538,9 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     const magia = this.#magia();
     const profession = this.#profession();
     const element = this.#element();
+    // The gear in the hands and the armor
+    const layout = this.#layout();
+    const worn = [layout?.main, layout?.locked ? null : layout?.off, layout?.armor].filter(Boolean);
     const content = await foundry.applications.handlebars.renderTemplate(`${DIR}/chat-card.hbs`, {
       name: this.actor.name,
       img: this.actor.img,
@@ -1192,7 +1549,8 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         race && { label: L("Wizard.Step.race"), value: race.name, img: race.img },
         job && { label: L("Wizard.Step.class"), value: element ? `${job.name} (${element.name})` : job.name, img: job.img },
         magia && { label: L("Wizard.Rail.Magia"), value: magia.name, img: magia.img },
-        profession && { label: L("Wizard.Step.profession"), value: profession.name, img: profession.img }
+        profession && { label: L("Wizard.Step.profession"), value: profession.name, img: profession.img },
+        worn.length && { label: L("Wizard.Chat.Gear"), value: worn.map(e => e.name).join(", "), img: worn[0].img }
       ].filter(Boolean)
     });
     return ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: this.actor }), content });

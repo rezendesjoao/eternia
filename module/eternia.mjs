@@ -64,6 +64,7 @@ import { registerMagicCatalog } from "./apps/magic-catalog.mjs";
 import { registerPrewarm } from "./helpers/prewarm.mjs";
 import { CreationWizard, registerCreationWizard } from "./apps/creation-wizard.mjs";
 import { registerCreationCatalog } from "./apps/creation-catalog.mjs";
+import { registerShopCatalog } from "./apps/starting-gear.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -222,6 +223,7 @@ Hooks.once('init', async function () {
   registerPrewarm();
   // The creation wizard: race, class, Magia, profession, attributes and skills, step by step
   registerCreationCatalog();
+  registerShopCatalog();
   registerCreationWizard();
 
   // Preload Handlebars templates.

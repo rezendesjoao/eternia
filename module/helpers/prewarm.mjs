@@ -1,8 +1,8 @@
 /**
  * What the windows read from the compendiums, prepared while the game is idle once it is ready: the class tab's index
  * of the class skills, the skill browser's index, the races, classes and professions of the option browser, the
- * Magia catalog with the Magias' texts and the creation wizard's catalog. The first window of each kind then opens at
- * once instead of waiting for them. Each one is still built on demand if a window asks before.
+ * Magia catalog with the Magias' texts and the creation wizard's catalog and shop. The first window of each kind then
+ * opens at once instead of waiting for them. Each one is still built on demand if a window asks before.
  */
 import { SYSTEM_ID } from "../settings.mjs";
 import { classSkills } from "../classes/sheet.mjs";
@@ -10,6 +10,7 @@ import { getSkillIndex } from "../apps/skill-browser.mjs";
 import { getOptionIndex } from "../apps/option-browser.mjs";
 import { prewarmMagicCatalog } from "../apps/magic-catalog.mjs";
 import { creationCatalog } from "../apps/creation-catalog.mjs";
+import { shopCatalog } from "../apps/starting-gear.mjs";
 
 /** Call during the `init` hook. */
 export function registerPrewarm() {
@@ -27,4 +28,5 @@ async function prewarm() {
   for (const type of ["race", "class", "subclass"]) await getOptionIndex(type);
   await prewarmMagicCatalog();
   await creationCatalog();
+  await shopCatalog();
 }
