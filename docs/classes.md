@@ -955,6 +955,7 @@ REGRAS (a geral e uma página por Magia).
 | Alma de Satã | Conjuração | Faísca Maligna, Fluxo das Trevas, Explosão Maligna, Alma de Satã: Halphas, Alma de Satã: Sitri, Extinção da Alma (supremo) |
 | Alta Velocidade | Conjuração | Golpe Veloz, Rajada de Golpes, Velocidade Máxima, Chute Supersônico, Cem Golpes, Tempestade de Golpes (supremo) |
 | Arco do Tempo | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP÷2]) | Avanço Rápido, Tempo Lento, Restaurar, Acelerar, Arco do Tempo: Envelhecer, Última Era (supremo, cura os aliados e deixa [Fadiga] em quem conjura) |
+| Armas Mágicas | Portadora (as armas) | Tiro Mágico, Bala de Bolha, Bala Teleguiada (sem Teste de Precisão), Mira Travada, Bala Explosiva, Chuva de Balas (supremo) |
 | Artes Negras | Proibida (Tabu: [Maldito] em combate; a Predação da Morte pega aliados) | Toque da Morte, Esfera da Morte, Véu das Trevas, Predação da Morte, Sentença Negra (supremo) |
 | Cajados Mágicos | Portadora | Raio do Cajado, Muro de Névoa, Sono, Arranha-Céu, Dança dos Cinco Cajados, Círculo de Cinco Camadas: Canto Sagrado (supremo) |
 | Cartas | Portadora | Cartas Lançadas, Carta do Trovão, Leitura da Sorte, Prisão de Cartas, Tempestade de Cartas, Os Vinte e Dois Arcanos (supremo) |
@@ -965,6 +966,7 @@ REGRAS (a geral e uma página por Magia).
 | Esmagamento | Conjuração | Toque Esmagador, Onda de Esmagamento, Desmontagem, Quebrar a Guarda, Ruptura, Esmagamento Absoluto (supremo) |
 | Espíritos Celestiais | Portadora (as chaves) | Portão do Touro, Portão do Carneiro, Portão do Sagitário, Portão do Aguadeiro (pega aliados também), Portão do Leão: Impacto de Régulo, Vestido Estelar, Urano Metria (supremo) |
 | Fogo | Conjuração | Chama Laranja, Chama Roxa, Chama Azul, Chama Amarela, Coluna de Fogo, Chama Arco-Íris (supremo) |
+| Fumaça | Portadora (o cachimbo) | Punho de Fumaça, Corda de Fumaça, Cortina de Fumaça, Nuvem Sufocante, Gigante de Fumaça, Mar de Fumaça (supremo) |
 | Gigante | Conjuração | Golpe Gigante, Mão Gigante, Corpo Gigante, Pisada do Gigante, Punho do Titã, Queda do Titã (supremo) |
 | Gravidade | Conjuração | Queda, Mudança de Gravidade, Campo Gravitacional, Gravidade Zero, Buraco Negro, Peso do Mundo (supremo) |
 | Magia das Fadas | Ancestral (o supremo no NP 10) | Luz das Fadas, Ilusão das Fadas, Bênção das Fadas, Esfera das Fadas, Brilho das Fadas, Lei das Fadas (supremo, NP 10) |
@@ -975,6 +977,8 @@ REGRAS (a geral e uma página por Magia).
 | Moldagem de Gelo | Conjuração | Moldagem de Gelo: Lança, Moldagem de Gelo: Escudo, Moldagem de Gelo: Martelo, Moldagem de Gelo: Chão, Moldagem de Gelo: Águias, Lâmina de Gelo: Dança dos Sete Cortes, Impacto de Gelo (supremo) |
 | Moldagem de Memória | Conjuração | Memorizar, Moldagem de Memória: Feitiço Lembrado, Moldagem de Memória: Esquecimento, Moldagem de Memória: Fortaleza da Terra Ardente, Moldagem de Memória: Noite das Estrelas Cadentes, Moldagem de Memória: Lembrança Absoluta (supremo) |
 | Olhos Mágicos | Conjuração | Olhar de Pedra, Olho Clínico, Olhar Hipnótico, Olho do Demônio, Mil Olhos, Olhar Petrificante (supremo) |
+| Pintura Mágica | Portadora (pincéis e tintas) | Fera Pintada, Asas Pintadas, Jaula Pintada, Armadura Pintada, Dragão Pintado, Mural Vivo (supremo) |
+| Plantas | Portadora (as sementes) | Chicote de Cipó, Broto da Vida, Esporos Venenosos, Muralha de Raízes, Floresta Súbita, Jardim Carnívoro (supremo) |
 | Projeção de Pensamento | Conjuração | Eco de Pensamento, Voz do Pensamento, Projeção, Muitas Projeções, Exército de Pensamento, Projeção Astral (supremo) |
 | Raio | Conjuração | Relâmpago, Corrente Elétrica, Passo do Relâmpago, Trovão, Tempestade de Raios, Palácio do Trovão (supremo) |
 | Reequipar: O Cavaleiro | Portadora (os feitiços são Ataques com Arma) | Roda Celeste: Círculo de Espadas, Asa Negra: Lampejo Lunar, Armadura Adamantina, Traje do Coração Puro, Roda Celeste: Pétalas de Aço, Armadura de Nakagami: Luz Estelar (supremo) |

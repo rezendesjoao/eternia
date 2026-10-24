@@ -5,9 +5,12 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.19.0
+## Versão 0.20.0
 
-- **Novo na 0.19.0: mais quatro Magias.** Gigante, Encantamento, Olhos Mágicos e Alta Velocidade, para qualquer classe
+- **Novo na 0.20.0: quatro Magias Portadoras.** Armas Mágicas, Plantas, Fumaça e Pintura Mágica, para qualquer classe
+  de magia (veja [As Magias](#as-magias)): a magia mora nas armas, nas sementes, no cachimbo e nos pincéis. O catálogo
+  chega a 38 Magias.
+- **Desde a 0.19.0: mais quatro Magias.** Gigante, Encantamento, Olhos Mágicos e Alta Velocidade, para qualquer classe
   de magia (veja [As Magias](#as-magias)): o corpo que cresce, os encantos nos aliados, o olhar que petrifica e a
   pressa. O catálogo chega a 34 Magias.
 - **Desde a 0.18.0: a escolha da Magia e a aba Classe refeitas, e mais três Magias.** A Magia agora se escolhe numa
@@ -95,7 +98,7 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
 - **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 22 classes), Habilidades Raciais e
-  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 34 Magias com os feitiços: 1047 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
+  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 38 Magias com os feitiços: 1075 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
 
@@ -297,6 +300,7 @@ cada Magia (NP 7; NP 10 nas Ancestrais) pede o Motor no Teto e gasta tudo. As re
 | Alma de Satã | Conjuração | Os demônios: o raio que deixa [Eletrificado], as mãos de trevas ([Enraizado]), a explosão de [Corrupção], a armadura viva ([Fortalecido]), o fogo de Sitri ([Queimando]) e a Extinção da Alma ([Maldito]). |
 | Alta Velocidade | Conjuração | A pressa: o golpe que deixa [Perseguição], a rajada em dois alvos, a velocidade que deixa [Acelerado] a cena inteira, o chute que atravessa e derruba ([Derrubado]), os Cem Golpes e a Tempestade de Golpes ([Cambaleante]). |
 | Arco do Tempo | Perdida | O tempo nas mãos: as esferas que pulam o tempo, o tempo lento ([Lento], [Atordoado]), a cura que desfaz o golpe, a pressa ([Acelerado]), os anos que racham armaduras ([Fissurado]) e a Última Era, que cura os aliados. Tabu: em combate, as Defesas caem [NP÷2]. |
+| Armas Mágicas | Portadora | As balas: o tiro mágico, a bolha que deixa [Silenciado], a teleguiada que não erra, a mira que deixa [Concentrado], a explosiva ([Chama], [Derrubado]) e a Chuva de Balas ([Atordoado]). |
 | Artes Negras | Proibida | A magia da morte: [Corrupção], [Maldito], [Deterioração] e [Sentença]. Tabu: em combate você fica [Maldito], e a Predação da Morte pega aliados. |
 | Cajados Mágicos | Portadora | Cinco cajados: o raio de [Choque], a névoa que protege, o [Adormecido], o [Medo] da ilusão e a luz do Canto Sagrado, que deixa [Cego]. |
 | Cartas | Portadora | O baralho: cartas que cortam, o raio de [Choque], a Leitura da Sorte ([Concentrado]) e a gaiola que deixa [Enraizado] e [Silenciado]. |
@@ -307,6 +311,7 @@ cada Magia (NP 7; NP 10 nas Ancestrais) pede o Motor no Teto e gasta tudo. As re
 | Esmagamento | Conjuração | Quebra tudo: [Fissurado] e [Exposto] de perto, e a Desmontagem, que desfaz o golpe que vem. |
 | Espíritos Celestiais | Portadora | As chaves dos portões: o machado do touro, a lã do carneiro ([Barreira]), as flechas do sagitário, a onda do aguadeiro (que pega aliados também), o punho do leão, o Vestido Estelar e Urano Metria. |
 | Fogo | Conjuração | As cores do fogo: a laranja de [Chama], a roxa que deixa [Queimando], a azul de [Frio] ([Congelando]), a amarela que deixa [Confuso], a Coluna de Fogo e a Chama Arco-Íris. |
+| Fumaça | Portadora | A fumaça do cachimbo: o punho, a corda que deixa [Lento], a cortina que deixa [Oculto], a nuvem que deixa [Cego], o gigante que deixa [Confuso] e o Mar de Fumaça ([Silenciado]). |
 | Gigante | Conjuração | O tamanho: o golpe gigante, a mão que deixa [Agarrado], o corpo [Fortalecido] e com [Anulação], a pisada que deixa [Cambaleante], o Punho do Titã ([Atordoado]) e a Queda do Titã ([Derrubado]). |
 | Gravidade | Conjuração | O peso das coisas: [Lento], [Derrubado] e [Enraizado], o golpe [Fortalecido] e o voo da Gravidade Zero. |
 | Magia das Fadas | Ancestral | A luz das fadas: [Radiância], a ilusão que dá [Medo], a [Regeneração], a esfera que protege os aliados ([Barreira]), o brilho que deixa [Cego] e a Lei das Fadas, o supremo do NP 10, que só fere os inimigos. |
@@ -317,6 +322,8 @@ cada Magia (NP 7; NP 10 nas Ancestrais) pede o Motor no Teto e gasta tudo. As re
 | Moldagem de Gelo | Conjuração | O gelo moldado com as mãos: lanças e o martelo de [Frio] ([Congelando]), o escudo em forma de flor, o chão que derruba, as águias de gelo e a Dança dos Sete Cortes. |
 | Moldagem de Memória | Conjuração | A memória das magias vistas: Memorizar ([Concentrado]), o feitiço lembrado, o Esquecimento ([Selado]), a terra em chamas ([Queimando]) e a noite das estrelas cadentes. |
 | Olhos Mágicos | Conjuração | O olhar: o que deixa [Rigidez], o que deixa [Marcado], o que deixa [Encantado], o olho do demônio ([Despertado]), os Mil Olhos ([Medo]) e o Olhar Petrificante ([Paralisado]). |
+| Pintura Mágica | Portadora | A tinta que vive: a fera pintada, as asas que deixam [Voando], a jaula que deixa [Enraizado] e [Selado], a armadura ([Anulação]), o dragão ([Queimando]) e o Mural Vivo ([Medo]). |
+| Plantas | Portadora | As sementes: o cipó que deixa [Enraizado], o broto que dá [Regeneração], os esporos que deixam [Envenenado], a muralha de raízes ([Barreira]), a floresta que deixa [Lento] e o Jardim Carnívoro. |
 | Projeção de Pensamento | Conjuração | As cópias de pensamento: o eco [Psíquico], a voz que tira o [Medo] e deixa [Concentrado], a projeção que deixa [Intangível], as cópias que deixam os inimigos [Provocado], o exército em três alvos e a Projeção Astral ([Medo]). |
 | Raio | Conjuração | O raio: [Choque] de longe, a corrente que deixa [Eletrificado], o passo que deixa [Acelerado], o trovão que deixa [Atordoado], a tempestade em três alvos e o Palácio do Trovão. |
 | Reequipar: O Cavaleiro | Portadora | As armaduras de batalha: os feitiços são Ataques com Arma (espadas em área, o golpe da asa negra), a defesa adamantina, o traje sem armadura e a armadura que corta a magia ([Selado]). |

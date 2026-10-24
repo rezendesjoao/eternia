@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.20.0 — 2026-10-23
+
+### Adicionado
+- **Quatro Magias Portadoras**, para qualquer classe de magia, cada uma com o objeto em que a magia mora: **Armas
+  Mágicas** (Tiro Mágico, Bala de Bolha, Bala Teleguiada, que não pede Teste de Precisão, Mira Travada, Bala Explosiva e
+  o supremo Chuva de Balas), **Plantas** (Chicote de Cipó, Broto da Vida, Esporos Venenosos, Muralha de Raízes,
+  Floresta Súbita e o supremo Jardim Carnívoro), **Fumaça** (Punho, Corda e Cortina de Fumaça, Nuvem Sufocante,
+  Gigante de Fumaça e o supremo Mar de Fumaça) e **Pintura Mágica** (Fera Pintada, Asas Pintadas, Jaula Pintada,
+  Armadura Pintada, Dragão Pintado e o supremo Mural Vivo). O catálogo chega a 38 Magias.
+- Páginas XII.7 (Armas Mágicas), XII.18 (Fumaça), XII.29 (Pintura Mágica) e XII.30 (Plantas) do capítulo XII. MAGIAS do
+  diário AS REGRAS.
+
+### Alterado
+- As páginas do capítulo XII foram renumeradas em ordem alfabética (Artes Negras é a XII.8, Vento a XII.38).
+- O aviso de novidades fala da 0.20.
+
 ## 0.19.0 — 2026-10-23
 
 ### Adicionado

@@ -1,0 +1,117 @@
+{
+  "name": "Armadura Pintada",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Pintura Mágica.</strong> Você pinta uma armadura sobre um aliado a até 4 Qd (ou sobre você): ele fica com [Anulação: NP÷2 + 2] até o fim da cena. Uma vez por cena.</p><p><strong>Custo:</strong> Ódio 2.</p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/nature/leaf-armor-scale-worn-green.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "cancel",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Armadura Pintada",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "duBe3S0esAd0yKiR",
+      "_key": "!items.effects!YwLbxRDjyN3HQCgP.duBe3S0esAd0yKiR"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "pintura-magica-armadura",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "pintura-magica"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "YwLbxRDjyN3HQCgP",
+  "folder": "wT8evk9W2UZ1gHwO",
+  "_key": "!items!YwLbxRDjyN3HQCgP"
+}
