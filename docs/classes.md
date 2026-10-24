@@ -971,15 +971,18 @@ REGRAS (a geral e uma página por Magia).
 | Matador de Deuses | Perdida (Tabu: em combate, a Iniciativa cai [NP] e a Velocidade cai 1) | Rugido do Deus do Céu, Sopro Curativo, Dança do Deus do Céu, Bênção do Deus do Céu, Bóreas do Deus do Céu, Arte Secreta: Lança Celestial (supremo) |
 | Moldagem de Gelo | Conjuração | Moldagem de Gelo: Lança, Moldagem de Gelo: Escudo, Moldagem de Gelo: Martelo, Moldagem de Gelo: Chão, Moldagem de Gelo: Águias, Lâmina de Gelo: Dança dos Sete Cortes, Impacto de Gelo (supremo) |
 | Moldagem de Memória | Conjuração | Memorizar, Moldagem de Memória: Feitiço Lembrado, Moldagem de Memória: Esquecimento, Moldagem de Memória: Fortaleza da Terra Ardente, Moldagem de Memória: Noite das Estrelas Cadentes, Moldagem de Memória: Lembrança Absoluta (supremo) |
+| Projeção de Pensamento | Conjuração | Eco de Pensamento, Voz do Pensamento, Projeção, Muitas Projeções, Exército de Pensamento, Projeção Astral (supremo) |
 | Raio | Conjuração | Relâmpago, Corrente Elétrica, Passo do Relâmpago, Trovão, Tempestade de Raios, Palácio do Trovão (supremo) |
 | Reequipar: O Cavaleiro | Portadora (os feitiços são Ataques com Arma) | Roda Celeste: Círculo de Espadas, Asa Negra: Lampejo Lunar, Armadura Adamantina, Traje do Coração Puro, Roda Celeste: Pétalas de Aço, Armadura de Nakagami: Luz Estelar (supremo) |
+| Reflexão | Conjuração | Torção, Reflexo, Miragem, Corpo Torcido, Mundo Torcido, Reflexão Total (supremo) |
 | Teatro de Bonecas | Conjuração | Boneca de Pedra, Boneca de Madeira, Marionete, Boneca de Nuvem, Boneca da Terra, Grande Teatro (supremo) |
 | Terra | Conjuração | Punho de Rocha, Muralha de Rocha, Avalanche de Rocha, Pele de Pedra, Chão Partido, Fúria da Montanha (supremo) |
+| Território | Conjuração | Calor Espacial, Território: Troca, Território: Prisão, Território: Domínio, Colapso Espacial, Território Absoluto (supremo) |
 | Vento | Conjuração | Lâmina de Vento, Rajada, Armadura de Tempestade, Redemoinho, Furacão, Espaço Aéreo: Zero (supremo) |
 
 As categorias são as da série: Conjuração (a magia sai do corpo), Portadora (precisa de um objeto equipado), Perdida e
 Proibida (mais fortes, com um Tabu), Ancestral (feitiços supremos de NP 10). O catálogo vai crescer em lotes, até cobrir
-a magia de cada personagem (a Projeção de Pensamento, o Território, a Reflexão...). Com o Fogo, o Raio, a
+a magia de cada personagem (as Trevas, o Encantamento, a Areia...). Com o Fogo, o Raio, a
 Terra e o Vento (0.16), mais a Água e a Moldagem de Gelo, os seis elementos clássicos estão no catálogo.
 
 Como se monta: a Magia é uma habilidade passiva com `flags.eternia.magic = { id, category }` (só dada pela vaga de
@@ -998,7 +1001,7 @@ na pasta `Magias/<Magia>` de `skills-class`, com identificadores `<magia>-<nome>
 | `module/classes/<classe>.mjs` | O Motor de cada classe (`ASSASSINO`, `BERSERKER`, `CACADOR`, `COMANDANTE`, `DRUIDA`, `ESTRATEGISTA`, `FEITICEIRO`, `GUARDIAO`, `INVOCADOR`, `MAGOAZUL`, `MAGOBRANCO`, `MAGONEGRO`, `MAGOVERMELHO`, `MATADOR`, `MENESTREL`, `MONGE`, `ORACULO`, `PICTOMANTE`, `RESSONANTE`, `SACERDOTE`, `SAMURAI`, `TECELAO`): o Teto, as regras do kit e dos talentos, os Caminhos, o Ápice e as reações aos eventos. O cabeçalho de cada arquivo diz a regra e o que fica guardado no ator. |
 | `module/classes/index.mjs` | Registra os Motores, embrulha `EterniaCombat#_onPhaseStart` (Manutenção e Encerramento, uma vez, na janela do Mestre que mudou a fase), segue os turnos e o movimento dos tokens, ouve os eventos dos cartões (`eternia.attack`, `eternia.attackResult`, `eternia.dodge`, `eternia.damaged`, `eternia.healed`, `eternia.check`, `eternia.defeated`; um cartão de dano aplicado, com ou sem PV tirado, também vira `onStruck`), põe os botões das classes nos cartões de ataque e tem a API `game.eternia.motor`. |
 | `module/classes/progression.mjs` | O NP mudado à mão oferece o que a classe dá no NP; a Dedicação dá as habilidades dela ao ser aprendida (e uma à escolha, `dedicationChoice`) e as tira junto. |
-| `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`) e os dados de cada classe para a aba (cor, faixa, ramos, Caminhos, elementos, `magic` das classes de magia). |
+| `module/classes/sheet.mjs`, `data.mjs` | A aba Classe (`templates/character/class.hbs`, `css/classes.css`), feita para caber sem rolar: a faixa da classe, o Motor, a trilha do NP (`trail`: o que chega em cada NP; as escolhas em aberto brilham) e as seções em abas (grupo `lhcl` da ficha; a seção com uma escolha em aberto abre primeiro), com a dica de cada habilidade sob o ponteiro (`activateClassTab`); e os dados de cada classe para a aba (cor, faixa, ramos, Caminhos, elementos, `magic` das classes de magia). |
 | `module/classes/migration.mjs` | A limpeza do Kuden e dos arquétipos, e dos ícones antigos das classes. |
 
 Também tocam nas classes: `automation/use.mjs` (requisitos, ação, plano, mudança e Desfazer do Motor; o custo
@@ -1007,7 +1010,8 @@ Também tocam nas classes: `automation/use.mjs` (requisitos, ação, plano, muda
 e os estados que o Motor dá ao dano e `adjustCardRoll`, que muda um teste do cartão depois da rolagem e julga o acerto
 de novo), `helpers/effect-conditions.mjs` (as condições `motorState` e `motorAtLeast`), `hud/hud.mjs` e
 `sheets/actor-sheet.mjs` (o evento dos testes de atributo), `helpers/effect-formulas.mjs` (as variáveis), `apps/option-grants.mjs` e `apps/rank-up.mjs`
-(o que chega pelo NP, a escolha do elemento e as vagas de Magia), `apps/skill-browser.mjs` (requisitos, Caminhos,
+(o que chega pelo NP, a escolha do elemento e as vagas de Magia), `apps/magic-picker.mjs` (a janela que escolhe a
+Magia de uma vaga: os cartões, os filtros, a página de cada Magia; as funções vêm dos dados dos feitiços), `apps/skill-browser.mjs` (requisitos, Caminhos,
 elementos, a origem Magia, Dedicação),
 `conditions/damage.mjs` (o cartão que o Motor come), `helpers/text-chips.mjs` (as palavras do Motor nos colchetes),
 `hud/` e `canvas/token-style.mjs` (o Motor no HUD e no token).
@@ -1056,7 +1060,7 @@ O cabeçalho de `module/classes/motor.mjs` tem a lista completa. Em resumo:
 | `dedication` | `{ name, id }`: a Dedicação de uma classe |
 | `dedicationGrants` | uuids das habilidades que a Dedicação dá |
 | `dedicationChoice` | uuids entre os quais a Dedicação deixa escolher uma (o elemento do Matador) |
-| `magic` | `{ id, category }`: uma Magia (só dada pela vaga de Magia de uma classe de magia) |
+| `magic` | `{ id, category, tagline }`: uma Magia (só dada pela vaga de Magia de uma classe de magia); `tagline` é a frase curta do cartão na escolha da Magia |
 | `magicSpell` | `{ id }`: um feitiço da Magia; o navegador o mostra (origem Magia) só para quem tem a Magia |
 | `hitStatuses` | `[{ statusId, value }]`: estados que o dano da habilidade dá em quem acerta (o valor é uma fórmula) |
 | `damageText` | o texto do dano no lugar da fórmula (`[Poder de Ataque] + (1+2×Cortes)d6 + Cortes×NP Físico`) |

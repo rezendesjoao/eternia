@@ -716,7 +716,8 @@
         "Drop": "Solte uma habilidade aqui",
         "OnlySkills": "Só itens de Habilidade de um compêndio ou do mundo podem ser habilidades iniciais.",
         "HintRank": "O que {name} dá no NP {rank}:",
-        "TitleRank": "{name}: NP {rank}"
+        "TitleRank": "{name}: NP {rank}",
+        "MagicNext": "Depois, você escolhe a sua Magia numa janela própria."
       }
     },
     "Combat": {
@@ -1518,7 +1519,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.17: as Magias Perdidas</strong></p><ul><li>Três Magias Perdidas novas, para qualquer classe de magia: <strong>Matador de Deuses</strong> (o vento negro que corta e cura), <strong>Magia Viva</strong> (a vida criada) e <strong>Arco do Tempo</strong> (o tempo acelerado, parado e voltado para trás). Os feitiços batem mais forte, e cada uma tem o seu Tabu, o preço que cobra em combate. As regras estão no capítulo XII. MAGIAS do diário AS REGRAS.</li><li>Desde a 0.16: as Magias elementais (Fogo, Raio, Terra e Vento), e o Feiticeiro saiu da lista de classes.</li></ul><p>Desde a 0.15: o Mago Azul e as Magias de Take Over. Desde a 0.14: o Mago Branco. Desde a 0.13: o Invocador como classe de magia. Desde a 0.12: o Pictomante. Desde a 0.11: o Mago Vermelho. Desde a 0.10: o Mago Negro e as Magias. Desde a 0.9: o Matador de Dragões. Desde a 0.8: as 16 classes. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.18: a escolha da Magia e a aba Classe</strong></p><ul><li>A <strong>escolha da Magia</strong> ganhou uma janela grande: um cartão por Magia, com a categoria, uma frase curta e o que os feitiços fazem; filtros por categoria e por função; e, ao passar o mouse, os feitiços por NP e o Tabu.</li><li>A <strong>aba Classe</strong> foi refeita para caber na ficha sem rolar: a trilha do NP mostra o que chega em cada NP e brilha nas escolhas em aberto, e as seções ficam em abas. O ponteiro sobre uma habilidade mostra o que ela faz.</li><li>Três Magias novas, para qualquer classe de magia: <strong>Projeção de Pensamento</strong>, <strong>Território</strong> e <strong>Reflexão</strong>. O catálogo chega a 30 Magias.</li></ul><p>Desde a 0.17: as Magias Perdidas. Desde a 0.16: as Magias elementais. Desde a 0.15: o Mago Azul e as Magias de Take Over. Desde a 0.14: o Mago Branco. Desde a 0.13: o Invocador como classe de magia. Desde a 0.12: o Pictomante. Desde a 0.11: o Mago Vermelho. Desde a 0.10: o Mago Negro e as Magias. Desde a 0.9: o Matador de Dragões. Desde a 0.8: as 16 classes. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -2915,7 +2916,6 @@
       "Apex": "Ápice",
       "General": "Talentos Gerais",
       "Dedications": "Dedicações",
-      "Milestones": "Marcos da classe",
       "assassino": {
         "Branch": {
           "sombra": "A Sombra",
@@ -3090,8 +3090,22 @@
       "Magic": "Magias",
       "MagicRanks": "NP 1, 5 e 10",
       "ChooseMagic": "Escolher Magia ({n})",
-      "NoMagic": "Nenhuma Magia escolhida ainda.",
-      "NextMagic": "A próxima Magia chega no NP {n}."
+      "Section": {
+        "kit": "Kit",
+        "talents": "Talentos",
+        "general": "Gerais"
+      },
+      "MagicClass": "Classe de magia",
+      "MotorRules": "Como funciona: {name}",
+      "TrailMagic": "Magia",
+      "TrailTalents": "Talentos novos: {n}",
+      "TrailHere": "Você está aqui",
+      "SlotOpen": "Vaga aberta",
+      "SlotChoose": "Escolher Magia",
+      "SlotLocked": "Abre no NP {n}",
+      "PathLater": "No NP 3 você segue um destes três Caminhos.",
+      "GeneralHint": "Os talentos da classe para fora do combate.",
+      "NoDedications": "Nenhuma Dedicação. A partir do NP 5, a Dedicação de outra classe (no navegador de habilidades) dá o Motor Menor dela."
     },
     "Chips": {
       "Kind": {
@@ -3125,6 +3139,71 @@
       "NoValue": "O valor aparece quando o texto é de um personagem.",
       "Pending": "Depende do que for gasto no uso.",
       "Attribute": "Valor {base} · modificador {mod}"
+    },
+    "MagicPicker": {
+      "Title": "Magia: {name}",
+      "Heading": "Escolha a sua Magia",
+      "Slot": "Vaga de Magia do NP {rank}",
+      "Lead": "A classe diz como você conjura; a Magia diz o quê. Passe o mouse sobre uma Magia para ver os feitiços dela.",
+      "Search": "Buscar Magia ou feitiço",
+      "All": "Todas",
+      "Empty": "Nenhuma Magia com esses filtros.",
+      "Owned": "Você já tem: {names}.",
+      "Hint": "Um clique escolhe a Magia; dois cliques confirmam.",
+      "Choose": "Escolher {name}",
+      "ChooseNone": "Escolha uma Magia",
+      "Skip": "Agora não",
+      "Spells": "Feitiços",
+      "NowCount": "{n} já no seu NP",
+      "CR": "NP",
+      "You": "Você",
+      "Dice": "{n}d6",
+      "HealDice": "cura {n}d6",
+      "MotorDice": "dados pelo Motor",
+      "Tier": {
+        "big": "Grande",
+        "supreme": "Supremo"
+      },
+      "Category": {
+        "caster": "Conjuração",
+        "holder": "Portadora",
+        "lost": "Perdida",
+        "forbidden": "Proibida",
+        "ancestral": "Ancestral"
+      },
+      "CategoryHint": {
+        "caster": "A magia sai do corpo: basta você.",
+        "holder": "A magia mora num objeto equipado: o cajado, as cartas, as chaves, as armaduras.",
+        "lost": "Bate mais forte que as outras do mesmo NP, mas tem um Tabu que cobra em combate.",
+        "forbidden": "A mais perigosa: muito forte, com um Tabu pesado.",
+        "ancestral": "Antiga: o feitiço supremo só chega no NP 10."
+      },
+      "Role": {
+        "area": "Área",
+        "control": "Controle",
+        "wear": "Desgaste",
+        "heal": "Cura",
+        "guard": "Proteção",
+        "support": "Apoio",
+        "move": "Mobilidade"
+      },
+      "RoleHint": {
+        "area": "Feitiços que acertam vários alvos de uma vez.",
+        "control": "Prendem, derrubam, atordoam ou calam o inimigo.",
+        "wear": "Desgastam: queimam, envenenam, racham a defesa.",
+        "heal": "Curam você ou os aliados.",
+        "guard": "Protegem: Anulação, Barreira, Espelho, Intangível.",
+        "support": "Ajudam os aliados: Acelerado, Fortalecido, tiram estados.",
+        "move": "Levam você pelo campo: voo, saltos, passos rápidos."
+      },
+      "Guide": {
+        "Eyebrow": "Antes de escolher",
+        "Title": "Como as Magias funcionam",
+        "Slots": "A Magia fica com você. A sua classe dá três vagas: uma no NP 1, outra no NP 5 e a última no NP 10.",
+        "Ranks": "Os feitiços chegam pelo NP: os primeiros já no NP 1, os outros no NP 3 e no NP 5, e o supremo no NP 7 (nas Ancestrais, no NP 10).",
+        "Motor": "Cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O supremo pede o Motor no Teto e gasta tudo.",
+        "Categories": "As categorias"
+      }
     }
   },
   "Cancel": "Cancelar"

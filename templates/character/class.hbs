@@ -1,47 +1,42 @@
-{{!-- CLASS (module/classes/sheet.mjs): the crest with the base, the Motor (state, points, the Perfect Cut), the kit,
-     the element (the Dragon Slayer's, CR 1), the Magias (a magic class), the talents by branch, the Path (CR 3), the Apex (CR 10), the general
-     talents, the Dedications and the milestones.
+{{!-- CLASS (module/classes/sheet.mjs), made to fit without scrolling: the class band (emblem, roles, base), the Motor,
+     the CR trail (what each CR gives; the choices still open glow; a click opens their section) and the sections, one at
+     a time: the kit with how the Motor works, the element (the Dragon Slayer's), the Magias (a magic class), the talents
+     by branch, the Path with the Apex, the general talents and the Dedications. Every skill is a tile: the picture uses
+     it (when the character has it), the name opens it, and the pointer over it shows what it does.
      Without a class: the button that opens the class browser. --}}
-{{#*inline "lhclRow"}}
-<li class="item lhcl-skill{{#if r.owned}} owned{{else}}{{#if r.locked}} locked{{/if}}{{/if}}"{{#if r.id}} data-item-id="{{r.id}}"{{/if}}>
-	{{#if r.owned}}<a class="lhcl-skill-img" data-action="item-throw" data-tooltip="{{localize 'ETERNIA.Sheet.Use'}}"><img src="{{r.img}}" alt=""><i class="fa-solid fa-comment"></i></a>
-	{{else}}<span class="lhcl-skill-img"><img src="{{r.img}}" alt=""></span>{{/if}}
-	<span class="lhcl-skill-body">
-		<a class="lhcl-skill-name" {{#if r.owned}}data-action="item-edit"{{else}}data-action="lhcl" data-op="open" data-uuid="{{r.uuid}}"{{/if}}>{{r.name}}</a>
-		<span class="lhcl-skill-meta">
-			{{#if r.kind}}<span class="lhcl-kind {{r.kind}}"><i class="{{r.kindIcon}}"></i> {{r.kindLabel}}</span>{{/if}}
-			{{#if r.timing}}<span>{{r.timing}}</span>{{/if}}
-			{{#if r.sr}}<span>{{localize "ETERNIA.Sheet.SRShort"}} {{r.sr}}</span>{{/if}}
-			{{#if r.dedication}}<span class="lhcl-dedication-tag">{{localize "ETERNIA.Classes.DedicationTag"}}</span>{{/if}}
-		</span>
+{{#*inline "lhclTile"}}
+<li class="item lhcl-tile{{#if r.owned}} owned{{else}}{{#if r.locked}} locked{{else}} learnable{{/if}}{{/if}}"{{#if r.id}} data-item-id="{{r.id}}"{{/if}} data-uuid="{{r.uuid}}">
+	{{#if r.owned}}<a class="lhcl-tile-img" data-action="item-throw" aria-label="{{localize 'ETERNIA.Sheet.Use'}}"><img src="{{r.img}}" alt=""><i class="fa-solid fa-comment"></i></a>
+	{{else}}<span class="lhcl-tile-img"><img src="{{r.img}}" alt="">{{#if r.locked}}<i class="fa-solid fa-lock"></i>{{/if}}</span>{{/if}}
+	<span class="lhcl-tile-body">
+		<a class="lhcl-tile-name" {{#if r.owned}}data-action="item-edit"{{else}}data-action="lhcl" data-op="open" data-uuid="{{r.uuid}}"{{/if}}>{{r.name}}</a>
+		<span class="lhcl-tile-meta">{{#if r.kind}}<span class="lhcl-kind {{r.kind}}"><i class="{{r.kindIcon}}"></i>{{r.kindLabel}}</span>{{/if}}{{#if r.timing}}<span>{{r.timing}}</span>{{/if}}{{#if r.sr}}<span>{{localize "ETERNIA.Sheet.SRShort"}} {{r.sr}}</span>{{/if}}{{#if r.dedication}}<span class="lhcl-dedication-tag">{{localize "ETERNIA.Classes.DedicationTag"}}</span>{{/if}}</span>
 	</span>
-	<span class="lhcl-skill-state">{{#if r.owned}}<i class="fa-solid fa-check" data-tooltip="{{localize 'ETERNIA.Classes.Owned'}}"></i>{{else}}<span class="lhcl-rank">{{localize "ETERNIA.Classes.FromRank" n=r.minRank}}</span>{{/if}}</span>
+	<span class="lhcl-tile-state">{{#if r.owned}}<i class="fa-solid fa-check"></i>{{else}}{{localize "ETERNIA.Classes.FromRank" n=r.minRank}}{{/if}}</span>
 </li>
 {{/inline}}
 {{#*inline "lhclMotor"}}
 <div class="lhcl-motor {{m.state}}{{#if m.ready}} ready{{/if}}{{#if m.lesser}} lesser{{/if}}" data-motor="{{m.id}}">
-	<div class="lhcl-motor-body">
-		<header>
-			<span class="lhcl-eyebrow">{{#if m.lesser}}{{localize "ETERNIA.Classes.LesserMotor"}}{{else}}{{localize "ETERNIA.Classes.Motor"}}{{/if}}</span>
-			<h3>{{m.name}}</h3>
-			{{#if m.hasStates}}
-			{{#if m.editable}}<a class="lhcl-state" data-action="lhcl" data-op="state" data-tooltip="{{localize 'ETERNIA.Classes.StateTip' state=m.nextState}}">{{m.stateLabel}}</a>
-			{{else}}<span class="lhcl-state">{{m.stateLabel}}</span>{{/if}}
-			{{/if}}
-		</header>
-		<div class="lhcl-points">
-			<span class="lhcl-pips">
-				{{#each m.pips as |pip|}}<a class="lhcl-pip{{#if pip.on}} on{{/if}}"{{#if m.editable}} data-action="lhcl" data-op="pip" data-value="{{pip.value}}"{{/if}}></a>{{/each}}
-			</span>
-			<span class="lhcl-count"><b>{{m.value}}</b>/{{m.max}} {{m.unit}}</span>
-			{{#if m.ready}}<span class="lhcl-ready"><i class="fa-solid fa-star"></i> {{m.readyLabel}}</span>{{/if}}
-			{{#if m.note}}<span class="lhcl-note">{{m.note}}</span>{{/if}}
-		</div>
-		<dl class="lhcl-card">
-			{{#each m.card as |row|}}<dt>{{row.label}}</dt><dd>{{{row.html}}}</dd>{{/each}}
-		</dl>
+	<div class="lhcl-motor-name">
+		<span class="lhcl-eyebrow">{{#if m.lesser}}{{localize "ETERNIA.Classes.LesserMotor"}}{{else}}{{localize "ETERNIA.Classes.Motor"}}{{/if}}</span>
+		<h3>{{m.name}}</h3>
 	</div>
+	{{#if m.hasStates}}
+	{{#if m.editable}}<a class="lhcl-state" data-action="lhcl" data-op="state" data-tooltip="{{localize 'ETERNIA.Classes.StateTip' state=m.nextState}}">{{m.stateLabel}}</a>
+	{{else}}<span class="lhcl-state">{{m.stateLabel}}</span>{{/if}}
+	{{/if}}
+	<span class="lhcl-pips">
+		{{#each m.pips as |pip|}}<a class="lhcl-pip{{#if pip.on}} on{{/if}}"{{#if m.editable}} data-action="lhcl" data-op="pip" data-value="{{pip.value}}"{{/if}}></a>{{/each}}
+	</span>
+	<span class="lhcl-count"><b>{{m.value}}</b>/{{m.max}} {{m.unit}}</span>
+	{{#if m.ready}}<span class="lhcl-ready"><i class="fa-solid fa-star"></i> {{m.readyLabel}}</span>{{/if}}
+	{{#if m.note}}<span class="lhcl-note">{{m.note}}</span>{{/if}}
 </div>
+{{/inline}}
+{{#*inline "lhclRules"}}
+<dl class="lhcl-rules">
+	{{#each m.card as |row|}}<div><dt>{{row.label}}</dt><dd>{{{row.html}}}</dd></div>{{/each}}
+</dl>
 {{/inline}}
 <section class="tab major class" data-group="primary" data-tab="class">
 	<div class="tab-content">
@@ -54,138 +49,172 @@
 			<p>{{localize "ETERNIA.Classes.ChooseHint"}}</p>
 			{{#if c.editable}}<button type="button" data-action="class-img"><i class="fa-solid fa-book-atlas"></i> {{localize "ETERNIA.Classes.Choose"}}</button>{{/if}}
 		</div>
-		{{#each c.dedications as |m|}}{{> lhclMotor m=m}}{{/each}}
+		{{#each c.dedications as |m|}}<div class="lhcl-dedication">{{> lhclMotor m=m}}{{> lhclRules m=m}}</div>{{/each}}
 
 	{{else}}
+	<div class="lhcl-board" style="--lhcl-color: {{c.color}}">
 
-		{{!-- Crest: the class and its base --}}
-		<div class="lhcl-crest" style="--lhcl-color: {{c.color}}">
-			<a class="lhcl-medallion{{#if c.img}} has-img{{/if}}" data-action="class-img" data-tooltip="{{localize 'ETERNIA.Classes.OpenClass'}}" aria-label="{{c.name}}">{{#if c.img}}<img src="{{c.img}}" alt="">{{/if}}</a>
-			<div class="lhcl-crest-body">
-				<span class="lhcl-eyebrow">{{localize "ETERNIA.Classes.Eyebrow"}}</span>
-				<h2 class="lhcl-name">{{c.name}}</h2>
+		{{!-- The class: emblem, roles and base --}}
+		<header class="lhcl-band">
+			<a class="lhcl-emblem{{#if c.img}} has-img{{/if}}" data-action="class-img" data-tooltip="{{localize 'ETERNIA.Classes.OpenClass'}}" aria-label="{{c.name}}">{{#if c.img}}<img src="{{c.img}}" alt="">{{else}}<i class="fa-solid fa-chess-knight"></i>{{/if}}</a>
+			<div class="lhcl-band-text">
+				<span class="lhcl-eyebrow">{{#if c.magicClass}}{{localize "ETERNIA.Classes.MagicClass"}}{{else}}{{localize "ETERNIA.Classes.Eyebrow"}}{{/if}}</span>
+				<h2 class="lhcl-name{{#if c.longName}} long{{/if}}">{{c.name}}</h2>
 				{{#if c.roles.length}}<span class="lhcl-roles">{{#each c.roles}}<span class="lhcl-role">{{this}}</span>{{/each}}</span>{{/if}}
 			</div>
 			<ul class="lhcl-base">
 				{{#each c.base as |b|}}<li><b>{{b.value}}</b><span>{{b.label}}</span></li>{{/each}}
 				<li class="hp" data-tooltip="{{c.hp.band}}"><b>{{c.hp.start}}</b><span>{{localize "ETERNIA.Classes.HpPer" n=c.hp.per}}</span></li>
 			</ul>
-		</div>
+		</header>
 
 		{{!-- The Motor --}}
 		{{#if c.motor}}{{> lhclMotor m=c.motor}}{{/if}}
 
-		{{!-- Kit --}}
-		{{#if c.kit.length}}
-		<div class="subsection lhcl-group" style="--lhcl-color: {{c.color}}">
-			<header><span>{{localize "ETERNIA.Classes.Kit"}}</span>{{#if c.editable}}<a class="lhcl-browse" data-action="lhcl" data-op="browse" data-tooltip="{{localize 'ETERNIA.SkillBrowser.Open'}}"><i class="fa-solid fa-book-open-reader"></i> {{localize "ETERNIA.SkillBrowser.Browse"}}</a>{{/if}}</header>
-			<ol class="lhcl-skills">{{#each c.kit as |r|}}{{> lhclRow r=r}}{{/each}}</ol>
-		</div>
-		{{/if}}
-
-		{{!-- Element (the Dragon Slayer's, chosen at CR 1) --}}
-		{{#if c.element}}
-		<div class="subsection lhcl-group lhcl-path-group" style="--lhcl-color: {{c.color}}">
-			<header><span>{{localize "ETERNIA.Classes.Element"}}</span><span class="lhcl-header-note">{{localize "ETERNIA.Classes.FromRank" n=1}}</span>
-				{{#unless c.element.chosen}}{{#if c.editable}}<a class="lhcl-browse attention" data-action="lhcl" data-op="element"><i class="fa-solid fa-dragon"></i> {{localize "ETERNIA.Classes.ChooseElement"}}</a>{{/if}}{{/unless}}
-			</header>
-			{{#if c.element.chosen}}
-			<div class="lhcl-path chosen">
-				<ol class="lhcl-skills">{{> lhclRow r=c.element.chosen}}{{#each c.element.chosen.talents as |r|}}{{> lhclRow r=r}}{{/each}}</ol>
-			</div>
-			{{else}}
-			<ul class="lhcl-paths">
-				{{#each c.element.options as |p|}}
-				<li class="lhcl-path-option">
-					<a data-action="lhcl" data-op="open" data-uuid="{{p.uuid}}"><img src="{{p.img}}" alt=""><span>{{p.name}}</span></a>
-				</li>
-				{{/each}}
-			</ul>
-			{{/if}}
-		</div>
-		{{/if}}
-
-		{{!-- Magias (a magic class: chosen at CR 1, 5 and 10) --}}
-		{{#if c.magic}}
-		<div class="subsection lhcl-group lhcl-path-group" style="--lhcl-color: {{c.color}}">
-			<header><span>{{localize "ETERNIA.Classes.Magic"}}</span><span class="lhcl-header-note">{{localize "ETERNIA.Classes.MagicRanks"}}</span>
-				{{#if c.magic.open}}{{#if c.editable}}<a class="lhcl-browse attention" data-action="lhcl" data-op="element"><i class="fa-solid fa-book-skull"></i> {{localize "ETERNIA.Classes.ChooseMagic" n=c.magic.open}}</a>{{/if}}{{/if}}
-			</header>
-			{{#each c.magic.chosen as |m|}}
-			<div class="lhcl-path chosen">
-				<ol class="lhcl-skills">{{> lhclRow r=m}}{{#each m.spells as |r|}}{{> lhclRow r=r}}{{/each}}</ol>
-			</div>
-			{{else}}
-			<p class="lhpf-empty">{{localize "ETERNIA.Classes.NoMagic"}}</p>
+		{{!-- The CR trail --}}
+		<ol class="lhcl-trail">
+			{{#each c.trail as |t|}}
+			<li class="lhcl-step{{#if t.reached}} reached{{/if}}{{#if t.current}} current{{/if}}{{#if t.milestone}} milestone{{/if}}{{#if t.pending}} pending{{/if}}" data-tooltip-html="{{t.tooltip}}">
+				{{#if t.milestone}}<a class="lhcl-node" data-action="tab" data-group="lhcl" data-tab="{{t.section}}" aria-label="{{t.label}}"><i class="{{t.icon}}"></i></a>
+				{{else}}<span class="lhcl-node">{{#if t.fresh}}<b>{{t.fresh}}</b>{{/if}}</span>{{/if}}
+				<span class="lhcl-step-rank">{{t.rank}}</span>
+				{{#if t.milestone}}<span class="lhcl-step-label">{{t.label}}</span>{{/if}}
+			</li>
 			{{/each}}
-			{{#if c.magic.next}}<p class="lhcl-magic-next">{{localize "ETERNIA.Classes.NextMagic" n=c.magic.next}}</p>{{/if}}
-		</div>
-		{{/if}}
+		</ol>
 
-		{{!-- Talents by branch --}}
-		{{#each c.branches as |b|}}
-		<div class="subsection lhcl-group" style="--lhcl-color: {{c.color}}">
-			<header><span>{{b.label}}</span></header>
-			<ol class="lhcl-skills">{{#each b.talents as |r|}}{{> lhclRow r=r}}{{else}}<li class="lhpf-empty">{{localize "ETERNIA.Classes.NoTalents"}}</li>{{/each}}</ol>
-		</div>
-		{{/each}}
+		{{!-- The sections --}}
+		<nav class="lhcl-nav tabs" data-group="lhcl">
+			{{#each c.sections as |s|}}
+			<a class="lhcl-nav-item{{#if s.pending}} pending{{/if}}" data-action="tab" data-group="lhcl" data-tab="{{s.id}}"><i class="{{s.icon}}"></i><span>{{s.label}}</span>{{#if s.count}}<b>{{s.count}}</b>{{/if}}</a>
+			{{/each}}
+			{{#if c.editable}}<a class="lhcl-browse" data-action="lhcl" data-op="browse" data-tooltip="{{localize 'ETERNIA.SkillBrowser.Open'}}" aria-label="{{localize 'ETERNIA.SkillBrowser.Open'}}"><i class="fa-solid fa-book-open-reader"></i></a>{{/if}}
+		</nav>
 
-		{{!-- Path --}}
-		{{#if (or c.path.chosen c.path.options.length)}}
-		<div class="subsection lhcl-group lhcl-path-group" style="--lhcl-color: {{c.color}}">
-			<header><span>{{localize "ETERNIA.Classes.Path"}}</span><span class="lhcl-header-note">{{localize "ETERNIA.Classes.FromRank" n=3}}</span>
-				{{#if c.path.pending}}{{#if c.editable}}<a class="lhcl-browse attention" data-action="lhcl" data-op="grants"><i class="fa-solid fa-route"></i> {{localize "ETERNIA.Classes.ChoosePath"}}</a>{{/if}}{{/if}}
-			</header>
-			{{#if c.path.chosen}}
-			<div class="lhcl-path chosen">
-				<ol class="lhcl-skills">{{> lhclRow r=c.path.chosen}}{{#each c.path.chosen.talents as |r|}}{{> lhclRow r=r}}{{/each}}</ol>
+		<div class="lhcl-panels">
+
+			{{!-- Kit, and how the Motor works --}}
+			<div class="tab lhcl-panel" data-group="lhcl" data-tab="kit">
+				<h4 class="lhcl-panel-title"><span>{{localize "ETERNIA.Classes.Kit"}}</span></h4>
+				<ol class="lhcl-tiles cols-2">{{#each c.kit as |r|}}{{> lhclTile r=r}}{{/each}}</ol>
+				{{#if c.motor}}
+				<h4 class="lhcl-panel-title"><span>{{localize "ETERNIA.Classes.MotorRules" name=c.motor.name}}</span></h4>
+				{{> lhclRules m=c.motor}}
+				{{/if}}
 			</div>
-			{{else}}
-			<ul class="lhcl-paths">
-				{{#each c.path.options as |p|}}
-				<li class="lhcl-path-option">
-					<a data-action="lhcl" data-op="open" data-uuid="{{p.uuid}}"><img src="{{p.img}}" alt=""><span>{{p.name}}</span></a>
-				</li>
-				{{/each}}
-			</ul>
+
+			{{!-- Element (the Dragon Slayer's, chosen at CR 1) --}}
+			{{#if c.element}}
+			<div class="tab lhcl-panel" data-group="lhcl" data-tab="element">
+				<h4 class="lhcl-panel-title"><span>{{localize "ETERNIA.Classes.Element"}}</span><em>{{localize "ETERNIA.Classes.FromRank" n=1}}</em>
+					{{#unless c.element.chosen}}{{#if c.editable}}<a class="lhcl-action" data-action="lhcl" data-op="element"><i class="fa-solid fa-dragon"></i> {{localize "ETERNIA.Classes.ChooseElement"}}</a>{{/if}}{{/unless}}
+				</h4>
+				{{#if c.element.chosen}}
+				<div class="lhcl-feature">
+					<ol class="lhcl-tiles">{{> lhclTile r=c.element.chosen}}</ol>
+					<ol class="lhcl-tiles cols-2">{{#each c.element.chosen.talents as |r|}}{{> lhclTile r=r}}{{/each}}</ol>
+				</div>
+				{{else}}
+				<ul class="lhcl-options">
+					{{#each c.element.options as |p|}}
+					<li><a data-action="lhcl" data-op="open" data-uuid="{{p.uuid}}"><img src="{{p.img}}" alt=""><span>{{p.name}}</span></a></li>
+					{{/each}}
+				</ul>
+				{{/if}}
+			</div>
 			{{/if}}
-		</div>
-		{{/if}}
 
-		{{!-- Apex --}}
-		{{#if c.apex}}
-		<div class="subsection lhcl-group" style="--lhcl-color: {{c.color}}">
-			<header><span>{{localize "ETERNIA.Classes.Apex"}}</span><span class="lhcl-header-note">{{localize "ETERNIA.Classes.FromRank" n=10}}</span></header>
-			<ol class="lhcl-skills">{{> lhclRow r=c.apex}}</ol>
-		</div>
-		{{/if}}
+			{{!-- Magias: a slot at CR 1, 5 and 10 --}}
+			{{#if c.magic}}
+			<div class="tab lhcl-panel" data-group="lhcl" data-tab="magic">
+				<h4 class="lhcl-panel-title"><span>{{localize "ETERNIA.Classes.Magic"}}</span><em>{{localize "ETERNIA.Classes.MagicRanks"}}</em>
+					{{#if c.magic.open}}{{#if c.editable}}<a class="lhcl-action" data-action="lhcl" data-op="element"><i class="fa-solid fa-hat-wizard"></i> {{localize "ETERNIA.Classes.ChooseMagic" n=c.magic.open}}</a>{{/if}}{{/if}}
+				</h4>
+				<div class="lhcl-slots">
+					{{#each c.magic.slots as |s|}}
+					{{#if s.magia}}
+					<section class="lhcl-slot filled" style="--mp-cat: {{s.magia.categoryColor}}">
+						<header class="item" data-item-id="{{s.magia.id}}">
+							<a class="lhcl-slot-art" data-action="item-edit"><img src="{{s.magia.img}}" alt=""></a>
+							<div>
+								<span class="lhcl-slot-cat"><i class="{{s.magia.categoryIcon}}"></i>{{s.magia.categoryLabel}}{{#if s.rank}} · {{localize "ETERNIA.Classes.FromRank" n=s.rank}}{{/if}}</span>
+								<a class="lhcl-slot-name" data-action="item-edit">{{s.magia.name}}</a>
+							</div>
+						</header>
+						<ol class="lhcl-tiles mini">{{#each s.magia.spells as |r|}}{{> lhclTile r=r}}{{/each}}</ol>
+					</section>
+					{{else}}
+					<section class="lhcl-slot empty{{#if s.open}} open{{/if}}">
+						<span class="lhcl-slot-rank"><small>{{localize "ETERNIA.MagicPicker.CR"}}</small>{{s.rank}}</span>
+						{{#if s.open}}
+						<p>{{localize "ETERNIA.Classes.SlotOpen"}}</p>
+						{{#if c.editable}}<a class="lhcl-action" data-action="lhcl" data-op="element"><i class="fa-solid fa-hat-wizard"></i> {{localize "ETERNIA.Classes.SlotChoose"}}</a>{{/if}}
+						{{else}}
+						<p>{{localize "ETERNIA.Classes.SlotLocked" n=s.rank}}</p>
+						{{/if}}
+					</section>
+					{{/if}}
+					{{/each}}
+				</div>
+			</div>
+			{{/if}}
 
-		{{!-- General talents --}}
-		{{#if c.general.length}}
-		<div class="subsection lhcl-group" style="--lhcl-color: {{c.color}}">
-			<header><span>{{localize "ETERNIA.Classes.General"}}</span></header>
-			<ol class="lhcl-skills">{{#each c.general as |r|}}{{> lhclRow r=r}}{{/each}}</ol>
-		</div>
-		{{/if}}
+			{{!-- Talents by branch --}}
+			{{#if c.branches.length}}
+			<div class="tab lhcl-panel" data-group="lhcl" data-tab="talents">
+				<div class="lhcl-branches">
+					{{#each c.branches as |b|}}
+					<section class="lhcl-branch">
+						<h4 class="lhcl-panel-title"><span>{{b.label}}</span>{{#if b.tally}}<em>{{b.tally}}</em>{{/if}}</h4>
+						<ol class="lhcl-tiles compact">{{#each b.talents as |r|}}{{> lhclTile r=r}}{{else}}<li class="lhpf-empty">{{localize "ETERNIA.Classes.NoTalents"}}</li>{{/each}}</ol>
+					</section>
+					{{/each}}
+				</div>
+			</div>
+			{{/if}}
 
-		{{!-- Dedications: the Lesser Motors of other classes --}}
-		{{#if c.dedications.length}}
-		<div class="subsection lhcl-group" style="--lhcl-color: {{c.color}}">
-			<header><span>{{localize "ETERNIA.Classes.Dedications"}}</span></header>
-			{{#each c.dedications as |m|}}{{> lhclMotor m=m}}{{/each}}
-		</div>
-		{{/if}}
+			{{!-- Path (CR 3) and Apex (CR 10) --}}
+			<div class="tab lhcl-panel" data-group="lhcl" data-tab="path">
+				<h4 class="lhcl-panel-title"><span>{{localize "ETERNIA.Classes.Path"}}</span><em>{{localize "ETERNIA.Classes.FromRank" n=3}}</em>
+					{{#if c.path.pending}}{{#if c.editable}}<a class="lhcl-action" data-action="lhcl" data-op="grants"><i class="fa-solid fa-route"></i> {{localize "ETERNIA.Classes.ChoosePath"}}</a>{{/if}}{{/if}}
+				</h4>
+				{{#if c.path.chosen}}
+				<div class="lhcl-feature">
+					<ol class="lhcl-tiles">{{> lhclTile r=c.path.chosen}}</ol>
+					<ol class="lhcl-tiles cols-2">{{#each c.path.chosen.talents as |r|}}{{> lhclTile r=r}}{{/each}}</ol>
+				</div>
+				{{else}}
+				<ul class="lhcl-options{{#if c.path.pending}} pending{{/if}}">
+					{{#each c.path.options as |p|}}
+					<li><a data-action="lhcl" data-op="open" data-uuid="{{p.uuid}}"><img src="{{p.img}}" alt=""><span>{{p.name}}</span>{{#if p.talents.length}}<small>{{#each p.talents as |t|}}{{t.name}}{{#unless @last}} · {{/unless}}{{/each}}</small>{{/if}}</a></li>
+					{{/each}}
+				</ul>
+				{{#unless c.path.reached}}<p class="lhcl-panel-note">{{localize "ETERNIA.Classes.PathLater"}}</p>{{/unless}}
+				{{/if}}
+				{{#if c.apex}}
+				<h4 class="lhcl-panel-title"><span>{{localize "ETERNIA.Classes.Apex"}}</span><em>{{localize "ETERNIA.Classes.FromRank" n=10}}</em></h4>
+				<ol class="lhcl-tiles apex">{{> lhclTile r=c.apex}}</ol>
+				{{/if}}
+			</div>
 
-		{{!-- Milestones --}}
-		<div class="subsection lhcl-ladder" style="--lhcl-color: {{c.color}}">
-			<header><span>{{localize "ETERNIA.Classes.Milestones"}}</span></header>
-			<ol>
-				{{#each c.ladder as |r|}}
-				<li class="{{#if r.reached}}reached{{/if}}{{#if r.current}} current{{/if}}"><span class="lhcl-step"><b>{{r.rank}}</b></span><span>{{r.label}}</span></li>
-				{{/each}}
-			</ol>
-		</div>
+			{{!-- General talents --}}
+			{{#if c.general.length}}
+			<div class="tab lhcl-panel" data-group="lhcl" data-tab="general">
+				<h4 class="lhcl-panel-title"><span>{{localize "ETERNIA.Classes.General"}}</span></h4>
+				<p class="lhcl-panel-note">{{localize "ETERNIA.Classes.GeneralHint"}}</p>
+				<ol class="lhcl-tiles cols-2">{{#each c.general as |r|}}{{> lhclTile r=r}}{{/each}}</ol>
+			</div>
+			{{/if}}
 
+			{{!-- Dedications: the Lesser Motors of other classes --}}
+			<div class="tab lhcl-panel" data-group="lhcl" data-tab="dedications">
+				<h4 class="lhcl-panel-title"><span>{{localize "ETERNIA.Classes.Dedications"}}</span><em>{{localize "ETERNIA.Classes.FromRank" n=5}}</em></h4>
+				{{#each c.dedications as |m|}}<div class="lhcl-dedication">{{> lhclMotor m=m}}{{> lhclRules m=m}}</div>
+				{{else}}<p class="lhcl-panel-note">{{localize "ETERNIA.Classes.NoDedications"}}</p>{{/each}}
+			</div>
+
+		</div>
+	</div>
 	{{/if}}
 	{{/with}}
 	</div>

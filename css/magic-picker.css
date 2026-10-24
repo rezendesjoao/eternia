@@ -1,0 +1,621 @@
+/* ==========================================================================
+   The Magia picker (module/apps/magic-picker.mjs): a large parchment window with the filters on top, a card for
+   each Magia (its category's color on the left edge and around the picture) and, beside them, the page of the Magia
+   under the pointer. The green and gold of the character sheet; each category has its own color (--mp-cat).
+   ========================================================================== */
+
+.application.magic-picker {
+  --mp-gold: #c9a24a;
+  --mp-gold-light: #f2db94;
+  --mp-gold-dark: #8a6a25;
+  --mp-line: #cdbb98;
+  --mp-paper: #fffaf0;
+  --mp-paper-dark: #f1e5c8;
+  --mp-class: #1f5137;
+  min-width: 720px;
+  min-height: 480px;
+}
+.application.magic-picker .window-content {
+  padding: 0;
+  overflow: hidden;
+}
+.magic-picker .mp-body {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  height: 100%;
+  min-height: 0;
+}
+
+/* Head: what this choice is, and the search
+   ------------------------------------------------------------------------ */
+.magic-picker .mp-head {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  padding: 14px 18px 10px;
+  background:
+    radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--mp-class) 16%, transparent), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0));
+  border-bottom: 1px solid rgba(186, 169, 145, 0.6);
+}
+.magic-picker .mp-head-text { flex: 1; min-width: 0; }
+.magic-picker .mp-eyebrow {
+  display: block;
+  color: var(--mp-gold-dark);
+  font: 700 10px/1.2 var(--pf-sans);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.magic-picker .mp-head h2 {
+  margin: 2px 0 2px;
+  border: none;
+  color: var(--pf-primary-dark);
+  font: 600 26px/1.1 var(--pf-serif);
+}
+.magic-picker .mp-head p {
+  margin: 0;
+  color: var(--pf-text-soft);
+  font: italic 13px/1.4 var(--pf-body);
+}
+.magic-picker .mp-search {
+  position: relative;
+  flex: 0 0 260px;
+  margin-bottom: 2px;
+}
+.magic-picker .mp-search i {
+  position: absolute;
+  top: 50%;
+  left: 11px;
+  transform: translateY(-50%);
+  color: var(--pf-alt);
+  font-size: 12px;
+  pointer-events: none;
+}
+.magic-picker .mp-search input {
+  width: 100%;
+  height: 32px;
+  padding: 0 12px 0 31px;
+  border: 1px solid var(--mp-line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1px 3px rgba(60, 40, 10, 0.12);
+  color: var(--pf-text);
+  font: 13px var(--pf-body);
+}
+.magic-picker .mp-search input:focus {
+  border-color: var(--pf-primary-light);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(43, 103, 71, 0.25), inset 0 1px 3px rgba(60, 40, 10, 0.12);
+}
+
+/* Filters: categories (one) and roles (all the ones on)
+   ------------------------------------------------------------------------ */
+.magic-picker .mp-filters {
+  display: grid;
+  gap: 6px;
+  padding: 9px 18px 10px;
+}
+.magic-picker .mp-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.magic-picker .mp-chip {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  height: 27px;
+  margin: 0;
+  padding: 0 11px;
+  border: 1px solid var(--mp-line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--pf-text);
+  font: 600 12px/1 var(--pf-sans);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+.magic-picker .mp-chip i { color: var(--mp-cat, var(--pf-primary)); font-size: 11px; }
+.magic-picker .mp-chip b {
+  min-width: 18px;
+  padding: 2px 5px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.07);
+  font: 700 10.5px/1 var(--pf-sans);
+  text-align: center;
+}
+.magic-picker .mp-chip:hover { border-color: var(--mp-cat, var(--pf-primary)); background: rgba(255, 255, 255, 0.85); }
+.magic-picker .mp-chip.active {
+  border-color: var(--mp-cat, var(--pf-primary));
+  background: var(--mp-cat, var(--pf-primary));
+  color: #fbf4df;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+.magic-picker .mp-chip.active i { color: inherit; }
+.magic-picker .mp-chip.active b { background: rgba(255, 255, 255, 0.22); }
+.magic-picker .mp-chips.roles .mp-chip {
+  height: 23px;
+  padding: 0 9px;
+  border-style: dashed;
+  background: transparent;
+  color: var(--pf-alt-dark);
+  font-size: 11px;
+}
+.magic-picker .mp-chips.roles .mp-chip i { color: var(--pf-alt); }
+.magic-picker .mp-chips.roles .mp-chip.active {
+  border-style: solid;
+  border-color: var(--pf-primary-dark);
+  background: var(--pf-primary);
+  color: #fbf4df;
+}
+.magic-picker .mp-chips.roles .mp-chip.active i { color: var(--mp-gold-light); }
+
+/* Cards and page side by side
+   ------------------------------------------------------------------------ */
+.magic-picker .mp-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(300px, 37%, 400px);
+  gap: 14px;
+  min-height: 0;
+  padding: 0 18px 12px;
+}
+
+/* The cards
+   ------------------------------------------------------------------------ */
+.magic-picker .mp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(222px, 1fr));
+  grid-auto-rows: 92px;
+  align-content: start;
+  gap: 9px;
+  min-height: 0;
+  margin: 0;
+  padding: 3px 6px 6px 3px;
+  overflow-y: auto;
+  list-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-alt) transparent;
+}
+.magic-picker .mp-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  column-gap: 11px;
+  padding: 9px 10px 7px 13px;
+  border: 1px solid var(--mp-line);
+  border-radius: 10px;
+  background:
+    radial-gradient(90% 120% at 0% 50%, color-mix(in srgb, var(--mp-cat) 9%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--mp-paper), var(--mp-paper-dark));
+  box-shadow: 0 1px 2px rgba(60, 40, 10, 0.14), inset 0 0 0 1px rgba(255, 255, 255, 0.65);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+}
+.magic-picker .mp-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--mp-cat) 70%, #fff), var(--mp-cat));
+}
+.magic-picker .mp-card:hover,
+.magic-picker .mp-card:focus-visible {
+  z-index: 1;
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--mp-cat) 70%, var(--mp-line));
+  outline: none;
+  box-shadow: 0 7px 16px rgba(40, 28, 8, 0.2), 0 0 0 1px color-mix(in srgb, var(--mp-cat) 55%, transparent);
+}
+.magic-picker .mp-card.selected {
+  border-color: var(--mp-cat);
+  background:
+    radial-gradient(100% 140% at 0% 50%, color-mix(in srgb, var(--mp-cat) 18%, transparent), transparent 75%),
+    linear-gradient(180deg, #fffdf7, color-mix(in srgb, var(--mp-cat) 10%, var(--mp-paper-dark)));
+  box-shadow: 0 0 0 2px var(--mp-cat), 0 7px 18px rgba(40, 28, 8, 0.22);
+}
+.magic-picker .mp-card-art {
+  grid-row: span 2;
+  align-self: center;
+  width: 56px;
+  height: 56px;
+  padding: 3px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--mp-cat) 80%, #000),
+    0 0 0 3px rgba(255, 250, 235, 0.9),
+    0 0 0 4px color-mix(in srgb, var(--mp-cat) 55%, var(--mp-gold)),
+    0 3px 7px rgba(0, 0, 0, 0.28);
+  transition: transform 0.2s ease;
+}
+.magic-picker .mp-card:hover .mp-card-art,
+.magic-picker .mp-card.selected .mp-card-art { transform: rotate(-6deg) scale(1.05); }
+.magic-picker .mp-card-art img {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.magic-picker .mp-card-text { display: grid; align-content: start; min-width: 0; }
+.magic-picker .mp-card-cat {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: color-mix(in srgb, var(--mp-cat) 85%, #000);
+  font: 700 9px/1.3 var(--pf-sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.magic-picker .mp-card-cat i { font-size: 8.5px; }
+.magic-picker .mp-card-name {
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 600 16px/1.2 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.magic-picker .mp-card-tag {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--pf-text-soft);
+  font: italic 12px/1.3 var(--pf-body);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.magic-picker .mp-card-roles {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  color: color-mix(in srgb, var(--pf-alt) 75%, transparent);
+  font-size: 10.5px;
+}
+.magic-picker .mp-card:hover .mp-card-roles,
+.magic-picker .mp-card.selected .mp-card-roles { color: var(--pf-alt-dark); }
+.magic-picker .mp-card-check {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--mp-cat);
+  color: #fff;
+  font-size: 10px;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.15s ease, transform 0.2s cubic-bezier(0.3, 1.6, 0.6, 1);
+}
+.magic-picker .mp-card.selected .mp-card-check { opacity: 1; transform: none; }
+.magic-picker .mp-card[hidden] { display: none; }
+.magic-picker .mp-empty {
+  display: grid;
+  grid-column: 1 / -1;
+  justify-items: center;
+  gap: 8px;
+  padding: 40px 10px;
+  color: var(--pf-text-soft);
+  font: italic 14px var(--pf-body);
+}
+.magic-picker .mp-empty i { color: var(--mp-gold); font-size: 22px; }
+.magic-picker .mp-empty[hidden] { display: none; }
+
+/* The page of a Magia
+   ------------------------------------------------------------------------ */
+.magic-picker .mp-detail {
+  position: relative;
+  min-height: 0;
+  padding: 14px 16px 12px;
+  border: 1px solid var(--mp-line);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 252, 243, 0.94), rgba(243, 232, 206, 0.94));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 2px 10px rgba(60, 40, 10, 0.14);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-alt) transparent;
+}
+.magic-picker .mp-detail.preview { border-style: dashed; }
+.magic-picker .mp-page[hidden] { display: none; }
+.magic-picker .mp-page-head {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.magic-picker .mp-page-art {
+  display: grid;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  margin: 2px;
+  padding: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #e3cd98);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--mp-cat, var(--pf-primary)) 80%, #000),
+    0 0 0 4px rgba(255, 250, 235, 0.95),
+    0 0 0 5px color-mix(in srgb, var(--mp-cat, var(--pf-primary)) 55%, var(--mp-gold)),
+    0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.magic-picker .mp-page-art img { width: 100%; height: 100%; border: none; border-radius: 50%; object-fit: cover; }
+.magic-picker .mp-page-art i { color: var(--pf-primary); font-size: 28px; }
+.magic-picker .mp-page-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 9px;
+  background: var(--mp-cat, var(--pf-primary));
+  color: #fbf4df;
+  font: 700 9.5px/1.4 var(--pf-sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.magic-picker .mp-page h3 {
+  margin: 4px 0 1px;
+  border: none;
+  color: var(--pf-text);
+  font: 600 23px/1.1 var(--pf-serif);
+}
+.magic-picker .mp-page-tag { margin: 0; color: var(--pf-text-soft); font: italic 13px/1.35 var(--pf-body); }
+.magic-picker .mp-page-roles { display: flex; flex-wrap: wrap; gap: 5px; margin: 2px 0 8px; }
+.magic-picker .mp-page-roles span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 1px 8px;
+  border: 1px solid rgba(186, 169, 145, 0.8);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--pf-alt-dark);
+  font: 600 10.5px/1.6 var(--pf-sans);
+}
+.magic-picker .mp-page-roles i { color: var(--pf-primary); font-size: 9.5px; }
+.magic-picker .mp-page-intro,
+.magic-picker .mp-note {
+  margin: 0 0 8px;
+  color: var(--pf-text);
+  font: 13px/1.5 var(--pf-body);
+}
+.magic-picker .mp-note b { color: var(--pf-primary-dark); }
+.magic-picker .mp-tabu {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 8px;
+  margin: 2px 0 10px;
+  padding: 8px 10px;
+  border: 1px solid rgba(140, 47, 47, 0.35);
+  border-left: 4px solid #8c2f2f;
+  border-radius: 7px;
+  background: rgba(140, 47, 47, 0.07);
+}
+.magic-picker .mp-tabu i { margin-top: 2px; color: #8c2f2f; }
+.magic-picker .mp-tabu p { margin: 0; color: #4a1d1d; font: 12.5px/1.45 var(--pf-body); }
+.magic-picker .mp-page h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 6px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(186, 169, 145, 0.7);
+  color: var(--pf-primary-dark);
+  font: 700 11px/1.4 var(--pf-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.magic-picker .mp-now-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  color: var(--pf-primary);
+  font: 600 10.5px/1 var(--pf-sans);
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+.magic-picker .mp-now-count i { font-size: 6px; }
+
+/* Spells by CR */
+.magic-picker .mp-spells { display: grid; gap: 5px; margin: 0; padding: 0; list-style: none; }
+.magic-picker .mp-spell {
+  display: grid;
+  grid-template-columns: 30px 28px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px 4px 5px;
+  border: 1px solid rgba(186, 169, 145, 0.6);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.45);
+}
+.magic-picker .mp-spell img {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--pf-frame, #8a7a62);
+  border-radius: 5px;
+}
+.magic-picker .mp-spell-rank {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--mp-gold-dark);
+  border-radius: 50%;
+  background: #f8f0da;
+  color: var(--pf-alt-dark);
+  font: 700 14px/0.9 var(--pf-serif);
+}
+.magic-picker .mp-spell-rank small { font: 700 6.5px/1 var(--pf-sans); letter-spacing: 0.1em; }
+.magic-picker .mp-spell.now .mp-spell-rank {
+  border-color: var(--pf-primary-dark);
+  background: radial-gradient(circle at 50% 35%, var(--pf-primary-light), var(--pf-primary-dark));
+  color: #fbf4df;
+}
+.magic-picker .mp-spell-body { display: grid; min-width: 0; }
+.magic-picker .mp-spell-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  color: var(--pf-text);
+  font: 600 13.5px/1.25 var(--pf-serif);
+}
+.magic-picker .mp-spell-name > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.magic-picker .mp-tier {
+  flex: 0 0 auto;
+  padding: 1px 6px;
+  border-radius: 7px;
+  background: var(--mp-gold-dark);
+  color: #fbf4df;
+  font: 700 8.5px/1.5 var(--pf-sans);
+  font-style: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.magic-picker .mp-spell.supreme {
+  border-color: var(--mp-gold);
+  background: linear-gradient(90deg, rgba(242, 219, 148, 0.45), rgba(255, 255, 255, 0.45));
+}
+.magic-picker .mp-spell.supreme .mp-tier {
+  background: linear-gradient(135deg, var(--mp-gold-light), var(--mp-gold) 55%, var(--mp-gold-dark));
+  color: #2b1d05;
+}
+.magic-picker .mp-spell-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 6px;
+  color: var(--pf-text-soft);
+  font: 11px/1.35 var(--pf-sans);
+}
+.magic-picker .mp-status {
+  padding: 0 5px;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--mp-cat, var(--pf-primary)) 12%, transparent);
+  color: color-mix(in srgb, var(--mp-cat, var(--pf-primary)) 80%, #000);
+  font: 600 10.5px/1.5 var(--pf-sans);
+}
+.magic-picker .mp-page-visual {
+  position: relative;
+  margin: 12px 4px 2px;
+  padding-top: 10px;
+  color: var(--pf-alt-dark);
+  font: italic 12.5px/1.45 var(--pf-body);
+  text-align: center;
+}
+.magic-picker .mp-page-visual::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 25%;
+  right: 25%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--mp-gold), transparent);
+}
+
+/* The guide */
+.magic-picker .mp-guide-steps { display: grid; gap: 8px; margin: 4px 0 4px; padding: 0; list-style: none; }
+.magic-picker .mp-guide-steps li,
+.magic-picker .mp-legend li {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  align-items: start;
+  gap: 8px;
+}
+.magic-picker .mp-guide-steps i {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--pf-primary);
+  color: var(--mp-gold-light);
+  font-size: 11px;
+}
+.magic-picker .mp-guide-steps p,
+.magic-picker .mp-legend p { margin: 0; color: var(--pf-text); font: 12.5px/1.45 var(--pf-body); }
+.magic-picker .mp-legend { display: grid; gap: 7px; margin: 0; padding: 0; list-style: none; }
+.magic-picker .mp-legend i {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--mp-cat);
+  color: #fbf4df;
+  font-size: 10.5px;
+}
+.magic-picker .mp-legend b { color: color-mix(in srgb, var(--mp-cat) 85%, #000); }
+
+/* Foot: what the character has, and the choice
+   ------------------------------------------------------------------------ */
+.magic-picker .mp-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px 12px;
+  border-top: 1px solid rgba(186, 169, 145, 0.7);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4));
+}
+.magic-picker .mp-foot-note {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  color: var(--pf-text-soft);
+  font: italic 12.5px/1.3 var(--pf-body);
+}
+.magic-picker .mp-foot-note i { color: var(--mp-gold-dark); font-style: normal; }
+.magic-picker .mp-foot button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: auto;
+  height: 36px;
+  margin: 0;
+  padding: 0 18px;
+  border-radius: 7px;
+  font: 600 13px/1 var(--pf-sans);
+}
+.magic-picker .mp-choose {
+  min-width: 240px;
+  border: 1px solid var(--pf-primary-dark);
+  background: linear-gradient(180deg, var(--pf-primary-light), var(--pf-primary-dark));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 6px rgba(0, 0, 0, 0.25);
+  color: #fbf4df;
+}
+.magic-picker .mp-choose:not(:disabled):hover { filter: brightness(1.12); }
+.magic-picker .mp-choose:disabled { opacity: 0.5; box-shadow: none; cursor: default; }
+.magic-picker .mp-choose i { color: var(--mp-gold-light); }
+
+@media (prefers-reduced-motion: reduce) {
+  .magic-picker .mp-card,
+  .magic-picker .mp-card-art,
+  .magic-picker .mp-card-check { transition: none; }
+  .magic-picker .mp-card:hover,
+  .magic-picker .mp-card:focus-visible { transform: none; }
+}
+
+/* The dialog of the kit says the Magia comes next (apps/option-grants.mjs)
+   ------------------------------------------------------------------------ */
+.option-grants .grants-next {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 2px;
+  padding: 7px 10px;
+  border: 1px dashed var(--pf-divider, #baa991);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.4);
+  color: var(--pf-primary-dark, #173f2b);
+  font: 600 12.5px/1.35 var(--pf-body, serif);
+}
+.option-grants .grants-next i { color: var(--pf-primary, #1f5137); }

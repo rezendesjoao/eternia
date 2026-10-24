@@ -1,0 +1,122 @@
+{
+  "name": "Território: Troca",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Território.</strong> Você e um aliado a até 4 Qd trocam de lugar num piscar (e trocam também o Ódio), e ele fica com [Anulação: NP÷2 + 2] até o fim da rodada. Uma vez por rodada.</p><p><em>O golpe que ia nele acerta o lugar onde ele estava. E ali, agora, está você.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/movement/portal-silhouette-pink.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "cancel",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Território: Troca",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "tnHGpYHE6ukfSZk1",
+      "_key": "!items.effects!eY6bmHnWJoZRCZkB.tnHGpYHE6ukfSZk1"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "territorio-troca",
+      "kind": "feeds",
+      "branch": "magic",
+      "useActions": [
+        {
+          "type": "switch"
+        }
+      ],
+      "magicSpell": {
+        "id": "territorio"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "eY6bmHnWJoZRCZkB",
+  "folder": "JdFNayXQdhfUGiBl",
+  "_key": "!items!eY6bmHnWJoZRCZkB"
+}

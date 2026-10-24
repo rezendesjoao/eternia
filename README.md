@@ -5,9 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.17.0
+## Versão 0.18.0
 
-- **Novo na 0.17.0: três Magias Perdidas.** Matador de Deuses, Magia Viva e Arco do Tempo, para qualquer classe de
+- **Novo na 0.18.0: a escolha da Magia e a aba Classe refeitas, e mais três Magias.** A Magia agora se escolhe numa
+  janela grande, com um cartão por Magia, filtros por categoria e por função e, ao passar o mouse, os feitiços por NP e
+  o Tabu (veja [As Magias](#as-magias)). A aba Classe cabe na ficha sem rolar, com a trilha do NP e as seções em abas.
+  As Magias novas são Projeção de Pensamento, Território e Reflexão.
+- **Desde a 0.17.0: três Magias Perdidas.** Matador de Deuses, Magia Viva e Arco do Tempo, para qualquer classe de
   magia (veja [As Magias](#as-magias)): os feitiços batem mais forte que os das outras Magias do mesmo NP, e cada uma
   tem o seu Tabu, o preço que cobra do corpo em combate.
 - **Desde a 0.16.0: as Magias elementais.** Fogo, Raio, Terra e Vento, para qualquer classe de magia (veja
@@ -88,7 +92,7 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
 - **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 22 classes), Habilidades Raciais e
-  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 27 Magias com os feitiços: 998 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
+  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 30 Magias com os feitiços: 1019 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
 
@@ -117,10 +121,14 @@ rótulos em versalete. Fontes Eczar e Gelasio.
   abrir os detalhes ali mesmo; o botão Explorar abre o navegador de habilidades.
 - **Inventário:** a riqueza (receber e gastar ouro fica registrado no chat), o boneco de equipamento (sete espaços
   ligados por linhas às partes do corpo), o que se carrega, os tíquetes e o espaço da bolsa.
-- **Classe:** o brasão da classe com a base (atributos e PV); o Motor, com o estado e os pontos (no Samurai, a katana
-  sai da bainha quando a lâmina é sacada e os Cortes brilham quando o próximo Iai é um Corte Perfeito); o kit, os
-  talentos por ramo com o que cada um faz no Motor, o Caminho, o Ápice, os talentos Gerais, as Dedicações e os
-  marcos da classe. Sem classe, o botão de escolher uma.
+- **Classe:** cabe na ficha sem rolar. No alto, a faixa da classe (o emblema, os papéis, os atributos e os PV) e o
+  Motor, com o estado e os pontos (no Samurai, a katana sai da bainha quando a lâmina é sacada e os Cortes brilham
+  quando o próximo Iai é um Corte Perfeito); depois, a trilha do NP, com o que a classe dá em cada NP (o kit, as Magias,
+  o Caminho, a Dedicação, o Ápice e quantos talentos chegam), em que as escolhas em aberto brilham; e as seções, uma
+  de cada vez: o kit com as regras do Motor, o elemento (no Matador de Dragões), as Magias (as três vagas, com os
+  feitiços), os talentos por ramo, o Caminho com o Ápice, os talentos Gerais e as Dedicações. A seção com uma escolha
+  em aberto abre primeiro, e o ponteiro sobre uma habilidade mostra o que ela faz. Sem classe, o botão de escolher
+  uma.
 - **Profissão:** o brasão da profissão com o Rank, a EXP e as tentativas do cenário, os botões da bancada (Oficina,
   Fusão, talentos), as chances, os materiais, o talento, as obras e os Ranks; sem profissão, as dez para escolher.
 - **Efeitos e estados** e a **Biografia**.
@@ -271,8 +279,10 @@ mover tokens) fica no texto da habilidade.
 ## As Magias
 
 Nas classes de magia (o Mago Azul, o Mago Branco, o Mago Negro, o Mago Vermelho, o Pictomante e o Invocador), a classe diz **como** você conjura e a **Magia** diz **o que** você
-conjura. A primeira Magia vem com a classe, a segunda no NP 5 e a terceira no NP 10; a aba Classe mostra as Magias com
-os feitiços de cada uma, e o navegador de habilidades mostra os feitiços das suas Magias (a origem "Magia") nas
+conjura. A primeira Magia vem com a classe, a segunda no NP 5 e a terceira no NP 10, cada uma escolhida numa janela
+própria: um cartão por Magia (a categoria, uma frase curta e o que os feitiços fazem), filtros por categoria e por
+função, busca por Magia ou feitiço e, ao passar o mouse, a página da Magia com o Tabu e os feitiços por NP. A aba Classe
+mostra as Magias com os feitiços de cada uma, e o navegador de habilidades mostra os feitiços das suas Magias (a origem "Magia") nas
 escolhas de Combate e Geral. Os feitiços alimentam o Motor da sua classe (+1; os grandes, +2), e o feitiço supremo de
 cada Magia (NP 7; NP 10 nas Ancestrais) pede o Motor no Teto e gasta tudo. As regras estão em **XII. MAGIAS**, no diário AS REGRAS.
 
@@ -300,10 +310,13 @@ cada Magia (NP 7; NP 10 nas Ancestrais) pede o Motor no Teto e gasta tudo. As re
 | Matador de Deuses | Perdida | O vento negro dos deuses: o rugido que derruba, o sopro que cura, a dança que deixa [Atordoado], a bênção ([Fortalecido], [Acelerado]), o Bóreas ([Lento]) e a Lança Celestial ([Exposto]). Tabu: em combate, a Iniciativa cai [NP] e a Velocidade cai 1. |
 | Moldagem de Gelo | Conjuração | O gelo moldado com as mãos: lanças e o martelo de [Frio] ([Congelando]), o escudo em forma de flor, o chão que derruba, as águias de gelo e a Dança dos Sete Cortes. |
 | Moldagem de Memória | Conjuração | A memória das magias vistas: Memorizar ([Concentrado]), o feitiço lembrado, o Esquecimento ([Selado]), a terra em chamas ([Queimando]) e a noite das estrelas cadentes. |
+| Projeção de Pensamento | Conjuração | As cópias de pensamento: o eco [Psíquico], a voz que tira o [Medo] e deixa [Concentrado], a projeção que deixa [Intangível], as cópias que deixam os inimigos [Provocado], o exército em três alvos e a Projeção Astral ([Medo]). |
 | Raio | Conjuração | O raio: [Choque] de longe, a corrente que deixa [Eletrificado], o passo que deixa [Acelerado], o trovão que deixa [Atordoado], a tempestade em três alvos e o Palácio do Trovão. |
 | Reequipar: O Cavaleiro | Portadora | As armaduras de batalha: os feitiços são Ataques com Arma (espadas em área, o golpe da asa negra), a defesa adamantina, o traje sem armadura e a armadura que corta a magia ([Selado]). |
+| Reflexão | Conjuração | Tudo torcido: o corpo que fica com [Rigidez], o golpe que volta ([Espelho]), a luz que deixa [Oculto], o corpo [Cambaleante], o mundo que deixa [Atordoado] e a Reflexão Total ([Confuso]). |
 | Teatro de Bonecas | Conjuração | As coisas que ganham vida: a rocha que soca, a árvore que agarra ([Enraizado]), os fios da Marionete ([Agarrado]), a nuvem que voa e o chão que derruba. |
 | Terra | Conjuração | O chão que luta: o punho de rocha, a muralha ([Anulação]), a avalanche que deixa [Enraizado], a pele de pedra, o chão que derruba ([Derrubado]) e a Fúria da Montanha ([Fissurado]). |
+| Território | Conjuração | O espaço é seu: o calor que explode de [Chama], a troca de lugar com um aliado ([Anulação]), a prisão de ar ([Enraizado]), o domínio que deixa [Marcado], o colapso ([Derrubado]) e o Território Absoluto ([Marcado]). |
 | Vento | Conjuração | O vento: a lâmina de [Vento], a rajada que derruba, a armadura de tempestade ([Voando], [Anulação]), o redemoinho que deixa [Atordoado], o furacão ([Lento]) e o Espaço Aéreo: Zero ([Silenciado]). |
 
 ## As raças

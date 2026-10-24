@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.18.0 — 2026-10-23
+
+### Adicionado
+- **Três Magias da mente e do espaço**, para qualquer classe de magia: **Projeção de Pensamento** (Eco de Pensamento,
+  Voz do Pensamento, Projeção, Muitas Projeções, Exército de Pensamento e o supremo Projeção Astral: cópias que deixam
+  [Intangível] e [Provocado]), **Território** (Calor Espacial, Território: Troca, Território: Prisão, Território:
+  Domínio, Colapso Espacial e o supremo Território Absoluto: a troca de lugar com um aliado e o [Marcado]) e **Reflexão**
+  (Torção, Reflexo, Miragem, Corpo Torcido, Mundo Torcido e o supremo Reflexão Total: [Rigidez], [Espelho], [Oculto]).
+  O catálogo chega a 30 Magias.
+- Páginas XII.23 (Projeção de Pensamento), XII.26 (Reflexão) e XII.29 (Território) do capítulo XII. MAGIAS do diário AS
+  REGRAS.
+- Cada Magia tem uma frase curta (`flags.eternia.magic.tagline`), que aparece no cartão dela na escolha da Magia.
+
+### Alterado
+- As páginas do capítulo XII foram renumeradas em ordem alfabética (Raio é a XII.24, Vento a XII.30).
+- **A escolha da Magia** ganhou uma janela própria e grande, no lugar da lista que não cabia na tela: um cartão por
+  Magia (o ícone, a categoria, uma frase curta e o que os feitiços fazem: área, controle, desgaste, cura, proteção,
+  apoio, mobilidade), filtros por categoria e por função, busca por Magia ou feitiço e, ao lado, a página da Magia sob o
+  ponteiro: o que ela é, o Tabu, os feitiços por NP (os que já chegam no seu NP em verde) e a linha final. Sem nada sob
+  o ponteiro, um guia de como as Magias funcionam. Um clique escolhe, dois confirmam. O diálogo do kit avisa que a Magia
+  vem depois, e a subida para o NP 5 e o NP 10 abre a janela direto.
+- **A aba Classe foi refeita** para caber na ficha sem rolar: a faixa da classe, o Motor, a trilha do NP (o que a classe
+  dá em cada NP e quantos talentos chegam; as escolhas em aberto brilham e um clique leva à seção) e as seções em abas:
+  Kit com as regras do Motor, Elemento, Magias com as três vagas, Talentos por ramo, Caminho e Ápice, Gerais e
+  Dedicações. A seção com uma escolha em aberto abre primeiro, e o ponteiro sobre uma habilidade mostra o que ela faz.
+- O aviso de novidades fala da 0.18.
+
 ## 0.17.0 — 2026-10-23
 
 ### Adicionado

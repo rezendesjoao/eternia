@@ -1,0 +1,75 @@
+{
+  "name": "Mundo Torcido",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Reflexão.</strong> Feitiço grande. Você torce uma área a até 4 Qd inteira, chão, ar e luz: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico, e quem ele acerta fica [Atordoado].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>O chão vira parede, a parede vira céu, e ninguém sabe mais para que lado cair.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/air/wind-tornado-cyclone-purple-pink.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "reflexao-mundo",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "dazed"
+        }
+      ],
+      "magicSpell": {
+        "id": "reflexao"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "bHqdvhggEj1ENo6P",
+  "folder": "hXFFCEeHpyDOPubW",
+  "_key": "!items!bHqdvhggEj1ENo6P"
+}

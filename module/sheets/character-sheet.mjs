@@ -20,7 +20,7 @@ import { isEmpty, tagLabel, term } from "../i18n/terms.mjs";
 import { EterniaActorSheet } from "./actor-sheet.mjs";
 import { allocateBonusPoints } from "../apps/stat-allocation.mjs";
 import { professionAction, professionContext } from "../professions/sheet.mjs";
-import { classAction, classContext } from "../classes/sheet.mjs";
+import { activateClassTab, classAction, classContext } from "../classes/sheet.mjs";
 
 const DIR = `systems/eternia/templates/character`;
 const PARTIALS = ["sidebar", "character", "checks", "skills", "inventory", "class", "profession", "effects", "biography"];
@@ -202,7 +202,10 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
   };
 
   /** Tab group states (survive re-renders). */
-  tabGroups = { primary: "character", skills: "basic", effects: "list", bio: "bio" };
+  tabGroups = { primary: "character", skills: "basic", effects: "list", bio: "bio", lhcl: "kit" };
+
+  /** The player picked a section of the class tab (until then it opens on a choice still open). */
+  #classSectionPicked = false;
 
   /** Summaries opened from the names (kept open across re-renders). */
   #summaries = new Summaries(this);
@@ -369,6 +372,9 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
 
     // Class: the Motor, the kit, the Path, the talents, the Dedications
     lh.classTab = await classContext(actor, { editable: this.isEditable });
+    const sections = (lh.classTab.sections ?? []).map(s => s.id);
+    if (!this.#classSectionPicked && lh.classTab.focus) this.tabGroups.lhcl = lh.classTab.focus;
+    if (sections.length && !sections.includes(this.tabGroups.lhcl)) this.tabGroups.lhcl = sections[0];
 
     // Profession: crest, bench, chances, materials, talent, works, Rank ladder
     lh.profession = professionContext(actor, { editable: this.isEditable });
@@ -384,6 +390,7 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
   /** @override */
   changeTab(tab, group, options = {}) {
     super.changeTab(tab, group, options);
+    if (group === "lhcl") this.#classSectionPicked = true;
     if (group !== "primary") return;
     const title = this.element.querySelector(".lhpf-nav .panel-title");
     if (title) title.textContent = L(`Sheet.Tab.${tab}`);
@@ -428,6 +435,8 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     }
     // Summaries left open before this render.
     this.#summaries.restore(root);
+    // The class tab: what each skill does, under the pointer
+    activateClassTab(this, root);
   }
 
   static #onSummary(event, target) {

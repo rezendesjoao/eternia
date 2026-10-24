@@ -7,8 +7,10 @@
  * and its Apex at CR 10 (`auto`: given without asking). Those slots are offered when the character reaches that
  * CR (the rank up, or the CR changed by hand) and again at the next changes while the choice is still open.
  * A slot with `magic: true` is a choice among every Magia of the compendiums (skills with flags.eternia.magic) the
- * character doesn't have yet; the n-th one is open while the character has fewer than n Magias.
+ * character doesn't have yet; the n-th one is open while the character has fewer than n Magias. It is offered in a
+ * window of its own (apps/magic-picker.mjs), after the dialog of the other slots.
  */
+import { MagicPicker } from "./magic-picker.mjs";
 
 const { DialogV2 } = foundry.applications.api;
 
@@ -22,19 +24,6 @@ function sourceOf(item) {
 
 function normalize(name) {
   return String(name ?? "").trim().toLowerCase();
-}
-
-/** The Magias of the compendiums (their uuids), in name order. */
-export async function magicUuids() {
-  const found = [];
-  for (const pack of game.packs) {
-    if ((pack.documentName !== "Item") || !pack.visible) continue;
-    const index = await pack.getIndex({ fields: ["flags.eternia.magic"] });
-    for (const e of index) {
-      if ((e.type === "skill") && e.flags?.eternia?.magic?.id) found.push({ uuid: e.uuid ?? pack.getUuid(e._id), name: e.name });
-    }
-  }
-  return found.sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang)).map(e => e.uuid);
 }
 
 /** The Magias an actor has. */
@@ -66,6 +55,8 @@ export async function offerGrants(actor, item, { above = 0, withStale = true, on
 
   const slots = [];
   const auto = [];
+  // The open Magia slots (their CR), each offered in the Magia picker after the dialog
+  const magic = [];
   const owned = magicsOf(actor).length;
   let magicSlot = 0;
   for (const [index, grant] of (item.system.grants ?? []).entries()) {
@@ -75,10 +66,12 @@ export async function offerGrants(actor, item, { above = 0, withStale = true, on
     const rank = Number(grant.rank) || 1;
     if ((rank > cr) || (rank <= above)) continue;
     if (onlyChoices && !grant.magic && ((grant.uuids ?? []).length < 2)) continue;
-    if (grant.magic && (owned >= magicSlot)) continue;
-    const uuids = grant.magic ? await magicUuids() : (grant.uuids ?? []);
-    const skills = (await Promise.all(uuids.map(uuid => fromUuid(uuid).catch(() => null)))).filter(Boolean)
-      .filter(s => !grant.magic || !owns(actor, s));
+    if (grant.magic) {
+      if (owned < magicSlot) magic.push(rank);
+      continue;
+    }
+    const uuids = grant.uuids ?? [];
+    const skills = (await Promise.all(uuids.map(uuid => fromUuid(uuid).catch(() => null)))).filter(Boolean);
     if (!skills.length) continue;
     const options = skills.map(s => ({ uuid: s.uuid, name: s.name, img: s.img, owned: owns(actor, s) }));
     const choice = options.length > 1;
@@ -93,7 +86,25 @@ export async function offerGrants(actor, item, { above = 0, withStale = true, on
     slots.push({ index, choice, options, rank, done: choice ? preset.owned : options[0].owned });
   }
   if (auto.length) await createGranted(actor, item, auto);
-  if (!slots.some(s => !s.done) && !stale.length) return;
+  // The other slots first; "Not now" there leaves the Magia for later too.
+  if ((slots.some(s => !s.done) || stale.length) && !(await offerSlots(actor, item, slots, stale, magic.length > 0))) return;
+  for (const rank of magic) {
+    const uuid = await MagicPicker.choose(actor, { source: item, rank });
+    if (!uuid) return;
+    await createGranted(actor, item, [uuid]);
+  }
+}
+
+/**
+ * The dialog of an option's slots, and of the removal of the skills of the previous option of the same type.
+ * @param {Actor} actor
+ * @param {Item} item
+ * @param {object[]} slots
+ * @param {Item[]} stale
+ * @param {boolean} magicNext  A Magia comes after (the dialog says so)
+ * @returns {Promise<boolean>}  Whether the player accepted it
+ */
+async function offerSlots(actor, item, slots, stale, magicNext) {
   // Only slots of a later CR: say which CR they come with (a class Path).
   const later = slots.filter(s => !s.done && (s.rank > 1));
 
@@ -103,7 +114,7 @@ export async function offerGrants(actor, item, { above = 0, withStale = true, on
     : "";
   const content = await foundry.applications.handlebars.renderTemplate(
     "systems/eternia/templates/apps/option-grants.hbs",
-    { item, slots, stale, typeLabel, hint }
+    { item, slots, stale, typeLabel, hint, magicNext }
   );
   const title = hint
     ? game.i18n.format("ETERNIA.CharacterOptions.Grants.TitleRank", { name: item.name, rank: Math.max(...later.map(s => s.rank)) })
@@ -125,7 +136,7 @@ export async function offerGrants(actor, item, { above = 0, withStale = true, on
     ],
     rejectClose: false
   });
-  if (!data || (typeof data !== "object")) return;
+  if (!data || (typeof data !== "object")) return false;
 
   // Remove the skills of the previous option
   if (data.removeStale && stale.length) await actor.deleteEmbeddedDocuments("Item", stale.map(i => i.id));
@@ -138,6 +149,7 @@ export async function offerGrants(actor, item, { above = 0, withStale = true, on
     return (typeof value === "string") ? value : null;
   }).filter(Boolean);
   await createGranted(actor, item, uuids);
+  return true;
 }
 
 /**

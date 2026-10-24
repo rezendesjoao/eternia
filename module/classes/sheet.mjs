@@ -1,13 +1,17 @@
 /**
- * The class tab of the character sheet (templates/character/class.hbs): the class crest (its emblem) and its base, the
- * Motor (its state and points, which the owner can set by hand), the kit, the element (the Dragon Slayer's, chosen at
- * CR 1), the Magias of a magic class (chosen at CR 1, 5 and 10, with their spells), the talents by branch with what
- * each does to the Motor, the Path (chosen at CR 3), the Apex (CR 10), the Dedications and the milestones. The class's skills are read from the compendiums (the folder named like the class,
- * see apps/skill-browser.mjs); the character's own copies can be used and opened from here like in the skills tab.
+ * The class tab of the character sheet (templates/character/class.hbs), made to fit without scrolling: the class band
+ * (its emblem, roles and base), the Motor (its state and points, which the owner can set by hand), the CR trail (what
+ * the class gives at each CR, the choices still open glowing) and the sections, one at a time: the kit with how the
+ * Motor works, the element (the Dragon Slayer's, chosen at CR 1), the Magias of a magic class (a slot at CR 1, 5 and
+ * 10, with their spells), the talents by branch, the Path (chosen at CR 3) with the Apex (CR 10), the general talents
+ * and the Dedications. A section with a choice still open shows first. The class's skills are read from the
+ * compendiums (the folder named like the class, see apps/skill-browser.mjs); the character's own copies can be used
+ * and opened from here like in the skills tab, and every skill shows what it does under the pointer.
  */
 import { L } from "../settings.mjs";
 import { getOption } from "../helpers/character-options.mjs";
 import { magicsOf, offerGrants } from "../apps/option-grants.mjs";
+import { MAGIC_CATEGORIES } from "../apps/magic-picker.mjs";
 import { SkillBrowser } from "../apps/skill-browser.mjs";
 import { tagLabel, term } from "../i18n/terms.mjs";
 import { toInt } from "../helpers/utils.mjs";
@@ -85,10 +89,14 @@ function skillRow(actor, entry, cr, { delay = 0 } = {}) {
     sr: (owned && (toInt(rank.max) > 1)) ? `${toInt(rank.value) || 1}/${toInt(rank.max)}` : "",
     minRank,
     locked: !owned && (minRank > cr),
+    learnable: !owned && (minRank <= cr),
     dedication: (entry.system?.tags ?? []).includes("Dedication"),
     general: entry.system?.subtype === "General"
   };
 }
+
+/** "2/4": how many of these skills the character has. */
+const tally = rows => (rows.length ? `${rows.filter(r => r.owned).length}/${rows.length}` : "");
 
 /** A row of the tab for a skill the character has (a Magia). */
 function ownedRow(item, cr) {
@@ -187,24 +195,93 @@ export async function classContext(actor, { editable }) {
       .sort((a, b) => a.minRank - b.minRank)
   })).sort((a, b) => elementOrder.indexOf(a.id) - elementOrder.indexOf(b.id));
 
-  // Magias (a magic class: the slots of its grants): the ones chosen, with their spells, and how many are still open
+  // Magias (a magic class): a slot for each Magia grant (CR 1, 5 and 10) with the Magia taken there (in the order they
+  // were taken) and its spells; one given by hand beyond the slots still shows
   let magic = null;
   if (def?.magic) {
-    const reached = (job.system.grants ?? []).filter(g => g.magic && ((Number(g.rank) || 1) <= cr)).length;
-    const owned = magicsOf(actor);
-    const chosen = [];
-    for (const m of owned) {
-      const spells = (await classSkills(m.name)).filter(e => flag(e, "magicSpell")?.id === m.getFlag("eternia", "magic").id)
+    const ranks = (job.system.grants ?? []).filter(g => g.magic).map(g => Number(g.rank) || 1);
+    const owned = magicsOf(actor).sort((a, b) => (toInt(a._stats?.createdTime) - toInt(b._stats?.createdTime)) || (a.sort - b.sort));
+    const view = async m => {
+      const data = m.getFlag("eternia", "magic");
+      const category = MAGIC_CATEGORIES[data.category] ? data.category : "caster";
+      const spells = (await classSkills(m.name)).filter(e => flag(e, "magicSpell")?.id === data.id)
         .map(e => skillRow(actor, e, cr)).sort((a, b) => (a.minRank - b.minRank) || a.name.localeCompare(b.name, game.i18n.lang));
-      chosen.push({ ...ownedRow(m, cr), spells });
+      return {
+        ...ownedRow(m, cr), spells, tally: tally(spells), tagline: data.tagline ?? "", category,
+        categoryLabel: L(`MagicPicker.Category.${category}`), categoryIcon: MAGIC_CATEGORIES[category].icon,
+        categoryColor: MAGIC_CATEGORIES[category].color
+      };
+    };
+    const slots = [];
+    for (const [index, rank] of ranks.entries()) {
+      const m = owned[index];
+      slots.push({ rank, reached: cr >= rank, magia: m ? await view(m) : null, open: !m && (cr >= rank) });
     }
-    magic = { chosen, open: Math.max(0, reached - owned.length), next: (job.system.grants ?? []).filter(g => g.magic)
-      .map(g => Number(g.rank) || 1).find(r => r > cr) ?? null };
+    for (const m of owned.slice(ranks.length)) slots.push({ rank: null, reached: true, magia: await view(m), open: false });
+    magic = { slots, open: slots.filter(s => s.open).length, count: `${owned.length}/${ranks.length}` };
   }
 
   // Base: attributes and HP of the class item
   const a = job.system.attributes ?? {};
   const base = ["str", "dex", "pow", "int"].map(key => ({ label: L(`Classes.Attr.${key}`), value: toInt(a[key]) }));
+
+  const kit = rows("kit");
+  const general = rows("general");
+  for (const b of branches) b.tally = tally(b.talents);
+  const talents = branches.flatMap(b => b.talents);
+  const path = {
+    reached: cr >= 3,
+    chosen: followed ? paths.find(p => p.uuid === followed.uuid) : null,
+    options: followed ? [] : paths,
+    pending: (cr >= 3) && !followed && paths.length > 0
+  };
+  const element = elements.length ? {
+    chosen: ownElement ? elements.find(e => e.uuid === ownElement.uuid) : null,
+    options: ownElement ? [] : elements
+  } : null;
+
+  // The sections, one shown at a time; the first with a choice still open shows first
+  const sections = [
+    { id: "kit", icon: "fa-solid fa-toolbox", label: L("Classes.Section.kit"), count: tally(kit) },
+    element && { id: "element", icon: "fa-solid fa-dragon", label: L("Classes.Element"), pending: !element.chosen },
+    magic && { id: "magic", icon: "fa-solid fa-hat-wizard", label: L("Classes.Magic"), count: magic.count, pending: magic.open > 0 },
+    branches.length && { id: "talents", icon: "fa-solid fa-sitemap", label: L("Classes.Section.talents"), count: tally(talents) },
+    { id: "path", icon: "fa-solid fa-route", label: L("Classes.Path"), pending: path.pending },
+    general.length && { id: "general", icon: "fa-solid fa-feather", label: L("Classes.Section.general"), count: tally(general) },
+    { id: "dedications", icon: "fa-solid fa-link", label: L("Classes.Dedications"), count: lesserMotors.length ? String(lesserMotors.length) : "" }
+  ].filter(Boolean);
+
+  // The CR trail: what comes at each CR (the milestones, the Magia slots, how many talents), the choices still open
+  const at = id => MILESTONES.find(m => m.id === id)?.rank;
+  const learned = [...kit, ...talents, ...general];
+  const trail = Array.from({ length: 10 }, (_, i) => {
+    const rank = i + 1;
+    const marks = [];
+    if (rank === at("kit")) marks.push({ icon: "fa-solid fa-toolbox", label: L("Classes.Milestone.kit"), section: "kit" });
+    if (element && (rank === 1)) marks.push({ icon: "fa-solid fa-dragon", label: L("Classes.Element"), section: "element", pending: !element.chosen });
+    for (const slot of magic?.slots ?? []) {
+      if (slot.rank === rank) marks.push({ icon: "fa-solid fa-hat-wizard", label: L("Classes.TrailMagic"), section: "magic", pending: slot.open });
+    }
+    if (rank === at("path")) marks.push({ icon: "fa-solid fa-route", label: L("Classes.Milestone.path"), section: "path", pending: path.pending });
+    if (rank === at("dedication")) marks.push({ icon: "fa-solid fa-link", label: L("Classes.Milestone.dedication"), section: "dedications" });
+    if (apex && (rank === at("apex"))) marks.push({ icon: "fa-solid fa-crown", label: L("Classes.Milestone.apex"), section: "path" });
+    const lead = marks.find(m => m.pending) ?? marks[0];
+    const fresh = learned.filter(r => r.minRank === rank).length;
+    const lines = [...marks.map(m => m.label), fresh ? L("Classes.TrailTalents", { n: fresh }) : ""].filter(Boolean);
+    return {
+      rank,
+      reached: cr >= rank,
+      current: cr === rank,
+      milestone: marks.length > 0,
+      pending: marks.some(m => m.pending),
+      icon: lead?.icon ?? "",
+      section: lead?.section ?? "talents",
+      label: marks.map(m => m.label).join(" · "),
+      fresh,
+      tooltip: [`<strong>${L("Classes.FromRank", { n: rank })}</strong>`, ...lines,
+        (cr === rank) ? `<em>${L("Classes.TrailHere")}</em>` : ""].filter(Boolean).join("<br>")
+    };
+  });
 
   return {
     none: false,
@@ -213,35 +290,81 @@ export async function classContext(actor, { editable }) {
     id: def?.id ?? job.system.identifier,
     itemId: job.id,
     name: job.name,
+    longName: job.name.length > 13,
     img: (job.img && !job.img.endsWith("/blank.svg")) ? job.img : "",
     color: def?.color ?? "#1f5137",
     roles: (job.system.tags ?? []).map(tagLabel),
+    magicClass: !!def?.magic,
     base,
     hp: { start: toInt(job.system.hp), per: toInt(job.system.hpPerRank), band: def?.band ? L(`Classes.Band.${def.band}`) : "" },
     motor: own ? motorView(actor, own.def, false, editable) : null,
-    kit: rows("kit"),
+    kit,
     branches,
-    general: rows("general"),
-    path: {
-      reached: cr >= 3,
-      chosen: followed ? paths.find(p => p.uuid === followed.uuid) : null,
-      options: followed ? [] : paths,
-      pending: (cr >= 3) && !followed && paths.length > 0
-    },
+    general,
+    path,
     apex: apex ? { ...skillRow(actor, apex, cr), reached: cr >= 10 } : null,
     magic,
-    element: elements.length ? {
-      chosen: ownElement ? elements.find(e => e.uuid === ownElement.uuid) : null,
-      options: ownElement ? [] : elements
-    } : null,
+    element,
     dedications: lesserMotors,
-    ladder: MILESTONES.map(m => ({
-      rank: m.rank,
-      label: L(`Classes.Milestone.${m.id}`),
-      reached: cr >= m.rank,
-      current: (cr >= m.rank) && !MILESTONES.some(n => (n.rank > m.rank) && (cr >= n.rank))
-    }))
+    sections,
+    focus: sections.find(s => s.pending)?.id ?? null,
+    trail
   };
+}
+
+/** Pictures of the tooltips already built (uuid → HTML), until the page reloads. */
+const tips = new Map();
+
+/** The tooltip of a skill of the tab: its picture, name, what it is, and the first lines of what it does. */
+async function tipOf(actor, tile) {
+  const owned = tile.dataset.itemId ? actor.items.get(tile.dataset.itemId) : null;
+  const key = owned ? `${owned.uuid}:${owned._stats?.modifiedTime ?? ""}` : tile.dataset.uuid;
+  if (tips.has(key)) return tips.get(key);
+  const skill = owned ?? await fromUuid(tile.dataset.uuid).catch(() => null);
+  if (!skill) return "";
+  const root = document.createElement("div");
+  root.innerHTML = skill.system?.description ?? "";
+  // The opening paragraph without its label, and no closing line
+  const first = root.querySelector("p");
+  first?.querySelector(":scope > strong:first-child")?.remove();
+  let text = (first?.textContent ?? root.textContent ?? "").trim();
+  if (text.length > 320) text = `${text.slice(0, 317).replace(/\s+\S*$/, "")}…`;
+  const meta = [...tile.querySelectorAll(".lhcl-tile-meta > span")].map(s => s.textContent.trim()).filter(Boolean).join(" · ");
+  const html = `<div class="lhcl-tip"><header><img src="${skill.img}" alt=""><div><strong>${foundry.utils.escapeHTML(skill.name)}</strong>`
+    + `${meta ? `<span>${foundry.utils.escapeHTML(meta)}</span>` : ""}</div></header>`
+    + `${text ? `<p>${foundry.utils.escapeHTML(text)}</p>` : ""}</div>`;
+  tips.set(key, html);
+  return html;
+}
+
+/**
+ * After the sheet renders: every skill of the class tab shows what it does under the pointer.
+ * @param {ActorSheet} sheet
+ * @param {HTMLElement} root
+ */
+export function activateClassTab(sheet, root) {
+  // The tooltip of a tile this render replaced would stay forever
+  const shown = game.tooltip.element;
+  if (shown?.classList?.contains("lhcl-tile") && !shown.isConnected) game.tooltip.deactivate();
+  const tab = root.querySelector(".tab.class .lhcl-board");
+  if (!tab) return;
+  let timer = null;
+  tab.addEventListener("pointerover", event => {
+    const tile = event.target.closest?.(".lhcl-tile");
+    if (!tile || tile.contains(event.relatedTarget)) return;
+    clearTimeout(timer);
+    timer = setTimeout(async () => {
+      if (!tile.matches(":hover")) return;
+      const html = await tipOf(sheet.actor, tile);
+      if (html && tile.matches(":hover")) game.tooltip.activate(tile, { html, cssClass: "lhcl-tooltip", direction: "UP" });
+    }, 350);
+  });
+  tab.addEventListener("pointerout", event => {
+    const tile = event.target.closest?.(".lhcl-tile");
+    if (!tile || tile.contains(event.relatedTarget)) return;
+    clearTimeout(timer);
+    if (game.tooltip.element === tile) game.tooltip.deactivate();
+  });
 }
 
 /**
