@@ -1,0 +1,75 @@
+{
+  "name": "Moldagem de Madeira: A Distância Entre Nós Dois É Eterna",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Moldagem de Madeira.</strong> Feitiço grande. Pés e mãos gigantes de madeira saem do chão numa área a até 4 Qd e se debatem para todo lado: Teste de Precisão contra a Esquiva de cada alvo; [3d6 + Poder Mágico] de dano mágico, e quem ela acerta fica [Cambaleante] (−1d6 nas ações Maiores e de Turno até o fim do próprio turno).</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Um pé do tamanho de uma carroça passa raspando, e outro já vem atrás.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/nature/root-vine-entangled-hands.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "moldagem-madeira-distancia",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "staggered"
+        }
+      ],
+      "magicSpell": {
+        "id": "moldagem-madeira"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "8xVT1hfv7DaDDBgE",
+  "folder": "rMejudwIQ22HJDfW",
+  "_key": "!items!8xVT1hfv7DaDDBgE"
+}

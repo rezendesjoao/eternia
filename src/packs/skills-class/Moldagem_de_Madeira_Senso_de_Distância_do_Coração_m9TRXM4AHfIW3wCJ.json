@@ -1,0 +1,118 @@
+{
+  "name": "Moldagem de Madeira: Senso de Distância do Coração",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Moldagem de Madeira.</strong> Armas de madeira brotam do chão em volta de você, todas apontadas para fora: você fica com [Espelho: NP÷2 + 2] até o fim da cena (quem acertar você sofre o Valor como dano direto). Uma vez por cena.</p><p><em>Quem chega perto volta com farpas. Quem insiste, volta sem a arma.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/wood/fence-picket-brown.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "mirror",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Moldagem de Madeira: Senso de Distância do Coração",
+      "img": "systems/eternia/assets/ui/status/mirror.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "mirror"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "QBgLF20SeMFQAqxF",
+      "_key": "!items.effects!m9TRXM4AHfIW3wCJ.QBgLF20SeMFQAqxF"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "moldagem-madeira-senso",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "moldagem-madeira"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "m9TRXM4AHfIW3wCJ",
+  "folder": "rMejudwIQ22HJDfW",
+  "_key": "!items!m9TRXM4AHfIW3wCJ"
+}

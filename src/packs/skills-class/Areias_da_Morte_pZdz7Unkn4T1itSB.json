@@ -1,0 +1,76 @@
+{
+  "name": "Areias da Morte",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Areia.</strong> Feitiço grande. Uma onda de areia cobre uma área a até 4 Qd e seca por dentro tudo o que toca: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico, e quem ela acerta fica com [Deterioração: NP÷2 + 2] (sofre o Valor no Encerramento; sai com uma Ação Maior).</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>A pele racha como terra no fim do verão.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/death/skull-sand-white-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "areia-morte",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "decay",
+          "value": "floor(@cr/2)+2"
+        }
+      ],
+      "magicSpell": {
+        "id": "areia"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "pZdz7Unkn4T1itSB",
+  "folder": "NawVT4rApAiNvleF",
+  "_key": "!items!pZdz7Unkn4T1itSB"
+}

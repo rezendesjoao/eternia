@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.21.0 — 2026-10-24
+
+### Adicionado
+- **Quatro Magias de Conjuração**, para qualquer classe de magia: **Moldagem de Madeira** (Aproximação Violenta,
+  Senso de Distância do Coração, que dá [Espelho], Fusão com a Madeira, que esconde você e um aliado, Represa do Amor
+  Tímido, A Distância Entre Nós Dois É Eterna e o supremo Soco Divino, num alvo só), **Areia** (Rebelião da Areia,
+  Lufada de Areia, Corpo de Areia, Cova da Formiga-Leão, Areias da Morte e o supremo Mundo de Areia), **Telepatia**
+  (Sobrecarga, Leitura de Mente, Proteção, Ruído Mental, Transferência de Informação e o supremo Sobrecarga Total) e
+  **Teleporte** (Linha Direta: Investida, Linha Direta, que leva um aliado junto, Linha Direta: Lançamento, Memória
+  Falsa, Ponto Cego e o supremo Transporte). O catálogo chega a 42 Magias.
+- Páginas XII.7 (Areia), XII.28 (Moldagem de Madeira), XII.38 (Telepatia) e XII.39 (Teleporte) do capítulo XII. MAGIAS
+  do diário AS REGRAS.
+
+### Alterado
+- As páginas do capítulo XII foram renumeradas em ordem alfabética (Armas Mágicas é a XII.8, Vento a XII.42).
+- O aviso de novidades fala da 0.21.
+
 ## 0.20.0 — 2026-10-23
 
 ### Adicionado

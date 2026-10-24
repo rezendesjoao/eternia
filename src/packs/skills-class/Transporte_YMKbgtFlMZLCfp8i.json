@@ -1,0 +1,79 @@
+{
+  "name": "Transporte",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Teleporte. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você bate palmas, e todos numa área ampla a até 6 Qd somem num bolsão do espaço e voltam um instante depois. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico, e quem ela acerta volta [Confuso], num lugar que você escolhe a até 2 Qd de onde estava. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>O salão fica vazio por um segundo inteiro. Depois, todos caem do teto.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/unholy/hands-circle-light-green.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "teleporte-transporte",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "confused"
+        }
+      ],
+      "magicSpell": {
+        "id": "teleporte"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "YMKbgtFlMZLCfp8i",
+  "folder": "DF63GwJtb4w1rjXu",
+  "_key": "!items!YMKbgtFlMZLCfp8i"
+}

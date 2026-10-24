@@ -1,0 +1,79 @@
+{
+  "name": "Sobrecarga Total",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Telepatia. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: todas as telas que você guarda se abrem sobre uma área ampla a até 6 Qd e explodem juntas, e o que estava escrito nelas entra à força na cabeça de quem está ali. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico, e quem ela acerta fica [Atordoado]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Mil páginas lidas num segundo. Ninguém aguenta ler tanto.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "telepatia-total",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "dazed"
+        }
+      ],
+      "magicSpell": {
+        "id": "telepatia"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "tsv5BBp3yIx47j8C",
+  "folder": "fRQ3DYuLcIeqYT3a",
+  "_key": "!items!tsv5BBp3yIx47j8C"
+}
