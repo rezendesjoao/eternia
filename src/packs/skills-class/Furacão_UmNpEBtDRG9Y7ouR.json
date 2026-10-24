@@ -1,0 +1,76 @@
+{
+  "name": "Furacão",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Vento.</strong> Feitiço grande. Um furacão desce sobre uma área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico de [Vento], e quem ele acerta fica [Lento].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Lá dentro, cada passo é contra uma parede.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Wind"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/air/wind-tornado-wall-blue.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "vento-furacao",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "slowed"
+        }
+      ],
+      "magicSpell": {
+        "id": "vento"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "UmNpEBtDRG9Y7ouR",
+  "folder": "nvmlwJWXMtMqYxei",
+  "_key": "!items!UmNpEBtDRG9Y7ouR"
+}

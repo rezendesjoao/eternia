@@ -28,8 +28,8 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   elementos, o Caminho no NP 3 e o Ápice no NP 10) + habilidades na pasta com o nome da classe em `skills-class`, com o
   Motor em código em `module/classes/` (estado em `flags.eternia.motor.<classe>`). Regras de construção, flags e como
   criar uma classe: `docs/classes.md`. Não há arquétipos nem Kuden. Uma classe que saiu da lista leva
-  `flags.eternia.retired` no item e na Dedicação (o Ressonante, que virou o Mago Vermelho, e o Tecelão, que virou o
-  Mago Branco).
+  `flags.eternia.retired` no item e na Dedicação (o Ressonante, que virou o Mago Vermelho, o Tecelão, que virou o Mago
+  Branco, e o Feiticeiro, que virou o Mago Negro com a Magia Fogo).
 - Magia = habilidade passiva com `flags.eternia.magic` (dada pelas vagas de Magia das classes de magia, NP 1, 5 e 10) e
   os feitiços com `flags.eternia.magicSpell`, em `skills-class`, pasta `Magias/<Magia>`; o Motor dos feitiços é o da
   classe de quem conjura (`motor.id: "@class"`). Veja "As Magias" em `docs/classes.md`. Uma classe que já existia e vira

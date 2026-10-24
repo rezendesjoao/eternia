@@ -1,0 +1,81 @@
+{
+  "name": "Palácio do Trovão",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Raio. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: esferas de raio cercam uma área ampla a até 6 Qd e explodem juntas. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Choque], e quem elas acertam fica [Eletrificado: NP]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>As esferas ficam paradas no ar, zumbindo, esperando a sua palavra.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Shock"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/lightning/bolts-forked-large-blue-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "raio-palacio",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "shocked",
+          "value": "@cr"
+        }
+      ],
+      "magicSpell": {
+        "id": "raio"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "AbpMvDr9BEwNzito",
+  "folder": "DXbFLz12fvQHErjj",
+  "_key": "!items!AbpMvDr9BEwNzito"
+}

@@ -5,9 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.15.0
+## Versão 0.16.0
 
-- **Novo na 0.15.0: o Mago Azul e as Magias de Take Over.** O Mago Azul absorve a alma dos monstros que derruba e a
+- **Novo na 0.16.0: as Magias elementais.** Fogo, Raio, Terra e Vento, para qualquer classe de magia (veja
+  [As Magias](#as-magias)); com a Água e a Moldagem de Gelo, os seis elementos clássicos estão no catálogo. O
+  Feiticeiro saiu da lista de classes, e o Mago Negro, com a Magia Fogo, tomou o lugar dele; as fichas que já o usam
+  continuam funcionando.
+- **Desde a 0.15.0: o Mago Azul e as Magias de Take Over.** O Mago Azul absorve a alma dos monstros que derruba e a
   guarda num grimório; com o Take Over, veste uma delas e luta com a natureza (Fera, Animal, Demônio ou Espírito) e o
   elemento do monstro (veja [As classes](#as-classes)). É a última das sete classes de magia. As Magias novas servem a
   qualquer classe de magia: Alma de Satã, Alma de Fera e Alma Animal (veja [As Magias](#as-magias)).
@@ -81,7 +85,7 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
 - **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
   e Regras, em português.
 - **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 22 classes), Habilidades Raciais e
-  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 20 Magias com os feitiços: 949 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
+  Habilidades de Classe (36 por classe, 52 no Matador de Dragões, e as 24 Magias com os feitiços: 977 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
 
@@ -234,7 +238,7 @@ gira em volta dele (veja `docs/classes.md` e as páginas **XI. CLASSES** do diá
 | Comandante | Suporte, Controle | **Táticas**: junta Ordens e gasta a própria ação para um aliado agir fora do turno dele. |
 | Druida | Defesa, Cura | **Formas**: a Seiva paga a transformação em fera, e cada forma troca o que ele pode fazer. |
 | Estrategista | Suporte, Controle | **Leitura**: na Manutenção rola 2d6 e guarda os dados, para trocar depois os de um teste pelo que leu. |
-| Feiticeiro | Dano | **Calor**: cada feitiço esquenta e bate mais forte; no Teto, a Erupção solta tudo ou a Sobrecarga queima o próprio feiticeiro. |
+| Feiticeiro | Dano | **Calor**: cada feitiço esquenta e bate mais forte; no Teto, a Erupção solta tudo ou a Sobrecarga queima o próprio feiticeiro. *Classe antiga: saiu da lista na 0.16, e o Mago Negro, com a Magia Fogo, tomou o lugar dela; as fichas que já a usam continuam funcionando.* |
 | Guardião | Defesa | **Baluarte**: cada ataque contra ele vira uma Camada da muralha (Anulação), que o Golpe do Baluarte transforma em dano e provocação. |
 | Invocador | Dano, Controle | **Pacto**: paga PV para dar Laços a um espírito (lobo, golem ou fada), que luta, protege ou cura gastando os Laços; com o espírito presente, os Feitiços das Magias também dão Laços. Escolhe uma Magia no NP 1, 5 e 10. |
 | Mago Azul | Dano, Defesa | **Almas**: absorve a alma dos monstros que derruba e a guarda num grimório; com o Take Over, veste uma delas e luta com a natureza (Fera, Animal, Demônio ou Espírito) e o elemento do monstro, e a Essência que junta vira o Golpe da Alma. Escolhe uma Magia no NP 1, 5 e 10. |
@@ -283,14 +287,18 @@ cada Magia (NP 7; NP 10 nas Ancestrais) pede o Motor no Teto e gasta tudo. As re
 | Escrita Sólida | Conjuração | As palavras que ficam de pé: FOGO ([Queimando]), GUARDA ([Anulação]), SILÊNCIO ([Silenciado]), FERRO ([Derrubado]), TROVÃO ([Eletrificado]) e A Palavra Final ([Atordoado]). |
 | Esmagamento | Conjuração | Quebra tudo: [Fissurado] e [Exposto] de perto, e a Desmontagem, que desfaz o golpe que vem. |
 | Espíritos Celestiais | Portadora | As chaves dos portões: o machado do touro, a lã do carneiro ([Barreira]), as flechas do sagitário, a onda do aguadeiro (que pega aliados também), o punho do leão, o Vestido Estelar e Urano Metria. |
+| Fogo | Conjuração | As cores do fogo: a laranja de [Chama], a roxa que deixa [Queimando], a azul de [Frio] ([Congelando]), a amarela que deixa [Confuso], a Coluna de Fogo e a Chama Arco-Íris. |
 | Gravidade | Conjuração | O peso das coisas: [Lento], [Derrubado] e [Enraizado], o golpe [Fortalecido] e o voo da Gravidade Zero. |
 | Magia das Fadas | Ancestral | A luz das fadas: [Radiância], a ilusão que dá [Medo], a [Regeneração], a esfera que protege os aliados ([Barreira]), o brilho que deixa [Cego] e a Lei das Fadas, o supremo do NP 10, que só fere os inimigos. |
 | Magia Seith | Conjuração | As almas nos bonecos: raios em linha, em X e em estrela, a Possessão ([Encantado]), os Olhos de Boneco ([Confuso]) e o Ritual das Almas. |
 | Matador de Demônios | Perdida | O gelo negro feito para matar demônios: [Frio], [Congelando] e [Fissurado], o golpe congelado no ar e a magia calada ([Silenciado]). Tabu: em combate, as Defesas Física e Mágica caem [NP]. |
 | Moldagem de Gelo | Conjuração | O gelo moldado com as mãos: lanças e o martelo de [Frio] ([Congelando]), o escudo em forma de flor, o chão que derruba, as águias de gelo e a Dança dos Sete Cortes. |
 | Moldagem de Memória | Conjuração | A memória das magias vistas: Memorizar ([Concentrado]), o feitiço lembrado, o Esquecimento ([Selado]), a terra em chamas ([Queimando]) e a noite das estrelas cadentes. |
+| Raio | Conjuração | O raio: [Choque] de longe, a corrente que deixa [Eletrificado], o passo que deixa [Acelerado], o trovão que deixa [Atordoado], a tempestade em três alvos e o Palácio do Trovão. |
 | Reequipar: O Cavaleiro | Portadora | As armaduras de batalha: os feitiços são Ataques com Arma (espadas em área, o golpe da asa negra), a defesa adamantina, o traje sem armadura e a armadura que corta a magia ([Selado]). |
 | Teatro de Bonecas | Conjuração | As coisas que ganham vida: a rocha que soca, a árvore que agarra ([Enraizado]), os fios da Marionete ([Agarrado]), a nuvem que voa e o chão que derruba. |
+| Terra | Conjuração | O chão que luta: o punho de rocha, a muralha ([Anulação]), a avalanche que deixa [Enraizado], a pele de pedra, o chão que derruba ([Derrubado]) e a Fúria da Montanha ([Fissurado]). |
+| Vento | Conjuração | O vento: a lâmina de [Vento], a rajada que derruba, a armadura de tempestade ([Voando], [Anulação]), o redemoinho que deixa [Atordoado], o furacão ([Lento]) e o Espaço Aéreo: Zero ([Silenciado]). |
 
 ## As raças
 

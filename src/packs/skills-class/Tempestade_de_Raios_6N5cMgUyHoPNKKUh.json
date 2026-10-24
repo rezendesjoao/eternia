@@ -1,0 +1,71 @@
+{
+  "name": "Tempestade de Raios",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Raio.</strong> Feitiço grande. Três raios caem ao mesmo tempo sobre até 3 alvos a até 5 Qd: Teste de Precisão contra a Esquiva de cada um; [3d6 + Poder Mágico] de dano mágico de [Choque] em cada um.</p><p><strong>Custo:</strong> Ódio 3.</p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Shock"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Targets",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/lightning/bolts-strike-salvo-blue.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "raio-tempestade",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "raio"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "6N5cMgUyHoPNKKUh",
+  "folder": "DXbFLz12fvQHErjj",
+  "_key": "!items!6N5cMgUyHoPNKKUh"
+}

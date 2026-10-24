@@ -1,0 +1,118 @@
+{
+  "name": "Muralha de Rocha",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Terra.</strong> Antes do Dano de um ataque contra você ou contra um aliado a até 4 Qd: uma muralha de rocha sobe na frente do golpe, com [Anulação: NP + 5] contra esse dano. Uma vez por rodada.</p><p><em>A muralha racha, e quem estava atrás dela nem se despenteia.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/environment/settlement/fence-stone-brick.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "cancel",
+            "value": "@cr+5"
+          },
+          "consumeOn": "damage",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Muralha de Rocha",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "OJADVMpSVELYrd8C",
+      "_key": "!items.effects!KXa7ZIZfrgl0O0rD.OJADVMpSVELYrd8C"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "terra-muralha",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "terra"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "KXa7ZIZfrgl0O0rD",
+  "folder": "QZ3O7DJNiH2eThgM",
+  "_key": "!items!KXa7ZIZfrgl0O0rD"
+}

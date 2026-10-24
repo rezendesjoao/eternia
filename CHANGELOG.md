@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.16.0 — 2026-10-23
+
+### Adicionado
+- **As Magias elementais**, para qualquer classe de magia: **Fogo** (Chama Laranja, Chama Roxa, Chama Azul, Chama
+  Amarela, Coluna de Fogo e o supremo Chama Arco-Íris), **Raio** (Relâmpago, Corrente Elétrica, Passo do Relâmpago,
+  Trovão, Tempestade de Raios e o supremo Palácio do Trovão), **Terra** (Punho de Rocha, Muralha de Rocha, Avalanche de
+  Rocha, Pele de Pedra, Chão Partido e o supremo Fúria da Montanha) e **Vento** (Lâmina de Vento, Rajada, Armadura de
+  Tempestade, Redemoinho, Furacão e o supremo Espaço Aéreo: Zero). Com a Água e a Moldagem de Gelo, os seis elementos
+  clássicos estão no catálogo, que chega a 24 Magias.
+- Páginas XII.13 (Fogo), XII.20 (Raio), XII.23 (Terra) e XII.24 (Vento) do capítulo XII. MAGIAS do diário AS REGRAS.
+
+### Alterado
+- **O Feiticeiro saiu da lista de classes e das Dedicações**: o Mago Negro (a Pressão é o Calor feito motor das
+  Magias), com a Magia Fogo, tomou o lugar dele (`flags.eternia.retired` no item de classe e na Dedicação, como o
+  Ressonante e o Tecelão). As fichas que já o usam continuam funcionando, e a página XI.7 avisa que é classe antiga.
+- As páginas do capítulo XII foram renumeradas em ordem alfabética (Gravidade é a XII.14).
+- O aviso de novidades fala da 0.16.
+
 ## 0.15.0 — 2026-10-23
 
 ### Adicionado

@@ -165,7 +165,7 @@ O mapa da lista de classes: cada Motor mexe numa parte da regra que nenhuma outr
 | Sequência de golpes | Monge | Corrente: golpes encadeados juntam Elos; o Golpe Final gasta todos |
 | Inimigo | Assassino | Contrato: acertos de qualquer aliado no alvo viram Brechas; a Execução derruba |
 | Posição | Caçador | Mira: parado, cresce; mover o token zera |
-| Risco | Feiticeiro | Calor: cada feitiço esquenta e bate mais forte; no Teto, Erupção ou Sobrecarga |
+| Risco | Feiticeiro | Calor: cada feitiço esquenta e bate mais forte; no Teto, Erupção ou Sobrecarga (classe antiga: virou o Mago Negro, com a Magia Fogo) |
 | Dados dos outros | Tecelão | Padrão: dois dados que somam o número dão Fios, que mudam dados nos cartões (classe antiga: virou o Mago Branco) |
 | Seus dados | Estrategista | Leitura: 2d6 guardados na Manutenção trocam os dados de um teste |
 | Maldição | Oráculo | Fardo: o milagre fica mais forte e a maldição pesa junto |
@@ -189,8 +189,8 @@ faltava) e o Caçador (o ataque à distância). As que o cruzamento deixou de fo
 
 Depois entrou o Matador de Dragões (2026-10-23), a primeira das classes de magia: o Motor dele mexe nos elementos do
 dano, que nenhuma outra classe usa como recurso. Em seguida o Mago Negro, a primeira classe com [Magias](#as-magias):
-ele herda o risco do Feiticeiro (a Pressão é o Calor feito motor das Magias), e o Feiticeiro sai do navegador de
-classes quando as Magias elementais (Fogo, com os feitiços dele) chegarem. Depois veio o Mago Vermelho, que herda os
+ele herda o risco do Feiticeiro (a Pressão é o Calor feito motor das Magias); na 0.16, com as Magias elementais (o
+Fogo faz o papel dos feitiços dele), o Feiticeiro saiu da lista de classes e das Dedicações. Depois veio o Mago Vermelho, que herda os
 itens do Ressonante (a Carga é o Brilho feito motor das Magias, e a peça da mão troca com o Reequipar). Com ele, o
 Ressonante saiu da lista de classes e das Dedicações (`flags.eternia.retired` no item de classe e na Dedicação); as
 fichas que já o usam continuam funcionando. O Pictomante é a primeira classe de magia sem antecessora: o Motor dele mexe
@@ -385,6 +385,10 @@ Ler a Cena, Caso Encerrado, a Dedução Rápida (posta o total novo do último t
 Ficam no texto: o movimento de Mudar a Formação e os talentos Gerais Mapa Mental e Negociador Frio.
 
 ### Feiticeiro
+
+**Classe antiga.** Desde a 0.16 o Feiticeiro está fora da lista de classes e das Dedicações: o Mago Negro (a Pressão é o
+Calor feito motor das Magias), com a Magia Fogo, tomou o lugar dele. As fichas que já o usam continuam funcionando com
+as regras abaixo.
 
 O Motor **Calor** mexe no risco: cada Feitiço da classe esquenta o feiticeiro (+1, os grandes +2), e o Calor soma
 +[Calor × 2] ao dano dos Feitiços. No Teto (3 + ⌊NP/5⌋) ele fica Incandescente e, no Encerramento, sofre a Sobrecarga
@@ -957,18 +961,23 @@ REGRAS (a geral e uma página por Magia).
 | Escrita Sólida | Conjuração | Escrita Sólida: Fogo, Escrita Sólida: Guarda, Escrita Sólida: Silêncio, Escrita Sólida: Ferro, Escrita Sólida: Trovão, A Palavra Final (supremo) |
 | Esmagamento | Conjuração | Toque Esmagador, Onda de Esmagamento, Desmontagem, Quebrar a Guarda, Ruptura, Esmagamento Absoluto (supremo) |
 | Espíritos Celestiais | Portadora (as chaves) | Portão do Touro, Portão do Carneiro, Portão do Sagitário, Portão do Aguadeiro (pega aliados também), Portão do Leão: Impacto de Régulo, Vestido Estelar, Urano Metria (supremo) |
+| Fogo | Conjuração | Chama Laranja, Chama Roxa, Chama Azul, Chama Amarela, Coluna de Fogo, Chama Arco-Íris (supremo) |
 | Gravidade | Conjuração | Queda, Mudança de Gravidade, Campo Gravitacional, Gravidade Zero, Buraco Negro, Peso do Mundo (supremo) |
 | Magia das Fadas | Ancestral (o supremo no NP 10) | Luz das Fadas, Ilusão das Fadas, Bênção das Fadas, Esfera das Fadas, Brilho das Fadas, Lei das Fadas (supremo, NP 10) |
 | Magia Seith | Conjuração | Bonecos: Formação Linha, Possessão, Bonecos: Formação X, Olhos de Boneco, Bonecos: Formação Bárion, Ritual das Almas (supremo) |
 | Matador de Demônios | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP]) | Fúria do Demônio de Gelo, Garra do Demônio de Gelo, Gelo do Demônio, Gelo que Cala, Arco da Destruição do Demônio de Gelo, Lâmina da Destruição do Demônio de Gelo (supremo) |
 | Moldagem de Gelo | Conjuração | Moldagem de Gelo: Lança, Moldagem de Gelo: Escudo, Moldagem de Gelo: Martelo, Moldagem de Gelo: Chão, Moldagem de Gelo: Águias, Lâmina de Gelo: Dança dos Sete Cortes, Impacto de Gelo (supremo) |
 | Moldagem de Memória | Conjuração | Memorizar, Moldagem de Memória: Feitiço Lembrado, Moldagem de Memória: Esquecimento, Moldagem de Memória: Fortaleza da Terra Ardente, Moldagem de Memória: Noite das Estrelas Cadentes, Moldagem de Memória: Lembrança Absoluta (supremo) |
+| Raio | Conjuração | Relâmpago, Corrente Elétrica, Passo do Relâmpago, Trovão, Tempestade de Raios, Palácio do Trovão (supremo) |
 | Reequipar: O Cavaleiro | Portadora (os feitiços são Ataques com Arma) | Roda Celeste: Círculo de Espadas, Asa Negra: Lampejo Lunar, Armadura Adamantina, Traje do Coração Puro, Roda Celeste: Pétalas de Aço, Armadura de Nakagami: Luz Estelar (supremo) |
 | Teatro de Bonecas | Conjuração | Boneca de Pedra, Boneca de Madeira, Marionete, Boneca de Nuvem, Boneca da Terra, Grande Teatro (supremo) |
+| Terra | Conjuração | Punho de Rocha, Muralha de Rocha, Avalanche de Rocha, Pele de Pedra, Chão Partido, Fúria da Montanha (supremo) |
+| Vento | Conjuração | Lâmina de Vento, Rajada, Armadura de Tempestade, Redemoinho, Furacão, Espaço Aéreo: Zero (supremo) |
 
 As categorias são as da série: Conjuração (a magia sai do corpo), Portadora (precisa de um objeto equipado), Perdida e
 Proibida (mais fortes, com um Tabu), Ancestral (feitiços supremos de NP 10). O catálogo vai crescer em lotes, até cobrir
-a magia de cada personagem (as elementais, os Matadores de Deuses...).
+a magia de cada personagem (os Matadores de Deuses, a Magia Viva, a Projeção de Pensamento...). Com o Fogo, o Raio, a
+Terra e o Vento (0.16), mais a Água e a Moldagem de Gelo, os seis elementos clássicos estão no catálogo.
 
 Como se monta: a Magia é uma habilidade passiva com `flags.eternia.magic = { id, category }` (só dada pela vaga de
 Magia da classe; o Tabu, quando há, mora nela, num efeito passivo) e os feitiços têm `flags.eternia.magicSpell = { id }`,
@@ -1054,7 +1063,7 @@ O item `class` leva `identifier`, atributos, `hp`, `hpPerRank`, as tags de papel
 `Control`, `Support`) e `grants`: um espaço por habilidade do kit, um espaço de escolha quando a classe tem elementos
 (`{ uuids: [os elementos] }`, no NP 1), as vagas de Magia de uma classe de magia (`{ rank: 1, magic: true }`, 5 e 10: a
 n-ésima fica aberta enquanto o personagem tem menos de n Magias), `{ rank: 3, uuids: [os três Caminhos] }` e
-`{ rank: 10, auto: true, uuids: [o Ápice] }`. Uma classe que saiu da lista (o Ressonante, que virou o Mago Vermelho, e o Tecelão, que virou o Mago Branco) leva
+`{ rank: 10, auto: true, uuids: [o Ápice] }`. Uma classe que saiu da lista (o Ressonante, que virou o Mago Vermelho, o Tecelão, que virou o Mago Branco, e o Feiticeiro, que virou o Mago Negro) leva
 `flags.eternia.retired` (o id da classe que tomou o lugar) no item e na Dedicação: o navegador de classes e o de
 habilidades só os mostram para quem já os tem.
 
