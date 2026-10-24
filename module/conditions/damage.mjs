@@ -27,7 +27,7 @@
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { actorName, postSummary, toInt } from "../helpers/utils.mjs";
-import { listStatusEntries } from "../helpers/statuses.mjs";
+import { listStatusEntries, statusDefinition } from "../helpers/statuses.mjs";
 import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { evaluateFormula, formulaData, isFormula } from "../helpers/effect-formulas.mjs";
 import { crOf, has, isSourceOf, rating, removeStatuses, rulesOn, sameActor, sourcesOf, statusEffects } from "./rules.mjs";
@@ -335,6 +335,42 @@ export async function agonyPain(actor, { silent = false } = {}) {
   return takeDamage(actor, n, { reason: "agony", silent });
 }
 
+/**
+ * An actor got HP back: the hook of every healing that gives HP (healing cards, [Regen], `takeHealing`, the healing
+ * of an [Inversion]). Only on this client (the one that healed it).
+ * @param {Actor} actor
+ * @param {number} amount
+ * @param {{what: string, from: Actor|null}} [context]
+ */
+export function recovered(actor, amount, { what = "", from = null } = {}) {
+  if (!(amount > 0)) return;
+  /**
+   * An actor recovered HP (a Decree that punishes healing listens). Only on this client.
+   * @param {Actor} actor
+   * @param {{amount: number, what: string, from: Actor|null}} context
+   */
+  Hooks.callAll("eternia.recovered", actor, { amount, what, from });
+}
+
+/**
+ * An actor got rid of Bad Statuses (the Get rid of the HUD, an effect that removes statuses): the hook. Only on this
+ * client (the one that removed them).
+ * @param {Actor} actor
+ * @param {string[]} statuses   The statuses that ended (only the Bad ones count)
+ * @param {{by: "action"|"effect"}} [context]
+ */
+export function freed(actor, statuses, { by = "effect" } = {}) {
+  const bad = (statuses ?? []).filter(id => statusDefinition(id)?.group === "bad");
+  if (!bad.length) return;
+  /**
+   * An actor got rid of Bad Statuses, by an action of its own or by an effect (a Decree that punishes it listens).
+   * Only on this client.
+   * @param {Actor} actor
+   * @param {{statuses: string[], by: "action"|"effect"}} context
+   */
+  Hooks.callAll("eternia.freed", actor, { statuses: bad, by });
+}
+
 /* -------------------------------------------- */
 /*  The Extra Breaths                           */
 /* -------------------------------------------- */
@@ -400,6 +436,40 @@ function announceBreath(actor, breath) {
    * @param {{effect: ActiveEffect, hp: number, left: number}} context   `left`: the uses it still has
    */
   Hooks.callAll("eternia.revived", actor, { effect: breath.effect, hp: breath.hp, left: breath.left });
+}
+
+/**
+ * How many Extra Breaths an actor still has: of all its effects, or of one.
+ * @param {Actor} actor
+ * @param {ActiveEffect} [effect]
+ * @returns {number}
+ */
+export function breathsLeft(actor, effect = null) {
+  return extraBreaths(actor).filter(b => !effect || (b.effect.id === effect.id)).reduce((total, b) => total + b.left, 0);
+}
+
+/**
+ * Give up Extra Breaths without falling (a transformation that burns the hearts that are left): up to `n` uses (all of
+ * them by default), of one effect when given. By the actor's owner.
+ * @param {Actor} actor
+ * @param {number} [n]
+ * @param {object} [options]
+ * @param {ActiveEffect} [options.effect]
+ * @returns {Promise<number>}   How many were given up
+ */
+export async function giveUpBreaths(actor, n = Infinity, { effect = null } = {}) {
+  const spent = actor.getFlag(SYSTEM_ID, "reviveSpent") ?? {};
+  const updates = {};
+  let given = 0;
+  for (const b of extraBreaths(actor)) {
+    if (effect && (b.effect.id !== effect.id)) continue;
+    const take = Math.min(b.left, n - given);
+    if (take <= 0) continue;
+    updates[`flags.${SYSTEM_ID}.reviveSpent.${b.key}`] = toInt(spent[b.key]) + take;
+    given += take;
+  }
+  if (given) await actor.update(updates);
+  return given;
 }
 
 /** Whether an effect of the actor keeps its [Combo] from a blow (`flags.eternia.keepCombo`). */
@@ -526,6 +596,7 @@ export async function takeHealing(actor, amount, { what = "", from = null, silen
   await actor.update({ "system.health.value": hp });
   if (actor.statuses.has("incapacitated") && (hp > 0)) await actor.toggleStatusEffect("incapacitated", { active: false });
   const lines = [L("Conditions.HealLine", { name: actorName(actor), what: what || L("Conditions.Heal"), n: hp - before, before, hp })];
+  recovered(actor, hp - before, { what: what || L("Conditions.Heal"), from });
   // [Agony]: getting HP back hurts.
   const pain = await agonyPain(actor, { silent: true });
   if (pain) lines.push(pain.line);

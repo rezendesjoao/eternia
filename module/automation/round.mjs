@@ -22,8 +22,8 @@ import { isLocalChange } from "../helpers/clients.mjs";
 import { actorName, combatActors, outOfAction, postSummary, toInt, wrap } from "../helpers/utils.mjs";
 import { bumpCounter, endOfSceneFor } from "./scenes.mjs";
 import { NO_ACTIONS } from "../conditions/catalog.mjs";
-import { cleanupConditions, endOwnProcess, endOwnStatuses, setupConditions } from "../conditions/turns.mjs";
-import { agonyPain, healBlocker, healingHurts, spendExtraBreath } from "../conditions/damage.mjs";
+import { attackedThisRound, cleanupConditions, endOwnProcess, endOwnStatuses, setupConditions } from "../conditions/turns.mjs";
+import { agonyPain, healBlocker, healingHurts, recovered, spendExtraBreath } from "../conditions/damage.mjs";
 import { losesTurn } from "../conditions/actions.mjs";
 import { has, removeStatuses } from "../conditions/rules.mjs";
 
@@ -154,6 +154,7 @@ async function cleanup(combat, round) {
     const line = L("Round.Line", { name: actorName(actor), parts: parts.join(", "), hp, max });
     own.push(line);
     // [Agony]: the [Regen] hurts too
+    recovered(actor, healed, { what: game.i18n.localize("ETERNIA.StatusEffect.regen") });
     const pain = (healed > 0) ? await agonyPain(actor, { silent: true }) : null;
     if (pain) own.push(pain.line);
     await conditionLines();
@@ -208,6 +209,8 @@ async function onUpdateCombat(combat, changes, options, userId) {
   for (const id of acted.filter(id => !before.includes(id))) {
     const actor = combat.combatants.get(id)?.actor;
     if (!actor) continue;
+    // Whether it lost this Main Process ([Paralyzed], [Petrified]…), read before those statuses end with it
+    const lost = losesTurn(actor);
     try {
       if (setting("endOfProcess")) await endOwnStatuses(actor, combat);
       (actor.hasPlayerOwner ? lines : gmLines).push(...await endOwnProcess(actor, combat));
@@ -215,6 +218,15 @@ async function onUpdateCombat(combat, changes, options, userId) {
     catch (err) {
       console.error(`${SYSTEM_ID} | Could not end the Main Process of ${actor.uuid}`, err);
     }
+    /**
+     * A combatant's own Main Process ended, after the conditions of its end (a Decree that punishes a turn without an
+     * attack, a reaction at the end of another creature's turn). Only on the window that ended it.
+     * @param {Actor} actor
+     * @param {Combat} combat
+     * @param {{attacked: boolean, lost: boolean}} context   `attacked`: it attacked this round; `lost`: it lost the
+     *   Main Process to a status
+     */
+    Hooks.callAll("eternia.processEnd", actor, combat, { attacked: attackedThisRound(actor, combat), lost });
   }
   if (lines.length || gmLines.length) await postSummary(L("Round.ProcessEndTitle"), lines, gmLines);
 }
