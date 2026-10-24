@@ -78,8 +78,14 @@ export function isHostile(item) {
   return hasDamage && !damage.recovery;
 }
 
-/** Remove statuses from an actor: their fields cleared (the sync removes the effects), the rest toggled off. */
-export async function removeStatuses(actor, ids) {
+/**
+ * Remove statuses from an actor: their fields cleared (the sync removes the effects), the rest toggled off.
+ * @param {Actor} actor
+ * @param {string[]} ids
+ * @param {object} [options]   Options of the actor update (`eterniaNoFatigue`: no [Fatigue] when [Awakened] or
+ *                             [Impetus] end)
+ */
+export async function removeStatuses(actor, ids, options = {}) {
   const updates = {};
   const toggles = [];
   for (const id of ids) {
@@ -88,7 +94,7 @@ export async function removeStatuses(actor, ids) {
     if (def?.path) updates[`system.${def.path}`] = def.list ? [] : (def.rated ? 0 : false);
     else toggles.push(id);
   }
-  if (!foundry.utils.isEmpty(updates)) await actor.update(updates);
+  if (!foundry.utils.isEmpty(updates)) await actor.update(updates, options);
   for (const id of toggles) {
     const ids = statusEffects(actor, id).map(e => e.id);
     if (ids.length) await deleteEffects(actor, ids);
@@ -107,11 +113,14 @@ async function deleteEffects(actor, ids) {
   }
 }
 
-/** Give an actor a status (a Rating raises its field; plain statuses are toggled on). */
+/**
+ * Give an actor a status (a Rating raises its field, or adds to it with `stack`; plain statuses are toggled on). A
+ * count (`tally`) that isn't on starts from 0.
+ */
 export async function addStatus(actor, id, value = null) {
   const def = statusDefinition(id);
   if (def?.path && def.rated && value) {
-    const current = toInt(foundry.utils.getProperty(actor._source.system, def.path));
+    const current = (def.tally && !has(actor, id)) ? 0 : toInt(foundry.utils.getProperty(actor._source.system, def.path));
     const next = def.stack ? Math.min(current + value, def.stack) : Math.max(current, value);
     if (next !== current) await actor.update({ [`system.${def.path}`]: next });
     return;

@@ -7,7 +7,9 @@
 import { L, setting } from "../settings.mjs";
 import { actorName, combatantOf, combatOf, postSummary } from "../helpers/utils.mjs";
 import { actionsLeft, spendAction } from "../automation/use.mjs";
+import { statusDefinition } from "../helpers/statuses.mjs";
 import { AFFLICTED_PROTECTS, RECOVERY } from "./catalog.mjs";
+import { agonyPain } from "./damage.mjs";
 import { has, removeStatuses } from "./rules.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
@@ -51,9 +53,12 @@ export async function recover(actor, id) {
     await spendAction(actor, spent);
   }
   await removeStatuses(actor, [id]);
-  const line = spent
+  const lines = [spent
     ? L("Conditions.Recover.Done", { name: actorName(actor), action: actionLabel(spent), status: label(id) })
-    : L("Conditions.Recover.DoneFree", { name: actorName(actor), status: label(id) });
-  await postSummary(label(id), [line]);
+    : L("Conditions.Recover.DoneFree", { name: actorName(actor), status: label(id) })];
+  // [Agony]: getting rid of a Bad Status hurts.
+  const pain = (statusDefinition(id)?.group === "bad") ? await agonyPain(actor, { silent: true }) : null;
+  if (pain) lines.push(pain.line);
+  await postSummary(label(id), lines);
   return true;
 }

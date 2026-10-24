@@ -79,8 +79,8 @@ async function rollDodge(actor, vs, { attacker = null, item = null } = {}) {
   const condition = dodgeModifier(actor, { vs, attacker, item });
   if (condition.autoFail) {
     const roll = await new Roll("0").evaluate();
-    const asleep = game.i18n.localize("ETERNIA.StatusEffect.asleep");
-    return { roll, dodge: { total: 0, critical: false, fumble: true, formula: "—", results: "", conditions: asleep } };
+    const reason = game.i18n.localize(`ETERNIA.StatusEffect.${condition.autoFail}`);
+    return { roll, dodge: { total: 0, critical: false, fumble: true, formula: "—", results: "", conditions: reason } };
   }
   let { dice, mod } = applyModifier({ dice: toInt(check.dice), mod: toInt(actor.type === "monster" ? check.mod : check.total) }, condition);
   const hateUnder = hateRank(actor) === "under";

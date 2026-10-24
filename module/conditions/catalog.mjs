@@ -1,16 +1,21 @@
 /**
- * The conditions of Eternia (docs/condicoes.md): the 41 statuses added to the 23 of the base rules, and what every
+ * The conditions of Eternia (docs/condicoes.md): the 52 statuses added to the 23 of the base rules, and what every
  * status does at the table. The definitions join the system's status list (helpers/statuses.mjs); the tables below
  * are read by the mechanisms of this folder (rolls, actions, damage, turns, recovery).
  *
  * Statuses with a Rating keep it in a field of `system.bad-status` (the status panel edits it, effects with a
- * Rating raise it); `stack` statuses add every new application up to their maximum instead of keeping the highest.
+ * Rating raise it); `stack` statuses add every new application up to their maximum instead of keeping the highest
+ * (`tally` ones are a running count: an effect that goes doesn't take its value back).
  * Statuses with `source` remember who gave them (the caster of the effect): Fear, Charm, Taunt, Grapple, Bond and
- * Dominated only act against or through that character.
+ * Dominated only act against or through that character; Petrified and Black Flame end when that character falls.
  */
 
 const ICONS = "systems/eternia/assets/ui/status";
 const icon = id => `${ICONS}/${id}.svg`;
+
+/** How far [Impetus] and [Combo] can add up (no real limit: past the CR, the Impetus turns into [Berserk]). */
+const IMPETUS_CAP = 99;
+const COMBO_CAP = 99;
 
 /** Families of the Bad Statuses, in the order the status panel shows them. */
 export const FAMILIES = ["core", "control", "block", "mind", "element", "guard"];
@@ -24,18 +29,28 @@ export const NEW_STATUSES = [
   { id: "prone", group: "bad", family: "control", img: icon("prone") },
   { id: "slowed", group: "bad", family: "control", img: icon("slowed") },
   { id: "grappled", group: "bad", family: "control", img: icon("grappled"), source: true },
+  // Turned to stone: loses its turn, fails its Dodge Checks, takes half the damage of attacks
+  { id: "petrified", group: "bad", family: "control", img: icon("petrified"), source: true },
   // Block
   { id: "silenced", group: "bad", family: "block", img: icon("silenced") },
   { id: "disarmed", group: "bad", family: "block", img: icon("disarmed") },
   { id: "blinded", group: "bad", family: "block", img: icon("blinded") },
   { id: "sealed", group: "bad", family: "block", img: icon("sealed"), tagged: true },
   { id: "weakened", group: "bad", family: "block", img: icon("weakened"), path: "bad-status.weakened", rated: true },
+  // Only the Basic skills and items (conditions/actions.mjs)
+  { id: "amnesia", group: "bad", family: "block", img: icon("amnesia") },
   // Mind
   { id: "frightened", group: "bad", family: "mind", img: icon("frightened"), source: true },
   { id: "charmed", group: "bad", family: "mind", img: icon("charmed"), source: true },
   { id: "taunted", group: "bad", family: "mind", img: icon("taunted"), source: true },
   { id: "dominated", group: "bad", family: "mind", img: icon("dominated"), source: true },
   { id: "berserk", group: "bad", family: "mind", img: icon("berserk"), path: "bad-status.berserk", rated: true },
+  // Its attacks and spells deal no damage (their statuses still take)
+  { id: "pacified", group: "bad", family: "mind", img: icon("pacified"), source: true },
+  // Recovering HP or getting rid of a Bad Status hurts (conditions/damage.mjs)
+  { id: "agony", group: "bad", family: "mind", img: icon("agony"), path: "bad-status.agony", rated: true },
+  // Loses its turn and fails its Dodge Checks like [Asleep], but damage doesn't wake it; it hurts in the Cleanup
+  { id: "nightmare", group: "bad", family: "mind", img: icon("nightmare"), path: "bad-status.nightmare", rated: true },
   // Elements
   { id: "burning", group: "bad", family: "element", img: icon("burning"), path: "bad-status.burning", rated: true },
   { id: "poisoned", group: "bad", family: "element", img: icon("poisoned"), path: "bad-status.poisoned", rated: true },
@@ -69,6 +84,18 @@ export const NEW_STATUSES = [
   { id: "counter", group: "combat", img: icon("counter"), tagged: true },
   // The damage taken, kept for one blow (conditions/damage.mjs)
   { id: "grudge", group: "combat", img: icon("grudge"), path: "bad-status.grudge", rated: true },
+  // The force that rises every turn past the limit ([Berserk] over the CR), and leaves [Fatigue] when it ends
+  { id: "impetus", group: "combat", img: icon("impetus"), path: "bad-status.impetus", rated: true, stack: IMPETUS_CAP, tally: true },
+  // One more for every attack that hits; back to 0 on a miss, a blow taken or a turn without attacking
+  { id: "combo", group: "combat", img: icon("combo"), path: "bad-status.combo", rated: true, stack: COMBO_CAP, tally: true },
+  // No magic damage (the pair of [Intangible])
+  { id: "untouchable", group: "combat", img: icon("untouchable") },
+  // Magic damage heals; healing hurts; [Empowered] and [Regen] come as [Weakened] and [Decay] (conditions/damage.mjs)
+  { id: "inversion", group: "combat", img: icon("inversion") },
+  // The next damage of a spell rolls +n d6 (conditions/rolls.mjs)
+  { id: "rhythm", group: "combat", img: icon("rhythm"), path: "bad-status.rhythm", rated: true, stack: 3, tally: true },
+  // Copies that take the hits (1d6 up to n) and add to the close attacks (conditions/damage.mjs)
+  { id: "clones", group: "combat", img: icon("clones"), path: "bad-status.clones", rated: true, stack: 6, tally: true },
   // Other
   { id: "bond", group: "other", img: icon("bond"), source: true }
 ];
@@ -78,22 +105,33 @@ export const NEW_STATUSES = [
 /* -------------------------------------------- */
 
 /** Statuses that take away the whole Main Process (and every reaction): their combatants are skipped. */
-export const NO_ACTIONS = ["paralyzed", "asleep"];
+export const NO_ACTIONS = ["paralyzed", "asleep", "petrified", "nightmare"];
 
 /** Statuses that forbid the actions with the [Movement] tag and moving the token. */
-export const NO_MOVEMENT = ["rigor", "rooted", "grappled", "paralyzed", "asleep"];
+export const NO_MOVEMENT = ["rigor", "rooted", "grappled", "paralyzed", "asleep", "petrified", "nightmare"];
 
 /** Statuses that forbid reactions (Before / After Check, Damage Roll, Before / After Damage). */
-export const NO_REACTIONS = ["dazed", "shocked", "paralyzed", "asleep"];
+export const NO_REACTIONS = ["dazed", "shocked", "paralyzed", "asleep", "petrified", "nightmare"];
+
+/** Statuses that fail every Dodge Check outright. */
+export const NO_DODGE = ["asleep", "petrified", "nightmare"];
 
 /** Tags of the skills [Silenced] forbids (unless the skill is also a [Curse]: the demons' power isn't magic). */
 export const SILENCED_TAGS = ["Magic Attack", "Spell", "Song"];
 
 /** Statuses that end at the end of their bearer's own Main Process ([Afflicted] keeps the protected ones). */
-export const END_OF_OWN_PROCESS = ["staggered", "dazed", "paralyzed", "silenced", "taunted", "weakened", "dominated"];
+export const END_OF_OWN_PROCESS = ["staggered", "dazed", "paralyzed", "silenced", "taunted", "weakened", "dominated",
+  "petrified", "amnesia", "nightmare"];
+
+/**
+ * Statuses of END_OF_OWN_PROCESS that take a whole turn: given during their bearer's own Main Process, they last
+ * until the end of its next one (any effect with `flags.eternia.nextTurn` does the same, see conditions/turns.mjs).
+ */
+export const WHOLE_TURN = ["petrified", "amnesia", "nightmare"];
 
 /** Statuses that end in the Cleanup Process (after its damage). */
-export const END_OF_ROUND = ["rooted", "slowed", "blinded", "frightened", "shocked", "exposed", "intangible", "soaked", "counter"];
+export const END_OF_ROUND = ["rooted", "slowed", "blinded", "frightened", "shocked", "exposed", "intangible", "soaked", "counter",
+  "pacified", "untouchable", "inversion"];
 
 /** How high the Sun goes (noon), and at night (a scene at least half dark). */
 export const SUN_NOON = 5;
@@ -120,7 +158,8 @@ export const RECOVERY = {
   poisoned: ["major"],
   freezing: ["major"],
   fissured: ["major"],
-  fuse: ["major"]
+  fuse: ["major"],
+  impetus: ["minor"]
 };
 
 /** Groups whose statuses end with the scene (Bad and Combat Statuses), and the other statuses that do. */

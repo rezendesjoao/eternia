@@ -36,11 +36,14 @@ const ROLES = {
   move: "fa-solid fa-wind"
 };
 const CONTROL = new Set(["prone", "slowed", "rooted", "grappled", "dazed", "confused", "frightened", "charmed", "asleep",
-  "paralyzed", "silenced", "sealed", "blinded", "taunted", "staggered", "rigor", "disarmed", "dominated", "weakened"]);
+  "paralyzed", "silenced", "sealed", "blinded", "taunted", "staggered", "rigor", "disarmed", "dominated", "weakened",
+  "petrified", "pacified", "amnesia", "nightmare"]);
 const WEAR = new Set(["burning", "poisoned", "decay", "freezing", "shocked", "cursed", "fissured", "exposed", "marked",
-  "doom", "pursuit", "soaked", "fuse", "weakness", "blackFlame"]);
-const GUARD = new Set(["cancel", "barrier", "mirror", "intangible", "lastStand", "hidden", "counter", "grudge"]);
-const SUPPORT = new Set(["hasted", "empowered", "focused", "awakened", "bond", "servant", "sun", "theOne"]);
+  "doom", "pursuit", "soaked", "fuse", "weakness", "blackFlame", "agony"]);
+const GUARD = new Set(["cancel", "barrier", "mirror", "intangible", "lastStand", "hidden", "counter", "grudge",
+  "untouchable", "inversion", "clones"]);
+const SUPPORT = new Set(["hasted", "empowered", "focused", "awakened", "bond", "servant", "sun", "theOne", "impetus",
+  "combo", "rhythm"]);
 const MULTI = new Set(["Area", "Wide", "Line", "Targets"]);
 
 const statusLabel = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);

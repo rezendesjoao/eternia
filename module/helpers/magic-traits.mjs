@@ -19,7 +19,8 @@
  *   drain       a fraction (0.5): the caster gets back that part of the HP its damage takes.
  *   steal       [statusId]: the first of them the target has passes to the caster, with its Rating, on a hit.
  *   selfBonus   [{ statusId, per, spend }] (spells): damage added for the caster's own status, its Rating times
- *               `per` (1 by default); `spend`: the status ends when the damage is rolled (the [Grudge] let out).
+ *               `per` (1 by default); `spend`: the status ends when the damage is rolled (the [Grudge] let out);
+ *               `spend: "free"`: and without the [Fatigue] its end would leave ([Impetus], [Awakened]).
  * Read elsewhere, on a Trait only: `counterBonus` (formula, added to what a [Counter] sends back: conditions/damage.mjs)
  * and `sunClock` (true: the [Sun] rises for the caster, and with each spell of that Magia: conditions/turns.mjs).
  * Values are formulas of the caster ("floor(@cr/2)"), worked out when the card is made.
@@ -62,11 +63,11 @@ export function actorHasTag(actor, tag) {
  * @param {Item} item
  * @param {Actor|null} attacker
  * @returns {{vs: object[], onHit: object[], escalate: object[], strip: string[], pierce: object, keepHidden: boolean,
- *   bonus: number, healBonus: number, drain: number, steal: string[], spend: string[]}}
+ *   bonus: number, healBonus: number, drain: number, steal: string[], spend: string[], spendFree: boolean}}
  */
 export function magicExtras(item, attacker = null) {
   const out = { vs: [], onHit: [], escalate: [], strip: [], pierce: {}, keepHidden: false, bonus: 0, healBonus: 0, drain: 0,
-    steal: [], spend: [] };
+    steal: [], spend: [], spendFree: false };
   const actor = attacker ?? item?.actor ?? null;
   if (!item) return out;
   const traits = traitsFor(actor, item);
@@ -103,6 +104,7 @@ export function magicExtras(item, attacker = null) {
       const value = rating(actor, b.statusId);
       if (value > 0) out.bonus += value * (b.per ? (num(b.per) || 1) : 1);
       if (b.spend && (value > 0)) out.spend.push(b.statusId);
+      if ((b.spend === "free") && (value > 0)) out.spendFree = true;
     }
   }
   out.strip = [...new Set(out.strip)];
