@@ -7,12 +7,13 @@
  *   (`flags.eternia.dedicationGrants`, compendium uuids), and one skill of `flags.eternia.dedicationChoice` the player
  *   picks (the Dragon Slayer's element); they go away with it.
  * Which talents can be picked (requirements, Path talents, the talents a Dedication opens) is the skill browser's
- * (apps/skill-browser.mjs).
+ * (apps/skill-browser.mjs). A choice inside a skill (a Magia's: `flags.eternia.choiceGrants`) is apps/choice-grants.mjs.
  */
 import { isLocalChange } from "../helpers/clients.mjs";
 import { getOption } from "../helpers/character-options.mjs";
 import { createGranted, grantedBy, offerGrants } from "../apps/option-grants.mjs";
 import { chooseOption } from "./motor.mjs";
+import { registerChoiceGrants } from "../apps/choice-grants.mjs";
 
 const listOf = value => (Array.isArray(value) ? value : Object.values(value ?? {}));
 
@@ -37,6 +38,7 @@ async function grantDedication(item) {
 
 /** Call during the `init` hook. */
 export function registerClassProgression() {
+  registerChoiceGrants();
   // A CR raised without the rank-up flow (an update with `eterniaLevelFlow: false`, apps/rank-up.mjs): the flow
   // offers them itself, before the picks.
   Hooks.on("updateActor", (actor, changes, options, userId) => {

@@ -1,0 +1,171 @@
+{
+  "name": "Nebulosa Sinistra",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Maldição.</strong> Um vórtice negro gira em volta da sua lâmina e puxa tudo para perto: quem está longe chega, quem chega é cortado. E o poder emprestado do Rei Demônio apaga a magia que vem na sua direção. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, Vórtice Aberto:</strong> em combate, a sua Defesa Física cai [NP]. O vórtice espera o inimigo chegar, e você também.</li><li><strong>Puxar:</strong> o Vórtice Sinistro traz os alvos para o seu quadrado (engajados com você) na hora, antes do teste. É um movimento forçado: [Enraizado] e [Agarrado] não seguram, e ninguém conta como tendo saído de um engajamento.</li><li><strong>Traço, Carrasco:</strong> os seus feitiços de Nebulosa Sinistra causam +NP de dano em quem está [Agarrado] ou [Enraizado].</li><li><strong>Feitiços:</strong> Vórtice Sinistro e Amarra Sinistra (NP 1), Deus e Chuva Impiedosa (NP 3), Relâmpago Negro (NP 5) e o feitiço supremo Dies Irae (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Dies Irae pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Ninguém foge do vórtice. No máximo, chega mais devagar.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/treasure/gem-framed-spiral-purple.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Vórtice Aberto",
+      "img": "icons/commodities/treasure/gem-framed-spiral-purple.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.defense.phys.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "T6j1QXWzTN68OOvk",
+      "_key": "!items.effects!r6lxb96Wjw1EdoR2.T6j1QXWzTN68OOvk"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "nebulosa-sinistra",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "grappled",
+                  "rooted"
+                ],
+                "value": "@cr"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Carrasco",
+      "img": "icons/commodities/treasure/gem-framed-spiral-purple.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "mBGu2G5xl0QezlHE",
+      "_key": "!items.effects!r6lxb96Wjw1EdoR2.mBGu2G5xl0QezlHE"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "nebulosa-sinistra-nebulosa-sinistra",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "nebulosa-sinistra",
+        "category": "curse",
+        "tagline": "Um vórtice que traz todo mundo para a sua lâmina."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "r6lxb96Wjw1EdoR2",
+  "folder": "PATim2ymV1zRwdSr",
+  "_key": "!items!r6lxb96Wjw1EdoR2"
+}

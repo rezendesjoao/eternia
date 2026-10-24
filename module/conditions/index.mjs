@@ -11,12 +11,14 @@
  * - recovery.mjs    ending one by spending an action of the Main Process;
  * - effects.mjs     what some effects do besides their changes (immunity, Fatigue when they end, ending with a
  *                   status or after a roll) and the use actions of skills.
+ * - decree.mjs      the Decrees (the Magia Mandamentos): a law around its bearer, whoever breaks it is cursed.
  * The statuses themselves are registered with the others (helpers/statuses.mjs).
  */
 import { registerConditionDamage } from "./damage.mjs";
 import { registerConditionTurns } from "./turns.mjs";
 import { registerConditionMovement } from "./actions.mjs";
 import { registerConditionEffects } from "./effects.mjs";
+import { registerDecree } from "./decree.mjs";
 
 /** Call during the `init` hook. */
 export function registerConditions() {
@@ -24,4 +26,5 @@ export function registerConditions() {
   registerConditionTurns();
   registerConditionMovement();
   registerConditionEffects();
+  registerDecree();
 }

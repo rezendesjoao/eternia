@@ -2,6 +2,7 @@ import { canonicalTag } from "./tag-catalog.mjs";
 import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { whisperRemovedEffects } from "./effect-durations.mjs";
 import { applyItemEffects, isSelfTarget, OPPOSED } from "./item-use.mjs";
+import { runUseActions } from "../conditions/effects.mjs";
 
 /**
  * Sustained skills and tags (Harmony, Servant Summon, Enchantment).
@@ -288,6 +289,11 @@ export async function useSkillEffects(item) {
   // `flags.eternia.onUse`, given now to their recipients; the card's button gives the others.
   if (opposed && item.effects.some(e => !e.transfer && e.getFlag("eternia", "onUse"))) {
     applied = await applyItemEffects(item, item.actor ? [item.actor] : [], { useId, sustained, onUse: true });
+  }
+  // Use actions that come with the use itself, before the targets resist (a vortex pulls them in): `onUse` on the action
+  if (opposed && useActionsOf(item).some(a => a?.onUse)) {
+    const acted = await runUseActions(item, { targets: recipients, caster: item.actor ?? null, onUse: true });
+    applied = [...new Set([...applied, ...acted])];
   }
   // Alternatives ("spend a Tail: +1D, or…"): picked now, or later with the card's button.
   const alternatives = !!(item.getFlag("eternia", "chooseEffect") || item.getFlag("eternia", "randomEffect"));

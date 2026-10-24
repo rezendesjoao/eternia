@@ -1,0 +1,72 @@
+{
+  "name": "Golpe Estelar",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Combo Estelar.</strong> Um soco que deixa um rastro de estrelas num inimigo engajado com você: Teste de Precisão contra a Esquiva; [3d6 + Poder Mágico + Combo] de dano mágico, e, no acerto, o seu [Combo] sobe 2 em vez de 1.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>O primeiro golpe é o mais fraco que ele vai levar.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/weapons/fist/fist-knuckles-spiked-blue.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "combo-estelar-golpe",
+      "kind": "feeds",
+      "branch": "magic",
+      "comboGain": 2,
+      "magicSpell": {
+        "id": "combo-estelar"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "kzCWI38kjiSlM4jq",
+  "folder": "ixPKZjmSW7IHraBm",
+  "_key": "!items!kzCWI38kjiSlM4jq"
+}

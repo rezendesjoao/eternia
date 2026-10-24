@@ -5,9 +5,11 @@
  * keep ([Hidden]: conditions/turns.mjs, conditions/damage.mjs).
  *
  * The keys (all optional), on a trait (with `magia`: the id of the Magia whose spells it changes) or on a spell:
- *   bonusVs     [{ statusId | statuses | targetTags, value, perValue, consume }]: more damage against a target with
- *               that status (any of `statuses`), or with one of the skill or monster tags (`targetTags: ["Curse"]`);
- *               `perValue`: the bonus times the status Rating; `consume`: the status ends with the hit.
+ *   bonusVs     [{ statusId | statuses | targetTags | decreeOf, value, perValue, consume }]: more damage against a
+ *               target with that status (any of `statuses`), with one of the skill or monster tags
+ *               (`targetTags: ["Curse"]`), or under a curse of the caster's Decree (`decreeOf: true`,
+ *               conditions/decree.mjs); `perValue`: the bonus times the status Rating; `consume`: the status ends with
+ *               the hit.
  *   onHit       [{ statusId, value }] (traits): statuses the damage gives, like a spell's own hitStatuses.
  *   escalate    [{ if, add: [{ statusId, value }] }]: when the target already has `if`, the hit also gives `add`.
  *   strip       [statusId]: the hit ends these statuses on the target.
@@ -21,6 +23,8 @@
  *   selfBonus   [{ statusId, per, spend }] (spells): damage added for the caster's own status, its Rating times
  *               `per` (1 by default); `spend`: the status ends when the damage is rolled (the [Grudge] let out);
  *               `spend: "free"`: and without the [Fatigue] its end would leave ([Impetus], [Awakened]).
+ *   decreeCurse true (spells): a hit gives the curses of the caster's own Decrees, as if the target had broken them
+ *               (Mandamento Materializado; with the Decree of Detachment the hit also strips its bonuses).
  * Read elsewhere, on a Trait only: `counterBonus` (formula, added to what a [Counter] sends back: conditions/damage.mjs)
  * and `sunClock` (true: the [Sun] rises for the caster, and with each spell of that Magia: conditions/turns.mjs).
  * Values are formulas of the caster ("floor(@cr/2)"), worked out when the card is made.
@@ -29,6 +33,7 @@ import { evaluateFormula, formulaData, isFormula } from "./effect-formulas.mjs";
 import { canonicalTag } from "./tag-catalog.mjs";
 import { toInt } from "./utils.mjs";
 import { rating } from "../conditions/rules.mjs";
+import { decreeHitStatuses, decreeStrip } from "../conditions/decree.mjs";
 
 /** The Magia a skill belongs to: a spell's Magia, or the Magia skill itself. */
 export function itemMagia(item) {
@@ -74,20 +79,27 @@ export function magicExtras(item, attacker = null) {
   const sources = [{ data: item.flags?.eternia ?? {}, name: item.name, own: true },
     ...traits.map(e => ({ data: e.getFlag("eternia", "trait") ?? {}, name: e.name, own: false }))];
   if (!sources.some(s => s.data.bonusVs || s.data.onHit || s.data.escalate || s.data.strip || s.data.pierce
-    || s.data.keepHidden || s.data.bonus || s.data.healBonus || s.data.drain || s.data.steal || s.data.selfBonus)) return out;
+    || s.data.keepHidden || s.data.bonus || s.data.healBonus || s.data.drain || s.data.steal || s.data.selfBonus
+    || s.data.decreeCurse)) return out;
   const data = formulaData(actor, item);
   const num = value => (isFormula(value) ? evaluateFormula(value, data) : toInt(value)) || 0;
   for (const { data: s, name, own } of sources) {
     for (const v of s.bonusVs ?? []) {
       const statuses = v.statuses ?? (v.statusId ? [v.statusId] : []);
       const targetTags = v.targetTags ?? (v.targetTag ? [v.targetTag] : []);
-      out.vs.push({ statuses, targetTags, value: num(v.value), perValue: !!v.perValue, consume: !!v.consume, name });
+      out.vs.push({ statuses, targetTags, value: num(v.value), perValue: !!v.perValue, consume: !!v.consume, name,
+        ...(v.decreeOf ? { decreeOf: actor?.uuid ?? "" } : {}) });
     }
     // A spell's own on-hit statuses are its hitStatuses: here only the Traits' (none when its formula gives 0: the
     // [Burning] of a [Sun] that hasn't risen)
     if (!own) for (const h of s.onHit ?? []) {
       if (!h?.statusId || (isFormula(h.value) && !(num(h.value) > 0))) continue;
       out.onHit.push({ statusId: h.statusId, value: num(h.value) || null, name });
+    }
+    // The curses of the caster's Decrees, as if the target had broken them (the effects carry the mark of the curse)
+    if (own && s.decreeCurse) {
+      out.onHit.push(...decreeHitStatuses(actor));
+      out.strip.push(...decreeStrip(actor));
     }
     for (const e of s.escalate ?? []) {
       if (e?.if) out.escalate.push({ if: e.if, add: (e.add ?? []).map(a => ({ statusId: a.statusId, value: num(a.value) || null })), name });

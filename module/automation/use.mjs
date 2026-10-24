@@ -452,6 +452,15 @@ async function commitUse(item, plan, message) {
   // The conditions an action sets off: [Shocked] hurts on a Major Action, which also ends [Intangible] and
   // [Hidden]; the last skill used is the one a [Sealed] without a name seals.
   await afterAction(actor, item, plan.action);
+  /**
+   * A skill was used (its card posted, its costs paid), with the user's targets: the Decrees watch it
+   * (conditions/decree.mjs). Only on this client.
+   * @param {Item} item
+   * @param {{actor: Actor, action: string|null, targets: Actor[], message: ChatMessage}} context
+   */
+  Hooks.callAll("eternia.skillUsed", item, {
+    actor, action: plan.action, targets: [...game.user.targets].map(t => t.actor).filter(Boolean), message
+  });
 }
 
 /**

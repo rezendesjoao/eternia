@@ -140,7 +140,8 @@ async function magicCatalog(cr) {
     const spellsOf = new Map();
     for (const doc of docs) {
       const of = doc.flags?.eternia?.magicSpell?.id;
-      if (!of) continue;
+      // The skills only a choice gives (the Decrees of the Mandamentos) are not spells to learn
+      if (!of || doc.flags.eternia.choiceOnly) continue;
       if (!spellsOf.has(of)) spellsOf.set(of, []);
       spellsOf.get(of).push(doc);
     }

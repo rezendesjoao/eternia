@@ -33,6 +33,7 @@ import { motorDamageTags, motorOnHit } from "../classes/motor.mjs";
 import { evaluateFormula, formulaData, isFormula } from "./effect-formulas.mjs";
 import { actorHasTag, drawRandomHit, magicExtras } from "./magic-traits.mjs";
 import { has, rating, removeStatuses, rulesOn } from "../conditions/rules.mjs";
+import { cursedByDecree } from "../conditions/decree.mjs";
 import { statusDefinition } from "./statuses.mjs";
 import { tagLabel as termTag } from "../i18n/terms.mjs";
 
@@ -754,11 +755,13 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
     for (const vs of card.bonusVs ?? []) {
       const status = (vs.statuses ?? []).find(id => has(actor, id));
       const tagged = !status && (vs.targetTags ?? []).find(t => actorHasTag(actor, t));
-      if (!status && !tagged) continue;
+      // Under a curse of the caster's Decree (conditions/decree.mjs)
+      const decreed = !status && !tagged && !!vs.decreeOf && cursedByDecree(actor, vs.decreeOf);
+      if (!status && !tagged && !decreed) continue;
       const n = (vs.perValue && status) ? vs.value * Math.max(1, rating(actor, status)) : vs.value;
       if (n > 0) {
         amount += n;
-        steps.push(`+ ${n} (${status ? statusLabel(status) : termTag(tagged)})`);
+        steps.push(`+ ${n} (${status ? statusLabel(status) : (tagged ? termTag(tagged) : L("Applied.Decree"))})`);
       }
       if (vs.consume && status) consumed.push(status);
     }
@@ -899,8 +902,9 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   }
   if (onHit.length) {
     const caster = card.attackerUuid ? fromUuidSync(card.attackerUuid) : null;
-    const created = await actor.createEmbeddedDocuments("ActiveEffect",
-      onHit.map(h => statusEffectData(h.statusId, h.value, "", { caster, expires: "endOfScene" })));
+    // An entry may carry more of the effect's data (`data`: the mark of a Decree's curse)
+    const created = await actor.createEmbeddedDocuments("ActiveEffect", onHit.map(h => foundry.utils.mergeObject(
+      statusEffectData(h.statusId, h.value, "", { caster, expires: "endOfScene" }), h.data ?? {}, { inplace: false })));
     before.onHitEffects = created.map(e => e.id);
     lines.push(onHit.map(h => `${h.name}: ${statusLabel(h.statusId)}${h.value ? ` ${h.value}` : ""}`).join(", "));
   }
