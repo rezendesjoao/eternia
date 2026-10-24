@@ -1,0 +1,75 @@
+{
+  "name": "Murchar",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Desastre.</strong> Feitiço grande. Você manda murchar tudo o que cresce numa área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico, e quem ela acerta perde de uma vez todos os bônus: [Fortalecido], [Barreira], [Regeneração], [Acelerado], [Concentrado], [Anulação], [Espelho], [Intangível], [Despertado] e [Intocável].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>As folhas caem todas de uma vez, como se o outono tivesse pressa.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/nature/leaf-glow-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "desastre-murchar",
+      "kind": "feeds",
+      "branch": "magic",
+      "useActions": [
+        {
+          "type": "demote"
+        }
+      ],
+      "magicSpell": {
+        "id": "desastre"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "nF3TQEKak1Fdxk1v",
+  "folder": "QP8lRJxPEEQohrIl",
+  "_key": "!items!nF3TQEKak1Fdxk1v"
+}

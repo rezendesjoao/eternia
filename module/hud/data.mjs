@@ -262,7 +262,7 @@ function effectsPanel(actor) {
     if (s.list && Array.isArray(s.value) && s.value.length) detail = s.value.map(entry).join(", ");
     else if (s.rated && toInt(s.value)) detail = String(toInt(s.value));
     // The rules as tooltip, and the action that ends it when there is one (conditions/recovery.mjs)
-    return { id: s.id, img: s.img, label: s.label, detail, group: group.id, bad: group.id === "bad", desc: s.desc, recover: recoveryOf(s.id) };
+    return { id: s.id, img: s.img, label: s.label, detail, group: group.id, bad: group.id === "bad", desc: s.desc, recover: recoveryOf(s.id, actor) };
   }));
   const fatigue = toInt(actor._source.system?.infos?.fatigue);
   const fatigueImg = CONFIG.statusEffects.find(s => s.id === "fatigue")?.img;

@@ -1,0 +1,166 @@
+{
+  "name": "Boneca de Flores",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Desastre.</strong> Uma boneca de flores e espinhos brota do chão e luta do seu lado até o fim da cena: [Servo: NP÷2 + 3] (no Encerramento, ela golpeia o inimigo mais perto a até 4 Qd). O pólen dela fecha as suas feridas: você fica com [Regeneração: NP÷2 + 2] até o fim da cena. Uma vez por cena.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Ela não fala. Às vezes ri, um riso de folhas secas.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/flowers/lotus-pink.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "servant",
+            "value": "floor(@cr/2)+3"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Boneca de Flores",
+      "img": "systems/eternia/assets/ui/status/servant.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "servant"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "GKvS4HfTRNzp4lap",
+      "_key": "!items.effects!CbOAI5ndiXmSDbZP.GKvS4HfTRNzp4lap"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "regen",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Pólen da Boneca",
+      "img": "systems/eternia/assets/ui/status/regen.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "regen"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "Mnm0KbBNwY94l64M",
+      "_key": "!items.effects!CbOAI5ndiXmSDbZP.Mnm0KbBNwY94l64M"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "desastre-boneca-de-flores",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "desastre"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "CbOAI5ndiXmSDbZP",
+  "folder": "QP8lRJxPEEQohrIl",
+  "_key": "!items!CbOAI5ndiXmSDbZP"
+}

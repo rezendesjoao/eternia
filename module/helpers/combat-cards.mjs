@@ -32,8 +32,9 @@ import { statusEffectData } from "../chat/status-links.mjs";
 import { motorDamageTags, motorOnHit } from "../classes/motor.mjs";
 import { evaluateFormula, formulaData, isFormula } from "./effect-formulas.mjs";
 import { actorHasTag, drawRandomHit, magicExtras } from "./magic-traits.mjs";
-import { has, rating, removeStatuses, rulesOn } from "../conditions/rules.mjs";
+import { crOf, has, rating, removeStatuses, rulesOn } from "../conditions/rules.mjs";
 import { cursedByDecree } from "../conditions/decree.mjs";
+import { lastingCard, lastingHitData } from "../conditions/lasting.mjs";
 import { statusDefinition } from "./statuses.mjs";
 import { tagLabel as termTag } from "../i18n/terms.mjs";
 
@@ -262,7 +263,9 @@ function fixedHitStatuses(item, attacker) {
   return list.filter(h => h?.statusId).map(h => ({
     statusId: h.statusId,
     value: (isFormula(h.value) ? evaluateFormula(h.value, data) : toInt(h.value)) || null,
-    name: item.name
+    name: item.name,
+    // `rankBelow`: only on a target of a lower Rank than the caster (the Apagão's sleep)
+    ...(h.rankBelow ? { rankBelow: crOf(attacker ?? item.actor) } : {})
   }));
 }
 
@@ -623,6 +626,8 @@ export async function createDamageCard(item, attacker, formula, flavor, attackMe
     steal: recovery ? [] : extras.steal,
     onHit: recovery ? [] : [...onHitOf(attacker ?? item.actor), ...motorOnHit(attacker ?? item.actor, item),
       ...skillHitStatuses(item, attacker), ...extras.onHit],
+    // The statuses of the hits: infinite (the Magia Infinito), given by a spell (conditions/lasting.mjs)
+    ...lastingCard(item, attacker),
     attackerUuid: (attacker ?? item.actor)?.uuid ?? "",
     attackerType: attack?.attackerType ?? attacker?.type ?? item.actor?.type ?? null,
     hateMultiplier: attack?.hateMultiplier ?? hateMultiplier(attacker ?? item.actor),
@@ -893,7 +898,8 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   // of an attack that didn't reach the target ([Counter], [The One]).
   const dried = had.has("soaked") && (card.tags ?? []).some(t => /flame/i.test(String(t)));
   const escalated = (card.escalate ?? []).filter(e => had.has(e.if)).flatMap(e => e.add.map(a => ({ ...a, name: e.name })));
-  const onHit = untouched ? [] : [...(card.onHit ?? []), ...escalated].filter(h => h.statusId && !(dried && (h.statusId === "burning")));
+  const onHit = untouched ? [] : [...(card.onHit ?? []), ...escalated].filter(h => h.statusId && !(dried && (h.statusId === "burning"))
+    && !(h.rankBelow && (crOf(actor) >= h.rankBelow)));
   // A Trait that steals: the first of these bonuses the target has passes to the attacker (the Roubo).
   const stolen = (untouched || !attacker) ? null : (card.steal ?? []).find(id => has(actor, id));
   if (stolen) {
@@ -902,9 +908,10 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   }
   if (onHit.length) {
     const caster = card.attackerUuid ? fromUuidSync(card.attackerUuid) : null;
-    // An entry may carry more of the effect's data (`data`: the mark of a Decree's curse)
-    const created = await actor.createEmbeddedDocuments("ActiveEffect", onHit.map(h => foundry.utils.mergeObject(
-      statusEffectData(h.statusId, h.value, "", { caster, expires: "endOfScene" }), h.data ?? {}, { inplace: false })));
+    // An entry may carry more of the effect's data (`data`: the mark of a Decree's curse); a spell of the Infinito
+    // makes it last (conditions/lasting.mjs)
+    const created = await actor.createEmbeddedDocuments("ActiveEffect", onHit.map(h => lastingHitData(card, foundry.utils.mergeObject(
+      statusEffectData(h.statusId, h.value, "", { caster, expires: "endOfScene" }), h.data ?? {}, { inplace: false }))));
     before.onHitEffects = created.map(e => e.id);
     lines.push(onHit.map(h => `${h.name}: ${statusLabel(h.statusId)}${h.value ? ` ${h.value}` : ""}`).join(", "));
   }

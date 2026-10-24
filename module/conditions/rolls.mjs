@@ -6,8 +6,9 @@
  *   check but Resistance, [Frightened] against its source, [Prone] on its own Close attacks.
  * - +1D: [Focused] (then it ends), [Awakened] on Accuracy.
  * Dodge Checks: −1D for [Dazed], [Paralyzed], [Rooted], [Berserk], [Marked], [Confused], [Swimming], [Blinded]
- * (against Evasion), [Poisoned] (against Resistance), [Prone] (against Close attacks) and [Charmed] (against its
- * source); +1D for [Focused]. [Asleep], [Petrified] and [Nightmare] fail it outright. The dice never go below 1D.
+ * (against Evasion), [Poisoned] (against Resistance), [Prone] (against Close attacks), [Charmed] (against its
+ * source) and a Taboo's `eternia.passive.closeDodge` (against Close attacks: conditions/distance.mjs); +1D for
+ * [Focused]. [Asleep], [Petrified] and [Nightmare] fail it outright. The dice never go below 1D.
  * Damage Rolls: +Rating for [Empowered], [Berserk], [Awakened], [Sun], [Impetus] and [Combo]; +CR for [The One];
  * +Rating for [Clones] on Close attacks; +Rating d6 for [Rhythm] on a spell (then it ends); −Rating for [Weakened].
  * Race skills: the Pack (a skill with `flags.eternia.special: "pack"`) adds +[SR×2] damage with an ally within
@@ -20,6 +21,7 @@ import { findTag } from "../helpers/tag-catalog.mjs";
 import { crOf, has, isSourceOf, rating, removeStatuses, rulesOn } from "./rules.mjs";
 import { consumedBy } from "./effects.mjs";
 import { NO_DODGE } from "./catalog.mjs";
+import { closeDodge } from "./distance.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -111,6 +113,8 @@ export function dodgeModifier(actor, { vs = "evasion", attacker = null, item = n
   if (has(actor, "poisoned") && (vs === "resistance")) t.add("poisoned", -1);
   if (has(actor, "prone") && item && isCloseAttack(item, attacker)) t.add("prone", -1);
   if (has(actor, "charmed") && attacker && isSourceOf(actor, "charmed", attacker)) t.add("charmed", -1);
+  const close = closeDodge(actor);
+  if (close && item && isCloseAttack(item, attacker)) t.add("closeDodge", close.dice, 0, close.name);
   if (has(actor, "focused")) {
     t.add("focused", 1);
     t.consume.push("focused");

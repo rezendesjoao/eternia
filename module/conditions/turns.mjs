@@ -11,7 +11,8 @@
  *   automation/round.mjs).
  * - End of the bearer's own Main Process (automation/round.mjs calls endOwnStatuses and endOwnProcess): the statuses
  *   of END_OF_OWN_PROCESS end, but those of WHOLE_TURN (or an effect with `nextTurn`) given during that very Main
- *   Process stay until the end of the next one; [Impetus] rises by 1 (past the CR: [Berserk] until it ends); [Combo]
+ *   Process stay until the end of the next one, and those an infinite effect holds or a renewal keeps stay too
+ *   (conditions/lasting.mjs, also in the Cleanup); [Impetus] rises by 1 (past the CR: [Berserk] until it ends); [Combo]
  *   breaks when the bearer didn't attack this round.
  * - Cleanup Process: [Burning] and [Black Flame] deal their Rating as [Flame] damage, [Nightmare] as direct damage,
  *   [Doom] counts down (at 0: Incapacitated), [Fuse] explodes (its Rating as [Flame] damage, then it ends), a [Servant]
@@ -41,6 +42,7 @@ import { extraBreaths, takeDamage } from "./damage.mjs";
 import { addStatus, crOf, has, rating, removeStatuses, rulesOn, sameActor, sourcesOf, statusEffects } from "./rules.mjs";
 import { keepsHidden, traitsFor } from "../helpers/magic-traits.mjs";
 import { giveEffects, statusEffectData } from "../chat/status-links.mjs";
+import { naturalEnd } from "./lasting.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -181,7 +183,8 @@ export async function endOwnStatuses(actor, combat) {
   const fresh = actor.effects.filter(e => e.getFlag(SYSTEM_ID, "keepThrough") === roundKey(combat));
   const kept = new Set(fresh.flatMap(e => [...e.statuses]));
   const afflicted = actor.statuses.has("afflicted");
-  const ending = END_OF_OWN_PROCESS.filter(id => has(actor, id) && !kept.has(id) && !(afflicted && AFFLICTED_PROTECTS.includes(id)));
+  // Not those an infinite effect holds, nor a renewed one (conditions/lasting.mjs)
+  const ending = await naturalEnd(actor, END_OF_OWN_PROCESS.filter(id => has(actor, id) && !kept.has(id) && !(afflicted && AFFLICTED_PROTECTS.includes(id))));
   if (ending.length) await removeStatuses(actor, ending);
   if (fresh.length) {
     await actor.updateEmbeddedDocuments("ActiveEffect", fresh.map(e => ({ _id: e.id, [`flags.${SYSTEM_ID}.-=keepThrough`]: null })));
@@ -365,9 +368,10 @@ export async function cleanupConditions(actor) {
     await actor.update({ "system.bad-status.theOne": one - 1 });
     lines.push(L((one > 1) ? "Conditions.TheOneLasts" : "Conditions.TheOneEnds", { name: actorName(actor) }));
   }
-  // [Afflicted] keeps the statuses it protects ([Frightened]).
+  // [Afflicted] keeps the statuses it protects ([Frightened]); an infinite effect or a renewal, the ones it holds
+  // (conditions/lasting.mjs).
   const afflicted = has(actor, "afflicted");
-  const ending = END_OF_ROUND.filter(id => has(actor, id) && !(afflicted && AFFLICTED_PROTECTS.includes(id)));
+  const ending = await naturalEnd(actor, END_OF_ROUND.filter(id => has(actor, id) && !(afflicted && AFFLICTED_PROTECTS.includes(id))));
   if (ending.length) {
     await removeStatuses(actor, ending);
     lines.push(L("Conditions.RoundEnds", { name: actorName(actor), statuses: ending.map(label).join(", ") }));

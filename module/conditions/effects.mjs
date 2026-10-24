@@ -19,6 +19,8 @@
  *   { type: "pull" }                            the target's token comes to the user's square, engaged with it (the
  *                                               Nebulosa Sinistra's vortex)
  *   { type: "push", value: n }                  the target's token goes n squares away from the user, in a straight line
+ *   { type: "promote" | "doubleStatuses" | "demote" | "raise" | "cancelSpells" }  many statuses at once (the
+ *                                               Desastre, the Criação, the Infinito): conditions/status-actions.mjs
  * Pulls and pushes are forced moves (`eterniaForced`: what keeps a token in place doesn't stop them, and they break no
  * Decree of Truth). An action with `onUse: true` comes with the use itself, also on a skill whose targets resist the
  * rest (helpers/sustained.mjs): the vortex pulls them in before the check.
@@ -31,6 +33,7 @@ import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { statusDefinition } from "../helpers/statuses.mjs";
 import { has, rating, removeStatuses } from "./rules.mjs";
 import { agonyPain, freed } from "./damage.mjs";
+import { STATUS_ACTIONS, statusAction } from "./status-actions.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 const flag = (effect, key) => effect.getFlag?.(SYSTEM_ID, key) ?? effect.flags?.[SYSTEM_ID]?.[key];
@@ -162,6 +165,7 @@ async function doAction(actor, { type, value, status, statuses = [], casterUuid 
     for (const { id, value } of taken) await game.eternia.applyStatus(thief, id, { value, from: thief });
     return L("Conditions.Actions.Steal", { name: actorName(thief), from: actorName(actor), statuses: ids.map(label).join(", ") });
   }
+  if (STATUS_ACTIONS.includes(type)) return statusAction(actor, { type, value, status, statuses, caster: await actorOf(casterUuid) });
   return null;
 }
 

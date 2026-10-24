@@ -5,11 +5,11 @@
  * keep ([Hidden]: conditions/turns.mjs, conditions/damage.mjs).
  *
  * The keys (all optional), on a trait (with `magia`: the id of the Magia whose spells it changes) or on a spell:
- *   bonusVs     [{ statusId | statuses | targetTags | decreeOf, value, perValue, consume }]: more damage against a
- *               target with that status (any of `statuses`), with one of the skill or monster tags
- *               (`targetTags: ["Curse"]`), or under a curse of the caster's Decree (`decreeOf: true`,
- *               conditions/decree.mjs); `perValue`: the bonus times the status Rating; `consume`: the status ends with
- *               the hit.
+ *   bonusVs     [{ statusId | statuses | ratedBad | targetTags | decreeOf, value, perValue, consume }]: more damage
+ *               against a target with that status (any of `statuses`; `ratedBad`: any Bad Status with a Rating), with
+ *               one of the skill or monster tags (`targetTags: ["Curse"]`), or under a curse of the caster's Decree
+ *               (`decreeOf: true`, conditions/decree.mjs); `perValue`: the bonus times the status Rating; `consume`: the
+ *               status ends with the hit.
  *   onHit       [{ statusId, value }] (traits): statuses the damage gives, like a spell's own hitStatuses.
  *   escalate    [{ if, add: [{ statusId, value }] }]: when the target already has `if`, the hit also gives `add`.
  *   strip       [statusId]: the hit ends these statuses on the target.
@@ -25,15 +25,20 @@
  *               `spend: "free"`: and without the [Fatigue] its end would leave ([Impetus], [Awakened]).
  *   decreeCurse true (spells): a hit gives the curses of the caster's own Decrees, as if the target had broken them
  *               (Mandamento Materializado; with the Decree of Detachment the hit also strips its bonuses).
- * Read elsewhere, on a Trait only: `counterBonus` (formula, added to what a [Counter] sends back: conditions/damage.mjs)
- * and `sunClock` (true: the [Sun] rises for the caster, and with each spell of that Magia: conditions/turns.mjs).
+ * Read elsewhere, on a Trait only: `counterBonus` (formula, added to what a [Counter] sends back: conditions/damage.mjs),
+ * `sunClock` (true: the [Sun] rises for the caster, and with each spell of that Magia: conditions/turns.mjs) and
+ * `infinite` (true: the effects of the spells of that Magia last until the end of the scene: conditions/lasting.mjs).
  * Values are formulas of the caster ("floor(@cr/2)"), worked out when the card is made.
  */
 import { evaluateFormula, formulaData, isFormula } from "./effect-formulas.mjs";
 import { canonicalTag } from "./tag-catalog.mjs";
+import { LH_STATUSES } from "./statuses.mjs";
 import { toInt } from "./utils.mjs";
 import { rating } from "../conditions/rules.mjs";
 import { decreeHitStatuses, decreeStrip } from "../conditions/decree.mjs";
+
+/** The Bad Statuses with a Rating (not the lists, [Pursuit] and [Weakness]): the `ratedBad` of a bonus. */
+export const ratedBadStatuses = () => LH_STATUSES.filter(s => (s.group === "bad") && s.rated && s.path && !s.list).map(s => s.id);
 
 /** The Magia a skill belongs to: a spell's Magia, or the Magia skill itself. */
 export function itemMagia(item) {
@@ -85,7 +90,7 @@ export function magicExtras(item, attacker = null) {
   const num = value => (isFormula(value) ? evaluateFormula(value, data) : toInt(value)) || 0;
   for (const { data: s, name, own } of sources) {
     for (const v of s.bonusVs ?? []) {
-      const statuses = v.statuses ?? (v.statusId ? [v.statusId] : []);
+      const statuses = v.ratedBad ? ratedBadStatuses() : (v.statuses ?? (v.statusId ? [v.statusId] : []));
       const targetTags = v.targetTags ?? (v.targetTag ? [v.targetTag] : []);
       out.vs.push({ statuses, targetTags, value: num(v.value), perValue: !!v.perValue, consume: !!v.consume, name,
         ...(v.decreeOf ? { decreeOf: actor?.uuid ?? "" } : {}) });

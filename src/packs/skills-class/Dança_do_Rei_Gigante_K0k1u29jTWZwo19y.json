@@ -1,0 +1,122 @@
+{
+  "name": "Dança do Rei Gigante",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Criação.</strong> Você dança a dança do Rei Gigante, e a terra começa a bater junto: +1 de [Ritmo] (até 3), e você fica [Concentrado] (+1d6 no próximo teste). O próximo feitiço de dano que você usar soma +1d6 por ponto de Ritmo. Uma vez por rodada.</p><p><em>Um passo, outro passo. Na terceira batida, o chão já responde.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/control/debuff-energy-snare-brown.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Dança do Rei Gigante",
+      "img": "systems/eternia/assets/ui/status/focused.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "focused"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "C1lDVigRk9i66fqU",
+      "_key": "!items.effects!K0k1u29jTWZwo19y.C1lDVigRk9i66fqU"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "criacao-danca-do-rei-gigante",
+      "kind": "feeds",
+      "branch": "magic",
+      "useActions": [
+        {
+          "type": "raise",
+          "status": "rhythm",
+          "value": 1,
+          "recipients": "self"
+        }
+      ],
+      "magicSpell": {
+        "id": "criacao"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "K0k1u29jTWZwo19y",
+  "folder": "uURdPYXM4SaEm89o",
+  "_key": "!items!K0k1u29jTWZwo19y"
+}
