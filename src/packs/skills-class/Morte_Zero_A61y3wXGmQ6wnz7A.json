@@ -1,0 +1,77 @@
+{
+  "name": "Morte Zero",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>O Soberano.</strong> Você fecha a mão, e as trevas esmagam um alvo a até 5 Qd contra o chão: Teste de Precisão contra a Resistência; [3d6 + Poder Mágico] de dano mágico de [Corrupção], e ele fica [Derrubado].</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Não há vento, nem som. Só o peso.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "soberano-morte-zero",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "prone"
+        }
+      ],
+      "magicSpell": {
+        "id": "soberano"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "A61y3wXGmQ6wnz7A",
+  "folder": "EnfBIM1PtwCMZU5z",
+  "_key": "!items!A61y3wXGmQ6wnz7A"
+}

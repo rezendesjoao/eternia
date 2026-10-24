@@ -1,0 +1,162 @@
+{
+  "name": "Casulo das Trevas",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Portão do Inferno.</strong> As trevas se fecham em volta de um alvo a até 4 Qd num casulo (Teste de Precisão contra a Resistência): ele fica [Agarrado] por você, dentro do casulo, e preso num pesadelo, com [Pesadelo: NP÷2 + 2] (perde o próximo turno e sofre o Valor como dano direto em cada Encerramento). Enquanto ele estiver no casulo ([Agarrado]), o rancor dele alimenta você: +1 no Motor da sua classe em cada Encerramento. Uma vez por cena.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>De fora, o casulo pulsa devagar, como um coração.</em></p>",
+    "tags": [
+      "Spell",
+      "Curse"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/webs/web-spider-caught-hand-purple.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "nightmare",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Casulo das Trevas",
+      "img": "systems/eternia/assets/ui/status/nightmare.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "nightmare"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "hYlK1HaJYq4xV3o3",
+      "_key": "!items.effects!ByKYNMcozAi6AK8o.hYlK1HaJYq4xV3o3"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "feedSource": 1,
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Casulo das Trevas: preso",
+      "img": "systems/eternia/assets/ui/status/grappled.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "grappled"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "7qqUG6jOwdqJnNq3",
+      "_key": "!items.effects!ByKYNMcozAi6AK8o.7qqUG6jOwdqJnNq3"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "portao-inferno-casulo",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "portao-inferno"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ByKYNMcozAi6AK8o",
+  "folder": "8BbWylceSYiNswRo",
+  "_key": "!items!ByKYNMcozAi6AK8o"
+}

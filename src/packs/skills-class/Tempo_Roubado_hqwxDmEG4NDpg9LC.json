@@ -1,0 +1,78 @@
+{
+  "name": "Tempo Roubado",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Praga.</strong> Feitiço grande. Você abre a mão sobre uma área a até 4 Qd e puxa o tempo que resta a quem está lá: Teste de Precisão contra a Resistência de cada alvo; [4d6 + Poder Mágico] de dano mágico de [Corrupção], e quem ela acerta fica com [Sentença: 4] (o Valor cai 1 em cada Encerramento; a 0, ele cai).</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Eles envelhecem um ano a cada respiração. Alguns notam.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/sundries/misc/tombstone.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "praga-tempo",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "doom",
+          "value": 4
+        }
+      ],
+      "magicSpell": {
+        "id": "praga"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "hqwxDmEG4NDpg9LC",
+  "folder": "xKFfdLQj3flWD88S",
+  "_key": "!items!hqwxDmEG4NDpg9LC"
+}

@@ -1,0 +1,126 @@
+{
+  "name": "Arca Ômega",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Arca. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você ergue as duas mãos e uma luz do tamanho do céu cai sobre uma área ampla a até 6 Qd. Teste de Precisão contra a Resistência de cada alvo; [(1 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Radiância]. A mesma luz apaga as trevas dos seus: você e os aliados a até 6 Qd de você perdem [Chama Negra] e [Maldito]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Depois dela, o céu fica azul de um jeito que ninguém lembra de ter visto.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Radiance"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/earth/lava-stone-fire-yellow.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "onUse": true,
+          "cleanse": {
+            "statuses": [
+              "blackFlame",
+              "cursed"
+            ],
+            "reach": 6
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Arca Ômega",
+      "img": "systems/eternia/assets/ui/status/cancel.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "IDKhQzKXBC8wTHAf",
+      "_key": "!items.effects!ODq3jh6HOBSZ61Ul.IDKhQzKXBC8wTHAf"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "arca-omega",
+      "kind": "spends",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "arca"
+      },
+      "minRank": 10,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ODq3jh6HOBSZ61Ul",
+  "folder": "Y82U71cpTiyAS652",
+  "_key": "!items!ODq3jh6HOBSZ61Ul"
+}

@@ -28,6 +28,7 @@ import { applyModifier, consumeAfterRoll, dodgeModifier } from "../conditions/ro
 import { afterDamage, agonyPain, beforeDamage, cloneDecoy, counterBack, healBlocker, healingHurts, markDamage, recovered,
   restoreForUndo, snapshotForUndo, takeDamage, takeHealing } from "../conditions/damage.mjs";
 import { consumedBy, passiveCancels, passiveWeaknesses, stealStatuses } from "../conditions/effects.mjs";
+import { allySpellHurts, blowOutcome, hitApplies } from "../conditions/blows.mjs";
 import { statusEffectData } from "../chat/status-links.mjs";
 import { motorDamageTags, motorOnHit } from "../classes/motor.mjs";
 import { evaluateFormula, formulaData, isFormula } from "./effect-formulas.mjs";
@@ -264,8 +265,11 @@ function fixedHitStatuses(item, attacker) {
     statusId: h.statusId,
     value: (isFormula(h.value) ? evaluateFormula(h.value, data) : toInt(h.value)) || null,
     name: item.name,
-    // `rankBelow`: only on a target of a lower Rank than the caster (the Apagão's sleep)
-    ...(h.rankBelow ? { rankBelow: crOf(attacker ?? item.actor) } : {})
+    // Only on some targets: of a lower Rank than the caster (`rankBelow`: the Apagão's sleep), with one of the tags,
+    // or left by the hit with that many HP or less (conditions/blows.mjs)
+    ...(h.rankBelow ? { rankBelow: crOf(attacker ?? item.actor) } : {}),
+    ...(h.targetTags ? { targetTags: [].concat(h.targetTags) } : {}),
+    ...((h.belowHp !== undefined) ? { belowHp: (isFormula(h.belowHp) ? evaluateFormula(h.belowHp, data) : toInt(h.belowHp)) ?? 0 } : {})
   }));
 }
 
@@ -686,10 +690,13 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   const lines = [];
 
   if (mode === "heal") {
-    // [Inversion]: the healing hurts, as direct damage (conditions/damage.mjs).
-    if (healingHurts(actor)) {
+    // [Inversion], or O Soberano's Taboo against an ally's healing spell (conditions/blows.mjs): the healing hurts, as
+    // direct damage (conditions/damage.mjs).
+    const taboo = allySpellHurts(actor, card);
+    if (healingHurts(actor) || taboo) {
       const amount = card.total + (card.recovery ? Math.max(0, toInt(card.bonus)) : 0);
-      const hurt = await takeDamage(actor, amount, { what: `${card.skillName} (${statusLabel("inversion")})`, silent: true });
+      const why = healingHurts(actor) ? statusLabel("inversion") : taboo;
+      const hurt = await takeDamage(actor, amount, { what: `${card.skillName} (${why})`, silent: true });
       lines.push(hurt?.line ?? `${L("Applied.Heal")}: +0 HP`);
       return postApplied(actor, card, before, lines, `−${hurt?.loss ?? 0} HP`);
     }
@@ -838,9 +845,17 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
     }
   }
 
+  // What the blow does besides the damage: an execution, an attacker that doesn't kill, Ratings lowered, bonuses turned
+  // inside out (conditions/blows.mjs)
+  const blow = blowOutcome(actor, card, {
+    hp: Math.max(before.hp - hpLoss, 0), before: before.hp, hpLoss, reached: !untouched && !condition.immune,
+    harms: !condition.harmless && !inverted
+  });
+  lines.push(...blow.lines);
+  Object.assign(updates, blow.updates);
   // The defender's conditions after the HP loss: [Bond], [Last Stand], waking up, [Mirror]… (conditions/damage.mjs)
   const after = afterDamage(actor, card, {
-    hp: Math.max(before.hp - hpLoss, 0), hpLoss, absorbed: before.barrier - barrier, marked: !!before.marked, start: before.hp
+    hp: blow.hp, hpLoss: blow.hpLoss, absorbed: before.barrier - barrier, marked: !!before.marked, start: before.hp
   });
   lines.push(...after.lines);
   let hp = after.hp;
@@ -898,8 +913,9 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   // of an attack that didn't reach the target ([Counter], [The One]).
   const dried = had.has("soaked") && (card.tags ?? []).some(t => /flame/i.test(String(t)));
   const escalated = (card.escalate ?? []).filter(e => had.has(e.if)).flatMap(e => e.add.map(a => ({ ...a, name: e.name })));
-  const onHit = untouched ? [] : [...(card.onHit ?? []), ...escalated].filter(h => h.statusId && !(dried && (h.statusId === "burning"))
-    && !(h.rankBelow && (crOf(actor) >= h.rankBelow)));
+  const onHit = untouched ? [] : [...(card.onHit ?? []), ...escalated]
+    .filter(h => h.statusId && !(dried && (h.statusId === "burning")) && !(h.rankBelow && (crOf(actor) >= h.rankBelow))
+      && hitApplies(actor, h, hp));
   // A Trait that steals: the first of these bonuses the target has passes to the attacker (the Roubo).
   const stolen = (untouched || !attacker) ? null : (card.steal ?? []).find(id => has(actor, id));
   if (stolen) {

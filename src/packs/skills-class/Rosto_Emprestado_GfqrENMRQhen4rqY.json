@@ -1,0 +1,161 @@
+{
+  "name": "Rosto Emprestado",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Praga.</strong> Você copia o rosto e a voz de alguém que está vendo e some no meio dos outros: fica [Oculto] (não pode ser alvo das ações dos outros, só das de área). O primeiro golpe que você der com o rosto emprestado deixa o alvo [Confuso]: ele achou que era um amigo. Uma vez por cena.</p><hr><p><em>Você tem mil rostos e nenhum deles é o seu.</em></p>",
+    "tags": [
+      "Spell",
+      "Curse"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/treasure/mask-bone-white.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Rosto Emprestado",
+      "img": "systems/eternia/assets/ui/status/hidden.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "hidden"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "PGLSUpUbp0i7plbu",
+      "_key": "!items.effects!GfqrENMRQhen4rqY.PGLSUpUbp0i7plbu"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "onHit": {
+            "statusId": "confused"
+          },
+          "consumeOn": "attack",
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Rosto Emprestado: o golpe do amigo",
+      "img": "systems/eternia/assets/ui/status/confused.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "B92e9NdGPrCZeqvn",
+      "_key": "!items.effects!GfqrENMRQhen4rqY.B92e9NdGPrCZeqvn"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "praga-rosto",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "praga"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "GfqrENMRQhen4rqY",
+  "folder": "xKFfdLQj3flWD88S",
+  "_key": "!items!GfqrENMRQhen4rqY"
+}
