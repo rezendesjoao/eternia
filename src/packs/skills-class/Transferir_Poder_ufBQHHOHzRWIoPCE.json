@@ -1,0 +1,118 @@
+{
+  "name": "Transferir Poder",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>O Soberano.</strong> Você põe a mão no ombro de um aliado a até 4 Qd e empresta a ele um pedaço do poder do rei: ele fica [Despertado: NP÷2 + 2] (+1d6 nos testes de Precisão e +NP÷2 + 2 de dano nos ataques; quando sai, deixa [Fadiga] igual ao Valor). Uma vez por cena.</p><hr><p><em>Os olhos dele escurecem por um instante. Quando clareiam, ele é outro.</em></p>",
+    "tags": [
+      "Spell",
+      "Curse"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/treasure/sceptre-jeweled-gold.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "awakened",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Transferir Poder",
+      "img": "systems/eternia/assets/ui/status/awakened.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "awakened"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "6LDG1slRO7MVP4HR",
+      "_key": "!items.effects!ufBQHHOHzRWIoPCE.6LDG1slRO7MVP4HR"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "soberano-transferir",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "soberano"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ufBQHHOHzRWIoPCE",
+  "folder": "EnfBIM1PtwCMZU5z",
+  "_key": "!items!ufBQHHOHzRWIoPCE"
+}

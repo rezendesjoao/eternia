@@ -25,8 +25,9 @@ import { mainWeapon, parseRange } from "./hands.mjs";
 import { skillModifiers } from "./roll-bonuses.mjs";
 import { hateRank } from "./effect-conditions.mjs";
 import { applyModifier, consumeAfterRoll, dodgeModifier } from "../conditions/rolls.mjs";
-import { afterDamage, beforeDamage, counterBack, healBlocker, markDamage, restoreForUndo, snapshotForUndo, takeHealing } from "../conditions/damage.mjs";
+import { afterDamage, beforeDamage, counterBack, healBlocker, markDamage, restoreForUndo, snapshotForUndo, takeDamage, takeHealing } from "../conditions/damage.mjs";
 import { consumedBy, passiveCancels, passiveWeaknesses, stealStatuses } from "../conditions/effects.mjs";
+import { blowOutcome, healingHurts, hitApplies } from "../conditions/blows.mjs";
 import { statusEffectData } from "../chat/status-links.mjs";
 import { motorDamageTags, motorOnHit } from "../classes/motor.mjs";
 import { evaluateFormula, formulaData, isFormula } from "./effect-formulas.mjs";
@@ -260,7 +261,10 @@ function fixedHitStatuses(item, attacker) {
   return list.filter(h => h?.statusId).map(h => ({
     statusId: h.statusId,
     value: (isFormula(h.value) ? evaluateFormula(h.value, data) : toInt(h.value)) || null,
-    name: item.name
+    name: item.name,
+    // Only on some targets: one of the tags, one the hit leaves with that many HP or less (conditions/blows.mjs)
+    ...(h.targetTags ? { targetTags: [].concat(h.targetTags) } : {}),
+    ...((h.belowHp !== undefined) ? { belowHp: (isFormula(h.belowHp) ? evaluateFormula(h.belowHp, data) : toInt(h.belowHp)) ?? 0 } : {})
   }));
 }
 
@@ -679,6 +683,12 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
       lines.push(game.i18n.format("ETERNIA.Conditions.NoHeal", { name: actor.token?.name ?? actor.name, status: statusLabel(blocker) }));
       return postApplied(actor, card, before, lines, "+0 HP");
     }
+    // An ally's healing spell on whoever bears O Soberano's Taboo comes as direct damage (conditions/blows.mjs).
+    if (healingHurts(actor, card)) {
+      const hurt = await takeDamage(actor, card.total + Math.max(0, toInt(card.bonus)), { what: card.skillName, silent: true });
+      if (hurt) lines.push(hurt.line);
+      return postApplied(actor, card, before, lines, `−${hurt?.loss ?? 0} HP`);
+    }
     // A Trait's healing bonus (helpers/magic-traits.mjs)
     const hp = Math.min(before.hp + card.total + (card.recovery ? Math.max(0, toInt(card.bonus)) : 0), toInt(system.health.max));
     await actor.update({ "system.health.value": hp });
@@ -797,9 +807,14 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
     }
   }
 
+  // What the blow does besides the damage: an execution, an attacker that doesn't kill, Ratings lowered, bonuses turned
+  // inside out (conditions/blows.mjs)
+  const blow = blowOutcome(actor, card, { hp: Math.max(before.hp - hpLoss, 0), before: before.hp, hpLoss, reached: !untouched && !condition.immune });
+  lines.push(...blow.lines);
+  Object.assign(updates, blow.updates);
   // The defender's conditions after the HP loss: [Bond], [Last Stand], waking up, [Mirror]… (conditions/damage.mjs)
   const after = afterDamage(actor, card, {
-    hp: Math.max(before.hp - hpLoss, 0), hpLoss, absorbed: before.barrier - barrier, marked: !!before.marked
+    hp: blow.hp, hpLoss: blow.hpLoss, absorbed: before.barrier - barrier, marked: !!before.marked
   });
   lines.push(...after.lines);
   const hp = after.hp;
@@ -845,7 +860,8 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   // of an attack that didn't reach the target ([Counter], [The One]).
   const dried = had.has("soaked") && (card.tags ?? []).some(t => /flame/i.test(String(t)));
   const escalated = (card.escalate ?? []).filter(e => had.has(e.if)).flatMap(e => e.add.map(a => ({ ...a, name: e.name })));
-  const onHit = untouched ? [] : [...(card.onHit ?? []), ...escalated].filter(h => h.statusId && !(dried && (h.statusId === "burning")));
+  const onHit = untouched ? [] : [...(card.onHit ?? []), ...escalated]
+    .filter(h => h.statusId && !(dried && (h.statusId === "burning")) && hitApplies(actor, h, hp));
   // A Trait that steals: the first of these bonuses the target has passes to the attacker (the Roubo).
   const stolen = (untouched || !attacker) ? null : (card.steal ?? []).find(id => has(actor, id));
   if (stolen) {

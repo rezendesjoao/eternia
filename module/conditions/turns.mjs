@@ -29,6 +29,7 @@ import { AFFLICTED_PROTECTS, END_OF_ROUND, STACK_THRESHOLDS, SUN_NIGHT, SUN_NOON
 import { takeDamage } from "./damage.mjs";
 import { addStatus, has, rating, removeStatuses, rulesOn, sameActor, sourcesOf, statusEffects } from "./rules.mjs";
 import { keepsHidden, traitsFor } from "../helpers/magic-traits.mjs";
+import { cleanupFeeds } from "./souls.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -183,6 +184,8 @@ export async function cleanupConditions(actor) {
   }
   const strike = await servantStrike(actor);
   if (strike) lines.push(strike.line);
+  // Effects that feed whoever gave them (the Casulo das Trevas: conditions/souls.mjs)
+  lines.push(...await cleanupFeeds(actor));
   // [The One] counts down: its Rating is the rounds it has left (the end of an extended one leaves [Fatigue]).
   const one = rating(actor, "theOne");
   if (one > 0) {

@@ -11,7 +11,8 @@
  * (item-use.mjs applyItemEffects), each to the targets (default), the user ("self") or both:
  *   { type: "fatigue", value: "-@cr*5" }        changes the Fatigue (never below 0)
  *   { type: "doubleStatus", status: "berserk" } doubles the Rating of a status the actor has
- *   { type: "removeStatus", statuses: ["burning", …] } ends those statuses (a purifying potion, professions/forge.mjs)
+ *   { type: "removeStatus", statuses: ["burning", …] } ends those statuses (a purifying potion, professions/forge.mjs);
+ *                                               with `value: n`, at most n of them, in the list's order
  *   { type: "switch" }                          the user and the (first) target trade places and Hate (the basic
  *                                               skill Switch); only between allies
  *   { type: "steal", statuses: ["empowered", …] } those statuses pass from the target to the user, with their
@@ -131,7 +132,8 @@ async function doAction(actor, { type, value, status, statuses = [], casterUuid 
     return L("Conditions.Actions.Double", { name: actorName(actor), status: label(status), n: current * 2 });
   }
   if (type === "removeStatus") {
-    const ids = listOf(statuses).filter(id => has(actor, id));
+    // A value says how many at most, the first ones of the list the actor has (the Arca's Revigorar: one)
+    const ids = listOf(statuses).filter(id => has(actor, id)).slice(0, (toInt(value) > 0) ? toInt(value) : undefined);
     if (!ids.length) return null;
     await removeStatuses(actor, ids);
     return L("Conditions.Actions.Remove", { name: actorName(actor), statuses: ids.map(label).join(", ") });

@@ -1,0 +1,164 @@
+{
+  "name": "O Soberano",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Maldição.</strong> O poder do rei dos demônios. O que vem contra você vira o contrário: o feitiço que devia ferir cura, a cura que devia salvar fere, a força vira fraqueza. As trevas esmagam, abrem portões e criam feras, e o rei empresta o próprio poder a quem lhe serve. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, Tudo ao Contrário:</strong> o avesso vale também para os seus: em combate, a cura que o feitiço de um aliado lhe daria vira dano direto em você.</li><li><strong>A Inversão:</strong> o Inverter deixa você com [Inversão] até o Encerramento: o dano mágico que você sofreria vira cura; em troca, a cura que você recebe vira dano, e o que lhe daria [Fortalecido] ou [Regeneração] dá [Enfraquecido] ou [Deterioração].</li><li><strong>Traço, Rei dos Demônios:</strong> você é imune a [Dominado], [Encantado] e [Medo], e os seus feitiços d'O Soberano viram do avesso os bônus de quem acertam: [Fortalecido] vira [Enfraquecido], e [Regeneração] vira [Deterioração], com o mesmo Valor.</li><li><strong>Feitiços:</strong> Inverter e Morte Zero (NP 1), Espada do Portão Infernal e Transferir Poder (NP 3), Fera das Trevas (NP 5) e o feitiço supremo Reencarnação Eterna (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Reencarnação Eterna pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Ninguém lembra do rosto dele. Lembram do que viraram depois de olhar.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/equipment/head/crown-gold-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "healingHurts": "allySpell",
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Tudo ao Contrário",
+      "img": "systems/eternia/assets/ui/status/inversion.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "u9u48zYnONyd2mAE",
+      "_key": "!items.effects!zaElByFtypztDaTe.u9u48zYnONyd2mAE"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "soberano",
+            "convert": {
+              "empowered": "weakened",
+              "regen": "decay"
+            }
+          },
+          "immune": [
+            "dominated",
+            "charmed",
+            "frightened"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Rei dos Demônios",
+      "img": "icons/equipment/head/crown-gold-red.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "IDl3uZAQoFfH6KFB",
+      "_key": "!items.effects!zaElByFtypztDaTe.IDl3uZAQoFfH6KFB"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "soberano-soberano",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "soberano",
+        "category": "curse",
+        "tagline": "O poder do rei dos demônios: tudo o que vem contra você vira o contrário."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "zaElByFtypztDaTe",
+  "folder": "EnfBIM1PtwCMZU5z",
+  "_key": "!items!zaElByFtypztDaTe"
+}

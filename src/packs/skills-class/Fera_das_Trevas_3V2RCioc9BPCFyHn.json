@@ -1,0 +1,123 @@
+{
+  "name": "Fera das Trevas",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>O Soberano.</strong> Feitiço grande. As trevas tomam a forma de uma fera enorme, que cai sobre uma área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; [4d6 + Poder Mágico] de dano mágico de [Corrupção]. A fera fica do seu lado até o fim da cena: [Servo: NP] de [Corrupção].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Ela não tem forma certa. Tem dentes.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 4,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/fish/deepsea-creature-glowing-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "onUse": true,
+          "statusData": {
+            "statusId": "servant",
+            "value": "@cr",
+            "tag": "Blight"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Fera das Trevas",
+      "img": "systems/eternia/assets/ui/status/servant.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "servant"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "RG9vOUM39dYEO8AN",
+      "_key": "!items.effects!3V2RCioc9BPCFyHn.RG9vOUM39dYEO8AN"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "soberano-fera",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "soberano"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "3V2RCioc9BPCFyHn",
+  "folder": "EnfBIM1PtwCMZU5z",
+  "_key": "!items!3V2RCioc9BPCFyHn"
+}

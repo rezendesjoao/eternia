@@ -1,0 +1,122 @@
+{
+  "name": "Arca",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Ancestral.</strong> A luz das deusas, a herança de um clã antigo que nasceu para enfrentar a escuridão. Ela fere quem vem das trevas mais do que a qualquer um, cura e cobre os aliados e, num toque na testa, apaga um demônio da existência. Não é uma magia de ódio: até o golpe mais forte dela é chamado de salvação.</p><ul><li><strong>Ancestral:</strong> o feitiço supremo só chega no NP 10, e bate mais forte que os das outras Magias.</li><li><strong>Execução:</strong> o Purgar derruba na hora (Incapacitado) quem tem a tag [Demônio] ou usa uma Maldição e fica com [NP×5] PV ou menos depois do toque. Nos outros, é só o dano.</li><li><strong>Traço, Luz Sagrada:</strong> você é imune a [Maldito] e [Chama Negra], e os seus feitiços de Arca causam +NP de dano em quem é um demônio (a tag [Demônio]) ou usa uma Maldição.</li><li><strong>Feitiços:</strong> Faça-se a Luz e Revigorar (NP 1), Manto Sagrado (NP 3), Purgar (NP 5), Flecha da Salvação (NP 7) e o feitiço supremo Arca Ômega (NP 10).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Arca Ômega pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>A luz não pergunta de onde você veio. Só as trevas têm medo dela.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/gems/gem-faceted-rough-yellow.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "arca",
+            "bonusVs": [
+              {
+                "targetTags": [
+                  "Demon",
+                  "Curse"
+                ],
+                "value": "@cr"
+              }
+            ]
+          },
+          "immune": [
+            "cursed",
+            "blackFlame"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Luz Sagrada",
+      "img": "icons/commodities/gems/gem-faceted-rough-yellow.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "1LYMfKvdGdJW4BeU",
+      "_key": "!items.effects!Ll7rMDnANcxMzMFt.1LYMfKvdGdJW4BeU"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "arca-arca",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "arca",
+        "category": "ancestral",
+        "tagline": "A luz das deusas: fere as trevas, protege os aliados e purga os demônios."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Ll7rMDnANcxMzMFt",
+  "folder": "Y82U71cpTiyAS652",
+  "_key": "!items!Ll7rMDnANcxMzMFt"
+}

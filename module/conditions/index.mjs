@@ -10,13 +10,16 @@
  * - derived.mjs     Defense, Speed and Initiative under them;
  * - recovery.mjs    ending one by spending an action of the Main Process;
  * - effects.mjs     what some effects do besides their changes (immunity, Fatigue when they end, ending with a
- *                   status or after a roll) and the use actions of skills.
+ *                   status or after a roll) and the use actions of skills;
+ * - blows.mjs       what a hit does besides its damage (execution, the blows that don't kill, Ratings lowered);
+ * - souls.mjs       effects that reach the creatures around their bearer (eating souls, the harvest, cleansing).
  * The statuses themselves are registered with the others (helpers/statuses.mjs).
  */
 import { registerConditionDamage } from "./damage.mjs";
 import { registerConditionTurns } from "./turns.mjs";
 import { registerConditionMovement } from "./actions.mjs";
 import { registerConditionEffects } from "./effects.mjs";
+import { registerSouls } from "./souls.mjs";
 
 /** Call during the `init` hook. */
 export function registerConditions() {
@@ -24,4 +27,5 @@ export function registerConditions() {
   registerConditionTurns();
   registerConditionMovement();
   registerConditionEffects();
+  registerSouls();
 }

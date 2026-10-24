@@ -1,0 +1,80 @@
+{
+  "name": "Faça-se a Luz",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Arca.</strong> Você abre a mão e uma estrela de luz branca nasce no ar e cai sobre um alvo a até 5 Qd: Teste de Precisão contra a Resistência; [2d6 + Poder Mágico] de dano mágico de [Radiância]. Quem vem das trevas (a tag [Demônio], ou quem usa uma Maldição) não aguenta olhar para ela: também fica [Cego].</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Para a maioria, é só uma luz bonita. Para eles, é o fim do mundo.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Radiance"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/ranged/shuriken-thrown-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "arca-luz",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "blinded",
+          "targetTags": [
+            "Demon",
+            "Curse"
+          ]
+        }
+      ],
+      "magicSpell": {
+        "id": "arca"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "LuDLoBRWtduhkUpl",
+  "folder": "Y82U71cpTiyAS652",
+  "_key": "!items!LuDLoBRWtduhkUpl"
+}

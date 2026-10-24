@@ -1,0 +1,170 @@
+{
+  "name": "Portão do Inferno",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Maldição.</strong> Você abre os portões do inferno. Por eles saem demônios menores, passam você e os seus e entram as almas de quem cai perto de você: você as come, e elas viram poder. Um casulo de trevas prende quem você quiser num pesadelo e transforma o rancor dele em força para você. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, Fome sem Fim:</strong> nada mais alimenta você: em combate, a sua Recuperação cai [NP] (as suas curas curam menos). Só as almas matam a fome.</li><li><strong>Traço, Banquete de Almas:</strong> você é imune a [Envenenado], e quando uma criatura cai (0 PV) a até 4 Qd de você, em combate, você come a alma dela: +1 no Motor da sua classe e você recupera [NP] PV. Uma vez por rodada.</li><li><strong>Feitiços:</strong> Anel de Invocação e Chamado das Almas (NP 1), Atravessar o Portão e Casulo das Trevas (NP 3), Veneno Mortal (NP 5) e o feitiço supremo Rito do Rancor dos Mortos (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Rito do Rancor dos Mortos pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você nunca está com fome. Você está sempre com fome.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/environment/settlement/city-gate.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Fome sem Fim",
+      "img": "icons/environment/settlement/city-gate.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.power.restoration.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "XCYMDNInEdAon1Dt",
+      "_key": "!items.effects!hEcDSZfLgmltixbE.XCYMDNInEdAon1Dt"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "portao-inferno",
+            "soulEater": {
+              "reach": 4,
+              "motor": 1,
+              "heal": "@cr"
+            }
+          },
+          "immune": [
+            "poisoned"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Banquete de Almas",
+      "img": "icons/environment/settlement/city-gate.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "5ABs1CjA7NJ6k860",
+      "_key": "!items.effects!hEcDSZfLgmltixbE.5ABs1CjA7NJ6k860"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "portao-inferno-portao-inferno",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "portao-inferno",
+        "category": "curse",
+        "tagline": "Os portões do inferno: almas comidas, portais e um casulo que bebe o rancor."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "hEcDSZfLgmltixbE",
+  "folder": "8BbWylceSYiNswRo",
+  "_key": "!items!hEcDSZfLgmltixbE"
+}
