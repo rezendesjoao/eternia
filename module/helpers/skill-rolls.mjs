@@ -310,7 +310,11 @@ export async function rollSkill(item, which, { targets } = {}) {
     ? checkModifier(roller, { item, stat: values.stat, targets: [...game.user.targets].map(t => t.actor).filter(Boolean) })
     : damageModifier(roller, item);
   if (which === "check") ({ dice, mod } = (dice > 0) ? applyModifier({ dice, mod }, condition) : { dice, mod: mod + condition.mod });
-  else mod += condition.mod;
+  else {
+    // The damage dice a condition adds ([Rhythm]: +n d6 on a spell)
+    dice += Math.max(0, condition.dice);
+    mod += condition.mod;
+  }
   const bonusText = [rollBonusesLabel(bonuses), condition.text].filter(Boolean).join(", ");
   const formula = diceFormula({ dice, mod });
 

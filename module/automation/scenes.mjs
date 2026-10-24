@@ -7,8 +7,8 @@
  * - The end of a started combat is the end of a scene for everyone who fought in it (round.mjs).
  * - The GM tools end the scene or the scenario of the selected tokens, or the scenario of every character.
  *
- * End of a scene: Bad and Combat Statuses end (Life Statuses such as Fatigue and Weakness stay);
- * an Incapacitated Adventurer gets back up with full HP, a Dead one comes back with 1 HP and
+ * End of a scene: Bad and Combat Statuses end (Life Statuses such as Fatigue and Weakness stay), the Extra Breaths
+ * spent come back; an Incapacitated Adventurer gets back up with full HP, a Dead one comes back with 1 HP and
  * [Fatigue: Max HP − 1]; an Incapacitated enemy dies.
  */
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
@@ -36,6 +36,8 @@ export async function bumpCounter(actor, name) {
 export async function endOfSceneFor(actor) {
   const updates = {};
   const ending = [];
+  // The Extra Breaths spent in the scene (conditions/damage.mjs)
+  if (actor._source.flags?.[SYSTEM_ID]?.reviveSpent !== undefined) updates[`flags.${SYSTEM_ID}.-=reviveSpent`] = null;
   for (const status of LH_STATUSES.filter(endsWithScene)) {
     if (status.path) {
       const value = foundry.utils.getProperty(actor._source.system ?? {}, status.path);

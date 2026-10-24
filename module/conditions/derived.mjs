@@ -1,13 +1,14 @@
 /**
  * The numbers the conditions change, worked out last in the actor's derived data (the sheets show them):
- * - [Exposed]: Physical and Magic Defense 0; [Fissured]: −2 to both per stack; [Sun]: + its Rating to both;
+ * - [Exposed]: Physical and Magic Defense 0; [Fissured]: −2 to both per stack; [Sun] and [Impetus]: + their Rating
+ *   to both;
  * - [Freezing]: −1 Speed and −1 Initiative per stack;
- * - [Rooted], [Grappled], [Paralyzed], [Asleep]: Speed 0.
+ * - [Rooted], [Grappled], [Paralyzed], [Asleep], [Petrified], [Nightmare]: Speed 0.
  * Characters keep their values in `battle-status.<x>.total`, monsters directly in `battle-status.<x>`.
  */
 import { has, rating, rulesOn } from "./rules.mjs";
 
-const STILL = ["rooted", "grappled", "paralyzed", "asleep"];
+const STILL = ["rooted", "grappled", "paralyzed", "asleep", "petrified", "nightmare"];
 
 /** The value of a battle status (a character's total, a monster's number). */
 function read(holder, key) {
@@ -29,16 +30,16 @@ export function applyConditionStats(actor) {
   const defense = battle.defense;
   if (defense) {
     const fissured = rating(actor, "fissured");
-    const sun = rating(actor, "sun");
+    const plus = rating(actor, "sun") + rating(actor, "impetus");
     for (const key of ["phys", "magic"]) {
       if (has(actor, "exposed")) {
         write(defense, key, 0);
         continue;
       }
-      // [Fissured] stops at 0; the [Sun] adds on top (a Taboo may have left the Defense below 0)
+      // [Fissured] stops at 0; the [Sun] and the [Impetus] add on top (a Taboo may have left the Defense below 0)
       let value = read(defense, key);
       if (fissured) value = Math.max(0, value - (2 * fissured));
-      if (fissured || sun) write(defense, key, value + sun);
+      if (fissured || plus) write(defense, key, value + plus);
     }
   }
 

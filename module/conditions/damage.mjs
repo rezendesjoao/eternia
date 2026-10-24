@@ -4,18 +4,25 @@
  * Applying a damage card (helpers/combat-cards.mjs) asks here:
  * - before: a class Motor may take the whole card (the Dragon Slayer eats an ally's attack of its element); [The One]
  *   takes nothing from an attack, nor its statuses; [Exposed] ignores the Defense and [Cancel]; [Intangible] takes no
- *   physical damage; [Soaked] takes its Rating more from [Shock] and [Cold] damage; [Counter] sends a direct attack
- *   of its type back to the attacker, doubled (the card works the damage out, then gives it back);
+ *   physical damage, [Untouchable] no magic damage; [Soaked] takes its Rating more from [Shock] and [Cold] damage;
+ *   [Counter] sends a direct attack of its type back to the attacker, doubled (the card works the damage out, then
+ *   gives it back); [Clones] may send the blow to a copy (cloneDecoy: 1d6 up to the Rating); [Petrified] takes half
+ *   of it; [Inversion] is healed by magic damage; the attack of a [Pacified] attacker deals no damage at all (its
+ *   statuses still take);
  * - on a failed Dodge Check: [Marked] adds its Rating as direct damage, then the mark ends;
- * - after: [Last Stand] keeps the character at 1 HP once; [Bond] sends half the HP loss to its source; [Mirror]
- *   deals its Rating to the attacker; [Grudge] keeps the HP loss; [Asleep] wakes up; [Charmed] ends when its source
- *   deals the damage; [Flame] damage melts [Freezing] and dries [Soaked]; the damage ends [Hidden] on both sides (not
- *   the attacker's, when its spell keeps it: a Magia's Trait).
+ * - after: [Last Stand] keeps the character at 1 HP once, then the Extra Breaths of its effects (`revive`); [Bond]
+ *   sends half the HP loss to its source; [Mirror] deals its Rating to the attacker; [Grudge] keeps the HP loss;
+ *   [Combo] breaks; [Asleep] wakes up; [Charmed] ends when its source deals the damage; [Flame] damage melts
+ *   [Freezing] and dries [Soaked]; the damage ends [Hidden] on both sides (not the attacker's, when its spell keeps
+ *   it: a Magia's Trait).
  * Healing does nothing to a [Cursed] character or one with [Black Flame], and effects can't give them [Regen] (nor
- * [Barrier], when [Cursed]); the GM still can by hand, in the sheet.
+ * [Barrier], when [Cursed]); the GM still can by hand, in the sheet. Under [Inversion] healing hurts instead, and the
+ * effects that would give [Empowered] or [Regen] give [Weakened] or [Decay]. [Agony] hurts whenever its bearer
+ * recovers HP or gets rid of a Bad Status (agonyPain).
  *
- * The damage of the conditions themselves ([Burning], [Poisoned], [Shocked], [Doom], [Mirror], [Bond]) goes through
- * takeDamage: [Barrier], [Last Stand] and Incapacitated, with a line in the chat.
+ * The damage of the conditions themselves ([Burning], [Poisoned], [Shocked], [Doom], [Mirror], [Bond], [Nightmare],
+ * [Agony]) goes through takeDamage: [Barrier], [Last Stand], the Extra Breaths and Incapacitated, with a line in the
+ * chat.
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { registerHandler, request } from "../piles/pile-socket.mjs";
@@ -34,13 +41,16 @@ const ENDED_BY_DAMAGE = ["asleep", "lastStand", "charmed", "hidden", "counter"];
 
 /**
  * Rating fields an application can change (the mark spent, the ice melted, the water dried, a status a spell consumed
- * or stripped, the damage kept as a grudge), saved for its Undo.
+ * or stripped, the damage kept as a grudge, the combo broken, a copy lost), saved for its Undo.
  */
 const RESTORED_FIELDS = ["marked", "freezing", "soaked", "burning", "poisoned", "shocked", "decay", "fuse", "fissured",
-  "regen", "barrier", "empowered", "awakened", "mirror", "weakened", "doom", "berserk", "grudge"];
+  "regen", "barrier", "empowered", "awakened", "mirror", "weakened", "doom", "berserk", "grudge", "combo", "clones"];
 
 /** Statuses that stop all healing: the first one an actor has, or null. */
 const NO_HEALING = ["cursed", "blackFlame"];
+
+/** What [Inversion] turns the statuses an effect would give into. */
+const INVERTED_GIFTS = { empowered: "weakened", regen: "decay" };
 
 /** How much damage a [Grudge] keeps: its bearer's CR times this. */
 const GRUDGE_CAP = 4;
@@ -54,13 +64,17 @@ const GRUDGE_CAP = 4;
  * @param {Actor} actor
  * @param {object} card    The damage card data (type, tags)
  * @param {boolean} direct
- * @returns {{noDefense: boolean, noCancel: boolean, immune: boolean, untouched: boolean, bonus: number,
- *   counter: {bonus: number, effects: string[]}|null, notes: string[]}}
+ * @returns {{noDefense: boolean, noCancel: boolean, immune: boolean, untouched: boolean, harmless: boolean,
+ *   halve: boolean, invert: boolean, bonus: number, counter: {bonus: number, effects: string[]}|null, notes: string[]}}
  *   `untouched`: nothing of the attack reaches the actor (no statuses, no extra damage of a failed Dodge either);
+ *   `harmless`: no damage at all, not even that of a failed Dodge (a [Pacified] attacker), but the statuses take;
+ *   `halve`: half the damage, after the Defense and [Cancel] ([Petrified]);
+ *   `invert`: the damage, after the Defense and [Cancel], heals instead ([Inversion] against magic damage);
  *   `counter`: the damage, worked out as usual, goes back to the attacker doubled (+ the bonus) instead.
  */
 export function beforeDamage(actor, card, direct) {
-  const result = { noDefense: false, noCancel: false, immune: false, untouched: false, bonus: 0, counter: null, notes: [] };
+  const result = { noDefense: false, noCancel: false, immune: false, untouched: false, harmless: false, halve: false,
+    invert: false, bonus: 0, counter: null, notes: [] };
   if (card.recovery) return result;
   const eaten = motorAbsorbs(actor, card);
   if (eaten) {
@@ -76,7 +90,13 @@ export function beforeDamage(actor, card, direct) {
     result.notes.push(L("Conditions.Applied.TheOne"));
     return result;
   }
-  result.counter = direct ? null : counterFor(actor, card);
+  // A [Pacified] attacker hurts no one: no damage, nothing to send back.
+  if (card.pacified) {
+    result.immune = true;
+    result.harmless = true;
+    result.notes.push(L("Conditions.Applied.Pacified"));
+  }
+  result.counter = (direct || result.harmless) ? null : counterFor(actor, card);
   if (has(actor, "exposed") && !direct) {
     result.noDefense = true;
     result.noCancel = true;
@@ -86,6 +106,12 @@ export function beforeDamage(actor, card, direct) {
     result.immune = true;
     result.notes.push(L("Conditions.Applied.Intangible"));
   }
+  if (has(actor, "untouchable") && !direct && (card.type === "magical")) {
+    result.immune = true;
+    result.notes.push(L("Conditions.Applied.Untouchable"));
+  }
+  result.halve = has(actor, "petrified");
+  result.invert = !direct && (card.type === "magical") && has(actor, "inversion");
   // [Soaked]: the water carries the lightning and the cold.
   const soaked = rating(actor, "soaked");
   if ((soaked > 0) && (hasTag(card, "shock") || hasTag(card, "cold"))) {
@@ -98,6 +124,23 @@ export function beforeDamage(actor, card, direct) {
 /** The [Marked] damage of a failed Dodge Check (the mark then ends). */
 export function markDamage(actor) {
   return rulesOn() ? rating(actor, "marked") : 0;
+}
+
+/**
+ * [Clones]: when an attack would hit the actor, 1d6 is rolled; up to the Rating, the blow hits a copy instead (nothing
+ * of it reaches the actor) and one copy is lost.
+ * @param {Actor} actor
+ * @param {object} card
+ * @returns {Promise<{hit: boolean, left: number, note: string}|null>}   null without [Clones]
+ */
+export async function cloneDecoy(actor, card) {
+  if (card.recovery || !rulesOn()) return null;
+  const clones = rating(actor, "clones");
+  if (clones <= 0) return null;
+  const roll = await new Roll("1d6").evaluate();
+  const hit = roll.total <= clones;
+  const left = hit ? clones - 1 : clones;
+  return { hit, left, note: L(hit ? "Conditions.Applied.Clone" : "Conditions.Applied.CloneMissed", { n: roll.total, left }) };
 }
 
 /** Whether a skill reaches more than one target (an area, a line, two targets or more): not a direct attack. */
@@ -167,10 +210,11 @@ export function counterBack(actor, card, counter, amount) {
  * What the defender's conditions do once the HP loss of a card is known.
  * @param {Actor} actor
  * @param {object} card
- * @param {{hp: number, hpLoss: number, absorbed: number, marked: boolean}} state
+ * @param {{hp: number, hpLoss: number, absorbed: number, marked: boolean, start: number}} state
+ *   `start`: the HP before the application
  * @returns {{hp: number, updates: object, lines: string[], end: string[], after: Function[]}}
  */
-export function afterDamage(actor, card, { hp, hpLoss, absorbed, marked }) {
+export function afterDamage(actor, card, { hp, hpLoss, absorbed, marked, start = 1 }) {
   const out = { hp, updates: {}, lines: [], end: [], after: [] };
   if (!rulesOn() || card.recovery) return out;
   const attacker = cardAttacker(card);
@@ -198,6 +242,21 @@ export function afterDamage(actor, card, { hp, hpLoss, absorbed, marked }) {
     out.hp = 1;
     out.end.push("lastStand");
     out.lines.push(L("Conditions.Applied.LastStand"));
+  }
+  // An Extra Breath (`revive`): the HP of the effect instead of 0, while it has uses.
+  if ((out.hp <= 0) && (start > 0)) {
+    const breath = spendExtraBreath(actor);
+    if (breath) {
+      out.hp = breath.hp;
+      Object.assign(out.updates, breath.updates);
+      out.lines.push(breath.line);
+      out.after.push(() => announceBreath(actor, breath));
+    }
+  }
+  // [Combo]: a blow taken breaks the sequence (unless an effect keeps it: `keepCombo`).
+  if (hurt && (rating(actor, "combo") > 0) && !keepsCombo(actor)) {
+    out.updates["system.bad-status.combo"] = 0;
+    out.lines.push(L("Conditions.Applied.ComboBroken"));
   }
   if (marked) out.updates["system.bad-status.marked"] = 0;
   if (hurt && has(actor, "asleep")) {
@@ -230,20 +289,26 @@ export function afterDamage(actor, card, { hp, hpLoss, absorbed, marked }) {
   return out;
 }
 
-/** The statuses an application may end, saved before it for its Undo. */
+/** The statuses an application may end, saved before it for its Undo (and the Extra Breaths spent). */
 export function snapshotForUndo(actor) {
   const bad = actor._source.system?.["bad-status"] ?? {};
   return {
     conditionFields: Object.fromEntries(RESTORED_FIELDS.map(id => [id, toInt(bad[id])])),
-    conditionEffects: [...actor.effects].filter(e => ENDED_BY_DAMAGE.some(id => e.statuses?.has(id))).map(e => e.toObject())
+    conditionEffects: [...actor.effects].filter(e => ENDED_BY_DAMAGE.some(id => e.statuses?.has(id))).map(e => e.toObject()),
+    reviveSpent: foundry.utils.deepClone(actor.getFlag(SYSTEM_ID, "reviveSpent") ?? {})
   };
 }
 
-/** Undo: the fields and the statuses the application had ended come back. */
+/** Undo: the fields and the statuses the application had ended come back, and the Extra Breaths it spent. */
 export async function restoreForUndo(actor, before) {
   if (!before?.conditionFields) return;
-  await actor.update(Object.fromEntries(Object.entries(before.conditionFields)
-    .map(([id, value]) => [`system.bad-status.${id}`, toInt(value)])));
+  const breaths = {};
+  const spent = before.reviveSpent ?? {};
+  for (const key of new Set([...Object.keys(actor.getFlag(SYSTEM_ID, "reviveSpent") ?? {}), ...Object.keys(spent)])) {
+    breaths[`flags.${SYSTEM_ID}.reviveSpent.${key}`] = toInt(spent[key]);
+  }
+  await actor.update(Object.fromEntries([...Object.entries(before.conditionFields)
+    .map(([id, value]) => [`system.bad-status.${id}`, toInt(value)]), ...Object.entries(breaths)]));
   const missing = (before.conditionEffects ?? []).filter(e => !actor.effects.has(e._id));
   if (missing.length) await actor.createEmbeddedDocuments("ActiveEffect", missing, { keepId: true });
 }
@@ -253,6 +318,92 @@ export const healBlocker = actor => (rulesOn() ? (NO_HEALING.find(id => has(acto
 
 /** Whether healing can reach this actor (no [Cursed] nor [Black Flame]). */
 export const canHeal = actor => !healBlocker(actor);
+
+/** Whether healing hurts this actor ([Inversion]). */
+export const healingHurts = actor => rulesOn() && has(actor, "inversion");
+
+/**
+ * [Agony]: recovering HP, or getting rid of a Bad Status, hurts: the Rating as direct damage (takeDamage).
+ * @param {Actor} actor
+ * @param {object} [options]
+ * @param {boolean} [options.silent]   No chat line of its own (the caller writes the line it returns)
+ * @returns {Promise<{loss: number, line: string}|null>}
+ */
+export async function agonyPain(actor, { silent = false } = {}) {
+  const n = rulesOn() ? rating(actor, "agony") : 0;
+  if ((n <= 0) || !actor || actor.statuses.has("dead")) return null;
+  return takeDamage(actor, n, { reason: "agony", silent });
+}
+
+/* -------------------------------------------- */
+/*  The Extra Breaths                           */
+/* -------------------------------------------- */
+
+/** The key of an effect in its actor's record of spent Extra Breaths (no dots: flag keys nest on them). */
+const breathKey = effect => [(effect.parent instanceof Item) ? effect.parent.id : null, effect.id].filter(Boolean).join("-");
+
+/**
+ * The Extra Breaths of an actor: its active effects with `flags.eternia.revive = { uses, per, hp }` (the passive ones
+ * of its items too, a Trait or a Tabu), with the uses each has left this round or scene.
+ * @param {Actor} actor
+ * @returns {{effect: ActiveEffect, key: string, uses: number, left: number, per: "round"|"scene", hp: string,
+ *   values: object}[]}
+ */
+export function extraBreaths(actor) {
+  const spent = actor?.getFlag?.(SYSTEM_ID, "reviveSpent") ?? {};
+  const out = [];
+  for (const effect of actor?.allApplicableEffects?.() ?? []) {
+    const data = effect.active ? effect.getFlag(SYSTEM_ID, "revive") : null;
+    if (!data) continue;
+    const values = formulaData(actor, effect.sourceItem ?? null);
+    const uses = Math.max(0, isFormula(data.uses) ? (evaluateFormula(data.uses, values) ?? 0) : toInt(data.uses ?? 1));
+    const key = breathKey(effect);
+    out.push({ effect, key, uses, left: Math.max(0, uses - toInt(spent[key])), per: (data.per === "round") ? "round" : "scene",
+      hp: String(data.hp ?? "1"), values });
+  }
+  return out;
+}
+
+/**
+ * The Extra Breath an actor about to fall to 0 HP spends (one with uses left, those that come back every round first),
+ * or null: the HP it keeps (its `hp` formula, 1 by default, at most the Max HP), the update that spends it and the
+ * chat line.
+ * @param {Actor} actor
+ * @returns {{hp: number, updates: object, line: string, effect: ActiveEffect, left: number}|null}
+ */
+export function spendExtraBreath(actor) {
+  if (!rulesOn()) return null;
+  const breaths = extraBreaths(actor).filter(b => b.left > 0);
+  const breath = breaths.find(b => b.per === "round") ?? breaths[0];
+  if (!breath) return null;
+  const raw = isFormula(breath.hp) ? (evaluateFormula(breath.hp, breath.values) ?? 1) : toInt(breath.hp);
+  const hp = Math.max(1, Math.min(raw, toInt(actor.system.health?.max) || 1));
+  const spent = toInt(actor.getFlag(SYSTEM_ID, "reviveSpent")?.[breath.key]) + 1;
+  const left = breaths.reduce((total, b) => total + b.left, 0) - 1;
+  return {
+    hp, effect: breath.effect, left,
+    updates: { [`flags.${SYSTEM_ID}.reviveSpent.${breath.key}`]: spent },
+    line: L("Conditions.Applied.Breath", { effect: breath.effect.name, hp, left })
+  };
+}
+
+/**
+ * An Extra Breath was spent: the hook the Magias listen to. Only on this client.
+ * @param {Actor} actor
+ * @param {{effect: ActiveEffect, hp: number, left: number}} breath
+ */
+function announceBreath(actor, breath) {
+  /**
+   * An actor that would have fallen to 0 HP spent an Extra Breath (`flags.eternia.revive`) and kept `hp` HP (the
+   * Seven Hearts of a Magia give [Berserk] for each heart lost). Only on this client.
+   * @param {Actor} actor
+   * @param {{effect: ActiveEffect, hp: number, left: number}} context   `left`: the uses it still has
+   */
+  Hooks.callAll("eternia.revived", actor, { effect: breath.effect, hp: breath.hp, left: breath.left });
+}
+
+/** Whether an effect of the actor keeps its [Combo] from a blow (`flags.eternia.keepCombo`). */
+const keepsCombo = actor => (actor?.effects ?? []).some(e => e.active && e.getFlag(SYSTEM_ID, "keepCombo"));
 
 /* -------------------------------------------- */
 /*  Damage of the conditions                    */
@@ -314,6 +465,13 @@ export async function takeDamage(actor, amount, { reason = "", what: named = "",
     end.push("lastStand");
     lastStand = true;
   }
+  // An Extra Breath (`revive`): the HP of the effect instead of 0.
+  const breath = ((hp <= 0) && (before > 0)) ? spendExtraBreath(actor) : null;
+  if (breath) {
+    hp = breath.hp;
+    updates["system.health.value"] = hp;
+    Object.assign(updates, breath.updates);
+  }
   if (((damage > 0) || (absorbed > 0)) && has(actor, "asleep")) end.push("asleep");
   // [Flame] damage ([Burning]'s too) melts [Freezing].
   const melted = ((damage > 0) || (absorbed > 0)) && /flame/i.test(tag) && has(actor, "freezing");
@@ -323,10 +481,13 @@ export async function takeDamage(actor, amount, { reason = "", what: named = "",
   if (end.length) await removeStatuses(actor, end);
   if ((hp <= 0) && !actor.statuses.has("incapacitated")) await actor.toggleStatusEffect("incapacitated", { active: true });
 
+  if (breath) announceBreath(actor, breath);
+
   const what = named || (reason ? label(reason) : L("Conditions.Damage"));
   const line = L("Conditions.DamageLine", {
     name: actorName(actor), what, n: amount, parts: parts.length ? ` (${parts.join(" ")})` : "", before, hp
-  }) + (lastStand ? ` · ${label("lastStand")}` : "") + (melted ? ` · ${L("Conditions.Applied.Melted")}` : "");
+  }) + (lastStand ? ` · ${label("lastStand")}` : "") + (breath ? ` · ${breath.line}` : "")
+    + (melted ? ` · ${L("Conditions.Applied.Melted")}` : "");
   if (!silent) {
     const title = from ? L("Conditions.DamageFrom", { what, name: actorName(from) }) : what;
     await postSummary(title, actor.hasPlayerOwner ? [line] : [], actor.hasPlayerOwner ? [] : [line]);
@@ -352,6 +513,11 @@ export async function takeHealing(actor, amount, { what = "", from = null, silen
     const result = await request("conditionHeal", { actorUuid: actor.uuid, amount, what, fromUuid: from?.uuid ?? null });
     return result?.ok ? result.result : null;
   }
+  // [Inversion]: the healing hurts instead.
+  if (healingHurts(actor)) {
+    const hurt = await takeDamage(actor, amount, { what: `${what || L("Conditions.Heal")} (${label("inversion")})`, from, silent });
+    return hurt ? { gain: 0, line: hurt.line } : null;
+  }
   const blocker = healBlocker(actor);
   if (blocker) return { gain: 0, line: L("Conditions.NoHeal", { name: actorName(actor), status: label(blocker) }) };
   const before = toInt(actor.system.health?.value);
@@ -359,9 +525,12 @@ export async function takeHealing(actor, amount, { what = "", from = null, silen
   if (hp <= before) return null;
   await actor.update({ "system.health.value": hp });
   if (actor.statuses.has("incapacitated") && (hp > 0)) await actor.toggleStatusEffect("incapacitated", { active: false });
-  const line = L("Conditions.HealLine", { name: actorName(actor), what: what || L("Conditions.Heal"), n: hp - before, before, hp });
-  if (!silent) await postSummary(what || L("Conditions.Heal"), actor.hasPlayerOwner ? [line] : [], actor.hasPlayerOwner ? [] : [line]);
-  return { gain: hp - before, line };
+  const lines = [L("Conditions.HealLine", { name: actorName(actor), what: what || L("Conditions.Heal"), n: hp - before, before, hp })];
+  // [Agony]: getting HP back hurts.
+  const pain = await agonyPain(actor, { silent: true });
+  if (pain) lines.push(pain.line);
+  if (!silent) await postSummary(what || L("Conditions.Heal"), actor.hasPlayerOwner ? lines : [], actor.hasPlayerOwner ? [] : lines);
+  return { gain: hp - before, line: lines.join(" · ") };
 }
 
 /** GM side of takeHealing: only when the user owns the actor the HP came from (the target of the drain). */
@@ -388,16 +557,38 @@ async function onDamageRequest({ actorUuid, amount, reason, what, fromUuid: sour
   return { ok: true, result };
 }
 
+/**
+ * [Inversion]: an effect about to give [Empowered] or [Regen] (a skill's, with its status data) gives [Weakened] or
+ * [Decay] with the same Rating. The statuses toggled by hand stay as they are.
+ * @param {Actor} actor
+ * @param {ActiveEffect} effect   Not created yet
+ */
+function invertGift(actor, effect) {
+  const statusData = effect.getFlag?.(SYSTEM_ID, "statusData");
+  const from = statusData?.statusId;
+  const to = (from && has(actor, "inversion")) ? INVERTED_GIFTS[from] : null;
+  if (!to) return;
+  effect.updateSource({
+    name: effect.name.includes(label(from)) ? effect.name.replace(label(from), label(to)) : effect.name,
+    img: CONFIG.statusEffects.find(s => s.id === to)?.img ?? effect.img,
+    statuses: [...(effect.statuses ?? [])].filter(id => id !== from).concat(to),
+    [`flags.${SYSTEM_ID}.statusData.statusId`]: to
+  });
+  ui.notifications.info(L("Conditions.Inverted", { name: actorName(actor), from: label(from), to: label(to) }));
+}
+
 /** Call during the `init` hook. */
 export function registerConditionDamage() {
   registerHandler("conditionDamage", onDamageRequest);
   registerHandler("conditionHeal", onHealRequest);
-  // A [Cursed] character gets no [Regen] nor [Barrier], one with [Black Flame] no [Regen] (effects that would give
-  // them are not created).
+  // Under [Inversion], effects that would give [Empowered] or [Regen] give [Weakened] or [Decay] instead. A [Cursed]
+  // character gets no [Regen] nor [Barrier], one with [Black Flame] no [Regen] (effects that would give them are not
+  // created).
   Hooks.on("preCreateActiveEffect", (effect, data, options, userId) => {
     if ((userId !== game.user.id) || !rulesOn()) return;
     const actor = effect.parent;
     if (!(actor instanceof Actor)) return;
+    invertGift(actor, effect);
     const id = effect.getFlag?.(SYSTEM_ID, "statusData")?.statusId ?? [...(effect.statuses ?? [])][0];
     const blocked = (has(actor, "cursed") && ["regen", "barrier"].includes(id)) || (has(actor, "blackFlame") && (id === "regen"));
     if (blocked) {

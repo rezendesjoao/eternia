@@ -30,6 +30,7 @@ import { evaluateFormula, formulaData, isFormula } from "../helpers/effect-formu
 import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { statusDefinition } from "../helpers/statuses.mjs";
 import { has, rating, removeStatuses } from "./rules.mjs";
+import { agonyPain } from "./damage.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 const flag = (effect, key) => effect.getFlag?.(SYSTEM_ID, key) ?? effect.flags?.[SYSTEM_ID]?.[key];
@@ -145,7 +146,11 @@ async function doAction(actor, { type, value, status, statuses = [], casterUuid 
     const ids = listOf(statuses).filter(id => has(actor, id));
     if (!ids.length) return null;
     await removeStatuses(actor, ids);
-    return L("Conditions.Actions.Remove", { name: actorName(actor), statuses: ids.map(label).join(", ") });
+    const line = L("Conditions.Actions.Remove", { name: actorName(actor), statuses: ids.map(label).join(", ") });
+    // [Agony]: getting rid of a Bad Status hurts (not when the Agony itself goes).
+    const freed = ids.some(id => statusDefinition(id)?.group === "bad");
+    const pain = (freed && !ids.includes("agony")) ? await agonyPain(actor, { silent: true }) : null;
+    return pain ? `${line} · ${pain.line}` : line;
   }
   if (type === "steal") {
     const thief = await actorOf(casterUuid);
