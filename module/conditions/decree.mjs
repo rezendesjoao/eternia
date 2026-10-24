@@ -136,6 +136,9 @@ function tokenOn(scene, actor) {
   return scene.tokens.find(t => t.actorLink && (t.actorId === actor.id)) ?? null;
 }
 
+/** Where a token stands: its source position (TokenDocument#x keeps the old place while a move animates). */
+const placeOf = t => ({ x: t._source?.x ?? t.x, y: t._source?.y ?? t.y });
+
 /**
  * Squares between two tokens of a scene, counted like the attack cards (from the square each center is in, a diagonal
  * counts 2); off a square grid, by the larger of the two distances.
@@ -147,9 +150,9 @@ function tokenOn(scene, actor) {
 function squares(a, b, at = null) {
   const grid = a.parent?.grid;
   const size = grid?.size || 100;
-  const center = (t, p = t) => ({ x: p.x + ((Number(t.width) || 1) * size) / 2, y: p.y + ((Number(t.height) || 1) * size) / 2 });
-  const p = center(a);
-  const q = center(b, at ?? b);
+  const center = (t, p) => ({ x: p.x + ((Number(t.width) || 1) * size) / 2, y: p.y + ((Number(t.height) || 1) * size) / 2 });
+  const p = center(a, placeOf(a));
+  const q = center(b, at ?? placeOf(b));
   if (grid?.getOffset && (grid.type === CONST.GRID_TYPES.SQUARE)) {
     const i = grid.getOffset(p);
     const j = grid.getOffset(q);
@@ -407,7 +410,7 @@ function engaged(a, b) {
 
 /** Truth: a token about to move remembers where it stood. */
 function onPreUpdateToken(token, changes, options) {
-  if (("x" in changes) || ("y" in changes)) options.eterniaDecreeFrom = { x: token.x, y: token.y };
+  if (("x" in changes) || ("y" in changes)) options.eterniaDecreeFrom = placeOf(token);
 }
 
 /** Truth: a token that left the square of a bearer (by itself: not a pull, a push or a switch). */

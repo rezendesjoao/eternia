@@ -204,6 +204,9 @@ async function switchPlaces(ally, user, sceneId) {
   return L("Conditions.Actions.Switch", { name: actorName(user), ally: actorName(ally), mine: before.theirs, theirs: before.mine });
 }
 
+/** Where a token stands: its source position (TokenDocument#x keeps the old place while a move animates). */
+const placeOf = token => ({ x: token._source.x, y: token._source.y });
+
 /** The token of an actor on a scene (a token actor's own, else a linked token of it), or null. */
 function sceneToken(scene, actor) {
   if (!scene || !actor) return null;
@@ -223,8 +226,11 @@ async function pullTo(target, user, sceneId) {
   const scene = game.scenes.get(sceneId) ?? canvas?.scene ?? null;
   const theirs = sceneToken(scene, target);
   const mine = sceneToken(scene, user);
-  if (!theirs || !mine || ((theirs.x === mine.x) && (theirs.y === mine.y))) return null;
-  await theirs.update({ x: mine.x, y: mine.y, elevation: mine.elevation }, { eterniaForced: true });
+  if (!theirs || !mine) return null;
+  const to = placeOf(mine);
+  const from = placeOf(theirs);
+  if ((from.x === to.x) && (from.y === to.y)) return null;
+  await theirs.update({ x: to.x, y: to.y, elevation: mine._source.elevation }, { eterniaForced: true });
   return L("Conditions.Actions.Pull", { name: actorName(target), to: actorName(user) });
 }
 
@@ -244,14 +250,15 @@ async function pushFrom(target, user, sceneId, n) {
   const mine = sceneToken(scene, user);
   if (!theirs || !mine) return null;
   const size = scene.grid.size;
-  const dx = theirs.x - mine.x;
-  const dy = theirs.y - mine.y;
+  const from = placeOf(theirs);
+  const dx = from.x - placeOf(mine).x;
+  const dy = from.y - placeOf(mine).y;
   const alongX = (Math.abs(dx) >= Math.abs(dy));
   const sign = d => Math.sign(d) || 1;
   const rect = scene.dimensions?.sceneRect ?? { x: 0, y: 0, width: scene.width, height: scene.height };
-  const x = Math.clamp(theirs.x + (alongX ? sign(dx) * steps * size : 0), rect.x, rect.x + rect.width - (theirs.width * size));
-  const y = Math.clamp(theirs.y + (alongX ? 0 : sign(dy) * steps * size), rect.y, rect.y + rect.height - (theirs.height * size));
-  const moved = Math.round((Math.abs(x - theirs.x) + Math.abs(y - theirs.y)) / size);
+  const x = Math.clamp(from.x + (alongX ? sign(dx) * steps * size : 0), rect.x, rect.x + rect.width - (theirs.width * size));
+  const y = Math.clamp(from.y + (alongX ? 0 : sign(dy) * steps * size), rect.y, rect.y + rect.height - (theirs.height * size));
+  const moved = Math.round((Math.abs(x - from.x) + Math.abs(y - from.y)) / size);
   if (!moved) return null;
   await theirs.update({ x, y }, { eterniaForced: true });
   return L("Conditions.Actions.Push", { name: actorName(target), from: actorName(user), n: moved });
