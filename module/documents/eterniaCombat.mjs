@@ -228,6 +228,9 @@ export class EterniaCombat extends Combat {
 		};
 		Hooks.callAll("combatStart", this, updateData);
 		await this.update(updateData, { eterniaOrigin: CLIENT_ID });
+		// The Initiative again, now that the combat has started: effects that only work in a combat count from the
+		// first round (a Magia's Tabu that lowers it).
+		await this._refreshInitiative();
 		return this;
 	}
 

@@ -1,0 +1,78 @@
+{
+  "name": "Impulso Faiscante",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Lampejo.</strong> Feitiço grande. Você vira um rastro de faíscas e atravessa em linha reta até 6 Qd, queimando todos no caminho: Teste de Precisão contra a Esquiva de cada alvo da Linha; [3d6 + Poder Mágico] de dano mágico de [Chama], e quem ele acerta fica [Queimando: NP÷2 + 2]. Você termina no fim da Linha.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>O fogo chega depois de você, como o trovão chega depois do raio.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Flame",
+      "Movement"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Line",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/projectile-bolt-zigzag-orange.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "lampejo-faiscante",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "burning",
+          "value": "floor(@cr/2)+2"
+        }
+      ],
+      "magicSpell": {
+        "id": "lampejo"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "H63N3DLpPcVY9vLB",
+  "folder": "NthR5jpOKVDFd1EQ",
+  "_key": "!items!H63N3DLpPcVY9vLB"
+}

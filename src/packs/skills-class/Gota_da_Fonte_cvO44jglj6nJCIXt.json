@@ -1,0 +1,168 @@
+{
+  "name": "Gota da Fonte",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Fonte da Juventude. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você dá a um aliado a até 2 Qd (ou bebe você mesmo) uma gota da própria Fonte. Ele recupera [(2 + 2×pontos gastos)d6 + pontos gastos×NP] PV (em você, o Tabu corta pela metade) e fica imortal até o fim da cena: [Regeneração: NP] e um Fôlego Extra por rodada (quando chegaria a 0 PV, fica com 1 PV). Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Uma gota basta. A Fonte inteira, ninguém aguentaria.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "2Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "",
+      "recovery": true,
+      "noPower": true
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/materials/liquid-droplet-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "regen",
+            "value": "@cr"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Gota da Fonte",
+      "img": "systems/eternia/assets/ui/status/regen.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "regen"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "juJGMGGq5vpHcKyH",
+      "_key": "!items.effects!cvO44jglj6nJCIXt.juJGMGGq5vpHcKyH"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "revive": {
+            "uses": 1,
+            "per": "round",
+            "hp": "1"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Gota da Fonte: Fôlego Extra",
+      "img": "icons/commodities/materials/liquid-droplet-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "q9Eyxbxg5AtaajDg",
+      "_key": "!items.effects!cvO44jglj6nJCIXt.q9Eyxbxg5AtaajDg"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "fonte-juventude-gota",
+      "kind": "spends",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "fonte-juventude"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + pontos gastos×NP"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "cvO44jglj6nJCIXt",
+  "folder": "qM8BHh8Yat3EWWEA",
+  "_key": "!items!cvO44jglj6nJCIXt"
+}

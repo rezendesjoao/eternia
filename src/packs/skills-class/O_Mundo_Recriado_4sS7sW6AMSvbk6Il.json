@@ -1,0 +1,205 @@
+{
+  "name": "O Mundo Recriado",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Caos. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você desfaz o mundo numa área ampla a até 6 Qd e o refaz do seu jeito. Teste de Precisão contra a Resistência de cada alvo; [(1 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico. Gasta todo o Motor. Ao aplicar os efeitos, escolha o que o mundo novo faz com quem ela acerta:</p><ul><li><strong>Pedra:</strong> [Petrificado].</li><li><strong>Sono:</strong> [Adormecido].</li><li><strong>Coroa:</strong> [Dominado] por você.</li></ul><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>No mundo novo, eles nasceram ajoelhados.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/earth/orb-lava-ball-yellow.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "O Mundo Recriado: Pedra",
+      "img": "systems/eternia/assets/ui/status/petrified.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "petrified"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "zuFqigBMV4SaL4DS",
+      "_key": "!items.effects!4sS7sW6AMSvbk6Il.zuFqigBMV4SaL4DS"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "O Mundo Recriado: Sono",
+      "img": "systems/eternia/assets/ui/status/asleep.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "asleep"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "QGhTw7bO4aCt1mPb",
+      "_key": "!items.effects!4sS7sW6AMSvbk6Il.QGhTw7bO4aCt1mPb"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "O Mundo Recriado: Coroa",
+      "img": "systems/eternia/assets/ui/status/dominated.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "dominated"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "QCYGXeZ1gGPAVc3O",
+      "_key": "!items.effects!4sS7sW6AMSvbk6Il.QCYGXeZ1gGPAVc3O"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "caos-mundo",
+      "kind": "spends",
+      "branch": "magic",
+      "chooseEffect": true,
+      "magicSpell": {
+        "id": "caos"
+      },
+      "minRank": 10,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "4sS7sW6AMSvbk6Il",
+  "folder": "or8AsPvT2mLa2ucD",
+  "_key": "!items!4sS7sW6AMSvbk6Il"
+}

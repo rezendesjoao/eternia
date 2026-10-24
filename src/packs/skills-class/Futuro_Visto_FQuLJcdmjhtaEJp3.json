@@ -1,0 +1,172 @@
+{
+  "name": "Futuro Visto",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Visão.</strong> Feitiço grande. Você mostra os próximos segundos a você e aos aliados numa área a até 4 Qd (escolha-os como alvos): eles ficam [Concentrado] (+1d6 no próximo teste) e com +1d6 na próxima Esquiva (as duas valem juntas, se o próximo teste for a Esquiva).</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Todo mundo desvia do mesmo jeito: como quem já viu aquilo antes.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/treasure/brooch-gold-eye-green.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "allies",
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Futuro Visto",
+      "img": "systems/eternia/assets/ui/status/focused.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "focused"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "HQGOpsHnpJTlqPAu",
+      "_key": "!items.effects!FQuLJcdmjhtaEJp3.HQGOpsHnpJTlqPAu"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "allies",
+          "consumeOn": "dodge",
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Futuro Visto: Esquiva",
+      "img": "icons/commodities/treasure/brooch-gold-eye-green.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.checks.evasion.dice",
+            "type": "add",
+            "value": 1,
+            "phase": "initial",
+            "priority": null
+          },
+          {
+            "key": "system.checks.resistance.dice",
+            "type": "add",
+            "value": 1,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "2QDfVw0AGBzGXmrZ",
+      "_key": "!items.effects!FQuLJcdmjhtaEJp3.2QDfVw0AGBzGXmrZ"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "visao-futuro",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "visao"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "FQuLJcdmjhtaEJp3",
+  "folder": "ZS4X8EsTAX1rCgLS",
+  "_key": "!items!FQuLJcdmjhtaEJp3"
+}

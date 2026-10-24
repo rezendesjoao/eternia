@@ -1,0 +1,84 @@
+{
+  "name": "Brilho Dourado",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Lampejo. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você vira luz pura sobre uma área ampla a até 6 Qd. Teste de Precisão contra a Resistência de cada alvo; [(1 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Radiância], e quem ela acerta fica [Cego]. Gasta todo o Motor. E a luz ainda não acabou: você ganha mais uma Ação de Movimento e uma Ação Menor neste turno.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Quem abriu os olhos de novo achou que tinha amanhecido.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Radiance"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/lightning/bolt-strike-smoke-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "lampejo-dourado",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "blinded"
+        }
+      ],
+      "window": {
+        "move": 1,
+        "minor": 1
+      },
+      "magicSpell": {
+        "id": "lampejo"
+      },
+      "minRank": 10,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "sVDGYeRaC5nbKJn8",
+  "folder": "NthR5jpOKVDFd1EQ",
+  "_key": "!items!sVDGYeRaC5nbKJn8"
+}

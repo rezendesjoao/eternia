@@ -11,12 +11,19 @@
  * - recovery.mjs    ending one by spending an action of the Main Process;
  * - effects.mjs     what some effects do besides their changes (immunity, Fatigue when they end, ending with a
  *                   status or after a roll) and the use actions of skills.
+ * - omen.mjs        the Omen: dice kept at the start of a combat to replace dice of the attack cards (Visão);
+ * - window.mjs      acting out of turn: a window of actions outside the Main Process (Lampejo);
+ * - immortal.mjs    the Immortal's Regen, healing halved, the blow taken for an ally, HP as a cost (Fonte da Juventude);
+ * - realm.mjs       an area around a caster that follows a rule (Reino do Caos).
  * The statuses themselves are registered with the others (helpers/statuses.mjs).
  */
 import { registerConditionDamage } from "./damage.mjs";
 import { registerConditionTurns } from "./turns.mjs";
 import { registerConditionMovement } from "./actions.mjs";
 import { registerConditionEffects } from "./effects.mjs";
+import { registerOmen } from "./omen.mjs";
+import { registerImmortal } from "./immortal.mjs";
+import { registerRealm } from "./realm.mjs";
 
 /** Call during the `init` hook. */
 export function registerConditions() {
@@ -24,4 +31,7 @@ export function registerConditions() {
   registerConditionTurns();
   registerConditionMovement();
   registerConditionEffects();
+  registerOmen();
+  registerImmortal();
+  registerRealm();
 }

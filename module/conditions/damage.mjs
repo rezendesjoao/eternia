@@ -18,7 +18,8 @@
  * Healing does nothing to a [Cursed] character or one with [Black Flame], and effects can't give them [Regen] (nor
  * [Barrier], when [Cursed]); the GM still can by hand, in the sheet. Under [Inversion] healing hurts instead, and the
  * effects that would give [Empowered] or [Regen] give [Weakened] or [Decay]. [Agony] hurts whenever its bearer
- * recovers HP or gets rid of a Bad Status (agonyPain).
+ * recovers HP or gets rid of a Bad Status (agonyPain). A Tabu with `healTaken` (the Fountain of Youth's,
+ * conditions/immortal.mjs) halves the healing of spells and items, not the body's own (`natural`).
  *
  * The damage of the conditions themselves ([Burning], [Poisoned], [Shocked], [Doom], [Mirror], [Bond], [Nightmare],
  * [Agony]) goes through takeDamage: [Barrier], [Last Stand], the Extra Breaths and Incapacitated, with a line in the
@@ -32,6 +33,7 @@ import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { evaluateFormula, formulaData, isFormula } from "../helpers/effect-formulas.mjs";
 import { crOf, has, isSourceOf, rating, removeStatuses, rulesOn, sameActor, sourcesOf, statusEffects } from "./rules.mjs";
 import { passiveCancels } from "./effects.mjs";
+import { healTaken } from "./immortal.mjs";
 import { motorAbsorbs } from "../classes/motor.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
@@ -574,9 +576,12 @@ export async function takeDamage(actor, amount, { reason = "", what: named = "",
  * @param {string} [options.what]     The name for the chat line (the skill)
  * @param {Actor} [options.from]      Whose HP it came from
  * @param {boolean} [options.silent]  No chat line of its own (the caller writes the line it returns)
+ * @param {boolean} [options.natural] The body's own healing ([Regen] acting now, on an actor the user owns): a Tabu
+ *                                    that halves the healing of spells and items (`healTaken`, immortal.mjs) doesn't
+ *                                    cut it
  * @returns {Promise<{gain: number, line: string}|null>}
  */
-export async function takeHealing(actor, amount, { what = "", from = null, silent = false } = {}) {
+export async function takeHealing(actor, amount, { what = "", from = null, silent = false, natural = false } = {}) {
   amount = toInt(amount);
   if (!actor || (amount <= 0) || actor.statuses.has("dead")) return null;
   if (!actor.isOwner) {
@@ -590,12 +595,14 @@ export async function takeHealing(actor, amount, { what = "", from = null, silen
   }
   const blocker = healBlocker(actor);
   if (blocker) return { gain: 0, line: L("Conditions.NoHeal", { name: actorName(actor), status: label(blocker) }) };
+  // A Tabu that halves the healing of spells and items (conditions/immortal.mjs); not the body's own ([Regen] now)
+  const healing = natural ? { amount, note: "" } : healTaken(actor, amount);
   const before = toInt(actor.system.health?.value);
-  const hp = Math.min(before + amount, toInt(actor.system.health?.max));
+  const hp = Math.min(before + healing.amount, toInt(actor.system.health?.max));
   if (hp <= before) return null;
   await actor.update({ "system.health.value": hp });
   if (actor.statuses.has("incapacitated") && (hp > 0)) await actor.toggleStatusEffect("incapacitated", { active: false });
-  const lines = [L("Conditions.HealLine", { name: actorName(actor), what: what || L("Conditions.Heal"), n: hp - before, before, hp })];
+  const lines = [L("Conditions.HealLine", { name: actorName(actor), what: what || L("Conditions.Heal"), n: hp - before, before, hp }) + healing.note];
   recovered(actor, hp - before, { what: what || L("Conditions.Heal"), from });
   // [Agony]: getting HP back hurts.
   const pain = await agonyPain(actor, { silent: true });

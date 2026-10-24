@@ -1,0 +1,168 @@
+{
+  "name": "Fonte da Juventude",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Proibida.</strong> Você bebeu da Fonte da Juventude, e o seu corpo esqueceu como se morre. Toda ferida fecha sozinha e, quando deveria ser a última, você continua de pé. Só que o corpo imortal não aceita bem a cura dos outros, e você aprende a gastar a própria vida como moeda: bater sem se defender, dar o seu sangue a um aliado, receber no lugar dele o golpe que ia derrubá-lo. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, Corpo que Não Aceita Cura:</strong> em combate, a cura de feitiços e itens (os cartões de cura, o Dreno, a Dádiva) só cura metade em você. A [Regeneração] e o Corpo Imortal não são cortados.</li><li><strong>A vida como moeda:</strong> o Golpe sem Medo custa PV, e a Dádiva dá os seus PV a um aliado; você nunca paga o último PV.</li><li><strong>Traço, Imortal:</strong> em combate, você tem [Regeneração: NP÷2 + 2], que volta na Manutenção de cada rodada, e, uma vez por rodada, quando chegaria a 0 PV, fica com 1 PV (um Fôlego Extra).</li><li><strong>Feitiços:</strong> Corpo Imortal e Golpe sem Medo (NP 1), Dádiva e Escudo de Carne (NP 3), Vida sem Fim (NP 5) e o feitiço supremo Gota da Fonte (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Gota da Fonte pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Já cortaram a sua cabeça uma vez. Ela não ficou no chão por muito tempo.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/water/water-well.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "healTaken": 0.5,
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Corpo que Não Aceita Cura",
+      "img": "icons/magic/water/water-well.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "aCneDM1uiCZhL46z",
+      "_key": "!items.effects!rexvspGyF0iE6zAw.aCneDM1uiCZhL46z"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "fonte-juventude",
+            "immortal": {
+              "regen": "floor(@cr/2)+2"
+            }
+          },
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ],
+          "revive": {
+            "uses": 1,
+            "per": "round",
+            "hp": "1"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Imortal",
+      "img": "icons/magic/water/water-well.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "HEXRebA5R5bs6dYn",
+      "_key": "!items.effects!rexvspGyF0iE6zAw.HEXRebA5R5bs6dYn"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "fonte-juventude-fonte-juventude",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "fonte-juventude",
+        "category": "forbidden",
+        "tagline": "Imortal: o corpo volta de qualquer ferida, mas não aceita a cura dos outros."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "rexvspGyF0iE6zAw",
+  "folder": "qM8BHh8Yat3EWWEA",
+  "_key": "!items!rexvspGyF0iE6zAw"
+}
