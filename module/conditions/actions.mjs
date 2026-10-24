@@ -10,7 +10,8 @@
  * - [Berserk]: only skills that attack.
  * - Targets: [Blinded] only within 1 Sq; [Grappled] attacks only its grappler, [Taunted] must include its taunter,
  *   [Charmed] never attacks its charmer, [Dominated] never attacks who dominates it nor that one's side.
- *   [Frightened] can't move closer to what frightens it.
+ *   [Frightened] can't move closer to what frightens it. A Magia's Taboo may keep its spells off the creatures engaged
+ *   with the user (the Invasão's Distance: conditions/distance.mjs).
  * - Actions: [Hasted] has a second Minor Action; [Slowed] has no Move Action.
  */
 import { L, setting } from "../settings.mjs";
@@ -19,6 +20,7 @@ import { findTag } from "../helpers/tag-catalog.mjs";
 import { actorName, toInt } from "../helpers/utils.mjs";
 import { NO_ACTIONS, NO_MOVEMENT, NO_REACTIONS, SILENCED_TAGS } from "./catalog.mjs";
 import { has, isHostile, isSourceOf, limitsMode, rulesOn, sameActor, sourcesOf } from "./rules.mjs";
+import { engagedIssues } from "./distance.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 const REACTIONS = new Set(["Before Check", "After Check", "Damage Roll", "Before Damage", "After Damage"]);
@@ -102,6 +104,7 @@ export function conditionUseIssues(item, actor, { targets = null } = {}) {
       const kept = targets.filter(t => t.actor && (masters.some(m => sameActor(m, t.actor)) || sides.has(t.document?.disposition)));
       if (kept.length) push("dominated", "Dominated", { source: masters.map(actorName).join(", ") });
     }
+    for (const text of engagedIssues(item, actor, targets)) issues.push({ text, mode });
   }
   return issues;
 }

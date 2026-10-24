@@ -1,0 +1,163 @@
+{
+  "name": "Cubo Perfeito",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Infinito.</strong> Um cubo de luz perfeito se fecha em volta de um alvo a até 4 Qd. Escolha ao aplicar: <strong>Escudo</strong>, e quem está dentro fica com [Barreira: NP×2 + 5]; ou <strong>Prisão</strong>, e um inimigo fica [Enraizado] e [Silenciado] lá dentro (Teste de Precisão contra a Resistência dele; um aliado aceita o cubo, sem Esquiva). Pelo Infinito, a prisão não abre sozinha: dura até o fim da cena, ou até ele gastar uma Ação Maior para quebrar o cubo.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>As paredes não têm porta. Nem frestas. Nem fim.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/materials/glass-cube.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "barrier",
+            "value": "@cr*2+5"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Cubo Perfeito: Escudo",
+      "img": "systems/eternia/assets/ui/status/barrier.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "barrier"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "kMB7ebqNeZsYUDHH",
+      "_key": "!items.effects!1aT0tDDT2GmNStxZ.kMB7ebqNeZsYUDHH"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "enemies",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Cubo Perfeito: Prisão",
+      "img": "systems/eternia/assets/ui/status/rooted.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "rooted",
+        "silenced"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "l0JK9swxZjBRUIFu",
+      "_key": "!items.effects!1aT0tDDT2GmNStxZ.l0JK9swxZjBRUIFu"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "infinito-cubo-perfeito",
+      "kind": "feeds",
+      "branch": "magic",
+      "chooseEffect": true,
+      "magicSpell": {
+        "id": "infinito"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "1aT0tDDT2GmNStxZ",
+  "folder": "sCQXKuicFAuvRbJv",
+  "_key": "!items!1aT0tDDT2GmNStxZ"
+}

@@ -23,6 +23,7 @@ import { AFFLICTED_PROTECTS, END_OF_OWN_PROCESS } from "../conditions/catalog.mj
 import { cleanupConditions, setupConditions } from "../conditions/turns.mjs";
 import { losesTurn } from "../conditions/actions.mjs";
 import { has, removeStatuses } from "../conditions/rules.mjs";
+import { naturalEnd } from "../conditions/lasting.mjs";
 
 /** Call during the `init` hook. */
 export function registerRound() {
@@ -170,7 +171,8 @@ async function onUpdateCombat(combat, changes, options, userId) {
     const actor = combat.combatants.get(id)?.actor;
     if (!actor) continue;
     const afflicted = actor.statuses.has("afflicted");
-    const ending = END_OF_OWN_PROCESS.filter(status => has(actor, status) && !(afflicted && AFFLICTED_PROTECTS.includes(status)));
+    // Not those an infinite effect holds, nor a renewed one (conditions/lasting.mjs)
+    const ending = await naturalEnd(actor, END_OF_OWN_PROCESS.filter(status => has(actor, status) && !(afflicted && AFFLICTED_PROTECTS.includes(status))));
     if (ending.length) {
       await removeStatuses(actor, ending).catch(err => console.error(`${SYSTEM_ID} | Could not end the statuses of ${actor.uuid}`, err));
     }

@@ -2,22 +2,26 @@
  * Ending a status by spending an action of the Main Process ([Rigor]: a Minor or a Major Action, [Burning]: a Minor
  * Action, [Prone]: the Move Action…, see RECOVERY in catalog.mjs). In a started combat, with the action economy on,
  * it takes the first of those actions still left in the bearer's own Main Process; elsewhere the status just ends.
- * The action HUD shows the button on the statuses that allow it.
+ * A Bad Status a hostile infinite effect holds (the Magia Infinito, conditions/lasting.mjs) takes a Major Action, and the
+ * whole effect ends with it. The action HUD shows the button on the statuses that allow it.
  */
 import { L, setting } from "../settings.mjs";
 import { actorName, combatantOf, combatOf, postSummary } from "../helpers/utils.mjs";
 import { actionsLeft, spendAction } from "../automation/use.mjs";
 import { AFFLICTED_PROTECTS, RECOVERY } from "./catalog.mjs";
 import { has, removeStatuses } from "./rules.mjs";
+import { breakFreeActions } from "./lasting.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 const actionLabel = action => L(`Use.Action.${action}`);
 
 /** How a status can be ended by its bearer, for the HUD: the actions it takes ("Minor or Major Action"). */
-export function recoveryOf(id) {
-  const actions = RECOVERY[id];
+export function recoveryOf(id, actor = null) {
+  const free = breakFreeActions(actor, id);
+  const actions = free ?? RECOVERY[id];
   if (!actions) return null;
-  return { actions, text: L("Conditions.Recover.Hint", { actions: actions.map(actionLabel).join(L("Conditions.Recover.Or")) }) };
+  const text = L(free ? "Conditions.Recover.Infinite" : "Conditions.Recover.Hint", { actions: actions.map(actionLabel).join(L("Conditions.Recover.Or")) });
+  return { actions, text };
 }
 
 /**
@@ -27,7 +31,7 @@ export function recoveryOf(id) {
  * @returns {Promise<boolean>}   Whether it ended
  */
 export async function recover(actor, id) {
-  const actions = RECOVERY[id];
+  const actions = breakFreeActions(actor, id) ?? RECOVERY[id];
   if (!actor?.isOwner || !actions || !has(actor, id)) return false;
   if (has(actor, "afflicted") && AFFLICTED_PROTECTS.includes(id)) {
     ui.notifications.warn(L("Conditions.Recover.Afflicted", { name: actorName(actor), status: label(id) }));

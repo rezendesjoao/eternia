@@ -1,0 +1,79 @@
+{
+  "name": "Floresta Desperta",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Desastre. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: a floresta inteira acorda numa área ampla a até 6 Qd e obedece a você. Teste de Precisão contra a Resistência de cada alvo; [(1 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico, e os Estados Negativos de quem ela acerta dobram: o Valor de cada um vira o dobro (os que acumulam param no máximo deles, e a [Sentença] cai pela metade), e os sem Valor duram mais um turno. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>As árvores se lembram de cada machado. Hoje, elas cobram.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/nature/tree-animated-smile.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "desastre-floresta-desperta",
+      "kind": "spends",
+      "branch": "magic",
+      "useActions": [
+        {
+          "type": "doubleStatuses"
+        }
+      ],
+      "magicSpell": {
+        "id": "desastre"
+      },
+      "minRank": 10,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "989lEfW4IRTpbntc",
+  "folder": "QP8lRJxPEEQohrIl",
+  "_key": "!items!989lEfW4IRTpbntc"
+}

@@ -7,6 +7,7 @@ import { isPrimaryGM } from "./clients.mjs";
 import { evaluateFormula, formulaData, isFormula, resolveChanges } from "./effect-formulas.mjs";
 import { effectConditions, unmetCondition } from "./effect-conditions.mjs";
 import { runUseActions } from "../conditions/effects.mjs";
+import { lastingEffectData } from "../conditions/lasting.mjs";
 
 /**
  * Usable items (potions, food, scrolls, whistles, poisons…): item type "usable".
@@ -267,7 +268,8 @@ export async function applyItemEffects(item, actors, { useId, sustained, only, o
       expires = (origExpires && origExpires !== "") ? origExpires : "endOfScene";
     }
     foundry.utils.setProperty(data, "flags.eternia.expires", expires);
-    return data;
+    // The spells of the Magia Infinito: until the end of the scene (conditions/lasting.mjs)
+    return lastingEffectData(item, data);
   });
 
   // Who gets each effect: the targets (default), the user, or both; or, among the targets, the user's allies

@@ -29,6 +29,7 @@ import { AFFLICTED_PROTECTS, END_OF_ROUND, STACK_THRESHOLDS, SUN_NIGHT, SUN_NOON
 import { takeDamage } from "./damage.mjs";
 import { addStatus, has, rating, removeStatuses, rulesOn, sameActor, sourcesOf, statusEffects } from "./rules.mjs";
 import { keepsHidden, traitsFor } from "../helpers/magic-traits.mjs";
+import { naturalEnd } from "./lasting.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -189,9 +190,10 @@ export async function cleanupConditions(actor) {
     await actor.update({ "system.bad-status.theOne": one - 1 });
     lines.push(L((one > 1) ? "Conditions.TheOneLasts" : "Conditions.TheOneEnds", { name: actorName(actor) }));
   }
-  // [Afflicted] keeps the statuses it protects ([Frightened]).
+  // [Afflicted] keeps the statuses it protects ([Frightened]); an infinite effect or a renewal, the ones it holds
+  // (conditions/lasting.mjs).
   const afflicted = has(actor, "afflicted");
-  const ending = END_OF_ROUND.filter(id => has(actor, id) && !(afflicted && AFFLICTED_PROTECTS.includes(id)));
+  const ending = await naturalEnd(actor, END_OF_ROUND.filter(id => has(actor, id) && !(afflicted && AFFLICTED_PROTECTS.includes(id))));
   if (ending.length) {
     await removeStatuses(actor, ending);
     lines.push(L("Conditions.RoundEnds", { name: actorName(actor), statuses: ending.map(label).join(", ") }));

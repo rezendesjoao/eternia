@@ -86,6 +86,8 @@ export const EFFECT_TARGETS = [
   { key: "eternia.passive.cancel", label: "ETERNIA.StatusEffect.cancel", group: "battle", actorTypes: ["character", "monster"], kind: "number" },
   // Passive [Weakness] (conditions/effects.mjs passiveWeaknesses; tag in flags.eternia.weaknessTag): a Magia's Tabu
   { key: "eternia.passive.weakness", label: "ETERNIA.StatusEffect.weakness", group: "battle", actorTypes: ["character", "monster"], kind: "number" },
+  // Dice on the Dodge Checks against Close attacks (conditions/distance.mjs closeDodge): a Magia's Taboo
+  { key: "eternia.passive.closeDodge", label: "ETERNIA.EffectTarget.CloseDodge", group: "checkDice", actorTypes: ["character", "monster"], kind: "dice" },
   // Max Fate that doesn't add up: only the highest one counts (a crafted Lucky accessory, actor.mjs _luck)
   { key: "eternia.passive.luck", label: "ETERNIA.EffectTarget.Luck", group: "resources", actorTypes: ["character"], kind: "number" },
 

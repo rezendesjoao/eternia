@@ -1,0 +1,163 @@
+{
+  "name": "Infinito",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Perdida.</strong> Você para o tempo dos seus próprios feitiços. O cubo que você ergue não cai, a força que você dá não passa, a prisão que você fecha não abre: o que você conjura fica até a luta acabar. Por isso a sua magia vale por muitas, e o corpo que a carrega é frágil. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, Corpo Frágil:</strong> você vive dentro da magia, não do corpo: em combate, a sua Defesa Física cai [NP].</li><li><strong>Traço, Tempo Parado:</strong> os efeitos dos seus feitiços de Infinito que acabariam no fim do turno, no Encerramento ou no fim da rodada duram até o fim da cena (menos o Caixão do Tempo); quem está preso num efeito hostil infinito se livra dele gastando uma Ação Maior.</li><li><strong>Feitiços:</strong> Cubo Perfeito e Raio Exterminador (NP 1), Cancelamento Absoluto e Amplificar Poder (NP 3), Caixão do Tempo (NP 5) e o feitiço supremo Encanto: Infinito (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Encanto: Infinito pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você já não lembra quantos anos tem. O tempo parou de contar para você também.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/symbols/cog-orange-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Corpo Frágil",
+      "img": "icons/magic/symbols/cog-orange-red.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.defense.phys.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "lxGqeP64DTMR9jcs",
+      "_key": "!items.effects!D8UcjdGCxLLLmkuO.lxGqeP64DTMR9jcs"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "infinito",
+            "infinite": true
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Tempo Parado",
+      "img": "icons/magic/symbols/cog-orange-red.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "DAa9tSiyOfUanrzg",
+      "_key": "!items.effects!D8UcjdGCxLLLmkuO.DAa9tSiyOfUanrzg"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "infinito-infinito",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "infinito",
+        "category": "lost",
+        "tagline": "O tempo dos seus feitiços para: eles não acabam."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "D8UcjdGCxLLLmkuO",
+  "folder": "sCQXKuicFAuvRbJv",
+  "_key": "!items!D8UcjdGCxLLLmkuO"
+}

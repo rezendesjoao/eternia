@@ -1,0 +1,171 @@
+{
+  "name": "Invasão",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Perdida.</strong> Você entra na mente dos outros como quem abre uma porta: lê o que pensam, reescreve o que lembram, amarra o corpo como o de um boneco e apaga, de uma vez, a memória de uma multidão. As suas flechas de luz não ferem a carne, e por isso nenhum escudo as para. Mas a Invasão pede distância: de perto, não há tempo para mirar uma mente. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, Distância:</strong> em combate, os seus feitiços de Invasão não miram quem está engajado com você, e você sofre −1d6 nas Esquivas contra golpes corpo a corpo.</li><li><strong>Traço, Mente de Boneco:</strong> você é imune a [Encantado] e [Confuso], e os seus feitiços de Invasão atravessam [Anulação] e [Barreira] (e quebram a Barreira).</li><li><strong>Feitiços:</strong> Luz Espiã e Luz que Reescreve (NP 1), Contador de Pesadelos e Amarra de Boneco (NP 3), Mundo Perdido (NP 5) e o feitiço supremo Apagão (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Apagão pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você nunca precisou perguntar o que alguém sente. Só precisou aprender a não contar.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/social/symbol-pyramid-eye.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "noEngaged": "invasao",
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Distância",
+      "img": "icons/skills/social/symbol-pyramid-eye.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "eternia.passive.closeDodge",
+            "type": "add",
+            "value": -1,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "q3U3gKB3EalAsSQ3",
+      "_key": "!items.effects!3ayPwofsIZOn42j8.q3U3gKB3EalAsSQ3"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "invasao",
+            "pierce": {
+              "cancel": true,
+              "barrier": true
+            }
+          },
+          "immune": [
+            "charmed",
+            "confused"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Mente de Boneco",
+      "img": "icons/skills/social/symbol-pyramid-eye.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "qRVnOid63sctWWBE",
+      "_key": "!items.effects!3ayPwofsIZOn42j8.qRVnOid63sctWWBE"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "invasao-invasao",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "invasao",
+        "category": "lost",
+        "tagline": "A mente dos outros é um livro aberto: você lê, reescreve e apaga."
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "3ayPwofsIZOn42j8",
+  "folder": "fgFkPadYkDNVoeX1",
+  "_key": "!items!3ayPwofsIZOn42j8"
+}

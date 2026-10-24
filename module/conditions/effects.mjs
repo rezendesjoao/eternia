@@ -16,6 +16,8 @@
  *                                               skill Switch); only between allies
  *   { type: "steal", statuses: ["empowered", …] } those statuses pass from the target to the user, with their
  *                                               Ratings (the Absorção's Roubar a Alma)
+ *   { type: "promote" | "doubleStatuses" | "demote" | "raise" | "cancelSpells" }  many statuses at once (the
+ *                                               Desastre, the Criação, the Infinito): conditions/status-actions.mjs
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
@@ -24,6 +26,7 @@ import { evaluateFormula, formulaData, isFormula } from "../helpers/effect-formu
 import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { statusDefinition } from "../helpers/statuses.mjs";
 import { has, rating, removeStatuses } from "./rules.mjs";
+import { STATUS_ACTIONS, statusAction } from "./status-actions.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 const flag = (effect, key) => effect.getFlag?.(SYSTEM_ID, key) ?? effect.flags?.[SYSTEM_ID]?.[key];
@@ -145,6 +148,7 @@ async function doAction(actor, { type, value, status, statuses = [], casterUuid 
     for (const { id, value } of taken) await game.eternia.applyStatus(thief, id, { value, from: thief });
     return L("Conditions.Actions.Steal", { name: actorName(thief), from: actorName(actor), statuses: ids.map(label).join(", ") });
   }
+  if (STATUS_ACTIONS.includes(type)) return statusAction(actor, { type, value, status, statuses, caster: await actorOf(casterUuid) });
   return null;
 }
 

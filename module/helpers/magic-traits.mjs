@@ -5,9 +5,10 @@
  * keep ([Hidden]: conditions/turns.mjs, conditions/damage.mjs).
  *
  * The keys (all optional), on a trait (with `magia`: the id of the Magia whose spells it changes) or on a spell:
- *   bonusVs     [{ statusId | statuses | targetTags, value, perValue, consume }]: more damage against a target with
- *               that status (any of `statuses`), or with one of the skill or monster tags (`targetTags: ["Curse"]`);
- *               `perValue`: the bonus times the status Rating; `consume`: the status ends with the hit.
+ *   bonusVs     [{ statusId | statuses | ratedBad | targetTags, value, perValue, consume }]: more damage against a target
+ *               with that status (any of `statuses`; `ratedBad`: any Bad Status with a Rating), or with one of the skill
+ *               or monster tags (`targetTags: ["Curse"]`); `perValue`: the bonus times the status Rating; `consume`: the
+ *               status ends with the hit.
  *   onHit       [{ statusId, value }] (traits): statuses the damage gives, like a spell's own hitStatuses.
  *   escalate    [{ if, add: [{ statusId, value }] }]: when the target already has `if`, the hit also gives `add`.
  *   strip       [statusId]: the hit ends these statuses on the target.
@@ -20,14 +21,19 @@
  *   steal       [statusId]: the first of them the target has passes to the caster, with its Rating, on a hit.
  *   selfBonus   [{ statusId, per, spend }] (spells): damage added for the caster's own status, its Rating times
  *               `per` (1 by default); `spend`: the status ends when the damage is rolled (the [Grudge] let out).
- * Read elsewhere, on a Trait only: `counterBonus` (formula, added to what a [Counter] sends back: conditions/damage.mjs)
- * and `sunClock` (true: the [Sun] rises for the caster, and with each spell of that Magia: conditions/turns.mjs).
+ * Read elsewhere, on a Trait only: `counterBonus` (formula, added to what a [Counter] sends back: conditions/damage.mjs),
+ * `sunClock` (true: the [Sun] rises for the caster, and with each spell of that Magia: conditions/turns.mjs) and
+ * `infinite` (true: the effects of the spells of that Magia last until the end of the scene: conditions/lasting.mjs).
  * Values are formulas of the caster ("floor(@cr/2)"), worked out when the card is made.
  */
 import { evaluateFormula, formulaData, isFormula } from "./effect-formulas.mjs";
 import { canonicalTag } from "./tag-catalog.mjs";
+import { LH_STATUSES } from "./statuses.mjs";
 import { toInt } from "./utils.mjs";
 import { rating } from "../conditions/rules.mjs";
+
+/** The Bad Statuses with a Rating (not the lists, [Pursuit] and [Weakness]): the `ratedBad` of a bonus. */
+export const ratedBadStatuses = () => LH_STATUSES.filter(s => (s.group === "bad") && s.rated && s.path && !s.list).map(s => s.id);
 
 /** The Magia a skill belongs to: a spell's Magia, or the Magia skill itself. */
 export function itemMagia(item) {
@@ -78,7 +84,7 @@ export function magicExtras(item, attacker = null) {
   const num = value => (isFormula(value) ? evaluateFormula(value, data) : toInt(value)) || 0;
   for (const { data: s, name, own } of sources) {
     for (const v of s.bonusVs ?? []) {
-      const statuses = v.statuses ?? (v.statusId ? [v.statusId] : []);
+      const statuses = v.ratedBad ? ratedBadStatuses() : (v.statuses ?? (v.statusId ? [v.statusId] : []));
       const targetTags = v.targetTags ?? (v.targetTag ? [v.targetTag] : []);
       out.vs.push({ statuses, targetTags, value: num(v.value), perValue: !!v.perValue, consume: !!v.consume, name });
     }

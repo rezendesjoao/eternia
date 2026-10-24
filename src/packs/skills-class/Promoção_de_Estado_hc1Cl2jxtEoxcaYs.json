@@ -1,0 +1,75 @@
+{
+  "name": "Promoção de Estado",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Desastre.</strong> Você manda que o mal de um alvo a até 5 Qd cresça (Teste de Precisão contra a Resistência): todos os Estados Negativos com Valor dele sobem [NP÷2 + 1] de uma vez (o [Envenenado], o [Queimando], a [Deterioração]...; os que acumulam param no máximo deles, e a [Sentença] cai esse tanto, até 1), e os sem Valor duram mais um turno: o próximo fim que teriam passa em branco.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Você só disse \"cresça\". O veneno ouviu.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/nature/plant-glowing-white-purple.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "desastre-promocao-de-estado",
+      "kind": "feeds",
+      "branch": "magic",
+      "useActions": [
+        {
+          "type": "promote",
+          "value": "floor(@cr/2)+1"
+        }
+      ],
+      "magicSpell": {
+        "id": "desastre"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.9.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "hc1Cl2jxtEoxcaYs",
+  "folder": "QP8lRJxPEEQohrIl",
+  "_key": "!items!hc1Cl2jxtEoxcaYs"
+}
