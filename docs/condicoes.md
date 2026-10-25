@@ -199,7 +199,7 @@ as flags de golpe, nos cartões de dano: `helpers/combat-cards.mjs`, `helpers/ma
   Mágico] ou [Feitiço]) e sai.
 - **Clones** (`clones`, contagem até 6): `cloneDecoy` rola 1d6 em cada cartão de dano; até o Valor, o golpe acerta
   uma cópia (nada chega) e o Valor cai 1 (o Desfazer devolve). +Valor no dano dos ataques corpo a corpo.
-- **Fórmula** `@hpLost`: os PV que faltam (PV máximo − PV). `@hpMax`: o PV máximo (o Retorno Vazio do Oco volta com
+- **Fórmula** `@hpLost`: os PV que faltam (PV máximo − PV). `@hpMax`: o PV máximo (o Retorno Vazio do Revenante volta com
   `@hpMax/2`).
 - **Fôlego Extra:** `extraBreaths(actor)` (por efeito: `uses`, `left`, `per`, `hp`), `breathsLeft(actor, effect?)` e
   `giveUpBreaths(actor, n?, { effect })` (entrega usos sem cair: a transformação que gasta os corações que restam), em

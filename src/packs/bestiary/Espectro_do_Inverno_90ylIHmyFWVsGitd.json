@@ -1,11 +1,11 @@
 {
-  "name": "Mestre do Contrabando",
+  "name": "Espectro do Inverno",
   "type": "monster",
-  "img": "systems/eternia/assets/tokens/bestiary/mestre-do-contrabando.webp",
+  "img": "systems/eternia/assets/tokens/bestiary/o-meio-espirito.webp",
   "system": {
     "health": {
-      "value": 120,
-      "max": 120,
+      "value": 280,
+      "max": 280,
       "mod": 0,
       "rc": 0,
       "jb": 0,
@@ -19,7 +19,9 @@
     },
     "tags": [
       "Boss",
-      "Human"
+      "Human",
+      "Elf",
+      "Stray"
     ],
     "biography": "",
     "race": "",
@@ -34,7 +36,7 @@
       },
       "dex": {
         "value": 0,
-        "mod": 2,
+        "mod": 3,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -50,7 +52,7 @@
       },
       "int": {
         "value": 0,
-        "mod": 2,
+        "mod": 3,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -72,33 +74,33 @@
     },
     "battle-status": {
       "defense": {
-        "phys": 10,
-        "magic": 14
+        "phys": 13,
+        "magic": 17
       },
       "speed": 2,
-      "initiative": 8
+      "initiative": 9
     },
-    "rank": 5,
-    "idendification": "9",
+    "rank": 7,
+    "idendification": "10",
     "hateMultiplier": "2",
     "checks": {
       "evasion": {
         "dice": 2,
-        "mod": 2
+        "mod": 3
       },
       "resistance": {
         "dice": 2,
         "mod": 4
       }
     },
-    "description": "<p>Quem manda no contrabando de uma cidade de mina inteira: bem vestido, de bengala e anel de sinete, com uma Tarefa limpa de comerciante e três nomes em três cidades. Nunca carrega o Anima: carrega o livro-caixa, os sósias e a proposta. Prefere pagar a lutar, e lutar a ser preso.</p><p><b>Na mesa:</b> o chefe de grupo dos contrabandistas, para um dia em Centória que acaba mal. Vem com dois a quatro Contrabandistas. Os Sósias lhe dão [Clones: 3] no começo da luta; a Mão Leve rouba ouro de quem ele fere (o ouro volta nos itens deixados quando ele cai); A Proposta põe um cartão no chat: o grupo aceita o ouro e ele vai embora, sem deixar itens, ou recusa e luta. Como os outros, o Selo não o deixa matar.</p>"
+    "description": "<p>Um Elfo preso no quarto estágio da forma, o Meio-Espírito: o corpo meio translúcido, pairando um palmo acima do chão, com asas de geada. Deu ao espírito uma memória querida, como o rito manda, e depois outra, e outra, até não sobrar quase nada. Agora o frio é tudo o que ele sente, e ele o espalha em volta.</p><p><b>Na mesa:</b> chefe sozinho de NP 7, que congela quem fica perto. Uma vez por rodada, um ataque físico passa através dele (o Meio-Espírito, antes do dano). O Vento das Asas de Geada afasta e congela. Dano de [Chama] tira o [Congelando] do grupo. Desgarrados lutam sozinhos e são chefes: dá tempo de tentar salvá-los. Matá-lo deixa os itens; salvá-lo deixa uma Conexão.</p>"
   },
   "prototypeToken": {
-    "name": "Mestre do Contrabando",
+    "name": "Espectro do Inverno",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/eternia/assets/tokens/bestiary/mestre-do-contrabando.webp",
+      "src": "systems/eternia/assets/tokens/bestiary/o-meio-espirito.webp",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -189,17 +191,18 @@
   },
   "items": [
     {
-      "name": "Bengala-Espada",
+      "name": "Toque de Geada",
       "type": "skill",
-      "img": "icons/weapons/swords/sword-cane.webp",
+      "img": "icons/magic/water/projectile-ice-snowball.webp",
       "system": {
-        "description": "<p>[2d6 + 18] de dano físico.</p><p>(Menor): +5 de dano.</p><p>[Destino 1]: o golpe acerta todos os personagens engajados com este inimigo.</p>",
+        "description": "<p>[2d6 + 25] de dano mágico de [Frio], e o alvo fica [Congelando: 1].</p>",
         "tags": [
-          "Melee Attack"
+          "Magic Attack",
+          "Cold"
         ],
         "timing": "Major",
         "checkType": "",
-        "range": "Close",
+        "range": "4Sq",
         "target": "Single",
         "subtype": "Monster",
         "skillRank": {
@@ -213,12 +216,12 @@
           "stat": "",
           "dice": 2,
           "mod": 6,
-          "vs": "evasion"
+          "vs": "resistance"
         },
         "damage": {
           "dice": 2,
-          "mod": 18,
-          "type": "physical",
+          "mod": 25,
+          "type": "magical",
           "recovery": false,
           "noPower": false
         }
@@ -228,7 +231,16 @@
       "ownership": {
         "default": 0
       },
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "freezing",
+              "value": 1
+            }
+          ]
+        }
+      },
       "_stats": {
         "coreVersion": "14.360",
         "systemId": "eternia",
@@ -240,17 +252,88 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "ndUkzuH25IBOmg1L",
-      "_key": "!actors.items!8NvUhMnaRyqzRkhg.ndUkzuH25IBOmg1L"
+      "_id": "bW2MxFSIYNRwBvzR",
+      "_key": "!actors.items!90ylIHmyFWVsGitd.bW2MxFSIYNRwBvzR"
     },
     {
-      "name": "Mão Leve",
+      "name": "Vento das Asas de Geada",
       "type": "skill",
-      "img": "icons/skills/melee/strike-dagger-arcane-pink.webp",
+      "img": "icons/magic/water/barrier-ice-wall-snow.webp",
       "system": {
-        "description": "<p>O próximo golpe deste inimigo nesta rodada que causar dano a um personagem tira [2d6 × 5] de ouro da bolsa dele (o que ele tiver). O ouro roubado volta nos itens deixados.</p>",
+        "description": "<p>As asas de geada batem: área a até 2 Qd, [2d6 + 20] de dano mágico de [Frio], [Congelando: 1], e os alvos são empurrados 2 Qd.</p>",
+        "tags": [
+          "Magic Attack",
+          "Cold"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "2Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 6,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 20,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "freezing",
+              "value": 1
+            }
+          ],
+          "useActions": [
+            {
+              "type": "push",
+              "value": 2
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "BLdOeQVfRmNw0HVh",
+      "_key": "!actors.items!90ylIHmyFWVsGitd.BLdOeQVfRmNw0HVh"
+    },
+    {
+      "name": "Meio-Espírito",
+      "type": "skill",
+      "img": "icons/creatures/magical/spirit-undead-ghost-blue.webp",
+      "system": {
+        "description": "<p>Antes do Dano de um ataque físico contra ele: o corpo fica meio espírito, e ele recebe [Intangível] contra esse dano. Uma vez por rodada.</p>",
         "tags": [],
-        "timing": "Minor",
+        "timing": "Before Damage",
         "checkType": "",
         "range": "-",
         "target": "Self",
@@ -260,7 +343,7 @@
           "max": 1
         },
         "cost": "-",
-        "limit": "-",
+        "limit": "1/Round",
         "macroeffect": "",
         "check": {
           "stat": "",
@@ -291,9 +374,7 @@
           "flags": {
             "eternia": {
               "recipients": "self",
-              "pickpocket": {
-                "gold": "2d6*5"
-              },
+              "consumeOn": "damage",
               "expires": "endOfRound"
             }
           },
@@ -308,22 +389,24 @@
             "duplicateSource": null,
             "exportSource": null
           },
-          "name": "Mão Leve",
-          "img": "icons/skills/melee/strike-dagger-arcane-pink.webp",
+          "name": "Meio-Espírito",
+          "img": "icons/creatures/magical/spirit-undead-ghost-blue.webp",
           "type": "base",
           "system": {
             "changes": []
           },
           "description": "",
-          "statuses": [],
+          "statuses": [
+            "intangible"
+          ],
           "sort": 0,
           "start": null,
           "showIcon": 1,
-          "_id": "nJfVU9uXaL8daucq",
-          "_key": "!actors.items.effects!8NvUhMnaRyqzRkhg.o7S6pJm9QEb3xqQ7.nJfVU9uXaL8daucq"
+          "_id": "5otsczY2iujfYekB",
+          "_key": "!actors.items.effects!90ylIHmyFWVsGitd.YmKDwBU2a270lOih.5otsczY2iujfYekB"
         }
       ],
-      "sort": 200000,
+      "sort": 300000,
       "ownership": {
         "default": 0
       },
@@ -339,139 +422,15 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "o7S6pJm9QEb3xqQ7",
-      "_key": "!actors.items!8NvUhMnaRyqzRkhg.o7S6pJm9QEb3xqQ7"
+      "_id": "YmKDwBU2a270lOih",
+      "_key": "!actors.items!90ylIHmyFWVsGitd.YmKDwBU2a270lOih"
     },
     {
-      "name": "Sósias",
+      "name": "Aura de Geada",
       "type": "skill",
-      "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+      "img": "icons/magic/water/barrier-ice-crystal-wall-faceted-light.webp",
       "system": {
-        "description": "<p>No começo da rodada, três homens de bengala e anel saem da fumaça: este inimigo fica com [Clones: 3].</p>",
-        "tags": [],
-        "timing": "Initiative",
-        "checkType": "",
-        "range": "-",
-        "target": "Self",
-        "subtype": "Monster",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "1/Scene",
-        "macroeffect": "",
-        "check": {
-          "stat": "",
-          "dice": 0,
-          "mod": 0,
-          "vs": ""
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false,
-          "noPower": false
-        }
-      },
-      "effects": [],
-      "sort": 300000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {
-        "eternia": {
-          "useActions": [
-            {
-              "type": "addStatus",
-              "status": "clones",
-              "value": 3,
-              "recipients": "self"
-            }
-          ]
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.360",
-        "systemId": "eternia",
-        "systemVersion": "0.34.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "_id": "IV7fmUtl42azUtBf",
-      "_key": "!actors.items!8NvUhMnaRyqzRkhg.IV7fmUtl42azUtBf"
-    },
-    {
-      "name": "A Proposta",
-      "type": "skill",
-      "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
-      "system": {
-        "description": "<p>Este inimigo oferece [2d6 × 10] de ouro para ser deixado ir: um cartão no chat. Se o grupo aceita, o ouro vai para quem aceitou e ele sai da cena, sem deixar itens; se recusa, a luta segue.</p>",
-        "tags": [],
-        "timing": "Minor",
-        "checkType": "",
-        "range": "-",
-        "target": "Self",
-        "subtype": "Monster",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "1/Scene",
-        "macroeffect": "",
-        "check": {
-          "stat": "",
-          "dice": 0,
-          "mod": 0,
-          "vs": ""
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false,
-          "noPower": false
-        }
-      },
-      "effects": [],
-      "sort": 400000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {
-        "eternia": {
-          "monster": {
-            "rule": "offer",
-            "gold": "2d6*10"
-          }
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.360",
-        "systemId": "eternia",
-        "systemVersion": "0.34.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "_id": "mnJ9kqHoTcKfmdFr",
-      "_key": "!actors.items!8NvUhMnaRyqzRkhg.mnJ9kqHoTcKfmdFr"
-    },
-    {
-      "name": "O Selo Dói",
-      "type": "skill",
-      "img": "icons/magic/symbols/rune-sigil-hook-white-red.webp",
-      "system": {
-        "description": "<p>O dano dos golpes deste inimigo para em 1 PV: o Selo não o deixa matar. Só o veneno e as outras condições derrubam.</p>",
+        "description": "<p>Em cada Manutenção, os inimigos a até 2 Qd dele ficam [Congelando: 1]: o frio do espírito pega em quem chega perto.</p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -513,7 +472,15 @@
           "transfer": true,
           "flags": {
             "eternia": {
-              "noKill": true
+              "realm": {
+                "radius": 2,
+                "enemies": [
+                  {
+                    "statusId": "freezing",
+                    "value": 1
+                  }
+                ]
+              }
             }
           },
           "_stats": {
@@ -527,8 +494,8 @@
             "duplicateSource": null,
             "exportSource": null
           },
-          "name": "O Selo Dói",
-          "img": "icons/magic/symbols/rune-sigil-hook-white-red.webp",
+          "name": "Aura de Geada",
+          "img": "icons/magic/water/barrier-ice-crystal-wall-faceted-light.webp",
           "type": "base",
           "system": {
             "changes": []
@@ -538,11 +505,11 @@
           "sort": 0,
           "start": null,
           "showIcon": 1,
-          "_id": "IPHuYjAWKjwZljc0",
-          "_key": "!actors.items.effects!8NvUhMnaRyqzRkhg.AoJQhBsccT5MQfVp.IPHuYjAWKjwZljc0"
+          "_id": "0jDBfa4VCoGzGnsE",
+          "_key": "!actors.items.effects!90ylIHmyFWVsGitd.mGceXj9Is77HIkXQ.0jDBfa4VCoGzGnsE"
         }
       ],
-      "sort": 500000,
+      "sort": 400000,
       "ownership": {
         "default": 0
       },
@@ -558,8 +525,128 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "AoJQhBsccT5MQfVp",
-      "_key": "!actors.items!8NvUhMnaRyqzRkhg.AoJQhBsccT5MQfVp"
+      "_id": "mGceXj9Is77HIkXQ",
+      "_key": "!actors.items!90ylIHmyFWVsGitd.mGceXj9Is77HIkXQ"
+    },
+    {
+      "name": "A Forma Rejeita",
+      "type": "skill",
+      "img": "icons/magic/control/silhouette-hold-change-green.webp",
+      "system": {
+        "description": "<p>No Encerramento, ele se livra de 2 Estados Negativos: a forma não aceita prisão.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "cleanse",
+            "count": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "iULyqYSwcKnahvHx",
+      "_key": "!actors.items!90ylIHmyFWVsGitd.iULyqYSwcKnahvHx"
+    },
+    {
+      "name": "Ainda Há Alguém Aí",
+      "type": "skill",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
+      "system": {
+        "description": "<p>Com 1/4 dos PV ou menos, a forma cede e dá para ver quem ele era: quem estiver engajado com ele pode gastar a Ação Maior e rolar Negociação contra a Resistência dele (o botão Salvar do cartão que aparece no chat). Vencendo, ele fica [Pacificado] até o fim da cena e sai da luta, sem deixar itens; o Mestre pode fazê-lo virar uma Conexão de quem o salvou.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "save",
+            "below": 0.25
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "nDgIfIrAOGJtqahw",
+      "_key": "!actors.items!90ylIHmyFWVsGitd.nDgIfIrAOGJtqahw"
     },
     {
       "name": "Ouro",
@@ -602,21 +689,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "NiWZG8kmDfD2nwzd",
-      "sort": 600000,
-      "_key": "!actors.items!8NvUhMnaRyqzRkhg.NiWZG8kmDfD2nwzd"
+      "_id": "pEa8HBcs6OmpMeUb",
+      "sort": 700000,
+      "_key": "!actors.items!90ylIHmyFWVsGitd.pEa8HBcs6OmpMeUb"
     },
     {
-      "name": "Livro-Caixa Cifrado",
+      "name": "Pena de Geada",
       "type": "gear",
-      "img": "icons/sundries/books/book-embossed-clasp-gold-brown.webp",
+      "img": "icons/commodities/biological/wing-insect-blue.webp",
       "system": {
-        "description": "<p>O livro de contas do contrabando, numa cifra de comerciante: quem comprou, quem vendeu e quanto a guarda levou. A guilda e a Igreja pagam caro por ele; os nomes dentro dele pagam mais.</p>",
+        "description": "<p>Uma pena das asas de geada, que não derrete na mão. Os elfos a pagam em ouro e não dizem para quê.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 5,
-        "price": 120,
+        "rank": 7,
+        "price": 180,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -649,21 +736,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "zSfp5bDXkpdk45cd",
-      "sort": 700000,
-      "_key": "!actors.items!8NvUhMnaRyqzRkhg.zSfp5bDXkpdk45cd"
+      "_id": "NzQfgm9SYpunbZ0M",
+      "sort": 800000,
+      "_key": "!actors.items!90ylIHmyFWVsGitd.NzQfgm9SYpunbZ0M"
     },
     {
-      "name": "Anima sem Selo",
+      "name": "Lágrima de Gelo",
       "type": "gear",
       "img": "icons/commodities/gems/gem-rough-drop-blue.webp",
       "system": {
-        "description": "<p>Um Anima-mundi sem o Selo do Anima, do lote que ele ia vender. Serve de Anima-mundi 5 na Oficina, mas quem o vende ao Ofício perde a licença.</p>",
+        "description": "<p>Uma gota de gelo que não derrete, com uma luz parada dentro. Serve de Anima-mundi 7 na Oficina.</p>",
         "tags": [
-          "Magic Catalyst 5"
+          "Magic Catalyst 7"
         ],
-        "rank": 5,
-        "price": 40,
+        "rank": 7,
+        "price": 60,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -681,7 +768,7 @@
           "drop": {
             "min": 3,
             "max": 4,
-            "qty": 4
+            "qty": 3
           }
         }
       },
@@ -696,21 +783,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "ahQz2VgP0effnukD",
-      "sort": 800000,
-      "_key": "!actors.items!8NvUhMnaRyqzRkhg.ahQz2VgP0effnukD"
+      "_id": "M3OGgOc9iNdMuh2a",
+      "sort": 900000,
+      "_key": "!actors.items!90ylIHmyFWVsGitd.M3OGgOc9iNdMuh2a"
     },
     {
-      "name": "Bengala de Prata",
+      "name": "Memória Guardada",
       "type": "gear",
-      "img": "icons/weapons/swords/sword-cane.webp",
+      "img": "icons/commodities/gems/gem-faceted-round-white.webp",
       "system": {
-        "description": "<p>A bengala do mestre, de castão de prata, com a lâmina escondida dentro. Feita sob encomenda em Centória.</p>",
+        "description": "<p>Uma das memórias que ele deu ao espírito, num cristal frio. Quem a segura sente o cheiro de uma casa que não existe mais.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 5,
-        "price": 220,
+        "rank": 7,
+        "price": 330,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -743,21 +830,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "8igIU8pqmkW18tPa",
-      "sort": 900000,
-      "_key": "!actors.items!8NvUhMnaRyqzRkhg.8igIU8pqmkW18tPa"
+      "_id": "MMYjkIPSRQixYbei",
+      "sort": 1000000,
+      "_key": "!actors.items!90ylIHmyFWVsGitd.MMYjkIPSRQixYbei"
     },
     {
-      "name": "Anel de Sinete Roubado",
+      "name": "Coroa de Gelo Fino",
       "type": "gear",
-      "img": "icons/equipment/finger/ring-band-engraved-scrolls-gold.webp",
+      "img": "icons/commodities/treasure/crown-gold-laurel-wreath.webp",
       "system": {
-        "description": "<p>Um anel com o brasão de uma casa nobre, que não é a dele. Devolvê-lo à família abre portas; vendê-lo, a forca.</p>",
+        "description": "<p>Uma coroa de folhas de gelo que nunca derretem. Os elfos da floresta dizem que era de uma rainha.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 5,
-        "price": 300,
+        "rank": 7,
+        "price": 450,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -790,20 +877,20 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "t4AuJaYBHhanYWQ7",
-      "sort": 1000000,
-      "_key": "!actors.items!8NvUhMnaRyqzRkhg.t4AuJaYBHhanYWQ7"
+      "_id": "9VcKAUWrX8h6Wule",
+      "sort": 1100000,
+      "_key": "!actors.items!90ylIHmyFWVsGitd.9VcKAUWrX8h6Wule"
     },
     {
-      "name": "Anima-mundi 6",
+      "name": "Anima-mundi 8",
       "type": "gear",
       "system": {
-        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 6 gasta uma Anima-mundi 6 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 8 gasta uma Anima-mundi 8 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
         "tags": [
-          "Magic Catalyst 6"
+          "Magic Catalyst 8"
         ],
-        "rank": 6,
-        "price": 50,
+        "rank": 8,
+        "price": 70,
         "equipped": false,
         "timing": "-",
         "checkType": "-",
@@ -825,7 +912,7 @@
       "flags": {
         "eternia": {
           "icon": {
-            "hue": 180
+            "hue": 252
           },
           "drop": {
             "fixed": true,
@@ -840,25 +927,25 @@
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.items.Item.YrKp5oNdJw1oWmjI",
+        "compendiumSource": "Compendium.eternia.items.Item.FNS3OlzyE54jXqLF",
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "fl2uksJ1IdvtEeJV",
-      "sort": 1100000,
-      "_key": "!actors.items!8NvUhMnaRyqzRkhg.fl2uksJ1IdvtEeJV"
+      "_id": "tdqDuIsin3KbqL6E",
+      "sort": 1200000,
+      "_key": "!actors.items!90ylIHmyFWVsGitd.tdqDuIsin3KbqL6E"
     },
     {
-      "name": "Selo Falsificado",
+      "name": "Pena do Espírito",
       "type": "gear",
-      "img": "icons/sundries/documents/document-sealed-brown-red.webp",
+      "img": "icons/commodities/biological/wing-insect-green.webp",
       "system": {
-        "description": "<p>Um carimbo do Selo do Anima feito à mão, quase perfeito. Um [Material-Base] de NP 5, e a prova de que o contrabando tinha ajuda de dentro.</p>",
+        "description": "<p>A pena maior das asas de geada, meio de gelo e meio de luz. Um [Material-Base] de NP 7.</p>",
         "tags": [
           "Core Material"
         ],
-        "rank": 5,
-        "price": 100,
+        "rank": 7,
+        "price": 140,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -890,9 +977,9 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "dfnO9rjbIUY2NUHI",
-      "sort": 1200000,
-      "_key": "!actors.items!8NvUhMnaRyqzRkhg.dfnO9rjbIUY2NUHI"
+      "_id": "cF3oU7Z0LaAL2tqf",
+      "sort": 1300000,
+      "_key": "!actors.items!90ylIHmyFWVsGitd.cF3oU7Z0LaAL2tqf"
     }
   ],
   "effects": [],
@@ -912,7 +999,7 @@
   "ownership": {
     "default": 0
   },
-  "_id": "8NvUhMnaRyqzRkhg",
-  "folder": "RHS1pble8ESRDgnC",
-  "_key": "!actors!8NvUhMnaRyqzRkhg"
+  "_id": "90ylIHmyFWVsGitd",
+  "folder": "floINKQ1GrWyM7Jv",
+  "_key": "!actors!90ylIHmyFWVsGitd"
 }

@@ -1,11 +1,11 @@
 {
-  "name": "Oco",
+  "name": "Worg",
   "type": "monster",
-  "img": "systems/eternia/assets/tokens/bestiary/oco.webp",
+  "img": "systems/eternia/assets/tokens/bestiary/lobo-do-castelo.webp",
   "system": {
     "health": {
-      "value": 95,
-      "max": 95,
+      "value": 66,
+      "max": 66,
       "mod": 0,
       "rc": 0,
       "jb": 0,
@@ -18,14 +18,15 @@
       "effect": 0
     },
     "tags": [
-      "Human"
+      "Natural",
+      "Wolf"
     ],
     "biography": "",
     "race": "",
     "attributes": {
       "str": {
         "value": 0,
-        "mod": 4,
+        "mod": 3,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -33,7 +34,7 @@
       },
       "dex": {
         "value": 0,
-        "mod": 3,
+        "mod": 4,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -72,32 +73,32 @@
     "battle-status": {
       "defense": {
         "phys": 15,
-        "magic": 11
+        "magic": 12
       },
       "speed": 2,
-      "initiative": 5
+      "initiative": 7
     },
     "rank": 6,
-    "idendification": "6",
-    "hateMultiplier": "2",
+    "idendification": "8",
+    "hateMultiplier": "3",
     "checks": {
       "evasion": {
         "dice": 2,
-        "mod": 3
+        "mod": 4
       },
       "resistance": {
         "dice": 2,
         "mod": 2
       }
     },
-    "description": "<p>Um Juramentado que voltou da morte vezes demais e esqueceu quem era. Anda pelas estradas sem nome, às vezes de armadura de Cavaleiro de baixo escalão, repetindo as Artes que o corpo ainda lembra. Não fala, não come, não dorme. Ataca quem tenta fazê-lo lembrar de alguma coisa.</p><p><b>Na mesa:</b> o inimigo triste das estradas. Não fica com [Medo], [Confuso], [Encantado], [Dominado] nem [Amnésia]. A Arte de Cavaleiro dá dois golpes de uma vez e o deixa parado depois ([Rigidez]). Uma vez por cena, quando cairia, volta com metade dos PV, mas esquece uma das Artes. Quem o vence leva um Cristal de Memória: uma das lembranças que ele perdeu.</p>"
+    "description": "<p>Um lobo azul-escuro das florestas do primeiro andar, mais magro e mais calado que os lobos de baixo. Os worgs caçam do jeito do castelo: escolhem a presa à vista de todos, encaram, e só então saltam. Quando um deles cai ferido, uiva, e a floresta responde.</p><p><b>Na mesa:</b> o monstro do castelo que anuncia o golpe. Na Manutenção ele deixa a presa [Marcado: 8], e o Bote fere mais a presa marcada e tira a marca. Na metade dos PV ele uiva e chama mais um Worg (um lobo chamado não uiva). Proteger a presa é a jogada.</p>"
   },
   "prototypeToken": {
-    "name": "Oco",
+    "name": "Worg",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/eternia/assets/tokens/bestiary/oco.webp",
+      "src": "systems/eternia/assets/tokens/bestiary/lobo-do-castelo.webp",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -188,17 +189,15 @@
   },
   "items": [
     {
-      "name": "Espada Gasta",
+      "name": "Salto Anunciado",
       "type": "skill",
-      "img": "icons/weapons/swords/shortsword-guard-steel-worn.webp",
+      "img": "icons/skills/movement/arrows-up-trio-red.webp",
       "system": {
-        "description": "<p>[2d6 + 30] de dano físico.</p><p>(Menor): +5 de dano.</p>",
-        "tags": [
-          "Melee Attack"
-        ],
-        "timing": "Major",
+        "description": "<p>Na Manutenção, o lobo baixa o corpo e encara a presa: um personagem a até 4 Qd fica [Marcado: 8] até o fim da rodada. Todos à mesa sabem quem ele vai morder.</p>",
+        "tags": [],
+        "timing": "Setup",
         "checkType": "",
-        "range": "Close",
+        "range": "4Sq",
         "target": "Single",
         "subtype": "Monster",
         "skillRank": {
@@ -210,69 +209,14 @@
         "macroeffect": "",
         "check": {
           "stat": "",
-          "dice": 2,
-          "mod": 6,
-          "vs": "evasion"
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
         },
         "damage": {
-          "dice": 2,
-          "mod": 30,
-          "type": "physical",
-          "recovery": false,
-          "noPower": false
-        }
-      },
-      "effects": [],
-      "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_stats": {
-        "coreVersion": "14.360",
-        "systemId": "eternia",
-        "systemVersion": "0.34.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "_id": "yuUHPSFOzdslo6MU",
-      "_key": "!actors.items!GL1570XXnTFjQj5x.yuUHPSFOzdslo6MU"
-    },
-    {
-      "name": "Arte de Cavaleiro",
-      "type": "skill",
-      "img": "icons/weapons/swords/greatsword-guard-gold-worn.webp",
-      "system": {
-        "description": "<p>Dois golpes seguidos, do jeito que os Cavaleiros ensinam: [4d6 + 45] de dano físico. Depois, este inimigo fica [Rigidez] (a pausa do golpe).</p>",
-        "tags": [
-          "Melee Attack"
-        ],
-        "timing": "Major",
-        "checkType": "",
-        "range": "Close",
-        "target": "Single",
-        "subtype": "Monster",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "-",
-        "macroeffect": "",
-        "check": {
-          "stat": "",
-          "dice": 2,
-          "mod": 6,
-          "vs": "evasion"
-        },
-        "damage": {
-          "dice": 4,
-          "mod": 45,
-          "type": "physical",
+          "dice": 0,
+          "mod": 0,
+          "type": "",
           "recovery": false,
           "noPower": false
         }
@@ -291,10 +235,9 @@
           "transfer": false,
           "flags": {
             "eternia": {
-              "onUse": true,
-              "recipients": "self",
               "statusData": {
-                "statusId": "rigor"
+                "statusId": "marked",
+                "value": 8
               },
               "expires": "endOfRound"
             }
@@ -310,28 +253,93 @@
             "duplicateSource": null,
             "exportSource": null
           },
-          "name": "Arte de Cavaleiro: a pausa",
-          "img": "icons/weapons/swords/greatsword-guard-gold-worn.webp",
+          "name": "Salto Anunciado: a presa",
+          "img": "icons/skills/movement/arrows-up-trio-red.webp",
           "type": "base",
           "system": {
             "changes": []
           },
           "description": "",
           "statuses": [
-            "rigor"
+            "marked"
           ],
           "sort": 0,
           "start": null,
           "showIcon": 1,
-          "_id": "qZSGcNAwJZorsF0M",
-          "_key": "!actors.items.effects!GL1570XXnTFjQj5x.npIHh7klwPaEE0v4.qZSGcNAwJZorsF0M"
+          "_id": "8YzOJY3hKRqCExUF",
+          "_key": "!actors.items.effects!1Q0GTG9aCHQzg8eG.88D1WTIN3GBDAN5i.8YzOJY3hKRqCExUF"
         }
       ],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "88D1WTIN3GBDAN5i",
+      "_key": "!actors.items!1Q0GTG9aCHQzg8eG.88D1WTIN3GBDAN5i"
+    },
+    {
+      "name": "Bote",
+      "type": "skill",
+      "img": "icons/creatures/abilities/fangs-teeth-bite.webp",
+      "system": {
+        "description": "<p>[2d6 + 45] de dano físico; contra a presa [Marcado], +7 e a marca sai.</p><p>(Menor): o alvo fica [Derrubado].</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 45,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
       "sort": 200000,
       "ownership": {
         "default": 0
       },
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "bonusVs": [
+            {
+              "statusId": "marked",
+              "value": 7,
+              "consume": true
+            }
+          ]
+        }
+      },
       "_stats": {
         "coreVersion": "14.360",
         "systemId": "eternia",
@@ -343,15 +351,15 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "npIHh7klwPaEE0v4",
-      "_key": "!actors.items!GL1570XXnTFjQj5x.npIHh7klwPaEE0v4"
+      "_id": "bOWtFhR6itLRKUSq",
+      "_key": "!actors.items!1Q0GTG9aCHQzg8eG.bOWtFhR6itLRKUSq"
     },
     {
-      "name": "Sem Memória",
+      "name": "Uivo",
       "type": "skill",
-      "img": "icons/magic/control/silhouette-aura-energy.webp",
+      "img": "icons/creatures/mammals/wolf-howl-moon-black.webp",
       "system": {
-        "description": "<p>Não lembra quem é, e nada o faz lembrar: não fica com [Medo], [Confuso], [Encantado], [Dominado] nem [Amnésia].</p>",
+        "description": "<p>A primeira vez que os PV caem à metade, o lobo uiva: mais um Worg sai ao lado dele e entra no combate (não deixa itens). Um lobo que veio pelo uivo não uiva.</p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -379,162 +387,26 @@
           "noPower": false
         }
       },
-      "effects": [
-        {
-          "origin": null,
-          "duration": {
-            "value": null,
-            "units": "seconds",
-            "expiry": null,
-            "expired": false
-          },
-          "disabled": false,
-          "tint": "#ffffff",
-          "transfer": true,
-          "flags": {
-            "eternia": {
-              "immune": [
-                "frightened",
-                "confused",
-                "charmed",
-                "dominated",
-                "amnesia"
-              ]
-            }
-          },
-          "_stats": {
-            "coreVersion": "14.360",
-            "systemId": "eternia",
-            "systemVersion": "0.34.0",
-            "createdTime": null,
-            "modifiedTime": null,
-            "lastModifiedBy": null,
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null
-          },
-          "name": "Sem Memória",
-          "img": "icons/magic/control/silhouette-aura-energy.webp",
-          "type": "base",
-          "system": {
-            "changes": []
-          },
-          "description": "",
-          "statuses": [],
-          "sort": 0,
-          "start": null,
-          "showIcon": 1,
-          "_id": "NcVJAhlyKJHc5MGC",
-          "_key": "!actors.items.effects!GL1570XXnTFjQj5x.uiQtctfSv8xmew7o.NcVJAhlyKJHc5MGC"
-        }
-      ],
+      "effects": [],
       "sort": 300000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_stats": {
-        "coreVersion": "14.360",
-        "systemId": "eternia",
-        "systemVersion": "0.34.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "_id": "uiQtctfSv8xmew7o",
-      "_key": "!actors.items!GL1570XXnTFjQj5x.uiQtctfSv8xmew7o"
-    },
-    {
-      "name": "Retorno Vazio",
-      "type": "skill",
-      "img": "icons/commodities/gems/gem-rough-round-blue.webp",
-      "system": {
-        "description": "<p>Uma vez por cena, quando o dano o levaria a 0 PV, ele volta com metade dos PV, mas esquece: uma das habilidades dele, ao acaso, fica [Selada] até o fim da cena.</p>",
-        "tags": [],
-        "timing": "Constant",
-        "checkType": "",
-        "range": "-",
-        "target": "-",
-        "subtype": "Monster",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "-",
-        "macroeffect": "",
-        "check": {
-          "stat": "",
-          "dice": 0,
-          "mod": 0,
-          "vs": ""
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false,
-          "noPower": false
-        }
-      },
-      "effects": [
-        {
-          "origin": null,
-          "duration": {
-            "value": null,
-            "units": "seconds",
-            "expiry": null,
-            "expired": false
-          },
-          "disabled": false,
-          "tint": "#ffffff",
-          "transfer": true,
-          "flags": {
-            "eternia": {
-              "revive": {
-                "uses": 1,
-                "per": "scene",
-                "hp": "@hpMax/2"
-              }
-            }
-          },
-          "_stats": {
-            "coreVersion": "14.360",
-            "systemId": "eternia",
-            "systemVersion": "0.34.0",
-            "createdTime": null,
-            "modifiedTime": null,
-            "lastModifiedBy": null,
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null
-          },
-          "name": "Retorno Vazio",
-          "img": "icons/commodities/gems/gem-rough-round-blue.webp",
-          "type": "base",
-          "system": {
-            "changes": []
-          },
-          "description": "",
-          "statuses": [],
-          "sort": 0,
-          "start": null,
-          "showIcon": 1,
-          "_id": "T3FOVfPvyXtlzQFt",
-          "_key": "!actors.items.effects!GL1570XXnTFjQj5x.jvJj7R4iMvrLUdO1.T3FOVfPvyXtlzQFt"
-        }
-      ],
-      "sort": 400000,
       "ownership": {
         "default": 0
       },
       "flags": {
         "eternia": {
           "monster": {
-            "rule": "forget"
+            "rule": "threshold",
+            "below": 0.5,
+            "statuses": [],
+            "summon": {
+              "actors": [
+                {
+                  "uuid": "Compendium.eternia.bestiary.Actor.1Q0GTG9aCHQzg8eG",
+                  "count": 1
+                }
+              ],
+              "radius": 2
+            }
           }
         }
       },
@@ -549,15 +421,61 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "jvJj7R4iMvrLUdO1",
-      "_key": "!actors.items!GL1570XXnTFjQj5x.jvJj7R4iMvrLUdO1"
+      "_id": "pOkvspjFzndhhxgi",
+      "_key": "!actors.items!1Q0GTG9aCHQzg8eG.pOkvspjFzndhhxgi"
     },
     {
-      "name": "Insígnia Apagada",
+      "name": "Lasca da Queda",
       "type": "gear",
-      "img": "icons/commodities/treasure/medal-ribbon-silver-blue.webp",
+      "img": "icons/commodities/stone/boulder-grey-blue.webp",
       "system": {
-        "description": "<p>A insígnia de uma guilda ou de uma academia, raspada até o nome sumir. Alguém, em algum lugar, ainda procura o dono.</p>",
+        "description": "<p>Um pedaço da pedra da base do castelo, que ainda pesa menos do que devia. Os curiosos de Centória pagam por ele; os sábios da Igreja, mais.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 16,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "GOOc4G64ju3dKNGs",
+      "sort": 400000,
+      "_key": "!actors.items!1Q0GTG9aCHQzg8eG.GOOc4G64ju3dKNGs"
+    },
+    {
+      "name": "Pelo do Castelo",
+      "type": "gear",
+      "img": "icons/commodities/leather/fur-blue.webp",
+      "system": {
+        "description": "<p>Pelo azul-escuro, macio e frio ao toque, que não pega fogo fácil.</p>",
         "tags": [
           "Valuable"
         ],
@@ -595,21 +513,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "GhqPfhgIzEGbeh6o",
+      "_id": "1YmK4jV8aagPLliT",
       "sort": 500000,
-      "_key": "!actors.items!GL1570XXnTFjQj5x.GhqPfhgIzEGbeh6o"
+      "_key": "!actors.items!1Q0GTG9aCHQzg8eG.1YmK4jV8aagPLliT"
     },
     {
-      "name": "Espada de Juramentado",
+      "name": "Presa de Worg",
       "type": "gear",
-      "img": "icons/weapons/swords/shortsword-guard-steel-worn.webp",
+      "img": "icons/commodities/bones/bone-jaw-teeth-grey.webp",
       "system": {
-        "description": "<p>Uma espada boa, bem cuidada até o dia em que o dono esqueceu de cuidar dela.</p>",
+        "description": "<p>Os dentes de cima de um worg, inteiros. Os caçadores de Centória os penduram na porta da guilda.</p>",
         "tags": [
           "Valuable"
         ],
         "rank": 6,
-        "price": 60,
+        "price": 45,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -642,21 +560,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "i4mjUl9uEqGAClxa",
+      "_id": "17bemIP6levfRvXF",
       "sort": 600000,
-      "_key": "!actors.items!GL1570XXnTFjQj5x.i4mjUl9uEqGAClxa"
+      "_key": "!actors.items!1Q0GTG9aCHQzg8eG.17bemIP6levfRvXF"
     },
     {
-      "name": "Armadura de Cavaleiro Gasta",
+      "name": "Coleira de Ferro Antigo",
       "type": "gear",
-      "img": "icons/equipment/chest/breastplate-banded-steel-grey.webp",
+      "img": "icons/equipment/neck/choker-chain-thick-silver.webp",
       "system": {
-        "description": "<p>Uma couraça de Cavaleiro de baixo escalão, com o brasão da Igreja quase apagado. A Catedral a quer de volta.</p>",
+        "description": "<p>Uma coleira de um ferro que ninguém sabe forjar, com letras que ninguém sabe ler. Alguém, no castelo, criava esses lobos.</p>",
         "tags": [
           "Valuable"
         ],
         "rank": 6,
-        "price": 100,
+        "price": 115,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -689,55 +607,9 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "i14NcHTo3NaZ6xU8",
+      "_id": "GAKPuz2thlDYr4uT",
       "sort": 700000,
-      "_key": "!actors.items!GL1570XXnTFjQj5x.i14NcHTo3NaZ6xU8"
-    },
-    {
-      "name": "Cristal de Memória",
-      "type": "gear",
-      "img": "icons/commodities/gems/gem-faceted-round-white.webp",
-      "system": {
-        "description": "<p>Uma das lembranças que o Oco perdeu, num cristal do tamanho de uma unha. Quem o segura vê um rosto, um nome, um dia. A Igreja paga por ele e o leva à Catedral.</p>",
-        "tags": [
-          "Valuable"
-        ],
-        "rank": 6,
-        "price": 15,
-        "equipped": false,
-        "skillText": "",
-        "linkedSkillUuid": "",
-        "timing": "",
-        "checkType": "",
-        "range": "",
-        "target": ""
-      },
-      "effects": [],
-      "ownership": {
-        "default": 0
-      },
-      "flags": {
-        "eternia": {
-          "drop": {
-            "fixed": true,
-            "qty": 1
-          }
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.360",
-        "systemId": "eternia",
-        "systemVersion": "0.34.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "_id": "FVRjZICNEtRwxc6L",
-      "sort": 800000,
-      "_key": "!actors.items!GL1570XXnTFjQj5x.FVRjZICNEtRwxc6L"
+      "_key": "!actors.items!1Q0GTG9aCHQzg8eG.GAKPuz2thlDYr4uT"
     }
   ],
   "effects": [],
@@ -753,11 +625,11 @@
     "duplicateSource": null,
     "exportSource": null
   },
-  "sort": 700000,
+  "sort": 200000,
   "ownership": {
     "default": 0
   },
-  "_id": "GL1570XXnTFjQj5x",
-  "folder": "RHS1pble8ESRDgnC",
-  "_key": "!actors!GL1570XXnTFjQj5x"
+  "_id": "1Q0GTG9aCHQzg8eG",
+  "folder": "rkjPFwoLJh5QL71o",
+  "_key": "!actors!1Q0GTG9aCHQzg8eG"
 }

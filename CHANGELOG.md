@@ -1,5 +1,21 @@
 # Changelog
 
+## Não lançado
+
+### Mudado
+- **Os nomes do bestiário do Império**, no estilo dos bestiários de RPG de mesa: Kobold Garimpeiro → **Kobold Batedor**,
+  Kobold Mordedor → **Kobold Glutão**, Chefe da Galeria → **Senhor Kobold**, Sentinela do Castelo → **Kobold
+  Sentinela**, Lobo do Peso → **Lobo Atroz**, Lobo do Castelo → **Worg**, Javali de Cristal → **Javali Atroz**, Javali
+  de Presas Azuis → **Javali Gigante**, Aranha das Galerias → **Aranha-Alçapão**, Lagarto Brilhante →
+  **Lagarto-Lanterna**, Mestre do Contrabando → **Capitão Contrabandista**, Goblin de Incursão → **Goblin Saqueador**,
+  Tropa de Incursão → **Tropa Goblin**, Fumaceiro Goblin → **Goblin Piromaníaco**, Chefe de Incursão → **Chefe
+  Goblin**, Oco → **Revenante**, O Ungido Partido → **Santo Partido**, O Meio-Espírito → **Espectro do Inverno**, O Que
+  Não Para de Queimar → **Meio-Dragão Ardente**, O Sem Nome → **Demônio das Sombras**, O das Seis Asas → **Serafim
+  Errante** e O Preso na Meia-Fera → **Homem-Tigre**. O Contrabandista, a Velha Cicatriz, o Uivo Violeta e as Fendas
+  ficaram. Os ids não mudaram: as levas das Fendas, os chamados e os atores já importados continuam ligados.
+- **As pastas do bestiário do Império** agora são por NP (NP1 a NP9, como as pastas do resto do bestiário), no lugar das pastas por família. A página XIV do
+  diário AS REGRAS e o README listam os monstros do mesmo jeito.
+
 ## 0.36.0 — 2026-10-25
 
 ### Adicionado

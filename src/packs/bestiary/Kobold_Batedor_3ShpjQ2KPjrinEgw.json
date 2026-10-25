@@ -1,11 +1,11 @@
 {
-  "name": "Lobo do Peso",
+  "name": "Kobold Batedor",
   "type": "monster",
-  "img": "systems/eternia/assets/tokens/bestiary/lobo-do-peso.webp",
+  "img": "systems/eternia/assets/tokens/bestiary/kobold-garimpeiro.webp",
   "system": {
     "health": {
-      "value": 42,
-      "max": 42,
+      "value": 26,
+      "max": 26,
       "mod": 0,
       "rc": 0,
       "jb": 0,
@@ -18,8 +18,10 @@
       "effect": 0
     },
     "tags": [
-      "Natural",
-      "Wolf"
+      "Mob",
+      "Humanoid",
+      "Kobold",
+      "Night Vision"
     ],
     "biography": "",
     "race": "",
@@ -34,7 +36,7 @@
       },
       "dex": {
         "value": 0,
-        "mod": 3,
+        "mod": 1,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -72,33 +74,33 @@
     },
     "battle-status": {
       "defense": {
-        "phys": 8,
-        "magic": 6
+        "phys": 6,
+        "magic": 2
       },
       "speed": 2,
-      "initiative": 4
+      "initiative": 1
     },
-    "rank": 2,
-    "idendification": "7",
-    "hateMultiplier": "2",
+    "rank": 1,
+    "idendification": "5",
+    "hateMultiplier": "1",
     "checks": {
       "evasion": {
-        "dice": 2,
-        "mod": 3
+        "dice": 0,
+        "mod": 7
       },
       "resistance": {
-        "dice": 2,
-        "mod": 1
+        "dice": 0,
+        "mod": 7
       }
     },
-    "description": "<p>Um lobo que o Peso escreveu grande demais: do tamanho de um pônei, de pelo cinza e eriçado que solta faíscas azuis quando ele corre. Caça em matilhas de três a seis nos campos e nas estradas perto das minas, e aprendeu que a gente das carroças é mais lenta que os cervos.</p><p><b>Na mesa:</b> a fera das estradas, em matilha. A Caça em Matilha pune quem deixa vários lobos chegarem no mesmo alvo; o Pelo de Faísca pune quem bate de perto: [Eletrificado] fere a cada Ação Maior. Derrubado pela mordida, o alvo gasta a Ação de Movimento para levantar.</p>"
+    "description": "<p>O kobold mais comum das galerias: pequeno, peludo, de focinho de cão e olhos que brilham no escuro, com uma picareta maior que ele. Cava atrás dos veios de Anima-mundi e come os cristais que acha. Nunca anda sozinho: quando um grupo de mineiros some, é quase sempre obra de um bando de Batedores.</p><p><b>Na mesa:</b> lacaio de NP 1, para as minas rasas e os esgotos de Centória. Aparece em bandos de quatro a oito, e o Bando da Galeria pune quem fica engajado com vários. Some na Parede é a emboscada: ele entra na rocha depois de atacar e volta pelas costas.</p>"
   },
   "prototypeToken": {
-    "name": "Lobo do Peso",
+    "name": "Kobold Batedor",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/eternia/assets/tokens/bestiary/lobo-do-peso.webp",
+      "src": "systems/eternia/assets/tokens/bestiary/kobold-garimpeiro.webp",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -189,11 +191,11 @@
   },
   "items": [
     {
-      "name": "Mordida do Peso",
+      "name": "Picareta",
       "type": "skill",
-      "img": "icons/creatures/abilities/fangs-teeth-bite.webp",
+      "img": "icons/tools/hand/pickaxe-steel-white.webp",
       "system": {
-        "description": "<p>[2d6 + 25] de dano físico.</p><p>(Menor): o alvo fica [Derrubado].</p>",
+        "description": "<p>[2d6 + 12] de dano físico.</p><p>(Menor): +4 de dano.</p>",
         "tags": [
           "Melee Attack"
         ],
@@ -211,13 +213,13 @@
         "macroeffect": "",
         "check": {
           "stat": "",
-          "dice": 3,
-          "mod": 4,
+          "dice": 0,
+          "mod": 10,
           "vs": "evasion"
         },
         "damage": {
           "dice": 2,
-          "mod": 25,
+          "mod": 12,
           "type": "physical",
           "recovery": false,
           "noPower": false
@@ -240,15 +242,15 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "z3Ic6tlfgi3LM8Pb",
-      "_key": "!actors.items!SmSWms4L63jKH9tq.z3Ic6tlfgi3LM8Pb"
+      "_id": "vphoge3EiTFm3o3B",
+      "_key": "!actors.items!3ShpjQ2KPjrinEgw.vphoge3EiTFm3o3B"
     },
     {
-      "name": "Caça em Matilha",
+      "name": "Bando da Galeria",
       "type": "skill",
-      "img": "icons/creatures/mammals/wolf-shadow-black.webp",
+      "img": "icons/environment/people/charge.webp",
       "system": {
-        "description": "<p>Este inimigo causa +3 de dano para cada outro [Lobo] engajado com o alvo.</p>",
+        "description": "<p>Este inimigo causa +2 de dano para cada outro inimigo [Kobold] engajado com o alvo.</p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -285,8 +287,8 @@
         "eternia": {
           "monster": {
             "rule": "pack",
-            "per": 3,
-            "tag": "Wolf"
+            "per": 2,
+            "tag": "Kobold"
           }
         }
       },
@@ -301,27 +303,27 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "IEjmwDebizF6EKYX",
-      "_key": "!actors.items!SmSWms4L63jKH9tq.IEjmwDebizF6EKYX"
+      "_id": "IW0NYBssWuWcz453",
+      "_key": "!actors.items!3ShpjQ2KPjrinEgw.IW0NYBssWuWcz453"
     },
     {
-      "name": "Pelo de Faísca",
+      "name": "Some na Parede",
       "type": "skill",
-      "img": "icons/magic/lightning/bolt-strike-blue.webp",
+      "img": "icons/environment/wilderness/cave-entrance-mountain.webp",
       "system": {
-        "description": "<p>O pelo eriçado solta faíscas: quem causa dano a este inimigo fica [Eletrificado: 2].</p>",
+        "description": "<p>Este inimigo entra na rocha da galeria (só onde há parede de terra ou pedra): fica [Oculto], e o próximo dano dele soma +1d6.</p>",
         "tags": [],
-        "timing": "Constant",
+        "timing": "Move",
         "checkType": "",
         "range": "-",
-        "target": "-",
+        "target": "Self",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
           "max": 1
         },
         "cost": "-",
-        "limit": "-",
+        "limit": "1/Scene",
         "macroeffect": "",
         "check": {
           "stat": "",
@@ -348,13 +350,14 @@
           },
           "disabled": false,
           "tint": "#ffffff",
-          "transfer": true,
+          "transfer": false,
           "flags": {
             "eternia": {
-              "struckStatus": {
-                "statusId": "shocked",
-                "value": 2
-              }
+              "recipients": "self",
+              "statusData": {
+                "statusId": "hidden"
+              },
+              "expires": "endOfScene"
             }
           },
           "_stats": {
@@ -368,19 +371,72 @@
             "duplicateSource": null,
             "exportSource": null
           },
-          "name": "Pelo de Faísca",
-          "img": "icons/magic/lightning/bolt-strike-blue.webp",
+          "name": "Some na Parede: oculto",
+          "img": "icons/environment/wilderness/cave-entrance-mountain.webp",
           "type": "base",
           "system": {
             "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "hidden"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "d6pSjWRdnb8GDIUC",
+          "_key": "!actors.items.effects!3ShpjQ2KPjrinEgw.VBAVOqdzemzwhjWC.d6pSjWRdnb8GDIUC"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "consumeOn": "attack",
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Some na Parede: emboscada",
+          "img": "icons/environment/wilderness/cave-entrance-mountain.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.roll.damage.dice",
+                "type": "add",
+                "value": "1",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
           },
           "description": "",
           "statuses": [],
           "sort": 0,
           "start": null,
           "showIcon": 1,
-          "_id": "08XyCmfOlAd5iLkt",
-          "_key": "!actors.items.effects!SmSWms4L63jKH9tq.IeYDRV3tddgejAGJ.08XyCmfOlAd5iLkt"
+          "_id": "ufs5xiJKweSGUH6T",
+          "_key": "!actors.items.effects!3ShpjQ2KPjrinEgw.VBAVOqdzemzwhjWC.ufs5xiJKweSGUH6T"
         }
       ],
       "sort": 300000,
@@ -399,20 +455,20 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "IeYDRV3tddgejAGJ",
-      "_key": "!actors.items!SmSWms4L63jKH9tq.IeYDRV3tddgejAGJ"
+      "_id": "VBAVOqdzemzwhjWC",
+      "_key": "!actors.items!3ShpjQ2KPjrinEgw.VBAVOqdzemzwhjWC"
     },
     {
-      "name": "Tufo de Pelo Faiscante",
+      "name": "Lasca de Anima Roída",
       "type": "gear",
-      "img": "icons/commodities/leather/fur-white.webp",
+      "img": "icons/commodities/gems/gem-fragments-rough-grey.webp",
       "system": {
-        "description": "<p>Um punhado de pelo cinza que ainda dá choque quando se esfrega. Os curtidores de Centória pagam pelo forro de luvas.</p>",
+        "description": "<p>Um pedaço de Anima-mundi cinza-azulado, roído pelos dentes de um kobold. Sem o Selo do Anima, o Ofício paga pouco por ele.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 2,
-        "price": 20,
+        "rank": 1,
+        "price": 5,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -428,8 +484,7 @@
       "flags": {
         "eternia": {
           "drop": {
-            "min": 1,
-            "max": 3,
+            "fixed": true,
             "qty": 1
           }
         }
@@ -445,103 +500,9 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "G0aNCCLsZ5RD6SSu",
+      "_id": "2hy5Kolaiqu0d4Fu",
       "sort": 400000,
-      "_key": "!actors.items!SmSWms4L63jKH9tq.G0aNCCLsZ5RD6SSu"
-    },
-    {
-      "name": "Presa do Peso",
-      "type": "gear",
-      "img": "icons/commodities/bones/fossil-tooth.webp",
-      "system": {
-        "description": "<p>Um canino longo como um dedo, mais duro que o de um lobo comum. Os caçadores o usam pendurado no pescoço.</p>",
-        "tags": [
-          "Valuable"
-        ],
-        "rank": 2,
-        "price": 30,
-        "equipped": false,
-        "skillText": "",
-        "linkedSkillUuid": "",
-        "timing": "",
-        "checkType": "",
-        "range": "",
-        "target": ""
-      },
-      "effects": [],
-      "ownership": {
-        "default": 0
-      },
-      "flags": {
-        "eternia": {
-          "drop": {
-            "min": 4,
-            "max": 5,
-            "qty": 1
-          }
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.360",
-        "systemId": "eternia",
-        "systemVersion": "0.34.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "_id": "vPc1c3lwRJ75t2JL",
-      "sort": 500000,
-      "_key": "!actors.items!SmSWms4L63jKH9tq.vPc1c3lwRJ75t2JL"
-    },
-    {
-      "name": "Pele de Lobo do Peso",
-      "type": "gear",
-      "img": "icons/commodities/leather/fur-pelt-white.webp",
-      "system": {
-        "description": "<p>A pele inteira, cinza-prata, que estala de leve no escuro. Um casaco dela é coisa de nobre.</p>",
-        "tags": [
-          "Valuable"
-        ],
-        "rank": 2,
-        "price": 50,
-        "equipped": false,
-        "skillText": "",
-        "linkedSkillUuid": "",
-        "timing": "",
-        "checkType": "",
-        "range": "",
-        "target": ""
-      },
-      "effects": [],
-      "ownership": {
-        "default": 0
-      },
-      "flags": {
-        "eternia": {
-          "drop": {
-            "min": 6,
-            "max": 6,
-            "qty": 1
-          }
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.360",
-        "systemId": "eternia",
-        "systemVersion": "0.34.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "_id": "h3aWljp7UKpybJtU",
-      "sort": 600000,
-      "_key": "!actors.items!SmSWms4L63jKH9tq.h3aWljp7UKpybJtU"
+      "_key": "!actors.items!3ShpjQ2KPjrinEgw.2hy5Kolaiqu0d4Fu"
     }
   ],
   "effects": [],
@@ -561,7 +522,7 @@
   "ownership": {
     "default": 0
   },
-  "_id": "SmSWms4L63jKH9tq",
-  "folder": "5id5icbMj1d24RP5",
-  "_key": "!actors!SmSWms4L63jKH9tq"
+  "_id": "3ShpjQ2KPjrinEgw",
+  "folder": "XA2JmuxkhmuaArlg",
+  "_key": "!actors!3ShpjQ2KPjrinEgw"
 }

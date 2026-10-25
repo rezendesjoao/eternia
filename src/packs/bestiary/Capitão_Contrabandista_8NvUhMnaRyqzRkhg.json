@@ -1,11 +1,11 @@
 {
-  "name": "O das Seis Asas",
+  "name": "Capitão Contrabandista",
   "type": "monster",
-  "img": "systems/eternia/assets/tokens/bestiary/o-das-seis-asas.webp",
+  "img": "systems/eternia/assets/tokens/bestiary/mestre-do-contrabando.webp",
   "system": {
     "health": {
-      "value": 336,
-      "max": 336,
+      "value": 120,
+      "max": 120,
       "mod": 0,
       "rc": 0,
       "jb": 0,
@@ -19,22 +19,12 @@
     },
     "tags": [
       "Boss",
-      "Human",
-      "Celestial",
-      "Stray"
+      "Human"
     ],
     "biography": "",
     "race": "",
     "attributes": {
       "str": {
-        "value": 0,
-        "mod": 4,
-        "total": 0,
-        "effect": 0,
-        "jb": 0,
-        "rc": 0
-      },
-      "dex": {
         "value": 0,
         "mod": 3,
         "total": 0,
@@ -42,9 +32,17 @@
         "jb": 0,
         "rc": 0
       },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
       "pow": {
         "value": 0,
-        "mod": 5,
+        "mod": 4,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -52,7 +50,7 @@
       },
       "int": {
         "value": 0,
-        "mod": 4,
+        "mod": 2,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -74,33 +72,33 @@
     },
     "battle-status": {
       "defense": {
-        "phys": 24,
-        "magic": 16
+        "phys": 10,
+        "magic": 14
       },
       "speed": 2,
-      "initiative": 7
+      "initiative": 8
     },
-    "rank": 9,
-    "idendification": "10",
+    "rank": 5,
+    "idendification": "9",
     "hateMultiplier": "2",
     "checks": {
       "evasion": {
         "dice": 2,
-        "mod": 4
+        "mod": 2
       },
       "resistance": {
         "dice": 2,
-        "mod": 5
+        "mod": 4
       }
     },
-    "description": "<p>Um Celestial que passou uma estação inteira sem dizer o próprio nome, como o rito das Seis Asas pede, e esqueceu como se diz. Tem seis asas, várias auréolas, e a voz soa como sinos: bonita de longe, insuportável de perto. Cura o que encontra pelo caminho, os bichos, as plantas, os inimigos, sem saber por quê.</p><p><b>Na mesa:</b> chefe sozinho de NP 9, que voa e cura. A Voz de Sino deixa [Atordoado] em área; o Canto das Seis Asas cura a ele e aos aliados uma vez por rodada; a Lança de Luz alcança 2 Qd. Defesa Física alta: Artes e magia rendem mais. Desgarrados lutam sozinhos e são chefes: dá tempo de tentar salvá-los. Matá-lo deixa os itens; salvá-lo deixa uma Conexão.</p>"
+    "description": "<p>Quem manda no contrabando de uma cidade de mina inteira: bem vestido, de bengala e anel de sinete, com uma Tarefa limpa de comerciante e três nomes em três cidades. Nunca carrega o Anima: carrega o livro-caixa, os sósias e a proposta. Prefere pagar a lutar, e lutar a ser preso.</p><p><b>Na mesa:</b> o chefe de grupo dos contrabandistas, para um dia em Centória que acaba mal. Vem com dois a quatro Contrabandistas. Os Sósias lhe dão [Clones: 3] no começo da luta; a Mão Leve rouba ouro de quem ele fere (o ouro volta nos itens deixados quando ele cai); A Proposta põe um cartão no chat: o grupo aceita o ouro e ele vai embora, sem deixar itens, ou recusa e luta. Como os outros, o Selo não o deixa matar.</p>"
   },
   "prototypeToken": {
-    "name": "O das Seis Asas",
+    "name": "Capitão Contrabandista",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/eternia/assets/tokens/bestiary/o-das-seis-asas.webp",
+      "src": "systems/eternia/assets/tokens/bestiary/mestre-do-contrabando.webp",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -191,18 +189,17 @@
   },
   "items": [
     {
-      "name": "Lança de Luz",
+      "name": "Bengala-Espada",
       "type": "skill",
-      "img": "icons/magic/holy/projectiles-blades-salvo-yellow.webp",
+      "img": "icons/weapons/swords/sword-cane.webp",
       "system": {
-        "description": "<p>[2d6 + 40] de dano físico de [Radiância], a até 2 Qd.</p>",
+        "description": "<p>[2d6 + 18] de dano físico.</p><p>(Menor): +5 de dano.</p><p>[Destino 1]: o golpe acerta todos os personagens engajados com este inimigo.</p>",
         "tags": [
-          "Melee Attack",
-          "Radiance"
+          "Melee Attack"
         ],
         "timing": "Major",
         "checkType": "",
-        "range": "2Sq",
+        "range": "Close",
         "target": "Single",
         "subtype": "Monster",
         "skillRank": {
@@ -215,12 +212,12 @@
         "check": {
           "stat": "",
           "dice": 2,
-          "mod": 7,
+          "mod": 6,
           "vs": "evasion"
         },
         "damage": {
           "dice": 2,
-          "mod": 40,
+          "mod": 18,
           "type": "physical",
           "recovery": false,
           "noPower": false
@@ -243,22 +240,20 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "h2NiHqLziCarqMks",
-      "_key": "!actors.items!CJFrRICLYY3sh6Jh.h2NiHqLziCarqMks"
+      "_id": "ndUkzuH25IBOmg1L",
+      "_key": "!actors.items!8NvUhMnaRyqzRkhg.ndUkzuH25IBOmg1L"
     },
     {
-      "name": "Voz de Sino",
+      "name": "Mão Leve",
       "type": "skill",
-      "img": "icons/magic/holy/meditation-chi-focus-blue.webp",
+      "img": "icons/skills/melee/strike-dagger-arcane-pink.webp",
       "system": {
-        "description": "<p>A voz soa como sinos: área a até 3 Qd, [2d6 + 25] de dano mágico, e quem é atingido fica [Atordoado].</p>",
-        "tags": [
-          "Magic Attack"
-        ],
-        "timing": "Major",
+        "description": "<p>O próximo golpe deste inimigo nesta rodada que causar dano a um personagem tira [2d6 × 5] de ouro da bolsa dele (o que ele tiver). O ouro roubado volta nos itens deixados.</p>",
+        "tags": [],
+        "timing": "Minor",
         "checkType": "",
-        "range": "3Sq",
-        "target": "Area",
+        "range": "-",
+        "target": "Self",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
@@ -269,81 +264,66 @@
         "macroeffect": "",
         "check": {
           "stat": "",
-          "dice": 2,
-          "mod": 7,
-          "vs": "resistance"
-        },
-        "damage": {
-          "dice": 2,
-          "mod": 25,
-          "type": "magical",
-          "recovery": false,
-          "noPower": false
-        }
-      },
-      "effects": [],
-      "sort": 200000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {
-        "eternia": {
-          "hitStatuses": [
-            {
-              "statusId": "dazed"
-            }
-          ]
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.360",
-        "systemId": "eternia",
-        "systemVersion": "0.34.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "_id": "cEITFe2unCLW4CZw",
-      "_key": "!actors.items!CJFrRICLYY3sh6Jh.cEITFe2unCLW4CZw"
-    },
-    {
-      "name": "Canto das Seis Asas",
-      "type": "skill",
-      "img": "icons/magic/holy/prayer-hands-glowing-yellow-green.webp",
-      "system": {
-        "description": "<p>Ação Menor, uma vez por rodada: ele e os aliados a até 3 Qd recuperam [2d6 + 30] PV.</p>",
-        "tags": [],
-        "timing": "Minor",
-        "checkType": "",
-        "range": "3Sq",
-        "target": "Area",
-        "subtype": "Monster",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "1/Round",
-        "macroeffect": "",
-        "check": {
-          "stat": "",
           "dice": 0,
           "mod": 0,
           "vs": ""
         },
         "damage": {
-          "dice": 2,
-          "mod": 30,
-          "type": "magical",
-          "recovery": true,
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
           "noPower": false
         }
       },
-      "effects": [],
-      "sort": 300000,
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "pickpocket": {
+                "gold": "2d6*5"
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Mão Leve",
+          "img": "icons/skills/melee/strike-dagger-arcane-pink.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "nJfVU9uXaL8daucq",
+          "_key": "!actors.items.effects!8NvUhMnaRyqzRkhg.o7S6pJm9QEb3xqQ7.nJfVU9uXaL8daucq"
+        }
+      ],
+      "sort": 200000,
       "ownership": {
         "default": 0
       },
@@ -359,15 +339,139 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "q4UCxKzgNZeng9ug",
-      "_key": "!actors.items!CJFrRICLYY3sh6Jh.q4UCxKzgNZeng9ug"
+      "_id": "o7S6pJm9QEb3xqQ7",
+      "_key": "!actors.items!8NvUhMnaRyqzRkhg.o7S6pJm9QEb3xqQ7"
     },
     {
-      "name": "Seis Asas",
+      "name": "Sósias",
       "type": "skill",
-      "img": "icons/magic/holy/barrier-shield-winged-cross.webp",
+      "img": "icons/magic/control/silhouette-hold-change-blue.webp",
       "system": {
-        "description": "<p>Seis asas, várias auréolas: ele está sempre [Voando].</p>",
+        "description": "<p>No começo da rodada, três homens de bengala e anel saem da fumaça: este inimigo fica com [Clones: 3].</p>",
+        "tags": [],
+        "timing": "Initiative",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "addStatus",
+              "status": "clones",
+              "value": 3,
+              "recipients": "self"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "IV7fmUtl42azUtBf",
+      "_key": "!actors.items!8NvUhMnaRyqzRkhg.IV7fmUtl42azUtBf"
+    },
+    {
+      "name": "A Proposta",
+      "type": "skill",
+      "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
+      "system": {
+        "description": "<p>Este inimigo oferece [2d6 × 10] de ouro para ser deixado ir: um cartão no chat. Se o grupo aceita, o ouro vai para quem aceitou e ele sai da cena, sem deixar itens; se recusa, a luta segue.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "offer",
+            "gold": "2d6*10"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "mnJ9kqHoTcKfmdFr",
+      "_key": "!actors.items!8NvUhMnaRyqzRkhg.mnJ9kqHoTcKfmdFr"
+    },
+    {
+      "name": "O Selo Dói",
+      "type": "skill",
+      "img": "icons/magic/symbols/rune-sigil-hook-white-red.webp",
+      "system": {
+        "description": "<p>O dano dos golpes deste inimigo para em 1 PV: o Selo não o deixa matar. Só o veneno e as outras condições derrubam.</p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -408,7 +512,9 @@
           "tint": "#ffffff",
           "transfer": true,
           "flags": {
-            "eternia": {}
+            "eternia": {
+              "noKill": true
+            }
           },
           "_stats": {
             "coreVersion": "14.360",
@@ -421,24 +527,22 @@
             "duplicateSource": null,
             "exportSource": null
           },
-          "name": "Seis Asas",
-          "img": "icons/magic/holy/barrier-shield-winged-cross.webp",
+          "name": "O Selo Dói",
+          "img": "icons/magic/symbols/rune-sigil-hook-white-red.webp",
           "type": "base",
           "system": {
             "changes": []
           },
           "description": "",
-          "statuses": [
-            "flying"
-          ],
+          "statuses": [],
           "sort": 0,
           "start": null,
           "showIcon": 1,
-          "_id": "vyaXNx7AVoC5dHin",
-          "_key": "!actors.items.effects!CJFrRICLYY3sh6Jh.tsUOeKYQUSOlkc5a.vyaXNx7AVoC5dHin"
+          "_id": "IPHuYjAWKjwZljc0",
+          "_key": "!actors.items.effects!8NvUhMnaRyqzRkhg.AoJQhBsccT5MQfVp.IPHuYjAWKjwZljc0"
         }
       ],
-      "sort": 400000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
@@ -454,128 +558,8 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "tsUOeKYQUSOlkc5a",
-      "_key": "!actors.items!CJFrRICLYY3sh6Jh.tsUOeKYQUSOlkc5a"
-    },
-    {
-      "name": "A Forma Rejeita",
-      "type": "skill",
-      "img": "icons/magic/control/silhouette-hold-change-green.webp",
-      "system": {
-        "description": "<p>No Encerramento, ele se livra de 2 Estados Negativos: a forma não aceita prisão.</p>",
-        "tags": [],
-        "timing": "Constant",
-        "checkType": "",
-        "range": "-",
-        "target": "-",
-        "subtype": "Monster",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "-",
-        "macroeffect": "",
-        "check": {
-          "stat": "",
-          "dice": 0,
-          "mod": 0,
-          "vs": ""
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false,
-          "noPower": false
-        }
-      },
-      "effects": [],
-      "sort": 500000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {
-        "eternia": {
-          "monster": {
-            "rule": "cleanse",
-            "count": 2
-          }
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.360",
-        "systemId": "eternia",
-        "systemVersion": "0.34.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "_id": "abKM5iTYYoTTyaeD",
-      "_key": "!actors.items!CJFrRICLYY3sh6Jh.abKM5iTYYoTTyaeD"
-    },
-    {
-      "name": "Ainda Há Alguém Aí",
-      "type": "skill",
-      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
-      "system": {
-        "description": "<p>Com 1/4 dos PV ou menos, a forma cede e dá para ver quem ele era: quem estiver engajado com ele pode gastar a Ação Maior e rolar Negociação contra a Resistência dele (o botão Salvar do cartão que aparece no chat). Vencendo, ele fica [Pacificado] até o fim da cena e sai da luta, sem deixar itens; o Mestre pode fazê-lo virar uma Conexão de quem o salvou.</p>",
-        "tags": [],
-        "timing": "Constant",
-        "checkType": "",
-        "range": "-",
-        "target": "-",
-        "subtype": "Monster",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "-",
-        "macroeffect": "",
-        "check": {
-          "stat": "",
-          "dice": 0,
-          "mod": 0,
-          "vs": ""
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false,
-          "noPower": false
-        }
-      },
-      "effects": [],
-      "sort": 600000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {
-        "eternia": {
-          "monster": {
-            "rule": "save",
-            "below": 0.25
-          }
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.360",
-        "systemId": "eternia",
-        "systemVersion": "0.34.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "_id": "ZIn0uBhOdJbEEthT",
-      "_key": "!actors.items!CJFrRICLYY3sh6Jh.ZIn0uBhOdJbEEthT"
+      "_id": "AoJQhBsccT5MQfVp",
+      "_key": "!actors.items!8NvUhMnaRyqzRkhg.AoJQhBsccT5MQfVp"
     },
     {
       "name": "Ouro",
@@ -603,7 +587,7 @@
           "drop": {
             "fixed": true,
             "qty": 1,
-            "gold": "2d6*7"
+            "gold": "2d6*5"
           }
         }
       },
@@ -618,21 +602,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "ffA4NqeTmh79XGWc",
-      "sort": 700000,
-      "_key": "!actors.items!CJFrRICLYY3sh6Jh.ffA4NqeTmh79XGWc"
+      "_id": "NiWZG8kmDfD2nwzd",
+      "sort": 600000,
+      "_key": "!actors.items!8NvUhMnaRyqzRkhg.NiWZG8kmDfD2nwzd"
     },
     {
-      "name": "Pena de Luz",
+      "name": "Livro-Caixa Cifrado",
       "type": "gear",
-      "img": "icons/commodities/biological/wing-bird-white.webp",
+      "img": "icons/sundries/books/book-embossed-clasp-gold-brown.webp",
       "system": {
-        "description": "<p>Uma pena branca que ilumina um quarto à noite. A Igreja diz que é pecado tê-la; os nobres a usam no chapéu.</p>",
+        "description": "<p>O livro de contas do contrabando, numa cifra de comerciante: quem comprou, quem vendeu e quanto a guarda levou. A guilda e a Igreja pagam caro por ele; os nomes dentro dele pagam mais.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 9,
-        "price": 240,
+        "rank": 5,
+        "price": 120,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -665,21 +649,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "LFutlKhc9u1rhw5u",
-      "sort": 800000,
-      "_key": "!actors.items!CJFrRICLYY3sh6Jh.LFutlKhc9u1rhw5u"
+      "_id": "zSfp5bDXkpdk45cd",
+      "sort": 700000,
+      "_key": "!actors.items!8NvUhMnaRyqzRkhg.zSfp5bDXkpdk45cd"
     },
     {
-      "name": "Lágrima Celeste",
+      "name": "Anima sem Selo",
       "type": "gear",
-      "img": "icons/commodities/gems/gem-faceted-teardrop-blue.webp",
+      "img": "icons/commodities/gems/gem-rough-drop-blue.webp",
       "system": {
-        "description": "<p>Uma lágrima de luz que não secou. Serve de Anima-mundi 9 na Oficina.</p>",
+        "description": "<p>Um Anima-mundi sem o Selo do Anima, do lote que ele ia vender. Serve de Anima-mundi 5 na Oficina, mas quem o vende ao Ofício perde a licença.</p>",
         "tags": [
-          "Magic Catalyst 9"
+          "Magic Catalyst 5"
         ],
-        "rank": 9,
-        "price": 90,
+        "rank": 5,
+        "price": 40,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -697,7 +681,7 @@
           "drop": {
             "min": 3,
             "max": 4,
-            "qty": 3
+            "qty": 4
           }
         }
       },
@@ -712,21 +696,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "5my84x4N19G5KEbr",
-      "sort": 900000,
-      "_key": "!actors.items!CJFrRICLYY3sh6Jh.5my84x4N19G5KEbr"
+      "_id": "ahQz2VgP0effnukD",
+      "sort": 800000,
+      "_key": "!actors.items!8NvUhMnaRyqzRkhg.ahQz2VgP0effnukD"
     },
     {
-      "name": "Auréola Partida",
+      "name": "Bengala de Prata",
       "type": "gear",
-      "img": "icons/magic/light/projectile-halo-teal.webp",
+      "img": "icons/weapons/swords/sword-cane.webp",
       "system": {
-        "description": "<p>Um anel de luz partido ao meio, que ainda flutua sobre a mão de quem o segura.</p>",
+        "description": "<p>A bengala do mestre, de castão de prata, com a lâmina escondida dentro. Feita sob encomenda em Centória.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 9,
-        "price": 450,
+        "rank": 5,
+        "price": 220,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -759,21 +743,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "FeUaZfSxk3aOlwd4",
-      "sort": 1000000,
-      "_key": "!actors.items!CJFrRICLYY3sh6Jh.FeUaZfSxk3aOlwd4"
+      "_id": "8igIU8pqmkW18tPa",
+      "sort": 900000,
+      "_key": "!actors.items!8NvUhMnaRyqzRkhg.8igIU8pqmkW18tPa"
     },
     {
-      "name": "Sino das Seis Asas",
+      "name": "Anel de Sinete Roubado",
       "type": "gear",
-      "img": "icons/magic/holy/chalice-glowing-gold.webp",
+      "img": "icons/equipment/finger/ring-band-engraved-scrolls-gold.webp",
       "system": {
-        "description": "<p>Um sino pequeno, sem badalo, que toca sozinho quando alguém mente perto dele.</p>",
+        "description": "<p>Um anel com o brasão de uma casa nobre, que não é a dele. Devolvê-lo à família abre portas; vendê-lo, a forca.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 9,
-        "price": 620,
+        "rank": 5,
+        "price": 300,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -806,20 +790,20 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "dSbiJLaZZrkSS1g2",
-      "sort": 1100000,
-      "_key": "!actors.items!CJFrRICLYY3sh6Jh.dSbiJLaZZrkSS1g2"
+      "_id": "t4AuJaYBHhanYWQ7",
+      "sort": 1000000,
+      "_key": "!actors.items!8NvUhMnaRyqzRkhg.t4AuJaYBHhanYWQ7"
     },
     {
-      "name": "Anima-mundi 10",
+      "name": "Anima-mundi 6",
       "type": "gear",
       "system": {
-        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 10 ou mais gasta uma Anima-mundi 10. O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 6 gasta uma Anima-mundi 6 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
         "tags": [
-          "Magic Catalyst 10"
+          "Magic Catalyst 6"
         ],
-        "rank": 10,
-        "price": 110,
+        "rank": 6,
+        "price": 50,
         "equipped": false,
         "timing": "-",
         "checkType": "-",
@@ -841,7 +825,7 @@
       "flags": {
         "eternia": {
           "icon": {
-            "hue": 324
+            "hue": 180
           },
           "drop": {
             "fixed": true,
@@ -856,25 +840,25 @@
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.items.Item.KhBPLpcz86fHSG5m",
+        "compendiumSource": "Compendium.eternia.items.Item.YrKp5oNdJw1oWmjI",
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "7wIEgff4wqRywGfA",
-      "sort": 1200000,
-      "_key": "!actors.items!CJFrRICLYY3sh6Jh.7wIEgff4wqRywGfA"
+      "_id": "fl2uksJ1IdvtEeJV",
+      "sort": 1100000,
+      "_key": "!actors.items!8NvUhMnaRyqzRkhg.fl2uksJ1IdvtEeJV"
     },
     {
-      "name": "Pena da Sexta Asa",
+      "name": "Selo Falsificado",
       "type": "gear",
-      "img": "icons/commodities/biological/wing-bird-white.webp",
+      "img": "icons/sundries/documents/document-sealed-brown-red.webp",
       "system": {
-        "description": "<p>A pena maior da sexta asa, que pesa menos que o ar. Um [Material-Base] de NP 9.</p>",
+        "description": "<p>Um carimbo do Selo do Anima feito à mão, quase perfeito. Um [Material-Base] de NP 5, e a prova de que o contrabando tinha ajuda de dentro.</p>",
         "tags": [
           "Core Material"
         ],
-        "rank": 9,
-        "price": 180,
+        "rank": 5,
+        "price": 100,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -906,9 +890,9 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "CMcGpCAg9b6FkCRA",
-      "sort": 1300000,
-      "_key": "!actors.items!CJFrRICLYY3sh6Jh.CMcGpCAg9b6FkCRA"
+      "_id": "dfnO9rjbIUY2NUHI",
+      "sort": 1200000,
+      "_key": "!actors.items!8NvUhMnaRyqzRkhg.dfnO9rjbIUY2NUHI"
     }
   ],
   "effects": [],
@@ -924,11 +908,11 @@
     "duplicateSource": null,
     "exportSource": null
   },
-  "sort": 500000,
+  "sort": 200000,
   "ownership": {
     "default": 0
   },
-  "_id": "CJFrRICLYY3sh6Jh",
-  "folder": "RD9UdfUXgaZZzK88",
-  "_key": "!actors!CJFrRICLYY3sh6Jh"
+  "_id": "8NvUhMnaRyqzRkhg",
+  "folder": "B9m3gjbM5ApA2GmA",
+  "_key": "!actors!8NvUhMnaRyqzRkhg"
 }

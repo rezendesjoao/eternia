@@ -1,11 +1,11 @@
 {
-  "name": "Kobold Garimpeiro",
+  "name": "Lagarto-Lanterna",
   "type": "monster",
-  "img": "systems/eternia/assets/tokens/bestiary/kobold-garimpeiro.webp",
+  "img": "systems/eternia/assets/tokens/bestiary/lagarto-brilhante.webp",
   "system": {
     "health": {
-      "value": 26,
-      "max": 26,
+      "value": 46,
+      "max": 46,
       "mod": 0,
       "rc": 0,
       "jb": 0,
@@ -18,9 +18,7 @@
       "effect": 0
     },
     "tags": [
-      "Mob",
-      "Humanoid",
-      "Kobold",
+      "Natural",
       "Night Vision"
     ],
     "biography": "",
@@ -36,7 +34,7 @@
       },
       "dex": {
         "value": 0,
-        "mod": 1,
+        "mod": 2,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -44,7 +42,7 @@
       },
       "pow": {
         "value": 0,
-        "mod": 1,
+        "mod": 3,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -52,7 +50,7 @@
       },
       "int": {
         "value": 0,
-        "mod": 1,
+        "mod": 4,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -74,33 +72,33 @@
     },
     "battle-status": {
       "defense": {
-        "phys": 6,
-        "magic": 2
+        "phys": 9,
+        "magic": 14
       },
       "speed": 2,
-      "initiative": 1
+      "initiative": 4
     },
-    "rank": 1,
-    "idendification": "5",
-    "hateMultiplier": "1",
+    "rank": 5,
+    "idendification": "8",
+    "hateMultiplier": "3",
     "checks": {
       "evasion": {
-        "dice": 0,
-        "mod": 7
+        "dice": 2,
+        "mod": 2
       },
       "resistance": {
-        "dice": 0,
-        "mod": 7
+        "dice": 2,
+        "mod": 3
       }
     },
-    "description": "<p>O kobold mais comum das galerias: pequeno, peludo, de focinho de cão e olhos que brilham no escuro, com uma picareta maior que ele. Cava atrás dos veios de Anima-mundi e come os cristais que acha. Nunca anda sozinho: quando um grupo de mineiros some, é quase sempre obra de um bando de Garimpeiros.</p><p><b>Na mesa:</b> lacaio de NP 1, para as minas rasas e os esgotos de Centória. Aparece em bandos de quatro a oito, e o Bando da Galeria pune quem fica engajado com vários. Some na Parede é a emboscada: ele entra na rocha depois de atacar e volta pelas costas.</p>"
+    "description": "<p>Um lagarto comprido como dois homens, de escamas translúcidas que brilham por dentro com a luz que ele engoliu. Vive nas cavernas onde o sol não chega e sobe à noite atrás de lanternas, fogueiras e Artes de luz, que ele come. Quando está cheio, vomita a luz de volta numa golfada que cega.</p><p><b>Na mesa:</b> o bombardeiro das feras. Quem fica a até 2 Qd dele fica [Cego] em cada Manutenção, e quem fica longe leva o Vômito de Luz em linha. A [Radiância] o cura: quem traz luz precisa de outra Arte. O Vômito recarrega: depois de usado, só volta com 5 ou 6 no 1d6 de uma Manutenção.</p>"
   },
   "prototypeToken": {
-    "name": "Kobold Garimpeiro",
+    "name": "Lagarto-Lanterna",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/eternia/assets/tokens/bestiary/kobold-garimpeiro.webp",
+      "src": "systems/eternia/assets/tokens/bestiary/lagarto-brilhante.webp",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -126,21 +124,21 @@
       "attribute": "fate"
     },
     "light": {
-      "alpha": 0.5,
+      "alpha": 0.45,
       "angle": 360,
-      "bright": 0,
-      "color": null,
+      "bright": 1,
+      "color": "#f3dc8a",
       "coloration": 1,
-      "dim": 0,
+      "dim": 3,
       "attenuation": 0.5,
       "luminosity": 0.5,
       "saturation": 0,
       "contrast": 0,
       "shadows": 0,
       "animation": {
-        "type": null,
-        "speed": 5,
-        "intensity": 5,
+        "type": "pulse",
+        "speed": 2,
+        "intensity": 3,
         "reverse": false
       },
       "darkness": {
@@ -191,18 +189,19 @@
   },
   "items": [
     {
-      "name": "Picareta",
+      "name": "Lampejo",
       "type": "skill",
-      "img": "icons/tools/hand/pickaxe-steel-white.webp",
+      "img": "icons/magic/light/beam-rays-yellow.webp",
       "system": {
-        "description": "<p>[2d6 + 12] de dano físico.</p><p>(Menor): +4 de dano.</p>",
+        "description": "<p>Área (Escolha) a até 4 Qd: [2d6 + 28] de dano mágico de [Radiância].</p>",
         "tags": [
-          "Melee Attack"
+          "Magic Attack",
+          "Radiance"
         ],
         "timing": "Major",
         "checkType": "",
-        "range": "Close",
-        "target": "Single",
+        "range": "4Sq",
+        "target": "Area",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
@@ -213,14 +212,14 @@
         "macroeffect": "",
         "check": {
           "stat": "",
-          "dice": 0,
-          "mod": 10,
-          "vs": "evasion"
+          "dice": 3,
+          "mod": 4,
+          "vs": "resistance"
         },
         "damage": {
           "dice": 2,
-          "mod": 12,
-          "type": "physical",
+          "mod": 28,
+          "type": "magical",
           "recovery": false,
           "noPower": false
         }
@@ -242,15 +241,83 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "vphoge3EiTFm3o3B",
-      "_key": "!actors.items!3ShpjQ2KPjrinEgw.vphoge3EiTFm3o3B"
+      "_id": "vuDCJNRlCWJmTwL5",
+      "_key": "!actors.items!hNO80mzTgVLpEluq.vuDCJNRlCWJmTwL5"
     },
     {
-      "name": "Bando da Galeria",
+      "name": "Vômito de Luz",
       "type": "skill",
-      "img": "icons/environment/people/charge.webp",
+      "img": "icons/magic/light/explosion-glow-spiral-yellow.webp",
       "system": {
-        "description": "<p>Este inimigo causa +2 de dano para cada outro inimigo [Kobold] engajado com o alvo.</p>",
+        "description": "<p>Linha de 4 Qd a partir do lagarto: [2d6 + 41] de dano mágico de [Radiância], e quem é atingido fica [Cego].</p><p>Recarga: depois de usado, só volta quando o 1d6 de uma Manutenção der 5 ou 6.</p>",
+        "tags": [
+          "Magic Attack",
+          "Radiance"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 41,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "recharge",
+            "min": 5
+          },
+          "hitStatuses": [
+            {
+              "statusId": "blinded"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "c7FjeRxoW1cJeXic",
+      "_key": "!actors.items!hNO80mzTgVLpEluq.c7FjeRxoW1cJeXic"
+    },
+    {
+      "name": "Come a Luz",
+      "type": "skill",
+      "img": "icons/magic/light/explosion-star-blue-yellow.webp",
+      "system": {
+        "description": "<p>O dano de [Radiância] cura este inimigo em vez de feri-lo.</p><p>Em cada Manutenção, os inimigos a até 2 Qd dele ficam [Cego]: ele bebe a luz em volta.</p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -278,67 +345,6 @@
           "noPower": false
         }
       },
-      "effects": [],
-      "sort": 200000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {
-        "eternia": {
-          "monster": {
-            "rule": "pack",
-            "per": 2,
-            "tag": "Kobold"
-          }
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.360",
-        "systemId": "eternia",
-        "systemVersion": "0.34.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "_id": "IW0NYBssWuWcz453",
-      "_key": "!actors.items!3ShpjQ2KPjrinEgw.IW0NYBssWuWcz453"
-    },
-    {
-      "name": "Some na Parede",
-      "type": "skill",
-      "img": "icons/environment/wilderness/cave-entrance-mountain.webp",
-      "system": {
-        "description": "<p>Este inimigo entra na rocha da galeria (só onde há parede de terra ou pedra): fica [Oculto], e o próximo dano dele soma +1d6.</p>",
-        "tags": [],
-        "timing": "Move",
-        "checkType": "",
-        "range": "-",
-        "target": "Self",
-        "subtype": "Monster",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "1/Scene",
-        "macroeffect": "",
-        "check": {
-          "stat": "",
-          "dice": 0,
-          "mod": 0,
-          "vs": ""
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false,
-          "noPower": false
-        }
-      },
       "effects": [
         {
           "origin": null,
@@ -350,14 +356,20 @@
           },
           "disabled": false,
           "tint": "#ffffff",
-          "transfer": false,
+          "transfer": true,
           "flags": {
             "eternia": {
-              "recipients": "self",
-              "statusData": {
-                "statusId": "hidden"
-              },
-              "expires": "endOfScene"
+              "absorb": [
+                "Radiance"
+              ],
+              "realm": {
+                "radius": 2,
+                "enemies": [
+                  {
+                    "statusId": "blinded"
+                  }
+                ]
+              }
             }
           },
           "_stats": {
@@ -371,72 +383,19 @@
             "duplicateSource": null,
             "exportSource": null
           },
-          "name": "Some na Parede: oculto",
-          "img": "icons/environment/wilderness/cave-entrance-mountain.webp",
+          "name": "Come a Luz",
+          "img": "icons/magic/light/explosion-star-blue-yellow.webp",
           "type": "base",
           "system": {
             "changes": []
-          },
-          "description": "",
-          "statuses": [
-            "hidden"
-          ],
-          "sort": 0,
-          "start": null,
-          "showIcon": 1,
-          "_id": "d6pSjWRdnb8GDIUC",
-          "_key": "!actors.items.effects!3ShpjQ2KPjrinEgw.VBAVOqdzemzwhjWC.d6pSjWRdnb8GDIUC"
-        },
-        {
-          "origin": null,
-          "duration": {
-            "value": null,
-            "units": "seconds",
-            "expiry": null,
-            "expired": false
-          },
-          "disabled": false,
-          "tint": "#ffffff",
-          "transfer": false,
-          "flags": {
-            "eternia": {
-              "recipients": "self",
-              "consumeOn": "attack",
-              "expires": "endOfScene"
-            }
-          },
-          "_stats": {
-            "coreVersion": "14.360",
-            "systemId": "eternia",
-            "systemVersion": "0.34.0",
-            "createdTime": null,
-            "modifiedTime": null,
-            "lastModifiedBy": null,
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null
-          },
-          "name": "Some na Parede: emboscada",
-          "img": "icons/environment/wilderness/cave-entrance-mountain.webp",
-          "type": "base",
-          "system": {
-            "changes": [
-              {
-                "key": "eternia.roll.damage.dice",
-                "type": "add",
-                "value": "1",
-                "phase": "initial",
-                "priority": null
-              }
-            ]
           },
           "description": "",
           "statuses": [],
           "sort": 0,
           "start": null,
           "showIcon": 1,
-          "_id": "ufs5xiJKweSGUH6T",
-          "_key": "!actors.items.effects!3ShpjQ2KPjrinEgw.VBAVOqdzemzwhjWC.ufs5xiJKweSGUH6T"
+          "_id": "WTrmBcN3sZ32TZsy",
+          "_key": "!actors.items.effects!hNO80mzTgVLpEluq.XBeNVHGKbg9v3xJV.WTrmBcN3sZ32TZsy"
         }
       ],
       "sort": 300000,
@@ -455,20 +414,20 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "VBAVOqdzemzwhjWC",
-      "_key": "!actors.items!3ShpjQ2KPjrinEgw.VBAVOqdzemzwhjWC"
+      "_id": "XBeNVHGKbg9v3xJV",
+      "_key": "!actors.items!hNO80mzTgVLpEluq.XBeNVHGKbg9v3xJV"
     },
     {
-      "name": "Lasca de Anima Roída",
+      "name": "Escama Translúcida",
       "type": "gear",
-      "img": "icons/commodities/gems/gem-fragments-rough-grey.webp",
+      "img": "icons/commodities/gems/gem-rough-cushion-yellow.webp",
       "system": {
-        "description": "<p>Um pedaço de Anima-mundi cinza-azulado, roído pelos dentes de um kobold. Sem o Selo do Anima, o Ofício paga pouco por ele.</p>",
+        "description": "<p>Uma escama que guarda um resto de luz e brilha como uma vela por uma semana. Os mineiros a levam para o fundo do poço.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 1,
-        "price": 5,
+        "rank": 5,
+        "price": 28,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -484,7 +443,8 @@
       "flags": {
         "eternia": {
           "drop": {
-            "fixed": true,
+            "min": 1,
+            "max": 3,
             "qty": 1
           }
         }
@@ -500,9 +460,103 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "2hy5Kolaiqu0d4Fu",
+      "_id": "0Ddi2eI96bkI31wh",
       "sort": 400000,
-      "_key": "!actors.items!3ShpjQ2KPjrinEgw.2hy5Kolaiqu0d4Fu"
+      "_key": "!actors.items!hNO80mzTgVLpEluq.0Ddi2eI96bkI31wh"
+    },
+    {
+      "name": "Glândula de Luz",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-faceted-octagon-yellow.webp",
+      "system": {
+        "description": "<p>O saco onde o lagarto guarda a luz que come, duro como cristal. Serve de Anima-mundi 5 na Oficina, sem o Selo do Anima.</p>",
+        "tags": [
+          "Magic Catalyst 5"
+        ],
+        "rank": 5,
+        "price": 40,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "qt1g2oSXKxgUdlro",
+      "sort": 500000,
+      "_key": "!actors.items!hNO80mzTgVLpEluq.qt1g2oSXKxgUdlro"
+    },
+    {
+      "name": "Olho que Brilha",
+      "type": "gear",
+      "img": "icons/commodities/biological/eye-lizard-green.webp",
+      "system": {
+        "description": "<p>O olho do lagarto, que nunca se apaga. Os nobres o montam em anéis; a Igreja diz que é pecado e compra todos que vê.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 5,
+        "price": 70,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "F562cVif8P8jAleI",
+      "sort": 600000,
+      "_key": "!actors.items!hNO80mzTgVLpEluq.F562cVif8P8jAleI"
     }
   ],
   "effects": [],
@@ -518,11 +572,11 @@
     "duplicateSource": null,
     "exportSource": null
   },
-  "sort": 100000,
+  "sort": 400000,
   "ownership": {
     "default": 0
   },
-  "_id": "3ShpjQ2KPjrinEgw",
-  "folder": "yEho6N2796TDEcba",
-  "_key": "!actors!3ShpjQ2KPjrinEgw"
+  "_id": "hNO80mzTgVLpEluq",
+  "folder": "B9m3gjbM5ApA2GmA",
+  "_key": "!actors!hNO80mzTgVLpEluq"
 }

@@ -158,7 +158,9 @@ leva fixa; a Grande: 11, 2, `growOn: "fall"` e `wave: [{ uuids: [...], count: 2 
 2. As habilidades com os campos da automação (`check`, `damage`, as flags acima). Um ataque com [Menor] fica no texto.
 3. A tabela: itens guardados com `flags.eternia.drop` (ou, numa ficha do mundo, arrastar itens para a aba).
 4. Os monstros do Império foram gerados por um script (fora do repositório; a fonte é o JSON em `src/packs/bestiary`,
-   pasta O Império), com ids estáveis. A arte dos 28 monstros do Império fica em
+   pasta O Império, com uma subpasta por NP), com ids estáveis. Os ids saem do primeiro nome de cada monstro: a 0.37
+   trocou os nomes (o Kobold Garimpeiro virou Kobold Batedor, o Oco virou Revenante e assim por diante) sem mudar nenhum
+   id, nem os das habilidades, nem o nome dos arquivos da arte. A arte dos 28 monstros do Império fica em
    `assets/tokens/bestiary/<nome sem acentos>.webp` (512 px: o token com a moldura, que também é o retrato), e o script
    põe `img` e `prototypeToken.texture.src` quando o arquivo existe. Um monstro sem arte usa um ícone do Foundry pelo
    caminho (`icons/...`), como nos itens.

@@ -1,11 +1,11 @@
 {
-  "name": "Lagarto Brilhante",
+  "name": "Tropa Goblin",
   "type": "monster",
-  "img": "systems/eternia/assets/tokens/bestiary/lagarto-brilhante.webp",
+  "img": "systems/eternia/assets/tokens/bestiary/tropa-de-incursao.webp",
   "system": {
     "health": {
-      "value": 46,
-      "max": 46,
+      "value": 132,
+      "max": 132,
       "mod": 0,
       "rc": 0,
       "jb": 0,
@@ -18,7 +18,8 @@
       "effect": 0
     },
     "tags": [
-      "Natural",
+      "Humanoid",
+      "Goblin",
       "Night Vision"
     ],
     "biography": "",
@@ -26,7 +27,7 @@
     "attributes": {
       "str": {
         "value": 0,
-        "mod": 2,
+        "mod": 3,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -34,7 +35,7 @@
       },
       "dex": {
         "value": 0,
-        "mod": 2,
+        "mod": 4,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -42,7 +43,7 @@
       },
       "pow": {
         "value": 0,
-        "mod": 3,
+        "mod": 2,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -50,7 +51,7 @@
       },
       "int": {
         "value": 0,
-        "mod": 4,
+        "mod": 3,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -72,33 +73,33 @@
     },
     "battle-status": {
       "defense": {
-        "phys": 9,
-        "magic": 14
+        "phys": 15,
+        "magic": 12
       },
       "speed": 2,
-      "initiative": 4
+      "initiative": 7
     },
-    "rank": 5,
+    "rank": 6,
     "idendification": "8",
     "hateMultiplier": "3",
     "checks": {
       "evasion": {
         "dice": 2,
-        "mod": 2
+        "mod": 4
       },
       "resistance": {
         "dice": 2,
-        "mod": 3
+        "mod": 2
       }
     },
-    "description": "<p>Um lagarto comprido como dois homens, de escamas translúcidas que brilham por dentro com a luz que ele engoliu. Vive nas cavernas onde o sol não chega e sobe à noite atrás de lanternas, fogueiras e Artes de luz, que ele come. Quando está cheio, vomita a luz de volta numa golfada que cega.</p><p><b>Na mesa:</b> o bombardeiro das feras. Quem fica a até 2 Qd dele fica [Cego] em cada Manutenção, e quem fica longe leva o Vômito de Luz em linha. A [Radiância] o cura: quem traz luz precisa de outra Arte. O Vômito recarrega: depois de usado, só volta com 5 ou 6 no 1d6 de uma Manutenção.</p>"
+    "description": "<p>Quatro goblins que andam, saqueiam e brigam como um bicho só: um empurra, outro morde, outro rouba a bolsa e o quarto já está correndo com ela. Nas cavernas estreitas da serra, a tropa enche a passagem de parede a parede.</p><p><b>Na mesa:</b> o meio do bando. Um token 2×2 com quatro goblins: o Saque em Bando acerta quem está engajado com ela, até um alvo por goblin que resta. O dano em área a acerta em dobro, e com 2/3 e 1/3 dos PV ela perde um goblin. Bombas, sopros e Artes em área são a resposta.</p>"
   },
   "prototypeToken": {
-    "name": "Lagarto Brilhante",
+    "name": "Tropa Goblin",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/eternia/assets/tokens/bestiary/lagarto-brilhante.webp",
+      "src": "systems/eternia/assets/tokens/bestiary/tropa-de-incursao.webp",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -110,8 +111,8 @@
       "fit": "contain",
       "alphaThreshold": 0.75
     },
-    "width": 1,
-    "height": 1,
+    "width": 2,
+    "height": 2,
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
@@ -124,21 +125,21 @@
       "attribute": "fate"
     },
     "light": {
-      "alpha": 0.45,
+      "alpha": 0.5,
       "angle": 360,
-      "bright": 1,
-      "color": "#f3dc8a",
+      "bright": 0,
+      "color": null,
       "coloration": 1,
-      "dim": 3,
+      "dim": 0,
       "attenuation": 0.5,
       "luminosity": 0.5,
       "saturation": 0,
       "contrast": 0,
       "shadows": 0,
       "animation": {
-        "type": "pulse",
-        "speed": 2,
-        "intensity": 3,
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
         "reverse": false
       },
       "darkness": {
@@ -189,18 +190,17 @@
   },
   "items": [
     {
-      "name": "Lampejo",
+      "name": "Saque em Bando",
       "type": "skill",
-      "img": "icons/magic/light/beam-rays-yellow.webp",
+      "img": "icons/environment/people/group.webp",
       "system": {
-        "description": "<p>Área (Escolha) a até 4 Qd: [2d6 + 28] de dano mágico de [Radiância].</p>",
+        "description": "<p>Os goblins da tropa caem sobre quem está engajado com ela: [2d6 + 40] de dano físico em até um alvo por goblin que resta (4, depois 3, depois 2).</p>",
         "tags": [
-          "Magic Attack",
-          "Radiance"
+          "Melee Attack"
         ],
         "timing": "Major",
         "checkType": "",
-        "range": "4Sq",
+        "range": "Close",
         "target": "Area",
         "subtype": "Monster",
         "skillRank": {
@@ -213,13 +213,13 @@
         "check": {
           "stat": "",
           "dice": 3,
-          "mod": 4,
-          "vs": "resistance"
+          "mod": 5,
+          "vs": "evasion"
         },
         "damage": {
           "dice": 2,
-          "mod": 28,
-          "type": "magical",
+          "mod": 40,
+          "type": "physical",
           "recovery": false,
           "noPower": false
         }
@@ -241,23 +241,20 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "vuDCJNRlCWJmTwL5",
-      "_key": "!actors.items!hNO80mzTgVLpEluq.vuDCJNRlCWJmTwL5"
+      "_id": "Tgp0v37owlJwWIkS",
+      "_key": "!actors.items!ixjpdlTXbeWUEtQ4.Tgp0v37owlJwWIkS"
     },
     {
-      "name": "Vômito de Luz",
+      "name": "Tropa",
       "type": "skill",
-      "img": "icons/magic/light/explosion-glow-spiral-yellow.webp",
+      "img": "icons/environment/people/infantry-army.webp",
       "system": {
-        "description": "<p>Linha de 4 Qd a partir do lagarto: [2d6 + 41] de dano mágico de [Radiância], e quem é atingido fica [Cego].</p><p>Recarga: depois de usado, só volta quando o 1d6 de uma Manutenção der 5 ou 6.</p>",
-        "tags": [
-          "Magic Attack",
-          "Radiance"
-        ],
-        "timing": "Major",
+        "description": "<p>Quatro goblins num token só. O dano de um ataque em área (que acerta mais de um alvo) a acerta em dobro. Com 2/3 dos PV ela perde um goblin, e com 1/3, outro: a cada um, o Saque em Bando acerta um alvo a menos.</p>",
+        "tags": [],
+        "timing": "Constant",
         "checkType": "",
-        "range": "4Sq",
-        "target": "Area",
+        "range": "-",
+        "target": "-",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
@@ -268,14 +265,14 @@
         "macroeffect": "",
         "check": {
           "stat": "",
-          "dice": 3,
-          "mod": 4,
-          "vs": "resistance"
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
         },
         "damage": {
-          "dice": 2,
-          "mod": 41,
-          "type": "magical",
+          "dice": 0,
+          "mod": 0,
+          "type": "",
           "recovery": false,
           "noPower": false
         }
@@ -288,14 +285,9 @@
       "flags": {
         "eternia": {
           "monster": {
-            "rule": "recharge",
-            "min": 5
-          },
-          "hitStatuses": [
-            {
-              "statusId": "blinded"
-            }
-          ]
+            "rule": "troop",
+            "size": 4
+          }
         }
       },
       "_stats": {
@@ -309,15 +301,15 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "c7FjeRxoW1cJeXic",
-      "_key": "!actors.items!hNO80mzTgVLpEluq.c7FjeRxoW1cJeXic"
+      "_id": "g0uoJMq1mDWWA13p",
+      "_key": "!actors.items!ixjpdlTXbeWUEtQ4.g0uoJMq1mDWWA13p"
     },
     {
-      "name": "Come a Luz",
+      "name": "Medo da Luz",
       "type": "skill",
-      "img": "icons/magic/light/explosion-star-blue-yellow.webp",
+      "img": "icons/magic/light/beam-rays-orange.webp",
       "system": {
-        "description": "<p>O dano de [Radiância] cura este inimigo em vez de feri-lo.</p><p>Em cada Manutenção, os inimigos a até 2 Qd dele ficam [Cego]: ele bebe a luz em volta.</p>",
+        "description": "<p>Os goblins vivem no escuro das cavernas: este inimigo tem [Fraqueza (Radiância): 5], e o dano de [Radiância] o deixa com [Medo] de quem o feriu.</p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -359,17 +351,7 @@
           "transfer": true,
           "flags": {
             "eternia": {
-              "absorb": [
-                "Radiance"
-              ],
-              "realm": {
-                "radius": 2,
-                "enemies": [
-                  {
-                    "statusId": "blinded"
-                  }
-                ]
-              }
+              "weaknessTag": "Radiance"
             }
           },
           "_stats": {
@@ -383,26 +365,48 @@
             "duplicateSource": null,
             "exportSource": null
           },
-          "name": "Come a Luz",
-          "img": "icons/magic/light/explosion-star-blue-yellow.webp",
+          "name": "Medo da Luz",
+          "img": "icons/magic/light/beam-rays-orange.webp",
           "type": "base",
           "system": {
-            "changes": []
+            "changes": [
+              {
+                "key": "eternia.passive.weakness",
+                "type": "add",
+                "value": "5",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
           },
           "description": "",
           "statuses": [],
           "sort": 0,
           "start": null,
           "showIcon": 1,
-          "_id": "WTrmBcN3sZ32TZsy",
-          "_key": "!actors.items.effects!hNO80mzTgVLpEluq.XBeNVHGKbg9v3xJV.WTrmBcN3sZ32TZsy"
+          "_id": "zPXP87DoEjBpfMUF",
+          "_key": "!actors.items.effects!ixjpdlTXbeWUEtQ4.NVb5XnIkdkPnup5X.zPXP87DoEjBpfMUF"
         }
       ],
       "sort": 300000,
       "ownership": {
         "default": 0
       },
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "struck",
+            "tags": [
+              "Radiance"
+            ],
+            "self": [
+              {
+                "statusId": "frightened"
+              }
+            ]
+          }
+        }
+      },
       "_stats": {
         "coreVersion": "14.360",
         "systemId": "eternia",
@@ -414,20 +418,65 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "XBeNVHGKbg9v3xJV",
-      "_key": "!actors.items!hNO80mzTgVLpEluq.XBeNVHGKbg9v3xJV"
+      "_id": "NVb5XnIkdkPnup5X",
+      "_key": "!actors.items!ixjpdlTXbeWUEtQ4.NVb5XnIkdkPnup5X"
     },
     {
-      "name": "Escama Translúcida",
+      "name": "Ouro",
       "type": "gear",
-      "img": "icons/commodities/gems/gem-rough-cushion-yellow.webp",
+      "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
       "system": {
-        "description": "<p>Uma escama que guarda um resto de luz e brilha como uma vela por uma semana. Os mineiros a levam para o fundo do poço.</p>",
+        "description": "",
+        "tags": [],
+        "rank": 1,
+        "price": 0,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1,
+            "gold": "2d6*3"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "u5eDkcw253rQ1pgC",
+      "sort": 400000,
+      "_key": "!actors.items!ixjpdlTXbeWUEtQ4.u5eDkcw253rQ1pgC"
+    },
+    {
+      "name": "Bolsa de Saque",
+      "type": "gear",
+      "img": "icons/containers/bags/coinpouch-leather-grey.webp",
+      "system": {
+        "description": "<p>Uma bolsa de couro cheia de coisas que eram de outra pessoa: botões, uma colher de prata, um anel de lata.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 5,
-        "price": 28,
+        "rank": 6,
+        "price": 30,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -460,21 +509,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "0Ddi2eI96bkI31wh",
-      "sort": 400000,
-      "_key": "!actors.items!hNO80mzTgVLpEluq.0Ddi2eI96bkI31wh"
+      "_id": "GdprzgnnKy2GPBGv",
+      "sort": 500000,
+      "_key": "!actors.items!ixjpdlTXbeWUEtQ4.GdprzgnnKy2GPBGv"
     },
     {
-      "name": "Glândula de Luz",
+      "name": "Correntes de Goblin",
       "type": "gear",
-      "img": "icons/commodities/gems/gem-faceted-octagon-yellow.webp",
+      "img": "icons/commodities/metal/chain-steel.webp",
       "system": {
-        "description": "<p>O saco onde o lagarto guarda a luz que come, duro como cristal. Serve de Anima-mundi 5 na Oficina, sem o Selo do Anima.</p>",
+        "description": "<p>As correntes com que a tropa amarra o que leva. O ferro é bom: os ferreiros o compram a peso.</p>",
         "tags": [
-          "Magic Catalyst 5"
+          "Valuable"
         ],
-        "rank": 5,
-        "price": 40,
+        "rank": 6,
+        "price": 45,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -492,7 +541,7 @@
           "drop": {
             "min": 4,
             "max": 5,
-            "qty": 2
+            "qty": 1
           }
         }
       },
@@ -507,21 +556,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "qt1g2oSXKxgUdlro",
-      "sort": 500000,
-      "_key": "!actors.items!hNO80mzTgVLpEluq.qt1g2oSXKxgUdlro"
+      "_id": "B9fmalrkPl5b0hPu",
+      "sort": 600000,
+      "_key": "!actors.items!ixjpdlTXbeWUEtQ4.B9fmalrkPl5b0hPu"
     },
     {
-      "name": "Olho que Brilha",
+      "name": "Estandarte do Bando",
       "type": "gear",
-      "img": "icons/commodities/biological/eye-lizard-green.webp",
+      "img": "icons/sundries/flags/banner-flag-skull-red.webp",
       "system": {
-        "description": "<p>O olho do lagarto, que nunca se apaga. Os nobres o montam em anéis; a Igreja diz que é pecado e compra todos que vê.</p>",
+        "description": "<p>O pano que a tropa carrega à frente, pintado com sangue e cinza. A guilda paga por ele como prova de que o bando acabou.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 5,
-        "price": 70,
+        "rank": 6,
+        "price": 75,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -554,9 +603,9 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "F562cVif8P8jAleI",
-      "sort": 600000,
-      "_key": "!actors.items!hNO80mzTgVLpEluq.F562cVif8P8jAleI"
+      "_id": "h2bscz3z9zp6gEXa",
+      "sort": 700000,
+      "_key": "!actors.items!ixjpdlTXbeWUEtQ4.h2bscz3z9zp6gEXa"
     }
   ],
   "effects": [],
@@ -576,7 +625,7 @@
   "ownership": {
     "default": 0
   },
-  "_id": "hNO80mzTgVLpEluq",
-  "folder": "5id5icbMj1d24RP5",
-  "_key": "!actors!hNO80mzTgVLpEluq"
+  "_id": "ixjpdlTXbeWUEtQ4",
+  "folder": "rkjPFwoLJh5QL71o",
+  "_key": "!actors!ixjpdlTXbeWUEtQ4"
 }

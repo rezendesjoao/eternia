@@ -1,11 +1,11 @@
 {
-  "name": "O Ungido Partido",
+  "name": "Meio-Dragão Ardente",
   "type": "monster",
-  "img": "systems/eternia/assets/tokens/bestiary/o-ungido-partido.webp",
+  "img": "systems/eternia/assets/tokens/bestiary/o-que-nao-para-de-queimar.webp",
   "system": {
     "health": {
-      "value": 216,
-      "max": 216,
+      "value": 232,
+      "max": 232,
       "mod": 0,
       "rc": 0,
       "jb": 0,
@@ -20,6 +20,7 @@
     "tags": [
       "Boss",
       "Human",
+      "Draconic",
       "Stray"
     ],
     "biography": "",
@@ -51,7 +52,7 @@
       },
       "int": {
         "value": 0,
-        "mod": 4,
+        "mod": 5,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -73,13 +74,13 @@
     },
     "battle-status": {
       "defense": {
-        "phys": 12,
-        "magic": 18
+        "phys": 13,
+        "magic": 20
       },
       "speed": 2,
-      "initiative": 8
+      "initiative": 6
     },
-    "rank": 7,
+    "rank": 8,
     "idendification": "10",
     "hateMultiplier": "3",
     "checks": {
@@ -92,14 +93,14 @@
         "mod": 4
       }
     },
-    "description": "<p>Um Humano que chegou ao quarto estágio da forma, o Ungido, depressa demais: a marca de luz na testa, onde os Cavaleiros põem o prisma, rachou, e a luz vaza por ela sem parar. Ele não dorme mais, porque a luz não deixa. Fala sozinho em frases da Escrita Final que ninguém mais entende. A Igreja o quer morto, porque a luz dele mostra coisas.</p><p><b>Na mesa:</b> chefe sozinho de NP 7. Ataca de longe com o Prisma Partido e afasta quem chega perto com o Clarão da Unção. No Encerramento, a Luz que Vaza fere todos a até 2 Qd, ele também: ficar longe dele é mais seguro, e ficar perto é o único jeito de salvá-lo. Desgarrados lutam sozinhos e são chefes: dá tempo de tentar salvá-los. Matá-lo deixa os itens; salvá-lo deixa uma Conexão.</p>"
+    "description": "<p>Um Dracônico que chegou às asas, o quarto estágio, e não parou: o fogo de dentro subiu e não desceu mais. As escamas estão em brasa, a roupa queimou há muito tempo, e por onde ele anda a grama vira cinza. Voa, o que o Índice proíbe, e a Igreja usa isso como motivo. Às vezes ele pede água; nunca chega a beber.</p><p><b>Na mesa:</b> chefe sozinho de NP 8, que voa. O Sopro de Brasa queima em área e recarrega com 5 ou 6 no 1d6 de uma Manutenção; a Garra Ardente joga longe quem chega perto, e quem fica a 1 Qd dele pega fogo em cada Manutenção. Água e [Encharcado] apagam o [Queimando] do grupo. Desgarrados lutam sozinhos e são chefes: dá tempo de tentar salvá-los. Matá-lo deixa os itens; salvá-lo deixa uma Conexão.</p>"
   },
   "prototypeToken": {
-    "name": "O Ungido Partido",
+    "name": "Meio-Dragão Ardente",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/eternia/assets/tokens/bestiary/o-ungido-partido.webp",
+      "src": "systems/eternia/assets/tokens/bestiary/o-que-nao-para-de-queimar.webp",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -190,74 +191,18 @@
   },
   "items": [
     {
-      "name": "Prisma Partido",
+      "name": "Sopro de Brasa",
       "type": "skill",
-      "img": "icons/magic/light/projectile-halo-teal.webp",
+      "img": "icons/creatures/abilities/mouth-teeth-fire-orange.webp",
       "system": {
-        "description": "<p>[2d6 + 53] de dano mágico de [Radiância].</p><p>[Destino 1]: Área (Escolha) a até 4 Qd.</p>",
+        "description": "<p>Área (Escolha) a até 4 Qd: [2d6 + 59] de dano mágico de [Chama], e quem é atingido fica [Queimando: 10].</p><p>Recarga: depois de usado, só volta com 5 ou 6 no 1d6 de uma Manutenção.</p>",
         "tags": [
           "Magic Attack",
-          "Radiance"
+          "Flame"
         ],
         "timing": "Major",
         "checkType": "",
         "range": "4Sq",
-        "target": "Single",
-        "subtype": "Monster",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "-",
-        "macroeffect": "",
-        "check": {
-          "stat": "",
-          "dice": 3,
-          "mod": 4,
-          "vs": "resistance"
-        },
-        "damage": {
-          "dice": 2,
-          "mod": 53,
-          "type": "magical",
-          "recovery": false,
-          "noPower": false
-        }
-      },
-      "effects": [],
-      "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_stats": {
-        "coreVersion": "14.360",
-        "systemId": "eternia",
-        "systemVersion": "0.34.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "_id": "XJZrueMxGpXPck9r",
-      "_key": "!actors.items!NRiLL2pga8dB1cYB.XJZrueMxGpXPck9r"
-    },
-    {
-      "name": "Clarão da Unção",
-      "type": "skill",
-      "img": "icons/magic/light/explosion-star-blue.webp",
-      "system": {
-        "description": "<p>Um clarão da marca na testa: quem está engajado com ele sofre [2d6 + 30] de dano mágico de [Radiância] e é empurrado 2 Qd.</p>",
-        "tags": [
-          "Magic Attack",
-          "Radiance"
-        ],
-        "timing": "Major",
-        "checkType": "",
-        "range": "Close",
         "target": "Area",
         "subtype": "Monster",
         "skillRank": {
@@ -270,13 +215,82 @@
         "check": {
           "stat": "",
           "dice": 3,
-          "mod": 4,
+          "mod": 5,
           "vs": "resistance"
         },
         "damage": {
           "dice": 2,
-          "mod": 30,
+          "mod": 59,
           "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "recharge",
+            "min": 5
+          },
+          "hitStatuses": [
+            {
+              "statusId": "burning",
+              "value": 10
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "gT3Wqa8cnNIuGFpi",
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.gT3Wqa8cnNIuGFpi"
+    },
+    {
+      "name": "Garra Ardente",
+      "type": "skill",
+      "img": "icons/magic/unholy/hand-claw-glow-orange.webp",
+      "system": {
+        "description": "<p>[2d6 + 45] de dano físico de [Chama]: o alvo é jogado 2 Qd para longe e fica [Queimando: 5].</p>",
+        "tags": [
+          "Melee Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 45,
+          "type": "physical",
           "recovery": false,
           "noPower": false
         }
@@ -293,6 +307,12 @@
               "type": "push",
               "value": 2
             }
+          ],
+          "hitStatuses": [
+            {
+              "statusId": "burning",
+              "value": 5
+            }
           ]
         }
       },
@@ -307,18 +327,16 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "hPQC0F1mftxhteIo",
-      "_key": "!actors.items!NRiLL2pga8dB1cYB.hPQC0F1mftxhteIo"
+      "_id": "z4Gjjp5vANSgtYgm",
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.z4Gjjp5vANSgtYgm"
     },
     {
-      "name": "Luz que Vaza",
+      "name": "Corpo em Brasa",
       "type": "skill",
-      "img": "icons/magic/light/beams-rays-orange-purple.webp",
+      "img": "icons/magic/fire/explosion-embers-orange.webp",
       "system": {
-        "description": "<p>No Encerramento, a luz que ele não segura mais vaza da marca: todos a até 2 Qd, ele também, sofrem [2d6 + 20] de dano mágico de [Radiância] (um cartão de dano, sem Teste de Esquiva).</p>",
-        "tags": [
-          "Radiance"
-        ],
+        "description": "<p>Em cada Manutenção, os inimigos a até 1 Qd dele ficam [Queimando: 5].</p>",
+        "tags": [],
         "timing": "Constant",
         "checkType": "",
         "range": "-",
@@ -338,27 +356,69 @@
           "vs": ""
         },
         "damage": {
-          "dice": 2,
-          "mod": 20,
-          "type": "magical",
+          "dice": 0,
+          "mod": 0,
+          "type": "",
           "recovery": false,
           "noPower": false
         }
       },
-      "effects": [],
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "realm": {
+                "radius": 1,
+                "enemies": [
+                  {
+                    "statusId": "burning",
+                    "value": 5
+                  }
+                ]
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Corpo em Brasa",
+          "img": "icons/magic/fire/explosion-embers-orange.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "fFJq3zZ2EHroEjsa",
+          "_key": "!actors.items.effects!XOnJQBG3jk6KZOJe.ZNg22gQhKLRDLxFY.fFJq3zZ2EHroEjsa"
+        }
+      ],
       "sort": 300000,
       "ownership": {
         "default": 0
       },
-      "flags": {
-        "eternia": {
-          "monster": {
-            "rule": "pulse",
-            "radius": 2,
-            "self": true
-          }
-        }
-      },
+      "flags": {},
       "_stats": {
         "coreVersion": "14.360",
         "systemId": "eternia",
@@ -370,8 +430,103 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "9zwsLPpk02ETmTss",
-      "_key": "!actors.items!NRiLL2pga8dB1cYB.9zwsLPpk02ETmTss"
+      "_id": "ZNg22gQhKLRDLxFY",
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.ZNg22gQhKLRDLxFY"
+    },
+    {
+      "name": "Asas",
+      "type": "skill",
+      "img": "icons/magic/holy/angel-wings-gray.webp",
+      "system": {
+        "description": "<p>Asas de dragão, que o Índice proíbe: ele está sempre [Voando].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {}
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Asas",
+          "img": "icons/magic/holy/angel-wings-gray.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "flying"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "ma29dOECP9ujWMyG",
+          "_key": "!actors.items.effects!XOnJQBG3jk6KZOJe.1OO1gncMrdvHLUO7.ma29dOECP9ujWMyG"
+        }
+      ],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "1OO1gncMrdvHLUO7",
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.1OO1gncMrdvHLUO7"
     },
     {
       "name": "A Forma Rejeita",
@@ -407,7 +562,7 @@
         }
       },
       "effects": [],
-      "sort": 400000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
@@ -430,8 +585,8 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "iblZU2e1BdkhUuje",
-      "_key": "!actors.items!NRiLL2pga8dB1cYB.iblZU2e1BdkhUuje"
+      "_id": "MALuU2RScGIlBjNM",
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.MALuU2RScGIlBjNM"
     },
     {
       "name": "Ainda Há Alguém Aí",
@@ -467,7 +622,7 @@
         }
       },
       "effects": [],
-      "sort": 500000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       },
@@ -490,8 +645,8 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "4pqOXJcsLY1eFcd4",
-      "_key": "!actors.items!NRiLL2pga8dB1cYB.4pqOXJcsLY1eFcd4"
+      "_id": "Qg0AnPVq6zUr2lOj",
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.Qg0AnPVq6zUr2lOj"
     },
     {
       "name": "Ouro",
@@ -519,7 +674,7 @@
           "drop": {
             "fixed": true,
             "qty": 1,
-            "gold": "2d6*5"
+            "gold": "2d6*6"
           }
         }
       },
@@ -534,21 +689,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "NBqbTbDBndcI6OcJ",
-      "sort": 600000,
-      "_key": "!actors.items!NRiLL2pga8dB1cYB.NBqbTbDBndcI6OcJ"
+      "_id": "Zf73zTBQXHLFv9I8",
+      "sort": 700000,
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.Zf73zTBQXHLFv9I8"
     },
     {
-      "name": "Prisma Rachado",
+      "name": "Escama em Brasa",
       "type": "gear",
-      "img": "icons/commodities/gems/gem-faceted-trillion-blue.webp",
+      "img": "icons/commodities/biological/hand-clawed-scale-grey.webp",
       "system": {
-        "description": "<p>Um prisma de Cavaleiro, rachado de lado a lado, que ainda dobra a luz do jeito errado.</p>",
+        "description": "<p>Uma escama que continua quente dias depois. Os ferreiros a usam no lugar do carvão por uma semana.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 7,
-        "price": 180,
+        "rank": 8,
+        "price": 210,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -581,21 +736,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "I79lxXooKSViW3VV",
-      "sort": 700000,
-      "_key": "!actors.items!NRiLL2pga8dB1cYB.I79lxXooKSViW3VV"
+      "_id": "Thu8crfl6ZM8kNxD",
+      "sort": 800000,
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.Thu8crfl6ZM8kNxD"
     },
     {
-      "name": "Lágrima de Luz",
+      "name": "Lágrima de Brasa",
       "type": "gear",
-      "img": "icons/commodities/gems/gem-faceted-radiant-blue.webp",
+      "img": "icons/commodities/gems/gem-rough-cushion-orange-white.webp",
       "system": {
-        "description": "<p>Luz que pingou da marca e endureceu. Serve de Anima-mundi 7 na Oficina; a Igreja diz que é relíquia e não deveria ser usada.</p>",
+        "description": "<p>Fogo que pingou e endureceu. Serve de Anima-mundi 8 na Oficina.</p>",
         "tags": [
-          "Magic Catalyst 7"
+          "Magic Catalyst 8"
         ],
-        "rank": 7,
-        "price": 60,
+        "rank": 8,
+        "price": 70,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -628,21 +783,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "IBhgcnbUek1NiV2P",
-      "sort": 800000,
-      "_key": "!actors.items!NRiLL2pga8dB1cYB.IBhgcnbUek1NiV2P"
+      "_id": "xFZW9UFPpglSbFpX",
+      "sort": 900000,
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.xFZW9UFPpglSbFpX"
     },
     {
-      "name": "Manto de Ungido",
+      "name": "Garra de Dracônico",
       "type": "gear",
-      "img": "icons/equipment/back/cloak-hooded-blue.webp",
+      "img": "icons/commodities/biological/finger-clawed-green-black.webp",
       "system": {
-        "description": "<p>Um manto branco de cerimônia, queimado por dentro, no lugar da testa.</p>",
+        "description": "<p>Uma garra inteira, negra na ponta. Os Dracônicos de Centória pagam qualquer preço para enterrá-la.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 7,
-        "price": 330,
+        "rank": 8,
+        "price": 390,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -675,21 +830,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "UJHOrRIoe28xOCrf",
-      "sort": 900000,
-      "_key": "!actors.items!NRiLL2pga8dB1cYB.UJHOrRIoe28xOCrf"
+      "_id": "kR4RyGftTfF4LV03",
+      "sort": 1000000,
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.kR4RyGftTfF4LV03"
     },
     {
-      "name": "Marca de Luz",
+      "name": "Coração que Arde",
       "type": "gear",
-      "img": "icons/magic/holy/saint-glass-portrait-halo.webp",
+      "img": "icons/commodities/biological/organ-heart-red.webp",
       "system": {
-        "description": "<p>A marca da testa, que se soltou quando a luz se apagou: um disco de luz morna do tamanho de uma moeda. Ninguém sabe o que fazer com ela; todo mundo quer.</p>",
+        "description": "<p>Uma brasa do tamanho de um punho, do peito dele, que bate devagar e não apaga.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 7,
-        "price": 450,
+        "rank": 8,
+        "price": 520,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -722,20 +877,20 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "H503kDr6h6xGSnpc",
-      "sort": 1000000,
-      "_key": "!actors.items!NRiLL2pga8dB1cYB.H503kDr6h6xGSnpc"
+      "_id": "UXQbGhm2mdeBc0Xw",
+      "sort": 1100000,
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.UXQbGhm2mdeBc0Xw"
     },
     {
-      "name": "Anima-mundi 8",
+      "name": "Anima-mundi 9",
       "type": "gear",
       "system": {
-        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 8 gasta uma Anima-mundi 8 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 9 gasta uma Anima-mundi 9 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
         "tags": [
-          "Magic Catalyst 8"
+          "Magic Catalyst 9"
         ],
-        "rank": 8,
-        "price": 70,
+        "rank": 9,
+        "price": 90,
         "equipped": false,
         "timing": "-",
         "checkType": "-",
@@ -757,7 +912,7 @@
       "flags": {
         "eternia": {
           "icon": {
-            "hue": 252
+            "hue": 288
           },
           "drop": {
             "fixed": true,
@@ -772,25 +927,25 @@
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.items.Item.FNS3OlzyE54jXqLF",
+        "compendiumSource": "Compendium.eternia.items.Item.Jtyb6r0NB3prtgLv",
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "CpaMXhalOKI1FKPz",
-      "sort": 1100000,
-      "_key": "!actors.items!NRiLL2pga8dB1cYB.CpaMXhalOKI1FKPz"
+      "_id": "rgllPhkBaAczEbha",
+      "sort": 1200000,
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.rgllPhkBaAczEbha"
     },
     {
-      "name": "Fragmento da Marca",
+      "name": "Brasa que Não Apaga",
       "type": "gear",
-      "img": "icons/commodities/gems/gem-faceted-round-white.webp",
+      "img": "icons/magic/fire/explosion-embers-orange.webp",
       "system": {
-        "description": "<p>Um caco da marca de luz, que ainda brilha quando alguém reza perto. Um [Material-Base] de NP 7.</p>",
+        "description": "<p>Uma brasa que nem a água apaga, num pote de barro. Um [Material-Base] de NP 8.</p>",
         "tags": [
           "Core Material"
         ],
-        "rank": 7,
-        "price": 140,
+        "rank": 8,
+        "price": 160,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -822,9 +977,9 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "1vkUHZwGOyYRQjTh",
-      "sort": 1200000,
-      "_key": "!actors.items!NRiLL2pga8dB1cYB.1vkUHZwGOyYRQjTh"
+      "_id": "fUynQ6G6afYhO2E6",
+      "sort": 1300000,
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.fUynQ6G6afYhO2E6"
     }
   ],
   "effects": [],
@@ -840,11 +995,11 @@
     "duplicateSource": null,
     "exportSource": null
   },
-  "sort": 100000,
+  "sort": 300000,
   "ownership": {
     "default": 0
   },
-  "_id": "NRiLL2pga8dB1cYB",
-  "folder": "RD9UdfUXgaZZzK88",
-  "_key": "!actors!NRiLL2pga8dB1cYB"
+  "_id": "XOnJQBG3jk6KZOJe",
+  "folder": "DMu0c2nh4Tm8dBJq",
+  "_key": "!actors!XOnJQBG3jk6KZOJe"
 }

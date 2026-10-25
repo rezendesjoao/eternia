@@ -19,7 +19,7 @@ import { statusEffectData } from "../chat/status-links.mjs";
 
 const TEMPLATE = "systems/eternia/templates/chat/save-card.hbs";
 
-/** A monster's own name, without its token's number ("O Ungido Partido", not "O Ungido Partido (1)"). */
+/** A monster's own name, without its token's number ("Santo Partido", not "Santo Partido (1)"). */
 const personName = actor => game.actors.get(actor.id)?.name ?? actor.name;
 
 /** A monster's save rule (its skill's), or null. */

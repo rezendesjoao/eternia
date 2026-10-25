@@ -55,7 +55,7 @@ function freeSquares(origin, radius, count) {
   return out;
 }
 
-/** The highest number a name already has on a scene ("Lobo do Castelo (3)" gives 3; 0 when none). */
+/** The highest number a name already has on a scene ("Worg (3)" gives 3; 0 when none). */
 function lastNumber(scene, base) {
   const prefix = `${base} (`;
   let max = 0;

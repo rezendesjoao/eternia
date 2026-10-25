@@ -1,11 +1,11 @@
 {
-  "name": "Chefe da Galeria",
+  "name": "Demônio das Sombras",
   "type": "monster",
-  "img": "systems/eternia/assets/tokens/bestiary/chefe-da-galeria.webp",
+  "img": "systems/eternia/assets/tokens/bestiary/o-sem-nome.webp",
   "system": {
     "health": {
-      "value": 140,
-      "max": 140,
+      "value": 312,
+      "max": 312,
       "mod": 0,
       "rc": 0,
       "jb": 0,
@@ -19,16 +19,16 @@
     },
     "tags": [
       "Boss",
-      "Humanoid",
-      "Kobold",
-      "Night Vision"
+      "Human",
+      "Demon",
+      "Stray"
     ],
     "biography": "",
     "race": "",
     "attributes": {
       "str": {
         "value": 0,
-        "mod": 3,
+        "mod": 4,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -36,7 +36,7 @@
       },
       "dex": {
         "value": 0,
-        "mod": 2,
+        "mod": 5,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -44,7 +44,7 @@
       },
       "pow": {
         "value": 0,
-        "mod": 1,
+        "mod": 3,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -52,7 +52,7 @@
       },
       "int": {
         "value": 0,
-        "mod": 2,
+        "mod": 3,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -74,33 +74,33 @@
     },
     "battle-status": {
       "defense": {
-        "phys": 10,
-        "magic": 6
+        "phys": 18,
+        "magic": 15
       },
       "speed": 2,
-      "initiative": 3
+      "initiative": 8
     },
-    "rank": 3,
-    "idendification": "8",
+    "rank": 8,
+    "idendification": "10",
     "hateMultiplier": "3",
     "checks": {
       "evasion": {
         "dice": 2,
-        "mod": 2
+        "mod": 5
       },
       "resistance": {
         "dice": 2,
-        "mod": 1
+        "mod": 3
       }
     },
-    "description": "<p>O kobold que manda na galeria tem um Anima-mundi encravado no peito, grande como um punho, que pulsa em laranja quando ele respira. O cristal o deixou forte e louco: ele fala sozinho, morde a própria picareta e não deixa nenhum outro kobold comer antes dele. Quando o cristal racha, nada mais o segura.</p><p><b>Na mesa:</b> o chefe da primeira mina da campanha (a semana de campo). Vem com dois a quatro Garimpeiros e um Mordedor. O Coração de Anima fortalece o bando inteiro; afastar os kobolds dele é metade da luta. Ninguém deve estar perto dele quando cair.</p>"
+    "description": "<p>Um Demônio que desceu por uma Fenda até o Abaixo, como o rito das Asas da Treva manda, e voltou sem o próprio nome. A escrita do Abaixo cobre o corpo como armadura, e as asas são de sombra. Ele procura o nome que perdeu na boca dos outros, e quem fala perto dele começa a esquecer o seu.</p><p><b>Na mesa:</b> chefe sozinho de NP 8. Na primeira Manutenção as Asas da Treva se abrem: [Fortalecido: 8], [Último Fôlego] e [Voando] até o fim da cena. A Garra da Treva deixa a [Chama Negra], que não deixa curar; o Nome Apagado é uma Maldição, que o [Silenciado] não para, e deixa o alvo sem as próprias Artes por um turno. Desgarrados lutam sozinhos e são chefes: dá tempo de tentar salvá-los. Matá-lo deixa os itens; salvá-lo deixa uma Conexão.</p>"
   },
   "prototypeToken": {
-    "name": "Chefe da Galeria",
+    "name": "Demônio das Sombras",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/eternia/assets/tokens/bestiary/chefe-da-galeria.webp",
+      "src": "systems/eternia/assets/tokens/bestiary/o-sem-nome.webp",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -191,11 +191,11 @@
   },
   "items": [
     {
-      "name": "Picareta Rúnica",
+      "name": "Garra da Treva",
       "type": "skill",
-      "img": "icons/tools/hand/pickaxe-steel-grey.webp",
+      "img": "icons/magic/unholy/hand-claw-fire-blue.webp",
       "system": {
-        "description": "<p>[2d6 + 19] de dano físico.</p><p>(Menor): +5 de dano.</p><p>[Destino 1]: o golpe acerta todos os personagens engajados com este inimigo.</p>",
+        "description": "<p>[2d6 + 60] de dano físico, e o alvo fica [Chama Negra: 8].</p>",
         "tags": [
           "Melee Attack"
         ],
@@ -213,13 +213,13 @@
         "macroeffect": "",
         "check": {
           "stat": "",
-          "dice": 2,
-          "mod": 5,
+          "dice": 3,
+          "mod": 6,
           "vs": "evasion"
         },
         "damage": {
           "dice": 2,
-          "mod": 19,
+          "mod": 60,
           "type": "physical",
           "recovery": false,
           "noPower": false
@@ -230,7 +230,16 @@
       "ownership": {
         "default": 0
       },
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "blackFlame",
+              "value": 8
+            }
+          ]
+        }
+      },
       "_stats": {
         "coreVersion": "14.360",
         "systemId": "eternia",
@@ -242,20 +251,23 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "YTnEtEei3i4iTL6N",
-      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.YTnEtEei3i4iTL6N"
+      "_id": "oZXE64rIca5AmxMJ",
+      "_key": "!actors.items!dn2syyY6tBP2PQPW.oZXE64rIca5AmxMJ"
     },
     {
-      "name": "Coração de Anima",
+      "name": "Nome Apagado",
       "type": "skill",
-      "img": "icons/magic/fire/orb-vortex.webp",
+      "img": "icons/magic/unholy/hand-marked-pink.webp",
       "system": {
-        "description": "<p>Em cada Manutenção, este inimigo e os aliados a até 2 Qd dele ficam [Fortalecido: 3].</p>",
-        "tags": [],
-        "timing": "Constant",
+        "description": "<p>Uma Maldição: o alvo esquece o próprio nome por um instante. [2d6 + 30] de dano mágico, [Amnésia] e [Maldito]. Por ser Maldição, o [Silenciado] não a impede.</p>",
+        "tags": [
+          "Magic Attack",
+          "Curse"
+        ],
+        "timing": "Major",
         "checkType": "",
-        "range": "-",
-        "target": "-",
+        "range": "4Sq",
+        "target": "Single",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
@@ -266,74 +278,35 @@
         "macroeffect": "",
         "check": {
           "stat": "",
-          "dice": 0,
-          "mod": 0,
-          "vs": ""
+          "dice": 3,
+          "mod": 6,
+          "vs": "resistance"
         },
         "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
+          "dice": 2,
+          "mod": 30,
+          "type": "magical",
           "recovery": false,
           "noPower": false
         }
       },
-      "effects": [
-        {
-          "origin": null,
-          "duration": {
-            "value": null,
-            "units": "seconds",
-            "expiry": null,
-            "expired": false
-          },
-          "disabled": false,
-          "tint": "#ffffff",
-          "transfer": true,
-          "flags": {
-            "eternia": {
-              "realm": {
-                "radius": 2,
-                "allies": [
-                  {
-                    "statusId": "empowered",
-                    "value": 3
-                  }
-                ]
-              }
-            }
-          },
-          "_stats": {
-            "coreVersion": "14.360",
-            "systemId": "eternia",
-            "systemVersion": "0.34.0",
-            "createdTime": null,
-            "modifiedTime": null,
-            "lastModifiedBy": null,
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null
-          },
-          "name": "Coração de Anima",
-          "img": "icons/magic/fire/orb-vortex.webp",
-          "type": "base",
-          "system": {
-            "changes": []
-          },
-          "description": "",
-          "statuses": [],
-          "sort": 0,
-          "start": null,
-          "showIcon": 1,
-          "_id": "koQVa6Dq7A3lq5cR",
-          "_key": "!actors.items.effects!rBQFAyFqRbZf2HXJ.f5xopeCz6gaOugj8.koQVa6Dq7A3lq5cR"
-        }
-      ],
+      "effects": [],
       "sort": 200000,
       "ownership": {
         "default": 0
       },
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "amnesia"
+            },
+            {
+              "statusId": "cursed"
+            }
+          ]
+        }
+      },
       "_stats": {
         "coreVersion": "14.360",
         "systemId": "eternia",
@@ -345,15 +318,15 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "f5xopeCz6gaOugj8",
-      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.f5xopeCz6gaOugj8"
+      "_id": "2foGdG8tgYcijZ8H",
+      "_key": "!actors.items!dn2syyY6tBP2PQPW.2foGdG8tgYcijZ8H"
     },
     {
-      "name": "Couraça de Lascas",
+      "name": "Asas da Treva",
       "type": "skill",
-      "img": "icons/commodities/gems/gem-cluster-red.webp",
+      "img": "icons/magic/unholy/energy-smoke-pink.webp",
       "system": {
-        "description": "<p>No Encerramento, este inimigo se livra de um Estado Negativo: a pele de cristal expulsa o que o prende.</p>",
+        "description": "<p>Na primeira Manutenção do combate, as asas de sombra se abrem: ele fica [Fortalecido: 8], [Último Fôlego] e [Voando] até o fim da cena.</p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -389,8 +362,19 @@
       "flags": {
         "eternia": {
           "monster": {
-            "rule": "cleanse",
-            "count": 1
+            "rule": "start",
+            "statuses": [
+              {
+                "statusId": "empowered",
+                "value": 8
+              },
+              {
+                "statusId": "lastStand"
+              },
+              {
+                "statusId": "flying"
+              }
+            ]
           }
         }
       },
@@ -405,15 +389,15 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "2YyXXE6WpJ81UWcq",
-      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.2YyXXE6WpJ81UWcq"
+      "_id": "Cp9wwcvyswZ20If3",
+      "_key": "!actors.items!dn2syyY6tBP2PQPW.Cp9wwcvyswZ20If3"
     },
     {
-      "name": "O Cristal Racha",
+      "name": "A Forma Rejeita",
       "type": "skill",
-      "img": "icons/magic/fire/explosion-embers-orange.webp",
+      "img": "icons/magic/control/silhouette-hold-change-green.webp",
       "system": {
-        "description": "<p>A primeira vez que os PV deste inimigo caem à metade ou menos, o cristal do peito racha: ele fica [Fúria: 5] e [Acelerado] até o fim da cena.</p>",
+        "description": "<p>No Encerramento, ele se livra de 2 Estados Negativos: a forma não aceita prisão.</p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -449,17 +433,8 @@
       "flags": {
         "eternia": {
           "monster": {
-            "rule": "threshold",
-            "below": 0.5,
-            "statuses": [
-              {
-                "statusId": "berserk",
-                "value": 5
-              },
-              {
-                "statusId": "hasted"
-              }
-            ]
+            "rule": "cleanse",
+            "count": 2
           }
         }
       },
@@ -474,27 +449,27 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "Oiec6PLkHufP1IK0",
-      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.Oiec6PLkHufP1IK0"
+      "_id": "WxfDCDOqDaGwIABD",
+      "_key": "!actors.items!dn2syyY6tBP2PQPW.WxfDCDOqDaGwIABD"
     },
     {
-      "name": "Chamado da Galeria",
+      "name": "Ainda Há Alguém Aí",
       "type": "skill",
-      "img": "icons/environment/wilderness/cave-entrance-mountain.webp",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
       "system": {
-        "description": "<p>Este inimigo bate a picareta na rocha: 1d3 Kobolds Garimpeiros saem da parede a até 2 Qd dele. Eles entram no combate e não deixam itens.</p>",
+        "description": "<p>Com 1/4 dos PV ou menos, a forma cede e dá para ver quem ele era: quem estiver engajado com ele pode gastar a Ação Maior e rolar Negociação contra a Resistência dele (o botão Salvar do cartão que aparece no chat). Vencendo, ele fica [Pacificado] até o fim da cena e sai da luta, sem deixar itens; o Mestre pode fazê-lo virar uma Conexão de quem o salvou.</p>",
         "tags": [],
-        "timing": "Minor",
+        "timing": "Constant",
         "checkType": "",
         "range": "-",
-        "target": "Self",
+        "target": "-",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
           "max": 1
         },
         "cost": "-",
-        "limit": "1/Scene",
+        "limit": "-",
         "macroeffect": "",
         "check": {
           "stat": "",
@@ -518,14 +493,8 @@
       "flags": {
         "eternia": {
           "monster": {
-            "rule": "summon",
-            "radius": 2,
-            "actors": [
-              {
-                "uuid": "Compendium.eternia.bestiary.Actor.3ShpjQ2KPjrinEgw",
-                "count": "1d3"
-              }
-            ]
+            "rule": "save",
+            "below": 0.25
           }
         }
       },
@@ -540,61 +509,37 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "Ebox7NTS79QAAMIS",
-      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.Ebox7NTS79QAAMIS"
+      "_id": "FJiTBFLEMQCzw01q",
+      "_key": "!actors.items!dn2syyY6tBP2PQPW.FJiTBFLEMQCzw01q"
     },
     {
-      "name": "Explosão do Cristal",
-      "type": "skill",
-      "img": "icons/magic/fire/explosion-fireball-large-orange.webp",
+      "name": "Ouro",
+      "type": "gear",
+      "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
       "system": {
-        "description": "<p>Quando este inimigo cai, o cristal do peito explode: quem estiver a até 1 Qd dele sofre [2d6 + 10] de dano mágico de [Chama] e fica [Queimando: 3]. Sem Teste de Esquiva.</p>",
-        "tags": [
-          "Flame"
-        ],
-        "timing": "Refer",
+        "description": "",
+        "tags": [],
+        "rank": 1,
+        "price": 0,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
         "checkType": "",
-        "range": "1Sq",
-        "target": "Area",
-        "subtype": "Monster",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "-",
-        "macroeffect": "",
-        "check": {
-          "stat": "",
-          "dice": 0,
-          "mod": 0,
-          "vs": ""
-        },
-        "damage": {
-          "dice": 2,
-          "mod": 10,
-          "type": "magical",
-          "recovery": false,
-          "noPower": false
-        }
+        "range": "",
+        "target": ""
       },
       "effects": [],
-      "sort": 600000,
       "ownership": {
         "default": 0
       },
       "flags": {
         "eternia": {
-          "monster": {
-            "rule": "fall",
-            "radius": 1
-          },
-          "hitStatuses": [
-            {
-              "statusId": "burning",
-              "value": 3
-            }
-          ]
+          "drop": {
+            "fixed": true,
+            "qty": 1,
+            "gold": "2d6*6"
+          }
         }
       },
       "_stats": {
@@ -608,20 +553,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "vtIh0sgaraa74djd",
-      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.vtIh0sgaraa74djd"
+      "_id": "mXCTG9zPwQanYpgQ",
+      "sort": 600000,
+      "_key": "!actors.items!dn2syyY6tBP2PQPW.mXCTG9zPwQanYpgQ"
     },
     {
-      "name": "Lascas de Anima",
+      "name": "Escrita Arrancada",
       "type": "gear",
-      "img": "icons/commodities/gems/gem-fragments-rough-green.webp",
+      "img": "icons/sundries/documents/document-letter-brown.webp",
       "system": {
-        "description": "<p>Lascas do cristal do peito do Chefe da Galeria. Servem de Anima-mundi 3 na Oficina, sem o Selo do Anima.</p>",
+        "description": "<p>Um pedaço da escrita do Abaixo que cobria o corpo dele, solto como pele velha. Os sábios da Igreja queimam o que acham; os outros pagam bem.</p>",
         "tags": [
-          "Magic Catalyst 3"
+          "Valuable"
         ],
-        "rank": 3,
-        "price": 25,
+        "rank": 8,
+        "price": 210,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -638,8 +584,8 @@
         "eternia": {
           "drop": {
             "min": 1,
-            "max": 3,
-            "qty": 4
+            "max": 2,
+            "qty": 1
           }
         }
       },
@@ -654,21 +600,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "RkFkAuO04IDF6gGx",
+      "_id": "OErK0mOolZhNiD7P",
       "sort": 700000,
-      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.RkFkAuO04IDF6gGx"
+      "_key": "!actors.items!dn2syyY6tBP2PQPW.OErK0mOolZhNiD7P"
     },
     {
-      "name": "Picareta Rúnica",
+      "name": "Lágrima de Sombra",
       "type": "gear",
-      "img": "icons/tools/hand/pickaxe-steel-grey.webp",
+      "img": "icons/commodities/gems/gem-rough-navette-yellow-green.webp",
       "system": {
-        "description": "<p>A picareta do chefe, com runas que nenhum kobold sabe ler. Alguém de baixo as entalhou.</p>",
+        "description": "<p>Sombra que endureceu como vidro. Serve de Anima-mundi 8 na Oficina.</p>",
         "tags": [
-          "Valuable"
+          "Magic Catalyst 8"
         ],
-        "rank": 3,
-        "price": 150,
+        "rank": 8,
+        "price": 70,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -684,7 +630,54 @@
       "flags": {
         "eternia": {
           "drop": {
-            "min": 4,
+            "min": 3,
+            "max": 4,
+            "qty": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "v2M5X77V9Eehfuwu",
+      "sort": 800000,
+      "_key": "!actors.items!dn2syyY6tBP2PQPW.v2M5X77V9Eehfuwu"
+    },
+    {
+      "name": "Asa de Sombra",
+      "type": "gear",
+      "img": "icons/commodities/biological/wing-bat-pink.webp",
+      "system": {
+        "description": "<p>Uma asa de sombra que não some com a luz. Ninguém sabe do que é feita.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 8,
+        "price": 390,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 5,
             "max": 5,
             "qty": 1
           }
@@ -701,21 +694,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "JAy246PyTI5lmTRs",
-      "sort": 800000,
-      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.JAy246PyTI5lmTRs"
+      "_id": "zFSAlCmy7gAem3oN",
+      "sort": 900000,
+      "_key": "!actors.items!dn2syyY6tBP2PQPW.zFSAlCmy7gAem3oN"
     },
     {
-      "name": "Coroa de Cristal",
+      "name": "O Nome Perdido",
       "type": "gear",
-      "img": "icons/equipment/head/crown-gold-blue.webp",
+      "img": "icons/sundries/documents/document-sealed-red-white.webp",
       "system": {
-        "description": "<p>Uma coroa torta de Anima-mundi soldado, que o chefe usava sobre o focinho. Os nobres de Centória pagam bem por curiosidades das minas.</p>",
+        "description": "<p>Um papel lacrado que ele carregava sem saber ler: o próprio nome, escrito por alguém que o conhecia. Devolvê-lo é outra história.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 3,
-        "price": 250,
+        "rank": 8,
+        "price": 520,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -748,20 +741,20 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "ocsuf4nwv2CTBbwC",
-      "sort": 900000,
-      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.ocsuf4nwv2CTBbwC"
+      "_id": "nROOMJltGiherFcH",
+      "sort": 1000000,
+      "_key": "!actors.items!dn2syyY6tBP2PQPW.nROOMJltGiherFcH"
     },
     {
-      "name": "Anima-mundi 4",
+      "name": "Anima-mundi 9",
       "type": "gear",
       "system": {
-        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 4 gasta uma Anima-mundi 4 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 9 gasta uma Anima-mundi 9 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
         "tags": [
-          "Magic Catalyst 4"
+          "Magic Catalyst 9"
         ],
-        "rank": 4,
-        "price": 30,
+        "rank": 9,
+        "price": 90,
         "equipped": false,
         "timing": "-",
         "checkType": "-",
@@ -783,7 +776,7 @@
       "flags": {
         "eternia": {
           "icon": {
-            "hue": 108
+            "hue": 288
           },
           "drop": {
             "fixed": true,
@@ -798,25 +791,25 @@
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.items.Item.UjH3cQFAVDAO0WpF",
+        "compendiumSource": "Compendium.eternia.items.Item.Jtyb6r0NB3prtgLv",
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "Jru63S1R6moyxEqJ",
-      "sort": 1000000,
-      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.Jru63S1R6moyxEqJ"
+      "_id": "bEIiZetJqCIdJfKH",
+      "sort": 1100000,
+      "_key": "!actors.items!dn2syyY6tBP2PQPW.bEIiZetJqCIdJfKH"
     },
     {
-      "name": "Coração de Anima Rachado",
+      "name": "Pena de Treva",
       "type": "gear",
-      "img": "icons/commodities/gems/gem-rough-can-orange-red.webp",
+      "img": "icons/commodities/biological/wing-lizard-purple.webp",
       "system": {
-        "description": "<p>O cristal que pulsava no peito do Chefe da Galeria, rachado e ainda morno. Um [Material-Base] de NP 3.</p>",
+        "description": "<p>Uma pena das asas de sombra, fria ao toque. Um [Material-Base] de NP 8.</p>",
         "tags": [
           "Core Material"
         ],
-        "rank": 3,
-        "price": 60,
+        "rank": 8,
+        "price": 160,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -848,9 +841,9 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "N6vChVLUknEvNtA8",
-      "sort": 1100000,
-      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.N6vChVLUknEvNtA8"
+      "_id": "QZ2mhvLWUkgieQ1J",
+      "sort": 1200000,
+      "_key": "!actors.items!dn2syyY6tBP2PQPW.QZ2mhvLWUkgieQ1J"
     }
   ],
   "effects": [],
@@ -866,11 +859,11 @@
     "duplicateSource": null,
     "exportSource": null
   },
-  "sort": 300000,
+  "sort": 400000,
   "ownership": {
     "default": 0
   },
-  "_id": "rBQFAyFqRbZf2HXJ",
-  "folder": "yEho6N2796TDEcba",
-  "_key": "!actors!rBQFAyFqRbZf2HXJ"
+  "_id": "dn2syyY6tBP2PQPW",
+  "folder": "DMu0c2nh4Tm8dBJq",
+  "_key": "!actors!dn2syyY6tBP2PQPW"
 }

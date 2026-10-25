@@ -1,11 +1,11 @@
 {
-  "name": "Fumaceiro Goblin",
+  "name": "Goblin Saqueador",
   "type": "monster",
-  "img": "systems/eternia/assets/tokens/bestiary/fumaceiro-goblin.webp",
+  "img": "systems/eternia/assets/tokens/bestiary/goblin-de-incursao.webp",
   "system": {
     "health": {
-      "value": 50,
-      "max": 50,
+      "value": 30,
+      "max": 30,
       "mod": 0,
       "rc": 0,
       "jb": 0,
@@ -18,6 +18,7 @@
       "effect": 0
     },
     "tags": [
+      "Mob",
       "Humanoid",
       "Goblin",
       "Night Vision"
@@ -35,7 +36,7 @@
       },
       "dex": {
         "value": 0,
-        "mod": 2,
+        "mod": 4,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -43,7 +44,7 @@
       },
       "pow": {
         "value": 0,
-        "mod": 3,
+        "mod": 2,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -51,7 +52,7 @@
       },
       "int": {
         "value": 0,
-        "mod": 4,
+        "mod": 2,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -73,33 +74,33 @@
     },
     "battle-status": {
       "defense": {
-        "phys": 10,
-        "magic": 16
+        "phys": 13,
+        "magic": 10
       },
       "speed": 2,
-      "initiative": 5
+      "initiative": 6
     },
-    "rank": 6,
+    "rank": 5,
     "idendification": "8",
-    "hateMultiplier": "3",
+    "hateMultiplier": "2",
     "checks": {
       "evasion": {
-        "dice": 2,
-        "mod": 3
+        "dice": 0,
+        "mod": 10
       },
       "resistance": {
-        "dice": 2,
-        "mod": 3
+        "dice": 0,
+        "mod": 8
       }
     },
-    "description": "<p>O goblin que sabe fazer fogo: carrega tochas de resina, sacos de pólvora e bombas de barro que soltam uma fumaça grossa e fedida. Nas cavernas, a fumaça é a melhor amiga do bando: quem está dentro dela não vê nada, e os goblins não precisam ver.</p><p><b>Na mesa:</b> o bombardeiro do bando. A Tocha das Cavernas queima em área; a Bomba das Cavernas cega, prende um [Pavio] em quem acerta e esconde os goblins em volta dele, e recarrega com 5 ou 6 no 1d6 de uma Manutenção. Derrubá-lo primeiro tira os olhos da tropa do grupo.</p>"
+    "description": "<p>Um Indomado das Terras Áridas, magro e cinzento, de orelhas compridas e olhos amarelos que doem na luz do dia. Cruza a serra pelas cavernas em bandos de trinta, para levar comida, Anima-mundi e o que estiver solto. Briga sujo, foge rápido e não resiste a uma bolsa pendurada no cinto.</p><p><b>Na mesa:</b> lacaio de NP 5, das minas fundas e das vilas de borda. Vem em bandos, quase sempre com a Tropa Goblin, um Goblin Piromaníaco e o Chefe. A Mão Leve rouba ouro de quem ele fere (o ouro volta nos itens deixados), e a luz é a arma do grupo: a [Radiância] fere mais e o deixa com [Medo].</p>"
   },
   "prototypeToken": {
-    "name": "Fumaceiro Goblin",
+    "name": "Goblin Saqueador",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/eternia/assets/tokens/bestiary/fumaceiro-goblin.webp",
+      "src": "systems/eternia/assets/tokens/bestiary/goblin-de-incursao.webp",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -190,19 +191,18 @@
   },
   "items": [
     {
-      "name": "Tocha das Cavernas",
+      "name": "Faca Torta",
       "type": "skill",
-      "img": "icons/magic/light/torch-fire-orange.webp",
+      "img": "icons/weapons/daggers/dagger-curved-green.webp",
       "system": {
-        "description": "<p>Área (Escolha) a até 4 Qd: [2d6 + 40] de dano mágico de [Chama], e quem é atingido fica [Queimando: 5].</p>",
+        "description": "<p>[2d6 + 49] de dano físico.</p><p>(Menor): +5 de dano.</p>",
         "tags": [
-          "Magic Attack",
-          "Flame"
+          "Melee Attack"
         ],
         "timing": "Major",
         "checkType": "",
-        "range": "4Sq",
-        "target": "Area",
+        "range": "Close",
+        "target": "Single",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
@@ -213,14 +213,14 @@
         "macroeffect": "",
         "check": {
           "stat": "",
-          "dice": 3,
-          "mod": 4,
-          "vs": "resistance"
+          "dice": 0,
+          "mod": 14,
+          "vs": "evasion"
         },
         "damage": {
           "dice": 2,
-          "mod": 40,
-          "type": "magical",
+          "mod": 49,
+          "type": "physical",
           "recovery": false,
           "noPower": false
         }
@@ -230,16 +230,7 @@
       "ownership": {
         "default": 0
       },
-      "flags": {
-        "eternia": {
-          "hitStatuses": [
-            {
-              "statusId": "burning",
-              "value": 5
-            }
-          ]
-        }
-      },
+      "flags": {},
       "_stats": {
         "coreVersion": "14.360",
         "systemId": "eternia",
@@ -251,22 +242,20 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "hxQCirFpOeUgiOcd",
-      "_key": "!actors.items!lCOM140EkqXthrSA.hxQCirFpOeUgiOcd"
+      "_id": "qpajAmeQ290n8EGg",
+      "_key": "!actors.items!oFBwC83bRU3894Y2.qpajAmeQ290n8EGg"
     },
     {
-      "name": "Bomba das Cavernas",
+      "name": "Mão Leve",
       "type": "skill",
-      "img": "icons/commodities/tech/smoke-bomb-yellow.webp",
+      "img": "icons/skills/melee/strike-dagger-arcane-pink.webp",
       "system": {
-        "description": "<p>Área de 2 Qd a até 4 Qd: [2d6 + 15] de dano mágico, e quem é atingido fica [Cego] e com [Pavio: 10]. A fumaça cobre também o lado dele: os aliados a até 2 Qd dele ficam [Oculto].</p><p>Recarga: depois de usada, só volta com 5 ou 6 no 1d6 de uma Manutenção.</p>",
-        "tags": [
-          "Magic Attack"
-        ],
-        "timing": "Major",
+        "description": "<p>O próximo golpe deste inimigo nesta rodada que causar dano a um personagem tira [2d6 × 2] de ouro da bolsa dele. O ouro roubado volta nos itens deixados.</p>",
+        "tags": [],
+        "timing": "Minor",
         "checkType": "",
-        "range": "4Sq",
-        "target": "Area",
+        "range": "-",
+        "target": "Self",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
@@ -277,14 +266,14 @@
         "macroeffect": "",
         "check": {
           "stat": "",
-          "dice": 3,
-          "mod": 4,
-          "vs": "resistance"
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
         },
         "damage": {
-          "dice": 2,
-          "mod": 15,
-          "type": "magical",
+          "dice": 0,
+          "mod": 0,
+          "type": "",
           "recovery": false,
           "noPower": false
         }
@@ -303,15 +292,9 @@
           "transfer": false,
           "flags": {
             "eternia": {
-              "onUse": true,
               "recipients": "self",
-              "realm": {
-                "radius": 2,
-                "allies": [
-                  {
-                    "statusId": "hidden"
-                  }
-                ]
+              "pickpocket": {
+                "gold": "2d6*2"
               },
               "expires": "endOfRound"
             }
@@ -327,8 +310,8 @@
             "duplicateSource": null,
             "exportSource": null
           },
-          "name": "Bomba das Cavernas: a fumaça",
-          "img": "icons/commodities/tech/smoke-bomb-yellow.webp",
+          "name": "Mão Leve",
+          "img": "icons/skills/melee/strike-dagger-arcane-pink.webp",
           "type": "base",
           "system": {
             "changes": []
@@ -338,31 +321,15 @@
           "sort": 0,
           "start": null,
           "showIcon": 1,
-          "_id": "k5t5Q928g6iQYxSJ",
-          "_key": "!actors.items.effects!lCOM140EkqXthrSA.1G2l2nt31bFglRrj.k5t5Q928g6iQYxSJ"
+          "_id": "NQ6kpS3tAauuXNzP",
+          "_key": "!actors.items.effects!oFBwC83bRU3894Y2.HE8JmaPGsPaMJWWQ.NQ6kpS3tAauuXNzP"
         }
       ],
       "sort": 200000,
       "ownership": {
         "default": 0
       },
-      "flags": {
-        "eternia": {
-          "monster": {
-            "rule": "recharge",
-            "min": 5
-          },
-          "hitStatuses": [
-            {
-              "statusId": "blinded"
-            },
-            {
-              "statusId": "fuse",
-              "value": 10
-            }
-          ]
-        }
-      },
+      "flags": {},
       "_stats": {
         "coreVersion": "14.360",
         "systemId": "eternia",
@@ -374,8 +341,8 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "1G2l2nt31bFglRrj",
-      "_key": "!actors.items!lCOM140EkqXthrSA.1G2l2nt31bFglRrj"
+      "_id": "HE8JmaPGsPaMJWWQ",
+      "_key": "!actors.items!oFBwC83bRU3894Y2.HE8JmaPGsPaMJWWQ"
     },
     {
       "name": "Medo da Luz",
@@ -457,8 +424,8 @@
           "sort": 0,
           "start": null,
           "showIcon": 1,
-          "_id": "d0R8rn6Ig7lBR1k1",
-          "_key": "!actors.items.effects!lCOM140EkqXthrSA.QpOEWjZ6v3YKybVl.d0R8rn6Ig7lBR1k1"
+          "_id": "3igXdGg7cGQoEZmR",
+          "_key": "!actors.items.effects!oFBwC83bRU3894Y2.WCjOqnpRqN5DRBSl.3igXdGg7cGQoEZmR"
         }
       ],
       "sort": 300000,
@@ -491,8 +458,8 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "QpOEWjZ6v3YKybVl",
-      "_key": "!actors.items!lCOM140EkqXthrSA.QpOEWjZ6v3YKybVl"
+      "_id": "WCjOqnpRqN5DRBSl",
+      "_key": "!actors.items!oFBwC83bRU3894Y2.WCjOqnpRqN5DRBSl"
     },
     {
       "name": "Ouro",
@@ -520,7 +487,7 @@
           "drop": {
             "fixed": true,
             "qty": 1,
-            "gold": "2d6*3"
+            "gold": "2d6"
           }
         }
       },
@@ -535,21 +502,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "o3vuAsEs7SVUStcU",
+      "_id": "RtMoVpknMhVHeRRv",
       "sort": 400000,
-      "_key": "!actors.items!lCOM140EkqXthrSA.o3vuAsEs7SVUStcU"
+      "_key": "!actors.items!oFBwC83bRU3894Y2.RtMoVpknMhVHeRRv"
     },
     {
-      "name": "Saco de Pólvora Goblin",
+      "name": "Amuleto de Osso Goblin",
       "type": "gear",
-      "img": "icons/containers/bags/case-simple-brown.webp",
+      "img": "icons/commodities/bones/bone-fragments-grey.webp",
       "system": {
-        "description": "<p>Pólvora grossa de goblin, num saco de couro encerado. Os alquimistas a refinam; os mineiros a usam para abrir veios.</p>",
+        "description": "<p>Ossinhos amarrados num cordão sujo, que os goblins usam contra o sol. Os colecionadores de Centória compram por curiosidade.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 6,
-        "price": 30,
+        "rank": 5,
+        "price": 6,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -565,8 +532,7 @@
       "flags": {
         "eternia": {
           "drop": {
-            "min": 1,
-            "max": 3,
+            "fixed": true,
             "qty": 1
           }
         }
@@ -582,103 +548,9 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "9xzf4OfIGgMRdJZf",
+      "_id": "T6Dz93bflIuTj3Bl",
       "sort": 500000,
-      "_key": "!actors.items!lCOM140EkqXthrSA.9xzf4OfIGgMRdJZf"
-    },
-    {
-      "name": "Tochas de Resina",
-      "type": "gear",
-      "img": "icons/sundries/lights/torch-brown-lit.webp",
-      "system": {
-        "description": "<p>Tochas que queimam por uma hora e não apagam com água. Valem muito para quem desce às minas fundas.</p>",
-        "tags": [
-          "Valuable"
-        ],
-        "rank": 6,
-        "price": 45,
-        "equipped": false,
-        "skillText": "",
-        "linkedSkillUuid": "",
-        "timing": "",
-        "checkType": "",
-        "range": "",
-        "target": ""
-      },
-      "effects": [],
-      "ownership": {
-        "default": 0
-      },
-      "flags": {
-        "eternia": {
-          "drop": {
-            "min": 4,
-            "max": 5,
-            "qty": 1
-          }
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.360",
-        "systemId": "eternia",
-        "systemVersion": "0.34.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "_id": "EGEH5Rew95hJO4Kh",
-      "sort": 600000,
-      "_key": "!actors.items!lCOM140EkqXthrSA.EGEH5Rew95hJO4Kh"
-    },
-    {
-      "name": "Máscara de Fumaceiro",
-      "type": "gear",
-      "img": "icons/equipment/head/gas-mask-cloth-hood.webp",
-      "system": {
-        "description": "<p>Um capuz de couro com lentes de vidro fosco e um filtro de musgo: com ele, a fumaça não arde. Os ferreiros querem copiar.</p>",
-        "tags": [
-          "Valuable"
-        ],
-        "rank": 6,
-        "price": 70,
-        "equipped": false,
-        "skillText": "",
-        "linkedSkillUuid": "",
-        "timing": "",
-        "checkType": "",
-        "range": "",
-        "target": ""
-      },
-      "effects": [],
-      "ownership": {
-        "default": 0
-      },
-      "flags": {
-        "eternia": {
-          "drop": {
-            "min": 6,
-            "max": 6,
-            "qty": 1
-          }
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.360",
-        "systemId": "eternia",
-        "systemVersion": "0.34.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "_id": "rHLUOW53MDH4XMIM",
-      "sort": 700000,
-      "_key": "!actors.items!lCOM140EkqXthrSA.rHLUOW53MDH4XMIM"
+      "_key": "!actors.items!oFBwC83bRU3894Y2.T6Dz93bflIuTj3Bl"
     }
   ],
   "effects": [],
@@ -694,11 +566,11 @@
     "duplicateSource": null,
     "exportSource": null
   },
-  "sort": 500000,
+  "sort": 300000,
   "ownership": {
     "default": 0
   },
-  "_id": "lCOM140EkqXthrSA",
-  "folder": "RHS1pble8ESRDgnC",
-  "_key": "!actors!lCOM140EkqXthrSA"
+  "_id": "oFBwC83bRU3894Y2",
+  "folder": "B9m3gjbM5ApA2GmA",
+  "_key": "!actors!oFBwC83bRU3894Y2"
 }

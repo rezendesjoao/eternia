@@ -1,11 +1,11 @@
 {
-  "name": "Chefe de Incursão",
+  "name": "Santo Partido",
   "type": "monster",
-  "img": "systems/eternia/assets/tokens/bestiary/chefe-de-incursao.webp",
+  "img": "systems/eternia/assets/tokens/bestiary/o-ungido-partido.webp",
   "system": {
     "health": {
-      "value": 206,
-      "max": 206,
+      "value": 216,
+      "max": 216,
       "mod": 0,
       "rc": 0,
       "jb": 0,
@@ -19,16 +19,15 @@
     },
     "tags": [
       "Boss",
-      "Humanoid",
-      "Goblin",
-      "Night Vision"
+      "Human",
+      "Stray"
     ],
     "biography": "",
     "race": "",
     "attributes": {
       "str": {
         "value": 0,
-        "mod": 4,
+        "mod": 3,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -44,7 +43,7 @@
       },
       "pow": {
         "value": 0,
-        "mod": 3,
+        "mod": 4,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -52,7 +51,7 @@
       },
       "int": {
         "value": 0,
-        "mod": 3,
+        "mod": 4,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -74,14 +73,14 @@
     },
     "battle-status": {
       "defense": {
-        "phys": 16,
-        "magic": 12
+        "phys": 12,
+        "magic": 18
       },
       "speed": 2,
-      "initiative": 5
+      "initiative": 8
     },
     "rank": 7,
-    "idendification": "9",
+    "idendification": "10",
     "hateMultiplier": "3",
     "checks": {
       "evasion": {
@@ -90,17 +89,17 @@
       },
       "resistance": {
         "dice": 2,
-        "mod": 3
+        "mod": 4
       }
     },
-    "description": "<p>O goblin que manda na incursão é o maior do bando, de chifres de bode pregados no elmo e uma corrente de ferro enrolada no braço. Grita para os outros, nunca vai na frente e sempre sabe onde fica a saída. Para ele, a luta é só o tempo de juntar o saque.</p><p><b>Na mesa:</b> o chefe de grupo das cavernas da serra. Vem com a Tropa, um Fumaceiro e alguns Goblins de Incursão. O Grito do Bando fortalece quem está perto dele, e A Corrente arrasta e agarra um personagem. Com 1/4 dos PV ele foge com o saque e não deixa nada, a menos que esteja preso: [Agarrado], [Enraizado], [Paralisado], [Petrificado] ou [Adormecido]. Segurá-lo é metade da vitória.</p>"
+    "description": "<p>Um Humano que chegou ao quarto estágio da forma, o Ungido, depressa demais: a marca de luz na testa, onde os Cavaleiros põem o prisma, rachou, e a luz vaza por ela sem parar. Ele não dorme mais, porque a luz não deixa. Fala sozinho em frases da Escrita Final que ninguém mais entende. A Igreja o quer morto, porque a luz dele mostra coisas.</p><p><b>Na mesa:</b> chefe sozinho de NP 7. Ataca de longe com o Prisma Partido e afasta quem chega perto com o Clarão da Unção. No Encerramento, a Luz que Vaza fere todos a até 2 Qd, ele também: ficar longe dele é mais seguro, e ficar perto é o único jeito de salvá-lo. Desgarrados lutam sozinhos e são chefes: dá tempo de tentar salvá-los. Matá-lo deixa os itens; salvá-lo deixa uma Conexão.</p>"
   },
   "prototypeToken": {
-    "name": "Chefe de Incursão",
+    "name": "Santo Partido",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/eternia/assets/tokens/bestiary/chefe-de-incursao.webp",
+      "src": "systems/eternia/assets/tokens/bestiary/o-ungido-partido.webp",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -191,17 +190,18 @@
   },
   "items": [
     {
-      "name": "Machado de Saque",
+      "name": "Prisma Partido",
       "type": "skill",
-      "img": "icons/weapons/axes/axe-battle-jagged.webp",
+      "img": "icons/magic/light/projectile-halo-teal.webp",
       "system": {
-        "description": "<p>[2d6 + 33] de dano físico.</p><p>(Menor): +5 de dano.</p><p>[Destino 1]: o golpe acerta todos os personagens engajados com este inimigo.</p>",
+        "description": "<p>[2d6 + 53] de dano mágico de [Radiância].</p><p>[Destino 1]: Área (Escolha) a até 4 Qd.</p>",
         "tags": [
-          "Melee Attack"
+          "Magic Attack",
+          "Radiance"
         ],
         "timing": "Major",
         "checkType": "",
-        "range": "Close",
+        "range": "4Sq",
         "target": "Single",
         "subtype": "Monster",
         "skillRank": {
@@ -213,14 +213,14 @@
         "macroeffect": "",
         "check": {
           "stat": "",
-          "dice": 2,
-          "mod": 6,
-          "vs": "evasion"
+          "dice": 3,
+          "mod": 4,
+          "vs": "resistance"
         },
         "damage": {
           "dice": 2,
-          "mod": 33,
-          "type": "physical",
+          "mod": 53,
+          "type": "magical",
           "recovery": false,
           "noPower": false
         }
@@ -242,22 +242,23 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "YswG4SwxH0B9c3iu",
-      "_key": "!actors.items!c99B7ufn5vtlVTMf.YswG4SwxH0B9c3iu"
+      "_id": "XJZrueMxGpXPck9r",
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.XJZrueMxGpXPck9r"
     },
     {
-      "name": "A Corrente",
+      "name": "Clarão da Unção",
       "type": "skill",
-      "img": "icons/commodities/metal/chain-silver.webp",
+      "img": "icons/magic/light/explosion-star-blue.webp",
       "system": {
-        "description": "<p>A corrente laça e arrasta: [2d6 + 20] de dano físico, o alvo é puxado para o quadrado dele e fica [Agarrado] por ele.</p>",
+        "description": "<p>Um clarão da marca na testa: quem está engajado com ele sofre [2d6 + 30] de dano mágico de [Radiância] e é empurrado 2 Qd.</p>",
         "tags": [
-          "Ranged Attack"
+          "Magic Attack",
+          "Radiance"
         ],
         "timing": "Major",
         "checkType": "",
-        "range": "3Sq",
-        "target": "Single",
+        "range": "Close",
+        "target": "Area",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
@@ -268,14 +269,14 @@
         "macroeffect": "",
         "check": {
           "stat": "",
-          "dice": 2,
-          "mod": 6,
-          "vs": "evasion"
+          "dice": 3,
+          "mod": 4,
+          "vs": "resistance"
         },
         "damage": {
           "dice": 2,
-          "mod": 20,
-          "type": "physical",
+          "mod": 30,
+          "type": "magical",
           "recovery": false,
           "noPower": false
         }
@@ -289,12 +290,8 @@
         "eternia": {
           "useActions": [
             {
-              "type": "pull"
-            }
-          ],
-          "hitStatuses": [
-            {
-              "statusId": "grappled"
+              "type": "push",
+              "value": 2
             }
           ]
         }
@@ -310,16 +307,18 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "NA69Vj8NdlKAsumQ",
-      "_key": "!actors.items!c99B7ufn5vtlVTMf.NA69Vj8NdlKAsumQ"
+      "_id": "hPQC0F1mftxhteIo",
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.hPQC0F1mftxhteIo"
     },
     {
-      "name": "Grito do Bando",
+      "name": "Luz que Vaza",
       "type": "skill",
-      "img": "icons/creatures/abilities/lion-roar-yellow.webp",
+      "img": "icons/magic/light/beams-rays-orange-purple.webp",
       "system": {
-        "description": "<p>Em cada Manutenção, ele e os aliados a até 2 Qd ficam [Fortalecido: 5].</p>",
-        "tags": [],
+        "description": "<p>No Encerramento, a luz que ele não segura mais vaza da marca: todos a até 2 Qd, ele também, sofrem [2d6 + 20] de dano mágico de [Radiância] (um cartão de dano, sem Teste de Esquiva).</p>",
+        "tags": [
+          "Radiance"
+        ],
         "timing": "Constant",
         "checkType": "",
         "range": "-",
@@ -339,69 +338,27 @@
           "vs": ""
         },
         "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
+          "dice": 2,
+          "mod": 20,
+          "type": "magical",
           "recovery": false,
           "noPower": false
         }
       },
-      "effects": [
-        {
-          "origin": null,
-          "duration": {
-            "value": null,
-            "units": "seconds",
-            "expiry": null,
-            "expired": false
-          },
-          "disabled": false,
-          "tint": "#ffffff",
-          "transfer": true,
-          "flags": {
-            "eternia": {
-              "realm": {
-                "radius": 2,
-                "allies": [
-                  {
-                    "statusId": "empowered",
-                    "value": 5
-                  }
-                ]
-              }
-            }
-          },
-          "_stats": {
-            "coreVersion": "14.360",
-            "systemId": "eternia",
-            "systemVersion": "0.34.0",
-            "createdTime": null,
-            "modifiedTime": null,
-            "lastModifiedBy": null,
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null
-          },
-          "name": "Grito do Bando",
-          "img": "icons/creatures/abilities/lion-roar-yellow.webp",
-          "type": "base",
-          "system": {
-            "changes": []
-          },
-          "description": "",
-          "statuses": [],
-          "sort": 0,
-          "start": null,
-          "showIcon": 1,
-          "_id": "3Y4jXS7oRU6ZI8cb",
-          "_key": "!actors.items.effects!c99B7ufn5vtlVTMf.OqJ8oxLF6ag4q37o.3Y4jXS7oRU6ZI8cb"
-        }
-      ],
+      "effects": [],
       "sort": 300000,
       "ownership": {
         "default": 0
       },
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "pulse",
+            "radius": 2,
+            "self": true
+          }
+        }
+      },
       "_stats": {
         "coreVersion": "14.360",
         "systemId": "eternia",
@@ -413,15 +370,15 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "OqJ8oxLF6ag4q37o",
-      "_key": "!actors.items!c99B7ufn5vtlVTMf.OqJ8oxLF6ag4q37o"
+      "_id": "9zwsLPpk02ETmTss",
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.9zwsLPpk02ETmTss"
     },
     {
-      "name": "Recuar com o Saque",
+      "name": "A Forma Rejeita",
       "type": "skill",
-      "img": "icons/skills/movement/figure-running-gray.webp",
+      "img": "icons/magic/control/silhouette-hold-change-green.webp",
       "system": {
-        "description": "<p>Com 1/4 dos PV ou menos, ele foge levando o saque: o token some, ele sai do combate e não deixa itens. Não foge se estiver [Agarrado], [Enraizado], [Paralisado], [Petrificado] ou [Adormecido]; preso, tenta de novo em cada Manutenção.</p>",
+        "description": "<p>No Encerramento, ele se livra de 2 Estados Negativos: a forma não aceita prisão.</p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -457,8 +414,8 @@
       "flags": {
         "eternia": {
           "monster": {
-            "rule": "retreat",
-            "below": 0.25
+            "rule": "cleanse",
+            "count": 2
           }
         }
       },
@@ -473,15 +430,15 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "k1Sv51RQhV0a6hFp",
-      "_key": "!actors.items!c99B7ufn5vtlVTMf.k1Sv51RQhV0a6hFp"
+      "_id": "iblZU2e1BdkhUuje",
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.iblZU2e1BdkhUuje"
     },
     {
-      "name": "Medo da Luz",
+      "name": "Ainda Há Alguém Aí",
       "type": "skill",
-      "img": "icons/magic/light/beam-rays-orange.webp",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
       "system": {
-        "description": "<p>Os goblins vivem no escuro das cavernas: este inimigo tem [Fraqueza (Radiância): 5], e o dano de [Radiância] o deixa com [Medo] de quem o feriu.</p>",
+        "description": "<p>Com 1/4 dos PV ou menos, a forma cede e dá para ver quem ele era: quem estiver engajado com ele pode gastar a Ação Maior e rolar Negociação contra a Resistência dele (o botão Salvar do cartão que aparece no chat). Vencendo, ele fica [Pacificado] até o fim da cena e sai da luta, sem deixar itens; o Mestre pode fazê-lo virar uma Conexão de quem o salvou.</p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -509,57 +466,7 @@
           "noPower": false
         }
       },
-      "effects": [
-        {
-          "origin": null,
-          "duration": {
-            "value": null,
-            "units": "seconds",
-            "expiry": null,
-            "expired": false
-          },
-          "disabled": false,
-          "tint": "#ffffff",
-          "transfer": true,
-          "flags": {
-            "eternia": {
-              "weaknessTag": "Radiance"
-            }
-          },
-          "_stats": {
-            "coreVersion": "14.360",
-            "systemId": "eternia",
-            "systemVersion": "0.34.0",
-            "createdTime": null,
-            "modifiedTime": null,
-            "lastModifiedBy": null,
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null
-          },
-          "name": "Medo da Luz",
-          "img": "icons/magic/light/beam-rays-orange.webp",
-          "type": "base",
-          "system": {
-            "changes": [
-              {
-                "key": "eternia.passive.weakness",
-                "type": "add",
-                "value": "5",
-                "phase": "initial",
-                "priority": null
-              }
-            ]
-          },
-          "description": "",
-          "statuses": [],
-          "sort": 0,
-          "start": null,
-          "showIcon": 1,
-          "_id": "7YNHtzSZRoQFfT0J",
-          "_key": "!actors.items.effects!c99B7ufn5vtlVTMf.bFATky4KLRj3ssHd.7YNHtzSZRoQFfT0J"
-        }
-      ],
+      "effects": [],
       "sort": 500000,
       "ownership": {
         "default": 0
@@ -567,15 +474,8 @@
       "flags": {
         "eternia": {
           "monster": {
-            "rule": "struck",
-            "tags": [
-              "Radiance"
-            ],
-            "self": [
-              {
-                "statusId": "frightened"
-              }
-            ]
+            "rule": "save",
+            "below": 0.25
           }
         }
       },
@@ -590,8 +490,8 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "bFATky4KLRj3ssHd",
-      "_key": "!actors.items!c99B7ufn5vtlVTMf.bFATky4KLRj3ssHd"
+      "_id": "4pqOXJcsLY1eFcd4",
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.4pqOXJcsLY1eFcd4"
     },
     {
       "name": "Ouro",
@@ -634,21 +534,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "3GYUFc8ljr103PQK",
+      "_id": "NBqbTbDBndcI6OcJ",
       "sort": 600000,
-      "_key": "!actors.items!c99B7ufn5vtlVTMf.3GYUFc8ljr103PQK"
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.NBqbTbDBndcI6OcJ"
     },
     {
-      "name": "Saque da Incursão",
+      "name": "Prisma Rachado",
       "type": "gear",
-      "img": "icons/containers/chest/chest-reinforced-steel-brown.webp",
+      "img": "icons/commodities/gems/gem-faceted-trillion-blue.webp",
       "system": {
-        "description": "<p>O baú que o bando juntou nas vilas de borda: talheres, peças de tecido, a caixa de esmolas de uma igreja. A guilda devolve o que tem dono e paga o resto.</p>",
+        "description": "<p>Um prisma de Cavaleiro, rachado de lado a lado, que ainda dobra a luz do jeito errado.</p>",
         "tags": [
           "Valuable"
         ],
         "rank": 7,
-        "price": 200,
+        "price": 180,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -681,16 +581,16 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "Xh3R1IqVxHqUj61i",
+      "_id": "I79lxXooKSViW3VV",
       "sort": 700000,
-      "_key": "!actors.items!c99B7ufn5vtlVTMf.Xh3R1IqVxHqUj61i"
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.I79lxXooKSViW3VV"
     },
     {
-      "name": "Anima Roubado",
+      "name": "Lágrima de Luz",
       "type": "gear",
-      "img": "icons/commodities/gems/gem-rough-navette-blue.webp",
+      "img": "icons/commodities/gems/gem-faceted-radiant-blue.webp",
       "system": {
-        "description": "<p>Anima-mundi levado de uma mina do Império, com o Selo do Anima arranhado a faca. Serve de Anima-mundi 7 na Oficina; o Ofício quer saber de onde veio.</p>",
+        "description": "<p>Luz que pingou da marca e endureceu. Serve de Anima-mundi 7 na Oficina; a Igreja diz que é relíquia e não deveria ser usada.</p>",
         "tags": [
           "Magic Catalyst 7"
         ],
@@ -713,7 +613,7 @@
           "drop": {
             "min": 3,
             "max": 4,
-            "qty": 4
+            "qty": 3
           }
         }
       },
@@ -728,16 +628,16 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "wGyKiz8rPDZq5c8M",
+      "_id": "IBhgcnbUek1NiV2P",
       "sort": 800000,
-      "_key": "!actors.items!c99B7ufn5vtlVTMf.wGyKiz8rPDZq5c8M"
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.IBhgcnbUek1NiV2P"
     },
     {
-      "name": "Machado do Chefe",
+      "name": "Manto de Ungido",
       "type": "gear",
-      "img": "icons/weapons/axes/axe-battle-heavy-jagged.webp",
+      "img": "icons/equipment/back/cloak-hooded-blue.webp",
       "system": {
-        "description": "<p>O machado de lâmina dentada do chefe, pesado demais para um goblin comum. Os ferreiros de Centória o derretem pelo aço.</p>",
+        "description": "<p>Um manto branco de cerimônia, queimado por dentro, no lugar da testa.</p>",
         "tags": [
           "Valuable"
         ],
@@ -775,21 +675,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "db7w0yJQDT8Mbvme",
+      "_id": "UJHOrRIoe28xOCrf",
       "sort": 900000,
-      "_key": "!actors.items!c99B7ufn5vtlVTMf.db7w0yJQDT8Mbvme"
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.UJHOrRIoe28xOCrf"
     },
     {
-      "name": "Coroa de Ossos",
+      "name": "Marca de Luz",
       "type": "gear",
-      "img": "icons/commodities/treasure/crown-blue-gold.webp",
+      "img": "icons/magic/holy/saint-glass-portrait-halo.webp",
       "system": {
-        "description": "<p>Uma coroa de ouro velho, com ossos amarrados nas pontas: o chefe a tirou de algum lugar que não era dele. Um nobre de Centória a reconheceria.</p>",
+        "description": "<p>A marca da testa, que se soltou quando a luz se apagou: um disco de luz morna do tamanho de uma moeda. Ninguém sabe o que fazer com ela; todo mundo quer.</p>",
         "tags": [
           "Valuable"
         ],
         "rank": 7,
-        "price": 400,
+        "price": 450,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -822,9 +722,9 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "3JbqhA6wk2mU6xbS",
+      "_id": "H503kDr6h6xGSnpc",
       "sort": 1000000,
-      "_key": "!actors.items!c99B7ufn5vtlVTMf.3JbqhA6wk2mU6xbS"
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.H503kDr6h6xGSnpc"
     },
     {
       "name": "Anima-mundi 8",
@@ -876,16 +776,16 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "AEBGeRv5cBpQmSaZ",
+      "_id": "CpaMXhalOKI1FKPz",
       "sort": 1100000,
-      "_key": "!actors.items!c99B7ufn5vtlVTMf.AEBGeRv5cBpQmSaZ"
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.CpaMXhalOKI1FKPz"
     },
     {
-      "name": "Corrente do Chefe",
+      "name": "Fragmento da Marca",
       "type": "gear",
-      "img": "icons/commodities/metal/chain-silver.webp",
+      "img": "icons/commodities/gems/gem-faceted-round-white.webp",
       "system": {
-        "description": "<p>A corrente de ferro que o chefe usava para arrastar quem queria. Um [Material-Base] de NP 7.</p>",
+        "description": "<p>Um caco da marca de luz, que ainda brilha quando alguém reza perto. Um [Material-Base] de NP 7.</p>",
         "tags": [
           "Core Material"
         ],
@@ -922,9 +822,9 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "U5sEUF6FGlkwcbft",
+      "_id": "1vkUHZwGOyYRQjTh",
       "sort": 1200000,
-      "_key": "!actors.items!c99B7ufn5vtlVTMf.U5sEUF6FGlkwcbft"
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.1vkUHZwGOyYRQjTh"
     }
   ],
   "effects": [],
@@ -940,11 +840,11 @@
     "duplicateSource": null,
     "exportSource": null
   },
-  "sort": 600000,
+  "sort": 100000,
   "ownership": {
     "default": 0
   },
-  "_id": "c99B7ufn5vtlVTMf",
-  "folder": "RHS1pble8ESRDgnC",
-  "_key": "!actors!c99B7ufn5vtlVTMf"
+  "_id": "NRiLL2pga8dB1cYB",
+  "folder": "floINKQ1GrWyM7Jv",
+  "_key": "!actors!NRiLL2pga8dB1cYB"
 }

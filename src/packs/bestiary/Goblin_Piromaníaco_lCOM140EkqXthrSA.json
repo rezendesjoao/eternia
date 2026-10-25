@@ -1,11 +1,11 @@
 {
-  "name": "Aranha das Galerias",
+  "name": "Goblin Piromaníaco",
   "type": "monster",
-  "img": "systems/eternia/assets/tokens/bestiary/aranha-das-galerias.webp",
+  "img": "systems/eternia/assets/tokens/bestiary/fumaceiro-goblin.webp",
   "system": {
     "health": {
-      "value": 46,
-      "max": 46,
+      "value": 50,
+      "max": 50,
       "mod": 0,
       "rc": 0,
       "jb": 0,
@@ -18,7 +18,8 @@
       "effect": 0
     },
     "tags": [
-      "Natural",
+      "Humanoid",
+      "Goblin",
       "Night Vision"
     ],
     "biography": "",
@@ -26,7 +27,7 @@
     "attributes": {
       "str": {
         "value": 0,
-        "mod": 2,
+        "mod": 3,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -42,7 +43,7 @@
       },
       "pow": {
         "value": 0,
-        "mod": 2,
+        "mod": 3,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -50,7 +51,7 @@
       },
       "int": {
         "value": 0,
-        "mod": 3,
+        "mod": 4,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -72,33 +73,33 @@
     },
     "battle-status": {
       "defense": {
-        "phys": 12,
-        "magic": 12
+        "phys": 10,
+        "magic": 16
       },
       "speed": 2,
       "initiative": 5
     },
-    "rank": 4,
+    "rank": 6,
     "idendification": "8",
     "hateMultiplier": "3",
     "checks": {
       "evasion": {
         "dice": 2,
-        "mod": 2
+        "mod": 3
       },
       "resistance": {
         "dice": 2,
-        "mod": 2
+        "mod": 3
       }
     },
-    "description": "<p>Uma aranha do tamanho de um cavalo, de pernas peludas e oito olhos que refletem a lanterna, que faz ninho no teto das galerias abandonadas. Espera no escuro, desce no fio e puxa a presa para cima. O veneno não mata depressa: primeiro amolece, depois prende, e então ela come com calma.</p><p><b>Na mesa:</b> a emboscada da mina funda. Ela começa [Oculta] no teto (a Emboscada do Teto, antes do combate) e o primeiro golpe dói muito. O Fio de Teia prende um alvo de longe e o puxa para junto dela; a Picada envenena, quem já estava envenenado fica [Lento], e quem já estava lento, [Paralisado]. Tirar o veneno (uma Ação Maior) quebra a escada.</p>"
+    "description": "<p>O goblin que sabe fazer fogo: carrega tochas de resina, sacos de pólvora e bombas de barro que soltam uma fumaça grossa e fedida. Nas cavernas, a fumaça é a melhor amiga do bando: quem está dentro dela não vê nada, e os goblins não precisam ver.</p><p><b>Na mesa:</b> o bombardeiro do bando. A Tocha das Cavernas queima em área; a Bomba das Cavernas cega, prende um [Pavio] em quem acerta e esconde os goblins em volta dele, e recarrega com 5 ou 6 no 1d6 de uma Manutenção. Derrubá-lo primeiro tira os olhos da tropa do grupo.</p>"
   },
   "prototypeToken": {
-    "name": "Aranha das Galerias",
+    "name": "Goblin Piromaníaco",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/eternia/assets/tokens/bestiary/aranha-das-galerias.webp",
+      "src": "systems/eternia/assets/tokens/bestiary/fumaceiro-goblin.webp",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -110,8 +111,8 @@
       "fit": "contain",
       "alphaThreshold": 0.75
     },
-    "width": 2,
-    "height": 2,
+    "width": 1,
+    "height": 1,
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
@@ -189,18 +190,19 @@
   },
   "items": [
     {
-      "name": "Fio de Teia",
+      "name": "Tocha das Cavernas",
       "type": "skill",
-      "img": "icons/creatures/invertebrates/spider-web-black.webp",
+      "img": "icons/magic/light/torch-fire-orange.webp",
       "system": {
-        "description": "<p>[2d6 + 25] de dano físico. O fio cola: o alvo é puxado para o quadrado da aranha, engajado com ela, e fica [Enraizado].</p>",
+        "description": "<p>Área (Escolha) a até 4 Qd: [2d6 + 40] de dano mágico de [Chama], e quem é atingido fica [Queimando: 5].</p>",
         "tags": [
-          "Ranged Attack"
+          "Magic Attack",
+          "Flame"
         ],
         "timing": "Major",
         "checkType": "",
         "range": "4Sq",
-        "target": "Single",
+        "target": "Area",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
@@ -212,13 +214,13 @@
         "check": {
           "stat": "",
           "dice": 3,
-          "mod": 3,
-          "vs": "evasion"
+          "mod": 4,
+          "vs": "resistance"
         },
         "damage": {
           "dice": 2,
-          "mod": 25,
-          "type": "physical",
+          "mod": 40,
+          "type": "magical",
           "recovery": false,
           "noPower": false
         }
@@ -230,14 +232,10 @@
       },
       "flags": {
         "eternia": {
-          "useActions": [
-            {
-              "type": "pull"
-            }
-          ],
           "hitStatuses": [
             {
-              "statusId": "rooted"
+              "statusId": "burning",
+              "value": 5
             }
           ]
         }
@@ -253,22 +251,22 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "AE0M6fcD4hCaOscJ",
-      "_key": "!actors.items!zzg30FEMmez4E8gL.AE0M6fcD4hCaOscJ"
+      "_id": "hxQCirFpOeUgiOcd",
+      "_key": "!actors.items!lCOM140EkqXthrSA.hxQCirFpOeUgiOcd"
     },
     {
-      "name": "Picada que Sobe",
+      "name": "Bomba das Cavernas",
       "type": "skill",
-      "img": "icons/creatures/abilities/fang-tooth-poison-green.webp",
+      "img": "icons/commodities/tech/smoke-bomb-yellow.webp",
       "system": {
-        "description": "<p>[2d6 + 33] de dano físico, e o alvo fica [Envenenado: 6]. Se já estava [Envenenado], fica também [Lento]; se já estava [Lento], fica [Paralisado].</p>",
+        "description": "<p>Área de 2 Qd a até 4 Qd: [2d6 + 15] de dano mágico, e quem é atingido fica [Cego] e com [Pavio: 10]. A fumaça cobre também o lado dele: os aliados a até 2 Qd dele ficam [Oculto].</p><p>Recarga: depois de usada, só volta com 5 ou 6 no 1d6 de uma Manutenção.</p>",
         "tags": [
-          "Melee Attack"
+          "Magic Attack"
         ],
         "timing": "Major",
         "checkType": "",
-        "range": "Close",
-        "target": "Single",
+        "range": "4Sq",
+        "target": "Area",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
@@ -280,46 +278,87 @@
         "check": {
           "stat": "",
           "dice": 3,
-          "mod": 3,
-          "vs": "evasion"
+          "mod": 4,
+          "vs": "resistance"
         },
         "damage": {
           "dice": 2,
-          "mod": 33,
-          "type": "physical",
+          "mod": 15,
+          "type": "magical",
           "recovery": false,
           "noPower": false
         }
       },
-      "effects": [],
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "onUse": true,
+              "recipients": "self",
+              "realm": {
+                "radius": 2,
+                "allies": [
+                  {
+                    "statusId": "hidden"
+                  }
+                ]
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Bomba das Cavernas: a fumaça",
+          "img": "icons/commodities/tech/smoke-bomb-yellow.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "k5t5Q928g6iQYxSJ",
+          "_key": "!actors.items.effects!lCOM140EkqXthrSA.1G2l2nt31bFglRrj.k5t5Q928g6iQYxSJ"
+        }
+      ],
       "sort": 200000,
       "ownership": {
         "default": 0
       },
       "flags": {
         "eternia": {
+          "monster": {
+            "rule": "recharge",
+            "min": 5
+          },
           "hitStatuses": [
             {
-              "statusId": "poisoned",
-              "value": 6
-            }
-          ],
-          "escalate": [
-            {
-              "if": "poisoned",
-              "add": [
-                {
-                  "statusId": "slowed"
-                }
-              ]
+              "statusId": "blinded"
             },
             {
-              "if": "slowed",
-              "add": [
-                {
-                  "statusId": "paralyzed"
-                }
-              ]
+              "statusId": "fuse",
+              "value": 10
             }
           ]
         }
@@ -335,27 +374,27 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "FuchOH6ml2oTgZWu",
-      "_key": "!actors.items!zzg30FEMmez4E8gL.FuchOH6ml2oTgZWu"
+      "_id": "1G2l2nt31bFglRrj",
+      "_key": "!actors.items!lCOM140EkqXthrSA.1G2l2nt31bFglRrj"
     },
     {
-      "name": "Emboscada do Teto",
+      "name": "Medo da Luz",
       "type": "skill",
-      "img": "icons/creatures/invertebrates/spider-web-red.webp",
+      "img": "icons/magic/light/beam-rays-orange.webp",
       "system": {
-        "description": "<p>Antes do combate, a aranha sobe ao teto da galeria: fica [Oculta], e o próximo dano dela soma +2d6.</p>",
+        "description": "<p>Os goblins vivem no escuro das cavernas: este inimigo tem [Fraqueza (Radiância): 5], e o dano de [Radiância] o deixa com [Medo] de quem o feriu.</p>",
         "tags": [],
-        "timing": "Briefing",
+        "timing": "Constant",
         "checkType": "",
         "range": "-",
-        "target": "Self",
+        "target": "-",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
           "max": 1
         },
         "cost": "-",
-        "limit": "1/Scene",
+        "limit": "-",
         "macroeffect": "",
         "check": {
           "stat": "",
@@ -382,14 +421,10 @@
           },
           "disabled": false,
           "tint": "#ffffff",
-          "transfer": false,
+          "transfer": true,
           "flags": {
             "eternia": {
-              "recipients": "self",
-              "statusData": {
-                "statusId": "hidden"
-              },
-              "expires": "endOfScene"
+              "weaknessTag": "Radiance"
             }
           },
           "_stats": {
@@ -403,60 +438,15 @@
             "duplicateSource": null,
             "exportSource": null
           },
-          "name": "Emboscada do Teto: oculta",
-          "img": "icons/creatures/invertebrates/spider-web-red.webp",
-          "type": "base",
-          "system": {
-            "changes": []
-          },
-          "description": "",
-          "statuses": [
-            "hidden"
-          ],
-          "sort": 0,
-          "start": null,
-          "showIcon": 1,
-          "_id": "QZcxDgUFCluA0S0t",
-          "_key": "!actors.items.effects!zzg30FEMmez4E8gL.jh1pXRJsm2sREhaa.QZcxDgUFCluA0S0t"
-        },
-        {
-          "origin": null,
-          "duration": {
-            "value": null,
-            "units": "seconds",
-            "expiry": null,
-            "expired": false
-          },
-          "disabled": false,
-          "tint": "#ffffff",
-          "transfer": false,
-          "flags": {
-            "eternia": {
-              "recipients": "self",
-              "consumeOn": "attack",
-              "expires": "endOfScene"
-            }
-          },
-          "_stats": {
-            "coreVersion": "14.360",
-            "systemId": "eternia",
-            "systemVersion": "0.34.0",
-            "createdTime": null,
-            "modifiedTime": null,
-            "lastModifiedBy": null,
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null
-          },
-          "name": "Emboscada do Teto: o bote",
-          "img": "icons/creatures/invertebrates/spider-web-red.webp",
+          "name": "Medo da Luz",
+          "img": "icons/magic/light/beam-rays-orange.webp",
           "type": "base",
           "system": {
             "changes": [
               {
-                "key": "eternia.roll.damage.dice",
+                "key": "eternia.passive.weakness",
                 "type": "add",
-                "value": "2",
+                "value": "5",
                 "phase": "initial",
                 "priority": null
               }
@@ -467,15 +457,29 @@
           "sort": 0,
           "start": null,
           "showIcon": 1,
-          "_id": "weRfihyuwgCHnnZh",
-          "_key": "!actors.items.effects!zzg30FEMmez4E8gL.jh1pXRJsm2sREhaa.weRfihyuwgCHnnZh"
+          "_id": "d0R8rn6Ig7lBR1k1",
+          "_key": "!actors.items.effects!lCOM140EkqXthrSA.QpOEWjZ6v3YKybVl.d0R8rn6Ig7lBR1k1"
         }
       ],
       "sort": 300000,
       "ownership": {
         "default": 0
       },
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "struck",
+            "tags": [
+              "Radiance"
+            ],
+            "self": [
+              {
+                "statusId": "frightened"
+              }
+            ]
+          }
+        }
+      },
       "_stats": {
         "coreVersion": "14.360",
         "systemId": "eternia",
@@ -487,20 +491,65 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "jh1pXRJsm2sREhaa",
-      "_key": "!actors.items!zzg30FEMmez4E8gL.jh1pXRJsm2sREhaa"
+      "_id": "QpOEWjZ6v3YKybVl",
+      "_key": "!actors.items!lCOM140EkqXthrSA.QpOEWjZ6v3YKybVl"
     },
     {
-      "name": "Fio de Teia das Galerias",
+      "name": "Ouro",
       "type": "gear",
-      "img": "icons/commodities/cloth/cloth-bolt-glow-white.webp",
+      "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
       "system": {
-        "description": "<p>Um novelo de fio de teia, forte como corda e fino como cabelo. Os tecelões fazem dele cordas de arco e redes de pesca.</p>",
+        "description": "",
+        "tags": [],
+        "rank": 1,
+        "price": 0,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1,
+            "gold": "2d6*3"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "o3vuAsEs7SVUStcU",
+      "sort": 400000,
+      "_key": "!actors.items!lCOM140EkqXthrSA.o3vuAsEs7SVUStcU"
+    },
+    {
+      "name": "Saco de Pólvora Goblin",
+      "type": "gear",
+      "img": "icons/containers/bags/case-simple-brown.webp",
+      "system": {
+        "description": "<p>Pólvora grossa de goblin, num saco de couro encerado. Os alquimistas a refinam; os mineiros a usam para abrir veios.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 4,
-        "price": 25,
+        "rank": 6,
+        "price": 30,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -533,21 +582,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "0AhVB2umJWVGhT8N",
-      "sort": 400000,
-      "_key": "!actors.items!zzg30FEMmez4E8gL.0AhVB2umJWVGhT8N"
+      "_id": "9xzf4OfIGgMRdJZf",
+      "sort": 500000,
+      "_key": "!actors.items!lCOM140EkqXthrSA.9xzf4OfIGgMRdJZf"
     },
     {
-      "name": "Glândula de Veneno",
+      "name": "Tochas de Resina",
       "type": "gear",
-      "img": "icons/consumables/potions/bottle-conical-corked-labeled-skull-poison-green.webp",
+      "img": "icons/sundries/lights/torch-brown-lit.webp",
       "system": {
-        "description": "<p>O saco de veneno da aranha, num frasco bem fechado. Os alquimistas pagam bem; os contrabandistas, melhor ainda.</p>",
+        "description": "<p>Tochas que queimam por uma hora e não apagam com água. Valem muito para quem desce às minas fundas.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 4,
-        "price": 50,
+        "rank": 6,
+        "price": 45,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -580,21 +629,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "hfcCxg4ZdBUehNny",
-      "sort": 500000,
-      "_key": "!actors.items!zzg30FEMmez4E8gL.hfcCxg4ZdBUehNny"
+      "_id": "EGEH5Rew95hJO4Kh",
+      "sort": 600000,
+      "_key": "!actors.items!lCOM140EkqXthrSA.EGEH5Rew95hJO4Kh"
     },
     {
-      "name": "Olhos de Aranha",
+      "name": "Máscara de Piromaníaco",
       "type": "gear",
-      "img": "icons/commodities/biological/eye-lizard-orange.webp",
+      "img": "icons/equipment/head/gas-mask-cloth-hood.webp",
       "system": {
-        "description": "<p>Os oito olhos, secos e inteiros, que ainda refletem a luz. Os curiosos de Centória os compram como amuleto contra o escuro.</p>",
+        "description": "<p>Um capuz de couro com lentes de vidro fosco e um filtro de musgo: com ele, a fumaça não arde. Os ferreiros querem copiar.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 4,
-        "price": 75,
+        "rank": 6,
+        "price": 70,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -627,9 +676,9 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "09cFBRaCvULFLOLL",
-      "sort": 600000,
-      "_key": "!actors.items!zzg30FEMmez4E8gL.09cFBRaCvULFLOLL"
+      "_id": "fWW1OeafBp0iX04P",
+      "sort": 700000,
+      "_key": "!actors.items!lCOM140EkqXthrSA.fWW1OeafBp0iX04P"
     }
   ],
   "effects": [],
@@ -645,11 +694,11 @@
     "duplicateSource": null,
     "exportSource": null
   },
-  "sort": 300000,
+  "sort": 500000,
   "ownership": {
     "default": 0
   },
-  "_id": "zzg30FEMmez4E8gL",
-  "folder": "5id5icbMj1d24RP5",
-  "_key": "!actors!zzg30FEMmez4E8gL"
+  "_id": "lCOM140EkqXthrSA",
+  "folder": "rkjPFwoLJh5QL71o",
+  "_key": "!actors!lCOM140EkqXthrSA"
 }

@@ -1,11 +1,11 @@
 {
-  "name": "Tropa de Incursão",
+  "name": "Kobold Sentinela",
   "type": "monster",
-  "img": "systems/eternia/assets/tokens/bestiary/tropa-de-incursao.webp",
+  "img": "systems/eternia/assets/tokens/bestiary/sentinela-do-castelo.webp",
   "system": {
     "health": {
-      "value": 132,
-      "max": 132,
+      "value": 107,
+      "max": 107,
       "mod": 0,
       "rc": 0,
       "jb": 0,
@@ -19,7 +19,7 @@
     },
     "tags": [
       "Humanoid",
-      "Goblin",
+      "Kobold",
       "Night Vision"
     ],
     "biography": "",
@@ -27,7 +27,7 @@
     "attributes": {
       "str": {
         "value": 0,
-        "mod": 3,
+        "mod": 4,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -35,7 +35,7 @@
       },
       "dex": {
         "value": 0,
-        "mod": 4,
+        "mod": 3,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -43,7 +43,7 @@
       },
       "pow": {
         "value": 0,
-        "mod": 2,
+        "mod": 3,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -73,15 +73,15 @@
     },
     "battle-status": {
       "defense": {
-        "phys": 15,
-        "magic": 12
+        "phys": 23,
+        "magic": 13
       },
       "speed": 2,
-      "initiative": 7
+      "initiative": 5
     },
-    "rank": 6,
-    "idendification": "8",
-    "hateMultiplier": "3",
+    "rank": 7,
+    "idendification": "9",
+    "hateMultiplier": "2",
     "checks": {
       "evasion": {
         "dice": 2,
@@ -89,17 +89,17 @@
       },
       "resistance": {
         "dice": 2,
-        "mod": 2
+        "mod": 3
       }
     },
-    "description": "<p>Quatro goblins que andam, saqueiam e brigam como um bicho só: um empurra, outro morde, outro rouba a bolsa e o quarto já está correndo com ela. Nas cavernas estreitas da serra, a tropa enche a passagem de parede a parede.</p><p><b>Na mesa:</b> o meio do bando. Um token 2×2 com quatro goblins: o Saque em Bando acerta quem está engajado com ela, até um alvo por goblin que resta. O dano em área a acerta em dobro, e com 2/3 e 1/3 dos PV ela perde um goblin. Bombas, sopros e Artes em área são a resposta.</p>"
+    "description": "<p>Um kobold dos andares de pedra do castelo, do mesmo povo das galerias do Império, mas de armadura e alabarda, com a disciplina de quem guardou uma porta a vida inteira. Cai numa Queda com os outros kobolds e continua guardando: o bando dele, agora, é a porta.</p><p><b>Na mesa:</b> o escudo dos kobolds do castelo. A Guarda do Bando (1 por rodada) faz o próximo golpe num kobold a até 1 Qd acertar a Sentinela no lugar. A Alabarda em Roda acerta todos os engajados, mas o deixa parado depois ([Rigidez]). Tirar os kobolds de perto dele, ou derrubá-lo primeiro, desmonta o bando.</p>"
   },
   "prototypeToken": {
-    "name": "Tropa de Incursão",
+    "name": "Kobold Sentinela",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/eternia/assets/tokens/bestiary/tropa-de-incursao.webp",
+      "src": "systems/eternia/assets/tokens/bestiary/sentinela-do-castelo.webp",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -111,8 +111,8 @@
       "fit": "contain",
       "alphaThreshold": 0.75
     },
-    "width": 2,
-    "height": 2,
+    "width": 1,
+    "height": 1,
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
@@ -190,18 +190,18 @@
   },
   "items": [
     {
-      "name": "Saque em Bando",
+      "name": "Alabarda",
       "type": "skill",
-      "img": "icons/environment/people/group.webp",
+      "img": "icons/weapons/polearms/glaive-hooked-steel.webp",
       "system": {
-        "description": "<p>Os goblins da tropa caem sobre quem está engajado com ela: [2d6 + 40] de dano físico em até um alvo por goblin que resta (4, depois 3, depois 2).</p>",
+        "description": "<p>[2d6 + 33] de dano físico.</p><p>(Menor): +5 de dano.</p>",
         "tags": [
           "Melee Attack"
         ],
         "timing": "Major",
         "checkType": "",
         "range": "Close",
-        "target": "Area",
+        "target": "Single",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
@@ -212,13 +212,13 @@
         "macroeffect": "",
         "check": {
           "stat": "",
-          "dice": 3,
-          "mod": 5,
+          "dice": 2,
+          "mod": 6,
           "vs": "evasion"
         },
         "damage": {
           "dice": 2,
-          "mod": 40,
+          "mod": 33,
           "type": "physical",
           "recovery": false,
           "noPower": false
@@ -241,20 +241,22 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "Tgp0v37owlJwWIkS",
-      "_key": "!actors.items!ixjpdlTXbeWUEtQ4.Tgp0v37owlJwWIkS"
+      "_id": "CitKpMoIFvcg8wGl",
+      "_key": "!actors.items!cQT8OBd1Rr476m14.CitKpMoIFvcg8wGl"
     },
     {
-      "name": "Tropa",
+      "name": "Alabarda em Roda",
       "type": "skill",
-      "img": "icons/environment/people/infantry-army.webp",
+      "img": "icons/weapons/polearms/glaive-simple-hooked.webp",
       "system": {
-        "description": "<p>Quatro goblins num token só. O dano de um ataque em área (que acerta mais de um alvo) a acerta em dobro. Com 2/3 dos PV ela perde um goblin, e com 1/3, outro: a cada um, o Saque em Bando acerta um alvo a menos.</p>",
-        "tags": [],
-        "timing": "Constant",
+        "description": "<p>Gira a alabarda em volta: acerta todos os personagens engajados com ele, [2d6 + 26] de dano físico. Depois, este inimigo fica [Rigidez] (a pausa do golpe).</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
         "checkType": "",
-        "range": "-",
-        "target": "-",
+        "range": "Close",
+        "target": "Area",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
@@ -265,31 +267,73 @@
         "macroeffect": "",
         "check": {
           "stat": "",
-          "dice": 0,
-          "mod": 0,
-          "vs": ""
+          "dice": 2,
+          "mod": 6,
+          "vs": "evasion"
         },
         "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
+          "dice": 2,
+          "mod": 26,
+          "type": "physical",
           "recovery": false,
           "noPower": false
         }
       },
-      "effects": [],
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "onUse": true,
+              "recipients": "self",
+              "statusData": {
+                "statusId": "rigor"
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Alabarda em Roda: a pausa",
+          "img": "icons/weapons/polearms/glaive-simple-hooked.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "rigor"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "uWNXXS3iUlcRfiEm",
+          "_key": "!actors.items.effects!cQT8OBd1Rr476m14.NOqxwcwfQYcaX2uX.uWNXXS3iUlcRfiEm"
+        }
+      ],
       "sort": 200000,
       "ownership": {
         "default": 0
       },
-      "flags": {
-        "eternia": {
-          "monster": {
-            "rule": "troop",
-            "size": 4
-          }
-        }
-      },
+      "flags": {},
       "_stats": {
         "coreVersion": "14.360",
         "systemId": "eternia",
@@ -301,27 +345,27 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "g0uoJMq1mDWWA13p",
-      "_key": "!actors.items!ixjpdlTXbeWUEtQ4.g0uoJMq1mDWWA13p"
+      "_id": "NOqxwcwfQYcaX2uX",
+      "_key": "!actors.items!cQT8OBd1Rr476m14.NOqxwcwfQYcaX2uX"
     },
     {
-      "name": "Medo da Luz",
+      "name": "Guarda do Bando",
       "type": "skill",
-      "img": "icons/magic/light/beam-rays-orange.webp",
+      "img": "icons/equipment/shield/heater-steel-boss-red.webp",
       "system": {
-        "description": "<p>Os goblins vivem no escuro das cavernas: este inimigo tem [Fraqueza (Radiância): 5], e o dano de [Radiância] o deixa com [Medo] de quem o feriu.</p>",
+        "description": "<p>Um kobold a até 1 Qd fica sob a guarda dele até o fim da rodada: o próximo golpe que acertaria esse kobold acerta a Sentinela no lugar (o dano que o kobold sofreria, como dano direto).</p>",
         "tags": [],
-        "timing": "Constant",
+        "timing": "Minor",
         "checkType": "",
-        "range": "-",
-        "target": "-",
+        "range": "1Sq",
+        "target": "Single",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
           "max": 1
         },
         "cost": "-",
-        "limit": "-",
+        "limit": "1/Round",
         "macroeffect": "",
         "check": {
           "stat": "",
@@ -348,10 +392,12 @@
           },
           "disabled": false,
           "tint": "#ffffff",
-          "transfer": true,
+          "transfer": false,
           "flags": {
             "eternia": {
-              "weaknessTag": "Radiance"
+              "cover": true,
+              "consumeOn": "damage",
+              "expires": "endOfRound"
             }
           },
           "_stats": {
@@ -365,45 +411,68 @@
             "duplicateSource": null,
             "exportSource": null
           },
-          "name": "Medo da Luz",
-          "img": "icons/magic/light/beam-rays-orange.webp",
+          "name": "Guarda do Bando",
+          "img": "icons/equipment/shield/heater-steel-boss-red.webp",
           "type": "base",
           "system": {
-            "changes": [
-              {
-                "key": "eternia.passive.weakness",
-                "type": "add",
-                "value": "5",
-                "phase": "initial",
-                "priority": null
-              }
-            ]
+            "changes": []
           },
           "description": "",
           "statuses": [],
           "sort": 0,
           "start": null,
           "showIcon": 1,
-          "_id": "zPXP87DoEjBpfMUF",
-          "_key": "!actors.items.effects!ixjpdlTXbeWUEtQ4.NVb5XnIkdkPnup5X.zPXP87DoEjBpfMUF"
+          "_id": "lS8xike6ve9ZpAvZ",
+          "_key": "!actors.items.effects!cQT8OBd1Rr476m14.v0jTBSf4rPxQGGUq.lS8xike6ve9ZpAvZ"
         }
       ],
       "sort": 300000,
       "ownership": {
         "default": 0
       },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "v0jTBSf4rPxQGGUq",
+      "_key": "!actors.items!cQT8OBd1Rr476m14.v0jTBSf4rPxQGGUq"
+    },
+    {
+      "name": "Lasca da Queda",
+      "type": "gear",
+      "img": "icons/commodities/stone/boulder-grey-blue.webp",
+      "system": {
+        "description": "<p>Um pedaço da pedra da base do castelo, que ainda pesa menos do que devia. Os curiosos de Centória pagam por ele; os sábios da Igreja, mais.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 7,
+        "price": 16,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
       "flags": {
         "eternia": {
-          "monster": {
-            "rule": "struck",
-            "tags": [
-              "Radiance"
-            ],
-            "self": [
-              {
-                "statusId": "frightened"
-              }
-            ]
+          "drop": {
+            "fixed": true,
+            "qty": 1
           }
         }
       },
@@ -418,8 +487,9 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "NVb5XnIkdkPnup5X",
-      "_key": "!actors.items!ixjpdlTXbeWUEtQ4.NVb5XnIkdkPnup5X"
+      "_id": "ncIua8zFJR89KaBL",
+      "sort": 400000,
+      "_key": "!actors.items!cQT8OBd1Rr476m14.ncIua8zFJR89KaBL"
     },
     {
       "name": "Ouro",
@@ -447,7 +517,7 @@
           "drop": {
             "fixed": true,
             "qty": 1,
-            "gold": "2d6*3"
+            "gold": "2d6"
           }
         }
       },
@@ -462,20 +532,20 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "u5eDkcw253rQ1pgC",
-      "sort": 400000,
-      "_key": "!actors.items!ixjpdlTXbeWUEtQ4.u5eDkcw253rQ1pgC"
+      "_id": "JK5bs7zkWjDQx6EE",
+      "sort": 500000,
+      "_key": "!actors.items!cQT8OBd1Rr476m14.JK5bs7zkWjDQx6EE"
     },
     {
-      "name": "Bolsa de Saque",
+      "name": "Lâmina de Alabarda",
       "type": "gear",
-      "img": "icons/containers/bags/coinpouch-leather-grey.webp",
+      "img": "icons/commodities/metal/barstock-broken-steel.webp",
       "system": {
-        "description": "<p>Uma bolsa de couro cheia de coisas que eram de outra pessoa: botões, uma colher de prata, um anel de lata.</p>",
+        "description": "<p>A lâmina da alabarda, de um aço azulado que os ferreiros do Império não sabem fazer.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 6,
+        "rank": 7,
         "price": 30,
         "equipped": false,
         "skillText": "",
@@ -509,21 +579,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "GdprzgnnKy2GPBGv",
-      "sort": 500000,
-      "_key": "!actors.items!ixjpdlTXbeWUEtQ4.GdprzgnnKy2GPBGv"
+      "_id": "fTBmJYOitKtTqZxF",
+      "sort": 600000,
+      "_key": "!actors.items!cQT8OBd1Rr476m14.fTBmJYOitKtTqZxF"
     },
     {
-      "name": "Correntes de Goblin",
+      "name": "Elmo de Sentinela",
       "type": "gear",
-      "img": "icons/commodities/metal/chain-steel.webp",
+      "img": "icons/equipment/head/greathelm-banded-steel.webp",
       "system": {
-        "description": "<p>As correntes com que a tropa amarra o que leva. O ferro é bom: os ferreiros o compram a peso.</p>",
+        "description": "<p>Um elmo feito para um focinho de kobold, com um buraco para cada orelha. Os colecionadores de Centória pagam bem.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 6,
-        "price": 45,
+        "rank": 7,
+        "price": 55,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -556,21 +626,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "B9fmalrkPl5b0hPu",
-      "sort": 600000,
-      "_key": "!actors.items!ixjpdlTXbeWUEtQ4.B9fmalrkPl5b0hPu"
+      "_id": "1SPBXyMcDdfCWnC4",
+      "sort": 700000,
+      "_key": "!actors.items!cQT8OBd1Rr476m14.1SPBXyMcDdfCWnC4"
     },
     {
-      "name": "Estandarte do Bando",
+      "name": "Estandarte do Andar",
       "type": "gear",
-      "img": "icons/sundries/flags/banner-flag-skull-red.webp",
+      "img": "icons/sundries/flags/banner-blue.webp",
       "system": {
-        "description": "<p>O pano que a tropa carrega à frente, pintado com sangue e cinza. A guilda paga por ele como prova de que o bando acabou.</p>",
+        "description": "<p>O pano azul que a Sentinela guardava, com o desenho de uma torre. Os sábios da Igreja dizem que é o brasão do primeiro andar.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 6,
-        "price": 75,
+        "rank": 7,
+        "price": 110,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -603,9 +673,9 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "h2bscz3z9zp6gEXa",
-      "sort": 700000,
-      "_key": "!actors.items!ixjpdlTXbeWUEtQ4.h2bscz3z9zp6gEXa"
+      "_id": "Z6FoOP5OXcsdvjHQ",
+      "sort": 800000,
+      "_key": "!actors.items!cQT8OBd1Rr476m14.Z6FoOP5OXcsdvjHQ"
     }
   ],
   "effects": [],
@@ -621,11 +691,11 @@
     "duplicateSource": null,
     "exportSource": null
   },
-  "sort": 400000,
+  "sort": 300000,
   "ownership": {
     "default": 0
   },
-  "_id": "ixjpdlTXbeWUEtQ4",
-  "folder": "RHS1pble8ESRDgnC",
-  "_key": "!actors!ixjpdlTXbeWUEtQ4"
+  "_id": "cQT8OBd1Rr476m14",
+  "folder": "floINKQ1GrWyM7Jv",
+  "_key": "!actors!cQT8OBd1Rr476m14"
 }

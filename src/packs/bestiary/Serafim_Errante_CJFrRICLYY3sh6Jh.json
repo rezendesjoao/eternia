@@ -1,11 +1,11 @@
 {
-  "name": "O Sem Nome",
+  "name": "Serafim Errante",
   "type": "monster",
-  "img": "systems/eternia/assets/tokens/bestiary/o-sem-nome.webp",
+  "img": "systems/eternia/assets/tokens/bestiary/o-das-seis-asas.webp",
   "system": {
     "health": {
-      "value": 312,
-      "max": 312,
+      "value": 336,
+      "max": 336,
       "mod": 0,
       "rc": 0,
       "jb": 0,
@@ -20,7 +20,7 @@
     "tags": [
       "Boss",
       "Human",
-      "Demon",
+      "Celestial",
       "Stray"
     ],
     "biography": "",
@@ -36,7 +36,7 @@
       },
       "dex": {
         "value": 0,
-        "mod": 5,
+        "mod": 3,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -44,7 +44,7 @@
       },
       "pow": {
         "value": 0,
-        "mod": 3,
+        "mod": 5,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -52,7 +52,7 @@
       },
       "int": {
         "value": 0,
-        "mod": 3,
+        "mod": 4,
         "total": 0,
         "effect": 0,
         "jb": 0,
@@ -74,33 +74,33 @@
     },
     "battle-status": {
       "defense": {
-        "phys": 18,
-        "magic": 15
+        "phys": 24,
+        "magic": 16
       },
       "speed": 2,
-      "initiative": 8
+      "initiative": 7
     },
-    "rank": 8,
+    "rank": 9,
     "idendification": "10",
-    "hateMultiplier": "3",
+    "hateMultiplier": "2",
     "checks": {
       "evasion": {
         "dice": 2,
-        "mod": 5
+        "mod": 4
       },
       "resistance": {
         "dice": 2,
-        "mod": 3
+        "mod": 5
       }
     },
-    "description": "<p>Um Demônio que desceu por uma Fenda até o Abaixo, como o rito das Asas da Treva manda, e voltou sem o próprio nome. A escrita do Abaixo cobre o corpo como armadura, e as asas são de sombra. Ele procura o nome que perdeu na boca dos outros, e quem fala perto dele começa a esquecer o seu.</p><p><b>Na mesa:</b> chefe sozinho de NP 8. Na primeira Manutenção as Asas da Treva se abrem: [Fortalecido: 8], [Último Fôlego] e [Voando] até o fim da cena. A Garra da Treva deixa a [Chama Negra], que não deixa curar; o Nome Apagado é uma Maldição, que o [Silenciado] não para, e deixa o alvo sem as próprias Artes por um turno. Desgarrados lutam sozinhos e são chefes: dá tempo de tentar salvá-los. Matá-lo deixa os itens; salvá-lo deixa uma Conexão.</p>"
+    "description": "<p>Um Celestial que passou uma estação inteira sem dizer o próprio nome, como o rito das Seis Asas pede, e esqueceu como se diz. Tem seis asas, várias auréolas, e a voz soa como sinos: bonita de longe, insuportável de perto. Cura o que encontra pelo caminho, os bichos, as plantas, os inimigos, sem saber por quê.</p><p><b>Na mesa:</b> chefe sozinho de NP 9, que voa e cura. A Voz de Sino deixa [Atordoado] em área; o Canto das Seis Asas cura a ele e aos aliados uma vez por rodada; a Lança de Luz alcança 2 Qd. Defesa Física alta: Artes e magia rendem mais. Desgarrados lutam sozinhos e são chefes: dá tempo de tentar salvá-los. Matá-lo deixa os itens; salvá-lo deixa uma Conexão.</p>"
   },
   "prototypeToken": {
-    "name": "O Sem Nome",
+    "name": "Serafim Errante",
     "displayName": 0,
     "actorLink": false,
     "texture": {
-      "src": "systems/eternia/assets/tokens/bestiary/o-sem-nome.webp",
+      "src": "systems/eternia/assets/tokens/bestiary/o-das-seis-asas.webp",
       "scaleX": 1,
       "scaleY": 1,
       "offsetX": 0,
@@ -191,17 +191,18 @@
   },
   "items": [
     {
-      "name": "Garra da Treva",
+      "name": "Lança de Luz",
       "type": "skill",
-      "img": "icons/magic/unholy/hand-claw-fire-blue.webp",
+      "img": "icons/magic/holy/projectiles-blades-salvo-yellow.webp",
       "system": {
-        "description": "<p>[2d6 + 60] de dano físico, e o alvo fica [Chama Negra: 8].</p>",
+        "description": "<p>[2d6 + 40] de dano físico de [Radiância], a até 2 Qd.</p>",
         "tags": [
-          "Melee Attack"
+          "Melee Attack",
+          "Radiance"
         ],
         "timing": "Major",
         "checkType": "",
-        "range": "Close",
+        "range": "2Sq",
         "target": "Single",
         "subtype": "Monster",
         "skillRank": {
@@ -213,13 +214,13 @@
         "macroeffect": "",
         "check": {
           "stat": "",
-          "dice": 3,
-          "mod": 6,
+          "dice": 2,
+          "mod": 7,
           "vs": "evasion"
         },
         "damage": {
           "dice": 2,
-          "mod": 60,
+          "mod": 40,
           "type": "physical",
           "recovery": false,
           "noPower": false
@@ -230,16 +231,7 @@
       "ownership": {
         "default": 0
       },
-      "flags": {
-        "eternia": {
-          "hitStatuses": [
-            {
-              "statusId": "blackFlame",
-              "value": 8
-            }
-          ]
-        }
-      },
+      "flags": {},
       "_stats": {
         "coreVersion": "14.360",
         "systemId": "eternia",
@@ -251,23 +243,22 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "oZXE64rIca5AmxMJ",
-      "_key": "!actors.items!dn2syyY6tBP2PQPW.oZXE64rIca5AmxMJ"
+      "_id": "h2NiHqLziCarqMks",
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.h2NiHqLziCarqMks"
     },
     {
-      "name": "Nome Apagado",
+      "name": "Voz de Sino",
       "type": "skill",
-      "img": "icons/magic/unholy/hand-marked-pink.webp",
+      "img": "icons/magic/holy/meditation-chi-focus-blue.webp",
       "system": {
-        "description": "<p>Uma Maldição: o alvo esquece o próprio nome por um instante. [2d6 + 30] de dano mágico, [Amnésia] e [Maldito]. Por ser Maldição, o [Silenciado] não a impede.</p>",
+        "description": "<p>A voz soa como sinos: área a até 3 Qd, [2d6 + 25] de dano mágico, e quem é atingido fica [Atordoado].</p>",
         "tags": [
-          "Magic Attack",
-          "Curse"
+          "Magic Attack"
         ],
         "timing": "Major",
         "checkType": "",
-        "range": "4Sq",
-        "target": "Single",
+        "range": "3Sq",
+        "target": "Area",
         "subtype": "Monster",
         "skillRank": {
           "value": 1,
@@ -278,13 +269,13 @@
         "macroeffect": "",
         "check": {
           "stat": "",
-          "dice": 3,
-          "mod": 6,
+          "dice": 2,
+          "mod": 7,
           "vs": "resistance"
         },
         "damage": {
           "dice": 2,
-          "mod": 30,
+          "mod": 25,
           "type": "magical",
           "recovery": false,
           "noPower": false
@@ -299,10 +290,7 @@
         "eternia": {
           "hitStatuses": [
             {
-              "statusId": "amnesia"
-            },
-            {
-              "statusId": "cursed"
+              "statusId": "dazed"
             }
           ]
         }
@@ -318,15 +306,68 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "2foGdG8tgYcijZ8H",
-      "_key": "!actors.items!dn2syyY6tBP2PQPW.2foGdG8tgYcijZ8H"
+      "_id": "cEITFe2unCLW4CZw",
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.cEITFe2unCLW4CZw"
     },
     {
-      "name": "Asas da Treva",
+      "name": "Canto das Seis Asas",
       "type": "skill",
-      "img": "icons/magic/unholy/energy-smoke-pink.webp",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-green.webp",
       "system": {
-        "description": "<p>Na primeira Manutenção do combate, as asas de sombra se abrem: ele fica [Fortalecido: 8], [Último Fôlego] e [Voando] até o fim da cena.</p>",
+        "description": "<p>Ação Menor, uma vez por rodada: ele e os aliados a até 3 Qd recuperam [2d6 + 30] PV.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 30,
+          "type": "magical",
+          "recovery": true,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "q4UCxKzgNZeng9ug",
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.q4UCxKzgNZeng9ug"
+    },
+    {
+      "name": "Seis Asas",
+      "type": "skill",
+      "img": "icons/magic/holy/barrier-shield-winged-cross.webp",
+      "system": {
+        "description": "<p>Seis asas, várias auréolas: ele está sempre [Voando].</p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -354,30 +395,54 @@
           "noPower": false
         }
       },
-      "effects": [],
-      "sort": 300000,
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {}
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Seis Asas",
+          "img": "icons/magic/holy/barrier-shield-winged-cross.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "flying"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "vyaXNx7AVoC5dHin",
+          "_key": "!actors.items.effects!CJFrRICLYY3sh6Jh.tsUOeKYQUSOlkc5a.vyaXNx7AVoC5dHin"
+        }
+      ],
+      "sort": 400000,
       "ownership": {
         "default": 0
       },
-      "flags": {
-        "eternia": {
-          "monster": {
-            "rule": "start",
-            "statuses": [
-              {
-                "statusId": "empowered",
-                "value": 8
-              },
-              {
-                "statusId": "lastStand"
-              },
-              {
-                "statusId": "flying"
-              }
-            ]
-          }
-        }
-      },
+      "flags": {},
       "_stats": {
         "coreVersion": "14.360",
         "systemId": "eternia",
@@ -389,8 +454,8 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "Cp9wwcvyswZ20If3",
-      "_key": "!actors.items!dn2syyY6tBP2PQPW.Cp9wwcvyswZ20If3"
+      "_id": "tsUOeKYQUSOlkc5a",
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.tsUOeKYQUSOlkc5a"
     },
     {
       "name": "A Forma Rejeita",
@@ -426,7 +491,7 @@
         }
       },
       "effects": [],
-      "sort": 400000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
@@ -449,8 +514,8 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "WxfDCDOqDaGwIABD",
-      "_key": "!actors.items!dn2syyY6tBP2PQPW.WxfDCDOqDaGwIABD"
+      "_id": "abKM5iTYYoTTyaeD",
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.abKM5iTYYoTTyaeD"
     },
     {
       "name": "Ainda Há Alguém Aí",
@@ -486,7 +551,7 @@
         }
       },
       "effects": [],
-      "sort": 500000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       },
@@ -509,8 +574,8 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "FJiTBFLEMQCzw01q",
-      "_key": "!actors.items!dn2syyY6tBP2PQPW.FJiTBFLEMQCzw01q"
+      "_id": "ZIn0uBhOdJbEEthT",
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.ZIn0uBhOdJbEEthT"
     },
     {
       "name": "Ouro",
@@ -538,7 +603,7 @@
           "drop": {
             "fixed": true,
             "qty": 1,
-            "gold": "2d6*6"
+            "gold": "2d6*7"
           }
         }
       },
@@ -553,21 +618,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "mXCTG9zPwQanYpgQ",
-      "sort": 600000,
-      "_key": "!actors.items!dn2syyY6tBP2PQPW.mXCTG9zPwQanYpgQ"
+      "_id": "ffA4NqeTmh79XGWc",
+      "sort": 700000,
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.ffA4NqeTmh79XGWc"
     },
     {
-      "name": "Escrita Arrancada",
+      "name": "Pena de Luz",
       "type": "gear",
-      "img": "icons/sundries/documents/document-letter-brown.webp",
+      "img": "icons/commodities/biological/wing-bird-white.webp",
       "system": {
-        "description": "<p>Um pedaço da escrita do Abaixo que cobria o corpo dele, solto como pele velha. Os sábios da Igreja queimam o que acham; os outros pagam bem.</p>",
+        "description": "<p>Uma pena branca que ilumina um quarto à noite. A Igreja diz que é pecado tê-la; os nobres a usam no chapéu.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 8,
-        "price": 210,
+        "rank": 9,
+        "price": 240,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -600,21 +665,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "OErK0mOolZhNiD7P",
-      "sort": 700000,
-      "_key": "!actors.items!dn2syyY6tBP2PQPW.OErK0mOolZhNiD7P"
+      "_id": "LFutlKhc9u1rhw5u",
+      "sort": 800000,
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.LFutlKhc9u1rhw5u"
     },
     {
-      "name": "Lágrima de Sombra",
+      "name": "Lágrima Celeste",
       "type": "gear",
-      "img": "icons/commodities/gems/gem-rough-navette-yellow-green.webp",
+      "img": "icons/commodities/gems/gem-faceted-teardrop-blue.webp",
       "system": {
-        "description": "<p>Sombra que endureceu como vidro. Serve de Anima-mundi 8 na Oficina.</p>",
+        "description": "<p>Uma lágrima de luz que não secou. Serve de Anima-mundi 9 na Oficina.</p>",
         "tags": [
-          "Magic Catalyst 8"
+          "Magic Catalyst 9"
         ],
-        "rank": 8,
-        "price": 70,
+        "rank": 9,
+        "price": 90,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -647,21 +712,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "v2M5X77V9Eehfuwu",
-      "sort": 800000,
-      "_key": "!actors.items!dn2syyY6tBP2PQPW.v2M5X77V9Eehfuwu"
+      "_id": "5my84x4N19G5KEbr",
+      "sort": 900000,
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.5my84x4N19G5KEbr"
     },
     {
-      "name": "Asa de Sombra",
+      "name": "Auréola Partida",
       "type": "gear",
-      "img": "icons/commodities/biological/wing-bat-pink.webp",
+      "img": "icons/magic/light/projectile-halo-teal.webp",
       "system": {
-        "description": "<p>Uma asa de sombra que não some com a luz. Ninguém sabe do que é feita.</p>",
+        "description": "<p>Um anel de luz partido ao meio, que ainda flutua sobre a mão de quem o segura.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 8,
-        "price": 390,
+        "rank": 9,
+        "price": 450,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -694,21 +759,21 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "zFSAlCmy7gAem3oN",
-      "sort": 900000,
-      "_key": "!actors.items!dn2syyY6tBP2PQPW.zFSAlCmy7gAem3oN"
+      "_id": "FeUaZfSxk3aOlwd4",
+      "sort": 1000000,
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.FeUaZfSxk3aOlwd4"
     },
     {
-      "name": "O Nome Perdido",
+      "name": "Sino das Seis Asas",
       "type": "gear",
-      "img": "icons/sundries/documents/document-sealed-red-white.webp",
+      "img": "icons/magic/holy/chalice-glowing-gold.webp",
       "system": {
-        "description": "<p>Um papel lacrado que ele carregava sem saber ler: o próprio nome, escrito por alguém que o conhecia. Devolvê-lo é outra história.</p>",
+        "description": "<p>Um sino pequeno, sem badalo, que toca sozinho quando alguém mente perto dele.</p>",
         "tags": [
           "Valuable"
         ],
-        "rank": 8,
-        "price": 520,
+        "rank": 9,
+        "price": 620,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -741,20 +806,20 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "nROOMJltGiherFcH",
-      "sort": 1000000,
-      "_key": "!actors.items!dn2syyY6tBP2PQPW.nROOMJltGiherFcH"
+      "_id": "dSbiJLaZZrkSS1g2",
+      "sort": 1100000,
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.dSbiJLaZZrkSS1g2"
     },
     {
-      "name": "Anima-mundi 9",
+      "name": "Anima-mundi 10",
       "type": "gear",
       "system": {
-        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 9 gasta uma Anima-mundi 9 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 10 ou mais gasta uma Anima-mundi 10. O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
         "tags": [
-          "Magic Catalyst 9"
+          "Magic Catalyst 10"
         ],
-        "rank": 9,
-        "price": 90,
+        "rank": 10,
+        "price": 110,
         "equipped": false,
         "timing": "-",
         "checkType": "-",
@@ -776,7 +841,7 @@
       "flags": {
         "eternia": {
           "icon": {
-            "hue": 288
+            "hue": 324
           },
           "drop": {
             "fixed": true,
@@ -791,25 +856,25 @@
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.items.Item.Jtyb6r0NB3prtgLv",
+        "compendiumSource": "Compendium.eternia.items.Item.KhBPLpcz86fHSG5m",
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "bEIiZetJqCIdJfKH",
-      "sort": 1100000,
-      "_key": "!actors.items!dn2syyY6tBP2PQPW.bEIiZetJqCIdJfKH"
+      "_id": "7wIEgff4wqRywGfA",
+      "sort": 1200000,
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.7wIEgff4wqRywGfA"
     },
     {
-      "name": "Pena de Treva",
+      "name": "Pena da Sexta Asa",
       "type": "gear",
-      "img": "icons/commodities/biological/wing-lizard-purple.webp",
+      "img": "icons/commodities/biological/wing-bird-white.webp",
       "system": {
-        "description": "<p>Uma pena das asas de sombra, fria ao toque. Um [Material-Base] de NP 8.</p>",
+        "description": "<p>A pena maior da sexta asa, que pesa menos que o ar. Um [Material-Base] de NP 9.</p>",
         "tags": [
           "Core Material"
         ],
-        "rank": 8,
-        "price": 160,
+        "rank": 9,
+        "price": 180,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -841,9 +906,9 @@
         "duplicateSource": null,
         "exportSource": null
       },
-      "_id": "QZ2mhvLWUkgieQ1J",
-      "sort": 1200000,
-      "_key": "!actors.items!dn2syyY6tBP2PQPW.QZ2mhvLWUkgieQ1J"
+      "_id": "CMcGpCAg9b6FkCRA",
+      "sort": 1300000,
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.CMcGpCAg9b6FkCRA"
     }
   ],
   "effects": [],
@@ -859,11 +924,11 @@
     "duplicateSource": null,
     "exportSource": null
   },
-  "sort": 400000,
+  "sort": 500000,
   "ownership": {
     "default": 0
   },
-  "_id": "dn2syyY6tBP2PQPW",
-  "folder": "RD9UdfUXgaZZzK88",
-  "_key": "!actors!dn2syyY6tBP2PQPW"
+  "_id": "CJFrRICLYY3sh6Jh",
+  "folder": "jbUZeQwLH6rq3fjD",
+  "_key": "!actors!CJFrRICLYY3sh6Jh"
 }
