@@ -145,6 +145,8 @@ leva fixa; a Grande: 11, 2, `growOn: "fall"` e `wave: [{ uuids: [...], count: 2 
   (+`grow`, até o máximo). Com `growOn: "fall"`, o dano não conta: só quem escreveu e cai (Incapacitado, por qualquer
   coisa) na mesma rodada a faz crescer (o Mestre principal, no `createActiveEffect`).
 - **A leva:** em cada Manutenção do combate da cena, `wave` (ou `first`, na primeira rodada) sai ao lado (`spawnNear`).
+- **O token** é um hexágono de fundo roxo (`assets/tokens/bestiary/fenda-*.webp`), com a luz violeta animada no
+  `prototypeToken.light`: `starlight` na Pequena (2 Qd), `energy` na Grande (3,5 Qd) e `vortex` na Fenda-mãe (4,5 Qd).
 - **Fechar:** no 0, `rift.closed`, o cartão, os itens deixados para quem escreveu a última linha
   (`rollDrops(..., { force: true, receiver })`) e o token escondido. A Fenda não rola itens ao cair (só ao fechar), e a
   passiva Rasgo na Escrita (`eternia.passive.cancel` 999) anula o dano.
@@ -156,7 +158,10 @@ leva fixa; a Grande: 11, 2, `growOn: "fall"` e `wave: [{ uuids: [...], count: 2 
 2. As habilidades com os campos da automação (`check`, `damage`, as flags acima). Um ataque com [Menor] fica no texto.
 3. A tabela: itens guardados com `flags.eternia.drop` (ou, numa ficha do mundo, arrastar itens para a aba).
 4. Os monstros do Império foram gerados por um script (fora do repositório; a fonte é o JSON em `src/packs/bestiary`,
-   pasta O Império), com ids estáveis. Ícones do Foundry pelo caminho (`icons/...`), como nos itens.
+   pasta O Império), com ids estáveis. A arte dos 28 monstros do Império fica em
+   `assets/tokens/bestiary/<nome sem acentos>.webp` (512 px: o token com a moldura, que também é o retrato), e o script
+   põe `img` e `prototypeToken.texture.src` quando o arquivo existe. Um monstro sem arte usa um ícone do Foundry pelo
+   caminho (`icons/...`), como nos itens.
 
 ## Para macros
 

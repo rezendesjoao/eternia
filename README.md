@@ -5,9 +5,12 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.35.0
+## Versão 0.36.0
 
-- **Novo na 0.35.0: o bestiário do Império completo.** Os goblins de incursão, que temem a luz (a Tropa que o dano em
+- **Novo na 0.36.0: a arte do bestiário do Império.** Os 28 monstros do Império têm retrato e token próprios, no traço
+  de anime, com a moldura da Eternia (aro de ouro, fio carmesim e fundo branco); as três Fendas têm um token hexagonal de
+  fundo roxo com brilhos e uma luz violeta animada (veja [O bestiário](#o-bestiário)).
+- **Desde a 0.35.0: o bestiário do Império completo.** Os goblins de incursão, que temem a luz (a Tropa que o dano em
   área acerta em dobro, o Fumaceiro e o Chefe que foge com o saque se não estiver preso), o Oco, os monstros das Quedas
   de Aincrad, a Fenda Grande e a Fenda-mãe, e os seis **Desgarrados**, que podem ser salvos: com 1/4 dos PV, o botão
   **Salvar** no chat, a Negociação contra a Resistência e a Conexão de quem o salvou (veja [O bestiário](#o-bestiário)).
@@ -730,6 +733,11 @@ aba compara a média da tabela com a do Guia de Criação de Inimigos.
   sorteadas em cada Manutenção e cresce 2 quando quem escreveu cai. A **Fenda-mãe** (NP 9, 3×3) tem 6 escritas contra 13,
   solta na primeira rodada a fera com nome dela, o **Uivo Violeta** (NP 8, que deixa os itens dela), e depois 2 ou 3
   feras sorteadas a cada Manutenção; cresce 3 quando quem escreveu cai.
+
+**A arte.** Os 28 monstros do Império têm retrato e token próprios, no traço de anime: o token redondo com a moldura da
+Eternia (aro de ouro, fio carmesim e um losango de cada lado, sobre fundo branco) e, nas Fendas, um hexágono de fundo
+roxo com brilhos e uma luz violeta animada (estrelas na Pequena, um campo de energia na Grande e um vórtice na
+Fenda-mãe). Um monstro já importado num mundo fica com a arte antiga até ser importado de novo do compêndio.
 
 A página **XIV. O BESTIÁRIO** do diário AS REGRAS explica tudo para o Mestre.
 

@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.36.0 — 2026-10-25
+
+### Adicionado
+- **A arte do bestiário do Império:** os 28 monstros ganharam retrato e token próprios, em traço de anime
+  (`assets/tokens/bestiary/`, 512 px): o token redondo com a moldura da Eternia (aro de ouro, fio carmesim e um losango de
+  cada lado, sobre fundo branco com uma sombra leve junto da borda) e, nas três Fendas, um hexágono de fundo roxo-escuro
+  com brilhos. A mesma imagem serve de retrato.
+
+### Mudado
+- **A luz das Fendas:** violeta e animada conforme o tamanho: estrelas piscando na Fenda Pequena, um campo de energia na
+  Fenda Grande e um vórtice na Fenda-mãe. Os monstros já importados para um mundo continuam com a arte antiga até serem
+  importados de novo do compêndio.
+
 ## 0.35.0 — 2026-10-25
 
 ### Adicionado
