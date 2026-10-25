@@ -285,3 +285,46 @@
   -webkit-line-clamp: 2;
   line-height: 1.15;
 }
+
+/* --------------------------------------------------------------------------
+   The offer card (templates/chat/offer-card.hbs): a dusky band, the gold in the seal, Accept and Refuse
+   -------------------------------------------------------------------------- */
+.chat-message .eternia-offer-card { --rk-color: #5a4a2a; }
+.chat-message .eternia-offer-card .rk-seal b { font-size: 16px; }
+.chat-message .eternia-offer-card .of-lead {
+  margin: 0;
+  padding: 8px 10px 4px;
+  color: var(--rk-ink);
+  font: 12.5px/1.4 var(--rk-body);
+}
+.chat-message .eternia-offer-card .rk-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 4px 8px 7px; }
+.chat-message .eternia-offer-card .rk-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 28px;
+  margin: 0;
+  border: 1px solid #b19a55;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #fffaf0, #ead9ae);
+  color: #3d2c08;
+  font: 600 12px/1 var(--rk-sans);
+  cursor: pointer;
+}
+.chat-message .eternia-offer-card .rk-actions button[data-action="offer-accept"] {
+  border-color: #6e5520;
+  background: linear-gradient(180deg, #e3c369, #b8913a);
+  color: #2a1e05;
+}
+.chat-message .eternia-offer-card .rk-actions button:hover { filter: brightness(1.06); }
+.chat-message .eternia-offer-card .rk-state {
+  margin: 0;
+  padding: 2px 9px 8px;
+  color: var(--rk-soft);
+  font: italic 12px/1.35 var(--rk-body);
+  text-align: center;
+}
+
+/* The monster sheet's crown (the named beast, GM): next to the chat button, as the character sheet's wizard. */
+.lhpf .char-level .rank-up.named-beast { margin-left: -4px; }

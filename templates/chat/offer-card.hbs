@@ -1,0 +1,24 @@
+{{!-- A monster's offer in the chat (module/bestiary/rules.mjs, the rule "offer"): the rank card's look, the gold in the
+     seal, what it offers, and Accept and Refuse while it is open; then the answer. --}}
+<div class="eternia-rank-card eternia-offer-card" aria-label="{{eyebrow}}: {{name}}">
+	<header class="rk-head">
+		<img src="{{img}}" alt="">
+		<div class="rk-title">
+			<small><i class="fa-solid fa-handshake"></i>{{eyebrow}}</small>
+			<h3>{{name}}</h3>
+		</div>
+		<div class="rk-seal" aria-label="{{goldLabel}} {{gold}}">
+			<small>{{goldLabel}}</small>
+			<span><b>{{gold}}</b></span>
+		</div>
+	</header>
+	<p class="of-lead">{{lead}}</p>
+	{{#if open}}
+	<div class="rk-actions of-actions">
+		<button type="button" data-action="offer-accept"><i class="fa-solid fa-coins"></i>{{accept}}</button>
+		<button type="button" data-action="offer-refuse"><i class="fa-solid fa-xmark"></i>{{refuse}}</button>
+	</div>
+	{{else}}
+	<p class="rk-state">{{state}}</p>
+	{{/if}}
+</div>

@@ -18,6 +18,7 @@
 		</div>
 		<div class="char-level">
 			<button type="button" class="rank-up" data-action="monster-send-to-chat" data-tooltip="{{localize 'ETERNIA.Sheet.Monster.SendHint'}}"><i class="fa-solid fa-comment"></i></button>
+			{{#if lh.gm}}<button type="button" class="rank-up named-beast" data-action="named-beast" data-tooltip="{{localize 'ETERNIA.Named.Hint'}}"><i class="fa-solid fa-crown"></i></button>{{/if}}
 			<div class="level" data-tooltip="{{localize 'ETERNIA.Sheet.Monster.Level'}}{{#if modified.rank}} · {{modified.rank.tooltip}}{{/if}}">
 				<svg class="badge" viewBox="0 0 40 43" aria-hidden="true"><path d="M20 1.5 37.5 6.5V21.5C37.5 31.5 29.5 38 20 41.5 10.5 38 2.5 31.5 2.5 21.5V6.5Z"></path></svg>
 				<label>{{localize 'ETERNIA.Sheet.Monster.LevelShort'}}</label>

@@ -36,6 +36,7 @@ import { passiveCancels } from "./effects.mjs";
 import { healTaken } from "./immortal.mjs";
 import { motorAbsorbs } from "../classes/motor.mjs";
 import { decoyTakes } from "./copies.mjs";
+import { tagLabel } from "../i18n/terms.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -57,6 +58,23 @@ const INVERTED_GIFTS = { empowered: "weakened", regen: "decay" };
 
 /** How much damage a [Grudge] keeps: its bearer's CR times this. */
 const GRUDGE_CAP = 4;
+
+/**
+ * The tag of a damage card that a creature eats (an active effect with `flags.eternia.absorb`, a list of tags: the
+ * Glowing Lizard eats the light), as the table writes it, or null.
+ * @param {Actor} actor
+ * @param {object} card
+ * @returns {string|null}
+ */
+function absorbedTag(actor, card) {
+  for (const effect of actor?.allApplicableEffects?.() ?? []) {
+    const tags = effect.active ? effect.getFlag(SYSTEM_ID, "absorb") : null;
+    if (!Array.isArray(tags)) continue;
+    const tag = tags.find(t => (card.tags ?? []).some(c => String(c).toLowerCase() === String(t).toLowerCase()));
+    if (tag) return tagLabel(tag);
+  }
+  return null;
+}
 
 /* -------------------------------------------- */
 /*  Damage cards                                */
@@ -118,6 +136,13 @@ export function beforeDamage(actor, card, direct) {
   }
   result.halve = has(actor, "petrified");
   result.invert = !direct && (card.type === "magical") && has(actor, "inversion");
+  // A creature that eats a kind of damage (a passive effect with `flags.eternia.absorb: ["Radiance"]`, a monster of the
+  // bestiary): that damage heals it, by the Inversion's rule
+  const eats = direct ? null : absorbedTag(actor, card);
+  if (eats) {
+    result.invert = true;
+    result.absorbs = eats;
+  }
   // [Soaked]: the water carries the lightning and the cold.
   const soaked = rating(actor, "soaked");
   if ((soaked > 0) && (hasTag(card, "shock") || hasTag(card, "cold"))) {

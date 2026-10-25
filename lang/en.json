@@ -1376,7 +1376,8 @@
       "NoRankSkill": "Its number of uses is the SR of \"{skill}\", which the character doesn't have.",
       "AlreadyActed": "Only before your Main Process this round (Not Acted).",
       "Incapacitated": "{name} is Incapacitated and can't act.",
-      "ConfirmEyebrow": "Before you use it"
+      "ConfirmEyebrow": "Before you use it",
+      "Recharging": "{skill} is recharging: each Setup Process, a 1d6 says whether it comes back."
     },
     "Cards": {
       "RollDamage": "Roll damage",
@@ -1827,7 +1828,8 @@
         "Inverted": "Inversion: the damage heals (+{n})",
         "Breath": "Extra Breath ({effect}): stays at {hp} HP, {left} left",
         "ComboBroken": "The blow broke the Combo",
-        "Decoy": "{effect}: the blow hits a copy"
+        "Decoy": "{effect}: the blow hits a copy",
+        "Absorbed": "Eats {tag}: the damage heals (+{n})"
       },
       "CursedNoHeal": "{name} is Cursed: recovers no HP.",
       "CursedBlocks": "{name} is Cursed: gets no {status}.",
@@ -3975,7 +3977,20 @@
       "Bigger": "{name} no longer fits in one square.",
       "Threshold": "{name} gets {statuses} until the end of the scene.",
       "Cleanse": "{name} shakes off {statuses}.",
-      "Summon": "{name} calls: {list}."
+      "Summon": "{name} calls: {list}.",
+      "Recharged": "{name} recharged {skill} (1d6: {n}).",
+      "Recharging": "{name}'s {skill} is still recharging (1d6: {n}).",
+      "Struck": "{name} took [{tag}]: {what}.",
+      "StruckStrip": "loses {statuses}",
+      "Stole": "{name} stole {n} G from {target}.",
+      "StoleNothing": "{name} reached into {target}'s purse, but found no gold.",
+      "OfferLead": "{monster} offers {gold} G to be let go. Whoever accepts takes the gold, and it leaves the scene with no drops.",
+      "OfferAccept": "Accept",
+      "OfferRefuse": "Refuse",
+      "OfferGold": "Gold",
+      "OfferAccepted": "{name} took the {gold} G: {monster} went away.",
+      "OfferRefused": "Refused: {monster} keeps fighting.",
+      "OfferNoCharacter": "Select your character's token (or have a character assigned) to accept."
     },
     "Rift": {
       "Eyebrow": "Rift",
@@ -3997,6 +4012,55 @@
       "ClosedBy": "{name} wrote the last line: the Rift closed.",
       "Setup": "Round {round}: the Rift throbs.",
       "Wave": "Came out of the Rift: {list}."
+    },
+    "Named": {
+      "Hint": "Name it: a named beast made from this monster (GM)",
+      "Title": "Name a beast: {name}",
+      "Lead": "A named beast is the one a whole guild hunts. A new monster is made from this one, in the same folder: Level +2, attributes +1, Defenses +3, 3 Fate, the [Boss] tag, stronger attacks, its drops ×4 with an Anima-mundi and a trophy, and a Mark of the Weight.",
+      "Name": "Name",
+      "NamePlaceholder": "What the taverns call it",
+      "Comes": "Comes",
+      "WithPack": "With its pack (HP ×2)",
+      "Alone": "Alone (HP ×4)",
+      "Mark": "Mark of the Weight",
+      "Confirm": "Name it",
+      "Eyebrow": "Named beast",
+      "Done": "{name} got its name, made from {from}: Level {rank}.",
+      "header": "<strong>Named beast</strong>, made from {from}: Level {before} → {rank}, and its Window shows the new Authority. Mark of the Weight: {mark}.",
+      "skin": {
+        "name": "Anima Hide",
+        "hint": "cancels damage",
+        "text": "Passive. Its Anima-laden hide cancels {n} of all the damage it takes (Cancel {n})."
+      },
+      "eyes": {
+        "name": "Rift Eyes",
+        "hint": "+1 die on Evasion, immune to Blinded, Frightened and Confused",
+        "text": "Passive. It sees through the writing of the world: +1 die on Evasion checks, and it can't be [Blinded], [Frightened] or [Confused]."
+      },
+      "fury": {
+        "name": "Fury of the Weight",
+        "hint": "Berserk and Hasted at half HP",
+        "text": "Passive. The first time its HP fall to half, it gets [Berserk: {n}] and [Hasted] until the end of the scene."
+      },
+      "sparks": {
+        "name": "Spark Blood",
+        "hint": "whoever hurts it is Shocked",
+        "text": "Passive. Its blood is sparks: whoever damages it becomes [Shocked: {n}]."
+      },
+      "regen": {
+        "name": "Regeneration of the Weight",
+        "hint": "Regen, cut by fire",
+        "text": "Passive. In a combat it has [Regen: {n}], back each Setup Process. [Flame] damage takes the Regen away until the next Setup Process."
+      },
+      "breath": {
+        "name": "Breath of the Weight",
+        "hint": "an area breath that recharges",
+        "text": "Major action. A magic attack in an area (2 squares) against Resistance: 2d6+{n} magic damage. Once used, it comes back only when the 1d6 of a Setup Process gives 5 or more."
+      },
+      "trophy": {
+        "name": "Trophy of {name}",
+        "text": "What one takes from {name} to prove the hunt. Worth a good price at the guild and with collectors."
+      }
     }
   }
 }

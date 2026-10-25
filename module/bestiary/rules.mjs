@@ -13,8 +13,20 @@
  *   cleanse    { count }        Passive. In each Cleanup Process it ends `count` of its Bad Statuses.
  *   summon     { actors: [{ uuid, count }], radius }  Its use: those monsters come out next to it, in its combat, and
  *                               leave no drops (bestiary/spawn.mjs).
+ *   recharge   { min }          Its use spends it until a 1d6 of a Setup Process gives `min` (5) or more
+ *                               (bestiary/recharge.mjs; automation/use.mjs warns while it is spent).
+ *   struck     { tags, self: [{ statusId, value }], strip: [statusId] }  Passive. A damage card with one of the tags
+ *                               that hurts it gives it those statuses and ends those (the fire that cracks the crystal
+ *                               hide, the fire that stops the regeneration until the next Setup).
+ *   pickpocket { gold }         Its use readies a light hand (an effect with `flags.eternia.pickpocket`): its next
+ *                               damage on a character takes that gold (a formula, "2d6*5") from the purse, kept in the
+ *                               monster's `stolenGold` (it comes back with its drops).
+ *   offer      { gold }         Its use offers that gold (a formula) to be let go: a card with Accept and Refuse; on
+ *                               Accept the gold goes to whoever accepted and the monster leaves (no drops).
  * The rules run on the window that changed the monster (the GM's): the use of a skill (`eternia.skillUsed`), its HP,
- * its fall (Incapacitated) and the Cleanup Process of its combat.
+ * its fall (Incapacitated), the damage cards (`eternia.damaged`) and the Setup and Cleanup Processes of its combat.
+ * What a player's window sees (the hand on its character, the answer to an offer) goes to the GM by the socket
+ * (`bestiaryPickpocket`, `bestiaryOffer`).
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isLocalChange, isPrimaryGM } from "../helpers/clients.mjs";
@@ -24,7 +36,13 @@ import { statusDefinition } from "../helpers/statuses.mjs";
 import { createDamageCard } from "../helpers/combat-cards.mjs";
 import { takeHealing } from "../conditions/damage.mjs";
 import { removeStatuses, rulesOn, sameActor, sourcesOf } from "../conditions/rules.mjs";
+import { registerHandler, request } from "../piles/pile-socket.mjs";
+import { getGold, goldPath } from "../piles/pile-utils.mjs";
+import { tagLabel } from "../i18n/terms.mjs";
 import { spawnNear } from "./spawn.mjs";
+import { RECHARGING, recharges } from "./recharge.mjs";
+
+const OFFER_TEMPLATE = "systems/eternia/templates/chat/offer-card.hbs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -162,14 +180,194 @@ async function cleanupCleanse(combat) {
 }
 
 /* -------------------------------------------- */
+/*  The recharge                                */
+/* -------------------------------------------- */
+
+/** A skill that recharges was used: spent. */
+async function spend(actor, item) {
+  const list = new Set(actor.getFlag(SYSTEM_ID, RECHARGING) ?? []);
+  list.add(item.id);
+  await actor.setFlag(SYSTEM_ID, RECHARGING, [...list]);
+}
+
+/** The Setup Process of a combat: a 1d6 for each spent skill of its monsters; `min` or more, it is back. */
+async function setupRecharge(combat) {
+  const seen = new Set();
+  for (const combatant of combat.combatants) {
+    const actor = combatant.actor;
+    const spent = actor?.getFlag(SYSTEM_ID, RECHARGING) ?? [];
+    if (!actor || seen.has(actor.uuid) || !spent.length || actor.statuses.has("dead")) continue;
+    seen.add(actor.uuid);
+    const left = [];
+    for (const id of spent) {
+      const item = actor.items.get(id);
+      if (!item || !recharges(item)) continue;
+      const roll = await new Roll("1d6").evaluate();
+      const back = roll.total >= (toInt(ruleOf(item).min) || 5);
+      if (!back) left.push(id);
+      await postSummary(item.name, [L(back ? "Bestiary.Recharged" : "Bestiary.Recharging", { name: actorName(actor), skill: item.name, n: roll.total })]);
+    }
+    await actor.setFlag(SYSTEM_ID, RECHARGING, left);
+  }
+}
+
+/* -------------------------------------------- */
+/*  Struck by a tag                             */
+/* -------------------------------------------- */
+
+/** A damage card hurt a monster (on the window that applied it): the tags it is weak or vulnerable to. */
+async function onStruck(actor, card, { amount = 0, absorbed = 0, attacker = null } = {}) {
+  if ((actor?.type !== "monster") || !actor.isOwner || ((toInt(amount) <= 0) && (toInt(absorbed) <= 0))) return;
+  const tags = (card?.tags ?? []).map(t => String(t).toLowerCase());
+  for (const item of withRule(actor, "struck")) {
+    const rule = ruleOf(item);
+    const tag = (rule.tags ?? []).find(t => tags.includes(String(t).toLowerCase()));
+    if (!tag) continue;
+    const parts = [];
+    const strip = (rule.strip ?? []).filter(id => actor.statuses.has(id));
+    if (strip.length) {
+      await removeStatuses(actor, strip);
+      parts.push(L("Bestiary.StruckStrip", { statuses: strip.map(label).join(", ") }));
+    }
+    const given = await giveStatuses(actor, rule.self, attacker ?? actor);
+    if (given.length) parts.push(given.join(", "));
+    if (parts.length) await postSummary(item.name, [L("Bestiary.Struck", { name: actorName(actor), tag: tagLabel(tag), what: parts.join("; ") })]);
+  }
+}
+
+/* -------------------------------------------- */
+/*  The light hand                              */
+/* -------------------------------------------- */
+
+/** The ready hand of an attacker (its effect), or null. */
+const handOf = attacker => [...(attacker?.effects ?? [])].find(e => e.active && e.getFlag(SYSTEM_ID, "pickpocket")) ?? null;
+
+/** A damage card hurt someone: an attacker with a ready hand takes gold from that character (by the GM). */
+async function onHit(actor, card, { amount = 0, attacker = null } = {}) {
+  if ((toInt(amount) <= 0) || (actor?.type !== "character") || !handOf(attacker)) return;
+  await request("bestiaryPickpocket", { attackerUuid: attacker.uuid, targetUuid: actor.uuid });
+}
+
+/** The GM takes the gold: from the character's purse (what it has) to the monster's stolen gold, and the hand ends. */
+async function pickpocket({ attackerUuid, targetUuid }) {
+  const attacker = fromUuidSync(attackerUuid);
+  const target = fromUuidSync(targetUuid);
+  const hand = handOf(attacker);
+  if (!hand || !(target instanceof Actor)) return { ok: true };
+  const formula = String(hand.getFlag(SYSTEM_ID, "pickpocket")?.gold ?? "2d6*5").replace(/×/g, "*");
+  const rolled = toInt((await new Roll(formula).evaluate()).total);
+  const taken = Math.min(rolled, getGold(target));
+  await attacker.deleteEmbeddedDocuments("ActiveEffect", [hand.id]);
+  if (taken > 0) {
+    await target.update({ [goldPath(target)]: getGold(target) - taken });
+    await attacker.setFlag(SYSTEM_ID, "stolenGold", toInt(attacker.getFlag(SYSTEM_ID, "stolenGold")) + taken);
+  }
+  await postSummary(hand.name, [L(taken > 0 ? "Bestiary.Stole" : "Bestiary.StoleNothing", { name: actorName(attacker), target: actorName(target), n: taken })]);
+  return { ok: true };
+}
+
+/* -------------------------------------------- */
+/*  The offer                                   */
+/* -------------------------------------------- */
+
+/** A monster offers gold to be let go: the card with Accept and Refuse. */
+async function offer(actor, item) {
+  const rule = ruleOf(item);
+  const gold = toInt((await new Roll(String(rule.gold ?? "2d6*10").replace(/×/g, "*")).evaluate()).total);
+  const data = { actorUuid: actor.uuid, itemName: item.name, gold, state: "open", receiver: null };
+  await ChatMessage.create({
+    speaker: { alias: actorName(actor) },
+    content: await renderOffer(actor, data),
+    flags: { [SYSTEM_ID]: { offerCard: data } }
+  });
+}
+
+/** The offer card's HTML. */
+function renderOffer(actor, data) {
+  const state = (data.state === "accepted") ? L("Bestiary.OfferAccepted", { name: data.receiver, gold: data.gold, monster: actorName(actor) })
+    : (data.state === "refused") ? L("Bestiary.OfferRefused", { monster: actorName(actor) }) : null;
+  return foundry.applications.handlebars.renderTemplate(OFFER_TEMPLATE, {
+    img: actor.img, name: actorName(actor), eyebrow: data.itemName, gold: `${data.gold} G`,
+    lead: L("Bestiary.OfferLead", { monster: actorName(actor), gold: data.gold }), open: data.state === "open", state,
+    accept: L("Bestiary.OfferAccept"), refuse: L("Bestiary.OfferRefuse"), goldLabel: L("Bestiary.OfferGold")
+  });
+}
+
+/** Who answers an offer from this window: the character of the player (its token first), or one the GM picks. */
+async function answerer() {
+  const controlled = (canvas?.tokens?.controlled ?? []).map(t => t.actor).find(a => a?.type === "character" && a.isOwner);
+  if (controlled) return controlled;
+  if (!game.user.isGM) return game.user.character ?? null;
+  const party = game.actors.filter(a => (a.type === "character") && a.hasPlayerOwner).sort((a, b) => a.name.localeCompare(b.name));
+  if (!party.length) return null;
+  const data = await foundry.applications.api.DialogV2.input({
+    window: { title: L("Bestiary.OfferAccept"), icon: "fa-solid fa-coins" },
+    classes: ["eternia", "lhd-box"],
+    content: `<div class="form-group"><label>${L("Drops.ForWhom")}</label><select name="who">${party.map(a => `<option value="${a.uuid}">${foundry.utils.escapeHTML(a.name)}</option>`).join("")}</select></div>`,
+    ok: { label: L("Bestiary.OfferAccept"), icon: "fa-solid fa-check" }
+  });
+  return data?.who ? fromUuidSync(data.who) : null;
+}
+
+/** The GM answers an offer: the gold to whoever accepted, the monster leaves; or it is refused. */
+async function answerOffer({ messageId, accept, receiverUuid }) {
+  const message = game.messages.get(messageId);
+  const data = message?.getFlag(SYSTEM_ID, "offerCard");
+  if (!data || (data.state !== "open")) return { ok: true };
+  const actor = fromUuidSync(data.actorUuid);
+  const receiver = receiverUuid ? fromUuidSync(receiverUuid) : null;
+  if (accept && (receiver instanceof Actor)) {
+    await receiver.update({ [goldPath(receiver)]: getGold(receiver) + data.gold });
+    data.state = "accepted";
+    data.receiver = actorName(receiver);
+    if (actor) await leave(actor);
+  }
+  else data.state = "refused";
+  await message.update({ content: await renderOffer(actor ?? { img: "", name: "?" }, data), [`flags.${SYSTEM_ID}.offerCard`]: data });
+  return { ok: true };
+}
+
+/** A monster leaves the scene: its token hides, out of the combat, and it leaves no drops. */
+async function leave(actor) {
+  await actor.setFlag(SYSTEM_ID, "noLoot", true);
+  const token = tokenOf(actor);
+  for (const combat of game.combats) {
+    const combatant = combat.combatants.find(c => (c.tokenId === token?.id) || (c.actor?.uuid === actor.uuid));
+    if (combatant) await combatant.update({ defeated: true });
+  }
+  if (token) await token.update({ hidden: true });
+}
+
+/** The offer card's buttons. */
+function onRenderOffer(message, html) {
+  const data = message.getFlag(SYSTEM_ID, "offerCard");
+  if (!data) return;
+  const actions = html.querySelector(".rk-actions");
+  if (!actions) return;
+  if (data.state !== "open") return actions.remove();
+  actions.querySelector('[data-action="offer-accept"]')?.addEventListener("click", async event => {
+    event.preventDefault();
+    const receiver = await answerer();
+    if (!receiver) return ui.notifications.warn(L("Bestiary.OfferNoCharacter"));
+    await request("bestiaryOffer", { messageId: message.id, accept: true, receiverUuid: receiver.uuid });
+  });
+  actions.querySelector('[data-action="offer-refuse"]')?.addEventListener("click", event => {
+    event.preventDefault();
+    request("bestiaryOffer", { messageId: message.id, accept: false });
+  });
+}
+
+/* -------------------------------------------- */
 /*  Hooks                                       */
 /* -------------------------------------------- */
 
-/** A skill was used (on the window of its user): grow, summon. */
+/** A skill was used (on the window of its user): grow, summon, spend a recharge, offer. */
 async function onSkillUsed(item, { actor }) {
   const rule = ruleOf(item);
   if (!rule || !actor?.isOwner || (actor.type !== "monster")) return;
   if (rule.rule === "grow") await grow(actor, item);
+  if (rule.rule === "recharge") await spend(actor, item);
+  if (rule.rule === "offer") await offer(actor, item);
   if (rule.rule === "summon") {
     const token = tokenOf(actor);
     const tokens = token ? await spawnNear(token, rule.actors ?? [], { radius: toInt(rule.radius) || 2, by: actor.uuid }) : [];
@@ -179,6 +377,22 @@ async function onSkillUsed(item, { actor }) {
 
 /** Call during the `init` hook. */
 export function registerMonsterRules() {
+  registerHandler("bestiaryPickpocket", payload => pickpocket(payload));
+  registerHandler("bestiaryOffer", payload => answerOffer(payload));
+  Hooks.on("renderChatMessageHTML", onRenderOffer);
+  Hooks.on("eternia.damaged", (actor, card, context) => {
+    onStruck(actor, card, context ?? {}).catch(err => console.error(`${SYSTEM_ID} | Struck rule failed`, err));
+    onHit(actor, card, context ?? {}).catch(err => console.error(`${SYSTEM_ID} | Light hand failed`, err));
+  });
+  // A combat that ends: the spent skills of its monsters are back
+  Hooks.on("deleteCombat", combat => {
+    if (!isPrimaryGM()) return;
+    for (const combatant of combat.combatants) {
+      const actor = combatant.actor;
+      if (actor?.getFlag(SYSTEM_ID, RECHARGING)?.length) actor.unsetFlag(SYSTEM_ID, RECHARGING).catch(() => null);
+    }
+  });
+  foundry.applications.handlebars.loadTemplates([OFFER_TEMPLATE]);
   Hooks.on("eternia.skillUsed", (item, context) => onSkillUsed(item, context ?? {}).catch(err => console.error(`${SYSTEM_ID} | Monster rule failed`, err)));
   Hooks.on("updateActor", (actor, changes, options, userId) => {
     if ((actor.type !== "monster") || !isLocalChange(options, userId) || !foundry.utils.hasProperty(changes, "system.health")) return;
@@ -189,10 +403,12 @@ export function registerMonsterRules() {
     if (!(actor instanceof Actor) || (actor.type !== "monster") || !effect.statuses?.has("incapacitated") || !isPrimaryGM()) return;
     onFall(actor).catch(err => console.error(`${SYSTEM_ID} | Fall rule failed`, err));
   });
+  // The Setup Process recharges the spent skills; the Cleanup, the monsters that clear themselves
   wrap(CONFIG.Combat.documentClass.prototype, "_onPhaseStart", async function (original, phase, round, previous) {
     await original.call(this, phase, round, previous);
     const backwards = !!previous && (round < previous.round);
-    if ((phase !== "cleanup") || backwards || !rulesOn()) return;
-    await cleanupCleanse(this).catch(err => console.error(`${SYSTEM_ID} | Cleanse failed`, err));
+    if (backwards || !rulesOn()) return;
+    if (phase === "setup") await setupRecharge(this).catch(err => console.error(`${SYSTEM_ID} | Recharge failed`, err));
+    if (phase === "cleanup") await cleanupCleanse(this).catch(err => console.error(`${SYSTEM_ID} | Cleanse failed`, err));
   });
 }

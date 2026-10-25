@@ -846,7 +846,9 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   lines.push(`${L(direct ? "Mode.direct" : "Applied.Damage")}: ${steps.join(" ")} → ${amount - absorbed} HP`);
   if (covered) lines.push(covered.line);
   if (countered) lines.push(countered.line);
-  if (inverted) lines.push(game.i18n.format("ETERNIA.Conditions.Applied.Inverted", { n: inverted }));
+  if (inverted) lines.push(condition.absorbs
+    ? game.i18n.format("ETERNIA.Conditions.Applied.Absorbed", { n: inverted, tag: condition.absorbs })
+    : game.i18n.format("ETERNIA.Conditions.Applied.Inverted", { n: inverted }));
   if (pierceBarrier && (barrier > 0) && !condition.immune) {
     barrier = 0;
     lines.push(L("Applied.BarrierBroken"));

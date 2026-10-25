@@ -1,0 +1,655 @@
+{
+  "name": "Aranha das Galerias",
+  "type": "monster",
+  "img": "icons/creatures/invertebrates/spider-mandibles-brown.webp",
+  "system": {
+    "health": {
+      "value": 46,
+      "max": 46,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Natural",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 12,
+        "magic": 12
+      },
+      "speed": 2,
+      "initiative": 5
+    },
+    "rank": 4,
+    "idendification": "8",
+    "hateMultiplier": "3",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 2
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>Uma aranha do tamanho de um cavalo, de pernas peludas e oito olhos que refletem a lanterna, que faz ninho no teto das galerias abandonadas. Espera no escuro, desce no fio e puxa a presa para cima. O veneno não mata depressa: primeiro amolece, depois prende, e então ela come com calma.</p><p><b>Na mesa:</b> a emboscada da mina funda. Ela começa [Oculta] no teto (a Emboscada do Teto, antes do combate) e o primeiro golpe dói muito. O Fio de Teia prende um alvo de longe e o puxa para junto dela; a Picada envenena, quem já estava envenenado fica [Lento], e quem já estava lento, [Paralisado]. Tirar o veneno (uma Ação Maior) quebra a escada.</p>"
+  },
+  "prototypeToken": {
+    "name": "Aranha das Galerias",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/invertebrates/spider-mandibles-brown.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 2,
+    "height": 2,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Fio de Teia",
+      "type": "skill",
+      "img": "icons/creatures/invertebrates/spider-web-black.webp",
+      "system": {
+        "description": "<p>[2d6 + 25] de dano físico. O fio cola: o alvo é puxado para o quadrado da aranha, engajado com ela, e fica [Enraizado].</p>",
+        "tags": [
+          "Ranged Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 3,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 25,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "pull"
+            }
+          ],
+          "hitStatuses": [
+            {
+              "statusId": "rooted"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "AE0M6fcD4hCaOscJ",
+      "_key": "!actors.items!zzg30FEMmez4E8gL.AE0M6fcD4hCaOscJ"
+    },
+    {
+      "name": "Picada que Sobe",
+      "type": "skill",
+      "img": "icons/creatures/abilities/fang-tooth-poison-green.webp",
+      "system": {
+        "description": "<p>[2d6 + 33] de dano físico, e o alvo fica [Envenenado: 6]. Se já estava [Envenenado], fica também [Lento]; se já estava [Lento], fica [Paralisado].</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 3,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 33,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "poisoned",
+              "value": 6
+            }
+          ],
+          "escalate": [
+            {
+              "if": "poisoned",
+              "add": [
+                {
+                  "statusId": "slowed"
+                }
+              ]
+            },
+            {
+              "if": "slowed",
+              "add": [
+                {
+                  "statusId": "paralyzed"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "FuchOH6ml2oTgZWu",
+      "_key": "!actors.items!zzg30FEMmez4E8gL.FuchOH6ml2oTgZWu"
+    },
+    {
+      "name": "Emboscada do Teto",
+      "type": "skill",
+      "img": "icons/creatures/invertebrates/spider-web-red.webp",
+      "system": {
+        "description": "<p>Antes do combate, a aranha sobe ao teto da galeria: fica [Oculta], e o próximo dano dela soma +2d6.</p>",
+        "tags": [],
+        "timing": "Briefing",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "statusData": {
+                "statusId": "hidden"
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Emboscada do Teto: oculta",
+          "img": "icons/creatures/invertebrates/spider-web-red.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "hidden"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "QZcxDgUFCluA0S0t",
+          "_key": "!actors.items.effects!zzg30FEMmez4E8gL.jh1pXRJsm2sREhaa.QZcxDgUFCluA0S0t"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "consumeOn": "attack",
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Emboscada do Teto: o bote",
+          "img": "icons/creatures/invertebrates/spider-web-red.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.roll.damage.dice",
+                "type": "add",
+                "value": "2",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "weRfihyuwgCHnnZh",
+          "_key": "!actors.items.effects!zzg30FEMmez4E8gL.jh1pXRJsm2sREhaa.weRfihyuwgCHnnZh"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "jh1pXRJsm2sREhaa",
+      "_key": "!actors.items!zzg30FEMmez4E8gL.jh1pXRJsm2sREhaa"
+    },
+    {
+      "name": "Fio de Teia das Galerias",
+      "type": "gear",
+      "img": "icons/commodities/cloth/cloth-bolt-glow-white.webp",
+      "system": {
+        "description": "<p>Um novelo de fio de teia, forte como corda e fino como cabelo. Os tecelões fazem dele cordas de arco e redes de pesca.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 4,
+        "price": 25,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "0AhVB2umJWVGhT8N",
+      "sort": 400000,
+      "_key": "!actors.items!zzg30FEMmez4E8gL.0AhVB2umJWVGhT8N"
+    },
+    {
+      "name": "Glândula de Veneno",
+      "type": "gear",
+      "img": "icons/consumables/potions/bottle-conical-corked-labeled-skull-poison-green.webp",
+      "system": {
+        "description": "<p>O saco de veneno da aranha, num frasco bem fechado. Os alquimistas pagam bem; os contrabandistas, melhor ainda.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 4,
+        "price": 50,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "hfcCxg4ZdBUehNny",
+      "sort": 500000,
+      "_key": "!actors.items!zzg30FEMmez4E8gL.hfcCxg4ZdBUehNny"
+    },
+    {
+      "name": "Olhos de Aranha",
+      "type": "gear",
+      "img": "icons/commodities/biological/eye-lizard-orange.webp",
+      "system": {
+        "description": "<p>Os oito olhos, secos e inteiros, que ainda refletem a luz. Os curiosos de Centória os compram como amuleto contra o escuro.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 4,
+        "price": 75,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "09cFBRaCvULFLOLL",
+      "sort": 600000,
+      "_key": "!actors.items!zzg30FEMmez4E8gL.09cFBRaCvULFLOLL"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "zzg30FEMmez4E8gL",
+  "folder": "5id5icbMj1d24RP5",
+  "_key": "!actors!zzg30FEMmez4E8gL"
+}

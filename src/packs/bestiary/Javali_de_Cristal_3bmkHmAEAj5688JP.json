@@ -1,0 +1,691 @@
+{
+  "name": "Javali de Cristal",
+  "type": "monster",
+  "img": "icons/commodities/treasure/figurine-boar.webp",
+  "system": {
+    "health": {
+      "value": 73,
+      "max": 73,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Natural"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 14,
+        "magic": 7
+      },
+      "speed": 2,
+      "initiative": 3
+    },
+    "rank": 3,
+    "idendification": "7",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 2
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Um javali do tamanho de uma carroça, de presas de Anima-mundi e placas de cristal azul no couro, onde o Peso o escreveu por cima. Fuça as encostas atrás dos veios rasos e não sai do caminho de ninguém. Quando investe, o chão treme; quando arde, o cristal racha e canta.</p><p><b>Na mesa:</b> a parede da cena. O Couro de Anima tira 5 de todo dano, e a Ferocidade o deixa de pé uma vez. O fogo é a resposta: cada golpe de [Chama] o deixa [Fissurado], e no terceiro a guarda dele quebra. A Investida tira o alvo da linha de frente e o deixa no chão.</p>"
+  },
+  "prototypeToken": {
+    "name": "Javali de Cristal",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/commodities/treasure/figurine-boar.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Presas de Cristal",
+      "type": "skill",
+      "img": "icons/commodities/bones/horn-jagged-grey-blue.webp",
+      "system": {
+        "description": "<p>[2d6 + 19] de dano físico.</p><p>(Menor): +5 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 19,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "aY9QADTqp2V5tTks",
+      "_key": "!actors.items!3bmkHmAEAj5688JP.aY9QADTqp2V5tTks"
+    },
+    {
+      "name": "Investida de Cristal",
+      "type": "skill",
+      "img": "icons/creatures/abilities/bull-head-horns-glowing.webp",
+      "system": {
+        "description": "<p>O javali corre até 3 Qd em linha reta até o alvo e o acerta com as presas: [2d6 + 14] de dano físico, o alvo é empurrado 2 Qd para longe dele e fica [Derrubado].</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 14,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "push",
+              "value": 2
+            }
+          ],
+          "hitStatuses": [
+            {
+              "statusId": "prone"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "o4cbwiud6GyZBSyL",
+      "_key": "!actors.items!3bmkHmAEAj5688JP.o4cbwiud6GyZBSyL"
+    },
+    {
+      "name": "Ferocidade",
+      "type": "skill",
+      "img": "icons/creatures/abilities/cougar-roar-rush-orange.webp",
+      "system": {
+        "description": "<p>Uma vez por cena, quando o dano deixaria este inimigo com 0 PV, ele fica com 1 PV e continua de pé.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "revive": {
+                "uses": 1,
+                "per": "scene",
+                "hp": 1
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Ferocidade",
+          "img": "icons/creatures/abilities/cougar-roar-rush-orange.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "J2q2nmHZvssdpa0m",
+          "_key": "!actors.items.effects!3bmkHmAEAj5688JP.R5dxVZO77PICaYVy.J2q2nmHZvssdpa0m"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "R5dxVZO77PICaYVy",
+      "_key": "!actors.items!3bmkHmAEAj5688JP.R5dxVZO77PICaYVy"
+    },
+    {
+      "name": "Couro de Anima",
+      "type": "skill",
+      "img": "icons/commodities/gems/gem-cluster-blue-white.webp",
+      "system": {
+        "description": "<p>As placas de cristal anulam 5 de todo dano que este inimigo sofre (Anulação 5).</p><p>O dano de [Chama] racha o cristal: este inimigo fica [Fissurado: 1], que acumula até 3; no terceiro, a guarda quebra.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {}
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Couro de Anima",
+          "img": "icons/commodities/gems/gem-cluster-blue-white.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.cancel",
+                "type": "add",
+                "value": "5",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "W3StQouLhoh7zooV",
+          "_key": "!actors.items.effects!3bmkHmAEAj5688JP.0HgGGsUXkTlobbfg.W3StQouLhoh7zooV"
+        }
+      ],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "struck",
+            "tags": [
+              "Flame"
+            ],
+            "self": [
+              {
+                "statusId": "fissured",
+                "value": 1
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "0HgGGsUXkTlobbfg",
+      "_key": "!actors.items!3bmkHmAEAj5688JP.0HgGGsUXkTlobbfg"
+    },
+    {
+      "name": "Lasca de Couro de Cristal",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-fragments-blue.webp",
+      "system": {
+        "description": "<p>Uma placa do couro do javali, metade pele e metade cristal azul. Os armeiros a usam para enfeitar escudos.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 3,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "8GZmdeiUNwfRIjXd",
+      "sort": 500000,
+      "_key": "!actors.items!3bmkHmAEAj5688JP.8GZmdeiUNwfRIjXd"
+    },
+    {
+      "name": "Presa de Anima",
+      "type": "gear",
+      "img": "icons/commodities/bones/horn-jagged-yellow.webp",
+      "system": {
+        "description": "<p>Uma presa de Anima-mundi inteira, que o Peso escreveu no lugar do marfim. Serve de Anima-mundi 3 na Oficina, sem o Selo do Anima.</p>",
+        "tags": [
+          "Magic Catalyst 3"
+        ],
+        "rank": 3,
+        "price": 25,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "bdSE29QUHEAytrQU",
+      "sort": 600000,
+      "_key": "!actors.items!3bmkHmAEAj5688JP.bdSE29QUHEAytrQU"
+    },
+    {
+      "name": "Placa de Cristal Inteira",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-rough-square-blue.webp",
+      "system": {
+        "description": "<p>A placa grande do lombo, sem uma rachadura. Os vidreiros de Centória fazem dela janelas que brilham de noite.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 3,
+        "price": 55,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "xoNRqGNwaLgBMsCZ",
+      "sort": 700000,
+      "_key": "!actors.items!3bmkHmAEAj5688JP.xoNRqGNwaLgBMsCZ"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "3bmkHmAEAj5688JP",
+  "folder": "5id5icbMj1d24RP5",
+  "_key": "!actors!3bmkHmAEAj5688JP"
+}

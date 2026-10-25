@@ -1,0 +1,746 @@
+{
+  "name": "Velha Cicatriz",
+  "type": "monster",
+  "img": "icons/creatures/mammals/wolf-howl-moon-gray.webp",
+  "system": {
+    "health": {
+      "value": 105,
+      "max": 105,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Natural",
+      "Wolf",
+      "Boss"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 11,
+        "magic": 9
+      },
+      "speed": 2,
+      "initiative": 5
+    },
+    "rank": 4,
+    "idendification": "9",
+    "hateMultiplier": "3",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 4
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>A loba mais velha dos campos do norte de Centória, cinza quase branca, com uma cicatriz de lâmina do focinho à orelha. Três guildas já mandaram gente atrás dela; a matilha dela come as carroças da estrada há dois verões. Quando ela uiva, os lobos da serra respondem.</p><p><strong>Fera com nome</strong>, feita de Lobo do Peso: Nível 2 → 4, e a Janela dela mostra a Autoridade nova. Marca do Peso: Fúria do Peso.</p><p>Um lobo que o Peso escreveu grande demais: do tamanho de um pônei, de pelo cinza e eriçado que solta faíscas azuis quando ele corre. Caça em matilhas de três a seis nos campos e nas estradas perto das minas, e aprendeu que a gente das carroças é mais lenta que os cervos.</p><p><b>Na mesa:</b> a fera das estradas, em matilha. A Caça em Matilha pune quem deixa vários lobos chegarem no mesmo alvo; o Pelo de Faísca pune quem bate de perto: [Eletrificado] fere a cada Ação Maior. Derrubado pela mordida, o alvo gasta a Ação de Movimento para levantar.</p>"
+  },
+  "prototypeToken": {
+    "name": "Velha Cicatriz",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/mammals/wolf-howl-moon-gray.webp",
+      "scaleX": 1.2,
+      "scaleY": 1.2,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Mordida do Peso",
+      "type": "skill",
+      "img": "icons/creatures/abilities/fangs-teeth-bite.webp",
+      "system": {
+        "description": "<p>[2d6 + 25] de dano físico.</p><p>(Menor): o alvo fica [Derrubado].</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 31,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "5SoGpbtPnkiOvK0M",
+      "_key": "!actors.items!dO7jJkg4fKhwhwU4.5SoGpbtPnkiOvK0M"
+    },
+    {
+      "name": "Caça em Matilha",
+      "type": "skill",
+      "img": "icons/creatures/mammals/wolf-shadow-black.webp",
+      "system": {
+        "description": "<p>Este inimigo causa +3 de dano para cada outro [Lobo] engajado com o alvo.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "pack",
+            "per": 3,
+            "tag": "Wolf"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "3NpMR0ZFADxBrDKs",
+      "_key": "!actors.items!dO7jJkg4fKhwhwU4.3NpMR0ZFADxBrDKs"
+    },
+    {
+      "name": "Pelo de Faísca",
+      "type": "skill",
+      "img": "icons/magic/lightning/bolt-strike-blue.webp",
+      "system": {
+        "description": "<p>O pelo eriçado solta faíscas: quem causa dano a este inimigo fica [Eletrificado: 2].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "struckStatus": {
+                "statusId": "shocked",
+                "value": 2
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Pelo de Faísca",
+          "img": "icons/magic/lightning/bolt-strike-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "cXualoyzaLrUEMC8",
+          "_key": "!actors.items.effects!dO7jJkg4fKhwhwU4.jARuo9uw8oJyKJ4w.cXualoyzaLrUEMC8"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "jARuo9uw8oJyKJ4w",
+      "_key": "!actors.items!dO7jJkg4fKhwhwU4.jARuo9uw8oJyKJ4w"
+    },
+    {
+      "name": "Tufo de Pelo Faiscante",
+      "type": "gear",
+      "img": "icons/commodities/leather/fur-white.webp",
+      "system": {
+        "description": "<p>Um punhado de pelo cinza que ainda dá choque quando se esfrega. Os curtidores de Centória pagam pelo forro de luvas.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 2,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "yx5J1JbEnm7sUABb",
+      "sort": 400000,
+      "_key": "!actors.items!dO7jJkg4fKhwhwU4.yx5J1JbEnm7sUABb"
+    },
+    {
+      "name": "Presa do Peso",
+      "type": "gear",
+      "img": "icons/commodities/bones/fossil-tooth.webp",
+      "system": {
+        "description": "<p>Um canino longo como um dedo, mais duro que o de um lobo comum. Os caçadores o usam pendurado no pescoço.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 2,
+        "price": 30,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "dBkcDb5ivp4xhpSf",
+      "sort": 500000,
+      "_key": "!actors.items!dO7jJkg4fKhwhwU4.dBkcDb5ivp4xhpSf"
+    },
+    {
+      "name": "Pele de Lobo do Peso",
+      "type": "gear",
+      "img": "icons/commodities/leather/fur-pelt-white.webp",
+      "system": {
+        "description": "<p>A pele inteira, cinza-prata, que estala de leve no escuro. Um casaco dela é coisa de nobre.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 2,
+        "price": 50,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Es7gaa0gV1DLscJp",
+      "sort": 600000,
+      "_key": "!actors.items!dO7jJkg4fKhwhwU4.Es7gaa0gV1DLscJp"
+    },
+    {
+      "_id": "Lbph6YooegNXmNa0",
+      "name": "Fúria do Peso",
+      "type": "skill",
+      "img": "icons/magic/control/fear-fright-monster-red.webp",
+      "system": {
+        "description": "<p>Passiva. Na primeira vez que os PV caem à metade, a fera ganha [Fúria: 4] e [Acelerado] até o fim da cena.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 700000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "threshold",
+            "below": 0.5,
+            "statuses": [
+              {
+                "statusId": "berserk",
+                "value": 4
+              },
+              {
+                "statusId": "hasted"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_key": "!actors.items!dO7jJkg4fKhwhwU4.Lbph6YooegNXmNa0"
+    },
+    {
+      "name": "Anima-mundi 5",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 5 gasta uma Anima-mundi 5 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 5"
+        ],
+        "rank": 5,
+        "price": 40,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 144
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.WEuQixwPiB7hCVh6",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "wJ4JfOWXKf054s5y",
+      "sort": 800000,
+      "_key": "!actors.items!dO7jJkg4fKhwhwU4.wJ4JfOWXKf054s5y"
+    },
+    {
+      "_id": "tpelZbGRGEHi8jeU",
+      "name": "Troféu de Velha Cicatriz",
+      "type": "gear",
+      "img": "icons/commodities/treasure/plaque-skull-blue-green.webp",
+      "system": {
+        "description": "<p>O que se leva de Velha Cicatriz para provar a caçada. Vale bem na guilda e com os coletores.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 4,
+        "price": 80,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 900000,
+      "_key": "!actors.items!dO7jJkg4fKhwhwU4.tpelZbGRGEHi8jeU"
+    }
+  ],
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "named": {
+        "from": "Lobo do Peso",
+        "mark": "fury",
+        "solo": false,
+        "rank": 2
+      }
+    }
+  },
+  "ownership": {
+    "default": 0
+  },
+  "_id": "dO7jJkg4fKhwhwU4",
+  "_key": "!actors!dO7jJkg4fKhwhwU4",
+  "folder": "5id5icbMj1d24RP5",
+  "sort": 500000,
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  }
+}

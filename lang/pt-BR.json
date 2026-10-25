@@ -1376,7 +1376,8 @@
       "NoRankSkill": "O limite de usos vem do NH de \"{skill}\", que o personagem não tem.",
       "AlreadyActed": "Só antes do seu turno nesta rodada (Pré-Ação).",
       "Incapacitated": "{name} está Incapacitado e não pode agir.",
-      "ConfirmEyebrow": "Antes de usar"
+      "ConfirmEyebrow": "Antes de usar",
+      "Recharging": "{skill} está recarregando: em cada Manutenção, um 1d6 diz se ela volta."
     },
     "Cards": {
       "RollDamage": "Rolar dano",
@@ -1827,7 +1828,8 @@
         "Inverted": "Inversão: o dano vira cura (+{n})",
         "Breath": "Fôlego Extra ({effect}): fica com {hp} PV, restam {left}",
         "ComboBroken": "O golpe quebrou o Combo",
-        "Decoy": "{effect}: o golpe acerta uma cópia"
+        "Decoy": "{effect}: o golpe acerta uma cópia",
+        "Absorbed": "Absorve {tag}: o dano vira cura (+{n})"
       },
       "CursedNoHeal": "{name} está Maldito: não recupera PV.",
       "CursedBlocks": "{name} está Maldito: não recebe {status}.",
@@ -3975,7 +3977,20 @@
       "Bigger": "{name} já não cabe num quadrado.",
       "Threshold": "{name} fica com {statuses} até o fim da cena.",
       "Cleanse": "{name} se livra de {statuses}.",
-      "Summon": "{name} chama: {list}."
+      "Summon": "{name} chama: {list}.",
+      "Recharged": "{name} recarregou {skill} (1d6: {n}).",
+      "Recharging": "{skill} de {name} ainda recarrega (1d6: {n}).",
+      "Struck": "{name} sofreu [{tag}]: {what}.",
+      "StruckStrip": "perde {statuses}",
+      "Stole": "{name} roubou {n} G de {target}.",
+      "StoleNothing": "{name} meteu a mão na bolsa de {target}, mas não achou ouro.",
+      "OfferLead": "{monster} oferece {gold} G para ser deixado ir. Quem aceita leva o ouro, e ele sai da cena sem deixar itens.",
+      "OfferAccept": "Aceitar",
+      "OfferRefuse": "Recusar",
+      "OfferGold": "Ouro",
+      "OfferAccepted": "{name} aceitou os {gold} G: {monster} foi embora.",
+      "OfferRefused": "Recusada: {monster} continua na luta.",
+      "OfferNoCharacter": "Selecione o token do seu personagem (ou tenha um personagem atribuído) para aceitar."
     },
     "Rift": {
       "Eyebrow": "Fenda",
@@ -3997,6 +4012,55 @@
       "ClosedBy": "{name} escreveu a última linha: a Fenda fechou.",
       "Setup": "Rodada {round}: a Fenda pulsa.",
       "Wave": "Saiu da Fenda: {list}."
+    },
+    "Named": {
+      "Hint": "Dar Nome: uma fera com nome feita deste monstro (Mestre)",
+      "Title": "Dar Nome: {name}",
+      "Lead": "A fera com nome é a que uma guilda inteira caça. Um monstro novo é feito deste, na mesma pasta: Nível +2, atributos +1, Defesas +3, 3 de Destino, a tag [Chefe], ataques mais fortes, os itens deixados ×4 com um Anima-mundi e um troféu, e uma Marca do Peso.",
+      "Name": "Nome",
+      "NamePlaceholder": "Como a chamam nas tavernas",
+      "Comes": "Vem",
+      "WithPack": "Com o bando (PV ×2)",
+      "Alone": "Sozinha (PV ×4)",
+      "Mark": "Marca do Peso",
+      "Confirm": "Dar Nome",
+      "Eyebrow": "Fera com nome",
+      "Done": "{name} ganhou nome, feita de {from}: Nível {rank}.",
+      "header": "<strong>Fera com nome</strong>, feita de {from}: Nível {before} → {rank}, e a Janela dela mostra a Autoridade nova. Marca do Peso: {mark}.",
+      "skin": {
+        "name": "Pele de Anima",
+        "hint": "anula dano",
+        "text": "Passiva. A pele carregada de Anima anula {n} de todo dano que a fera sofre (Anulação {n})."
+      },
+      "eyes": {
+        "name": "Olhos da Fenda",
+        "hint": "+1 dado na Esquiva, imune a Cego, Medo e Confuso",
+        "text": "Passiva. A fera vê pela escrita do mundo: +1 dado nos testes de Esquiva, e ela não fica [Cego], com [Medo] nem [Confuso]."
+      },
+      "fury": {
+        "name": "Fúria do Peso",
+        "hint": "Fúria e Acelerado à metade dos PV",
+        "text": "Passiva. Na primeira vez que os PV caem à metade, a fera ganha [Fúria: {n}] e [Acelerado] até o fim da cena."
+      },
+      "sparks": {
+        "name": "Sangue de Faísca",
+        "hint": "quem a fere fica Eletrificado",
+        "text": "Passiva. O sangue da fera é faísca: quem lhe causa dano fica [Eletrificado: {n}]."
+      },
+      "regen": {
+        "name": "Regeneração do Peso",
+        "hint": "Regeneração, que o fogo corta",
+        "text": "Passiva. Em combate, a fera tem [Regeneração: {n}], que volta em cada Manutenção. Dano de [Chama] tira a Regeneração até a próxima Manutenção."
+      },
+      "breath": {
+        "name": "Sopro do Peso",
+        "hint": "sopro em área que recarrega",
+        "text": "Ação Maior. Ataque mágico em área (2 quadrados) contra a Resistência: 2d6+{n} de dano mágico. Depois de usado, só volta quando o 1d6 de uma Manutenção der 5 ou mais."
+      },
+      "trophy": {
+        "name": "Troféu de {name}",
+        "text": "O que se leva de {name} para provar a caçada. Vale bem na guilda e com os coletores."
+      }
     }
   },
   "Cancel": "Cancelar"

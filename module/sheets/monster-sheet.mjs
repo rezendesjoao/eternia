@@ -15,6 +15,7 @@ import { isEmpty, term } from "../i18n/terms.mjs";
 import { ATTRIBUTES, Summaries, TIMING_GROUPS, activeStatuses, signed } from "./character-sheet.mjs";
 import { EterniaActorMonsterSheet } from "./actor-monster-sheet.mjs";
 import { activateDropTab, addDropRow, addGoldRow, convertFromSheet, dropsContext, rollFromSheet } from "../bestiary/drop-tab.mjs";
+import { nameMonster } from "../bestiary/named.mjs";
 import { PHYSICAL_TYPES } from "../piles/pile-config.mjs";
 
 const DIR = `systems/eternia/templates/monster`;
@@ -39,7 +40,8 @@ export class EterniaMonsterSheet extends EterniaActorMonsterSheet {
       "lhauto-statuses": EterniaMonsterSheet.#onStatuses,
       "drops-roll": EterniaMonsterSheet.#onDropsRoll,
       "drops-gold": EterniaMonsterSheet.#onDropsGold,
-      "drops-convert": EterniaMonsterSheet.#onDropsConvert
+      "drops-convert": EterniaMonsterSheet.#onDropsConvert,
+      "named-beast": EterniaMonsterSheet.#onNamedBeast
     }
   };
 
@@ -80,6 +82,7 @@ export class EterniaMonsterSheet extends EterniaActorMonsterSheet {
     const modified = context.modified;
     const lh = {};
 
+    lh.gm = game.user.isGM;
     lh.tabs = TABS.map(t => ({ ...t, label: L(t.label) }));
     lh.tabLabel = lh.tabs.find(t => t.id === this.tabGroups.primary)?.label ?? "";
 
@@ -229,6 +232,11 @@ export class EterniaMonsterSheet extends EterniaActorMonsterSheet {
   /** Itens Deixados: the description's table becomes rows (GM). */
   static #onDropsConvert() {
     if (game.user.isGM) return convertFromSheet(this.actor);
+  }
+
+  /** The crown: a named beast made from this monster (GM; bestiary/named.mjs). */
+  static #onNamedBeast() {
+    if (game.user.isGM) return nameMonster(this.actor);
   }
 }
 

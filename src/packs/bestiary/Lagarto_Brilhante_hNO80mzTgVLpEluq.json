@@ -1,0 +1,582 @@
+{
+  "name": "Lagarto Brilhante",
+  "type": "monster",
+  "img": "icons/creatures/reptiles/lizard-mouth-glowing-red.webp",
+  "system": {
+    "health": {
+      "value": 46,
+      "max": 46,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Natural",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 9,
+        "magic": 14
+      },
+      "speed": 2,
+      "initiative": 4
+    },
+    "rank": 5,
+    "idendification": "8",
+    "hateMultiplier": "3",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 2
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 3
+      }
+    },
+    "description": "<p>Um lagarto comprido como dois homens, de escamas translúcidas que brilham por dentro com a luz que ele engoliu. Vive nas cavernas onde o sol não chega e sobe à noite atrás de lanternas, fogueiras e Artes de luz, que ele come. Quando está cheio, vomita a luz de volta numa golfada que cega.</p><p><b>Na mesa:</b> o bombardeiro das feras. Quem fica a até 2 Qd dele fica [Cego] em cada Manutenção, e quem fica longe leva o Vômito de Luz em linha. A [Radiância] o cura: quem traz luz precisa de outra Arte. O Vômito recarrega: depois de usado, só volta com 5 ou 6 no 1d6 de uma Manutenção.</p>"
+  },
+  "prototypeToken": {
+    "name": "Lagarto Brilhante",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/reptiles/lizard-mouth-glowing-red.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.45,
+      "angle": 360,
+      "bright": 1,
+      "color": "#f3dc8a",
+      "coloration": 1,
+      "dim": 3,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": "pulse",
+        "speed": 2,
+        "intensity": 3,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Lampejo",
+      "type": "skill",
+      "img": "icons/magic/light/beam-rays-yellow.webp",
+      "system": {
+        "description": "<p>Área (Escolha) a até 4 Qd: [2d6 + 28] de dano mágico de [Radiância].</p>",
+        "tags": [
+          "Magic Attack",
+          "Radiance"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 28,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "vuDCJNRlCWJmTwL5",
+      "_key": "!actors.items!hNO80mzTgVLpEluq.vuDCJNRlCWJmTwL5"
+    },
+    {
+      "name": "Vômito de Luz",
+      "type": "skill",
+      "img": "icons/magic/light/explosion-glow-spiral-yellow.webp",
+      "system": {
+        "description": "<p>Linha de 4 Qd a partir do lagarto: [2d6 + 41] de dano mágico de [Radiância], e quem é atingido fica [Cego].</p><p>Recarga: depois de usado, só volta quando o 1d6 de uma Manutenção der 5 ou 6.</p>",
+        "tags": [
+          "Magic Attack",
+          "Radiance"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 41,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "recharge",
+            "min": 5
+          },
+          "hitStatuses": [
+            {
+              "statusId": "blinded"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "c7FjeRxoW1cJeXic",
+      "_key": "!actors.items!hNO80mzTgVLpEluq.c7FjeRxoW1cJeXic"
+    },
+    {
+      "name": "Come a Luz",
+      "type": "skill",
+      "img": "icons/magic/light/explosion-star-blue-yellow.webp",
+      "system": {
+        "description": "<p>O dano de [Radiância] cura este inimigo em vez de feri-lo.</p><p>Em cada Manutenção, os inimigos a até 2 Qd dele ficam [Cego]: ele bebe a luz em volta.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "absorb": [
+                "Radiance"
+              ],
+              "realm": {
+                "radius": 2,
+                "enemies": [
+                  {
+                    "statusId": "blinded"
+                  }
+                ]
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Come a Luz",
+          "img": "icons/magic/light/explosion-star-blue-yellow.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "WTrmBcN3sZ32TZsy",
+          "_key": "!actors.items.effects!hNO80mzTgVLpEluq.XBeNVHGKbg9v3xJV.WTrmBcN3sZ32TZsy"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "XBeNVHGKbg9v3xJV",
+      "_key": "!actors.items!hNO80mzTgVLpEluq.XBeNVHGKbg9v3xJV"
+    },
+    {
+      "name": "Escama Translúcida",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-rough-cushion-yellow.webp",
+      "system": {
+        "description": "<p>Uma escama que guarda um resto de luz e brilha como uma vela por uma semana. Os mineiros a levam para o fundo do poço.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 5,
+        "price": 28,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "0Ddi2eI96bkI31wh",
+      "sort": 400000,
+      "_key": "!actors.items!hNO80mzTgVLpEluq.0Ddi2eI96bkI31wh"
+    },
+    {
+      "name": "Glândula de Luz",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-faceted-octagon-yellow.webp",
+      "system": {
+        "description": "<p>O saco onde o lagarto guarda a luz que come, duro como cristal. Serve de Anima-mundi 5 na Oficina, sem o Selo do Anima.</p>",
+        "tags": [
+          "Magic Catalyst 5"
+        ],
+        "rank": 5,
+        "price": 40,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "qt1g2oSXKxgUdlro",
+      "sort": 500000,
+      "_key": "!actors.items!hNO80mzTgVLpEluq.qt1g2oSXKxgUdlro"
+    },
+    {
+      "name": "Olho que Brilha",
+      "type": "gear",
+      "img": "icons/commodities/biological/eye-lizard-green.webp",
+      "system": {
+        "description": "<p>O olho do lagarto, que nunca se apaga. Os nobres o montam em anéis; a Igreja diz que é pecado e compra todos que vê.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 5,
+        "price": 70,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "F562cVif8P8jAleI",
+      "sort": 600000,
+      "_key": "!actors.items!hNO80mzTgVLpEluq.F562cVif8P8jAleI"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "hNO80mzTgVLpEluq",
+  "folder": "5id5icbMj1d24RP5",
+  "_key": "!actors!hNO80mzTgVLpEluq"
+}

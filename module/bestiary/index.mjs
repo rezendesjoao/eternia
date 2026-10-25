@@ -6,7 +6,9 @@
  * - drop-tab.mjs    the Itens Deixados tab of the monster sheet;
  * - pack.mjs        the pack: more damage for each ally engaged with the target (read by the damage cards);
  * - rules.mjs       the other monster rules carried by their skills (growing, thresholds, the fall, the boss that
- *                   clears itself, calling the wave);
+ *                   clears itself, calling the wave, the recharge, the tag that strikes, the light hand, the offer);
+ * - recharge.mjs    which skills recharge and which are spent (read by automation/use.mjs);
+ * - named-template.mjs, named.mjs  the named beast: the template (without Foundry) and the monster sheet's crown;
  * - spawn.mjs       bringing monsters next to a token, in its combat, leaving no drops;
  * - rifts.mjs       the Rifts: scene hazards with a clock of writings and a wave each Setup.
  * The API for macros is `game.eternia.bestiary`.
@@ -15,6 +17,8 @@ import { convertTable, dropRows, parseDropTable, rollDrops, undoDrop, registerDr
 import { registerMonsterRules } from "./rules.mjs";
 import { isRift, registerRifts, riftState, writeRift } from "./rifts.mjs";
 import { spawnNear } from "./spawn.mjs";
+import { nameMonster } from "./named.mjs";
+import { MARKS, nameBeast } from "./named-template.mjs";
 
 /** Call during the `init` hook. */
 export function registerBestiary() {
@@ -30,6 +34,9 @@ export function registerBestiary() {
     spawnNear,
     isRift,
     riftState,
-    writeRift
+    writeRift,
+    nameMonster,
+    nameBeast,
+    marks: MARKS
   };
 }

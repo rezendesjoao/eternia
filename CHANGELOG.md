@@ -24,6 +24,23 @@
   token), a leva de cada Manutenção, a escrita da Língua Sagrada pelo botão Escrever do cartão (Ação Maior, 2d6 + POD
   contra 9), o crescimento quando quem escreveu é ferido e os itens deixados para quem a fecha.
 - A página **XIV. O BESTIÁRIO** do diário AS REGRAS e a referência técnica `docs/bestiario.md`.
+- **Mais regras de monstro:** a **Recarga** (a habilidade fica gasta depois do uso e volta com 5 ou 6 no 1d6 de uma
+  Manutenção; usar uma gasta avisa como um limite, e o fim do combate devolve todas), o **golpe de uma tag** (o dano de
+  uma tag dá estados ao monstro ou tira os dele: o fogo que racha a couraça, o fogo que corta a [Regeneração]), a **Mão
+  Leve** (o próximo golpe que fere um personagem tira ouro da bolsa dele, e o ouro roubado volta nos itens deixados) e
+  **A Proposta** (um cartão no chat com o ouro que o monstro oferece para ir embora, com Aceitar e Recusar; aceita, o
+  ouro vai para o personagem de quem aceitou e o monstro some da cena, sem deixar itens).
+- **A criatura que come um tipo de dano** (a flag `absorb` num efeito): o dano dessas tags a cura pela regra da
+  [Inversão], e o resumo do dano diz o que ela absorveu.
+- **A fera com nome:** a coroa **Dar Nome** no cabeçalho da ficha de monstro (Mestre) faz um monstro novo a partir de
+  qualquer fera, na mesma pasta: Nível +2, atributos +1, Defesas +3, [Chefe], PV ×2 com o bando ou ×4 sozinha, 3 de
+  Destino, os ataques +1 no acerto e +6 no dano, os itens deixados ×4 com um Anima-mundi do Nível + 1 e um troféu
+  ([Material-Base]) fixos, e uma das seis **Marcas do Peso**: Pele de Anima, Olhos da Fenda, Fúria do Peso, Sangue de
+  Faísca, Regeneração do Peso e Sopro do Peso.
+- **O bestiário do Império, parte 2:** as **Feras do Peso**, o Lobo do Peso (NP 2), o Javali de Cristal (NP 3), a Aranha
+  das Galerias (NP 4, 2×2) e o Lagarto Brilhante (NP 5, que brilha no mapa), e a **Velha Cicatriz** (NP 4), uma fera com
+  nome pronta; **Os de Gente**, o Contrabandista (NP 3) e o Mestre do Contrabando (NP 5, chefe de grupo). A tag [Lobo]
+  (`Wolf`) para a matilha.
 
 ### Alterado
 - **As 70 tabelas de itens deixados** do bestiário, que eram texto na descrição, viraram linhas de dados

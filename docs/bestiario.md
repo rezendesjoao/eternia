@@ -12,16 +12,21 @@ entrega 7 do plano do mundo (o capítulo 18 de `Eternia-Mundo/`, fora do reposit
 | `module/bestiary/drops.mjs` | Os itens deixados: as linhas (`dropRows`: as guardadas no monstro, senão a tabela do texto), a conversão do texto em linhas (`convertTable`), quem derrubou (`fellerOf`), a rolagem (`rollDrops`), a entrega (o inventário de quem derrubou; o que não cabe, uma pilha no chão, por `lootAt` de `piles/pile-operations.mjs`), o cartão (`templates/chat/drop-card.hbs`) e o Desfazer (`undoDrop`). Também a configuração `dropRoll` e os ganchos: a queda (Incapacitado ou Morto chegando, no Mestre principal), `eternia.defeated` (quem derrubou), o fim do combate, o token posto no meio do combate (`noLoot`). |
 | `module/bestiary/drop-tab.mjs` | A aba Itens Deixados da ficha de monstro (`templates/monster/drops.hbs`): as linhas pelas faces, os campos das faces, das cópias e da fórmula do ouro, a média da tabela e a do Guia de Criação de Inimigos, a linha de ouro, o botão Rolar (com a escolha de quem recebe) e o Virar dados. Soltar um item físico na ficha cria uma linha (`addDropRow`, chamado por `EterniaMonsterSheet#_onDropItem`). |
 | `module/bestiary/pack.mjs` | O Bando: as entradas `bonusVs` com `pack` que o cartão de dano leva (`packBonuses`, chamado por `createDamageCard`) e o bônus contado quando o dano é aplicado (`packBonus`, em `applyDamage`). |
-| `module/bestiary/rules.mjs` | As outras regras de monstro: crescer, o limiar, a queda, a couraça e o chamado. |
+| `module/bestiary/rules.mjs` | As outras regras de monstro: crescer, o limiar, a queda, a couraça, o chamado, a recarga (gastar no uso, o 1d6 da Manutenção), o golpe de uma tag, a Mão Leve e A Proposta (o cartão `templates/chat/offer-card.hbs`); os pedidos ao Mestre `bestiaryPickpocket` e `bestiaryOffer`. |
+| `module/bestiary/recharge.mjs` | Quais habilidades recarregam e quais estão gastas (lido também por `automation/use.mjs`, que avisa como num limite). |
+| `module/bestiary/named-template.mjs` | O modelo da fera com nome, sem Foundry (`nameBeast`, `markSkill`, `MARKS`): usado pela coroa da ficha e pelo gerador do compêndio. |
+| `module/bestiary/named.mjs` | A coroa Dar Nome da ficha de monstro (Mestre): a janela, o Anima-mundi do compêndio de itens, o ator novo. |
 | `module/bestiary/spawn.mjs` | Trazer monstros para perto de um token (`spawnNear`): o ator do mundo de um monstro do compêndio (`worldActor`, importado uma vez), os quadrados livres mais próximos, `noLoot` e `calledBy` nos tokens, e o combate. |
 | `module/bestiary/rifts.mjs` | As Fendas: o relógio, a escrita (`writeRift`), o crescimento, a leva de cada Manutenção, o fechamento e o cartão (`templates/chat/rift-card.hbs`); os pedidos ao Mestre `riftWrite` e `riftGrow`. |
 | `module/bestiary/index.mjs` | Registra tudo e a API `game.eternia.bestiary`. |
 | `css/bestiary.css` | A aba, o cartão dos itens deixados e o da Fenda (camada `modules`). |
 | `tools/convert-drops.mjs` | Converte as tabelas de texto do compêndio em linhas (rodou uma vez, na 0.34; serve para monstros novos escritos no formato dos livros). |
 
-Também tocam no bestiário: `helpers/combat-cards.mjs` (o Bando no cartão de dano), `conditions/realm.mjs` e
-`conditions/forms.mjs` (o Reino e o `struckStatus` leem também as passivas das habilidades: as auras dos monstros),
-`piles/pile-operations.mjs` (`lootAt`) e `sheets/monster-sheet.mjs` (a aba e o soltar).
+Também tocam no bestiário: `helpers/combat-cards.mjs` (o Bando no cartão de dano; a linha do dano absorvido),
+`conditions/realm.mjs` e `conditions/forms.mjs` (o Reino e o `struckStatus` leem também as passivas das habilidades: as
+auras dos monstros), `conditions/damage.mjs` (a flag `absorb`), `automation/use.mjs` (o aviso da recarga),
+`piles/pile-operations.mjs` (`lootAt`), `sheets/monster-sheet.mjs` (a aba, o soltar e a coroa) e `i18n/pt-br.mjs` (a tag
+[Wolf], Lobo).
 
 ## Os itens deixados
 
@@ -42,10 +47,12 @@ No monstro (o token, num monstro sem vínculo):
 | Flag | O que guarda |
 |---|---|
 | `dropped` | já rolou (o id do cartão); o Desfazer tira |
-| `noLoot` | chegou depois do começo do combate (posto com o combate andando, chamado, leva de Fenda): não rola sozinho |
+| `noLoot` | chegou depois do começo do combate (posto com o combate andando, chamado, leva de Fenda) ou foi embora por A Proposta: não rola sozinho |
 | `felledBy` | o uuid de quem o derrubou (o atacante do cartão de dano que o levou a 0 PV) |
 | `growth` | os passos de crescimento (a regra `grow`) |
-| `stolenGold` | ouro roubado, que volta nos itens deixados (para as regras de roubo da Parte 2) |
+| `stolenGold` | o ouro que a Mão Leve roubou, que volta nos itens deixados |
+| `recharging` | os ids das habilidades gastas (a regra `recharge`); o fim do combate limpa |
+| `named` | `{ from, mark, solo, rank }`: a fera com nome, de que monstro e de que Nível ela veio |
 
 - **Quem leva:** quem derrubou (decisão da mesa, 2026-10-25): todos os itens e todo o ouro. Sem ninguém (ou um
   monstro), tudo vai para a pilha. Quem derrubou é `felledBy`, senão a origem de um estado que fere ([Envenenado],
@@ -69,10 +76,41 @@ Uma habilidade de monstro traz uma regra em `flags.eternia.monster = { rule, ...
 | `fall` | `radius` | Passiva. Quando cai (Incapacitado), um cartão de dano da habilidade contra todos a até `radius` Qd, sem Esquiva, com os `hitStatuses` dela | o Mestre principal |
 | `cleanse` | `count` | Passiva. No Encerramento, tira `count` Estados Negativos (não os que ele mesmo se deu) | `_onPhaseStart` do Encerramento |
 | `summon` | `actors: [{ uuid, count }]`, `radius` | O uso: os monstros saem a até `radius` Qd, no combate, sem itens deixados (`count`: número ou fórmula) | `eternia.skillUsed` |
+| `recharge` | `min` | O uso a gasta (`recharging`); em cada Manutenção, um 1d6 por habilidade gasta: `min` (5) ou mais, ela volta. Gasta, o uso avisa (ou bloqueia, pela configuração dos limites) | `eternia.skillUsed`; `_onPhaseStart` da Manutenção |
+| `struck` | `tags`, `self: [{ statusId, value }]`, `strip: [statusId]` | Passiva. Um cartão de dano com uma das tags que fere o monstro lhe dá os estados de `self` (o [Fissurado] que soma) e tira os de `strip` (a [Regeneração]) | `eternia.damaged`, na janela que aplicou |
+| `pickpocket` | `gold` | Não é regra de habilidade: um efeito de uso em quem usa com `flags.eternia.pickpocket = { gold }` (a Mão Leve, `recipients: "self"`, até o fim da rodada). O próximo cartão de dano dele que fere um personagem pede `bestiaryPickpocket`: o Mestre rola a fórmula ("2d6*5"), tira até o que a bolsa tem, soma em `stolenGold` e apaga a mão | `eternia.damaged`; o Mestre |
+| `offer` | `gold` | O uso: um cartão com o ouro (a fórmula, "2d6*10") e Aceitar/Recusar (`flags.eternia.offerCard = { actorUuid, itemName, gold, state, receiver }`). Aceitar acha o personagem de quem clicou (o token selecionado, senão o personagem do jogador; o Mestre escolhe) e pede `bestiaryOffer`: o ouro vai para ele, o monstro ganha `noLoot`, sai do combate (derrotado) e o token some | `eternia.skillUsed`; o Mestre |
 
-O resto das mecânicas usa as flags que a Eternia já tinha (`docs/condicoes.md`): `hitStatuses`, `escalate`, `useActions`,
-`revive`, `noKill`, `realm` (aura), `struckStatus`, `immune`, `cover`, `consumeOn: "attack"` com
-`eternia.roll.damage.dice` (a emboscada do Some na Parede).
+O resto das mecânicas usa as flags que a Eternia já tinha (`docs/condicoes.md`): `hitStatuses`, `escalate` (a Picada que
+Sobe), `useActions` (o empurrar da Investida, o puxar do Fio de Teia, os [Clones] dos Sósias), `revive` (a Ferocidade),
+`noKill` (O Selo Dói), `realm` (as auras: o Coração de Anima, o Come a Luz, a Bomba de Fumaça), `struckStatus` (o Pelo de
+Faísca), `immune`, `cover`, `consumeOn: "attack"` com `eternia.roll.damage.dice` (as emboscadas).
+
+Um efeito novo, também para qualquer criatura: `flags.eternia.absorb = ["Radiance"]`, a lista das tags que a curam. O dano
+de um cartão com uma delas vira cura pela regra da [Inversão] (depois da Defesa e da Anulação), e o resumo diz "Absorve
+Radiância" (`conditions/damage.mjs`).
+
+## A fera com nome
+
+`nameBeast(dados, { name, solo, mark, newId, catalyst, t })` (`named-template.mjs`) faz os dados de um monstro novo a partir
+dos de outro: Nível +2, atributos +1, Defesas +3, Esquiva e Resistência +1, Iniciativa +1, multiplicador de Ódio +1,
+Identificação +2, PV ×1,25 e então ×2 (com o bando) ou ×4 (`solo`), 3 de Destino, [Boss] (sem [Mob]), os ataques +1 no
+acerto e +6 no dano, as linhas dos itens deixados ×4 (o ouro, `(fórmula)*4`), o Anima-mundi do Nível + 1 (`catalyst(nível)`
+dá os dados do item) e um troféu ([Core Material], 20 × Nível de preço), fixos, o cabeçalho na descrição, a Marca e
+`flags.eternia.named`. Os efeitos com estados ficam para trás.
+
+| Marca (`mark`) | O que vira |
+|---|---|
+| `skin` (Pele de Anima) | passiva com `eternia.passive.cancel` = Nível |
+| `eyes` (Olhos da Fenda) | passiva com `system.checks.evasion.dice` +1 e `immune: ["blinded", "frightened", "confused"]` |
+| `fury` (Fúria do Peso) | regra `threshold` na metade: [Fúria] = Nível e [Acelerado] |
+| `sparks` (Sangue de Faísca) | passiva com `struckStatus` [Eletrificado] = máx(2, Nível ÷ 2) |
+| `regen` (Regeneração do Peso) | passiva com o Traço `immortal: { regen: Nível × 2 }` e a regra `struck` da [Chama] que tira a [Regeneração] |
+| `breath` (Sopro do Peso) | Ação Maior, Ataque Mágico em área de 2 Qd contra a Resistência, 2d6 + Nível × 6, regra `recharge` (5) |
+
+A coroa (`named.mjs`, só o Mestre) usa a ficha do monstro do mundo, não a cópia do token (o "(2)" do nome, os ferimentos
+e os estados), põe o ator novo na mesma pasta e abre a ficha. Os textos vêm de `ETERNIA.Named.*`; o gerador do compêndio
+usa o mesmo modelo com os textos do `pt-BR.json` (a Velha Cicatriz).
 
 ## As Fendas
 
@@ -108,4 +146,7 @@ await game.eternia.bestiary.convertTable(actor);   // a tabela do texto vira lin
 await game.eternia.bestiary.spawnNear(token, [{ uuid, count: "1d3" }], { radius: 2 });
 await game.eternia.bestiary.writeRift(fendaToken); // escreve com o token selecionado
 game.eternia.bestiary.riftState(fendaActor);       // { left, max, dc, grow, closed, wave }
+await game.eternia.bestiary.nameMonster(actor);    // a janela Dar Nome (Mestre); devolve o ator novo
+game.eternia.bestiary.nameBeast(actor.toObject(), { name, solo, mark, newId, catalyst, t }); // só os dados
+game.eternia.bestiary.marks;                       // ["skin", "eyes", "fury", "sparks", "regen", "breath"]
 ```

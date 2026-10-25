@@ -678,6 +678,20 @@ aba compara a média da tabela com a do Guia de Criação de Inimigos.
   deixados dele) e o **Chefe da Galeria** (NP 3, chefe: a aura de [Fortalecido] dos kobolds à volta, a couraça que tira
   um Estado Negativo no Encerramento, [Fúria] e [Acelerado] na metade dos PV, o chamado de 1d3 Garimpeiros e a
   explosão que acerta quem estiver a 1 Qd quando ele cai).
+- **Feras do Peso:** o **Lobo do Peso** (NP 2: +3 de dano por outro [Lobo] engajado com o alvo, e o pelo de faísca
+  deixa [Eletrificado] quem o fere), o **Javali de Cristal** (NP 3: a investida empurra 2 Qd e derruba, a Ferocidade o
+  deixa com 1 PV uma vez por cena, e o couro de cristal anula 5 de dano até o fogo rachá-lo, [Fissurado] a cada golpe de
+  [Chama]), a **Aranha das Galerias** (NP 4, 2×2: o fio de teia puxa e prende, a picada envenena e sobe para [Lento] e
+  [Paralisado], e ela começa [Oculta] no teto) e o **Lagarto Brilhante** (NP 5: a [Radiância] o cura, quem fica perto
+  fica [Cego] em cada Manutenção, e o Vômito de Luz recarrega com 5 ou 6 no 1d6).
+- **A fera com nome:** a coroa **Dar Nome** no cabeçalho da ficha de monstro (Mestre) faz, de qualquer fera, a que uma
+  guilda inteira caça: Nível +2, chefe, PV ×2 com o bando ou ×4 sozinha, 3 de Destino, ataques mais fortes, os itens
+  deixados ×4 com um Anima-mundi e um troféu, e uma das seis **Marcas do Peso** (Pele de Anima, Olhos da Fenda, Fúria do
+  Peso, Sangue de Faísca, Regeneração do Peso, Sopro do Peso). A **Velha Cicatriz** (NP 4) já vem pronta.
+- **Os de gente:** o **Contrabandista** (NP 3: o Selo não o deixa matar, o golpe para em 1 PV; a lâmina envenena; a
+  bomba de fumaça esconde o grupo dele) e o **Mestre do Contrabando** (NP 5, chefe de grupo: [Clones: 3] dos sósias; a
+  Mão Leve rouba ouro de quem ele fere, e o ouro volta nos itens deixados; **A Proposta** põe no chat um cartão com o
+  ouro que ele oferece para ir embora, com Aceitar e Recusar).
 - **As Fendas:** a **Fenda Pequena** (NP 2), um perigo de cena. O relógio de escritas é o Destino dela (os losangos do
   token); em cada Manutenção ela solta a leva; quem está a até 1 Qd gasta a Ação Maior e rola 2d6 + POD contra 9 no
   botão **Escrever** do cartão dela, e quem escreveu e é ferido antes do fim da rodada a faz crescer. Fechada, quem
@@ -944,6 +958,7 @@ eternia.bestiary.rollDrops(actor, { force: true, receiver: hero }); // os itens 
 eternia.bestiary.convertTable(actor); // a tabela de itens deixados escrita na descrição vira dados
 eternia.bestiary.spawnNear(token, [{ uuid, count: "1d3" }]); // monstros ao lado de um token, no combate, sem itens
 eternia.bestiary.writeRift(fendaToken); // escreve na Fenda com o token selecionado
+eternia.bestiary.nameMonster(actor); // a janela Dar Nome: uma fera com nome feita desse monstro (Mestre)
 ```
 
 ## Limites conhecidos

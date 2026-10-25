@@ -36,6 +36,7 @@ import {
   commitMotorUse, motorActionOf, motorCostValues, motorUseIssues, planMotorUse, skillMotor, undoMotorUse
 } from "../classes/motor.mjs";
 import { chipText } from "../helpers/text-chips.mjs";
+import { isRecharging } from "../bestiary/recharge.mjs";
 
 /** The action a Timing spends in the Main Process. */
 const ACTIONS = { Major: "major", Minor: "minor", Move: "move" };
@@ -241,6 +242,8 @@ function itemIssues(item, actor, combat, combatant) {
   const of = item.getFlag(SYSTEM_ID, "srOf");
   if (of && !rankOf(item)) issues.push(L("Use.NoRankSkill", { skill: of.name }));
   if (item.getFlag(SYSTEM_ID, "notActed") && combatant && combat.isPostAction?.(combatant)) issues.push(L("Use.AlreadyActed"));
+  // A monster's skill that recharges, still spent (bestiary/recharge.mjs)
+  if (isRecharging(item)) issues.push(L("Use.Recharging", { skill: item.name }));
   return issues;
 }
 
