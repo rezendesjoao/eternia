@@ -1,6 +1,6 @@
 # Changelog
 
-## Não lançado
+## 0.35.0 — 2026-10-25
 
 ### Adicionado
 - **O bestiário do Império, parte 3:** os **goblins de incursão** (pasta Os de Gente), o Goblin de Incursão (NP 5,

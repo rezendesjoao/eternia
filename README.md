@@ -5,9 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.34.0
+## Versão 0.35.0
 
-- **Novo na 0.34.0: o bestiário do Império e os itens deixados automáticos.** Quando um monstro cai, o 1d6 dos itens
+- **Novo na 0.35.0: o bestiário do Império completo.** Os goblins de incursão, que temem a luz (a Tropa que o dano em
+  área acerta em dobro, o Fumaceiro e o Chefe que foge com o saque se não estiver preso), o Oco, os monstros das Quedas
+  de Aincrad, a Fenda Grande e a Fenda-mãe, e os seis **Desgarrados**, que podem ser salvos: com 1/4 dos PV, o botão
+  **Salvar** no chat, a Negociação contra a Resistência e a Conexão de quem o salvou (veja [O bestiário](#o-bestiário)).
+- **Desde a 0.34.0: o bestiário do Império e os itens deixados automáticos.** Quando um monstro cai, o 1d6 dos itens
   deixados rola sozinho e quem o derrubou leva os itens e o ouro, com um cartão no chat e o Desfazer do Mestre; a ficha de
   monstro ganhou a aba **Itens Deixados**. Os primeiros monstros do Império chegam com regras próprias automatizadas (os
   kobolds das galerias, as feras do Peso, os contrabandistas e a Fenda Pequena), e a coroa **Dar Nome** faz de qualquer
