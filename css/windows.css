@@ -2836,3 +2836,65 @@
   font: 600 10px/1.1 var(--pf-sans);
   font-style: normal;
 }
+
+/* ==========================================================================
+   The box to evolve the form of a race (module/races/evolution.mjs): the choices of the stage as tiles (a skill of a
+   slot, the attribute of the +1), the rite in a scroll line and a note on who decides.
+   ========================================================================== */
+.application.lhwin.themed.dialog.evolve-dialog .evolve-choice {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 6px;
+  margin: 8px 0 0;
+  padding: 6px 8px 8px;
+  border: 1px solid #dacba8;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.45);
+}
+.application.lhwin.themed.dialog.evolve-dialog .evolve-choice.stats { grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); }
+.application.lhwin.themed.dialog.evolve-dialog .evolve-choice.stats label { justify-content: center; }
+.application.lhwin.themed.dialog.evolve-dialog .evolve-choice legend {
+  padding: 0 4px;
+  color: #9a7a2c;
+  font: 700 9.5px/1.2 var(--pf-sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.application.lhwin.themed.dialog.evolve-dialog .evolve-choice label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  padding: 5px 7px;
+  border: 1px solid #d3c29c;
+  border-radius: 6px;
+  background: #fffaf0;
+  color: var(--pf-text);
+  font: 500 12.5px/1.25 var(--pf-sans);
+  cursor: pointer;
+}
+.application.lhwin.themed.dialog.evolve-dialog .evolve-choice label:has(input:checked) {
+  border-color: var(--pf-primary);
+  background: color-mix(in srgb, var(--pf-primary) 10%, #fffaf0);
+  box-shadow: 0 0 0 1px var(--pf-primary);
+}
+.application.lhwin.themed.dialog.evolve-dialog .evolve-choice input { margin: 0; accent-color: var(--pf-primary); }
+.application.lhwin.themed.dialog.evolve-dialog .evolve-choice img { width: 26px; height: 26px; border: none; border-radius: 5px; }
+.application.lhwin.themed.dialog.evolve-dialog .evolve-choice label b { color: var(--pf-primary); font: 700 13px/1 var(--pf-serif); }
+.application.lhwin.themed.dialog.evolve-dialog .evolve-choice label span { overflow: hidden; text-overflow: ellipsis; }
+.application.lhwin.themed.dialog.evolve-dialog .evolve-rite {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 7px;
+  margin: 9px 0 0;
+  padding: 7px 9px;
+  border: 1px solid #d9c08a;
+  border-left: 3px solid #b8913a;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #fff6dc, #f5e6bf);
+  color: var(--pf-text);
+  font: italic 12.5px/1.4 var(--pf-body);
+}
+.application.lhwin.themed.dialog.evolve-dialog .evolve-rite i { padding-top: 2px; color: #8a6a25; }
+.application.lhwin.themed.dialog.evolve-dialog .evolve-rite b { color: #6e5520; font: 700 10px/1.2 var(--pf-sans); font-style: normal; letter-spacing: 0.1em; text-transform: uppercase; }
+.application.lhwin.themed.dialog.evolve-dialog .evolve-note { margin: 8px 0 0; color: var(--pf-text-soft); font: 11.5px/1.35 var(--pf-sans); }

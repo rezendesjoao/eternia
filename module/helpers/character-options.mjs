@@ -31,12 +31,15 @@ function numbers(data, keys) {
   return Object.fromEntries(keys.map(k => [k, Number(data[k]) || 0]));
 }
 
-/** Numbers of the character's race (its Race item), or null. */
+/** Numbers of the character's race (its Race item, with the +1 of the stages of its form), or null. */
 export function raceStats(actor) {
   const item = getOption(actor, "race");
   if (!item) return null;
-  return numbers({ ...item.system.attributes, hp: item.system.hp, fate: item.system.fate },
+  const out = numbers({ ...item.system.attributes, hp: item.system.hp, fate: item.system.fate },
     ["str", "dex", "pow", "int", "hp", "fate"]);
+  const bonus = item.flags?.eternia?.stageBonus ?? {};
+  for (const key of ["str", "dex", "pow", "int"]) out[key] += Number(bonus[key]) || 0;
+  return out;
 }
 
 /** Numbers of the character's class (its Class item), or null. */

@@ -1,10 +1,11 @@
-{{!-- RACE: the races as cards and, beside them, the page of the one under the pointer (or chosen): its story, its
-     numbers, the Human's +1, its two innate skills (a choice is made right there) and what it unlocks later. --}}
+{{!-- RACE: the races as cards (a group, the Bestials, is one card: its lineages are chosen in the page) and, beside
+     them, the page of the one under the pointer (or chosen): its story, its numbers, the lineage, the Human's +1, its
+     two innate skills (a choice is made right there) and the stages of its form. --}}
 <div class="wz-split">
 	<ol class="wz-grid wz-grid-race" role="listbox" aria-label="{{localize 'ETERNIA.Wizard.Step.race'}}">
-		{{#each races}}
-		<li class="wz-card{{#if selected}} selected{{/if}}" role="option" aria-selected="{{#if selected}}true{{else}}false{{/if}}" tabindex="0"
-			data-kind="race" data-key="{{uuid}}" data-action="pick" style="--wz-card: {{color}}">
+		{{#each cards}}
+		<li class="wz-card{{#if selected}} selected{{/if}}{{#if group}} group{{/if}}" role="option" aria-selected="{{#if selected}}true{{else}}false{{/if}}" tabindex="0"
+			data-kind="race" data-key="{{key}}" data-action="pick" style="--wz-card: {{color}}">
 			<span class="wz-medal"><img src="{{img}}" alt=""></span>
 			<span class="wz-card-text">
 				<span class="wz-card-name">{{name}}</span>
@@ -49,6 +50,19 @@
 			</header>
 			{{#if race.lore}}<p class="wz-lore">{{race.lore}}</p>{{/if}}
 
+			{{#if race.lineages}}
+			<h4>{{localize "ETERNIA.Wizard.Race.Lineage"}}</h4>
+			<ul class="wz-tiles options wz-lineages">
+				{{#each race.lineages as |l|}}
+				<li class="wz-tile{{#if l.chosen}} checked{{/if}}{{#if l.on}} on{{/if}}" data-action="pick" data-kind="race" data-key="{{l.uuid}}" tabindex="0">
+					<img src="{{l.img}}" alt="">
+					<span class="wz-tile-body"><b>{{l.name}}</b><small>{{l.bonus}}</small></span>
+					<i class="wz-tile-radio fa-{{#if l.chosen}}solid fa-circle-dot{{else}}regular fa-circle{{/if}}"></i>
+				</li>
+				{{/each}}
+			</ul>
+			{{/if}}
+
 			{{#if race.human}}
 			<h4>{{localize "ETERNIA.Wizard.Race.HumanPick"}}</h4>
 			<div class="wz-toggles">
@@ -86,11 +100,24 @@
 			{{/if}}
 			{{/each}}
 
-			{{#if race.unlocks.length}}
-			<h4>{{localize "ETERNIA.Wizard.Race.Unlocks"}}</h4>
-			<ul class="wz-unlocks">
-				{{#each race.unlocks}}<li><img src="{{img}}" alt=""><span>{{name}}</span><em>{{localize "ETERNIA.Classes.FromRank" n=minRank}}</em></li>{{/each}}
-			</ul>
+			{{#if race.stages.length}}
+			<h4>{{localize "ETERNIA.Wizard.Race.Stages"}}</h4>
+			{{#if race.firstStage}}<p class="wz-note">{{localize "ETERNIA.Wizard.Race.StagesLead" name=race.firstStage}}</p>{{/if}}
+			<ol class="wz-stages">
+				{{#each race.stages as |st|}}
+				<li class="wz-stage">
+					<span class="wz-stage-seal">{{st.roman}}</span>
+					<div class="wz-stage-body">
+						<header><b>{{st.name}}</b><em>{{localize "ETERNIA.Classes.FromRank" n=st.rank}}</em></header>
+						<span class="wz-stage-skills">
+							{{#each st.slots as |slot|}}{{#each slot.skills as |o|}}{{#unless @first}}<small class="wz-stage-or">{{localize "ETERNIA.Wizard.Race.Or"}}</small>{{/unless}}<span class="wz-stage-skill" data-wz-tip="{{o.tip}}"><img src="{{o.img}}" alt="">{{o.name}}</span>{{/each}}{{/each}}
+							{{#if st.attribute}}<span class="wz-stage-attr">{{st.attribute}}</span>{{/if}}
+						</span>
+						{{#if st.rite}}<p class="wz-stage-rite"><i class="fa-solid fa-scroll"></i>{{st.rite}}</p>{{/if}}
+					</div>
+				</li>
+				{{/each}}
+			</ol>
 			{{/if}}
 		</article>
 		{{/each}}

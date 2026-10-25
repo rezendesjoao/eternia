@@ -1,0 +1,346 @@
+{
+  "name": "Sopro",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você solta o sopro do seu dragão numa linha de até 3 Qd. Teste de Precisão contra a Esquiva de cada alvo da Linha; [2d6 + Poder Mágico] de dano mágico, e quem você acerta recebe o efeito da sua linhagem: Fogo, [Queimando: NP÷2 + 1]; Ferro, [Fissurado: 1]; Céu, [Derrubado]; Raio, [Eletrificado: NP÷2 + 1]; Branco, [Congelando: 1]; Sombras, [Cego]; Veneno, [Envenenado: NP÷2 + 1]. Uma vez por cena.</p><hr><p><em>O peito incha, a garganta acende por dentro, e o que sai não é fogo de vela: é a lembrança do dragão que você nunca conheceu, e que ainda respira por você.</em></p>",
+    "tags": [
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "3Sq",
+    "target": "Line",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/abilities/dragon-fire-breath-orange.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Sangue de Brasa: Fogo"
+            }
+          ],
+          "expires": "endOfScene",
+          "statusData": {
+            "statusId": "burning",
+            "value": "floor(@cr/2)+1"
+          }
+        }
+      },
+      "name": "Sopro: Fogo",
+      "img": "systems/eternia/assets/ui/status/burning.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "burning"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "U2Fgy5zASv9AnV6i",
+      "_key": "!items.effects!Gl0tYCOxoywdc53Z.U2Fgy5zASv9AnV6i"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Sangue de Brasa: Ferro"
+            }
+          ],
+          "expires": "endOfScene",
+          "statusData": {
+            "statusId": "fissured",
+            "value": 1
+          }
+        }
+      },
+      "name": "Sopro: Ferro",
+      "img": "systems/eternia/assets/ui/status/fissured.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "fissured"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "HBVMWrSZfL7GznMJ",
+      "_key": "!items.effects!Gl0tYCOxoywdc53Z.HBVMWrSZfL7GznMJ"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Sangue de Brasa: Céu"
+            }
+          ],
+          "expires": "endOfScene"
+        }
+      },
+      "name": "Sopro: Céu",
+      "img": "systems/eternia/assets/ui/status/prone.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "prone"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "YOCUzlHJO3fX2MEo",
+      "_key": "!items.effects!Gl0tYCOxoywdc53Z.YOCUzlHJO3fX2MEo"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Sangue de Brasa: Raio"
+            }
+          ],
+          "expires": "endOfScene",
+          "statusData": {
+            "statusId": "shocked",
+            "value": "floor(@cr/2)+1"
+          }
+        }
+      },
+      "name": "Sopro: Raio",
+      "img": "systems/eternia/assets/ui/status/shocked.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "shocked"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "kdb0LVs3bzzmbUE6",
+      "_key": "!items.effects!Gl0tYCOxoywdc53Z.kdb0LVs3bzzmbUE6"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Sangue de Brasa: Branco"
+            }
+          ],
+          "expires": "endOfScene",
+          "statusData": {
+            "statusId": "freezing",
+            "value": 1
+          }
+        }
+      },
+      "name": "Sopro: Branco",
+      "img": "systems/eternia/assets/ui/status/freezing.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "freezing"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "h6b9slTaU5jgFseQ",
+      "_key": "!items.effects!Gl0tYCOxoywdc53Z.h6b9slTaU5jgFseQ"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Sangue de Brasa: Sombras"
+            }
+          ],
+          "expires": "endOfScene"
+        }
+      },
+      "name": "Sopro: Sombras",
+      "img": "systems/eternia/assets/ui/status/blinded.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "blinded"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "KGXNZqBEETywYgFf",
+      "_key": "!items.effects!Gl0tYCOxoywdc53Z.KGXNZqBEETywYgFf"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Sangue de Brasa: Veneno"
+            }
+          ],
+          "expires": "endOfScene",
+          "statusData": {
+            "statusId": "poisoned",
+            "value": "floor(@cr/2)+1"
+          }
+        }
+      },
+      "name": "Sopro: Veneno",
+      "img": "systems/eternia/assets/ui/status/poisoned.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "poisoned"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "n4beo9wd56yhRVw3",
+      "_key": "!items.effects!Gl0tYCOxoywdc53Z.n4beo9wd56yhRVw3"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.32.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 150000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Gl0tYCOxoywdc53Z",
+  "folder": "tV9i5HLEWMzofPgP",
+  "_key": "!items!Gl0tYCOxoywdc53Z"
+}

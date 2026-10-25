@@ -1,0 +1,174 @@
+{
+  "name": "As Nove Caudas",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você vira a raposa de nove caudas até o fim da cena: recebe [Fortalecido: NP] e [Clones: 6].</p><p>Enquanto durar, os inimigos a até 3 Qd de você recebem [Queimando: NP÷2] quando você se transforma e em cada Manutenção. Uma vez por cenário.</p><hr><p><em>Nove caudas de fogo azul se abrem até o céu, e a raposa que fica no seu lugar é do tamanho de um templo. O fogo dela não esquenta, mas tudo em volta queima.</em></p>",
+    "tags": [],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Close",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scenario",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/projectile-fireball-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "empowered",
+            "value": "@cr"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "name": "As Nove Caudas",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "KtGGc77iIdcOM5Gy",
+      "_key": "!items.effects!W9YSpcoYp9ybcIdb.KtGGc77iIdcOM5Gy"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "clones",
+            "value": 6
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "name": "As Nove Caudas: cópias",
+      "img": "systems/eternia/assets/ui/status/clones.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "clones"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "DMrre33yIR2bQU6e",
+      "_key": "!items.effects!W9YSpcoYp9ybcIdb.DMrre33yIR2bQU6e"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "expires": "endOfScene",
+          "realm": {
+            "radius": 3,
+            "enemies": [
+              {
+                "statusId": "burning",
+                "value": "floor(@cr/2)"
+              }
+            ]
+          }
+        }
+      },
+      "name": "As Nove Caudas: fogo",
+      "img": "icons/magic/fire/projectile-fireball-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "G3Zu9bNoU1AXvtv6",
+      "_key": "!items.effects!W9YSpcoYp9ybcIdb.G3Zu9bNoU1AXvtv6"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "minRank": 16,
+      "choiceOnly": true,
+      "raceStage": 5
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.32.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 500000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "W9YSpcoYp9ybcIdb",
+  "folder": "TYNwqjpz3lQom6BU",
+  "_key": "!items!W9YSpcoYp9ybcIdb"
+}

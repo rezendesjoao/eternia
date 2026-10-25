@@ -248,6 +248,9 @@ export async function applyItemEffects(item, actors, { useId, sustained, only, o
     if (isFormula(statusData?.value)) statusData.value = Math.max(1, evaluateFormula(statusData.value, values) ?? 1);
     const fatigue = data.flags?.eternia?.fatigueOnEnd;
     if (isFormula(fatigue)) data.flags.eternia.fatigueOnEnd = Math.max(0, evaluateFormula(fatigue, values) ?? 0);
+    // The status the user's hits give while the effect lasts (the Black Flames: NP÷2)
+    const onHit = data.flags?.eternia?.onHit;
+    if (isFormula(onHit?.value)) onHit.value = Math.max(1, evaluateFormula(onHit.value, values) ?? 1);
     delete data.flags?.eternia?.conditions;
     foundry.utils.setProperty(data, "flags.eternia.itemUse", true);
 

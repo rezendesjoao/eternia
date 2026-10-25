@@ -1,0 +1,95 @@
+{
+  "name": "Chamas Negras",
+  "type": "skill",
+  "system": {
+    "description": "<p>Até o fim da rodada, chamas negras correm pelos seus golpes: quem o seu dano atinge recebe [Chama Negra: NP÷2] (sofre esse dano de [Chama] no Encerramento e não recupera PV). Uma vez por cena.</p><hr><p><em>O fogo que sai de você não ilumina nada. É frio ao toque, cheira a cinza antiga e gruda nas feridas como piche, apagando qualquer luz de cura que chegue perto.</em></p>",
+    "tags": [],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Close",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/fire/flame-burning-hand-purple.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "onHit": {
+            "statusId": "blackFlame",
+            "value": "floor(@cr/2)"
+          },
+          "expires": "endOfRound"
+        }
+      },
+      "name": "Chamas Negras",
+      "img": "systems/eternia/assets/ui/status/blackFlame.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "6RMR8ojNjIcVmYMl",
+      "_key": "!items.effects!89E2HMMHETau9qSt.6RMR8ojNjIcVmYMl"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "minRank": 7,
+      "choiceOnly": true,
+      "raceStage": 3
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.32.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "89E2HMMHETau9qSt",
+  "folder": "oEm1YSPbbh2uVx5J",
+  "_key": "!items!89E2HMMHETau9qSt"
+}

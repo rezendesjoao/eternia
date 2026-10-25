@@ -20,6 +20,7 @@ import { registerRankGrants } from "./apps/rank-grants.mjs";
 import { OptionBrowser, registerOptionBrowser } from "./apps/option-browser.mjs";
 import { registerSkillBrowser } from "./apps/skill-browser.mjs";
 import { registerLevelFlow } from "./apps/rank-up.mjs";
+import { answerRequest, evolve, formOf, openEvolution, regress, registerEvolution, requestEvolution } from "./races/evolution.mjs";
 import { registerSkillRefresh } from "./apps/skill-refresh.mjs";
 import { rollSkill } from "./helpers/skill-rolls.mjs";
 import { registerCombatCards } from "./helpers/combat-cards.mjs";
@@ -101,6 +102,8 @@ Hooks.once('init', async function () {
     applyStatus: (actor, id, { value = null, tag = "", expires = "endOfScene", from = null } = {}) =>
       giveEffects(actor, [statusEffectData(id, value, tag, { expires, caster: from })]),
     conditions: { recover, damage: takeDamage },
+    // The stages of a race's form (races/evolution.mjs): where a character is, the box, evolving, going back, the GM's request
+    form: { of: formOf, open: openEvolution, evolve, regress, request: requestEvolution, answer: answerRequest },
     professions: professionsApi,
     motor: MOTOR_API,
     icons: iconsApi,
@@ -170,6 +173,8 @@ Hooks.once('init', async function () {
   registerOptionBrowser();
   registerSkillBrowser();
   registerLevelFlow();
+  // The five stages of a race's form: the race card's Evolve, the GM's approval in the chat
+  registerEvolution();
   // GM tool: refresh the skills characters own from the system compendiums
   registerSkillRefresh();
 

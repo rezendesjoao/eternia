@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.32.0 — 2026-10-25
+
+### Adicionado
+- **As seis raças do mundo e os cinco estágios da forma.** Entram os **Dracônicos**, os **Demônios**, os
+  **Celestiais** e os **Bestiais** em três linhagens (**Felinos**, **Lupinos** e **Vulpinos**, cada uma um item de
+  raça); os **Humanos** e os **Elfos** ficam. Cada raça tem cinco estágios: o II abre no NP 3, o III no 7, o IV no 12 e o
+  V no 16, e cada um dá habilidades da raça sem gastar escolhas (no IV, também +1 num atributo da raça; no V, a forma da
+  Fera). São 29 habilidades novas, automatizadas: Unção, Eleito e Transcendente (Humanos); Meio-Espírito e A Fera do Fim
+  (Elfos); Sangue de Brasa em sete linhagens, Sopro, Comer o Elemento, Chifres e Cauda, Asas e O Dragão (Dracônicos); A
+  Marca, Chamas Negras e O Demônio do Abaixo (Demônios); O Símbolo e O Serafim (Celestiais); Reflexo Felino, Garras do
+  Tigre e O Tigre Branco; Uivo e O Lobo da Lua Violeta; Sete Caudas e As Nove Caudas (Bestiais).
+- **O selo Forma e a evolução** (`module/races/evolution.mjs`): o cartão da raça na ficha mostra o estágio e, quando o NP
+  do próximo chega, brilha; o clique abre a caixa com o que o estágio dá, as escolhas e o rito. Com a configuração
+  nova **Evolução da forma com o Mestre** (ligada), o pedido do jogador vai ao Mestre num cartão sussurrado, com Aprovar
+  e Recusar. O Mestre evolui na hora, pode adiantar e pode voltar um estágio. Cada evolução deixa um cartão no chat, e a
+  caixa e o cartão de NP avisam quando um estágio abre.
+- **O compêndio O Mundo de Eternia** (só do Mestre): o mundo de jogo em 18 diários, um por capítulo, com uma página por
+  parte e os capítulos ligados entre si.
+- **A página XIII. AS RAÇAS E A FORMA** no diário AS REGRAS, com as raças, os estágios e os ritos.
+
+### Alterado
+- **O passo Raça do assistente** mostra os cinco estágios de cada raça (o NP, as habilidades e o rito), no lugar das
+  desbloqueáveis; os Bestiais são um cartão só, com a linhagem escolhida na página, e as raças seguem a ordem do mundo.
+- **As habilidades desbloqueáveis das raças viraram estágios da forma**: não aparecem mais no navegador de habilidades,
+  vêm com a evolução, e as do NP 5 passaram para o 7 ou o 12 (as Asas de Luz, do NP 1 para o 7). Quem já tem uma delas
+  fica com ela; quando o estágio a dá, a escolha gasta nela volta. As habilidades que mudaram de raça ganharam o texto
+  da raça nova (as asas do Parceiro e da Velocidade Máxima, a auréola da Graça do Astro), e a Forma Etherious virou as
+  **Asas da Treva**.
+- **O estado que um efeito dá ao acertar** (`onHit`) aceita fórmula no Valor, resolvida ao usar a habilidade.
+- **O cartão da raça na ficha** tem a cor da raça.
+- O aviso de novidades fala da 0.32.
+
+### Removido
+- **As raças Oni, Flügel, Etherious, Vargr, Kitsune e Exceed** saíram da lista (`flags.eternia.retired`), com as
+  habilidades que não passaram para as raças novas (Aera, O Livro, Clarividência, Chifre, Elo de Sangue e Oni Desperto).
+  As fichas que as usam continuam funcionando, sem os estágios.
+
 ## 0.31.0 — 2026-10-25
 
 ### Adicionado

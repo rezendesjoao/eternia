@@ -1,8 +1,8 @@
 {
-  "name": "Forma Etherious",
+  "name": "A Fera do Fim",
   "type": "skill",
   "system": {
-    "description": "<p>Você assume a sua forma demoníaca até o fim da cena: recebe [Fortalecido: NP], [Último Fôlego] e [Voando].</p><hr><p><em>A escrita do Livro cobre o corpo inteiro e se ergue da pele como uma armadura de tinta. Chifres, garras e asas de trevas se desdobram das linhas, e chamas negras lambem o chão a cada passo.</em></p>",
+    "description": "<p>Você deixa o espírito do pacto engolir você e vira o colosso de gelo e estrelas até o fim da cena: recebe [Fortalecido: NP] e fica imune a [Congelando].</p><p>Enquanto durar, os inimigos a até 2 Qd de você recebem [Congelando: 1] quando você se transforma e em cada Manutenção.</p><hr><p><em>O ar para. A geada sobe pelas suas pernas como uma maré, e o corpo cresce até as copas das árvores, translúcido, cheio de luzes pequenas como constelações. É o inverno que o mundo esqueceu, e ele lembra de você.</em></p>",
     "tags": [],
     "timing": "Minor",
     "checkType": "",
@@ -29,7 +29,7 @@
     },
     "macroeffect": ""
   },
-  "img": "icons/magic/unholy/silhouette-evil-horned-giant.webp",
+  "img": "icons/magic/water/elemental-water.webp",
   "effects": [
     {
       "origin": null,
@@ -44,25 +44,18 @@
       "transfer": false,
       "flags": {
         "eternia": {
+          "recipients": "self",
           "statusData": {
             "statusId": "empowered",
             "value": "@cr"
           },
+          "immune": [
+            "freezing"
+          ],
           "expires": "endOfScene"
         }
       },
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "eternia",
-        "systemVersion": "0.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "name": "Forma Etherious",
+      "name": "A Fera do Fim",
       "img": "systems/eternia/assets/ui/status/empowered.svg",
       "type": "base",
       "system": {
@@ -75,8 +68,8 @@
       "sort": 0,
       "start": null,
       "showIcon": 1,
-      "_id": "gLhdMnMmUtlDeOdB",
-      "_key": "!items.effects!5pzfoq6n5fzdkbrh.gLhdMnMmUtlDeOdB"
+      "_id": "jdggnewDMWrZa3hQ",
+      "_key": "!items.effects!JyYjDFJaXsOk8e7b.jdggnewDMWrZa3hQ"
     },
     {
       "origin": null,
@@ -91,47 +84,45 @@
       "transfer": false,
       "flags": {
         "eternia": {
-          "expires": "endOfScene"
+          "recipients": "self",
+          "expires": "endOfScene",
+          "realm": {
+            "radius": 2,
+            "enemies": [
+              {
+                "statusId": "freezing",
+                "value": 1
+              }
+            ]
+          }
         }
       },
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "eternia",
-        "systemVersion": "0.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "name": "Forma Etherious: asas e corações",
-      "img": "systems/eternia/assets/ui/status/lastStand.svg",
+      "name": "A Fera do Fim: inverno",
+      "img": "icons/magic/water/elemental-water.webp",
       "type": "base",
       "system": {
         "changes": []
       },
       "description": "",
-      "statuses": [
-        "lastStand",
-        "flying"
-      ],
+      "statuses": [],
       "sort": 0,
       "start": null,
       "showIcon": 1,
-      "_id": "4guF6dcB4Guek4PN",
-      "_key": "!items.effects!5pzfoq6n5fzdkbrh.4guF6dcB4Guek4PN"
+      "_id": "1fZTvVuN0oI7VLKz",
+      "_key": "!items.effects!JyYjDFJaXsOk8e7b.1fZTvVuN0oI7VLKz"
     }
   ],
   "flags": {
     "eternia": {
-      "minRank": 5
+      "minRank": 16,
+      "choiceOnly": true,
+      "raceStage": 5
     }
   },
   "_stats": {
     "coreVersion": "14.367",
     "systemId": "eternia",
-    "systemVersion": "0.3.0",
+    "systemVersion": "0.32.0",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,
@@ -139,11 +130,11 @@
     "duplicateSource": null,
     "exportSource": null
   },
-  "sort": 400000,
+  "sort": 500000,
   "ownership": {
     "default": 0
   },
-  "_id": "5pzfoq6n5fzdkbrh",
-  "folder": "AKyx5UZdduh2A6s6",
-  "_key": "!items!5pzfoq6n5fzdkbrh"
+  "_id": "JyYjDFJaXsOk8e7b",
+  "folder": "0Amrale2QVq4ArsY",
+  "_key": "!items!JyYjDFJaXsOk8e7b"
 }

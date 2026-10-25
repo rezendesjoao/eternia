@@ -1204,6 +1204,56 @@
 }
 .lhpf .lhpf-option-line i { color: color-mix(in srgb, var(--opt-color) 80%, #000); font-size: 10px; }
 
+/* The stage of the race's form (races/evolution.mjs): a small seal at the end of the race card; ready to evolve, it
+   glows and shows a paw */
+.lhpf .lhpf-option-card.has-form { grid-template-columns: 42px minmax(0, 1fr) auto; }
+.lhpf .lhpf-form-seal {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 1px;
+  width: 42px;
+  height: 38px;
+  margin: 0;
+  padding: 2px 0 3px;
+  border: 1px solid color-mix(in srgb, var(--opt-color) 55%, #8a6a25);
+  border-radius: 7px;
+  background: radial-gradient(circle at 50% 25%, #fffaf0, #ead9ae 70%, #d9c08a);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 1px 2px rgba(0, 0, 0, 0.2);
+  color: color-mix(in srgb, var(--opt-color) 75%, #000);
+  line-height: 1;
+  cursor: pointer;
+}
+.lhpf .lhpf-form-seal:disabled { cursor: default; }
+.lhpf .lhpf-form-seal small { font: 700 7.5px/1 var(--pf-sans); letter-spacing: 0.14em; text-transform: uppercase; }
+.lhpf .lhpf-form-seal b { font: 700 17px/1 var(--pf-serif); }
+.lhpf .lhpf-form-seal:not(:disabled):hover { border-color: var(--opt-color); box-shadow: 0 0 0 2px color-mix(in srgb, var(--opt-color) 30%, transparent); }
+.lhpf .lhpf-form-seal.ready {
+  border-color: #b8913a;
+  background: radial-gradient(circle at 50% 25%, #fff6d8, #f0d37e 65%, #c9a24a);
+  animation: lhpf-form-ready 2.4s ease-in-out infinite;
+}
+.lhpf .lhpf-form-seal.ready i {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--opt-color);
+  box-shadow: 0 0 0 1px #fffaf0;
+  color: #fffaf0;
+  font-size: 8px;
+}
+@keyframes lhpf-form-ready {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 162, 74, 0.0), 0 1px 2px rgba(0, 0, 0, 0.2); }
+  50% { box-shadow: 0 0 0 4px rgba(201, 162, 74, 0.35), 0 1px 2px rgba(0, 0, 0, 0.2); }
+}
+@media (prefers-reduced-motion: reduce) { .lhpf .lhpf-form-seal.ready { animation: none; } }
+
 /* The attributes, each with the two checks it gives (a click rolls) */
 .lhpf .lhpf-attrs .lhpf-section > button {
   display: flex;

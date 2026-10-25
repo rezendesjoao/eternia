@@ -1,0 +1,138 @@
+{
+  "name": "O Tigre Branco",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você vira o tigre branco até o fim da cena: recebe [Fortalecido: NP], [Acelerado] (uma segunda Ação Menor em cada turno) e +2 na Velocidade. Uma vez por cenário.</p><hr><p><em>Listras escuras correm pelo pelo que embranquece, o corpo cresce até o tamanho de uma carroça e o rugido espanta os cavalos da praça. Você fica rápido demais para os olhos de qualquer um.</em></p>",
+    "tags": [],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Close",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scenario",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/equipment/head/mask-tiger-silver.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "empowered",
+            "value": "@cr"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "name": "O Tigre Branco",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.speed.mod",
+            "type": "add",
+            "value": 2,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "477f7A3ZpvaqfgMn",
+      "_key": "!items.effects!ko1odJKcLoF8nS1G.477f7A3ZpvaqfgMn"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "expires": "endOfScene"
+        }
+      },
+      "name": "O Tigre Branco: pressa",
+      "img": "systems/eternia/assets/ui/status/hasted.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "hasted"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "8oAMg5MZYQFprUwv",
+      "_key": "!items.effects!ko1odJKcLoF8nS1G.8oAMg5MZYQFprUwv"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "minRank": 16,
+      "choiceOnly": true,
+      "raceStage": 5
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.32.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 500000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ko1odJKcLoF8nS1G",
+  "folder": "8s4xcqENsPmS4i0z",
+  "_key": "!items!ko1odJKcLoF8nS1G"
+}

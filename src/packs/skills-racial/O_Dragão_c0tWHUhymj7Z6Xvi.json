@@ -1,0 +1,418 @@
+{
+  "name": "O Dragão",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você vira o dragão até o fim da cena: recebe [Fortalecido: NP] e [Voando]. Na mesma ação, solta o sopro maior sobre uma área a até 4 Qd: Teste de Precisão contra a Esquiva de cada alvo; [3d6 + Poder Mágico + NP×2] de dano mágico, e quem você acerta recebe o efeito da sua linhagem, o mesmo do Sopro. Uma vez por cenário.</p><hr><p><em>A forma rasga de dentro para fora. Onde havia gente há escamas do tamanho de escudos, asas que escurecem a praça e um peito que acende como uma forja. O sopro sai, e por um momento ninguém lembra que você já foi gente.</em></p>",
+    "tags": [
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "1/Scenario",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": "@cr*2",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/reptiles/dragon-winged-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "empowered",
+            "value": "@cr"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "name": "O Dragão",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "jwVlVXl5a4UPp1V3",
+      "_key": "!items.effects!c0tWHUhymj7Z6Xvi.jwVlVXl5a4UPp1V3"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "expires": "endOfScene"
+        }
+      },
+      "name": "O Dragão: asas",
+      "img": "systems/eternia/assets/ui/status/flying.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "flying"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "Vgg1VENJ1QrDBvz5",
+      "_key": "!items.effects!c0tWHUhymj7Z6Xvi.Vgg1VENJ1QrDBvz5"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Sangue de Brasa: Fogo"
+            }
+          ],
+          "expires": "endOfScene",
+          "statusData": {
+            "statusId": "burning",
+            "value": "floor(@cr/2)+1"
+          }
+        }
+      },
+      "name": "O Dragão: Fogo",
+      "img": "systems/eternia/assets/ui/status/burning.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "burning"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "Oh2H1Jt33kWd0fJ6",
+      "_key": "!items.effects!c0tWHUhymj7Z6Xvi.Oh2H1Jt33kWd0fJ6"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Sangue de Brasa: Ferro"
+            }
+          ],
+          "expires": "endOfScene",
+          "statusData": {
+            "statusId": "fissured",
+            "value": 1
+          }
+        }
+      },
+      "name": "O Dragão: Ferro",
+      "img": "systems/eternia/assets/ui/status/fissured.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "fissured"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "Hxqg3DU18BpMwqYX",
+      "_key": "!items.effects!c0tWHUhymj7Z6Xvi.Hxqg3DU18BpMwqYX"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Sangue de Brasa: Céu"
+            }
+          ],
+          "expires": "endOfScene"
+        }
+      },
+      "name": "O Dragão: Céu",
+      "img": "systems/eternia/assets/ui/status/prone.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "prone"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "FuphYX3Jxs6RpPQa",
+      "_key": "!items.effects!c0tWHUhymj7Z6Xvi.FuphYX3Jxs6RpPQa"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Sangue de Brasa: Raio"
+            }
+          ],
+          "expires": "endOfScene",
+          "statusData": {
+            "statusId": "shocked",
+            "value": "floor(@cr/2)+1"
+          }
+        }
+      },
+      "name": "O Dragão: Raio",
+      "img": "systems/eternia/assets/ui/status/shocked.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "shocked"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "rE3zfsZB2HE5EG0H",
+      "_key": "!items.effects!c0tWHUhymj7Z6Xvi.rE3zfsZB2HE5EG0H"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Sangue de Brasa: Branco"
+            }
+          ],
+          "expires": "endOfScene",
+          "statusData": {
+            "statusId": "freezing",
+            "value": 1
+          }
+        }
+      },
+      "name": "O Dragão: Branco",
+      "img": "systems/eternia/assets/ui/status/freezing.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "freezing"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "Yy5HDQMD1gDKDNo7",
+      "_key": "!items.effects!c0tWHUhymj7Z6Xvi.Yy5HDQMD1gDKDNo7"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Sangue de Brasa: Sombras"
+            }
+          ],
+          "expires": "endOfScene"
+        }
+      },
+      "name": "O Dragão: Sombras",
+      "img": "systems/eternia/assets/ui/status/blinded.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "blinded"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "3vVapd6uyl7DLVpR",
+      "_key": "!items.effects!c0tWHUhymj7Z6Xvi.3vVapd6uyl7DLVpR"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "hasSkill",
+              "value": "Sangue de Brasa: Veneno"
+            }
+          ],
+          "expires": "endOfScene",
+          "statusData": {
+            "statusId": "poisoned",
+            "value": "floor(@cr/2)+1"
+          }
+        }
+      },
+      "name": "O Dragão: Veneno",
+      "img": "systems/eternia/assets/ui/status/poisoned.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "poisoned"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "7qeE1NKpuDJJkdO0",
+      "_key": "!items.effects!c0tWHUhymj7Z6Xvi.7qeE1NKpuDJJkdO0"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "minRank": 16,
+      "choiceOnly": true,
+      "raceStage": 5
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.32.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 500000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "c0tWHUhymj7Z6Xvi",
+  "folder": "tV9i5HLEWMzofPgP",
+  "_key": "!items!c0tWHUhymj7Z6Xvi"
+}

@@ -449,6 +449,8 @@ async function onUpdateActor(actor, changes, options, userId) {
   for (const id of ["awakened", "impetus"]) {
     const now = foundry.utils.getProperty(changes, `system.bad-status.${id}`);
     if ((now === undefined) || toInt(now) || !(before[id] > 0) || (actor.type !== "character") || options.eterniaNoFatigue) continue;
+    // The Transcendent (a Human's last stage): its [Awakened] leaves no Fatigue
+    if ((id === "awakened") && actor.items.some(i => i.getFlag("eternia", "special") === "transcend")) continue;
     const fatigue = toInt(actor._source.system.infos?.fatigue) + before[id];
     await actor.update({ "system.infos.fatigue": fatigue });
     await postSummary(label(id), [L(`Conditions.${(id === "awakened") ? "AwakenedEnds" : "ImpetusEnds"}`, { name: actorName(actor), n: before[id] })]);

@@ -788,33 +788,46 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
 
   #raceStep() {
     const chosen = this.draft.race;
-    return {
-      races: this.#catalog.races.map(race => ({
-        ...race,
-        selected: race.uuid === chosen,
-        grants: race.grants.map(g => ({
-          ...g,
-          options: g.options.map(o => ({
-            ...o, tip: skillTip(o),
-            checked: g.choice ? (this.draft.raceChoices[g.index] === o.uuid) && (race.uuid === chosen) : true
-          }))
-        })),
-        stats: STATS.map(key => ({
-          key, abbr: L(`Sheet.Attr.${key}.abbr`), name: L(`Sheet.Attr.${key}.name`),
-          value: race.attributes[key], on: race.human && (race.uuid === chosen) && this.draft.human.includes(key),
-          full: race.human && (this.draft.human.length >= HUMAN_PICKS) && !this.draft.human.includes(key)
-        })),
-        unlocks: this.#unlocks(race)
+    const races = this.#catalog.races.map(race => ({
+      ...race,
+      selected: race.uuid === chosen,
+      grants: race.grants.map(g => ({
+        ...g,
+        options: g.options.map(o => ({
+          ...o, tip: skillTip(o),
+          checked: g.choice ? (this.draft.raceChoices[g.index] === o.uuid) && (race.uuid === chosen) : true
+        }))
       })),
-      selectedKey: chosen
-    };
-  }
-
-  /** What a race unlocks at CR 3 and 5 (its skills with a minRank, from the skill index). */
-  #unlocks(race) {
-    const name = race.name.trim().toLowerCase();
-    return (this.#skillIndex ?? []).filter(e => e.folders.includes(name) && (e.minRank > 1) && !e.choiceOnly)
-      .sort((a, b) => a.minRank - b.minRank).map(e => ({ uuid: e.uuid, name: e.name, img: e.img, minRank: e.minRank }));
+      stats: STATS.map(key => ({
+        key, abbr: L(`Sheet.Attr.${key}.abbr`), name: L(`Sheet.Attr.${key}.name`),
+        value: race.attributes[key], on: race.human && (race.uuid === chosen) && this.draft.human.includes(key),
+        full: race.human && (this.draft.human.length >= HUMAN_PICKS) && !this.draft.human.includes(key)
+      })),
+      // The stages of the form, each skill with its tooltip (a slot of several is a choice made when evolving)
+      stages: race.stages.map(st => ({ ...st, slots: st.slots.map(slot => ({ choice: slot.length > 1, skills: slot.map(o => ({ ...o, tip: skillTip(o) })) })) }))
+    }));
+    // A group of races is one card (the Bestials): its lineages are chosen in the page, and the card opens the page of
+    // the one chosen (or the first)
+    const cards = [];
+    for (const race of races) {
+      if (!race.group) {
+        cards.push({ ...race, key: race.uuid });
+        continue;
+      }
+      if (cards.some(c => c.group === race.group)) continue;
+      const members = races.filter(r => r.group === race.group);
+      const current = members.find(m => m.uuid === chosen) ?? members[0];
+      cards.push({
+        group: race.group, key: current.uuid, img: current.img, color: race.groupColor ?? current.color,
+        name: L(`Wizard.Race.Group.${race.group}.Name`), tagline: L(`Wizard.Race.Group.${race.group}.Tagline`),
+        bonusLabel: members.map(m => m.lineage).join(" · "), selected: members.some(m => m.uuid === chosen)
+      });
+      for (const member of members) {
+        member.lineages = members.map(m => ({ uuid: m.uuid, name: m.lineage, img: m.img, bonus: m.bonusLabel,
+          on: m.uuid === member.uuid, chosen: m.uuid === chosen }));
+      }
+    }
+    return { races, cards, selectedKey: chosen };
   }
 
   #classStep() {

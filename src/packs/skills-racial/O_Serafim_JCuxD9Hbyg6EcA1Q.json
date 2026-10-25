@@ -1,0 +1,169 @@
+{
+  "name": "O Serafim",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você vira o anjo verdadeiro até o fim da cena: recebe [Fortalecido: NP] e [Voando].</p><p>Enquanto durar, os inimigos a até 3 Qd de você ficam [Cego] quando você se transforma e em cada Manutenção.</p><hr><p><em>Asas sobre asas, rodas de luz cheias de olhos que giram sem barulho, auréolas que se acendem uma dentro da outra. Não sobra nada de humano, e ninguém consegue olhar por mais de um instante.</em></p>",
+    "tags": [],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Close",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scenario",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/light/explosion-star-glow-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "empowered",
+            "value": "@cr"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "name": "O Serafim",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "NDPOsnSe4r6Jab9E",
+      "_key": "!items.effects!JCuxD9Hbyg6EcA1Q.NDPOsnSe4r6Jab9E"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "expires": "endOfScene"
+        }
+      },
+      "name": "O Serafim: asas",
+      "img": "systems/eternia/assets/ui/status/flying.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "flying"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "zgzskB0NhMbN4IWa",
+      "_key": "!items.effects!JCuxD9Hbyg6EcA1Q.zgzskB0NhMbN4IWa"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "expires": "endOfScene",
+          "realm": {
+            "radius": 3,
+            "enemies": [
+              {
+                "statusId": "blinded"
+              }
+            ]
+          }
+        }
+      },
+      "name": "O Serafim: luz",
+      "img": "icons/magic/light/explosion-star-glow-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "nS5G0XW6VOuHrEe1",
+      "_key": "!items.effects!JCuxD9Hbyg6EcA1Q.nS5G0XW6VOuHrEe1"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "minRank": 16,
+      "choiceOnly": true,
+      "raceStage": 5
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.32.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 500000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "JCuxD9Hbyg6EcA1Q",
+  "folder": "CdfG8Ae0BzHMnEC1",
+  "_key": "!items!JCuxD9Hbyg6EcA1Q"
+}

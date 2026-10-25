@@ -88,7 +88,7 @@ as flags de golpe, nos cartões de dano: `helpers/combat-cards.mjs`, `helpers/ma
 | Efeito | `revive` | o Fôlego Extra: `{ uses, per: "round" \| "scene", hp }`. Quem chegaria a 0 PV por dano (cartão, condição, Deterioração) fica com `hp` PV (fórmula, padrão 1) e gasta um uso; `per: "round"` volta na Manutenção, `"scene"` no fim da cena. Vários somam. Também no efeito de um Traço (o Imortal, 1 por rodada; os Sete Corações, 6 por cena) e na Gota da Fonte. Gancho `eternia.revived(actor, { effect, hp, left })` |
 | Efeito | `nextTurn` | o estado que acaba no fim do próprio turno (`END_OF_OWN_PROCESS`), dado no próprio turno de quem o recebe, dura até o fim do próximo (como os de `WHOLE_TURN`: Petrificado, Amnésia, Pesadelo) |
 | Efeito | `keepCombo` | o dano de um ataque não zera o [Combo] de quem tem o efeito (com `consumeOn: "damage"`, só o próximo) |
-| Efeito | `damageTags`, `onHit` | tags que o dano de quem o tem ganha; estado que esse dano dá em quem atinge (`docs/profissoes.md`) |
+| Efeito | `damageTags`, `onHit` | tags que o dano de quem o tem ganha; estado que esse dano dá em quem atinge (`docs/profissoes.md`); o Valor do `onHit` pode ser fórmula, resolvida ao usar a habilidade (as Chamas Negras: `floor(@cr/2)`) |
 | Efeito | `onUse` | aplica o efeito ao usar a habilidade, também nas que pedem teste contra o alvo (a criatura que fica com quem invoca, [Servo]) |
 | Efeito | `trait` | o Traço de uma Magia (só na habilidade da Magia): `{ magia, bonusVs, onHit, escalate, strip, pierce, keepHidden, bonus, healBonus }`, que vale para os feitiços dessa Magia; `bonus` soma no dano e `healBonus` na cura; `combo: true` faz quem tem a Magia contar o [Combo] do zero; as outras chaves estão nas linhas "Traço" abaixo (e `execute`, que também vai num Traço) |
 | Traço | `infinite` | `true`: os efeitos dos feitiços da Magia são infinitos (o Tempo Parado do Infinito; veja `infinite` no efeito e na habilidade) |
@@ -155,8 +155,9 @@ as flags de golpe, nos cartões de dano: `helpers/combat-cards.mjs`, `helpers/ma
 | Habilidade | `hpCost` | fórmula: PV que quem usa paga ao usar (nunca o último), devolvidos pelo Desfazer (o Golpe sem Medo) |
 | Habilidade | `omenSpend` | o Presságio de quem usa acaba quando o dano dela é rolado (O Fim Já Escrito, com `@omen` na fórmula) |
 | Habilidade | `withItem` | nome de outro item que precisa estar equipado junto (habilidade de item, como um par de espadas) |
-| Habilidade | `special` | `"pack"` (Matilha, em `rolls.mjs`) ou `"book"` (O Livro, no renascimento) |
+| Habilidade | `special` | `"pack"` (Matilha, em `rolls.mjs`), `"book"` (O Livro, no renascimento) ou `"transcend"` (o Transcendente: o [Despertado] de quem a tem não deixa Fadiga, em `turns.mjs`) |
 | Habilidade | `minRank`, `choiceOnly`, `rankGrants` | NP mínimo, só por escolha, e habilidades dadas a cada NH |
+| Habilidade | `raceStage` | o estágio da forma que dá a habilidade (2 a 5): só a evolução a dá (`races/evolution.mjs`) |
 
 ## O Relógio do Sol e o Contragolpe
 

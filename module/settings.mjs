@@ -55,6 +55,8 @@ export function registerSettings() {
   toggle("incapacitated");
   toggle("endOfScene");
   toggle("revive");
+  // Evolving the form of a race (races/evolution.mjs): a player's request waits for the GM
+  toggle("evolutionApproval");
   toggle("closeReach");
   // The conditions of Eternia (conditions/): their automatic effects, and what they forbid
   toggle("conditionRules");

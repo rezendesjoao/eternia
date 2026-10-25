@@ -29,6 +29,7 @@ import { motorDef, motorName } from "../classes/motor.mjs";
 import { professionOf, rankTitle } from "../professions/state.mjs";
 import { PROFESSIONS, TALENTS } from "../professions/data.mjs";
 import { categoryOf, categoryView } from "../apps/magic-catalog.mjs";
+import { formOf, openEvolution, raceColor, ROMAN } from "../races/evolution.mjs";
 
 const DIR = `systems/eternia/templates/character`;
 const PARTIALS = ["sidebar", "character", "skills", "inventory", "class", "magic", "profession", "effects", "biography"];
@@ -220,6 +221,8 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       "option-browse": EterniaCharacterSheet.#onOptionBrowse,
       "lhpf-open-item": EterniaCharacterSheet.#onOpenItem,
       "lhpf-wizard": EterniaCharacterSheet.#onWizard,
+      // The race card's seal: the stage of the form, and the box to evolve (races/evolution.mjs)
+      "lhpf-evolve": EterniaCharacterSheet.#onEvolve,
       "lhauto-fate": EterniaCharacterSheet.#onFate,
       "lhauto-remove-bad": EterniaCharacterSheet.#onRemoveBad,
       "lhauto-allocate": EterniaCharacterSheet.#onAllocate,
@@ -455,7 +458,9 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     const job = context.characterOptions.class;
     const subclass = context.characterOptions.subclass;
     const raceLine = () => {
-      const a = race.system.attributes ?? {};
+      // With the +1 of the stages of the form
+      const bonus = race.flags?.[SYSTEM_ID]?.stageBonus ?? {};
+      const a = Object.fromEntries(["str", "dex", "pow", "int"].map(k => [k, toInt(race.system.attributes?.[k]) + toInt(bonus[k])]));
       const stats = ["str", "dex", "pow", "int"].filter(k => toInt(a[k])).map(k => `${L(`Sheet.Attr.${k}.abbr`)} +${toInt(a[k])}`);
       return [stats.join(", "), `${L("Sheet.HPShort")} +${toInt(race.system.hp)}`, `${game.i18n.localize("ETERNIA.Label.Fate")} +${toInt(race.system.fate)}`]
         .filter(Boolean).join(" · ");
@@ -472,9 +477,19 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       return [`${L("Profession.RankShort", { n: p.rank })} · ${rankTitle(p.rank)}`, L(`Profession.Talent.${p.def.talent}.name`)].join(" · ");
     };
     const profession = subclass ? PROFESSIONS[subclass.system.identifier] : null;
+    // The stage of the race's form: a seal on the card, the box to evolve when the next stage is open (or for the GM)
+    const form = formOf(actor);
+    const raceForm = form.stage ? {
+      roman: ROMAN[form.stage],
+      ready: form.ready && this.isEditable,
+      can: this.isEditable && (!!form.next || (game.user.isGM && (form.stage > 1))),
+      tip: [L("Evolve.SealTip", { stage: ROMAN[form.stage], name: form.current?.name ?? "" }),
+        form.next ? L(form.ready ? "Evolve.SealReady" : "Evolve.SealNext", { stage: ROMAN[form.next.stage], name: form.next.name, rank: form.next.rank })
+          : L("Evolve.SealLast")].join(" ")
+    } : null;
     return [
       { type: "race", label: L("Sheet.Option.race"), item: race, img: race?.img, line: race ? raceLine() : L("Sheet.Option.raceHint"),
-        color: "#2f6b4a", placeholder: game.i18n.localize("ETERNIA.Placeholder.Race") },
+        color: race ? raceColor(race) : "#2f6b4a", form: raceForm, placeholder: game.i18n.localize("ETERNIA.Placeholder.Race") },
       { type: "class", label: L("Sheet.Option.class"), item: job, img: job?.img, emblem: true, line: job ? classLine() : L("Sheet.Option.classHint"),
         color: CLASSES[job?.system.identifier]?.color ?? "#1f5137", placeholder: game.i18n.localize("ETERNIA.Placeholder.Class") },
       { type: "subclass", label: L("Sheet.Option.subclass"), item: subclass, img: subclass?.img, line: subclass ? professionLine() : L("Sheet.Option.subclassHint"),
@@ -680,6 +695,10 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
   /** The creation wizard. */
   static #onWizard() {
     if (this.isEditable) return CreationWizard.open(this.actor);
+  }
+
+  static #onEvolve() {
+    if (this.isEditable) return openEvolution(this.actor);
   }
 
   /* -------------------------------------------- */

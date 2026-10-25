@@ -1,0 +1,139 @@
+{
+  "name": "O Demônio do Abaixo",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você deixa o demônio sair até o fim da cena: recebe [Despertado: NP] (+1d6 nos testes de Precisão e +NP no dano dos ataques; quando acaba, deixa [Fadiga: NP]) e [Barreira: NP×2], e fica imune a [Medo], [Encantado] e [Dominado]. Uma vez por cenário.</p><hr><p><em>A escrita sobe pela pele até cobrir o rosto, os chifres se abrem em coroa e o fogo negro faz o chão chiar. A voz que sai da sua boca é a de alguém que nunca pediu licença para existir.</em></p>",
+    "tags": [],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Close",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scenario",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/unholy/demon-fire-horned-winged-roar.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "awakened",
+            "value": "@cr"
+          },
+          "immune": [
+            "frightened",
+            "charmed",
+            "dominated"
+          ],
+          "expires": "endOfScene"
+        }
+      },
+      "name": "O Demônio do Abaixo",
+      "img": "systems/eternia/assets/ui/status/awakened.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "awakened"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "iBRYrh8PnrrXMjw5",
+      "_key": "!items.effects!ZL3FBP79ROFfVIpH.iBRYrh8PnrrXMjw5"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "barrier",
+            "value": "@cr*2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "name": "O Demônio do Abaixo: escrita",
+      "img": "systems/eternia/assets/ui/status/barrier.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "barrier"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "imVUXQd1gyFBs4MM",
+      "_key": "!items.effects!ZL3FBP79ROFfVIpH.imVUXQd1gyFBs4MM"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "minRank": 16,
+      "choiceOnly": true,
+      "raceStage": 5
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.32.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 500000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ZL3FBP79ROFfVIpH",
+  "folder": "oEm1YSPbbh2uVx5J",
+  "_key": "!items!ZL3FBP79ROFfVIpH"
+}

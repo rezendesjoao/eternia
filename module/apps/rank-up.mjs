@@ -20,6 +20,7 @@ import { SkillBrowser, rankUpSkills, startSkillProgress, unlocksBetween } from "
 import { confirmBox } from "../helpers/dialogs.mjs";
 import { escape } from "../helpers/utils.mjs";
 import { CLASSES } from "../classes/data.mjs";
+import { formOf, ROMAN } from "../races/evolution.mjs";
 
 const STATS = ["str", "dex", "pow", "int"];
 
@@ -181,6 +182,13 @@ async function changeLines(actor, from, to) {
   if (parts.length) {
     lines.push({ text: R("Unlocks", { list: parts.join(", ") }), kind: "info", icon: "fa-solid fa-lock-open" });
     card.rows.push({ icon: "fa-solid fa-lock-open", tone: "unlock", label: R("Card.Unlocks"), value: parts.join(", ") });
+  }
+
+  // The stages of the race's form that open (races/evolution.mjs): the character may evolve from the sheet
+  const form = formOf(actor);
+  for (const st of form.stages.filter(st => (st.stage > form.stage) && (st.rank > from) && (st.rank <= to))) {
+    lines.push({ text: R("Form", { stage: ROMAN[st.stage], name: st.name }), kind: "info", icon: "fa-solid fa-paw" });
+    card.rows.push({ icon: "fa-solid fa-paw", tone: "unlock", label: R("Card.Form"), value: R("Card.FormValue", { stage: ROMAN[st.stage], name: st.name }) });
   }
 
   // What the class gives at the ranks crossed, in CR order: a choice (the Path), a Magia, a skill given (the Apex),

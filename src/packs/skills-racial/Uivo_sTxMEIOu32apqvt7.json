@@ -1,0 +1,126 @@
+{
+  "name": "Uivo",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você uiva: você e os aliados a até 5 Qd que você marcar recebem [Concentrado], e os inimigos marcados a até 5 Qd ficam com [Medo] de você. Uma vez por cena.</p><hr><p><em>O uivo começa baixo, no peito, e sobe até os ossos de quem ouve. Os seus endireitam as costas; os outros lembram que estão longe de casa.</em></p>",
+    "tags": [],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Targets",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/mammals/wolf-howl-moon-forest-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "allies",
+          "expires": "endOfScene"
+        }
+      },
+      "name": "Uivo",
+      "img": "systems/eternia/assets/ui/status/focused.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "focused"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "8yCq1qJMkbE2UiB5",
+      "_key": "!items.effects!sTxMEIOu32apqvt7.8yCq1qJMkbE2UiB5"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "enemies",
+          "expires": "endOfScene"
+        }
+      },
+      "name": "Uivo: medo",
+      "img": "systems/eternia/assets/ui/status/frightened.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "frightened"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "QlNfCthgNU1TrtyS",
+      "_key": "!items.effects!sTxMEIOu32apqvt7.QlNfCthgNU1TrtyS"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "minRank": 7,
+      "choiceOnly": true,
+      "raceStage": 3
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.32.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "sTxMEIOu32apqvt7",
+  "folder": "aCdNcl50vg4F2zzi",
+  "_key": "!items!sTxMEIOu32apqvt7"
+}

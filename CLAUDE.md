@@ -45,9 +45,17 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
 - Um efeito de habilidade que depende de outra habilidade (um Caminho, um talento) usa as condições `hasSkill` e
   `notSkill`, pelo nome, conferidas em quem usa (o Escudo Esculpido do Pictomante vira muralha no Caminho da Paisagem).
 - Raça = item `race` com atributos, `hp`, `fate` e `grants` (as 2 inatas, uma Geral e uma de Combate; uma escolha vira
-  um espaço com várias opções). As habilidades ficam em `skills-racial`, na pasta com o nome da raça: as inatas e as
-  variantes levam `flags.eternia.choiceOnly` (só aparecem no navegador depois de concedidas) e as 2 desbloqueáveis
-  `flags.eternia.minRank` (3 na Geral, 5 na de Combate).
+  um espaço com várias opções) e os cinco estágios da forma em `flags.eternia.stages` (o 1 só com o nome; do 2 ao 5 o
+  NP, o rito, `grants` em espaços, vários uuids = uma escolha, e no 4 `attribute`, os atributos do +1). As habilidades
+  ficam em `skills-racial`, na pasta com o nome da raça: as inatas e as variantes levam `flags.eternia.choiceOnly` (só
+  aparecem no navegador depois de concedidas), e as dos estágios também, com `minRank` (o NP do estágio) e `raceStage`:
+  só a evolução as dá (`module/races/evolution.mjs`). O item de raça do personagem guarda `flags.eternia.stage` (1 sem
+  a flag), `stageBonus` (o +1 dos estágios, somado por `raceStats`) e `stageLog` (o que cada estágio criou, para
+  voltar um). Os Bestiais são três itens (Felinos, Lupinos, Vulpinos) com `raceGroup: "bestial"` e `lineage`: o
+  assistente mostra um cartão só. As raças que saíram (Oni, Flügel, Etherious, Vargr, Kitsune, Exceed) e as habilidades
+  que não passaram adiante levam `flags.eternia.retired`. A cor e a ordem das raças ficam em `module/races/data.mjs`.
+- O Mundo de Eternia (`world`, JournalEntry, só do Mestre): os capítulos do mundo, um diário por capítulo e uma página
+  por seção, gerados de `Eternia-Mundo/diario/` (fora do repositório); "capítulo N" vira link para o diário.
 - Profissão = item `subclass` com `system.identifier` igual a um id de `module/professions/data.mjs`, na pasta
   Profissões de `races-classes`. O progresso fica no personagem (`flags.eternia.professions.<id>`) e o item feito guarda
   a base em `flags.eternia.craft` (veja `docs/profissoes.md`). Engenhocas e Canções ficam em `items` (pastas próprias).

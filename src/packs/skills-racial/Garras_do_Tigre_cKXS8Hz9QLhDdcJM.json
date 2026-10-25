@@ -1,0 +1,98 @@
+{
+  "name": "Garras do Tigre",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você ataca até 2 inimigos engajados com você, com as garras: Teste de Precisão contra a Esquiva de cada um; [3d6 + Poder de Ataque] de dano físico, e quem você acerta recebe [Fissurado: 1].</p><hr><p><em>As unhas saem inteiras, curvas e escuras como as de um tigre. Dois riscos no ar, e duas guardas que não se fecham mais do mesmo jeito.</em></p>",
+    "tags": [
+      "Physical Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Targets",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/claws/claw-talons-glowing-orange.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "statusData": {
+            "statusId": "fissured",
+            "value": 1
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "name": "Garras do Tigre",
+      "img": "systems/eternia/assets/ui/status/fissured.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "fissured"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "WCMGDruUuCt4CS1K",
+      "_key": "!items.effects!cKXS8Hz9QLhDdcJM.WCMGDruUuCt4CS1K"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "minRank": 12,
+      "choiceOnly": true,
+      "raceStage": 4
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.32.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "cKXS8Hz9QLhDdcJM",
+  "folder": "8s4xcqENsPmS4i0z",
+  "_key": "!items!cKXS8Hz9QLhDdcJM"
+}

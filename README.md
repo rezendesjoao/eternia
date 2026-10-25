@@ -5,9 +5,14 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.31.0
+## Versão 0.32.0
 
-- **Novo na 0.31.0: a Biografia, os tokens prontos e o assistente de criação refeito.** A aba **Biografia** tem o
+- **Novo na 0.32.0: as seis raças do mundo, a evolução da forma e O Mundo de Eternia.** Humanos, Elfos, Dracônicos,
+  Demônios, Celestiais e Bestiais (Felinos, Lupinos ou Vulpinos), cada raça com cinco estágios da forma, cada um mais
+  bestial e mais forte, com um rito e habilidades novas: o selo **Forma** no cartão da raça abre a evolução, e o Mestre
+  aprova no chat. O compêndio **O Mundo de Eternia**, só do Mestre, traz o mundo de jogo em 18 diários (veja
+  [As raças](#as-raças) e [O Mundo de Eternia](#o-mundo-de-eternia)).
+- **Desde a 0.31.0: a Biografia, os tokens prontos e o assistente de criação refeito.** A aba **Biografia** tem o
   Perfil (dados pessoais, aparência, personalidade e as Origens que a raça, a classe e as Magias contam), a História, os
   Laços e as Anotações. O token de um personagem já vem enxergando e vinculado à ficha, o nome fica pequeno e sempre à
   vista, a barra de PV só aparece em combate e os personagens esquivam sozinhos. No assistente de criação, os feitiços
@@ -168,9 +173,9 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   [As condições](#as-condições)).
 - **Já vem pronto:** a ficha de personagem e a de monstro, o HUD de ações, o chat, os tokens e as outras janelas no
   mesmo visual; toda a automação de combate e de uso de habilidades; a interface em português do Brasil.
-- **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário
-  e Regras, em português.
-- **Compêndios da Eternia:** Raças e Classes (as 8 raças, as 10 profissões e as 22 classes, 14 na lista e 8 antigas), Habilidades Raciais e
+- **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário,
+  Regras e O Mundo de Eternia (o mundo de jogo, só do Mestre), em português.
+- **Compêndios da Eternia:** Raças e Classes (as 6 raças em 8 itens, com os Bestiais em três linhagens, e as 6 antigas; as 10 profissões; as 22 classes, 14 na lista e 8 antigas), Habilidades Raciais e
   Habilidades de Classe (36 por classe, 64 no Matador de Dragões, e as 97 Magias com os feitiços: 1511 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
   raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
@@ -236,7 +241,8 @@ campos vazios de raça, classe e profissão e pelo botão da pena no cabeçalho 
 1. **Raça:** os cartões das raças com a frase de cada uma e o bônus de atributos. A página da que está sob o ponteiro
    (ou escolhida) conta a história, mostra os atributos, os PV e o Destino, as duas habilidades inatas (uma escolha
    entre várias, como o elemento do Pacto Espiritual dos Elfos ou a Bênção do Humano, é feita ali mesmo; o Humano marca
-   os dois atributos do +1) e as habilidades que a raça libera no NP 3 e no NP 5.
+   os dois atributos do +1) e os cinco estágios da forma, com o NP, as habilidades e o rito de cada um. Os Bestiais são
+   um cartão só: a linhagem (Felino, Lupino ou Vulpino) é escolhida na página.
 2. **Classe:** as 14 classes, com o filtro de físicas e mágicas. A página mostra a base de atributos, os PV, o Motor
    com o que ele ganha, gasta, o teto e o que o zera, o kit do NP 1, a escolha do NP 1 (o elemento do Matador de
    Dragões) e o caminho do NP 1 ao 10 (as vagas de Magia, os três Caminhos, a Dedicação e o Ápice).
@@ -582,25 +588,61 @@ a lâmina embainhada, o Assassino abre Brechas pelos acertos no Alvo e o Lutador
 
 ## As raças
 
-Oito raças, cada uma com +2 em atributos, PV e Destino, **duas habilidades inatas** (uma Geral e uma de Combate,
-que entram ao escolher a raça) e **duas desbloqueáveis** pela subida de nível: a Geral a partir do NP 3 e a de
-Combate a partir do NP 5, pagas com as escolhas normais de habilidade.
+Seis raças, pensadas pelo que se vê nelas: **Humanos**, **Elfos**, **Dracônicos**, **Demônios**, **Celestiais** e
+**Bestiais** (em três linhagens, cada uma um item de raça: **Felinos**, **Lupinos** e **Vulpinos**). Cada uma dá +2 em
+atributos, PV, Destino e **duas habilidades inatas** (uma Geral e uma de Combate, que entram ao escolher a raça). Por
+baixo da forma de cada raça dorme uma criatura, e a raça evolui em **cinco estágios** da forma, cada um mais bestial e
+mais forte; o quinto é a Fera. Os Humanos não têm o que despir: a forma deles vai para o outro lado, a Ascensão.
 
-| Raça | Atributos | PV | Destino | Inatas | Desbloqueáveis |
-|---|---|---|---|---|---|
-| Humanos | +1 em dois à escolha | 8 | 1 | Bênção (uma de oito), Força dos Laços | Coleção de Bênçãos, Segunda Origem |
-| Elfos | DES +1, POD +1 | 8 | 1 | Olhos de Mana, Pacto Espiritual (Gelo, Vento, Luz ou Terra) | Canção dos Quase-Espíritos, Grande Espírito |
-| Flügel | POD +1, INT +1 | 8 | 1 | Asas de Luz, Graça do Astro (seis Astros) | Biblioteca Viva, Golpe Celeste |
-| Etherious | FOR +1, INT +1 | 8 | 1 | O Livro, Maldição | Voz do Purgatório, Forma Etherious |
-| Oni | FOR +2 | 16 | 0 | Clarividência, Chifre | Elo de Sangue, Oni Desperto |
-| Exceed | DES +2 | 0 | 2 | Aera, Parceiro | Premonição, Velocidade Máxima |
-| Vargr | FOR +1, DES +1 | 16 | 0 | Faro de Lobo, Matilha | Caçador da Estepe, Forma da Lua |
-| Kitsune | POD +2 | 0 | 2 | Mil Faces, Caudas | Encanto da Raposa, Fogo-Raposa |
+| Raça | Atributos | PV | Destino | Inatas (Estágio I) |
+|---|---|---|---|---|
+| Humanos | +1 em dois à escolha | 8 | 1 | Bênção (uma de oito), Força dos Laços |
+| Elfos | DES +1, POD +1 | 8 | 1 | Olhos de Mana, Pacto Espiritual (Gelo, Vento, Luz ou Terra) |
+| Dracônicos | FOR +1, POD +1 | 12 | 0 | Sangue de Brasa (sete linhagens de dragão), Sopro |
+| Demônios | FOR +1, INT +1 | 8 | 1 | A Marca, Maldição |
+| Celestiais | POD +1, INT +1 | 8 | 1 | Graça do Astro (seis Astros), O Símbolo |
+| Bestiais Felinos | DES +2 | 0 | 2 | Reflexo Felino, Parceiro |
+| Bestiais Lupinos | FOR +1, DES +1 | 16 | 0 | Faro de Lobo, Matilha |
+| Bestiais Vulpinos | POD +2 | 0 | 2 | Mil Faces, Caudas |
 
-Escolher a raça na ficha abre a escolha das habilidades inatas (a Bênção do Humano, o elemento do Pacto do Elfo e o
-Astro do Flügel) e, no Humano, dos dois atributos. O navegador de habilidades mostra as desbloqueáveis quando o NP
-chega (com "Mostrar todas", também antes, com o NP em que liberam). Cada habilidade traz o efeito direto e, embaixo, como ele aparece em cena; a automação aplica os
-estados, os bônus, as escolhas (como gastar uma Cauda num Truque ou numa Ilusão) e os custos.
+**Os estágios da forma.** O II abre no NP 3, o III no 7, o IV no 12 e o V no 16. Cada um dá habilidades da raça sem
+gastar escolhas: no II uma Geral, no III uma de Combate, no IV uma nova e +1 num atributo da raça, no V a forma da Fera
+(a criatura por uma cena; o Humano escolhe entre o Eleito e o Transcendente). Quem já tinha aprendido uma delas com uma
+escolha recebe a escolha de volta. Cada estágio tem um rito, cumprido em jogo, e não evoluir é sempre uma escolha.
+
+| Raça | II | III | IV | V |
+|---|---|---|---|---|
+| Humanos | Coleção de Bênçãos | Segunda Origem | Unção | Eleito ou Transcendente |
+| Elfos | Canção dos Quase-Espíritos | Grande Espírito | Meio-Espírito | A Fera do Fim |
+| Dracônicos | Comer o Elemento | Chifres e Cauda | Asas | O Dragão |
+| Demônios | Voz do Purgatório | Chamas Negras | Asas da Treva | O Demônio do Abaixo |
+| Celestiais | Biblioteca Viva | Asas de Luz | Golpe Celeste | O Serafim |
+| Bestiais Felinos | Premonição | Velocidade Máxima | Garras do Tigre | O Tigre Branco |
+| Bestiais Lupinos | Caçador da Estepe | Uivo | Forma da Lua | O Lobo da Lua Violeta |
+| Bestiais Vulpinos | Encanto da Raposa | Fogo-Raposa | Sete Caudas | As Nove Caudas |
+
+**Na ficha.** O cartão da raça, na aba Personagem, tem o selo **Forma** com o estágio. Quando o NP do próximo chega, o
+selo brilha com uma pata, e o clique abre a evolução: o que o estágio dá, as escolhas (a habilidade, o +1) e o rito.
+Com a configuração "Evolução da forma com o Mestre" (ligada), o pedido do jogador vai ao Mestre num cartão sussurrado,
+com Aprovar e Recusar; desligada, o jogador evolui sozinho. O Mestre evolui na hora, pode adiantar um estágio e pode
+voltar um (as habilidades que ele deu saem, e o +1 também). Cada evolução deixa um cartão no chat, e a caixa e o cartão
+de NP avisam quando um estágio abre.
+
+Escolher a raça na ficha abre a escolha das habilidades inatas (a Bênção do Humano, o Pacto do Elfo, a linhagem do
+Dracônico e o Astro do Celestial) e, no Humano, dos dois atributos. Cada habilidade traz o efeito direto e, embaixo, como
+ele aparece em cena; a automação aplica os estados, os bônus, as escolhas (como gastar uma Cauda num Truque ou numa
+Ilusão) e os custos. As raças antigas (Oni, Flügel, Etherious, Vargr, Kitsune e Exceed) saíram da lista; as fichas que
+as usam continuam funcionando, sem os estágios. A página **XIII. AS RAÇAS E A FORMA** do diário AS REGRAS tem tudo, com
+os ritos.
+
+## O Mundo de Eternia
+
+O compêndio **O Mundo de Eternia** (só do Mestre) traz o mundo de jogo: a criação e os deuses, a história, os lugares,
+o sistema que os personagens enxergam (a ficha é a Janela de cada um), a Igreja e os Cavaleiros, as academias e o
+torneio, as guildas, o Anima-mundi e as Fendas, o Território Negro, os dragões, o castelo do céu, as raças e a evolução
+da forma, a Kaimei, as classes como Vias, as Magias, as Tarefas Sagradas e a mesa (a sessão zero, os arcos, os relógios
+do Mestre e as primeiras sessões). Cada capítulo é um diário, e cada parte, uma página; os capítulos se ligam entre si.
+Para mostrar uma página aos jogadores, importe o diário para o mundo e dê a eles a página.
 
 ## As profissões
 
@@ -796,6 +838,7 @@ janelas em pergaminho, que pedem para recarregar.
 | Incapacitado automático | ligado |
 | Fim de cena ao encerrar o combate | ligado |
 | Aventureiros mortos revivem no fim da cena | ligado |
+| Evolução da forma com o Mestre | ligado |
 | Corpo a corpo alcança os quadrados vizinhos | ligado |
 | Efeitos automáticos das condições | ligado |
 | O que as condições proíbem | avisar |
@@ -867,9 +910,8 @@ eternia.icons.refresh();              // desenha de novo os ícones da tela
 - **Desfazer o dano** não devolve o dano que o Espelho e o Vínculo mandaram para outro personagem.
 - **Acordar quem está Adormecido** (outro personagem gasta uma Ação Menor) é feito à mão, tirando o estado.
 - **Raças:** o que acontece fora das regras fica na mão do grupo: a conversa com espíritos (Olhos de Mana), a
-  visão de outra criatura (Clarividência), o elo mental (Elo de Sangue), a visão do Mestre (Premonição), o
-  disfarce (Mil Faces), carregar alguém voando (Aera, Parceiro) e atingir um segundo alvo com uma Cauda
-  (Fogo-Raposa).
+  visão do Mestre (Premonição), o disfarce (Mil Faces), carregar alguém (Parceiro), atingir um segundo alvo com uma
+  Cauda (Fogo-Raposa), comer o elemento ao alcance (Comer o Elemento) e o rito de cada estágio da forma.
 - **Erro do core 14.367 no console** com combates simultâneos (`Cannot use 'in' operator to search for 'turn'`): vem
   do rastreador de combate do Foundry e é inofensivo.
 

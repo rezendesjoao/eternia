@@ -13,21 +13,13 @@ import { tagLabel, term } from "../i18n/terms.mjs";
 import { PROFESSIONS, TALENTS } from "../professions/data.mjs";
 import { escape } from "../helpers/utils.mjs";
 import { loadDocuments } from "../helpers/pack-index.mjs";
+import { GROUP_COLORS, RACE_COLORS, RACE_DEFAULT_COLOR, RACE_ORDER, ROMAN } from "../races/data.mjs";
 
 export { loadDocuments };
 
 /** The look of each race in the wizard: the color of its medallion and card. */
-export const RACE_COLORS = {
-  human: "#9a7816",
-  elf: "#2f7f86",
-  flugel: "#5c7a90",
-  etherious: "#5d3fa8",
-  oni: "#a3302b",
-  exceed: "#2f5fb3",
-  vargr: "#6b5a45",
-  kitsune: "#b5631c"
-};
-const DEFAULT_COLOR = "#1f5137";
+export { RACE_COLORS };
+const DEFAULT_COLOR = RACE_DEFAULT_COLOR;
 
 export const STATS = ["str", "dex", "pow", "int"];
 
@@ -156,12 +148,16 @@ async function buildCatalog() {
   const optionDocs = await loadDocuments([...races, ...classes, ...uniqueProfessions].map(e => e.uuid));
   const skillUuids = [];
   for (const doc of optionDocs.values()) for (const g of grantsOf(doc)) skillUuids.push(...g.uuids);
+  // The skills of the stages of a race's form
+  for (const doc of optionDocs.values()) for (const st of stagesOf(doc)) for (const slot of st.grants) skillUuids.push(...slot);
   const skillDocs = await loadDocuments(skillUuids);
   const skill = uuid => (skillDocs.has(uuid) ? skillView(skillDocs.get(uuid)) : null);
   const grant = g => ({ ...g, options: g.uuids.map(skill).filter(Boolean) });
 
   return {
-    races: races.map(e => optionDocs.get(e.uuid)).filter(Boolean).map(doc => raceView(doc, grant)),
+    // In the order of the world's races (the others after, by name)
+    races: races.map(e => optionDocs.get(e.uuid)).filter(Boolean).map(doc => raceView(doc, grant, skill))
+      .sort((a, b) => (raceOrder(a) - raceOrder(b)) || a.name.localeCompare(b.name, game.i18n.lang)),
     // The physical classes first, then the magic ones
     classes: classes.map(e => optionDocs.get(e.uuid)).filter(Boolean).map(doc => classView(doc, grant))
       .sort((a, b) => ((a.family === b.family) ? a.name.localeCompare(b.name, game.i18n.lang) : ((a.family === "physical") ? -1 : 1))),
@@ -169,14 +165,43 @@ async function buildCatalog() {
   };
 }
 
-/** A race: its numbers, its lore, its innate skills (a choice becomes a set of options) and its unlockable skills. */
-function raceView(doc, grant) {
+const raceOrder = race => (RACE_ORDER.includes(race.identifier) ? RACE_ORDER.indexOf(race.identifier) : RACE_ORDER.length);
+
+/** The stages 2 to 5 of a race's form (races/evolution.mjs), as the race item lists them. */
+const stagesOf = doc => (Array.isArray(doc.flags?.[SYSTEM_ID]?.stages) ? doc.flags[SYSTEM_ID].stages : [])
+  .filter(st => Number(st?.stage) >= 2)
+  .map(st => ({ ...st, grants: (st.grants ?? []).map(slot => (Array.isArray(slot) ? slot : [slot]).map(String)) }));
+
+/** A race: its numbers, its lore, its innate skills (a choice becomes a set of options), its group (the Bestials'
+    lineages) and the stages of its form with the skills of each. */
+function raceView(doc, grant, skill) {
   const s = doc.system;
   const id = s.identifier ?? "";
+  const f = doc.flags?.[SYSTEM_ID] ?? {};
   const { lore } = readParts(s.description);
   const attributes = Object.fromEntries(STATS.map(k => [k, Number(s.attributes?.[k]) || 0]));
   const bonus = STATS.filter(k => attributes[k]).map(k => `${L(`Sheet.Attr.${k}.abbr`)} +${attributes[k]}`);
+  const stages = stagesOf(doc).map(st => {
+    const attribute = (st.attribute ?? []).filter(k => STATS.includes(k));
+    return {
+      stage: Number(st.stage),
+      roman: ROMAN[Number(st.stage)] ?? "",
+      rank: Number(st.rank) || 1,
+      name: String(st.name ?? ""),
+      rite: String(st.rite ?? ""),
+      // A slot with several skills is a choice: its tiles say so
+      slots: st.grants.map(slot => slot.map(skill).filter(Boolean)).filter(slot => slot.length),
+      attribute: attribute.length ? L("Wizard.Race.StageAttribute", {
+        stats: (attribute.length === 4) ? L("Wizard.Race.AnyAttribute") : attribute.map(k => L(`Sheet.Attr.${k}.abbr`)).join(` ${L("Wizard.Race.Or")} `)
+      }) : ""
+    };
+  });
   return {
+    group: f.raceGroup ?? null,
+    groupColor: GROUP_COLORS[f.raceGroup] ?? null,
+    lineage: f.lineage ?? "",
+    firstStage: Array.isArray(f.stages) ? String(f.stages.find(st => Number(st?.stage) === 1)?.name ?? "") : "",
+    stages,
     uuid: doc.uuid,
     name: doc.name,
     img: doc.img,

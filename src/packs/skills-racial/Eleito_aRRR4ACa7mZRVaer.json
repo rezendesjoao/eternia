@@ -1,0 +1,110 @@
+{
+  "name": "Eleito",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você aceitou o Pai, e o Pai não o solta: você é imune a [Medo], [Confuso], [Encantado] e [Dominado], recebe +1d6 nos testes de Resistência e +NP no Poder de Recuperação.</p><hr><p><em>A luz da marca não se apaga mais. Quem olha para você vê alguém que nunca duvidou, e não sabe se sente inveja ou pena.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "Close",
+    "target": "Self",
+    "subtype": "General",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/control/control-influence-crown-gold.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "immune": [
+            "frightened",
+            "confused",
+            "charmed",
+            "dominated"
+          ]
+        }
+      },
+      "name": "Eleito",
+      "img": "icons/magic/control/control-influence-crown-gold.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.checks.resistance.dice",
+            "type": "add",
+            "value": 1,
+            "phase": "initial",
+            "priority": null
+          },
+          {
+            "key": "system.battle-status.power.restoration.mod",
+            "type": "add",
+            "value": "@cr",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "dYm5tWZk0iAEb7ME",
+      "_key": "!items.effects!aRRR4ACa7mZRVaer.dYm5tWZk0iAEb7ME"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "minRank": 16,
+      "choiceOnly": true,
+      "raceStage": 5
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.32.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 500000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "aRRR4ACa7mZRVaer",
+  "folder": "nLQ9X8IyuJBUFsgW",
+  "_key": "!items!aRRR4ACa7mZRVaer"
+}

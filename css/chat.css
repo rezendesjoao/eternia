@@ -1302,3 +1302,59 @@
   color: #2a1208;
 }
 .chat-message .eternia-rank-card.down .rk-seal b { color: #2a1208; }
+
+/* ==========================================================================
+   A stage of a race's form (module/races/evolution.mjs, templates/chat/evolve-card.hbs): the rank card's look, with
+   the stage's name under the band, and on a player's request the GM's two buttons and the answer.
+   ========================================================================== */
+.chat-message .eternia-form-card .rk-stage {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0;
+  padding: 6px 9px 2px;
+}
+.chat-message .eternia-form-card .rk-stage b { color: color-mix(in srgb, var(--rk-color) 80%, #000); font: 700 15px/1.2 var(--rk-serif); }
+.chat-message .eternia-form-card .rk-stage span {
+  color: var(--rk-soft);
+  font: 700 8.5px/1.3 var(--rk-sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.chat-message .eternia-form-card .rk-row.unlock .rk-icon { background: linear-gradient(180deg, color-mix(in srgb, var(--rk-color) 80%, #fff), var(--rk-color)); }
+.chat-message .eternia-form-card .rk-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 2px 8px 6px;
+}
+.chat-message .eternia-form-card .rk-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 28px;
+  margin: 0;
+  border: 1px solid #b19a55;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #fffaf0, #ead9ae);
+  color: #3d2c08;
+  font: 600 12px/1 var(--rk-sans);
+  cursor: pointer;
+}
+.chat-message .eternia-form-card .rk-actions button[data-action="evolve-approve"] {
+  border-color: #173f2b;
+  background: linear-gradient(180deg, #2f7a52, #1f5137);
+  color: #fbf4df;
+}
+.chat-message .eternia-form-card .rk-actions button:hover { filter: brightness(1.06); }
+.chat-message .eternia-form-card .rk-state {
+  margin: 0;
+  padding: 0 9px 7px;
+  color: var(--rk-soft);
+  font: italic 11.5px/1.3 var(--rk-body);
+  text-align: center;
+}
+.chat-message .eternia-form-card .rk-state:empty { display: none; }

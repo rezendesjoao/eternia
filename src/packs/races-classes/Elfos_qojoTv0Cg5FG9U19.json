@@ -2,7 +2,7 @@
   "name": "Elfos",
   "type": "race",
   "system": {
-    "description": "<p><strong>Atributos:</strong> DES +1, POD +1. <strong>PV:</strong> +8. <strong>Destino:</strong> +1.</p><p><strong>Habilidades inatas:</strong> Olhos de Mana e Pacto Espiritual (escolha o elemento: Gelo, Vento, Luz ou Terra).</p><p><strong>Desbloqueáveis:</strong> Canção dos Quase-Espíritos (a partir do NP 3) e Grande Espírito (a partir do NP 5).</p><hr><p><em>Longevos e reservados, os elfos vivem em vilas de cristal nas florestas geladas do norte. Cabelos prateados ou de um branco azulado, olhos violeta, orelhas longas e pontudas. Pequenas luzes, os quase-espíritos, orbitam ao redor deles como vaga-lumes, e o ar esfria um grau quando um elfo se emociona. Os meio-elfos herdam a beleza e também o medo: o mundo ainda os teme por causa de uma lenda antiga.</em></p>",
+    "description": "<p><strong>Atributos:</strong> DES +1, POD +1. <strong>PV:</strong> +8. <strong>Destino:</strong> +1.</p><p><strong>Habilidades inatas:</strong> Olhos de Mana e um Pacto Espiritual, à escolha (Gelo, Vento, Luz ou Terra).</p><p><strong>Os estágios da forma:</strong> <strong>II · Pactuado</strong> (NP 3): Canção dos Quase-Espíritos. <em>Rito:</em> dar um nome a um espírito num lugar sagrado.<br><strong>III · Coroa de Gelo</strong> (NP 7): Grande Espírito. <em>Rito:</em> passar a noite mais fria do ano ao lado da ossada do Dragão Branco.<br><strong>IV · Meio-Espírito</strong> (NP 12): Meio-Espírito e +1 em DES ou POD. <em>Rito:</em> dar ao espírito uma memória querida (ele a guarda para sempre).<br><strong>V · A Fera do Fim</strong> (NP 16): A Fera do Fim. <em>Rito:</em> deixar o espírito comer o seu medo da morte, numa luta em que você deveria morrer.</p><hr><p><em>Cabelo prateado ou branco-azulado, olhos violeta e orelhas longas e pontudas. Pequenas luzes, os quase-espíritos, orbitam em volta deles como vaga-lumes, e o ar esfria um grau quando um elfo se emociona. São o povo que vivia em pacto com os espíritos do inverno; os que ficaram na terra moram nas vilas de cristal das florestas geladas do norte, e todo meio-elfo de cabelo prateado lembra a alguém a lenda da Bruxa.</em></p>",
     "tags": [],
     "identifier": "elf",
     "attributes": {
@@ -31,7 +31,65 @@
   },
   "img": "icons/magic/nature/leaf-flower-wreath-glow-green-blue.webp",
   "effects": [],
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "stages": [
+        {
+          "stage": 1,
+          "rank": 1,
+          "name": "Elfo"
+        },
+        {
+          "stage": 2,
+          "rank": 3,
+          "name": "Pactuado",
+          "rite": "dar um nome a um espírito num lugar sagrado.",
+          "grants": [
+            [
+              "Compendium.eternia.skills-racial.Item.RP50975YPPz4AEeI"
+            ]
+          ]
+        },
+        {
+          "stage": 3,
+          "rank": 7,
+          "name": "Coroa de Gelo",
+          "rite": "passar a noite mais fria do ano ao lado da ossada do Dragão Branco.",
+          "grants": [
+            [
+              "Compendium.eternia.skills-racial.Item.KBXifjy9UfBieUnQ"
+            ]
+          ]
+        },
+        {
+          "stage": 4,
+          "rank": 12,
+          "name": "Meio-Espírito",
+          "rite": "dar ao espírito uma memória querida (ele a guarda para sempre).",
+          "grants": [
+            [
+              "Compendium.eternia.skills-racial.Item.IOxQ5fElUNU4QS24"
+            ]
+          ],
+          "attribute": [
+            "dex",
+            "pow"
+          ]
+        },
+        {
+          "stage": 5,
+          "rank": 16,
+          "name": "A Fera do Fim",
+          "rite": "deixar o espírito comer o seu medo da morte, numa luta em que você deveria morrer.",
+          "grants": [
+            [
+              "Compendium.eternia.skills-racial.Item.JyYjDFJaXsOk8e7b"
+            ]
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "14.367",
     "systemId": "eternia",

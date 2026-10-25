@@ -666,17 +666,38 @@
 .creation-wizard .wz-feature b { display: block; color: var(--pf-text); font: 600 14px/1.25 var(--pf-serif); }
 .creation-wizard .wz-feature small { display: block; color: var(--pf-text-soft); font: 10.5px/1.3 var(--pf-sans); }
 .creation-wizard .wz-feature p { margin: 3px 0 0; color: var(--pf-text); font: 12.5px/1.45 var(--pf-body); }
-.creation-wizard .wz-unlocks { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
-.creation-wizard .wz-unlocks li {
+/* The lineages of a group of races (the Bestials) */
+.creation-wizard .wz-lineages { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 4px; }
+
+/* The stages of the form (races/evolution.mjs): a seal with the numeral, the name and the CR, the skills, the +1 and
+   the rite */
+.creation-wizard .wz-stages { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.creation-wizard .wz-stage {
   display: grid;
-  grid-template-columns: 24px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 8px;
-  color: var(--pf-text);
-  font: 600 13px/1.3 var(--pf-serif);
+  grid-template-columns: 30px minmax(0, 1fr);
+  align-items: start;
+  gap: 9px;
+  padding: 6px 9px 7px 6px;
+  border: 1px solid rgba(186, 169, 145, 0.7);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.5);
 }
-.creation-wizard .wz-unlocks img { width: 24px; height: 24px; border: 1px solid #8a7a62; border-radius: 4px; filter: saturate(0.6); }
-.creation-wizard .wz-unlocks em {
+.creation-wizard .wz-stage-seal {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid color-mix(in srgb, var(--wz-card, var(--pf-primary)) 60%, #8a6a25);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #ead9ae);
+  color: color-mix(in srgb, var(--wz-card, var(--pf-primary)) 80%, #000);
+  font: 700 13px/1 var(--pf-serif);
+}
+.creation-wizard .wz-stage-body { display: grid; gap: 3px; min-width: 0; }
+.creation-wizard .wz-stage-body header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.creation-wizard .wz-stage-body header b { color: var(--pf-text); font: 600 13.5px/1.25 var(--pf-serif); }
+.creation-wizard .wz-stage-body header em {
+  flex: none;
   padding: 1px 7px;
   border-radius: 8px;
   background: rgba(0, 0, 0, 0.07);
@@ -684,6 +705,35 @@
   font: 700 10px/1.5 var(--pf-sans);
   font-style: normal;
 }
+.creation-wizard .wz-stage-skills { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; }
+.creation-wizard .wz-stage-skill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 1px 7px 1px 2px;
+  border: 1px solid rgba(186, 169, 145, 0.8);
+  border-radius: 12px;
+  background: #fffdf7;
+  color: var(--pf-text);
+  font: 600 12px/1.4 var(--pf-serif);
+}
+.creation-wizard .wz-stage-skill img { width: 18px; height: 18px; border: none; border-radius: 50%; }
+.creation-wizard .wz-stage-or { color: var(--pf-text-soft); font: italic 11px/1 var(--pf-body); }
+.creation-wizard .wz-stage-attr {
+  padding: 1px 7px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--wz-card, var(--pf-primary)) 14%, #fffdf7);
+  color: color-mix(in srgb, var(--wz-card, var(--pf-primary)) 85%, #000);
+  font: 700 10.5px/1.6 var(--pf-sans);
+}
+.creation-wizard .wz-stage-rite {
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  color: var(--pf-text-soft);
+  font: italic 11.5px/1.4 var(--pf-body);
+}
+.creation-wizard .wz-stage-rite i { padding-top: 2px; color: #a8893b; font-size: 10px; }
 
 /* The Human's +1 */
 .creation-wizard .wz-toggles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }

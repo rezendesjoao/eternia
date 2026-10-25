@@ -22,7 +22,7 @@
 			</div>
 			<ul class="lhpf-option-cards">
 				{{#each lh.options as |o|}}
-				<li class="lhpf-option-card {{o.type}}{{#unless o.item}} empty{{/unless}}" style="--opt-color: {{o.color}}">
+				<li class="lhpf-option-card {{o.type}}{{#unless o.item}} empty{{/unless}}{{#if o.form}} has-form{{/if}}" style="--opt-color: {{o.color}}">
 					<span class="lhpf-option-art{{#if o.emblem}}{{#if o.item}} emblem{{/if}}{{/if}}">
 						{{#if o.item}}<a data-action="{{#if o.emblem}}class-img{{else}}lhpf-open-item{{/if}}" data-item-id="{{o.item._id}}"><img src="{{o.img}}" alt=""></a>
 						{{else}}<i class="fa-solid {{#if (eq o.type 'race')}}fa-people-group{{else if (eq o.type 'class')}}fa-chess-knight{{else}}fa-hammer{{/if}}"></i>{{/if}}
@@ -32,6 +32,12 @@
 						{{> "systems/eternia/templates/actor/parts/actor-option.html" type=o.type option=o.item placeholder=o.placeholder}}
 						<span class="lhpf-option-line">{{#if o.icon}}<i class="{{o.icon}}"></i> {{/if}}{{o.line}}</span>
 					</div>
+					{{#if o.form}}
+					<button type="button" class="lhpf-form-seal{{#if o.form.ready}} ready{{/if}}" {{#if o.form.can}}data-action="lhpf-evolve"{{else}}disabled{{/if}}
+						data-tooltip="{{o.form.tip}}" aria-label="{{o.form.tip}}">
+						<small>{{localize "ETERNIA.Evolve.Seal"}}</small><b>{{o.form.roman}}</b>{{#if o.form.ready}}<i class="fa-solid fa-paw"></i>{{/if}}
+					</button>
+					{{/if}}
 				</li>
 				{{/each}}
 			</ul>

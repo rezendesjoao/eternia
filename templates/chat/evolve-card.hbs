@@ -1,0 +1,37 @@
+{{!-- A stage of a race's form in the chat (module/races/evolution.mjs), with the look of the rank card: the portrait
+     and the name on a band in the race's colour, the stage from and to in a seal, the stage's name, the rows with what
+     it gives and the rite. A player's request (whispered to the GM) has the GM's Approve and Refuse, then its answer. --}}
+<div class="eternia-rank-card eternia-form-card{{#if request}} request{{/if}}" style="--rk-color: {{color}}" aria-label="{{label}}">
+	<header class="rk-head">
+		<img src="{{img}}" alt="">
+		<div class="rk-title">
+			<small><i class="fa-solid fa-paw"></i>{{eyebrow}}</small>
+			<h3>{{title}}</h3>
+		</div>
+		<div class="rk-seal" aria-label="{{formLabel}} {{from}} → {{to}}">
+			<small>{{formLabel}}</small>
+			<span><em>{{from}}</em><i class="fa-solid fa-caret-right"></i><b>{{to}}</b></span>
+		</div>
+	</header>
+	<p class="rk-stage"><b>{{stageName}}</b>{{#if race}}<span>{{race}}</span>{{/if}}</p>
+	<ul class="rk-rows">
+		{{#each rows}}
+		<li class="rk-row {{tone}}">
+			<span class="rk-icon"><i class="{{icon}}"></i></span>
+			<span class="rk-text">
+				{{#if label}}<small>{{label}}</small>{{/if}}
+				<span>{{value}}</span>
+			</span>
+		</li>
+		{{/each}}
+	</ul>
+	{{#if request}}
+	{{#if pending}}
+	<div class="rk-actions">
+		<button type="button" data-action="evolve-approve"><i class="fa-solid fa-check"></i>{{approve}}</button>
+		<button type="button" data-action="evolve-refuse"><i class="fa-solid fa-xmark"></i>{{refuse}}</button>
+	</div>
+	{{/if}}
+	<p class="rk-state">{{stateLabel}}</p>
+	{{/if}}
+</div>

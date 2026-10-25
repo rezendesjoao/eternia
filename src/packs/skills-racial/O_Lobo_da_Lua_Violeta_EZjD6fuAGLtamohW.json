@@ -1,0 +1,177 @@
+{
+  "name": "O Lobo da Lua Violeta",
+  "type": "skill",
+  "system": {
+    "description": "<p>Você vira o lobo gigante até o fim da cena: recebe [Fortalecido: NP] e [Regeneração: NP÷2 + 2], e fica imune a [Medo].</p><p>Enquanto durar, os aliados a até 3 Qd de você recebem [Fortalecido: NP÷2] quando você se transforma e em cada Manutenção.</p><hr><p><em>O lobo que sobe da sua sombra é maior que a casa onde você nasceu, e o uivo dele faz a lua parecer mais perto. A matilha corre ao lado, mais rápida do que jamais foi.</em></p>",
+    "tags": [],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "Close",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scenario",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/creatures/mammals/wolf-howl-moon-black.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "empowered",
+            "value": "@cr"
+          },
+          "immune": [
+            "frightened"
+          ],
+          "expires": "endOfScene"
+        }
+      },
+      "name": "O Lobo da Lua Violeta",
+      "img": "systems/eternia/assets/ui/status/empowered.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "empowered"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "mx47SwXGuAxsA0Dx",
+      "_key": "!items.effects!EZjD6fuAGLtamohW.mx47SwXGuAxsA0Dx"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "statusData": {
+            "statusId": "regen",
+            "value": "floor(@cr/2)+2"
+          },
+          "expires": "endOfScene"
+        }
+      },
+      "name": "O Lobo da Lua Violeta: fôlego",
+      "img": "systems/eternia/assets/ui/status/regen.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "regen"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "WT4deK1kA7oqChEv",
+      "_key": "!items.effects!EZjD6fuAGLtamohW.WT4deK1kA7oqChEv"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "expires": "endOfScene",
+          "realm": {
+            "radius": 3,
+            "allies": [
+              {
+                "statusId": "empowered",
+                "value": "floor(@cr/2)"
+              }
+            ]
+          }
+        }
+      },
+      "name": "O Lobo da Lua Violeta: matilha",
+      "img": "icons/creatures/mammals/wolf-howl-moon-black.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "oEAGfo46Ha0eDYZc",
+      "_key": "!items.effects!EZjD6fuAGLtamohW.oEAGfo46Ha0eDYZc"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "minRank": 16,
+      "choiceOnly": true,
+      "raceStage": 5
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.32.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 500000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "EZjD6fuAGLtamohW",
+  "folder": "aCdNcl50vg4F2zzi",
+  "_key": "!items!EZjD6fuAGLtamohW"
+}
