@@ -274,9 +274,10 @@ export function afterDamage(actor, card, { hp, hpLoss, absorbed, marked, start =
     out.end.push("lastStand");
     out.lines.push(L("Conditions.Applied.LastStand"));
   }
-  // An Extra Breath (`revive`): the HP of the effect instead of 0, while it has uses.
+  // An Extra Breath (`revive`): the HP of the effect instead of 0, while it has uses (one with a chance, by a 1d6; none
+  // against what it doesn't hold: a tag of the damage, a Critical).
   if ((out.hp <= 0) && (start > 0)) {
-    const breath = spendExtraBreath(actor);
+    const breath = spendExtraBreath(actor, { tags: card.tags, critical: card.critical, notes: out.lines });
     if (breath) {
       out.hp = breath.hp;
       Object.assign(out.updates, breath.updates);
@@ -410,11 +411,14 @@ export function freed(actor, statuses, { by = "effect" } = {}) {
 const breathKey = effect => [(effect.parent instanceof Item) ? effect.parent.id : null, effect.id].filter(Boolean).join("-");
 
 /**
- * The Extra Breaths of an actor: its active effects with `flags.eternia.revive = { uses, per, hp }` (the passive ones
- * of its items too, a Trait or a Tabu), with the uses each has left this round or scene.
+ * The Extra Breaths of an actor: its active effects with `flags.eternia.revive = { uses, per, hp, chance, not }` (the
+ * passive ones of its items too, a Trait or a Tabu), with the uses each has left this round or scene. A breath with a
+ * `chance` (1 to 6) holds only with that much or more on a 1d6, and without `uses` it never runs out (the stubbornness
+ * of the dead); `not` lists what it doesn't hold against: tags of the damage ("Radiance") and "critical" (an attack
+ * whose Hit Check was a Critical).
  * @param {Actor} actor
  * @returns {{effect: ActiveEffect, key: string, uses: number, left: number, per: "round"|"scene", hp: string,
- *   values: object}[]}
+ *   values: object, chance: number, not: string[]}[]}
  */
 export function extraBreaths(actor) {
   const spent = actor?.getFlag?.(SYSTEM_ID, "reviveSpent") ?? {};
@@ -423,34 +427,69 @@ export function extraBreaths(actor) {
     const data = effect.active ? effect.getFlag(SYSTEM_ID, "revive") : null;
     if (!data) continue;
     const values = formulaData(actor, effect.sourceItem ?? null);
-    const uses = Math.max(0, isFormula(data.uses) ? (evaluateFormula(data.uses, values) ?? 0) : toInt(data.uses ?? 1));
+    const chance = Math.min(6, Math.max(0, toInt(data.chance)));
+    const uses = ((data.uses === undefined) && chance) ? Infinity
+      : Math.max(0, isFormula(data.uses) ? (evaluateFormula(data.uses, values) ?? 0) : toInt(data.uses ?? 1));
     const key = breathKey(effect);
     out.push({ effect, key, uses, left: Math.max(0, uses - toInt(spent[key])), per: (data.per === "round") ? "round" : "scene",
-      hp: String(data.hp ?? "1"), values });
+      hp: String(data.hp ?? "1"), values, chance, not: [].concat(data.not ?? []).map(t => String(t).toLowerCase()) });
   }
   return out;
 }
 
+/** The 1d6 of an Extra Breath with a chance, by the dice's own generator (the damage is worked out at once). */
+const breathDie = () => new foundry.dice.terms.Die({ number: 1, faces: 6 }).randomFace();
+
 /**
- * The Extra Breath an actor about to fall to 0 HP spends (one with uses left, those that come back every round first),
- * or null: the HP it keeps (its `hp` formula, 1 by default, at most the Max HP), the update that spends it and the
- * chat line.
+ * The Extra Breath an actor about to fall to 0 HP spends (one with uses left, those that come back every round first,
+ * those with a chance last, a 1d6 each), or null: the HP it keeps (its `hp` formula, 1 by default, at most the Max HP),
+ * the update that spends it and the chat line. A breath doesn't hold against what its `not` lists, and a chance that
+ * misses spends nothing.
  * @param {Actor} actor
+ * @param {object} [blow]              What brings it down
+ * @param {string[]} [blow.tags]       The tags of the damage
+ * @param {boolean} [blow.critical]    Whether the attack's Hit Check was a Critical
+ * @param {string[]} [blow.notes]      Gets the lines of the breaths that didn't hold, when it falls
  * @returns {{hp: number, updates: object, line: string, effect: ActiveEffect, left: number}|null}
  */
-export function spendExtraBreath(actor) {
+export function spendExtraBreath(actor, { tags = [], critical = false, notes = null } = {}) {
   if (!rulesOn()) return null;
+  const blow = (tags ?? []).map(t => String(t).toLowerCase());
   const breaths = extraBreaths(actor).filter(b => b.left > 0);
-  const breath = breaths.find(b => b.per === "round") ?? breaths[0];
-  if (!breath) return null;
+  const missed = [];
+  const holding = breaths.filter(b => {
+    const by = b.not.find(n => ((n === "critical") ? critical : blow.includes(n)));
+    if (by) missed.push(L("Conditions.Applied.BreathBlocked", { effect: b.effect.name,
+      what: (by === "critical") ? L("Conditions.Applied.BreathCritical") : `[${tagLabel(by)}]` }));
+    return !by;
+  });
+  const sure = holding.filter(b => !b.chance);
+  let breath = sure.find(b => b.per === "round") ?? sure[0];
+  let rolled = null;
+  for (const b of breath ? [] : holding.filter(b => b.chance)) {
+    const n = breathDie();
+    if (n >= b.chance) {
+      breath = b;
+      rolled = n;
+      break;
+    }
+    missed.push(L("Conditions.Applied.BreathMissed", { effect: b.effect.name, n }));
+  }
+  if (!breath) {
+    notes?.push(...missed);
+    return null;
+  }
   const raw = isFormula(breath.hp) ? (evaluateFormula(breath.hp, breath.values) ?? 1) : toInt(breath.hp);
   const hp = Math.max(1, Math.min(raw, toInt(actor.system.health?.max) || 1));
   const spent = toInt(actor.getFlag(SYSTEM_ID, "reviveSpent")?.[breath.key]) + 1;
-  const left = breaths.reduce((total, b) => total + b.left, 0) - 1;
+  // A breath that never runs out doesn't count in what is left
+  const finite = n => (Number.isFinite(n) ? n : 0);
+  const left = breaths.reduce((total, b) => total + finite(b.left), 0) - (Number.isFinite(breath.left) ? 1 : 0);
   return {
     hp, effect: breath.effect, left,
     updates: { [`flags.${SYSTEM_ID}.reviveSpent.${breath.key}`]: spent },
-    line: L("Conditions.Applied.Breath", { effect: breath.effect.name, hp, left })
+    line: (rolled === null) ? L("Conditions.Applied.Breath", { effect: breath.effect.name, hp, left })
+      : L("Conditions.Applied.BreathChance", { effect: breath.effect.name, n: rolled, hp })
   };
 }
 
@@ -493,7 +532,8 @@ export async function giveUpBreaths(actor, n = Infinity, { effect = null } = {})
   const updates = {};
   let given = 0;
   for (const b of extraBreaths(actor)) {
-    if (effect && (b.effect.id !== effect.id)) continue;
+    // One that never runs out (a chance of the dead) isn't given up
+    if ((effect && (b.effect.id !== effect.id)) || !Number.isFinite(b.left)) continue;
     const take = Math.min(b.left, n - given);
     if (take <= 0) continue;
     updates[`flags.${SYSTEM_ID}.reviveSpent.${b.key}`] = toInt(spent[b.key]) + take;
@@ -567,7 +607,8 @@ export async function takeDamage(actor, amount, { reason = "", what: named = "",
     lastStand = true;
   }
   // An Extra Breath (`revive`): the HP of the effect instead of 0.
-  const breath = ((hp <= 0) && (before > 0)) ? spendExtraBreath(actor) : null;
+  const missed = [];
+  const breath = ((hp <= 0) && (before > 0)) ? spendExtraBreath(actor, { tags: tag ? [tag] : [], notes: missed }) : null;
   if (breath) {
     hp = breath.hp;
     updates["system.health.value"] = hp;
@@ -587,7 +628,7 @@ export async function takeDamage(actor, amount, { reason = "", what: named = "",
   const what = named || (reason ? label(reason) : L("Conditions.Damage"));
   const line = L("Conditions.DamageLine", {
     name: actorName(actor), what, n: amount, parts: parts.length ? ` (${parts.join(" ")})` : "", before, hp
-  }) + (lastStand ? ` · ${label("lastStand")}` : "") + (breath ? ` · ${breath.line}` : "")
+  }) + (lastStand ? ` · ${label("lastStand")}` : "") + (breath ? ` · ${breath.line}` : "") + missed.map(m => ` · ${m}`).join("")
     + (melted ? ` · ${L("Conditions.Applied.Melted")}` : "");
   if (!silent) {
     const title = from ? L("Conditions.DamageFrom", { what, name: actorName(from) }) : what;

@@ -14,7 +14,9 @@
  *                   Connection;
  * - named-template.mjs, named.mjs  the named beast: the template (without Foundry) and the monster sheet's crown;
  * - spawn.mjs       bringing monsters next to a token, in its combat, leaving no drops;
- * - rifts.mjs       the Rifts: scene hazards with a clock of writings and a wave each Setup.
+ * - rifts.mjs       the Rifts: scene hazards with a clock of writings and a wave each Setup;
+ * - rise.mjs        the dead that rise: who falls by a Shadow rises as one, a Necromancer raises the fallen;
+ * - stack.mjs       the statuses a monster gives that add up (the Shadow's [Weakened]).
  * The API for macros is `game.eternia.bestiary`.
  */
 import { convertTable, dropRows, parseDropTable, rollDrops, undoDrop, registerDrops } from "./drops.mjs";
@@ -24,6 +26,8 @@ import { spawnNear } from "./spawn.mjs";
 import { canBeSaved, registerSave, trySave } from "./save.mjs";
 import { nameMonster } from "./named.mjs";
 import { MARKS, nameBeast } from "./named-template.mjs";
+import { registerRise, riseAs } from "./rise.mjs";
+import { registerStack } from "./stack.mjs";
 
 /** Call during the `init` hook. */
 export function registerBestiary() {
@@ -31,6 +35,8 @@ export function registerBestiary() {
   registerMonsterRules();
   registerRifts();
   registerSave();
+  registerRise();
+  registerStack();
   game.eternia.bestiary = {
     rollDrops,
     undoDrop,
@@ -45,6 +51,7 @@ export function registerBestiary() {
     canBeSaved,
     nameMonster,
     nameBeast,
+    riseAs,
     marks: MARKS
   };
 }
