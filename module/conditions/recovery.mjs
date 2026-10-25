@@ -13,6 +13,7 @@ import { AFFLICTED_PROTECTS, RECOVERY } from "./catalog.mjs";
 import { agonyPain, freed } from "./damage.mjs";
 import { has, removeStatuses } from "./rules.mjs";
 import { breakFreeActions } from "./lasting.mjs";
+import { escapeTest, escapeText } from "./escape.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 const actionLabel = action => L(`Use.Action.${action}`);
@@ -23,7 +24,9 @@ export function recoveryOf(id, actor = null) {
   const actions = free ?? RECOVERY[id];
   if (!actions) return null;
   const text = L(free ? "Conditions.Recover.Infinite" : "Conditions.Recover.Hint", { actions: actions.map(actionLabel).join(L("Conditions.Recover.Or")) });
-  return { actions, text };
+  // A test the status asks too (conditions/escape.mjs)
+  const test = escapeText(actor, id);
+  return { actions, text: test ? `${text} ${test}` : text };
 }
 
 /**
@@ -56,10 +59,17 @@ export async function recover(actor, id) {
     }
     await spendAction(actor, spent);
   }
+  // A status held until a test (conditions/escape.mjs): failed, the action is spent and it stays
+  const test = await escapeTest(actor, id);
+  if (test && !test.success) {
+    await postSummary(label(id), [test.line]);
+    return false;
+  }
   await removeStatuses(actor, [id]);
   const lines = [spent
     ? L("Conditions.Recover.Done", { name: actorName(actor), action: actionLabel(spent), status: label(id) })
     : L("Conditions.Recover.DoneFree", { name: actorName(actor), status: label(id) })];
+  if (test) lines.push(test.line);
   freed(actor, [id], { by: "action" });
   // [Agony]: getting rid of a Bad Status hurts.
   const pain = (statusDefinition(id)?.group === "bad") ? await agonyPain(actor, { silent: true }) : null;
