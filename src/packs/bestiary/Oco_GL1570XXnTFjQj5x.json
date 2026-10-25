@@ -1,0 +1,763 @@
+{
+  "name": "Oco",
+  "type": "monster",
+  "img": "icons/equipment/head/greathelm-slotted-steel.webp",
+  "system": {
+    "health": {
+      "value": 95,
+      "max": 95,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Human"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 15,
+        "magic": 11
+      },
+      "speed": 2,
+      "initiative": 5
+    },
+    "rank": 6,
+    "idendification": "6",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>Um Juramentado que voltou da morte vezes demais e esqueceu quem era. Anda pelas estradas sem nome, às vezes de armadura de Cavaleiro de baixo escalão, repetindo as Artes que o corpo ainda lembra. Não fala, não come, não dorme. Ataca quem tenta fazê-lo lembrar de alguma coisa.</p><p><b>Na mesa:</b> o inimigo triste das estradas. Não fica com [Medo], [Confuso], [Encantado], [Dominado] nem [Amnésia]. A Arte de Cavaleiro dá dois golpes de uma vez e o deixa parado depois ([Rigidez]). Uma vez por cena, quando cairia, volta com metade dos PV, mas esquece uma das Artes. Quem o vence leva um Cristal de Memória: uma das lembranças que ele perdeu.</p>"
+  },
+  "prototypeToken": {
+    "name": "Oco",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/equipment/head/greathelm-slotted-steel.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Espada Gasta",
+      "type": "skill",
+      "img": "icons/weapons/swords/shortsword-guard-steel-worn.webp",
+      "system": {
+        "description": "<p>[2d6 + 30] de dano físico.</p><p>(Menor): +5 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 6,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 30,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "yuUHPSFOzdslo6MU",
+      "_key": "!actors.items!GL1570XXnTFjQj5x.yuUHPSFOzdslo6MU"
+    },
+    {
+      "name": "Arte de Cavaleiro",
+      "type": "skill",
+      "img": "icons/weapons/swords/greatsword-guard-gold-worn.webp",
+      "system": {
+        "description": "<p>Dois golpes seguidos, do jeito que os Cavaleiros ensinam: [4d6 + 45] de dano físico. Depois, este inimigo fica [Rigidez] (a pausa do golpe).</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 6,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 4,
+          "mod": 45,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "onUse": true,
+              "recipients": "self",
+              "statusData": {
+                "statusId": "rigor"
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Arte de Cavaleiro: a pausa",
+          "img": "icons/weapons/swords/greatsword-guard-gold-worn.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "rigor"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "qZSGcNAwJZorsF0M",
+          "_key": "!actors.items.effects!GL1570XXnTFjQj5x.npIHh7klwPaEE0v4.qZSGcNAwJZorsF0M"
+        }
+      ],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "npIHh7klwPaEE0v4",
+      "_key": "!actors.items!GL1570XXnTFjQj5x.npIHh7klwPaEE0v4"
+    },
+    {
+      "name": "Sem Memória",
+      "type": "skill",
+      "img": "icons/magic/control/silhouette-aura-energy.webp",
+      "system": {
+        "description": "<p>Não lembra quem é, e nada o faz lembrar: não fica com [Medo], [Confuso], [Encantado], [Dominado] nem [Amnésia].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "immune": [
+                "frightened",
+                "confused",
+                "charmed",
+                "dominated",
+                "amnesia"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Sem Memória",
+          "img": "icons/magic/control/silhouette-aura-energy.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "NcVJAhlyKJHc5MGC",
+          "_key": "!actors.items.effects!GL1570XXnTFjQj5x.uiQtctfSv8xmew7o.NcVJAhlyKJHc5MGC"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "uiQtctfSv8xmew7o",
+      "_key": "!actors.items!GL1570XXnTFjQj5x.uiQtctfSv8xmew7o"
+    },
+    {
+      "name": "Retorno Vazio",
+      "type": "skill",
+      "img": "icons/commodities/gems/gem-rough-round-blue.webp",
+      "system": {
+        "description": "<p>Uma vez por cena, quando o dano o levaria a 0 PV, ele volta com metade dos PV, mas esquece: uma das habilidades dele, ao acaso, fica [Selada] até o fim da cena.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "revive": {
+                "uses": 1,
+                "per": "scene",
+                "hp": "@hpMax/2"
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Retorno Vazio",
+          "img": "icons/commodities/gems/gem-rough-round-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "T3FOVfPvyXtlzQFt",
+          "_key": "!actors.items.effects!GL1570XXnTFjQj5x.jvJj7R4iMvrLUdO1.T3FOVfPvyXtlzQFt"
+        }
+      ],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "forget"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "jvJj7R4iMvrLUdO1",
+      "_key": "!actors.items!GL1570XXnTFjQj5x.jvJj7R4iMvrLUdO1"
+    },
+    {
+      "name": "Insígnia Apagada",
+      "type": "gear",
+      "img": "icons/commodities/treasure/medal-ribbon-silver-blue.webp",
+      "system": {
+        "description": "<p>A insígnia de uma guilda ou de uma academia, raspada até o nome sumir. Alguém, em algum lugar, ainda procura o dono.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 25,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "GhqPfhgIzEGbeh6o",
+      "sort": 500000,
+      "_key": "!actors.items!GL1570XXnTFjQj5x.GhqPfhgIzEGbeh6o"
+    },
+    {
+      "name": "Espada de Juramentado",
+      "type": "gear",
+      "img": "icons/weapons/swords/shortsword-guard-steel-worn.webp",
+      "system": {
+        "description": "<p>Uma espada boa, bem cuidada até o dia em que o dono esqueceu de cuidar dela.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 60,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "i4mjUl9uEqGAClxa",
+      "sort": 600000,
+      "_key": "!actors.items!GL1570XXnTFjQj5x.i4mjUl9uEqGAClxa"
+    },
+    {
+      "name": "Armadura de Cavaleiro Gasta",
+      "type": "gear",
+      "img": "icons/equipment/chest/breastplate-banded-steel-grey.webp",
+      "system": {
+        "description": "<p>Uma couraça de Cavaleiro de baixo escalão, com o brasão da Igreja quase apagado. A Catedral a quer de volta.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 100,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "i14NcHTo3NaZ6xU8",
+      "sort": 700000,
+      "_key": "!actors.items!GL1570XXnTFjQj5x.i14NcHTo3NaZ6xU8"
+    },
+    {
+      "name": "Cristal de Memória",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-faceted-round-white.webp",
+      "system": {
+        "description": "<p>Uma das lembranças que o Oco perdeu, num cristal do tamanho de uma unha. Quem o segura vê um rosto, um nome, um dia. A Igreja paga por ele e o leva à Catedral.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 15,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "FVRjZICNEtRwxc6L",
+      "sort": 800000,
+      "_key": "!actors.items!GL1570XXnTFjQj5x.FVRjZICNEtRwxc6L"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 700000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "GL1570XXnTFjQj5x",
+  "folder": "RHS1pble8ESRDgnC",
+  "_key": "!actors!GL1570XXnTFjQj5x"
+}

@@ -39,6 +39,7 @@ import { actorHasTag, drawRandomHit, magicExtras } from "./magic-traits.mjs";
 import { crOf, has, rating, removeStatuses, rulesOn } from "../conditions/rules.mjs";
 import { cursedByDecree } from "../conditions/decree.mjs";
 import { packBonus, packBonuses } from "../bestiary/pack.mjs";
+import { troopDoubles } from "../bestiary/troop.mjs";
 import { lastingCard, lastingHitData } from "../conditions/lasting.mjs";
 import { statusDefinition } from "./statuses.mjs";
 import { tagLabel as termTag } from "../i18n/terms.mjs";
@@ -830,6 +831,11 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   if (condition.halve && (amount > 0) && !condition.immune) {
     amount = Math.floor(amount / 2);
     steps.push(`÷ 2 ${statusLabel("petrified")}`);
+  }
+  // A troop of the bestiary: an area attack hits the whole band (bestiary/troop.mjs)
+  if ((amount > 0) && !condition.immune && troopDoubles(actor, card)) {
+    amount *= 2;
+    steps.push(`× 2 (${game.i18n.localize("ETERNIA.Bestiary.TroopArea")})`);
   }
   // [Flesh Shield]: an ally takes the blow instead (conditions/immortal.mjs), nothing of it reaches the defender.
   const covered = condition.untouched ? null : coverFor(actor, card, amount);

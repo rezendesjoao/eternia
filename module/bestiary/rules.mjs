@@ -6,8 +6,9 @@
  *   grow       { empowered, heal, at, size }  Its use: the monster grows one step (`flags.eternia.growth`): its
  *                               [Empowered] becomes `empowered` × the steps, it recovers `heal` HP and, from the step
  *                               `at`, its token takes `size` squares. The drop rows with `growth` drop once per step.
- *   threshold  { below, statuses: [{ statusId, value }] }  Passive. The first time its HP fall to `below` of the max
- *                               (0.5: half), still standing, it gets those statuses until the end of the scene.
+ *   threshold  { below, statuses: [{ statusId, value }], summon: { actors, radius } }  Passive. The first time its HP
+ *                               fall to `below` of the max (0.5: half), still standing, it gets those statuses until
+ *                               the end of the scene and calls `summon` (the howl; a monster that was called doesn't).
  *   fall       { radius }       Passive. When it falls, the skill's damage hits every creature within `radius` squares
  *                               of it (a damage card, no Dodge Check), with the skill's hitStatuses.
  *   cleanse    { count }        Passive. In each Cleanup Process it ends `count` of its Bad Statuses.
@@ -23,6 +24,14 @@
  *                               monster's `stolenGold` (it comes back with its drops).
  *   offer      { gold }         Its use offers that gold (a formula) to be let go: a card with Accept and Refuse; on
  *                               Accept the gold goes to whoever accepted and the monster leaves (no drops).
+ *   troop      { size }         Passive. A band in one token (bestiary/troop.mjs): area attacks hit it double; at 2/3
+ *                               and 1/3 of its HP it loses one of the band (`troopLeft`), and its area attacks reach
+ *                               one target less.
+ *   retreat    { below, held }  Passive. When its HP fall to `below` of the max (0.25), it flees with what it stole
+ *                               (the token hides, out of the combat, no drops), unless a status of `held` (grappled,
+ *                               rooted, paralyzed, petrified, asleep) holds it; held, it tries again in each Setup.
+ *   forget     {}               Passive. When it spends an Extra Breath (`flags.eternia.revive`), one of its skills
+ *                               that aren't passive (by chance) becomes [Sealed] until the end of the scene.
  * The rules run on the window that changed the monster (the GM's): the use of a skill (`eternia.skillUsed`), its HP,
  * its fall (Incapacitated), the damage cards (`eternia.damaged`) and the Setup and Cleanup Processes of its combat.
  * What a player's window sees (the hand on its character, the answer to an offer) goes to the GM by the socket
@@ -39,8 +48,10 @@ import { removeStatuses, rulesOn, sameActor, sourcesOf } from "../conditions/rul
 import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { getGold, goldPath } from "../piles/pile-utils.mjs";
 import { tagLabel } from "../i18n/terms.mjs";
+import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { spawnNear } from "./spawn.mjs";
 import { RECHARGING, recharges } from "./recharge.mjs";
+import { troopByHp, troopLeft, troopOf } from "./troop.mjs";
 
 const OFFER_TEMPLATE = "systems/eternia/templates/chat/offer-card.hbs";
 
@@ -120,8 +131,89 @@ async function checkThresholds(actor) {
     crossed.push(item.id);
     await actor.setFlag(SYSTEM_ID, "thresholds", crossed);
     const names = await giveStatuses(actor, rule.statuses, actor);
-    await postSummary(item.name, [L("Bestiary.Threshold", { name: actorName(actor), statuses: names.join(", ") })]);
+    const lines = names.length ? [L("Bestiary.Threshold", { name: actorName(actor), statuses: names.join(", ") })] : [];
+    // The howl: more of them come, unless it came by a call itself (no endless chain)
+    const token = tokenOf(actor);
+    if (rule.summon?.actors?.length && token && !token.getFlag(SYSTEM_ID, "calledBy")) {
+      const tokens = await spawnNear(token, rule.summon.actors, { radius: toInt(rule.summon.radius) || 2, by: actor.uuid });
+      if (tokens.length) lines.push(L("Bestiary.Summon", { name: actorName(actor), list: tokens.map(t => t.name).join(", ") }));
+    }
+    if (lines.length) await postSummary(item.name, lines);
   }
+}
+
+/* -------------------------------------------- */
+/*  The troop                                   */
+/* -------------------------------------------- */
+
+/** HP changed: a troop loses one of the band at 2/3 and at 1/3 of its HP (and doesn't get them back). */
+async function checkTroop(actor) {
+  const troop = troopOf(actor);
+  if (!troop || (toInt(actor.system.health?.value) <= 0)) return;
+  const before = troopLeft(actor);
+  const now = Math.min(before, troopByHp(actor));
+  if (now >= before) return;
+  await actor.setFlag(SYSTEM_ID, "troopLeft", now);
+  await postSummary(troop.item.name, [L("Bestiary.TroopLost", { name: actorName(actor), lost: before - now, n: now })]);
+}
+
+/* -------------------------------------------- */
+/*  The retreat                                 */
+/* -------------------------------------------- */
+
+/** What holds a monster that would flee. */
+const HOLDS = ["grappled", "rooted", "paralyzed", "petrified", "asleep"];
+
+/**
+ * HP changed, or a Setup Process came: a monster with the retreat rule under its share of HP flees with what it stole,
+ * unless something holds it (told once when it tries, and again at each Setup it stays held).
+ */
+async function checkRetreat(actor, { setup = false } = {}) {
+  const hp = toInt(actor.system.health?.value);
+  const max = toInt(actor.system.health?.max);
+  if ((hp <= 0) || (max <= 0) || actor.getFlag(SYSTEM_ID, "fled")) return;
+  for (const item of withRule(actor, "retreat")) {
+    const rule = ruleOf(item);
+    if (hp > Math.floor(max * (Number(rule.below) || 0.25))) continue;
+    const holding = (rule.held ?? HOLDS).filter(id => actor.statuses.has(id));
+    if (holding.length) {
+      if (!setup && actor.getFlag(SYSTEM_ID, "retreatHeld")) continue;
+      await actor.setFlag(SYSTEM_ID, "retreatHeld", true);
+      await postSummary(item.name, [L("Bestiary.RetreatHeld", { name: actorName(actor), status: holding.map(label).join(", ") })]);
+      continue;
+    }
+    await actor.setFlag(SYSTEM_ID, "fled", true);
+    await postSummary(item.name, [L("Bestiary.Retreat", { name: actorName(actor) })]);
+    await leave(actor);
+    return;
+  }
+}
+
+/** The Setup Process of a combat: the monsters that couldn't flee try again. */
+async function setupRetreat(combat) {
+  const seen = new Set();
+  for (const combatant of combat.combatants) {
+    const actor = combatant.actor;
+    if (!actor || seen.has(actor.uuid) || combatant.defeated || !withRule(actor, "retreat").length) continue;
+    seen.add(actor.uuid);
+    await checkRetreat(actor, { setup: true });
+  }
+}
+
+/* -------------------------------------------- */
+/*  The forgetting                              */
+/* -------------------------------------------- */
+
+/** A monster spent an Extra Breath (on the window that applied the blow): with the forget rule, it forgets a skill. */
+async function forgetSkill(actor) {
+  if ((actor?.type !== "monster") || !actor.isOwner) return;
+  const rule = withRule(actor, "forget")[0];
+  if (!rule) return;
+  const pool = actor.items.filter(i => (i.type === "skill") && (parseSkillField("timing", i.system.timing).type !== "Constant") && !ruleOf(i));
+  if (!pool.length) return;
+  const skill = pool[Math.floor(Math.random() * pool.length)];
+  await game.eternia.applyStatus(actor, "sealed", { tag: skill.name, from: actor });
+  await postSummary(rule.name, [L("Bestiary.Forgot", { name: actorName(actor), skill: skill.name })]);
 }
 
 /* -------------------------------------------- */
@@ -397,7 +489,10 @@ export function registerMonsterRules() {
   Hooks.on("updateActor", (actor, changes, options, userId) => {
     if ((actor.type !== "monster") || !isLocalChange(options, userId) || !foundry.utils.hasProperty(changes, "system.health")) return;
     checkThresholds(actor).catch(err => console.error(`${SYSTEM_ID} | Threshold failed`, err));
+    checkTroop(actor).catch(err => console.error(`${SYSTEM_ID} | Troop failed`, err));
+    checkRetreat(actor).catch(err => console.error(`${SYSTEM_ID} | Retreat failed`, err));
   });
+  Hooks.on("eternia.revived", actor => forgetSkill(actor).catch(err => console.error(`${SYSTEM_ID} | Forgetting failed`, err)));
   Hooks.on("createActiveEffect", (effect, options, userId) => {
     const actor = effect.parent;
     if (!(actor instanceof Actor) || (actor.type !== "monster") || !effect.statuses?.has("incapacitated") || !isPrimaryGM()) return;
@@ -409,6 +504,7 @@ export function registerMonsterRules() {
     const backwards = !!previous && (round < previous.round);
     if (backwards || !rulesOn()) return;
     if (phase === "setup") await setupRecharge(this).catch(err => console.error(`${SYSTEM_ID} | Recharge failed`, err));
+    if (phase === "setup") await setupRetreat(this).catch(err => console.error(`${SYSTEM_ID} | Retreat failed`, err));
     if (phase === "cleanup") await cleanupCleanse(this).catch(err => console.error(`${SYSTEM_ID} | Cleanse failed`, err));
   });
 }

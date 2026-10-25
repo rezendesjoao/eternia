@@ -1,0 +1,674 @@
+{
+  "name": "Javali de Presas Azuis",
+  "type": "monster",
+  "img": "icons/creatures/mammals/bull-horned-blue.webp",
+  "system": {
+    "health": {
+      "value": 90,
+      "max": 90,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Natural"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 19,
+        "magic": 10
+      },
+      "speed": 2,
+      "initiative": 4
+    },
+    "rank": 5,
+    "idendification": "8",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>Um javali dos campos do primeiro andar do castelo, de pelo escuro e presas azuis que brilham de leve. Caiu junto com um pedaço da base, numa Queda, e ficou bravo desde então. Como os bichos do castelo, ele avisa antes de atacar: raspa o chão, baixa a cabeça e corre. E, depois da investida, fica parado, aberto, por um instante.</p><p><b>Na mesa:</b> o monstro do castelo que ensina a ler o inimigo. Na Manutenção ele escolhe a presa e a deixa [Marcado]; a Investida Azul fere mais a presa marcada e a empurra 3 Qd, mas depois o javali fica [Exposto] até o Encerramento (Defesas a 0). Quem sai da frente e bate depois leva a melhor.</p>"
+  },
+  "prototypeToken": {
+    "name": "Javali de Presas Azuis",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/mammals/bull-horned-blue.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Presas Azuis",
+      "type": "skill",
+      "img": "icons/commodities/bones/horn-curved-grey-purple.webp",
+      "system": {
+        "description": "<p>[2d6 + 26] de dano físico.</p><p>(Menor): +5 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 6,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 26,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "CiZJhUglrhqkbl0K",
+      "_key": "!actors.items!ABzg5y8NnwsPPim7.CiZJhUglrhqkbl0K"
+    },
+    {
+      "name": "Raspar o Chão",
+      "type": "skill",
+      "img": "icons/skills/movement/feet-spurred-boots-brown.webp",
+      "system": {
+        "description": "<p>Na Manutenção, o javali raspa o chão e escolhe a presa: um personagem a até 4 Qd fica [Marcado: 6] até o fim da rodada.</p>",
+        "tags": [],
+        "timing": "Setup",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "marked",
+                "value": 6
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Raspar o Chão: a presa",
+          "img": "icons/skills/movement/feet-spurred-boots-brown.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "marked"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "Ak1BgmZrJyysjpwI",
+          "_key": "!actors.items.effects!ABzg5y8NnwsPPim7.7NYmZSxT3zDiqm7M.Ak1BgmZrJyysjpwI"
+        }
+      ],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "7NYmZSxT3zDiqm7M",
+      "_key": "!actors.items!ABzg5y8NnwsPPim7.7NYmZSxT3zDiqm7M"
+    },
+    {
+      "name": "Investida Azul",
+      "type": "skill",
+      "img": "icons/creatures/abilities/bull-head-horns-glowing.webp",
+      "system": {
+        "description": "<p>Corre até 3 Qd em linha reta e acerta: [2d6 + 22] de dano físico, +7 contra a presa [Marcado] (a marca sai), e o alvo é empurrado 3 Qd. Depois do golpe, este inimigo fica [Exposto] até o Encerramento: a abertura dos monstros do castelo.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 6,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 22,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "onUse": true,
+              "recipients": "self",
+              "statusData": {
+                "statusId": "exposed"
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Investida Azul: a abertura",
+          "img": "icons/creatures/abilities/bull-head-horns-glowing.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "exposed"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "MRnkeQM9sHvrfyvo",
+          "_key": "!actors.items.effects!ABzg5y8NnwsPPim7.ltsku3I6AhpoP3Qy.MRnkeQM9sHvrfyvo"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "bonusVs": [
+            {
+              "statusId": "marked",
+              "value": 7,
+              "consume": true
+            }
+          ],
+          "useActions": [
+            {
+              "type": "push",
+              "value": 3
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ltsku3I6AhpoP3Qy",
+      "_key": "!actors.items!ABzg5y8NnwsPPim7.ltsku3I6AhpoP3Qy"
+    },
+    {
+      "name": "Lasca da Queda",
+      "type": "gear",
+      "img": "icons/commodities/stone/boulder-grey-blue.webp",
+      "system": {
+        "description": "<p>Um pedaço da pedra da base do castelo, que ainda pesa menos do que devia. Os curiosos de Centória pagam por ele; os sábios da Igreja, mais.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 5,
+        "price": 16,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "PuEuhehMB9qmLvrD",
+      "sort": 400000,
+      "_key": "!actors.items!ABzg5y8NnwsPPim7.PuEuhehMB9qmLvrD"
+    },
+    {
+      "name": "Presa Azul",
+      "type": "gear",
+      "img": "icons/commodities/bones/horn-curved-grey-purple.webp",
+      "system": {
+        "description": "<p>Uma presa que brilha azul no escuro, como o castelo à noite. Os joalheiros a cortam em contas.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 5,
+        "price": 22,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "hgxj7Hrf8kqai871",
+      "sort": 500000,
+      "_key": "!actors.items!ABzg5y8NnwsPPim7.hgxj7Hrf8kqai871"
+    },
+    {
+      "name": "Couro do Castelo",
+      "type": "gear",
+      "img": "icons/commodities/leather/leather-pelt-cured.webp",
+      "system": {
+        "description": "<p>Um couro grosso e escuro, que não molha. Os alfaiates de Centória fazem dele botas para quem sobe o castelo.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 5,
+        "price": 40,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "bYo2zuFeLYuRolCQ",
+      "sort": 600000,
+      "_key": "!actors.items!ABzg5y8NnwsPPim7.bYo2zuFeLYuRolCQ"
+    },
+    {
+      "name": "Chifre de Pedra Azul",
+      "type": "gear",
+      "img": "icons/commodities/bones/horn-engraved-vines-grey.webp",
+      "system": {
+        "description": "<p>A raiz das presas, metade osso e metade pedra azul do castelo. Ninguém sabe o que é; todo mundo quer um.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 5,
+        "price": 70,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "XQygSiXZTOaLGFFl",
+      "sort": 700000,
+      "_key": "!actors.items!ABzg5y8NnwsPPim7.XQygSiXZTOaLGFFl"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ABzg5y8NnwsPPim7",
+  "folder": "GKnn9uCgkqQepCtd",
+  "_key": "!actors!ABzg5y8NnwsPPim7"
+}

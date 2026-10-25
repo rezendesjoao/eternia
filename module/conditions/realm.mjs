@@ -101,9 +101,12 @@ async function applyRealm(caster, effect, scene = null) {
 /** The active Realms of an actor: its own effects and the passive ones of its skills (a monster's aura, bestiary/). */
 const realmsOf = actor => [...(actor?.allApplicableEffects?.() ?? [])].filter(e => e.active && e.getFlag(SYSTEM_ID, "realm"));
 
-/** The Setup Process of a round: every Realm of the combat acts again. */
+/** The Setup Process of a round: every Realm of the combat acts again (not those of who is out of the fight: fallen,
+ * gone, fled). */
 async function setupRealms(combat) {
+  const out = new Set(combat.combatants.filter(c => c.isDefeated).map(c => c.actor?.uuid));
   for (const caster of combatActors(combat)) {
+    if (out.has(caster.uuid)) continue;
     for (const effect of realmsOf(caster)) {
       const lines = await applyRealm(caster, effect, combat.scene ?? null);
       if (lines.length) await postSummary(effect.name, lines);

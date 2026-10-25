@@ -37,6 +37,7 @@ import {
 } from "../classes/motor.mjs";
 import { chipText } from "../helpers/text-chips.mjs";
 import { isRecharging } from "../bestiary/recharge.mjs";
+import { troopTargets } from "../bestiary/troop.mjs";
 
 /** The action a Timing spends in the Main Process. */
 const ACTIONS = { Major: "major", Minor: "minor", Move: "move" };
@@ -335,6 +336,12 @@ export function inspectUse(item, { targets = null } = {}) {
 
   // What the user's conditions forbid (conditions/actions.mjs)
   issues.push(...conditionUseIssues(item, actor, { targets }).map(issue => ({ kind: "condition", ...issue })));
+
+  // A troop's attack on an area reaches one target for each of the band left (bestiary/troop.mjs)
+  const reach = targets ? troopTargets(item) : null;
+  if (reach && (targets.length > reach)) {
+    issues.push({ text: L("Use.TroopTargets", { skill: item.name, n: reach }), mode: setting("limits") || "warn", kind: "item" });
+  }
 
   // Usage limit, and the conditions of an item's skill
   const limitsMode = setting("limits");

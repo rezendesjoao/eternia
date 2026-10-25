@@ -58,7 +58,8 @@ function freeSquares(origin, radius, count) {
 /**
  * Bring monsters next to a token: their tokens, in the token's combat. GM only.
  * @param {TokenDocument} origin
- * @param {{uuid: string, count: string|number}[]} list   The monsters and how many (a number or a formula: "1d3")
+ * @param {{uuid?: string, uuids?: string[], count: string|number}[]} list   The monsters and how many (a number or a
+ *   formula: "1d3"); with `uuids`, each one is drawn from that list (the Great Rift's wave)
  * @param {object} [options]
  * @param {number} [options.radius]   How far from the origin they may come (squares)
  * @param {string} [options.by]       Who called them (kept in the tokens' flags)
@@ -68,11 +69,13 @@ export async function spawnNear(origin, list, { radius = 2, by = "" } = {}) {
   if (!game.user.isGM || !origin?.parent) return [];
   const scene = origin.parent;
   const wanted = [];
-  for (const { uuid, count } of list ?? []) {
-    const actor = await worldActor(uuid);
-    if (!actor) continue;
+  for (const { uuid, uuids, count } of list ?? []) {
+    const pool = (Array.isArray(uuids) && uuids.length) ? uuids : [uuid];
     const n = Number.isFinite(Number(count)) ? toInt(count) : toInt((await new Roll(String(count)).evaluate()).total);
-    for (let k = 0; k < n; k++) wanted.push(actor);
+    for (let k = 0; k < n; k++) {
+      const actor = await worldActor(pool[Math.floor(Math.random() * pool.length)]);
+      if (actor) wanted.push(actor);
+    }
   }
   if (!wanted.length) return [];
   const spots = freeSquares(origin, Math.max(1, radius), wanted.length);
@@ -86,7 +89,9 @@ export async function spawnNear(origin, list, { radius = 2, by = "" } = {}) {
     foundry.utils.setProperty(token, `flags.${SYSTEM_ID}.calledBy`, by);
     data.push(token);
   }
-  const tokens = await scene.createEmbeddedDocuments("Token", data);
+  // One at a time: each one gets its own number in the name (a batch would give them all the same)
+  const tokens = [];
+  for (const one of data) tokens.push(...await scene.createEmbeddedDocuments("Token", [one]));
   // In the origin's combat, they fight at once
   const combat = game.combats.find(c => c.started && (c.scene?.id === scene.id) && c.combatants.some(cb => cb.tokenId === origin.id))
     ?? game.combats.find(c => c.started && (c.scene?.id === scene.id));

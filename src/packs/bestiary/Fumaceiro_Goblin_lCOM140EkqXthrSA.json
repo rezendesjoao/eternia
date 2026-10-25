@@ -1,0 +1,704 @@
+{
+  "name": "Fumaceiro Goblin",
+  "type": "monster",
+  "img": "icons/creatures/magical/spirit-poison-smoke-green.webp",
+  "system": {
+    "health": {
+      "value": 50,
+      "max": 50,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Humanoid",
+      "Goblin",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 10,
+        "magic": 16
+      },
+      "speed": 2,
+      "initiative": 5
+    },
+    "rank": 6,
+    "idendification": "8",
+    "hateMultiplier": "3",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 3
+      }
+    },
+    "description": "<p>O goblin que sabe fazer fogo: carrega tochas de resina, sacos de pólvora e bombas de barro que soltam uma fumaça grossa e fedida. Nas cavernas, a fumaça é a melhor amiga do bando: quem está dentro dela não vê nada, e os goblins não precisam ver.</p><p><b>Na mesa:</b> o bombardeiro do bando. A Tocha das Cavernas queima em área; a Bomba das Cavernas cega, prende um [Pavio] em quem acerta e esconde os goblins em volta dele, e recarrega com 5 ou 6 no 1d6 de uma Manutenção. Derrubá-lo primeiro tira os olhos da tropa do grupo.</p>"
+  },
+  "prototypeToken": {
+    "name": "Fumaceiro Goblin",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/magical/spirit-poison-smoke-green.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Tocha das Cavernas",
+      "type": "skill",
+      "img": "icons/magic/light/torch-fire-orange.webp",
+      "system": {
+        "description": "<p>Área (Escolha) a até 4 Qd: [2d6 + 40] de dano mágico de [Chama], e quem é atingido fica [Queimando: 5].</p>",
+        "tags": [
+          "Magic Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 40,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "burning",
+              "value": 5
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "hxQCirFpOeUgiOcd",
+      "_key": "!actors.items!lCOM140EkqXthrSA.hxQCirFpOeUgiOcd"
+    },
+    {
+      "name": "Bomba das Cavernas",
+      "type": "skill",
+      "img": "icons/commodities/tech/smoke-bomb-yellow.webp",
+      "system": {
+        "description": "<p>Área de 2 Qd a até 4 Qd: [2d6 + 15] de dano mágico, e quem é atingido fica [Cego] e com [Pavio: 10]. A fumaça cobre também o lado dele: os aliados a até 2 Qd dele ficam [Oculto].</p><p>Recarga: depois de usada, só volta com 5 ou 6 no 1d6 de uma Manutenção.</p>",
+        "tags": [
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 15,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "onUse": true,
+              "recipients": "self",
+              "realm": {
+                "radius": 2,
+                "allies": [
+                  {
+                    "statusId": "hidden"
+                  }
+                ]
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Bomba das Cavernas: a fumaça",
+          "img": "icons/commodities/tech/smoke-bomb-yellow.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "k5t5Q928g6iQYxSJ",
+          "_key": "!actors.items.effects!lCOM140EkqXthrSA.1G2l2nt31bFglRrj.k5t5Q928g6iQYxSJ"
+        }
+      ],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "recharge",
+            "min": 5
+          },
+          "hitStatuses": [
+            {
+              "statusId": "blinded"
+            },
+            {
+              "statusId": "fuse",
+              "value": 10
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "1G2l2nt31bFglRrj",
+      "_key": "!actors.items!lCOM140EkqXthrSA.1G2l2nt31bFglRrj"
+    },
+    {
+      "name": "Medo da Luz",
+      "type": "skill",
+      "img": "icons/magic/light/beam-rays-orange.webp",
+      "system": {
+        "description": "<p>Os goblins vivem no escuro das cavernas: este inimigo tem [Fraqueza (Radiância): 5], e o dano de [Radiância] o deixa com [Medo] de quem o feriu.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "weaknessTag": "Radiance"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Medo da Luz",
+          "img": "icons/magic/light/beam-rays-orange.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.weakness",
+                "type": "add",
+                "value": "5",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "d0R8rn6Ig7lBR1k1",
+          "_key": "!actors.items.effects!lCOM140EkqXthrSA.QpOEWjZ6v3YKybVl.d0R8rn6Ig7lBR1k1"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "struck",
+            "tags": [
+              "Radiance"
+            ],
+            "self": [
+              {
+                "statusId": "frightened"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "QpOEWjZ6v3YKybVl",
+      "_key": "!actors.items!lCOM140EkqXthrSA.QpOEWjZ6v3YKybVl"
+    },
+    {
+      "name": "Ouro",
+      "type": "gear",
+      "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
+      "system": {
+        "description": "",
+        "tags": [],
+        "rank": 1,
+        "price": 0,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1,
+            "gold": "2d6*3"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "o3vuAsEs7SVUStcU",
+      "sort": 400000,
+      "_key": "!actors.items!lCOM140EkqXthrSA.o3vuAsEs7SVUStcU"
+    },
+    {
+      "name": "Saco de Pólvora Goblin",
+      "type": "gear",
+      "img": "icons/containers/bags/case-simple-brown.webp",
+      "system": {
+        "description": "<p>Pólvora grossa de goblin, num saco de couro encerado. Os alquimistas a refinam; os mineiros a usam para abrir veios.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 30,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "9xzf4OfIGgMRdJZf",
+      "sort": 500000,
+      "_key": "!actors.items!lCOM140EkqXthrSA.9xzf4OfIGgMRdJZf"
+    },
+    {
+      "name": "Tochas de Resina",
+      "type": "gear",
+      "img": "icons/sundries/lights/torch-brown-lit.webp",
+      "system": {
+        "description": "<p>Tochas que queimam por uma hora e não apagam com água. Valem muito para quem desce às minas fundas.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 45,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "EGEH5Rew95hJO4Kh",
+      "sort": 600000,
+      "_key": "!actors.items!lCOM140EkqXthrSA.EGEH5Rew95hJO4Kh"
+    },
+    {
+      "name": "Máscara de Fumaceiro",
+      "type": "gear",
+      "img": "icons/equipment/head/gas-mask-cloth-hood.webp",
+      "system": {
+        "description": "<p>Um capuz de couro com lentes de vidro fosco e um filtro de musgo: com ele, a fumaça não arde. Os ferreiros querem copiar.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 70,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "rHLUOW53MDH4XMIM",
+      "sort": 700000,
+      "_key": "!actors.items!lCOM140EkqXthrSA.rHLUOW53MDH4XMIM"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 500000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "lCOM140EkqXthrSA",
+  "folder": "RHS1pble8ESRDgnC",
+  "_key": "!actors!lCOM140EkqXthrSA"
+}

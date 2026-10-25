@@ -84,6 +84,7 @@ export function formulaData(actor, item) {
     get: (target, id) => ((typeof id === "string") ? rating(actor, id) : undefined)
   });
   data.hpLost = Math.max(0, (Number(system.health?.max) || 0) - (Number(system.health?.value) || 0));
+  data.hpMax = Number(system.health?.max) || 0;
   if (actor.type === "character") Object.assign(data, motorFormulaData(actor, item));
   // The dice kept in the actor's Omen, added up (conditions/omen.mjs: O Fim Já Escrito)
   const omen = actor.flags?.eternia?.omen?.dice;

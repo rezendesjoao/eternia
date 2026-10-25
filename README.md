@@ -696,11 +696,24 @@ aba compara a média da tabela com a do Guia de Criação de Inimigos.
 - **Os de gente:** o **Contrabandista** (NP 3: o Selo não o deixa matar, o golpe para em 1 PV; a lâmina envenena; a
   bomba de fumaça esconde o grupo dele) e o **Mestre do Contrabando** (NP 5, chefe de grupo: [Clones: 3] dos sósias; a
   Mão Leve rouba ouro de quem ele fere, e o ouro volta nos itens deixados; **A Proposta** põe no chat um cartão com o
-  ouro que ele oferece para ir embora, com Aceitar e Recusar).
+  ouro que ele oferece para ir embora, com Aceitar e Recusar). Os **goblins de incursão**, que temem a luz (a
+  [Radiância] fere mais e dá [Medo]): o **Goblin de Incursão** (NP 5, lacaio, com a Mão Leve), a **Tropa de Incursão**
+  (NP 6, quatro goblins num token 2×2: o dano em área a acerta em dobro, e com 2/3 e 1/3 dos PV ela perde um goblin e
+  acerta um alvo a menos), o **Fumaceiro Goblin** (NP 6: a tocha que queima e a bomba que cega, prende um [Pavio] e
+  esconde os goblins na fumaça) e o **Chefe de Incursão** (NP 7, chefe de grupo: a corrente que arrasta e agarra, o grito
+  que fortalece o bando e a fuga com o saque com 1/4 dos PV, a menos que esteja preso). E o **Oco** (NP 6: não fica com
+  [Medo] nem [Confuso], dá dois golpes de Cavaleiro e fica parado depois, e volta uma vez com metade dos PV, esquecendo
+  uma Arte; deixa um Cristal de Memória).
+- **Quedas de Aincrad:** os monstros do castelo, que anunciam o golpe. O **Javali de Presas Azuis** (NP 5: marca a presa
+  na Manutenção, a investida fere mais a presa marcada e a empurra, e depois ele fica [Exposto]), o **Lobo do Castelo**
+  (NP 6: o salto anunciado com [Marcado: 8] e o uivo que chama mais um lobo na metade dos PV) e a **Sentinela do
+  Castelo** (NP 7: um kobold de alabarda que leva no lugar o golpe num kobold ao lado, e gira a alabarda em todos os
+  engajados).
 - **As Fendas:** a **Fenda Pequena** (NP 2), um perigo de cena. O relógio de escritas é o Destino dela (os losangos do
   token); em cada Manutenção ela solta a leva; quem está a até 1 Qd gasta a Ação Maior e rola 2d6 + POD contra 9 no
   botão **Escrever** do cartão dela, e quem escreveu e é ferido antes do fim da rodada a faz crescer. Fechada, quem
-  escreveu a última linha leva o que ela deixa.
+  escreveu a última linha leva o que ela deixa. A **Fenda Grande** (NP 5, 2×2) tem 4 escritas contra 11, solta 2 feras
+  sorteadas em cada Manutenção e cresce 2 quando quem escreveu cai.
 
 A página **XIV. O BESTIÁRIO** do diário AS REGRAS explica tudo para o Mestre.
 

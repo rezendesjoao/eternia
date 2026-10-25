@@ -1,0 +1,950 @@
+{
+  "name": "Chefe de Incursão",
+  "type": "monster",
+  "img": "icons/creatures/magical/humanoid-horned-rider.webp",
+  "system": {
+    "health": {
+      "value": 206,
+      "max": 206,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Humanoid",
+      "Goblin",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 16,
+        "magic": 12
+      },
+      "speed": 2,
+      "initiative": 5
+    },
+    "rank": 7,
+    "idendification": "9",
+    "hateMultiplier": "3",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 3
+      }
+    },
+    "description": "<p>O goblin que manda na incursão é o maior do bando, de chifres de bode pregados no elmo e uma corrente de ferro enrolada no braço. Grita para os outros, nunca vai na frente e sempre sabe onde fica a saída. Para ele, a luta é só o tempo de juntar o saque.</p><p><b>Na mesa:</b> o chefe de grupo das cavernas da serra. Vem com a Tropa, um Fumaceiro e alguns Goblins de Incursão. O Grito do Bando fortalece quem está perto dele, e A Corrente arrasta e agarra um personagem. Com 1/4 dos PV ele foge com o saque e não deixa nada, a menos que esteja preso: [Agarrado], [Enraizado], [Paralisado], [Petrificado] ou [Adormecido]. Segurá-lo é metade da vitória.</p>"
+  },
+  "prototypeToken": {
+    "name": "Chefe de Incursão",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/magical/humanoid-horned-rider.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Machado de Saque",
+      "type": "skill",
+      "img": "icons/weapons/axes/axe-battle-jagged.webp",
+      "system": {
+        "description": "<p>[2d6 + 33] de dano físico.</p><p>(Menor): +5 de dano.</p><p>[Destino 1]: o golpe acerta todos os personagens engajados com este inimigo.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 6,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 33,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "YswG4SwxH0B9c3iu",
+      "_key": "!actors.items!c99B7ufn5vtlVTMf.YswG4SwxH0B9c3iu"
+    },
+    {
+      "name": "A Corrente",
+      "type": "skill",
+      "img": "icons/commodities/metal/chain-silver.webp",
+      "system": {
+        "description": "<p>A corrente laça e arrasta: [2d6 + 20] de dano físico, o alvo é puxado para o quadrado dele e fica [Agarrado] por ele.</p>",
+        "tags": [
+          "Ranged Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 6,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 20,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "pull"
+            }
+          ],
+          "hitStatuses": [
+            {
+              "statusId": "grappled"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "NA69Vj8NdlKAsumQ",
+      "_key": "!actors.items!c99B7ufn5vtlVTMf.NA69Vj8NdlKAsumQ"
+    },
+    {
+      "name": "Grito do Bando",
+      "type": "skill",
+      "img": "icons/creatures/abilities/lion-roar-yellow.webp",
+      "system": {
+        "description": "<p>Em cada Manutenção, ele e os aliados a até 2 Qd ficam [Fortalecido: 5].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "realm": {
+                "radius": 2,
+                "allies": [
+                  {
+                    "statusId": "empowered",
+                    "value": 5
+                  }
+                ]
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Grito do Bando",
+          "img": "icons/creatures/abilities/lion-roar-yellow.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "3Y4jXS7oRU6ZI8cb",
+          "_key": "!actors.items.effects!c99B7ufn5vtlVTMf.OqJ8oxLF6ag4q37o.3Y4jXS7oRU6ZI8cb"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "OqJ8oxLF6ag4q37o",
+      "_key": "!actors.items!c99B7ufn5vtlVTMf.OqJ8oxLF6ag4q37o"
+    },
+    {
+      "name": "Recuar com o Saque",
+      "type": "skill",
+      "img": "icons/skills/movement/figure-running-gray.webp",
+      "system": {
+        "description": "<p>Com 1/4 dos PV ou menos, ele foge levando o saque: o token some, ele sai do combate e não deixa itens. Não foge se estiver [Agarrado], [Enraizado], [Paralisado], [Petrificado] ou [Adormecido]; preso, tenta de novo em cada Manutenção.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "retreat",
+            "below": 0.25
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "k1Sv51RQhV0a6hFp",
+      "_key": "!actors.items!c99B7ufn5vtlVTMf.k1Sv51RQhV0a6hFp"
+    },
+    {
+      "name": "Medo da Luz",
+      "type": "skill",
+      "img": "icons/magic/light/beam-rays-orange.webp",
+      "system": {
+        "description": "<p>Os goblins vivem no escuro das cavernas: este inimigo tem [Fraqueza (Radiância): 5], e o dano de [Radiância] o deixa com [Medo] de quem o feriu.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "weaknessTag": "Radiance"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Medo da Luz",
+          "img": "icons/magic/light/beam-rays-orange.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.weakness",
+                "type": "add",
+                "value": "5",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "7YNHtzSZRoQFfT0J",
+          "_key": "!actors.items.effects!c99B7ufn5vtlVTMf.bFATky4KLRj3ssHd.7YNHtzSZRoQFfT0J"
+        }
+      ],
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "struck",
+            "tags": [
+              "Radiance"
+            ],
+            "self": [
+              {
+                "statusId": "frightened"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "bFATky4KLRj3ssHd",
+      "_key": "!actors.items!c99B7ufn5vtlVTMf.bFATky4KLRj3ssHd"
+    },
+    {
+      "name": "Ouro",
+      "type": "gear",
+      "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
+      "system": {
+        "description": "",
+        "tags": [],
+        "rank": 1,
+        "price": 0,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1,
+            "gold": "2d6*5"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "3GYUFc8ljr103PQK",
+      "sort": 600000,
+      "_key": "!actors.items!c99B7ufn5vtlVTMf.3GYUFc8ljr103PQK"
+    },
+    {
+      "name": "Saque da Incursão",
+      "type": "gear",
+      "img": "icons/containers/chest/chest-reinforced-steel-brown.webp",
+      "system": {
+        "description": "<p>O baú que o bando juntou nas vilas de borda: talheres, peças de tecido, a caixa de esmolas de uma igreja. A guilda devolve o que tem dono e paga o resto.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 7,
+        "price": 200,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 2,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Xh3R1IqVxHqUj61i",
+      "sort": 700000,
+      "_key": "!actors.items!c99B7ufn5vtlVTMf.Xh3R1IqVxHqUj61i"
+    },
+    {
+      "name": "Anima Roubado",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-rough-navette-blue.webp",
+      "system": {
+        "description": "<p>Anima-mundi levado de uma mina do Império, com o Selo do Anima arranhado a faca. Serve de Anima-mundi 7 na Oficina; o Ofício quer saber de onde veio.</p>",
+        "tags": [
+          "Magic Catalyst 7"
+        ],
+        "rank": 7,
+        "price": 60,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 3,
+            "max": 4,
+            "qty": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "wGyKiz8rPDZq5c8M",
+      "sort": 800000,
+      "_key": "!actors.items!c99B7ufn5vtlVTMf.wGyKiz8rPDZq5c8M"
+    },
+    {
+      "name": "Machado do Chefe",
+      "type": "gear",
+      "img": "icons/weapons/axes/axe-battle-heavy-jagged.webp",
+      "system": {
+        "description": "<p>O machado de lâmina dentada do chefe, pesado demais para um goblin comum. Os ferreiros de Centória o derretem pelo aço.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 7,
+        "price": 330,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 5,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "db7w0yJQDT8Mbvme",
+      "sort": 900000,
+      "_key": "!actors.items!c99B7ufn5vtlVTMf.db7w0yJQDT8Mbvme"
+    },
+    {
+      "name": "Coroa de Ossos",
+      "type": "gear",
+      "img": "icons/commodities/treasure/crown-blue-gold.webp",
+      "system": {
+        "description": "<p>Uma coroa de ouro velho, com ossos amarrados nas pontas: o chefe a tirou de algum lugar que não era dele. Um nobre de Centória a reconheceria.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 7,
+        "price": 400,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "3JbqhA6wk2mU6xbS",
+      "sort": 1000000,
+      "_key": "!actors.items!c99B7ufn5vtlVTMf.3JbqhA6wk2mU6xbS"
+    },
+    {
+      "name": "Anima-mundi 8",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 8 gasta uma Anima-mundi 8 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 8"
+        ],
+        "rank": 8,
+        "price": 70,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 252
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.FNS3OlzyE54jXqLF",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "AEBGeRv5cBpQmSaZ",
+      "sort": 1100000,
+      "_key": "!actors.items!c99B7ufn5vtlVTMf.AEBGeRv5cBpQmSaZ"
+    },
+    {
+      "name": "Corrente do Chefe",
+      "type": "gear",
+      "img": "icons/commodities/metal/chain-silver.webp",
+      "system": {
+        "description": "<p>A corrente de ferro que o chefe usava para arrastar quem queria. Um [Material-Base] de NP 7.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 7,
+        "price": 140,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "U5sEUF6FGlkwcbft",
+      "sort": 1200000,
+      "_key": "!actors.items!c99B7ufn5vtlVTMf.U5sEUF6FGlkwcbft"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 600000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "c99B7ufn5vtlVTMf",
+  "folder": "RHS1pble8ESRDgnC",
+  "_key": "!actors!c99B7ufn5vtlVTMf"
+}

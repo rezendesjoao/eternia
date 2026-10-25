@@ -1,0 +1,595 @@
+{
+  "name": "Fenda Grande",
+  "type": "monster",
+  "img": "icons/skills/movement/portal-silhouette-pink.webp",
+  "system": {
+    "health": {
+      "value": 1,
+      "max": 1,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 4,
+      "max": 4,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Gimmick",
+      "Magical"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 0,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 0,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 0,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 0,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 0,
+        "magic": 0
+      },
+      "speed": 0,
+      "initiative": 0
+    },
+    "rank": 5,
+    "idendification": "Auto",
+    "hateMultiplier": "0",
+    "checks": {
+      "evasion": {
+        "dice": 0,
+        "mod": 0
+      },
+      "resistance": {
+        "dice": 0,
+        "mod": 0
+      }
+    },
+    "description": "<p>Uma porta de luz violeta, do chão até a altura de um homem, que zumbe como uma colmeia. O ar em volta dela pesa, e as coisas que o Peso escreve saem dela em levas, uma atrás da outra. Fechá-la é trabalho de um mestre de Artes de guilda, enquanto os outros seguram o que sai.</p><p><b>Na mesa:</b> um perigo de cena de NP 5, 2×2. Em cada Manutenção solta 2 feras sorteadas entre o Javali de Cristal, a Aranha das Galerias e o Lagarto Brilhante (troque nos dados dela). O relógio tem 4 escritas, contra 11 (2d6 + POD, Ação Maior, a até 1 Qd, pelo botão Escrever do cartão); se quem escreveu cair antes do fim da rodada, a Fenda cresce 2. Fechada, quem escreveu a última linha leva o que ela deixa.</p>"
+  },
+  "prototypeToken": {
+    "name": "Fenda Grande",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/skills/movement/portal-silhouette-pink.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 2,
+    "height": 2,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 50,
+    "bar1": {
+      "attribute": "fate"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "alpha": 0.45,
+      "angle": 360,
+      "bright": 1,
+      "color": "#9b6bd6",
+      "coloration": 1,
+      "dim": 4,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": "pulse",
+        "speed": 3,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Rasgo na Escrita",
+      "type": "skill",
+      "img": "icons/magic/air/wind-vortex-swirl-purple.webp",
+      "system": {
+        "description": "<p>Este perigo não sofre dano: só a escrita da Língua Sagrada o fecha. Em cada Manutenção, solta a leva dele a até 2 Qd.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {}
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Rasgo na Escrita",
+          "img": "icons/magic/air/wind-vortex-swirl-purple.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.cancel",
+                "type": "add",
+                "value": "999",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "owGc9ZZAJcnTeEcF",
+          "_key": "!actors.items.effects!nWai4q3PbVUogZ66.s6UztrRU89l2GGEX.owGc9ZZAJcnTeEcF"
+        }
+      ],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "s6UztrRU89l2GGEX",
+      "_key": "!actors.items!nWai4q3PbVUogZ66.s6UztrRU89l2GGEX"
+    },
+    {
+      "name": "Relógio de Escritas",
+      "type": "skill",
+      "img": "icons/magic/symbols/runes-star-orange.webp",
+      "system": {
+        "description": "<p>O Destino deste perigo é o relógio: 4 escritas. Quem está a até 1 Qd dele gasta a Ação Maior e rola 2d6 + POD contra 11: no sucesso, o relógio anda 1 (no crítico, 2). Se quem escreveu cair antes do fim da rodada, a Fenda cresce 2. No 0, ela fecha.</p>",
+        "tags": [],
+        "timing": "Refer",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "VHhP61gYznt7JMr2",
+      "_key": "!actors.items!nWai4q3PbVUogZ66.VHhP61gYznt7JMr2"
+    },
+    {
+      "name": "Anima-mundi 4",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 4 gasta uma Anima-mundi 4 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 4"
+        ],
+        "rank": 4,
+        "price": 30,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 108
+          },
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.UjH3cQFAVDAO0WpF",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "1qaC2Wox01h9pD0B",
+      "sort": 300000,
+      "_key": "!actors.items!nWai4q3PbVUogZ66.1qaC2Wox01h9pD0B"
+    },
+    {
+      "name": "Anima-mundi 5",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 5 gasta uma Anima-mundi 5 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 5"
+        ],
+        "rank": 5,
+        "price": 40,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 144
+          },
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.WEuQixwPiB7hCVh6",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Vxt30RM4jGQcyC1O",
+      "sort": 400000,
+      "_key": "!actors.items!nWai4q3PbVUogZ66.Vxt30RM4jGQcyC1O"
+    },
+    {
+      "name": "Anima-mundi 6",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 6 gasta uma Anima-mundi 6 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 6"
+        ],
+        "rank": 6,
+        "price": 50,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 180
+          },
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.YrKp5oNdJw1oWmjI",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "RWMdXoTfmv052tmc",
+      "sort": 500000,
+      "_key": "!actors.items!nWai4q3PbVUogZ66.RWMdXoTfmv052tmc"
+    },
+    {
+      "name": "Resíduo de Fenda",
+      "type": "gear",
+      "img": "icons/magic/symbols/question-stone-yellow.webp",
+      "system": {
+        "description": "<p>Uma poeira violeta que fica no ar quando uma Fenda fecha, e que zumbe baixinho dentro do frasco. As guildas pagam por ela como prova do serviço; a Igreja a recolhe.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 5,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "z3CgE78UFS7WtPTc",
+      "sort": 600000,
+      "_key": "!actors.items!nWai4q3PbVUogZ66.z3CgE78UFS7WtPTc"
+    }
+  ],
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "rift": {
+        "dc": 11,
+        "grow": 2,
+        "growOn": "fall",
+        "wave": [
+          {
+            "uuids": [
+              "Compendium.eternia.bestiary.Actor.3bmkHmAEAj5688JP",
+              "Compendium.eternia.bestiary.Actor.zzg30FEMmez4E8gL",
+              "Compendium.eternia.bestiary.Actor.hNO80mzTgVLpEluq"
+            ],
+            "count": 2
+          }
+        ]
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "nWai4q3PbVUogZ66",
+  "folder": "ew1hWvqNKimoWeZf",
+  "_key": "!actors!nWai4q3PbVUogZ66"
+}

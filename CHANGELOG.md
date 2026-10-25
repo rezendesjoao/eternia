@@ -1,5 +1,26 @@
 # Changelog
 
+## Não lançado
+
+### Adicionado
+- **O bestiário do Império, parte 3:** os **goblins de incursão** (pasta Os de Gente), o Goblin de Incursão (NP 5,
+  lacaio), a Tropa de Incursão (NP 6, tropa 2×2), o Fumaceiro Goblin (NP 6) e o Chefe de Incursão (NP 7, chefe de
+  grupo), todos com o Medo da Luz ([Fraqueza (Radiância)] e [Medo] de quem os fere com ela); o **Oco** (NP 6); as
+  **Quedas de Aincrad** (pasta nova), o Javali de Presas Azuis (NP 5), o Lobo do Castelo (NP 6) e a Sentinela do
+  Castelo (NP 7); e a **Fenda Grande** (NP 5, 2×2: 4 escritas contra 11, 2 feras sorteadas por Manutenção).
+- **Mais regras de monstro:** a **Tropa** (um bando num token: o dano em área a acerta em dobro; com 2/3 e 1/3 dos PV
+  ela perde um do bando, e os ataques em área dela acertam um alvo a menos, com aviso no uso), o **Recuar** (com 1/4 dos
+  PV o monstro foge com o que roubou e não deixa itens, a menos que esteja preso; preso, tenta de novo em cada
+  Manutenção), o **Esquecer** (quando o Fôlego Extra o põe de pé, uma habilidade dele fica [Selada]) e o **Uivo** (o
+  limiar que chama mais monstros; quem veio chamado não chama).
+- **A Fenda que cresce quando quem escreve cai** (`growOn: "fall"`) e a **leva sorteada** numa lista de monstros
+  (`{ uuids, count }`).
+- A fórmula `@hpMax` (o PV máximo), para o Fôlego Extra que volta com metade dos PV.
+
+### Alterado
+- O Reino (as auras) de quem está derrotado no combate (caído, foragido, que foi embora) não age mais na Manutenção.
+- Os monstros chamados (as levas, o uivo, o chamado de um chefe) vêm um por vez, cada um com o seu número no nome.
+
 ## 0.34.0 — 2026-10-25
 
 ### Adicionado

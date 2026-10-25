@@ -6,8 +6,10 @@
  * - drop-tab.mjs    the Itens Deixados tab of the monster sheet;
  * - pack.mjs        the pack: more damage for each ally engaged with the target (read by the damage cards);
  * - rules.mjs       the other monster rules carried by their skills (growing, thresholds, the fall, the boss that
- *                   clears itself, calling the wave, the recharge, the tag that strikes, the light hand, the offer);
+ *                   clears itself, calling the wave, the recharge, the tag that strikes, the light hand, the offer,
+ *                   the troop's losses, the retreat, the forgetting);
  * - recharge.mjs    which skills recharge and which are spent (read by automation/use.mjs);
+ * - troop.mjs       the troop: a band in one token, hit double by areas, its area attacks one target less per loss;
  * - named-template.mjs, named.mjs  the named beast: the template (without Foundry) and the monster sheet's crown;
  * - spawn.mjs       bringing monsters next to a token, in its combat, leaving no drops;
  * - rifts.mjs       the Rifts: scene hazards with a clock of writings and a wave each Setup.

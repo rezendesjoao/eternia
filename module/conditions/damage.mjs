@@ -175,7 +175,7 @@ export async function cloneDecoy(actor, card) {
 }
 
 /** Whether a skill reaches more than one target (an area, a line, two targets or more): not a direct attack. */
-function isAreaAttack(item) {
+export function isAreaAttack(item) {
   if (!item) return false;
   const target = parseSkillField("target", item.system?.target ?? "");
   return ["Area", "Wide", "Line"].includes(target.type) || ((target.type === "Targets") && (Number(target.n) > 1));

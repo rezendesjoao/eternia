@@ -3,18 +3,20 @@
  * Tongue over them while the group holds what comes out. A Rift is a monster with `flags.eternia.rift`:
  *   dc       the check to write over it (2d6 + POW against it: Small 9, Great 11, Mother 13)
  *   wave     [{ uuid, count }]: what comes out of it in each Setup Process of its combat (a number or a formula), next to
- *            it (bestiary/spawn.mjs), leaving no drops
+ *            it (bestiary/spawn.mjs), leaving no drops; `{ uuids: [...], count }` draws each one from a list
  *   first    [{ uuid, count }]: what comes out in the first Setup instead (the Mother Rift's named beast)
- *   grow     how many writings a writer hurt before the end of the round undoes (1)
+ *   grow     how many writings it gets back when its writer is hurt (or falls) before the end of the round (1)
+ *   growOn   "hurt" (by an attack, the Small Rift) or "fall" (Incapacitated by anything, the Great Rift)
  * Its clock is its Fate (`system.fate`: the writings left of the max), shown on its token as the Fate diamonds.
  * Writing (the card's button, or `game.eternia.bestiary.writeRift`): a character within 1 square of it spends a Major
  * Action (in a combat, in its Main Process) and rolls 2d6 + POW; beating the number takes one writing off the clock (a
- * critical, two). A writer hurt by an attack before the end of that round makes the Rift grow back (`eternia.damaged`).
+ * critical, two). A writer hurt by an attack before the end of that round makes the Rift grow back (`eternia.damaged`);
+ * with `growOn: "fall"`, only a writer who falls in that round does.
  * At 0 the Rift closes: its token hides, the writer who closed it gets its drops, and no wave comes out any more.
  * The writings and the growing go through the GM (socket handlers `riftWrite`, `riftGrow`).
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
-import { isLocalChange } from "../helpers/clients.mjs";
+import { isLocalChange, isPrimaryGM } from "../helpers/clients.mjs";
 import { actorName, combatOf, combatantOf, escape, toInt, wrap } from "../helpers/utils.mjs";
 import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { actionsLeft, spendAction } from "../automation/use.mjs";
@@ -36,6 +38,7 @@ export function riftState(actor) {
     max: Math.max(1, toInt(actor.system.fate?.max)),
     dc: toInt(rift.dc) || 9,
     grow: Math.max(1, toInt(rift.grow) || 1),
+    growOn: (rift.growOn === "fall") ? "fall" : "hurt",
     closed: !!rift.closed,
     wave: rift.wave ?? [],
     first: rift.first ?? null
@@ -156,15 +159,15 @@ async function closeRift(rift, writer) {
   await rift.update({ hidden: true });
 }
 
-/** A writer was hurt before the end of the round: the Rift grows back (GM). */
-async function onGrow({ riftUuid, writerUuid }) {
+/** A writer was hurt (or fell) before the end of the round: the Rift grows back (GM). */
+async function onGrow({ riftUuid, writerUuid, fell = false }) {
   const rift = fromUuidSync(riftUuid);
   const actor = rift?.actor;
   if (!actor || !isRift(actor)) return { ok: false };
   const state = riftState(actor);
   if (state.closed || (state.left >= state.max)) return { ok: true };
   await actor.update({ "system.fate.value": Math.min(state.max, state.left + state.grow) });
-  await postCard(rift, { event: L("Rift.Grew", { name: actorName(fromUuidSync(writerUuid)) }) });
+  await postCard(rift, { event: L(fell ? "Rift.GrewFall" : "Rift.Grew", { name: actorName(fromUuidSync(writerUuid)), n: state.grow }) });
   return { ok: true };
 }
 
@@ -172,10 +175,24 @@ async function onGrow({ riftUuid, writerUuid }) {
 async function onDamaged(actor, card, { amount = 0 } = {}) {
   const writing = actor?.getFlag?.(SYSTEM_ID, "riftWriting");
   if (!writing || (toInt(amount) <= 0)) return;
+  // A Rift that grows when its writer falls doesn't care for a wound (onWriterFell)
+  const riftActor = fromUuidSync(writing.riftUuid)?.actor;
+  if (riftActor && (riftState(riftActor).growOn === "fall")) return;
   const combat = game.combats.get(writing.combatId);
   if (!combat || (combat.round !== writing.round)) return actor.isOwner ? actor.unsetFlag(SYSTEM_ID, "riftWriting") : null;
   if (actor.isOwner) await actor.unsetFlag(SYSTEM_ID, "riftWriting");
   await request("riftGrow", { riftUuid: writing.riftUuid, writerUuid: actor.uuid });
+}
+
+/** A writer fell (Incapacitated, by anything) in the round they wrote: a Rift that grows on a fall grows (primary GM). */
+async function onWriterFell(actor) {
+  const writing = actor?.getFlag?.(SYSTEM_ID, "riftWriting");
+  if (!writing) return;
+  const combat = game.combats.get(writing.combatId);
+  const rift = fromUuidSync(writing.riftUuid);
+  if (!combat || (combat.round !== writing.round) || !rift?.actor || (riftState(rift.actor).growOn !== "fall")) return;
+  await actor.unsetFlag(SYSTEM_ID, "riftWriting");
+  await onGrow({ riftUuid: writing.riftUuid, writerUuid: actor.uuid, fell: true });
 }
 
 /* -------------------------------------------- */
@@ -216,6 +233,11 @@ export function registerRifts() {
   registerHandler("riftWrite", payload => onWrite(payload));
   registerHandler("riftGrow", payload => onGrow(payload));
   Hooks.on("eternia.damaged", (...args) => onDamaged(...args).catch(err => console.error(`${SYSTEM_ID} | Rift growth failed`, err)));
+  Hooks.on("createActiveEffect", effect => {
+    const actor = effect.parent;
+    if (!(actor instanceof Actor) || !effect.statuses?.has("incapacitated") || !isPrimaryGM()) return;
+    onWriterFell(actor).catch(err => console.error(`${SYSTEM_ID} | Rift growth failed`, err));
+  });
   Hooks.on("renderChatMessageHTML", onRenderMessage);
   wrap(CONFIG.Combat.documentClass.prototype, "_onPhaseStart", async function (original, phase, round, previous) {
     await original.call(this, phase, round, previous);
