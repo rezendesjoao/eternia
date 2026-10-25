@@ -1,0 +1,21 @@
+{{!-- The card of a monster latched to someone (module/bestiary/latch.mjs): the save card's look in a blood red, what it
+     drains in each Setup in the seal, what happened, and the Rip off button while it holds on. --}}
+<div class="eternia-rank-card eternia-save-card eternia-latch-card" style="--rk-color: #6b2730" aria-label="{{eyebrow}}: {{name}}">
+	<header class="rk-head">
+		<img src="{{img}}" alt="">
+		<div class="rk-title">
+			<small><i class="fa-solid fa-droplet"></i>{{eyebrow}}</small>
+			<h3>{{name}}</h3>
+		</div>
+		<div class="rk-seal" aria-label="{{drainLabel}} {{drain}}">
+			<small>{{drainLabel}}</small>
+			<span><b>{{drain}}</b></span>
+		</div>
+	</header>
+	<p class="of-lead">{{event}}</p>
+	{{#if open}}
+	<div class="rk-actions sv-actions">
+		<button type="button" data-action="latch-off" data-tooltip="{{offHint}}"><i class="fa-solid fa-hand-back-fist"></i>{{offLabel}}</button>
+	</div>
+	{{/if}}
+</div>

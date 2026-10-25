@@ -1,0 +1,476 @@
+{
+  "name": "Estirge",
+  "type": "monster",
+  "img": "icons/creatures/invertebrates/fly-wasp-mosquito-green.webp",
+  "system": {
+    "health": {
+      "value": 18,
+      "max": 18,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mob",
+      "Natural",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 6,
+        "magic": 4
+      },
+      "speed": 2,
+      "initiative": 3
+    },
+    "rank": 1,
+    "idendification": "5",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 0,
+        "mod": 8
+      },
+      "resistance": {
+        "dice": 0,
+        "mod": 7
+      }
+    },
+    "description": "<p>Um bicho do tamanho de um gato, metade morcego e metade mosquito: asas de couro, quatro patas que agarram e um ferrão oco, comprido como um dedo, no lugar da boca. O Peso as escreve aos montes nas galerias úmidas, nos esgotos de Centória e nos brejos de beira de estrada. Caem do teto em bando, cravam o ferrão onde a armadura deixa a pele à mostra e não soltam mais: bebem até ficar redondas.</p><p><b>Na mesa:</b> lacaio de NP 1, em bandos de quatro a oito. O Ferrão Oco gruda a estirge em quem ela fere: em cada Manutenção ela suga 5 PV e se cura com eles, e vai junto aonde o alvo for (o token dela segue o dele). Enquanto gruda, não ataca. Arrancá-la custa uma Ação Menor do alvo ou de quem está junto dele (o botão Arrancar do cartão); matá-la também a solta. O Enxame faz o bando morder mais forte quem já carrega estirges.</p>"
+  },
+  "prototypeToken": {
+    "name": "Estirge",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/invertebrates/fly-wasp-mosquito-green.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Ferrão Oco",
+      "type": "skill",
+      "img": "icons/creatures/abilities/stinger-spine-horn-blood.webp",
+      "system": {
+        "description": "<p>[2d6 + 18] de dano físico.</p><p>Se ferir, a estirge gruda no alvo: o token dela vai para o quadrado dele e o segue. Em cada Manutenção, o alvo perde 5 PV e a estirge recupera o que ele perdeu. Enquanto gruda, ela não ataca. O alvo, ou quem está junto dele, a arranca com uma Ação Menor (o botão Arrancar do cartão); ela também solta se for movida, se cair ou se o alvo cair.</p><p>(Menor): +4 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 12,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 18,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "latch",
+            "drain": 5
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "6vgmIfk7lLE1C77w",
+      "_key": "!actors.items!AJWfLcUskxt07Atz.6vgmIfk7lLE1C77w"
+    },
+    {
+      "name": "Enxame",
+      "type": "skill",
+      "img": "icons/creatures/invertebrates/wasp-swarm-attack.webp",
+      "system": {
+        "description": "<p>Esta estirge causa +2 de dano para cada outro inimigo engajado com o alvo (as estirges grudadas nele contam).</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "pack",
+            "per": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "AQNnmzVOBc32ZxVG",
+      "_key": "!actors.items!AJWfLcUskxt07Atz.AQNnmzVOBc32ZxVG"
+    },
+    {
+      "name": "Asas de Couro",
+      "type": "skill",
+      "img": "icons/creatures/abilities/wing-batlike-red-pink.webp",
+      "system": {
+        "description": "<p>Voa sem parar: está sempre [Voando].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {}
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Asas de Couro",
+          "img": "icons/creatures/abilities/wing-batlike-red-pink.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "flying"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "4kCO9nBzARYfYFfa",
+          "_key": "!actors.items.effects!AJWfLcUskxt07Atz.agRjQsqNIKqtqeSY.4kCO9nBzARYfYFfa"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "agRjQsqNIKqtqeSY",
+      "_key": "!actors.items!AJWfLcUskxt07Atz.agRjQsqNIKqtqeSY"
+    },
+    {
+      "name": "Ferrão de Estirge",
+      "type": "gear",
+      "img": "icons/commodities/biological/stinger-insect-brown.webp",
+      "system": {
+        "description": "<p>O ferrão oco de uma estirge, comprido como um dedo e ainda sujo de sangue. Os boticários de Centória fazem dele agulhas de sangria.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 6,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "CEwfKlJMFO8XSs6E",
+      "sort": 400000,
+      "_key": "!actors.items!AJWfLcUskxt07Atz.CEwfKlJMFO8XSs6E"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 800000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "AJWfLcUskxt07Atz",
+  "folder": "XA2JmuxkhmuaArlg",
+  "_key": "!actors!AJWfLcUskxt07Atz"
+}

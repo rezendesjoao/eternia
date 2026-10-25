@@ -1,0 +1,22 @@
+{{!-- The card of a gaze (module/bestiary/gaze.mjs): the offer card's look in a stone grey, who has to choose, the gaze
+     in the seal, what happened, and Meet / Look away while it is open (for the owner of the creature and the GM). --}}
+<div class="eternia-rank-card eternia-offer-card eternia-gaze-card" style="--rk-color: #4d5450" aria-label="{{eyebrow}}: {{name}}">
+	<header class="rk-head">
+		<img src="{{img}}" alt="">
+		<div class="rk-title">
+			<small><i class="fa-solid fa-eye"></i>{{eyebrow}}</small>
+			<h3>{{name}}</h3>
+		</div>
+		<div class="rk-seal" aria-label="{{gazeLabel}} {{gaze}}">
+			<small>{{gazeLabel}}</small>
+			<span><b>{{gaze}}</b></span>
+		</div>
+	</header>
+	<p class="of-lead">{{event}}</p>
+	{{#if open}}
+	<div class="rk-actions">
+		<button type="button" data-action="gaze-meet" data-tooltip="{{meetHint}}"><i class="fa-solid fa-eye"></i>{{meetLabel}}</button>
+		<button type="button" data-action="gaze-avert" data-tooltip="{{avertHint}}"><i class="fa-solid fa-eye-slash"></i>{{avertLabel}}</button>
+	</div>
+	{{/if}}
+</div>
