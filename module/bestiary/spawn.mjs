@@ -55,11 +55,24 @@ function freeSquares(origin, radius, count) {
   return out;
 }
 
+/** The highest number a name already has on a scene ("Lobo do Castelo (3)" gives 3; 0 when none). */
+function lastNumber(scene, base) {
+  const prefix = `${base} (`;
+  let max = 0;
+  for (const token of scene.tokens) {
+    if (!token.name.startsWith(prefix) || !token.name.endsWith(")")) continue;
+    const n = Number(token.name.slice(prefix.length, -1));
+    if (Number.isInteger(n)) max = Math.max(max, n);
+  }
+  return max;
+}
+
 /**
  * Bring monsters next to a token: their tokens, in the token's combat. GM only.
  * @param {TokenDocument} origin
- * @param {{uuid?: string, uuids?: string[], count: string|number}[]} list   The monsters and how many (a number or a
- *   formula: "1d3"); with `uuids`, each one is drawn from that list (the Great Rift's wave)
+ * @param {{uuid?: string, uuids?: string[], count: string|number, loot?: boolean}[]} list   The monsters and how many
+ *   (a number or a formula: "1d3"); with `uuids`, each one is drawn from that list (the Great Rift's wave); with
+ *   `loot`, they leave their drops (the Mother Rift's named beast)
  * @param {object} [options]
  * @param {number} [options.radius]   How far from the origin they may come (squares)
  * @param {string} [options.by]       Who called them (kept in the tokens' flags)
@@ -69,29 +82,36 @@ export async function spawnNear(origin, list, { radius = 2, by = "" } = {}) {
   if (!game.user.isGM || !origin?.parent) return [];
   const scene = origin.parent;
   const wanted = [];
-  for (const { uuid, uuids, count } of list ?? []) {
+  for (const { uuid, uuids, count, loot } of list ?? []) {
     const pool = (Array.isArray(uuids) && uuids.length) ? uuids : [uuid];
     const n = Number.isFinite(Number(count)) ? toInt(count) : toInt((await new Roll(String(count)).evaluate()).total);
     for (let k = 0; k < n; k++) {
       const actor = await worldActor(pool[Math.floor(Math.random() * pool.length)]);
-      if (actor) wanted.push(actor);
+      if (actor) wanted.push({ actor, loot: loot === true });
     }
   }
   if (!wanted.length) return [];
   const spots = freeSquares(origin, Math.max(1, radius), wanted.length);
+  // The numbers in the names, counted here: Foundry's own count doesn't see tokens made in the same moment
+  const next = new Map();
   const data = [];
-  for (const [index, actor] of wanted.entries()) {
+  for (const [index, { actor, loot }] of wanted.entries()) {
     const token = (await actor.getTokenDocument({
       x: spots[index].x, y: spots[index].y, level: origin.level, elevation: origin.elevation
     })).toObject();
+    // getTokenDocument already numbers the name, but only counting the tokens that exist now
+    if (actor.prototypeToken.appendNumber) {
+      const base = actor.prototypeToken.name || actor.name;
+      const number = (next.get(base) ?? lastNumber(scene, base)) + 1;
+      next.set(base, number);
+      Object.assign(token, { name: `${base} (${number})`, appendNumber: false });
+    }
     token.delta ??= {};
-    foundry.utils.setProperty(token, `delta.flags.${SYSTEM_ID}.noLoot`, true);
+    foundry.utils.setProperty(token, `delta.flags.${SYSTEM_ID}.noLoot`, !loot);
     foundry.utils.setProperty(token, `flags.${SYSTEM_ID}.calledBy`, by);
     data.push(token);
   }
-  // One at a time: each one gets its own number in the name (a batch would give them all the same)
-  const tokens = [];
-  for (const one of data) tokens.push(...await scene.createEmbeddedDocuments("Token", [one]));
+  const tokens = await scene.createEmbeddedDocuments("Token", data);
   // In the origin's combat, they fight at once
   const combat = game.combats.find(c => c.started && (c.scene?.id === scene.id) && c.combatants.some(cb => cb.tokenId === origin.id))
     ?? game.combats.find(c => c.started && (c.scene?.id === scene.id));

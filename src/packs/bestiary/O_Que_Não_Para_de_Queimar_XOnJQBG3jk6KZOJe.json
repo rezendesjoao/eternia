@@ -1,0 +1,1005 @@
+{
+  "name": "O Que Não Para de Queimar",
+  "type": "monster",
+  "img": "icons/creatures/abilities/dragon-fire-breath-orange.webp",
+  "system": {
+    "health": {
+      "value": 232,
+      "max": 232,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Human",
+      "Draconic",
+      "Stray"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 5,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 13,
+        "magic": 20
+      },
+      "speed": 2,
+      "initiative": 6
+    },
+    "rank": 8,
+    "idendification": "10",
+    "hateMultiplier": "3",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 4
+      }
+    },
+    "description": "<p>Um Dracônico que chegou às asas, o quarto estágio, e não parou: o fogo de dentro subiu e não desceu mais. As escamas estão em brasa, a roupa queimou há muito tempo, e por onde ele anda a grama vira cinza. Voa, o que o Índice proíbe, e a Igreja usa isso como motivo. Às vezes ele pede água; nunca chega a beber.</p><p><b>Na mesa:</b> chefe sozinho de NP 8, que voa. O Sopro de Brasa queima em área e recarrega com 5 ou 6 no 1d6 de uma Manutenção; a Garra Ardente joga longe quem chega perto, e quem fica a 1 Qd dele pega fogo em cada Manutenção. Água e [Encharcado] apagam o [Queimando] do grupo. Desgarrados lutam sozinhos e são chefes: dá tempo de tentar salvá-los. Matá-lo deixa os itens; salvá-lo deixa uma Conexão.</p>"
+  },
+  "prototypeToken": {
+    "name": "O Que Não Para de Queimar",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/abilities/dragon-fire-breath-orange.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Sopro de Brasa",
+      "type": "skill",
+      "img": "icons/creatures/abilities/mouth-teeth-fire-orange.webp",
+      "system": {
+        "description": "<p>Área (Escolha) a até 4 Qd: [2d6 + 59] de dano mágico de [Chama], e quem é atingido fica [Queimando: 10].</p><p>Recarga: depois de usado, só volta com 5 ou 6 no 1d6 de uma Manutenção.</p>",
+        "tags": [
+          "Magic Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 5,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 59,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "recharge",
+            "min": 5
+          },
+          "hitStatuses": [
+            {
+              "statusId": "burning",
+              "value": 10
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "gT3Wqa8cnNIuGFpi",
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.gT3Wqa8cnNIuGFpi"
+    },
+    {
+      "name": "Garra Ardente",
+      "type": "skill",
+      "img": "icons/magic/unholy/hand-claw-glow-orange.webp",
+      "system": {
+        "description": "<p>[2d6 + 45] de dano físico de [Chama]: o alvo é jogado 2 Qd para longe e fica [Queimando: 5].</p>",
+        "tags": [
+          "Melee Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 45,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "push",
+              "value": 2
+            }
+          ],
+          "hitStatuses": [
+            {
+              "statusId": "burning",
+              "value": 5
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "z4Gjjp5vANSgtYgm",
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.z4Gjjp5vANSgtYgm"
+    },
+    {
+      "name": "Corpo em Brasa",
+      "type": "skill",
+      "img": "icons/magic/fire/explosion-embers-orange.webp",
+      "system": {
+        "description": "<p>Em cada Manutenção, os inimigos a até 1 Qd dele ficam [Queimando: 5].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "realm": {
+                "radius": 1,
+                "enemies": [
+                  {
+                    "statusId": "burning",
+                    "value": 5
+                  }
+                ]
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Corpo em Brasa",
+          "img": "icons/magic/fire/explosion-embers-orange.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "fFJq3zZ2EHroEjsa",
+          "_key": "!actors.items.effects!XOnJQBG3jk6KZOJe.ZNg22gQhKLRDLxFY.fFJq3zZ2EHroEjsa"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ZNg22gQhKLRDLxFY",
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.ZNg22gQhKLRDLxFY"
+    },
+    {
+      "name": "Asas",
+      "type": "skill",
+      "img": "icons/magic/holy/angel-wings-gray.webp",
+      "system": {
+        "description": "<p>Asas de dragão, que o Índice proíbe: ele está sempre [Voando].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {}
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Asas",
+          "img": "icons/magic/holy/angel-wings-gray.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "flying"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "ma29dOECP9ujWMyG",
+          "_key": "!actors.items.effects!XOnJQBG3jk6KZOJe.1OO1gncMrdvHLUO7.ma29dOECP9ujWMyG"
+        }
+      ],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "1OO1gncMrdvHLUO7",
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.1OO1gncMrdvHLUO7"
+    },
+    {
+      "name": "A Forma Rejeita",
+      "type": "skill",
+      "img": "icons/magic/control/silhouette-hold-change-green.webp",
+      "system": {
+        "description": "<p>No Encerramento, ele se livra de 2 Estados Negativos: a forma não aceita prisão.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "cleanse",
+            "count": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "MALuU2RScGIlBjNM",
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.MALuU2RScGIlBjNM"
+    },
+    {
+      "name": "Ainda Há Alguém Aí",
+      "type": "skill",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
+      "system": {
+        "description": "<p>Com 1/4 dos PV ou menos, a forma cede e dá para ver quem ele era: quem estiver engajado com ele pode gastar a Ação Maior e rolar Negociação contra a Resistência dele (o botão Salvar do cartão que aparece no chat). Vencendo, ele fica [Pacificado] até o fim da cena e sai da luta, sem deixar itens; o Mestre pode fazê-lo virar uma Conexão de quem o salvou.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "save",
+            "below": 0.25
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Qg0AnPVq6zUr2lOj",
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.Qg0AnPVq6zUr2lOj"
+    },
+    {
+      "name": "Ouro",
+      "type": "gear",
+      "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
+      "system": {
+        "description": "",
+        "tags": [],
+        "rank": 1,
+        "price": 0,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1,
+            "gold": "2d6*6"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Zf73zTBQXHLFv9I8",
+      "sort": 700000,
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.Zf73zTBQXHLFv9I8"
+    },
+    {
+      "name": "Escama em Brasa",
+      "type": "gear",
+      "img": "icons/commodities/biological/hand-clawed-scale-grey.webp",
+      "system": {
+        "description": "<p>Uma escama que continua quente dias depois. Os ferreiros a usam no lugar do carvão por uma semana.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 8,
+        "price": 210,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 2,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Thu8crfl6ZM8kNxD",
+      "sort": 800000,
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.Thu8crfl6ZM8kNxD"
+    },
+    {
+      "name": "Lágrima de Brasa",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-rough-cushion-orange-white.webp",
+      "system": {
+        "description": "<p>Fogo que pingou e endureceu. Serve de Anima-mundi 8 na Oficina.</p>",
+        "tags": [
+          "Magic Catalyst 8"
+        ],
+        "rank": 8,
+        "price": 70,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 3,
+            "max": 4,
+            "qty": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "xFZW9UFPpglSbFpX",
+      "sort": 900000,
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.xFZW9UFPpglSbFpX"
+    },
+    {
+      "name": "Garra de Dracônico",
+      "type": "gear",
+      "img": "icons/commodities/biological/finger-clawed-green-black.webp",
+      "system": {
+        "description": "<p>Uma garra inteira, negra na ponta. Os Dracônicos de Centória pagam qualquer preço para enterrá-la.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 8,
+        "price": 390,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 5,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "kR4RyGftTfF4LV03",
+      "sort": 1000000,
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.kR4RyGftTfF4LV03"
+    },
+    {
+      "name": "Coração que Arde",
+      "type": "gear",
+      "img": "icons/commodities/biological/organ-heart-red.webp",
+      "system": {
+        "description": "<p>Uma brasa do tamanho de um punho, do peito dele, que bate devagar e não apaga.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 8,
+        "price": 520,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "UXQbGhm2mdeBc0Xw",
+      "sort": 1100000,
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.UXQbGhm2mdeBc0Xw"
+    },
+    {
+      "name": "Anima-mundi 9",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 9 gasta uma Anima-mundi 9 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 9"
+        ],
+        "rank": 9,
+        "price": 90,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 288
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.Jtyb6r0NB3prtgLv",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "rgllPhkBaAczEbha",
+      "sort": 1200000,
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.rgllPhkBaAczEbha"
+    },
+    {
+      "name": "Brasa que Não Apaga",
+      "type": "gear",
+      "img": "icons/magic/fire/explosion-embers-orange.webp",
+      "system": {
+        "description": "<p>Uma brasa que nem a água apaga, num pote de barro. Um [Material-Base] de NP 8.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 8,
+        "price": 160,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "fUynQ6G6afYhO2E6",
+      "sort": 1300000,
+      "_key": "!actors.items!XOnJQBG3jk6KZOJe.fUynQ6G6afYhO2E6"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "XOnJQBG3jk6KZOJe",
+  "folder": "RD9UdfUXgaZZzK88",
+  "_key": "!actors!XOnJQBG3jk6KZOJe"
+}

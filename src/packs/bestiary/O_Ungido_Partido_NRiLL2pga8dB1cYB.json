@@ -1,0 +1,850 @@
+{
+  "name": "O Ungido Partido",
+  "type": "monster",
+  "img": "icons/magic/holy/saint-glass-portrait-halo.webp",
+  "system": {
+    "health": {
+      "value": 216,
+      "max": 216,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Human",
+      "Stray"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 12,
+        "magic": 18
+      },
+      "speed": 2,
+      "initiative": 8
+    },
+    "rank": 7,
+    "idendification": "10",
+    "hateMultiplier": "3",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 4
+      }
+    },
+    "description": "<p>Um Humano que chegou ao quarto estágio da forma, o Ungido, depressa demais: a marca de luz na testa, onde os Cavaleiros põem o prisma, rachou, e a luz vaza por ela sem parar. Ele não dorme mais, porque a luz não deixa. Fala sozinho em frases da Escrita Final que ninguém mais entende. A Igreja o quer morto, porque a luz dele mostra coisas.</p><p><b>Na mesa:</b> chefe sozinho de NP 7. Ataca de longe com o Prisma Partido e afasta quem chega perto com o Clarão da Unção. No Encerramento, a Luz que Vaza fere todos a até 2 Qd, ele também: ficar longe dele é mais seguro, e ficar perto é o único jeito de salvá-lo. Desgarrados lutam sozinhos e são chefes: dá tempo de tentar salvá-los. Matá-lo deixa os itens; salvá-lo deixa uma Conexão.</p>"
+  },
+  "prototypeToken": {
+    "name": "O Ungido Partido",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/magic/holy/saint-glass-portrait-halo.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Prisma Partido",
+      "type": "skill",
+      "img": "icons/magic/light/projectile-halo-teal.webp",
+      "system": {
+        "description": "<p>[2d6 + 53] de dano mágico de [Radiância].</p><p>[Destino 1]: Área (Escolha) a até 4 Qd.</p>",
+        "tags": [
+          "Magic Attack",
+          "Radiance"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 53,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "XJZrueMxGpXPck9r",
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.XJZrueMxGpXPck9r"
+    },
+    {
+      "name": "Clarão da Unção",
+      "type": "skill",
+      "img": "icons/magic/light/explosion-star-blue.webp",
+      "system": {
+        "description": "<p>Um clarão da marca na testa: quem está engajado com ele sofre [2d6 + 30] de dano mágico de [Radiância] e é empurrado 2 Qd.</p>",
+        "tags": [
+          "Magic Attack",
+          "Radiance"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 30,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "push",
+              "value": 2
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "hPQC0F1mftxhteIo",
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.hPQC0F1mftxhteIo"
+    },
+    {
+      "name": "Luz que Vaza",
+      "type": "skill",
+      "img": "icons/magic/light/beams-rays-orange-purple.webp",
+      "system": {
+        "description": "<p>No Encerramento, a luz que ele não segura mais vaza da marca: todos a até 2 Qd, ele também, sofrem [2d6 + 20] de dano mágico de [Radiância] (um cartão de dano, sem Teste de Esquiva).</p>",
+        "tags": [
+          "Radiance"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 20,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "pulse",
+            "radius": 2,
+            "self": true
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "9zwsLPpk02ETmTss",
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.9zwsLPpk02ETmTss"
+    },
+    {
+      "name": "A Forma Rejeita",
+      "type": "skill",
+      "img": "icons/magic/control/silhouette-hold-change-green.webp",
+      "system": {
+        "description": "<p>No Encerramento, ele se livra de 2 Estados Negativos: a forma não aceita prisão.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "cleanse",
+            "count": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "iblZU2e1BdkhUuje",
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.iblZU2e1BdkhUuje"
+    },
+    {
+      "name": "Ainda Há Alguém Aí",
+      "type": "skill",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
+      "system": {
+        "description": "<p>Com 1/4 dos PV ou menos, a forma cede e dá para ver quem ele era: quem estiver engajado com ele pode gastar a Ação Maior e rolar Negociação contra a Resistência dele (o botão Salvar do cartão que aparece no chat). Vencendo, ele fica [Pacificado] até o fim da cena e sai da luta, sem deixar itens; o Mestre pode fazê-lo virar uma Conexão de quem o salvou.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "save",
+            "below": 0.25
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "4pqOXJcsLY1eFcd4",
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.4pqOXJcsLY1eFcd4"
+    },
+    {
+      "name": "Ouro",
+      "type": "gear",
+      "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
+      "system": {
+        "description": "",
+        "tags": [],
+        "rank": 1,
+        "price": 0,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1,
+            "gold": "2d6*5"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "NBqbTbDBndcI6OcJ",
+      "sort": 600000,
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.NBqbTbDBndcI6OcJ"
+    },
+    {
+      "name": "Prisma Rachado",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-faceted-trillion-blue.webp",
+      "system": {
+        "description": "<p>Um prisma de Cavaleiro, rachado de lado a lado, que ainda dobra a luz do jeito errado.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 7,
+        "price": 180,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 2,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "I79lxXooKSViW3VV",
+      "sort": 700000,
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.I79lxXooKSViW3VV"
+    },
+    {
+      "name": "Lágrima de Luz",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-faceted-radiant-blue.webp",
+      "system": {
+        "description": "<p>Luz que pingou da marca e endureceu. Serve de Anima-mundi 7 na Oficina; a Igreja diz que é relíquia e não deveria ser usada.</p>",
+        "tags": [
+          "Magic Catalyst 7"
+        ],
+        "rank": 7,
+        "price": 60,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 3,
+            "max": 4,
+            "qty": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "IBhgcnbUek1NiV2P",
+      "sort": 800000,
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.IBhgcnbUek1NiV2P"
+    },
+    {
+      "name": "Manto de Ungido",
+      "type": "gear",
+      "img": "icons/equipment/back/cloak-hooded-blue.webp",
+      "system": {
+        "description": "<p>Um manto branco de cerimônia, queimado por dentro, no lugar da testa.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 7,
+        "price": 330,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 5,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "UJHOrRIoe28xOCrf",
+      "sort": 900000,
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.UJHOrRIoe28xOCrf"
+    },
+    {
+      "name": "Marca de Luz",
+      "type": "gear",
+      "img": "icons/magic/holy/saint-glass-portrait-halo.webp",
+      "system": {
+        "description": "<p>A marca da testa, que se soltou quando a luz se apagou: um disco de luz morna do tamanho de uma moeda. Ninguém sabe o que fazer com ela; todo mundo quer.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 7,
+        "price": 450,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "H503kDr6h6xGSnpc",
+      "sort": 1000000,
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.H503kDr6h6xGSnpc"
+    },
+    {
+      "name": "Anima-mundi 8",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 8 gasta uma Anima-mundi 8 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 8"
+        ],
+        "rank": 8,
+        "price": 70,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 252
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.FNS3OlzyE54jXqLF",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "CpaMXhalOKI1FKPz",
+      "sort": 1100000,
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.CpaMXhalOKI1FKPz"
+    },
+    {
+      "name": "Fragmento da Marca",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-faceted-round-white.webp",
+      "system": {
+        "description": "<p>Um caco da marca de luz, que ainda brilha quando alguém reza perto. Um [Material-Base] de NP 7.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 7,
+        "price": 140,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "1vkUHZwGOyYRQjTh",
+      "sort": 1200000,
+      "_key": "!actors.items!NRiLL2pga8dB1cYB.1vkUHZwGOyYRQjTh"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "NRiLL2pga8dB1cYB",
+  "folder": "RD9UdfUXgaZZzK88",
+  "_key": "!actors!NRiLL2pga8dB1cYB"
+}

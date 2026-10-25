@@ -16,10 +16,25 @@
 - **A Fenda que cresce quando quem escreve cai** (`growOn: "fall"`) e a **leva sorteada** numa lista de monstros
   (`{ uuids, count }`).
 - A fórmula `@hpMax` (o PV máximo), para o Fôlego Extra que volta com metade dos PV.
+- **O bestiário do Império, parte 4:** os seis **Desgarrados** (pasta Os de Gente › Desgarrados), um por raça, presos no
+  estágio IV da forma, chefes que lutam sozinhos: O Ungido Partido (Humano, NP 7), O Meio-Espírito (Elfo, NP 7), O Que
+  Não Para de Queimar (Dracônico, NP 8), O Sem Nome (Demônio, NP 8), O das Seis Asas (Celestial, NP 9) e O Preso na
+  Meia-Fera (Bestial, NP 9); a **Fenda-mãe** (NP 9, 3×3: 6 escritas contra 13, a fera com nome na primeira rodada e 2 ou
+  3 feras sorteadas depois) e a fera com nome dela, o **Uivo Violeta** (NP 8). Tags [Desgarrado], [Elfo], [Dracônico],
+  [Celestial] e [Bestial].
+- **Salvar um Desgarrado** (`module/bestiary/save.mjs`): com 1/4 dos PV ou menos, um cartão no chat com o botão
+  **Salvar**; quem está engajado gasta a Ação Maior e rola Negociação contra a Resistência dele (a regra do Teste de
+  Acerto); vencendo, ele fica [Pacificado] até o fim da cena e sai da luta, sem deixar itens, e o Mestre pode fazê-lo
+  virar uma **Conexão** de quem o salvou (o botão Virar Conexão).
+- **Mais regras de monstro:** o **Pulso** (no Encerramento, a habilidade acerta todos à volta, às vezes ele também) e o
+  **Começo** (estados na primeira Manutenção do combate, até o fim da cena). Uma entrada da leva pode deixar os itens
+  (`loot`), para a fera com nome da Fenda-mãe.
 
 ### Alterado
 - O Reino (as auras) de quem está derrotado no combate (caído, foragido, que foi embora) não age mais na Manutenção.
-- Os monstros chamados (as levas, o uivo, o chamado de um chefe) vêm um por vez, cada um com o seu número no nome.
+- Os monstros chamados (as levas, o uivo, o chamado de um chefe) vêm cada um com o seu número no nome (o Foundry dava
+  o mesmo número a todos de uma vez). O uivo de uma fera que saiu de uma Fenda conta (só quem foi chamado por outro
+  monstro não uiva).
 
 ## 0.34.0 — 2026-10-25
 

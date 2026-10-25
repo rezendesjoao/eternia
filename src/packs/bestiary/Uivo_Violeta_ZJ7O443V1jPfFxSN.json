@@ -1,0 +1,852 @@
+{
+  "name": "Uivo Violeta",
+  "type": "monster",
+  "img": "icons/creatures/mammals/wolf-howl-moon-forest-blue.webp",
+  "system": {
+    "health": {
+      "value": 165,
+      "max": 165,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Natural",
+      "Wolf",
+      "Boss"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 5,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 18,
+        "magic": 15
+      },
+      "speed": 2,
+      "initiative": 8
+    },
+    "rank": 8,
+    "idendification": "10",
+    "hateMultiplier": "4",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 5
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 3
+      }
+    },
+    "description": "<p>Um lobo do castelo que atravessou uma Fenda-mãe e voltou do outro lado com os olhos acesos de violeta. Ele vê a escrita do mundo: nada o assusta, nada o confunde, e sabe onde o grupo vai estar antes de o grupo saber. É a fera que a Fenda-mãe solta primeiro, e a leva o segue.</p><p><strong>Fera com nome</strong>, feita de Lobo do Castelo: Nível 6 → 8, e a Janela dela mostra a Autoridade nova. Marca do Peso: Olhos da Fenda.</p><p>Um lobo azul-escuro das florestas do primeiro andar, mais magro e mais calado que os lobos de baixo. Os lobos do castelo caçam do jeito do castelo: escolhem a presa à vista de todos, encaram, e só então saltam. Quando um deles cai ferido, uiva, e a floresta responde.</p><p><b>Na mesa:</b> o monstro do castelo que anuncia o golpe. Na Manutenção ele deixa a presa [Marcado: 8], e o Bote fere mais a presa marcada e tira a marca. Na metade dos PV ele uiva e chama mais um Lobo do Castelo (um lobo chamado não uiva). Proteger a presa é a jogada.</p>"
+  },
+  "prototypeToken": {
+    "name": "Uivo Violeta",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/mammals/wolf-howl-moon-forest-blue.webp",
+      "scaleX": 1.2,
+      "scaleY": 1.2,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Salto Anunciado",
+      "type": "skill",
+      "img": "icons/skills/movement/arrows-up-trio-red.webp",
+      "system": {
+        "description": "<p>Na Manutenção, o lobo baixa o corpo e encara a presa: um personagem a até 4 Qd fica [Marcado: 8] até o fim da rodada. Todos à mesa sabem quem ele vai morder.</p>",
+        "tags": [],
+        "timing": "Setup",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "marked",
+                "value": 8
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Salto Anunciado: a presa",
+          "img": "icons/skills/movement/arrows-up-trio-red.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "marked"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "4i6QA7xKChwAeCD7",
+          "_key": "!actors.items.effects!ZJ7O443V1jPfFxSN.RPcodaTFMMcOG2Sv.4i6QA7xKChwAeCD7"
+        }
+      ],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "RPcodaTFMMcOG2Sv",
+      "_key": "!actors.items!ZJ7O443V1jPfFxSN.RPcodaTFMMcOG2Sv"
+    },
+    {
+      "name": "Bote",
+      "type": "skill",
+      "img": "icons/creatures/abilities/fangs-teeth-bite.webp",
+      "system": {
+        "description": "<p>[2d6 + 45] de dano físico; contra a presa [Marcado], +7 e a marca sai.</p><p>(Menor): o alvo fica [Derrubado].</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 6,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 51,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "bonusVs": [
+            {
+              "statusId": "marked",
+              "value": 7,
+              "consume": true
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "OvaXOmZJISZJiGa2",
+      "_key": "!actors.items!ZJ7O443V1jPfFxSN.OvaXOmZJISZJiGa2"
+    },
+    {
+      "name": "Uivo",
+      "type": "skill",
+      "img": "icons/creatures/mammals/wolf-howl-moon-black.webp",
+      "system": {
+        "description": "<p>A primeira vez que os PV caem à metade, o lobo uiva: mais um Lobo do Castelo sai ao lado dele e entra no combate (não deixa itens). Um lobo que veio pelo uivo não uiva.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "threshold",
+            "below": 0.5,
+            "statuses": [],
+            "summon": {
+              "actors": [
+                {
+                  "uuid": "Compendium.eternia.bestiary.Actor.1Q0GTG9aCHQzg8eG",
+                  "count": 1
+                }
+              ],
+              "radius": 2
+            }
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "tjwsKfu5m2U9HzrR",
+      "_key": "!actors.items!ZJ7O443V1jPfFxSN.tjwsKfu5m2U9HzrR"
+    },
+    {
+      "name": "Lasca da Queda",
+      "type": "gear",
+      "img": "icons/commodities/stone/boulder-grey-blue.webp",
+      "system": {
+        "description": "<p>Um pedaço da pedra da base do castelo, que ainda pesa menos do que devia. Os curiosos de Centória pagam por ele; os sábios da Igreja, mais.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 16,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "wWI3n7CbK4J10cny",
+      "sort": 400000,
+      "_key": "!actors.items!ZJ7O443V1jPfFxSN.wWI3n7CbK4J10cny"
+    },
+    {
+      "name": "Pelo do Castelo",
+      "type": "gear",
+      "img": "icons/commodities/leather/fur-blue.webp",
+      "system": {
+        "description": "<p>Pelo azul-escuro, macio e frio ao toque, que não pega fogo fácil.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 25,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "dlogIOOeWfi6Vv69",
+      "sort": 500000,
+      "_key": "!actors.items!ZJ7O443V1jPfFxSN.dlogIOOeWfi6Vv69"
+    },
+    {
+      "name": "Presa de Lobo do Castelo",
+      "type": "gear",
+      "img": "icons/commodities/bones/bone-jaw-teeth-grey.webp",
+      "system": {
+        "description": "<p>Os dentes de cima de um lobo do castelo, inteiros. Os caçadores de Centória os penduram na porta da guilda.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 45,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "PbgmsbXe4xA4jKnw",
+      "sort": 600000,
+      "_key": "!actors.items!ZJ7O443V1jPfFxSN.PbgmsbXe4xA4jKnw"
+    },
+    {
+      "name": "Coleira de Ferro Antigo",
+      "type": "gear",
+      "img": "icons/equipment/neck/choker-chain-thick-silver.webp",
+      "system": {
+        "description": "<p>Uma coleira de um ferro que ninguém sabe forjar, com letras que ninguém sabe ler. Alguém, no castelo, criava esses lobos.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 115,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "K914bUJIhatV62cU",
+      "sort": 700000,
+      "_key": "!actors.items!ZJ7O443V1jPfFxSN.K914bUJIhatV62cU"
+    },
+    {
+      "_id": "5mbXlqTtAhOxxuPR",
+      "name": "Olhos da Fenda",
+      "type": "skill",
+      "img": "icons/magic/perception/eye-ringed-glow-angry-small-teal.webp",
+      "system": {
+        "description": "<p>Passiva. A fera vê pela escrita do mundo: +1 dado nos testes de Esquiva, e ela não fica [Cego], com [Medo] nem [Confuso].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "_id": "uwxiAzJ6PBxjACfb",
+          "name": "Olhos da Fenda",
+          "img": "icons/magic/perception/eye-ringed-glow-angry-small-teal.webp",
+          "type": "base",
+          "transfer": true,
+          "disabled": false,
+          "tint": "#ffffff",
+          "origin": null,
+          "statuses": [],
+          "sort": 0,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "description": "",
+          "start": null,
+          "showIcon": 1,
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.evasion.dice",
+                "type": "add",
+                "value": "1",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "flags": {
+            "eternia": {
+              "immune": [
+                "blinded",
+                "frightened",
+                "confused"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "_key": "!actors.items.effects!ZJ7O443V1jPfFxSN.5mbXlqTtAhOxxuPR.uwxiAzJ6PBxjACfb"
+        }
+      ],
+      "sort": 800000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_key": "!actors.items!ZJ7O443V1jPfFxSN.5mbXlqTtAhOxxuPR"
+    },
+    {
+      "name": "Anima-mundi 9",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 9 gasta uma Anima-mundi 9 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 9"
+        ],
+        "rank": 9,
+        "price": 90,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 288
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.Jtyb6r0NB3prtgLv",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "btYYB6zyuY54PCwb",
+      "sort": 900000,
+      "_key": "!actors.items!ZJ7O443V1jPfFxSN.btYYB6zyuY54PCwb"
+    },
+    {
+      "_id": "z0aGM9wZoo3RL63D",
+      "name": "Troféu de Uivo Violeta",
+      "type": "gear",
+      "img": "icons/commodities/treasure/plaque-skull-blue-green.webp",
+      "system": {
+        "description": "<p>O que se leva de Uivo Violeta para provar a caçada. Vale bem na guilda e com os coletores.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 8,
+        "price": 160,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 1000000,
+      "_key": "!actors.items!ZJ7O443V1jPfFxSN.z0aGM9wZoo3RL63D"
+    }
+  ],
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "named": {
+        "from": "Lobo do Castelo",
+        "mark": "eyes",
+        "solo": false,
+        "rank": 6
+      }
+    }
+  },
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ZJ7O443V1jPfFxSN",
+  "_key": "!actors!ZJ7O443V1jPfFxSN",
+  "folder": "ew1hWvqNKimoWeZf",
+  "sort": 400000,
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  }
+}

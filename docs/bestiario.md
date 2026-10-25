@@ -17,7 +17,8 @@ entrega 7 do plano do mundo (o capítulo 18 de `Eternia-Mundo/`, fora do reposit
 | `module/bestiary/troop.mjs` | A tropa: o dano em área em dobro (`troopDoubles`, lido por `createDamageCard`… `applyDamage`), quantos do bando restam (`troopLeft`, `troopByHp`) e o limite de alvos do ataque em área dela (`troopTargets`, lido por `automation/use.mjs`). |
 | `module/bestiary/named-template.mjs` | O modelo da fera com nome, sem Foundry (`nameBeast`, `markSkill`, `MARKS`): usado pela coroa da ficha e pelo gerador do compêndio. |
 | `module/bestiary/named.mjs` | A coroa Dar Nome da ficha de monstro (Mestre): a janela, o Anima-mundi do compêndio de itens, o ator novo. |
-| `module/bestiary/spawn.mjs` | Trazer monstros para perto de um token (`spawnNear`): o ator do mundo de um monstro do compêndio (`worldActor`, importado uma vez), os quadrados livres mais próximos, `noLoot` e `calledBy` nos tokens, e o combate. Uma entrada `{ uuids: [...], count }` sorteia cada um numa lista; os tokens são criados um por um, para cada um ganhar o seu número no nome. |
+| `module/bestiary/spawn.mjs` | Trazer monstros para perto de um token (`spawnNear`): o ator do mundo de um monstro do compêndio (`worldActor`, importado uma vez), os quadrados livres mais próximos, `noLoot` e `calledBy` nos tokens, e o combate. Uma entrada `{ uuids: [...], count }` sorteia cada um numa lista; `loot: true` deixa os itens deles (a fera com nome da Fenda-mãe). O número no nome é contado aqui (`lastNumber`): o `getTokenDocument` do Foundry numera só pelos tokens que já existem, e um lote sairia com o mesmo número. |
+| `module/bestiary/save.mjs` | Salvar um Desgarrado (`trySave`, `canBeSaved`): o cartão com o botão Salvar (`templates/chat/save-card.hbs`, a primeira vez que os PV chegam à parte), a Negociação contra a Resistência, o [Pacificado] infinito até o fim da cena, o pedido ao Mestre `bestiarySave` e o Virar Conexão (um item `connection` em quem salvou). |
 | `module/bestiary/rifts.mjs` | As Fendas: o relógio, a escrita (`writeRift`), o crescimento, a leva de cada Manutenção, o fechamento e o cartão (`templates/chat/rift-card.hbs`); os pedidos ao Mestre `riftWrite` e `riftGrow`. |
 | `module/bestiary/index.mjs` | Registra tudo e a API `game.eternia.bestiary`. |
 | `css/bestiary.css` | A aba, o cartão dos itens deixados e o da Fenda (camada `modules`). |
@@ -28,7 +29,8 @@ Também tocam no bestiário: `helpers/combat-cards.mjs` (o Bando no cartão de d
 auras dos monstros; o Reino de quem está derrotado no combate não age mais), `conditions/damage.mjs` (a flag `absorb`;
 `isAreaAttack`, para a tropa), `automation/use.mjs` (o aviso da recarga e o da tropa), `helpers/effect-formulas.mjs` (a
 fórmula `@hpMax`), `piles/pile-operations.mjs` (`lootAt`), `sheets/monster-sheet.mjs` (a aba, o soltar e a coroa) e
-`i18n/pt-br.mjs` (a tag [Wolf], Lobo).
+`i18n/pt-br.mjs` (as tags [Wolf], Lobo, [Stray], Desgarrado, e as raças dos Desgarrados: [Elf], [Draconic],
+[Celestial], [Beastfolk]).
 
 ## Os itens deixados
 
@@ -57,6 +59,8 @@ No monstro (o token, num monstro sem vínculo):
 | `named` | `{ from, mark, solo, rank }`: a fera com nome, de que monstro e de que Nível ela veio |
 | `troopLeft` | quantos do bando restam numa tropa (a regra `troop`); os perdidos não voltam com a cura |
 | `fled`, `retreatHeld` | fugiu (a regra `retreat`); tentou fugir e estava preso (o aviso sai uma vez, e de novo em cada Manutenção) |
+| `saveOffered`, `saved` | o cartão do Salvar já saiu; `{ by, name }` de quem o salvou (a regra `save`) |
+| `started` | o id do combate em que a regra `start` já deu os estados |
 
 - **Quem leva:** quem derrubou (decisão da mesa, 2026-10-25): todos os itens e todo o ouro. Sem ninguém (ou um
   monstro), tudo vai para a pilha. Quem derrubou é `felledBy`, senão a origem de um estado que fere ([Envenenado],
@@ -87,6 +91,9 @@ Uma habilidade de monstro traz uma regra em `flags.eternia.monster = { rule, ...
 | `troop` | `size` (4) | Passiva. Um bando num token (`troop.mjs`): o cartão de dano de um ataque em área (`isAreaAttack`: Área, Linha, vários alvos) o acerta em dobro, depois da Defesa; com 2/3 e 1/3 dos PV, `troopLeft` cai 1 e sai a mensagem; os ataques em área dele com mais alvos que `troopLeft` avisam no uso | o cartão de dano; `updateActor`; `inspectUse` |
 | `retreat` | `below` (0.25), `held` | Passiva. Com os PV em `below` do máximo ou menos (de pé), foge: `fled`, `leave` (noLoot, derrotado no combate, token escondido) e o ouro roubado vai com ele. Com um estado de `held` (padrão: Agarrado, Enraizado, Paralisado, Petrificado, Adormecido), fica e avisa (`retreatHeld`); tenta de novo em cada Manutenção | `updateActor`; `_onPhaseStart` da Manutenção |
 | `forget` | — | Passiva. Quando um Fôlego Extra dele é gasto (`eternia.revived`), uma das habilidades dele que não são Passivas nem regras, ao acaso, fica [Selada] (o `sealed` com a tag do nome) até o fim da cena | `eternia.revived`, na janela que aplicou o golpe |
+| `pulse` | `radius`, `self` | Passiva. No Encerramento, um cartão de dano da habilidade (o `damage` e as tags dela) contra todos a até `radius` Qd e, com `self`, ele mesmo; sem Esquiva. Não age quem está derrotado no combate | `_onPhaseStart` do Encerramento |
+| `start` | `statuses` | Passiva. Na Manutenção da rodada 1, os estados até o fim da cena (`started` guarda o combate: uma vez por combate) | `_onPhaseStart` da Manutenção |
+| `save` | `below` (0.25) | Passiva. Pode ser salvo (`save.mjs`): na primeira vez que os PV caem a `below`, o cartão com o Salvar; quem está engajado gasta a Ação Maior e rola Negociação (`checks.negotiation`) contra a Resistência dele, pela regra do Teste de Acerto; vencendo, [Pacificado] com `infinite` e `expires: endOfScene`, `noLoot`, `saved` e derrotado no combate | `updateActor`; o botão do cartão; o Mestre |
 
 O resto das mecânicas usa as flags que a Eternia já tinha (`docs/condicoes.md`): `hitStatuses`, `escalate` (a Picada que
 Sobe), `useActions` (o empurrar das Investidas, o puxar do Fio de Teia e da Corrente, os [Clones] dos Sósias), `revive` (a
@@ -127,7 +134,8 @@ usa o mesmo modelo com os textos do `pt-BR.json` (a Velha Cicatriz).
 ## As Fendas
 
 Um monstro com `flags.eternia.rift = { dc, wave: [{ uuid, count }], first, grow, growOn, closed }` (a Pequena: 9, 1, a
-leva fixa; a Grande: 11, 2, `growOn: "fall"` e `wave: [{ uuids: [...], count: 2 }]`, sorteada a cada Manutenção):
+leva fixa; a Grande: 11, 2, `growOn: "fall"` e `wave: [{ uuids: [...], count: 2 }]`, sorteada a cada Manutenção; a Fenda-mãe:
+13, 3, `growOn: "fall"`, `first: [{ uuid: Uivo Violeta, count: 1, loot: true }]` e a leva de `"1d2+1"` sorteada):
 
 - **O relógio** é o Destino (`system.fate`: as escritas que faltam do máximo); o token o mostra com os losangos do Destino
   (`prototypeToken.bar1 = "fate"`, barras sempre à vista).
@@ -163,4 +171,6 @@ game.eternia.bestiary.riftState(fendaActor);       // { left, max, dc, grow, clo
 await game.eternia.bestiary.nameMonster(actor);    // a janela Dar Nome (Mestre); devolve o ator novo
 game.eternia.bestiary.nameBeast(actor.toObject(), { name, solo, mark, newId, catalyst, t }); // só os dados
 game.eternia.bestiary.marks;                       // ["skin", "eyes", "fury", "sparks", "regen", "breath"]
+await game.eternia.bestiary.trySave(token, personagemToken); // tenta salvar um Desgarrado (o botão do cartão)
+game.eternia.bestiary.canBeSaved(actor);           // já dá para alcançá-lo (1/4 dos PV, de pé, não salvo)
 ```

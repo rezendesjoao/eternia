@@ -704,6 +704,16 @@ aba compara a média da tabela com a do Guia de Criação de Inimigos.
   que fortalece o bando e a fuga com o saque com 1/4 dos PV, a menos que esteja preso). E o **Oco** (NP 6: não fica com
   [Medo] nem [Confuso], dá dois golpes de Cavaleiro e fica parado depois, e volta uma vez com metade dos PV, esquecendo
   uma Arte; deixa um Cristal de Memória).
+- **Os Desgarrados:** um por raça, presos no estágio IV da forma, chefes que lutam sozinhos. **Todos podem ser
+  salvos:** com 1/4 dos PV ou menos, um cartão no chat traz o botão **Salvar**; quem está engajado gasta a Ação Maior e
+  rola Negociação contra a Resistência dele, e vencendo ele fica [Pacificado] até o fim da cena e sai da luta, sem deixar
+  itens, e o Mestre pode fazê-lo virar uma **Conexão** de quem o salvou. O **Ungido Partido** (Humano, NP 7: a luz que
+  vaza da marca fere todos a 2 Qd no Encerramento, ele também), o **Meio-Espírito** (Elfo, NP 7: um ataque físico por
+  rodada passa através dele, e o frio dele congela quem chega perto), **O Que Não Para de Queimar** (Dracônico, NP 8:
+  voa, sopra fogo com Recarga e queima quem fica a 1 Qd), **O Sem Nome** (Demônio, NP 8: as asas de sombra se abrem
+  na primeira rodada, a garra deixa [Chama Negra] e a maldição que o [Silenciado] não para apaga o nome do alvo), **O das
+  Seis Asas** (Celestial, NP 9: voa, a voz de sino atordoa e o canto cura) e **O Preso na Meia-Fera** (Bestial, NP 9:
+  [Regeneração: 15] que o fogo desliga e [Fúria] na metade dos PV).
 - **Quedas de Aincrad:** os monstros do castelo, que anunciam o golpe. O **Javali de Presas Azuis** (NP 5: marca a presa
   na Manutenção, a investida fere mais a presa marcada e a empurra, e depois ele fica [Exposto]), o **Lobo do Castelo**
   (NP 6: o salto anunciado com [Marcado: 8] e o uivo que chama mais um lobo na metade dos PV) e a **Sentinela do
@@ -713,7 +723,9 @@ aba compara a média da tabela com a do Guia de Criação de Inimigos.
   token); em cada Manutenção ela solta a leva; quem está a até 1 Qd gasta a Ação Maior e rola 2d6 + POD contra 9 no
   botão **Escrever** do cartão dela, e quem escreveu e é ferido antes do fim da rodada a faz crescer. Fechada, quem
   escreveu a última linha leva o que ela deixa. A **Fenda Grande** (NP 5, 2×2) tem 4 escritas contra 11, solta 2 feras
-  sorteadas em cada Manutenção e cresce 2 quando quem escreveu cai.
+  sorteadas em cada Manutenção e cresce 2 quando quem escreveu cai. A **Fenda-mãe** (NP 9, 3×3) tem 6 escritas contra 13,
+  solta na primeira rodada a fera com nome dela, o **Uivo Violeta** (NP 8, que deixa os itens dela), e depois 2 ou 3
+  feras sorteadas a cada Manutenção; cresce 3 quando quem escreveu cai.
 
 A página **XIV. O BESTIÁRIO** do diário AS REGRAS explica tudo para o Mestre.
 

@@ -32,6 +32,12 @@
  *                               rooted, paralyzed, petrified, asleep) holds it; held, it tries again in each Setup.
  *   forget     {}               Passive. When it spends an Extra Breath (`flags.eternia.revive`), one of its skills
  *                               that aren't passive (by chance) becomes [Sealed] until the end of the scene.
+ *   pulse      { radius, self } Passive. In each Cleanup Process, the skill's damage hits every creature within
+ *                               `radius` squares of it (and itself, with `self`): a damage card, no Dodge Check.
+ *   start      { statuses }     Passive. In the first Setup Process of a combat it gets those statuses until the end of
+ *                               the scene (the Wings of Darkness).
+ *   save       { below }        Passive. With its HP at `below` (0.25) it can be saved by Negotiation
+ *                               (bestiary/save.mjs).
  * The rules run on the window that changed the monster (the GM's): the use of a skill (`eternia.skillUsed`), its HP,
  * its fall (Incapacitated), the damage cards (`eternia.damaged`) and the Setup and Cleanup Processes of its combat.
  * What a player's window sees (the hand on its character, the answer to an offer) goes to the GM by the socket
@@ -52,6 +58,7 @@ import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { spawnNear } from "./spawn.mjs";
 import { RECHARGING, recharges } from "./recharge.mjs";
 import { troopByHp, troopLeft, troopOf } from "./troop.mjs";
+import { isRift } from "./rifts.mjs";
 
 const OFFER_TEMPLATE = "systems/eternia/templates/chat/offer-card.hbs";
 
@@ -132,9 +139,11 @@ async function checkThresholds(actor) {
     await actor.setFlag(SYSTEM_ID, "thresholds", crossed);
     const names = await giveStatuses(actor, rule.statuses, actor);
     const lines = names.length ? [L("Bestiary.Threshold", { name: actorName(actor), statuses: names.join(", ") })] : [];
-    // The howl: more of them come, unless it came by a call itself (no endless chain)
+    // The howl: more of them come, unless it came by another monster's call (no endless chain; a Rift's beast howls)
     const token = tokenOf(actor);
-    if (rule.summon?.actors?.length && token && !token.getFlag(SYSTEM_ID, "calledBy")) {
+    const caller = token?.getFlag(SYSTEM_ID, "calledBy");
+    const called = !!caller && !isRift(fromUuidSync(caller));
+    if (rule.summon?.actors?.length && token && !called) {
       const tokens = await spawnNear(token, rule.summon.actors, { radius: toInt(rule.summon.radius) || 2, by: actor.uuid });
       if (tokens.length) lines.push(L("Bestiary.Summon", { name: actorName(actor), list: tokens.map(t => t.name).join(", ") }));
     }
@@ -248,6 +257,44 @@ async function onFall(actor) {
   }
 }
 
+/** The Cleanup Process of a combat: the monsters that pulse hit everyone around them (and themselves, with `self`). */
+async function cleanupPulse(combat) {
+  const seen = new Set();
+  for (const combatant of combat.combatants) {
+    const actor = combatant.actor;
+    const token = combatant.token ?? tokenOf(actor);
+    if (!actor || !token || combatant.isDefeated || seen.has(actor.uuid) || actor.statuses.has("incapacitated") || actor.statuses.has("dead")) continue;
+    seen.add(actor.uuid);
+    for (const item of withRule(actor, "pulse")) {
+      const rule = ruleOf(item);
+      const around = tokensAround(token, Math.max(0, toInt(rule.radius)));
+      if (rule.self) around.push(token);
+      if (!around.length) continue;
+      const targets = around.map(t => ({ tokenUuid: t.uuid, actorUuid: t.actor.uuid, name: t.name, img: t.texture?.src ?? t.actor.img }));
+      const damage = item.system.damage ?? {};
+      const flavor = `${item.name} - ${game.i18n.localize("ETERNIA.Skill.Label.Damage")}`;
+      await createDamageCard(item, actor, diceFormula({ dice: damage.dice, mod: damage.mod }), flavor, null, targets);
+    }
+  }
+}
+
+/** The first Setup Process of a combat: the monsters that start with statuses get them until the end of the scene. */
+async function setupStart(combat) {
+  const seen = new Set();
+  for (const combatant of combat.combatants) {
+    const actor = combatant.actor;
+    if (!actor || combatant.isDefeated || seen.has(actor.uuid) || (actor.getFlag(SYSTEM_ID, "started") === combat.id)) continue;
+    seen.add(actor.uuid);
+    const items = withRule(actor, "start");
+    if (!items.length) continue;
+    await actor.setFlag(SYSTEM_ID, "started", combat.id);
+    for (const item of items) {
+      const names = await giveStatuses(actor, ruleOf(item).statuses, actor);
+      if (names.length) await postSummary(item.name, [L("Bestiary.Start", { name: actorName(actor), statuses: names.join(", ") })]);
+    }
+  }
+}
+
 /* -------------------------------------------- */
 /*  The Cleanup                                 */
 /* -------------------------------------------- */
@@ -257,7 +304,7 @@ async function cleanupCleanse(combat) {
   const seen = new Set();
   for (const combatant of combat.combatants) {
     const actor = combatant.actor;
-    if (!actor || seen.has(actor.uuid) || actor.statuses.has("incapacitated") || actor.statuses.has("dead")) continue;
+    if (!actor || combatant.isDefeated || seen.has(actor.uuid) || actor.statuses.has("incapacitated") || actor.statuses.has("dead")) continue;
     seen.add(actor.uuid);
     for (const item of withRule(actor, "cleanse")) {
       // Not the ones it gave itself (the [Berserk] of its own threshold)
@@ -498,13 +545,15 @@ export function registerMonsterRules() {
     if (!(actor instanceof Actor) || (actor.type !== "monster") || !effect.statuses?.has("incapacitated") || !isPrimaryGM()) return;
     onFall(actor).catch(err => console.error(`${SYSTEM_ID} | Fall rule failed`, err));
   });
-  // The Setup Process recharges the spent skills; the Cleanup, the monsters that clear themselves
+  // The Setup Process recharges the spent skills, tries the retreats and gives the start; the Cleanup clears and pulses
   wrap(CONFIG.Combat.documentClass.prototype, "_onPhaseStart", async function (original, phase, round, previous) {
     await original.call(this, phase, round, previous);
     const backwards = !!previous && (round < previous.round);
     if (backwards || !rulesOn()) return;
     if (phase === "setup") await setupRecharge(this).catch(err => console.error(`${SYSTEM_ID} | Recharge failed`, err));
     if (phase === "setup") await setupRetreat(this).catch(err => console.error(`${SYSTEM_ID} | Retreat failed`, err));
+    if ((phase === "setup") && (round <= 1)) await setupStart(this).catch(err => console.error(`${SYSTEM_ID} | Start failed`, err));
     if (phase === "cleanup") await cleanupCleanse(this).catch(err => console.error(`${SYSTEM_ID} | Cleanse failed`, err));
+    if (phase === "cleanup") await cleanupPulse(this).catch(err => console.error(`${SYSTEM_ID} | Pulse failed`, err));
   });
 }

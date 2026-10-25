@@ -1,0 +1,977 @@
+{
+  "name": "O Preso na Meia-Fera",
+  "type": "monster",
+  "img": "icons/creatures/mammals/cat-hunched-glowing-red.webp",
+  "system": {
+    "health": {
+      "value": 448,
+      "max": 448,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Human",
+      "Beastfolk",
+      "Stray"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 5,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 10,
+        "magic": 14
+      },
+      "speed": 2,
+      "initiative": 9
+    },
+    "rank": 9,
+    "idendification": "10",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 3,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 3,
+        "mod": 4
+      }
+    },
+    "description": "<p>Um Bestial que passou uma lua inteira em forma de fera sem dizer uma palavra, como o rito da Meia-Fera manda, e não voltou. Tem cabeça de bicho e pernas de fera, e as mãos ainda são de gente. O Peso o cura mais rápido do que se fere: só o fogo o faz parar. Às vezes, entre um rugido e outro, ele diz um nome.</p><p><b>Na mesa:</b> chefe sozinho de NP 9, que aguenta muito. Tem [Regeneração: 15] em combate, que o dano de [Chama] desliga até o fim da rodada; na metade dos PV, a [Fúria] toma conta. As Garras acertam até 2 engajados e deixam [Fissurado]; o Salto da Fera derruba e afasta. Desgarrados lutam sozinhos e são chefes: dá tempo de tentar salvá-los. Matá-lo deixa os itens; salvá-lo deixa uma Conexão.</p>"
+  },
+  "prototypeToken": {
+    "name": "O Preso na Meia-Fera",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/mammals/cat-hunched-glowing-red.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Garras da Meia-Fera",
+      "type": "skill",
+      "img": "icons/creatures/claws/claw-talons-glowing-orange.webp",
+      "system": {
+        "description": "<p>Até 2 inimigos engajados com ele: [2d6 + 40] de dano físico e [Fissurado: 1].</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 7,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 40,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "fissured",
+              "value": 1
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "5BDFPOJoWlRWqaWn",
+      "_key": "!actors.items!2lxB27dxYneozYzf.5BDFPOJoWlRWqaWn"
+    },
+    {
+      "name": "Salto da Fera",
+      "type": "skill",
+      "img": "icons/creatures/abilities/cougar-pounce-stalk-black.webp",
+      "system": {
+        "description": "<p>Salta até 3 Qd em cima de um alvo: [2d6 + 35] de dano físico, o alvo é jogado 2 Qd para longe e fica [Derrubado].</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 7,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 35,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "push",
+              "value": 2
+            }
+          ],
+          "hitStatuses": [
+            {
+              "statusId": "prone"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "PdZe5ag4he1KK6Ms",
+      "_key": "!actors.items!2lxB27dxYneozYzf.PdZe5ag4he1KK6Ms"
+    },
+    {
+      "name": "Regeneração do Peso",
+      "type": "skill",
+      "img": "icons/magic/life/heart-cross-strong-green.webp",
+      "system": {
+        "description": "<p>Em combate, ele tem [Regeneração: 15], que volta em cada Manutenção. Dano de [Chama] a desliga até o fim da rodada.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "trait": {
+                "immortal": {
+                  "regen": "15"
+                }
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Regeneração do Peso",
+          "img": "icons/magic/life/heart-cross-strong-green.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "BCcqcggrKQxqD03Q",
+          "_key": "!actors.items.effects!2lxB27dxYneozYzf.VnbigwdyCsb5J8Yd.BCcqcggrKQxqD03Q"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "struck",
+            "tags": [
+              "Flame"
+            ],
+            "strip": [
+              "regen"
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "VnbigwdyCsb5J8Yd",
+      "_key": "!actors.items!2lxB27dxYneozYzf.VnbigwdyCsb5J8Yd"
+    },
+    {
+      "name": "Fúria da Lua",
+      "type": "skill",
+      "img": "icons/creatures/abilities/bear-roar-bite-brown.webp",
+      "system": {
+        "description": "<p>A primeira vez que os PV caem à metade, a fera toma conta: [Fúria: 9] até o fim da cena.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "threshold",
+            "below": 0.5,
+            "statuses": [
+              {
+                "statusId": "berserk",
+                "value": 9
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ols15nCNfYjLsrJl",
+      "_key": "!actors.items!2lxB27dxYneozYzf.ols15nCNfYjLsrJl"
+    },
+    {
+      "name": "A Forma Rejeita",
+      "type": "skill",
+      "img": "icons/magic/control/silhouette-hold-change-green.webp",
+      "system": {
+        "description": "<p>No Encerramento, ele se livra de 2 Estados Negativos: a forma não aceita prisão.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "cleanse",
+            "count": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "lEkOzZOz53yc2t90",
+      "_key": "!actors.items!2lxB27dxYneozYzf.lEkOzZOz53yc2t90"
+    },
+    {
+      "name": "Ainda Há Alguém Aí",
+      "type": "skill",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
+      "system": {
+        "description": "<p>Com 1/4 dos PV ou menos, a forma cede e dá para ver quem ele era: quem estiver engajado com ele pode gastar a Ação Maior e rolar Negociação contra a Resistência dele (o botão Salvar do cartão que aparece no chat). Vencendo, ele fica [Pacificado] até o fim da cena e sai da luta, sem deixar itens; o Mestre pode fazê-lo virar uma Conexão de quem o salvou.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "save",
+            "below": 0.25
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "qMPN3vrliGgXyocz",
+      "_key": "!actors.items!2lxB27dxYneozYzf.qMPN3vrliGgXyocz"
+    },
+    {
+      "name": "Ouro",
+      "type": "gear",
+      "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
+      "system": {
+        "description": "",
+        "tags": [],
+        "rank": 1,
+        "price": 0,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1,
+            "gold": "2d6*7"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Wek8PKK87U0K6alU",
+      "sort": 700000,
+      "_key": "!actors.items!2lxB27dxYneozYzf.Wek8PKK87U0K6alU"
+    },
+    {
+      "name": "Garra da Meia-Fera",
+      "type": "gear",
+      "img": "icons/commodities/biological/hand-clawed-tan.webp",
+      "system": {
+        "description": "<p>Uma garra que ainda tem a forma de uma unha de gente na base.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 9,
+        "price": 240,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 2,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "UPq7l3OKYuENguFo",
+      "sort": 800000,
+      "_key": "!actors.items!2lxB27dxYneozYzf.UPq7l3OKYuENguFo"
+    },
+    {
+      "name": "Lágrima da Lua Violeta",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-rough-oval-blue.webp",
+      "system": {
+        "description": "<p>Uma pedra violeta que se forma no lugar onde ele dormia. Serve de Anima-mundi 9 na Oficina.</p>",
+        "tags": [
+          "Magic Catalyst 9"
+        ],
+        "rank": 9,
+        "price": 90,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 3,
+            "max": 4,
+            "qty": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "gyOU1OTV0kqQ3dQZ",
+      "sort": 900000,
+      "_key": "!actors.items!2lxB27dxYneozYzf.gyOU1OTV0kqQ3dQZ"
+    },
+    {
+      "name": "Pelo da Lua",
+      "type": "gear",
+      "img": "icons/commodities/leather/fur-pelt-spotted-tan.webp",
+      "system": {
+        "description": "<p>Um pedaço da pele, que brilha de leve nas noites de lua. Os Bestiais o queimam em silêncio.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 9,
+        "price": 450,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 5,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "kwtdnSoTvZbfra7b",
+      "sort": 1000000,
+      "_key": "!actors.items!2lxB27dxYneozYzf.kwtdnSoTvZbfra7b"
+    },
+    {
+      "name": "Colar de Dentes",
+      "type": "gear",
+      "img": "icons/equipment/neck/amulet-carved-stone-spiral.webp",
+      "system": {
+        "description": "<p>Um colar de dentes de fera, com uma pedra no meio onde alguém riscou um nome.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 9,
+        "price": 620,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "rb2yS04IJ5D9MwAB",
+      "sort": 1100000,
+      "_key": "!actors.items!2lxB27dxYneozYzf.rb2yS04IJ5D9MwAB"
+    },
+    {
+      "name": "Anima-mundi 10",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 10 ou mais gasta uma Anima-mundi 10. O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 10"
+        ],
+        "rank": 10,
+        "price": 110,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 324
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.KhBPLpcz86fHSG5m",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "kNd7CvV3RcSq8Fl7",
+      "sort": 1200000,
+      "_key": "!actors.items!2lxB27dxYneozYzf.kNd7CvV3RcSq8Fl7"
+    },
+    {
+      "name": "Presa da Meia-Fera",
+      "type": "gear",
+      "img": "icons/commodities/bones/fossil-tooth.webp",
+      "system": {
+        "description": "<p>Um canino grande demais para uma boca de gente. Um [Material-Base] de NP 9.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 9,
+        "price": 180,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Bs8Gd0iwxAA7lGHi",
+      "sort": 1300000,
+      "_key": "!actors.items!2lxB27dxYneozYzf.Bs8Gd0iwxAA7lGHi"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 600000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "2lxB27dxYneozYzf",
+  "folder": "RD9UdfUXgaZZzK88",
+  "_key": "!actors!2lxB27dxYneozYzf"
+}

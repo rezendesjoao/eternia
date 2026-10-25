@@ -1,0 +1,934 @@
+{
+  "name": "O das Seis Asas",
+  "type": "monster",
+  "img": "icons/magic/holy/angel-winged-humanoid-blue.webp",
+  "system": {
+    "health": {
+      "value": 336,
+      "max": 336,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Human",
+      "Celestial",
+      "Stray"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 5,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 24,
+        "magic": 16
+      },
+      "speed": 2,
+      "initiative": 7
+    },
+    "rank": 9,
+    "idendification": "10",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 4
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 5
+      }
+    },
+    "description": "<p>Um Celestial que passou uma estação inteira sem dizer o próprio nome, como o rito das Seis Asas pede, e esqueceu como se diz. Tem seis asas, várias auréolas, e a voz soa como sinos: bonita de longe, insuportável de perto. Cura o que encontra pelo caminho, os bichos, as plantas, os inimigos, sem saber por quê.</p><p><b>Na mesa:</b> chefe sozinho de NP 9, que voa e cura. A Voz de Sino deixa [Atordoado] em área; o Canto das Seis Asas cura a ele e aos aliados uma vez por rodada; a Lança de Luz alcança 2 Qd. Defesa Física alta: Artes e magia rendem mais. Desgarrados lutam sozinhos e são chefes: dá tempo de tentar salvá-los. Matá-lo deixa os itens; salvá-lo deixa uma Conexão.</p>"
+  },
+  "prototypeToken": {
+    "name": "O das Seis Asas",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/magic/holy/angel-winged-humanoid-blue.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Lança de Luz",
+      "type": "skill",
+      "img": "icons/magic/holy/projectiles-blades-salvo-yellow.webp",
+      "system": {
+        "description": "<p>[2d6 + 40] de dano físico de [Radiância], a até 2 Qd.</p>",
+        "tags": [
+          "Melee Attack",
+          "Radiance"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "2Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 7,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 40,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "h2NiHqLziCarqMks",
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.h2NiHqLziCarqMks"
+    },
+    {
+      "name": "Voz de Sino",
+      "type": "skill",
+      "img": "icons/magic/holy/meditation-chi-focus-blue.webp",
+      "system": {
+        "description": "<p>A voz soa como sinos: área a até 3 Qd, [2d6 + 25] de dano mágico, e quem é atingido fica [Atordoado].</p>",
+        "tags": [
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 7,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 25,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "dazed"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "cEITFe2unCLW4CZw",
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.cEITFe2unCLW4CZw"
+    },
+    {
+      "name": "Canto das Seis Asas",
+      "type": "skill",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-green.webp",
+      "system": {
+        "description": "<p>Ação Menor, uma vez por rodada: ele e os aliados a até 3 Qd recuperam [2d6 + 30] PV.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 30,
+          "type": "magical",
+          "recovery": true,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "q4UCxKzgNZeng9ug",
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.q4UCxKzgNZeng9ug"
+    },
+    {
+      "name": "Seis Asas",
+      "type": "skill",
+      "img": "icons/magic/holy/barrier-shield-winged-cross.webp",
+      "system": {
+        "description": "<p>Seis asas, várias auréolas: ele está sempre [Voando].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {}
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Seis Asas",
+          "img": "icons/magic/holy/barrier-shield-winged-cross.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "flying"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "vyaXNx7AVoC5dHin",
+          "_key": "!actors.items.effects!CJFrRICLYY3sh6Jh.tsUOeKYQUSOlkc5a.vyaXNx7AVoC5dHin"
+        }
+      ],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "tsUOeKYQUSOlkc5a",
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.tsUOeKYQUSOlkc5a"
+    },
+    {
+      "name": "A Forma Rejeita",
+      "type": "skill",
+      "img": "icons/magic/control/silhouette-hold-change-green.webp",
+      "system": {
+        "description": "<p>No Encerramento, ele se livra de 2 Estados Negativos: a forma não aceita prisão.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "cleanse",
+            "count": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "abKM5iTYYoTTyaeD",
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.abKM5iTYYoTTyaeD"
+    },
+    {
+      "name": "Ainda Há Alguém Aí",
+      "type": "skill",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
+      "system": {
+        "description": "<p>Com 1/4 dos PV ou menos, a forma cede e dá para ver quem ele era: quem estiver engajado com ele pode gastar a Ação Maior e rolar Negociação contra a Resistência dele (o botão Salvar do cartão que aparece no chat). Vencendo, ele fica [Pacificado] até o fim da cena e sai da luta, sem deixar itens; o Mestre pode fazê-lo virar uma Conexão de quem o salvou.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "save",
+            "below": 0.25
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ZIn0uBhOdJbEEthT",
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.ZIn0uBhOdJbEEthT"
+    },
+    {
+      "name": "Ouro",
+      "type": "gear",
+      "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
+      "system": {
+        "description": "",
+        "tags": [],
+        "rank": 1,
+        "price": 0,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1,
+            "gold": "2d6*7"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ffA4NqeTmh79XGWc",
+      "sort": 700000,
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.ffA4NqeTmh79XGWc"
+    },
+    {
+      "name": "Pena de Luz",
+      "type": "gear",
+      "img": "icons/commodities/biological/wing-bird-white.webp",
+      "system": {
+        "description": "<p>Uma pena branca que ilumina um quarto à noite. A Igreja diz que é pecado tê-la; os nobres a usam no chapéu.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 9,
+        "price": 240,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 2,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "LFutlKhc9u1rhw5u",
+      "sort": 800000,
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.LFutlKhc9u1rhw5u"
+    },
+    {
+      "name": "Lágrima Celeste",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-faceted-teardrop-blue.webp",
+      "system": {
+        "description": "<p>Uma lágrima de luz que não secou. Serve de Anima-mundi 9 na Oficina.</p>",
+        "tags": [
+          "Magic Catalyst 9"
+        ],
+        "rank": 9,
+        "price": 90,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 3,
+            "max": 4,
+            "qty": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "5my84x4N19G5KEbr",
+      "sort": 900000,
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.5my84x4N19G5KEbr"
+    },
+    {
+      "name": "Auréola Partida",
+      "type": "gear",
+      "img": "icons/magic/light/projectile-halo-teal.webp",
+      "system": {
+        "description": "<p>Um anel de luz partido ao meio, que ainda flutua sobre a mão de quem o segura.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 9,
+        "price": 450,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 5,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "FeUaZfSxk3aOlwd4",
+      "sort": 1000000,
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.FeUaZfSxk3aOlwd4"
+    },
+    {
+      "name": "Sino das Seis Asas",
+      "type": "gear",
+      "img": "icons/magic/holy/chalice-glowing-gold.webp",
+      "system": {
+        "description": "<p>Um sino pequeno, sem badalo, que toca sozinho quando alguém mente perto dele.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 9,
+        "price": 620,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "dSbiJLaZZrkSS1g2",
+      "sort": 1100000,
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.dSbiJLaZZrkSS1g2"
+    },
+    {
+      "name": "Anima-mundi 10",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 10 ou mais gasta uma Anima-mundi 10. O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 10"
+        ],
+        "rank": 10,
+        "price": 110,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 324
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.KhBPLpcz86fHSG5m",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "7wIEgff4wqRywGfA",
+      "sort": 1200000,
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.7wIEgff4wqRywGfA"
+    },
+    {
+      "name": "Pena da Sexta Asa",
+      "type": "gear",
+      "img": "icons/commodities/biological/wing-bird-white.webp",
+      "system": {
+        "description": "<p>A pena maior da sexta asa, que pesa menos que o ar. Um [Material-Base] de NP 9.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 9,
+        "price": 180,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "CMcGpCAg9b6FkCRA",
+      "sort": 1300000,
+      "_key": "!actors.items!CJFrRICLYY3sh6Jh.CMcGpCAg9b6FkCRA"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 500000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "CJFrRICLYY3sh6Jh",
+  "folder": "RD9UdfUXgaZZzK88",
+  "_key": "!actors!CJFrRICLYY3sh6Jh"
+}

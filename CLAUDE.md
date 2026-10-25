@@ -62,12 +62,14 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   `flags.eternia.drop` (`min`/`max`, `fixed`, `growth`, `qty`, `gold`), rolados por `module/bestiary/drops.mjs` quando
   ele cai; quem derrubou leva tudo. As regras de monstro vão em `flags.eternia.monster = { rule, ... }` nas habilidades
   (`pack`, `grow`, `threshold`, `fall`, `cleanse`, `summon`, `recharge`, `struck`, `offer`, `troop`, `retreat`,
-  `forget`); a Mão Leve é um efeito de uso com `flags.eternia.pickpocket`, e a criatura que come um dano, um efeito com
-  `flags.eternia.absorb` (lista de tags). A Fenda é um monstro com `flags.eternia.rift` e o relógio no Destino (`growOn:
-  "fall"`: cresce quando quem escreve cai). Teste de monstro numa cena: dentro do `sceneRect` (fora dele, o empurrar
-  para na borda). A fera com nome sai de
-  `module/bestiary/named-template.mjs`, que não pode importar nada do Foundry: a coroa da ficha e o gerador do compêndio
-  usam o mesmo arquivo. Os monstros do Império (pasta O Império) foram gerados por um script fora do repositório: a fonte é o JSON.
+  `forget`, `pulse`, `start`, `save`; o Salvar dos Desgarrados fica em `module/bestiary/save.mjs`); a Mão Leve é um
+  efeito de uso com `flags.eternia.pickpocket`, e a criatura que come um dano, um efeito com `flags.eternia.absorb`
+  (lista de tags). A Fenda é um monstro com `flags.eternia.rift` e o relógio no Destino (`growOn: "fall"`: cresce quando
+  quem escreve cai). Os chamados (`spawnNear`) são numerados ali: o `getTokenDocument` do Foundry numera só pelos tokens
+  que já existem. Teste de monstro numa cena: dentro do `sceneRect` (fora dele, o empurrar para na borda). A fera com
+  nome sai de `module/bestiary/named-template.mjs`, que não pode importar nada do Foundry: a coroa da ficha e o gerador
+  do compêndio usam o mesmo arquivo. Os monstros do Império (pasta O Império) foram gerados por um script fora do
+  repositório: a fonte é o JSON.
   Uma tabela nova escrita no formato dos livros vira dados com `node tools/convert-drops.mjs`.
 - Profissão = item `subclass` com `system.identifier` igual a um id de `module/professions/data.mjs`, na pasta
   Profissões de `races-classes`. O progresso fica no personagem (`flags.eternia.professions.<id>`) e o item feito guarda

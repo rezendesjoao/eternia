@@ -10,6 +10,8 @@
  *                   the troop's losses, the retreat, the forgetting);
  * - recharge.mjs    which skills recharge and which are spent (read by automation/use.mjs);
  * - troop.mjs       the troop: a band in one token, hit double by areas, its area attacks one target less per loss;
+ * - save.mjs        saving the Stray: the card with the Save button, Negotiation against its Resistance, the GM's
+ *                   Connection;
  * - named-template.mjs, named.mjs  the named beast: the template (without Foundry) and the monster sheet's crown;
  * - spawn.mjs       bringing monsters next to a token, in its combat, leaving no drops;
  * - rifts.mjs       the Rifts: scene hazards with a clock of writings and a wave each Setup.
@@ -19,6 +21,7 @@ import { convertTable, dropRows, parseDropTable, rollDrops, undoDrop, registerDr
 import { registerMonsterRules } from "./rules.mjs";
 import { isRift, registerRifts, riftState, writeRift } from "./rifts.mjs";
 import { spawnNear } from "./spawn.mjs";
+import { canBeSaved, registerSave, trySave } from "./save.mjs";
 import { nameMonster } from "./named.mjs";
 import { MARKS, nameBeast } from "./named-template.mjs";
 
@@ -27,6 +30,7 @@ export function registerBestiary() {
   registerDrops();
   registerMonsterRules();
   registerRifts();
+  registerSave();
   game.eternia.bestiary = {
     rollDrops,
     undoDrop,
@@ -37,6 +41,8 @@ export function registerBestiary() {
     isRift,
     riftState,
     writeRift,
+    trySave,
+    canBeSaved,
     nameMonster,
     nameBeast,
     marks: MARKS

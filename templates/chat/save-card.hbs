@@ -1,0 +1,30 @@
+{{!-- The card of a Stray that can be saved (module/bestiary/save.mjs): the rank card's look, its Resistance in the
+     seal, what happened, and the Save button while it can be reached; once saved, the GM's Connection button. --}}
+<div class="eternia-rank-card eternia-save-card" aria-label="{{eyebrow}}: {{name}}">
+	<header class="rk-head">
+		<img src="{{img}}" alt="">
+		<div class="rk-title">
+			<small><i class="fa-solid fa-hand-holding-heart"></i>{{eyebrow}}</small>
+			<h3>{{name}}</h3>
+		</div>
+		<div class="rk-seal" aria-label="{{resistLabel}} {{resist}}">
+			<small>{{resistLabel}}</small>
+			<span><b>{{resist}}</b></span>
+		</div>
+	</header>
+	<p class="of-lead">{{event}}</p>
+	{{#if open}}
+	<div class="rk-actions sv-actions">
+		<button type="button" data-action="save-try" data-tooltip="{{tryHint}}"><i class="fa-solid fa-hand-holding-heart"></i>{{tryLabel}}</button>
+	</div>
+	{{/if}}
+	{{#if saved}}
+	{{#if connected}}
+	<p class="rk-state">{{connectedLabel}}</p>
+	{{else}}
+	<div class="rk-actions sv-actions">
+		<button type="button" data-action="save-connect" data-tooltip="{{connectHint}}"><i class="fa-solid fa-link"></i>{{connectLabel}}</button>
+	</div>
+	{{/if}}
+	{{/if}}
+</div>
