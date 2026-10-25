@@ -10,8 +10,10 @@
  *   source: the Mimic's glue), or an attack or a damage card reaches it.
  * Revealed, the token gets its look and side back (`flags.eternia.revealed`: a copy of it isn't disguised again), the
  * chat tells it, it joins the started combat of its scene and `eternia.revealed(token, { by, why })` is called ("act",
- * "step", "hit" or "gm"). The window that saw it asks the GM (`bestiaryReveal`). For macros: `reveal(token)`,
- * `disguise(token)`; a token created with the option `eterniaNoDisguise` comes as itself.
+ * "step", "hit" or "gm"). The window that saw it asks the GM (`bestiaryReveal`). While disguised, its combatants are
+ * hidden from the players' tracker. A skill with `flags.eternia.monster = { rule: "conceal" }` disguises its user again
+ * when used (the Gargoyle's stone pose). For macros: `reveal(token)`, `disguise(token)`; a token created with the option
+ * `eterniaNoDisguise` comes as itself.
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
@@ -46,6 +48,18 @@ export const isDisguised = token => !!token?.getFlag?.(SYSTEM_ID, "disguise");
 
 /** Whether this reason gives a disguised token away. */
 const givesAway = (token, why) => (disguiseOf(token.actor)?.reveal ?? REASONS).includes(why);
+
+/** Whether a skill disguises its user again (`conceal`). */
+const conceals = item => item?.getFlag?.(SYSTEM_ID, "monster")?.rule === "conceal";
+
+/** Hide or show a token's combatants in the players' tracker (shown: as the token itself is). */
+async function trackerHidden(token, hidden) {
+  for (const combat of game.combats) {
+    const updates = combat.combatants.filter(c => (c.tokenId === token.id) && (c.sceneId === token.parent?.id) && (c.hidden !== hidden))
+      .map(c => ({ _id: c.id, hidden }));
+    if (updates.length) await combat.updateEmbeddedDocuments("Combatant", updates);
+  }
+}
 
 /** The token of an actor: a token actor's own, else its first active one (the viewed scene first). */
 function tokenOf(actor) {
@@ -98,6 +112,7 @@ export async function disguise(token) {
   const rule = disguiseOf(token?.actor);
   if (!game.user.isGM || !rule || isDisguised(token)) return false;
   await token.update({ ...disguiseChanges(token, rule), [`flags.${SYSTEM_ID}.-=revealed`]: null });
+  await trackerHidden(token, true);
   return true;
 }
 
@@ -144,7 +159,8 @@ async function revealNow({ tokenUuid, byUuid = null, why = "gm" }) {
       }
       if (given.length) lines.push(L("Bestiary.Disguise.Stuck", { name: actorName(by), statuses: given.join(", ") }));
     }
-    // In a started combat of its scene, it joins the fight
+    // In a started combat of its scene, it joins the fight (shown in the tracker if it was there already)
+    await trackerHidden(token, !!token.hidden);
     const combat = game.combats.find(c => c.started && (c.scene?.id === token.parent.id));
     if (combat && !combat.combatants.some(c => c.tokenId === token.id)) {
       await combat.createEmbeddedDocuments("Combatant", [{ tokenId: token.id, sceneId: token.parent.id, actorId: token.actorId, hidden: token.hidden }]);
@@ -209,10 +225,19 @@ export function registerDisguise() {
   Hooks.on("updateToken", onUpdateToken);
   Hooks.on("eternia.attack", (message, { attacker = null, targets = [] } = {}) => onReached(targets, attacker));
   Hooks.on("eternia.damaged", (actor, card, { attacker = null } = {}) => onReached([actor], attacker));
-  // It uses a skill: it shows itself before the card
+  // A disguised token comes into a combat hidden from the players' tracker
+  Hooks.on("preCreateCombatant", (combatant, data, options, userId) => {
+    if ((userId === game.user.id) && isDisguised(combatant.token)) combatant.updateSource({ hidden: true });
+  });
+  // It uses a skill: it shows itself before the card (not a skill that disguises it again)
   wrap(CONFIG.Item.documentClass.prototype, "ItemThrow", async function (original, ...args) {
     const token = this.actor ? tokenOf(this.actor) : null;
-    if (isDisguised(token) && givesAway(token, "act")) await reveal(token, { why: "act" }).catch(err => console.error(`${SYSTEM_ID} | Reveal failed`, err));
+    if (isDisguised(token) && givesAway(token, "act") && !conceals(this)) await reveal(token, { why: "act" }).catch(err => console.error(`${SYSTEM_ID} | Reveal failed`, err));
     return original.apply(this, args);
+  });
+  // The stone pose: a skill with the `conceal` rule disguises its user again (on the GM's window, the monster's)
+  Hooks.on("eternia.skillUsed", (item, { actor = null } = {}) => {
+    const token = (conceals(item) && game.user.isGM) ? tokenOf(actor) : null;
+    if (token && !isDisguised(token)) disguise(token).catch(err => console.error(`${SYSTEM_ID} | Disguise failed`, err));
   });
 }
