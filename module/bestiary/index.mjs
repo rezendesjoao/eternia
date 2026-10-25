@@ -14,7 +14,9 @@
  *                   Connection;
  * - named-template.mjs, named.mjs  the named beast: the template (without Foundry) and the monster sheet's crown;
  * - spawn.mjs       bringing monsters next to a token, in its combat, leaving no drops;
- * - rifts.mjs       the Rifts: scene hazards with a clock of writings and a wave each Setup.
+ * - rifts.mjs       the Rifts: scene hazards with a clock of writings and a wave each Setup;
+ * - blink.mjs, likeness.mjs, phase.mjs, halve.mjs  the blink to someone's back, taking a face, the phase out of the
+ *                   writing between its turns, the hide that takes half of the physical damage.
  * The API for macros is `game.eternia.bestiary`.
  */
 import { convertTable, dropRows, parseDropTable, rollDrops, undoDrop, registerDrops } from "./drops.mjs";
@@ -24,6 +26,9 @@ import { spawnNear } from "./spawn.mjs";
 import { canBeSaved, registerSave, trySave } from "./save.mjs";
 import { nameMonster } from "./named.mjs";
 import { MARKS, nameBeast } from "./named-template.mjs";
+import { registerBlink } from "./blink.mjs";
+import { copyLook, registerLikeness, restoreLook } from "./likeness.mjs";
+import { isPhased, registerPhase } from "./phase.mjs";
 
 /** Call during the `init` hook. */
 export function registerBestiary() {
@@ -31,6 +36,9 @@ export function registerBestiary() {
   registerMonsterRules();
   registerRifts();
   registerSave();
+  registerBlink();
+  registerLikeness();
+  registerPhase();
   game.eternia.bestiary = {
     rollDrops,
     undoDrop,
@@ -45,6 +53,9 @@ export function registerBestiary() {
     canBeSaved,
     nameMonster,
     nameBeast,
-    marks: MARKS
+    marks: MARKS,
+    copyLook,
+    restoreLook,
+    isPhased
   };
 }

@@ -1,0 +1,477 @@
+{
+  "name": "Aranha de Fase",
+  "type": "monster",
+  "img": "icons/creatures/invertebrates/spider-pink-purple.webp",
+  "system": {
+    "health": {
+      "value": 60,
+      "max": 60,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mythic"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 13,
+        "magic": 10
+      },
+      "speed": 2,
+      "initiative": 6
+    },
+    "rank": 5,
+    "idendification": "9",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 4
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>Uma aranha do tamanho de um cão grande, de carapaça azul-escura e pernas finas como agulhas, que anda pelo outro lado da escrita do mundo, onde ela é mais fina. Num instante está ali; no outro, só fica um zumbido. Volta pelas costas, pica e some de novo. As guildas que limpam as Fendas a chamam de \"a que não está\".</p><p><b>Na mesa:</b> padrão de NP 5, para as Fendas Grandes e as minas fundas. No fim de cada turno dela, o token some, e nada a alcança; no começo do próximo, ela volta a até 6 Qd, às costas de quem tem mais Ódio (o token vai sozinho para o quadrado dele), e a primeira picada soma +1d6. Para pegá-la: entrar em [Espera] (o botão da ampulheta no rastreador) e guardar a Ação Maior para o momento da volta, ou prendê-la ([Agarrado], [Enraizado]...) antes do fim do turno dela, que ela não some.</p>"
+  },
+  "prototypeToken": {
+    "name": "Aranha de Fase",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/invertebrates/spider-pink-purple.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Picada de Fase",
+      "type": "skill",
+      "img": "icons/creatures/abilities/fang-tooth-venomous.webp",
+      "system": {
+        "description": "<p>[2d6 + 42] de dano físico, e o alvo fica [Envenenado: 5].</p><p>(Menor): +5 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 42,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "poisoned",
+              "value": 5
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "RHSrGxffgaDG6qqm",
+      "_key": "!actors.items!EiRavn9ocxkCbPEL.RHSrGxffgaDG6qqm"
+    },
+    {
+      "name": "Salto de Fase",
+      "type": "skill",
+      "img": "icons/magic/air/wind-vortex-swirl-blue-purple.webp",
+      "system": {
+        "description": "<p>No fim do turno dela, a aranha passa para o outro lado da escrita: o token some e nada a alcança (nem dano, nem estados). No começo do próximo turno dela, volta a até 6 Qd de onde sumiu, às costas de quem tem mais Ódio (no quadrado dele, engajada), e o próximo dano dela nesse turno soma +1d6.</p><p>Quem está em [Espera] quando ela volta pega o momento: gasta ali mesmo a Ação Maior do turno, fora da vez. Presa ([Agarrado], [Enraizado], [Paralisado], [Petrificado], [Adormecido]), ela não some.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "phase",
+            "range": 6,
+            "dice": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "hJ2tIFXminavyYEb",
+      "_key": "!actors.items!EiRavn9ocxkCbPEL.hJ2tIFXminavyYEb"
+    },
+    {
+      "name": "Seda de Fase",
+      "type": "gear",
+      "img": "icons/commodities/cloth/thread-spindle-violet.webp",
+      "system": {
+        "description": "<p>Um carretel de fio que só existe de um lado: do outro, a mão passa através. Os tecelões das guildas fazem dele bolsos que ninguém acha.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 5,
+        "price": 30,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "j17QkSZO6nvr0dLD",
+      "sort": 300000,
+      "_key": "!actors.items!EiRavn9ocxkCbPEL.j17QkSZO6nvr0dLD"
+    },
+    {
+      "name": "Quelíceras de Fase",
+      "type": "gear",
+      "img": "icons/commodities/biological/mouth-toothed-purple.webp",
+      "system": {
+        "description": "<p>As presas da aranha, que ainda atravessam o couro como se ele não estivesse ali. Os armeiros pagam para estudá-las.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 5,
+        "price": 65,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "TIKMs7vQI2WDlkYR",
+      "sort": 400000,
+      "_key": "!actors.items!EiRavn9ocxkCbPEL.TIKMs7vQI2WDlkYR"
+    },
+    {
+      "name": "Olhos do Outro Lado",
+      "type": "gear",
+      "img": "icons/commodities/biological/eye-blue-gold.webp",
+      "system": {
+        "description": "<p>Oito olhos azul-dourados que veem o outro lado da escrita. Quem olha por eles vê o mundo fino, e fica tonto por um dia.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 5,
+        "price": 90,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "XfM5vg2B8YZU5WXg",
+      "sort": 500000,
+      "_key": "!actors.items!EiRavn9ocxkCbPEL.XfM5vg2B8YZU5WXg"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 540000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "EiRavn9ocxkCbPEL",
+  "folder": "B9m3gjbM5ApA2GmA",
+  "_key": "!actors!EiRavn9ocxkCbPEL"
+}

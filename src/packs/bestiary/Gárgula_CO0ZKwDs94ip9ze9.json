@@ -1,0 +1,568 @@
+{
+  "name": "Gárgula",
+  "type": "monster",
+  "img": "icons/creatures/magical/construct-gargoyle-stone-gray.webp",
+  "system": {
+    "health": {
+      "value": 54,
+      "max": 54,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Artificial"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 11,
+        "magic": 9
+      },
+      "speed": 2,
+      "initiative": 5
+    },
+    "rank": 4,
+    "idendification": "8",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>Uma estátua de barro cozido, de asas fechadas e cara de cão com chifres, no beiral de um telhado, no alto de um portão ou à beira de uma estrada da serra. Só que essa respira. As Feiticeiras do Território Negro as moldam de barro e as mandam pela serra para espiar: ficam paradas por dias, vendo quem passa, e só se mexem para matar quem chega perto demais.</p><p><b>Na mesa:</b> padrão de NP 4, para as estradas da serra e as vilas de borda. O token dela é uma estátua (sem nome, sem barra, sem borda, fora do rastreador) até ela se mexer ou alguém pisar no quadrado dela ou atacá-la; então ela entra no combate. A Pele de Pedra corta pela metade o dano físico sem magia: o golpe de arma comum rende pouco, e o dano mágico e o golpe com elemento ([Chama], [Choque], [Radiância]...) passam inteiros.</p>"
+  },
+  "prototypeToken": {
+    "name": "Gárgula",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/magical/construct-gargoyle-stone-gray.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Garras de Pedra",
+      "type": "skill",
+      "img": "icons/creatures/claws/claw-straight-brown.webp",
+      "system": {
+        "description": "<p>[2d6 + 40] de dano físico.</p><p>(Menor): +5 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 40,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "wZAGt4UsFFDrc7nJ",
+      "_key": "!actors.items!CO0ZKwDs94ip9ze9.wZAGt4UsFFDrc7nJ"
+    },
+    {
+      "name": "Estátua",
+      "type": "skill",
+      "img": "icons/environment/wilderness/statue-hound-horned.webp",
+      "system": {
+        "description": "<p>O token deste inimigo é uma estátua até ele se mexer (usar uma habilidade ou andar) ou alguém pisar no quadrado dele ou atacá-lo: só então ele entra no combate.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "disguise",
+            "name": "Estátua",
+            "img": "icons/environment/wilderness/statue-hound-horned.webp"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "xjZernGOXCzqCRGj",
+      "_key": "!actors.items!CO0ZKwDs94ip9ze9.xjZernGOXCzqCRGj"
+    },
+    {
+      "name": "Pele de Pedra",
+      "type": "skill",
+      "img": "icons/magic/earth/strike-body-stone-crumble.webp",
+      "system": {
+        "description": "<p>O barro cozido corta pela metade o dano físico sem magia que este inimigo sofre (depois da Defesa e da Anulação). O dano mágico, o direto e o golpe com elemento ([Chama], [Choque], [Radiância]...) passam inteiros.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "halve": {
+                "tags": [
+                  "Physical"
+                ],
+                "pure": true
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Pele de Pedra",
+          "img": "icons/magic/earth/strike-body-stone-crumble.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "5YiVJclhzoVOqh4m",
+          "_key": "!actors.items.effects!CO0ZKwDs94ip9ze9.EGENTr8dM1lzrcNl.5YiVJclhzoVOqh4m"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "EGENTr8dM1lzrcNl",
+      "_key": "!actors.items!CO0ZKwDs94ip9ze9.EGENTr8dM1lzrcNl"
+    },
+    {
+      "name": "Lasca de Barro Cozido",
+      "type": "gear",
+      "img": "icons/commodities/stone/clay-grey.webp",
+      "system": {
+        "description": "<p>Um caco do corpo da gárgula, de um barro cinzento que nenhum oleiro do Império sabe cozer. Fica quente por dentro, mesmo no inverno.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 4,
+        "price": 25,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "bQXEblpnsxUusMBo",
+      "sort": 400000,
+      "_key": "!actors.items!CO0ZKwDs94ip9ze9.bQXEblpnsxUusMBo"
+    },
+    {
+      "name": "Olho de Vigia",
+      "type": "gear",
+      "img": "icons/magic/perception/orb-eye-scrying.webp",
+      "system": {
+        "description": "<p>A pedra lisa do olho da gárgula, por onde a Feiticeira espiava. Ainda se mexe sozinha, de vez em quando, procurando alguém.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 4,
+        "price": 50,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "UvLsR9wdpqHYeTYe",
+      "sort": 500000,
+      "_key": "!actors.items!CO0ZKwDs94ip9ze9.UvLsR9wdpqHYeTYe"
+    },
+    {
+      "name": "Selo da Feiticeira",
+      "type": "gear",
+      "img": "icons/commodities/stone/engraved-symbol-water-grey.webp",
+      "system": {
+        "description": "<p>A placa de barro com a marca de quem a moldou, escondida no peito dela. Os Cavaleiros da serra pagam caro por ela: diz de onde a gárgula veio.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 4,
+        "price": 75,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "bhNMsa0XpQKzNpaf",
+      "sort": 600000,
+      "_key": "!actors.items!CO0ZKwDs94ip9ze9.bhNMsa0XpQKzNpaf"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 530000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "CO0ZKwDs94ip9ze9",
+  "folder": "ex7EDoXlFfUr3Kgx",
+  "_key": "!actors!CO0ZKwDs94ip9ze9"
+}

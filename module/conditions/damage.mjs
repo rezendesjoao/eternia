@@ -37,6 +37,7 @@ import { healTaken } from "./immortal.mjs";
 import { motorAbsorbs } from "../classes/motor.mjs";
 import { decoyTakes } from "./copies.mjs";
 import { tagLabel } from "../i18n/terms.mjs";
+import { phasedNote } from "../bestiary/phase.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -107,6 +108,9 @@ export function beforeDamage(actor, card, direct) {
   // A copy takes the blow (Troca com a Cópia: copies.mjs)
   const decoy = decoyTakes(actor, card);
   if (decoy) return { ...result, immune: true, untouched: true, notes: [decoy] };
+  // Out of phase, nothing reaches it (bestiary/phase.mjs)
+  const phased = phasedNote(actor);
+  if (phased) return { ...result, immune: true, untouched: true, notes: [phased] };
   // [The One]: noon; no attack reaches it.
   if (has(actor, "theOne")) {
     result.immune = true;
