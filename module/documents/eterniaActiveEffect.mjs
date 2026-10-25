@@ -1,6 +1,7 @@
 import { evaluateFormula, formulaData, isFormula, readsAttributes } from "../helpers/effect-formulas.mjs";
 import { effectConditions, unmetCondition } from "../helpers/effect-conditions.mjs";
 import { isSkillFilterKey } from "../helpers/roll-bonuses.mjs";
+import { animateStatus, animatesStatuses } from "../canvas/status-animation.mjs";
 
 /**
  * Change phase of the formulas that read attribute modifiers ("@dex*2"): on a character they are computed in
@@ -89,6 +90,20 @@ export class EterniaActiveEffect extends ActiveEffect {
      */
     get isSuppressed() {
         return this._lhSuppressed || ((this.parent?.documentName === "Actor") && super.isSuppressed);
+    }
+
+    /* --------------------------------------------- */
+
+    /**
+     * The icon of the effect flies into its place on the token (or leaves it) instead of core's scrolling text with
+     * its name (canvas/status-animation.mjs); the client setting "statusAnimation" off, or an effect without an icon,
+     * keeps the text.
+     * @inheritdoc
+     */
+    _displayScrollingStatus(enabled) {
+        if (!(this.statuses.size || this.system.changes.length)) return;
+        if (animatesStatuses() && animateStatus(this, enabled)) return;
+        super._displayScrollingStatus(enabled);
     }
 
     /* --------------------------------------------- */

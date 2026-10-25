@@ -114,6 +114,15 @@ export function registerSettings() {
     default: "always",
     onChange: tokens
   });
+  // Each player's: a status flies into its place on the token instead of core's text (canvas/status-animation.mjs)
+  game.settings.register(SYSTEM_ID, "statusAnimation", {
+    name: "ETERNIA.Settings.statusAnimation.Name",
+    hint: "ETERNIA.Settings.statusAnimation.Hint",
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true
+  });
 }
 
 /** The turn helpers (turn.mjs): each player's, after the HUD settings (hud.mjs). Call during `init`. */

@@ -1084,3 +1084,221 @@
 .chat-message.lhc-msg .lhauto-status {
   color: #1f5137;
 }
+
+/* ==========================================================================
+   A Character Rank change (module/apps/rank-up.mjs, templates/chat/rank-up-card.hbs): the portrait and the name on a
+   band in the class's colour, the CR in a gold seal, the Base Stats in four cells, the rows with a round icon and the
+   class's grants by CR along a dotted road. The card has its own parchment: it reads the same with the chat theme on
+   or off. Going down, the band turns to rust.
+   ========================================================================== */
+.chat-message .eternia-rank-card {
+  --rk-color: #1f5137;
+  --rk-gold: #c9a24a;
+  --rk-gold-light: #f2db94;
+  --rk-gold-dark: #8a6a25;
+  --rk-ink: #1c1c1c;
+  --rk-soft: #5c584e;
+  --rk-line: #cdbb98;
+  --rk-serif: "Eternia Eczar", "Eczar", Georgia, serif;
+  --rk-body: "Eternia Gelasio", "Gelasio", Georgia, serif;
+  --rk-sans: "Signika", sans-serif;
+  overflow: hidden;
+  border: 1px solid #b19a55;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fffaf0, #f1e5c8);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+  color: var(--rk-ink);
+  font: 400 12.5px/1.4 var(--rk-body);
+  text-shadow: none;
+}
+.chat-message .eternia-rank-card .rk-head {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 9px;
+  border-bottom: 1px solid rgba(201, 162, 74, 0.7);
+  background:
+    radial-gradient(120% 160% at 0% 0%, rgba(255, 255, 255, 0.14), transparent 55%),
+    linear-gradient(120deg, color-mix(in srgb, var(--rk-color) 88%, #000), color-mix(in srgb, var(--rk-color) 40%, #0c1d13));
+}
+.chat-message .eternia-rank-card .rk-head img {
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--rk-gold);
+  border-radius: 50%;
+  background: #e8dcc0;
+  object-fit: cover;
+}
+.chat-message .eternia-rank-card .rk-title { min-width: 0; }
+.chat-message .eternia-rank-card .rk-title small {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--rk-gold-light);
+  font: 700 8.5px/1.3 var(--rk-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.chat-message .eternia-rank-card .rk-title h3 {
+  margin: 1px 0 0;
+  padding: 0;
+  border: none;
+  color: #fbf4df;
+  font: 600 15px/1.15 var(--rk-serif);
+  overflow-wrap: anywhere;
+}
+.chat-message .eternia-rank-card .rk-seal {
+  display: grid;
+  justify-items: center;
+  min-width: 50px;
+  padding: 3px 7px 4px;
+  border: 1px solid #7a5a14;
+  border-radius: 8px;
+  background: radial-gradient(circle at 50% 30%, #fff1c2, #e3c369 60%, #b8913a);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 2px 5px rgba(0, 0, 0, 0.35);
+  color: #3d2c08;
+}
+.chat-message .eternia-rank-card .rk-seal small { font: 700 8px/1 var(--rk-sans); letter-spacing: 0.18em; }
+.chat-message .eternia-rank-card .rk-seal span { display: flex; align-items: baseline; gap: 3px; }
+.chat-message .eternia-rank-card .rk-seal em { color: #6e5520; font: 600 12px/1 var(--rk-serif); font-style: normal; }
+.chat-message .eternia-rank-card .rk-seal i { color: #7a5a14; font-size: 10px; }
+.chat-message .eternia-rank-card .rk-seal b { color: #2a1e05; font: 700 20px/1 var(--rk-serif); }
+
+/* The Base Stats */
+.chat-message .eternia-rank-card .rk-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  padding: 7px 8px 3px;
+}
+.chat-message .eternia-rank-card .rk-stat {
+  display: grid;
+  justify-items: center;
+  padding: 3px 2px 4px;
+  border: 1px solid var(--rk-line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.6);
+}
+.chat-message .eternia-rank-card .rk-stat small {
+  color: var(--rk-gold-dark);
+  font: 700 8.5px/1.3 var(--rk-sans);
+  letter-spacing: 0.14em;
+}
+.chat-message .eternia-rank-card .rk-stat span { display: flex; align-items: baseline; gap: 3px; }
+.chat-message .eternia-rank-card .rk-stat em { color: var(--rk-soft); font: 11px/1 var(--rk-sans); font-style: normal; }
+.chat-message .eternia-rank-card .rk-stat span i { color: var(--rk-gold); font-size: 8px; }
+.chat-message .eternia-rank-card .rk-stat b { color: #173f2b; font: 700 15px/1.1 var(--rk-serif); }
+.chat-message .eternia-rank-card .rk-mod {
+  color: #2a6a47;
+  font: 600 9px/1.2 var(--rk-sans);
+  font-style: normal;
+  white-space: nowrap;
+}
+
+/* What the jump gives */
+.chat-message .eternia-rank-card .rk-rows { display: grid; gap: 0; margin: 0; padding: 3px 8px 5px; list-style: none; }
+.chat-message .eternia-rank-card .rk-row {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+  padding: 4px 0;
+  border-bottom: 1px dashed rgba(186, 169, 145, 0.75);
+}
+.chat-message .eternia-rank-card .rk-row:last-child { border-bottom: none; }
+.chat-message .eternia-rank-card .rk-icon {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #2f7a52, #1f5137);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 1px 2px rgba(0, 0, 0, 0.3);
+  color: #fbf4df;
+  font-size: 9.5px;
+}
+.chat-message .eternia-rank-card .rk-row.hp .rk-icon { background: linear-gradient(180deg, #b34a3f, #8c2f2f); }
+.chat-message .eternia-rank-card .rk-row.unlock .rk-icon { background: linear-gradient(180deg, #b8913a, #8a6a25); }
+.chat-message .eternia-rank-card .rk-row.warn .rk-icon { background: linear-gradient(180deg, #9a6a3a, #6e4520); }
+.chat-message .eternia-rank-card .rk-text { display: grid; min-width: 0; }
+.chat-message .eternia-rank-card .rk-text small {
+  color: var(--rk-soft);
+  font: 700 8.5px/1.3 var(--rk-sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.chat-message .eternia-rank-card .rk-text span { color: var(--rk-ink); font: 12.5px/1.35 var(--rk-body); }
+.chat-message .eternia-rank-card .rk-text em { color: var(--rk-soft); font-style: normal; }
+.chat-message .eternia-rank-card .rk-text b { color: #173f2b; font: 700 14px/1 var(--rk-serif); }
+.chat-message .eternia-rank-card .rk-text span > i { color: var(--rk-soft); font: italic 11px/1 var(--rk-body); }
+
+/* The class's grants, by CR */
+.chat-message .eternia-rank-card .rk-road-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 2px 8px 4px;
+  padding: 0;
+  border: none;
+  color: var(--rk-gold-dark);
+  font: 700 9px/1.3 var(--rk-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.chat-message .eternia-rank-card .rk-road-title::before,
+.chat-message .eternia-rank-card .rk-road-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rk-line), transparent);
+}
+.chat-message .eternia-rank-card .rk-road {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px 8px;
+  list-style: none;
+}
+/* The dotted road behind the seals */
+.chat-message .eternia-rank-card .rk-road::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 14px;
+  left: 24px;
+  border-left: 2px dotted rgba(138, 106, 37, 0.55);
+}
+.chat-message .eternia-rank-card .rk-road li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px 14px minmax(0, 1fr);
+  align-items: center;
+  gap: 6px;
+}
+.chat-message .eternia-rank-card .rk-rank {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  padding: 2px 0 3px;
+  border: 1px solid color-mix(in srgb, var(--rk-color) 70%, #000);
+  border-radius: 7px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--rk-color) 70%, #fff), var(--rk-color));
+  box-shadow: 0 0 0 2px #fbf4df, 0 1px 3px rgba(0, 0, 0, 0.3);
+  color: #fbf4df;
+  font: 700 13px/1 var(--rk-serif);
+}
+.chat-message .eternia-rank-card .rk-rank small { font: 700 6.5px/1.3 var(--rk-sans); letter-spacing: 0.14em; opacity: 0.85; }
+.chat-message .eternia-rank-card .rk-road-icon { color: color-mix(in srgb, var(--rk-color) 85%, #000); font-size: 11px; text-align: center; }
+.chat-message .eternia-rank-card .rk-road-text { color: var(--rk-ink); font: 12px/1.35 var(--rk-body); }
+
+/* Going down: a rust band and seal */
+.chat-message .eternia-rank-card.down .rk-head { background: linear-gradient(120deg, #6e3a22, #2a160d); }
+.chat-message .eternia-rank-card.down .rk-seal {
+  border-color: #5a2a18;
+  background: radial-gradient(circle at 50% 30%, #f4d9c2, #c98a5a 60%, #8c4f2a);
+  color: #2a1208;
+}
+.chat-message .eternia-rank-card.down .rk-seal b { color: #2a1208; }

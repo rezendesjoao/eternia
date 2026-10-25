@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.30.1 — 2026-10-24
+
+### Adicionado
+- **Animação dos estados nos tokens** (`canvas/status-animation.mjs`): no lugar do texto "+(Nome)" do Foundry, o ícone
+  do estado aparece sobre o token num medalhão, com um anel na cor do estado (carmim nos ruins, dourado nos de combate,
+  verde nos outros), dá uma volta e encolhe até o lugar dele entre os ícones do token, que só aparece quando ele pousa;
+  tirado, o estado sai do lugar girando e some. Cada jogador vê no próprio canvas; a configuração "Animação dos estados
+  nos tokens" traz o texto de volta, e com "reduzir movimento" no sistema operacional fica só um brilho rápido.
+
+### Alterado
+- **O cartão de subir e descer de NP no chat** (`templates/chat/rank-up-card.hbs`): o retrato numa faixa na cor da
+  classe, o NP num selo dourado (de cobre ao descer), os Atributos Base em quatro células, os PV, as escolhas e o que
+  libera em linhas com ícone, e o que a classe dá pelo caminho, cada marco com o seu NP. O cartão tem o próprio
+  pergaminho, então fica igual com o tema do chat ligado ou desligado.
+
 ## 0.30.0 — 2026-10-24
 
 ### Adicionado

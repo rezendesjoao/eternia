@@ -19,6 +19,7 @@
  */
 import { SYSTEM_ID, setting } from "../settings.mjs";
 import { motorData, motorMax, motorsOf } from "../classes/motor.mjs";
+import { hideLanding } from "./status-animation.mjs";
 
 const FONT = "Eternia Eczar";
 const COLORS = {
@@ -247,9 +248,17 @@ function tokenClass(Base) {
     /** The class Motor's diamonds (module/classes/). */
     lhMotor = null;
 
+    /** @override Each status icon knows its picture: the one still flying in (canvas/status-animation.mjs) waits hidden. */
+    async _drawEffect(src, tint) {
+      const icon = await super._drawEffect(src, tint);
+      if (icon) icon.lhSrc = src;
+      return icon;
+    }
+
     /** @override Core redraws the status icons on every change of the actor or its items: the Motor follows. */
     _refreshEffects() {
       super._refreshEffects();
+      hideLanding(this);
       this.#drawMotor();
     }
 

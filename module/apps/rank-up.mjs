@@ -3,8 +3,10 @@
  * sheet. A message box sums up what changes from the old CR to the new one (any number of ranks): the Base Stats
  * (+1 each per CR, with the modifiers that move), the Max HP (the class HP Modifier per CR), the skill picks, the
  * talents that unlock and what the class gives (its Path, the Magias, the Apex, the Dedications). On confirmation the
- * CR changes, the chat records it, the class's choices are offered and the skill selection opens with the picks
- * owed. Going down asks too, and the picks made above the new CR can be undone (skill-browser.mjs).
+ * CR changes, a card in the chat records it (templates/chat/rank-up-card.hbs: the portrait, the CR from and to, the
+ * Base Stats, what the jump gives and the class's grants by CR), the class's choices are offered and the skill
+ * selection opens with the picks owed. Going down asks too, and the picks made above the new CR can be undone
+ * (skill-browser.mjs).
  *
  * Base Stats and Max HP follow the CR on their own (EterniaActor#prepareDerivedData): this only explains and orders.
  * A CR typed in the sheet is held back (preUpdateActor) and goes through the same box; an update made with
@@ -17,6 +19,7 @@ import { magicsOf, offerGrants } from "./option-grants.mjs";
 import { SkillBrowser, rankUpSkills, startSkillProgress, unlocksBetween } from "./skill-browser.mjs";
 import { confirmBox } from "../helpers/dialogs.mjs";
 import { escape } from "../helpers/utils.mjs";
+import { CLASSES } from "../classes/data.mjs";
 
 const STATS = ["str", "dex", "pow", "int"];
 
@@ -25,6 +28,9 @@ const DEDICATION_RANK = 5;
 
 /** Characters with a CR change in progress (one box at a time). */
 const busy = new Set();
+
+/** The card of a CR change in the chat. */
+const CARD = "systems/eternia/templates/chat/rank-up-card.hbs";
 
 const rankOf = actor => Math.max(1, Number(actor.system.infos?.crank) || 1);
 const R = (key, data) => (data ? game.i18n.format(`ETERNIA.RankUp.${key}`, data) : game.i18n.localize(`ETERNIA.RankUp.${key}`));
@@ -51,7 +57,7 @@ export async function levelTo(actor, target) {
   busy.add(actor.id);
   try {
     const up = to > from;
-    const lines = await changeLines(actor, from, to);
+    const { lines, card } = await changeLines(actor, from, to);
     const confirmed = await confirmBox({
       title: R(up ? "Window" : "WindowDown"),
       icon: up ? "fa-solid fa-angles-up" : "fa-solid fa-angles-down",
@@ -76,15 +82,27 @@ export async function levelTo(actor, target) {
     // The skill picks owed follow the CR from here (see skill-browser.mjs).
     if (up) await startSkillProgress(actor, from);
     await actor.update({ "system.infos.crank": to }, { eterniaRankUp: true });
+    const job = getOption(actor, "class");
     await ChatMessage.create({
       speaker: ChatMessage.getSpeaker({ actor }),
-      content: `<div class="eternia rank-up-card"><h3><i class="fa-solid fa-angles-${up ? "up" : "down"}"></i> `
-        + `${escape(R(up ? "Chat" : "ChatDown", { name: actor.name, to }))}</h3>`
-        + `<ul>${lines.filter(l => l.chat !== false).map(l => `<li>${l.plain ?? escape(l.text)}</li>`).join("")}</ul></div>`
+      content: await foundry.applications.handlebars.renderTemplate(CARD, {
+        ...card,
+        up,
+        from,
+        to,
+        name: actor.name,
+        img: actor.img,
+        color: CLASSES[job?.system.identifier]?.color ?? "#1f5137",
+        eyebrow: R(up ? "Card.Up" : "Card.Down"),
+        // The CR is in the seal: the band says who
+        title: actor.name,
+        label: R(up ? "Chat" : "ChatDown", { name: actor.name, to }),
+        crLabel: R("Card.CR"),
+        roadLabel: R("Card.Road")
+      })
     });
     if (!up) return true;
     // What the class gives (its Path, the Magias, the Apex: also those still open), then the picks.
-    const job = getOption(actor, "class");
     if (job) await offerGrants(actor, job, { above: 1, withStale: false });
     SkillBrowser.open(actor);
     return true;
@@ -99,16 +117,18 @@ export async function levelTo(actor, target) {
 /* -------------------------------------------- */
 
 /**
- * The lines of the box (and of the chat card) for a CR change.
+ * What a CR change gives: the lines of the box, and the data of the chat card (the Base Stats, a row for the HP, the
+ * picks and what unlocks, and the class's grants at the ranks crossed, by CR).
  * @param {Actor} actor
  * @param {number} from
  * @param {number} to
- * @returns {Promise<object[]>}  Lines of confirmBox, with `plain` (chat HTML) where it differs
+ * @returns {Promise<{lines: object[], card: {stats: object[], rows: object[], road: object[]}}>}
  */
 async function changeLines(actor, from, to) {
   const n = to - from;
   const up = n > 0;
   const lines = [];
+  const card = { stats: [], rows: [], road: [] };
   const sign = up ? "+" : "−";
 
   // Base Stats: +1 (or −1) each per CR; the modifier is a third of the total
@@ -123,22 +143,25 @@ async function changeLines(actor, from, to) {
   const grid = `<span class="lhd-stats">${cells.map(c => `<span class="lhd-stat"><b>${escape(c.label)}</b>`
     + `<span>${c.before} → <strong>${c.after}</strong></span>`
     + `${(c.modAfter !== c.modBefore) ? `<em>${escape(R("Mod", { from: c.modBefore, to: c.modAfter }))}</em>` : ""}</span>`).join("")}</span>`;
-  const statsText = R("Stats", { sign, n: Math.abs(n) });
-  lines.push({
-    html: `${escape(statsText)}${grid}`, kind: "gain", icon: "fa-solid fa-chart-simple",
-    plain: `${escape(statsText)}: ${cells.map(c => `${escape(c.label)} ${c.before} → ${c.after}`).join(", ")}`
-  });
+  lines.push({ html: `${escape(R("Stats", { sign, n: Math.abs(n) }))}${grid}`, kind: "gain", icon: "fa-solid fa-chart-simple" });
+  card.stats = cells.map(c => ({ ...c, mod: (c.modAfter !== c.modBefore) ? R("Mod", { from: c.modBefore, to: c.modAfter }) : "" }));
 
   // Max HP: the class HP Modifier per CR
   const per = classStats(actor)?.hpPerRank ?? 0;
   const hpBefore = Number(actor.system.health?.max) || 0;
+  const hpAfter = hpBefore + (per * n);
   lines.push({
-    text: R("HP", { from: hpBefore, to: hpBefore + (per * n), sign, gain: Math.abs(per * n), per }),
+    text: R("HP", { from: hpBefore, to: hpAfter, sign, gain: Math.abs(per * n), per }),
     kind: "gain", icon: "fa-solid fa-heart"
   });
+  card.rows.push({
+    icon: "fa-solid fa-heart", tone: "hp", label: R("Card.HP"), from: hpBefore, to: hpAfter,
+    note: per ? R("Card.HPNote", { sign, gain: Math.abs(per * n), per }) : ""
+  });
   if (!up) {
-    lines.push({ text: R("DownPicks", { to }), kind: "condition", icon: "fa-solid fa-rotate-left", chat: false });
-    return lines;
+    lines.push({ text: R("DownPicks", { to }), kind: "condition", icon: "fa-solid fa-rotate-left" });
+    card.rows.push({ icon: "fa-solid fa-rotate-left", tone: "warn", value: R("Card.DownPicks", { to }) });
+    return { lines, card };
   }
 
   // Skill picks of the ranks gained
@@ -149,12 +172,16 @@ async function changeLines(actor, from, to) {
     picks.general += gained.general;
   }
   lines.push({ text: R("Skills", picks), kind: "gain", icon: "fa-solid fa-book-open" });
+  card.rows.push({ icon: "fa-solid fa-book-open", tone: "picks", label: R("Card.Picks"), value: R("Card.PicksValue", picks) });
 
   // Talents that unlock (class, Magias, race, Dedications)
   const unlocks = await unlocksBetween(actor, from, to);
   const parts = ["class", "magic", "race", "dedication"].filter(k => unlocks[k] > 0)
     .map(k => R(`Unlock.${k}`, { n: unlocks[k] }));
-  if (parts.length) lines.push({ text: R("Unlocks", { list: parts.join(", ") }), kind: "info", icon: "fa-solid fa-lock-open" });
+  if (parts.length) {
+    lines.push({ text: R("Unlocks", { list: parts.join(", ") }), kind: "info", icon: "fa-solid fa-lock-open" });
+    card.rows.push({ icon: "fa-solid fa-lock-open", tone: "unlock", label: R("Card.Unlocks"), value: parts.join(", ") });
+  }
 
   // What the class gives at the ranks crossed, in CR order: a choice (the Path), a Magia, a skill given (the Apex),
   // the Dedications
@@ -167,21 +194,24 @@ async function changeLines(actor, from, to) {
     const rank = Number(grant.rank) || 1;
     if ((rank <= from) || (rank > to)) continue;
     if (grant.magic) {
-      if (owned < magicSlot) given.push({ rank, text: R("Grant.magic", { rank }), kind: "motor", icon: "fa-solid fa-book-skull" });
+      if (owned < magicSlot) given.push({ rank, text: R("Grant.magic"), icon: "fa-solid fa-book-skull" });
       continue;
     }
     const names = (await Promise.all((grant.uuids ?? []).map(uuid => fromUuid(uuid).catch(() => null)))).filter(Boolean)
       .map(s => s.name);
     if (!names.length) continue;
     const key = (names.length > 1) ? "Grant.choice" : (grant.auto ? "Grant.auto" : "Grant.skill");
-    given.push({ rank, text: R(key, { rank, names: names.join(", "), name: names[0] }), kind: "motor",
+    given.push({ rank, text: R(key, { names: names.join(", "), name: names[0] }),
       icon: (names.length > 1) ? "fa-solid fa-route" : "fa-solid fa-crown" });
   }
   if ((from < DEDICATION_RANK) && (to >= DEDICATION_RANK) && job) {
-    given.push({ rank: DEDICATION_RANK, text: R("Dedication", { rank: DEDICATION_RANK }), kind: "motor", icon: "fa-solid fa-people-arrows" });
+    given.push({ rank: DEDICATION_RANK, text: R("Dedication"), icon: "fa-solid fa-people-arrows" });
   }
-  lines.push(...given.sort((a, b) => a.rank - b.rank));
-  return lines;
+  // In CR order: the box says "CR 3: …", the card puts the CR in a seal
+  given.sort((a, b) => a.rank - b.rank);
+  lines.push(...given.map(g => ({ ...g, text: R("AtRank", { rank: g.rank, text: g.text }), kind: "motor" })));
+  card.road = given.map(g => ({ ...g, text: g.text.charAt(0).toUpperCase() + g.text.slice(1) }));
+  return { lines, card };
 }
 
 /* -------------------------------------------- */

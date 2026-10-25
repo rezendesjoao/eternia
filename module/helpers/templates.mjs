@@ -46,6 +46,7 @@
     "systems/eternia/templates/chat/damage-card.hbs",
     "systems/eternia/templates/chat/damage-applied.hbs",
     "systems/eternia/templates/chat/use-card.hbs",
+    "systems/eternia/templates/chat/rank-up-card.hbs",
 
     // The Magia browser (the Magia picker and the creation wizard)
     "systems/eternia/templates/apps/magic-browser.hbs",

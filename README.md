@@ -5,9 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.30.0
+## Versão 0.30.1
 
-- **Novo na 0.30.0: os itens iniciais e a sugestão de atributos.** O assistente de criação ganhou o passo **Itens**:
+- **Novo na 0.30.1: o cartão de NP e a animação dos estados.** Subir ou descer de NP manda para o chat um cartão com o
+  retrato numa faixa na cor da classe, o NP num selo, os Atributos Base, os PV e o que a classe dá pelo caminho. E um
+  estado posto num token gira até o lugar dele entre os ícones, no lugar do texto com o nome (veja [O chat](#o-chat) e
+  [Os tokens](#os-tokens)).
+- **Desde a 0.30.0: os itens iniciais e a sugestão de atributos.** O assistente de criação ganhou o passo **Itens**:
   a Mochila, o Kit de Aventureiro e o Sanduíche vêm de graça, e os 350 de ouro compram o resto numa loja com os itens
   de Nível 1. Cada classe tem um kit recomendado que um clique compra, e a bolsa ao lado mostra onde cada peça vai e os
   números que o equipamento dá; ao criar, tudo entra equipado. O passo Atributos sugere os cinco pontos para a classe
@@ -268,6 +272,10 @@ vista; efeitos, estados e descrição. Todo campo é editável na própria ficha
 - **Cartões de habilidade e de item:** Momento, Alvo e Alcance sob o nome, Teste e Dano em duas linhas, NH, Custo e
   Limite em etiquetas, a descrição dobrada.
 - **Ataque e dano:** alvos numa linha cada, com distância, esquiva e resultado; o dano aplicado numa linha.
+- **Subir e descer de NP:** um cartão com o retrato numa faixa na cor da classe, o NP num selo dourado (de cobre ao
+  descer), os Atributos Base em quatro células com os modificadores que mudam, os PV, as escolhas e o que libera, e o
+  que a classe dá pelo caminho, com o NP de cada marco. O cartão tem o próprio pergaminho: fica igual com o tema do
+  chat ligado ou não.
 - **Com o TBG** (balões de fala, Modo Narrador e as abas ON, OFF e ROLL do Custom Chat Tabs), as falas, os balões e
   as abas ganham o mesmo pergaminho: o grito com filete carmim, o sussurro tracejado, o pensamento com a nuvem, a
   ação sem moldura, o OFF cinza e a narração na faixa verde.
@@ -325,6 +333,11 @@ A barra de PV (com a Fadiga hachurada e a Barreira num filete azul-aço), o Dest
 classe numa fileira de losangos logo acima da barra de PV (com um disco do estado: verde Embainhada, carmim
 Desembainhada) e o nome em versalete numa faixa na cor da disposição. Uma configuração escolhe quem vê a barra de PV: todos; todos, mas os
 jogadores só veem a de um inimigo [Identificado]; ou cada token por conta própria.
+
+Um estado posto num token aparece sobre ele num medalhão (com anel carmim nos estados ruins, dourado nos de combate e
+verde nos outros), dá uma volta e encolhe até o lugar dele entre os ícones do token, onde o ícone aparece quando ele
+pousa; um estado tirado sai do lugar girando e some. É no lugar do texto com o nome que o Foundry mostrava; a
+configuração **Animação dos estados nos tokens** (de cada jogador) traz o texto de volta.
 
 ## O HUD de ações
 

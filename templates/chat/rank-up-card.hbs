@@ -1,0 +1,48 @@
+{{!-- A Character Rank change in the chat (module/apps/rank-up.mjs): the portrait and the name on a band in the class's
+     colour, the CR from and to in a seal, the Base Stats that move (with the modifiers that change), a row for the HP,
+     the picks and what unlocks, and the class's grants at the ranks crossed, each with its CR. --}}
+<div class="eternia-rank-card{{#unless up}} down{{/unless}}" style="--rk-color: {{color}}" aria-label="{{label}}">
+	<header class="rk-head">
+		<img src="{{img}}" alt="">
+		<div class="rk-title">
+			<small><i class="fa-solid fa-angles-{{#if up}}up{{else}}down{{/if}}"></i>{{eyebrow}}</small>
+			<h3>{{title}}</h3>
+		</div>
+		<div class="rk-seal" aria-label="{{crLabel}} {{from}} → {{to}}">
+			<small>{{crLabel}}</small>
+			<span><em>{{from}}</em><i class="fa-solid fa-caret-right"></i><b>{{to}}</b></span>
+		</div>
+	</header>
+	<div class="rk-stats">
+		{{#each stats}}
+		<div class="rk-stat">
+			<small>{{label}}</small>
+			<span><em>{{before}}</em><i class="fa-solid fa-arrow-right-long"></i><b>{{after}}</b></span>
+			{{#if mod}}<i class="rk-mod">{{mod}}</i>{{/if}}
+		</div>
+		{{/each}}
+	</div>
+	<ul class="rk-rows">
+		{{#each rows}}
+		<li class="rk-row {{tone}}">
+			<span class="rk-icon"><i class="{{icon}}"></i></span>
+			<span class="rk-text">
+				{{#if label}}<small>{{label}}</small>{{/if}}
+				{{#if value}}<span>{{value}}</span>{{else}}<span><em>{{from}}</em> → <b>{{to}}</b>{{#if note}} <i>{{note}}</i>{{/if}}</span>{{/if}}
+			</span>
+		</li>
+		{{/each}}
+	</ul>
+	{{#if road.length}}
+	<h4 class="rk-road-title"><span>{{roadLabel}}</span></h4>
+	<ol class="rk-road">
+		{{#each road}}
+		<li>
+			<span class="rk-rank"><small>{{../crLabel}}</small>{{rank}}</span>
+			<i class="rk-road-icon {{icon}}"></i>
+			<span class="rk-road-text">{{text}}</span>
+		</li>
+		{{/each}}
+	</ol>
+	{{/if}}
+</div>
