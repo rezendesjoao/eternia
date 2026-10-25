@@ -14,7 +14,10 @@
  *                   Connection;
  * - named-template.mjs, named.mjs  the named beast: the template (without Foundry) and the monster sheet's crown;
  * - spawn.mjs       bringing monsters next to a token, in its combat, leaving no drops;
- * - rifts.mjs       the Rifts: scene hazards with a clock of writings and a wave each Setup.
+ * - rifts.mjs       the Rifts: scene hazards with a clock of writings and a wave each Setup;
+ * - rampage.mjs, rush.mjs, surprise.mjs, throw.mjs  the bloodlust (an action at once for each creature it fells), the
+ *                   rush at a foe (a use action), the surprise blow (more dice against whoever hasn't acted) and the
+ *                   throw (a body thrown at a creature, which takes the impact).
  * The API for macros is `game.eternia.bestiary`.
  */
 import { convertTable, dropRows, parseDropTable, rollDrops, undoDrop, registerDrops } from "./drops.mjs";
@@ -24,6 +27,9 @@ import { spawnNear } from "./spawn.mjs";
 import { canBeSaved, registerSave, trySave } from "./save.mjs";
 import { nameMonster } from "./named.mjs";
 import { MARKS, nameBeast } from "./named-template.mjs";
+import { registerRampage } from "./rampage.mjs";
+import { registerRush } from "./rush.mjs";
+import { registerThrow, throwCreature } from "./throw.mjs";
 
 /** Call during the `init` hook. */
 export function registerBestiary() {
@@ -31,6 +37,9 @@ export function registerBestiary() {
   registerMonsterRules();
   registerRifts();
   registerSave();
+  registerRampage();
+  registerRush();
+  registerThrow();
   game.eternia.bestiary = {
     rollDrops,
     undoDrop,
@@ -45,6 +54,7 @@ export function registerBestiary() {
     canBeSaved,
     nameMonster,
     nameBeast,
-    marks: MARKS
+    marks: MARKS,
+    throwCreature
   };
 }

@@ -1,0 +1,941 @@
+{
+  "name": "Ogro de Cabeça de Lobo",
+  "type": "monster",
+  "img": "icons/creatures/mammals/wolf-howl-moon-black.webp",
+  "system": {
+    "health": {
+      "value": 190,
+      "max": 190,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Humanoid",
+      "Ogre"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 15,
+        "magic": 11
+      },
+      "speed": 2,
+      "initiative": 5
+    },
+    "rank": 6,
+    "idendification": "8",
+    "hateMultiplier": "3",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>Um ogro das Pradarias do sudeste do Território Negro: cabeça de lobo com uma juba grossa de pelo azul-acinzentado que cobre a cabeça, o pescoço e os ombros como uma capa, olhos amarelos, um corpo de homem enorme e musculoso, de pele cinza-clara, e pernas dobradas como as de uma fera. A fala dele vira rosnado. Usa braceletes de ouro nos braços e uma faixa listrada na cintura, e carrega um machado de pedra-negra e um arco do tamanho de um homem. Os ogros dizem que o forte carrega a própria força; os que cruzam a serra vêm à frente de bandos de orcs e gnolls.</p><p><b>Na mesa:</b> chefe de grupo de NP 6, com dois a quatro orcs ou gnolls. Arremessar agarra um personagem engajado e o joga até 4 Qd: quando o dano é aplicado, o Mestre escolhe numa janela contra quem (a criatura atingida sofre o mesmo dano, sem Teste de Esquiva) ou para que lado em linha reta (a primeira criatura no caminho sofre o impacto), e os dois ficam [Derrubado]. O Uivo de Guerra deixa ele e os aliados a até 3 Qd [Fortalecido: 5], e os inimigos a até 3 Qd rolam Resistência contra o [Medo] dele (Recarga). Não se aglomerem perto dele: espalhados, ninguém vira projétil de ninguém.</p>"
+  },
+  "prototypeToken": {
+    "name": "Ogro de Cabeça de Lobo",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/mammals/wolf-howl-moon-black.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Machado de Pedra-Negra",
+      "type": "skill",
+      "img": "icons/weapons/axes/axe-battle-broad-stone.webp",
+      "system": {
+        "description": "<p>[2d6 + 30] de dano físico.</p><p>(Menor): +5 de dano.</p><p>[Destino 1]: o golpe acerta todos os personagens engajados com este inimigo.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 6,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 30,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "jHXuFufUNzBCEP4V",
+      "_key": "!actors.items!1aY73soRUhsEldmF.jHXuFufUNzBCEP4V"
+    },
+    {
+      "name": "Arremessar",
+      "type": "skill",
+      "img": "icons/magic/control/silhouette-fall-slip-prone.webp",
+      "system": {
+        "description": "<p>Agarra um personagem engajado com ele e o arremessa: [2d6 + 24] de dano físico, e o alvo fica [Derrubado].</p><p>Quando o dano é aplicado, o Mestre escolhe numa janela para onde ele vai, até 4 Qd: contra outra criatura (ela sofre o mesmo dano, sem Teste de Esquiva, e também fica [Derrubado]) ou em linha reta (a primeira criatura no caminho para o voo e sofre o impacto).</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 6,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 24,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "throw",
+            "squares": 4
+          },
+          "hitStatuses": [
+            {
+              "statusId": "prone"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "7UPIjywZT2aJ7CeI",
+      "_key": "!actors.items!1aY73soRUhsEldmF.7UPIjywZT2aJ7CeI"
+    },
+    {
+      "name": "Arco das Pradarias",
+      "type": "skill",
+      "img": "icons/weapons/bows/longbow-recurve-leather-brown.webp",
+      "system": {
+        "description": "<p>Um arco do tamanho de um homem, de chifre e tendão: [2d6 + 24] de dano físico.</p>",
+        "tags": [
+          "Ranged Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 6,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 24,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "FfwYQHNfsOY7HC55",
+      "_key": "!actors.items!1aY73soRUhsEldmF.FfwYQHNfsOY7HC55"
+    },
+    {
+      "name": "Uivo de Guerra",
+      "type": "skill",
+      "img": "icons/creatures/abilities/wolf-howl-moon-purple.webp",
+      "system": {
+        "description": "<p>O ogro uiva para o céu: ele e os aliados a até 3 Qd ficam [Fortalecido: 5] até o fim da cena. Os inimigos a até 3 Qd (os alvos) rolam Resistência contra o uivo, e quem falha fica com [Medo] dele (aplique os efeitos nos que falharam).</p><p>Recarga: depois de usado, só volta com 5 ou 6 no 1d6 de uma Manutenção.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 6,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "onUse": true,
+              "recipients": "self",
+              "realm": {
+                "radius": 3,
+                "allies": [
+                  {
+                    "statusId": "empowered",
+                    "value": 5
+                  }
+                ]
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Uivo de Guerra: o bando",
+          "img": "icons/creatures/abilities/wolf-howl-moon-purple.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "ICJULmcOVe5yYNbT",
+          "_key": "!actors.items.effects!1aY73soRUhsEldmF.GZebmKdPadGwGWnm.ICJULmcOVe5yYNbT"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "frightened"
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Uivo de Guerra: o medo",
+          "img": "icons/creatures/abilities/wolf-howl-moon-purple.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "frightened"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "ifBuku6TvZdlS5U4",
+          "_key": "!actors.items.effects!1aY73soRUhsEldmF.GZebmKdPadGwGWnm.ifBuku6TvZdlS5U4"
+        }
+      ],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "recharge",
+            "min": 5
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "GZebmKdPadGwGWnm",
+      "_key": "!actors.items!1aY73soRUhsEldmF.GZebmKdPadGwGWnm"
+    },
+    {
+      "name": "A Própria Força",
+      "type": "skill",
+      "img": "icons/magic/control/buff-strength-muscle-damage-orange.webp",
+      "system": {
+        "description": "<p>No Encerramento, este inimigo se livra de um Estado Negativo: o forte carrega a própria força.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "cleanse",
+            "count": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "TtKgBHUmSnJEQYGg",
+      "_key": "!actors.items!1aY73soRUhsEldmF.TtKgBHUmSnJEQYGg"
+    },
+    {
+      "name": "Ouro",
+      "type": "gear",
+      "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
+      "system": {
+        "description": "",
+        "tags": [],
+        "rank": 1,
+        "price": 0,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1,
+            "gold": "2d6*5"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "leflkKQZtWFTfVNU",
+      "sort": 600000,
+      "_key": "!actors.items!1aY73soRUhsEldmF.leflkKQZtWFTfVNU"
+    },
+    {
+      "name": "Braceletes das Pradarias",
+      "type": "gear",
+      "img": "icons/equipment/wrist/bracer-yellow-fancy.webp",
+      "system": {
+        "description": "<p>Dois braceletes de ouro batido, lisos e gastos, que o ogro usava nos braços. Nas Pradarias, ouro no braço é sinal de quem carrega a própria força.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 200,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 2,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "SgPj6cG0WP5REVWH",
+      "sort": 700000,
+      "_key": "!actors.items!1aY73soRUhsEldmF.SgPj6cG0WP5REVWH"
+    },
+    {
+      "name": "Anima da Cicatriz",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-faceted-round-black.webp",
+      "system": {
+        "description": "<p>Anima-mundi das crateras do Território Negro, escuro e pesado, sem o Selo do Anima. Serve de Anima-mundi 6 na Oficina; o Ofício quer saber de onde veio.</p>",
+        "tags": [
+          "Magic Catalyst 6"
+        ],
+        "rank": 6,
+        "price": 50,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 3,
+            "max": 4,
+            "qty": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "tgiDl1Pil3UBIiW1",
+      "sort": 800000,
+      "_key": "!actors.items!1aY73soRUhsEldmF.tgiDl1Pil3UBIiW1"
+    },
+    {
+      "name": "Machado de Pedra-Negra",
+      "type": "gear",
+      "img": "icons/weapons/axes/axe-battle-broad-stone.webp",
+      "system": {
+        "description": "<p>O machado de duas mãos do ogro, de cabo de osso e lâmina de pedra-negra lascada. Um homem precisa das duas mãos e das costas para erguê-lo.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 280,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 5,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "lPe1GruRzMQPfEEn",
+      "sort": 900000,
+      "_key": "!actors.items!1aY73soRUhsEldmF.lPe1GruRzMQPfEEn"
+    },
+    {
+      "name": "Faixa de Guerra Listrada",
+      "type": "gear",
+      "img": "icons/commodities/cloth/cloth-patterned-pink.webp",
+      "system": {
+        "description": "<p>A faixa listrada de rosa, azul e branco que o ogro amarrava na cintura: nas Pradarias, cada listra é uma batalha. Um nobre de Centória pagaria caro pela curiosidade; um ogro mataria para tê-la de volta.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 320,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "QrDYK2uPy6tQTHCy",
+      "sort": 1000000,
+      "_key": "!actors.items!1aY73soRUhsEldmF.QrDYK2uPy6tQTHCy"
+    },
+    {
+      "name": "Anima-mundi 7",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 7 gasta uma Anima-mundi 7 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 7"
+        ],
+        "rank": 7,
+        "price": 60,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 216
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.d5yyxHM5IbqD55X5",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "3WpnVQNm9ywJzBiO",
+      "sort": 1100000,
+      "_key": "!actors.items!1aY73soRUhsEldmF.3WpnVQNm9ywJzBiO"
+    },
+    {
+      "name": "Juba do Ogro",
+      "type": "gear",
+      "img": "icons/commodities/leather/fur-blue.webp",
+      "system": {
+        "description": "<p>A juba de pelo azul-acinzentado do pescoço do ogro, grossa como um tapete. Um [Material-Base] de NP 6.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 6,
+        "price": 120,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "o12cKdZIn2tiGsFo",
+      "sort": 1200000,
+      "_key": "!actors.items!1aY73soRUhsEldmF.o12cKdZIn2tiGsFo"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 800000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "1aY73soRUhsEldmF",
+  "folder": "rkjPFwoLJh5QL71o",
+  "_key": "!actors!1aY73soRUhsEldmF"
+}

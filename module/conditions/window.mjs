@@ -17,7 +17,7 @@ import { actorName, postSummary, toInt } from "../helpers/utils.mjs";
 const ACTIONS = ["major", "minor", "move"];
 
 /** The moment of a combat a window belongs to: its round and how many Main Processes ended in it. */
-const keyOf = combat => `${combat.id}.${combat.round}.${combat.progress?.acted?.length ?? 0}`;
+export const keyOf = combat => `${combat.id}.${combat.round}.${combat.progress?.acted?.length ?? 0}`;
 
 /**
  * The window an actor has open now in a combat, or null.

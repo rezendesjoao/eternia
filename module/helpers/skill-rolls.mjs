@@ -4,6 +4,7 @@ import { evaluateFormula, formulaData, formulaLabel, isFormula } from "./effect-
 import { rollBonuses, rollBonusesLabel } from "./roll-bonuses.mjs";
 import { applyModifier, checkModifier, consumeAfterRoll, damageModifier } from "../conditions/rolls.mjs";
 import { motorAutoHit, motorRollBonuses } from "../classes/motor.mjs";
+import { surpriseBonuses } from "../bestiary/surprise.mjs";
 
 /**
  * Skill Check and Damage, set directly on the skill sheet:
@@ -297,9 +298,12 @@ export async function rollSkill(item, which, { targets } = {}) {
   if (values.formula) mod += evaluateFormula(values.formula, data) ?? 0;
   // Bonuses of the roller's effects to this skill's rolls (White Robe Style -> «Reactive Heal»…)
   const attackMessage = (which === "damage") ? findAttackMessage(item) : null;
-  const bonuses = rollBonuses(actor, item, which, { targets: rollTargets(attackMessage, targets) });
+  const against = rollTargets(attackMessage, targets);
+  const bonuses = rollBonuses(actor, item, which, { targets: against });
   // Bonuses of the roller's class Motor (the Samurai's Echo of Steel)
   bonuses.push(...motorRollBonuses(actor ?? item.actor, item, which));
+  // A monster's surprise blow, against whoever hasn't acted yet this round (bestiary/surprise.mjs)
+  bonuses.push(...surpriseBonuses(actor ?? item.actor, item, which, against));
   for (const bonus of bonuses) {
     dice += bonus.dice;
     mod += bonus.mod;

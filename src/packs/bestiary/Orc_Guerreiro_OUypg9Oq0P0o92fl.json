@@ -1,0 +1,568 @@
+{
+  "name": "Orc Guerreiro",
+  "type": "monster",
+  "img": "icons/creatures/mammals/livestock-pig-green.webp",
+  "system": {
+    "health": {
+      "value": 70,
+      "max": 70,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Humanoid",
+      "Orc"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 10,
+        "magic": 6
+      },
+      "speed": 2,
+      "initiative": 3
+    },
+    "rank": 3,
+    "idendification": "7",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 2
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Um orc dos Lagos e Pântanos do sudoeste do Território Negro: cabeça de porco num corpo de homem largo e forte, presas curtas, orelhas de porco furadas de argolas, cabelo claro trançado e uns olhos muito expressivos, que não combinam com a cara. Usa uma capa de capuz verde-escura e um colar de caveirinhas, e luta com um cutelo de ferro preto. Odeia quem zomba da feiura dele, e o que todo orc quer é ser tratado como gente: muitos cruzam a serra como mercenários, e lutam como quem tem algo a provar.</p><p><b>Na mesa:</b> padrão de NP 3, a linha de frente da fronteira. Agressivo: uma vez por rodada, no turno dele, corre até a Velocidade na direção de um inimigo e fica engajado com ele, sem gastar ação (a habilidade move o token). Ninguém fica longe dele por muito tempo, e quem recua para a retaguarda o traz junto. A Persistência o deixa de pé com 1 PV uma vez por cena: conte com dois golpes para derrubá-lo, ou prenda-o ([Enraizado], [Agarrado]) para que ele não avance.</p>"
+  },
+  "prototypeToken": {
+    "name": "Orc Guerreiro",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/mammals/livestock-pig-green.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Cutelo do Pântano",
+      "type": "skill",
+      "img": "icons/weapons/axes/cleaver-black.webp",
+      "system": {
+        "description": "<p>[2d6 + 19] de dano físico.</p><p>(Menor): +5 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 19,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "oK7tfgnEc8zheJEb",
+      "_key": "!actors.items!OUypg9Oq0P0o92fl.oK7tfgnEc8zheJEb"
+    },
+    {
+      "name": "Agressivo",
+      "type": "skill",
+      "img": "icons/skills/movement/feet-bladed-boots-fire.webp",
+      "system": {
+        "description": "<p>Uma vez por rodada, no seu turno, este inimigo corre até a Velocidade dele (2 Qd) na direção de um inimigo (o alvo), até ficar engajado com ele, sem gastar ação.</p><p>Não corre se algo o prende ([Rigidez], [Enraizado], [Agarrado]…) nem na direção de quem lhe dá [Medo].</p>",
+        "tags": [],
+        "timing": "Instant",
+        "checkType": "",
+        "range": "-",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "rush"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Ky0BfXRpTrbv6IGM",
+      "_key": "!actors.items!OUypg9Oq0P0o92fl.Ky0BfXRpTrbv6IGM"
+    },
+    {
+      "name": "Persistência",
+      "type": "skill",
+      "img": "icons/skills/wounds/injury-stitched-flesh-red.webp",
+      "system": {
+        "description": "<p>Uma vez por cena, quando o dano deixaria este inimigo com 0 PV, ele fica com 1 PV e continua de pé.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "revive": {
+                "uses": 1,
+                "per": "scene",
+                "hp": 1
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Persistência",
+          "img": "icons/skills/wounds/injury-stitched-flesh-red.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "zPHFBWcQa26Lk7pQ",
+          "_key": "!actors.items.effects!OUypg9Oq0P0o92fl.K8PBZThJPdePAtkJ.zPHFBWcQa26Lk7pQ"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "K8PBZThJPdePAtkJ",
+      "_key": "!actors.items!OUypg9Oq0P0o92fl.K8PBZThJPdePAtkJ"
+    },
+    {
+      "name": "Presa de Orc",
+      "type": "gear",
+      "img": "icons/commodities/bones/tooth-spiked-brown.webp",
+      "system": {
+        "description": "<p>Uma presa curta e amarelada, arrancada da boca de um orc. Os curiosos do Império a compram para provar que viram um; os orcs a querem de volta.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 3,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "9nup0xyuda4ojiK6",
+      "sort": 400000,
+      "_key": "!actors.items!OUypg9Oq0P0o92fl.9nup0xyuda4ojiK6"
+    },
+    {
+      "name": "Colar de Caveiras",
+      "type": "gear",
+      "img": "icons/equipment/neck/necklace-simple-bone-skull.webp",
+      "system": {
+        "description": "<p>Três caveirinhas de bicho do pântano num cordão. O orc as carregava para lembrar de quem o chamou de feio e não está mais aqui.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 3,
+        "price": 35,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "VZv9CHx29hKyfN4z",
+      "sort": 500000,
+      "_key": "!actors.items!OUypg9Oq0P0o92fl.VZv9CHx29hKyfN4z"
+    },
+    {
+      "name": "Cutelo do Pântano",
+      "type": "gear",
+      "img": "icons/weapons/axes/cleaver-black.webp",
+      "system": {
+        "description": "<p>Um cutelo largo de ferro preto, pesado demais para um homem usar com uma mão só. Os ferreiros de Centória o derretem pelo ferro.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 3,
+        "price": 70,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "wBruV5gDGtTIXM2O",
+      "sort": 600000,
+      "_key": "!actors.items!OUypg9Oq0P0o92fl.wBruV5gDGtTIXM2O"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "OUypg9Oq0P0o92fl",
+  "folder": "nOCT1FwbTpBWjiiE",
+  "_key": "!actors!OUypg9Oq0P0o92fl"
+}

@@ -1,0 +1,522 @@
+{
+  "name": "Gnoll Saqueador",
+  "type": "monster",
+  "img": "icons/creatures/mammals/humanoid-cat-skulking-teal.webp",
+  "system": {
+    "health": {
+      "value": 42,
+      "max": 42,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Humanoid",
+      "Gnoll",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 8,
+        "magic": 6
+      },
+      "speed": 2,
+      "initiative": 4
+    },
+    "rank": 2,
+    "idendification": "8",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Um homem-hiena magro e alto, de pelo amarelo-sujo malhado de marrom, com uma crina eriçada do alto da cabeça até o meio das costas, focinho comprido cheio de dentes e uma risada que não para, nem quando apanha. Os gnolls são um dos povos Indomados que o Tratado deixou de fora: sem assento no Conselho e sem terra, vivem do que saqueiam nas bordas do Território Negro e, nos anos ruins, cruzam a serra pela Passagem do Oeste atrás das vilas de fronteira. Correm em bando, e o cheiro de sangue os deixa piores: cada um que cai é a deixa para correr até o próximo.</p><p><b>Na mesa:</b> padrão de NP 2, em bandos de três a seis nas estradas da fronteira. A Fúria Sanguinária é a bola de neve: quando o dano dele deixa alguém com 0 PV, ele ganha na hora uma Ação Menor (o chat avisa), corre até 2 Qd e morde outro alvo, e cada um que ele derruba dá mais uma. Não deixe ninguém cair perto de um gnoll: cure antes, ou derrube-o primeiro.</p>"
+  },
+  "prototypeToken": {
+    "name": "Gnoll Saqueador",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/mammals/humanoid-cat-skulking-teal.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Lança Serrilhada",
+      "type": "skill",
+      "img": "icons/weapons/polearms/spear-barbed-silver.webp",
+      "system": {
+        "description": "<p>[2d6 + 28] de dano físico.</p><p>(Menor): +4 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 28,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "WenW1l7GEsVXYJaV",
+      "_key": "!actors.items!F1U2cszfWakmVoII.WenW1l7GEsVXYJaV"
+    },
+    {
+      "name": "Fúria Sanguinária",
+      "type": "skill",
+      "img": "icons/creatures/abilities/fang-tooth-blood-red.webp",
+      "system": {
+        "description": "<p>Quando o dano deste inimigo deixa uma criatura com 0 PV, ele ganha na hora uma Ação Menor, até o fim do turno em curso (o chat avisa); cada criatura que ele derruba dá mais uma.</p><p>Só com essa ação ele usa esta habilidade: corre até 2 Qd até o alvo e morde, [2d6 + 20] de dano físico.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 20,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "rampage"
+          },
+          "useActions": [
+            {
+              "type": "rush",
+              "value": 2,
+              "onUse": true
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "C7ix5pXcVfXE6x5s",
+      "_key": "!actors.items!F1U2cszfWakmVoII.C7ix5pXcVfXE6x5s"
+    },
+    {
+      "name": "Ouro",
+      "type": "gear",
+      "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
+      "system": {
+        "description": "",
+        "tags": [],
+        "rank": 1,
+        "price": 0,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1,
+            "gold": "2d6"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "C1fmWw8t1RJ0BZ4V",
+      "sort": 300000,
+      "_key": "!actors.items!F1U2cszfWakmVoII.C1fmWw8t1RJ0BZ4V"
+    },
+    {
+      "name": "Colar de Dentes",
+      "type": "gear",
+      "img": "icons/equipment/neck/necklace-simple-teeth.webp",
+      "system": {
+        "description": "<p>Dentes de gente e de bicho num cordão de couro: o gnoll guarda um de cada um que derrubou. Os caçadores de recompensa da guilda pagam por ele como prova.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 2,
+        "price": 15,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "6CDSk1enNPzMYLzD",
+      "sort": 400000,
+      "_key": "!actors.items!F1U2cszfWakmVoII.6CDSk1enNPzMYLzD"
+    },
+    {
+      "name": "Saque das Vilas de Borda",
+      "type": "gear",
+      "img": "icons/containers/bags/sack-cloth-patched-gray.webp",
+      "system": {
+        "description": "<p>Um saco com o que o bando levou de uma vila da fronteira: talheres, um sino de cabra, uma imagem da Igreja. A guilda devolve o que tem dono e paga o resto.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 2,
+        "price": 25,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "6TSeS4ZgrWlhdHhk",
+      "sort": 500000,
+      "_key": "!actors.items!F1U2cszfWakmVoII.6TSeS4ZgrWlhdHhk"
+    },
+    {
+      "name": "Lança Serrilhada",
+      "type": "gear",
+      "img": "icons/weapons/polearms/spear-barbed-silver.webp",
+      "system": {
+        "description": "<p>A lança do gnoll, com a ponta de ferro serrilhada à mão. Os ferreiros a compram pelo ferro; os colecionadores, pela história.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 2,
+        "price": 40,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "dqIt5In6cdFbH2ed",
+      "sort": 600000,
+      "_key": "!actors.items!F1U2cszfWakmVoII.dqIt5In6cdFbH2ed"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "F1U2cszfWakmVoII",
+  "folder": "AkcsXT1tICuoFTMn",
+  "_key": "!actors!F1U2cszfWakmVoII"
+}
