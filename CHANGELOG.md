@@ -1,6 +1,6 @@
 # Changelog
 
-## Não lançado
+## 0.34.0 — 2026-10-25
 
 ### Adicionado
 - **Os itens deixados automáticos** (`module/bestiary/`). A tabela de itens deixados de cada monstro virou dado: cada

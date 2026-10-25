@@ -1,6 +1,6 @@
 /**
- * What's new: once per user and release line, a short window with the news of this version (0.33: the race tab of the
- * sheet; 0.32: the six races of the world, the five stages of the form and the world compendium; 0.31: the new
+ * What's new: once per user and release line, a short window with the news of this version (0.34: the Empire's
+ * bestiary, the automatic drops and the named beast; 0.33: the race tab of the sheet; 0.32: the six races of the world, the five stages of the form and the world compendium; 0.31: the new
  * Biography tab, the tokens ready to play, the automatic dodge and the creation wizard redone; 0.30: the starting gear
  * and the suggested attributes of the creation wizard; 0.29: the new character sheet, the creation wizard and the
  * windows that open at once; 0.28: twenty Magias of the high categories and eleven new conditions; 0.27: four Magias of
@@ -20,7 +20,7 @@
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 
 /** The release line the notice speaks about. */
-const NOTICE = "0.33";
+const NOTICE = "0.34";
 
 /** Call during the `init` hook. */
 export function registerNotice() {

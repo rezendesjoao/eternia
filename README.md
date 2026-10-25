@@ -5,9 +5,14 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.33.0
+## Versão 0.34.0
 
-- **Novo na 0.33.0: a aba Raça na ficha.** Os cinco estágios da forma da raça do personagem numa trilha, cada um com o
+- **Novo na 0.34.0: o bestiário do Império e os itens deixados automáticos.** Quando um monstro cai, o 1d6 dos itens
+  deixados rola sozinho e quem o derrubou leva os itens e o ouro, com um cartão no chat e o Desfazer do Mestre; a ficha de
+  monstro ganhou a aba **Itens Deixados**. Os primeiros monstros do Império chegam com regras próprias automatizadas (os
+  kobolds das galerias, as feras do Peso, os contrabandistas e a Fenda Pequena), e a coroa **Dar Nome** faz de qualquer
+  fera uma fera com nome (veja [O bestiário](#o-bestiário)).
+- **Desde a 0.33.0: a aba Raça na ficha.** Os cinco estágios da forma da raça do personagem numa trilha, cada um com o
   que muda no corpo, o rito, o que o mundo vê e o que ele dá; o estágio que já pode despertar brilha e tem o botão
   **Evoluir**, e a aba ganha um número (veja [A ficha de personagem](#a-ficha-de-personagem)).
 - **Desde a 0.32.0: as seis raças do mundo, a evolução da forma e O Mundo de Eternia.** Humanos, Elfos, Dracônicos,
