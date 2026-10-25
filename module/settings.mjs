@@ -61,6 +61,8 @@ export function registerSettings() {
   mode("conditionLimits", "warn");
   // Cards and chat
   toggle("cards");
+  // The characters roll their Dodge Check when the attack is declared, like the monsters (helpers/combat-cards.mjs)
+  toggle("autoDodge");
   toggle("fate");
   toggle("statusLinks");
   toggle("quickEffect");
@@ -112,6 +114,16 @@ export function registerSettings() {
       core: "ETERNIA.Settings.tokenBars.core"
     },
     default: "always",
+    onChange: tokens
+  });
+  // Out of combat the HP bar and the Motor hide (they show on the tokens in the combat)
+  game.settings.register(SYSTEM_ID, "tokenBarsCombat", {
+    name: "ETERNIA.Settings.tokenBarsCombat.Name",
+    hint: "ETERNIA.Settings.tokenBarsCombat.Hint",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
     onChange: tokens
   });
   // Each player's: a status flies into its place on the token instead of core's text (canvas/status-animation.mjs)

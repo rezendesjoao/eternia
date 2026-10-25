@@ -2,8 +2,10 @@
  * Combat chat cards (Rules v0.3, IV.c. ATTACKS).
  *
  * Attack card: a skill Check rolled with targets becomes an opposed [Hit Check] against each
- * target's [Dodge Check] (Evasion / Resistance). Monsters dodge automatically; characters dodge
- * from the card (their owner clicks "Dodge"). Ties, and Critical vs Critical, go to the Defender.
+ * target's [Dodge Check] (Evasion / Resistance). Monsters and characters dodge automatically, when the attack is
+ * declared; with the setting "autoDodge" off, characters dodge from the card (their owner clicks "Dodge"). Ties, and
+ * Critical vs Critical, go to the Defender. What a Dodge Check uses up ([Focused]…) ends on the GM's side when whoever
+ * rolled it doesn't own the target.
  *
  * Damage card: the skill's Damage Roll, with one row per target hit. Whoever owns a target applies
  * the damage to it: Physical/Magic Defense by type, [Cancel], then [Barrier], then HP. If the target
@@ -39,6 +41,7 @@ import { cursedByDecree } from "../conditions/decree.mjs";
 import { lastingCard, lastingHitData } from "../conditions/lasting.mjs";
 import { statusDefinition } from "./statuses.mjs";
 import { tagLabel as termTag } from "../i18n/terms.mjs";
+import { setting } from "../settings.mjs";
 
 const TEMPLATES = {
   attack: "systems/eternia/templates/chat/attack-card.hbs",
@@ -62,6 +65,7 @@ const L = key => game.i18n.localize(`ETERNIA.Combat.${key}`);
 export function registerCombatCards() {
   registerHandler("combatCardUpdate", _onCardUpdateRequest);
   registerHandler("combatCardAdjust", _onCardAdjustRequest);
+  registerHandler("combatDodgeConsume", _onDodgeConsumeRequest);
   Hooks.on("renderChatMessageHTML", _onRenderChatMessage);
 }
 
@@ -157,8 +161,22 @@ async function rollDodge(actor, vs, { attacker = null, item = null } = {}) {
   const hateUnder = hateRank(actor) === "under";
   if (hateUnder) mod += 2;
   const roll = await new Roll(diceFormula({ dice, mod })).evaluate();
-  await consumeAfterRoll(actor, condition.consume);
+  // Rolled for someone else's actor (a player attacking a monster, or an ally): the GM ends what it used up
+  if (actor.isOwner) await consumeAfterRoll(actor, condition.consume);
+  else if (condition.consume?.length) await request("combatDodgeConsume", { actorUuid: actor.uuid, vs, consume: condition.consume });
   return { roll, dodge: { ...rollOutcome(roll, actor), hateUnder, conditions: condition.text } };
+}
+
+/**
+ * GM side of a Dodge Check rolled by someone who doesn't own the target: what it used up ends (only what a Dodge
+ * Check of that kind uses up on that actor).
+ */
+async function _onDodgeConsumeRequest({ actorUuid, vs, consume }) {
+  const actor = await fromUuid(actorUuid).catch(() => null);
+  if (!(actor instanceof Actor)) return { ok: false };
+  const usable = new Set(dodgeModifier(actor, { vs: (vs === "resistance") ? "resistance" : "evasion" }).consume);
+  await consumeAfterRoll(actor, (Array.isArray(consume) ? consume : []).filter(c => usable.has(c)));
+  return { ok: true };
 }
 
 /* -------------------------------------------- */
@@ -344,7 +362,8 @@ export function isAttack(item) {
 }
 
 /**
- * Roll the Hit Check (none when Automatic) and post the attack card. Monster targets dodge now.
+ * Roll the Hit Check (none when Automatic) and post the attack card. Monster targets dodge now, and character targets
+ * too (setting "autoDodge").
  * @param {Item} item
  * @param {Actor|null} attacker
  * @param {string|null} formula    Hit Check formula, null for an Automatic check
@@ -386,11 +405,12 @@ export async function createAttackCard(item, attacker, formula, flavor, { bonuse
     rolls.push(roll);
     attack = rollOutcome(roll, attacker);
   }
-  // Monsters dodge right away.
+  // Monsters dodge right away; characters too, unless their owners roll from the card (setting "autoDodge").
+  const dodgers = setting("autoDodge") === false ? ["monster"] : ["monster", "character"];
   const dodgeRolls = new Map();
   for (const entry of targets) {
     const actor = targetActor(entry);
-    if (auto || (actor?.type !== "monster")) continue;
+    if (auto || !dodgers.includes(actor?.type)) continue;
     const { roll, dodge } = await rollDodge(actor, vs, { attacker: attacker ?? item.actor, item });
     rolls.push(roll);
     dodgeRolls.set(entry, roll);
@@ -430,7 +450,7 @@ export async function createAttackCard(item, attacker, formula, flavor, { bonuse
   if (message) {
     const by = attacker ?? item.actor;
     /**
-     * A check was rolled: an attack's Hit Check, a monster's Dodge Check (the Weaver's Pattern). Only on this client.
+     * A check was rolled: an attack's Hit Check, a target's Dodge Check (the Weaver's Pattern). Only on this client.
      * @param {Actor} actor
      * @param {Roll} roll
      * @param {{item: Item|null, kind: "check"|"attack"|"dodge", message: ChatMessage, attacker?: Actor}} context
@@ -441,10 +461,14 @@ export async function createAttackCard(item, attacker, formula, flavor, { bonuse
     for (const entry of targets) {
       const actor = targetActor(entry);
       if (!actor) continue;
-      if (dodgeRolls.has(entry)) Hooks.callAll("eternia.check", actor, dodgeRolls.get(entry), { item, kind: "dodge", message, attacker: by });
+      if (dodgeRolls.has(entry)) {
+        // A character's dodge rolled here, as when its owner rolls it from the card (onRollDodge)
+        if (actor.type === "character") Hooks.callAll("eternia.dodge", message, { actor, attacker: by, item, hit: entry.hit });
+        Hooks.callAll("eternia.check", actor, dodgeRolls.get(entry), { item, kind: "dodge", message, attacker: by });
+      }
       /**
-       * An attack's result against one target is known: an automatic hit or a monster's dodge here, a character's
-       * dodge from the card. Only on this client.
+       * An attack's result against one target is known: an automatic hit or a dodge rolled here, a character's dodge
+       * from the card. Only on this client.
        * @param {ChatMessage} message
        * @param {{attacker: Actor, target: Actor, item: Item, hit: boolean}} context
        */

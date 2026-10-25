@@ -2295,12 +2295,254 @@
 }
 
 /* --------------------------------------------------------------------------
-   Biography
+   Biography: the profile (a card with who the character is, the personal data, the appearance, the personality and
+   the origins), the connections and unions, the story and the notes (templates/character/biography.hbs)
    -------------------------------------------------------------------------- */
+.lhpf .lhbio {
+  --bio-gold: #c9a24a;
+  --bio-label: #8a6a25;
+}
+.lhpf .lhbio input[type="text"],
+.lhpf .lhbio textarea {
+  width: 100%;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pf-text);
+  font: 13.5px/1.35 var(--pf-body);
+}
+.lhpf .lhbio input[type="text"] {
+  height: 24px;
+  padding: 0 2px;
+  border-bottom: 1px dotted var(--pf-divider);
+}
+.lhpf .lhbio input[type="text"]:hover { border-bottom-color: var(--pf-alt); }
+.lhpf .lhbio input[type="text"]:focus,
+.lhpf .lhbio textarea:focus {
+  outline: none;
+  border-color: var(--pf-primary-light);
+  background: rgba(255, 255, 255, 0.45);
+}
+.lhpf .lhbio input::placeholder,
+.lhpf .lhbio textarea::placeholder {
+  color: color-mix(in srgb, var(--pf-text-soft) 70%, transparent);
+  font-style: italic;
+}
+
+/* Who the character is: the portrait, the name, the epithet, what it is, the catchphrase and who plays it */
+.lhpf .lhbio-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  margin: 2px 0 4px;
+  padding: 12px 16px 12px 14px;
+  border: 1px solid #c8b79a;
+  border-radius: 10px;
+  background:
+    radial-gradient(120% 160% at 0% 50%, rgba(47, 107, 74, 0.16), transparent 60%),
+    linear-gradient(180deg, #fffaf0, #f1e5c8);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 2px 8px rgba(60, 40, 10, 0.15);
+}
+.lhpf .lhbio-portrait {
+  width: 88px;
+  height: 88px;
+  margin: 2px;
+  border-radius: 50%;
+  background: #2a2a24;
+  box-shadow: 0 0 0 2px #fbf4df, 0 0 0 3px var(--bio-gold), 0 3px 8px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+.lhpf .lhbio-portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  object-fit: cover;
+  object-position: center top;
+  cursor: pointer;
+}
+.lhpf .lhbio-who { display: grid; gap: 1px; min-width: 0; }
+.lhpf .lhbio-who h2 {
+  margin: 0;
+  overflow: hidden;
+  color: var(--pf-primary-dark);
+  font: 600 22px/1.15 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .lhbio input.lhbio-epithet {
+  height: 22px;
+  border-bottom-color: transparent;
+  color: var(--pf-alt-dark);
+  font: italic 14px/1.2 var(--pf-body);
+}
+.lhpf .lhbio-identity {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 2px 0 3px;
+  color: var(--pf-text-soft);
+  font: 600 10px/1.4 var(--pf-sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.lhpf .lhbio-identity span + span::before {
+  content: "·";
+  margin: 0 7px;
+  color: var(--bio-gold);
+}
+.lhpf .lhbio-quote {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.lhpf .lhbio-quote i { color: var(--bio-gold); font-size: 11px; }
+.lhpf .lhbio .lhbio-quote input {
+  height: 22px;
+  border-bottom-color: transparent;
+  color: var(--pf-primary-dark);
+  font: italic 13.5px/1.2 var(--pf-body);
+}
+.lhpf .lhbio input.lhbio-epithet:hover,
+.lhpf .lhbio .lhbio-quote input:hover { border-bottom-color: var(--pf-divider); }
+.lhpf .lhbio-player {
+  position: absolute;
+  top: 9px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 40%;
+  padding: 2px 8px;
+  border: 1px solid rgba(149, 109, 88, 0.35);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  color: var(--pf-alt-dark);
+  font: 500 11px/1.4 var(--pf-sans);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lhpf .lhbio-player i { color: var(--bio-label); font-size: 9px; }
+
+/* The personal data: label over the field, four to a row */
+.lhpf .lhbio-data {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 6px 14px;
+}
+.lhpf .lhbio-field { display: grid; gap: 0; min-width: 0; }
+.lhpf .lhbio-field > span,
+.lhpf .lhbio-trait > span {
+  color: var(--bio-label);
+  font: 700 9.5px/1.3 var(--pf-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* The appearance */
+.lhpf .lhbio textarea.lhbio-appearance {
+  display: block;
+  min-height: 62px;
+  padding: 6px 9px;
+  border: 1px solid var(--pf-divider);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  line-height: 1.5;
+  resize: vertical;
+}
+
+/* The personality: an icon, the label and the field, two to a row */
+.lhpf .lhbio-traits {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 5px 16px;
+}
+.lhpf .lhbio-trait {
+  display: grid;
+  grid-template-columns: 22px 84px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+.lhpf .lhbio-trait > i {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, var(--pf-primary-light), var(--pf-primary-dark));
+  box-shadow: 0 0 0 1px #fbf4df, 0 0 0 2px var(--bio-gold);
+  color: #f2db94;
+  font-size: 10px;
+}
+
+/* The origins: what the race, the class, the profession and the Magias say of whoever has them */
+.lhpf .lhbio-origins {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lhpf .lhbio-origin {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+  padding: 7px 10px 8px 8px;
+  border: 1px solid #c8b79a;
+  border-left: 3px solid var(--opt-color);
+  border-radius: 8px;
+  background:
+    radial-gradient(90% 130% at 0% 0%, color-mix(in srgb, var(--opt-color) 10%, transparent), transparent 70%),
+    linear-gradient(180deg, rgba(255, 252, 243, 0.9), rgba(241, 229, 200, 0.75));
+}
+.lhpf .lhbio-origin-art {
+  display: block;
+  width: 38px;
+  height: 38px;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--opt-color) 80%, #000), 0 0 0 3px rgba(255, 250, 235, 0.9), 0 0 0 4px color-mix(in srgb, var(--opt-color) 55%, #c9a24a);
+  overflow: hidden;
+}
+.lhpf .lhbio-origin-art img { width: 100%; height: 100%; border: none; object-fit: cover; }
+.lhpf .lhbio-origin-art.emblem { border-radius: 0; background: none; box-shadow: none; overflow: visible; }
+.lhpf .lhbio-origin-art.emblem img { object-fit: contain; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35)); }
+.lhpf .lhbio-origin-body { display: grid; gap: 1px; min-width: 0; }
+.lhpf .lhbio-origin-body .lhpf-option-label { color: color-mix(in srgb, var(--opt-color) 80%, #000); font-size: 8.5px; }
+.lhpf .lhbio-origin-body b { color: var(--pf-primary-dark); font: 600 15px/1.2 var(--pf-serif); }
+.lhpf .lhbio-tagline { color: var(--pf-alt-dark); font: 600 11.5px/1.35 var(--pf-sans); }
+.lhpf .lhbio-origin-body p {
+  margin: 3px 0 0;
+  color: var(--pf-text-soft);
+  font: italic 12.5px/1.45 var(--pf-body);
+}
+
+/* The connections and unions: what each list is for */
+.lhpf .lhbio-ties { margin-bottom: 4px; }
+.lhpf .lhbio-ties + .lhbio-ties > .action-header { margin-top: 14px; }
+.lhpf .lhbio-ties > .action-header h3 { flex: 0 0 auto; }
+.lhpf .lhbio-ties > .action-header .hint {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: rgba(245, 240, 228, 0.75);
+  font: italic 12px/1 var(--pf-body);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The story and the notes */
 .lhpf prose-mirror.lhpf-bio {
   position: relative;
   display: block;
-  min-height: 100%;
+  min-height: calc(100% - 40px);
   color: var(--pf-text);
   font: 400 14px/1.55 var(--pf-body);
 }

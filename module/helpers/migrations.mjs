@@ -18,6 +18,7 @@ import { HANDS_MIGRATION } from "./hands.mjs";
 import { EFFECTS_MIGRATION } from "./effect-targets.mjs";
 import { ON_USE_SKILLS_MIGRATION } from "./sustained.mjs";
 import { KUDEN_CLEANUP_MIGRATION } from "../classes/migration.mjs";
+import { TOKENS_MIGRATION } from "../canvas/token-defaults.mjs";
 import { clientsDiscovered, isPrimaryGM } from "./clients.mjs";
 
 export const MIGRATIONS = [
@@ -28,7 +29,8 @@ export const MIGRATIONS = [
   HANDS_MIGRATION,               // Two-Handed + off hand, equipped non-equipment
   EFFECTS_MIGRATION,             // broken active effect keys -> valid effect targets
   ON_USE_SKILLS_MIGRATION,       // skills whose effects apply on use (transfer: false)
-  KUDEN_CLEANUP_MIGRATION        // what the Kuden and the archetypes left, the class icons, the Magia slots, the renamed classes and Magia, the Dragon Slayer's new elements, the Magias of the review (classes/migration.mjs)
+  KUDEN_CLEANUP_MIGRATION,       // what the Kuden and the archetypes left, the class icons, the Magia slots, the renamed classes and Magia, the Dragon Slayer's new elements, the Magias of the review (classes/migration.mjs)
+  TOKENS_MIGRATION               // the characters' tokens see and are linked, every name shows, core's turn marker off (canvas/token-defaults.mjs)
 ];
 
 /** Register the world setting of every migration. Call during the `init` hook. */

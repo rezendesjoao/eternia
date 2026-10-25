@@ -7,16 +7,20 @@
  *   2. Class       the 14 classes, physical and magic; the page shows the base, the Motor and how it works, the kit of
  *                  CR 1, the choice of CR 1 (the Dragon Slayer's element), the Magia slots, the Paths and the Apex.
  *   3. Magia       the Magia browser of the Magia picker, for the class's slot of CR 1 (a Magia that asks for a
- *                  choice, the Mandamentos' Decree, asks it below). A class whose first slot comes later says so.
+ *                  choice, the Mandamentos' Decree, asks it below; a spell tells what it does under the pointer and
+ *                  opens its whole text on a click). A class whose first slot comes later says so.
  *   4. Profession  the ten professions, or none for now.
- *   5. Attributes  the five bonus points (no attribute above 7), with the modifiers, the checks and the numbers of play,
- *                  and the points suggested for the class (one click uses them).
+ *   5. Attributes  the five bonus points (no attribute above 7) in a table, a row per attribute with what the class and
+ *                  the race give, the modifier and its checks; the numbers of play below, and the points suggested for
+ *                  the class above (one click uses them).
  *   6. Skills      the creation picks: three Combat skills and one General (at most two [Training]), among the class's
  *                  talents, the Magia's spells and the profession's skills of CR 1 (the skill browser's rules).
  *   7. Items       the starting gear (apps/starting-gear.mjs): a Backpack, an Adventurer's Kit and a Sandwich for free,
- *                  and the character's gold (350) to spend in the shop of Item Rank 1; the kit recommended for the class
- *                  (one click buys it) and, beside the shop, where each piece goes and the numbers it gives.
- *   8. Summary     the name and the portrait, and everything chosen.
+ *                  and the character's gold (350) to spend in the shop of Item Rank 1. The kit recommended for the class
+ *                  comes equipped, on a paper doll (DOLL) with each piece where it is worn and the numbers it gives;
+ *                  the shop beside it.
+ *   8. Summary     the character's page: the portrait, the name and the numbers, the origins, the attributes, the
+ *                  skills that come and the gear.
  *
  * Beside every step, the character as it stands. Nothing changes on the actor until "Create the character": then the
  * race, the class, the profession, every skill they give and the starting gear (equipped where the shop showed it)
@@ -68,6 +72,73 @@ const CHECKS = {
 
 /** The compendium of the Basic skills every character takes. */
 const BASIC_PACK = "eternia.skills-basic";
+
+/**
+ * The paper doll of the items step (templates/apps/creation/items.hbs): the sheet's figure (templates/character/
+ * inventory.hbs) a fifth bigger, centred on a 600×362 stage (its group at translate(204 6) scale(1.2)), the slot cards
+ * in the side columns and a line from each card to its body part. On the right, the armor on the chest, the bag at the
+ * hip and the other hand; on the left, the main hand and the three accessories, each where it is worn (`spots`, on the
+ * figure's left side), in `rows` from top to bottom like their parts, so no two lines cross. `filter`: the shop's
+ * filter a click on the card sets.
+ */
+const DOLL = {
+  width: 600,
+  height: 362,
+  center: [300, 184],
+  card: { width: 198, height: 54, elbow: 14 },
+  rows: [8, 72, 136, 230],
+  slots: {
+    main: { side: "left", point: [244.2, 200.4], filter: "weapon" },
+    armor: { side: "right", top: 72, point: [318, 123.6], filter: "armor" },
+    bag: { side: "right", top: 136, point: [325.2, 177.6], filter: "bag" },
+    off: { side: "right", top: 230, point: [355.8, 200.4], filter: "shield" }
+  },
+  spots: {
+    head: [289.7, 22.2],
+    eyes: [294, 33.6],
+    ear: [285.6, 37.2],
+    neck: [298.8, 62.4],
+    shoulder: [258, 85.2],
+    chest: [283.2, 92.4],
+    waist: [280.8, 153.6],
+    hip: [273.6, 169.2],
+    arm: [248.4, 176.4],
+    hand: [243, 211.2],
+    legs: [283.2, 272.4],
+    feet: [284.4, 349.2]
+  }
+};
+
+/**
+ * Where an accessory is worn, by its name: the first that matches (the bracelets before the sashes, the capes before
+ * the hoods); a book, a crystal or anything else hangs at the hip.
+ */
+const ACCESSORY_SPOTS = [
+  ["arm", /faixas de couro|bracelete|pulseira|bracadeira|avambraco|bracelet|bangle|bracer|armlet|vambrace/],
+  ["shoulder", /\bcapa\b|manto|mantelete|ombreira|\bcape\b|cloak|mantle|pauldron/],
+  ["head", /chapeu|elmo|bacinete|kabuto|hachigane|coroa|diadema|tiara|boina|capuz|\bhat\b|helm|crown|circlet|hood|beret/],
+  ["eyes", /oculos|mascara|visor|luneta|monoculo|glasses|goggles|mask|monocle|spyglass/],
+  ["ear", /brinco|earring/],
+  ["neck", /amuleto|talisma|colar|pingente|medalhao|corrente|cachecol|escaravelho|amulet|talisman|necklace|pendant|medallion|choker|scarf/],
+  ["chest", /broche|insignia|casaco|gabardine|inverness|sobreveste|blazer|vestido|brooch|badge|coat|surcoat/],
+  ["hand", /\banel\b|sinete|\bluva|manopla|\brings?\b|signet|glove|gauntlet/],
+  ["waist", /cinto|cinturao|faixa|saia|\bbelt|sash|skirt/],
+  ["legs", /calca|perneira|caneleira|greva|pants|trousers|greave|leggings|tights/],
+  ["feet", /\bbota|sapato|sandalia|\bboot|\bshoe|sandal/]
+];
+/** The parts an empty accessory slot points at, the first ones still free. */
+const EMPTY_SPOTS = ["neck", "shoulder", "ear", "chest", "head", "waist"];
+
+const accessorySpot = name => ACCESSORY_SPOTS.find(([, pattern]) => pattern.test(fold(name)))?.[0] ?? "hip";
+
+/** Where a doll slot's card sits, and the line from the card to its body point. */
+function dollPlace(pos, { side, top, point: [x, y], filter }) {
+  const { width, height, elbow } = DOLL.card;
+  const cy = top + (height / 2);
+  const edge = (side === "left") ? width : DOLL.width - width;
+  const knee = (side === "left") ? edge + elbow : edge - elbow;
+  return { pos, side, top, x, y, filter, line: `${edge},${cy} ${knee},${cy} ${x},${y}` };
+}
 
 /** A Human picks two attributes for its +1. */
 const HUMAN_PICKS = 2;
@@ -376,6 +447,34 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     return { ...kit, magia, extra: magiaSuggestion(this.#shop, kit.entries, attacks) };
   }
 
+  /**
+   * What the kit buys: its pieces in their order while the gold lasts, then the Magia's suggestion when it still fits.
+   * @param {object} rec   #recommendation()
+   * @returns {string[]}   The uuids, in the order bought
+   */
+  #kitCart(rec) {
+    const cart = [];
+    let left = this.draft.budget;
+    for (const entry of [...rec.entries, ...(rec.extra ? [rec.extra] : [])]) {
+      if (entry.price > left) continue;
+      cart.push(entry.uuid);
+      left -= entry.price;
+    }
+    return cart;
+  }
+
+  /**
+   * The first time the items step opens with nothing bought, the kit recommended for the class goes in, each piece
+   * equipped where it goes (giving it all back keeps the bag empty).
+   */
+  #offerKit() {
+    if (this.draft.kitOffered || this.draft.cart.length || !this.#shop) return;
+    const rec = this.#recommendation();
+    if (!rec?.entries.length) return;
+    this.draft.kitOffered = true;
+    this.draft.cart = this.#kitCart(rec);
+  }
+
   /** The bonus points suggested for the class (apps/starting-gear.mjs). */
   #suggestion() {
     const job = this.#job();
@@ -549,6 +648,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     await this.#refreshCandidates();
     const done = this.#done();
     if (!this.#reachable(this.step, done)) this.step = STEPS.find(s => !done[s.id])?.id ?? "race";
+    if (this.step === "items") this.#offerKit();
     const index = STEPS.findIndex(s => s.id === this.step);
     return {
       done,
@@ -803,8 +903,11 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     const numbers = this.#numbers();
     const suggestion = this.#suggestion();
     const job = this.#job();
+    const tile = (icon, label, value) => ({ icon, label, value });
     return {
       left,
+      spent,
+      total: BONUS_POINTS,
       points: Array.from({ length: BONUS_POINTS }, (_, i) => ({ on: i < spent })),
       max: MAX_BASE_STAT,
       // The points suggested for the class, and whether they are the ones in use
@@ -821,30 +924,40 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         modLabel: signed(a.mod),
         canAdd: (left > 0) && (a.total < MAX_BASE_STAT),
         canRemove: a.bonus > 0,
-        // Points to the next modifier (every 3)
-        toNext: 3 - (a.total % 3),
         suggested: suggestion?.[a.key] ?? 0,
+        // How far the next modifier is (one every 3 points): the points already toward it, and what is missing
+        next: [0, 1, 2].map(i => i < (a.total % 3)),
+        nextTip: (a.total >= MAX_BASE_STAT) ? L("Wizard.Attr.AtMax", { max: MAX_BASE_STAT })
+          : L("Wizard.Attr.NextTip", { n: 3 - (a.total % 3), mod: signed(a.mod + 1) }),
         // The checks with what the starting gear adds (the Cloak of Agility's +1 in Athletics)
         checks: CHECKS[a.key].map(c => ({ label: checkLabel(c), mod: signed(a.mod + (numbers.checks[c] ?? 0)) })),
         hint: L(`Wizard.Attr.${a.key}`)
       })),
-      numbers: [
-        { icon: "fa-solid fa-heart", label: L("Wizard.Numbers.hp"), value: numbers.hp },
-        { icon: "fa-solid fa-star", label: L("Wizard.Numbers.fate"), value: numbers.fate },
-        { icon: "fa-solid fa-shield-halved", label: L("Sheet.PhysDef"), value: numbers.physDef },
-        { icon: "fa-solid fa-shield-heart", label: L("Sheet.MagicDef"), value: numbers.magicDef },
-        { icon: "fa-solid fa-bolt", label: L("Sheet.Initiative"), value: numbers.initiative },
-        { icon: "fa-solid fa-crosshairs", label: checkLabel("accuracy"), value: signed(numbers.accuracy) },
-        { icon: "fa-solid fa-person-running", label: checkLabel("evasion"), value: signed(numbers.evasion) },
-        { icon: "fa-solid fa-hand-fist", label: checkLabel("resistance"), value: signed(numbers.resistance) }
+      // What the attributes give in play, by kind
+      gives: [
+        { label: L("Wizard.Attr.Gives.life"), items: [
+          tile("fa-solid fa-heart", L("Wizard.Numbers.hp"), numbers.hp),
+          tile("fa-solid fa-star", L("Wizard.Numbers.fate"), numbers.fate)
+        ] },
+        { label: L("Wizard.Attr.Gives.defense"), items: [
+          tile("fa-solid fa-shield-halved", L("Wizard.Attr.Gives.phys"), numbers.physDef),
+          tile("fa-solid fa-shield-heart", L("Wizard.Attr.Gives.magic"), numbers.magicDef)
+        ] },
+        { label: L("Wizard.Attr.Gives.combat"), items: [
+          tile("fa-solid fa-bolt", L("Sheet.Initiative"), numbers.initiative),
+          tile("fa-solid fa-crosshairs", checkLabel("accuracy"), signed(numbers.accuracy)),
+          tile("fa-solid fa-person-running", checkLabel("evasion"), signed(numbers.evasion)),
+          tile("fa-solid fa-hand-fist", checkLabel("resistance"), signed(numbers.resistance))
+        ] }
       ]
     };
   }
 
   /**
-   * The shop: the kit recommended for the class (with the Magia's suggestion), the items of Item Rank 1 by type (the
-   * filter and the name searched are applied in the page too, without drawing it again) and, beside them, the bag: the
-   * gold, where each piece goes, what is carried and the numbers the gear gives.
+   * The items step. On the left, the kit recommended for the class (with the Magia's suggestion) over the paper doll
+   * with each piece where it goes (a click on a card shows that kind in the shop), the numbers the gear gives and what is
+   * carried in the bag's space; on the right, the gold and the shop of Item Rank 1, by type (the filter and the name
+   * searched are applied in the page too, without drawing it again).
    */
   #itemsStep() {
     const shop = this.#shop;
@@ -870,7 +983,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     });
     const ofType = id => shop.items.filter(e => e.type === id).length;
     const filters = [
-      { id: "", label: L("Wizard.Items.All"), count: shop.items.length },
+      { id: "", icon: "fa-solid fa-border-all", label: L("Wizard.Items.All"), count: shop.items.length },
       ...(marked.size ? [{ id: "recommended", icon: "fa-solid fa-star", label: L("Wizard.Items.Recommended"), count: marked.size }] : []),
       ...SHOP_CATEGORIES.filter(c => ofType(c.id)).map(c => ({ id: c.id, icon: c.icon, label: L(`Wizard.Items.Category.${c.id}`), count: ofType(c.id) }))
     ].map(f => ({ ...f, active: f.id === filter }));
@@ -880,7 +993,6 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     if (rec?.entries.length) {
       const pieces = new Map();
       for (const e of rec.entries) pieces.set(e.uuid, { ...e, count: (pieces.get(e.uuid)?.count ?? 0) + 1 });
-      const want = rec.entries.map(e => e.uuid).sort().join("|");
       kit = {
         className: job.name,
         img: job.img,
@@ -889,7 +1001,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         pieces: [...pieces.values()].map(p => ({ name: p.name, img: p.img, price: p.price, count: p.count, tip: p.tip })),
         cost: rec.cost,
         short: Math.max(0, rec.cost - gold.budget),
-        taken: [...this.draft.cart].sort().join("|") === want,
+        taken: [...this.draft.cart].sort().join("|") === this.#kitCart(rec).sort().join("|"),
         extra: rec.extra && {
           uuid: rec.extra.uuid, img: rec.extra.img, tip: rec.extra.tip, owned: counts.has(rec.extra.uuid),
           canBuy: this.#canBuy(rec.extra, layout, gold).ok,
@@ -905,41 +1017,66 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       cards,
       query: this.#shopQuery,
       gold,
-      slots: this.#gearSlots(layout),
+      doll: this.#dollSlots(layout),
+      stage: DOLL,
       carried: this.#carriedRows(layout),
       ownCarried: this.#have.carried,
       space: { ...layout.space, over: layout.space.used > layout.space.max },
       hasCart: this.draft.cart.length > 0,
-      numbers: [
-        { icon: "fa-solid fa-sword", label: L("Tooltip.AttackPower"), value: numbers.attack },
-        { icon: "fa-solid fa-wand-magic-sparkles", label: L("Tooltip.MagicPower"), value: numbers.magic },
-        { icon: "fa-solid fa-crosshairs", label: checkLabel("accuracy"), value: signed(numbers.accuracy) },
-        { icon: "fa-solid fa-shield-halved", label: L("Sheet.PhysDef"), value: numbers.physDef },
-        { icon: "fa-solid fa-shield-heart", label: L("Sheet.MagicDef"), value: numbers.magicDef },
-        { icon: "fa-solid fa-bolt", label: L("Sheet.Initiative"), value: numbers.initiative }
-      ]
+      // The numbers the gear gives, under the doll: how it strikes on the left, how it holds on the right
+      stats: {
+        left: [
+          { icon: "fa-solid fa-sword", label: L("Wizard.Items.Num.attack"), tip: L("Tooltip.AttackPower"), value: numbers.attack },
+          { icon: "fa-solid fa-wand-magic-sparkles", label: L("Wizard.Items.Num.magic"), tip: L("Tooltip.MagicPower"), value: numbers.magic },
+          { icon: "fa-solid fa-crosshairs", label: checkLabel("accuracy"), value: signed(numbers.accuracy) }
+        ],
+        right: [
+          { icon: "fa-solid fa-shield-halved", label: L("Wizard.Attr.Gives.phys"), tip: L("Sheet.PhysDef"), value: numbers.physDef },
+          { icon: "fa-solid fa-shield-heart", label: L("Wizard.Attr.Gives.magic"), tip: L("Sheet.MagicDef"), value: numbers.magicDef },
+          { icon: "fa-solid fa-bolt", label: L("Sheet.Initiative"), value: numbers.initiative }
+        ]
+      }
     };
   }
 
-  /** The equipment slots of the bag: the hands, the armor, the three accessories and the bag, with what is in each. */
-  #gearSlots(layout) {
+  /**
+   * The doll's cards: the hands, the armor, the bag and the three accessories, each with what is in it (bought, free, or
+   * the character's own), where it sits and its line to the body.
+   */
+  #dollSlots(layout) {
     const own = this.#have.equipped;
-    const row = (label, icon, unit, mine) => {
+    const card = (pos, where, label, icon, unit, mine) => {
       const entry = unit?.entry ?? mine?.entry ?? null;
-      return { label, icon, entry, tip: entry?.tip ?? "", free: !!unit?.free, own: !unit && !!mine, sellable: !!unit && !unit.free };
+      return {
+        ...dollPlace(pos, where), label, icon, entry, tip: entry?.tip ?? "",
+        free: !!unit?.free, own: !unit && !!mine, sellable: !!unit && !unit.free
+      };
     };
     const at = slot => layout.units.find(u => u.slot === slot);
     const mine = slot => own.find(o => o.slot === slot);
     const type = id => game.i18n.localize(`TYPES.Item.${id}`);
-    const slots = [row(L("Hands.Main"), "fa-solid fa-hand-fist", at("main"), mine("main"))];
-    // A [Two-Handed] weapon takes the other hand too
-    if (layout.locked) slots.push({ label: L("Hands.Off"), icon: "fa-solid fa-hand", entry: null, note: tagLabel("Two-Handed"), locked: true });
-    else slots.push(row(L("Hands.Off"), "fa-solid fa-shield", at("off"), mine("off")));
-    slots.push(row(type("armor"), "fa-solid fa-shirt", at("armor"), mine("armor")));
-    const accessories = [...own.filter(o => o.slot === "accessory").map(o => ({ mine: o })), ...layout.units.filter(u => u.slot === "accessory").map(u => ({ unit: u }))];
-    for (let i = 0; i < 3; i++) slots.push(row(type("accessory"), "fa-solid fa-ring", accessories[i]?.unit, accessories[i]?.mine));
-    slots.push(row(type("bag"), "fa-solid fa-sack", at("bag"), mine("bag")));
-    return slots;
+    const count = DOLL.rows.length - 1;
+    const accessories = [...own.filter(o => o.slot === "accessory").map(o => ({ mine: o })),
+      ...layout.units.filter(u => u.slot === "accessory").map(u => ({ unit: u }))].slice(0, count);
+    // Each accessory where it is worn, an empty slot on a part still free; the left column follows the body down
+    const spots = accessories.map(a => accessorySpot((a.unit ?? a.mine).entry.name));
+    for (const spot of EMPTY_SPOTS) if ((spots.length < count) && !spots.includes(spot)) spots.push(spot);
+    const left = [
+      { pos: "main", point: DOLL.slots.main.point, filter: "weapon", label: L("Hands.Main"), icon: "fa-solid fa-hand-fist", unit: at("main"), mine: mine("main") },
+      ...spots.map((spot, i) => ({
+        pos: `acc${i}`, point: DOLL.spots[spot], filter: "accessory", label: type("accessory"), icon: "fa-solid fa-ring",
+        unit: accessories[i]?.unit, mine: accessories[i]?.mine
+      }))
+    ].sort((a, b) => a.point[1] - b.point[1]);
+    return [
+      ...left.map((s, row) => card(s.pos, { side: "left", top: DOLL.rows[row], point: s.point, filter: s.filter }, s.label, s.icon, s.unit, s.mine)),
+      // A [Two-Handed] weapon takes the other hand too
+      layout.locked
+        ? { ...dollPlace("off", DOLL.slots.off), label: L("Hands.Off"), icon: "fa-solid fa-hand", entry: null, note: tagLabel("Two-Handed"), locked: true }
+        : card("off", DOLL.slots.off, L("Hands.Off"), "fa-solid fa-shield", at("off"), mine("off")),
+      card("armor", DOLL.slots.armor, type("armor"), "fa-solid fa-shirt", at("armor"), mine("armor")),
+      card("bag", DOLL.slots.bag, type("bag"), "fa-solid fa-sack", at("bag"), mine("bag"))
+    ];
   }
 
   /** What is carried (takes the bag's space), a row per piece with how many. */
@@ -1009,48 +1146,115 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     for (const uuid of missing) this.#texts.set(uuid, skillSummary(docs.get(uuid)?.system?.description ?? ""));
   }
 
+  /**
+   * The summary, as the character's first page: the portrait and the name (both can still change) with what it is; then
+   * its origins (the race, the class, the Magia, the profession), the attributes and the numbers of play, the skills it
+   * starts with (by where they come from) and the gear on it and in its bag.
+   */
   async #summaryStep() {
     const race = this.#race();
     const job = this.#job();
     const magia = this.#magia();
     const profession = this.#profession();
     const element = this.#element();
-    const index = this.#skillIndex ?? [];
-    const named = uuid => this.#skillView(uuid) ?? this.#indexView(uuid) ?? { uuid, name: "?", img: "icons/svg/mystery-man.svg" };
+    const numbers = this.#numbers();
+    const gold = this.#gold();
     const basics = await basicSkills();
+    // The first lines of the picks, for their tooltips (read in the skills step, unless the wizard opened here)
+    await this.#loadTexts(this.draft.picks);
+    const decree = this.draft.decree ? this.#skillTile(this.draft.decree) : null;
+
+    // The skills it starts with, by where they come from (the Magia and its Decree apart from the class's)
+    const granted = this.#granted();
+    const groups = [
+      { id: "race", icon: "fa-solid fa-people-group", uuids: granted.filter(g => g.by === "race").map(g => g.uuid) },
+      { id: "class", icon: "fa-solid fa-chess-knight", uuids: granted.filter(g => (g.by === "class") && (g.uuid !== magia?.uuid)).map(g => g.uuid) },
+      { id: "magia", icon: "fa-solid fa-hat-wizard", uuids: granted.filter(g => (g.uuid === magia?.uuid) || (g.by === "magia")).map(g => g.uuid) },
+      { id: "picks", icon: "fa-solid fa-hand-pointer", uuids: this.draft.picks }
+    ].map(g => ({ ...g, label: L(`Wizard.Summary.From.${g.id}`), tiles: g.uuids.map(uuid => this.#skillTile(uuid)).filter(Boolean) }))
+      .filter(g => g.tiles.length);
+
     return {
-      race, job, magia, profession, element,
-      decree: this.draft.decree ? named(this.draft.decree) : null,
       name: this.draft.name,
       img: this.draft.img,
+      color: job?.color ?? race?.color ?? "#1f5137",
+      identity: [race?.name, element ? `${job?.name} (${element.name})` : job?.name, magia?.name, profession?.name].filter(Boolean),
+      hero: [
+        { icon: "fa-solid fa-heart", label: L("Wizard.Numbers.hp"), value: numbers.hp },
+        { icon: "fa-solid fa-star", label: L("Wizard.Numbers.fate"), value: numbers.fate },
+        { icon: "fa-solid fa-coins", label: L("Wizard.Summary.Gold"), value: gold.left }
+      ],
+      origins: [
+        race && { label: L("Wizard.Step.race"), name: race.name, img: race.img, color: race.color, line: race.tagline },
+        job && { label: job.eyebrow, name: element ? `${job.name} · ${element.name}` : job.name, img: job.img, color: job.color,
+          line: job.motor ? L("Sheet.MotorLine", { name: job.motor.name }) : job.tagline, emblem: true },
+        magia && { label: magia.categoryLabel, name: magia.name, img: magia.img, color: magia.categoryColor, line: magia.tagline,
+          note: decree?.name },
+        profession ? { label: L("Wizard.Step.profession"), name: profession.name, img: profession.img, color: profession.color,
+          line: profession.talent.name }
+          : { label: L("Wizard.Step.profession"), name: L("Wizard.Summary.NoProfession"), icon: "fa-solid fa-hourglass-half", empty: true }
+      ].filter(Boolean),
+      attributes: this.#attributes().map(a => ({ ...a, abbr: L(`Sheet.Attr.${a.key}.abbr`), name: L(`Sheet.Attr.${a.key}.name`), modLabel: signed(a.mod) })),
+      numbers: [
+        { icon: "fa-solid fa-shield-halved", label: L("Wizard.Attr.Gives.phys"), value: numbers.physDef },
+        { icon: "fa-solid fa-shield-heart", label: L("Wizard.Attr.Gives.magic"), value: numbers.magicDef },
+        { icon: "fa-solid fa-bolt", label: L("Sheet.Initiative"), value: numbers.initiative },
+        { icon: "fa-solid fa-crosshairs", label: checkLabel("accuracy"), value: signed(numbers.accuracy) },
+        { icon: "fa-solid fa-person-running", label: checkLabel("evasion"), value: signed(numbers.evasion) },
+        { icon: "fa-solid fa-hand-fist", label: checkLabel("resistance"), value: signed(numbers.resistance) },
+        { icon: "fa-solid fa-sword", label: L("Wizard.Items.Num.attack"), value: numbers.attack },
+        { icon: "fa-solid fa-wand-magic-sparkles", label: L("Wizard.Items.Num.magic"), value: numbers.magic }
+      ],
+      groups,
+      skillCount: groups.reduce((n, g) => n + g.tiles.length, 0),
       basics: this.draft.basics,
       basicCount: basics.length,
-      attributes: this.#attributes().map(a => ({ ...a, abbr: L(`Sheet.Attr.${a.key}.abbr`), name: L(`Sheet.Attr.${a.key}.name`), modLabel: signed(a.mod) })),
-      numbers: this.#numbers(),
-      granted: this.#granted().map(g => named(g.uuid)),
-      picks: this.draft.picks.map(uuid => index.find(e => e.uuid === uuid)).filter(Boolean).map(e => ({ uuid: e.uuid, name: e.name, img: e.img })),
       gear: this.#summaryGear(),
       rebuild: !CreationWizard.isBlank(this.actor)
     };
   }
 
-  /** The starting gear of the summary: each piece (equipped first) with how many, and the gold left. */
+  /** A skill as a tile of the summary: its picture, its name and its tooltip. */
+  #skillTile(uuid) {
+    const view = this.#skillView(uuid);
+    if (view) return { uuid, name: view.name, img: view.img, tip: skillTip(view) };
+    const entry = (this.#skillIndex ?? []).find(e => e.uuid === uuid) ?? this.#magias?.find(m => m.uuid === uuid);
+    if (!entry) return null;
+    return { uuid, name: entry.name, img: entry.img, tip: skillTip({ name: entry.name, img: entry.img, meta: "", text: this.#texts.get(uuid) ?? entry.tagline ?? "" }) };
+  }
+
+  /**
+   * The gear of the summary: what goes on the body, slot by slot (the hands, the armor, the accessories, the bag), what
+   * goes in the bag (with how many), and the gold left.
+   */
   #summaryGear() {
     const layout = this.#layout();
     if (!layout) return null;
-    const rows = new Map();
-    for (const unit of [...layout.units].sort((a, b) => (a.slot === "carried") - (b.slot === "carried"))) {
-      const key = unit.entry.uuid;
-      const row = rows.get(key) ?? { name: unit.entry.name, img: unit.entry.img, tip: unit.entry.tip, count: 0, equipped: unit.slot !== "carried" };
-      row.count += 1;
-      rows.set(key, row);
-    }
-    return { pieces: [...rows.values()], gold: this.#gold().left };
+    const own = this.#have.equipped;
+    const type = id => game.i18n.localize(`TYPES.Item.${id}`);
+    const piece = (label, icon, entry) => ({ label, icon, name: entry?.name ?? "", img: entry?.img ?? "", tip: entry?.tip ?? "" });
+    const slotEntry = slot => layout.units.find(u => u.slot === slot)?.entry ?? own.find(o => o.slot === slot)?.entry ?? null;
+    const accessories = [...own.filter(o => o.slot === "accessory").map(o => o.entry), ...layout.units.filter(u => u.slot === "accessory").map(u => u.entry)];
+    const worn = [
+      piece(L("Hands.Main"), "fa-solid fa-hand-fist", slotEntry("main")),
+      layout.locked ? { label: L("Hands.Off"), icon: "fa-solid fa-hand", name: tagLabel("Two-Handed"), note: true }
+        : piece(L("Hands.Off"), "fa-solid fa-shield", slotEntry("off")),
+      piece(type("armor"), "fa-solid fa-shirt", slotEntry("armor")),
+      ...accessories.map(entry => piece(type("accessory"), "fa-solid fa-ring", entry)),
+      piece(type("bag"), "fa-solid fa-sack", slotEntry("bag"))
+    ].filter(p => p.name);
+    return { worn, carried: this.#carriedRows(layout), gold: this.#gold().left, space: layout.space };
   }
 
   /* -------------------------------------------- */
   /*  Rendering                                   */
   /* -------------------------------------------- */
+
+  /** @override A step opened anew starts at its top: only a step drawn again keeps where it was scrolled. */
+  _syncPartState(partId, newElement, priorElement, state) {
+    if ((partId === "step") && (priorElement?.className !== newElement?.className)) state.scrollPositions = [];
+    super._syncPartState(partId, newElement, priorElement, state);
+  }
 
   /** @override */
   async _onRender(context, options) {
@@ -1293,12 +1497,19 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     this.#refresh();
   }
 
-  /** One more of a piece of the shop (the gold and the bag's space allowing). */
+  /**
+   * One more of a piece of the shop (the gold and the bag's space allowing). A weapon, an armor or a shield whose place
+   * on the body something bought already takes goes on in its place (the other one goes to the bag).
+   */
   static #onBuy(event, target) {
     const uuid = target.closest("[data-uuid]")?.dataset.uuid;
     const entry = this.#shop?.byUuid.get(uuid);
     if (!entry || !this.#canBuy(entry).ok) return;
-    this.draft.cart.push(uuid);
+    const slot = { weapon: "main", armor: "armor", shield: "off" }[entry.type];
+    const worn = slot ? this.#layout().units.find(u => !u.free && (u.slot === slot) && (u.entry.type === entry.type)) : null;
+    const index = worn ? this.draft.cart.indexOf(worn.entry.uuid) : -1;
+    if (index >= 0) this.draft.cart.splice(index, 0, uuid);
+    else this.draft.cart.push(uuid);
     this.#refresh();
   }
 
@@ -1315,14 +1526,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   static #onKit() {
     const rec = this.#recommendation();
     if (!rec?.entries.length) return;
-    const cart = [];
-    let left = this.draft.budget;
-    for (const entry of rec.entries) {
-      if (entry.price > left) continue;
-      cart.push(entry.uuid);
-      left -= entry.price;
-    }
-    this.draft.cart = cart;
+    this.draft.cart = this.#kitCart(rec);
     this.#refresh();
   }
 
@@ -1332,9 +1536,11 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     this.#refresh();
   }
 
-  /** The shop's filter: everything, what is recommended, or one type. */
+  /** The shop's filter: everything, what is recommended, or one type (a card of the doll shows its kind). */
   static #onShopFilter(event, target) {
-    this.#shopFilter = target.dataset.filter ?? "";
+    const filter = target.dataset.filter ?? "";
+    // The doll's card of the kind already shown shows everything again
+    this.#shopFilter = (target.closest(".wz-doll-slot") && (filter === this.#shopFilter)) ? "" : filter;
     this.#applyShopFilter(this.element.querySelector(".wz-step"));
   }
 

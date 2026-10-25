@@ -1,53 +1,70 @@
-{{!-- ATTRIBUTES: the five bonus points over the class's and the race's attributes (none above the cap), each with its
-     modifier and its checks, and the numbers of play they give; the points suggested for the class on top (one click
-     uses them) and on each attribute. --}}
+{{!-- ATTRIBUTES: the five bonus points over the class's and the race's attributes (none above the cap). On top, the
+     points left and the points suggested for the class (one click uses them); then one row for each attribute, read
+     left to right: where its score comes from (the class, the race, the bonus with − and +), the score with how far the
+     next modifier is, the modifier and the checks it gives; below, what the attributes give in play. --}}
 <div class="wz-attrs wz-scroll">
-	<header class="wz-points">
-		<div class="wz-points-text">
-			<span class="wz-page-eyebrow">{{localize "ETERNIA.Wizard.Attr.Points"}}</span>
-			<b>{{left}}</b><span>{{localize "ETERNIA.Wizard.Attr.Left"}}</span>
+	<header class="wz-attr-top">
+		<div class="wz-attr-points{{#unless left}} done{{/unless}}">
+			<span class="wz-attr-gems" aria-hidden="true">{{#each points}}<i class="{{#if on}}on{{/if}}"></i>{{/each}}</span>
+			<div class="wz-attr-points-text">
+				<span class="wz-page-eyebrow">{{localize "ETERNIA.Wizard.Attr.Points"}}</span>
+				<b>{{#if left}}{{localize "ETERNIA.Wizard.Attr.LeftN" n=left total=total}}{{else}}<i class="fa-solid fa-circle-check"></i>{{localize "ETERNIA.Wizard.Attr.AllSpent"}}{{/if}}</b>
+			</div>
+			<button type="button" class="wz-round" data-action="resetStats" data-tooltip="{{localize 'ETERNIA.Wizard.Attr.Reset'}}" aria-label="{{localize 'ETERNIA.Wizard.Attr.Reset'}}" {{#unless spent}}disabled{{/unless}}><i class="fa-solid fa-rotate-left"></i></button>
 		</div>
-		<span class="wz-pips">{{#each points}}<i class="{{#if on}}on{{/if}}"></i>{{/each}}</span>
-		<button type="button" class="wz-chip" data-action="resetStats"><i class="fa-solid fa-rotate-left"></i>{{localize "ETERNIA.Wizard.Attr.Reset"}}</button>
+		{{#with suggest as |s|}}
+		<div class="wz-attr-advice{{#if s.applied}} on{{/if}}" style="--wz-card: {{s.color}}">
+			<span class="wz-attr-advice-icon"><i class="fa-solid fa-lightbulb"></i></span>
+			<div class="wz-attr-advice-text" data-tooltip="{{localize 'ETERNIA.Wizard.Attr.SuggestWhy'}}">
+				<b>{{s.title}}</b>
+				<span>{{#each s.parts}}<em><small>{{abbr}}</small>+{{n}}</em>{{/each}}</span>
+			</div>
+			<button type="button" class="wz-chip{{#if s.applied}} active{{/if}}" data-action="suggestStats" {{#if s.applied}}disabled{{/if}}><i class="fa-solid {{#if s.applied}}fa-check{{else}}fa-wand-magic-sparkles{{/if}}"></i>{{#if s.applied}}{{localize "ETERNIA.Wizard.Attr.SuggestOn"}}{{else}}{{localize "ETERNIA.Wizard.Attr.SuggestUse"}}{{/if}}</button>
+		</div>
+		{{/with}}
 	</header>
 
-	{{#with suggest as |s|}}
-	<section class="wz-suggest{{#if s.applied}} on{{/if}}" style="--wz-card: {{s.color}}">
-		<span class="wz-suggest-icon"><i class="fa-solid fa-lightbulb"></i></span>
-		<div class="wz-suggest-text">
-			<b>{{s.title}}</b>
-			<span class="wz-suggest-parts">{{#each s.parts}}<span><small>{{abbr}}</small>+{{n}}</span>{{/each}}</span>
-			<p>{{localize "ETERNIA.Wizard.Attr.SuggestWhy"}}</p>
+	<div class="wz-attr-table" role="table">
+		<div class="wz-attr-row head" role="row">
+			<span role="columnheader">{{localize "ETERNIA.Wizard.Attr.Col.attribute"}}</span>
+			<span role="columnheader">{{localize "ETERNIA.Wizard.Step.class"}}</span>
+			<span role="columnheader">{{localize "ETERNIA.Wizard.Step.race"}}</span>
+			<span role="columnheader">{{localize "ETERNIA.Wizard.Attr.Bonus"}}</span>
+			<span role="columnheader">{{localize "ETERNIA.Wizard.Attr.Col.score"}}</span>
+			<span role="columnheader">{{localize "ETERNIA.Wizard.Attr.Col.mod"}}</span>
+			<span role="columnheader">{{localize "ETERNIA.Wizard.Attr.Col.checks"}}</span>
 		</div>
-		<button type="button" class="wz-chip{{#if s.applied}} active{{/if}}" data-action="suggestStats" {{#if s.applied}}disabled{{/if}}><i class="fa-solid {{#if s.applied}}fa-check{{else}}fa-wand-magic-sparkles{{/if}}"></i>{{#if s.applied}}{{localize "ETERNIA.Wizard.Attr.SuggestOn"}}{{else}}{{localize "ETERNIA.Wizard.Attr.SuggestUse"}}{{/if}}</button>
-	</section>
-	{{/with}}
-
-	<div class="wz-attr-grid">
 		{{#each attributes}}
-		<section class="wz-attr" data-stat="{{key}}">
-			<header><b>{{abbr}}</b><span>{{name}}</span></header>
-			{{#if suggested}}<em class="wz-attr-suggest{{#if (eq bonus suggested)}} on{{/if}}" data-tooltip="{{localize 'ETERNIA.Wizard.Attr.SuggestedTip' n=suggested}}"><i class="fa-solid fa-lightbulb"></i>+{{suggested}}</em>{{/if}}
-			<div class="wz-attr-mod" data-tooltip="{{localize 'ETERNIA.Wizard.Attr.ModTip'}}">{{modLabel}}</div>
-			<div class="wz-attr-total"><span>{{localize "ETERNIA.Wizard.Attr.Total"}}</span><b>{{total}}</b>{{#if canAdd}}<em>{{localize "ETERNIA.Wizard.Attr.ToNext" n=toNext}}</em>{{/if}}</div>
-			<ul class="wz-attr-parts">
-				<li><span>{{localize "ETERNIA.Wizard.Step.class"}}</span><b>{{fromClass}}</b></li>
-				<li><span>{{localize "ETERNIA.Wizard.Step.race"}}</span><b>{{fromRace}}</b></li>
-				<li class="bonus">
-					<span>{{localize "ETERNIA.Wizard.Attr.Bonus"}}</span>
-					<button type="button" data-action="stat" data-stat="{{key}}" data-delta="-1" aria-label="−1" {{#unless canRemove}}disabled{{/unless}}><i class="fa-solid fa-minus"></i></button>
-					<b>{{bonus}}</b>
-					<button type="button" data-action="stat" data-stat="{{key}}" data-delta="1" aria-label="+1" {{#unless canAdd}}disabled{{/unless}}><i class="fa-solid fa-plus"></i></button>
-				</li>
-			</ul>
-			<ul class="wz-attr-checks">{{#each checks}}<li><span>{{label}}</span><b>{{mod}}</b></li>{{/each}}</ul>
-			<p class="wz-attr-hint">{{hint}}</p>
+		<section class="wz-attr-row{{#if bonus}} raised{{/if}}" role="row" data-stat="{{key}}">
+			<div class="wz-attr-name" role="cell">
+				<span class="wz-attr-abbr">{{abbr}}</span>
+				<div><b>{{name}}</b><small>{{hint}}</small></div>
+			</div>
+			<span class="wz-attr-src" role="cell">{{fromClass}}</span>
+			<span class="wz-attr-src" role="cell">{{fromRace}}</span>
+			<div class="wz-attr-bonus" role="cell">
+				<button type="button" data-action="stat" data-stat="{{key}}" data-delta="-1" aria-label="−1 {{name}}" {{#unless canRemove}}disabled{{/unless}}><i class="fa-solid fa-minus"></i></button>
+				<b>{{bonus}}</b>
+				<button type="button" data-action="stat" data-stat="{{key}}" data-delta="1" aria-label="+1 {{name}}" {{#unless canAdd}}disabled{{/unless}}><i class="fa-solid fa-plus"></i></button>
+				{{#if suggested}}<em class="wz-attr-hint{{#if (eq bonus suggested)}} on{{/if}}" data-tooltip="{{localize 'ETERNIA.Wizard.Attr.SuggestedTip' n=suggested}}"><i class="fa-solid fa-lightbulb"></i>+{{suggested}}</em>{{/if}}
+			</div>
+			<div class="wz-attr-score" role="cell">
+				<b>{{total}}</b>
+				<span class="wz-attr-next" data-tooltip="{{nextTip}}">{{#each next}}<i class="{{#if this}}on{{/if}}"></i>{{/each}}</span>
+			</div>
+			<span class="wz-attr-mod" role="cell" data-tooltip="{{localize 'ETERNIA.Wizard.Attr.ModTip'}}">{{modLabel}}</span>
+			<ul class="wz-attr-checks" role="cell">{{#each checks}}<li><span>{{label}}</span><b>{{mod}}</b></li>{{/each}}</ul>
 		</section>
 		{{/each}}
 	</div>
 
-	<ul class="wz-numbers">
-		{{#each numbers}}<li><i class="{{icon}}"></i><b>{{value}}</b><small>{{label}}</small></li>{{/each}}
-	</ul>
+	<section class="wz-attr-gives">
+		{{#each gives as |g|}}
+		<div class="wz-gives">
+			<span class="wz-page-eyebrow">{{g.label}}</span>
+			<ul>{{#each g.items}}<li><i class="{{icon}}"></i><b>{{value}}</b><small>{{label}}</small></li>{{/each}}</ul>
+		</div>
+		{{/each}}
+	</section>
 	<p class="wz-note"><i class="fa-solid fa-circle-info"></i> {{localize "ETERNIA.Wizard.Attr.Note" max=max}}</p>
 </div>

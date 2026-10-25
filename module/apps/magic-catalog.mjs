@@ -8,6 +8,7 @@
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { term } from "../i18n/terms.mjs";
+import { loadDocuments } from "../helpers/pack-index.mjs";
 
 /** The categories, in the order of the filters. */
 export const MAGIC_CATEGORIES = {
@@ -229,10 +230,43 @@ async function loadTexts() {
   return texts;
 }
 
+/** What each spell says (uuid → Promise of { summary, html }), read the first time it is asked for. */
+const spellPromises = new Map();
+
+/**
+ * What these spells say: the first lines of each (the Magia page's tooltip) and its whole text, enriched (opened under
+ * it). The ones not read yet come in one go.
+ * @param {string[]} uuids
+ * @returns {Promise<Map<string, {summary: string, html: string}>>}
+ */
+export async function spellTexts(uuids) {
+  const missing = uuids.filter(uuid => !spellPromises.has(uuid));
+  if (missing.length) {
+    const loading = loadDocuments(missing);
+    for (const uuid of missing) {
+      spellPromises.set(uuid, loading.then(async docs => {
+        const doc = docs.get(uuid);
+        const description = doc?.system?.description ?? "";
+        const html = await foundry.applications.ux.TextEditor.implementation.enrichHTML(description, { relativeTo: doc });
+        // The first paragraph without its label (the Magia's name), cut at about 320 letters
+        const intro = readDescription(description).intro.replace(/\s+/g, " ");
+        return { summary: (intro.length > 320) ? `${intro.slice(0, 317).replace(/\s+\S*$/, "")}…` : intro, html };
+      }).catch(err => {
+        spellPromises.delete(uuid);
+        throw err;
+      }));
+    }
+  }
+  const out = new Map();
+  for (const uuid of uuids) out.set(uuid, await spellPromises.get(uuid));
+  return out;
+}
+
 /** Forget the catalog (a compendium skill changed, or the compendiums did). */
 export function clearMagicCatalog() {
   catalogPromise = null;
   textsPromise = null;
+  spellPromises.clear();
 }
 
 /** Call during the `init` hook. */

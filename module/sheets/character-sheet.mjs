@@ -28,6 +28,7 @@ import { CLASSES } from "../classes/data.mjs";
 import { motorDef, motorName } from "../classes/motor.mjs";
 import { professionOf, rankTitle } from "../professions/state.mjs";
 import { PROFESSIONS, TALENTS } from "../professions/data.mjs";
+import { categoryOf, categoryView } from "../apps/magic-catalog.mjs";
 
 const DIR = `systems/eternia/templates/character`;
 const PARTIALS = ["sidebar", "character", "skills", "inventory", "class", "magic", "profession", "effects", "biography"];
@@ -69,6 +70,33 @@ export const ATTRIBUTES = [
 ];
 export const COMBAT_CHECKS = ["accuracy", "evasion", "resistance"];
 const ITEM_TYPES = ["weapon", "armor", "shield", "accessory", "bag", "usable", "gear"];
+
+/** The panes of the bio tab: the profile, the story, the connections and unions, the notes. */
+const BIO_PANES = ["profile", "story", "ties", "notes"];
+/** The bio's personal data (flags.eternia.bio, the guild in the system's field), four to a row. */
+const BIO_DATA = ["age", "gender", "height", "weight", "eyes", "hair", "homeland", "guild"];
+/** The bio's personality, two to a row, each with its icon. */
+const BIO_TRAITS = [
+  { key: "temperament", icon: "fa-solid fa-masks-theater" },
+  { key: "ideals", icon: "fa-solid fa-scale-balanced" },
+  { key: "goal", icon: "fa-solid fa-compass" },
+  { key: "fear", icon: "fa-solid fa-ghost" },
+  { key: "likes", icon: "fa-solid fa-heart" },
+  { key: "dislikes", icon: "fa-solid fa-heart-crack" }
+];
+
+/**
+ * What an item says of whoever has it: the italic paragraph after the rule (`<hr>`) that ends the descriptions of the
+ * races, classes, professions and Magias, as plain text ("" when it has none).
+ * @param {Item} item
+ */
+function flavorOf(item) {
+  const parts = String(item?.system?.description ?? "").split(/<hr\s*\/?>/i);
+  if (parts.length < 2) return "";
+  const box = document.createElement("div");
+  box.innerHTML = parts.at(-1);
+  return box.textContent.replace(/\s+/g, " ").trim();
+}
 
 /**
  * Paper doll of the inventory tab (templates/character/inventory.hbs): a 480×300 stage with the figure in the
@@ -210,13 +238,14 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       template: `${DIR}/sheet.hbs`,
       scrollable: [".sidebar", ...TABS.map(t => `.tab[data-tab="${t.id}"] > .tab-content`),
         ...["basic", "general", "combat"].map(t => `.tab[data-group="skills"][data-tab="${t}"] > .tab-content`),
+        ...BIO_PANES.map(p => `.tab[data-group="bio"][data-tab="${p}"] > .tab-content`),
         ".tab[data-group='effects'][data-tab='list'] > .tab-content", ".tab[data-group='effects'][data-tab='status'] > .tab-content",
         ".lhmg-page", ".lhcl-panels"]
     }
   };
 
   /** Tab group states (survive re-renders). */
-  tabGroups = { primary: "character", skills: "combat", effects: "list", bio: "bio", lhcl: "kit", lhmg: "slot-0" };
+  tabGroups = { primary: "character", skills: "combat", effects: "list", bio: "profile", lhcl: "kit", lhmg: "slot-0" };
 
   /** The player picked a section of the class tab (until then it opens on a choice still open). */
   #classSectionPicked = false;
@@ -380,13 +409,6 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     lh.itemTypes = ITEM_TYPES.map(type => ({ type, label: game.i18n.localize(`TYPES.Item.${type}`) }));
     lh.gold = toInt(source.inventory?.gold).toLocaleString(game.i18n.lang);
 
-    // Bio: connections and unions with their tags
-    const withTags = list => list.map(item => ({ ...item, lhTags: (item.system?.tags ?? []).map(tagLabel) }));
-    lh.social = [
-      { id: "connections", type: "connection", label: L("Sheet.Connections"), items: withTags(context.social.connections) },
-      { id: "unions", type: "union", label: L("Sheet.Unions"), items: withTags(context.social.unions) }
-    ];
-
     // Class: the Motor, the kit, the Path, the talents, the Dedications
     lh.classTab = await classContext(actor, { editable: this.isEditable });
     const sections = (lh.classTab.sections ?? []).map(s => s.id);
@@ -406,6 +428,9 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
 
     // The Magias tab: the slots of the class, the Magia of each and its spells
     lh.magic = this.#magicContext(lh.classTab);
+
+    // The bio: who the character is, its data, looks and ways, its origins, ties, story and notes
+    lh.bio = await this.#bioContext(context);
 
     // The tabs, each with what waits in it
     const pendingSkills = lh.skillTabs.reduce((n, t) => n + t.pending, 0);
@@ -478,6 +503,71 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       open: magic.open,
       count: magic.count,
       ranks: pages.filter(p => p.rank).map(p => p.rank).join(", ")
+    };
+  }
+
+  /**
+   * The bio tab. The profile: who the character is (the portrait, the epithet and the catchphrase, what it is and who
+   * plays it), its personal data, appearance and personality (flags.eternia.bio; the guild is the system's field) and
+   * its origins, what its race, class, profession and Magias say of whoever has them (the closing lines of their
+   * descriptions). Then the connections and unions, the story (system.biography) and the notes.
+   * @param {object} context
+   */
+  async #bioContext(context) {
+    const actor = this.actor;
+    const bio = actor.flags?.[SYSTEM_ID]?.bio ?? {};
+    if (!BIO_PANES.includes(this.tabGroups.bio)) this.tabGroups.bio = "profile";
+    const field = key => ({
+      key,
+      name: (key === "guild") ? "system.social.guild" : `flags.${SYSTEM_ID}.bio.${key}`,
+      value: String(((key === "guild") ? context.source.social?.guild : bio[key]) ?? ""),
+      label: L(`Bio.Field.${key}`),
+      placeholder: game.i18n.has(`ETERNIA.Bio.Placeholder.${key}`) ? L(`Bio.Placeholder.${key}`) : ""
+    });
+
+    // What the character is and who plays it
+    const { race, class: job, subclass } = context.characterOptions;
+    const rank = toInt(actor.system.infos?.crank);
+    const identity = [race?.name, job?.name, subclass?.name, rank ? L("Bio.Rank", { n: rank }) : ""].filter(Boolean);
+    const players = game.users.filter(u => !u.isGM && actor.testUserPermission(u, "OWNER")).map(u => u.name);
+
+    // The origins: the race, the class, the profession and each Magia, with what they say
+    const magias = actor.items.filter(i => i.flags?.[SYSTEM_ID]?.magic);
+    const origins = [
+      race && { type: "race", label: L("Sheet.Option.race"), item: race, color: "#2f6b4a" },
+      job && { type: "class", label: L("Sheet.Option.class"), item: job, color: CLASSES[job.system.identifier]?.color ?? "#1f5137", emblem: true },
+      subclass && { type: "subclass", label: L("Sheet.Option.subclass"), item: subclass, color: PROFESSIONS[subclass.system.identifier]?.color ?? "#8a6a25" },
+      ...magias.map(magia => {
+        const category = categoryView(categoryOf(magia.flags[SYSTEM_ID].magic));
+        return { type: "magia", label: category.label, item: magia, color: category.color, tagline: magia.flags[SYSTEM_ID].magic.tagline ?? "" };
+      })
+    ].filter(Boolean).map(o => ({ ...o, id: o.item.id, name: o.item.name, img: o.item.img, text: flavorOf(o.item) }))
+      .filter(o => o.text || o.tagline);
+
+    // The connections and unions, with their tags
+    const withTags = list => list.map(item => ({ ...item, lhTags: (item.system?.tags ?? []).map(tagLabel) }));
+    const ties = [
+      { id: "connections", type: "connection", label: L("Sheet.Connections"), items: withTags(context.social.connections) },
+      { id: "unions", type: "union", label: L("Sheet.Unions"), items: withTags(context.social.unions) }
+    ];
+
+    const enrich = html => foundry.applications.ux.TextEditor.implementation.enrichHTML(html ?? "", {
+      rollData: context.rollData, relativeTo: actor, secrets: actor.isOwner
+    });
+    return {
+      epithet: field("epithet"),
+      catchphrase: field("catchphrase"),
+      identity,
+      players: players.join(", "),
+      data: BIO_DATA.map(field),
+      appearance: field("appearance"),
+      traits: BIO_TRAITS.map(t => ({ ...field(t.key), icon: t.icon })),
+      origins,
+      ties,
+      tieCount: ties.reduce((n, t) => n + t.items.length, 0),
+      story: { empty: !String(context.source.biography ?? "").trim() },
+      notes: { value: String(bio.notes ?? ""), html: await enrich(bio.notes), empty: !String(bio.notes ?? "").trim() },
+      panes: BIO_PANES.map(id => ({ id, label: L(`Bio.Pane.${id}`) }))
     };
   }
 

@@ -1,25 +1,80 @@
-{{!-- BIOGRAPHY: the text, the connections and the unions. --}}
+{{!-- BIOGRAPHY: the profile (who the character is, its data, looks and ways, and what its race, class, profession and
+     Magias say of it), the connections and unions, the story and the notes. The profile's fields are
+     flags.eternia.bio (the guild is system.social.guild); the story is system.biography. --}}
 <section class="tab major biography" data-group="primary" data-tab="biography">
 	<nav class="sub-nav tabs" data-group="bio">
-		<a data-action="tab" data-group="bio" data-tab="bio">{{localize 'ETERNIA.Biography.Title'}}</a>
-		{{#each lh.social as |tab|}}
-		<a data-action="tab" data-group="bio" data-tab="{{tab.id}}">{{tab.label}}{{#if tab.items.length}}<span class="pending quiet">{{tab.items.length}}</span>{{/if}}</a>
+		{{#each lh.bio.panes as |pane|}}
+		<a data-action="tab" data-group="bio" data-tab="{{pane.id}}">{{pane.label}}{{#if (eq pane.id "ties")}}{{#if @root.lh.bio.tieCount}}<span class="pending quiet">{{@root.lh.bio.tieCount}}</span>{{/if}}{{/if}}</a>
 		{{/each}}
 	</nav>
 
-	<div class="tab lhpf-pane" data-group="bio" data-tab="bio">
-		<div class="tab-content">
-			{{#unless source.biography}}{{#if editable}}<p class="lhpf-empty lhpf-bio-hint"><i class="fa-solid fa-feather"></i> {{localize 'ETERNIA.Sheet.BioHint'}}</p>{{/if}}{{/unless}}
+	{{!-- The profile --}}
+	<div class="tab lhpf-pane" data-group="bio" data-tab="profile">
+		<div class="tab-content lhbio">
+			<section class="lhbio-hero">
+				<span class="lhbio-portrait"><img src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-tooltip="{{localize 'ETERNIA.Bio.Portrait'}}"></span>
+				<div class="lhbio-who">
+					<h2>{{actor.name}}</h2>
+					<input class="lhbio-epithet" type="text" name="{{lh.bio.epithet.name}}" value="{{lh.bio.epithet.value}}" placeholder="{{lh.bio.epithet.placeholder}}" aria-label="{{lh.bio.epithet.label}}" spellcheck="false">
+					{{#if lh.bio.identity.length}}<p class="lhbio-identity">{{#each lh.bio.identity}}<span>{{this}}</span>{{/each}}</p>{{/if}}
+					<label class="lhbio-quote"><i class="fa-solid fa-quote-left"></i><input type="text" name="{{lh.bio.catchphrase.name}}" value="{{lh.bio.catchphrase.value}}" placeholder="{{lh.bio.catchphrase.placeholder}}" aria-label="{{lh.bio.catchphrase.label}}"></label>
+				</div>
+				{{#if lh.bio.players}}<span class="lhbio-player" data-tooltip="{{localize 'ETERNIA.Bio.Player'}}"><i class="fa-solid fa-user"></i>{{lh.bio.players}}</span>{{/if}}
+			</section>
+
+			<header class="lhpf-section"><span>{{localize "ETERNIA.Bio.Section.data"}}</span></header>
+			<div class="lhbio-data">
+				{{#each lh.bio.data}}
+				<label class="lhbio-field" data-field="{{key}}"><span>{{label}}</span><input type="text" name="{{name}}" value="{{value}}" placeholder="{{placeholder}}"></label>
+				{{/each}}
+			</div>
+
+			<header class="lhpf-section"><span>{{localize "ETERNIA.Bio.Section.appearance"}}</span></header>
+			<textarea class="lhbio-appearance" name="{{lh.bio.appearance.name}}" rows="3" placeholder="{{lh.bio.appearance.placeholder}}" aria-label="{{lh.bio.appearance.label}}">{{lh.bio.appearance.value}}</textarea>
+
+			<header class="lhpf-section"><span>{{localize "ETERNIA.Bio.Section.personality"}}</span></header>
+			<div class="lhbio-traits">
+				{{#each lh.bio.traits}}
+				<label class="lhbio-trait" data-field="{{key}}"><i class="{{icon}}"></i><span>{{label}}</span><input type="text" name="{{name}}" value="{{value}}" placeholder="{{placeholder}}"></label>
+				{{/each}}
+			</div>
+
+			{{#if lh.bio.origins.length}}
+			<header class="lhpf-section"><span>{{localize "ETERNIA.Bio.Section.origins"}}</span><span class="hint">{{localize "ETERNIA.Bio.OriginsHint"}}</span></header>
+			<ul class="lhbio-origins">
+				{{#each lh.bio.origins}}
+				<li class="lhbio-origin {{type}}" style="--opt-color: {{color}}">
+					<a class="lhbio-origin-art{{#if emblem}} emblem{{/if}}" data-action="lhpf-open-item" data-item-id="{{id}}"><img src="{{img}}" alt="{{name}}"></a>
+					<div class="lhbio-origin-body">
+						<span class="lhpf-option-label">{{label}}</span>
+						<b>{{name}}</b>
+						{{#if tagline}}<span class="lhbio-tagline">{{tagline}}</span>{{/if}}
+						{{#if text}}<p>{{text}}</p>{{/if}}
+					</div>
+				</li>
+				{{/each}}
+			</ul>
+			{{/if}}
+		</div>
+	</div>
+
+	{{!-- The story --}}
+	<div class="tab lhpf-pane" data-group="bio" data-tab="story">
+		<div class="tab-content lhbio">
+			<header class="lhpf-section"><span>{{localize "ETERNIA.Bio.Pane.story"}}</span><span class="hint">{{localize "ETERNIA.Bio.StoryHint"}}</span></header>
+			{{#if lh.bio.story.empty}}{{#if editable}}<p class="lhpf-empty lhpf-bio-hint"><i class="fa-solid fa-feather"></i> {{localize 'ETERNIA.Sheet.BioHint'}}</p>{{/if}}{{/if}}
 			<prose-mirror class="lhpf-bio" name="system.biography" value="{{source.biography}}" toggled {{#unless editable}}disabled{{/unless}}>{{{enrichments.biography}}}</prose-mirror>
 		</div>
 	</div>
 
-	{{#each lh.social as |tab|}}
-	<div class="tab lhpf-pane" data-group="bio" data-tab="{{tab.id}}">
-		<div class="tab-content">
-			<ol class="directory-list lhpf-list">
+	{{!-- The connections and unions --}}
+	<div class="tab lhpf-pane" data-group="bio" data-tab="ties">
+		<div class="tab-content lhbio">
+			{{#each lh.bio.ties as |tab|}}
+			<ol class="directory-list lhpf-list lhbio-ties">
 				<li class="action-header">
 					<h3>{{tab.label}}</h3>
+					<span class="hint">{{localize (concat "ETERNIA.Bio.TieHint." tab.id)}}</span>
 					<div class="item-controls">{{#if @root.editable}}<a class="item-control" data-action="item-create" data-type="{{tab.type}}"><i class="fa-solid fa-fw fa-plus"></i> {{localize 'ETERNIA.Add'}}</a>{{/if}}</div>
 				</li>
 				{{#each tab.items as |item|}}
@@ -39,7 +94,16 @@
 				<li class="lhpf-empty">{{localize 'ETERNIA.Sheet.NoneYet'}}</li>
 				{{/each}}
 			</ol>
+			{{/each}}
 		</div>
 	</div>
-	{{/each}}
+
+	{{!-- The notes --}}
+	<div class="tab lhpf-pane" data-group="bio" data-tab="notes">
+		<div class="tab-content lhbio">
+			<header class="lhpf-section"><span>{{localize "ETERNIA.Bio.Pane.notes"}}</span><span class="hint">{{localize "ETERNIA.Bio.NotesHint"}}</span></header>
+			{{#if lh.bio.notes.empty}}{{#if editable}}<p class="lhpf-empty lhpf-bio-hint"><i class="fa-solid fa-feather"></i> {{localize 'ETERNIA.Bio.NotesEmpty'}}</p>{{/if}}{{/if}}
+			<prose-mirror class="lhpf-bio" name="flags.eternia.bio.notes" value="{{lh.bio.notes.value}}" toggled {{#unless editable}}disabled{{/unless}}>{{{lh.bio.notes.html}}}</prose-mirror>
+		</div>
+	</div>
 </section>

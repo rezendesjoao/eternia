@@ -1,5 +1,62 @@
 # Changelog
 
+## 0.31.0 — 2026-10-25
+
+### Adicionado
+- **A aba Biografia refeita** (`templates/character/biography.hbs`), em quatro partes. **Perfil:** um cartão com o
+  retrato, o nome, a alcunha, a raça · classe · profissão e o NP, o bordão e quem joga com o personagem; os dados
+  pessoais (idade, gênero, altura, peso, olhos, cabelo, terra natal e guilda); a aparência; a personalidade
+  (temperamento, ideais, objetivo, medo, do que gosta e o que detesta); e as **Origens**, o que a raça, a classe, a
+  profissão e cada Magia dizem do personagem (o texto de ambientação que fecha a descrição de cada item, com a frase da
+  Magia e a cor da categoria). **História** (o texto que já existia), **Laços** (as Conexões e as Uniões juntas, com o
+  número delas na aba) e **Anotações** (pistas, nomes e promessas da campanha, num editor). Os campos novos ficam em
+  `flags.eternia.bio`; a guilda é o campo que o sistema já tinha.
+- **Esquiva automática dos personagens** (configuração, ligada): os personagens rolam o Teste de Esquiva assim que o
+  ataque é declarado, como os inimigos, e o cartão já sai com o resultado; os Motores das classes ouvem a esquiva como
+  quando ela vinha do botão. Desligada, volta o botão Esquivar.
+- **Barra de PV só em combate** (configuração, ligada): fora de combate o token mostra só o nome; a barra de PV e o
+  Motor da classe aparecem quando ele entra num combate e somem quando ele sai ou o combate acaba.
+- **Os tokens já vêm configurados** (`canvas/token-defaults.mjs`): o de um personagem enxerga (visão ligada e sem
+  limite de alcance: a escuridão na Eternia é regra de cena, [Escuridão] e [Visão Noturna], então só as paredes
+  escondem o mapa), é vinculado à ficha (o PV perdido continua quando o token é apagado e posto de novo) e um personagem
+  novo fica do lado dos aliados; o de um monstro continua sem vínculo, uma cópia por token. Todo token mostra o nome
+  sempre. Um token de personagem posto na cena é vinculado mesmo que o modelo dele diga outra coisa.
+- **Os feitiços contam o que fazem** na janela de Magias (a da ficha e a do passo Magia do assistente): o ponteiro sobre
+  um feitiço mostra o começo do texto dele, com os colchetes em destaque e os estados que ele põe, e um clique abre o
+  texto inteiro ali mesmo, com o custo e a frase de ambientação (outro clique fecha; Enter também abre). Os textos de
+  uma Magia são lidos juntos, uma vez (`spellTexts` em `apps/magic-catalog.mjs`).
+
+### Alterado
+- **O passo Atributos do assistente** virou uma tabela: uma linha por atributo com o que vem da classe e da raça, os
+  pontos (− e +, com o quanto a sugestão põe), o valor com losangos até o próximo modificador, o modificador e os
+  testes. No alto, os pontos que faltam e a sugestão da classe; embaixo, os números de jogo em três grupos (Vida,
+  Defesas e Em combate).
+- **O passo Itens** ganhou o corpo: o kit da classe já vem equipado ao chegar no passo, e cada peça aparece no seu lugar
+  ao redor de uma silhueta (as duas mãos, a armadura, a bolsa e os três acessórios, cada um onde é usado: o anel na
+  mão, o amuleto no pescoço, as botas nos pés), com os números do equipamento nos cantos e a bolsa embaixo. Clicar num
+  lugar filtra a loja para ele e o × devolve a peça; uma arma, armadura ou escudo comprado vai para o corpo, e o que
+  estava lá passa para a bolsa. A loja ficou numa coluna própria, com o ouro, a busca e os filtros em ícones.
+- **O passo Resumo** virou a página do personagem: uma faixa com o retrato, o nome, a raça · classe · Magia ·
+  profissão, o NP, os PV, o Destino e o ouro, e quatro quadros: Origens (a classe com o Motor, a Magia com a categoria
+  e a frase), Atributos e números, Habilidades (separadas pela origem, com o que cada uma faz ao passar o mouse) e
+  Equipamento.
+- **O nome dos tokens** ficou pequeno e limpo: letra clara com um contorno suave, logo abaixo do token (ou da barra de
+  PV), sem a faixa colorida e os losangos. A dica da elevação tem o mesmo visual.
+- **Trocar o retrato na ficha troca a imagem do token** (o modelo e os tokens já postos na cena) enquanto ele ainda usa
+  a imagem padrão ou o retrato antigo; um token com imagem própria fica como está. Um ator novo já nasce com o token
+  na imagem do tipo, a mesma da ficha.
+- **O marcador do Foundry que girava em volta do token da vez** foi desligado (a configuração do marcador de turno, no
+  rastreador de combate, liga de volta).
+- Uma migração dá aos mundos que já existem o mesmo: os personagens e os tokens deles enxergam e ficam vinculados (um
+  token que estava sem vínculo passa para a ficha o PV, o Destino, o Ódio e a Fadiga que tinha), todo token mostra o
+  nome e o marcador de turno sai.
+- O aviso de novidades fala da 0.31.
+
+### Corrigido
+- Um Teste de Esquiva rolado por quem não é dono do alvo (um jogador atacando um monstro) não tirava o que a esquiva
+  gasta ([Concentrado] e os efeitos que valem para uma esquiva só): agora o Mestre tira.
+- Um passo do assistente de criação abria rolado até onde estava o anterior; agora cada passo abre no topo.
+
 ## 0.30.1 — 2026-10-24
 
 ### Adicionado

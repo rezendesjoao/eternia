@@ -28,3 +28,31 @@ export const ITEM_INDEX_FIELDS = [
 export function registerPackIndex() {
   CONFIG.Item.compendiumIndexFields = [...new Set([...(CONFIG.Item.compendiumIndexFields ?? []), ...ITEM_INDEX_FIELDS])];
 }
+
+/**
+ * Load documents by uuid, a few requests at most (one per compendium; the world's one by one).
+ * @param {string[]} uuids
+ * @returns {Promise<Map<string, foundry.abstract.Document>>}
+ */
+export async function loadDocuments(uuids) {
+  const byPack = new Map();
+  const world = [];
+  for (const uuid of new Set(uuids)) {
+    const parsed = foundry.utils.parseUuid(uuid);
+    if (String(uuid).startsWith("Compendium.") && parsed?.collection && !parsed.embedded?.length) {
+      const id = parsed.collection.collection;
+      if (!byPack.has(id)) byPack.set(id, []);
+      byPack.get(id).push(parsed.id);
+    }
+    else world.push(uuid);
+  }
+  const docs = new Map();
+  for (const [id, ids] of byPack) {
+    for (const doc of await game.packs.get(id).getDocuments({ _id__in: ids })) docs.set(doc.uuid, doc);
+  }
+  for (const uuid of world) {
+    const doc = await fromUuid(uuid).catch(() => null);
+    if (doc) docs.set(uuid, doc);
+  }
+  return docs;
+}

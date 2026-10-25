@@ -12,6 +12,9 @@ import { chipText } from "../helpers/text-chips.mjs";
 import { tagLabel, term } from "../i18n/terms.mjs";
 import { PROFESSIONS, TALENTS } from "../professions/data.mjs";
 import { escape } from "../helpers/utils.mjs";
+import { loadDocuments } from "../helpers/pack-index.mjs";
+
+export { loadDocuments };
 
 /** The look of each race in the wizard: the color of its medallion and card. */
 export const RACE_COLORS = {
@@ -102,30 +105,6 @@ export function creationCatalog() {
 /** Forget the catalog (an option item or a compendium skill changed). */
 export function clearCreationCatalog() {
   catalogPromise = null;
-}
-
-/** Load documents by uuid, a few compendium requests at most (one per compendium). */
-export async function loadDocuments(uuids) {
-  const byPack = new Map();
-  const world = [];
-  for (const uuid of new Set(uuids)) {
-    const parsed = foundry.utils.parseUuid(uuid);
-    if (String(uuid).startsWith("Compendium.") && parsed?.collection && !parsed.embedded?.length) {
-      const id = parsed.collection.collection;
-      if (!byPack.has(id)) byPack.set(id, []);
-      byPack.get(id).push(parsed.id);
-    }
-    else world.push(uuid);
-  }
-  const docs = new Map();
-  for (const [id, ids] of byPack) {
-    for (const doc of await game.packs.get(id).getDocuments({ _id__in: ids })) docs.set(doc.uuid, doc);
-  }
-  for (const uuid of world) {
-    const doc = await fromUuid(uuid).catch(() => null);
-    if (doc) docs.set(uuid, doc);
-  }
-  return docs;
 }
 
 /** The view of a skill a race or class gives: what the wizard's tiles and tooltips show. */

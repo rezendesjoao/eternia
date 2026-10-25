@@ -5,9 +5,16 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.30.1
+## Versão 0.31.0
 
-- **Novo na 0.30.1: o cartão de NP e a animação dos estados.** Subir ou descer de NP manda para o chat um cartão com o
+- **Novo na 0.31.0: a Biografia, os tokens prontos e o assistente de criação refeito.** A aba **Biografia** tem o
+  Perfil (dados pessoais, aparência, personalidade e as Origens que a raça, a classe e as Magias contam), a História, os
+  Laços e as Anotações. O token de um personagem já vem enxergando e vinculado à ficha, o nome fica pequeno e sempre à
+  vista, a barra de PV só aparece em combate e os personagens esquivam sozinhos. No assistente de criação, os feitiços
+  mostram o que fazem ao passar o mouse, os Atributos viraram uma tabela, os Itens mostram o kit equipado num corpo e o
+  Resumo virou a página do personagem (veja [A ficha de personagem](#a-ficha-de-personagem), [Os tokens](#os-tokens) e
+  [A criação de personagem](#a-criação-de-personagem)).
+- **Desde a 0.30.1: o cartão de NP e a animação dos estados.** Subir ou descer de NP manda para o chat um cartão com o
   retrato numa faixa na cor da classe, o NP num selo, os Atributos Base, os PV e o que a classe dá pelo caminho. E um
   estado posto num token gira até o lugar dele entre os ícones, no lugar do texto com o nome (veja [O chat](#o-chat) e
   [Os tokens](#os-tokens)).
@@ -210,8 +217,14 @@ molduras finas e rótulos em versalete. Cada aba tem o ícone e o nome, e um nú
   (receber e gastar ouro fica registrado no chat), o espaço da bolsa e os tíquetes; embaixo, o que se carrega.
 - **Profissão:** o brasão da profissão com o Rank, a EXP e as tentativas do cenário, os botões da bancada (Oficina,
   Fusão, talentos), as chances, os materiais, o talento, as obras e os Ranks; sem profissão, as dez para escolher.
-- **Efeitos e estados** (os efeitos dos itens dizem "Passivo" na duração) e a **Biografia**, com as Conexões e as
-  Uniões.
+- **Efeitos e estados** (os efeitos dos itens dizem "Passivo" na duração).
+- **Biografia**, em quatro partes. **Perfil:** um cartão com o retrato, o nome, a alcunha, a raça · classe · profissão
+  e o NP, o bordão e quem joga com o personagem; os dados pessoais (idade, gênero, altura, peso, olhos, cabelo, terra
+  natal e guilda); a aparência; a personalidade (temperamento, ideais, objetivo, medo, do que gosta e o que detesta); e
+  as **Origens**, o que a raça, a classe, a profissão e cada Magia dizem do personagem (o texto de ambientação de cada
+  uma, que vem do item). **História:** o texto livre da história. **Laços:** as Conexões e as Uniões. **Anotações:**
+  pistas, nomes e promessas da campanha. Os campos do Perfil ficam em `flags.eternia.bio` (a guilda é o campo do
+  sistema).
 
 ## A criação de personagem
 
@@ -228,28 +241,37 @@ campos vazios de raça, classe e profissão e pelo botão da pena no cabeçalho 
    com o que ele ganha, gasta, o teto e o que o zera, o kit do NP 1, a escolha do NP 1 (o elemento do Matador de
    Dragões) e o caminho do NP 1 ao 10 (as vagas de Magia, os três Caminhos, a Dedicação e o Ápice).
 3. **Magia:** a janela de Magias dentro do passo, para a vaga do NP 1; uma Magia que pede uma escolha (o Decreto dos
-   Mandamentos) pede ali embaixo. Uma classe cuja primeira vaga vem depois (o Matador de Dragões, no NP 5) só avisa.
+   Mandamentos) pede ali embaixo. Uma classe cuja primeira vaga vem depois (o Matador de Dragões, no NP 5) só avisa. Na
+   página da Magia, o ponteiro sobre um feitiço mostra o que ele faz, e um clique abre o texto inteiro ali mesmo.
 4. **Profissão:** as dez profissões, com o que cada uma faz, o talento, a Oficina e como sobe de Rank, ou "Decidir
    depois".
-5. **Atributos:** os cinco pontos bônus sobre a classe e a raça (nenhum atributo acima de 7), com o modificador, os
-   testes de cada atributo e os números de jogo (PV, Destino, Defesas, Iniciativa, Precisão, Esquiva e Resistência)
-   mudando na hora. No alto, a **sugestão para a classe** (um clique usa): os pontos vão para onde a base da classe é
-   alta, até o próximo modificador; cada atributo mostra quanto a sugestão põe nele.
+5. **Atributos:** os cinco pontos bônus sobre a classe e a raça (nenhum atributo acima de 7), numa tabela com uma
+   linha por atributo: o que vem da classe e da raça, os pontos (− e +), o valor (com losangos marcando quanto falta
+   para o próximo modificador), o modificador e os testes dele. Embaixo, os números de jogo em três grupos (Vida: PV e
+   Destino; Defesas: Física e Mágica; Em combate: Iniciativa, Precisão, Esquiva e Resistência), mudando na hora. No
+   alto, os pontos que faltam e a **sugestão para a classe** (um clique usa): os pontos vão para onde a base da classe
+   é alta, até o próximo modificador; cada atributo mostra quanto a sugestão põe nele.
 6. **Habilidades:** as três de Combate e a Geral da criação (no máximo duas de [Treino]), entre os talentos da classe
    e os feitiços da Magia do NP 1, cada uma com as primeiras linhas; as regras são as do navegador de habilidades (um
    talento aparece com o que ele pede, e entra junto). No alto, o que a raça, a classe e a Magia já dão.
 7. **Itens:** a Mochila, o Kit de Aventureiro e o Sanduíche vêm de graça, e o ouro do personagem (350) compra o resto
    numa loja com os itens de Nível 1 dos compêndios do sistema e do mundo (sem os [Invendáveis], os [Intransferíveis]
    e os mágicos [M1]–[M7]; um [Raro] aparece com uma gema, para combinar com o mestre). O **kit recomendado para a
-   classe** vem no alto, com o porquê e um botão que compra tudo; os itens dele têm uma estrela na loja. Uma classe que
-   luta com arma e tem uma Magia que ataca ganha a sugestão do Anel Cinzento (+4 no Poder Mágico, com um chapéu de
-   mago). A loja tem filtros por tipo e uma busca; um clique compra mais um, o **−** devolve, e o ponteiro mostra o que
-   o item faz. Ao lado, a bolsa: o ouro que sobra, onde cada peça vai (a primeira arma na mão principal, uma arma de
-   duas mãos ocupa as duas, um escudo ou uma segunda arma na outra, a armadura, três acessórios e a bolsa), o que fica
-   na bolsa com o espaço (2, mais o da bolsa equipada) e os números que o equipamento dá (Poder de Ataque e Mágico,
-   Precisão, Defesas e Iniciativa).
-8. **Resumo:** o nome e o retrato (o token pega o retrato), a opção de dar as 16 habilidades básicas e tudo o que foi
-   escolhido, com os itens e o ouro.
+   classe** já vem equipado ao chegar no passo; no alto ficam o porquê, o preço e um botão que o equipa de novo, e os
+   itens dele têm uma estrela na loja. Uma classe que luta com arma e tem uma Magia que ataca ganha a sugestão do Anel
+   Cinzento (+4 no Poder Mágico, com um chapéu de mago). No centro, o **corpo**: cada peça no seu lugar ao redor de uma
+   silhueta (a mão principal, a outra mão, que uma arma de duas mãos ocupa, a armadura, a bolsa e os três acessórios,
+   cada um onde é usado: o anel na mão, o amuleto no pescoço, o brinco na orelha, a capa nos ombros, as botas nos pés),
+   com os números que o equipamento dá nos cantos (Poder de Ataque e Mágico, Precisão, Defesas e Iniciativa) e, embaixo,
+   o que vai na bolsa, com o espaço (2, mais o da bolsa equipada). Clicar num lugar filtra a loja para ele, e o **×**
+   devolve a peça. À direita, a loja: o ouro que sobra, a busca e os filtros por tipo; um clique compra (uma arma,
+   armadura ou escudo novo vai para o corpo, e o que estava lá passa para a bolsa), o **−** devolve, e o ponteiro mostra
+   o que o item faz.
+8. **Resumo:** a página do personagem. No alto, o retrato (o token pega o retrato), o nome, a raça · classe · Magia ·
+   profissão, o NP, os PV, o Destino e o ouro; embaixo, as **Origens** (a raça, a classe com o Motor, a Magia com a
+   categoria e a frase dela e a profissão), os **Atributos e números**, as **Habilidades** que vão entrar (da raça, da
+   classe, da Magia e as escolhidas, cada uma com o que faz ao passar o mouse, e a opção de dar as 16 habilidades
+   básicas) e o **Equipamento** (o corpo, a bolsa e o ouro).
 
 Nada muda na ficha até **Criar personagem**: aí vêm, de uma vez, a raça (com o +1 do Humano), a classe, a profissão, o
 kit, a escolha do NP 1, a Magia (com o Decreto), as escolhas da criação marcadas como escolhas (o navegador de
@@ -331,8 +353,24 @@ aparecem na tela são desenhados. A configuração **Ícones animados** (de cada
 
 A barra de PV (com a Fadiga hachurada e a Barreira num filete azul-aço), o Destino em losangos dourados, o Motor da
 classe numa fileira de losangos logo acima da barra de PV (com um disco do estado: verde Embainhada, carmim
-Desembainhada) e o nome em versalete numa faixa na cor da disposição. Uma configuração escolhe quem vê a barra de PV: todos; todos, mas os
-jogadores só veem a de um inimigo [Identificado]; ou cada token por conta própria.
+Desembainhada) e o nome, pequeno e claro, com um contorno suave que se lê em qualquer mapa. Fora de combate o token
+mostra só o nome: a barra de PV e o Motor aparecem quando ele entra num combate e somem quando sai (configuração
+**Barra de PV só em combate**). Outra configuração escolhe quem vê a barra de PV: todos; todos, mas os jogadores só
+veem a de um inimigo [Identificado]; ou cada token por conta própria.
+
+Os tokens já vêm configurados:
+
+- **Personagem:** enxerga (visão ligada e sem limite de alcance: a escuridão na Eternia é regra de cena, [Escuridão] e
+  [Visão Noturna], então só as paredes escondem o mapa) e é **vinculado à ficha**, sempre: o PV perdido continua quando
+  o token é apagado e posto de novo. Um personagem novo fica do lado dos aliados.
+- **Monstro:** sem vínculo, então cada token na cena é uma cópia com o próprio PV.
+- **Todos:** o nome sempre à vista (a não ser que alguém escolha outro modo no token).
+- **Retrato:** trocar o retrato na ficha troca o do token (o modelo e os já postos na cena) enquanto ele ainda usa a
+  imagem padrão ou o retrato antigo; um token com imagem própria fica como está.
+
+O marcador do Foundry que girava em volta do token da vez fica desligado (no rastreador de combate, a configuração do
+marcador de turno liga de volta). Os mundos que já existiam recebem tudo isso numa migração, uma vez: um token de
+personagem que estava sem vínculo passa para a ficha o PV, o Destino, o Ódio e a Fadiga que tinha.
 
 Um estado posto num token aparece sobre ele num medalhão (com anel carmim nos estados ruins, dourado nos de combate e
 verde nos outros), dá uma volta e encolhe até o lugar dele entre os ícones do token, onde o ícone aparece quando ele
@@ -348,7 +386,8 @@ tela, no lugar da barra de macros do Foundry:
   marca os pontos à mão).
 - **Turno:** a rodada e o Processo, as ações que restam no seu turno, Espera e **Encerrar**; **Entrar**
   coloca o token num combate em que ele ainda não está.
-- **Esquivas pendentes:** quando um ataque mira o seu personagem, **Esquivar** rola pelo próprio cartão.
+- **Esquivas pendentes:** com a esquiva automática desligada, quando um ataque mira o seu personagem, **Esquivar** rola
+  pelo próprio cartão.
 - **Painéis:** Testes; as habilidades em três, **Gerais** (as básicas, as da raça e as outras), **Magias** (os
   feitiços de cada Magia sob o nome dela, na cor da categoria, cada um com o seu Momento; o texto da Magia aparece ao
   passar o mouse) e **Classe** (as da classe e as de uma Dedicação); Itens (com os poderes de gatilho) e Estados. As
@@ -434,7 +473,8 @@ físicas (o Assassino, o Berserker, o Caçador, o Centurião, o Hierofante, o Lu
 jeito de lutar da classe. As mágicas escolhem a primeira Magia com a classe, a segunda no NP 5 e a terceira no NP 10
 (o Matador de Dragões, uma no NP 5 e outra no NP 10); as físicas, a primeira com a classe e a segunda no NP 10. Cada
 uma é escolhida numa janela própria: um cartão por Magia (a categoria, uma frase curta e o que os feitiços fazem), filtros por categoria e por
-função, busca por Magia ou feitiço e, ao passar o mouse, a página da Magia com o Tabu e os feitiços por NP. A aba Classe
+função, busca por Magia ou feitiço e, ao passar o mouse, a página da Magia com o Tabu e os feitiços por NP; o ponteiro
+sobre um feitiço mostra o que ele faz, e um clique abre o texto inteiro ali mesmo. A aba Classe
 mostra as Magias com os feitiços de cada uma, e o navegador de habilidades mostra os feitiços das suas Magias (a origem "Magia") nas
 escolhas de Combate e Geral. Os feitiços alimentam o Motor da sua classe (+1; os grandes, +2), e o feitiço supremo de
 cada Magia (NP 7; NP 10 nas Ancestrais) pede o Motor no Teto e gasta tudo. Nas físicas, o Samurai só junta Cortes com
@@ -711,6 +751,9 @@ O que o sistema faz sozinho:
   Incapacitados morrem, Estados Negativos e de Combate acabam.
 - **Cartões de ataque e dano:** o dano fica ligado ao ataque certo, não aplica em quem ainda precisa esquivar nem em
   quem esquivou, pergunta antes de aplicar de novo, e cartões privados aparecem para os donos dos alvos.
+- **Esquiva automática:** inimigos e personagens rolam o Teste de Esquiva assim que o ataque é declarado, e o cartão já
+  sai com quem esquivou e quem foi atingido (o Destino ainda rerrola a esquiva). Desligada, o dono do personagem rola
+  pelo botão Esquivar do cartão ou pelo HUD.
 - **Corpo a corpo encostado** (regra da casa): um token encostado, de lado ou na diagonal, conta como Corpo a corpo.
 - **Destino:** +1d6 no Teste, rerrolar o acerto, a esquiva ou qualquer 2d6, e remover um Estado Negativo.
 - **Switch** (habilidade básica): você e um aliado a até 2 Qd trocam de lugar e de Ódio, e o aliado fica
@@ -757,6 +800,7 @@ janelas em pergaminho, que pedem para recarregar.
 | Efeitos automáticos das condições | ligado |
 | O que as condições proíbem | avisar |
 | Correções nos cartões de ataque e dano | ligado |
+| Esquiva automática dos personagens | ligado |
 | Botões de Destino | ligado |
 | Estados clicáveis no chat | ligado |
 | Criar efeito a partir de um cartão | ligado |
@@ -765,6 +809,7 @@ janelas em pergaminho, que pedem para recarregar.
 | Janelas do sistema em pergaminho | ligado |
 | Barras e nomes dos tokens no estilo da ficha | ligado |
 | Quem vê a barra de PV dos tokens | todos, sempre |
+| Barra de PV só em combate | ligado |
 
 Cada jogador escolhe as suas: HUD de ações (ligado), HUD sem token selecionado (ligado), barra de macros do Foundry
 (esconder), aviso da sua vez (ligado), selecionar o token na sua vez (desligado), levar a tela até quem age

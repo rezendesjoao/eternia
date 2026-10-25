@@ -56,6 +56,63 @@
       "Label": "Bio.",
       "Title": "Biografia"
     },
+    "Bio": {
+      "Pane": {
+        "profile": "Perfil",
+        "story": "História",
+        "ties": "Laços",
+        "notes": "Anotações"
+      },
+      "Section": {
+        "data": "Dados pessoais",
+        "appearance": "Aparência",
+        "personality": "Personalidade",
+        "origins": "Origens"
+      },
+      "Field": {
+        "epithet": "Alcunha",
+        "catchphrase": "Bordão",
+        "age": "Idade",
+        "gender": "Gênero",
+        "height": "Altura",
+        "weight": "Peso",
+        "eyes": "Olhos",
+        "hair": "Cabelo",
+        "homeland": "Terra natal",
+        "guild": "Guilda",
+        "appearance": "Aparência",
+        "temperament": "Temperamento",
+        "ideals": "Ideais",
+        "goal": "Objetivo",
+        "fear": "Medo",
+        "likes": "Gosta de",
+        "dislikes": "Detesta"
+      },
+      "Placeholder": {
+        "epithet": "Uma alcunha ou um título",
+        "catchphrase": "Uma frase que só este personagem diria",
+        "homeland": "Onde nasceu",
+        "guild": "Guilda, ordem ou bando",
+        "appearance": "Como os outros o veem: o rosto, as roupas, as marcas e cicatrizes, o jeito de andar e de falar…",
+        "temperament": "Como age com os outros",
+        "ideals": "No que acredita",
+        "goal": "O que busca",
+        "fear": "O que teme",
+        "likes": "O que lhe dá alegria",
+        "dislikes": "O que não suporta"
+      },
+      "Rank": "NP {n}",
+      "Player": "Quem joga com este personagem",
+      "Portrait": "Trocar o retrato",
+      "OriginsHint": "o que a raça, a classe, a profissão e as Magias dizem de você",
+      "StoryHint": "de onde veio, o que perdeu, por que luta",
+      "NotesHint": "pistas, nomes, promessas e o que aconteceu nas sessões",
+      "NotesEmpty": "Clique no lápis para escrever as anotações.",
+      "TieHint": {
+        "connections": "pessoas com quem pode contar",
+        "unions": "grupos de que faz parte"
+      }
+    },
     "ButtonLabel": {
       "Cancel": "Cancelar",
       "Delete": "Excluir",
@@ -1147,6 +1204,10 @@
         "Name": "Correções nos cartões de ataque e dano",
         "Hint": "O dano fica ligado ao ataque certo, e o cartão de ataque ganha um botão de dano. O Aplicar não vale para quem ainda vai esquivar ou já esquivou, e pede confirmação antes de aplicar de novo. Cartões privados ficam visíveis aos donos dos alvos."
       },
+      "autoDodge": {
+        "Name": "Esquiva automática dos personagens",
+        "Hint": "Os personagens rolam o Teste de Esquiva assim que o ataque é declarado, como os inimigos, e o resultado já sai no cartão. Desligado, o dono do personagem rola pelo botão Esquivar do cartão ou pelo HUD."
+      },
       "closeReach": {
         "Name": "Corpo a corpo alcança os quadrados vizinhos",
         "Hint": "Regra da casa: um ataque Corpo a corpo também acerta um token encostado no do atacante, de lado ou na diagonal, sem precisar pôr os dois no mesmo quadrado. As outras distâncias continuam as do sistema."
@@ -1221,7 +1282,7 @@
       },
       "tokenStyle": {
         "Name": "Barras e nomes dos tokens no estilo da ficha",
-        "Hint": "A barra de PV, o Destino e o nome embaixo dos tokens no visual da ficha: barra fina com moldura dourada (com a Fadiga hachurada no fim e a Barreira num filete azul acima), Destino em losangos dourados e o nome em versalete numa faixa na cor da disposição (verde aliado, vinho inimigo, bronze neutro)."
+        "Hint": "A barra de PV, o Destino e o nome embaixo dos tokens no visual da ficha: barra fina com moldura dourada (com a Fadiga hachurada no fim e a Barreira num filete azul acima), Destino em losangos dourados e o nome pequeno e claro, com um contorno suave que se lê em qualquer mapa."
       },
       "tokenBars": {
         "Name": "Quem vê a barra de PV dos tokens",
@@ -1229,6 +1290,10 @@
         "always": "Todos, sempre",
         "identified": "Todos; os inimigos só depois de [Identificado]",
         "core": "Como na configuração de cada token"
+      },
+      "tokenBarsCombat": {
+        "Name": "Barra de PV só em combate",
+        "Hint": "Fora de combate a barra de PV e o Motor da classe somem dos tokens; aparecem nos tokens que estão no combate."
       },
       "statusAnimation": {
         "Name": "Animação dos estados nos tokens",
@@ -1465,7 +1530,7 @@
       "NoneYet": "Nada ainda.",
       "Connections": "Conexões",
       "Unions": "Uniões",
-      "BioHint": "Clique no lápis para escrever a biografia.",
+      "BioHint": "Clique no lápis para escrever a história do personagem.",
       "HateBox": "Ódio {value}: a caixa enche a cada ponto, até 10.",
       "FatigueBox": "Fadiga {value}: o PV máximo cai {value}. A caixa mostra quanto do PV máximo a Fadiga tirou.",
       "UsePower": "Usar {name} ({timing})",
@@ -1633,7 +1698,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.30: os itens iniciais e a sugestão de atributos</strong></p><ul><li><strong>Itens iniciais:</strong> o assistente de criação ganhou o passo Itens. A Mochila, o Kit de Aventureiro e o Sanduíche vêm de graça, e os 350 de ouro compram o resto numa loja com os itens de Nível 1. Cada classe tem um kit recomendado (marcado com ★) que um clique compra, e a bolsa ao lado mostra onde cada peça vai e os números que ela dá. Ao criar, tudo entra equipado.</li><li><strong>Sugestão de atributos:</strong> no passo Atributos, os cinco pontos sugeridos para a classe, com um botão que os usa.</li><li>Desde a 0.29: a ficha nova e o assistente de criação; na 0.29.1, as habilidades do HUD em três painéis (Gerais, Magias e Classe).</li></ul><p>Desde a 0.28: vinte Magias das categorias altas e onze condições. Desde a 0.27: o Sol, o Contra-ataque, as Chamas do Purgatório e o Roubo, com cinco condições. Desde a 0.26: a revisão das Magias, com o Traço de cada uma e cinco condições novas. Desde a 0.25: os Matadores (Branco, Sombras e Veneno), as Maldições e mais dezesseis Magias. Desde a 0.24: Elo dos Sentidos, Magia dos Anjos, Trevas e Amarras. Desde a 0.23: Neve, Perfume Mágico, Alma de Máquina e Onda. Desde a 0.22: 14 classes, 7 físicas e 7 mágicas, todas com Magias; o Lutador, o Centurião e o Hierofante. Desde a 0.21: Moldagem de Madeira, Areia, Telepatia e Teleporte. Desde a 0.20: as Magias Portadoras Armas Mágicas, Plantas, Fumaça e Pintura Mágica. Desde a 0.19: Gigante, Encantamento, Olhos Mágicos e Alta Velocidade. Desde a 0.18: a escolha da Magia numa janela própria e a aba Classe sem rolar. Desde a 0.17: as Magias Perdidas. Desde a 0.16: as Magias elementais. Desde a 0.15: o Mago Azul e as Magias de Take Over. Desde a 0.14: o Mago Branco. Desde a 0.13: o Invocador com Magias. Desde a 0.12: o Pictomante. Desde a 0.11: o Mago Vermelho. Desde a 0.10: o Mago Negro e as Magias. Desde a 0.9: o Matador de Dragões. Desde a 0.8: as classes com Motor. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.31: a Biografia, os tokens e o assistente de criação</strong></p><ul><li><strong>Biografia:</strong> a aba ficou em quatro partes. O Perfil tem os dados pessoais, a aparência, a personalidade e as Origens, o que a raça, a classe, a profissão e as Magias contam do personagem; depois vêm a História, os Laços e as Anotações.</li><li><strong>Tokens:</strong> o token de um personagem já vem enxergando e vinculado à ficha (o PV perdido continua quando ele é apagado e posto de novo), e trocar o retrato troca o token. O nome fica pequeno e sempre à vista, a barra de PV só aparece em combate e o marcador que girava na vez do token saiu.</li><li><strong>Esquiva automática:</strong> os personagens rolam a esquiva assim que o ataque é declarado, como os inimigos.</li><li><strong>Assistente de criação:</strong> os feitiços mostram o que fazem ao passar o mouse e abrem com um clique; os Atributos viraram uma tabela; os Itens mostram o kit da classe já equipado num corpo; e o Resumo virou a página do personagem.</li></ul><p>Desde a 0.30: os itens iniciais e a sugestão de atributos; na 0.30.1, o cartão de NP e a animação dos estados. Desde a 0.29: a ficha nova e o assistente de criação; na 0.29.1, as habilidades do HUD em três painéis. Desde a 0.28: vinte Magias das categorias altas e onze condições. Desde a 0.27: o Sol, o Contra-ataque, as Chamas do Purgatório e o Roubo, com cinco condições. Desde a 0.26: a revisão das Magias, com o Traço de cada uma e cinco condições novas. Desde a 0.25: os Matadores (Branco, Sombras e Veneno), as Maldições e mais dezesseis Magias. Desde a 0.24: Elo dos Sentidos, Magia dos Anjos, Trevas e Amarras. Desde a 0.23: Neve, Perfume Mágico, Alma de Máquina e Onda. Desde a 0.22: 14 classes, 7 físicas e 7 mágicas, todas com Magias; o Lutador, o Centurião e o Hierofante. Desde a 0.21: Moldagem de Madeira, Areia, Telepatia e Teleporte. Desde a 0.20: as Magias Portadoras Armas Mágicas, Plantas, Fumaça e Pintura Mágica. Desde a 0.19: Gigante, Encantamento, Olhos Mágicos e Alta Velocidade. Desde a 0.18: a escolha da Magia numa janela própria e a aba Classe sem rolar. Desde a 0.17: as Magias Perdidas. Desde a 0.16: as Magias elementais. Desde a 0.15: o Mago Azul e as Magias de Take Over. Desde a 0.14: o Mago Branco. Desde a 0.13: o Invocador com Magias. Desde a 0.12: o Pictomante. Desde a 0.11: o Mago Vermelho. Desde a 0.10: o Mago Negro e as Magias. Desde a 0.9: o Matador de Dragões. Desde a 0.8: as classes com Motor. Desde a 0.7: o sistema de classes e o Samurai. Desde a 0.6: os itens de Sword Art Online. Desde a 0.5: um ícone para cada item. Desde a 0.4: as 10 profissões. Desde a 0.3: as 8 raças. Desde a 0.2: 31 condições automatizadas.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -3486,7 +3551,9 @@
         "Ranks": "Os feitiços chegam pelo NP: os primeiros já no NP 1, os outros no NP 3 e no NP 5, e o supremo no NP 7 (nas Ancestrais, no NP 10).",
         "Motor": "Cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O supremo pede o Motor no Teto e gasta tudo.",
         "Categories": "As categorias"
-      }
+      },
+      "SpellOpen": "Clique para ler o feitiço inteiro.",
+      "SpellNoText": "Este feitiço não tem texto."
     },
     "Wizard": {
       "Title": "Criação de personagem: {name}",
@@ -3508,7 +3575,7 @@
         "profession": "A profissão é a subclasse: faz itens com aprimoramentos e tem um talento próprio.",
         "attributes": "Cinco pontos bônus para distribuir. O modificador (o atributo ÷ 3) é o que entra nos testes.",
         "skills": "Três habilidades de Combate e uma Geral, entre os talentos da classe e os feitiços da Magia.",
-        "items": "A Mochila, o Kit de Aventureiro e o Sanduíche vêm de graça; o ouro compra o resto. O que a sua classe usa vem com ★.",
+        "items": "A Mochila, o Kit de Aventureiro e o Sanduíche vêm de graça, e o kit da sua classe já vem equipado. Troque o que quiser na loja; ★ marca o que a classe usa.",
         "summary": "O nome e o retrato, e tudo o que foi escolhido. Ao criar, a ficha recebe tudo de uma vez."
       },
       "Step": {
@@ -3621,7 +3688,24 @@
         "SuggestUse": "Usar a sugestão",
         "SuggestOn": "Em uso",
         "SuggestWhy": "Os pontos vão para onde a base da classe é alta, até o próximo modificador (a cada 3 pontos).",
-        "SuggestedTip": "A sugestão para a classe: +{n} aqui."
+        "SuggestedTip": "A sugestão para a classe: +{n} aqui.",
+        "LeftN": "{n} de {total} para distribuir",
+        "AllSpent": "Todos distribuídos",
+        "Col": {
+          "attribute": "Atributo",
+          "score": "Valor",
+          "mod": "Mod.",
+          "checks": "Testes"
+        },
+        "NextTip": "Faltam {n} para o modificador {mod}.",
+        "AtMax": "No limite de {max} na criação.",
+        "Gives": {
+          "life": "Vida",
+          "defense": "Defesas",
+          "combat": "Em combate",
+          "phys": "Física",
+          "magic": "Mágica"
+        }
       },
       "Numbers": {
         "hp": "PV",
@@ -3639,7 +3723,19 @@
         "Basics": "Dar as {n} habilidades básicas (Ataque Básico com Arma, Deslocar-se, Switch...)",
         "Rebuild": "Este personagem já tem raça ou classe. Criar de novo troca a raça, a classe, a profissão e as habilidades que vieram delas e das escolhas; o inventário e o resto ficam.",
         "Skills": "Habilidades",
-        "Gear": "Itens"
+        "Gear": "Equipamento",
+        "Eyebrow": "Ficha de personagem",
+        "Origins": "Origens",
+        "Attributes": "Atributos e números",
+        "Gold": "Ouro",
+        "NoProfession": "Decidir depois",
+        "NothingWorn": "Nada equipado.",
+        "From": {
+          "race": "Da raça",
+          "class": "Da classe",
+          "magia": "Da Magia",
+          "picks": "Escolhidas"
+        }
       },
       "Chat": {
         "Eyebrow": "Novo personagem",
@@ -3649,8 +3745,8 @@
       "StepOf": "Passo {n} de {total}",
       "Items": {
         "KitFor": "Recomendado para {name}",
-        "KitBuy": "Comprar o kit",
-        "KitTaken": "O kit está na bolsa",
+        "KitBuy": "Equipar o kit",
+        "KitTaken": "Kit equipado",
         "KitShort": "Faltam {n} de ouro para o kit inteiro",
         "Magia": "Para {name}: os feitiços usam o Poder Mágico, e o {item} soma +{n}. Troque um acessório por ele se for usar mais a Magia.",
         "Buy": "Comprar",
@@ -3701,7 +3797,14 @@
           "invocador": "Quem chama os espíritos fica atrás: o Cajado e o Anel para os feitiços, armadura leve e a Enciclopédia (+1 em Conhecimento).",
           "pictomante": "A Varinha deixa a outra mão para o Broquel, e o Anel Cinzento dá o Poder Mágico dos Moldes. Os Óculos somam +1 em Análise.",
           "family": "Uma arma, uma armadura e o que ajuda nos golpes da classe."
-        }
+        },
+        "Num": {
+          "attack": "Ataque",
+          "magic": "Mágico"
+        },
+        "EmptySlot": "Vazio",
+        "BagEmpty": "Nada na bolsa ainda.",
+        "Filters": "Tipos de item"
       }
     }
   },

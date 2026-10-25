@@ -437,18 +437,55 @@
 }
 .magic-picker .mp-now-count i { font-size: 6px; }
 
-/* Spells by CR */
+/* Spells by CR: the pointer on one tells what it does, a click opens its whole text under it */
 .magic-picker .mp-spells { display: grid; gap: 5px; margin: 0; padding: 0; list-style: none; }
 .magic-picker .mp-spell {
   display: grid;
-  grid-template-columns: 30px 28px minmax(0, 1fr);
+  grid-template-columns: 30px 28px minmax(0, 1fr) 12px;
   align-items: center;
   gap: 8px;
-  padding: 4px 8px 4px 5px;
+  padding: 4px 9px 4px 5px;
   border: 1px solid rgba(186, 169, 145, 0.6);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition: border-color 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
 }
+.magic-picker .mp-spell:hover,
+.magic-picker .mp-spell:focus-visible {
+  border-color: color-mix(in srgb, var(--mp-cat, var(--pf-primary)) 55%, rgba(186, 169, 145, 0.6));
+  outline: none;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 2px 6px rgba(40, 28, 8, 0.12);
+}
+.magic-picker .mp-spell-chevron {
+  color: color-mix(in srgb, var(--mp-cat, var(--pf-primary)) 60%, var(--pf-alt));
+  font-size: 10px;
+  transition: transform 0.18s ease;
+}
+.magic-picker .mp-spell.open {
+  border-color: color-mix(in srgb, var(--mp-cat, var(--pf-primary)) 60%, rgba(186, 169, 145, 0.6));
+  background:
+    radial-gradient(120% 90% at 0% 0%, color-mix(in srgb, var(--mp-cat, var(--pf-primary)) 9%, transparent), transparent 70%),
+    rgba(255, 253, 246, 0.95);
+  box-shadow: 0 3px 10px rgba(40, 28, 8, 0.14);
+}
+.magic-picker .mp-spell.open .mp-spell-chevron { transform: rotate(180deg); }
+.magic-picker .mp-spell-text {
+  grid-column: 1 / -1;
+  margin: 2px 2px 3px 38px;
+  padding: 7px 2px 0 0;
+  border-top: 1px dotted rgba(186, 169, 145, 0.9);
+  color: var(--pf-text);
+  font: 12.5px/1.5 var(--pf-body);
+  cursor: auto;
+}
+.magic-picker .mp-spell-text[hidden] { display: none; }
+.magic-picker .mp-spell-text p { margin: 0 0 6px; }
+.magic-picker .mp-spell-text p:last-child { margin-bottom: 0; }
+.magic-picker .mp-spell-text strong { color: color-mix(in srgb, var(--mp-cat, var(--pf-primary)) 70%, #000); }
+.magic-picker .mp-spell-text hr { margin: 6px 25%; border: none; border-top: 1px solid rgba(201, 162, 74, 0.6); }
+.magic-picker .mp-spell-text em { color: var(--pf-alt-dark); }
 .magic-picker .mp-spell img {
   width: 28px;
   height: 28px;
@@ -636,3 +673,26 @@
   font: 600 12.5px/1.35 var(--pf-body, serif);
 }
 .option-grants .grants-next i { color: var(--pf-primary, #1f5137); }
+
+/* The tooltip of a spell (the class tab's look, css/classes.css): what it does, with its brackets as chips, the
+   statuses it gives and how to open its whole text
+   ------------------------------------------------------------------------ */
+#tooltip.lhcl-tooltip .mp-spell-tip p { padding-bottom: 6px; }
+#tooltip.lhcl-tooltip .mp-spell-tip .lhb { display: inline; color: var(--lhb-ink); font: 600 0.86em/1.45 "Signika", sans-serif; }
+#tooltip.lhcl-tooltip .mp-spell-tip .lhb .lhb-text { display: inline; color: inherit; font: inherit; }
+#tooltip.lhcl-tooltip .mp-spell-tip .lhb .lhb-value { display: inline; color: #fffaf0; font: inherit; font-weight: 700; }
+#tooltip.lhcl-tooltip .mp-spell-tip .mp-tip-statuses { display: flex; flex-wrap: wrap; gap: 4px; padding-top: 0; }
+#tooltip.lhcl-tooltip .mp-spell-tip .mp-tip-statuses span {
+  display: inline-block;
+  padding: 0 6px;
+  border-radius: 6px;
+  background: rgba(140, 47, 29, 0.1);
+  color: #8c2f1d;
+  font: 600 10.5px/1.6 "Signika", sans-serif;
+}
+#tooltip.lhcl-tooltip .mp-spell-tip .mp-tip-hint {
+  padding: 5px 11px 7px;
+  border-top: 1px dashed rgba(177, 154, 85, 0.45);
+  color: #8a6a25;
+  font: 600 10.5px/1.3 "Signika", sans-serif;
+}

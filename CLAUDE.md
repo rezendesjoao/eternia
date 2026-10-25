@@ -17,6 +17,9 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
 - O visual de pergaminho (`automation.css`, `sheet.css`, `chat.css`, `windows.css`, `hud.css`, `tbg.css`) vai na
   camada `modules` (campo `layer` em `styles` do `system.json`): ganha da base sem disputa de especificidade, como
   quando era um módulo. Arquivo novo de CSS no manifesto exige reiniciar o servidor do Foundry.
+- Os campos das janelas em pergaminho (`windows.css`: `.application.lhwin.themed :is(input[type="text"], …, select,
+  textarea)`, mais `:hover` e `:focus`) pesam (0,4,1) na mesma camada: um campo com visual próprio precisa de um
+  seletor do mesmo peso, como `.application.creation-wizard .wz-hero .wz-name input[type="text"]`.
 
 ## Compêndios
 - Fonte em `src/packs/<pacote>/*.json`, em português. Campos lidos pela automação (tags, Momento, alcance, alvo,
@@ -77,6 +80,25 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   novo apaga os marcados e devolve o ouro gasto. Onde cada peça vai é `gearLayout` (o mesmo cálculo da prévia e da
   criação); os números seguem `EterniaActor#_computeBattleStatuses`. O kit de cada classe é `KITS` (nomes de itens) e
   a sugestão de atributos é `suggestBonus` (a base da classe ao quadrado pesa cada modificador).
+- O passo Itens desenha o corpo com `DOLL` (`creation-wizard.mjs`: o tamanho do palco e o ponto de cada lugar na
+  silhueta; `dollPlace` põe o cartão do lado certo). Cada acessório vai para a parte do corpo que o nome diz
+  (`ACCESSORY_SPOTS`, por expressão no nome dobrado; o que não casa fica no quadril), e a coluna da esquerda segue o
+  corpo de cima para baixo para as linhas não se cruzarem. O passo equipa o kit uma vez só, ao chegar com o carrinho
+  vazio (`draft.kitOffered`). Os textos dos feitiços na janela de Magias vêm de `spellTexts` (`apps/magic-catalog.mjs`);
+  `loadDocuments` fica em `helpers/pack-index.mjs` para o catálogo de Magias e o do assistente usarem sem importar um
+  ao outro.
+
+## Ficha e tokens
+- A aba Biografia (`templates/character/biography.hbs`) guarda o Perfil em `flags.eternia.bio` (alcunha, bordão, dados
+  pessoais, aparência, personalidade, anotações); a guilda é `system.social.guild` e a história, `system.biography`.
+  As Origens são lidas na hora do texto em itálico depois do `<hr>` que fecha a descrição da raça, da classe, da
+  profissão e das Magias: um item novo desses ganha a sua origem escrevendo esse parágrafo.
+- Como os tokens vêm (`module/canvas/token-defaults.mjs`): personagem com visão sem limite de alcance, vinculado e do
+  lado dos aliados; monstro sem vínculo; todo nome sempre à vista. O token de personagem posto na cena é vinculado pelo
+  `preCreateToken`, e a troca de retrato leva o token junto (`EterniaActor#_preUpdate`/`_onUpdate`). Mundos antigos
+  recebem isso pela migração `tokens`, que também desliga o marcador de turno do core.
+- O desenho dos tokens (`module/canvas/token-style.mjs`): a barra de PV e o Motor só aparecem em combate (configuração
+  `tokenBarsCombat`); o nome é texto puro, sem faixa.
 
 ## Teste local
 - `Data/systems/eternia` é uma junction para este repositório; mundo de teste `eternia-teste`.

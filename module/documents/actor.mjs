@@ -7,6 +7,7 @@ import { getHands } from "../helpers/hands.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
 import { collectRollBonus, isSkillFilterKey } from "../helpers/roll-bonuses.mjs";
 import { ATTRIBUTES_PHASE } from "./eterniaActiveEffect.mjs";
+import { followsPortrait, syncTokenArt, tokenDefaults } from "../canvas/token-defaults.mjs";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -33,12 +34,20 @@ export class EterniaActor extends Actor {
       return;
     }
 
-    // add actor default picture depending on type
+    // add actor default picture depending on type (the token takes it while it has core's)
     if (this.img === 'icons/svg/mystery-man.svg') {
       const updateData = {};
       updateData['img'] = `systems/eternia/assets/ui/actors_icons/${this.type}.svg`;
+      if (this.prototypeToken.texture.src === 'icons/svg/mystery-man.svg') updateData['prototypeToken.texture.src'] = updateData['img'];
       await this.updateSource(updateData);
     }
+
+    // The token: a character's sees and is linked, a new one stands with the friends; every token shows its name
+    // (canvas/token-defaults.mjs)
+    const token = tokenDefaults(this.type, this._source.prototypeToken, {
+      fresh: !foundry.utils.hasProperty(createData, "prototypeToken.disposition")
+    });
+    if (!foundry.utils.isEmpty(token)) this.updateSource({ prototypeToken: token });
 
     // Monsters imported with legacy text Evasion/Resistance ("1+2D")
     if (this.type === 'monster') {
@@ -54,6 +63,14 @@ export class EterniaActor extends Actor {
     if ((this.type === 'monster') && changed.system?.checks) {
       completeChecksChange(this._source.system.checks, changed.system.checks);
     }
+    // A new portrait: the token takes it too while its picture still follows the old one (canvas/token-defaults.mjs)
+    if ((this.type !== PILE_TYPE) && changed.img && (changed.img !== this._source.img) && !this.isToken) {
+      (options.eterniaPortrait ??= {})[this.id] = this._source.img;
+      if (!foundry.utils.hasProperty(changed, "prototypeToken.texture.src")
+        && followsPortrait(this._source.prototypeToken?.texture?.src, this._source.img)) {
+        foundry.utils.setProperty(changed, "prototypeToken.texture.src", changed.img);
+      }
+    }
   }
 
   /** @override */
@@ -63,6 +80,9 @@ export class EterniaActor extends Actor {
     if ((this.type === PILE_TYPE) && isLocalChange(options, userId) && foundry.utils.hasProperty(changed, "system.chest")) {
       syncChestImage(this, changed.system.chest);
     }
+    // A new portrait: the placed tokens that followed the old one
+    const portrait = options.eterniaPortrait?.[this.id];
+    if (portrait && ("img" in changed) && isLocalChange(options, userId)) syncTokenArt(this, portrait, changed.img);
   }
 
   /**

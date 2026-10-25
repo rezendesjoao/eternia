@@ -56,6 +56,63 @@
       "Label": "Bio.",
       "Title": "Biography"
     },
+    "Bio": {
+      "Pane": {
+        "profile": "Profile",
+        "story": "Story",
+        "ties": "Ties",
+        "notes": "Notes"
+      },
+      "Section": {
+        "data": "Personal data",
+        "appearance": "Appearance",
+        "personality": "Personality",
+        "origins": "Origins"
+      },
+      "Field": {
+        "epithet": "Epithet",
+        "catchphrase": "Catchphrase",
+        "age": "Age",
+        "gender": "Gender",
+        "height": "Height",
+        "weight": "Weight",
+        "eyes": "Eyes",
+        "hair": "Hair",
+        "homeland": "Homeland",
+        "guild": "Guild",
+        "appearance": "Appearance",
+        "temperament": "Temperament",
+        "ideals": "Ideals",
+        "goal": "Goal",
+        "fear": "Fear",
+        "likes": "Likes",
+        "dislikes": "Dislikes"
+      },
+      "Placeholder": {
+        "epithet": "An epithet or a title",
+        "catchphrase": "A line only this character would say",
+        "homeland": "Where they were born",
+        "guild": "Guild, order or band",
+        "appearance": "How others see them: the face, the clothes, the marks and scars, the way they walk and talk…",
+        "temperament": "How they treat others",
+        "ideals": "What they believe in",
+        "goal": "What they seek",
+        "fear": "What they fear",
+        "likes": "What brings them joy",
+        "dislikes": "What they can't stand"
+      },
+      "Rank": "CR {n}",
+      "Player": "Who plays this character",
+      "Portrait": "Change the portrait",
+      "OriginsHint": "what your race, class, profession and Magias say of you",
+      "StoryHint": "where they came from, what they lost, why they fight",
+      "NotesHint": "clues, names, promises and what happened in the sessions",
+      "NotesEmpty": "Click the pencil to write the notes.",
+      "TieHint": {
+        "connections": "people you can count on",
+        "unions": "groups you belong to"
+      }
+    },
     "ButtonLabel": {
       "Cancel": "Cancel",
       "Delete": "Delete",
@@ -1147,6 +1204,10 @@
         "Name": "Attack and damage card fixes",
         "Hint": "Damage is tied to the right attack, and the attack card gets a damage button. Apply doesn't work on a target that still has to dodge or that dodged, and asks before applying again. Private cards are shown to the owners of the targets."
       },
+      "autoDodge": {
+        "Name": "Automatic dodge for characters",
+        "Hint": "Characters roll their Dodge Check as soon as the attack is declared, like the enemies, and the result is already on the card. Off, the character's owner rolls it from the card's Dodge button or the HUD."
+      },
       "closeReach": {
         "Name": "Close reaches the next squares",
         "Hint": "House rule: a Close attack also reaches a token touching the attacker's, sideways or diagonally, so the two tokens don't have to share a square. Every other range is the system's."
@@ -1221,7 +1282,7 @@
       },
       "tokenStyle": {
         "Name": "Token bars and names in the sheet's style",
-        "Hint": "The HP bar, Fate and the name under the tokens in the look of the sheet: a slim bar with a gold edge (Fatigue hatched at its end, Barrier as a blue sliver above), Fate as gold diamonds, and the name in small caps on a band in the colour of the disposition (green friendly, wine hostile, bronze neutral)."
+        "Hint": "The HP bar, Fate and the name under the tokens in the look of the sheet: a slim bar with a gold frame (Fatigue hatched at its end, Barrier in a blue sliver above), Fate as gold diamonds and the name small and light, with a soft outline that reads on any map."
       },
       "tokenBars": {
         "Name": "Who sees the tokens' HP bar",
@@ -1229,6 +1290,10 @@
         "always": "Everyone, always",
         "identified": "Everyone; enemies only once [Identified]",
         "core": "As each token is configured"
+      },
+      "tokenBarsCombat": {
+        "Name": "HP bar only in combat",
+        "Hint": "Out of combat the HP bar and the class Motor leave the tokens; they show on the tokens in the combat."
       },
       "statusAnimation": {
         "Name": "Status animation on tokens",
@@ -1465,7 +1530,7 @@
       "NoneYet": "Nothing yet.",
       "Connections": "Connections",
       "Unions": "Unions",
-      "BioHint": "Click the pencil to write the biography.",
+      "BioHint": "Click the pencil to write the character's story.",
       "HateBox": "Hate {value}: the box fills a step per point, up to 10.",
       "FatigueBox": "Fatigue {value}: the maximum HP drops by {value}. The box shows how much of the maximum HP Fatigue took.",
       "UsePower": "Use {name} ({timing})",
@@ -1633,7 +1698,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.30: the starting gear and the suggested attributes</strong></p><ul><li><strong>Starting gear:</strong> the creation wizard has an Items step. The Backpack, the Adventurer's Kit and the Sandwich come free, and the 350 gold buys the rest in a shop of Item Rank 1. Each class has a recommended kit (marked with ★) that one click buys, and the bag beside it shows where each piece goes and the numbers it gives. On creation, everything comes equipped.</li><li><strong>Suggested attributes:</strong> in the Attributes step, the five points suggested for the class, with a button that uses them.</li><li>Since 0.29: the new sheet and the creation wizard; in 0.29.1, the HUD's skills in three panels (General, Magics and Class).</li></ul><p>Since 0.28: twenty Magias of the high categories and eleven conditions. Since 0.27: the Sun, the Counter, the Purgatory Flames and the Theft, with five conditions. Since 0.26: the Magia review, a Trait for each one and five new conditions. Since 0.25: the Slayers (White, Shadow and Poison), the Curses and sixteen more Magias. Since 0.24: Sense Link, Angel Magic, Darkness and Bind. Since 0.23: Snow, Magic Perfume, Machine Soul and Wave. Since 0.22: 14 classes, 7 physical and 7 magic, all with Magias; the Fighter, the Centurion and the Hierophant. Since 0.21: Wood-Make, Sand, Telepathy and Teleportation. Since 0.20: the Holder Magias Magic Guns, Plants, Smoke and Magic Painting. Since 0.19: Giant, Enchantment, Magic Eyes and High Speed. Since 0.18: the Magia choice in a window of its own and the class tab without scrolling. Since 0.17: the Lost Magias. Since 0.16: the elemental Magias. Since 0.15: the Blue Mage and the Take Over Magias. Since 0.14: the White Mage. Since 0.13: the Summoner with Magias. Since 0.12: the Pictomancer. Since 0.11: the Red Mage. Since 0.10: the Black Mage and the Magias. Since 0.9: the Dragon Slayer. Since 0.8: the classes with a Motor. Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
+      "Body": "<p><strong>What's new in Eternia 0.31: the Biography, the tokens and the creation wizard</strong></p><ul><li><strong>Biography:</strong> the tab comes in four parts. The Profile has the personal details, the appearance, the personality and the Origins, what the race, the class, the profession and the Magias tell of the character; then come the Story, the Ties and the Notes.</li><li><strong>Tokens:</strong> a character's token comes with sight and linked to the sheet (the HP lost stays when it is deleted and placed again), and changing the portrait changes the token. The name is small and always shown, the HP bar only shows in combat and the marker that spun on the token's turn is gone.</li><li><strong>Automatic dodge:</strong> the characters roll their dodge as soon as the attack is declared, like the enemies.</li><li><strong>Creation wizard:</strong> the spells tell what they do under the pointer and open on a click; the Attributes became a table; the Items show the class kit already equipped on a body; and the Summary became the character's page.</li></ul><p>Since 0.30: the starting gear and the suggested attributes; in 0.30.1, the rank-up card and the status animation. Since 0.29: the new sheet and the creation wizard; in 0.29.1, the HUD's skills in three panels. Since 0.28: twenty Magias of the high categories and eleven conditions. Since 0.27: the Sun, the Counter, the Purgatory Flames and the Theft, with five conditions. Since 0.26: the Magia review, a Trait for each one and five new conditions. Since 0.25: the Slayers (White, Shadow and Poison), the Curses and sixteen more Magias. Since 0.24: Sense Link, Angel Magic, Darkness and Bind. Since 0.23: Snow, Magic Perfume, Machine Soul and Wave. Since 0.22: 14 classes, 7 physical and 7 magic, all with Magias; the Fighter, the Centurion and the Hierophant. Since 0.21: Wood-Make, Sand, Telepathy and Teleportation. Since 0.20: the Holder Magias Magic Guns, Plants, Smoke and Magic Painting. Since 0.19: Giant, Enchantment, Magic Eyes and High Speed. Since 0.18: the Magia choice in a window of its own and the class tab without scrolling. Since 0.17: the Lost Magias. Since 0.16: the elemental Magias. Since 0.15: the Blue Mage and the Take Over Magias. Since 0.14: the White Mage. Since 0.13: the Summoner with Magias. Since 0.12: the Pictomancer. Since 0.11: the Red Mage. Since 0.10: the Black Mage and the Magias. Since 0.9: the Dragon Slayer. Since 0.8: the classes with a Motor. Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -3486,7 +3551,9 @@
         "Ranks": "The spells come with the CR: the first ones at CR 1, the others at CR 3 and CR 5, and the supreme one at CR 7 (CR 10 in the Ancestral ones).",
         "Motor": "Each spell feeds your class's Motor (+1; the big ones, +2). The supreme one needs the Motor at the cap and spends it all.",
         "Categories": "The categories"
-      }
+      },
+      "SpellOpen": "Click to read the whole spell.",
+      "SpellNoText": "This spell has no text."
     },
     "Wizard": {
       "Title": "Character creation: {name}",
@@ -3508,7 +3575,7 @@
         "profession": "The profession is the subclass: it makes items with enhancements and has a talent of its own.",
         "attributes": "Five bonus points to distribute. The modifier (the attribute ÷ 3) is what goes into the checks.",
         "skills": "Three Combat skills and one General, among the class's talents and the Magic's spells.",
-        "items": "The Backpack, the Adventurer's Kit and the Sandwich come free; the gold buys the rest. What your class uses has a ★.",
+        "items": "The Backpack, the Adventurer's Kit and the Sandwich are free, and your class's kit comes equipped. Swap what you like in the shop; ★ marks what the class uses.",
         "summary": "The name and the portrait, and everything chosen. On creation, the sheet gets it all at once."
       },
       "Step": {
@@ -3621,7 +3688,24 @@
         "SuggestUse": "Use the suggestion",
         "SuggestOn": "In use",
         "SuggestWhy": "The points go where the class's base is high, up to the next modifier (every 3 points).",
-        "SuggestedTip": "The class's suggestion: +{n} here."
+        "SuggestedTip": "The class's suggestion: +{n} here.",
+        "LeftN": "{n} of {total} to spend",
+        "AllSpent": "All spent",
+        "Col": {
+          "attribute": "Attribute",
+          "score": "Score",
+          "mod": "Mod.",
+          "checks": "Checks"
+        },
+        "NextTip": "{n} more for a {mod} modifier.",
+        "AtMax": "At the cap of {max} at creation.",
+        "Gives": {
+          "life": "Life",
+          "defense": "Defenses",
+          "combat": "In combat",
+          "phys": "Physical",
+          "magic": "Magic"
+        }
       },
       "Numbers": {
         "hp": "HP",
@@ -3639,7 +3723,19 @@
         "Basics": "Give the {n} basic skills (Basic Weapon Attack, Move, Switch...)",
         "Rebuild": "This character already has a race or class. Creating it again replaces the race, the class, the profession and the skills they and the choices gave; the inventory and the rest stay.",
         "Skills": "Skills",
-        "Gear": "Items"
+        "Gear": "Gear",
+        "Eyebrow": "Character sheet",
+        "Origins": "Origins",
+        "Attributes": "Attributes and numbers",
+        "Gold": "Gold",
+        "NoProfession": "Decide later",
+        "NothingWorn": "Nothing equipped.",
+        "From": {
+          "race": "From the race",
+          "class": "From the class",
+          "magia": "From the Magia",
+          "picks": "Picked"
+        }
       },
       "Chat": {
         "Eyebrow": "New character",
@@ -3649,8 +3745,8 @@
       "StepOf": "Step {n} of {total}",
       "Items": {
         "KitFor": "Recommended for {name}",
-        "KitBuy": "Buy the kit",
-        "KitTaken": "The kit is in the bag",
+        "KitBuy": "Equip the kit",
+        "KitTaken": "Kit equipped",
         "KitShort": "{n} gold short of the whole kit",
         "Magia": "For {name}: the spells use Magic Power, and the {item} adds +{n}. Swap an accessory for it if you'll lean on the Magia.",
         "Buy": "Buy",
@@ -3701,7 +3797,14 @@
           "invocador": "Who calls the spirits stays behind: the Staff and the Ring for the spells, light armor and the Enciclopédia (+1 Knowledge).",
           "pictomante": "The Wand leaves the other hand for the Broquel, and the Anel Cinzento gives the Molds their Magic Power. The Óculos add +1 Analysis.",
           "family": "A weapon, armor and what helps the class's strikes."
-        }
+        },
+        "Num": {
+          "attack": "Attack",
+          "magic": "Magic"
+        },
+        "EmptySlot": "Empty",
+        "BagEmpty": "Nothing in the bag yet.",
+        "Filters": "Item kinds"
       }
     }
   }

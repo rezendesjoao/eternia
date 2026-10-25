@@ -51,6 +51,7 @@ import { registerWindows } from "./apps/window-theme.mjs";
 import { registerNotice } from "./apps/notice.mjs";
 import { actionHud, registerHud, rollActorCheck } from "./hud/hud.mjs";
 import { registerTokens } from "./canvas/token-style.mjs";
+import { registerTokenDefaults } from "./canvas/token-defaults.mjs";
 import { registerConditions } from "./conditions/index.mjs";
 import { recover } from "./conditions/recovery.mjs";
 import { takeDamage } from "./conditions/damage.mjs";
@@ -190,6 +191,7 @@ Hooks.once('init', async function () {
   // windows and chat, the token bars and nameplates and the action HUD.
   registerSettings();
   registerTokens();
+  registerTokenDefaults();
   registerScenes();
   registerUse();
   registerHate();

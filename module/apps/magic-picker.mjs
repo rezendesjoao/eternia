@@ -8,12 +8,16 @@
  *
  * The cards, the filters and the pages are the Magia browser (MagicBrowser, templates/apps/magic-browser.hbs), which the
  * creation wizard uses too. The data comes from the Magia catalog (apps/magic-catalog.mjs), read from the compendium
- * indexes once per session; the page of a Magia is drawn only when it is shown.
+ * indexes once per session; the page of a Magia is drawn only when it is shown. On a page, the pointer on a spell tells
+ * what it does and a click opens its whole text under it: the spells' documents are read the first time a page's
+ * spell is asked for, all of that page's at once.
  */
 import { L } from "../settings.mjs";
 import { CLASSES } from "../classes/data.mjs";
+import { escape } from "../helpers/utils.mjs";
+import { chipText } from "../helpers/text-chips.mjs";
 import {
-  MAGIC_CATEGORIES, MAGIC_ROLES, categoryView, fold, magicCatalog, magicTexts, roleView
+  MAGIC_CATEGORIES, MAGIC_ROLES, categoryView, fold, magicCatalog, magicTexts, roleView, spellTexts
 } from "./magic-catalog.mjs";
 
 export { MAGIC_CATEGORIES } from "./magic-catalog.mjs";
@@ -76,12 +80,27 @@ export async function magicBrowserContext({ cr = 1, ownedIds = new Set(), ownedN
 }
 
 /* -------------------------------------------- */
+/*  What the spells say                         */
+/* -------------------------------------------- */
+
+/** The tooltip of a spell: its picture, name and line, what it does and how to read the rest. */
+function spellTip(spell, text) {
+  const statuses = spell.statuses?.length
+    ? `<p class="mp-tip-statuses">${spell.statuses.map(s => `<span>${escape(s)}</span>`).join("")}</p>` : "";
+  return `<div class="lhcl-tip mp-spell-tip"><header><img src="${spell.img}" alt=""><div><strong>${escape(spell.name)}</strong>`
+    + `${spell.meta ? `<span>${escape(spell.meta)}</span>` : ""}</div></header>`
+    + `${text?.summary ? `<p>${chipText(text.summary)}</p>` : ""}${statuses}`
+    + `<p class="mp-tip-hint"><i class="fa-solid fa-hand-pointer"></i> ${escape(L("MagicPicker.SpellOpen"))}</p></div>`;
+}
+
+/* -------------------------------------------- */
 /*  The browser                                 */
 /* -------------------------------------------- */
 
 /**
  * The behavior of the Magia browser on its HTML (templates/apps/magic-browser.hbs): the filters and the search, the
- * page of the Magia under the pointer (drawn the first time it is shown), the selection, the keyboard.
+ * page of the Magia under the pointer (drawn the first time it is shown), the selection, the keyboard, and on a page,
+ * each spell's tooltip and its whole text.
  */
 export class MagicBrowser {
 
@@ -96,6 +115,7 @@ export class MagicBrowser {
   constructor(root, { magias, selected = null, onSelect = null, onChoose = null }) {
     this.root = root;
     this.magias = new Map(magias.map(m => [m.uuid, m]));
+    this.spells = new Map(magias.flatMap(m => m.spells.map(s => [s.uuid, s])));
     this.onSelect = onSelect;
     this.onChoose = onChoose;
     this.selected = null;
@@ -151,6 +171,59 @@ export class MagicBrowser {
         this.#filter();
       });
     }
+    // The spells of the pages (drawn later: the events come from the pages' box)
+    const pages = root.querySelector(".mp-pages");
+    const spellOf = event => event.target.closest?.(".mp-spell[data-uuid]");
+    pages?.addEventListener("pointerover", event => {
+      const spell = spellOf(event);
+      if (spell && !spell.contains(event.relatedTarget)) this.#spellTip(spell);
+    });
+    pages?.addEventListener("pointerout", event => {
+      const spell = spellOf(event);
+      if (spell && !spell.contains(event.relatedTarget) && (game.tooltip.element === spell)) game.tooltip.deactivate();
+    });
+    pages?.addEventListener("click", event => {
+      const spell = spellOf(event);
+      // A link inside the opened text (a status, a tag) is its own
+      if (spell && !event.target.closest(".mp-spell-text")) this.#toggleSpell(spell);
+    });
+    pages?.addEventListener("keydown", event => {
+      if (!["Enter", " "].includes(event.key) || !event.target.matches?.(".mp-spell[data-uuid]")) return;
+      event.preventDefault();
+      this.#toggleSpell(event.target);
+    });
+  }
+
+  /** The uuids of the spells on the page of a spell (read together). */
+  #pageSpells(li) {
+    return [...(li.closest(".mp-page")?.querySelectorAll(".mp-spell[data-uuid]") ?? [li])].map(s => s.dataset.uuid);
+  }
+
+  /** The tooltip of a spell under the pointer (not of an opened one: its text is already there). */
+  async #spellTip(li) {
+    if (li.classList.contains("open")) return;
+    const spell = this.spells.get(li.dataset.uuid);
+    if (!spell) return;
+    const texts = await spellTexts(this.#pageSpells(li)).catch(() => new Map());
+    if (!li.matches(":hover") || li.classList.contains("open")) return;
+    game.tooltip.activate(li, { html: spellTip(spell, texts.get(spell.uuid)), cssClass: "lhcl-tooltip", direction: "LEFT" });
+  }
+
+  /** Open or close a spell's whole text under it. */
+  async #toggleSpell(li) {
+    const box = li.querySelector(".mp-spell-text");
+    if (!box) return;
+    const open = !li.classList.contains("open");
+    if (game.tooltip.element === li) game.tooltip.deactivate();
+    if (open && !box.dataset.filled) {
+      const texts = await spellTexts(this.#pageSpells(li)).catch(() => new Map());
+      box.innerHTML = texts.get(li.dataset.uuid)?.html || `<p>${escape(L("MagicPicker.SpellNoText"))}</p>`;
+      box.dataset.filled = "1";
+    }
+    li.classList.toggle("open", open);
+    li.setAttribute("aria-expanded", String(open));
+    box.hidden = !open;
+    if (open) box.animate?.([{ opacity: 0, transform: "translateY(-3px)" }, { opacity: 1, transform: "none" }], { duration: 150, easing: "ease-out" });
   }
 
   /** The page of a Magia, drawn the first time it is shown. */

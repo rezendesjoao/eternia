@@ -1,6 +1,6 @@
 /**
  * Token look in the style of the sheet: the resource bars and the nameplate drawn here (the system's Token class,
- * extended), with the fonts of the sheet loaded for the canvas.
+ * extended).
  *
  * - HP bar (the "health" attribute): a slim pill with a gold edge, resting on the bottom edge of the token. The fill
  *   is the crimson of the sheet; the Fatigue is a hatched stretch at its end (the maximum HP it takes away); the
@@ -10,11 +10,12 @@
  * - Class Motor (module/classes/): a small row of gold diamonds just above the HP bar with a disc for its state
  *   (green sheathed, crimson drawn, for the Samurai), the diamonds glowing when the next strike is a Perfect Cut.
  *   It follows the core redraw of the status icons, which every change of the actor or its items sets off.
- * - Nameplate: the name in Eczar small caps on a small band in the colour of the disposition (green friendly, wine
- *   hostile, bronze neutral, grey secret), with a gold hairline and two gold diamonds at its ends; long names end in
- *   "…". The elevation tooltip uses the same font.
+ * - Nameplate: the name small and light just under the token (under the HP bar when it shows), with a soft dark edge
+ *   that keeps it easy to read on any map; long names end in "…". The elevation tooltip has the same look. Whether
+ *   it shows is the token's own setting (canvas/token-defaults.mjs makes it "always").
  * - Who sees the HP bar (setting "tokenBars"): everyone always; everyone, but the players see an enemy's only once it
  *   is [Identified]; or each token's own setting. The second bar always follows each token's own setting.
+ * - Out of combat (setting "tokenBarsCombat") the HP bar and the Motor hide: they show on the tokens in the combat.
  * Everything is redrawn when the settings change; the core look comes back with "tokenStyle" off.
  */
 import { SYSTEM_ID, setting } from "../settings.mjs";
@@ -39,14 +40,15 @@ const COLORS = {
 /** Colour of the state disc of a class Motor (the first state is the resting one). */
 const MOTOR_STATES = { sheathed: COLORS.green, drawn: COLORS.hp };
 
-/** Band of the nameplate by token disposition (CONST.TOKEN_DISPOSITIONS). */
-const BANDS = { 1: 0x1f5137, 0: 0x5c4a22, [-1]: 0x6b2420, [-2]: 0x3a3836 };
-
 const styled = () => setting("tokenStyle") !== false;
+
+/** Whether a token shows its HP bar and Motor now: always, or only while it is in the combat ("tokenBarsCombat"). */
+const inPlay = token => (setting("tokenBarsCombat") === false) || !!token.inCombat;
 
 /** Call during the `init` hook, after the settings. */
 export function registerTokens() {
-  // The fonts of the sheet, loaded before the canvas draws (the CSS ones only load when a page uses them).
+  // The serif of the sheet, loaded with the game, so the HUD shows it at once (the CSS ones only load when a page
+  // uses them).
   const url = file => `systems/eternia/assets/fonts/eczar/${file}`;
   CONFIG.fontDefinitions[FONT] ??= {
     editor: false,
@@ -77,6 +79,12 @@ export function registerTokens() {
   // Settings changed (settings.mjs): every token again.
   Hooks.on("eterniaTokenStyle", () => redraw(canvas?.tokens?.placeables ?? [],
     { refreshBars: true, refreshNameplate: true, refreshState: true, refreshTooltip: true }));
+  // Joining or leaving the combat shows or hides the HP bar and the Motor (setting "tokenBarsCombat").
+  const combatChanged = () => redraw(canvas?.tokens?.placeables ?? [], { refreshState: true });
+  for (const hook of ["createCombat", "deleteCombat", "createCombatant", "deleteCombatant"]) Hooks.on(hook, combatChanged);
+  Hooks.on("updateCombat", (combat, changes) => {
+    if (("active" in changes) || ("scene" in changes)) combatChanged();
+  });
 }
 
 /** Ask these tokens to refresh some of their parts. */
@@ -89,10 +97,12 @@ function redraw(tokens, flags) {
 /* -------------------------------------------- */
 
 /**
- * Whether the user sees a token's HP bar: true / false, or null to follow the token's own setting.
+ * Whether the user sees a token's HP bar: true / false, or null to follow the token's own setting. Never out of combat
+ * while "tokenBarsCombat" is on.
  * @param {Token} token
  */
 function hpBarPolicy(token) {
+  if (!inPlay(token)) return false;
   const mode = setting("tokenBars");
   if (mode === "always") return true;
   if (mode !== "identified") return null;
@@ -204,18 +214,24 @@ function drawPips(g, value, max, s) {
   return width;
 }
 
-/** The text style of the nameplate (Eczar small caps on the band) at the core size. */
+/** The text style of the nameplate and the elevation tooltip: small and light, with a soft dark edge. */
 function nameStyle() {
   return new PIXI.TextStyle({
-    fontFamily: [FONT, "Eczar", "Georgia", "serif"],
-    fontSize: 17,
+    fontFamily: ["Signika", "Roboto", "sans-serif"],
+    fontSize: 14,
     fontWeight: "600",
-    fontVariant: "small-caps",
-    letterSpacing: 0.4,
-    lineHeight: 20,
+    letterSpacing: 0.3,
     fill: COLORS.text,
+    stroke: COLORS.ink,
+    strokeThickness: 3,
+    lineJoin: "round",
+    dropShadow: true,
+    dropShadowColor: 0x000000,
+    dropShadowAlpha: 0.45,
+    dropShadowBlur: 4,
+    dropShadowDistance: 0,
     align: "center",
-    padding: 2
+    padding: 4
   });
 }
 
@@ -238,9 +254,6 @@ function fitName(name, style, width) {
  */
 function tokenClass(Base) {
   return class EterniaStyledToken extends Base {
-
-    /** The band behind the nameplate. */
-    lhPlate = null;
 
     /** Height of the HP bar as drawn (0 when hidden), for the nameplate below it. */
     lhBarHeight = 0;
@@ -270,7 +283,7 @@ function tokenClass(Base) {
       g.zIndex = 4;
       const motor = (styled() && (this.actor?.type === "character")) ? motorsOf(this.actor)[0] : null;
       const max = motor ? motorMax(this.actor, motor.def.id) : 0;
-      g.visible = !!max && !this.document.isSecret;
+      g.visible = !!max && !this.document.isSecret && inPlay(this);
       if (!g.visible) return;
       const data = motorData(this.actor, motor.def.id);
       const ready = !!motor.def.display?.(this.actor, { lesser: motor.lesser, data, max })?.ready;
@@ -345,10 +358,7 @@ function tokenClass(Base) {
 
     /** @override */
     _refreshNameplate() {
-      if (!styled()) {
-        if (this.lhPlate) this.lhPlate.visible = false;
-        return super._refreshNameplate();
-      }
+      if (!styled()) return super._refreshNameplate();
       const style = nameStyle();
       const s = canvas.dimensions.uiScale;
       const { width } = this.document.getSize();
@@ -361,7 +371,6 @@ function tokenClass(Base) {
     _refreshState() {
       super._refreshState();
       if (!styled()) {
-        if (this.lhPlate) this.lhPlate.visible = false;
         if (this.lhMotor) this.lhMotor.visible = false;
         return;
       }
@@ -377,57 +386,24 @@ function tokenClass(Base) {
       this.#layoutNameplate();
     }
 
-    /** @override The elevation tooltip in the font of the sheet. */
+    /** @override The elevation tooltip with the look of the nameplate. */
     _getTextStyle() {
       const style = super._getTextStyle();
       if (!styled()) return style;
-      style.fontFamily = [FONT, "Eczar", "Georgia", "serif"];
-      style.fontWeight = "600";
-      style.fontVariant = "small-caps";
-      style.fill = COLORS.text;
-      return style;
+      return Object.assign(nameStyle(), { wordWrapWidth: style.wordWrapWidth });
     }
 
-    /**
-     * The band of the nameplate, under the HP bar when it shows: in the colour of the disposition, a gold hairline
-     * (brighter on hover or when controlled) and a gold diamond at each end.
-     */
+    /** The nameplate just under the token, or under the HP bar when it shows. */
     #layoutNameplate() {
       if (!this.nameplate || !this.bars) return;
-      const plate = this.lhPlate ??= this.addChild(new PIXI.Graphics());
-      plate.clear();
       this.bars.zIndex = 4;
       this.nameplate.zIndex = 3;
-      plate.zIndex = 2;
-      const show = styled() && this.nameplate.visible && !!this.nameplate.text;
-      plate.visible = show;
-      if (!show) return;
-
+      if (!styled()) return;
       const s = canvas.dimensions.uiScale;
       const { width, height } = this.document.getSize();
       const barShown = this.bars.visible && this.bars.bar1?.visible && this.bars.bar1?.renderable;
       const below = barShown ? (this.lhBarHeight / 2) : 0;
-      const bounds = this.nameplate.getLocalBounds();
-      const tw = bounds.width * s, th = 20 * s;
-      const padX = 9 * s, padY = 2 * s;
-      const w = tw + (2 * padX), h = th + (2 * padY);
-      const x = (width - w) / 2, y = height + below + (3 * s);
-      const r = 2.5 * s;
-      const band = BANDS[this.document.disposition] ?? BANDS[0];
-      const lit = this.hover || this.controlled;
-
-      plate.beginFill(0x000000, 0.35).drawRoundedRect(x, y + (1.5 * s), w, h, r).endFill();
-      plate.lineStyle(Math.max(1, s), COLORS.ink, 0.75).beginFill(band, 0.94).drawRoundedRect(x, y, w, h, r).endFill();
-      plate.lineStyle(Math.max(1, s), COLORS.gold, lit ? 1 : 0.65)
-        .drawRoundedRect(x + (2 * s), y + (2 * s), w - (4 * s), h - (4 * s), Math.max(0, r - s));
-      const d = 3.2 * s;
-      plate.lineStyle(Math.max(1, s), COLORS.ink, 0.85).beginFill(COLORS.gold, 1);
-      diamond(plate, x, y + (h / 2), d);
-      diamond(plate, x + w, y + (h / 2), d);
-      plate.endFill().lineStyle(0);
-
-      // The text centred on the band (its box starts at its padding).
-      this.nameplate.position.set(width / 2, y + padY + ((th - (bounds.height * s)) / 2) - (bounds.y * s));
+      this.nameplate.position.set(width / 2, height + below);
     }
   };
 }

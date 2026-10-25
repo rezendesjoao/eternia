@@ -1,52 +1,95 @@
-{{!-- SUMMARY: the name and the portrait, and everything chosen, before the character is created. --}}
+{{!-- SUMMARY: the character's first page before it is created. On top, the portrait and the name (both can still
+     change) on a band in the class's color, with what the character is and its HP, Fate and gold; then its origins,
+     its attributes and numbers of play, the skills it starts with (by where they come from) and its gear. --}}
 <div class="wz-summary wz-scroll">
-	<section class="wz-identity">
-		<a class="wz-portrait big" data-action="portrait" data-tooltip="{{localize 'ETERNIA.Wizard.Summary.Portrait'}}">
+	<section class="wz-hero" style="--wz-card: {{color}}">
+		<a class="wz-hero-portrait" data-action="portrait" data-tooltip="{{localize 'ETERNIA.Wizard.Summary.Portrait'}}">
 			<img src="{{img}}" alt="">
 			<span><i class="fa-solid fa-image"></i>{{localize "ETERNIA.Wizard.Summary.Portrait"}}</span>
 		</a>
-		<label class="wz-name">
-			<span>{{localize "ETERNIA.Wizard.Summary.Name"}}</span>
-			<input type="text" value="{{name}}" placeholder="{{localize 'ETERNIA.Placeholder.Name'}}" autocomplete="off" spellcheck="false" maxlength="80">
-		</label>
-		<label class="wz-basics">
-			<input type="checkbox" {{checked basics}}>
-			<span>{{localize "ETERNIA.Wizard.Summary.Basics" n=basicCount}}</span>
-		</label>
-		{{#if rebuild}}<p class="wz-warn"><i class="fa-solid fa-triangle-exclamation"></i>{{localize "ETERNIA.Wizard.Summary.Rebuild"}}</p>{{/if}}
-	</section>
-
-	<section class="wz-sum">
-		<ul class="wz-sum-options">
-			{{#if race}}<li style="--wz-card: {{race.color}}"><span class="wz-medal"><img src="{{race.img}}" alt=""></span><div><small>{{localize "ETERNIA.Wizard.Step.race"}}</small><b>{{race.name}}</b></div></li>{{/if}}
-			{{#if job}}<li style="--wz-card: {{job.color}}"><span class="wz-emblem"><img src="{{job.img}}" alt=""></span><div><small>{{job.eyebrow}}</small><b>{{job.name}}</b>{{#if element}}<em>{{element.name}}</em>{{/if}}</div></li>{{/if}}
-			{{#if magia}}<li style="--wz-card: {{magia.categoryColor}}"><span class="wz-medal"><img src="{{magia.img}}" alt=""></span><div><small>{{magia.categoryLabel}}</small><b>{{magia.name}}</b>{{#if decree}}<em>{{decree.name}}</em>{{/if}}</div></li>{{/if}}
-			{{#if profession}}<li style="--wz-card: {{profession.color}}"><span class="wz-medal"><img src="{{profession.img}}" alt=""></span><div><small>{{localize "ETERNIA.Wizard.Step.profession"}}</small><b>{{profession.name}}</b></div></li>{{/if}}
-		</ul>
-
-		<div class="wz-sum-attrs">
-			{{#each attributes}}<div><small>{{name}}</small><b>{{modLabel}}</b><span>{{total}}</span></div>{{/each}}
+		<div class="wz-hero-text">
+			<span class="wz-hero-eyebrow">{{localize "ETERNIA.Wizard.Summary.Eyebrow"}}</span>
+			<label class="wz-name">
+				<input type="text" value="{{name}}" placeholder="{{localize 'ETERNIA.Placeholder.Name'}}" aria-label="{{localize 'ETERNIA.Wizard.Summary.Name'}}" autocomplete="off" spellcheck="false" maxlength="80">
+				<i class="fa-solid fa-pen" aria-hidden="true"></i>
+			</label>
+			{{#if identity.length}}<p class="wz-hero-line">{{#each identity}}<span>{{this}}</span>{{/each}}</p>{{/if}}
 		</div>
-
-		<ul class="wz-numbers compact">
-			<li><i class="fa-solid fa-heart"></i><b>{{numbers.hp}}</b><small>{{localize "ETERNIA.Wizard.Numbers.hp"}}</small></li>
-			<li><i class="fa-solid fa-star"></i><b>{{numbers.fate}}</b><small>{{localize "ETERNIA.Wizard.Numbers.fate"}}</small></li>
-			<li><i class="fa-solid fa-shield-halved"></i><b>{{numbers.physDef}}</b><small>{{localize "ETERNIA.Sheet.PhysDef"}}</small></li>
-			<li><i class="fa-solid fa-shield-heart"></i><b>{{numbers.magicDef}}</b><small>{{localize "ETERNIA.Sheet.MagicDef"}}</small></li>
-			<li><i class="fa-solid fa-bolt"></i><b>{{numbers.initiative}}</b><small>{{localize "ETERNIA.Sheet.Initiative"}}</small></li>
+		<ul class="wz-hero-stats">
+			<li class="rank"><small>{{localize "ETERNIA.Sheet.CRShort"}}</small><b>1</b></li>
+			{{#each hero}}<li><i class="{{icon}}"></i><b>{{value}}</b><small>{{label}}</small></li>{{/each}}
 		</ul>
+	</section>
+	{{#if rebuild}}<p class="wz-warn"><i class="fa-solid fa-triangle-exclamation"></i>{{localize "ETERNIA.Wizard.Summary.Rebuild"}}</p>{{/if}}
 
-		<h4>{{localize "ETERNIA.Wizard.Summary.Skills"}}</h4>
-		<ul class="wz-chip-list">
-			{{#each granted}}<li><img src="{{img}}" alt="">{{name}}</li>{{/each}}
-			{{#each picks}}<li class="pick"><img src="{{img}}" alt="">{{name}}</li>{{/each}}
-		</ul>
+	<div class="wz-sum-grid">
+		<section class="wz-sum-card">
+			<h4><i class="fa-solid fa-compass"></i>{{localize "ETERNIA.Wizard.Summary.Origins"}}</h4>
+			<ul class="wz-sum-origins">
+				{{#each origins as |o|}}
+				<li class="{{#if o.empty}}empty{{/if}}" style="--wz-card: {{o.color}}">
+					<span class="{{#if o.emblem}}wz-emblem{{else}}wz-medal{{/if}}">{{#if o.img}}<img src="{{o.img}}" alt="">{{else}}<i class="{{o.icon}}"></i>{{/if}}</span>
+					<div>
+						<small>{{o.label}}</small>
+						<b>{{o.name}}</b>
+						{{#if o.line}}<em>{{o.line}}</em>{{/if}}
+						{{#if o.note}}<em class="note"><i class="fa-solid fa-scroll"></i>{{o.note}}</em>{{/if}}
+					</div>
+				</li>
+				{{/each}}
+			</ul>
+		</section>
+
+		<section class="wz-sum-card">
+			<h4><i class="fa-solid fa-chart-simple"></i>{{localize "ETERNIA.Wizard.Summary.Attributes"}}</h4>
+			<div class="wz-sum-attrs">
+				{{#each attributes}}
+				<div data-tooltip="{{name}} {{total}}">
+					<span class="wz-sum-mod">{{modLabel}}</span>
+					<b>{{abbr}}</b>
+					<small>{{total}}</small>
+				</div>
+				{{/each}}
+			</div>
+			<ul class="wz-sum-numbers">
+				{{#each numbers}}<li><i class="{{icon}}"></i><span>{{label}}</span><b>{{value}}</b></li>{{/each}}
+			</ul>
+		</section>
+
+		<section class="wz-sum-card">
+			<h4><i class="fa-solid fa-book-open-reader"></i>{{localize "ETERNIA.Wizard.Summary.Skills"}}<span class="count">{{skillCount}}</span></h4>
+			{{#each groups as |g|}}
+			<div class="wz-sum-group">
+				<span class="wz-sum-group-label"><i class="{{g.icon}}"></i>{{g.label}}</span>
+				<ul class="wz-sum-tiles">{{#each g.tiles as |t|}}<li data-wz-tip="{{t.tip}}"><img src="{{t.img}}" alt=""><span>{{t.name}}</span></li>{{/each}}</ul>
+			</div>
+			{{/each}}
+			<label class="wz-basics">
+				<input type="checkbox" {{checked basics}}>
+				<span>{{localize "ETERNIA.Wizard.Summary.Basics" n=basicCount}}</span>
+			</label>
+		</section>
 
 		{{#with gear as |g|}}
-		<h4>{{localize "ETERNIA.Wizard.Summary.Gear"}}<span class="wz-sum-gold"><i class="fa-solid fa-coins"></i>{{localize "ETERNIA.Wizard.Rail.Gold" n=g.gold}}</span></h4>
-		<ul class="wz-chip-list">
-			{{#each g.pieces as |p|}}<li class="{{#if p.equipped}}pick{{/if}}" data-wz-tip="{{p.tip}}"><img src="{{p.img}}" alt="">{{p.name}}{{#if (gt p.count 1)}} ×{{p.count}}{{/if}}</li>{{/each}}
-		</ul>
+		<section class="wz-sum-card">
+			<h4><i class="fa-solid fa-shirt"></i>{{localize "ETERNIA.Wizard.Summary.Gear"}}<span class="wz-sum-gold"><i class="fa-solid fa-coins"></i>{{localize "ETERNIA.Wizard.Rail.Gold" n=g.gold}}</span></h4>
+			<ul class="wz-sum-worn">
+				{{#each g.worn as |p|}}
+				<li class="{{#if p.note}}note{{/if}}"{{#if p.tip}} data-wz-tip="{{p.tip}}"{{/if}}>
+					<span class="wz-sum-worn-img">{{#if p.img}}<img src="{{p.img}}" alt="">{{else}}<i class="{{p.icon}}"></i>{{/if}}</span>
+					<div><small>{{p.label}}</small><b>{{p.name}}</b></div>
+				</li>
+				{{else}}
+				<li class="note"><span class="wz-sum-worn-img"><i class="fa-solid fa-person"></i></span><div><b>{{localize "ETERNIA.Wizard.Summary.NothingWorn"}}</b></div></li>
+				{{/each}}
+			</ul>
+			{{#if g.carried.length}}
+			<div class="wz-sum-group">
+				<span class="wz-sum-group-label"><i class="fa-solid fa-box-open"></i>{{localize "ETERNIA.Wizard.Items.Carried"}} · {{g.space.used}}/{{g.space.max}}</span>
+				<ul class="wz-sum-tiles">{{#each g.carried as |r|}}<li data-wz-tip="{{r.tip}}"><img src="{{r.entry.img}}" alt=""><span>{{r.entry.name}}{{#if (gt r.count 1)}} ×{{r.count}}{{/if}}</span></li>{{/each}}</ul>
+			</div>
+			{{/if}}
+		</section>
 		{{/with}}
-	</section>
+	</div>
 </div>
