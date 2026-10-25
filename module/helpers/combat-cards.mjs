@@ -38,6 +38,7 @@ import { evaluateFormula, formulaData, isFormula } from "./effect-formulas.mjs";
 import { actorHasTag, drawRandomHit, magicExtras } from "./magic-traits.mjs";
 import { crOf, has, rating, removeStatuses, rulesOn } from "../conditions/rules.mjs";
 import { cursedByDecree } from "../conditions/decree.mjs";
+import { packBonus, packBonuses } from "../bestiary/pack.mjs";
 import { lastingCard, lastingHitData } from "../conditions/lasting.mjs";
 import { statusDefinition } from "./statuses.mjs";
 import { tagLabel as termTag } from "../i18n/terms.mjs";
@@ -647,7 +648,8 @@ export async function createDamageCard(item, attacker, formula, flavor, attackMe
     recovery,
     tags: attackTags(item, attacker),
     bonus: recovery ? extras.healBonus : extras.bonus,
-    bonusVs: recovery ? [] : extras.vs,
+    // A monster's pack: more damage for each of its allies engaged with the target (bestiary/pack.mjs)
+    bonusVs: recovery ? [] : [...extras.vs, ...packBonuses(attacker ?? item.actor)],
     escalate: recovery ? [] : extras.escalate,
     strip: recovery ? [] : extras.strip,
     pierce: recovery ? {} : extras.pierce,
@@ -793,6 +795,14 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
       steps.push(`+ ${toInt(card.bonus)} ${L("Applied.Trait")}`);
     }
     for (const vs of card.bonusVs ?? []) {
+      if (vs.pack) {
+        const n = packBonus(actor, vs, card.attackerUuid);
+        if (n > 0) {
+          amount += n;
+          steps.push(`+ ${n} (${vs.name})`);
+        }
+        continue;
+      }
       const status = (vs.statuses ?? []).find(id => has(actor, id));
       const tagged = !status && (vs.targetTags ?? []).find(t => actorHasTag(actor, t));
       // Under a curse of the caster's Decree (conditions/decree.mjs)

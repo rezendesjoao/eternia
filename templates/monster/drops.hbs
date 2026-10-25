@@ -1,0 +1,56 @@
+{{!-- ITENS DEIXADOS (module/bestiary/drop-tab.mjs): the table's rows by their faces (1–6, Fixo, "per growth"), each
+     with the faces and the copies to edit, the tags and the value; the expected value of the table beside the Guide's;
+     without rows, the table written in the description and the button that turns it into rows. --}}
+<section class="tab major drops" data-group="primary" data-tab="drops">
+	<div class="tab-content">
+		<div class="lhpf-toolbar dr-toolbar">
+			<span class="count" data-tooltip="{{localize 'ETERNIA.Drops.ExpectedHint'}}<br>{{localize 'ETERNIA.Drops.Guide'}}: {{lh.drops.guide}}">{{localize 'ETERNIA.Drops.Expected' rolled=lh.drops.expected.rolled fixed=lh.drops.expected.fixed}}</span>
+			{{#if editable}}{{#unless lh.drops.fromText}}<button type="button" data-action="drops-gold"><i class="fa-solid fa-fw fa-coins"></i>{{localize 'ETERNIA.Drops.AddGold'}}</button>{{/unless}}{{/if}}
+			{{#if lh.drops.gm}}<button type="button" data-action="drops-roll" data-tooltip="{{localize 'ETERNIA.Drops.RollHint'}}"><i class="fa-solid fa-fw fa-dice-d6"></i>{{localize 'ETERNIA.Drops.Roll'}}</button>{{/if}}
+		</div>
+		{{#if lh.drops.dropped}}<p class="dr-state"><i class="fa-solid fa-check"></i>{{localize 'ETERNIA.Drops.AlreadyRolled'}}</p>{{/if}}
+		{{#if lh.drops.noLoot}}<p class="dr-state late"><i class="fa-solid fa-hourglass-end"></i>{{localize 'ETERNIA.Drops.NoLoot'}}</p>{{/if}}
+		{{#if lh.drops.fromText}}
+		<p class="dr-state text"><i class="fa-solid fa-scroll"></i>{{localize 'ETERNIA.Drops.FromText'}}
+			{{#if lh.drops.gm}}<button type="button" data-action="drops-convert"><i class="fa-solid fa-table-list"></i>{{localize 'ETERNIA.Drops.Convert'}}</button>{{/if}}</p>
+		{{/if}}
+		<ol class="directory-list lhpf-list dr-table">
+			{{#each lh.drops.rows as |row|}}
+			<li class="item dr-row{{#if row.gold}} gold{{/if}}{{#if row.growth}} growth{{/if}}"{{#if row.id}} data-item-id="{{row.id}}"{{/if}}>
+				<div class="dr-faces" data-tooltip="{{localize 'ETERNIA.Drops.FacesHint'}}">
+					{{#if (and row.id @root.editable (not row.growth))}}<input type="text" value="{{row.rangeEdit}}" data-drop-field="range" maxlength="5" spellcheck="false">{{else}}<span>{{row.range}}</span>{{/if}}
+				</div>
+				<div class="item-name">
+					<span class="item-image framed"><img src="{{row.img}}" alt=""></span>
+					<div class="text">
+						<h4 class="name">{{row.name}}</h4>
+						<ul class="tags meta">
+							{{#each row.tags}}<li class="tag tag_transparent">{{this}}</li>{{/each}}
+							{{#if row.gold}}{{#if (and row.id @root.editable)}}<li class="dr-gold-field"><input type="text" value="{{row.gold}}" data-drop-field="gold" spellcheck="false" data-tooltip="{{localize 'ETERNIA.Drops.GoldHint'}}"></li>{{/if}}{{/if}}
+						</ul>
+					</div>
+				</div>
+				<div class="dr-qty" data-tooltip="{{localize 'ETERNIA.Drops.QtyHint'}}">
+					{{#unless row.gold}}<span>×</span>{{#if (and row.id @root.editable)}}<input type="number" min="1" step="1" value="{{row.qty}}" data-drop-field="qty">{{else}}<b>{{row.qty}}</b>{{/if}}{{/unless}}
+				</div>
+				<div class="dr-value">{{row.value}}</div>
+				<div class="item-controls">
+					{{#if row.id}}
+					<a class="item-control" data-action="item-edit" data-tooltip="ETERNIA.ButtonLabel.Edit"><i class="fa-solid fa-fw fa-pen-to-square"></i></a>
+					{{#if @root.editable}}<a class="item-control" data-action="item-delete" data-tooltip="ETERNIA.ButtonLabel.Delete"><i class="fa-solid fa-fw fa-trash"></i></a>{{/if}}
+					{{/if}}
+				</div>
+			</li>
+			{{else}}
+			<li class="lhpf-empty">{{localize 'ETERNIA.Drops.Empty'}}</li>
+			{{/each}}
+		</ol>
+		{{#if (or lh.drops.growth lh.drops.stolen)}}
+		<p class="dr-state extra">
+			{{#if lh.drops.growth}}<span><i class="fa-solid fa-gem"></i>{{localize 'ETERNIA.Drops.GrowthNow' n=lh.drops.growth}}</span>{{/if}}
+			{{#if lh.drops.stolen}}<span><i class="fa-solid fa-hand-holding-dollar"></i>{{localize 'ETERNIA.Drops.StolenNow' n=lh.drops.stolen}}</span>{{/if}}
+		</p>
+		{{/if}}
+		{{#if editable}}<p class="dr-hint"><i class="fa-solid fa-hand-pointer"></i>{{localize 'ETERNIA.Drops.DropHint'}}</p>{{/if}}
+	</div>
+</section>

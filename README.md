@@ -300,7 +300,8 @@ e dos itens iniciais (o ouro deles volta), e o resto da ficha fica.
 
 A mesma organização num tamanho pequeno (580×610): PV, Barreira, Destino e multiplicador de Ódio no estandarte,
 defesas, Esquiva e Resistência roláveis; habilidades agrupadas pelo Momento, com o teste, o dano e o limite à
-vista; efeitos, estados e descrição. Todo campo é editável na própria ficha.
+vista; os itens deixados (veja [O bestiário](#o-bestiário)); efeitos, estados e descrição. Todo campo é editável na
+própria ficha.
 
 ## O chat
 
@@ -655,6 +656,35 @@ da forma, a Kaimei, as classes como Vias, as Magias, as Tarefas Sagradas e a mes
 do Mestre e as primeiras sessões). Cada capítulo é um diário, e cada parte, uma página; os capítulos se ligam entre si.
 Para mostrar uma página aos jogadores, importe o diário para o mundo e dê a eles a página.
 
+## O bestiário
+
+**Os itens deixados rolam sozinhos.** Cada monstro tem a sua tabela na aba **Itens Deixados** da ficha: cada linha é um
+item com as faces do 1d6 que o dão (1–3, 6) ou **Fixo**, e quantas cópias, e uma linha pode ser de ouro (2d6×3). Quando
+o monstro cai, o Mestre principal rola o 1d6 e um cartão no chat mostra o dado, o que veio, o ouro e para onde foi:
+**quem derrubou o monstro leva todos os itens e todo o ouro** (o atacante do cartão de dano que o levou a 0 PV, ou quem
+deu o veneno ou o fogo que o feriu), e o que não cabe no inventário fica numa pilha de saque no quadrado dele. O cartão
+tem o **Desfazer** do Mestre. Seguem as regras do Log Horizon: o Fixo cai sempre, e quem entrou no combate depois do
+começo (os chamados, as levas, um token posto no meio da luta) não deixa nada. A configuração **Itens deixados: quando
+rolar** troca a queda pelo fim do combate ou pela rolagem à mão (o botão Rolar da aba, que também escolhe quem recebe).
+As 70 tabelas que o bestiário trazia como texto viraram dados; um monstro do mundo com a tabela no texto rola por ela
+mesmo, e a aba tem o **Virar dados**. Arrastar um item para a ficha de um monstro cria uma linha, nas faces livres, e a
+aba compara a média da tabela com a do Guia de Criação de Inimigos.
+
+**O bestiário do Império** (pasta O Império do compêndio Bestiário, NP 1 a 9) traz monstros com regras automatizadas:
+
+- **Kobolds das Galerias:** o **Kobold Garimpeiro** (NP 1, lacaio: o Bando da Galeria dá +2 de dano por kobold engajado
+  com o alvo, e o Some na Parede o deixa [Oculto] com +1d6 no próximo dano), o **Kobold Mordedor** (NP 2: Roer o Veio o
+  faz crescer, [Fortalecido] que soma e um token 2×2 no terceiro cristal, e cada cristal roído vai para os itens
+  deixados dele) e o **Chefe da Galeria** (NP 3, chefe: a aura de [Fortalecido] dos kobolds à volta, a couraça que tira
+  um Estado Negativo no Encerramento, [Fúria] e [Acelerado] na metade dos PV, o chamado de 1d3 Garimpeiros e a
+  explosão que acerta quem estiver a 1 Qd quando ele cai).
+- **As Fendas:** a **Fenda Pequena** (NP 2), um perigo de cena. O relógio de escritas é o Destino dela (os losangos do
+  token); em cada Manutenção ela solta a leva; quem está a até 1 Qd gasta a Ação Maior e rola 2d6 + POD contra 9 no
+  botão **Escrever** do cartão dela, e quem escreveu e é ferido antes do fim da rodada a faz crescer. Fechada, quem
+  escreveu a última linha leva o que ela deixa.
+
+A página **XIV. O BESTIÁRIO** do diário AS REGRAS explica tudo para o Mestre.
+
 ## As profissões
 
 A subclasse da Eternia é uma **profissão**: um ofício fora de combate que faz itens com aprimoramentos, sobe de
@@ -859,6 +889,7 @@ janelas em pergaminho, que pedem para recarregar.
 | Estados clicáveis no chat | ligado |
 | Criar efeito a partir de um cartão | ligado |
 | Conteúdo dos itens e monstros | ligado |
+| Itens deixados: quando rolar | quando o monstro cai |
 | Tema pergaminho no chat | ligado |
 | Janelas do sistema em pergaminho | ligado |
 | Barras e nomes dos tokens no estilo da ficha | ligado |
@@ -909,6 +940,10 @@ eternia.professions.of(actor);        // profissão, Rank, EXP, tentativas e ní
 eternia.professions.addExp(actor, 10); // EXP da profissão (anuncia o Rank novo)
 eternia.icons.styleOf(item);          // como o ícone do item é desenhado (moldura, nível, tema, cor)
 eternia.icons.refresh();              // desenha de novo os ícones da tela
+eternia.bestiary.rollDrops(actor, { force: true, receiver: hero }); // os itens deixados de um monstro (null: o chão)
+eternia.bestiary.convertTable(actor); // a tabela de itens deixados escrita na descrição vira dados
+eternia.bestiary.spawnNear(token, [{ uuid, count: "1d3" }]); // monstros ao lado de um token, no combate, sem itens
+eternia.bestiary.writeRift(fendaToken); // escreve na Fenda com o token selecionado
 ```
 
 ## Limites conhecidos

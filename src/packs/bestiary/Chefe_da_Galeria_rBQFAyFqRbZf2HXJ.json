@@ -1,0 +1,876 @@
+{
+  "name": "Chefe da Galeria",
+  "type": "monster",
+  "img": "icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp",
+  "system": {
+    "health": {
+      "value": 140,
+      "max": 140,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Humanoid",
+      "Kobold",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 10,
+        "magic": 6
+      },
+      "speed": 2,
+      "initiative": 3
+    },
+    "rank": 3,
+    "idendification": "8",
+    "hateMultiplier": "3",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 2
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>O kobold que manda na galeria tem um Anima-mundi encravado no peito, grande como um punho, que pulsa em laranja quando ele respira. O cristal o deixou forte e louco: ele fala sozinho, morde a própria picareta e não deixa nenhum outro kobold comer antes dele. Quando o cristal racha, nada mais o segura.</p><p><b>Na mesa:</b> o chefe da primeira mina da campanha (a semana de campo). Vem com dois a quatro Garimpeiros e um Mordedor. O Coração de Anima fortalece o bando inteiro; afastar os kobolds dele é metade da luta. Ninguém deve estar perto dele quando cair.</p>"
+  },
+  "prototypeToken": {
+    "name": "Chefe da Galeria",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Picareta Rúnica",
+      "type": "skill",
+      "img": "icons/tools/hand/pickaxe-steel-grey.webp",
+      "system": {
+        "description": "<p>[2d6 + 19] de dano físico.</p><p>(Menor): +5 de dano.</p><p>[Destino 1]: o golpe acerta todos os personagens engajados com este inimigo.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 19,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "YTnEtEei3i4iTL6N",
+      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.YTnEtEei3i4iTL6N"
+    },
+    {
+      "name": "Coração de Anima",
+      "type": "skill",
+      "img": "icons/magic/fire/orb-vortex.webp",
+      "system": {
+        "description": "<p>Em cada Manutenção, este inimigo e os aliados a até 2 Qd dele ficam [Fortalecido: 3].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "realm": {
+                "radius": 2,
+                "allies": [
+                  {
+                    "statusId": "empowered",
+                    "value": 3
+                  }
+                ]
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Coração de Anima",
+          "img": "icons/magic/fire/orb-vortex.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "koQVa6Dq7A3lq5cR",
+          "_key": "!actors.items.effects!rBQFAyFqRbZf2HXJ.f5xopeCz6gaOugj8.koQVa6Dq7A3lq5cR"
+        }
+      ],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "f5xopeCz6gaOugj8",
+      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.f5xopeCz6gaOugj8"
+    },
+    {
+      "name": "Couraça de Lascas",
+      "type": "skill",
+      "img": "icons/commodities/gems/gem-cluster-red.webp",
+      "system": {
+        "description": "<p>No Encerramento, este inimigo se livra de um Estado Negativo: a pele de cristal expulsa o que o prende.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "cleanse",
+            "count": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "2YyXXE6WpJ81UWcq",
+      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.2YyXXE6WpJ81UWcq"
+    },
+    {
+      "name": "O Cristal Racha",
+      "type": "skill",
+      "img": "icons/magic/fire/explosion-embers-orange.webp",
+      "system": {
+        "description": "<p>A primeira vez que os PV deste inimigo caem à metade ou menos, o cristal do peito racha: ele fica [Fúria: 5] e [Acelerado] até o fim da cena.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "threshold",
+            "below": 0.5,
+            "statuses": [
+              {
+                "statusId": "berserk",
+                "value": 5
+              },
+              {
+                "statusId": "hasted"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Oiec6PLkHufP1IK0",
+      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.Oiec6PLkHufP1IK0"
+    },
+    {
+      "name": "Chamado da Galeria",
+      "type": "skill",
+      "img": "icons/environment/wilderness/cave-entrance-mountain.webp",
+      "system": {
+        "description": "<p>Este inimigo bate a picareta na rocha: 1d3 Kobolds Garimpeiros saem da parede a até 2 Qd dele. Eles entram no combate e não deixam itens.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "summon",
+            "radius": 2,
+            "actors": [
+              {
+                "uuid": "Compendium.eternia.bestiary.Actor.3ShpjQ2KPjrinEgw",
+                "count": "1d3"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Ebox7NTS79QAAMIS",
+      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.Ebox7NTS79QAAMIS"
+    },
+    {
+      "name": "Explosão do Cristal",
+      "type": "skill",
+      "img": "icons/magic/fire/explosion-fireball-large-orange.webp",
+      "system": {
+        "description": "<p>Quando este inimigo cai, o cristal do peito explode: quem estiver a até 1 Qd dele sofre [2d6 + 10] de dano mágico de [Chama] e fica [Queimando: 3]. Sem Teste de Esquiva.</p>",
+        "tags": [
+          "Flame"
+        ],
+        "timing": "Refer",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 10,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "fall",
+            "radius": 1
+          },
+          "hitStatuses": [
+            {
+              "statusId": "burning",
+              "value": 3
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "vtIh0sgaraa74djd",
+      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.vtIh0sgaraa74djd"
+    },
+    {
+      "name": "Lascas de Anima",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-fragments-rough-green.webp",
+      "system": {
+        "description": "<p>Lascas do cristal do peito do Chefe da Galeria. Servem de Anima-mundi 3 na Oficina, sem o Selo do Anima.</p>",
+        "tags": [
+          "Magic Catalyst 3"
+        ],
+        "rank": 3,
+        "price": 25,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "RkFkAuO04IDF6gGx",
+      "sort": 700000,
+      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.RkFkAuO04IDF6gGx"
+    },
+    {
+      "name": "Picareta Rúnica",
+      "type": "gear",
+      "img": "icons/tools/hand/pickaxe-steel-grey.webp",
+      "system": {
+        "description": "<p>A picareta do chefe, com runas que nenhum kobold sabe ler. Alguém de baixo as entalhou.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 3,
+        "price": 150,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "JAy246PyTI5lmTRs",
+      "sort": 800000,
+      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.JAy246PyTI5lmTRs"
+    },
+    {
+      "name": "Coroa de Cristal",
+      "type": "gear",
+      "img": "icons/equipment/head/crown-gold-blue.webp",
+      "system": {
+        "description": "<p>Uma coroa torta de Anima-mundi soldado, que o chefe usava sobre o focinho. Os nobres de Centória pagam bem por curiosidades das minas.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 3,
+        "price": 250,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ocsuf4nwv2CTBbwC",
+      "sort": 900000,
+      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.ocsuf4nwv2CTBbwC"
+    },
+    {
+      "name": "Anima-mundi 4",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 4 gasta uma Anima-mundi 4 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 4"
+        ],
+        "rank": 4,
+        "price": 30,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 108
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.UjH3cQFAVDAO0WpF",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Jru63S1R6moyxEqJ",
+      "sort": 1000000,
+      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.Jru63S1R6moyxEqJ"
+    },
+    {
+      "name": "Coração de Anima Rachado",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-rough-can-orange-red.webp",
+      "system": {
+        "description": "<p>O cristal que pulsava no peito do Chefe da Galeria, rachado e ainda morno. Um [Material-Base] de NP 3.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 3,
+        "price": 60,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "N6vChVLUknEvNtA8",
+      "sort": 1100000,
+      "_key": "!actors.items!rBQFAyFqRbZf2HXJ.N6vChVLUknEvNtA8"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "rBQFAyFqRbZf2HXJ",
+  "folder": "yEho6N2796TDEcba",
+  "_key": "!actors!rBQFAyFqRbZf2HXJ"
+}

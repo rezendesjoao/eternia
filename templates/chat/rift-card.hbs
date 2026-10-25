@@ -1,0 +1,27 @@
+{{!-- A Rift in the chat (module/bestiary/rifts.mjs), with the look of the rank card: the Rift on the violet band, what
+     happened (a wave, a writing, the growing, the closing), the clock of writings as diamonds, the number to beat and
+     the Write button for whoever stands by it. --}}
+<div class="eternia-rank-card eternia-rift-card{{#if closed}} closed{{/if}}" aria-label="{{eyebrow}}: {{name}}">
+	<header class="rk-head">
+		<img src="{{img}}" alt="">
+		<div class="rk-title">
+			<small><i class="fa-solid fa-burst"></i>{{eyebrow}}</small>
+			<h3>{{name}}</h3>
+		</div>
+		<div class="rk-seal" aria-label="{{dcLabel}} {{dc}}">
+			<small>{{dcLabel}}</small>
+			<span><b>{{dc}}</b></span>
+		</div>
+	</header>
+	{{#if event}}<p class="rf-event">{{event}}</p>{{/if}}
+	{{#each lines}}<p class="rf-line"><i class="fa-solid fa-paw"></i><span>{{this}}</span></p>{{/each}}
+	<div class="rf-clock" aria-label="{{clockLabel}}">
+		<span class="rf-marks">{{#each clock}}<i class="rf-mark{{#if this}} done{{/if}}"></i>{{/each}}</span>
+		<span class="rf-clock-label">{{#if closed}}{{closedLabel}}{{else}}{{clockLabel}}{{/if}}</span>
+	</div>
+	{{#unless closed}}
+	<div class="rk-actions rf-actions">
+		<button type="button" data-action="rift-write" data-tooltip="{{writeHint}}"><i class="fa-solid fa-feather-pointed"></i>{{write}}</button>
+	</div>
+	{{/unless}}
+</div>

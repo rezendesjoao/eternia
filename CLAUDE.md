@@ -58,6 +58,12 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   que não passaram adiante levam `flags.eternia.retired`. A cor e a ordem das raças ficam em `module/races/data.mjs`.
 - O Mundo de Eternia (`world`, JournalEntry, só do Mestre): os capítulos do mundo, um diário por capítulo e uma página
   por seção, gerados de `Eternia-Mundo/diario/` (fora do repositório); "capítulo N" vira link para o diário.
+- Bestiário (`bestiary`, veja `docs/bestiario.md`): os itens deixados são itens guardados no monstro com
+  `flags.eternia.drop` (`min`/`max`, `fixed`, `growth`, `qty`, `gold`), rolados por `module/bestiary/drops.mjs` quando
+  ele cai; quem derrubou leva tudo. As regras de monstro vão em `flags.eternia.monster = { rule, ... }` nas habilidades
+  (`pack`, `grow`, `threshold`, `fall`, `cleanse`, `summon`); a Fenda é um monstro com `flags.eternia.rift` e o relógio
+  no Destino. Os monstros do Império (pasta O Império) foram gerados por um script fora do repositório: a fonte é o JSON.
+  Uma tabela nova escrita no formato dos livros vira dados com `node tools/convert-drops.mjs`.
 - Profissão = item `subclass` com `system.identifier` igual a um id de `module/professions/data.mjs`, na pasta
   Profissões de `races-classes`. O progresso fica no personagem (`flags.eternia.professions.<id>`) e o item feito guarda
   a base em `flags.eternia.craft` (veja `docs/profissoes.md`). Engenhocas e Canções ficam em `items` (pastas próprias).

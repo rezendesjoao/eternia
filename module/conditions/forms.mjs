@@ -45,7 +45,8 @@ async function onCreateEffect(effect, options, userId) {
  */
 async function onDamaged(actor, card, { amount = 0, absorbed = 0, attacker = null } = {}) {
   if (!attacker || sameActor(attacker, actor) || ((toInt(amount) <= 0) && (toInt(absorbed) <= 0))) return;
-  const given = [...actor.effects].filter(e => e.active && flag(e, "struckStatus")?.statusId);
+  // Its own effects and the passive ones of its skills (a monster's sparkling fur, bestiary/)
+  const given = [...actor.allApplicableEffects()].filter(e => e.active && flag(e, "struckStatus")?.statusId);
   if (!given.length) return;
   const lines = [];
   for (const effect of given) {

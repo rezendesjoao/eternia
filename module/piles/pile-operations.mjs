@@ -327,6 +327,38 @@ async function dropItem({ sourceUuid, itemId, itemUuid, quantity, sceneId, x, y,
   return { ok: true };
 }
 
+/**
+ * Leave items and gold on a square of a scene, as the GM (a monster's drops nobody carried, bestiary/drops.mjs): into
+ * the loot pile already on that square, or a new one, drawn over the tokens there.
+ * @param {Scene} scene
+ * @param {{x: number, y: number, level?: string, elevation?: number}} at   A point of the square (canvas pixels)
+ * @param {object[]} items   Item data
+ * @param {number} [gold]
+ * @returns {Promise<{tokenUuid: string, created: boolean, itemIds: string[], gold: number}|null>}
+ */
+export async function lootAt(scene, { x, y, level, elevation }, items, gold = 0) {
+  if (!game.user.isGM || !scene || (!items.length && !(gold > 0))) return null;
+  if (!level || !scene.levels.has(level)) level = scene.initialLevel?.id;
+  const existing = scene.tokens.find(t => isPile(t.actor) && !isMerchant(t.actor) && (t.level === level) && tokenContains(t, x, y));
+  const data = items.map(d => ({ ...foundry.utils.deepClone(d), _id: foundry.utils.randomID() }));
+  for (const d of data) if (d.system && ("equipped" in d.system)) d.system.equipped = false;
+  if (existing) {
+    const pile = existing.actor;
+    const created = data.length ? await pile.createEmbeddedDocuments("Item", data, { keepId: true }) : [];
+    if (gold > 0) await pile.update({ [goldPath(pile)]: getGold(pile) + gold });
+    return { tokenUuid: existing.uuid, created: false, itemIds: created.map(i => i.id), gold };
+  }
+  const base = await getDefaultLootActor();
+  const point = scene.grid.getTopLeftPoint({ x, y });
+  const tokenData = (await base.getTokenDocument({
+    x: point.x, y: point.y, level, elevation: Number(elevation) || 0, actorLink: false
+  })).toObject();
+  tokenData.delta = { system: { mode: "loot", deleteWhenEmpty: true, gold: Math.max(0, Math.floor(gold) || 0) }, items: data };
+  tokenData.sort = Math.max(0, ...scene.tokens.map(t => t.sort ?? 0)) + 1;
+  const [token] = await scene.createEmbeddedDocuments("Token", [tokenData]);
+  return token ? { tokenUuid: token.uuid, created: true, itemIds: data.map(d => d._id), gold } : null;
+}
+
 /* -------------------------------------------- */
 /*  Chests                                      */
 /* -------------------------------------------- */

@@ -85,7 +85,7 @@ async function giveRule(actor, list, caster, item) {
 async function applyRealm(caster, effect, scene = null) {
   const realm = effect.getFlag(SYSTEM_ID, "realm");
   if (!realm || caster.statuses.has("incapacitated") || caster.statuses.has("dead")) return [];
-  const item = fromUuidSync(effect.getFlag(SYSTEM_ID, "source")?.itemUuid ?? "") ?? null;
+  const item = fromUuidSync(effect.getFlag(SYSTEM_ID, "source")?.itemUuid ?? "") ?? ((effect.parent instanceof Item) ? effect.parent : null);
   const reach = realmReach(caster, Math.max(0, toInt(realm.radius)), scene);
   const lines = [];
   for (const [side, list] of [["enemies", realm.enemies], ["allies", realm.allies]]) {
@@ -98,8 +98,8 @@ async function applyRealm(caster, effect, scene = null) {
   return lines;
 }
 
-/** The active Realms of an actor. */
-const realmsOf = actor => (actor?.effects ?? []).filter(e => e.active && e.getFlag(SYSTEM_ID, "realm"));
+/** The active Realms of an actor: its own effects and the passive ones of its skills (a monster's aura, bestiary/). */
+const realmsOf = actor => [...(actor?.allApplicableEffects?.() ?? [])].filter(e => e.active && e.getFlag(SYSTEM_ID, "realm"));
 
 /** The Setup Process of a round: every Realm of the combat acts again. */
 async function setupRealms(combat) {

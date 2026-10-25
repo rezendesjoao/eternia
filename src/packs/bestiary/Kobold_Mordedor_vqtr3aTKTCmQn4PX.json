@@ -1,0 +1,471 @@
+{
+  "name": "Kobold Mordedor",
+  "type": "monster",
+  "img": "icons/creatures/abilities/mouth-teeth-crooked-blue.webp",
+  "system": {
+    "health": {
+      "value": 42,
+      "max": 42,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Humanoid",
+      "Kobold",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 8,
+        "magic": 6
+      },
+      "speed": 2,
+      "initiative": 4
+    },
+    "rank": 2,
+    "idendification": "7",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Um kobold de dentes de cristal, que arranca o Anima-mundi da parede com a boca e o engole inteiro. Cada cristal o deixa mais forte e maior: os mineiros contam de Mordedores do tamanho de um homem, com a barriga brilhando como uma lanterna.</p><p><b>Na mesa:</b> o dano do bando. Roer o Veio é a pergunta que ele faz ao grupo: matá-lo logo, ou deixar que coma e cresça, e ganhar os cristais que ele engoliu (cada um vai para os itens deixados dele).</p>"
+  },
+  "prototypeToken": {
+    "name": "Kobold Mordedor",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/abilities/mouth-teeth-crooked-blue.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Mordida de Cristal",
+      "type": "skill",
+      "img": "icons/creatures/abilities/fangs-teeth-bite.webp",
+      "system": {
+        "description": "<p>[2d6 + 27] de dano físico.</p><p>(Menor): o alvo fica [Fissurado: 1]: os dentes de cristal racham a guarda.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 27,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "S9FPOCONWdnffKkc",
+      "_key": "!actors.items!vqtr3aTKTCmQn4PX.S9FPOCONWdnffKkc"
+    },
+    {
+      "name": "Roer o Veio",
+      "type": "skill",
+      "img": "icons/commodities/gems/gem-raw-rough-teal.webp",
+      "system": {
+        "description": "<p>Este inimigo arranca um cristal da parede com os dentes e o engole (só onde há um veio de Anima-mundi): recupera 5 PV e fica [Fortalecido: 2] por cristal roído na cena. No terceiro cristal ele cresce e passa a ocupar 2×2 quadrados.</p><p>Cada cristal roído vai para os itens deixados dele.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "3/Scene",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "grow",
+            "empowered": 2,
+            "heal": 5,
+            "at": 3,
+            "size": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "gIkPMfnxF9JKkKb5",
+      "_key": "!actors.items!vqtr3aTKTCmQn4PX.gIkPMfnxF9JKkKb5"
+    },
+    {
+      "name": "Dente de Cristal",
+      "type": "gear",
+      "img": "icons/commodities/bones/tooth-canine-white.webp",
+      "system": {
+        "description": "<p>Um dente de kobold que virou cristal de tanto roer Anima-mundi. Os ourives de Centória compram para fazer contas.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 2,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 4,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ytzEvZODegEhlTn4",
+      "sort": 300000,
+      "_key": "!actors.items!vqtr3aTKTCmQn4PX.ytzEvZODegEhlTn4"
+    },
+    {
+      "name": "Mandíbula Cintilante",
+      "type": "gear",
+      "img": "icons/commodities/bones/bone-jaw-teeth-white.webp",
+      "system": {
+        "description": "<p>A mandíbula inteira de um Mordedor, cravejada de lascas de Anima. Brilha de leve no escuro.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 2,
+        "price": 45,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 5,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Kv0g1mthA7SI8GbD",
+      "sort": 400000,
+      "_key": "!actors.items!vqtr3aTKTCmQn4PX.Kv0g1mthA7SI8GbD"
+    },
+    {
+      "name": "Cristal Roído",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-raw-rough-teal.webp",
+      "system": {
+        "description": "<p>Um Anima-mundi que o Mordedor engoliu e não digeriu. Serve de Anima-mundi 2 na Oficina, mas não tem o Selo do Anima.</p>",
+        "tags": [
+          "Magic Catalyst 2"
+        ],
+        "rank": 2,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "growth": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "V3BPvrHYf39WMQAh",
+      "sort": 500000,
+      "_key": "!actors.items!vqtr3aTKTCmQn4PX.V3BPvrHYf39WMQAh"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "vqtr3aTKTCmQn4PX",
+  "folder": "yEho6N2796TDEcba",
+  "_key": "!actors!vqtr3aTKTCmQn4PX"
+}

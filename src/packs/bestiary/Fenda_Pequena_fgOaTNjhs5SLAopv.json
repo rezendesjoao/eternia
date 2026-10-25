@@ -1,0 +1,532 @@
+{
+  "name": "Fenda Pequena",
+  "type": "monster",
+  "img": "icons/magic/air/wind-vortex-swirl-purple.webp",
+  "system": {
+    "health": {
+      "value": 1,
+      "max": 1,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 2,
+      "max": 2,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Gimmick",
+      "Magical"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 0,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 0,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 0,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 0,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 0,
+        "magic": 0
+      },
+      "speed": 0,
+      "initiative": 0
+    },
+    "rank": 2,
+    "idendification": "Auto",
+    "hateMultiplier": "0",
+    "checks": {
+      "evasion": {
+        "dice": 0,
+        "mod": 0
+      },
+      "resistance": {
+        "dice": 0,
+        "mod": 0
+      }
+    },
+    "description": "<p>Um palmo de luz violeta que zumbe no ar, numa rachadura da rocha ou num redemoinho de água que não gira: um lugar onde a escrita do mundo afinou. Por ela sai o que o Peso escreve, um punhado de bichos de cada vez. Um aluno de Artes com tempo a fecha.</p><p><b>Na mesa:</b> um perigo de cena. Não sofre dano nem age: em cada Manutenção solta a leva (um Kobold Garimpeiro; troque à vontade nos dados dela) e o relógio de escritas mostra o que falta (os losangos dourados do token). Quem está a até 1 Qd dela gasta a Ação Maior e rola 2d6 + POD contra 9 no botão Escrever do cartão; quem escreve e é ferido antes do fim da rodada a faz crescer. Fechada, quem escreveu a última linha leva o que ela deixa.</p>"
+  },
+  "prototypeToken": {
+    "name": "Fenda Pequena",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/magic/air/wind-vortex-swirl-purple.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 50,
+    "bar1": {
+      "attribute": "fate"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "alpha": 0.4,
+      "angle": 360,
+      "bright": 0.5,
+      "color": "#9b6bd6",
+      "coloration": 1,
+      "dim": 2,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": "pulse",
+        "speed": 3,
+        "intensity": 4,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Rasgo na Escrita",
+      "type": "skill",
+      "img": "icons/magic/air/wind-vortex-swirl-purple.webp",
+      "system": {
+        "description": "<p>Este perigo não sofre dano: só a escrita da Língua Sagrada o fecha. Em cada Manutenção, solta a leva dele a até 2 Qd.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {}
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Rasgo na Escrita",
+          "img": "icons/magic/air/wind-vortex-swirl-purple.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.cancel",
+                "type": "add",
+                "value": "999",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "TBpPw9aHlp5gO2GD",
+          "_key": "!actors.items.effects!fgOaTNjhs5SLAopv.s54L7j3kkLv9afcp.TBpPw9aHlp5gO2GD"
+        }
+      ],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "s54L7j3kkLv9afcp",
+      "_key": "!actors.items!fgOaTNjhs5SLAopv.s54L7j3kkLv9afcp"
+    },
+    {
+      "name": "Relógio de Escritas",
+      "type": "skill",
+      "img": "icons/magic/symbols/runes-star-orange.webp",
+      "system": {
+        "description": "<p>O Destino deste perigo é o relógio: 2 escritas. Quem está a até 1 Qd dele gasta a Ação Maior e rola 2d6 + POD contra 9: no sucesso, o relógio anda 1 (no crítico, 2). Se quem escreveu for ferido antes do fim da rodada, a Fenda cresce 1. No 0, ela fecha.</p>",
+        "tags": [],
+        "timing": "Refer",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "CYnqkCBURaTqAaNB",
+      "_key": "!actors.items!fgOaTNjhs5SLAopv.CYnqkCBURaTqAaNB"
+    },
+    {
+      "name": "Anima-mundi 1",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 1 gasta uma Anima-mundi 1 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 1"
+        ],
+        "rank": 1,
+        "price": 15,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 4,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.lXRVMP4OQg9nvEZj",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "JAZZkzG9OKzPKqGK",
+      "sort": 300000,
+      "_key": "!actors.items!fgOaTNjhs5SLAopv.JAZZkzG9OKzPKqGK"
+    },
+    {
+      "name": "Anima-mundi 2",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 2 gasta uma Anima-mundi 2 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 2"
+        ],
+        "rank": 2,
+        "price": 20,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 36
+          },
+          "drop": {
+            "min": 5,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.98b1DOCsJYStKfaN",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "OupPE0H8FbEAIDx8",
+      "sort": 400000,
+      "_key": "!actors.items!fgOaTNjhs5SLAopv.OupPE0H8FbEAIDx8"
+    },
+    {
+      "name": "Resíduo de Fenda",
+      "type": "gear",
+      "img": "icons/magic/symbols/question-stone-yellow.webp",
+      "system": {
+        "description": "<p>Uma poeira violeta que fica no ar quando uma Fenda fecha, e que zumbe baixinho dentro do frasco. As guildas pagam por ela como prova do serviço; a Igreja a recolhe.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 2,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "C6piaXFJ7XdfLF4x",
+      "sort": 500000,
+      "_key": "!actors.items!fgOaTNjhs5SLAopv.C6piaXFJ7XdfLF4x"
+    }
+  ],
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "rift": {
+        "dc": 9,
+        "grow": 1,
+        "wave": [
+          {
+            "uuid": "Compendium.eternia.bestiary.Actor.3ShpjQ2KPjrinEgw",
+            "count": 1
+          }
+        ]
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "fgOaTNjhs5SLAopv",
+  "folder": "ew1hWvqNKimoWeZf",
+  "_key": "!actors!fgOaTNjhs5SLAopv"
+}

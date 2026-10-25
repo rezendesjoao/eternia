@@ -57,6 +57,7 @@ import { registerConditions } from "./conditions/index.mjs";
 import { recover } from "./conditions/recovery.mjs";
 import { takeDamage } from "./conditions/damage.mjs";
 import { professionsApi, registerProfessions } from "./professions/index.mjs";
+import { registerBestiary } from "./bestiary/index.mjs";
 import { MOTOR_API, registerClasses } from "./classes/index.mjs";
 import { registerClassProgression } from "./classes/progression.mjs";
 import { registerClassSheet } from "./classes/sheet.mjs";
@@ -218,6 +219,8 @@ Hooks.once('init', async function () {
   registerNotice();
   // Professions (the subclasses): the profession tab, the bench, the traps
   registerProfessions();
+  // The bestiary: the drops of the monsters, the monster rules and the Rifts
+  registerBestiary();
   // Classes: the Motors, the class tab, the Path and Apex by Character Rank, the Dedications
   registerClasses();
   registerClassProgression();

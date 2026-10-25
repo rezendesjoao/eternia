@@ -1321,6 +1321,13 @@
       "evolutionApproval": {
         "Name": "Evolução da forma com o Mestre",
         "Hint": "Ligado, o Evoluir de um jogador vira um pedido no chat, e a forma só cede quando o Mestre aprova. Desligado, o jogador evolui sozinho ao chegar no NP do estágio (o rito fica na narração)."
+      },
+      "dropRoll": {
+        "Name": "Itens deixados: quando rolar",
+        "Hint": "Quando a tabela de itens deixados de um monstro rola sozinha. Quem derrubou o monstro leva todos os itens e todo o ouro; o que não couber no inventário fica numa pilha de saque no quadrado dele. Quem entrou depois do começo do combate (os chamados, as levas das Fendas) não deixa nada.",
+        "fall": "Quando o monstro cai",
+        "combat": "No fim do combate",
+        "manual": "Só à mão, pela ficha do monstro"
       }
     },
     "Use": {
@@ -1555,7 +1562,8 @@
         "DescriptionHint": "Clique no lápis para escrever a descrição.",
         "NoAbilities": "Nenhuma habilidade. Arraste uma de um compêndio ou clique em Adicionar.",
         "Edit": "Editar",
-        "StatusesHint": "Abrir o painel de estados"
+        "StatusesHint": "Abrir o painel de estados",
+        "Drops": "Itens Deixados"
       },
       "TabShort": {
         "character": "Personagem",
@@ -3913,6 +3921,82 @@
       "Open": "Abrir a raça",
       "BackTip": "Voltar um estágio (Mestre)",
       "BackConfirm": "Voltar a forma de {name} do Estágio {from} ao {to}? As habilidades e o +1 desse estágio saem da ficha."
+    },
+    "Drops": {
+      "Eyebrow": "Itens Deixados",
+      "Die": "1d6",
+      "Fixed": "Fixo",
+      "FixedOnly": "Fixo",
+      "Growth": "Crescimento",
+      "GoldRow": "Ouro",
+      "Stolen": "Ouro roubado",
+      "To": "Tudo para {name}.",
+      "Floor": "Ninguém o derrubou: ficou tudo no chão.",
+      "FloorNotCharacter": "{name} o derrubou, mas não carrega itens: ficou tudo no chão.",
+      "PileHint": "Uma pilha de saque ficou no quadrado do monstro.",
+      "Undo": "Desfazer",
+      "Undone": "Desfeito: os itens e o ouro voltaram, e o monstro pode rolar de novo.",
+      "Nothing": "Nada desta vez.",
+      "PartOf": "Deixado por {monster}.",
+      "Expected": "Média: {rolled} G no 1d6 · {fixed} G fixos",
+      "ExpectedHint": "A média do que a tabela dá numa rolagem, e o que cai sempre.",
+      "AddGold": "Ouro",
+      "Roll": "Rolar",
+      "RollHint": "Rolar os itens deixados agora (Mestre), mesmo de um monstro já rolado ou que entrou no meio do combate.",
+      "RollTitle": "Itens Deixados: {name}",
+      "ForWhom": "Para quem",
+      "ToFloor": "Ninguém (fica no chão)",
+      "AlreadyRolled": "Já rolado: o cartão no chat tem o Desfazer.",
+      "NoLoot": "Entrou depois do começo do combate: não deixa itens (só rolando à mão).",
+      "FromText": "A tabela vem do texto da descrição.",
+      "Convert": "Virar dados",
+      "ConvertTitle": "Itens Deixados",
+      "ConvertLead": "As {n} linhas da tabela da descrição viram linhas da aba, e a tabela sai da descrição.",
+      "FacesHint": "As faces do 1d6 que dão este item (1-3, 6) ou Fixo",
+      "QtyHint": "Quantas cópias",
+      "GoldHint": "A fórmula do ouro (2d6*3)",
+      "Empty": "Nenhum item deixado. Arraste um item para esta ficha ou clique em Ouro.",
+      "GrowthNow": "Cresceu {n}: os itens de crescimento caem {n} vezes.",
+      "StolenNow": "Ouro roubado: {n} G, que volta para quem o derrubar.",
+      "DropHint": "Arraste um item para a ficha: ele vira uma linha da tabela, nas faces que ainda estão livres.",
+      "BadRange": "Use as faces do 1d6 (1-3, 6) ou Fixo.",
+      "ToPart": "Para {name}. Não coube no inventário e ficou no chão: {items}.",
+      "ToFull": "{name} o derrubou, mas o inventário está cheio: os itens ficaram no chão.",
+      "ToFullGold": "{name} levou o ouro, mas o inventário está cheio: os itens ficaram no chão.",
+      "GoldTo": "Ouro para {name}",
+      "GoldFloor": "Ouro no chão",
+      "Guide": "O Guia de Criação de Inimigos pede",
+      "GuideCommon": "{value} G no 1d6",
+      "GuideMob": "{value} G fixos (lacaio)",
+      "GuideBoss": "{value} G no 1d6, mais um Anima-mundi {n} e um [Material-Base] fixos (chefe)"
+    },
+    "Bestiary": {
+      "Grow": "{name} cresce ({n}): [Fortalecido: {value}].",
+      "Bigger": "{name} já não cabe num quadrado.",
+      "Threshold": "{name} fica com {statuses} até o fim da cena.",
+      "Cleanse": "{name} se livra de {statuses}.",
+      "Summon": "{name} chama: {list}."
+    },
+    "Rift": {
+      "Eyebrow": "Fenda",
+      "Clock": "{done} de {max} escritas",
+      "Dc": "Contra",
+      "Closed": "Fechada",
+      "Write": "Escrever",
+      "WriteHint": "Escrever a Língua Sagrada sobre a Fenda: quem está a até 1 quadrado dela gasta a Ação Maior e rola 2d6 + POD contra {dc}. Selecione o seu token antes.",
+      "WriteFlavor": "Escrever a Língua Sagrada (2d6 + POD) contra {dc}",
+      "NoWriter": "Selecione o token do personagem que vai escrever.",
+      "AlreadyClosed": "Esta Fenda já fechou.",
+      "TooFar": "{name} precisa estar a até 1 quadrado da Fenda para escrever.",
+      "NotYourProcess": "{name} só escreve no próprio turno.",
+      "NoMajor": "{name} já gastou a Ação Maior deste turno.",
+      "Failed": "{name} tentou escrever e não conseguiu ({total}).",
+      "Wrote": "{name} escreveu uma linha da Língua Sagrada ({total}).",
+      "WroteCritical": "{name} escreveu duas linhas de uma vez ({total}, crítico).",
+      "Grew": "{name} foi ferido enquanto escrevia: a Fenda cresce.",
+      "ClosedBy": "{name} escreveu a última linha: a Fenda fechou.",
+      "Setup": "Rodada {round}: a Fenda pulsa.",
+      "Wave": "Saiu da Fenda: {list}."
     }
   },
   "Cancel": "Cancelar"

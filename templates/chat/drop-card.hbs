@@ -1,0 +1,39 @@
+{{!-- A monster's drops in the chat (module/bestiary/drops.mjs), with the look of the rank card: the portrait and the
+     name on the green band, the 1d6 in the gold seal, a row per thing that came (the item's icon, the name and how many,
+     the face of the table, the tags, the value), the gold, where it all went, and the GM's Undo. --}}
+<div class="eternia-rank-card eternia-drop-card{{#if undone}} undone{{/if}}" aria-label="{{eyebrow}}: {{name}}">
+	<header class="rk-head">
+		<img src="{{img}}" alt="">
+		<div class="rk-title">
+			<small><i class="fa-solid fa-sack"></i>{{eyebrow}}</small>
+			<h3>{{name}}</h3>
+		</div>
+		<div class="rk-seal" aria-label="{{faceLabel}} {{face}}">
+			<small>{{faceLabel}}</small>
+			{{#if face}}<span class="dr-face"><i class="fa-solid fa-dice-{{dieIcon}}"></i><b>{{face}}</b></span>{{else}}<span class="dr-face fixed"><b>{{fixedLabel}}</b></span>{{/if}}
+		</div>
+	</header>
+	{{#if nothing}}<p class="dr-nothing">{{nothing}}</p>{{/if}}
+	<ul class="rk-rows dr-rows">
+		{{#each lines}}
+		<li class="rk-row dr-row{{#if gold}} gold{{/if}}">
+			<img class="dr-img" src="{{img}}" alt="{{name}}">
+			<span class="rk-text">
+				<span class="dr-name"><b>{{name}}</b>{{#if (gt qty 1)}} <em>×{{qty}}</em>{{/if}}</span>
+				<span class="dr-meta">{{#if range}}<em class="dr-range">{{range}}</em>{{/if}}{{#each tags}}<em class="dr-tag">{{this}}</em>{{/each}}{{#if formula}}<em class="dr-tag">{{formula}}</em>{{/if}}</span>
+			</span>
+			<span class="dr-value">{{value}}</span>
+		</li>
+		{{/each}}
+	</ul>
+	{{#if gold}}<p class="dr-gold"><i class="fa-solid fa-coins"></i><span>{{goldLabel}}</span><b>{{gold}}</b></p>{{/if}}
+	<p class="dr-where"><i class="fa-solid fa-hand-holding"></i><span>{{where}}</span></p>
+	{{#if pile}}<p class="dr-where dr-pile"><i class="fa-solid fa-sack-xmark"></i><span>{{pileLabel}}</span></p>{{/if}}
+	{{#if undone}}
+	<p class="rk-state">{{undoneLabel}}</p>
+	{{else}}
+	<div class="rk-actions dr-actions">
+		<button type="button" data-action="drop-undo"><i class="fa-solid fa-rotate-left"></i>{{undoLabel}}</button>
+	</div>
+	{{/if}}
+</div>

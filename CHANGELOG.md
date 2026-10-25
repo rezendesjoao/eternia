@@ -1,5 +1,37 @@
 # Changelog
 
+## Não lançado
+
+### Adicionado
+- **Os itens deixados automáticos** (`module/bestiary/`). A tabela de itens deixados de cada monstro virou dado: cada
+  linha é um item guardado no monstro, com as faces do 1d6 (ou Fixo), as cópias e, numa linha de ouro, a fórmula. A
+  ficha de monstro ganhou a aba **Itens Deixados**: as linhas pelas faces, com as faces e as cópias editáveis, a média da
+  tabela ao lado da do Guia de Criação de Inimigos, a linha de ouro e o botão Rolar (Mestre, com a escolha de quem
+  recebe). Arrastar um item para a ficha cria uma linha nas faces livres.
+- **A rolagem sozinha:** quando um monstro cai (ou no fim do combate, ou só à mão: a configuração **Itens deixados:
+  quando rolar**), o Mestre principal rola o 1d6 e um cartão no chat, no visual do cartão de NP, mostra o dado, o que
+  veio, o ouro e para onde foi, com o Desfazer do Mestre. **Quem derrubou leva todos os itens e todo o ouro** (o
+  atacante do cartão de dano que levou o monstro a 0 PV, ou quem deu o estado que o feriu); o que não cabe no inventário
+  fica numa pilha de saque no quadrado do monstro, e sem ninguém fica tudo na pilha. O Fixo cai sempre; quem entrou no
+  combate depois do começo (os chamados, as levas das Fendas, um token posto no meio da luta) não deixa nada.
+- **As regras de monstro** (`flags.eternia.monster` nas habilidades): o **Bando** (+n de dano por aliado engajado com o
+  alvo, contado no cartão de dano), **Crescer** ([Fortalecido] que soma, PV, token maior e itens deixados a mais),
+  o **Limiar** (estados na metade dos PV), **Ao cair** (um cartão de dano contra quem está à volta), a **Couraça** (tira
+  um Estado Negativo no Encerramento) e o **Chamado** (monstros que saem ao lado e entram no combate).
+- **O bestiário do Império, parte 1** (pasta O Império do Bestiário): os **Kobolds das Galerias**, o Kobold Garimpeiro
+  (NP 1, lacaio), o Kobold Mordedor (NP 2) e o Chefe da Galeria (NP 3, chefe), com as tabelas de itens deixados.
+- **As Fendas:** a **Fenda Pequena** (NP 2), um perigo de cena com o relógio de escritas no Destino (os losangos do
+  token), a leva de cada Manutenção, a escrita da Língua Sagrada pelo botão Escrever do cartão (Ação Maior, 2d6 + POD
+  contra 9), o crescimento quando quem escreveu é ferido e os itens deixados para quem a fecha.
+- A página **XIV. O BESTIÁRIO** do diário AS REGRAS e a referência técnica `docs/bestiario.md`.
+
+### Alterado
+- **As 70 tabelas de itens deixados** do bestiário, que eram texto na descrição, viraram linhas de dados
+  (`tools/convert-drops.mjs`); os itens da lista que elas citam são os do compêndio. Um monstro do mundo com a tabela no
+  texto rola por ela mesmo, e a aba tem o botão **Virar dados**.
+- O Reino (as auras) e o estado em quem fere o portador (`struckStatus`) também leem as passivas das habilidades, para
+  valerem nos monstros.
+
 ## 0.33.0 — 2026-10-25
 
 ### Adicionado
