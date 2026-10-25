@@ -1,0 +1,865 @@
+{
+  "name": "Hidra do Pântano",
+  "type": "monster",
+  "img": "icons/creatures/reptiles/serpent-horned-green.webp",
+  "system": {
+    "health": {
+      "value": 288,
+      "max": 288,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Mythic",
+      "Aquatic"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 16,
+        "magic": 13
+      },
+      "speed": 2,
+      "initiative": 7
+    },
+    "rank": 7,
+    "idendification": "9",
+    "hateMultiplier": "3",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 5
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 3
+      }
+    },
+    "description": "<p>O Índice proíbe a estrada do Pântano sem Fundo alegando doença, e a doença tem cinco cabeças. A hidra é um bicho de água parada do tamanho de uma casa, de couro verde-escuro e pescoços compridos que se enroscam uns nos outros. Corte uma cabeça e o toco ferve; na manhã seguinte, saem duas. Os barqueiros do brejo levam tocha e óleo, e nunca entram sozinhos.</p><p><b>Na mesa:</b> chefe sozinha de NP 7, 3×3. Começa com 5 cabeças e tem uma Ação Maior por cabeça em cada turno: uma pode ir para qualquer habilidade, as outras só mordem (a Mordida e o Puxão das Cabeças). Cada quinto dos PV perdido corta uma cabeça e deixa um toco; na Manutenção, cada toco nasce de novo em duas, a menos que ela tenha levado dano de [Chama] desde o corte (um golpe de fogo, ou o [Queimando] dela no Encerramento). Cortar sem queimar faz a hidra crescer. O chat conta as cabeças e os tocos.</p>"
+  },
+  "prototypeToken": {
+    "name": "Hidra do Pântano",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/reptiles/serpent-horned-green.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 3,
+    "height": 3,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Mordida",
+      "type": "skill",
+      "img": "icons/creatures/abilities/mouth-teeth-rows-red.webp",
+      "system": {
+        "description": "<p>Uma cabeça morde: [2d6 + 20] de dano físico. Cada cabeça morde uma vez por turno (uma Ação Maior por cabeça), no mesmo alvo ou em outro.</p><p>[Destino 1]: o alvo fica [Envenenado: 7].</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 20,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "dhcCHELQTRwaEg3j",
+      "_key": "!actors.items!QuHpyFWwbDiRUuZK.dhcCHELQTRwaEg3j"
+    },
+    {
+      "name": "Puxão das Cabeças",
+      "type": "skill",
+      "img": "icons/creatures/reptiles/snake-fangs-bite-green.webp",
+      "system": {
+        "description": "<p>Um pescoço comprido laça o alvo: [2d6 + 15] de dano físico, ele é puxado para o quadrado dela e fica [Agarrado]. Conta como a mordida de uma cabeça.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 15,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "pull"
+            }
+          ],
+          "hitStatuses": [
+            {
+              "statusId": "grappled"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "jzmIBFDTJ9UjOdBw",
+      "_key": "!actors.items!QuHpyFWwbDiRUuZK.jzmIBFDTJ9UjOdBw"
+    },
+    {
+      "name": "Hálito do Pântano",
+      "type": "skill",
+      "img": "icons/magic/air/fog-gas-smoke-dense-green.webp",
+      "system": {
+        "description": "<p>As cabeças sopram o ar podre do brejo: Área (Escolha) a até 2 Qd, [2d6 + 30] de dano mágico, e quem é atingido fica [Envenenado: 7].</p><p>Recarga: depois de usado, só volta com 5 ou 6 no 1d6 de uma Manutenção.</p>",
+        "tags": [
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "2Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 5,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 30,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "recharge",
+            "min": 5
+          },
+          "hitStatuses": [
+            {
+              "statusId": "poisoned",
+              "value": 7
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "XIq8DiqxLqzvhfyV",
+      "_key": "!actors.items!QuHpyFWwbDiRUuZK.XIq8DiqxLqzvhfyV"
+    },
+    {
+      "name": "Cabeças",
+      "type": "skill",
+      "img": "icons/creatures/abilities/wolf-heads-swirl-purple.webp",
+      "system": {
+        "description": "<p>Começa com 5 cabeças e tem uma Ação Maior por cabeça em cada turno: uma para qualquer habilidade, as outras só para a Mordida e o Puxão das Cabeças. Cada quinto dos PV perdido corta uma cabeça e deixa um toco. Na Manutenção, cada toco nasce de novo em duas cabeças, a menos que ela tenha levado dano de [Chama] desde o corte (um golpe de fogo, ou o [Queimando] no Encerramento).</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "heads",
+            "start": 5,
+            "skills": [
+              "Mordida",
+              "Puxão das Cabeças"
+            ],
+            "regrow": 2,
+            "burn": [
+              "Flame"
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "K0jDjj3C49Vc5DkB",
+      "_key": "!actors.items!QuHpyFWwbDiRUuZK.K0jDjj3C49Vc5DkB"
+    },
+    {
+      "name": "Sangue Grosso",
+      "type": "skill",
+      "img": "icons/magic/acid/dissolve-pool-bubbles.webp",
+      "system": {
+        "description": "<p>No Encerramento, ela se livra de 2 Estados Negativos: o sangue grosso do brejo lava tudo.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "cleanse",
+            "count": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "yoRRoNgLkpAOxDCY",
+      "_key": "!actors.items!QuHpyFWwbDiRUuZK.yoRRoNgLkpAOxDCY"
+    },
+    {
+      "name": "Ouro",
+      "type": "gear",
+      "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
+      "system": {
+        "description": "",
+        "tags": [],
+        "rank": 1,
+        "price": 0,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1,
+            "gold": "2d6*5"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "56P4fdgr9DCqsSeR",
+      "sort": 600000,
+      "_key": "!actors.items!QuHpyFWwbDiRUuZK.56P4fdgr9DCqsSeR"
+    },
+    {
+      "name": "Escama de Hidra",
+      "type": "gear",
+      "img": "icons/commodities/leather/scales-green.webp",
+      "system": {
+        "description": "<p>Uma escama verde-escura do tamanho de uma mão, mais dura que couro curtido. Os armeiros do sul fazem escudos com ela.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 7,
+        "price": 200,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 2,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "oOdQlrv8ug302tSQ",
+      "sort": 700000,
+      "_key": "!actors.items!QuHpyFWwbDiRUuZK.oOdQlrv8ug302tSQ"
+    },
+    {
+      "name": "Fel de Hidra",
+      "type": "gear",
+      "img": "icons/commodities/materials/liquid-green.webp",
+      "system": {
+        "description": "<p>O fel verde que ferve nos tocos quando as cabeças nascem de novo. Serve de Anima-mundi 7 na Oficina.</p>",
+        "tags": [
+          "Magic Catalyst 7"
+        ],
+        "rank": 7,
+        "price": 60,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 3,
+            "max": 4,
+            "qty": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "s6ARyMwW9wxPjDPe",
+      "sort": 800000,
+      "_key": "!actors.items!QuHpyFWwbDiRUuZK.s6ARyMwW9wxPjDPe"
+    },
+    {
+      "name": "Presa de Hidra",
+      "type": "gear",
+      "img": "icons/commodities/bones/tooth-spiked-brown.webp",
+      "system": {
+        "description": "<p>Uma presa curva do comprimento de um antebraço, que ainda pinga. Os caçadores do brejo a penduram na porta.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 7,
+        "price": 330,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 5,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "SPnNnriY9eUS1hr7",
+      "sort": 900000,
+      "_key": "!actors.items!QuHpyFWwbDiRUuZK.SPnNnriY9eUS1hr7"
+    },
+    {
+      "name": "Olho de Hidra",
+      "type": "gear",
+      "img": "icons/commodities/biological/eye-lizard-orange-red.webp",
+      "system": {
+        "description": "<p>Um olho amarelo do tamanho de um punho, que não fecha. Os alquimistas de Centória pagam qualquer preço por um que ainda brilhe.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 7,
+        "price": 400,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "a2kqoH541UfJ98cn",
+      "sort": 1000000,
+      "_key": "!actors.items!QuHpyFWwbDiRUuZK.a2kqoH541UfJ98cn"
+    },
+    {
+      "name": "Anima-mundi 8",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 8 gasta uma Anima-mundi 8 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 8"
+        ],
+        "rank": 8,
+        "price": 70,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 252
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.FNS3OlzyE54jXqLF",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "2eGFDD1UybLwkR40",
+      "sort": 1100000,
+      "_key": "!actors.items!QuHpyFWwbDiRUuZK.2eGFDD1UybLwkR40"
+    },
+    {
+      "name": "Coração de Hidra",
+      "type": "gear",
+      "img": "icons/consumables/meat/heart-organ-realistic-red.webp",
+      "system": {
+        "description": "<p>O coração da hidra, que bate ainda uma hora depois que ela cai, quente como brasa. Um [Material-Base] de NP 7.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 7,
+        "price": 140,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "cg9Zp6SZ7LqjGYpe",
+      "sort": 1200000,
+      "_key": "!actors.items!QuHpyFWwbDiRUuZK.cg9Zp6SZ7LqjGYpe"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 800000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "QuHpyFWwbDiRUuZK",
+  "folder": "floINKQ1GrWyM7Jv",
+  "_key": "!actors!QuHpyFWwbDiRUuZK"
+}

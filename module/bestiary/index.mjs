@@ -14,7 +14,11 @@
  *                   Connection;
  * - named-template.mjs, named.mjs  the named beast: the template (without Foundry) and the monster sheet's crown;
  * - spawn.mjs       bringing monsters next to a token, in its combat, leaving no drops;
- * - rifts.mjs       the Rifts: scene hazards with a clock of writings and a wave each Setup.
+ * - rifts.mjs       the Rifts: scene hazards with a clock of writings and a wave each Setup;
+ * - nearest.mjs     the monster that attacks the nearest creature, ally or enemy (the Flesh Golem's fury);
+ * - possess.mjs     the blow that possesses: the monster inside someone, hurt with it, burned out by the light;
+ * - heads.mjs       the heads: a Major Action for each, cut by each fifth of the HP, grown back unless burned;
+ * - use-checks.mjs  what those three say against using a skill (read by automation/use.mjs).
  * The API for macros is `game.eternia.bestiary`.
  */
 import { convertTable, dropRows, parseDropTable, rollDrops, undoDrop, registerDrops } from "./drops.mjs";
@@ -24,6 +28,9 @@ import { spawnNear } from "./spawn.mjs";
 import { canBeSaved, registerSave, trySave } from "./save.mjs";
 import { nameMonster } from "./named.mjs";
 import { MARKS, nameBeast } from "./named-template.mjs";
+import { nearestTo, registerNearest } from "./nearest.mjs";
+import { possessingOf, registerPossess } from "./possess.mjs";
+import { headsOf, registerHeads } from "./heads.mjs";
 
 /** Call during the `init` hook. */
 export function registerBestiary() {
@@ -31,7 +38,13 @@ export function registerBestiary() {
   registerMonsterRules();
   registerRifts();
   registerSave();
+  registerNearest();
+  registerPossess();
+  registerHeads();
   game.eternia.bestiary = {
+    headsOf,
+    nearestTo,
+    possessingOf,
     rollDrops,
     undoDrop,
     dropRows,

@@ -1,0 +1,911 @@
+{
+  "name": "Golem de Carne",
+  "type": "monster",
+  "img": "icons/magic/earth/construct-stone-long-arms.webp",
+  "system": {
+    "health": {
+      "value": 380,
+      "max": 380,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Artificial",
+      "Construct"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 15,
+        "magic": 11
+      },
+      "speed": 2,
+      "initiative": 5
+    },
+    "rank": 6,
+    "idendification": "9",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>Um corpo grande demais para ser de uma pessoa só, e não é: são várias, costuradas com linha de prata e acordadas por um raio, por alguém que quis escrever vida com Artes proibidas. Anda pesado, cheira a vinagre e obedece a quem o fez até o dia em que a costura dói demais. Aí ele não obedece a ninguém.</p><p><b>Na mesa:</b> chefe sozinho de NP 6, 2×2. Os Punhos Costurados jogam o alvo 2 Qd para longe, e o Esmagar o Chão derruba todos os engajados. Com metade dos PV, entra em [Fúria: 6] até o fim da cena e passa a atacar a criatura mais perto, aliada ou inimiga: no começo do turno dele, o sistema mira nela e o chat diz quem é. Afastar-se, ou pôr outro na frente, decide quem apanha. Dano de [Choque] o cura.</p>"
+  },
+  "prototypeToken": {
+    "name": "Golem de Carne",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/magic/earth/construct-stone-long-arms.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 2,
+    "height": 2,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Punhos Costurados",
+      "type": "skill",
+      "img": "icons/skills/melee/unarmed-punch-fist.webp",
+      "system": {
+        "description": "<p>[2d6 + 30] de dano físico, e o alvo é jogado 2 Qd para longe.</p><p>(Menor): +5 de dano.</p><p>[Destino 1]: o golpe acerta todos os personagens engajados com este inimigo.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 6,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 30,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "push",
+              "value": 2
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "cV8a5bhSAm8Cctgz",
+      "_key": "!actors.items!6h3V8Wbfz0iJxVIw.cV8a5bhSAm8Cctgz"
+    },
+    {
+      "name": "Esmagar o Chão",
+      "type": "skill",
+      "img": "icons/magic/earth/strike-fist-stone-gray.webp",
+      "system": {
+        "description": "<p>Os dois punhos no chão: quem está engajado com ele sofre [2d6 + 20] de dano físico e fica [Derrubado].</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 6,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 20,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "prone"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "TAf9nvVNQOG2bG1q",
+      "_key": "!actors.items!6h3V8Wbfz0iJxVIw.TAf9nvVNQOG2bG1q"
+    },
+    {
+      "name": "Fúria Descontrolada",
+      "type": "skill",
+      "img": "icons/skills/wounds/injury-stitched-flesh-red.webp",
+      "system": {
+        "description": "<p>A primeira vez que os PV caem à metade, a costura dói demais: ele fica [Fúria: 6] até o fim da cena.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "threshold",
+            "below": 0.5,
+            "statuses": [
+              {
+                "statusId": "berserk",
+                "value": 6
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "A1xchaxYXE5dewzE",
+      "_key": "!actors.items!6h3V8Wbfz0iJxVIw.A1xchaxYXE5dewzE"
+    },
+    {
+      "name": "Sem Dono",
+      "type": "skill",
+      "img": "icons/magic/control/fear-fright-monster-grin-red-orange.webp",
+      "system": {
+        "description": "<p>Em [Fúria], ele não escolhe: os ataques dele vão na criatura mais perto, aliada ou inimiga (à mesma distância, em qualquer uma delas). No começo do turno dele, o sistema mira nela; mirar em outra pede confirmação.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "nearest",
+            "status": "berserk"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "dLwfvdfjrgJdNr5R",
+      "_key": "!actors.items!6h3V8Wbfz0iJxVIw.dLwfvdfjrgJdNr5R"
+    },
+    {
+      "name": "Raio na Costura",
+      "type": "skill",
+      "img": "icons/magic/lightning/fist-unarmed-strike-blue.webp",
+      "system": {
+        "description": "<p>O raio que o acordou ainda o alimenta: dano de [Choque] o cura em vez de feri-lo.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "absorb": [
+                "Shock"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Raio na Costura",
+          "img": "icons/magic/lightning/fist-unarmed-strike-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "Qk0p5GdVzuUyNAT1",
+          "_key": "!actors.items.effects!6h3V8Wbfz0iJxVIw.37tRFrHzp6hfDcp5.Qk0p5GdVzuUyNAT1"
+        }
+      ],
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "37tRFrHzp6hfDcp5",
+      "_key": "!actors.items!6h3V8Wbfz0iJxVIw.37tRFrHzp6hfDcp5"
+    },
+    {
+      "name": "Carne Remendada",
+      "type": "skill",
+      "img": "icons/skills/wounds/injury-stapled-flesh-tan.webp",
+      "system": {
+        "description": "<p>No Encerramento, ele se livra de 2 Estados Negativos: carne costurada não sente.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "cleanse",
+            "count": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "47lpRPhp4M9aZFc5",
+      "_key": "!actors.items!6h3V8Wbfz0iJxVIw.47lpRPhp4M9aZFc5"
+    },
+    {
+      "name": "Linha de Prata",
+      "type": "gear",
+      "img": "icons/commodities/cloth/thread-spindle-white-needle.webp",
+      "system": {
+        "description": "<p>A linha de prata das costuras, que ainda vibra quando chove. Os costureiros da Igreja a reconhecem e fazem perguntas.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 160,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 2,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "pXgNi1VRIsfSNZFg",
+      "sort": 700000,
+      "_key": "!actors.items!6h3V8Wbfz0iJxVIw.pXgNi1VRIsfSNZFg"
+    },
+    {
+      "name": "Coração Galvânico",
+      "type": "gear",
+      "img": "icons/commodities/tech/battery-coil-tesla.webp",
+      "system": {
+        "description": "<p>Uma bobina de cobre que ainda dá choque, tirada do peito dele. Serve de Anima-mundi 6 na Oficina.</p>",
+        "tags": [
+          "Magic Catalyst 6"
+        ],
+        "rank": 6,
+        "price": 50,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 3,
+            "max": 4,
+            "qty": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "QHCpMiIwRAdHRhLk",
+      "sort": 800000,
+      "_key": "!actors.items!6h3V8Wbfz0iJxVIw.QHCpMiIwRAdHRhLk"
+    },
+    {
+      "name": "Caderno do Costureiro",
+      "type": "gear",
+      "img": "icons/sundries/books/book-symbol-lightning-silver-blue.webp",
+      "system": {
+        "description": "<p>As anotações de quem o fez, cheias de desenhos de corpos e de raios. A Igreja paga caro para queimá-lo; outros pagam mais para lê-lo.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 350,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 5,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "zalJDMA3yNqvlHHe",
+      "sort": 900000,
+      "_key": "!actors.items!6h3V8Wbfz0iJxVIw.zalJDMA3yNqvlHHe"
+    },
+    {
+      "name": "Selo de Comando",
+      "type": "gear",
+      "img": "icons/commodities/treasure/token-engraved-red-glowing.webp",
+      "system": {
+        "description": "<p>O selo de ferro cravado na nuca, que o fazia obedecer. Rachou no dia da fúria; um ferreiro de Artes ainda o compra.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 6,
+        "price": 450,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Hg2lgv8XruPAYg5N",
+      "sort": 1000000,
+      "_key": "!actors.items!6h3V8Wbfz0iJxVIw.Hg2lgv8XruPAYg5N"
+    },
+    {
+      "name": "Anima-mundi 7",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 7 gasta uma Anima-mundi 7 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 7"
+        ],
+        "rank": 7,
+        "price": 60,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 216
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.d5yyxHM5IbqD55X5",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "yCrXsvikvR9tsUNU",
+      "sort": 1100000,
+      "_key": "!actors.items!6h3V8Wbfz0iJxVIw.yCrXsvikvR9tsUNU"
+    },
+    {
+      "name": "Coração Costurado",
+      "type": "gear",
+      "img": "icons/commodities/biological/organ-heart-black.webp",
+      "system": {
+        "description": "<p>O maior dos corações, costurado de três, o último a parar. Um [Material-Base] de NP 6.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 6,
+        "price": 120,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "UiJnwxUTbTwmG3Fb",
+      "sort": 1200000,
+      "_key": "!actors.items!6h3V8Wbfz0iJxVIw.UiJnwxUTbTwmG3Fb"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 900000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "6h3V8Wbfz0iJxVIw",
+  "folder": "rkjPFwoLJh5QL71o",
+  "_key": "!actors!6h3V8Wbfz0iJxVIw"
+}
