@@ -5,9 +5,12 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.32.0
+## Versão 0.33.0
 
-- **Novo na 0.32.0: as seis raças do mundo, a evolução da forma e O Mundo de Eternia.** Humanos, Elfos, Dracônicos,
+- **Novo na 0.33.0: a aba Raça na ficha.** Os cinco estágios da forma da raça do personagem numa trilha, cada um com o
+  que muda no corpo, o rito, o que o mundo vê e o que ele dá; o estágio que já pode despertar brilha e tem o botão
+  **Evoluir**, e a aba ganha um número (veja [A ficha de personagem](#a-ficha-de-personagem)).
+- **Desde a 0.32.0: as seis raças do mundo, a evolução da forma e O Mundo de Eternia.** Humanos, Elfos, Dracônicos,
   Demônios, Celestiais e Bestiais (Felinos, Lupinos ou Vulpinos), cada raça com cinco estágios da forma, cada um mais
   bestial e mais forte, com um rito e habilidades novas: o selo **Forma** no cartão da raça abre a evolução, e o Mestre
   aprova no chat. O compêndio **O Mundo de Eternia**, só do Mestre, traz o mundo de jogo em 18 diários (veja
@@ -206,6 +209,12 @@ molduras finas e rótulos em versalete. Cada aba tem o ícone e o nome, e um nú
 - **Habilidades:** de Combate, Gerais e Básicas, agrupadas pelo Momento (Ação Maior, Menor, Movimento, Instantânea,
   Reações, Manutenção, Encerramento, Passivas…), com NH, custo e limite, e uma busca pelo nome. Clique na imagem para
   usar e no nome para abrir os detalhes ali mesmo; o botão Explorar abre o navegador de habilidades.
+- **Raça:** cabe na ficha sem rolar. No alto, a faixa da raça na cor dela (o emblema, a linhagem dos Bestiais, a frase
+  da raça, os atributos, os PV e o Destino, com o +1 dos estágios em dourado) e o selo **Forma**; embaixo, os cinco
+  estágios numa trilha, cada um com o nome, o que muda no corpo, o rito, o que o mundo vê e o que ele dá (as
+  habilidades, que o ponteiro explica e o nome abre, e o +1 do IV). Os estágios alcançados, o atual, o que já pode
+  despertar (com Evoluir e um número na aba) e os fechados (as habilidades com cadeado e o NP em que abrem) têm cada um
+  o seu visual; o Mestre também adianta um estágio e volta um dali. Sem raça, o botão de escolher uma.
 - **Classe:** cabe na ficha sem rolar. No alto, a faixa da classe (o emblema, os papéis, os atributos e os PV) e o
   Motor, com o estado e os pontos (no Samurai, a katana sai da bainha quando a lâmina é sacada e os Cortes brilham
   quando o próximo Iai é um Corte Perfeito); depois, a trilha do NP, com o que a classe dá em cada NP (o kit, as Magias,
@@ -621,8 +630,10 @@ escolha recebe a escolha de volta. Cada estágio tem um rito, cumprido em jogo, 
 | Bestiais Lupinos | Caçador da Estepe | Uivo | Forma da Lua | O Lobo da Lua Violeta |
 | Bestiais Vulpinos | Encanto da Raposa | Fogo-Raposa | Sete Caudas | As Nove Caudas |
 
-**Na ficha.** O cartão da raça, na aba Personagem, tem o selo **Forma** com o estágio. Quando o NP do próximo chega, o
-selo brilha com uma pata, e o clique abre a evolução: o que o estágio dá, as escolhas (a habilidade, o +1) e o rito.
+**Na ficha.** A aba **Raça** mostra os cinco estágios da raça do personagem, com o que cada um muda no corpo, o rito, o
+que o mundo vê e o que dá (veja [A ficha de personagem](#a-ficha-de-personagem)). O cartão da raça, na aba Personagem,
+tem o selo **Forma** com o estágio. Quando o NP do próximo chega, o selo brilha com uma pata (e a aba Raça ganha um
+número), e o clique (ou Evoluir, na aba Raça) abre a evolução: o que o estágio dá, as escolhas (a habilidade, o +1) e o rito.
 Com a configuração "Evolução da forma com o Mestre" (ligada), o pedido do jogador vai ao Mestre num cartão sussurrado,
 com Aprovar e Recusar; desligada, o jogador evolui sozinho. O Mestre evolui na hora, pode adiantar um estágio e pode
 voltar um (as habilidades que ele deu saem, e o +1 também). Cada evolução deixa um cartão no chat, e a caixa e o cartão
@@ -919,7 +930,8 @@ eternia.icons.refresh();              // desenha de novo os ícones da tela
 
 - `module/` é o código (entrada em `module/eternia.mjs`): `documents/`, `sheets/` (as fichas de pergaminho estendem as
   classes base), `helpers/`, `apps/`, `piles/`, `automation/`, `chat/`, `content/`, `hud/`, `canvas/`, `classes/`
-  (os Motores das classes e a aba Classe), `professions/`, `conditions/` (as condições da Eternia) e `i18n/` (os termos
+  (os Motores das classes e a aba Classe), `races/` (os estágios da forma e a aba Raça), `professions/`, `conditions/`
+  (as condições da Eternia) e `i18n/` (os termos
   em português). `templates/`, `css/` e `lang/` seguem a
   mesma divisão.
 - O visual de pergaminho (`css/automation.css`, `sheet.css`, `chat.css`, `windows.css`, `hud.css` e `tbg.css`) entra

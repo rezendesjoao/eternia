@@ -29,15 +29,18 @@ import { motorDef, motorName } from "../classes/motor.mjs";
 import { professionOf, rankTitle } from "../professions/state.mjs";
 import { PROFESSIONS, TALENTS } from "../professions/data.mjs";
 import { categoryOf, categoryView } from "../apps/magic-catalog.mjs";
-import { formOf, openEvolution, raceColor, ROMAN } from "../races/evolution.mjs";
+import { formOf, openEvolution, raceColor, regress, ROMAN } from "../races/evolution.mjs";
+import { raceBadge, raceContext } from "../races/sheet.mjs";
 
 const DIR = `systems/eternia/templates/character`;
-const PARTIALS = ["sidebar", "character", "skills", "inventory", "class", "magic", "profession", "effects", "biography"];
+const PARTIALS = ["sidebar", "character", "skills", "race", "inventory", "class", "magic", "profession", "effects", "biography"];
 
 const TABS = [
   // Portrait, race / class / profession, the attributes with their checks
   { id: "character", icon: "fa-solid fa-address-card" },
   { id: "skills", icon: "fa-solid fa-wand-sparkles" },
+  // The race and the five stages of its form (module/races/)
+  { id: "race", icon: "fa-solid fa-people-group" },
   // The class and its Motor (module/classes/)
   { id: "class", icon: "fa-solid fa-chess-knight" },
   // The Magias of the class's slots, with their spells
@@ -223,6 +226,9 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       "lhpf-wizard": EterniaCharacterSheet.#onWizard,
       // The race card's seal: the stage of the form, and the box to evolve (races/evolution.mjs)
       "lhpf-evolve": EterniaCharacterSheet.#onEvolve,
+      // The race tab: going back one stage (the GM), choosing the race of a character without one
+      "lhpf-regress": EterniaCharacterSheet.#onRegress,
+      "lhpf-race-browse": EterniaCharacterSheet.#onRaceBrowse,
       "lhauto-fate": EterniaCharacterSheet.#onFate,
       "lhauto-remove-bad": EterniaCharacterSheet.#onRemoveBad,
       "lhauto-allocate": EterniaCharacterSheet.#onAllocate,
@@ -432,6 +438,9 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     // The Magias tab: the slots of the class, the Magia of each and its spells
     lh.magic = this.#magicContext(lh.classTab);
 
+    // The race tab: the race and the five stages of its form
+    lh.raceTab = raceContext(actor, { editable: this.isEditable });
+
     // The bio: who the character is, its data, looks and ways, its origins, ties, story and notes
     lh.bio = await this.#bioContext(context);
 
@@ -440,7 +449,8 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     const badges = {
       skills: pendingSkills,
       class: (lh.classTab.sections ?? []).filter(s => s.pending).length,
-      magic: toInt(lh.classTab.magic?.open)
+      magic: toInt(lh.classTab.magic?.open),
+      race: this.isEditable ? raceBadge(lh.raceTab) : 0
     };
     lh.tabs = TABS.map(t => ({ ...t, label: L(`Sheet.TabShort.${t.id}`), badge: badges[t.id] || 0 }));
 
@@ -699,6 +709,24 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
 
   static #onEvolve() {
     if (this.isEditable) return openEvolution(this.actor);
+  }
+
+  static async #onRegress() {
+    if (!this.isEditable || !game.user.isGM) return;
+    const form = formOf(this.actor);
+    if (form.stage <= 1) return;
+    const ok = await foundry.applications.api.DialogV2.confirm({
+      window: { title: L("Evolve.Window", { name: this.actor.name }), icon: "fa-solid fa-arrow-rotate-left" },
+      content: `<p>${escape(L("RaceTab.BackConfirm", { name: this.actor.name, from: ROMAN[form.stage], to: ROMAN[form.stage - 1] }))}</p>`,
+      rejectClose: false
+    });
+    if (ok) return regress(this.actor);
+  }
+
+  static #onRaceBrowse() {
+    if (!this.isEditable) return;
+    if (CreationWizard.isBlank(this.actor) && CreationWizard.canCreate(this.actor)) return CreationWizard.open(this.actor, { step: "race" });
+    return OptionBrowser.open(this.actor, "race");
   }
 
   /* -------------------------------------------- */

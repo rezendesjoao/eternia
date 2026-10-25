@@ -45,10 +45,12 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
 - Um efeito de habilidade que depende de outra habilidade (um Caminho, um talento) usa as condições `hasSkill` e
   `notSkill`, pelo nome, conferidas em quem usa (o Escudo Esculpido do Pictomante vira muralha no Caminho da Paisagem).
 - Raça = item `race` com atributos, `hp`, `fate` e `grants` (as 2 inatas, uma Geral e uma de Combate; uma escolha vira
-  um espaço com várias opções) e os cinco estágios da forma em `flags.eternia.stages` (o 1 só com o nome; do 2 ao 5 o
-  NP, o rito, `grants` em espaços, vários uuids = uma escolha, e no 4 `attribute`, os atributos do +1). As habilidades
-  ficam em `skills-racial`, na pasta com o nome da raça: as inatas e as variantes levam `flags.eternia.choiceOnly` (só
-  aparecem no navegador depois de concedidas), e as dos estágios também, com `minRank` (o NP do estágio) e `raceStage`:
+  um espaço com várias opções) e os cinco estágios da forma em `flags.eternia.stages` (todos com o nome e `look`, o que
+  muda no corpo; do 2 ao 5 o NP, o rito, `grants` em espaços, vários uuids = uma escolha, e no 4 `attribute`, os
+  atributos do +1). O item de raça do personagem é uma cópia: mudou um estágio no compêndio, suba a versão da migração
+  `raceStages` (`module/races/migration.mjs`), que devolve às cópias os estágios do compêndio (pelo `identifier`).
+  As habilidades ficam em `skills-racial`, na pasta com o nome da raça: as inatas e as variantes levam
+  `flags.eternia.choiceOnly` (só aparecem no navegador depois de concedidas), e as dos estágios também, com `minRank` (o NP do estágio) e `raceStage`:
   só a evolução as dá (`module/races/evolution.mjs`). O item de raça do personagem guarda `flags.eternia.stage` (1 sem
   a flag), `stageBonus` (o +1 dos estágios, somado por `raceStats`) e `stageLog` (o que cada estágio criou, para
   voltar um). Os Bestiais são três itens (Felinos, Lupinos, Vulpinos) com `raceGroup: "bestial"` e `lineage`: o
@@ -97,6 +99,10 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   ao outro.
 
 ## Ficha e tokens
+- A aba Raça (`module/races/sheet.mjs`, `templates/character/race.hbs`, CSS em `css/classes.css`, prefixo `lhrc`) usa a
+  faixa e os blocos de habilidade da aba Classe (os seletores `:is(.tab.class, .tab.race)`) e as dicas de
+  `classes/sheet.mjs`. A barra de abas da ficha cabe nove abas com os números no tamanho padrão: aba nova pede medir de
+  novo (`css/sheet.css`, `nav.lhpf-tabs`).
 - A aba Biografia (`templates/character/biography.hbs`) guarda o Perfil em `flags.eternia.bio` (alcunha, bordão, dados
   pessoais, aparência, personalidade, anotações); a guilda é `system.social.guild` e a história, `system.biography`.
   As Origens são lidas na hora do texto em itálico depois do `<hr>` que fecha a descrição da raça, da classe, da

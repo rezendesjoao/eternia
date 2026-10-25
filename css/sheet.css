@@ -673,10 +673,10 @@
   z-index: 3;
   display: flex;
   align-items: flex-end;
-  gap: 2px;
+  gap: 1px;
   height: 34px;
   margin: 0;
-  padding: 0 10px 0 6px;
+  padding: 0 6px 0 4px;
   border: none;
   background: transparent;
   container: lhpf-tabs / inline-size;
@@ -686,17 +686,17 @@
   display: flex;
   flex: 0 1 auto;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   min-width: 0;
   height: 29px;
   margin: 0;
-  padding: 0 8px;
+  padding: 0 4px;
   border: none;
   border-radius: 7px 7px 0 0;
   background: transparent;
   box-shadow: none;
   color: var(--pf-tertiary-dark);
-  font: 600 11.5px/1 var(--pf-sans);
+  font: 600 11px/1 var(--pf-sans);
   letter-spacing: 0.01em;
   text-shadow: none;
   white-space: nowrap;
@@ -708,6 +708,7 @@
 .lhpf nav.lhpf-tabs > a.lhpf-tab:hover { background: rgba(255, 255, 255, 0.07); color: #fbf4df; }
 .lhpf nav.lhpf-tabs > a.lhpf-tab:hover i { color: var(--pf-tertiary); }
 .lhpf nav.lhpf-tabs > a.lhpf-tab.active {
+  flex-shrink: 0;
   background: linear-gradient(180deg, #fbf7ee, #f3eee2);
   box-shadow: 0 -1px 0 rgba(233, 215, 161, 0.7), inset 1px 0 0 rgba(255, 255, 255, 0.6), inset -1px 0 0 rgba(255, 255, 255, 0.6);
   color: var(--pf-primary-dark);
@@ -727,7 +728,7 @@
   animation: lhpf-badge 1.6s ease-in-out infinite;
 }
 @keyframes lhpf-badge { 0%, 100% { box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25); } 50% { box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), 0 0 8px 2px rgba(242, 219, 148, 0.75); } }
-@container lhpf-tabs (max-width: 640px) {
+@container lhpf-tabs (max-width: 660px) {
   .lhpf nav.lhpf-tabs > a.lhpf-tab:not(.active) span { display: none; }
   .lhpf nav.lhpf-tabs > a.lhpf-tab { padding: 0 9px; }
 }

@@ -1,0 +1,91 @@
+{{!-- RACE (module/races/sheet.mjs): the race band (picture, lineage, line, the numbers with the +1 of the stages) with
+     the seal of the form, and the five stages of the form one under the other, on a track: across the top the stage's
+     name, its state and what the world sees; on the left what changes in the body and the rite; on the right what it gives (the skills as the
+     class tab's tiles: the picture uses the character's own copy, the name opens it; a skill still to come opens from
+     the compendium) and the +1 of the fourth. The stages reached, the one the character is at, the next (Evolve when it
+     is open; the GM may also bring it forward, or go back one) and the closed ones each look their part.
+     Without a race: the button that opens the race browser. --}}
+{{#*inline "lhrcTile"}}
+<li class="item lhcl-tile{{#if r.owned}} owned{{else}}{{#if r.locked}} locked{{else}} learnable{{/if}}{{/if}}{{#if r.option}} option{{/if}}"{{#if r.id}} data-item-id="{{r.id}}"{{/if}} data-uuid="{{r.uuid}}">
+	{{#if r.owned}}<a class="lhcl-tile-img" data-action="item-throw" aria-label="{{localize 'ETERNIA.Sheet.Use'}}"><img src="{{r.img}}" alt=""><i class="fa-solid fa-comment"></i></a>
+	{{else}}<span class="lhcl-tile-img"><img src="{{r.img}}" alt="">{{#if r.locked}}<i class="fa-solid fa-lock"></i>{{/if}}</span>{{/if}}
+	<span class="lhcl-tile-body">
+		<a class="lhcl-tile-name" {{#if r.owned}}data-action="item-edit"{{else}}data-action="lhcl" data-op="open" data-uuid="{{r.uuid}}"{{/if}}>{{r.name}}</a>
+		<span class="lhcl-tile-meta">{{#if r.timing}}<span>{{r.timing}}</span>{{/if}}</span>
+	</span>
+	<span class="lhcl-tile-state">{{#if r.owned}}<i class="fa-solid fa-check"></i>{{else}}{{#if r.option}}{{localize "ETERNIA.RaceTab.Option"}}{{else}}{{localize "ETERNIA.Classes.FromRank" n=r.minRank}}{{/if}}{{/if}}</span>
+</li>
+{{/inline}}
+<section class="tab major race" data-group="primary" data-tab="race">
+	<div class="tab-content">
+	{{#with lh.raceTab as |r|}}
+	{{#if r.none}}
+
+		<div class="lhcl-choose lhrc-choose">
+			<i class="fa-solid fa-people-group"></i>
+			<h2>{{localize "ETERNIA.RaceTab.ChooseTitle"}}</h2>
+			<p>{{localize "ETERNIA.RaceTab.ChooseHint"}}</p>
+			{{#if r.editable}}<button type="button" data-action="lhpf-race-browse"><i class="fa-solid fa-book-atlas"></i> {{localize "ETERNIA.RaceTab.Choose"}}</button>{{/if}}
+		</div>
+
+	{{else}}
+	<div class="lhrc-board" style="--lhcl-color: {{r.color}}">
+
+		{{!-- The race: picture, lineage, line, numbers, and the seal of the form --}}
+		<header class="lhcl-band lhrc-band">
+			<a class="lhcl-emblem lhrc-emblem" data-action="lhpf-open-item" data-item-id="{{r.id}}" data-tooltip="{{localize 'ETERNIA.RaceTab.Open'}}" aria-label="{{r.name}}"><img src="{{r.img}}" alt=""></a>
+			<div class="lhcl-band-text">
+				<span class="lhcl-eyebrow">{{r.eyebrow}}</span>
+				<h2 class="lhcl-name">{{r.name}}</h2>
+				{{#if r.tagline}}<span class="lhrc-tagline" data-tooltip="{{r.lore}}">{{r.tagline}}</span>{{/if}}
+			</div>
+			<ul class="lhcl-base lhrc-base">
+				{{#each r.base as |b|}}<li class="{{#if b.hp}}hp{{/if}}{{#if b.fate}} fate{{/if}}{{#if b.raised}} raised{{/if}}"><b>{{b.value}}</b><span>{{b.label}}</span></li>{{/each}}
+			</ul>
+			{{#if r.form}}
+			<div class="lhrc-form{{#if r.form.ready}} ready{{/if}}" data-tooltip="{{r.form.of}}">
+				<small>{{localize "ETERNIA.Evolve.Seal"}}</small><b>{{r.form.roman}}</b><span>{{r.form.name}}</span>
+			</div>
+			{{/if}}
+		</header>
+
+		{{#if r.retired}}
+		<p class="lhrc-retired"><i class="fa-solid fa-circle-info"></i>{{r.retiredNote}}</p>
+		{{#if r.innate.length}}
+		<h4 class="lhcl-panel-title"><span>{{localize "ETERNIA.Wizard.Race.Innate"}}</span></h4>
+		<ol class="lhcl-tiles cols-2">{{#each r.innate as |t|}}{{> lhrcTile r=t}}{{/each}}</ol>
+		{{/if}}
+		{{else}}
+
+		{{!-- The five stages of the form --}}
+		<h4 class="lhcl-panel-title"><span>{{localize "ETERNIA.Wizard.Race.Stages"}}</span><em>{{r.form.of}}</em></h4>
+		<ol class="lhrc-track">
+			{{#each r.stages as |s|}}
+			<li class="lhrc-stage {{s.state}}">
+				<span class="lhrc-seal">{{s.roman}}</span>
+				<div class="lhrc-stage-body">
+					<header class="lhrc-stage-head">
+						<b class="lhrc-stage-name">{{s.name}}</b>
+						<span class="lhrc-state">{{s.stateLabel}}</span>
+						<span class="lhrc-seen" data-tooltip="{{s.seen}}"><i class="fa-solid fa-eye"></i><span>{{s.seen}}</span></span>
+						{{#if s.evolve}}<a class="lhcl-action lhrc-go" data-action="lhpf-evolve"{{#if s.evolveTip}} data-tooltip="{{s.evolveTip}}"{{/if}}><i class="fa-solid fa-paw"></i> {{localize "ETERNIA.RaceTab.Evolve"}}</a>{{/if}}
+						{{#if s.back}}<a class="lhrc-back" data-action="lhpf-regress" data-tooltip="{{localize 'ETERNIA.RaceTab.BackTip'}}" aria-label="{{localize 'ETERNIA.RaceTab.BackTip'}}"><i class="fa-solid fa-arrow-rotate-left"></i></a>{{/if}}
+					</header>
+					<div class="lhrc-stage-text">
+						{{#if s.look}}<p class="lhrc-look">{{s.look}}</p>{{/if}}
+						{{#if s.rite}}<p class="lhrc-note lhrc-rite"><i class="fa-solid fa-scroll"></i><span><b>{{localize "ETERNIA.Evolve.Rite"}}</b> {{s.rite}}</span></p>{{/if}}
+					</div>
+					<ol class="lhcl-tiles compact lhrc-skills">
+						{{#each s.skills as |t|}}{{> lhrcTile r=t}}{{/each}}
+						{{#if s.attribute}}<li class="lhrc-attr"><i class="fa-solid fa-chart-simple"></i><span>{{s.attribute}}</span></li>{{/if}}
+					</ol>
+				</div>
+			</li>
+			{{/each}}
+		</ol>
+		{{/if}}
+	</div>
+	{{/if}}
+	{{/with}}
+	</div>
+</section>

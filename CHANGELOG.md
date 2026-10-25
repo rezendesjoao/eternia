@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.33.0 — 2026-10-25
+
+### Adicionado
+- **A aba Raça na ficha** (`module/races/sheet.mjs`, `templates/character/race.hbs`), entre Habilidades e Classe, no
+  visual da aba Classe e na cor da raça: a faixa da raça (o emblema, a linhagem dos Bestiais, a frase da raça, os
+  atributos, os PV e o Destino, com o +1 dos estágios em dourado) com o selo Forma, e os cinco estágios da forma numa
+  trilha. Cada estágio mostra o nome, o que muda no corpo, o rito, o que o mundo vê naquele estágio e o que ele dá (as
+  habilidades em blocos, com o que fazem sob o ponteiro, e o +1 do IV, com o atributo escolhido depois de alcançado).
+  O estágio que já pode despertar brilha, tem o botão Evoluir e põe um número na aba; os fechados mostram as habilidades
+  com cadeado e o NP em que abrem (ou "Depois do Estágio IV", quando o NP já chegou). O Mestre adianta um estágio e
+  volta um dali. Uma raça sem estágios mostra as inatas; sem raça, o botão de escolher uma.
+- **O que muda no corpo em cada estágio** (`look`, nos estágios das oito raças da lista).
+
+### Alterado
+- **As abas da ficha** ficaram mais justas para os nove nomes caberem, mesmo com os números, e a aba aberta nunca corta
+  o nome; numa ficha estreita, só a aberta mantém o nome, como antes.
+- **As raças dos personagens** recebem os estágios do compêndio de novo (migração `raceStages`), com a linha do corpo;
+  o estágio, o +1 e o registro de cada um continuam como estavam.
+- O aviso de novidades fala da 0.33.
+
 ## 0.32.0 — 2026-10-25
 
 ### Adicionado

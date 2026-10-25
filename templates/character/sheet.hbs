@@ -44,13 +44,14 @@
 
 	<nav class="lhpf-nav lhpf-tabs tabs" data-group="primary" aria-label="{{localize 'ETERNIA.Sheet.Label'}}">
 		{{#each lh.tabs}}
-		<a class="item lhpf-tab" data-action="tab" data-group="primary" data-tab="{{id}}"><i class="{{icon}}"></i><span>{{label}}</span>{{#if badge}}<b class="lhpf-badge">{{badge}}</b>{{/if}}</a>
+		<a class="item lhpf-tab" data-action="tab" data-group="primary" data-tab="{{id}}" data-tooltip="{{label}}"><i class="{{icon}}"></i><span>{{label}}</span>{{#if badge}}<b class="lhpf-badge">{{badge}}</b>{{/if}}</a>
 		{{/each}}
 	</nav>
 
 	<section class="lhpf-body">
 		{{> "systems/eternia/templates/character/character.hbs"}}
 		{{> "systems/eternia/templates/character/skills.hbs"}}
+		{{> "systems/eternia/templates/character/race.hbs"}}
 		{{> "systems/eternia/templates/character/class.hbs"}}
 		{{> "systems/eternia/templates/character/magic.hbs"}}
 		{{> "systems/eternia/templates/character/inventory.hbs"}}

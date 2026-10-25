@@ -354,7 +354,7 @@ export function activateClassTab(sheet, root) {
   // The tooltip of a tile this render replaced would stay forever
   const shown = game.tooltip.element;
   if (shown?.classList?.contains("lhcl-tile") && !shown.isConnected) game.tooltip.deactivate();
-  for (const board of root.querySelectorAll(".tab.class .lhcl-board, .tab.magic .lhmg-board")) tipsOn(sheet, board);
+  for (const board of root.querySelectorAll(".tab.class .lhcl-board, .tab.magic .lhmg-board, .tab.race .lhrc-board")) tipsOn(sheet, board);
 }
 
 /** The tooltip of each skill tile of a board, under the pointer. */

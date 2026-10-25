@@ -1447,6 +1447,7 @@
         "character": "Character",
         "checks": "Checks",
         "skills": "Skills",
+        "race": "Race",
         "inventory": "Inventory",
         "effects": "Effects & statuses",
         "biography": "Biography",
@@ -1559,6 +1560,7 @@
       "TabShort": {
         "character": "Character",
         "skills": "Skills",
+        "race": "Race",
         "class": "Class",
         "magic": "Magics",
         "inventory": "Inventory",
@@ -1705,7 +1707,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.32: the races of the world and the evolution of the form</strong></p><ul><li><strong>Six races:</strong> Humans, Elves, Draconics, Demons, Celestials and Bestials (Felines, Lupines or Vulpines). In the creation wizard, the Bestials are one card, and the lineage is chosen in the page.</li><li><strong>The form:</strong> each race has five stages, each more bestial and stronger, opening at CR 3, 7, 12 and 16. The Form seal, on the race card, glows when a stage opens; a click shows what it gives and the rite, and the request goes to the GM, who approves in the chat.</li><li><strong>The World of Eternia:</strong> a GM-only compendium with the game world, in 18 journals.</li><li><strong>The old races</strong> (Oni, Flügel, Etherious, Vargr, Kitsune and Exceed) left the list; the sheets that use them still work.</li></ul><p>Since 0.31: the Biography, the tokens ready to play, the automatic dodge and the creation wizard redone. Since 0.30: the starting gear and the suggested attributes; in 0.30.1, the rank-up card and the status animation. Since 0.29: the new sheet and the creation wizard; in 0.29.1, the HUD's skills in three panels. Since 0.28: twenty Magias of the high categories and eleven conditions. Since 0.27: the Sun, the Counter, the Purgatory Flames and the Theft, with five conditions. Since 0.26: the Magia review, a Trait for each one and five new conditions. Since 0.25: the Slayers (White, Shadow and Poison), the Curses and sixteen more Magias. Since 0.24: Sense Link, Angel Magic, Darkness and Bind. Since 0.23: Snow, Magic Perfume, Machine Soul and Wave. Since 0.22: 14 classes, 7 physical and 7 magic, all with Magias; the Fighter, the Centurion and the Hierophant. Since 0.21: Wood-Make, Sand, Telepathy and Teleportation. Since 0.20: the Holder Magias Magic Guns, Plants, Smoke and Magic Painting. Since 0.19: Giant, Enchantment, Magic Eyes and High Speed. Since 0.18: the Magia choice in a window of its own and the class tab without scrolling. Since 0.17: the Lost Magias. Since 0.16: the elemental Magias. Since 0.15: the Blue Mage and the Take Over Magias. Since 0.14: the White Mage. Since 0.13: the Summoner with Magias. Since 0.12: the Pictomancer. Since 0.11: the Red Mage. Since 0.10: the Black Mage and the Magias. Since 0.9: the Dragon Slayer. Since 0.8: the classes with a Motor. Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
+      "Body": "<p><strong>What's new in Eternia 0.33: the Race tab</strong></p><ul><li><strong>The Race tab</strong>, between Skills and Class: the character's race in its color, with its attributes, HP and Fate, and the five stages of the form on a track.</li><li><strong>Each stage</strong> shows what changes in the body, the rite, what the world sees and what it gives: the skills (the pointer shows what they do) and the +1 of the fourth.</li><li><strong>Evolve from there:</strong> the stage that can awaken glows, has the Evolve button and puts a number on the tab; the GM can also bring a stage forward and go back one.</li></ul><p>Since 0.32: the races of the world, the evolution of the form and the World of Eternia. Since 0.31: the Biography, the tokens ready to play, the automatic dodge and the creation wizard redone. Since 0.30: the starting gear and the suggested attributes; in 0.30.1, the rank-up card and the status animation. Since 0.29: the new sheet and the creation wizard; in 0.29.1, the HUD's skills in three panels. Since 0.28: twenty Magias of the high categories and eleven conditions. Since 0.27: the Sun, the Counter, the Purgatory Flames and the Theft, with five conditions. Since 0.26: the Magia review, a Trait for each one and five new conditions. Since 0.25: the Slayers (White, Shadow and Poison), the Curses and sixteen more Magias. Since 0.24: Sense Link, Angel Magic, Darkness and Bind. Since 0.23: Snow, Magic Perfume, Machine Soul and Wave. Since 0.22: 14 classes, 7 physical and 7 magic, all with Magias; the Fighter, the Centurion and the Hierophant. Since 0.21: Wood-Make, Sand, Telepathy and Teleportation. Since 0.20: the Holder Magias Magic Guns, Plants, Smoke and Magic Painting. Since 0.19: Giant, Enchantment, Magic Eyes and High Speed. Since 0.18: the Magia choice in a window of its own and the class tab without scrolling. Since 0.17: the Lost Magias. Since 0.16: the elemental Magias. Since 0.15: the Blue Mage and the Take Over Magias. Since 0.14: the White Mage. Since 0.13: the Summoner with Magias. Since 0.12: the Pictomancer. Since 0.11: the Red Mage. Since 0.10: the Black Mage and the Magias. Since 0.9: the Dragon Slayer. Since 0.8: the classes with a Motor. Since 0.7: the class system and the Samurai. Since 0.6: the Sword Art Online items. Since 0.5: one icon for each item. Since 0.4: the 10 professions. Since 0.3: the 8 races. Since 0.2: 31 automated conditions.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -3871,6 +3873,46 @@
           "stale": "The request no longer holds: the form changed."
         }
       }
+    },
+    "RaceTab": {
+      "Eyebrow": "Race",
+      "EyebrowLineage": "{group} · {lineage}",
+      "StageOf": "Stage {stage} of V",
+      "State": {
+        "done": "Reached",
+        "current": "Current form",
+        "ready": "Can awaken",
+        "next": "Opens at CR {rank}",
+        "locked": "Opens at CR {rank}",
+        "after": "After Stage {stage}"
+      },
+      "Attribute": "+1 to {stats}",
+      "AttributeAny": "+1 to an attribute of choice",
+      "AttributeChosen": "+1 to {stat}",
+      "Option": "Choice",
+      "Evolve": "Evolve",
+      "Seen": {
+        "1": "The form of the Taming: lives in the Empire like anyone else.",
+        "2": "Still easy to hide: a hood, gloves, an illusion.",
+        "3": "The creature shows in a fight; outside it, it still hides.",
+        "4": "It no longer hides: the Church calls it a Beast and has it hunted.",
+        "5": "It is the creature: a monster to the whole Empire."
+      },
+      "SeenHuman": {
+        "1": "Common folk: the Church blesses them, and no one looks twice.",
+        "2": "People say the world touched this one twice.",
+        "3": "The aura shows in a fight, in the color of the soul.",
+        "4": "The Church encourages it and watches closely.",
+        "5": "The Chosen belongs to the Cathedral; the Transcendent is hunted."
+      },
+      "Retired": "This race left the list and has no stages of the form; its innate skills still count.",
+      "NoStages": "This race has no stages of the form.",
+      "ChooseTitle": "No race",
+      "ChooseHint": "The race gives the attributes, the innate skills and the five stages of the form.",
+      "Choose": "Choose the race",
+      "Open": "Open the race",
+      "BackTip": "Go back one stage (GM)",
+      "BackConfirm": "Take {name}'s form back from Stage {from} to {to}? That stage's skills and +1 leave the sheet."
     }
   }
 }

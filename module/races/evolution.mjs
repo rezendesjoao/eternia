@@ -1,7 +1,8 @@
 /**
- * The five stages of a race's form. A race item lists them in `flags.eternia.stages` (stage 1 names the form the
- * character is born with; stages 2 to 5 have the Character Rank they need, the rite, the skills they give — a slot with
- * several is a choice — and, at stage 4, the attributes the +1 may go to). The race item of a character keeps where it
+ * The five stages of a race's form. A race item lists them in `flags.eternia.stages` (each one's name and `look`, what
+ * changes in the body; stage 1 is the form the character is born with; stages 2 to 5 have the Character Rank they
+ * need, the rite, the skills they give — a slot with several is a choice — and, at stage 4, the attributes the +1 may
+ * go to). The race item of a character keeps where it
  * is: `flags.eternia.stage` (1 when absent), `flags.eternia.stageBonus` ({ str, dex, pow, int }, read by raceStats) and
  * `flags.eternia.stageLog` (what each stage gave: the skills it created, the attribute).
  *
@@ -35,7 +36,7 @@ const rankOf = actor => Math.max(1, toInt(actor.system.infos?.crank) || 1);
 /* -------------------------------------------- */
 
 /**
- * The stages of a race item, cleaned up: [{ stage, rank, name, rite, grants: string[][], attribute: string[] }].
+ * The stages of a race item, cleaned up: [{ stage, rank, name, look, rite, grants: string[][], attribute: string[] }].
  * @param {Item} race
  */
 export function raceStages(race) {
@@ -45,6 +46,7 @@ export function raceStages(race) {
     stage: toInt(s.stage),
     rank: Math.max(1, toInt(s.rank)),
     name: String(s.name ?? ""),
+    look: String(s.look ?? ""),
     rite: String(s.rite ?? ""),
     grants: (Array.isArray(s.grants) ? s.grants : []).map(slot => (Array.isArray(slot) ? slot : [slot]).map(String)).filter(slot => slot.length),
     attribute: (Array.isArray(s.attribute) ? s.attribute : []).filter(a => STATS.includes(a))
