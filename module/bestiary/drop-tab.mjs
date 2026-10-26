@@ -8,7 +8,7 @@ import { L, SYSTEM_ID } from "../settings.mjs";
 import { confirm, toInt } from "../helpers/utils.mjs";
 import { tagLabel } from "../i18n/terms.mjs";
 import { PHYSICAL_TYPES } from "../piles/pile-config.mjs";
-import { EXPECTED_VALUE, convertTable, dropRows, dropRule, expectedValue, freeRange, rangeLabel, rollDrops } from "./drops.mjs";
+import { EXPECTED_VALUE, cameLate, convertTable, dropRows, dropRule, expectedValue, freeRange, rangeLabel, rollDrops } from "./drops.mjs";
 import { GOLD_ICON, parseDropTable, parseRange } from "./drop-table.mjs";
 
 const { DialogV2 } = foundry.applications.api;
@@ -61,7 +61,7 @@ export async function dropsContext(actor) {
     stolen: toInt(actor.getFlag(SYSTEM_ID, "stolenGold")),
     growth: toInt(actor.getFlag(SYSTEM_ID, "growth")),
     dropped: !!dropped,
-    noLoot: !!actor.getFlag(SYSTEM_ID, "noLoot"),
+    noLoot: cameLate(actor),
     gm: game.user.isGM
   };
 }

@@ -2,7 +2,78 @@
 
 ## Não lançado
 
-### Mudado
+### Adicionado
+- **24 criaturas novas no bestiário do Império**, do NP 1 ao 7, cada uma com um quebra-cabeça que muda o jeito de lutar,
+  nas pastas por NP e com os itens deixados no padrão do Império:
+  - **As minas:** a **Geleia Ocre** (NP 2: o golpe físico a divide em duas, até 4 pedaços; fogo e Artes não), o
+    **Mímico** (NP 3: um baú até ser tocado ou agir; a cola deixa [Agarrado] quem pisa nele ou o golpeia corpo a corpo),
+    o **Monstro da Ferrugem** (NP 3: enferruja a armadura de metal e deixa [Enfraquecido] quem o fere com arma de metal)
+    e o **Cubo Gelatinoso** (NP 4, 2×2: começa [Oculto], engole quem está no caminho, ácido em cada Manutenção, sai com
+    Atletismo contra 10).
+  - **As feras do Peso:** a **Estirge** (NP 1, lacaio em bandos: gruda em quem fere e suga em cada Manutenção), a
+    **Cocatriz** (NP 2: a bicada que petrifica aos poucos), a **Harpia** (NP 3: o canto que encanta e atrai) e o
+    **Basilisco** (NP 5, 2×2: o olhar que petrifica, encarado ou evitado).
+  - **Os mortos:** o **Zumbi Cambaleante** (NP 1, lacaio: a Teimosia dos Mortos, que rola 1d6 quando ele cai e com 4 ou
+    mais o deixa com 1 PV, menos contra a [Radiância] e o acerto crítico), o **Carniçal** (NP 2: a garra que deixa
+    [Paralisado], com Recarga, e a mordida que fere mais quem está [Paralisado]), a **Sombra** (NP 3: sempre
+    [Intangível], o toque que deixa [Enfraquecido] que soma, e quem ela derruba levanta como Sombra) e o **Necromante
+    Renegado** (NP 5, chefe de grupo: ergue como Zumbis os caídos a até 4 Qd, dos dois lados, e os mortos dele caem com
+    ele).
+  - **A fronteira do Território Negro:** o **Gnoll Saqueador** (NP 2: a Fúria Sanguinária), o **Orc Guerreiro** (NP 3:
+    corre até um inimigo sem gastar ação e fica com 1 PV uma vez por cena), o **Bugbear Emboscador** (NP 4: começa
+    [Oculto] e fere mais quem ainda não agiu) e o **Ogro de Cabeça de Lobo** (NP 6, chefe de grupo: arremessa um herói em
+    cima do outro, e o Uivo de Guerra). Tags [Gnoll], [Orc] e [Ogro].
+  - **O estranho das Fendas:** o **Cão Intermitente** (NP 3, em matilha: some e aparece às costas de
+    alguém), o **Doppelganger** (NP 4: toma o rosto de quem toca, até de um personagem), a **Gárgula** (NP 4: uma estátua
+    até se mexer, com a Pose de Pedra que a deixa estátua de novo e a pele que corta pela metade o dano físico sem magia)
+    e a **Aranha de Fase** (NP 5: some no fim do turno e volta às costas da presa).
+  - **Os grandes:** o **Arbusto Errante** (NP 6, chefe de grupo 2×2: puxa com o cipó, engole, e o [Choque] o cura e o
+    deixa [Acelerado]), o **Golem de Carne** (NP 6, chefe sozinho 2×2: em [Fúria] ataca a criatura mais perto, aliada
+    ou inimiga), o **Fantasma** (NP 7, chefe sozinho: é névoa até agir e possui um personagem) e a **Hidra do Pântano**
+    (NP 7, chefe sozinha 3×3: uma Ação Maior por cabeça, e cada cabeça cortada nasce em duas, a menos que o toco leve
+    fogo).
+- **Regras de monstro novas**, para qualquer monstro:
+  - o **disfarce** (o token é outra coisa, sem nome nem barras e fora do rastreador, até o monstro agir ou ser tocado;
+    revelado, entra no combate; uma habilidade pode disfarçá-lo de novo), o **engolir** (o alvo fica [Agarrado] dentro
+    do monstro, anda com ele, sofre dano em cada Manutenção e só sai vencendo um teste; o golpe no monstro pode acertar
+    quem está dentro), o **dividir** (o golpe de um tipo divide o monstro em pedaços com metade dos PV), a **ferrugem**
+    (o golpe só pega quem veste metal) e o **contato** (o estado em quem fere o monstro, só no corpo a corpo ou só com
+    arma de metal);
+  - o **grudar** (o golpe que fere gruda o monstro no alvo, que perde PV em cada Manutenção enquanto o monstro se cura e
+    o segue quando ele anda; o botão **Arrancar** do cartão é uma Ação Menor de quem está junto), o **olhar** (no começo
+    do turno de quem está perto, o cartão **Olhar de Pedra** pergunta se ele encara, rolando Resistência contra o olhar,
+    ou desvia os olhos, com −1d6 nos ataques até o fim do turno) e o **atrair** (quem o monstro encanta anda até ele no
+    começo de cada turno, até sofrer dano de qualquer um);
+  - o **levantar** (quem cai pelo golpe do monstro levanta como um igual na Manutenção seguinte, a menos que volte a ter
+    PV antes; um personagem levantado fica [Morto] e volta no fim da cena, pelo Retorno), o **erguer os mortos** (o uso
+    levanta os caídos em volta como servos, que caem quando quem os ergueu cai) e **o estado que soma** (o Valor do
+    estado que o monstro dá soma ao que o alvo já tem);
+  - a **Fúria Sanguinária** (quem derruba alguém ganha na hora mais uma ação, só para o golpe da fúria, e cada queda dá
+    mais uma), o **Golpe Surpresa** (+2d6 de dano contra quem ainda não agiu na rodada) e o **Arremessar** (uma janela
+    pergunta ao Mestre para onde o alvo voa, contra outra criatura ou em linha reta, e quem ele acerta sofre o impacto);
+  - o **teleporte** (o token vai às costas do alvo, no quadrado dele; sem alvo, de quem tem mais Ódio), **tomar o rosto**
+    (o token vira o de quem ele toca, a imagem, o nome, o tamanho e a borda, e volta quando ele cai ou fica
+    [Identificado]) e a **fase** (no fim do turno o monstro some e nada o alcança; no começo do próximo, volta às costas
+    da presa com +1d6, e quem está em Espera pega a volta com a Ação Maior do próprio turno, fora da vez);
+  - o **mais perto** (com o estado, ataca a criatura mais perto de qualquer lado; o Mestre já mira nela no começo do
+    turno), o **possuir** (o token some dentro do alvo, [Dominado]; ferir o possuído fere os dois; a [Radiância], a
+    Resistência no fim do turno ou uma queda o tiram de lá) e as **cabeças** (uma Ação Maior por cabeça; o corte a cada
+    quinto dos PV, os tocos que nascem em dobro na Manutenção sem [Chama], o chat que conta).
+- **A saída por teste:** um efeito com `escape` segura o estado até o Livrar-se vencer um teste (Atletismo contra o
+  número); o HUD mostra o teste na dica.
+- **O dano pela metade** (o efeito `halve`): depois da Defesa e da Anulação, o dano de algumas tags cai à metade (a Pele
+  de Pedra da Gárgula corta assim o dano físico sem magia; o golpe com elemento passa inteiro).
+- **O avançar**, um efeito de uso novo (`{ type: "rush" }`): o token de quem usa corre até o alvo e fica engajado com ele.
+- **O Fôlego Extra com chance:** `revive` aceita `chance` (o 1d6 que precisa dar esse número ou mais; sem `uses`, não
+  acaba) e `not` (as tags do dano e o acerto crítico contra os quais ele não segura). O cartão de dano guarda se o ataque
+  foi crítico, e o chat mostra o 1d6 e por que o Fôlego não segurou.
+- **A arte das 24 criaturas novas:** o token com a moldura da Eternia, que também é o retrato, no traço de anime dos
+  outros 28.
+- **A migração do bestiário:** os monstros do Império que um mundo já tinha trazido do compêndio (arrastados, chamados,
+  soltos por uma Fenda) ganham os nomes novos, no ator, no token e nos textos, e a arte da 0.36 (nas Fendas, a luz
+  também). O que o Mestre mudou neles fica.
+
+### Alterado
 - **Os nomes do bestiário do Império**, no estilo dos bestiários de RPG de mesa: Kobold Garimpeiro → **Kobold Batedor**,
   Kobold Mordedor → **Kobold Glutão**, Chefe da Galeria → **Senhor Kobold**, Sentinela do Castelo → **Kobold
   Sentinela**, Lobo do Peso → **Lobo Atroz**, Lobo do Castelo → **Worg**, Javali de Cristal → **Javali Atroz**, Javali
@@ -15,6 +86,14 @@
   ficaram. Os ids não mudaram: as levas das Fendas, os chamados e os atores já importados continuam ligados.
 - **As pastas do bestiário do Império** agora são por NP (NP1 a NP9, como as pastas do resto do bestiário), no lugar das pastas por família. A página XIV do
   diário AS REGRAS e o README listam os monstros do mesmo jeito.
+- **Ferido pela tag** (`struck`): vale também para o dano que o monstro come pelo `absorb` (o raio que cura o Arbusto
+  Errante o deixa [Acelerado]).
+- **As ações do turno:** um monstro com cabeças tem uma Ação Maior por cabeça.
+- **O rastreador de combate** mostra o nome e a imagem novos de um token que muda de rosto (antes guardava os antigos).
+
+### Corrigido
+- Um monstro do mundo arrastado para a cena com o combate andando dava erro no console e, chegado tarde, ainda deixava
+  itens ao cair. Agora a marca de quem chegou tarde vai no próprio token.
 
 ## 0.36.0 — 2026-10-25
 

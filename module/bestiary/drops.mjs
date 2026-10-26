@@ -14,8 +14,8 @@
  * When (the world setting `dropRoll`): "fall" (the default: when a monster becomes Incapacitated or Dead, on the
  * primary GM), "combat" (when a started combat ends, for each monster of it that fell) or "manual" (the sheet's
  * button). A monster is rolled once (`flags.eternia.dropped`, cleared by the card's Undo), and never one that came
- * after its combat started (`flags.eternia.noLoot`: summoned by a boss, a Rift's wave, placed mid-combat), unless the
- * GM rolls it by hand.
+ * after its combat started (`flags.eternia.noLoot`, on the actor or on its token: summoned by a boss, a Rift's wave,
+ * placed mid-combat), unless the GM rolls it by hand.
  * Who gets it (the table's choice): whoever felled the monster gets every item and all the gold. That is the attacker
  * of the damage card that took it to 0 HP (`eternia.defeated`, kept in `flags.eternia.felledBy`), else whoever gave
  * the status that hurt it (poison, fire…). A character takes what fits in the inventory; the rest, and everything when
@@ -46,6 +46,9 @@ const HURTING = ["poisoned", "burning", "decay", "blackFlame", "nightmare", "doo
 const fellers = new Map();
 
 const down = actor => actor.statuses.has("incapacitated") || actor.statuses.has("dead");
+
+/** A monster that came after its combat started, and leaves nothing (the flag of the actor, or of its token). */
+export const cameLate = actor => !!(actor?.getFlag(SYSTEM_ID, "noLoot") || actor?.token?.getFlag(SYSTEM_ID, "noLoot"));
 
 /* -------------------------------------------- */
 /*  The rows                                    */
@@ -248,7 +251,7 @@ function tokenOf(actor) {
  */
 export async function rollDrops(actor, { force = false, receiver } = {}) {
   if (!game.user.isGM || (actor?.type !== "monster") || rolling.has(actor.uuid)) return null;
-  if (!force && (actor.getFlag(SYSTEM_ID, "dropped") || actor.getFlag(SYSTEM_ID, "noLoot"))) return null;
+  if (!force && (actor.getFlag(SYSTEM_ID, "dropped") || cameLate(actor))) return null;
   rolling.add(actor.uuid);
   try {
     return await rollTable(actor, receiver);
@@ -450,14 +453,18 @@ async function onDeleteCombat(combat) {
   }
 }
 
-/** A monster's token placed while its scene's combat is going: it came too late to leave anything. */
+/**
+ * A monster's token placed while its scene's combat is going: it came too late to leave anything. The mark goes on the
+ * token: one made from a world actor has no delta yet, and its delta can't be made before the token has its id.
+ */
 function onPreCreateToken(token, data) {
   const scene = token.parent;
-  if (!scene || token.actorLink || (data?.delta?.flags?.[SYSTEM_ID]?.noLoot !== undefined)) return;
+  const marked = data?.delta?.flags?.[SYSTEM_ID]?.noLoot ?? data?.flags?.[SYSTEM_ID]?.noLoot;
+  if (!scene || token.actorLink || (marked !== undefined)) return;
   const actor = game.actors.get(data?.actorId ?? token.actorId);
   if (actor?.type !== "monster") return;
   const fighting = game.combats.some(c => c.started && (c.scene?.id === scene.id));
-  if (fighting) token.updateSource({ [`delta.flags.${SYSTEM_ID}.noLoot`]: true });
+  if (fighting) token.updateSource({ [`flags.${SYSTEM_ID}.noLoot`]: true });
 }
 
 /** The card's Undo button, for the GM while it can be undone. */

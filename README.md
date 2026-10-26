@@ -682,46 +682,76 @@ As 70 tabelas que o bestiário trazia como texto viraram dados; um monstro do mu
 mesmo, e a aba tem o **Virar dados**. Arrastar um item para a ficha de um monstro cria uma linha, nas faces livres, e a
 aba compara a média da tabela com a do Guia de Criação de Inimigos.
 
-**O bestiário do Império** (pasta O Império do compêndio Bestiário, uma pasta por NP, do 1 ao 9) traz monstros com regras
-automatizadas:
+**O bestiário do Império** (pasta O Império do compêndio Bestiário, uma pasta por NP, do 1 ao 9) traz 52 monstros com
+regras automatizadas:
 
-- **NP 1:** o **Kobold Batedor** (lacaio: o Bando da Galeria dá +2 de dano por kobold engajado com o alvo, e o Some na
-  Parede o deixa [Oculto] com +1d6 no próximo dano).
-- **NP 2:** o **Kobold Glutão** (Roer o Veio o faz crescer, [Fortalecido] que soma e um token 2×2 no terceiro cristal, e
-  cada cristal roído vai para os itens deixados dele), o **Lobo Atroz** (+3 de dano por outro [Lobo] engajado com o
-  alvo, e o pelo de faísca deixa [Eletrificado] quem o fere) e a **Fenda Pequena**.
-- **NP 3:** o **Senhor Kobold** (chefe: a aura de [Fortalecido] dos kobolds à volta, a couraça que tira um Estado Negativo
-  no Encerramento, [Fúria] e [Acelerado] na metade dos PV, o chamado de 1d3 Kobolds Batedores e a explosão que acerta
-  quem estiver a 1 Qd quando ele cai), o **Javali Atroz** (a investida empurra 2 Qd e derruba, a Ferocidade o deixa com
-  1 PV uma vez por cena, e o couro de cristal anula 5 de dano até o fogo rachá-lo, [Fissurado] a cada golpe de [Chama]) e
-  o **Contrabandista** (o Selo não o deixa matar, o golpe para em 1 PV; a lâmina envenena; a bomba de fumaça esconde o
-  grupo dele).
-- **NP 4:** a **Aranha-Alçapão** (2×2: o fio de teia puxa e prende, a picada envenena e sobe para [Lento] e
-  [Paralisado], e ela começa [Oculta] no teto) e a **Velha Cicatriz**, a fera com nome feita do Lobo Atroz.
-- **NP 5:** o **Lagarto-Lanterna** (a [Radiância] o cura, quem fica perto fica [Cego] em cada Manutenção, e o Vômito de
-  Luz recarrega com 5 ou 6 no 1d6), o **Capitão Contrabandista** (chefe de grupo: [Clones: 3] dos sósias; a Mão Leve
-  rouba ouro de quem ele fere, e o ouro volta nos itens deixados; **A Proposta** põe no chat um cartão com o ouro que ele
-  oferece para ir embora, com Aceitar e Recusar), o **Goblin Saqueador** (lacaio, com a Mão Leve), o **Javali Gigante**
-  (marca a presa na Manutenção, a investida fere mais a presa marcada e a empurra, e depois ele fica [Exposto]) e a
-  **Fenda Grande**.
-- **NP 6:** a **Tropa Goblin** (quatro goblins num token 2×2: o dano em área a acerta em dobro, e com 2/3 e 1/3 dos PV
-  ela perde um goblin e acerta um alvo a menos), o **Goblin Piromaníaco** (a tocha que queima e a bomba que cega, prende
-  um [Pavio] e esconde os goblins na fumaça), o **Revenante** (não fica com [Medo] nem [Confuso], dá dois golpes de
-  Cavaleiro e fica parado depois, e volta uma vez com metade dos PV, esquecendo uma Arte; deixa um Cristal de Memória) e
-  o **Worg** (o salto anunciado com [Marcado: 8] e o uivo que chama mais um lobo na metade dos PV).
-- **NP 7:** o **Chefe Goblin** (chefe de grupo: a corrente que arrasta e agarra, o grito que fortalece o bando e a fuga
-  com o saque com 1/4 dos PV, a menos que esteja preso), o **Kobold Sentinela** (um kobold de alabarda que leva no lugar o
-  golpe num kobold ao lado, e gira a alabarda em todos os engajados), o **Santo Partido** (a luz que vaza da marca fere
-  todos a 2 Qd no Encerramento, ele também) e o **Espectro do Inverno** (um ataque físico por rodada passa através dele, e
-  o frio dele congela quem chega perto).
-- **NP 8:** o **Meio-Dragão Ardente** (voa, sopra fogo com Recarga e queima quem fica a 1 Qd), o **Demônio das Sombras**
-  (as asas de sombra se abrem na primeira rodada, a garra deixa [Chama Negra] e a maldição que o [Silenciado] não para
-  apaga o nome do alvo) e o **Uivo Violeta**, a fera com nome da Fenda-mãe.
-- **NP 9:** o **Serafim Errante** (voa, a voz de sino atordoa e o canto cura), o **Homem-Tigre** ([Regeneração: 15] que o
-  fogo desliga e [Fúria] na metade dos PV) e a **Fenda-mãe**.
+| NP | Monstro | O que faz |
+|---|---|---|
+| 1 | **Kobold Batedor** | Lacaio: o Bando da Galeria dá +2 de dano por kobold engajado com o alvo, e o Some na Parede o deixa [Oculto] com +1d6 no próximo dano. |
+| 1 | **Estirge** | Lacaio, em bandos: o ferrão a gruda em quem ela fere, e ela suga 5 PV dele em cada Manutenção e vai junto quando ele anda, até alguém arrancá-la com uma Ação Menor no botão **Arrancar** do cartão. |
+| 1 | **Zumbi Cambaleante** | Lacaio: quando cai a 0 PV, rola 1d6 e com 4 ou mais fica com 1 PV, sem limite, menos contra a [Radiância] e o acerto crítico. |
+| 2 | **Kobold Glutão** | Roer o Veio o faz crescer, [Fortalecido] que soma e um token 2×2 no terceiro cristal, e cada cristal roído vai para os itens deixados dele. |
+| 2 | **Lobo Atroz** | +3 de dano por outro [Lobo] engajado com o alvo, e o pelo de faísca deixa [Eletrificado] quem o fere. |
+| 2 | **Geleia Ocre** | O golpe físico a divide em duas, cada uma com metade dos PV que sobravam, até 4 pedaços; fogo e Artes não a dividem. Não fica [Derrubado] nem [Agarrado]. |
+| 2 | **Cocatriz** | A bicada petrifica aos poucos: [Lento] até o fim da cena, depois [Paralisado] e [Enraizado], depois [Petrificado], que sai quando ela cai. |
+| 2 | **Carniçal** | A garra deixa [Paralisado] até o fim do próximo turno do alvo e recarrega; a mordida fere +10 quem está [Paralisado]. |
+| 2 | **Gnoll Saqueador** | A Fúria Sanguinária: quando derruba alguém, ganha na hora uma Ação Menor, corre até 2 Qd e morde de novo, e cada queda dá mais uma. |
+| 2 | **Fenda Pequena** | Perigo de cena (veja as Fendas, abaixo). |
+| 3 | **Senhor Kobold** | Chefe: a aura de [Fortalecido] dos kobolds à volta, a couraça que tira um Estado Negativo no Encerramento, [Fúria] e [Acelerado] na metade dos PV, o chamado de 1d3 Kobolds Batedores e a explosão que acerta quem estiver a 1 Qd quando ele cai. |
+| 3 | **Javali Atroz** | A investida empurra 2 Qd e derruba, a Ferocidade o deixa com 1 PV uma vez por cena, e o couro de cristal anula 5 de dano até o fogo rachá-lo ([Fissurado] a cada golpe de [Chama]). |
+| 3 | **Contrabandista** | O Selo não o deixa matar, o golpe para em 1 PV; a lâmina envenena; a bomba de fumaça esconde o grupo dele. |
+| 3 | **Mímico** | O token é um baú até alguém tocá-lo ou até ele agir; quem pisa nele ou o golpeia corpo a corpo fica [Agarrado], e a mordida fere mais quem está preso. |
+| 3 | **Monstro da Ferrugem** | As antenas enferrujam a armadura de metal, [Fissurado] que soma até quebrar a guarda; quem o fere com uma arma de metal fica [Enfraquecido: 4] até limpar a arma. |
+| 3 | **Harpia** | Voa; o canto deixa [Encantado] em área, e quem ela encanta anda até ela no começo de cada turno, até sofrer dano de qualquer um. |
+| 3 | **Sombra** | Sempre [Intangível]: só as Artes e o dano direto a ferem; o toque deixa [Enfraquecido] que soma e não passa sozinho; quem ela derruba levanta como Sombra na Manutenção seguinte, a menos que volte a ter PV antes. |
+| 3 | **Orc Guerreiro** | Agressivo: uma vez por rodada corre até a Velocidade na direção de um inimigo e fica engajado com ele, sem gastar ação; a Persistência o deixa com 1 PV uma vez por cena. |
+| 3 | **Cão Intermitente** | Em matilha: o Piscar o leva, com a Ação Menor, às costas de alguém a até 6 Qd, no quadrado do alvo, e a Matilha Intermitente dá +3 de dano por outro inimigo engajado com o alvo. |
+| 4 | **Aranha-Alçapão** | 2×2: o fio de teia puxa e prende, a picada envenena e sobe para [Lento] e [Paralisado], e ela começa [Oculta] no teto. |
+| 4 | **Velha Cicatriz** | A fera com nome feita do Lobo Atroz. |
+| 4 | **Cubo Gelatinoso** | 2×2, começa [Oculto]; o Engolfar passa por cima de quem está no caminho e o engole: [Agarrado] dentro dele, ácido em cada Manutenção, e só sai vencendo Atletismo contra 10. Bater no cubo pode acertar quem está dentro. |
+| 4 | **Bugbear Emboscador** | Começa [Oculto]; +2d6 de dano contra quem ainda não agiu na rodada; a maça alcança a 2 Qd. |
+| 4 | **Doppelganger** | Tomar o Rosto: o token dele vira o de quem ele toca, com a imagem, o nome, o tamanho e a borda, até de um personagem, e o rosto dele volta quando ele cai ou fica [Identificado]. |
+| 4 | **Gárgula** | O token é uma estátua até ela se mexer, a Pose de Pedra a deixa estátua de novo uma vez por cena, e a Pele de Pedra corta pela metade o dano físico sem magia. |
+| 5 | **Lagarto-Lanterna** | A [Radiância] o cura, quem fica perto fica [Cego] em cada Manutenção, e o Vômito de Luz recarrega com 5 ou 6 no 1d6. |
+| 5 | **Capitão Contrabandista** | Chefe de grupo: [Clones: 3] dos sósias; a Mão Leve rouba ouro de quem ele fere, e o ouro volta nos itens deixados; **A Proposta** põe no chat um cartão com o ouro que ele oferece para ir embora, com Aceitar e Recusar. |
+| 5 | **Goblin Saqueador** | Lacaio, com a Mão Leve. |
+| 5 | **Javali Gigante** | Marca a presa na Manutenção, a investida fere mais a presa marcada e a empurra, e depois ele fica [Exposto]. |
+| 5 | **Basilisco** | 2×2: no começo do turno de quem está a até 3 Qd dele, o cartão **Olhar de Pedra** pergunta se encara, rolando Resistência contra o olhar ([Lento], depois [Petrificado]), ou desvia os olhos, com −1d6 nos ataques até o fim do turno. |
+| 5 | **Necromante Renegado** | Chefe de grupo: Erguer os Mortos levanta como Zumbi dele cada criatura caída a até 4 Qd, de qualquer lado, e os mortos dele caem quando ele cai; a Névoa de Cinza deixa [Silenciado], e as Maldições dele o [Silenciado] não para. |
+| 5 | **Aranha de Fase** | No fim do turno some e nada a alcança; no começo do próximo, volta às costas de quem tem mais Ódio a até 6 Qd, picando com +1d6. Quem está em Espera pega a volta com a Ação Maior do turno. |
+| 5 | **Fenda Grande** | Perigo de cena. |
+| 6 | **Tropa Goblin** | Quatro goblins num token 2×2: o dano em área a acerta em dobro, e com 2/3 e 1/3 dos PV ela perde um goblin e acerta um alvo a menos. |
+| 6 | **Goblin Piromaníaco** | A tocha que queima e a bomba que cega, prende um [Pavio] e esconde os goblins na fumaça. |
+| 6 | **Revenante** | Não fica com [Medo] nem [Confuso], dá dois golpes de Cavaleiro e fica parado depois, e volta uma vez com metade dos PV, esquecendo uma Arte; deixa um Cristal de Memória. |
+| 6 | **Worg** | O salto anunciado com [Marcado: 8] e o uivo que chama mais um lobo na metade dos PV. |
+| 6 | **Ogro de Cabeça de Lobo** | Chefe de grupo: arremessa um personagem engajado até 4 Qd, contra outra criatura ou em linha reta, e quem é atingido sofre o impacto; o Uivo de Guerra deixa os aliados [Fortalecido: 5] e dá [Medo] a quem falha na Resistência; no Encerramento se livra de um Estado Negativo. |
+| 6 | **Arbusto Errante** | Chefe de grupo 2×2: o cipó que puxa e o abraço que engole, e o raio que o cura e o deixa [Acelerado]. |
+| 6 | **Golem de Carne** | Chefe sozinho 2×2: na metade dos PV entra em [Fúria] e ataca a criatura mais perto, aliada ou inimiga; o raio também o cura. |
+| 7 | **Chefe Goblin** | Chefe de grupo: a corrente que arrasta e agarra, o grito que fortalece o bando e a fuga com o saque com 1/4 dos PV, a menos que esteja preso. |
+| 7 | **Kobold Sentinela** | Um kobold de alabarda que leva no lugar o golpe num kobold ao lado, e gira a alabarda em todos os engajados. |
+| 7 | **Santo Partido** | A luz que vaza da marca fere todos a 2 Qd no Encerramento, ele também. |
+| 7 | **Espectro do Inverno** | Um ataque físico por rodada passa através dele, e o frio dele congela quem chega perto. |
+| 7 | **Fantasma** | Chefe sozinho: é névoa que o golpe físico atravessa até ele agir, e a possessão o esconde dentro de um personagem, [Dominado], que divide o dano com ele até a [Radiância] ou a Resistência o expulsarem. |
+| 7 | **Hidra do Pântano** | Chefe sozinha 3×3: uma Ação Maior por cabeça; cada quinto dos PV corta uma, e cada toco nasce em duas na Manutenção, a menos que leve [Chama]. |
+| 8 | **Meio-Dragão Ardente** | Voa, sopra fogo com Recarga e queima quem fica a 1 Qd. |
+| 8 | **Demônio das Sombras** | As asas de sombra se abrem na primeira rodada, a garra deixa [Chama Negra] e a maldição que o [Silenciado] não para apaga o nome do alvo. |
+| 8 | **Uivo Violeta** | A fera com nome da Fenda-mãe. |
+| 9 | **Serafim Errante** | Voa, a voz de sino atordoa e o canto cura. |
+| 9 | **Homem-Tigre** | [Regeneração: 15] que o fogo desliga e [Fúria] na metade dos PV. |
+| 9 | **Fenda-mãe** | Perigo de cena. |
 
 Algumas regras valem para um grupo inteiro:
 
+- **As gosmas e as armadilhas vivas das minas** (a Geleia Ocre, o Cubo Gelatinoso, o Mímico e o Monstro da Ferrugem)
+  pedem outro jeito de lutar: fogo e magia na geleia, tirar o amigo de dentro do cubo antes de bater forte, desconfiar dos
+  baús e deixar a espada de metal longe do bicho da ferrugem.
+- **Os mortos levantam:** a Sombra transforma em Sombra quem ela derruba, e o Necromante Renegado ergue os caídos em
+  volta como Zumbis. Quem levanta tem o token escondido e o monstro no quadrado dele; um personagem fica [Morto] e
+  volta no fim da cena pelo Retorno. Curar o caído antes (PV acima de 0) impede. Quando o monstro que levantou cai, o
+  corpo volta ao chão.
+- **Os que vêm de fora do muro** (o Gnoll Saqueador, o Orc Guerreiro, o Bugbear Emboscador e o Ogro de Cabeça de Lobo):
+  gente do Território Negro que cruza a serra. Cada um muda o ritmo da luta: o gnoll pune quem cai, o orc não deixa
+  ninguém longe dele, o bugbear pune quem age tarde e o ogro joga um herói em cima do outro.
 - **Os goblins temem a luz:** a [Radiância] fere mais e dá [Medo].
 - **Os monstros das Quedas de Aincrad anunciam o golpe** (o Javali Gigante, o Worg e o Kobold Sentinela).
 - **A fera com nome:** a coroa **Dar Nome** no cabeçalho da ficha de monstro (Mestre) faz, de qualquer fera, a que uma
@@ -740,10 +770,11 @@ Algumas regras valem para um grupo inteiro:
   linha leva o que ela deixa. A Grande solta 2 feras sorteadas em cada Manutenção; a Fenda-mãe solta na primeira rodada o
   Uivo Violeta (que deixa os itens dele) e depois 2 ou 3 feras sorteadas a cada Manutenção.
 
-**A arte.** Os 28 monstros do Império têm retrato e token próprios, no traço de anime: o token redondo com a moldura da
+**A arte.** Os 52 monstros do Império têm retrato e token próprios, no traço de anime: o token redondo com a moldura da
 Eternia (aro de ouro, fio carmesim e um losango de cada lado, sobre fundo branco) e, nas Fendas, um hexágono de fundo
 roxo com brilhos e uma luz violeta animada (estrelas na Pequena, um campo de energia na Grande e um vórtice na
-Fenda-mãe). Um monstro já importado num mundo fica com a arte antiga até ser importado de novo do compêndio.
+Fenda-mãe). Os monstros que um mundo já tinha trazido do compêndio (arrastados, chamados, soltos por uma Fenda)
+ganham os nomes de hoje e a arte na migração da 0.37; o que o Mestre mudou neles fica.
 
 A página **XIV. O BESTIÁRIO** do diário AS REGRAS explica tudo para o Mestre.
 
