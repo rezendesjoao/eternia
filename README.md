@@ -5,9 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.40.2
+## Versão 0.41.0
 
-- **Novo na 0.40.2: o retrato que é token aparece como o token na ficha.** Sem o quadrado escuro nem a moldura
+- **Novo na 0.41.0: 18 personagens maiores novos.** O compêndio Personagens Maiores (só do Mestre) ganha a pasta v2,
+  com mais 18 personagens de grande relevância na história, entre eles Bercouli, Chudelkin e Deusolbert com os nomes da
+  obra: agora são 140. Como os outros, cada um vem com nome, raça e token e retrato no traço de anime, e a ficha em
+  branco para o Mestre montar (veja [O bestiário](#o-bestiário)).
+- **Desde a 0.40.2: o retrato que é token aparece como o token na ficha.** Sem o quadrado escuro nem a moldura
   quadrada atrás, e do tamanho do lugar do retrato, na aba Personagem, na Biografia e na ficha de monstro; um token
   novo feito no mesmo padrão entra sozinho (veja [A ficha de personagem](#a-ficha-de-personagem)).
 - **Desde a 0.40.1: a barra de PV em arco.** A barra de PV dos tokens virou um arco com borda dourada sobre o aro de

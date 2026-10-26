@@ -1,5 +1,6 @@
 /**
- * What's new: once per user and release line, a short window with the news of this version (0.40: the NPCs and the
+ * What's new: once per user and release line, a short window with the news of this version (0.41: 18 more major
+ * characters in the v2 folder, Bercouli, Chudelkin and Deusolbert by the names of the original work; 0.40: the NPCs and the
  * Major Characters in compendiums of their own, Roman numerals on the creatures' tokens, the soft light of each
  * absolute beast and deity; 0.39: 122 major
  * characters in the Bestiary, blank sheets with a race and art, the absolute beasts and deities with a token of their
@@ -26,7 +27,7 @@
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 
 /** The release line the notice speaks about. */
-const NOTICE = "0.40";
+const NOTICE = "0.41";
 
 /** Call during the `init` hook. */
 export function registerNotice() {

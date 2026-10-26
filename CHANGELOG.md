@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.41.0 — 2026-10-26
+
+### Adicionado
+- **18 personagens maiores novos** no compêndio Personagens Maiores (só do Mestre), na pasta nova **v2**: agora são 140,
+  em 15 pastas. Bercouli, Chudelkin e Deusolbert vêm com os nomes da obra; os outros têm nomes novos.
+  - **Fichas em branco**, como as outras: só o nome e a raça, e o assistente de criação abre com a raça já marcada.
+  - **Token e retrato no traço de anime**, com a moldura dos NPCs.
+
 ## 0.40.2 — 2026-10-26
 
 ### Alterado
