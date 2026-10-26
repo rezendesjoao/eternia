@@ -17,7 +17,7 @@ entrega 7 do plano do mundo (o capítulo 18 de `Eternia-Mundo/`, fora do reposit
 | `module/bestiary/troop.mjs` | A tropa: o dano em área em dobro (`troopDoubles`, lido por `createDamageCard`… `applyDamage`), quantos do bando restam (`troopLeft`, `troopByHp`) e o limite de alvos do ataque em área dela (`troopTargets`, lido por `automation/use.mjs`). |
 | `module/bestiary/named-template.mjs` | O modelo da fera com nome, sem Foundry (`nameBeast`, `markSkill`, `MARKS`): usado pela coroa da ficha e pelo gerador do compêndio. |
 | `module/bestiary/named.mjs` | A coroa Dar Nome da ficha de monstro (Mestre): a janela, o Anima-mundi do compêndio de itens, o ator novo. |
-| `module/bestiary/spawn.mjs` | Trazer monstros para perto de um token (`spawnNear`): o ator do mundo de um monstro do compêndio (`worldActor`, importado uma vez), os quadrados livres mais próximos, `noLoot` e `calledBy` nos tokens, e o combate. Uma entrada `{ uuids: [...], count }` sorteia cada um numa lista; `loot: true` deixa os itens deles (a fera com nome da Fenda-mãe). O número no nome é contado aqui (`lastNumber`): o `getTokenDocument` do Foundry numera só pelos tokens que já existem, e um lote sairia com o mesmo número. |
+| `module/bestiary/spawn.mjs` | Trazer monstros para perto de um token (`spawnNear`): o ator do mundo de um monstro do compêndio (`worldActor`, importado uma vez), os quadrados livres mais próximos, `noLoot` e `calledBy` nos tokens, e o combate. Uma entrada `{ uuids: [...], count }` sorteia cada um numa lista; `loot: true` deixa os itens deles (a fera com nome da Fenda-mãe). O número romano do nome ("Worg II") é contado aqui (`freeNumber`, de `canvas/token-defaults.mjs`): o `getTokenDocument` só vê os tokens que já existem, e um lote sairia com o mesmo número. |
 | `module/bestiary/save.mjs` | Salvar um Desgarrado (`trySave`, `canBeSaved`): o cartão com o botão Salvar (`templates/chat/save-card.hbs`, a primeira vez que os PV chegam à parte), a Negociação contra a Resistência, o [Pacificado] infinito até o fim da cena, o pedido ao Mestre `bestiarySave` e o Virar Conexão (um item `connection` em quem salvou). |
 | `module/bestiary/rifts.mjs` | As Fendas: o relógio, a escrita (`writeRift`), o crescimento, a leva de cada Manutenção, o fechamento e o cartão (`templates/chat/rift-card.hbs`); os pedidos ao Mestre `riftWrite` e `riftGrow`. |
 | `module/bestiary/disguise.mjs` | O disfarce (`disguiseOf`, `isDisguised`, `reveal`, `disguise`): o token novo nasce com o nome e a imagem da regra e a disposição secreta (`preCreateToken`), a aparência dele guardada no token; revela quando ele usa uma habilidade (antes do cartão: `EterniaItem#ItemThrow`) ou se move, quando alguém do outro lado pisa num quadrado dele (os estados de `touch`) e quando um cartão de ataque ou de dano o alcança; revelado, a linha no chat, o combate da cena (o rastreador esconde os combatentes dele enquanto disfarçado) e o gancho `eternia.revealed`; a regra `conceal` (a habilidade que o disfarça de novo). O pedido ao Mestre `bestiaryReveal`. |
@@ -208,7 +208,7 @@ dá os dados do item) e um troféu ([Core Material], 20 × Nível de preço), fi
 | `regen` (Regeneração do Peso) | passiva com o Traço `immortal: { regen: Nível × 2 }` e a regra `struck` da [Chama] que tira a [Regeneração] |
 | `breath` (Sopro do Peso) | Ação Maior, Ataque Mágico em área de 2 Qd contra a Resistência, 2d6 + Nível × 6, regra `recharge` (5) |
 
-A coroa (`named.mjs`, só o Mestre) usa a ficha do monstro do mundo, não a cópia do token (o "(2)" do nome, os ferimentos
+A coroa (`named.mjs`, só o Mestre) usa a ficha do monstro do mundo, não a cópia do token (o "II" do nome, os ferimentos
 e os estados), põe o ator novo na mesma pasta e abre a ficha. Os textos vêm de `ETERNIA.Named.*`; o gerador do compêndio
 usa o mesmo modelo com os textos do `pt-BR.json` (a Velha Cicatriz).
 
@@ -247,10 +247,17 @@ leva fixa; a Grande: 11, 2, `growOn: "fall"` e `wave: [{ uuids: [...], count: 2 
    `assets/tokens/bestiary/<nome sem acentos>.webp` (512 px: o token com a moldura, que também é o retrato), e o script
    põe `img` e `prototypeToken.texture.src` quando o arquivo existe. Um monstro sem arte usa um ícone do Foundry pelo
    caminho (`icons/...`), como nos itens.
+5. O token numera (`prototypeToken.appendNumber`, ligado em todas as criaturas do compêndio, menos nas vinculadas): no
+   mapa, cada uma ganha um número romano depois do nome, "Kobold I", "Kobold II", o menor que nenhum token da cena com
+   aquele nome tem (`freeNumber` em `canvas/token-defaults.mjs`, por `EterniaActor#getTokenDocument` e pelos chamados de
+   `spawnNear`). Os nomes antigos do Foundry, "Kobold (1)", contam como o mesmo número.
+
+Os NPCs e os personagens maiores ficam em compêndios próprios desde a 0.40, fora do Bestiário (que ficou só com as
+criaturas), para o Mestre importar uma categoria sem trazer as outras.
 
 ## Os NPCs
 
-A pasta **NPCs** do compêndio (só do Mestre) tem 126 personagens prontos em nove subpastas: Campo e Aldeias, Cidades e
+O compêndio **NPCs** (`npcs`, só do Mestre) tem 126 personagens prontos em nove pastas: Campo e Aldeias, Cidades e
 Ofícios, Igreja Axiom, Nobreza e Governo, Guardas e Cavaleiros, Academias e Saber, Guildas e Aventureiros, Povos da Forma
 e Além do Muro.
 
@@ -267,14 +274,14 @@ e Além do Muro.
 - **O token** é neutro (`disposition: 0`), vinculado e com o nome à vista. A arte fica em
   `assets/tokens/npcs/<nome sem acentos>.webp` (512 px, a moldura do bestiário com o fio verde-azulado dos NPCs no lugar
   do carmesim dos monstros), também como retrato.
-- **A fonte é o JSON** em `src/packs/bestiary` (cada NPC leva `flags.eternia.npc = { lote, pos, token }`). Ele saiu de
+- **A fonte é o JSON** em `src/packs/npcs` (cada NPC leva `flags.eternia.npc = { lote, pos, token }`). Ele saiu de
   um script fora do repositório (`prompts/npcs-lhtrpg/gerar_npcs.py`, com o elenco em `npcs.py` e os tokens em
   `tokens_npcs.py`), com ids estáveis: rodar de novo troca só os arquivos dele.
 
 ## Os personagens maiores
 
-A pasta **Personagens Maiores** do compêndio (só do Mestre, logo acima da dos NPCs) tem 122 personagens de grande
-relevância na história, em 14 subpastas: Espadachins, Guerreiras e Aventureiras, Cavaleiros e Armaduras, Damas,
+O compêndio **Personagens Maiores** (`major-characters`, só do Mestre) tem 122 personagens de grande relevância na
+história, em 14 pastas: Espadachins, Guerreiras e Aventureiras, Cavaleiros e Armaduras, Damas,
 Sacerdotisas e Magas, Nobres e Lordes, Aventureiros e Foras da Lei, Meninas e Moças, Guerreiros Veteranos, Anciãos, Magos
 e Eruditos, Meio-Feras e Monstros, Feras e Divindades, Mascotes e Bichos e Rapazes e Forasteiros.
 
@@ -285,10 +292,13 @@ e Eruditos, Meio-Feras e Monstros, Feras e Divindades, Mascotes e Bichos e Rapaz
   para cada um.
 - **O token** é neutro, vinculado e com o nome à vista, como o dos NPCs. A arte fica em
   `assets/tokens/major/<nome sem acentos>.webp` (512 px, a moldura dos NPCs), também como retrato.
-- **As feras e divindades absolutas** (a subpasta Feras e Divindades) têm o token de outro formato: o Astro, o círculo de
-  ouro com um leque de raios em cada canto, o fio de luz e um céu da noite com estrelas atrás. O token é 2×2 e traz uma
-  luz dourada com a animação `sunburst`.
-- **A fonte é o JSON** em `src/packs/bestiary` (cada um leva `flags.eternia.major = { lote, pos }`). Ele saiu de um
+- **As feras e divindades absolutas** (a pasta Feras e Divindades) têm o token de outro formato: o Astro, o círculo de
+  ouro com um leque de raios em cada canto, o fio de luz e um céu da noite com estrelas atrás, e a aura de cada uma
+  atrás dos raios. O token é 2×2 e a luz é fraca, só de cor e sem luz forte no meio (as animações `emanation`,
+  `starlight`, `fog` e `energy`, que não clareiam): Ladon âmbar, Hyperion dourado-claro, Hati lilás, Raijū violeta,
+  Sköll dourado e Seiryū ciano. Os demônios (Marbas, Malphas e Abaddon) não têm luz: a aura escura deles é uma névoa na
+  arte do token, porque a escuridão do Foundry (`negative`) cobre o próprio token.
+- **A fonte é o JSON** em `src/packs/major-characters` (cada um leva `flags.eternia.major = { lote, pos }`). Ele saiu de um
   script fora do repositório (`prompts/personagens-maiores/gerar_compendio.py`, com o elenco em `elenco.py` e os tokens
   em `tokens.py`), com ids estáveis pela posição: rodar de novo troca só os arquivos dele.
 

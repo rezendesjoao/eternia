@@ -12,6 +12,9 @@
  *   #_onUpdate).
  * - A world migration gives the actors and tokens already in the world the same, and turns off core's turn marker (the
  *   ring that spun around the token whose turn it is; the combat tracker's settings can bring it back).
+ * - A numbered token (unlinked, its prototype appends a number: the bestiary's creatures) carries a Roman numeral after
+ *   the name, "Kobold I", "Kobold II", in place of core's "Kobold (1)": the lowest one no token of the scene with that
+ *   name carries (EterniaActor#getTokenDocument, and bestiary/spawn.mjs for the ones called together).
  */
 import { SYSTEM_ID } from "../settings.mjs";
 
@@ -78,6 +81,68 @@ export async function syncTokenArt(actor, from, to) {
     if (updates.length) await scene.updateEmbeddedDocuments("Token", updates);
   }
 }
+
+/* -------------------------------------------- */
+/*  The number of a token                       */
+/* -------------------------------------------- */
+
+const ROMAN = [[1000, "M"], [900, "CM"], [500, "D"], [400, "CD"], [100, "C"], [90, "XC"], [50, "L"], [40, "XL"],
+  [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];
+
+/** A whole number in Roman numerals: 1 is "I", 14 is "XIV". */
+export function toRoman(n) {
+  let rest = Math.trunc(Number(n));
+  if (!(rest > 0)) return String(n);
+  let out = "";
+  for (const [value, digits] of ROMAN) {
+    while (rest >= value) {
+      out += digits;
+      rest -= value;
+    }
+  }
+  return out;
+}
+
+/** The value of a Roman numeral written the usual way ("XIV" is 14); 0 when it isn't one. */
+function fromRoman(text) {
+  if (!/^[IVXLCDM]+$/.test(text)) return 0;
+  let total = 0;
+  let rest = text;
+  for (const [value, digits] of ROMAN) {
+    while (rest.startsWith(digits)) {
+      total += value;
+      rest = rest.slice(digits.length);
+    }
+  }
+  return (!rest && (toRoman(total) === text)) ? total : 0;
+}
+
+/** The number a token's name carries after a base name: "Kobold III" (or core's old "Kobold (3)") is 3; 0 when none. */
+function tokenNumber(name, base) {
+  if (!name?.startsWith(`${base} `)) return 0;
+  const tail = name.slice(base.length + 1);
+  const old = /^\((\d+)\)$/.exec(tail);
+  return old ? Number(old[1]) : fromRoman(tail);
+}
+
+/**
+ * The lowest number that no token of a scene with this base name carries, nor any in `taken` (the tokens being made in
+ * the same moment, which the scene doesn't have yet).
+ * @param {Scene|null} scene
+ * @param {string} base
+ * @param {Set<number>} [taken]
+ * @returns {number}
+ */
+export function freeNumber(scene, base, taken = new Set()) {
+  const used = new Set(taken);
+  for (const token of scene?.tokens ?? []) used.add(tokenNumber(token.name, base));
+  let n = 1;
+  while (used.has(n)) n++;
+  return n;
+}
+
+/** The name of a numbered token: "Kobold II". */
+export const numberedName = (base, n) => `${base} ${toRoman(n)}`;
 
 /* -------------------------------------------- */
 /*  Migration                                   */

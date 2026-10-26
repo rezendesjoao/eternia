@@ -7,7 +7,7 @@ import { getHands } from "../helpers/hands.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
 import { collectRollBonus, isSkillFilterKey } from "../helpers/roll-bonuses.mjs";
 import { ATTRIBUTES_PHASE } from "./eterniaActiveEffect.mjs";
-import { followsPortrait, syncTokenArt, tokenDefaults } from "../canvas/token-defaults.mjs";
+import { followsPortrait, freeNumber, numberedName, syncTokenArt, tokenDefaults } from "../canvas/token-defaults.mjs";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -71,6 +71,19 @@ export class EterniaActor extends Actor {
         foundry.utils.setProperty(changed, "prototypeToken.texture.src", changed.img);
       }
     }
+  }
+
+  /**
+   * @override A numbered token (unlinked, its prototype appends a number) carries a Roman numeral after the name,
+   * "Kobold I", "Kobold II", in place of core's "Kobold (1)" (canvas/token-defaults.mjs). A name asked for stays.
+   */
+  async getTokenDocument(data = {}, options = {}) {
+    const token = await super.getTokenDocument(data, options);
+    const proto = this.prototypeToken;
+    if (proto.actorLink || !proto.appendNumber || (data.name !== undefined)) return token;
+    const base = token.name.replace(/ \(\d+\)$/, "");
+    token.updateSource({ name: numberedName(base, freeNumber(token.parent, base)) });
+    return token;
   }
 
   /** @override */

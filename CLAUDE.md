@@ -69,17 +69,20 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   mortos em `rise.mjs`); a Mão Leve é um efeito de uso com `flags.eternia.pickpocket`, a criatura que come um dano, um
   efeito com `flags.eternia.absorb` (lista de tags), o dano pela metade, `flags.eternia.halve`, e a Possessão, a flag de
   habilidade `flags.eternia.possess`. A Fenda é um monstro com `flags.eternia.rift` e o relógio no Destino (`growOn: "fall"`: cresce quando
-  quem escreve cai). Os chamados (`spawnNear`) são numerados ali: o `getTokenDocument` do Foundry numera só pelos tokens
-  que já existem. Teste de monstro numa cena: dentro do `sceneRect` (fora dele, o empurrar para na borda). A fera com
+  quem escreve cai). As criaturas numeram o token com número romano ("Kobold II": `freeNumber` em
+  `canvas/token-defaults.mjs`, por `EterniaActor#getTokenDocument` e pelos chamados de `spawnNear`, que contam o lote,
+  porque o `getTokenDocument` só vê os tokens que já existem). Teste de monstro numa cena: dentro do `sceneRect` (fora dele, o empurrar para na borda). A fera com
   nome sai de `module/bestiary/named-template.mjs`, que não pode importar nada do Foundry: a coroa da ficha e o gerador
   do compêndio usam o mesmo arquivo. Os monstros do Império (pasta O Império) foram gerados por um script fora do
   repositório: a fonte é o JSON. Um monstro do Império já trazido para um mundo é uma cópia: mudou um nome ou a arte no
   compêndio, a migração `bestiary` (`module/bestiary/migration.mjs`) leva a mudança às cópias.
-  Uma tabela nova escrita no formato dos livros vira dados com `node tools/convert-drops.mjs`. A pasta NPCs do
-  bestiário são 126 personagens prontos (raça, profissão, NP e classe só nos guerreiros, sem Magia), também gerados por
-  um script fora do repositório: a fonte é o JSON (veja "Os NPCs" em `docs/bestiario.md`). A pasta Personagens Maiores
-  são 122 personagens em branco, só com a raça e o token, para o Mestre montar a ficha; as feras e divindades
-  absolutas têm o token Astro, 2×2 e com luz (veja "Os personagens maiores" no mesmo arquivo).
+  Uma tabela nova escrita no formato dos livros vira dados com `node tools/convert-drops.mjs`.
+- NPCs e personagens maiores ficam fora do Bestiário (desde a 0.40), em compêndios próprios, para o Mestre importar só a
+  categoria que mudou: `npcs`, 126 personagens prontos (raça, profissão, NP e classe só nos guerreiros, sem Magia), e
+  `major-characters`, 122 personagens em branco, só com a raça e o token, para o Mestre montar a ficha (as feras e
+  divindades absolutas têm o token Astro, 2×2, com a luz fraca de cada uma; nos demônios, sem luz e com a névoa escura na
+  arte, porque a escuridão do Foundry cobre o próprio token). Os dois saem de scripts fora do repositório: a fonte é o JSON
+  (veja "Os NPCs" e "Os personagens maiores" em `docs/bestiario.md`).
 - Profissão = item `subclass` com `system.identifier` igual a um id de `module/professions/data.mjs`, na pasta
   Profissões de `races-classes`. O progresso fica no personagem (`flags.eternia.professions.<id>`) e o item feito guarda
   a base em `flags.eternia.craft` (veja `docs/profissoes.md`). Engenhocas e Canções ficam em `items` (pastas próprias).

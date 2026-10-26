@@ -6,6 +6,7 @@
  */
 import { SYSTEM_ID } from "../settings.mjs";
 import { toInt } from "../helpers/utils.mjs";
+import { freeNumber, numberedName } from "../canvas/token-defaults.mjs";
 
 /** The world actor of a uuid: itself, or the one already made from that compendium monster, or a new one. */
 export async function worldActor(uuid) {
@@ -55,18 +56,6 @@ function freeSquares(origin, radius, count) {
   return out;
 }
 
-/** The highest number a name already has on a scene ("Worg (3)" gives 3; 0 when none). */
-function lastNumber(scene, base) {
-  const prefix = `${base} (`;
-  let max = 0;
-  for (const token of scene.tokens) {
-    if (!token.name.startsWith(prefix) || !token.name.endsWith(")")) continue;
-    const n = Number(token.name.slice(prefix.length, -1));
-    if (Number.isInteger(n)) max = Math.max(max, n);
-  }
-  return max;
-}
-
 /**
  * Bring monsters next to a token: their tokens, in the token's combat. GM only.
  * @param {TokenDocument} origin
@@ -92,19 +81,19 @@ export async function spawnNear(origin, list, { radius = 2, by = "" } = {}) {
   }
   if (!wanted.length) return [];
   const spots = freeSquares(origin, Math.max(1, radius), wanted.length);
-  // The numbers in the names, counted here: Foundry's own count doesn't see tokens made in the same moment
-  const next = new Map();
+  // The numbers in the names ("Worg II"), counted here: getTokenDocument doesn't see tokens made in the same moment
+  const taken = new Map();
   const data = [];
   for (const [index, { actor, loot }] of wanted.entries()) {
     const token = (await actor.getTokenDocument({
       x: spots[index].x, y: spots[index].y, level: origin.level, elevation: origin.elevation
     })).toObject();
-    // getTokenDocument already numbers the name, but only counting the tokens that exist now
-    if (actor.prototypeToken.appendNumber) {
+    if (actor.prototypeToken.appendNumber && !actor.prototypeToken.actorLink) {
       const base = actor.prototypeToken.name || actor.name;
-      const number = (next.get(base) ?? lastNumber(scene, base)) + 1;
-      next.set(base, number);
-      Object.assign(token, { name: `${base} (${number})`, appendNumber: false });
+      if (!taken.has(base)) taken.set(base, new Set());
+      const number = freeNumber(scene, base, taken.get(base));
+      taken.get(base).add(number);
+      Object.assign(token, { name: numberedName(base, number), appendNumber: false });
     }
     token.delta ??= {};
     foundry.utils.setProperty(token, `delta.flags.${SYSTEM_ID}.noLoot`, !loot);
