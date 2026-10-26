@@ -75,7 +75,9 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   do compêndio usam o mesmo arquivo. Os monstros do Império (pasta O Império) foram gerados por um script fora do
   repositório: a fonte é o JSON. Um monstro do Império já trazido para um mundo é uma cópia: mudou um nome ou a arte no
   compêndio, a migração `bestiary` (`module/bestiary/migration.mjs`) leva a mudança às cópias.
-  Uma tabela nova escrita no formato dos livros vira dados com `node tools/convert-drops.mjs`.
+  Uma tabela nova escrita no formato dos livros vira dados com `node tools/convert-drops.mjs`. A pasta NPCs do
+  bestiário são 126 personagens prontos (raça, profissão, NP e classe só nos guerreiros, sem Magia), também gerados por
+  um script fora do repositório: a fonte é o JSON (veja "Os NPCs" em `docs/bestiario.md`).
 - Profissão = item `subclass` com `system.identifier` igual a um id de `module/professions/data.mjs`, na pasta
   Profissões de `races-classes`. O progresso fica no personagem (`flags.eternia.professions.<id>`) e o item feito guarda
   a base em `flags.eternia.craft` (veja `docs/profissoes.md`). Engenhocas e Canções ficam em `items` (pastas próprias).

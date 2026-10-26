@@ -248,6 +248,29 @@ leva fixa; a Grande: 11, 2, `growOn: "fall"` e `wave: [{ uuids: [...], count: 2 
    põe `img` e `prototypeToken.texture.src` quando o arquivo existe. Um monstro sem arte usa um ícone do Foundry pelo
    caminho (`icons/...`), como nos itens.
 
+## Os NPCs
+
+A pasta **NPCs** do compêndio (só do Mestre) tem 126 personagens prontos em nove subpastas: Campo e Aldeias, Cidades e
+Ofícios, Igreja Axiom, Nobreza e Governo, Guardas e Cavaleiros, Academias e Saber, Guildas e Aventureiros, Povos da Forma
+e Além do Muro.
+
+- **São personagens** (`type: "character"`), montados como o assistente de criação monta um: a raça com as duas inatas
+  (a escolha: a Bênção, o Pacto, a linhagem, o Astro) e as habilidades dos estágios da forma até o do NPC (as flags
+  `stage`, `stageBonus` e `stageLog` no item de raça, como `races/evolution.mjs` deixa), a profissão com o Rank em
+  `flags.eternia.professions.<id>.exp`, as habilidades básicas, os 5 pontos de atributo, o NP e PV e Destino cheios. As
+  habilidades dadas levam `grantedBy`. `flags.eternia.skillProgress.base` é o NP, para a ficha não cobrar escolhas
+  antigas.
+- **Classe só nos guerreiros**, com o kit, o Caminho no NP 3 e o Ápice no NP 10. Nenhum tem Magia: as vagas da classe
+  ficam vazias. Sem classe, a ficha soma só os números da raça (um Humano civil tem 8 PV), como o sistema calcula.
+- **O perfil** vem em `flags.eternia.bio` (alcunha, idade, gênero, terra natal), a guilda em `system.social.guild` e o
+  gancho em `system.biography`.
+- **O token** é neutro (`disposition: 0`), vinculado e com o nome à vista. A arte fica em
+  `assets/tokens/npcs/<nome sem acentos>.webp` (512 px, a moldura do bestiário com o fio verde-azulado dos NPCs no lugar
+  do carmesim dos monstros), também como retrato.
+- **A fonte é o JSON** em `src/packs/bestiary` (cada NPC leva `flags.eternia.npc = { lote, pos, token }`). Ele saiu de
+  um script fora do repositório (`prompts/npcs-lhtrpg/gerar_npcs.py`, com o elenco em `npcs.py` e os tokens em
+  `tokens_npcs.py`), com ids estáveis: rodar de novo troca só os arquivos dele.
+
 ## Para macros
 
 ```js
