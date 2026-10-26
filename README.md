@@ -398,10 +398,12 @@ aparecem na tela são desenhados. A configuração **Ícones animados** (de cada
 
 ## Os tokens
 
-A barra de PV (com a Fadiga hachurada e a Barreira num filete azul-aço), o Destino em losangos dourados, o Motor da
-classe numa fileira de losangos logo acima da barra de PV (com um disco do estado: verde Embainhada, carmim
-Desembainhada) e o nome, pequeno e claro, com um contorno suave que se lê em qualquer mapa. Fora de combate o token
-mostra só o nome: a barra de PV e o Motor aparecem quando ele entra num combate e somem quando sai (configuração
+A barra de PV é um arco com borda dourada que acompanha o aro de cima do token e enche da esquerda para a direita
+(com a Fadiga hachurada no fim e a Barreira num filete azul-aço por fora): nada sai do token para o vizinho cobrir. O
+Destino fica em losangos dourados na borda de baixo; o Motor da classe, numa fileira de losangos perto da base do token
+(com um disco do estado: verde Embainhada, carmim Desembainhada); os ícones de estado, na lateral esquerda, abaixo da
+ponta do arco; e o nome, pequeno e claro, logo abaixo da borda, com um contorno suave que se lê em qualquer mapa. Fora
+de combate o token mostra só o nome: a barra de PV e o Motor aparecem quando ele entra num combate e somem quando sai (configuração
 **Barra de PV só em combate**). Outra configuração escolhe quem vê a barra de PV: todos; todos, mas os jogadores só
 veem a de um inimigo [Identificado]; ou cada token por conta própria.
 

@@ -137,7 +137,9 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   `preCreateToken`, e a troca de retrato leva o token junto (`EterniaActor#_preUpdate`/`_onUpdate`). Mundos antigos
   recebem isso pela migração `tokens`, que também desliga o marcador de turno do core.
 - O desenho dos tokens (`module/canvas/token-style.mjs`): a barra de PV e o Motor só aparecem em combate (configuração
-  `tokenBarsCombat`); o nome é texto puro, sem faixa.
+  `tokenBarsCombat`); a barra é um arco no aro de cima do token (a primeira barra em cima, a segunda embaixo: com as
+  barras do sistema, o Destino em losangos na borda de baixo); os ícones de estado começam abaixo da ponta esquerda do
+  arco; o nome é texto puro, sem faixa, logo abaixo da borda (abaixo dos losangos quando eles aparecem).
 
 ## Teste local
 - `Data/systems/eternia` é uma junction para este repositório; mundo de teste `eternia-teste`.

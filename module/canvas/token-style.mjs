@@ -2,17 +2,20 @@
  * Token look in the style of the sheet: the resource bars and the nameplate drawn here (the system's Token class,
  * extended).
  *
- * - HP bar (the "health" attribute): a slim pill with a gold edge, resting on the bottom edge of the token. The fill
- *   is the crimson of the sheet; the Fatigue is a hatched stretch at its end (the maximum HP it takes away); the
- *   Barrier a steel-blue sliver just above (it absorbs the damage first). Faint marks at each quarter.
- * - Fate (the "fate" attribute, or any small count): gold diamonds on the top edge, filled or hollow.
- * - Any other attribute: the same pill in green.
- * - Class Motor (module/classes/): a small row of gold diamonds just above the HP bar with a disc for its state
+ * - HP bar (the "health" attribute): an arc with a gold edge along the top of the token's gold ring, filling from left
+ *   to right, so nothing sticks out of the token for its neighbours to cover. The fill is the crimson of the sheet; the
+ *   Fatigue is a hatched stretch at its end (the maximum HP it takes away); the Barrier a steel-blue sliver just outside
+ *   (it absorbs the damage first). Faint marks at each quarter.
+ * - The first bar goes on the top of the token and the second on the bottom: a value bar as an arc along the ring,
+ *   Fate (the "fate" attribute, or a small count on the second bar) as gold diamonds on the edge, filled or hollow. With
+ *   the system's bars (HP and Fate), the HP arc on top and the Fate diamonds on the bottom edge.
+ * - Any other attribute: the same arc in green.
+ * - Class Motor (module/classes/): a small row of gold diamonds near the bottom of the token with a disc for its state
  *   (green sheathed, crimson drawn, for the Samurai), the diamonds glowing when the next strike is a Perfect Cut.
  *   It follows the core redraw of the status icons, which every change of the actor or its items sets off.
- * - Nameplate: the name small and light just under the token (under the HP bar when it shows), with a soft dark edge
- *   that keeps it easy to read on any map; long names end in "…". The elevation tooltip has the same look. Whether
- *   it shows is the token's own setting (canvas/token-defaults.mjs makes it "always").
+ * - Nameplate: the name small and light right under the token's edge (under the Fate diamonds when they show), with a
+ *   soft dark edge that keeps it easy to read on any map; long names end in "…". The elevation tooltip has the same
+ *   look. Whether it shows is the token's own setting (canvas/token-defaults.mjs makes it "always").
  * - Who sees the HP bar (setting "tokenBars"): everyone always; everyone, but the players see an enemy's only once it
  *   is [Identified]; or each token's own setting. The second bar always follows each token's own setting.
  * - Out of combat (setting "tokenBarsCombat") the HP bar and the Motor hide: they show on the tokens in the combat.
@@ -39,6 +42,15 @@ const COLORS = {
 };
 /** Colour of the state disc of a class Motor (the first state is the resting one). */
 const MOTOR_STATES = { sheathed: COLORS.green, drawn: COLORS.hp };
+
+/** The arc bars: the radius they run on (a share of the token's radius: over the gold ring of the frame) and half the
+ * angle they span, around the top or the bottom of the token. */
+const ARC_RADIUS = 0.955;
+const ARC_HALF = 0.34 * Math.PI;
+/** Half the height of a Fate diamond (drawPips), at UI scale 1. */
+const PIP_RADIUS = 3.6;
+/** How far under the token's edge the capitals of the name start, at UI scale 1. */
+const NAME_GAP = 2;
 
 const styled = () => setting("tokenStyle") !== false;
 
@@ -78,7 +90,7 @@ export function registerTokens() {
   Hooks.on("deleteActiveEffect", onStatus);
   // Settings changed (settings.mjs): every token again.
   Hooks.on("eterniaTokenStyle", () => redraw(canvas?.tokens?.placeables ?? [],
-    { refreshBars: true, refreshNameplate: true, refreshState: true, refreshTooltip: true }));
+    { refreshBars: true, refreshNameplate: true, refreshState: true, refreshTooltip: true, refreshEffects: true }));
   // Joining or leaving the combat shows or hides the HP bar and the Motor (setting "tokenBarsCombat").
   const combatChanged = () => redraw(canvas?.tokens?.placeables ?? [], { refreshState: true });
   for (const hook of ["createCombat", "deleteCombat", "createCombatant", "deleteCombatant"]) Hooks.on(hook, combatChanged);
@@ -115,77 +127,92 @@ function hpBarPolicy(token) {
 /*  Drawing                                     */
 /* -------------------------------------------- */
 
-/** A rounded rectangle whose radius never exceeds half its size; nothing when it has no width. */
-function pill(g, x, y, w, h, color, alpha = 1) {
-  if ((w <= 0) || (h <= 0)) return;
-  g.beginFill(color, alpha).drawRoundedRect(x, y, w, h, Math.min(h / 2, w / 2)).endFill();
-}
-
 /** A diamond centred on (x, y) with a half-diagonal of r. */
 function diamond(g, x, y, r) {
   g.drawPolygon([x, y - r, x + r, y, x, y + r, x - r, y]);
 }
 
-/**
- * The HP bar (or any value / max bar): track, Fatigue, fill, quarter marks, gold edge, Barrier.
- * @param {PIXI.Graphics} g
- * @param {number} bw   Width
- * @param {number} bh   Height
- * @param {number} s    UI scale
- * @param {object} data { value, max, fatigue, barrier, color }
- */
-function drawPillBar(g, bw, bh, s, { value, max, fatigue = 0, barrier = 0, color = COLORS.hp, low = COLORS.hpLow }) {
-  const full = Math.max(1, max + fatigue);
-  const inset = s;
-  const iw = bw - (2 * inset), ih = bh - (2 * inset);
-  const hp = Math.clamp(value, 0, max);
+/** A stroke along a circle from angle a0 to a1 (either way round), with round ends; nothing when it has no length. */
+function strokeArc(g, cx, cy, r, a0, a1, width, color, alpha = 1) {
+  if ((Math.abs(a1 - a0) < 1e-3) || (width <= 0)) return;
+  g.lineStyle({ width, color, alpha, cap: PIXI.LINE_CAP.ROUND });
+  g.moveTo(cx + (r * Math.cos(a0)), cy + (r * Math.sin(a0)));
+  g.arc(cx, cy, r, a0, a1, a1 < a0);
+  g.lineStyle(0);
+}
 
-  // Shadow and track
-  pill(g, 0, s, bw, bh, 0x000000, 0.45);
-  pill(g, 0, 0, bw, bh, COLORS.track, 0.95);
+/** A short line across the bar at angle a, from radius r0 to r1 (r1 at angle a1, for a slant). */
+function crossLine(g, cx, cy, a, r0, r1, a1 = a) {
+  g.moveTo(cx + (r0 * Math.cos(a)), cy + (r0 * Math.sin(a))).lineTo(cx + (r1 * Math.cos(a1)), cy + (r1 * Math.sin(a1)));
+}
+
+/**
+ * The HP bar (or any value / max bar) as an arc along the token's ring, filling from left to right: gold edge, track,
+ * Fatigue, fill, quarter marks, Barrier.
+ * @param {PIXI.Graphics} g
+ * @param {number} cx       The token's centre, x
+ * @param {number} cy       The token's centre, y
+ * @param {number} r        The radius the bar runs on
+ * @param {number} w        Thickness of the track (the gold edge adds one UI unit on each side)
+ * @param {number} s        UI scale
+ * @param {boolean} top     Around the top of the token (else around the bottom)
+ * @param {object} data     { value, max, fatigue, barrier, color, low }
+ * @returns {number}        The outermost radius drawn
+ */
+function drawArcBar(g, cx, cy, r, w, s, top, { value, max, fatigue = 0, barrier = 0, color = COLORS.hp, low = COLORS.hpLow }) {
+  const full = Math.max(1, max + fatigue);
+  const hp = Math.clamp(value, 0, max);
+  // Left end to right end: clockwise over the top, counterclockwise under the bottom
+  const mid = top ? 1.5 * Math.PI : 0.5 * Math.PI;
+  const a0 = top ? mid - ARC_HALF : mid + ARC_HALF;
+  const span = (top ? 2 : -2) * ARC_HALF;
+  const at = f => a0 + (span * f);
+  const iw = w - (2 * s);
+
+  // Shadow, gold edge, track
+  strokeArc(g, cx, cy + s, r, a0, at(1), w + (2 * s), 0x000000, 0.45);
+  strokeArc(g, cx, cy, r, a0, at(1), w + (2 * s), COLORS.gold, 0.9);
+  strokeArc(g, cx, cy, r, a0, at(1), w, COLORS.track, 0.95);
 
   // Fatigue: the end of the track, hatched
-  const fw = iw * (fatigue / full);
-  if (fw >= 1) {
-    const left = inset + iw - fw;
-    pill(g, left, inset, fw, ih, COLORS.fatigue, 0.95);
+  const fatigueShare = fatigue / full;
+  if (fatigueShare > 0) {
+    const from = at(1 - fatigueShare);
+    strokeArc(g, cx, cy, r, from, at(1), iw, COLORS.fatigue, 0.95);
     g.lineStyle(Math.max(1, 0.75 * s), COLORS.hatch, 0.55);
-    const step = 3 * s;
-    for (let x0 = left - ih; x0 < left + fw; x0 += step) {
-      const a = Math.max(x0, left), b = Math.min(x0 + ih, left + fw);
-      if (b <= a) continue;
-      g.moveTo(a, inset + ih - (a - x0)).lineTo(b, inset + ih - (b - x0));
+    const step = (3 * s) / r, slant = iw / r;
+    const dir = Math.sign(span);
+    // Slanted lines across the stretch, while their far end stays inside it
+    for (let a = from; ((a + (dir * slant)) - at(1)) * dir <= 0; a += dir * step) {
+      crossLine(g, cx, cy, a, r - (iw / 2), r + (iw / 2), a + (dir * slant));
     }
     g.lineStyle(0);
   }
 
-  // Fill, with a faint light on its upper half
-  const hw = iw * (hp / full);
+  // Fill, with a faint light on its upper side (the outside on the top, the inside on the bottom)
+  const share = hp / full;
   const fill = (max && (hp <= max / 4)) ? low : color;
-  pill(g, inset, inset, hw, ih, fill, 1);
-  pill(g, inset + s, inset, hw - (2 * s), ih * 0.45, 0xffffff, 0.16);
+  strokeArc(g, cx, cy, r, a0, at(share), iw, fill, 1);
+  strokeArc(g, cx, cy, r + ((top ? 1 : -1) * iw * 0.22), a0, at(share), iw * 0.3, 0xffffff, 0.16);
 
   // Quarter marks
-  if (bw >= 48 * s) {
+  if (r * Math.abs(span) >= 48 * s) {
     g.lineStyle(Math.max(1, 0.75 * s), COLORS.ink, 0.35);
-    for (const q of [0.25, 0.5, 0.75]) {
-      const x = inset + (iw * q);
-      g.moveTo(x, inset + s).lineTo(x, inset + ih - s);
-    }
+    for (const q of [0.25, 0.5, 0.75]) crossLine(g, cx, cy, at(q), r - (iw / 2) + s, r + (iw / 2) - s);
     g.lineStyle(0);
   }
 
-  // Gold edge
-  g.lineStyle(Math.max(1, s), COLORS.gold, 0.9).drawRoundedRect(s / 2, s / 2, bw - s, bh - s, (bh - s) / 2).lineStyle(0);
-
-  // Barrier: a sliver just above, as long as its share of the maximum HP
+  // Barrier: a sliver just outside, as long as its share of the maximum HP
+  let outer = r + (w / 2) + s;
   if (barrier > 0) {
-    const w = bw * Math.min(1, barrier / Math.max(1, max));
     const h = 3 * s;
-    g.lineStyle(Math.max(1, 0.75 * s), COLORS.ink, 0.8);
-    pill(g, 0, -h - (1.5 * s), Math.max(w, 6 * s), h, COLORS.barrier, 1);
-    g.lineStyle(0);
+    const rb = outer + (1.5 * s) + (h / 2);
+    const length = Math.max(Math.min(1, barrier / Math.max(1, max)), (6 * s) / (r * Math.abs(span)));
+    strokeArc(g, cx, cy, rb, a0, at(length), h + (1.5 * s), COLORS.ink, 0.8);
+    strokeArc(g, cx, cy, rb, a0, at(length), h, COLORS.barrier, 1);
+    outer = rb + (h / 2) + s;
   }
+  return outer;
 }
 
 /**
@@ -193,7 +220,7 @@ function drawPillBar(g, bw, bh, s, { value, max, fatigue = 0, barrier = 0, color
  * @returns {number}   The width of the row
  */
 function drawPips(g, value, max, s) {
-  const r = 3.6 * s, gap = 2.6 * s;
+  const r = PIP_RADIUS * s, gap = 2.6 * s;
   const n = Math.clamp(Math.max(max, value), 0, 10);
   const width = (n * 2 * r) + ((n - 1) * gap);
   for (let i = 0; i < n; i++) {
@@ -255,8 +282,8 @@ function fitName(name, style, width) {
 function tokenClass(Base) {
   return class EterniaStyledToken extends Base {
 
-    /** Height of the HP bar as drawn (0 when hidden), for the nameplate below it. */
-    lhBarHeight = 0;
+    /** How far the second bar hangs below the token's edge (the Fate diamonds), for the nameplate under it. */
+    lhBottom = 0;
 
     /** The class Motor's diamonds (module/classes/). */
     lhMotor = null;
@@ -271,11 +298,46 @@ function tokenClass(Base) {
     /** @override Core redraws the status icons on every change of the actor or its items: the Motor follows. */
     _refreshEffects() {
       super._refreshEffects();
+      if (styled()) this.#layoutEffects();
       hideLanding(this);
       this.#drawMotor();
     }
 
-    /** The first class Motor of a character: its points as diamonds above the HP bar, its state as a disc. */
+    /** Where the arc bars run on this token: its centre, the radius and the thickness of the track. */
+    #arcShape() {
+      const { width, height } = this.document.getSize();
+      const s = canvas.dimensions.uiScale;
+      return {
+        cx: width / 2, cy: height / 2,
+        r: ARC_RADIUS * Math.min(width, height) / 2,
+        w: (this.document.height >= 2 ? 9 : 7.2) * s
+      };
+    }
+
+    /**
+     * The status icons in columns from the left edge, as core lays them out, but starting under the left end of the HP
+     * arc (core starts them at the top-left corner, where the arc runs). Always there, so they don't move when the
+     * token joins a combat and the arc shows.
+     */
+    #layoutEffects() {
+      const s = canvas.dimensions.uiScale;
+      const size = 20 * s;
+      const { height } = this.document.getSize();
+      const { cy, r, w } = this.#arcShape();
+      const top = Math.ceil(cy - (r * Math.cos(ARC_HALF)) + (w / 2) + (2 * s));
+      const rows = Math.max(1, Math.floor(((height - top) / size) + 1e-6));
+      const bg = this.effects.bg.clear().beginFill(0x000000, 0.40).lineStyle(s, 0x000000);
+      let i = 0;
+      for (const effect of this.effects.children) {
+        if ((effect === bg) || (effect === this.effects.overlay)) continue;
+        effect.x = Math.floor(i / rows) * size;
+        effect.y = top + ((i % rows) * size);
+        bg.drawRoundedRect(effect.x + s, effect.y + s, size - (2 * s), size - (2 * s), 2 * s);
+        i++;
+      }
+    }
+
+    /** The first class Motor of a character: its points as diamonds near the bottom of the token, its state as a disc. */
     #drawMotor() {
       if (!this.lhMotor || this.lhMotor.destroyed) this.lhMotor = this.addChild(new PIXI.Graphics());
       const g = this.lhMotor;
@@ -311,6 +373,7 @@ function tokenClass(Base) {
     drawBars() {
       if (!styled()) return super.drawBars();
       if (!this.actor) return;
+      this.lhBottom = 0;
       for (const [index, key] of ["bar1", "bar2"].entries()) {
         const bar = this.bars[key];
         const data = this.document[key];
@@ -330,30 +393,30 @@ function tokenClass(Base) {
       const { width, height } = this.document.getSize();
       const s = canvas.dimensions.uiScale;
       const value = Number(data.value) || 0, max = Number(data.max) || 0;
+      const bottom = index === 1;
       bar.clear();
 
-      // Fate, or a small count on the second bar: diamonds on the top edge.
-      if ((data.attribute === "fate") || ((index === 1) && Number.isInteger(max) && (max <= 10))) {
+      // Fate, or a small count on the second bar: diamonds, the first bar's on the top edge, the second's on the bottom
+      if ((data.attribute === "fate") || (bottom && Number.isInteger(max) && (max <= 10))) {
         const w = drawPips(bar, value, max, s);
-        bar.position.set((width - w) / 2, 0);
-        if (index === 0) this.lhBarHeight = 0;
+        bar.position.set((width - w) / 2, bottom ? height : 0);
+        if (bottom) this.lhBottom = (PIP_RADIUS + 1) * s;
         return;
       }
 
-      const bw = Math.round(width * 0.82);
-      const bh = Math.round((this.document.height >= 2 ? 10 : 8) * s);
+      // A value bar: an arc along the ring, the first bar's over the top, the second's under the bottom
+      const { cx, cy, r, w } = this.#arcShape();
       const health = data.attribute === "health";
       const system = this.actor?.system ?? {};
-      drawPillBar(bar, bw, bh, s, {
+      const outer = drawArcBar(bar, cx, cy, r, w, s, !bottom, {
         value, max,
         fatigue: health ? Math.max(0, Number(system.infos?.fatigue) || 0) : 0,
         barrier: health ? Math.max(0, Number(system["bad-status"]?.barrier) || 0) : 0,
         color: health ? COLORS.hp : COLORS.green,
         low: health ? COLORS.hpLow : COLORS.green
       });
-      // The first bar rests on the bottom edge of the token, the second on the top one.
-      bar.position.set((width - bw) / 2, (index === 0) ? height - (bh / 2) : -bh / 2);
-      if (index === 0) this.lhBarHeight = bh;
+      bar.position.set(0, 0);
+      if (bottom) this.lhBottom = Math.max(0, cy + outer - height) + s;
     }
 
     /** @override */
@@ -393,7 +456,17 @@ function tokenClass(Base) {
       return Object.assign(nameStyle(), { wordWrapWidth: style.wordWrapWidth });
     }
 
-    /** The nameplate just under the token, or under the HP bar when it shows. */
+    /** @override Core puts the nameplate back at its own place on a resize. */
+    _refreshSize() {
+      super._refreshSize();
+      this.#layoutNameplate();
+    }
+
+    /**
+     * The nameplate right under the token's edge, or under the second bar when it shows (the Fate diamonds): the
+     * capitals start NAME_GAP below it. The text's box starts above them by half its outline and the room the font
+     * keeps over the capitals (about 0.7 of the font size high).
+     */
     #layoutNameplate() {
       if (!this.nameplate || !this.bars) return;
       this.bars.zIndex = 4;
@@ -401,9 +474,12 @@ function tokenClass(Base) {
       if (!styled()) return;
       const s = canvas.dimensions.uiScale;
       const { width, height } = this.document.getSize();
-      const barShown = this.bars.visible && this.bars.bar1?.visible && this.bars.bar1?.renderable;
-      const below = barShown ? (this.lhBarHeight / 2) : 0;
-      this.nameplate.position.set(width / 2, height + below);
+      const bar2 = this.bars.bar2;
+      const below = (this.bars.visible && bar2?.visible && bar2?.renderable) ? this.lhBottom : 0;
+      const style = this.nameplate.style;
+      const ascent = PIXI.TextMetrics.measureFont(style.toFontString()).ascent;
+      const lift = ((style.strokeThickness ?? 0) / 2) + ascent - (0.7 * style.fontSize);
+      this.nameplate.position.set(width / 2, height + below + ((NAME_GAP - lift) * s));
     }
   };
 }
