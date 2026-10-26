@@ -5,9 +5,12 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.40.0
+## Versão 0.40.1
 
-- **Novo na 0.40.0: NPCs e Personagens Maiores em compêndios próprios e número romano no mapa.** O Bestiário fica só
+- **Novo na 0.40.1: a barra de PV em arco.** A barra de PV dos tokens virou um arco com borda dourada sobre o aro de
+  cima, e nada sai do token para o vizinho cobrir; o nome continua igual, logo abaixo da borda. Os losangos do Destino
+  foram para a borda de baixo, e os ícones de estado começam abaixo da ponta do arco (veja [Os tokens](#os-tokens)).
+- **Desde a 0.40.0: NPCs e Personagens Maiores em compêndios próprios e número romano no mapa.** O Bestiário fica só
   com as criaturas, e os NPCs e os Personagens Maiores ganham um compêndio cada: quem importa uma categoria não traz as
   outras. No mapa, cada criatura do Bestiário ganha um número romano depois do nome (Kobold I, Kobold II, Kobold III),
   também nos chamados e nas levas das Fendas. A luz das feras e divindades absolutas ficou fraca e própria de cada uma, e

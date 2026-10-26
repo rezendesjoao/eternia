@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.40.1 — 2026-10-26
+
+### Alterado
+- **A barra de PV dos tokens** virou um arco com borda dourada que acompanha o aro de cima do token e enche da esquerda
+  para a direita, com a Fadiga hachurada no fim e a Barreira num filete azul por fora, como antes: nada sai do token
+  para o vizinho cobrir. Continua aparecendo só em combate.
+- **O nome** continua igual, mais perto da borda de baixo do token.
+- **Os losangos do Destino** foram para a borda de baixo (quando aparecem, o nome desce um pouco para ficar abaixo
+  deles), e **os ícones de estado** começam abaixo da ponta esquerda do arco, na lateral esquerda do token.
+
 ## 0.40.0 — 2026-10-26
 
 ### Alterado
