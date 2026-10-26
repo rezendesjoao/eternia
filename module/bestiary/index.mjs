@@ -19,7 +19,10 @@
  *                   Connection;
  * - named-template.mjs, named.mjs  the named beast: the template (without Foundry) and the monster sheet's crown;
  * - spawn.mjs       bringing monsters next to a token, in its combat, leaving no drops;
- * - rifts.mjs       the Rifts: scene hazards with a clock of writings and a wave each Setup.
+ * - rifts.mjs       the Rifts: scene hazards with a clock of writings and a wave each Setup;
+ * - latch.mjs       the latch: a monster stuck to whoever it hurt, draining it each Setup, going where it goes;
+ * - gaze.mjs        the gaze: at the start of a turn near the monster, meet it (Resistance) or look away (−1d6);
+ * - lure.mjs        the lure: whoever the monster charms walks toward it each turn, until any damage.
  * The API for macros is `game.eternia.bestiary`.
  */
 import { convertTable, dropRows, parseDropTable, rollDrops, undoDrop, registerDrops } from "./drops.mjs";
@@ -34,6 +37,9 @@ import { engulf, insideOf, registerEngulf, release } from "./engulf.mjs";
 import { registerSplit } from "./split.mjs";
 import { isMetal, registerRust } from "./rust.mjs";
 import { registerContact } from "./contact.mjs";
+import { registerLatch, ripOff } from "./latch.mjs";
+import { answerGaze, registerGaze } from "./gaze.mjs";
+import { registerLure } from "./lure.mjs";
 
 /** Call during the `init` hook. */
 export function registerBestiary() {
@@ -46,6 +52,9 @@ export function registerBestiary() {
   registerSplit();
   registerRust();
   registerContact();
+  registerLatch();
+  registerGaze();
+  registerLure();
   game.eternia.bestiary = {
     disguise,
     reveal,
@@ -67,6 +76,8 @@ export function registerBestiary() {
     canBeSaved,
     nameMonster,
     nameBeast,
-    marks: MARKS
+    marks: MARKS,
+    ripOff,
+    answerGaze
   };
 }

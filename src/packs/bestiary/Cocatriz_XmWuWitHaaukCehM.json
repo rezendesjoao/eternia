@@ -1,0 +1,639 @@
+{
+  "name": "Cocatriz",
+  "type": "monster",
+  "img": "icons/creatures/birds/chicken-hen-green.webp",
+  "system": {
+    "health": {
+      "value": 42,
+      "max": 42,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mythic"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 8,
+        "magic": 6
+      },
+      "speed": 2,
+      "initiative": 4
+    },
+    "rank": 2,
+    "idendification": "7",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Um galo do tamanho de um cão, de crista vermelha, asas curtas de couro e uma cauda de serpente no lugar das penas do rabo. Os aldeões dizem que nasce de um ovo de galo chocado por um sapo; os sábios da Igreja, que é o Peso escrevendo por cima de um galinheiro. Onde ela bica, a carne endurece e fica cinza, e quem leva bicadas demais vira estátua no quintal.</p><p><b>Na mesa:</b> NP 2, das aldeias de borda e dos campos. A Bicada de Pedra petrifica aos poucos: a primeira deixa [Lento] até o fim da cena; a segunda, [Paralisado] e [Enraizado] (a pedra sobe pelas pernas); a terceira, [Petrificado]. O [Lento] e o [Enraizado] saem com uma Ação Maior cada (o Livrar-se), e o [Petrificado] sai quando a cocatriz cai: matá-la depressa é salvar quem ela bicou. As Asas Curtas a levam por cima da linha de frente atrás de quem já está lento.</p>"
+  },
+  "prototypeToken": {
+    "name": "Cocatriz",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/birds/chicken-hen-green.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Bicada de Pedra",
+      "type": "skill",
+      "img": "icons/commodities/bones/beak-hooked-red.webp",
+      "system": {
+        "description": "<p>[2d6 + 22] de dano físico, e a carne endurece: o alvo fica [Lento] até o fim da cena. Se já estava [Lento], fica também [Paralisado] e [Enraizado] até o fim da cena: a pedra sobe pelas pernas. Se já estava [Enraizado], vira pedra: [Petrificado].</p><p>O [Lento] e o [Enraizado] da bicada saem com uma Ação Maior cada (o Livrar-se); o [Petrificado] sai pela regra dele ou quando a cocatriz cai.</p><p>(Menor): +4 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 22,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "infinite": true,
+          "hitStatuses": [
+            {
+              "statusId": "slowed"
+            }
+          ],
+          "escalate": [
+            {
+              "if": "slowed",
+              "add": [
+                {
+                  "statusId": "paralyzed"
+                },
+                {
+                  "statusId": "rooted"
+                }
+              ]
+            },
+            {
+              "if": "rooted",
+              "add": [
+                {
+                  "statusId": "petrified"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "5iVvnVopbD8qPwQf",
+      "_key": "!actors.items!XmWuWitHaaukCehM.5iVvnVopbD8qPwQf"
+    },
+    {
+      "name": "Asas Curtas",
+      "type": "skill",
+      "img": "icons/creatures/abilities/wings-birdlike-blue.webp",
+      "system": {
+        "description": "<p>A cocatriz bate as asas curtas e salta: fica [Voando] até o fim do turno e passa por cima de quem estiver no caminho (só quem voa a obstrui).</p>",
+        "tags": [
+          "Movement"
+        ],
+        "timing": "Move",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "statusData": {
+                "statusId": "flying"
+              },
+              "expires": "endOfProcess"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Asas Curtas",
+          "img": "icons/creatures/abilities/wings-birdlike-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "flying"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "J7eVHXDvRQd9QHa2",
+          "_key": "!actors.items.effects!XmWuWitHaaukCehM.g4yNd9ehpRLVTyC3.J7eVHXDvRQd9QHa2"
+        }
+      ],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "g4yNd9ehpRLVTyC3",
+      "_key": "!actors.items!XmWuWitHaaukCehM.g4yNd9ehpRLVTyC3"
+    },
+    {
+      "name": "Sangue de Pedra",
+      "type": "skill",
+      "img": "icons/magic/earth/barrier-stone-brown-green.webp",
+      "system": {
+        "description": "<p>A pedra não pega nela: não fica [Lento], [Paralisado] nem [Petrificado].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "immune": [
+                "slowed",
+                "paralyzed",
+                "petrified"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Sangue de Pedra",
+          "img": "icons/magic/earth/barrier-stone-brown-green.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "YjrSrtggPRzFe61Y",
+          "_key": "!actors.items.effects!XmWuWitHaaukCehM.zTIAZftQFulIXWok.YjrSrtggPRzFe61Y"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "zTIAZftQFulIXWok",
+      "_key": "!actors.items!XmWuWitHaaukCehM.zTIAZftQFulIXWok"
+    },
+    {
+      "name": "Penas de Cocatriz",
+      "type": "gear",
+      "img": "icons/commodities/materials/feather-colored-green.webp",
+      "system": {
+        "description": "<p>Um punhado de penas verdes e duras, que estalam como lascas de pedra. Os chapeleiros de Centória pagam por elas; as velhas das aldeias as queimam contra mau-olhado.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 2,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "l05thWaUEnF9zK36",
+      "sort": 400000,
+      "_key": "!actors.items!XmWuWitHaaukCehM.l05thWaUEnF9zK36"
+    },
+    {
+      "name": "Ovo de Cocatriz",
+      "type": "gear",
+      "img": "icons/consumables/eggs/egg-cracked-white.webp",
+      "system": {
+        "description": "<p>Um ovo pequeno e pesado demais, de casca cinzenta, achado no ninho dela. Ninguém sabe o que sai dele; os alquimistas querem descobrir.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 2,
+        "price": 30,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "58p8s5e30dyWNRV0",
+      "sort": 500000,
+      "_key": "!actors.items!XmWuWitHaaukCehM.58p8s5e30dyWNRV0"
+    },
+    {
+      "name": "Bico de Pedra",
+      "type": "gear",
+      "img": "icons/commodities/bones/beak-orange-green.webp",
+      "system": {
+        "description": "<p>O bico da cocatriz, que virou pedra quando ela morreu. Os escultores o usam para gravar mármore; os curandeiros dizem que, moído, amolece a carne endurecida.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 2,
+        "price": 50,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "3Lo52P0B2KUGDEpL",
+      "sort": 600000,
+      "_key": "!actors.items!XmWuWitHaaukCehM.3Lo52P0B2KUGDEpL"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 800000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "XmWuWitHaaukCehM",
+  "folder": "AkcsXT1tICuoFTMn",
+  "_key": "!actors!XmWuWitHaaukCehM"
+}

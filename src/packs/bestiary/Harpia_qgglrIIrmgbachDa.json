@@ -1,0 +1,625 @@
+{
+  "name": "Harpia",
+  "type": "monster",
+  "img": "icons/creatures/birds/raptor-hawk-flying.webp",
+  "system": {
+    "health": {
+      "value": 50,
+      "max": 50,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mythic"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 7,
+        "magic": 10
+      },
+      "speed": 2,
+      "initiative": 7
+    },
+    "rank": 3,
+    "idendification": "7",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 1
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 3
+      }
+    },
+    "description": "<p>Uma mulher da cintura para cima, de cabelo de penas e olhos de ave, e uma águia da cintura para baixo, de asas largas e garras amarelas. Faz ninho nas falésias da serra, sobre as trilhas dos mineiros, e canta: uma canção sem palavras que faz o viajante largar a mão do companheiro e andar até a beira. Come o que cai.</p><p><b>Na mesa:</b> NP 3, das trilhas da serra e dos desfiladeiros. O Canto do Penhasco deixa [Encantado] quem falha na Resistência, em área, e A Voz que Chama faz cada encantado gastar a Ação de Movimento no começo do turno e andar na direção dela, sozinho, até sofrer dano (de qualquer um: um aliado acorda o outro com um golpe), gastar uma Ação Maior ou ela cair. O canto é uma [Canção]: o [Silenciado] a cala. Ela voa, e gosta de cantar sobre o vazio, onde quem anda até ela não tem chão.</p>"
+  },
+  "prototypeToken": {
+    "name": "Harpia",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/birds/raptor-hawk-flying.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Canto do Penhasco",
+      "type": "skill",
+      "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
+      "system": {
+        "description": "<p>Área (Escolha) a até 4 Qd: [2d6 + 8] de dano mágico, e quem é atingido fica [Encantado] por ela (veja A Voz que Chama).</p><p>É uma [Canção]: o [Silenciado] a impede.</p>",
+        "tags": [
+          "Magic Attack",
+          "Song"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 8,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "charmed"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "GGcsgoWLqZ7XEeP6",
+      "_key": "!actors.items!qgglrIIrmgbachDa.GGcsgoWLqZ7XEeP6"
+    },
+    {
+      "name": "A Voz que Chama",
+      "type": "skill",
+      "img": "icons/magic/control/control-influence-puppet.webp",
+      "system": {
+        "description": "<p>Quem a harpia deixa [Encantado] anda até ela: no começo de cada turno, gasta a Ação de Movimento e anda a Velocidade dele na direção dela (o token vai sozinho e para numa parede ou ao chegar). Sem a Ação de Movimento ou preso, fica onde está.</p><p>O encanto sai quando o encantado sofre dano, de qualquer um (um aliado o acorda com um golpe), com uma Ação Maior (o Livrar-se) ou quando ela cai. Como todo [Encantado], ele não ataca a harpia e sofre −1d6 nas Esquivas contra ela.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "lure"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "gnB8mJRiROgwCr6G",
+      "_key": "!actors.items!qgglrIIrmgbachDa.gnB8mJRiROgwCr6G"
+    },
+    {
+      "name": "Garras de Rapina",
+      "type": "skill",
+      "img": "icons/creatures/claws/claw-talons-yellow-red.webp",
+      "system": {
+        "description": "<p>[2d6 + 11] de dano físico.</p><p>(Menor): +4 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 11,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "3yZDoRiuwIXhQj69",
+      "_key": "!actors.items!qgglrIIrmgbachDa.3yZDoRiuwIXhQj69"
+    },
+    {
+      "name": "Asas da Harpia",
+      "type": "skill",
+      "img": "icons/magic/control/buff-flight-wings-blue.webp",
+      "system": {
+        "description": "<p>Está sempre [Voando]: canta de cima, sobre o vazio.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {}
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Asas da Harpia",
+          "img": "icons/magic/control/buff-flight-wings-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "flying"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "G4yXFA691g1JYawD",
+          "_key": "!actors.items.effects!qgglrIIrmgbachDa.T96BmZXounssDDrm.G4yXFA691g1JYawD"
+        }
+      ],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "T96BmZXounssDDrm",
+      "_key": "!actors.items!qgglrIIrmgbachDa.T96BmZXounssDDrm"
+    },
+    {
+      "name": "Penas de Harpia",
+      "type": "gear",
+      "img": "icons/commodities/materials/feather-blue-green.webp",
+      "system": {
+        "description": "<p>Penas longas, de um azul que fica verde no sol. Os flecheiros da serra as querem para as flechas que não podem errar.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 3,
+        "price": 25,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "9NkQZ8WypHEKT1hX",
+      "sort": 500000,
+      "_key": "!actors.items!qgglrIIrmgbachDa.9NkQZ8WypHEKT1hX"
+    },
+    {
+      "name": "Garras de Harpia",
+      "type": "gear",
+      "img": "icons/commodities/claws/talon-red.webp",
+      "system": {
+        "description": "<p>As garras amarelas de uma harpia, curvas como anzóis. Os mineiros as penduram na entrada das trilhas: dizem que espantam as outras.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 3,
+        "price": 35,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "acEaaBKX8uDl0mcU",
+      "sort": 600000,
+      "_key": "!actors.items!qgglrIIrmgbachDa.acEaaBKX8uDl0mcU"
+    },
+    {
+      "name": "Pena Cantante",
+      "type": "gear",
+      "img": "icons/commodities/materials/feather-white-glowing-beams.webp",
+      "system": {
+        "description": "<p>Uma pena da garganta da harpia que ainda canta baixinho quando o vento passa por ela. Os bardos de Centória pagam caro; quem a ouve demais fica com saudade de alguma beira.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 3,
+        "price": 65,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "opmSe9wCrGFdqCQQ",
+      "sort": 700000,
+      "_key": "!actors.items!qgglrIIrmgbachDa.opmSe9wCrGFdqCQQ"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 800000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "qgglrIIrmgbachDa",
+  "folder": "nOCT1FwbTpBWjiiE",
+  "_key": "!actors!qgglrIIrmgbachDa"
+}
