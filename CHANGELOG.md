@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.38.0 — 2026-10-26
+
+### Adicionado
+- **126 NPCs prontos no compêndio Bestiário**, na pasta **NPCs** (só do Mestre), em nove subpastas: Campo e Aldeias,
+  Cidades e Ofícios, Igreja Axiom, Nobreza e Governo, Guardas e Cavaleiros, Academias e Saber, Guildas e Aventureiros,
+  Povos da Forma e Além do Muro.
+  - **Fichas de personagem**, montadas como o assistente de criação monta uma: a raça com as duas inatas e, em quem
+    tem a forma mais avançada, as habilidades dos estágios (os Humanos que completaram a Tarefa Sagrada estão no II, os
+    de chifres no III, o Homem Branco da Serra no IV); a profissão com o Rank pela aparência; o NP pela aparência; as
+    habilidades básicas e os 5 pontos de atributo; PV e Destino cheios.
+  - **Classe só nos guerreiros** (Centurião, Hierofante, Samurai, Lutador, Caçador, Berserker e Assassino), com o kit, o
+    Caminho a partir do NP 3 e o Ápice no NP 10. Ninguém tem Magia: as vagas da classe ficam vazias.
+  - **Nomes e ganchos:** cada um tem nome, alcunha, idade, terra natal, a guilda quando tem e um gancho na biografia. As
+    casas nobres do mundo (Vaelgrim, Hartwin, Rothmer, Ostrel, Zandrel, Delaroque, Ashtari e Meirin) ganharam rostos.
+  - **Token e retrato no traço de anime**, com a moldura da Eternia e um fio verde-azulado, para não confundir NPC com
+    monstro. O token vem neutro, vinculado e com o nome à vista.
+
 ## 0.37.0 — 2026-10-25
 
 ### Adicionado

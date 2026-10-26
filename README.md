@@ -5,9 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.37.0
+## Versão 0.38.0
 
-- **Novo na 0.37.0: 24 criaturas novas no bestiário do Império.** Gosmas e armadilhas vivas, olhares que petrificam,
+- **Novo na 0.38.0: 126 NPCs prontos no Bestiário.** A pasta NPCs (só do Mestre) traz gente de todo canto do mundo, do
+  camponês ao alto sacerdote, das casas nobres às guildas, dos elfos das vilas de cristal ao Território Negro e a
+  Aincrad, em nove pastas. Cada um tem nome, raça, profissão com o Rank, NP, token e retrato no traço de anime e um
+  gancho na biografia; os guerreiros têm classe, e ninguém tem Magia (veja [O bestiário](#o-bestiário)).
+- **Desde a 0.37.0: 24 criaturas novas no bestiário do Império.** Gosmas e armadilhas vivas, olhares que petrificam,
   mortos que levantam, gente da fronteira, o estranho das Fendas e chefes que pedem estratégia, do NP 1 ao 7, cada uma
   com uma regra automatizada que muda o jeito de lutar (o disfarce, o engolir, o grudar, o olhar, o levantar, a Fúria
   Sanguinária, o teleporte, a fase, as cabeças e outras) e com token e retrato. Os 22 monstros antigos ganharam nomes no
@@ -781,6 +785,13 @@ Eternia (aro de ouro, fio carmesim e um losango de cada lado, sobre fundo branco
 roxo com brilhos e uma luz violeta animada (estrelas na Pequena, um campo de energia na Grande e um vórtice na
 Fenda-mãe). Os monstros que um mundo já tinha trazido do compêndio (arrastados, chamados, soltos por uma Fenda)
 ganham os nomes de hoje e a arte na migração da 0.37; o que o Mestre mudou neles fica.
+
+**Os NPCs.** A pasta **NPCs** do compêndio Bestiário traz 126 personagens prontos, em nove pastas: Campo e Aldeias,
+Cidades e Ofícios, Igreja Axiom, Nobreza e Governo, Guardas e Cavaleiros, Academias e Saber, Guildas e Aventureiros,
+Povos da Forma e Além do Muro. São fichas de personagem com raça, profissão (com o Rank), NP e, nos guerreiros, classe
+com o kit, o Caminho e o Ápice; ninguém tem Magia. Cada um tem alcunha, idade, terra natal e um gancho na biografia, e
+um token neutro e vinculado, com a moldura da Eternia e um fio verde-azulado. Sem classe, a ficha soma só os números da
+raça, como o sistema calcula: o povo comum é frágil numa luta.
 
 A página **XIV. O BESTIÁRIO** do diário AS REGRAS explica tudo para o Mestre.
 
