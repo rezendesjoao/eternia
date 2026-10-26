@@ -5,14 +5,18 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.39.0
+## Versão 0.40.0
 
-- **Novo na 0.39.0: 122 personagens maiores no Bestiário.** A pasta Personagens Maiores (só do Mestre) traz os
-  personagens de grande relevância na história, em 14 pastas, cada um com nome, raça e token e retrato no traço de
-  anime. A ficha vem em branco para o Mestre montar: o assistente de criação abre com a raça já marcada. As feras e
-  divindades absolutas têm um token de outro formato, com raios de ouro e um céu da noite, em 2×2 e com luz (veja
-  [O bestiário](#o-bestiário)).
-- **Desde a 0.38.0: 126 NPCs prontos no Bestiário.** A pasta NPCs (só do Mestre) traz gente de todo canto do mundo, do
+- **Novo na 0.40.0: NPCs e Personagens Maiores em compêndios próprios e número romano no mapa.** O Bestiário fica só
+  com as criaturas, e os NPCs e os Personagens Maiores ganham um compêndio cada: quem importa uma categoria não traz as
+  outras. No mapa, cada criatura do Bestiário ganha um número romano depois do nome (Kobold I, Kobold II, Kobold III),
+  também nos chamados e nas levas das Fendas. A luz das feras e divindades absolutas ficou fraca e própria de cada uma, e
+  os demônios trazem uma névoa escura em volta do token (veja [O bestiário](#o-bestiário)).
+- **Desde a 0.39.0: 122 personagens maiores.** O compêndio Personagens Maiores (só do Mestre) traz os personagens de
+  grande relevância na história, em 14 pastas, cada um com nome, raça e token e retrato no traço de anime. A ficha vem em
+  branco para o Mestre montar: o assistente de criação abre com a raça já marcada. As feras e divindades absolutas têm um
+  token de outro formato, com raios de ouro e um céu da noite, em 2×2.
+- **Desde a 0.38.0: 126 NPCs prontos.** O compêndio NPCs (só do Mestre) traz gente de todo canto do mundo, do
   camponês ao alto sacerdote, das casas nobres às guildas, dos elfos das vilas de cristal ao Território Negro e a
   Aincrad, em nove pastas. Cada um tem nome, raça, profissão com o Rank, NP, token e retrato no traço de anime e um
   gancho na biografia; os guerreiros têm classe, e ninguém tem Magia (veja [O bestiário](#o-bestiário)).
@@ -791,19 +795,24 @@ roxo com brilhos e uma luz violeta animada (estrelas na Pequena, um campo de ene
 Fenda-mãe). Os monstros que um mundo já tinha trazido do compêndio (arrastados, chamados, soltos por uma Fenda)
 ganham os nomes de hoje e a arte na migração da 0.37; o que o Mestre mudou neles fica.
 
-**Os NPCs.** A pasta **NPCs** do compêndio Bestiário traz 126 personagens prontos, em nove pastas: Campo e Aldeias,
+**No mapa**, cada criatura do Bestiário ganha um número romano depois do nome: Kobold I, Kobold II, Kobold III. Vale
+para as que o Mestre arrasta e para as que entram no meio da luta (os chamados, as levas das Fendas); o número é o menor
+que nenhuma outra da cena com o mesmo nome tem.
+
+**Os NPCs** e **os personagens maiores** ficam em compêndios próprios, fora do Bestiário: quem importa uma categoria
+não traz as outras. O compêndio **NPCs** traz 126 personagens prontos, em nove pastas: Campo e Aldeias,
 Cidades e Ofícios, Igreja Axiom, Nobreza e Governo, Guardas e Cavaleiros, Academias e Saber, Guildas e Aventureiros,
 Povos da Forma e Além do Muro. São fichas de personagem com raça, profissão (com o Rank), NP e, nos guerreiros, classe
 com o kit, o Caminho e o Ápice; ninguém tem Magia. Cada um tem alcunha, idade, terra natal e um gancho na biografia, e
 um token neutro e vinculado, com a moldura da Eternia e um fio verde-azulado. Sem classe, a ficha soma só os números da
 raça, como o sistema calcula: o povo comum é frágil numa luta.
 
-**Os personagens maiores.** A pasta **Personagens Maiores** do compêndio Bestiário traz 122 personagens de grande
-relevância na história, em 14 pastas, dos espadachins aos anciãos, das damas e sacerdotisas aos meio-feras e às feras
+**Os personagens maiores.** O compêndio **Personagens Maiores** traz 122 personagens de grande relevância na
+história, em 14 pastas, dos espadachins aos anciãos, das damas e sacerdotisas aos meio-feras e às feras
 e divindades. Cada um vem com o nome, a raça e um token e retrato no traço de anime; o resto da ficha (a classe, a
 Magia, a profissão, os atributos, o NP) fica para o Mestre: o botão da pena abre o assistente de criação com a raça já
 marcada. As feras e divindades absolutas têm o token Astro, o círculo de ouro com raios em cada canto e um céu da noite
-atrás, em 2×2 e com uma luz dourada animada.
+atrás, em 2×2, com uma luz leve na cor de cada uma; os demônios trazem uma névoa escura em volta.
 
 A página **XIV. O BESTIÁRIO** do diário AS REGRAS explica tudo para o Mestre.
 

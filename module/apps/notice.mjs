@@ -1,5 +1,7 @@
 /**
- * What's new: once per user and release line, a short window with the news of this version (0.39: 122 major
+ * What's new: once per user and release line, a short window with the news of this version (0.40: the NPCs and the
+ * Major Characters in compendiums of their own, Roman numerals on the creatures' tokens, the soft light of each
+ * absolute beast and deity; 0.39: 122 major
  * characters in the Bestiary, blank sheets with a race and art, the absolute beasts and deities with a token of their
  * own; 0.38: 126 ready NPCs in the Bestiary, with race, profession, rank, a class for the warriors and art; 0.37: 24 new creatures in the Empire's
  * bestiary, their rules and art, the new names and the folders by rank; 0.36: the art of the
@@ -24,7 +26,7 @@
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 
 /** The release line the notice speaks about. */
-const NOTICE = "0.39";
+const NOTICE = "0.40";
 
 /** Call during the `init` hook. */
 export function registerNotice() {

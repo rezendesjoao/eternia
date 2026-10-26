@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.40.0 — 2026-10-26
+
+### Alterado
+- **NPCs e Personagens Maiores em compêndios próprios**, fora do Bestiário, que ficou só com as criaturas: o Mestre
+  importa uma categoria sem trazer as outras. As pastas de dentro continuam as mesmas.
+- **Número romano no token das criaturas:** no mapa, cada criatura do Bestiário ganha um número depois do nome, sem
+  parênteses (Kobold I, Kobold II, Kobold III), no lugar do "Kobold (1)" do Foundry, também nos chamados e nas levas das
+  Fendas. Todas as criaturas do compêndio numeram agora (antes só as do Império); as que o mundo já tinha trazido seguem
+  como estavam até serem importadas de novo.
+- **A luz das feras e divindades absolutas**, que estourava o próprio token num mapa claro, agora é fraca e própria de
+  cada uma: âmbar no Ladon, dourado-claro no Hyperion, lilás no Hati, violeta no Raijū, dourado no Sköll e ciano no
+  Seiryū. O Marbas, o Malphas e o Abaddon não têm luz e ganharam uma névoa escura em volta do token. Os que o mundo já
+  tinha trazido seguem como estavam até serem importados de novo.
+
 ## 0.39.0 — 2026-10-26
 
 ### Adicionado
