@@ -13,7 +13,8 @@
  *   [Charmed] never attacks its charmer, [Dominated] never attacks who dominates it nor that one's side.
  *   [Frightened] can't move closer to what frightens it. A Magia's Taboo may keep its spells off the creatures engaged
  *   with the user (the Invasão's Distance: conditions/distance.mjs).
- * - Actions: [Hasted] has a second Minor Action; [Slowed] has no Move Action.
+ * - Actions: [Hasted] has a second Minor Action; [Slowed] has no Move Action; a monster with heads has a Major Action
+ *   for each (bestiary/heads.mjs).
  */
 import { L, setting } from "../settings.mjs";
 import { parseSkillField } from "../helpers/skill-fields.mjs";
@@ -23,6 +24,7 @@ import { NO_ACTIONS, NO_MOVEMENT, NO_REACTIONS, SILENCED_TAGS } from "./catalog.
 import { has, isHostile, isSourceOf, limitsMode, rulesOn, sameActor, sourcesOf } from "./rules.mjs";
 import { engagedIssues } from "./distance.mjs";
 import { needsIssues } from "./copies.mjs";
+import { extraMajors } from "../bestiary/heads.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 const REACTIONS = new Set(["Before Check", "After Check", "Damage Roll", "Before Damage", "After Damage"]);
@@ -148,7 +150,7 @@ export function sealedSkills(actor) {
 
 /**
  * How many actions of each kind an actor has in its Main Process: [Hasted] has a second Minor Action, [Slowed]
- * has no Move Action.
+ * has no Move Action, a monster with heads a Major Action for each.
  * @param {Actor} actor
  * @returns {{major: number, minor: number, move: number}}
  */
@@ -157,6 +159,8 @@ export function actionAllowance(actor) {
   if (!rulesOn()) return allowed;
   if (has(actor, "hasted")) allowed.minor = 2;
   if (has(actor, "slowed")) allowed.move = 0;
+  // A monster with heads: one Major Action for each (bestiary/heads.mjs)
+  allowed.major += extraMajors(actor);
   return allowed;
 }
 

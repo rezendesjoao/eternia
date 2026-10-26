@@ -354,10 +354,16 @@ async function setupRecharge(combat) {
 /*  Struck by a tag                             */
 /* -------------------------------------------- */
 
-/** A damage card hurt a monster (on the window that applied it): the tags it is weak or vulnerable to. */
+/** Whether an actor eats one of these tags (an effect with `flags.eternia.absorb`: that damage heals it). */
+const eats = (actor, tags) => [...(actor.allApplicableEffects?.() ?? [])]
+  .some(e => e.active && (e.getFlag(SYSTEM_ID, "absorb") ?? []).some(t => tags.includes(String(t).toLowerCase())));
+
+/** A damage card hurt a monster, or fed it (on the window that applied it): the tags it is weak or vulnerable to. */
 async function onStruck(actor, card, { amount = 0, absorbed = 0, attacker = null } = {}) {
-  if ((actor?.type !== "monster") || !actor.isOwner || ((toInt(amount) <= 0) && (toInt(absorbed) <= 0))) return;
+  if ((actor?.type !== "monster") || !actor.isOwner) return;
   const tags = (card?.tags ?? []).map(t => String(t).toLowerCase());
+  // A blow that took HP or Barrier, or one it ate (the lightning that heals the Shambling Mound)
+  if ((toInt(amount) <= 0) && (toInt(absorbed) <= 0) && !eats(actor, tags)) return;
   for (const item of withRule(actor, "struck")) {
     const rule = ruleOf(item);
     const tag = (rule.tags ?? []).find(t => tags.includes(String(t).toLowerCase()));

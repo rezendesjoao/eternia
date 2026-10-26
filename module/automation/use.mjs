@@ -39,6 +39,7 @@ import { chipText } from "../helpers/text-chips.mjs";
 import { isRecharging } from "../bestiary/recharge.mjs";
 import { troopTargets } from "../bestiary/troop.mjs";
 import { rampageIssues } from "../bestiary/rampage.mjs";
+import { monsterUseIssues } from "../bestiary/use-checks.mjs";
 
 /** The action a Timing spends in the Main Process. */
 const ACTIONS = { Major: "major", Minor: "minor", Move: "move" };
@@ -345,6 +346,8 @@ export function inspectUse(item, { targets = null } = {}) {
   if (reach && (targets.length > reach)) {
     issues.push({ text: L("Use.TroopTargets", { skill: item.name, n: reach }), mode: setting("limits") || "warn", kind: "item" });
   }
+  // The bestiary's own: the nearest of a fury, the heads' Major Actions, a monster inside someone (bestiary/use-checks.mjs)
+  issues.push(...monsterUseIssues(item, actor, { targets, combat }));
 
   // Usage limit, and the conditions of an item's skill
   const limitsMode = setting("limits");

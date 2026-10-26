@@ -30,6 +30,10 @@
  *                   throw (a body thrown at a creature, which takes the impact).
  * - blink.mjs, likeness.mjs, phase.mjs, halve.mjs  the blink to someone's back, taking a face, the phase out of the
  *                   writing between its turns, the hide that takes half of the physical damage.
+ * - nearest.mjs     the monster that attacks the nearest creature, ally or enemy (the Flesh Golem's fury);
+ * - possess.mjs     the blow that possesses: the monster inside someone, hurt with it, burned out by the light;
+ * - heads.mjs       the heads: a Major Action for each, cut by each fifth of the HP, grown back unless burned;
+ * - use-checks.mjs  what those three say against using a skill (read by automation/use.mjs).
  * The API for macros is `game.eternia.bestiary`.
  */
 import { convertTable, dropRows, parseDropTable, rollDrops, undoDrop, registerDrops } from "./drops.mjs";
@@ -55,6 +59,9 @@ import { registerThrow, throwCreature } from "./throw.mjs";
 import { registerBlink } from "./blink.mjs";
 import { copyLook, registerLikeness, restoreLook } from "./likeness.mjs";
 import { isPhased, registerPhase } from "./phase.mjs";
+import { nearestTo, registerNearest } from "./nearest.mjs";
+import { possessingOf, registerPossess } from "./possess.mjs";
+import { headsOf, registerHeads } from "./heads.mjs";
 
 /** Call during the `init` hook. */
 export function registerBestiary() {
@@ -78,6 +85,9 @@ export function registerBestiary() {
   registerBlink();
   registerLikeness();
   registerPhase();
+  registerNearest();
+  registerPossess();
+  registerHeads();
   game.eternia.bestiary = {
     disguise,
     reveal,
@@ -86,6 +96,9 @@ export function registerBestiary() {
     release,
     insideOf,
     isMetal,
+    headsOf,
+    nearestTo,
+    possessingOf,
     rollDrops,
     undoDrop,
     dropRows,

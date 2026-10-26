@@ -1,0 +1,1022 @@
+{
+  "name": "Fantasma",
+  "type": "monster",
+  "img": "icons/creatures/magical/spirit-undead-ghost-tan-teal.webp",
+  "system": {
+    "health": {
+      "value": 216,
+      "max": 216,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Undead",
+      "Spirit"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 12,
+        "magic": 18
+      },
+      "speed": 2,
+      "initiative": 8
+    },
+    "rank": 7,
+    "idendification": "10",
+    "hateMultiplier": "3",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 4
+      }
+    },
+    "description": "<p>Uma alma que não foi embora: alguém que morreu com uma tarefa pela metade e ficou preso ao lugar, frio como a névoa da manhã. De dia é um vulto no canto do olho; de noite, um rosto que grita sem som. Ele quer de volta o que perdeu, e o que perdeu foi um corpo.</p><p><b>Na mesa:</b> chefe sozinho de NP 7, que flutua. Em cada Manutenção vira névoa: [Intangível] até usar a Ação Maior, então bata nele depois que ele agir. A Possessão (com Recarga) o põe dentro de um personagem: o token dele some, e o possuído fica [Dominado] até o fantasma sair. Ferir o possuído fere os dois; um golpe ou uma cura de [Radiância] no possuído o queima para fora, [Exposto]; e, no fim de cada turno, o possuído rola Resistência contra a do fantasma para expulsá-lo. A luz também o fere mais ([Fraqueza (Radiância): 7]).</p>"
+  },
+  "prototypeToken": {
+    "name": "Fantasma",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/magical/spirit-undead-ghost-tan-teal.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Lamento",
+      "type": "skill",
+      "img": "icons/magic/death/undead-ghost-scream-teal.webp",
+      "system": {
+        "description": "<p>A voz dos mortos: [2d6 + 53] de dano mágico, e o alvo fica [Enfraquecido: 7].</p><p>[Destino 1]: Área (Escolha) a até 4 Qd.</p>",
+        "tags": [
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 53,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "weakened",
+              "value": 7
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "MH5fjmPYkBTCLcGr",
+      "_key": "!actors.items!PoP3BH5ShG8oTEUx.MH5fjmPYkBTCLcGr"
+    },
+    {
+      "name": "Rosto da Morte",
+      "type": "skill",
+      "img": "icons/magic/death/undead-ghost-strike-white.webp",
+      "system": {
+        "description": "<p>Ele mostra o rosto de quando morreu: Área (Escolha) a até 4 Qd, [2d6 + 35] de dano mágico, [Medo] dele, e os alvos recuam 2 Qd.</p><p>Recarga: depois de usado, só volta com 5 ou 6 no 1d6 de uma Manutenção.</p>",
+        "tags": [
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 35,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "recharge",
+            "min": 5
+          },
+          "hitStatuses": [
+            {
+              "statusId": "frightened"
+            }
+          ],
+          "useActions": [
+            {
+              "type": "push",
+              "value": 2
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "CU9VkhepIXZI1sB8",
+      "_key": "!actors.items!PoP3BH5ShG8oTEUx.CU9VkhepIXZI1sB8"
+    },
+    {
+      "name": "Possessão",
+      "type": "skill",
+      "img": "icons/magic/control/control-influence-puppet.webp",
+      "system": {
+        "description": "<p>O fantasma entra no alvo: [2d6 + 20] de dano mágico e, se o golpe acertar, ele fica lá dentro. O token dele some, o alvo fica [Dominado] por ele enquanto ele estiver lá (não sai no fim do turno), e o fantasma não age.</p><p>Ferir o possuído fere os dois: os PV que um cartão de dano tira do possuído saem também do fantasma. Um cartão de [Radiância] no possuído, de dano ou de cura, o queima para fora, e ele fica [Exposto]. No fim de cada turno, o possuído rola Resistência contra a do fantasma: vencendo, o expulsa. Se um dos dois cair, ele sai.</p><p>Recarga: depois de usada, só volta com 5 ou 6 no 1d6 de uma Manutenção.</p>",
+        "tags": [
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 20,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "recharge",
+            "min": 5
+          },
+          "possess": {
+            "expel": [
+              "Radiance"
+            ],
+            "expelled": [
+              {
+                "statusId": "exposed"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "fQupHfWD1nbG82Nh",
+      "_key": "!actors.items!PoP3BH5ShG8oTEUx.fQupHfWD1nbG82Nh"
+    },
+    {
+      "name": "Névoa",
+      "type": "skill",
+      "img": "icons/magic/air/fog-gas-smoke-swirling-white.webp",
+      "system": {
+        "description": "<p>Ele flutua ([Voando]) e, em cada Manutenção, vira névoa: fica [Intangível] (não sofre dano físico) até usar uma Ação Maior ou até o Encerramento.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "realm": {
+                "radius": 0,
+                "allies": [
+                  {
+                    "statusId": "intangible"
+                  }
+                ]
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Névoa",
+          "img": "icons/magic/air/fog-gas-smoke-swirling-white.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "flying"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "ZvIDcldkw85FWI0R",
+          "_key": "!actors.items.effects!PoP3BH5ShG8oTEUx.KdeuDVZPRIxhnmRb.ZvIDcldkw85FWI0R"
+        }
+      ],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "KdeuDVZPRIxhnmRb",
+      "_key": "!actors.items!PoP3BH5ShG8oTEUx.KdeuDVZPRIxhnmRb"
+    },
+    {
+      "name": "Luz que Queima",
+      "type": "skill",
+      "img": "icons/magic/light/beam-rays-yellow-blue.webp",
+      "system": {
+        "description": "<p>A luz o desfaz: ele tem [Fraqueza (Radiância): 7].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "weaknessTag": "Radiance"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.34.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Luz que Queima",
+          "img": "icons/magic/light/beam-rays-yellow-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.weakness",
+                "type": "add",
+                "value": "7",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "T46fCTdHO1iTvFpi",
+          "_key": "!actors.items.effects!PoP3BH5ShG8oTEUx.NF9ZE2ur01yXyOFw.T46fCTdHO1iTvFpi"
+        }
+      ],
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "NF9ZE2ur01yXyOFw",
+      "_key": "!actors.items!PoP3BH5ShG8oTEUx.NF9ZE2ur01yXyOFw"
+    },
+    {
+      "name": "Sem Descanso",
+      "type": "skill",
+      "img": "icons/magic/death/grave-tombstone-glow-teal.webp",
+      "system": {
+        "description": "<p>No Encerramento, ele se livra de 2 Estados Negativos: o que já morreu não fica preso.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "cleanse",
+            "count": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "MOJxHNtYbWlEvZEo",
+      "_key": "!actors.items!PoP3BH5ShG8oTEUx.MOJxHNtYbWlEvZEo"
+    },
+    {
+      "name": "Ouro",
+      "type": "gear",
+      "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
+      "system": {
+        "description": "",
+        "tags": [],
+        "rank": 1,
+        "price": 0,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1,
+            "gold": "2d6*5"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "QbMUBikRtrTHMfcf",
+      "sort": 700000,
+      "_key": "!actors.items!PoP3BH5ShG8oTEUx.QbMUBikRtrTHMfcf"
+    },
+    {
+      "name": "Anel do Morto",
+      "type": "gear",
+      "img": "icons/equipment/finger/ring-inlay-skull-silver.webp",
+      "system": {
+        "description": "<p>O anel que ele não tirou nem depois de morrer, frio como gelo. Alguém, em alguma vila, ainda espera que ele volte com ele.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 7,
+        "price": 200,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 2,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "zpV9cxRrdk9qX1vy",
+      "sort": 800000,
+      "_key": "!actors.items!PoP3BH5ShG8oTEUx.zpV9cxRrdk9qX1vy"
+    },
+    {
+      "name": "Lágrima de Névoa",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-faceted-teardrop-teal.webp",
+      "system": {
+        "description": "<p>Névoa que endureceu num cristal cinza, frio ao toque. Serve de Anima-mundi 7 na Oficina.</p>",
+        "tags": [
+          "Magic Catalyst 7"
+        ],
+        "rank": 7,
+        "price": 60,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 3,
+            "max": 4,
+            "qty": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "xa9cT2cPVQmCRj6u",
+      "sort": 900000,
+      "_key": "!actors.items!PoP3BH5ShG8oTEUx.xa9cT2cPVQmCRj6u"
+    },
+    {
+      "name": "Carta Não Entregue",
+      "type": "gear",
+      "img": "icons/sundries/documents/envelope-sealed-red-white.webp",
+      "system": {
+        "description": "<p>A carta que ele levava quando morreu, ainda lacrada. Entregá-la talvez seja o que o prendia aqui.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 7,
+        "price": 330,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 5,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Z2VWzj3UUgRa5TEc",
+      "sort": 1000000,
+      "_key": "!actors.items!PoP3BH5ShG8oTEUx.Z2VWzj3UUgRa5TEc"
+    },
+    {
+      "name": "Retrato Desbotado",
+      "type": "gear",
+      "img": "icons/sundries/documents/document-symbol-person-brown.webp",
+      "system": {
+        "description": "<p>O retrato do rosto que ele tinha, numa moldura de prata. Quem o leva sente alguém olhando por cima do ombro.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 7,
+        "price": 400,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Yq9TCM5rcnJBRUa6",
+      "sort": 1100000,
+      "_key": "!actors.items!PoP3BH5ShG8oTEUx.Yq9TCM5rcnJBRUa6"
+    },
+    {
+      "name": "Anima-mundi 8",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 8 gasta uma Anima-mundi 8 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 8"
+        ],
+        "rank": 8,
+        "price": 70,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 252
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.FNS3OlzyE54jXqLF",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "MTBLmWP32DmOSnXf",
+      "sort": 1200000,
+      "_key": "!actors.items!PoP3BH5ShG8oTEUx.MTBLmWP32DmOSnXf"
+    },
+    {
+      "name": "Véu do Fantasma",
+      "type": "gear",
+      "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
+      "system": {
+        "description": "<p>Um pedaço da névoa dele que não se desfez, leve como seda e frio como um poço. Um [Material-Base] de NP 7.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 7,
+        "price": 140,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "rmQX4Q4BWiNAxaj0",
+      "sort": 1300000,
+      "_key": "!actors.items!PoP3BH5ShG8oTEUx.rmQX4Q4BWiNAxaj0"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 700000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "PoP3BH5ShG8oTEUx",
+  "folder": "floINKQ1GrWyM7Jv",
+  "_key": "!actors!PoP3BH5ShG8oTEUx"
+}
