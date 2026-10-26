@@ -280,10 +280,11 @@ e Além do Muro.
 
 ## Os personagens maiores
 
-O compêndio **Personagens Maiores** (`major-characters`, só do Mestre) tem 122 personagens de grande relevância na
-história, em 14 pastas: Espadachins, Guerreiras e Aventureiras, Cavaleiros e Armaduras, Damas,
+O compêndio **Personagens Maiores** (`major-characters`, só do Mestre) tem 140 personagens de grande relevância na
+história, em 15 pastas: Espadachins, Guerreiras e Aventureiras, Cavaleiros e Armaduras, Damas,
 Sacerdotisas e Magas, Nobres e Lordes, Aventureiros e Foras da Lei, Meninas e Moças, Guerreiros Veteranos, Anciãos, Magos
-e Eruditos, Meio-Feras e Monstros, Feras e Divindades, Mascotes e Bichos e Rapazes e Forasteiros.
+e Eruditos, Meio-Feras e Monstros, Feras e Divindades, Mascotes e Bichos, Rapazes e Forasteiros e v2 (os 18 que chegaram
+na 0.41, entre eles Bercouli, Chudelkin e Deusolbert com os nomes da obra).
 
 - **São personagens em branco** (`type: "character"`, NP 1) com o nome, o token e só o item de raça, copiado do
   compêndio com o `_stats.compendiumSource`. Sem habilidades, classe, Magia, profissão, NP nem números: o Mestre monta a

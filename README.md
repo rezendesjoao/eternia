@@ -817,9 +817,9 @@ com o kit, o Caminho e o Ápice; ninguém tem Magia. Cada um tem alcunha, idade,
 um token neutro e vinculado, com a moldura da Eternia e um fio verde-azulado. Sem classe, a ficha soma só os números da
 raça, como o sistema calcula: o povo comum é frágil numa luta.
 
-**Os personagens maiores.** O compêndio **Personagens Maiores** traz 122 personagens de grande relevância na
-história, em 14 pastas, dos espadachins aos anciãos, das damas e sacerdotisas aos meio-feras e às feras
-e divindades. Cada um vem com o nome, a raça e um token e retrato no traço de anime; o resto da ficha (a classe, a
+**Os personagens maiores.** O compêndio **Personagens Maiores** traz 140 personagens de grande relevância na
+história, em 15 pastas, dos espadachins aos anciãos, das damas e sacerdotisas aos meio-feras e às feras
+e divindades; os 18 mais novos ficam na pasta v2. Cada um vem com o nome, a raça e um token e retrato no traço de anime; o resto da ficha (a classe, a
 Magia, a profissão, os atributos, o NP) fica para o Mestre: o botão da pena abre o assistente de criação com a raça já
 marcada. As feras e divindades absolutas têm o token Astro, o círculo de ouro com raios em cada canto e um céu da noite
 atrás, em 2×2, com uma luz leve na cor de cada uma; os demônios trazem uma névoa escura em volta.

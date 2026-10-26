@@ -79,7 +79,7 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   Uma tabela nova escrita no formato dos livros vira dados com `node tools/convert-drops.mjs`.
 - NPCs e personagens maiores ficam fora do Bestiário (desde a 0.40), em compêndios próprios, para o Mestre importar só a
   categoria que mudou: `npcs`, 126 personagens prontos (raça, profissão, NP e classe só nos guerreiros, sem Magia), e
-  `major-characters`, 122 personagens em branco, só com a raça e o token, para o Mestre montar a ficha (as feras e
+  `major-characters`, 140 personagens em branco, só com a raça e o token, para o Mestre montar a ficha (as feras e
   divindades absolutas têm o token Astro, 2×2, com a luz fraca de cada uma; nos demônios, sem luz e com a névoa escura na
   arte, porque a escuridão do Foundry cobre o próprio token). Os dois saem de scripts fora do repositório: a fonte é o JSON
   (veja "Os NPCs" e "Os personagens maiores" em `docs/bestiario.md`).
