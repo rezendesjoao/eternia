@@ -25,6 +25,9 @@
  * - lure.mjs        the lure: whoever the monster charms walks toward it each turn, until any damage.
  * - rise.mjs        the dead that rise: who falls by a Shadow rises as one, a Necromancer raises the fallen;
  * - stack.mjs       the statuses a monster gives that add up (the Shadow's [Weakened]).
+ * - rampage.mjs, rush.mjs, surprise.mjs, throw.mjs  the bloodlust (an action at once for each creature it fells), the
+ *                   rush at a foe (a use action), the surprise blow (more dice against whoever hasn't acted) and the
+ *                   throw (a body thrown at a creature, which takes the impact).
  * The API for macros is `game.eternia.bestiary`.
  */
 import { convertTable, dropRows, parseDropTable, rollDrops, undoDrop, registerDrops } from "./drops.mjs";
@@ -44,6 +47,9 @@ import { answerGaze, registerGaze } from "./gaze.mjs";
 import { registerLure } from "./lure.mjs";
 import { registerRise, riseAs } from "./rise.mjs";
 import { registerStack } from "./stack.mjs";
+import { registerRampage } from "./rampage.mjs";
+import { registerRush } from "./rush.mjs";
+import { registerThrow, throwCreature } from "./throw.mjs";
 
 /** Call during the `init` hook. */
 export function registerBestiary() {
@@ -61,6 +67,9 @@ export function registerBestiary() {
   registerLure();
   registerRise();
   registerStack();
+  registerRampage();
+  registerRush();
+  registerThrow();
   game.eternia.bestiary = {
     disguise,
     reveal,
@@ -85,6 +94,7 @@ export function registerBestiary() {
     marks: MARKS,
     ripOff,
     answerGaze,
-    riseAs
+    riseAs,
+    throwCreature
   };
 }

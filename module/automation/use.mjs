@@ -38,6 +38,7 @@ import {
 import { chipText } from "../helpers/text-chips.mjs";
 import { isRecharging } from "../bestiary/recharge.mjs";
 import { troopTargets } from "../bestiary/troop.mjs";
+import { rampageIssues } from "../bestiary/rampage.mjs";
 
 /** The action a Timing spends in the Main Process. */
 const ACTIONS = { Major: "major", Minor: "minor", Move: "move" };
@@ -245,6 +246,8 @@ function itemIssues(item, actor, combat, combatant) {
   if (item.getFlag(SYSTEM_ID, "notActed") && combatant && combat.isPostAction?.(combatant)) issues.push(L("Use.AlreadyActed"));
   // A monster's skill that recharges, still spent (bestiary/recharge.mjs)
   if (isRecharging(item)) issues.push(L("Use.Recharging", { skill: item.name }));
+  // A monster's bloodlust blow, only with the action a fall gave it (bestiary/rampage.mjs)
+  issues.push(...rampageIssues(item, actor, combat));
   return issues;
 }
 
