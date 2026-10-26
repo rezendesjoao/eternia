@@ -140,7 +140,7 @@ async function cleanup(combat, round) {
       parts.push(game.i18n.localize("ETERNIA.StatusEffect.lastStand"));
     }
     else if ((hp <= 0) && (start > 0)) {
-      breath = spendExtraBreath(actor);
+      breath = spendExtraBreath(actor, { notes: parts });
       if (breath) {
         hp = breath.hp;
         Object.assign(updates, breath.updates);

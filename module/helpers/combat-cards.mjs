@@ -665,6 +665,8 @@ export async function createDamageCard(item, attacker, formula, flavor, attackMe
     attackerUuid: (attacker ?? item.actor)?.uuid ?? "",
     attackerType: attack?.attackerType ?? attacker?.type ?? item.actor?.type ?? null,
     hateMultiplier: attack?.hateMultiplier ?? hateMultiplier(attacker ?? item.actor),
+    // The attack's Hit Check was a Critical (an Extra Breath with `not: ["critical"]` doesn't hold against it)
+    critical: !!attack?.attack?.critical,
     targets
   };
   const messageData = {
