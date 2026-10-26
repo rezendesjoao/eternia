@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.39.0 — 2026-10-26
+
+### Adicionado
+- **122 personagens maiores no compêndio Bestiário**, na pasta **Personagens Maiores** (só do Mestre), em 14 subpastas,
+  para os personagens de grande relevância na história.
+  - **Fichas em branco**, só com o nome e a raça: o resto (a escolha da raça, a classe, a Magia, a profissão, os
+    atributos, o NP) fica para o Mestre. O assistente de criação abre com a raça já marcada, e importar a pasta inteira
+    não abre um assistente para cada um.
+  - **Token e retrato no traço de anime**, com a moldura dos NPCs.
+  - **As feras e divindades absolutas** têm um token de outro formato, o Astro: o círculo de ouro com raios em cada
+    canto e um céu da noite atrás. Vêm em 2×2 e com uma luz dourada animada.
+
 ## 0.38.0 — 2026-10-26
 
 ### Adicionado
