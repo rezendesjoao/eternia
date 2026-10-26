@@ -271,6 +271,27 @@ e Além do Muro.
   um script fora do repositório (`prompts/npcs-lhtrpg/gerar_npcs.py`, com o elenco em `npcs.py` e os tokens em
   `tokens_npcs.py`), com ids estáveis: rodar de novo troca só os arquivos dele.
 
+## Os personagens maiores
+
+A pasta **Personagens Maiores** do compêndio (só do Mestre, logo acima da dos NPCs) tem 122 personagens de grande
+relevância na história, em 14 subpastas: Espadachins, Guerreiras e Aventureiras, Cavaleiros e Armaduras, Damas,
+Sacerdotisas e Magas, Nobres e Lordes, Aventureiros e Foras da Lei, Meninas e Moças, Guerreiros Veteranos, Anciãos, Magos
+e Eruditos, Meio-Feras e Monstros, Feras e Divindades, Mascotes e Bichos e Rapazes e Forasteiros.
+
+- **São personagens em branco** (`type: "character"`, NP 1) com o nome, o token e só o item de raça, copiado do
+  compêndio com o `_stats.compendiumSource`. Sem habilidades, classe, Magia, profissão, NP nem números: o Mestre monta a
+  ficha. O assistente de criação (o botão da pena) abre com a raça já marcada (`#initialDraft` lê o `compendiumSource`).
+  Como têm raça, não contam como em branco para o gancho `createActor`: importar a pasta inteira não abre um assistente
+  para cada um.
+- **O token** é neutro, vinculado e com o nome à vista, como o dos NPCs. A arte fica em
+  `assets/tokens/major/<nome sem acentos>.webp` (512 px, a moldura dos NPCs), também como retrato.
+- **As feras e divindades absolutas** (a subpasta Feras e Divindades) têm o token de outro formato: o Astro, o círculo de
+  ouro com um leque de raios em cada canto, o fio de luz e um céu da noite com estrelas atrás. O token é 2×2 e traz uma
+  luz dourada com a animação `sunburst`.
+- **A fonte é o JSON** em `src/packs/bestiary` (cada um leva `flags.eternia.major = { lote, pos }`). Ele saiu de um
+  script fora do repositório (`prompts/personagens-maiores/gerar_compendio.py`, com o elenco em `elenco.py` e os tokens
+  em `tokens.py`), com ids estáveis pela posição: rodar de novo troca só os arquivos dele.
+
 ## Para macros
 
 ```js

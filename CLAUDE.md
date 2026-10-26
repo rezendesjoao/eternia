@@ -77,7 +77,9 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   compêndio, a migração `bestiary` (`module/bestiary/migration.mjs`) leva a mudança às cópias.
   Uma tabela nova escrita no formato dos livros vira dados com `node tools/convert-drops.mjs`. A pasta NPCs do
   bestiário são 126 personagens prontos (raça, profissão, NP e classe só nos guerreiros, sem Magia), também gerados por
-  um script fora do repositório: a fonte é o JSON (veja "Os NPCs" em `docs/bestiario.md`).
+  um script fora do repositório: a fonte é o JSON (veja "Os NPCs" em `docs/bestiario.md`). A pasta Personagens Maiores
+  são 122 personagens em branco, só com a raça e o token, para o Mestre montar a ficha; as feras e divindades
+  absolutas têm o token Astro, 2×2 e com luz (veja "Os personagens maiores" no mesmo arquivo).
 - Profissão = item `subclass` com `system.identifier` igual a um id de `module/professions/data.mjs`, na pasta
   Profissões de `races-classes`. O progresso fica no personagem (`flags.eternia.professions.<id>`) e o item feito guarda
   a base em `flags.eternia.craft` (veja `docs/profissoes.md`). Engenhocas e Canções ficam em `items` (pastas próprias).
