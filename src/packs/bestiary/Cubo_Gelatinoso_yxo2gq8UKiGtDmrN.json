@@ -1,0 +1,583 @@
+{
+  "name": "Cubo Gelatinoso",
+  "type": "monster",
+  "img": "icons/commodities/treasure/glass-cube-teal.webp",
+  "system": {
+    "health": {
+      "value": 82,
+      "max": 82,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Natural"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 16,
+        "magic": 8
+      },
+      "speed": 2,
+      "initiative": 3
+    },
+    "rank": 4,
+    "idendification": "8",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 2
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>Um bloco de geleia transparente do tamanho de uma carroça, que enche a galeria de parede a parede e anda devagar pelos túneis antigos, limpando o chão de tudo o que acha. É quase invisível no escuro: o que entrega o cubo são as coisas presas dentro dele, um capacete, uma picareta, os ossos de quem não o viu a tempo.</p><p><b>Na mesa:</b> padrão de NP 4, 2×2, para as galerias fundas. Começa o combate [Oculto]. O Engolfar o leva por cima de quem está no caminho: quem é atingido fica [Agarrado] dentro dele, anda com ele e sofre ácido em cada Manutenção; para sair, gasta a Ação Maior e vence um teste de Atletismo contra 10. Bater no cubo pode acertar quem está dentro: tirar o amigo antes de bater forte é a jogada.</p>"
+  },
+  "prototypeToken": {
+    "name": "Cubo Gelatinoso",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/commodities/treasure/glass-cube-teal.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 2,
+    "height": 2,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Toque Ácido",
+      "type": "skill",
+      "img": "icons/magic/acid/dissolve-arm-flesh.webp",
+      "system": {
+        "description": "<p>[2d6 + 23] de dano físico.</p><p>(Menor): +5 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 23,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "3caCuedff11CQqFq",
+      "_key": "!actors.items!yxo2gq8UKiGtDmrN.3caCuedff11CQqFq"
+    },
+    {
+      "name": "Engolfar",
+      "type": "skill",
+      "img": "icons/magic/acid/dissolve-bone-ribs-skull.webp",
+      "system": {
+        "description": "<p>O cubo anda até 2 Qd em linha reta por cima de quem está no caminho (marque os alvos da linha e mova o token): quem é atingido sofre [2d6 + 12] de dano mágico e é engolido. Engolido, fica [Agarrado] dentro do cubo, anda com ele e sofre [2d6 + 8] de dano direto de ácido em cada Manutenção.</p><p>Para sair, gasta a Ação Maior no Livrar-se e vence um teste de Atletismo contra 10 (só o sucesso tira). Sai também quando o cubo cai.</p><p>Bater no cubo pode acertar quem está dentro: a cada golpe que o fere (fora os em área), com 1 ou 2 no 1d6, quem está dentro sofre o mesmo dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "2Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 12,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "engulf",
+            "acid": "2d6+8",
+            "escape": {
+              "check": "athletics",
+              "dc": 10
+            },
+            "through": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "zI5o3YuA1fiVmSan",
+      "_key": "!actors.items!yxo2gq8UKiGtDmrN.zI5o3YuA1fiVmSan"
+    },
+    {
+      "name": "Transparente",
+      "type": "skill",
+      "img": "icons/magic/perception/silhouette-stealth-shadow.webp",
+      "system": {
+        "description": "<p>Quase invisível no escuro: no começo do combate, este inimigo fica [Oculto] até o fim da cena (não pode ser alvo de ações de outros, só de área). O [Oculto] sai quando ele usa uma Ação Maior, causa ou sofre dano.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "start",
+            "statuses": [
+              {
+                "statusId": "hidden"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "0ydRP7LnlfRnJML2",
+      "_key": "!actors.items!yxo2gq8UKiGtDmrN.0ydRP7LnlfRnJML2"
+    },
+    {
+      "name": "Ouro",
+      "type": "gear",
+      "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
+      "system": {
+        "description": "",
+        "tags": [],
+        "rank": 1,
+        "price": 0,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1,
+            "gold": "2d6"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "sLNC4NACxv1gIG38",
+      "sort": 400000,
+      "_key": "!actors.items!yxo2gq8UKiGtDmrN.sLNC4NACxv1gIG38"
+    },
+    {
+      "name": "Gelatina do Cubo",
+      "type": "gear",
+      "img": "icons/commodities/materials/slime-thick-blue.webp",
+      "system": {
+        "description": "<p>Um balde da gelatina do cubo, que endurece em poucas horas e fica clara como vidro. Os vidreiros de Centória a usam como cola.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 4,
+        "price": 25,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "GRRY4d5cblSNjzor",
+      "sort": 500000,
+      "_key": "!actors.items!yxo2gq8UKiGtDmrN.GRRY4d5cblSNjzor"
+    },
+    {
+      "name": "Achados do Cubo",
+      "type": "gear",
+      "img": "icons/equipment/head/helm-barbute-brown-tan.webp",
+      "system": {
+        "description": "<p>Um capacete, uma faca, uma bolsa de couro: o que o cubo carregava dentro, limpo até brilhar. A guilda devolve o que tem dono e paga o resto.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 4,
+        "price": 35,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "1RPpY79YPJlefVbe",
+      "sort": 600000,
+      "_key": "!actors.items!yxo2gq8UKiGtDmrN.1RPpY79YPJlefVbe"
+    },
+    {
+      "name": "Núcleo do Cubo",
+      "type": "gear",
+      "img": "icons/magic/acid/orb-bubble-smoke-drip.webp",
+      "system": {
+        "description": "<p>O coração mole do cubo, uma bola de geleia mais densa que nunca seca. Serve de Anima-mundi 4 na Oficina, sem o Selo do Anima.</p>",
+        "tags": [
+          "Magic Catalyst 4"
+        ],
+        "rank": 4,
+        "price": 35,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "vXypqDecKWjy1kB7",
+      "sort": 700000,
+      "_key": "!actors.items!yxo2gq8UKiGtDmrN.vXypqDecKWjy1kB7"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 900000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "yxo2gq8UKiGtDmrN",
+  "folder": "ex7EDoXlFfUr3Kgx",
+  "_key": "!actors!yxo2gq8UKiGtDmrN"
+}

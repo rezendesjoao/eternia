@@ -1,0 +1,542 @@
+{
+  "name": "Monstro da Ferrugem",
+  "type": "monster",
+  "img": "icons/creatures/invertebrates/beetle-stag-tan-brown.webp",
+  "system": {
+    "health": {
+      "value": 67,
+      "max": 67,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mythic",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 4,
+        "magic": 6
+      },
+      "speed": 2,
+      "initiative": 5
+    },
+    "rank": 3,
+    "idendification": "7",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 3,
+        "mod": 1
+      },
+      "resistance": {
+        "dice": 3,
+        "mod": 2
+      }
+    },
+    "description": "<p>Um bicho do tamanho de um pônei, de casco cor de ferrugem e cauda em pá, com duas antenas compridas que tremem quando ele sente metal. Come ferro: fura os trilhos das minas, rói as ferramentas esquecidas e lambe a armadura de quem passa. O que as antenas tocam vira pó vermelho em segundos.</p><p><b>Na mesa:</b> padrão de NP 3, o terror do equipamento. As Antenas enferrujam a armadura e o escudo de metal: [Fissurado] que soma até quebrar a guarda ([Exposto]); couro e pano não enferrujam. Quem o fere com uma arma de metal fica [Enfraquecido: 4] até limpar a arma (Ação Maior) ou até o fim da cena. O jeito é lutar de mão vazia, com magia, com arco ou com madeira.</p>"
+  },
+  "prototypeToken": {
+    "name": "Monstro da Ferrugem",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "icons/creatures/invertebrates/beetle-stag-tan-brown.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Antenas",
+      "type": "skill",
+      "img": "icons/commodities/biological/antenna-yellow.webp",
+      "system": {
+        "description": "<p>As antenas tocam o alvo: [2d6 + 10] de dano mágico. Se ele veste armadura ou escudo de metal, a peça enferruja: [Fissurado: 1], que acumula até 3; no terceiro, a guarda quebra ([Exposto]). Couro, pano e madeira não enferrujam.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 10,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "rust",
+            "statuses": [
+              {
+                "statusId": "fissured",
+                "value": 1
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "FRZfGhb7cvWeBy6K",
+      "_key": "!actors.items!izWqQd8PKbJLR7bW.FRZfGhb7cvWeBy6K"
+    },
+    {
+      "name": "Mordida",
+      "type": "skill",
+      "img": "icons/creatures/abilities/fangs-teeth-bite.webp",
+      "system": {
+        "description": "<p>[2d6 + 19] de dano físico.</p><p>(Menor): +5 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 19,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "xTgL2po3ovEt4J1a",
+      "_key": "!actors.items!izWqQd8PKbJLR7bW.xTgL2po3ovEt4J1a"
+    },
+    {
+      "name": "Come Ferro",
+      "type": "skill",
+      "img": "icons/commodities/metal/fragments-sword-steel.webp",
+      "system": {
+        "description": "<p>O casco come o metal: quem causa dano a este inimigo com uma arma de metal (lâmina, katana, lança, machado, maça) fica [Enfraquecido: 4], a arma enferrujada. Dura até o fim da cena, ou até gastar uma Ação Maior para limpar a arma (o Livrar-se). Punhos, magia, arcos, bestas, cajados e chicotes não enferrujam.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "contact",
+            "metal": true,
+            "infinite": true,
+            "statuses": [
+              {
+                "statusId": "weakened",
+                "value": 4
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "0vT5E7D1XvhV8MV5",
+      "_key": "!actors.items!izWqQd8PKbJLR7bW.0vT5E7D1XvhV8MV5"
+    },
+    {
+      "name": "Pó de Ferrugem",
+      "type": "gear",
+      "img": "icons/commodities/materials/powder-red-green-yellow.webp",
+      "system": {
+        "description": "<p>Um saco do pó vermelho que o bicho deixa por onde passa. Os pintores o usam como tinta; os ferreiros, para saber se um aço é bom.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 3,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "mUBFw92J7igtyJtv",
+      "sort": 400000,
+      "_key": "!actors.items!izWqQd8PKbJLR7bW.mUBFw92J7igtyJtv"
+    },
+    {
+      "name": "Antena de Ferrugem",
+      "type": "gear",
+      "img": "icons/commodities/biological/antenna-blue.webp",
+      "system": {
+        "description": "<p>Uma antena comprida que ainda enferruja o que toca por uma semana. Os ladrões de Centória a querem para abrir fechaduras.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 3,
+        "price": 40,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "221heVw1mj5inQwn",
+      "sort": 500000,
+      "_key": "!actors.items!izWqQd8PKbJLR7bW.221heVw1mj5inQwn"
+    },
+    {
+      "name": "Lingote Digerido",
+      "type": "gear",
+      "img": "icons/commodities/metal/ingot-worn-iron.webp",
+      "system": {
+        "description": "<p>Um lingote de ferro puro, liso e brilhante: o metal que o bicho comeu e não digeriu. O Ofício o paga como ferro de primeira.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 3,
+        "price": 70,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.34.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "fyZ0PQOg7bHWaNCz",
+      "sort": 600000,
+      "_key": "!actors.items!izWqQd8PKbJLR7bW.fyZ0PQOg7bHWaNCz"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.34.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 900000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "izWqQd8PKbJLR7bW",
+  "folder": "nOCT1FwbTpBWjiiE",
+  "_key": "!actors!izWqQd8PKbJLR7bW"
+}
