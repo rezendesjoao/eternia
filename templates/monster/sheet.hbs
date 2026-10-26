@@ -11,7 +11,7 @@
 	</aside>
 
 	<header class="lhpf-header">
-		<div class="portrait"><img src="{{actor.img}}" alt="" data-action="editImage" data-edit="img" data-tooltip="{{actor.name}}"></div>
+		<div class="portrait{{#if lh.portrait}} token{{/if}}"{{#if lh.portrait}} style="{{lh.portrait.style}}"{{/if}}><img src="{{actor.img}}" alt="" data-action="editImage" data-edit="img" data-tooltip="{{actor.name}}"></div>
 		<div class="char-details">
 			<input class="char-name" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'ETERNIA.Placeholder.Name'}}" spellcheck="false">
 			{{> "systems/eternia/templates/parts/tag-input.html"}}

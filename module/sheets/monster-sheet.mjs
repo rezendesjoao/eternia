@@ -17,6 +17,7 @@ import { EterniaActorMonsterSheet } from "./actor-monster-sheet.mjs";
 import { activateDropTab, addDropRow, addGoldRow, convertFromSheet, dropsContext, rollFromSheet } from "../bestiary/drop-tab.mjs";
 import { nameMonster } from "../bestiary/named.mjs";
 import { PHYSICAL_TYPES } from "../piles/pile-config.mjs";
+import { portraitFit } from "../helpers/portrait.mjs";
 
 const DIR = `systems/eternia/templates/monster`;
 const PARTIALS = ["sidebar", "abilities", "drops"];
@@ -83,6 +84,8 @@ export class EterniaMonsterSheet extends EterniaActorMonsterSheet {
     const lh = {};
 
     lh.gm = game.user.isGM;
+    // The portrait: a token shows as it is, with no square behind it
+    lh.portrait = await portraitFit(actor.img);
     lh.tabs = TABS.map(t => ({ ...t, label: L(t.label) }));
     lh.tabLabel = lh.tabs.find(t => t.id === this.tabGroups.primary)?.label ?? "";
 

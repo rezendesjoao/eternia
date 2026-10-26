@@ -31,6 +31,7 @@ import { PROFESSIONS, TALENTS } from "../professions/data.mjs";
 import { categoryOf, categoryView } from "../apps/magic-catalog.mjs";
 import { formOf, openEvolution, raceColor, regress, ROMAN } from "../races/evolution.mjs";
 import { raceBadge, raceContext } from "../races/sheet.mjs";
+import { portraitFit } from "../helpers/portrait.mjs";
 
 const DIR = `systems/eternia/templates/character`;
 const PARTIALS = ["sidebar", "character", "skills", "race", "inventory", "class", "magic", "profession", "effects", "biography"];
@@ -426,6 +427,9 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
 
     // Profession: crest, bench, chances, materials, talent, works, Rank ladder
     lh.profession = professionContext(actor, { editable: this.isEditable });
+
+    // The portrait (the character tab and the bio): a token shows as it is, with no square behind it
+    lh.portrait = await portraitFit(actor.img);
 
     // What the character is: the race, class and profession (the header and the character tab)
     lh.options = this.#optionCards(context);

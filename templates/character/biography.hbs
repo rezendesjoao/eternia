@@ -12,7 +12,7 @@
 	<div class="tab lhpf-pane" data-group="bio" data-tab="profile">
 		<div class="tab-content lhbio">
 			<section class="lhbio-hero">
-				<span class="lhbio-portrait"><img src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-tooltip="{{localize 'ETERNIA.Bio.Portrait'}}"></span>
+				<span class="lhbio-portrait{{#if lh.portrait}} token{{/if}}"{{#if lh.portrait}} style="{{lh.portrait.style}}"{{/if}}><img src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-tooltip="{{localize 'ETERNIA.Bio.Portrait'}}"></span>
 				<div class="lhbio-who">
 					<h2>{{actor.name}}</h2>
 					<input class="lhbio-epithet" type="text" name="{{lh.bio.epithet.name}}" value="{{lh.bio.epithet.value}}" placeholder="{{lh.bio.epithet.placeholder}}" aria-label="{{lh.bio.epithet.label}}" spellcheck="false">

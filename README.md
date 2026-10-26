@@ -239,7 +239,9 @@ molduras finas e rótulos em versalete. Cada aba tem o ícone e o nome, e um nú
 - **Personagem:** o retrato com a raça, a classe e a profissão em cartões, cada um com uma linha do que dá (os
   atributos e PV da raça, a família, a função e o Motor da classe, o Rank e o talento da profissão); os quatro
   atributos, cada um com o modificador e os dois testes que ele dá (um clique rola), com o botão de distribuir pontos;
-  e as tags. Um personagem ainda em branco mostra o convite para o assistente de criação.
+  e as tags. Um personagem ainda em branco mostra o convite para o assistente de criação. Quando o retrato é um token
+  (o aro dourado com o fundo transparente, os raios das divindades, o hexágono das Fendas), ele aparece como o token,
+  sem o quadro escuro atrás e do tamanho do lugar, também na Biografia e na ficha de monstro.
 - **Habilidades:** de Combate, Gerais e Básicas, agrupadas pelo Momento (Ação Maior, Menor, Movimento, Instantânea,
   Reações, Manutenção, Encerramento, Passivas…), com NH, custo e limite, e uma busca pelo nome. Clique na imagem para
   usar e no nome para abrir os detalhes ali mesmo; o botão Explorar abre o navegador de habilidades.

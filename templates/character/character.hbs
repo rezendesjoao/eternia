@@ -17,7 +17,7 @@
 		{{/if}}{{/if}}
 
 		<div class="lhpf-identity">
-			<div class="image-container">
+			<div class="image-container{{#if lh.portrait}} token{{/if}}"{{#if lh.portrait}} style="{{lh.portrait.style}}"{{/if}}>
 				<img class="actor-image" src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-edit="img">
 			</div>
 			<ul class="lhpf-option-cards">

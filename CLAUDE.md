@@ -136,6 +136,10 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   lado dos aliados; monstro sem vínculo; todo nome sempre à vista. O token de personagem posto na cena é vinculado pelo
   `preCreateToken`, e a troca de retrato leva o token junto (`EterniaActor#_preUpdate`/`_onUpdate`). Mundos antigos
   recebem isso pela migração `tokens`, que também desliga o marcador de turno do core.
+- O retrato nas fichas (aba Personagem, Perfil da Biografia, cabeçalho do monstro): `portraitFit`
+  (`module/helpers/portrait.mjs`) lê a imagem num canvas de 96 px e, quando é um token (cantos transparentes e a forma
+  enchendo ao menos 70% da caixa dela), a ficha põe a classe `token` e as variáveis `--tw/--th/--tl/--tt`, que tiram o
+  quadrado escuro e escalam a forma até a borda (`css/sheet.css`). As artes padrão (`DEFAULT_ART`) ficam no quadro.
 - O desenho dos tokens (`module/canvas/token-style.mjs`): a barra de PV e o Motor só aparecem em combate (configuração
   `tokenBarsCombat`); a barra é um arco no aro de cima do token (a primeira barra em cima, a segunda embaixo: com as
   barras do sistema, o Destino em losangos na borda de baixo); os ícones de estado começam abaixo da ponta esquerda do

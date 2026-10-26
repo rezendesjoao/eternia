@@ -1159,6 +1159,30 @@
   object-position: center;
   cursor: pointer;
 }
+/* A portrait that is a token (helpers/portrait.mjs): the picture as it is, with no dark square nor frame behind it,
+   scaled so the ring fills the place. The same in the bio and on the monster sheet. */
+.lhpf :is(.lhpf-identity .image-container, .lhbio-portrait, .lhpf-monster .lhpf-header .portrait).token {
+  position: relative;
+  overflow: visible;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.lhpf :is(.lhpf-identity .image-container, .lhbio-portrait, .lhpf-monster .lhpf-header .portrait).token img {
+  position: absolute;
+  top: calc(var(--tt) * 100%);
+  left: calc(var(--tl) * 100%);
+  width: calc(var(--tw) * 100%);
+  height: calc(var(--th) * 100%);
+  max-width: none;
+  max-height: none;
+  border: none;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  object-fit: fill;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+}
 .lhpf .lhpf-option-cards { display: grid; gap: 7px; margin: 0; padding: 0; list-style: none; }
 .lhpf .lhpf-option-card {
   position: relative;

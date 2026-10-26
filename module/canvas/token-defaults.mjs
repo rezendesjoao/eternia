@@ -55,7 +55,7 @@ export function tokenDefaults(type, token, { fresh = false } = {}) {
 /* -------------------------------------------- */
 
 /** The pictures every actor starts with: core's and the system's type icons. */
-const DEFAULT_ART = /(^|\/)(mystery-man\.svg|actors_icons\/[\w-]+\.svg)$/;
+export const DEFAULT_ART =/(^|\/)(mystery-man\.svg|actors_icons\/[\w-]+\.svg)$/;
 
 /**
  * Whether a token's picture follows the portrait: it has none yet, a default one or the portrait itself.
