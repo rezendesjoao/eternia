@@ -28,6 +28,8 @@
  * - rampage.mjs, rush.mjs, surprise.mjs, throw.mjs  the bloodlust (an action at once for each creature it fells), the
  *                   rush at a foe (a use action), the surprise blow (more dice against whoever hasn't acted) and the
  *                   throw (a body thrown at a creature, which takes the impact).
+ * - blink.mjs, likeness.mjs, phase.mjs, halve.mjs  the blink to someone's back, taking a face, the phase out of the
+ *                   writing between its turns, the hide that takes half of the physical damage.
  * The API for macros is `game.eternia.bestiary`.
  */
 import { convertTable, dropRows, parseDropTable, rollDrops, undoDrop, registerDrops } from "./drops.mjs";
@@ -50,6 +52,9 @@ import { registerStack } from "./stack.mjs";
 import { registerRampage } from "./rampage.mjs";
 import { registerRush } from "./rush.mjs";
 import { registerThrow, throwCreature } from "./throw.mjs";
+import { registerBlink } from "./blink.mjs";
+import { copyLook, registerLikeness, restoreLook } from "./likeness.mjs";
+import { isPhased, registerPhase } from "./phase.mjs";
 
 /** Call during the `init` hook. */
 export function registerBestiary() {
@@ -70,6 +75,9 @@ export function registerBestiary() {
   registerRampage();
   registerRush();
   registerThrow();
+  registerBlink();
+  registerLikeness();
+  registerPhase();
   game.eternia.bestiary = {
     disguise,
     reveal,
@@ -95,6 +103,9 @@ export function registerBestiary() {
     ripOff,
     answerGaze,
     riseAs,
-    throwCreature
+    throwCreature,
+    copyLook,
+    restoreLook,
+    isPhased
   };
 }

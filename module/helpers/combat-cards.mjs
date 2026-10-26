@@ -40,6 +40,7 @@ import { crOf, has, rating, removeStatuses, rulesOn } from "../conditions/rules.
 import { cursedByDecree } from "../conditions/decree.mjs";
 import { packBonus, packBonuses } from "../bestiary/pack.mjs";
 import { troopDoubles } from "../bestiary/troop.mjs";
+import { halvedBy } from "../bestiary/halve.mjs";
 import { lastingCard, lastingHitData } from "../conditions/lasting.mjs";
 import { statusDefinition } from "./statuses.mjs";
 import { tagLabel as termTag } from "../i18n/terms.mjs";
@@ -833,6 +834,12 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   if (condition.halve && (amount > 0) && !condition.immune) {
     amount = Math.floor(amount / 2);
     steps.push(`÷ 2 ${statusLabel("petrified")}`);
+  }
+  // A hide that takes half of some damage (the Gargoyle's stone: bestiary/halve.mjs)
+  const hide = ((amount > 0) && !condition.immune) ? halvedBy(actor, tags) : null;
+  if (hide) {
+    amount = Math.floor(amount / 2);
+    steps.push(`÷ 2 (${hide})`);
   }
   // A troop of the bestiary: an area attack hits the whole band (bestiary/troop.mjs)
   if ((amount > 0) && !condition.immune && troopDoubles(actor, card)) {
