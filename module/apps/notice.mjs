@@ -1,5 +1,6 @@
 /**
- * What's new: once per user and release line, a short window with the news of this version (0.36: the art of the
+ * What's new: once per user and release line, a short window with the news of this version (0.37: 24 new creatures
+ * in the Empire's bestiary, their rules and art, the new names and the folders by rank; 0.36: the art of the
  * Empire's bestiary, the framed tokens and the Rifts' hexagon and light; 0.35: the rest of the Empire's bestiary, the raiding goblins, the Hollow, the Falls, the Stray to be saved and the Mother Rift; 0.34: the
  * Empire's bestiary, the automatic drops and the named beast; 0.33: the race tab of the sheet; 0.32: the six races of the world, the five stages of the form and the world compendium; 0.31: the new
  * Biography tab, the tokens ready to play, the automatic dodge and the creation wizard redone; 0.30: the starting gear
@@ -21,7 +22,7 @@
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 
 /** The release line the notice speaks about. */
-const NOTICE = "0.36";
+const NOTICE = "0.37";
 
 /** Call during the `init` hook. */
 export function registerNotice() {

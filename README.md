@@ -5,9 +5,15 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.36.0
+## Versão 0.37.0
 
-- **Novo na 0.36.0: a arte do bestiário do Império.** Os 28 monstros do Império têm retrato e token próprios, no traço
+- **Novo na 0.37.0: 24 criaturas novas no bestiário do Império.** Gosmas e armadilhas vivas, olhares que petrificam,
+  mortos que levantam, gente da fronteira, o estranho das Fendas e chefes que pedem estratégia, do NP 1 ao 7, cada uma
+  com uma regra automatizada que muda o jeito de lutar (o disfarce, o engolir, o grudar, o olhar, o levantar, a Fúria
+  Sanguinária, o teleporte, a fase, as cabeças e outras) e com token e retrato. Os 22 monstros antigos ganharam nomes no
+  estilo dos bestiários de RPG de mesa, e a pasta O Império se divide por NP; os monstros que o mundo já tinha ganham os
+  nomes e a arte novos sozinhos (veja [O bestiário](#o-bestiário)).
+- **Desde a 0.36.0: a arte do bestiário do Império.** Os 28 monstros do Império têm retrato e token próprios, no traço
   de anime, com a moldura da Eternia (aro de ouro, fio carmesim e fundo branco); as três Fendas têm um token hexagonal de
   fundo roxo com brilhos e uma luz violeta animada (veja [O bestiário](#o-bestiário)).
 - **Desde a 0.35.0: o bestiário do Império completo.** Os goblins de incursão, que temem a luz (a Tropa que o dano em

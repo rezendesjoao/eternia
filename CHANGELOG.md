@@ -1,6 +1,6 @@
 # Changelog
 
-## Não lançado
+## 0.37.0 — 2026-10-25
 
 ### Adicionado
 - **24 criaturas novas no bestiário do Império**, do NP 1 ao 7, cada uma com um quebra-cabeça que muda o jeito de lutar,
