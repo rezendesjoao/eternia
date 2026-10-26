@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.40.2 — 2026-10-26
+
+### Alterado
+- **O retrato que é um token aparece como o token na ficha:** sem o quadrado escuro nem a moldura quadrada atrás, e do
+  tamanho do lugar do retrato (o aro dourado encosta na borda). Vale na aba Personagem, no Perfil da Biografia e no
+  cabeçalho da ficha de monstro, e para os formatos do mesmo tipo (os raios das divindades, o hexágono das Fendas). O
+  sistema reconhece o token pela imagem (cantos transparentes e a forma cheia), então um token novo feito no mesmo
+  padrão entra sozinho; uma pintura comum e o ícone padrão continuam no quadro de antes.
+
 ## 0.40.1 — 2026-10-26
 
 ### Alterado

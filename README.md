@@ -5,9 +5,12 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.40.1
+## Versão 0.40.2
 
-- **Novo na 0.40.1: a barra de PV em arco.** A barra de PV dos tokens virou um arco com borda dourada sobre o aro de
+- **Novo na 0.40.2: o retrato que é token aparece como o token na ficha.** Sem o quadrado escuro nem a moldura
+  quadrada atrás, e do tamanho do lugar do retrato, na aba Personagem, na Biografia e na ficha de monstro; um token
+  novo feito no mesmo padrão entra sozinho (veja [A ficha de personagem](#a-ficha-de-personagem)).
+- **Desde a 0.40.1: a barra de PV em arco.** A barra de PV dos tokens virou um arco com borda dourada sobre o aro de
   cima, e nada sai do token para o vizinho cobrir; o nome continua igual, logo abaixo da borda. Os losangos do Destino
   foram para a borda de baixo, e os ícones de estado começam abaixo da ponta do arco (veja [Os tokens](#os-tokens)).
 - **Desde a 0.40.0: NPCs e Personagens Maiores em compêndios próprios e número romano no mapa.** O Bestiário fica só
