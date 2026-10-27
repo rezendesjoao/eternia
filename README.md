@@ -5,9 +5,15 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.42.0
+## Versão 0.43.0
 
-- **Novo na 0.42.0: o balanço.** As 14 classes ficam na mesma faixa de força (cada Motor faz o que fazia, com números
+- **Novo na 0.43.0: os consertos.** O dano pelo botão Dano soma os estados de quem ataca ([Fortalecido], [Combo], a
+  Matilha) e gasta o "próximo ataque"; o golpe que a Defesa, a Anulação ou a Barreira zeraram não dá os estados do
+  acerto; o Topo de Ódio é o da hora do ataque; quem caiu não esquiva; voltar no rastreador não repete o Encerramento
+  nem o começo dos turnos. Um NPC num token hostil luta como inimigo. A Fadiga baixa o PV atual, as bolsas dão o
+  espaço que dizem, os graus dos consumíveis têm os efeitos, e o Proteger desvia o dano sozinho. O Bestiário fica só
+  com as 52 criaturas da Eternia: os monstros antigos de Log Horizon saíram (veja [O bestiário](#o-bestiário)).
+- **Desde a 0.42.0: o balanço.** As 14 classes ficam na mesma faixa de força (cada Motor faz o que fazia, com números
   novos), as Magias Ancestrais rolam 1d6 a mais nos feitiços de ataque, os Tabus pesam parecido, seis raças foram
   ajustadas e o Poder Mágico do equipamento vem de uma fonte só (o Cajado ou a melhor Pedra Mágica). Os inimigos batem
   mais, sem ganhar PV: um encontro padrão custa ao grupo pelo menos 65% dos PV no NP 1, e mais a cada NP. O Guia de

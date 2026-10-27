@@ -1,5 +1,51 @@
 # Changelog
 
+## 0.43.0 — 2026-10-27
+
+O lote 1 da lista `Eternia-Automacao/O-que-falta-automatizar.md` (fora do repositório): os erros achados na varredura.
+
+### Corrigido
+- **O dano pelo botão Dano** (o do cartão da habilidade e o "Rolar dano" do cartão de ataque) agora soma os estados de
+  quem ataca, como a rolagem pela ficha já somava: [Fortalecido], [Berserk], [Despertado], [Sol], [Ímpeto], [Combo],
+  [O Único], [Clones], [Ritmo], a perda do [Enfraquecido], a Matilha dos kobolds e o Golpe Surpresa. O "próximo ataque"
+  (a Pedra de Faísca) é gasto no golpe, em vez de valer a cena inteira.
+- **O golpe que a Defesa, a Anulação ou a Barreira zeraram** não dá os estados do acerto (IV.c); o Dano de Ódio, a
+  Perseguição e a Fraqueza continuam.
+- **O Topo de Ódio** de cada alvo é o da hora do ataque: numa área, a ordem em que o dano é aplicado não muda mais quem
+  leva o Dano de Ódio.
+- **Quem caiu** (Incapacitado) falha a esquiva sozinho.
+- **Voltar no rastreador** (Voltar turno, Voltar rodada) e avançar de novo não repete nada até chegar a um passo novo:
+  o Encerramento não cura nem fere duas vezes, o começo do turno não dá o [Envenenado] de novo e os Motores não ganham
+  outra vez. O que já aconteceu fica.
+- **A Fadiga** baixa o PV atual junto com o máximo (30/30 com Fadiga 10 fica 20/20).
+- **O dano das condições** ([Queimando], [Pavio], a Deterioração) respeita o [Exposto] (sem Anulação) e o [Vínculo]
+  (metade vai para a origem); a Deterioração acorda quem dorme e tira o [Oculto].
+- **O Servo e o Comer almas** procuram tokens na cena do combate, não na que o Mestre está olhando.
+- **A Magia Reequipar: O Cavaleiro** volta para a pasta dela no compêndio (estava sem pasta desde a 0.11.0).
+- **A coroa Dar Nome** dá o dano do Nível novo pela régua da 0.42 (na proporção do comum de cada NP, e o número escrito
+  no texto acompanha), no lugar do +6 fixo, e o [Destino 1] no ataque mais forte.
+- **23 bolsas** davam espaço 0: agora dão o que o texto diz (os espaços exclusivos ainda contam como comuns). Os graus II a
+  IV das Poções de Perícia, dos Frascos de Golpes Poderosos e de Potência Mágica e da Poção de Visão no Escuro ganham os
+  efeitos (30 itens), e 30 itens ganham a trava de NP que o texto pede.
+- **XIV.g** traz os lacaios do Império, que batem mais que os do Guia: 4 Estirges, 4 Goblins Saqueadores, 5 Kobolds
+  Batedores.
+
+### Alterado
+- **NPC num token hostil luta como inimigo:** fica fora do Ódio do grupo, não paga custos, não ganha o desempate de
+  Iniciativa dos personagens, faz o personagem perder 1 de Ódio quando falha a esquiva contra ele e morre no fim da cena
+  se caiu. Com o token aliado, segue como Aventureiro.
+- **Proteger, Corpo-Escudo e Transfusão** desviam o dano sozinhos: o próximo dano do aliado vai para quem o protegeu,
+  como dano direto, e nada do golpe chega a ele.
+- **Aplicar efeitos em fichas de outros** só para o dono de quem usou a habilidade, ou o Mestre.
+
+### Removido
+- **Os 84 monstros antigos de Log Horizon** saíram do compêndio Bestiário, que fica só com as 52 criaturas da Eternia
+  (pasta O Império). Os que o mundo já tem não mudam.
+
+### Migração
+- **Conteúdo (versão 1):** as bolsas, os consumíveis e as travas de NP dos itens que o mundo já tem; o Proteger, o
+  Corpo-Escudo e a Transfusão dos personagens ganham o desvio do dano.
+
 ## 0.42.0 — 2026-10-27
 
 A conta inteira está em `docs/matematica.md`, que passa a ser a régua de toda classe, Magia, raça e criatura nova.

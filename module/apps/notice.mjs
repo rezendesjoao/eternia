@@ -1,5 +1,7 @@
 /**
- * What's new: once per user and release line, a short window with the news of this version (0.42: the balance, the
+ * What's new: once per user and release line, a short window with the news of this version (0.43: the fixes, the
+ * damage button with the attacker's statuses, the Hate Top of the attack, the tracker that doesn't repeat, the hostile
+ * NPC as an enemy, the bags, the potions' grades, Protect, the Bestiary with the Eternia creatures only; 0.42: the balance, the
  * 14 classes in one band, the Ancestral Magias' extra die and Taboos of the same weight, six races, one source of
  * Magic Power and the enemies' damage for an encounter that costs the party 65% of its HP; 0.41: 18 more major
  * characters in the v2 folder, Bercouli, Chudelkin and Deusolbert by the names of the original work; 0.40: the NPCs and the
@@ -29,7 +31,7 @@
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 
 /** The release line the notice speaks about. */
-const NOTICE = "0.42";
+const NOTICE = "0.43";
 
 /** Call during the `init` hook. */
 export function registerNotice() {
