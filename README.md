@@ -5,15 +5,18 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.44.0
+## Versão 0.45.0
 
-- **Novo na 0.44.0: menos cliques no combate.** O dano, a cura e os efeitos da habilidade entram sozinhos em quem o
-  golpe atingiu (quem ainda tem uma reação Antes do Dano espera), com um cartão de resultado por golpe e o Desfazer
-  tudo. O monstro mira o Topo de Ódio que alcança, ataca em um clique no HUD e rola o dano quando acerta; o (Menor)
-  dos ataques gasta a Ação Menor livre e soma o bônus, e os chefes usam o Destino (o [Destino 1] é perguntado no uso).
-  A Ação Instantânea conta, as poções gastam a ação, a Disparada e o Deslocar-se gastam também a Ação Menor, o
-  Desfazer do uso tira os efeitos, o turno acaba quando as ações acabam e a Manutenção e o Encerramento passam
-  sozinhos. Cada automação tem a sua configuração (veja [A automação](#a-automação)).
+- **Novo na 0.45.0: o Mercado e as lojas.** O botão Mercado (na barra dos tokens) abre todos os itens dos compêndios
+  numa janela grande, com o preço, o que cada um dá e a descrição, filtros por tipo, Nível, preço, venda, grau, pasta e
+  tags, e a busca. Só o Mestre compra para um personagem, dá de graça ou arrasta para uma ficha; os jogadores só olham.
+  O Mestre marca itens e cria uma loja, que vira um token na cena: com dois cliques nele, o jogador vê só os itens
+  daquela loja, compra e vende (veja [O Mercado e as lojas](#o-mercado-e-as-lojas)).
+- **Desde a 0.44.0: menos cliques no combate.** O dano, a cura e os efeitos da habilidade entram sozinhos em quem o
+  golpe atingiu, com um cartão de resultado por golpe e o Desfazer tudo. O monstro mira o Topo de Ódio, ataca em um
+  clique no HUD e rola o dano quando acerta; o (Menor) e o Destino dos chefes também. A Ação Instantânea conta, as
+  poções gastam a ação, o turno acaba quando as ações acabam e a Manutenção e o Encerramento passam sozinhos, cada
+  automação com a sua configuração (veja [A automação](#a-automação)).
 - **Desde a 0.43.0: os consertos.** O dano pelo botão Dano soma os estados de quem ataca ([Fortalecido], [Combo], a
   Matilha) e gasta o "próximo ataque"; o golpe que a Defesa, a Anulação ou a Barreira zeraram não dá os estados do
   acerto; o Topo de Ódio é o da hora do ataque; quem caiu não esquiva; voltar no rastreador não repete o Encerramento

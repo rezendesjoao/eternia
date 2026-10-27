@@ -1,6 +1,9 @@
 # Changelog
 
-## Não lançado
+## 0.45.0 — 2026-10-27
+
+O Mercado e as lojas: todos os itens dos compêndios numa janela só, e lojas na cena que os jogadores abrem com dois
+cliques no token para comprar.
 
 ### Adicionado
 - **O Mercado** (o botão da lojinha na barra dos tokens): uma janela grande, no visual do assistente de criação, com

@@ -1,5 +1,6 @@
 /**
- * What's new: once per user and release line, a short window with the news of this version (0.44: fewer clicks in
+ * What's new: once per user and release line, a short window with the news of this version (0.45: the Market with
+ * every item of the compendiums and the shops the players open on the scene; 0.44: fewer clicks in
  * combat, damage and effects applied by themselves, the monster's turn, the (Menor) and the bosses' Fate; 0.43: the fixes, the
  * damage button with the attacker's statuses, the Hate Top of the attack, the tracker that doesn't repeat, the hostile
  * NPC as an enemy, the bags, the potions' grades, Protect, the Bestiary with the Eternia creatures only; 0.42: the balance, the
@@ -32,7 +33,7 @@
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 
 /** The release line the notice speaks about. */
-const NOTICE = "0.44";
+const NOTICE = "0.45";
 
 /** Call during the `init` hook. */
 export function registerNotice() {
