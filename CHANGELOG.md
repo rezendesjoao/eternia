@@ -1,6 +1,8 @@
 # Changelog
 
-## Não lançado
+## 0.46.1 — 2026-10-27
+
+A fonte da interface e as dicas do sistema de volta ao pergaminho.
 
 ### Alterado
 - **A fonte da interface:** as listas da barra lateral (Atores, Itens, Diário, Compêndios), os botões, a busca, a caixa

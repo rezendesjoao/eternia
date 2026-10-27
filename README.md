@@ -5,9 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.46.0
+## Versão 0.46.1
 
-- **Novo na 0.46.0: o Guia do Jogador e o visual novo.** O compêndio **Guia do Jogador** explica o sistema como um
+- **Novo na 0.46.1: a fonte da interface e as dicas.** As listas da barra lateral, os botões, a busca, a caixa do chat,
+  os jogadores, os avisos e os menus usam a Signika, mais fácil de ler no fundo escuro, e as dicas do sistema (as
+  etiquetas dos colchetes, a aba Classe, o assistente, a janela de Magias e o HUD) voltam ao pergaminho com o texto
+  escuro (veja [Os diários e a interface](#os-diários-e-a-interface)).
+- **Desde a 0.46.0: o Guia do Jogador e o visual novo.** O compêndio **Guia do Jogador** explica o sistema como um
   livro de RPG, em 21 páginas (o jogo, o personagem, a criação, raças, classes, Magias, habilidades, evolução, sessões,
   combate, ataque e dano, Ódio, Destino, estados, equipamento, profissões, fora de combate e a mesa virtual, com
   glossário e referência rápida), com caixas de Regra, Exemplo, Dica, Atenção, Na mesa virtual, Em resumo e Com o
