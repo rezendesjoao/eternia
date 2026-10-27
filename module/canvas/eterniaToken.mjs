@@ -21,8 +21,9 @@ export class EterniaToken extends foundry.canvas.placeables.Token {
   /** @override */
   _onClickLeft2(event) {
     // Players open piles (loot, chests, merchants) through the pile API, which
-    // checks the interaction distance first.
-    if ((this.actor?.type === "pile") && !game.user.isGM) {
+    // checks the interaction distance first. A merchant opens its counter for the GM too.
+    const actor = this.actor;
+    if ((actor?.type === "pile") && (!game.user.isGM || (actor.system.mode === "merchant"))) {
       if (!this._propagateLeftClick(event)) event.stopPropagation();
       return game.eternia.piles.openPile(this.actor);
     }

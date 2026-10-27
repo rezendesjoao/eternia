@@ -1,0 +1,13 @@
+{{!-- Above the Market's list (module/market/market.mjs): the search (as it is typed), the order, a shop's two sides
+     (buy and sell) and how many items the filters show; the GM marks every item shown at once. --}}
+<div class="mk-tools">
+	{{#if tabs}}
+	<nav class="mk-tabs" aria-label="{{localize 'ETERNIA.Market.Tabs'}}">
+		{{#each tabs}}<button type="button" class="mk-tab{{#if active}} active{{/if}}" data-action="side" data-side="{{id}}"><i class="{{icon}}"></i><span>{{label}}</span></button>{{/each}}
+	</nav>
+	{{/if}}
+	<label class="mk-search"><i class="fa-solid fa-magnifying-glass"></i><input type="search" name="query" value="{{query}}" placeholder="{{localize 'ETERNIA.Market.Search'}}" autocomplete="off" spellcheck="false"></label>
+	<label class="mk-sort" data-tooltip="{{localize 'ETERNIA.Market.Sort.Label'}}"><i class="fa-solid fa-arrow-down-wide-short"></i><select name="sort">{{selectOptions sorts selected=sort}}</select></label>
+	<span class="mk-count"></span>
+	{{#if canMark}}<button type="button" class="mk-tool-button" data-action="markShown" data-tooltip="{{localize 'ETERNIA.Market.MarkShownHint'}}"><i class="fa-solid fa-square-check"></i><span>{{localize "ETERNIA.Market.MarkShown"}}</span></button>{{/if}}
+</div>

@@ -1,0 +1,45 @@
+{{!-- The Market's foot (module/market/market.mjs): who buys (the GM picks the character; a player is their own),
+     with the gold and the inventory's space; what the window is for; and, for the GM, the items marked (a new shop of
+     them, or into a shop) or the shop's switches (open, prices, add from the Market, its full sheet). --}}
+<footer class="mk-foot">
+	<div class="mk-buyer">
+		{{#if buyer}}
+		<span class="mk-buyer-img"><img src="{{buyer.img}}" alt=""></span>
+		<div class="mk-buyer-text">
+			<small>{{#if isGM}}{{localize "ETERNIA.Market.BuyerGM"}}{{else}}{{localize "ETERNIA.Market.Buyer"}}{{/if}}</small>
+			{{#if buyers.length}}
+			<select name="buyer" aria-label="{{localize 'ETERNIA.Market.BuyerGM'}}">{{#each buyers}}<option value="{{uuid}}"{{#if selected}} selected{{/if}}>{{name}}</option>{{/each}}</select>
+			{{else}}
+			<b>{{buyer.name}}</b>
+			{{/if}}
+		</div>
+		<span class="mk-purse" data-tooltip="{{localize 'ETERNIA.Piles.GoldLabel'}}"><i class="fa-solid fa-coins"></i><b>{{buyer.goldLabel}}</b></span>
+		{{#if buyer.space}}<span class="mk-space{{#if buyer.space.full}} full{{/if}}" data-tooltip="{{localize 'ETERNIA.Market.SpaceHint'}}"><i class="fa-solid fa-box-open"></i><b>{{buyer.space.used}}/{{buyer.space.max}}</b></span>{{/if}}
+		{{else}}
+		<span class="mk-buyer-img empty"><i class="fa-solid fa-user"></i></span>
+		<div class="mk-buyer-text"><small>{{localize "ETERNIA.Market.Buyer"}}</small><b class="none">{{#if isGM}}{{localize "ETERNIA.Market.NoBuyerGM"}}{{else}}{{localize "ETERNIA.Piles.NoInteractor"}}{{/if}}</b></div>
+		{{/if}}
+	</div>
+
+	<p class="mk-hint"><i class="fa-solid fa-circle-info"></i><span>{{hint}}</span></p>
+
+	{{#if isGM}}
+	{{#if isMarket}}
+	<div class="mk-foot-actions">
+		{{#if target}}<span class="mk-target"><i class="fa-solid fa-store"></i>{{localize "ETERNIA.Market.Stocking" name=target.name}}<button type="button" data-action="clearTarget" aria-label="{{localize 'ETERNIA.Market.StopStocking'}}" data-tooltip="{{localize 'ETERNIA.Market.StopStocking'}}"><i class="fa-solid fa-xmark"></i></button></span>{{/if}}
+		<span class="mk-marked{{#if marked}} on{{/if}}"><i class="fa-solid fa-square-check"></i><b>{{marked}}</b><small>{{localize "ETERNIA.Market.Marked"}}</small>{{#if marked}}<button type="button" data-action="unmark" aria-label="{{localize 'ETERNIA.Market.Unmark'}}" data-tooltip="{{localize 'ETERNIA.Market.Unmark'}}"><i class="fa-solid fa-xmark"></i></button>{{/if}}</span>
+		<button type="button" class="mk-foot-button" data-action="putMarked" {{#unless marked}}disabled{{/unless}}><i class="fa-solid fa-dolly"></i><span>{{#if target}}{{localize "ETERNIA.Market.PutMarkedIn" name=target.name}}{{else}}{{localize "ETERNIA.Market.PutMarked"}}{{/if}}</span></button>
+		<button type="button" class="mk-foot-button primary" data-action="newShop"><i class="fa-solid fa-store"></i><span>{{#if marked}}{{localize "ETERNIA.Market.NewShopWith" n=marked}}{{else}}{{localize "ETERNIA.Market.NewShop"}}{{/if}}</span></button>
+	</div>
+	{{else}}
+	<div class="mk-foot-actions">
+		{{#if manage}}
+		<button type="button" class="mk-switch{{#if manage.open}} on{{/if}}" data-action="toggleOpen" aria-pressed="{{#if manage.open}}true{{else}}false{{/if}}"><span class="mk-switch-track"><i></i></span><span>{{#if manage.open}}{{localize "ETERNIA.Market.Open"}}{{else}}{{localize "ETERNIA.Market.Closed"}}{{/if}}</span></button>
+		<label class="mk-percent" data-tooltip="{{localize 'ETERNIA.Piles.Config.BuyPercent'}}"><i class="fa-solid fa-tag"></i><input type="number" name="buyPercent" value="{{manage.buyPercent}}" min="0" step="5"><span>%</span></label>
+		{{/if}}
+		<button type="button" class="mk-foot-button" data-action="configure"><i class="fa-solid fa-gear"></i><span>{{localize "ETERNIA.Market.Configure"}}</span></button>
+		<button type="button" class="mk-foot-button primary" data-action="stockMarket"><i class="fa-solid fa-boxes-stacked"></i><span>{{localize "ETERNIA.Market.AddFromMarket"}}</span></button>
+	</div>
+	{{/if}}
+	{{/if}}
+</footer>

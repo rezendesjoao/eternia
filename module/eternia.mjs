@@ -15,6 +15,7 @@ import { registerStatuses } from "./helpers/statuses.mjs";
 import { registerTags } from "./helpers/tags.mjs";
 import { EterniaToken } from "./canvas/eterniaToken.mjs";
 import { registerPiles } from "./piles/piles.mjs";
+import { registerMarket } from "./market/index.mjs";
 import { registerCharacterOptions } from "./helpers/character-options.mjs";
 import { registerRankGrants } from "./apps/rank-grants.mjs";
 import { OptionBrowser, registerOptionBrowser } from "./apps/option-browser.mjs";
@@ -167,6 +168,8 @@ Hooks.once('init', async function () {
 
   // Loot, chests, merchants and item/gold transfers between players
   registerPiles();
+  // The Market (every item of the compendiums) and the shops' counters
+  registerMarket();
 
   // Race / Class / Subclass items: single copy per character, core compendium, legacy migration
   registerCharacterOptions();

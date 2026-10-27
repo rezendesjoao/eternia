@@ -40,6 +40,10 @@ export const DEFAULT_LOOT_FLAG = "defaultLoot";
 // Flag (on items inside a merchant) holding the remaining stock. -1 = infinite.
 export const STOCK_FLAG = "stock";
 
+// The most units bought at once: of an item (each one takes a slot) and of a ticket (one stack).
+export const MAX_UNITS = 20;
+export const MAX_TICKETS = 999;
+
 export const SETTINGS = {
   chatLog: "pilesChatLog",
   view: "pilesView"

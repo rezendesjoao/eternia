@@ -1,0 +1,1183 @@
+/* ==========================================================================
+   The Market and the shops' counters (module/market/market.mjs, templates/market/): the creation wizard's large
+   parchment window (css/creation-wizard.css). The head says what the window is, the filters sit on the green banner
+   of the sheet at the left, the list of items in the middle (one card per item, with its grade's stripe), the page of
+   the item chosen at the right and, at the bottom, who buys and what the GM can do.
+   ========================================================================== */
+
+.application.eternia-market {
+  --mk-gold: #c9a24a;
+  --mk-gold-light: #f2db94;
+  --mk-gold-dark: #8a6a25;
+  --mk-line: #cdbb98;
+  --mk-paper: #fffaf0;
+  --mk-paper-dark: #f1e5c8;
+  --mk-red: #8c2f2f;
+  min-width: 980px;
+  min-height: 560px;
+}
+.application.eternia-market .window-content {
+  display: grid;
+  grid-template:
+    "head head head" auto
+    "rail tools detail" auto
+    "rail list detail" minmax(0, 1fr)
+    "foot foot foot" auto
+    / 276px minmax(0, 1fr) clamp(300px, 30%, 400px);
+  padding: 0;
+  overflow: hidden;
+  container: mk / inline-size;
+}
+
+/* Head: what the window is
+   ------------------------------------------------------------------------ */
+.eternia-market .mk-head {
+  grid-area: head;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 20px 11px;
+  border-bottom: 1px solid rgba(186, 169, 145, 0.7);
+  background:
+    radial-gradient(120% 180% at 0% 0%, rgba(31, 81, 55, 0.15), transparent 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+}
+.eternia-market .mk-emblem {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  padding: 3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--mk-gold-light), var(--mk-gold) 50%, var(--mk-gold-dark));
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  color: #fbf4df;
+  font-size: 22px;
+}
+.eternia-market .mk-emblem i {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #12301f;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, var(--pf-primary-light), var(--pf-primary-dark));
+  color: var(--mk-gold-light);
+}
+.eternia-market .mk-emblem.portrait { width: 62px; height: 62px; }
+.eternia-market .mk-emblem img {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #12301f;
+  border-radius: 50%;
+  background: #f3eee2;
+  object-fit: cover;
+}
+.eternia-market .mk-head-text { display: grid; min-width: 0; }
+.eternia-market .mk-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--mk-gold-dark);
+  font: 700 10px/1.3 var(--pf-sans);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.eternia-market .mk-status {
+  padding: 1px 7px;
+  border-radius: 8px;
+  font: 700 9px/1.4 var(--pf-sans);
+  letter-spacing: 0.1em;
+}
+.eternia-market .mk-status.open { background: rgba(31, 81, 55, 0.14); color: var(--pf-primary); }
+.eternia-market .mk-status.closed { background: rgba(140, 47, 47, 0.12); color: var(--mk-red); }
+.eternia-market .mk-head h2 {
+  margin: 1px 0 1px;
+  overflow: hidden;
+  border: none;
+  color: var(--pf-primary-dark);
+  font: 600 24px/1.1 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.eternia-market .mk-lead {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--pf-text-soft);
+  font: italic 13px/1.4 var(--pf-body);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.eternia-market .mk-greeting p { margin: 0; }
+.eternia-market .mk-facts { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.eternia-market .mk-facts li {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  column-gap: 7px;
+  min-width: 86px;
+  padding: 6px 12px 6px 10px;
+  border: 1px solid var(--mk-line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+}
+.eternia-market .mk-facts i { grid-row: span 2; color: var(--mk-gold-dark); font-size: 15px; }
+.eternia-market .mk-facts b { color: var(--pf-primary-dark); font: 600 17px/1.1 var(--pf-serif); }
+.eternia-market .mk-facts small { color: var(--pf-text-soft); font: 600 9px/1.2 var(--pf-sans); letter-spacing: 0.12em; text-transform: uppercase; }
+
+/* Rail: the filters, on the green banner of the sheet
+   ------------------------------------------------------------------------ */
+.eternia-market .mk-rail {
+  grid-area: rail;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  margin: 10px 0 10px 12px;
+  border-radius: 10px;
+  background:
+    radial-gradient(130% 50% at 50% 0%, rgba(43, 103, 71, 0.55), transparent 70%),
+    linear-gradient(180deg, #1f4a33, #163a28 60%, #12301f);
+  box-shadow: inset 0 0 0 1px rgba(233, 215, 161, 0.35), inset 0 0 0 4px rgba(0, 0, 0, 0.15), 0 3px 10px rgba(0, 0, 0, 0.3);
+  color: var(--pf-tertiary-light);
+  overflow: hidden;
+}
+.eternia-market .mk-rail-scroll {
+  display: grid;
+  flex: 1;
+  align-content: start;
+  gap: 14px;
+  min-height: 0;
+  padding: 13px 11px 12px;
+  overflow: hidden auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-tertiary-darker) transparent;
+}
+.eternia-market .mk-facet h4 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 6px;
+  border: none;
+  color: var(--pf-tertiary-dark);
+  font: 700 9.5px/1.2 var(--pf-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.eternia-market .mk-facet h4 i { color: var(--mk-gold); font-size: 10px; }
+.eternia-market .mk-types { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.eternia-market :is(.mk-type, .mk-chip, .mk-segment, .mk-clear) {
+  margin: 0;
+  border: 1px solid rgba(233, 215, 161, 0.2);
+  background: rgba(0, 0, 0, 0.18);
+  color: #f5f0e4;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease, opacity 0.12s ease;
+}
+.eternia-market .mk-type {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 5px;
+  width: auto;
+  height: 30px;
+  padding: 0 6px 0 7px;
+  border-radius: 7px;
+  font: 600 11px/1 var(--pf-sans);
+  text-align: left;
+}
+.eternia-market .mk-type b { min-width: 0; padding: 0; background: none; font-size: 10px; }
+.eternia-market .mk-type span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.eternia-market .mk-type i { color: var(--pf-tertiary-dark); font-size: 11px; text-align: center; }
+.eternia-market :is(.mk-type, .mk-chip, .mk-segment) b {
+  min-width: 18px;
+  padding: 2px 4px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--pf-tertiary);
+  font: 700 9.5px/1 var(--pf-sans);
+  text-align: center;
+}
+.eternia-market :is(.mk-type, .mk-chip, .mk-segment, .mk-clear):not(:disabled):hover {
+  border-color: rgba(233, 215, 161, 0.55);
+  background: rgba(255, 255, 255, 0.07);
+}
+.eternia-market :is(.mk-type, .mk-chip, .mk-segment, .mk-tab, .mk-switch) { outline: none; }
+.eternia-market :is(.mk-type, .mk-chip).active {
+  border-color: var(--mk-gold);
+  background: linear-gradient(180deg, rgba(242, 219, 148, 0.3), rgba(201, 162, 74, 0.22));
+  box-shadow: inset 0 0 0 1px rgba(242, 219, 148, 0.3);
+  color: #fff;
+}
+.eternia-market :is(.mk-type, .mk-chip).active i { color: var(--mk-gold-light); }
+.eternia-market :is(.mk-type, .mk-chip, .mk-segment).active b { background: rgba(0, 0, 0, 0.25); color: var(--mk-gold-light); }
+.eternia-market .mk-type.active b { background: none; }
+.eternia-market :is(.mk-type, .mk-chip, .mk-segment, .mk-tab, .mk-clear):focus-visible { box-shadow: 0 0 0 2px rgba(242, 219, 148, 0.55); }
+.eternia-market :is(.mk-type, .mk-chip, .mk-segment).none { opacity: 0.38; }
+.eternia-market .mk-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.eternia-market .mk-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: auto;
+  height: 24px;
+  padding: 0 4px 0 8px;
+  border-radius: 12px;
+  font: 600 11px/1 var(--pf-sans);
+  white-space: nowrap;
+}
+.eternia-market .mk-chips.bands { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.eternia-market .mk-chips.bands .mk-chip { justify-content: space-between; }
+.eternia-market .mk-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mk-dot);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45);
+}
+.eternia-market .mk-range { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 6px; }
+.eternia-market .mk-range.one { grid-template-columns: 1fr; }
+.eternia-market .mk-range label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--pf-tertiary-dark);
+  font: 600 10.5px/1 var(--pf-sans);
+}
+.eternia-market .mk-range em { color: var(--pf-tertiary-dark); font: italic 11.5px/1 var(--pf-body); }
+.application.eternia-market .mk-rail input[type="number"] {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  height: 26px;
+  padding: 0 4px;
+  border: 1px solid rgba(233, 215, 161, 0.3);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.25);
+  color: #fbf4df;
+  font: 600 12px/1 var(--pf-sans);
+  text-align: center;
+}
+.application.eternia-market .mk-rail input[type="number"]:hover { border-color: rgba(233, 215, 161, 0.6); }
+.application.eternia-market .mk-rail input[type="number"]:focus {
+  border-color: var(--mk-gold);
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 0 2px rgba(242, 219, 148, 0.2);
+}
+.application.eternia-market .mk-rail input::placeholder { color: rgba(245, 240, 228, 0.35); }
+.eternia-market .mk-check {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--pf-tertiary-light);
+  font: italic 12px/1.3 var(--pf-body);
+  cursor: pointer;
+}
+.application.eternia-market .mk-check input[type="checkbox"] {
+  --checkbox-background-color: rgba(233, 215, 161, 0.4);
+  --checkbox-checked-color: var(--mk-gold-light);
+  flex: none;
+  margin: 0;
+}
+.eternia-market .mk-segments {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3px;
+  padding: 3px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+}
+.eternia-market .mk-segment {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  width: auto;
+  height: auto;
+  padding: 5px 2px;
+  border-color: transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--pf-tertiary);
+  font: 600 10.5px/1.1 var(--pf-sans);
+}
+.eternia-market .mk-segment.active {
+  border-color: rgba(242, 219, 148, 0.45);
+  background: rgba(242, 219, 148, 0.2);
+  color: #fff;
+}
+.eternia-market .mk-rail-foot { padding: 8px 11px 11px; border-top: 1px solid rgba(233, 215, 161, 0.18); }
+.eternia-market .mk-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 30px;
+  border-color: rgba(233, 215, 161, 0.35);
+  border-radius: 7px;
+  font: 600 12px/1 var(--pf-sans);
+}
+.eternia-market .mk-clear i { color: var(--mk-gold); }
+.eternia-market .mk-clear:disabled { opacity: 0.38; cursor: default; }
+
+/* Tools: the search, the order, a shop's two sides
+   ------------------------------------------------------------------------ */
+.eternia-market .mk-tools {
+  grid-area: tools;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 10px 12px 6px 14px;
+}
+.eternia-market .mk-tabs {
+  display: flex;
+  flex: none;
+  gap: 3px;
+  padding: 3px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 0 0 1px var(--mk-line);
+}
+.eternia-market .mk-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  height: 28px;
+  margin: 0;
+  padding: 0 12px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--pf-text-soft);
+  font: 600 12px/1 var(--pf-sans);
+  cursor: pointer;
+}
+.eternia-market .mk-tab:hover { color: var(--pf-primary-dark); background: rgba(255, 255, 255, 0.6); }
+.eternia-market .mk-tab.active {
+  background: var(--pf-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  color: #fbf4df;
+}
+.eternia-market .mk-tab.active i { color: var(--mk-gold-light); }
+.eternia-market .mk-search {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 7px;
+  min-width: 160px;
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--mk-line);
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.82);
+}
+.eternia-market .mk-search i { color: var(--pf-alt); font-size: 12px; }
+.eternia-market .mk-search:focus-within { border-color: var(--pf-primary-light); box-shadow: 0 0 0 2px rgba(43, 103, 71, 0.18); }
+.application.eternia-market .mk-search input[type="search"] {
+  flex: 1;
+  min-width: 0;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: none;
+  box-shadow: none;
+  color: var(--pf-text);
+  font: 14px/1 var(--pf-sans);
+}
+.application.eternia-market .mk-search input[type="search"]:focus { outline: none; background: none; box-shadow: none; }
+.eternia-market .mk-sort {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 4px 0 11px;
+  border: 1px solid var(--mk-line);
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.6);
+}
+.eternia-market .mk-sort i { color: var(--pf-primary); font-size: 12px; }
+.application.eternia-market .mk-sort select {
+  height: 28px;
+  padding: 0 4px;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pf-text);
+  font: 600 12px/1 var(--pf-sans);
+}
+.application.eternia-market .mk-sort select:focus { background: transparent; box-shadow: none; }
+.eternia-market .mk-count {
+  flex: none;
+  color: var(--pf-text-soft);
+  font: italic 12.5px/1 var(--pf-body);
+  white-space: nowrap;
+}
+.eternia-market .mk-count b { color: var(--pf-primary-dark); font: 700 13px/1 var(--pf-sans); }
+.eternia-market .mk-tool-button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  height: 30px;
+  margin: 0;
+  padding: 0 11px;
+  border: 1px solid var(--mk-line);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--pf-text);
+  font: 600 12px/1 var(--pf-sans);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.eternia-market .mk-tool-button i { color: var(--pf-primary); }
+.eternia-market .mk-tool-button:not(:disabled):hover { border-color: var(--pf-primary-light); background: rgba(255, 255, 255, 0.9); }
+.eternia-market .mk-tool-button:disabled { opacity: 0.45; cursor: default; }
+
+/* List: one card per item
+   ------------------------------------------------------------------------ */
+.eternia-market .mk-list {
+  grid-area: list;
+  min-height: 0;
+  padding: 2px 10px 14px 14px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-alt) transparent;
+}
+.eternia-market .mk-group[hidden] { display: none; }
+.eternia-market .mk-group + .mk-group { margin-top: 10px; }
+.eternia-market .mk-group-head {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+  padding: 6px 4px 5px;
+  border: none;
+  border-bottom: 1px solid var(--mk-line);
+  background: linear-gradient(180deg, #f3ecdc 72%, rgba(243, 236, 220, 0));
+  color: var(--pf-primary-dark);
+  font: 600 15px/1.2 var(--pf-serif);
+}
+.eternia-market .mk-group-head i { color: var(--mk-gold-dark); font-size: 12px; }
+.eternia-market .mk-group-head b { margin-left: auto; color: var(--pf-text-soft); font: 600 11px/1 var(--pf-sans); }
+.eternia-market .mk-rows { display: grid; gap: 5px; margin: 0; padding: 0; list-style: none; }
+.eternia-market .mk-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 6px 11px 6px 10px;
+  border: 1px solid var(--mk-line);
+  border-radius: 9px;
+  background: linear-gradient(180deg, var(--mk-paper), var(--mk-paper-dark));
+  box-shadow: 0 1px 2px rgba(60, 40, 10, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+.eternia-market .mk-row:has(.mk-mark) { grid-template-columns: 20px 44px minmax(0, 1fr) auto; }
+.eternia-market .mk-row[hidden] { display: none; }
+/* The grade's stripe */
+.eternia-market .mk-row::before {
+  content: "";
+  position: absolute;
+  inset: 7px auto 7px -1px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--mk-grade);
+  opacity: 0.75;
+}
+.eternia-market .mk-row:hover,
+.eternia-market .mk-row:focus-visible {
+  z-index: 1;
+  transform: translateY(-1px);
+  border-color: var(--pf-primary-light);
+  outline: none;
+  box-shadow: 0 5px 12px rgba(40, 28, 8, 0.18), 0 0 0 1px rgba(47, 107, 74, 0.35);
+}
+.eternia-market .mk-row.selected {
+  border-color: var(--pf-primary);
+  background:
+    radial-gradient(90% 140% at 0% 50%, rgba(47, 107, 74, 0.14), transparent 70%),
+    linear-gradient(180deg, #fffdf5, var(--mk-paper-dark));
+  box-shadow: 0 0 0 1px var(--pf-primary), 0 3px 8px rgba(40, 28, 8, 0.16);
+}
+.eternia-market .mk-row.marked { background: linear-gradient(180deg, #fff8e6, #f4e3bb); border-color: var(--mk-gold); }
+.eternia-market .mk-row.marked.selected { box-shadow: 0 0 0 1px var(--mk-gold), 0 3px 8px rgba(40, 28, 8, 0.16); }
+.eternia-market .mk-row.not-sale { background: linear-gradient(180deg, #f8f2e5, #ece0c6); }
+.eternia-market .mk-row.sold-out { opacity: 0.62; }
+.eternia-market .mk-row[draggable="true"] { cursor: grab; }
+.eternia-market .mk-mark {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--pf-divider);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.75);
+  color: transparent;
+  font-size: 10px;
+  cursor: pointer;
+}
+.eternia-market .mk-mark:hover { border-color: var(--pf-primary-light); color: rgba(31, 81, 55, 0.35); }
+.eternia-market .mk-row.marked .mk-mark { border-color: var(--pf-primary-dark); background: var(--pf-primary); color: var(--mk-gold-light); }
+.eternia-market .mk-row-img { position: relative; width: 44px; height: 44px; }
+.eternia-market .mk-row-img img {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #8a7a62;
+  border-radius: 8px;
+  background: #e8dcc0;
+  object-fit: cover;
+}
+.eternia-market .mk-row-img b {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  min-width: 20px;
+  padding: 2px 4px;
+  border: 1px solid #fbf4df;
+  border-radius: 9px;
+  background: var(--pf-primary-dark);
+  color: #fbf4df;
+  font: 700 10px/1 var(--pf-sans);
+  text-align: center;
+}
+.eternia-market .mk-row-body { display: grid; gap: 2px; min-width: 0; }
+.eternia-market .mk-row-name { display: flex; align-items: baseline; gap: 7px; min-width: 0; }
+.eternia-market .mk-row-name b {
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 600 14px/1.2 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.eternia-market .mk-grade {
+  flex: none;
+  padding: 1px 6px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--mk-grade) 15%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mk-grade) 45%, transparent);
+  color: color-mix(in srgb, var(--mk-grade) 80%, #000);
+  font: 700 9.5px/1.3 var(--pf-sans);
+  font-style: normal;
+  letter-spacing: 0.04em;
+}
+.eternia-market .mk-row-line {
+  overflow: hidden;
+  color: var(--pf-primary-dark);
+  font: 600 11px/1.3 var(--pf-sans);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.eternia-market .mk-row-type { color: var(--mk-gold-dark); }
+.eternia-market .mk-row-text {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--pf-text-soft);
+  font: 12px/1.35 var(--pf-body);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.eternia-market .mk-row-side { display: grid; justify-items: end; gap: 4px; min-width: 70px; }
+.eternia-market .mk-rank {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  padding: 1px 7px;
+  border-radius: 9px;
+  background: rgba(31, 81, 55, 0.1);
+  color: var(--pf-primary-dark);
+  font: 700 11.5px/1.4 var(--pf-sans);
+}
+.eternia-market .mk-rank small { color: var(--pf-alt); font: 700 8.5px/1 var(--pf-sans); letter-spacing: 0.1em; text-transform: uppercase; }
+.eternia-market .mk-price {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--mk-gold-dark);
+  font: 700 13.5px/1 var(--pf-sans);
+  white-space: nowrap;
+}
+.eternia-market .mk-price i { color: var(--mk-gold); font-size: 10px; }
+.eternia-market .mk-price.short { color: var(--mk-red); }
+.eternia-market .mk-price.short i { color: #a5544a; }
+.eternia-market .mk-row.not-sale .mk-price { opacity: 0.7; }
+.eternia-market .mk-stock { color: var(--pf-text-soft); font: italic 11px/1 var(--pf-body); white-space: nowrap; }
+.eternia-market .mk-stock.out { color: var(--mk-red); font-weight: 700; }
+.eternia-market .mk-blocked { color: var(--mk-red); font: 700 9px/1.1 var(--pf-sans); letter-spacing: 0.06em; text-align: right; text-transform: uppercase; }
+.eternia-market :is(.mk-empty, .mk-none) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 30px 18px;
+  color: var(--pf-text-soft);
+  font: italic 13.5px/1.3 var(--pf-body);
+}
+.eternia-market .mk-empty[hidden] { display: none; }
+.eternia-market .mk-closed {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  padding: 70px 20px;
+  color: var(--pf-text-soft);
+  font: italic 14px/1.4 var(--pf-body);
+  text-align: center;
+}
+.eternia-market .mk-closed i { color: var(--pf-alt); font-size: 36px; }
+.eternia-market .mk-closed p { margin: 0; }
+.eternia-market .mk-drop-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 12px;
+  border: 1px dashed var(--pf-divider);
+  border-radius: 9px;
+  color: var(--pf-text-soft);
+  font: italic 12.5px/1.3 var(--pf-body);
+}
+.application.eternia-market.mk-drop-over .mk-list {
+  outline: 2px dashed var(--pf-primary-light);
+  outline-offset: -6px;
+  background: rgba(47, 107, 74, 0.06);
+}
+
+/* Detail: the page of the item chosen
+   ------------------------------------------------------------------------ */
+.eternia-market .mk-detail {
+  grid-area: detail;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  margin: 10px 12px 10px 0;
+  border: 1px solid var(--mk-line);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 252, 243, 0.96), rgba(243, 232, 206, 0.96));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 2px 10px rgba(60, 40, 10, 0.14);
+  overflow: hidden;
+}
+.eternia-market .mk-page {
+  flex: 1;
+  min-height: 0;
+  padding: 15px 16px 12px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.eternia-market .mk-page-head { display: grid; grid-template-columns: 66px minmax(0, 1fr); align-items: center; gap: 12px; }
+.eternia-market .mk-page-img {
+  display: block;
+  width: 66px;
+  height: 66px;
+  padding: 2px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--mk-grade) 45%, #fff), var(--mk-grade));
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.25);
+}
+.eternia-market .mk-page-img img {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 11px;
+  background: #e8dcc0;
+  object-fit: cover;
+}
+.eternia-market .mk-page-titles { display: grid; gap: 2px; min-width: 0; }
+.eternia-market .mk-page-titles .mk-eyebrow { letter-spacing: 0.14em; }
+.eternia-market .mk-page-titles h3 {
+  margin: 0;
+  border: none;
+  color: var(--pf-primary-dark);
+  font: 600 20px/1.15 var(--pf-serif);
+}
+.eternia-market .mk-badges { display: flex; flex-wrap: wrap; gap: 4px; }
+.eternia-market .mk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--pf-text-soft);
+  font: 700 10px/1.3 var(--pf-sans);
+  letter-spacing: 0.04em;
+}
+.eternia-market .mk-badge.grade {
+  background: color-mix(in srgb, var(--mk-grade) 14%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mk-grade) 45%, transparent);
+  color: color-mix(in srgb, var(--mk-grade) 80%, #000);
+}
+.eternia-market .mk-badge.off { background: rgba(140, 47, 47, 0.09); color: var(--mk-red); }
+.eternia-market .mk-page-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 13px 0 10px;
+  padding: 8px 11px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 0 0 1px var(--mk-line);
+}
+.eternia-market .mk-coin {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 30%, #fff1c2, var(--mk-gold) 60%, var(--mk-gold-dark));
+  box-shadow: 0 0 0 1px #7a5a14, 0 2px 5px rgba(0, 0, 0, 0.25);
+  color: #5a420e;
+  font-size: 13px;
+}
+.eternia-market .mk-page-price > div { display: grid; }
+.eternia-market .mk-page-price small { color: var(--mk-gold-dark); font: 700 9.5px/1.2 var(--pf-sans); letter-spacing: 0.16em; text-transform: uppercase; }
+.eternia-market .mk-page-price b { display: flex; align-items: baseline; color: var(--mk-gold-dark); font: 600 22px/1.05 var(--pf-serif); }
+.eternia-market .mk-page-price b em { margin-left: 5px; color: var(--pf-text-soft); font: italic 12px/1 var(--pf-body); }
+.eternia-market .mk-base { color: var(--pf-text-soft); font: italic 12px/1.2 var(--pf-body); }
+.eternia-market .mk-stock-big {
+  margin-left: auto;
+  padding: 3px 9px;
+  border-radius: 10px;
+  background: rgba(31, 81, 55, 0.1);
+  color: var(--pf-primary-dark);
+  font: 700 11px/1.2 var(--pf-sans);
+}
+.eternia-market .mk-stock-big.out { background: rgba(140, 47, 47, 0.1); color: var(--mk-red); }
+.eternia-market .mk-stats { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 8px; padding: 0; list-style: none; }
+.eternia-market .mk-stats li {
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(31, 81, 55, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(31, 81, 55, 0.18);
+  color: var(--pf-primary-dark);
+  font: 600 11.5px/1.2 var(--pf-sans);
+}
+.eternia-market .mk-tags { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 11px; }
+.eternia-market .mk-tag {
+  padding: 2px 8px;
+  border: 1px solid var(--mk-line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--pf-alt-dark);
+  font: 600 10.5px/1.3 var(--pf-sans);
+  cursor: help;
+}
+.eternia-market .mk-desc { color: var(--pf-text); font: 13px/1.5 var(--pf-body); }
+.eternia-market .mk-desc p { margin: 0 0 7px; }
+.eternia-market .mk-desc hr { margin: 9px 0; border: none; border-top: 1px dotted var(--pf-divider); }
+.eternia-market .mk-no-text { color: var(--pf-text-soft); font-style: italic; }
+.eternia-market .mk-source {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dotted var(--pf-divider);
+  color: var(--pf-text-soft);
+  font: italic 11.5px/1.3 var(--pf-body);
+}
+.eternia-market .mk-source i { color: var(--pf-alt); font-size: 10px; }
+.eternia-market .mk-actions {
+  display: grid;
+  flex: none;
+  gap: 8px;
+  padding: 10px 14px 12px;
+  border-top: 1px solid var(--mk-line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(241, 229, 200, 0.6));
+}
+.eternia-market .mk-why { display: flex; gap: 7px; margin: 0; color: var(--mk-red); font: italic 12px/1.35 var(--pf-body); }
+.eternia-market .mk-qty { display: flex; align-items: center; gap: 6px; color: var(--pf-alt-dark); font: 600 11px/1 var(--pf-sans); }
+.eternia-market .mk-qty > span { margin-right: 4px; letter-spacing: 0.08em; text-transform: uppercase; }
+.eternia-market .mk-qty button {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--mk-line);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.65);
+  color: var(--pf-primary);
+  font-size: 10px;
+  cursor: pointer;
+}
+.eternia-market .mk-qty button:not(:disabled):hover { border-color: var(--pf-primary-light); background: #fff; }
+.eternia-market .mk-qty button:disabled { opacity: 0.4; cursor: default; }
+.eternia-market .mk-qty b { min-width: 28px; color: var(--pf-text); font: 600 17px/1 var(--pf-serif); text-align: center; }
+.eternia-market .mk-qty small { color: var(--pf-text-soft); font: italic 11px/1 var(--pf-body); }
+.eternia-market .mk-stock-field { display: flex; align-items: center; gap: 8px; color: var(--pf-alt-dark); font: 600 11px/1 var(--pf-sans); letter-spacing: 0.08em; text-transform: uppercase; }
+.application.eternia-market .mk-stock-field input[type="text"] { width: 72px; height: 26px; border-radius: 6px; text-align: center; font: 600 13px/1 var(--pf-sans); }
+.eternia-market .mk-buttons { display: flex; flex-wrap: wrap; gap: 6px; }
+.eternia-market .mk-buttons button { margin: 0; cursor: pointer; }
+.eternia-market .mk-primary {
+  display: flex;
+  flex: 1 1 100%;
+  align-items: center;
+  gap: 9px;
+  height: 40px;
+  padding: 0 10px 0 14px;
+  border: 1px solid var(--pf-primary-dark);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--pf-primary-light), var(--pf-primary-dark));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 6px rgba(0, 0, 0, 0.25);
+  color: #fbf4df;
+  font: 600 13.5px/1 var(--pf-sans);
+}
+.eternia-market .mk-primary > i { color: var(--mk-gold-light); }
+.eternia-market .mk-primary span { flex: 1; overflow: hidden; text-align: left; text-overflow: ellipsis; white-space: nowrap; }
+.eternia-market .mk-primary b {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--mk-gold-light);
+  font: 700 12.5px/1 var(--pf-sans);
+}
+.eternia-market .mk-primary b i { font-size: 10px; }
+.eternia-market .mk-primary:not(:disabled):hover { filter: brightness(1.12); }
+.eternia-market .mk-primary:disabled { opacity: 0.5; box-shadow: none; cursor: default; }
+.eternia-market .mk-secondary {
+  display: flex;
+  flex: 1 1 calc(50% - 3px);
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 0;
+  height: 33px;
+  padding: 0 10px;
+  border: 1px solid var(--mk-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--pf-text);
+  font: 600 12px/1 var(--pf-sans);
+}
+.eternia-market .mk-secondary span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.eternia-market .mk-secondary i { color: var(--pf-primary); }
+.eternia-market .mk-secondary:not(:disabled):hover { border-color: var(--pf-primary-light); background: rgba(255, 255, 255, 0.95); }
+.eternia-market .mk-secondary:disabled { opacity: 0.45; cursor: default; }
+.eternia-market .mk-secondary.danger,
+.eternia-market .mk-secondary.danger i { color: var(--mk-red); }
+.eternia-market .mk-secondary.danger:hover { border-color: #a5544a; }
+.eternia-market .mk-link {
+  display: flex;
+  flex: 1 1 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 26px;
+  border: none;
+  background: none;
+  color: var(--pf-primary);
+  font: 600 12px/1 var(--pf-sans);
+}
+.eternia-market .mk-link:hover { color: var(--pf-primary-dark); text-decoration: underline; }
+.eternia-market .mk-drag-hint {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+  color: var(--pf-text-soft);
+  font: italic 11.5px/1.3 var(--pf-body);
+  text-align: center;
+}
+.eternia-market .mk-guide {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 10px;
+  padding: 30px 24px;
+  text-align: center;
+}
+.eternia-market .mk-guide-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, var(--pf-primary-light), var(--pf-primary-dark));
+  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.45), 0 3px 10px rgba(0, 0, 0, 0.25);
+  color: var(--mk-gold-light);
+  font-size: 24px;
+}
+.eternia-market .mk-guide h3 { margin: 4px 0 0; border: none; color: var(--pf-primary-dark); font: 600 19px/1.2 var(--pf-serif); }
+.eternia-market .mk-guide ul {
+  display: grid;
+  gap: 8px;
+  margin: 4px 0 0;
+  padding-left: 18px;
+  color: var(--pf-text-soft);
+  font: 13px/1.45 var(--pf-body);
+  text-align: left;
+}
+
+/* Foot: who buys, what the window is for, what the GM can do
+   ------------------------------------------------------------------------ */
+.eternia-market .mk-foot {
+  grid-area: foot;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  padding: 9px 16px 11px;
+  border-top: 1px solid rgba(186, 169, 145, 0.7);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4));
+}
+.eternia-market .mk-buyer {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  max-width: 470px;
+  padding: 4px 14px 4px 4px;
+  border: 1px solid var(--mk-line);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.55);
+}
+.eternia-market .mk-buyer-img {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 2px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--mk-gold-light), var(--mk-gold) 50%, var(--mk-gold-dark));
+}
+.eternia-market .mk-buyer-img img {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #12301f;
+  border-radius: 50%;
+  background: #f3eee2;
+  object-fit: cover;
+}
+.eternia-market .mk-buyer-img.empty { background: rgba(0, 0, 0, 0.08); color: var(--pf-alt); }
+.eternia-market .mk-buyer-text { display: grid; min-width: 0; }
+.eternia-market .mk-buyer-text small { color: var(--mk-gold-dark); font: 700 9px/1.2 var(--pf-sans); letter-spacing: 0.16em; text-transform: uppercase; }
+.eternia-market .mk-buyer-text b {
+  max-width: 200px;
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 600 14px/1.25 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.eternia-market .mk-buyer-text b.none { max-width: 260px; color: var(--pf-text-soft); font: italic 12px/1.25 var(--pf-body); white-space: normal; }
+.application.eternia-market .mk-buyer select {
+  max-width: 200px;
+  height: 22px;
+  padding: 0 2px;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pf-text);
+  font: 600 14px/1 var(--pf-serif);
+  cursor: pointer;
+}
+.application.eternia-market .mk-buyer select:focus { background: rgba(255, 255, 255, 0.6); box-shadow: none; }
+.eternia-market :is(.mk-purse, .mk-space) { display: inline-flex; align-items: center; gap: 5px; font: 700 13px/1 var(--pf-sans); white-space: nowrap; }
+.eternia-market .mk-purse { color: var(--mk-gold-dark); }
+.eternia-market .mk-purse i { color: var(--mk-gold); }
+.eternia-market .mk-space { color: var(--pf-primary-dark); }
+.eternia-market .mk-space i { color: var(--pf-primary); }
+.eternia-market .mk-space.full,
+.eternia-market .mk-space.full i { color: var(--mk-red); }
+.eternia-market .mk-hint {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  color: var(--pf-text-soft);
+  font: italic 12.5px/1.3 var(--pf-body);
+  text-align: center;
+}
+.eternia-market .mk-hint i { color: var(--mk-gold-dark); font-style: normal; }
+.eternia-market .mk-foot-actions { display: flex; flex: none; align-items: center; gap: 8px; }
+.eternia-market :is(.mk-marked, .mk-target) {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 15px;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--pf-text-soft);
+  font: 600 12px/1 var(--pf-sans);
+  white-space: nowrap;
+}
+.eternia-market .mk-marked b { color: var(--pf-text); font-size: 13px; }
+.eternia-market .mk-marked.on { background: rgba(201, 162, 74, 0.2); color: var(--mk-gold-dark); }
+.eternia-market .mk-marked.on b { color: var(--mk-gold-dark); }
+.eternia-market .mk-target { background: rgba(31, 81, 55, 0.12); color: var(--pf-primary-dark); }
+.eternia-market .mk-target i { color: var(--pf-primary); }
+.eternia-market :is(.mk-marked, .mk-target) button {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin: 0 -4px 0 2px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.08);
+  color: inherit;
+  font-size: 9px;
+  cursor: pointer;
+}
+.eternia-market :is(.mk-marked, .mk-target) button:hover { background: rgba(0, 0, 0, 0.16); }
+.eternia-market .mk-foot-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  height: 38px;
+  margin: 0;
+  padding: 0 15px;
+  border: 1px solid var(--mk-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--pf-text);
+  font: 600 13px/1 var(--pf-sans);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.eternia-market .mk-foot-button i { color: var(--pf-primary); }
+.eternia-market .mk-foot-button:not(:disabled):hover { border-color: var(--pf-primary-light); background: rgba(255, 255, 255, 0.9); }
+.eternia-market .mk-foot-button:disabled { opacity: 0.45; cursor: default; }
+.eternia-market .mk-foot-button.primary {
+  border-color: var(--pf-primary-dark);
+  background: linear-gradient(180deg, var(--pf-primary-light), var(--pf-primary-dark));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 6px rgba(0, 0, 0, 0.25);
+  color: #fbf4df;
+}
+.eternia-market .mk-foot-button.primary i { color: var(--mk-gold-light); }
+.eternia-market .mk-foot-button.primary:not(:disabled):hover { filter: brightness(1.12); background: linear-gradient(180deg, var(--pf-primary-light), var(--pf-primary-dark)); }
+.eternia-market .mk-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  height: 34px;
+  margin: 0;
+  padding: 0 12px 0 9px;
+  border: 1px solid var(--mk-line);
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--mk-red);
+  font: 600 12.5px/1 var(--pf-sans);
+  cursor: pointer;
+}
+.eternia-market .mk-switch.on { color: var(--pf-primary-dark); }
+.eternia-market .mk-switch-track {
+  position: relative;
+  width: 32px;
+  height: 18px;
+  border-radius: 9px;
+  background: #b9a98d;
+  transition: background 0.15s ease;
+}
+.eternia-market .mk-switch-track i {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  transition: left 0.15s ease;
+}
+.eternia-market .mk-switch.on .mk-switch-track { background: var(--pf-primary); }
+.eternia-market .mk-switch.on .mk-switch-track i { left: 16px; }
+.eternia-market .mk-percent {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--mk-line);
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--pf-text-soft);
+  font: 600 12px/1 var(--pf-sans);
+}
+.eternia-market .mk-percent i { color: var(--mk-gold-dark); }
+.application.eternia-market .mk-percent input[type="number"] {
+  width: 52px;
+  height: 24px;
+  padding: 0 2px;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pf-text);
+  font: 700 13px/1 var(--pf-sans);
+  text-align: right;
+}
+
+/* Narrower windows: the head's numbers go, the cards' text takes one line
+   ------------------------------------------------------------------------ */
+@container mk (max-width: 1180px) {
+  .eternia-market .mk-facts { display: none; }
+  .eternia-market .mk-row-text { -webkit-line-clamp: 1; }
+  .eternia-market .mk-tool-button span { display: none; }
+}
+@container mk (max-width: 1060px) {
+  .eternia-market .mk-hint { display: none; }
+  .eternia-market .mk-count { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eternia-market .mk-row,
+  .eternia-market .mk-switch-track i { transition: none; }
+  .eternia-market .mk-row:hover { transform: none; }
+}
+
+/* The box of a new shop (module/market/shops.mjs)
+   ------------------------------------------------------------------------ */
+.application.mk-shop-box .mk-new-shop-who {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 10px;
+  padding: 8px 12px;
+  border: 1px dashed var(--pf-divider, #baa991);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.4);
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+.application.mk-shop-box .mk-new-shop-who.over { border-color: var(--pf-primary, #1f5137); background: rgba(47, 107, 74, 0.1); }
+.application.mk-shop-box .mk-new-shop-img {
+  flex: none;
+  width: 54px;
+  height: 54px;
+  border: 2px solid #c9a24a;
+  border-radius: 50%;
+  background: #f3eee2;
+  object-fit: cover;
+}
+.application.mk-shop-box .mk-new-shop-who p { margin: 0; color: var(--pf-text-soft, #59554b); font: italic 12.5px/1.35 var(--pf-body, serif); }
+.application.mk-shop-box .form-fields { display: flex; align-items: center; gap: 8px; }
+.application.mk-shop-box .form-fields input[type="number"] { width: 80px; flex: none; }
+.application.mk-shop-box textarea { min-height: 52px; resize: vertical; font: 13px/1.4 var(--pf-body, serif); }

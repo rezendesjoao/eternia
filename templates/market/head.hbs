@@ -1,0 +1,13 @@
+{{!-- The Market's head (module/market/market.mjs): what the window is (the Market, or a shop with its shopkeeper,
+     open or closed, and the greeting) and a few numbers of it. --}}
+<header class="mk-head">
+	<span class="mk-emblem{{#if portrait}} portrait{{/if}}">{{#if portrait}}<img src="{{portrait}}" alt="">{{else}}<i class="fa-solid fa-store"></i>{{/if}}</span>
+	<div class="mk-head-text">
+		<span class="mk-eyebrow">{{eyebrow}}{{#if status}}<b class="mk-status {{status.id}}">{{status.label}}</b>{{/if}}</span>
+		<h2>{{heading}}</h2>
+		{{#if leadHTML}}<div class="mk-lead mk-greeting">{{{leadHTML}}}</div>{{else}}<p class="mk-lead">{{lead}}</p>{{/if}}
+	</div>
+	<ul class="mk-facts">
+		{{#each facts}}<li><i class="{{icon}}"></i><b>{{value}}</b><small>{{label}}</small></li>{{/each}}
+	</ul>
+</header>

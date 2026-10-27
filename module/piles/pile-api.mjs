@@ -232,7 +232,7 @@ export async function sellItem(merchant, item) {
 
 /**
  * Open a pile for the current user, checking the interaction distance first.
- * The GM always opens the full sheet.
+ * A merchant opens its counter (module/market/), for the GM too; the GM opens any other pile's full sheet.
  * @param {Actor} pile
  */
 export function openPile(pile) {
@@ -244,6 +244,7 @@ export function openPile(pile) {
       return;
     }
   }
+  if (isMerchant(pile) && game.eternia.market) return game.eternia.market.openShop(pile);
   const sheet = pile.sheet;
   if (sheet.rendered) sheet.bringToFront();
   else sheet.render(true);

@@ -142,6 +142,21 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   `loadDocuments` fica em `helpers/pack-index.mjs` para o catálogo de Magias e o do assistente usarem sem importar um
   ao outro.
 
+## O Mercado e as lojas
+- `module/market/`: `catalog.mjs` (`marketCatalog`: todo item físico dos compêndios de Item do sistema e do mundo e os
+  itens do mundo, o primeiro de cada nome e tipo vale, o do sistema antes; a entrada é a `gearEntry` do assistente com o
+  grau, `forSale`, a pasta e a busca), `market.mjs` (`EterniaMarket`: uma classe para o Mercado e para a vitrine de uma
+  loja; os filtros rodam nas entradas, sem desenhar de novo, em `#applyFilters`, que também conta cada botão), `shops.mjs`
+  (`marketPurchase`, só do Mestre e na tela dele; `createShop`/`createShopDialog`/`addToShop`/`placeShop`; `buyFromShop`
+  vai pelo `buyItem` das pilhas) e `index.mjs` (configuração `marketPlayers`, o botão na barra dos tokens, os ganchos que
+  desenham de novo a vitrine quando a loja ou quem compra muda, e `game.eternia.market`). Modelos em `templates/market/`,
+  CSS em `css/market.css` (prefixo `mk`).
+- Uma loja é uma pilha no modo mercador (`module/piles/`): o estoque, a compra pelo socket do Mestre, a venda e o registro
+  no chat são os dela. A vitrine troca a ficha da pilha nos dois cliques (`openPile` e `EterniaToken#_onClickLeft2`, para
+  o Mestre também); a ficha continua para configurar. O jogador precisa de Limitado no ator da loja para os dois cliques
+  pegarem (`Token#_canView`), e a loja criada pelo Mercado já vem assim.
+- Não use `tab` como `data-action` numa janela nova: é a ação de abas do `ApplicationV2`.
+
 ## Ficha e tokens
 - A aba Raça (`module/races/sheet.mjs`, `templates/character/race.hbs`, CSS em `css/classes.css`, prefixo `lhrc`) usa a
   faixa e os blocos de habilidade da aba Classe (os seletores `:is(.tab.class, .tab.race)`) e as dicas de

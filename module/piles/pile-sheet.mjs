@@ -31,7 +31,8 @@ export class EterniaPileSheet extends HandlebarsApplicationMixin(foundry.applica
       deleteItem: EterniaPileSheet.#onDeleteItem,
       filterType: EterniaPileSheet.#onFilterType,
       shopTab: EterniaPileSheet.#onShopTab,
-      toggleConfig: EterniaPileSheet.#onToggleConfig
+      toggleConfig: EterniaPileSheet.#onToggleConfig,
+      openCounter: EterniaPileSheet.#onOpenCounter
     }
   };
 
@@ -54,6 +55,14 @@ export class EterniaPileSheet extends HandlebarsApplicationMixin(foundry.applica
   /** @override */
   get title() {
     return this.actor.token?.name ?? this.actor.name;
+  }
+
+  /** @override */
+  _getHeaderControls() {
+    const controls = super._getHeaderControls();
+    // A merchant's counter (module/market/): what the players see when they double-click its token
+    if (isMerchant(this.actor)) controls.unshift({ icon: "fa-solid fa-store", label: "ETERNIA.Market.OpenCounter", action: "openCounter" });
+    return controls;
   }
 
   /* -------------------------------------------- */
@@ -416,5 +425,9 @@ export class EterniaPileSheet extends HandlebarsApplicationMixin(foundry.applica
   static #onToggleConfig() {
     this.#showConfig = !this.#showConfig;
     this.render();
+  }
+
+  static #onOpenCounter() {
+    game.eternia.market?.openShop(this.actor);
   }
 }

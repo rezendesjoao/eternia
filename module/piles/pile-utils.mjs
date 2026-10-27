@@ -54,15 +54,22 @@ export function getStock(item) {
  * Only characters have a carrying limit. Tickets use their own slots.
  * @param {Actor} actor
  * @param {Item|object} item   Item or item data
+ * @param {number} [units=1]   How many of it (each takes a slot)
  */
-export function hasRoomFor(actor, item) {
+export function hasRoomFor(actor, item, units = 1) {
   if (actor?.type !== "character") return true;
   if (!SPACE_TYPES.includes(item.type)) return true;
-  return usedSpace(actor) < (actor.system.inventory?.maxSpace ?? 0);
+  return freeSpace(actor) >= units;
 }
 
 export function usedSpace(actor) {
   return actor.items.filter(i => SPACE_TYPES.includes(i.type) && i.system.equipped !== true).length;
+}
+
+/** The slots still free in an actor's inventory (only characters have a limit). */
+export function freeSpace(actor) {
+  if (actor?.type !== "character") return Infinity;
+  return Math.max(0, (actor.system.inventory?.maxSpace ?? 0) - usedSpace(actor));
 }
 
 /* -------------------------------------------- */

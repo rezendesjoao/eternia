@@ -1196,7 +1196,9 @@
       "autoApply": {
         "Name": "Apply damage, healing and effects by themselves",
         "Hint": "The damage and healing of the cards go to whoever the blow hit, and the skill's effects to whoever it reached, on the GM's window. Whoever may still use a Before Damage reaction waits for their owner. An attack without damage also counts on a failed Dodge (Hate Damage, Pursuit, Weakness, Marked).",
-        "manual": "By hand (the buttons)", "enemies": "By themselves on the enemies", "all": "By themselves on everyone"
+        "manual": "By hand (the buttons)",
+        "enemies": "By themselves on the enemies",
+        "all": "By themselves on everyone"
       },
       "monsterDamage": {
         "Name": "A monster's attack in one click",
@@ -1213,7 +1215,9 @@
       "autoEndTurn": {
         "Name": "End of turn with the actions spent",
         "Hint": "When whoever is acting already used the Major, Minor and Move Actions: ask whether the turn ends, end it, or nothing. Who falls in their own turn also ends it (except with Do nothing).",
-        "off": "Do nothing", "ask": "Ask", "auto": "End it"
+        "off": "Do nothing",
+        "ask": "Ask",
+        "auto": "End it"
       },
       "autoPhases": {
         "Name": "Setup and Cleanup by themselves",
@@ -1356,6 +1360,13 @@
         "fall": "When the monster falls",
         "combat": "At the end of the combat",
         "manual": "By hand only, from the monster sheet"
+      },
+      "marketPlayers": {
+        "Name": "What players see in the Market",
+        "Hint": "The Market button (in the token controls) lists the compendiums' items. Players only look: buying, giving and dragging from it is the GM's; they buy at the scene's shops.",
+        "all": "Every item",
+        "sale": "Only what shops sell",
+        "none": "Nothing (the button is hidden for them)"
       }
     },
     "Use": {
@@ -4295,6 +4306,186 @@
       "NoMove": "no Move Action",
       "Woke": "{name} took damage and wakes from {monster}'s call.",
       "SourceGone": "{monster} fell: {name} is free of the call."
+    },
+    "Market": {
+      "Title": "Market",
+      "Button": "Market",
+      "WorldItems": "World items",
+      "Eyebrow": "Eternia Market",
+      "Heading": "Every item",
+      "LeadGM": "The compendiums' items, with price and description. Buy for a character, give for free, drag to a sheet or mark items to set up a shop.",
+      "LeadPlayer": "The world's items and their prices. To buy, talk to a shop on the scene.",
+      "Fact": {
+        "Items": "items",
+        "Folders": "folders",
+        "Ranks": "ranks",
+        "Wares": "for sale",
+        "Prices": "prices",
+        "Buys": "buys"
+      },
+      "ShopEyebrow": "Shop",
+      "ShopLead": "Pick an item to see everything about it.",
+      "Filter": {
+        "Type": "Type",
+        "Rank": "Item rank",
+        "From": "from",
+        "To": "to",
+        "Price": "Price",
+        "UpTo": "up to",
+        "Affordable": "Only what {name} can pay",
+        "Sale": "Sale",
+        "SaleAll": "All",
+        "ForSale": "For sale",
+        "NotForSale": "Not for sale",
+        "Grade": "Grade",
+        "Folder": "Folder",
+        "Tags": "Tags",
+        "Clear": "Clear the filters"
+      },
+      "Grade": {
+        "common": "Common",
+        "rare": "Rare",
+        "m1": "M1",
+        "m2": "M2",
+        "m3": "M3",
+        "m4": "M4",
+        "m5": "M5",
+        "m6": "M6",
+        "m7": "M7",
+        "Magic": "Magic"
+      },
+      "Sort": {
+        "Label": "Sort by",
+        "type": "Type and rank",
+        "name": "Name",
+        "priceAsc": "Price (low → high)",
+        "priceDesc": "Price (high → low)",
+        "rankAsc": "Rank (low → high)",
+        "rankDesc": "Rank (high → low)"
+      },
+      "Tabs": "Buy or sell",
+      "Search": "Search by name, effect or tag…",
+      "MarkShown": "Mark the shown",
+      "MarkShownHint": "Marks every item the filters show, to set up a shop with them",
+      "Mark": "Mark for a shop",
+      "RankShort": "Rk",
+      "StockLeft": "{n} in stock",
+      "StockInfinite": "Endless stock",
+      "NoPrice": "No price",
+      "Empty": "No items in the compendiums.",
+      "NoMatch": "No item with these filters.",
+      "DropHint": "Drag items from the Market, a compendium or the sidebar here to put them in the shop.",
+      "NotSold": "Not sold in shops",
+      "TwoHanded": "Two hands",
+      "YouGet": "You get",
+      "BasePrice": "Base price: {n}",
+      "BasePriceHint": "The item's price in the compendium; the shop asks its percentage.",
+      "NoText": "This item has no description.",
+      "Max": "max. {n}",
+      "Remove": "Take out of the shop",
+      "OpenSheet": "Open the item's sheet",
+      "DragHint": "Drag the row to a character's sheet to give the item for free.",
+      "GiveTo": "Give to {name}",
+      "Give": "Give",
+      "BuyFor": "Buy for {name}",
+      "PutIn": "Put in {name}",
+      "PutInShop": "Put in a shop…",
+      "Why": {
+        "NoBuyer": "Pick a character at the bottom left.",
+        "NoPrice": "This item has no price: it can only be given for free.",
+        "NoMarks": "Mark the items first (the box at the left of each row)."
+      },
+      "Guide": {
+        "Title": "The Market",
+        "Pick": "Click an item to see its whole description, price and tags.",
+        "Drag": "Drag an item to a character's sheet to give it for free.",
+        "Buy": "Pick the character at the bottom to buy with their gold or give for free.",
+        "Shop": "Mark items and click Create shop: the shop becomes a token on the scene, and players buy by double-clicking it.",
+        "Look": "Only the GM buys and gives items from here. To buy, talk to a shop on the scene (double-click its token).",
+        "ShopTitle": "Welcome!",
+        "ShopPick": "Click an item to see its description, price and stock.",
+        "ShopBuy": "Choose how many and click Buy: the gold leaves your purse and the item goes to your sheet.",
+        "ShopGM": "On the item, change the stock or take it out; at the bottom, open or close the shop and change the prices.",
+        "ShopDrop": "To add items, drag them from the Market, a compendium or the sidebar to this window.",
+        "SellTitle": "Sell",
+        "SellPick": "The list shows what you carry and don't have equipped.",
+        "SellPrice": "The shop pays its percentage of the item's price."
+      },
+      "Hint": {
+        "GM": "Only you buy and give from here. Players buy at the scene's shops.",
+        "Player": "Only the GM buys and gives items from the Market.",
+        "Sell": "Choose what to sell.",
+        "Shop": "Click an item, then Buy.",
+        "ShopGM": "Players open this shop by double-clicking its token."
+      },
+      "Buyer": "Who buys",
+      "BuyerGM": "For",
+      "NoBuyerGM": "No player character in the world.",
+      "SpaceHint": "Inventory space (used / total)",
+      "Stocking": "Putting in {name}",
+      "StopStocking": "Stop putting in this shop",
+      "Marked": "marked",
+      "Unmark": "Unmark all",
+      "PutMarked": "Put in a shop",
+      "PutMarkedIn": "Put in {name}",
+      "NewShop": "Create shop",
+      "NewShopWith": "Create shop with {n}",
+      "Open": "Open",
+      "Closed": "Closed",
+      "Configure": "Configure",
+      "AddFromMarket": "Add from the Market",
+      "OpenCounter": "Open the shop",
+      "Shown": "{n} of {total} items",
+      "Log": {
+        "Buy": "<b>{actor}</b> bought {item} at the Market for {gold} gold.",
+        "Give": "<b>{actor}</b> received {item} from the GM."
+      },
+      "Shop": {
+        "Folder": "Shops",
+        "DefaultName": "Shop",
+        "Reach": {
+          "Label": "Reach",
+          "any": "Anywhere on the scene",
+          "1": "Next to the token (1 square)",
+          "3": "Up to 3 squares"
+        },
+        "DropActor": "Drop an NPC here (from the sidebar or the NPCs compendium): the shop takes its name and portrait.",
+        "FromActor": "Using the name and portrait of {name}.",
+        "Name": "Name",
+        "Img": "Portrait and token",
+        "Greeting": "Shopkeeper's greeting",
+        "GreetingHint": "What the shopkeeper says when someone comes in (shown at the top of the shop).",
+        "BuyPercent": "Price (% of the item's price)",
+        "Buys": "Buys from the players",
+        "BuysHint": "On: players sell to the shop, which pays the percentage beside.",
+        "SellPercent": "What it pays (% of the item's price)",
+        "Stock": "Stock of each item",
+        "StockHint": "Empty: endless.",
+        "Place": "Put the token on the scene",
+        "Eyebrow": "New shop",
+        "Heading": "Items for sale: {n}",
+        "Lead": "The shop becomes a token on the scene. Players double-click it to see only these items and buy.",
+        "Title": "Create shop",
+        "Create": "Create shop",
+        "Created": "The shop {name} was created with {n} items.",
+        "None": "There are no shops in the world: create one in the Market.",
+        "AddTitle": "Put in a shop",
+        "AddHeading": "Items: {n}",
+        "Which": "Shop",
+        "Add": "Put in the shop",
+        "Added": "{name}: {n} new items, {more} with more stock."
+      },
+      "NotForPlayers": "The GM hasn't opened the Market to the players.",
+      "Type": {
+        "weapon": "Weapons",
+        "armor": "Armor",
+        "shield": "Shields",
+        "accessory": "Accessories",
+        "bag": "Bags",
+        "usable": "Consumables",
+        "gear": "Sundries",
+        "ticket": "Tickets"
+      }
     }
   }
 }

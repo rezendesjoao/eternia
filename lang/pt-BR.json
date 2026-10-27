@@ -1196,7 +1196,9 @@
       "autoApply": {
         "Name": "Aplicar dano, cura e efeitos sozinho",
         "Hint": "O dano e a cura dos cartões entram sozinhos em quem o golpe atingiu, e os efeitos da habilidade em quem ele alcançou, pela tela do Mestre. Quem ainda pode usar uma reação Antes do Dano espera o dono. Um ataque sem dano também conta na Esquiva falha (Dano de Ódio, Perseguição, Fraqueza, Marcado).",
-        "manual": "À mão (os botões)", "enemies": "Sozinho nos inimigos", "all": "Sozinho em todos"
+        "manual": "À mão (os botões)",
+        "enemies": "Sozinho nos inimigos",
+        "all": "Sozinho em todos"
       },
       "monsterDamage": {
         "Name": "Ataque do monstro em um clique",
@@ -1213,7 +1215,9 @@
       "autoEndTurn": {
         "Name": "Fim do turno com as ações gastas",
         "Hint": "Quando quem está na vez já usou as Ações Maior, Menor e de Movimento: perguntar se o turno acaba, acabar sozinho, ou nada. Quem cai no próprio turno também encerra a vez (menos em Não fazer nada).",
-        "off": "Não fazer nada", "ask": "Perguntar", "auto": "Encerrar sozinho"
+        "off": "Não fazer nada",
+        "ask": "Perguntar",
+        "auto": "Encerrar sozinho"
       },
       "autoPhases": {
         "Name": "Manutenção e Encerramento sozinhos",
@@ -1356,6 +1360,13 @@
         "fall": "Quando o monstro cai",
         "combat": "No fim do combate",
         "manual": "Só à mão, pela ficha do monstro"
+      },
+      "marketPlayers": {
+        "Name": "O que os jogadores veem no Mercado",
+        "Hint": "O botão Mercado (na barra dos tokens) mostra os itens dos compêndios. Os jogadores só olham: comprar, dar e arrastar daqui é só do Mestre; eles compram nas lojas da cena.",
+        "all": "Todos os itens",
+        "sale": "Só o que se vende em lojas",
+        "none": "Nada (o botão some para eles)"
       }
     },
     "Use": {
@@ -4295,6 +4306,186 @@
       "NoMove": "sem a Ação de Movimento",
       "Woke": "{name} sofreu dano e acorda do chamado de {monster}.",
       "SourceGone": "{monster} caiu: {name} está livre do chamado."
+    },
+    "Market": {
+      "Title": "Mercado",
+      "Button": "Mercado",
+      "WorldItems": "Itens do mundo",
+      "Eyebrow": "Mercado de Eternia",
+      "Heading": "Todos os itens",
+      "LeadGM": "Os itens dos compêndios, com preço e descrição. Compre para um personagem, dê de graça, arraste para uma ficha ou marque itens para montar uma loja.",
+      "LeadPlayer": "Os itens do mundo e os seus preços. Para comprar, fale com uma loja na cena.",
+      "Fact": {
+        "Items": "itens",
+        "Folders": "pastas",
+        "Ranks": "níveis",
+        "Wares": "à venda",
+        "Prices": "preços",
+        "Buys": "compra"
+      },
+      "ShopEyebrow": "Loja",
+      "ShopLead": "Escolha um item para ver tudo sobre ele.",
+      "Filter": {
+        "Type": "Tipo",
+        "Rank": "Nível do item",
+        "From": "de",
+        "To": "a",
+        "Price": "Preço",
+        "UpTo": "até",
+        "Affordable": "Só o que {name} pode pagar",
+        "Sale": "Venda",
+        "SaleAll": "Todos",
+        "ForSale": "À venda",
+        "NotForSale": "Fora de venda",
+        "Grade": "Grau",
+        "Folder": "Pasta",
+        "Tags": "Tags",
+        "Clear": "Limpar os filtros"
+      },
+      "Grade": {
+        "common": "Comum",
+        "rare": "Raro",
+        "m1": "M1",
+        "m2": "M2",
+        "m3": "M3",
+        "m4": "M4",
+        "m5": "M5",
+        "m6": "M6",
+        "m7": "M7",
+        "Magic": "Mágico"
+      },
+      "Sort": {
+        "Label": "Ordenar por",
+        "type": "Tipo e nível",
+        "name": "Nome",
+        "priceAsc": "Preço (menor → maior)",
+        "priceDesc": "Preço (maior → menor)",
+        "rankAsc": "Nível (menor → maior)",
+        "rankDesc": "Nível (maior → menor)"
+      },
+      "Tabs": "Comprar ou vender",
+      "Search": "Procurar por nome, efeito ou tag…",
+      "MarkShown": "Marcar os mostrados",
+      "MarkShownHint": "Marca todos os itens que os filtros mostram, para montar uma loja com eles",
+      "Mark": "Marcar para uma loja",
+      "RankShort": "Nv",
+      "StockLeft": "{n} em estoque",
+      "StockInfinite": "Estoque sem fim",
+      "NoPrice": "Sem preço",
+      "Empty": "Nenhum item nos compêndios.",
+      "NoMatch": "Nenhum item com esses filtros.",
+      "DropHint": "Arraste itens do Mercado, de um compêndio ou da barra lateral para cá para pôr na loja.",
+      "NotSold": "Não se vende em lojas",
+      "TwoHanded": "Duas mãos",
+      "YouGet": "Você recebe",
+      "BasePrice": "Preço base: {n}",
+      "BasePriceHint": "O preço do item no compêndio; a loja cobra a porcentagem dela.",
+      "NoText": "Este item não tem descrição.",
+      "Max": "máx. {n}",
+      "Remove": "Tirar da loja",
+      "OpenSheet": "Abrir a ficha do item",
+      "DragHint": "Arraste a linha para a ficha de um personagem para dar o item sem cobrar.",
+      "GiveTo": "Dar a {name}",
+      "Give": "Dar",
+      "BuyFor": "Comprar para {name}",
+      "PutIn": "Pôr em {name}",
+      "PutInShop": "Pôr numa loja…",
+      "Why": {
+        "NoBuyer": "Escolha um personagem no rodapé, à esquerda.",
+        "NoPrice": "Este item não tem preço: só dá para dar de graça.",
+        "NoMarks": "Marque os itens primeiro (a caixinha à esquerda de cada linha)."
+      },
+      "Guide": {
+        "Title": "O Mercado",
+        "Pick": "Clique num item para ver a descrição inteira, o preço e as tags.",
+        "Drag": "Arraste um item para a ficha de um personagem para dar sem cobrar.",
+        "Buy": "Escolha o personagem no rodapé para comprar com o ouro dele ou dar de graça.",
+        "Shop": "Marque itens e clique em Criar loja: a loja vira um token na cena, e os jogadores compram com dois cliques nele.",
+        "Look": "Só o Mestre compra e dá itens daqui. Para comprar, fale com uma loja na cena (dois cliques no token).",
+        "ShopTitle": "Bem-vindo!",
+        "ShopPick": "Clique num item para ver a descrição, o preço e o estoque.",
+        "ShopBuy": "Escolha quantos e clique em Comprar: o ouro sai da sua bolsa e o item vai para a sua ficha.",
+        "ShopGM": "No item, mude o estoque ou tire-o da loja; no rodapé, abra ou feche a loja e mude os preços.",
+        "ShopDrop": "Para pôr itens, arraste do Mercado, de um compêndio ou da barra lateral para esta janela.",
+        "SellTitle": "Vender",
+        "SellPick": "A lista mostra o que você carrega e não está equipado.",
+        "SellPrice": "A loja paga a porcentagem dela do preço do item."
+      },
+      "Hint": {
+        "GM": "Só você compra e dá daqui. Os jogadores compram nas lojas da cena.",
+        "Player": "Só o Mestre compra e dá itens do Mercado.",
+        "Sell": "Escolha o que vender.",
+        "Shop": "Clique num item e em Comprar.",
+        "ShopGM": "Os jogadores abrem esta loja com dois cliques no token."
+      },
+      "Buyer": "Quem compra",
+      "BuyerGM": "Para quem",
+      "NoBuyerGM": "Nenhum personagem de jogador no mundo.",
+      "SpaceHint": "Espaço do inventário (usado / total)",
+      "Stocking": "Pondo em {name}",
+      "StopStocking": "Parar de pôr nesta loja",
+      "Marked": "marcados",
+      "Unmark": "Desmarcar todos",
+      "PutMarked": "Pôr numa loja",
+      "PutMarkedIn": "Pôr em {name}",
+      "NewShop": "Criar loja",
+      "NewShopWith": "Criar loja com {n}",
+      "Open": "Aberta",
+      "Closed": "Fechada",
+      "Configure": "Configurar",
+      "AddFromMarket": "Pôr itens do Mercado",
+      "OpenCounter": "Abrir a loja",
+      "Shown": "{n} de {total} itens",
+      "Log": {
+        "Buy": "<b>{actor}</b> comprou {item} no Mercado por {gold} de ouro.",
+        "Give": "<b>{actor}</b> recebeu {item} do Mestre."
+      },
+      "Shop": {
+        "Folder": "Lojas",
+        "DefaultName": "Loja",
+        "Reach": {
+          "Label": "Alcance",
+          "any": "Qualquer lugar da cena",
+          "1": "Ao lado do token (1 quadrado)",
+          "3": "Até 3 quadrados"
+        },
+        "DropActor": "Arraste um NPC para cá (da barra lateral ou do compêndio NPCs): a loja usa o nome e o retrato dele.",
+        "FromActor": "Usando o nome e o retrato de {name}.",
+        "Name": "Nome",
+        "Img": "Retrato e token",
+        "Greeting": "Fala do vendedor",
+        "GreetingHint": "O que o vendedor diz quando alguém entra (aparece no topo da loja).",
+        "BuyPercent": "Preço (% do preço do item)",
+        "Buys": "Compra dos jogadores",
+        "BuysHint": "Ligado: os jogadores vendem para a loja, que paga a porcentagem ao lado.",
+        "SellPercent": "Quanto paga (% do preço do item)",
+        "Stock": "Estoque de cada item",
+        "StockHint": "Vazio: sem fim.",
+        "Place": "Pôr o token na cena",
+        "Eyebrow": "Nova loja",
+        "Heading": "Itens à venda: {n}",
+        "Lead": "A loja vira um token na cena. Os jogadores clicam duas vezes nele para ver só estes itens e comprar.",
+        "Title": "Criar loja",
+        "Create": "Criar loja",
+        "Created": "A loja {name} foi criada com {n} itens.",
+        "None": "Não há lojas no mundo: crie uma no Mercado.",
+        "AddTitle": "Pôr numa loja",
+        "AddHeading": "Itens: {n}",
+        "Which": "Loja",
+        "Add": "Pôr na loja",
+        "Added": "{name}: {n} itens novos, {more} com mais estoque."
+      },
+      "NotForPlayers": "O Mestre não abriu o Mercado para os jogadores.",
+      "Type": {
+        "weapon": "Armas",
+        "armor": "Armaduras",
+        "shield": "Escudos",
+        "accessory": "Acessórios",
+        "bag": "Bolsas",
+        "usable": "Consumíveis",
+        "gear": "Diversos",
+        "ticket": "Tíquetes"
+      }
     }
   },
   "Cancel": "Cancelar"

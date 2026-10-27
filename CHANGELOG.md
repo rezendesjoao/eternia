@@ -1,5 +1,24 @@
 # Changelog
 
+## Não lançado
+
+### Adicionado
+- **O Mercado** (o botão da lojinha na barra dos tokens): uma janela grande, no visual do assistente de criação, com
+  todos os itens dos compêndios do sistema e do mundo e os itens do mundo, cada um com o preço, o que dá e a descrição.
+  Filtros por tipo, Nível, preço, venda, grau, pasta e tags (cada botão conta quantos itens mostraria), busca por nome,
+  efeito ou tag e cinco ordens. Só o Mestre compra para um personagem (com o ouro dele), dá de graça ou arrasta para
+  uma ficha; os jogadores só olham (configuração "O que os jogadores veem no Mercado": tudo, só o que se vende ou nada).
+- **As lojas:** o Mestre marca itens no Mercado e cria uma loja (nome, retrato tirado de um NPC arrastado, fala do
+  vendedor, preço, compra dos jogadores, estoque e alcance), que vira um token na cena. Com dois cliques no token, o
+  jogador vê só os itens daquela loja, compra (quantos o estoque, o ouro e o espaço deixam, conferidos pelo Mestre) e
+  vende. O Mestre muda o estoque, tira itens, abre e fecha a loja, muda o preço e põe itens do Mercado ou arrastados.
+
+### Alterado
+- Os mercadores (pilhas no modo mercador) abrem a vitrine nova com dois cliques no token, para o Mestre também; a ficha
+  da pilha continua no Configurar da vitrine e ganhou o botão "Abrir a loja".
+- Comprar num mercador: várias unidades de uma vez (até 20; tíquetes, até 999), e o tíquete comprado soma na pilha que o
+  personagem já tem.
+
 ## 0.44.0 — 2026-10-27
 
 O lote 2 da lista `Eternia-Automacao/O-que-falta-automatizar.md` (fora do repositório): menos cliques no combate. Cada

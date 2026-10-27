@@ -4,7 +4,7 @@
  * document. Handlers return {ok, error?, errorData?, warnings?}.
  */
 import { registerHandler } from "./pile-socket.mjs";
-import { DEFAULT_IMAGES, DEFAULT_LOOT_FLAG, SETTINGS, STOCK_FLAG } from "./pile-config.mjs";
+import { DEFAULT_IMAGES, DEFAULT_LOOT_FLAG, MAX_TICKETS, MAX_UNITS, SETTINGS, STOCK_FLAG } from "./pile-config.mjs";
 import {
   isPile, isMerchant, isPhysical, getGold, goldPath, resolveActor, itemQuantity, getStock,
   hasRoomFor, buyPrice, sellPrice, isWithinReach, actorTokens
@@ -102,7 +102,7 @@ async function cleanupPile(pile) {
 }
 
 function itemLabel(item, quantity) {
-  return (item.type === "ticket") ? `${item.name} ×${quantity}` : item.name;
+  return ((item.type === "ticket") || (quantity > 1)) ? `${item.name} ×${quantity}` : item.name;
 }
 
 /* -------------------------------------------- */
@@ -390,14 +390,23 @@ async function buyItem({ merchantUuid, itemId, buyerUuid, quantity }, user) {
   if (denied) return denied;
 
   const stock = getStock(item);
-  const wanted = (item.type === "ticket") ? Math.max(1, Math.floor(Number(quantity) || 1)) : 1;
+  // Tickets come in one stack; anything else is one item per unit (each takes a slot), a few at once at most.
+  const ticket = item.type === "ticket";
+  const wanted = Math.clamp(Math.floor(Number(quantity) || 1), 1, ticket ? MAX_TICKETS : MAX_UNITS);
+  const units = ticket ? 1 : wanted;
   if ((stock !== -1) && (stock < wanted)) return fail("ETERNIA.Piles.Error.OutOfStock", { item: item.name });
-  if (!hasRoomFor(buyer, item)) return fail("ETERNIA.Piles.Error.InventoryFull", { actor: buyer.name, item: item.name });
+  if (!hasRoomFor(buyer, item, units)) return fail("ETERNIA.Piles.Error.InventoryFull", { actor: buyer.name, item: item.name });
 
   const cost = buyPrice(merchant, item) * wanted;
   if (cost > getGold(buyer)) return fail("ETERNIA.Piles.Error.NotEnoughGold", { actor: buyer.name });
 
-  await buyer.createEmbeddedDocuments("Item", [prepareItemData(item, wanted)]);
+  // A ticket the buyer already has gets the new ones on its stack
+  const stack = ticket ? buyer.items.find(i => (i.type === "ticket") && (i.name === item.name)) : null;
+  if (stack) await stack.update({ "system.quantity": itemQuantity(stack) + wanted });
+  else {
+    const data = prepareItemData(item, wanted);
+    await buyer.createEmbeddedDocuments("Item", Array.from({ length: units }, () => foundry.utils.deepClone(data)));
+  }
   await buyer.update({ [goldPath(buyer)]: getGold(buyer) - cost });
   if (!merchant.system.merchant?.infiniteGold) await merchant.update({ [goldPath(merchant)]: getGold(merchant) + cost });
   if (stock !== -1) await item.setFlag("eternia", STOCK_FLAG, stock - wanted);

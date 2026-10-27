@@ -1,0 +1,79 @@
+{{!-- The Market's filters, on the green banner of the sheet (module/market/market.mjs): the kind, the Item Rank, the
+     price, whether shops sell it, the grade, the folder and the tags. Each button tells how many items it would show
+     with the other filters on (the numbers are written by #applyFilters). --}}
+<aside class="mk-rail">
+	<div class="mk-rail-scroll">
+		<section class="mk-facet">
+			<h4><i class="fa-solid fa-shapes"></i>{{localize "ETERNIA.Market.Filter.Type"}}</h4>
+			<div class="mk-types">
+				{{#each types}}
+				<button type="button" class="mk-type{{#if active}} active{{/if}}" data-action="filter" data-facet="type" data-value="{{id}}" aria-pressed="{{#if active}}true{{else}}false{{/if}}">
+					<i class="{{icon}}"></i><span>{{label}}</span><b data-count="type:{{id}}"></b>
+				</button>
+				{{/each}}
+			</div>
+		</section>
+
+		<section class="mk-facet">
+			<h4><i class="fa-solid fa-layer-group"></i>{{localize "ETERNIA.Market.Filter.Rank"}}</h4>
+			<div class="mk-range">
+				<label><span>{{localize "ETERNIA.Market.Filter.From"}}</span><input type="number" name="rankMin" min="{{ranks.min}}" max="{{ranks.max}}" step="1" value="{{rankMin}}" placeholder="{{ranks.min}}"></label>
+				<label><span>{{localize "ETERNIA.Market.Filter.To"}}</span><input type="number" name="rankMax" min="{{ranks.min}}" max="{{ranks.max}}" step="1" value="{{rankMax}}" placeholder="{{ranks.max}}"></label>
+			</div>
+			{{#if bands.length}}
+			<div class="mk-chips bands">
+				{{#each bands}}<button type="button" class="mk-chip{{#if active}} active{{/if}}" data-action="band" data-min="{{min}}" data-max="{{max}}"><span>{{label}}</span><b data-count="band:{{key}}"></b></button>{{/each}}
+			</div>
+			{{/if}}
+		</section>
+
+		<section class="mk-facet">
+			<h4><i class="fa-solid fa-coins"></i>{{localize "ETERNIA.Market.Filter.Price"}}</h4>
+			<div class="mk-range one">
+				<label><span>{{localize "ETERNIA.Market.Filter.UpTo"}}</span><input type="number" name="maxPrice" min="0" step="10" value="{{maxPrice}}" placeholder="∞"><em>{{localize "ETERNIA.Piles.Gold"}}</em></label>
+			</div>
+			{{#if buyerName}}{{#unless selling}}
+			<label class="mk-check"><input type="checkbox" name="affordable" {{checked affordable}}><span>{{localize "ETERNIA.Market.Filter.Affordable" name=buyerName}}</span></label>
+			{{/unless}}{{/if}}
+		</section>
+
+		{{#if showSale}}
+		<section class="mk-facet">
+			<h4><i class="fa-solid fa-scale-balanced"></i>{{localize "ETERNIA.Market.Filter.Sale"}}</h4>
+			<div class="mk-segments">
+				{{#each sale}}<button type="button" class="mk-segment{{#if active}} active{{/if}}" data-action="sale" data-value="{{id}}"><span>{{label}}</span><b data-count="sale:{{id}}"></b></button>{{/each}}
+			</div>
+		</section>
+		{{/if}}
+
+		{{#if grades.length}}
+		<section class="mk-facet">
+			<h4><i class="fa-solid fa-gem"></i>{{localize "ETERNIA.Market.Filter.Grade"}}</h4>
+			<div class="mk-chips">
+				{{#each grades}}<button type="button" class="mk-chip grade{{#if active}} active{{/if}}" style="--mk-dot: {{color}}" data-action="filter" data-facet="grade" data-value="{{id}}" aria-pressed="{{#if active}}true{{else}}false{{/if}}"><i class="mk-dot"></i><span>{{label}}</span><b data-count="grade:{{id}}"></b></button>{{/each}}
+			</div>
+		</section>
+		{{/if}}
+
+		{{#if folders.length}}
+		<section class="mk-facet">
+			<h4><i class="fa-solid fa-folder-open"></i>{{localize "ETERNIA.Market.Filter.Folder"}}</h4>
+			<div class="mk-chips">
+				{{#each folders}}<button type="button" class="mk-chip{{#if active}} active{{/if}}" data-action="filter" data-facet="folder" data-value="{{name}}" aria-pressed="{{#if active}}true{{else}}false{{/if}}"><span>{{name}}</span><b data-count="folder:{{name}}"></b></button>{{/each}}
+			</div>
+		</section>
+		{{/if}}
+
+		{{#each tagGroups}}
+		<section class="mk-facet tags">
+			<h4><i class="fa-solid fa-tags"></i>{{localize "ETERNIA.Market.Filter.Tags"}} · {{label}}</h4>
+			<div class="mk-chips">
+				{{#each tags}}<button type="button" class="mk-chip tag{{#if active}} active{{/if}}" data-action="filter" data-facet="tags" data-value="{{key}}" aria-pressed="{{#if active}}true{{else}}false{{/if}}"{{#if tip}} data-tooltip="{{tip}}"{{/if}}><span>{{label}}</span><b data-count="tags:{{key}}"></b></button>{{/each}}
+			</div>
+		</section>
+		{{/each}}
+	</div>
+	<footer class="mk-rail-foot">
+		<button type="button" class="mk-clear" data-action="clearFilters"><i class="fa-solid fa-filter-circle-xmark"></i><span>{{localize "ETERNIA.Market.Filter.Clear"}}</span></button>
+	</footer>
+</aside>

@@ -403,6 +403,37 @@ aviso, ela fica vermelho-tijolo). O aviso antes de usar uma habilidade mostra a 
 o ícone do seu tipo (Momento, Motor, limite, condição); mudar o NP mostra o retrato e o que o personagem ganha; vender e
 converter itens mostram o item ou o personagem.
 
+## O Mercado e as lojas
+
+O botão **Mercado** (a lojinha, o último da barra dos tokens) abre uma janela grande, no visual do assistente de criação,
+com **todos os itens** dos compêndios do sistema e do mundo e os itens do próprio mundo: cada um com o ícone, o grau, o
+que dá (Ataque, Defesas, Precisão…), o começo da descrição, o Nível e o preço. Clicar num item abre a página dele ao
+lado: a descrição inteira, as tags com a regra de cada uma e de onde ele vem.
+
+- **Filtros**, na faixa verde: o tipo, o Nível (de/até, e faixas de 5), o preço máximo (e "só o que o personagem pode
+  pagar"), à venda ou fora de venda, o grau (Comum, Raro, M1–M7), a pasta e as tags (elas somam: [Lâmina] e [Duas
+  Mãos] mostram o que tem as duas). Cada botão diz quantos itens mostraria com os outros filtros ligados. A busca
+  procura no nome, no efeito e nas tags, sem precisar de acento. A ordem: tipo e nível, nome, preço ou nível.
+- **Só o Mestre compra e dá.** No rodapé, o Mestre escolhe o personagem (o do token selecionado vem primeiro); na página
+  do item, **Comprar para** (o ouro sai do personagem, e o espaço do inventário é conferido) e **Dar a** (de graça),
+  com a quantidade (um tíquete soma na pilha que o personagem já tem). Arrastar uma linha para uma ficha também dá o
+  item. Os jogadores só olham; a configuração "O que os jogadores veem no Mercado" escolhe entre todos os itens, só o
+  que se vende em lojas ou nada (o botão some para eles).
+- **Criar uma loja:** o Mestre marca itens (a caixinha de cada linha, ou "Marcar os mostrados" depois de filtrar) e
+  clica em **Criar loja**. A caixa pede o nome, o retrato (arrastar um NPC para a caixa usa o nome e o retrato dele), a
+  fala do vendedor, o preço (% do preço do item), se a loja compra dos jogadores (e por quanto), o estoque de cada item
+  (vazio: sem fim), o alcance (qualquer lugar da cena, ao lado do token ou até 3 quadrados) e se o token já vai para o
+  meio da cena que o Mestre está vendo. A loja fica na pasta Lojas dos atores, com o token vinculado.
+- **Na loja:** com dois cliques no token, o jogador abre a mesma janela só com os itens daquela loja, com o preço e o
+  estoque dela. Compra quantos o estoque, o ouro e o espaço deixam (o Mestre confere tudo pela tela dele, e o chat
+  registra a compra) e, se a loja compra, vende na aba Vender o que carrega e não está equipado. Longe demais, a loja
+  não abre; fechada, mostra só o aviso.
+- **O Mestre na loja:** os dois cliques no token abrem a mesma vitrine, com o estoque de cada item para mudar, Tirar da
+  loja, o botão Aberta/Fechada, a porcentagem do preço, **Pôr itens do Mercado** (o Mercado abre pondo nesta loja) e
+  Configurar (a ficha da loja, com o resto: o alcance, o ouro, a revenda). Itens arrastados para a janela (do Mercado,
+  de um compêndio ou da barra lateral) entram na loja. Um mercador feito antes (as pilhas) abre do mesmo jeito, e a
+  ficha dele ganhou o botão "Abrir a loja".
+
 ## Os colchetes dos textos
 
 Os "[...]" das descrições de habilidades e itens, dos cartões do chat, do diário AS REGRAS, do cartão do Motor e dos
@@ -1052,6 +1083,7 @@ janelas em pergaminho, que pedem para recarregar.
 | Configuração | Padrão |
 |---|---|
 | Cobrar custos de Ódio e Destino | ligado |
+| O que os jogadores veem no Mercado | todos os itens |
 | Limites de uso | avisar |
 | Momento e economia de ações | avisar |
 | Topo e Abaixo no Ódio por combate | ligado |
@@ -1132,6 +1164,12 @@ eternia.bestiary.convertTable(actor); // a tabela de itens deixados escrita na d
 eternia.bestiary.spawnNear(token, [{ uuid, count: "1d3" }]); // monstros ao lado de um token, no combate, sem itens
 eternia.bestiary.writeRift(fendaToken); // escreve na Fenda com o token selecionado
 eternia.bestiary.nameMonster(actor); // a janela Dar Nome: uma fera com nome feita desse monstro (Mestre)
+eternia.market.open();                // o Mercado
+eternia.market.openShop(actor);       // a vitrine de uma loja (um mercador)
+eternia.market.createShopDialog(entries); // a caixa de loja nova, com entradas do catálogo (Mestre)
+eternia.market.createShop({ name, img, entries, stock: 3, buyPercent: 110 }); // uma loja direto (Mestre)
+eternia.market.purchase(actor, entry, { quantity: 2, free: false }); // o Mestre compra (ou dá) um item do catálogo
+(await eternia.market.catalog()).entries; // todos os itens do Mercado, como a janela os lê
 ```
 
 ## Limites conhecidos
