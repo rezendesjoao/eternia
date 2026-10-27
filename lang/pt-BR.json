@@ -831,6 +831,8 @@
       "DodgeFailed": "Esquiva falhou",
       "Selected": "Tokens selecionados",
       "Undo": "Desfazer",
+      "UndoAll": "Desfazer tudo",
+      "EffectsApplied": "Efeitos aplicados",
       "Undone": "Desfeito",
       "Type": {
         "physical": "Físico",
@@ -1191,6 +1193,32 @@
         "Name": "Estados que acabam no fim do turno",
         "Hint": "Cambaleante, Atordoado, Paralisado, Silenciado e Provocado acabam no fim do turno de quem os recebeu. Com Aflito, os que ele protege continuam."
       },
+      "autoApply": {
+        "Name": "Aplicar dano, cura e efeitos sozinho",
+        "Hint": "O dano e a cura dos cartões entram sozinhos em quem o golpe atingiu, e os efeitos da habilidade em quem ele alcançou, pela tela do Mestre. Quem ainda pode usar uma reação Antes do Dano espera o dono. Um ataque sem dano também conta na Esquiva falha (Dano de Ódio, Perseguição, Fraqueza, Marcado).",
+        "manual": "À mão (os botões)", "enemies": "Sozinho nos inimigos", "all": "Sozinho em todos"
+      },
+      "monsterDamage": {
+        "Name": "Ataque do monstro em um clique",
+        "Hint": "No HUD, um clique no ataque de um monstro (ou de um NPC num token hostil) usa a habilidade e rola o Teste; quando ele acerta alguém, o dano é rolado na hora."
+      },
+      "monsterMinor": {
+        "Name": "O (Menor) do monstro sozinho",
+        "Hint": "Quando um monstro usa no próprio turno um ataque com (Menor) e ainda tem a Ação Menor livre, ela é gasta junto e o bônus entra no golpe: o dano na rolagem, o estado em quem ele acertar. O Desfazer do cartão devolve."
+      },
+      "monsterTarget": {
+        "Name": "Monstro mira o Topo de Ódio",
+        "Hint": "No começo do turno de um monstro, a tela do Mestre marca como alvo o Topo de Ódio que ele alcança (senão, o mais perto). O Mestre troca com um clique."
+      },
+      "autoEndTurn": {
+        "Name": "Fim do turno com as ações gastas",
+        "Hint": "Quando quem está na vez já usou as Ações Maior, Menor e de Movimento: perguntar se o turno acaba, acabar sozinho, ou nada. Quem cai no próprio turno também encerra a vez (menos em Não fazer nada).",
+        "off": "Não fazer nada", "ask": "Perguntar", "auto": "Encerrar sozinho"
+      },
+      "autoPhases": {
+        "Name": "Manutenção e Encerramento sozinhos",
+        "Hint": "A Manutenção e o Encerramento passam sozinhos quando ninguém que ainda luta tem uma habilidade dessa fase para usar (e um dos lados ainda tem alguém de pé)."
+      },
       "incapacitated": {
         "Name": "Incapacitado automático",
         "Hint": "PV 0 (ou PV máximo 0 pela Fadiga) deixa o personagem Incapacitado, e quem fica Incapacitado vai a 0 PV. Incapacitados, Mortos e Ausentes passam a vez: vão direto para Pós-Ação."
@@ -1217,7 +1245,7 @@
       },
       "fate": {
         "Name": "Botões de Destino",
-        "Hint": "Gastam 1 Destino para: +1d6 no Teste de uma habilidade, rerrolar o acerto, a esquiva ou um teste comum, e remover um Estado Negativo (botão Destino no quadro de Estados da ficha)."
+        "Hint": "Gastam 1 Destino para: +1d6 no Teste de uma habilidade, rerrolar o acerto, a esquiva ou um teste comum, e remover um Estado Negativo (a estrela do Destino na ficha). Valem também para os monstros com Destino (os chefes), pela tela do Mestre, que é perguntado no uso sobre o [Destino 1] deles."
       },
       "content": {
         "Name": "Conteúdo dos itens e monstros",
@@ -1345,8 +1373,17 @@
       "ActionSpent": {
         "major": "A Ação Maior deste turno já foi usada.",
         "minor": "A Ação Menor deste turno já foi usada.",
-        "move": "A Ação de Movimento deste turno já foi usada."
+        "move": "A Ação de Movimento deste turno já foi usada.",
+        "instant": "A Ação Instantânea deste turno já foi usada."
       },
+      "AlsoSpent": {
+        "major": "Esta habilidade também gasta a Ação Maior, que já foi usada.",
+        "minor": "Esta habilidade também gasta a Ação Menor, que já foi usada.",
+        "move": "Esta habilidade também gasta a Ação de Movimento, que já foi usada.",
+        "instant": "Esta habilidade também gasta a Ação Instantânea, que já foi usada."
+      },
+      "EndTurnTitle": "Fim do turno",
+      "EndTurnAsk": "{name} já usou as Ações Maior, Menor e de Movimento. Encerrar o turno?",
       "LimitReached": "Limite atingido: {uses}/{max} {per}.",
       "Per": {
         "Scene": "por cena",
@@ -1361,7 +1398,8 @@
       "Action": {
         "major": "Ação Maior",
         "minor": "Ação Menor",
-        "move": "Ação de Movimento"
+        "move": "Ação de Movimento",
+        "instant": "Ação Instantânea"
       },
       "Uses": "Uso {n}/{max} {per}",
       "Group": "Custo de grupo ({group}): os aliados pagam à parte",
@@ -1406,6 +1444,26 @@
       "NoBadStatus": "{name} não tem Estado Negativo para remover.",
       "Remove": "Remover",
       "Removed": "{name} gastou 1 Destino e removeu {status}. (Destino: {fate})"
+    },
+    "Minor": {
+      "Label": "Menor",
+      "Damage": "+{n} de dano"
+    },
+    "FateOption": {
+      "Title": "[Destino {n}]",
+      "Short": "Destino {n}",
+      "Eyebrow": "{name} · Destino: {fate}",
+      "Engaged": "O golpe acerta todos os personagens engajados com {name}: {targets}.",
+      "Area": "Área (Escolha) a até {range} Qd.: {targets}.",
+      "Status": "O alvo fica {statuses}.",
+      "Question": "Gastar {n} de Destino nisso?",
+      "Spend": "Gastar {n} de Destino",
+      "Keep": "Não gastar",
+      "Taken": {
+        "engaged": "[Destino {n}]: todos os engajados",
+        "area": "[Destino {n}]: Área",
+        "status": "[Destino {n}]: {statuses}"
+      }
     },
     "Round": {
       "CleanupTitle": "Encerramento — Rodada {round}",
@@ -1666,7 +1724,8 @@
       "Action": {
         "major": "Ação Maior",
         "minor": "Ação Menor",
-        "move": "Ação de Movimento"
+        "move": "Ação de Movimento",
+        "instant": "Ação Instantânea"
       },
       "FateTip": "Destino {value}/{max}. Clique: +1. Botão direito: −1.",
       "Dodge": "Esquivar",

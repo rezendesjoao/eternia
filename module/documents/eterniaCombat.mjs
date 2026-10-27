@@ -444,7 +444,17 @@ export class EterniaCombat extends Combat {
 		Hooks.callAll("eternia.combatPhase", this, after, before, { repeat });
 		// Only the window that made the change runs it: never twice, even with several GMs
 		// or the same user logged in from two windows.
-		if ((options.eterniaOrigin === CLIENT_ID) && !repeat) this._onPhaseStart(after.phase, after.round, before);
+		if ((options.eterniaOrigin === CLIENT_ID) && !repeat) {
+			Promise.resolve(this._onPhaseStart(after.phase, after.round, before))
+				/**
+				 * The work of a phase that began is done (every wrapper of _onPhaseStart): the round may go on by itself
+				 * (automation/round.mjs). Only on the window that changed the phase.
+				 * @param {EterniaCombat} combat
+				 * @param {{round: number, phase: string}} current
+				 */
+				.then(() => Hooks.callAll("eternia.phaseDone", this, after))
+				.catch(err => console.error("eternia | Phase work failed", err));
+		}
 	}
 
 	/**

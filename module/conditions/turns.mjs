@@ -67,12 +67,15 @@ const PUTS_OUT_FIRE = ["swimming", "soaked"];
  */
 export async function afterAction(actor, item, action) {
   if (!actor?.isOwner || !rulesOn()) return;
-  await actor.setFlag(SYSTEM_ID, "lastSkill", item.name).catch(() => null);
-  // A spell of the Magia that keeps the Sun clock raises the Sun (in a combat, until noon).
-  const combat = combatOf(actor);
-  if (combat && traitsFor(actor, item).some(e => e.getFlag(SYSTEM_ID, "trait")?.sunClock)) await moveSun(actor, combat, { spell: true });
-  // The n-th spell of a Magia in the scene transforms (transformations.mjs)
-  await countSpell(actor, item);
+  // A skill (not a usable item): the one a [Sealed] without a name seals, the Sun clock, the spells counted
+  if (item.type === "skill") {
+    await actor.setFlag(SYSTEM_ID, "lastSkill", item.name).catch(() => null);
+    // A spell of the Magia that keeps the Sun clock raises the Sun (in a combat, until noon).
+    const combat = combatOf(actor);
+    if (combat && traitsFor(actor, item).some(e => e.getFlag(SYSTEM_ID, "trait")?.sunClock)) await moveSun(actor, combat, { spell: true });
+    // The n-th spell of a Magia in the scene transforms (transformations.mjs)
+    await countSpell(actor, item);
+  }
   const major = (action === "major") || (parseSkillField("timing", item.system.timing).type === "Major");
   if (!major) return;
   const shock = rating(actor, "shocked");

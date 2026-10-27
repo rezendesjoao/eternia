@@ -46,6 +46,9 @@ import { statusDefinition } from "./statuses.mjs";
 import { tagLabel as termTag } from "../i18n/terms.mjs";
 import { setting } from "../settings.mjs";
 import { isAdventurer } from "./utils.mjs";
+import { isPrimaryGM } from "./clients.mjs";
+import { parseSkillField } from "./skill-fields.mjs";
+import { useHitStatuses } from "../bestiary/minor.mjs";
 
 const TEMPLATES = {
   attack: "systems/eternia/templates/chat/attack-card.hbs",
@@ -56,7 +59,7 @@ const TEMPLATES = {
 /** Damage modes of the damage card buttons. */
 const MODES = ["damage", "half", "double", "direct", "heal"];
 /** Card fields the owner of a target may change on someone else's card. */
-const PATCHABLE = { attack: ["dodge", "hit"], damage: ["applied"] };
+const PATCHABLE = { attack: ["dodge", "hit"], damage: ["applied", "reached"] };
 
 const toInt = value => Math.trunc(Number(value) || 0);
 const L = key => game.i18n.localize(`ETERNIA.Combat.${key}`);
@@ -71,6 +74,9 @@ export function registerCombatCards() {
   registerHandler("combatCardAdjust", _onCardAdjustRequest);
   registerHandler("combatDodgeConsume", _onDodgeConsumeRequest);
   Hooks.on("renderChatMessageHTML", _onRenderChatMessage);
+  // Applied by themselves, on the GM's window (setting autoApply)
+  Hooks.on("createChatMessage", onAutoCard);
+  Hooks.on("updateChatMessage", onAutoCard);
 }
 
 /* -------------------------------------------- */
@@ -670,7 +676,7 @@ export async function createDamageCard(item, attacker, formula, flavor, attackMe
     drain: recovery ? 0 : extras.drain,
     steal: recovery ? [] : extras.steal,
     onHit: recovery ? [] : [...onHitOf(attacker ?? item.actor), ...motorOnHit(attacker ?? item.actor, item),
-      ...skillHitStatuses(item, attacker), ...extras.onHit],
+      ...skillHitStatuses(item, attacker), ...extras.onHit, ...useHitStatuses(item, attackMessage)],
     // The statuses of the hits: infinite (the Magia Infinito), given by a spell (conditions/lasting.mjs)
     ...lastingCard(item, attacker),
     attackerUuid: (attacker ?? item.actor)?.uuid ?? "",
@@ -679,6 +685,8 @@ export async function createDamageCard(item, attacker, formula, flavor, attackMe
     hateMultiplier: attack?.hateMultiplier ?? hateMultiplier(attacker ?? item.actor),
     // The attack's Hit Check was a Critical (an Extra Breath with `not: ["critical"]` doesn't hold against it)
     critical: !!attack?.attack?.critical,
+    // The attack card it belongs to (the skill's effects follow the blow that reached: onAutoCard)
+    attackId: attackMessage?.id ?? null,
     targets
   };
   const messageData = {
@@ -719,6 +727,7 @@ function defenseOf(actor, type) {
  * @returns {Promise<string>}    Short result shown on the damage card
  */
 async function applyDamage(actor, card, mode, dodgeFailed, target = null) {
+  lastReach = true;
   const system = actor.system;
   const bad = system["bad-status"] ?? {};
   // The statuses before the hit (a status that escalates, the fire that only dries the water)
@@ -868,6 +877,7 @@ async function applyDamage(actor, card, mode, dodgeFailed, target = null) {
   const countered = (condition.counter && !covered) ? counterBack(actor, card, condition.counter, amount) : null;
   if (countered) amount = 0;
   const untouched = !!countered || !!covered || condition.untouched;
+  lastReach = !untouched;
   // [Inversion]: the magic damage heals instead (after the Defense and [Cancel], before [Barrier]).
   const inverted = (condition.invert && !condition.immune) ? amount : 0;
   if (inverted) amount = 0;
@@ -1030,6 +1040,11 @@ async function applyDamage(actor, card, mode, dodgeFailed, target = null) {
 /** Post the summary of an application, with the values needed to undo it. */
 async function postApplied(actor, card, before, lines, result) {
   const data = { actorUuid: actor.uuid, name: actor.token?.name ?? actor.name, skillName: card.skillName, lines, result, before, undone: false };
+  // Applied with the others of the same blow: one card for them all (postGroupedApplied)
+  if (collecting) {
+    collecting.push(data);
+    return result;
+  }
   await ChatMessage.create({
     speaker: ChatMessage.getSpeaker({ actor }),
     content: await foundry.applications.handlebars.renderTemplate(TEMPLATES.applied, data),
@@ -1040,11 +1055,37 @@ async function postApplied(actor, card, before, lines, result) {
   return result;
 }
 
-/** Restore what an application changed. */
-async function undoApplied(message) {
+/**
+ * Restore what an application changed: a card's one target, or one (or all, index null) of a grouped card's.
+ * @param {ChatMessage} message
+ * @param {number|null} [index]
+ */
+async function undoApplied(message, index = null) {
   const data = message.getFlag("eternia", "applied");
-  const actor = data && fromUuidSync(data.actorUuid);
-  if (!actor?.isOwner || data.undone) return;
+  if (!data || data.undone) return;
+  if (Array.isArray(data.entries)) {
+    const entries = foundry.utils.deepClone(data.entries);
+    for (const [i, entry] of entries.entries()) {
+      if (entry.undone || ((index !== null) && (i !== index))) continue;
+      if (await undoEntry(entry)) entry.undone = true;
+    }
+    if (!message.isOwner) return;
+    const next = { ...data, entries, undone: entries.every(e => e.undone) };
+    return message.update({ content: await renderApplied(next), "flags.eternia.applied": next });
+  }
+  if (!(await undoEntry(data))) return;
+  if (!message.isOwner) return;
+  const undone = { ...data, undone: true };
+  await message.update({
+    content: await foundry.applications.handlebars.renderTemplate(TEMPLATES.applied, undone),
+    "flags.eternia.applied": undone
+  });
+}
+
+/** Restore one target's application. Returns whether it was restored (the user owns that actor). */
+async function undoEntry(data) {
+  const actor = fromUuidSync(data.actorUuid);
+  if (!actor?.isOwner) return false;
   const { before } = data;
   const updates = {
     "system.health.value": before.hp,
@@ -1061,12 +1102,12 @@ async function undoApplied(message) {
   if (actor.statuses.has("incapacitated") !== before.incapacitated) {
     await actor.toggleStatusEffect("incapacitated", { active: before.incapacitated });
   }
-  if (!message.isOwner) return;
-  const undone = { ...data, undone: true };
-  await message.update({
-    content: await foundry.applications.handlebars.renderTemplate(TEMPLATES.applied, undone),
-    "flags.eternia.applied": undone
-  });
+  return true;
+}
+
+/** The content of an applied card, grouped or not. */
+function renderApplied(data) {
+  return foundry.applications.handlebars.renderTemplate(TEMPLATES.applied, data);
 }
 
 /** A damage card button: apply to that target, or to the controlled tokens when the card has none. */
@@ -1084,6 +1125,152 @@ async function onApplyDamage(message, index, mode) {
   if (!actor?.isOwner) return;
   const result = await applyDamage(actor, card, mode, target.dodgeFailed, target);
   await updateCardTarget(message, "damage", index, { applied: result });
+}
+
+/* -------------------------------------------- */
+/*  Applied by themselves                       */
+/* -------------------------------------------- */
+
+/** The results of the targets of one blow, while they are applied together (see postApplied). */
+let collecting = null;
+/** Whether the last application reached its target (not a [Counter], [The One], [Clones], a protector). */
+let lastReach = true;
+/** One automatic application at a time on the GM's window. */
+let autoQueue = Promise.resolve();
+
+const queueAuto = fn => {
+  autoQueue = autoQueue.then(fn).catch(err => console.error("eternia | Automatic application failed", err));
+  return autoQueue;
+};
+
+/** Whether every target of an attack card has its result (hit or dodged). */
+const attackResolved = attack => !!attack?.targets?.length && attack.targets.every(t => typeof t.hit === "boolean");
+
+/**
+ * A card was posted or changed, on the GM's window: a damage card applies itself (setting autoApply), and an attack
+ * card whose targets all have their result goes on (onAttackResolved).
+ * @param {ChatMessage} message
+ */
+function onAutoCard(message) {
+  if (!isPrimaryGM()) return;
+  const flags = message.flags?.eternia ?? {};
+  if (flags.autoDone) return;
+  if (flags.damage && (setting("autoApply") !== "manual")) queueAuto(() => autoApplyDamage(message.id));
+  else if (flags.attack && attackResolved(flags.attack)) queueAuto(() => onAttackResolved(message.id));
+}
+
+/** Whether a target may still use a reaction to the damage (Before Damage): its owner gets to, before it lands. */
+function waitsToReact(actor, inspectUse) {
+  return actor.items.some(i => (i.type === "skill") && (parseSkillField("timing", i.system.timing).type === "Before Damage")
+    && !inspectUse(i).issues.length);
+}
+
+/**
+ * An attack card whose targets all have their result: a monster's blow rolls its damage at once (setting
+ * monsterDamage), and an attack without damage still strikes (a damage card of 0: the Failed Dodge's Hate Damage,
+ * Pursuit, Weakness and [Marked], and [The One], [Clones], [Counter] and a protector against it), which the
+ * skill's effects then follow (applyHitEffects).
+ * @param {string} id   The attack card
+ */
+async function onAttackResolved(id) {
+  const message = game.messages.get(id);
+  if (!message || message.getFlag("eternia", "autoDone")) return;
+  await message.setFlag("eternia", "autoDone", true);
+  const attack = message.getFlag("eternia", "attack");
+  const item = attack?.itemUuid ? fromUuidSync(attack.itemUuid) : null;
+  if (!item?.actor || !attack.targets.some(t => t.hit === true)) return;
+  const { skillRollable } = await import("./skill-rolls.mjs");
+  if (skillRollable(item).damage) {
+    // A character rolls its own damage (its card applies itself); a monster's, at once
+    if (setting("monsterDamage") && !isAdventurer(item.actor)) {
+      const { rollDamage } = await import("../chat/cards.mjs");
+      await rollDamage(item, message);
+    }
+    return;
+  }
+  if (setting("autoApply") === "manual") return;
+  await createDamageCard(item, item.actor, "0", item.name, message);
+}
+
+/**
+ * A damage card applies itself on the GM's window: to every target the blow hit ("enemies": only to the enemies),
+ * but those who may still use a reaction to the damage (Before Damage) wait for their owner; one result card for
+ * the open targets and one for the GM's; then the skill's effects on those it reached.
+ * @param {string} id   The damage card
+ */
+async function autoApplyDamage(id) {
+  const message = game.messages.get(id);
+  if (!message || message.getFlag("eternia", "autoDone")) return;
+  await message.setFlag("eternia", "autoDone", true);
+  const card = message.getFlag("eternia", "damage");
+  const attackId = card.attackId ?? message.getFlag("eternia", "attackId");
+  const attackMessage = attackId ? game.messages.get(attackId) : null;
+  const attack = attackMessage?.getFlag("eternia", "attack");
+  const enemiesOnly = setting("autoApply") === "enemies";
+  const mode = card.recovery ? "heal" : "damage";
+  const { inspectUse } = await import("../automation/use.mjs");
+  const reached = [];
+  collecting = [];
+  try {
+    for (const [index, target] of card.targets.entries()) {
+      if (target.applied) continue;
+      const actor = targetActor(target);
+      if (!actor) continue;
+      // The blow hit this target (a dodge still to roll waits)
+      if (attack && (attack.targets.find(t => t.tokenUuid ? (t.tokenUuid === target.tokenUuid) : (t.actorUuid === target.actorUuid))?.hit !== true)) continue;
+      if (enemiesOnly && isAdventurer(actor, target.tokenUuid ? fromUuidSync(target.tokenUuid) : null)) continue;
+      if (!card.recovery && waitsToReact(actor, inspectUse)) continue;
+      const result = await applyDamage(actor, card, mode, target.dodgeFailed, target);
+      await _applyTargetPatch(game.messages.get(id), "damage", index, { applied: result, reached: lastReach });
+      if (lastReach) reached.push(actor);
+    }
+  }
+  finally {
+    const entries = collecting;
+    collecting = null;
+    await postGroupedApplied(entries ?? []);
+  }
+  if (!card.recovery && attackMessage) await applyHitEffects(attackMessage, reached);
+}
+
+/**
+ * The results of one blow's targets, in a card for the targets the players own (open) and one for the GM's (a
+ * monster's breakdown gives its Defense away); a single target keeps the usual card.
+ * @param {object[]} entries
+ */
+async function postGroupedApplied(entries) {
+  const open = entries.filter(e => fromUuidSync(e.actorUuid)?.hasPlayerOwner);
+  const closed = entries.filter(e => !open.includes(e));
+  const gm = ChatMessage.getWhisperRecipients("GM").map(u => u.id);
+  for (const [list, whisper] of [[open, []], [closed, gm]]) {
+    if (!list.length) continue;
+    const data = (list.length === 1) ? list[0] : { entries: list, skillName: list[0].skillName, undone: false };
+    const speakerActor = fromUuidSync(list[0].actorUuid);
+    await ChatMessage.create({
+      speaker: ChatMessage.getSpeaker({ actor: speakerActor }),
+      content: await renderApplied(data),
+      whisper,
+      flags: { eternia: { applied: data } }
+    });
+  }
+}
+
+/**
+ * The skill's own effects (those its card's button gives, after the hit) on the targets the blow reached: once per
+ * use. A choice among alternatives, or a sustained use (its limit asks), keeps the button.
+ * @param {ChatMessage} attackMessage
+ * @param {Actor[]} actors
+ */
+async function applyHitEffects(attackMessage, actors) {
+  const useMessage = game.messages.get(attackMessage.getFlag("eternia", "useMessageId") ?? "");
+  const skillUse = useMessage?.getFlag("eternia", "skillUse");
+  if (!skillUse || skillUse.autoApplied || skillUse.sustained || !actors.length) return;
+  const item = fromUuidSync(skillUse.itemUuid);
+  if (!item || item.getFlag("eternia", "chooseEffect") || item.getFlag("eternia", "randomEffect")) return;
+  if (!item.effects.some(e => (e.transfer === false) && !e.getFlag("eternia", "onUse"))) return;
+  const { applyItemEffects } = await import("./item-use.mjs");
+  await applyItemEffects(item, [...new Set(actors)], { useId: skillUse.useId, sustained: skillUse.sustained, onUse: false });
+  await useMessage.setFlag("eternia", "skillUse", { ...skillUse, autoApplied: true });
 }
 
 /* -------------------------------------------- */
@@ -1125,12 +1312,15 @@ function _onRenderChatMessage(message, html) {
     onApplyDamage(message, index, button.dataset.mode);
   }));
   html.querySelectorAll(".lh-undo").forEach(button => {
-    const actor = fromUuidSync(flags.applied?.actorUuid);
-    if (!actor?.isOwner) return button.remove();
+    const index = (button.dataset.index !== undefined) ? Number(button.dataset.index) : null;
+    const entries = flags.applied?.entries;
+    // A grouped card's "Undo all" needs every one of its actors; one entry, that entry's
+    const uuids = Array.isArray(entries) ? ((index === null) ? entries.map(e => e.actorUuid) : [entries[index]?.actorUuid]) : [flags.applied?.actorUuid];
+    if (!uuids.every(uuid => fromUuidSync(uuid)?.isOwner)) return button.remove();
     button.addEventListener("click", event => {
       event.preventDefault();
       button.disabled = true;
-      undoApplied(message);
+      undoApplied(message, index);
     });
   });
 }

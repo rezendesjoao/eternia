@@ -279,16 +279,17 @@ function foldDescription(message, card) {
 /*  Other cards                                 */
 /* -------------------------------------------- */
 
-/** Applied damage: who and which skill on one line that never wraps, the result as a pill. */
+/** Applied damage: who and which skill on one line that never wraps, the result as a pill (each target's, grouped). */
 function appliedCard(card) {
-  const title = card.querySelector(".lh-applied-title");
-  const pill = title?.querySelector(".lh-applied");
-  if (!title || !pill || title.querySelector(".lhc-who")) return;
-  const who = document.createElement("span");
-  who.className = "lhc-who";
-  while (title.firstChild && (title.firstChild !== pill)) who.append(title.firstChild);
-  title.prepend(who);
-  if (/^\s*\+/.test(pill.textContent)) pill.classList.add("heal");
+  for (const title of card.querySelectorAll(".lh-applied-title")) {
+    const pill = title.querySelector(".lh-applied");
+    if (!pill || title.querySelector(".lhc-who")) continue;
+    const who = document.createElement("span");
+    who.className = "lhc-who";
+    while (title.firstChild && (title.firstChild !== pill)) who.append(title.firstChild);
+    title.prepend(who);
+    if (/^\s*\+/.test(pill.textContent)) pill.classList.add("heal");
+  }
 }
 
 /** The summary cards (utils.mjs postSummary): no title when it repeats the speaker's name. */

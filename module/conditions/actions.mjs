@@ -155,7 +155,7 @@ export function sealedSkills(actor) {
  * @returns {{major: number, minor: number, move: number}}
  */
 export function actionAllowance(actor) {
-  const allowed = { major: 1, minor: 1, move: 1 };
+  const allowed = { major: 1, minor: 1, move: 1, instant: 1 };
   if (!rulesOn()) return allowed;
   if (has(actor, "hasted")) allowed.minor = 2;
   if (has(actor, "slowed")) allowed.move = 0;

@@ -976,15 +976,22 @@ O que o sistema faz sozinho:
 - **Custos de Ódio e Destino** pagos ao usar (o Ódio só conta em combate iniciado).
 - **Limites de uso** (1/Cena, (NH)/Cenário, 1/Rodada…) contados por personagem.
 - **Momento e economia de ações:** cada ação no seu Processo, a Manutenção na Manutenção, o Encerramento no
-  Encerramento, a Ação Maior, a Menor e a de Movimento uma vez por turno.
+  Encerramento, a Ação Maior, a Menor, a de Movimento e a Instantânea uma vez por turno (a reação fora da vez não
+  conta). Disparada e Deslocar-se gastam também a Ação Menor. Os itens usáveis (poções, comidas, pergaminhos) gastam a
+  ação do Momento deles, com o mesmo registro e o Desfazer.
 - **Habilidades de itens:** o item equipado, a trava de NP, o Ódio mínimo e a Pré-Ação.
 - **Avisar ou bloquear:** cada conferência pergunta se é para usar mesmo assim ou bloqueia o jogador (o Mestre
   sempre pode forçar).
-- **Registro no cartão** com o que foi gasto e o botão **Desfazer uso**.
+- **Registro no cartão** com o que foi gasto e o botão **Desfazer uso**, que devolve os custos, as contagens e as
+  ações e tira os efeitos que a habilidade deu, em quem estiverem.
+- **Fim do turno:** gastas as Ações Maior, Menor e de Movimento, o sistema pergunta se o turno acaba (ou acaba
+  sozinho, pela configuração); quem cai na própria vez tem o turno encerrado.
 
 ### Combate
 - **Topo e Abaixo no Ódio por combate**, certos mesmo com vários combates ao mesmo tempo.
 - **Encerramento:** a Regeneração cura e depois a Deterioração causa dano, com um resumo no chat.
+- **Manutenção e Encerramento sozinhos:** a rodada passa por essas fases sem clique quando ninguém que ainda luta
+  tem uma habilidade delas para usar.
 - **Atordoado, Cambaleante, Paralisado, Silenciado e Provocado** acabam no fim do turno de quem os
   recebeu.
 - **Incapacitado** com PV 0; Incapacitados, Mortos e Ausentes passam a vez.
@@ -995,8 +1002,17 @@ O que o sistema faz sozinho:
 - **Esquiva automática:** inimigos e personagens rolam o Teste de Esquiva assim que o ataque é declarado, e o cartão já
   sai com quem esquivou e quem foi atingido (o Destino ainda rerrola a esquiva). Desligada, o dono do personagem rola
   pelo botão Esquivar do cartão ou pelo HUD.
+- **Dano, cura e efeitos sozinhos:** a tela do Mestre aplica o cartão de dano em quem o golpe atingiu e os efeitos da
+  habilidade em quem ele alcançou; quem ainda pode usar uma reação Antes do Dano espera o dono. Um cartão de resultado
+  por golpe, com o Desfazer de cada alvo e o Desfazer tudo. Um ataque sem dano faz um cartão de 0, que leva o Dano de
+  Ódio, a Perseguição, a Fraqueza, o [Marcado] e o −1 de Ódio da esquiva falha.
+- **O turno do monstro:** no começo dele, a tela do Mestre marca o Topo de Ódio que o monstro alcança (senão, o
+  Aventureiro mais perto); no HUD, um clique no ataque usa a habilidade e rola o Teste, e o dano sai sozinho quando
+  acerta. O "(Menor)" do ataque gasta a Ação Menor livre e soma o bônus; o [Destino 1] dos chefes é perguntado no
+  uso (todos os engajados, a área, o estado) e gasta o Destino deles.
 - **Corpo a corpo encostado** (regra da casa): um token encostado, de lado ou na diagonal, conta como Corpo a corpo.
-- **Destino:** +1d6 no Teste, rerrolar o acerto, a esquiva ou qualquer 2d6, e remover um Estado Negativo.
+- **Destino:** +1d6 no Teste, rerrolar o acerto, a esquiva ou qualquer 2d6, e remover um Estado Negativo; os chefes
+  também, pela tela do Mestre (a Fenda não: o Destino dela é o relógio).
 - **Switch** (habilidade básica): você e um aliado a até 2 Qd trocam de lugar e de Ódio, e o aliado fica
   [Concentrado]; os tokens e o Ódio trocam sozinhos.
 
@@ -1035,6 +1051,8 @@ janelas em pergaminho, que pedem para recarregar.
 | Regeneração e Deterioração no Encerramento | ligado |
 | Estados que acabam no fim do turno | ligado |
 | Incapacitado automático | ligado |
+| Fim do turno com as ações gastas | perguntar |
+| Manutenção e Encerramento sozinhos | ligado |
 | Fim de cena ao encerrar o combate | ligado |
 | Aventureiros mortos revivem no fim da cena | ligado |
 | Evolução da forma com o Mestre | ligado |
@@ -1043,6 +1061,10 @@ janelas em pergaminho, que pedem para recarregar.
 | O que as condições proíbem | avisar |
 | Correções nos cartões de ataque e dano | ligado |
 | Esquiva automática dos personagens | ligado |
+| Aplicar dano, cura e efeitos sozinho | sozinho em todos |
+| Ataque do monstro em um clique | ligado |
+| Monstro mira o Topo de Ódio | ligado |
+| O (Menor) do monstro sozinho | ligado |
 | Botões de Destino | ligado |
 | Estados clicáveis no chat | ligado |
 | Criar efeito a partir de um cartão | ligado |
@@ -1107,11 +1129,12 @@ eternia.bestiary.nameMonster(actor); // a janela Dar Nome: uma fera com nome fei
 
 ## Limites conhecidos
 
-- **Reações** (Antes/Após o Teste, Antes/Após o Dano, Rolagem de Dano) ainda não são oferecidas na hora certa.
-- **Desfazer uso** devolve custos e contagens, mas não apaga os efeitos que a habilidade aplicou.
+- **Reações** (Antes/Após o Teste, Antes/Após o Dano, Rolagem de Dano) ainda não são oferecidas na hora certa; o dano
+  automático só espera quem tem uma reação Antes do Dano para usar.
 - **Poderes de itens** que dependem de uma escolha, de um resultado ou de outra habilidade ficam só com os campos, o
   texto e a contagem de usos; o efeito deles é feito à mão.
-- **Os estados das habilidades** entram pelo botão **Aplicar efeitos**, depois do acerto.
+- **Os estados das habilidades** com uma escolha entre opções, ou sustentados, ainda entram pelo botão **Aplicar
+  efeitos**, depois do acerto; os outros vão sozinhos em quem foi atingido.
 - **Desfazer o dano** não devolve o dano que o Espelho e o Vínculo mandaram para outro personagem.
 - **Acordar quem está Adormecido** (outro personagem gasta uma Ação Menor) é feito à mão, tirando o estado.
 - **Raças:** o que acontece fora das regras fica na mão do grupo: a conversa com espíritos (Olhos de Mana), a

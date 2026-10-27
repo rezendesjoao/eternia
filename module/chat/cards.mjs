@@ -25,6 +25,7 @@ import { withCloseReach } from "../automation/reach.mjs";
 import { motorRollBonuses } from "../classes/motor.mjs";
 import { consumeAfterRoll, damageModifier } from "../conditions/rolls.mjs";
 import { surpriseBonuses } from "../bestiary/surprise.mjs";
+import { minorBonuses } from "../bestiary/minor.mjs";
 
 /** Battle status a character skill's damage adds, by type (as the system's skill-rolls.mjs). */
 const DAMAGE_POWER = { physical: "attack", magical: "magic" };
@@ -116,6 +117,8 @@ export async function rollDamage(item, attackMessage) {
   bonuses.push(...motorRollBonuses(actor ?? item.actor, item, "damage"));
   // A monster's surprise blow, against whoever hasn't acted yet this round (bestiary/surprise.mjs)
   bonuses.push(...surpriseBonuses(actor ?? item.actor, item, "damage", against));
+  // The damage a monster's Minor Action added to the blow, its (Menor) (bestiary/minor.mjs)
+  bonuses.push(...minorBonuses(item, attackMessage));
   for (const bonus of bonuses) {
     dice += bonus.dice;
     mod += bonus.mod;

@@ -19,24 +19,15 @@ import { lastingEffectData } from "../conditions/lasting.mjs";
  * Effects copied to a target are Combat Statuses: they last until the end of the scene, so they are
  * flagged (flags.eternia.itemUse) and removed when the combat ends.
  *
- * Timing: outside combat anything goes. In a combat the actor takes part in, a player can only use
- * the item when its Timing fits the phase (Major / Minor / Move on their own Main Process, Setup in
- * the Setup Process…); the GM is only warned.
+ * Timing: outside combat anything goes. In a started combat the item goes through the checks of a skill
+ * (automation/use.mjs planItemUse: its Timing against the phase, the action of the Main Process it spends, its
+ * Character Rank lock; each check warns or blocks by its setting, and the GM may go on), and its card notes the
+ * action spent, with the Undo (commitItemUse).
  */
 
 const USE_CARD = "systems/eternia/templates/chat/use-card.hbs";
 /** Checks the target resists: the item's effects wait for the hit (Apply effects button). */
 export const OPPOSED = ["evasion", "resistance"];
-
-/** Timing (lower case) -> when it can be used in combat. */
-const TIMING_RULES = {
-  "major": "turn", "minor": "turn", "move": "turn", "main process": "turn", "action": "turn",
-  "setup": "setup",
-  "initiative": "main",
-  "cleanup": "cleanup",
-  "briefing": "briefing",
-  "rest time": "outside", "interlude": "outside", "pre-play": "outside"
-};
 
 export function registerItemUse() {
   registerHandler("applyItemEffects", _onApplyEffectsRequest);
@@ -62,45 +53,6 @@ export function canUseItem(item) {
   return (item?.type === "usable") && !!item.actor && (item.actor.type !== "pile") && item.isOwner;
 }
 
-/**
- * Why the item can't be used right now in the actor's combat, or null when it can.
- * @param {Item} item
- * @param {Actor} actor
- * @returns {string|null}   Localized reason
- */
-function timingProblem(item, actor) {
-  // The viewed combat first, else any other the actor takes part in.
-  const combat = [game.combat, ...game.combats].find(c => c?.getCombatantsByActor(actor).length);
-  if (!combat) return null;
-  const combatants = combat.getCombatantsByActor(actor);
-
-  const phase = combat.phase;
-  const timing = String(item.system.timing ?? "").trim().toLowerCase();
-  const rule = TIMING_RULES[timing];
-  // [Preparation]: may also be used in the Briefing.
-  if ((phase === "briefing") && ((rule === "briefing") || hasTag(item, "Preparation") || (timing === "instant"))) return null;
-  const phaseReason = () => game.i18n.format("ETERNIA.Item.Use.Reason.Phase", {
-    phase: game.i18n.localize(`ETERNIA.Combat.Phase.${phase}`)
-  });
-  switch (rule) {
-    case "turn": {
-      const ownTurn = (phase === "main") && combatants.some(c => c.id === combat.combatant?.id);
-      return ownTurn ? null : game.i18n.localize("ETERNIA.Item.Use.Reason.NotTurn");
-    }
-    case "setup":
-    case "main":
-    case "cleanup":
-      return (phase === rule) ? null : phaseReason();
-    case "briefing":
-      return game.i18n.localize("ETERNIA.Item.Use.Reason.Briefing");
-    case "outside":
-      return game.i18n.localize("ETERNIA.Item.Use.Reason.OutOfCombat");
-    default:
-      // Instant, reactions (Before Check, Damage Roll…), Refer…: any time.
-      return null;
-  }
-}
-
 /** Whether the item only affects its user (Target: Self). */
 export function isSelfTarget(item) {
   return /^\s*\[?\s*self\b/i.test(item.system?.target ?? "");
@@ -124,16 +76,11 @@ export async function useItem(item) {
     return null;
   }
 
-  let note = "";
-  const problem = timingProblem(item, actor);
-  if (problem) {
-    const timing = item.system.timing || "-";
-    if (!game.user.isGM) {
-      ui.notifications.warn(game.i18n.format("ETERNIA.Item.Use.Blocked", { name: item.name, timing, reason: problem }));
-      return null;
-    }
-    note = game.i18n.format("ETERNIA.Item.Use.GMOverride", { timing, reason: problem });
-  }
+  // The checks of a skill: the Timing, the action it spends, the lock (automation/use.mjs)
+  const { planItemUse, commitItemUse } = await import("../automation/use.mjs");
+  const plan = await planItemUse(item);
+  if (!plan) return null;
+  const note = "";
 
   // Effects go to the target right away, unless the target may resist them (opposed Check).
   const self = isSelfTarget(item);
@@ -168,6 +115,8 @@ export async function useItem(item) {
   };
   ChatMessage.applyMode(messageData);
   const message = await ChatMessage.create(messageData);
+  // The action spent and the Undo on the card, before a [Consumable] is gone
+  if (message) await commitItemUse(item, plan, message).catch(err => console.error(`eternia | Could not record the use of ${item.uuid}`, err));
 
   if (consumed) await item.delete();
   return message;

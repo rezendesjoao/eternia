@@ -193,18 +193,20 @@ export async function promptSustainedLimitDialog({ actor, item, sustainedTag, ac
  * @param {string} [tagLabel]
  * @returns {Promise<object>}
  */
-export async function endSustainedUse(casterActor, useId, tagLabel) {
+export async function endSustainedUse(casterActor, useId, tagLabel, { reason = null } = {}) {
   if (game.users.activeGM && !game.user.isGM) {
     return request("endSustainedUse", {
       casterUuid: casterActor.uuid,
       useId,
-      tagLabel
+      tagLabel,
+      reason
     });
   }
   return _onEndSustainedUseRequest({
     casterUuid: casterActor.uuid,
     useId,
-    tagLabel
+    tagLabel,
+    reason
   }, game.user);
 }
 
@@ -218,7 +220,7 @@ export async function endSustainedUse(casterActor, useId, tagLabel) {
  * @param {User} user
  * @returns {Promise<object>}
  */
-export async function _onEndSustainedUseRequest({ casterUuid, useId, tagLabel }, user) {
+export async function _onEndSustainedUseRequest({ casterUuid, useId, tagLabel, reason = null }, user) {
   const caster = await fromUuid(casterUuid);
   if (!(caster instanceof Actor)) return { ok: false };
   if (user && !user.isGM && !caster.testUserPermission(user, "OWNER")) {
@@ -240,9 +242,9 @@ export async function _onEndSustainedUseRequest({ casterUuid, useId, tagLabel },
         entries.push({
           actorName: actor.name,
           effect,
-          reason: tagLabel
+          reason: (typeof reason === "string" && reason) ? reason : (tagLabel
             ? game.i18n.format("ETERNIA.EffectExpiry.Reason.SustainedLimit", { tag: tagLabel })
-            : game.i18n.localize("ETERNIA.EffectExpiry.Reason.SustainedLimitGeneric")
+            : game.i18n.localize("ETERNIA.EffectExpiry.Reason.SustainedLimitGeneric"))
         });
       }
     }

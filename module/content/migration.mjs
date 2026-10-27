@@ -5,6 +5,8 @@
  * Potions II–IV, the Flasks II–III, the Night Vision Potions II–III), the NP locks their texts state, and the cover of
  * Proteger, Corpo-Escudo and Transfusão (the protector takes the blow: conditions/immortal.mjs coverFor). Matched by
  * name and type to the compendium; only missing data is filled (what a GM edited by hand stays).
+ * Version 2 (0.44): the Dash (Disparada) and the Shift (Deslocar-se) also spend the Minor Action
+ * (`flags.eternia.alsoSpends`, automation/use.mjs).
  */
 import { SYSTEM_ID } from "../settings.mjs";
 
@@ -109,13 +111,37 @@ async function coverSkills() {
   return n;
 }
 
+/** The basic skills that spend another action too, since 0.44. */
+const ALSO_SPENDS_044 = new Set(["Disparada", "Deslocar-se"]);
+
+async function alsoSpends() {
+  const found = await sources("skills-basic", ALSO_SPENDS_044);
+  let n = 0;
+  for (const list of collections()) {
+    for (const item of list) {
+      const source = (item.type === "skill") ? found.get(item.name) : null;
+      const value = source?.getFlag(SYSTEM_ID, "alsoSpends");
+      if (!value?.length || item.getFlag(SYSTEM_ID, "alsoSpends")) continue;
+      try {
+        await item.setFlag(SYSTEM_ID, "alsoSpends", [...value]);
+        n++;
+      }
+      catch (err) {
+        console.error(`${SYSTEM_ID} | Content migration: could not update ${item.uuid}`, err);
+      }
+    }
+  }
+  return n;
+}
+
 async function run(done = 0) {
   if (done < 1) {
     const items = await itemsData();
     const skills = await coverSkills();
     console.log(`${SYSTEM_ID} | Content: ${items} items, ${skills} skills with the cover`);
   }
+  if (done < 2) console.log(`${SYSTEM_ID} | Content: ${await alsoSpends()} skills that also spend the Minor Action`);
   return true;
 }
 
-export const CONTENT_MIGRATION = { id: "content", setting: "contentMigrationVersion", version: 1, run };
+export const CONTENT_MIGRATION = { id: "content", setting: "contentMigrationVersion", version: 2, run };

@@ -281,7 +281,14 @@ Hooks.on("renderChatMessageHTML", (message, html) => {
     rollSkill(item, button.dataset.roll);
   }));
 
-  html.querySelectorAll(".skill-card-effects").forEach(button => button.addEventListener("click", async event => {
+  // The effects were applied by themselves to those the blow reached (helpers/combat-cards.mjs applyHitEffects)
+  if (message.getFlag("eternia", "skillUse")?.autoApplied) {
+    html.querySelectorAll(".skill-card-effects").forEach(button => {
+      button.disabled = true;
+      button.innerHTML = `<i class="fas fa-check"></i> ${game.i18n.localize("ETERNIA.Combat.EffectsApplied")}`;
+    });
+  }
+  html.querySelectorAll(".skill-card-effects:not([disabled])").forEach(button => button.addEventListener("click", async event => {
     event.preventDefault();
     await onApplySkillEffects(message, button);
   }));

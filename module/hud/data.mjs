@@ -22,6 +22,7 @@ import { itemMagia } from "../helpers/magic-traits.mjs";
 import { isEmpty, tagLabel, term } from "../i18n/terms.mjs";
 import { ATTRIBUTES, COMBAT_CHECKS, TIMING_GROUPS } from "../sheets/character-sheet.mjs";
 import { actorName, combatantOf, combatOf, escape, toInt } from "../helpers/utils.mjs";
+import { spendsFate } from "../automation/fate.mjs";
 
 /**
  * The panels, in the order of their buttons. A character's skills come apart in three (skillPanelOf): "skills" has
@@ -53,7 +54,7 @@ export const pinsOf = actor => {
 
 const MONSTER_CHECKS = ["evasion", "resistance"];
 /** The actions of the Main Process and their icons. */
-const ACTION_ICONS = [["major", "fa-burst"], ["minor", "fa-hand"], ["move", "fa-shoe-prints"]];
+const ACTION_ICONS = [["major", "fa-burst"], ["minor", "fa-hand"], ["move", "fa-shoe-prints"], ["instant", "fa-bolt"]];
 const EQUIPMENT = ["weapon", "shield", "armor", "accessory", "bag"];
 const checkName = key => key.charAt(0).toUpperCase() + key.slice(1);
 const signed = n => (n >= 0 ? `+${n}` : `${n}`);
@@ -513,7 +514,8 @@ export function hudContext(actor, token, { panel, collapsed }) {
     collapsed,
     hp: { value: hp, max: hpMax, pct: hpMax ? Math.clamp(Math.round((hp / hpMax) * 100), 0, 100) : 0, low: hpMax && (hp <= hpMax / 4) },
     barrier: toInt(source["bad-status"]?.barrier),
-    fate: character ? {
+    // A boss's Fate too (spendsFate: not a Rift's, which is its clock)
+    fate: (character || ((actor.type === "monster") && spendsFate(actor))) ? {
       value: fate, max: fateMax,
       pips: Array.from({ length: Math.clamp(Math.max(fateMax, fate), 0, 10) }, (_, i) => i < fate),
       tooltip: L("Hud.FateTip", { value: fate, max: fateMax })

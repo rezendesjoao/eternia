@@ -831,6 +831,8 @@
       "DodgeFailed": "Dodge failed",
       "Selected": "Selected tokens",
       "Undo": "Undo",
+      "UndoAll": "Undo all",
+      "EffectsApplied": "Effects applied",
       "Undone": "Undone",
       "Type": {
         "physical": "Physical",
@@ -1191,6 +1193,32 @@
         "Name": "Statuses that end at the end of the Main Process",
         "Hint": "Staggered, Dazed, Paralyzed, Silenced and Taunted end at the end of the Main Process of whoever received them. With Afflicted, the ones it protects stay."
       },
+      "autoApply": {
+        "Name": "Apply damage, healing and effects by themselves",
+        "Hint": "The damage and healing of the cards go to whoever the blow hit, and the skill's effects to whoever it reached, on the GM's window. Whoever may still use a Before Damage reaction waits for their owner. An attack without damage also counts on a failed Dodge (Hate Damage, Pursuit, Weakness, Marked).",
+        "manual": "By hand (the buttons)", "enemies": "By themselves on the enemies", "all": "By themselves on everyone"
+      },
+      "monsterDamage": {
+        "Name": "A monster's attack in one click",
+        "Hint": "On the HUD, one click on the attack of a monster (or of an NPC on a hostile token) uses the skill and rolls its Check; when it hits someone, its damage is rolled at once."
+      },
+      "monsterMinor": {
+        "Name": "A monster's (Minor) by itself",
+        "Hint": "When a monster uses an attack with (Minor) in its own turn and still has its Minor Action free, it is spent too and the bonus goes into the blow: the damage on the roll, the status on whoever it hits. The card's Undo gives it back."
+      },
+      "monsterTarget": {
+        "Name": "A monster aims at the Hate Top",
+        "Hint": "At the start of a monster's turn, the GM's window targets the Hate Top it can reach (else the nearest). The GM changes it with a click."
+      },
+      "autoEndTurn": {
+        "Name": "End of turn with the actions spent",
+        "Hint": "When whoever is acting already used the Major, Minor and Move Actions: ask whether the turn ends, end it, or nothing. Who falls in their own turn also ends it (except with Do nothing).",
+        "off": "Do nothing", "ask": "Ask", "auto": "End it"
+      },
+      "autoPhases": {
+        "Name": "Setup and Cleanup by themselves",
+        "Hint": "Setup and Cleanup go on by themselves when nobody still fighting has a skill of that phase to use (and both sides still have someone standing)."
+      },
       "incapacitated": {
         "Name": "Automatic Incapacitated",
         "Hint": "0 HP (or 0 Max HP from Fatigue) makes a character Incapacitated, and an Incapacitated character drops to 0 HP. Incapacitated, Dead and Absent combatants skip their turn (straight to Post-Action)."
@@ -1217,7 +1245,7 @@
       },
       "fate": {
         "Name": "Fate buttons",
-        "Hint": "Spend 1 Fate to: +1d6 on a skill's Check, reroll the hit, the dodge or a plain check, and remove a Bad Status (Fate button on the sheet's Statuses box)."
+        "Hint": "Spend 1 Fate to: +1d6 on a skill's Check, reroll the hit, the dodge or a plain check, and remove a Bad Status (the Fate star on the sheet). They also work for the monsters with Fate (the bosses), on the GM's window, who is asked about their [Fate 1] when they use it."
       },
       "content": {
         "Name": "Item and monster content",
@@ -1345,8 +1373,17 @@
       "ActionSpent": {
         "major": "The Major Action of this Main Process was already used.",
         "minor": "The Minor Action of this Main Process was already used.",
-        "move": "The Move Action of this Main Process was already used."
+        "move": "The Move Action of this Main Process was already used.",
+        "instant": "The Instant Action of this Main Process was already used."
       },
+      "AlsoSpent": {
+        "major": "This skill also spends the Major Action, already used.",
+        "minor": "This skill also spends the Minor Action, already used.",
+        "move": "This skill also spends the Move Action, already used.",
+        "instant": "This skill also spends the Instant Action, already used."
+      },
+      "EndTurnTitle": "End of the turn",
+      "EndTurnAsk": "{name} already used the Major, Minor and Move Actions. End the turn?",
       "LimitReached": "Limit reached: {uses}/{max} {per}.",
       "Per": {
         "Scene": "per scene",
@@ -1361,7 +1398,8 @@
       "Action": {
         "major": "Major Action",
         "minor": "Minor Action",
-        "move": "Move Action"
+        "move": "Move Action",
+        "instant": "Instant Action"
       },
       "Uses": "Use {n}/{max} {per}",
       "Group": "Group cost ({group}): the allies pay separately",
@@ -1406,6 +1444,26 @@
       "NoBadStatus": "{name} has no Bad Status to remove.",
       "Remove": "Remove",
       "Removed": "{name} spent 1 Fate and removed {status}. (Fate: {fate})"
+    },
+    "Minor": {
+      "Label": "Minor",
+      "Damage": "+{n} damage"
+    },
+    "FateOption": {
+      "Title": "[Fate {n}]",
+      "Short": "Fate {n}",
+      "Eyebrow": "{name} · Fate: {fate}",
+      "Engaged": "The blow hits every character engaged with {name}: {targets}.",
+      "Area": "Area (Choice) up to {range} Sq.: {targets}.",
+      "Status": "The target becomes {statuses}.",
+      "Question": "Spend {n} Fate on it?",
+      "Spend": "Spend {n} Fate",
+      "Keep": "Don't spend",
+      "Taken": {
+        "engaged": "[Fate {n}]: everyone engaged",
+        "area": "[Fate {n}]: Area",
+        "status": "[Fate {n}]: {statuses}"
+      }
     },
     "Round": {
       "CleanupTitle": "Cleanup — Round {round}",
@@ -1666,7 +1724,8 @@
       "Action": {
         "major": "Major Action",
         "minor": "Minor Action",
-        "move": "Move Action"
+        "move": "Move Action",
+        "instant": "Instant Action"
       },
       "FateTip": "Fate {value}/{max}. Click: +1. Right click: −1.",
       "Dodge": "Dodge",

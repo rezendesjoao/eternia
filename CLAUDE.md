@@ -17,6 +17,14 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
 - O combate guarda o que já rodou na rodada (`flags.eternia.ran`, em `EterniaCombat#_applyState`): depois de Voltar
   turno ou rodada, o que se refaz chega com `options.eterniaRepeat` (`phase`, `start`, `ended`) no `updateCombat`, e o
   `_onPhaseStart` nem roda. Um gancho novo de começo ou fim de turno ou de fase pula o que vier marcado como repetido.
+  O trabalho de uma fase terminado dispara `eternia.phaseDone`, que o avanço sozinho da Manutenção e do Encerramento
+  escuta (`automation/round.mjs`, configuração `autoPhases`).
+- Desde a 0.44 a tela do Mestre principal aplica sozinha os cartões de dano em quem o golpe atingiu e os efeitos da
+  habilidade em quem ele alcançou (`onAutoCard` em `helpers/combat-cards.mjs`, configuração `autoApply`); o cartão tratado
+  leva `flags.eternia.autoDone`. Código novo que lê um cartão de dano conta com o dano já aplicado quando ele aparece.
+- O que um uso gasta além da ação do Momento fica em `flags.eternia.alsoSpends` da habilidade (a Disparada) e em
+  `usage.alsoSpent` no registro; o (Menor) e o [Destino 1] dos monstros, em `flags.eternia.minor` e `fateOption`
+  (`bestiary/minor.mjs`, veja `docs/bestiario.md`).
 
 ## CSS
 - `css/eternia.css` e `css/piles.css` são a base (camada `system`).
@@ -161,6 +169,9 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
 - Servidor sem janela: `ELECTRON_RUN_AS_NODE=1 "Foundry Virtual Tabletop.exe" launcher.mjs --dataPath=... --port=30017
   --noupnp --noupdate --world=eternia-teste`, com um `launcher.mjs` que apaga `process.versions.electron` e importa
   `resources/app/main.mjs`. Entrar como Gamemaster, sem senha.
+- Os testes ficam em `Data/eternia-tests` (fora do repositório) e rodam na página do jogo: `run-044.js` roda a bateria
+  inteira. As suítes de antes da 0.44 rodam com as automações do lote 2 desligadas (`OLD` no executor), como foram
+  escritas. O `createEmbeddedDocuments` devolve os documentos em qualquer ordem: ache cada um pelo nome.
 
 ## Release
 1. `version` e a URL de `download` no `system.json`, e a entrada no CHANGELOG.

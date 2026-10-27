@@ -899,6 +899,23 @@
 .lhc-msg .lh-applied-card.undone .lh-applied-title {
   text-decoration: line-through;
 }
+/* One card for the targets of one blow: a line between them, the Undo all at the foot */
+.lhc-msg .lh-applied-group .lh-applied-entry + .lh-applied-entry {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--c-line);
+}
+.lhc-msg .lh-applied-group > .lh-applied-buttons {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--c-line);
+}
+.lhc-msg .lh-applied-card:not(.undone) .lh-applied-entry.undone {
+  opacity: 0.6;
+}
+.lhc-msg .lh-applied-entry.undone .lh-applied-title {
+  text-decoration: line-through;
+}
 .lhc-msg .lh-undone,
 .lhc-msg .lhauto-undone {
   color: var(--c-soft);

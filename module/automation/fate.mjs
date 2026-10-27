@@ -8,7 +8,9 @@
  * - Any other 2D6 roll of a character: its roller rerolls it (posted as a new roll).
  * - Character sheet: a star next to the Fate Points removes one Bad Status; while [Afflicted], the
  *   statuses it protects can't go before it.
- * Each spends 1 Fate Point of the character, and is marked on the card.
+ * Each spends 1 Fate Point of the character, and is marked on the card. A monster with Fate (the bosses) has the same
+ * buttons for its owner, the GM, and the star on its sheet; a Rift's Fate is its clock (bestiary/rifts.mjs) and isn't
+ * spent. A boss's [Destino N] on a skill is asked when the skill is used (bestiary/minor.mjs).
  */
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { diceFormula } from "../helpers/dice.mjs";
@@ -33,7 +35,10 @@ export function registerFate() {
 }
 
 const fateOf = actor => toInt(actor?._source?.system?.fate?.value);
-const canSpend = actor => !!actor && (actor.type === "character") && actor.isOwner && (fateOf(actor) > 0);
+/** Whose Fate is spent with these buttons: a character's, a monster's that isn't a Rift. */
+export const spendsFate = actor => !!actor && ((actor.type === "character")
+  || ((actor.type === "monster") && !actor.getFlag(SYSTEM_ID, "rift") && (toInt(actor.system.fate?.max) > 0)));
+const canSpend = actor => spendsFate(actor) && actor.isOwner && (fateOf(actor) > 0);
 
 /**
  * Spend 1 Fate Point.
@@ -41,7 +46,7 @@ const canSpend = actor => !!actor && (actor.type === "character") && actor.isOwn
  * @returns {Promise<boolean>}   Whether it was spent.
  */
 export async function spendFate(actor) {
-  if (!actor?.isOwner || (actor.type !== "character")) return false;
+  if (!actor?.isOwner || !spendsFate(actor)) return false;
   const fate = fateOf(actor);
   if (fate < 1) {
     ui.notifications.warn(L("Fate.None", { name: actorName(actor) }));
@@ -258,8 +263,9 @@ function onRenderMessage(message, html) {
 function onRenderSheet(app, html) {
   if (!setting("fate")) return;
   const actor = app.document;
-  if ((actor?.type !== "character") || !actor.isOwner) return;
-  const title = html.querySelector(".fate h4");
+  if (!spendsFate(actor) || !actor.isOwner) return;
+  // A boss's sheet: the star by the label of its Fate box
+  const title = html.querySelector(actor.type === "monster" ? ".hp-small .gauge.fate .sidebar_label" : ".fate h4");
   if (!title || title.querySelector(".lhauto-fate-use")) return;
   const link = document.createElement("a");
   link.className = "lhauto-fate-use";

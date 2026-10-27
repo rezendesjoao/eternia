@@ -25,12 +25,12 @@ import { applyModifier, checkModifier, consumeAfterRoll } from "../conditions/ro
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { diceFormula } from "../helpers/dice.mjs";
 import { useItem } from "../helpers/item-use.mjs";
-import { checkUsable } from "../automation/use.mjs";
 import { rollCheck } from "../chat/cards.mjs";
-import { removeBadStatus } from "../automation/fate.mjs";
+import { removeBadStatus, spendsFate } from "../automation/fate.mjs";
 import { motorData, setMotor } from "../classes/motor.mjs";
 import { checkOf, descriptionHTML, hudContext, MAX_PINS, PANELS, pinHolder, pinsOf } from "./data.mjs";
-import { combatantOf, combatOf, toInt } from "../helpers/utils.mjs";
+import { combatantOf, combatOf, isAdventurer, toInt } from "../helpers/utils.mjs";
+import { skillRollable } from "../helpers/skill-rolls.mjs";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 const DIR = `systems/eternia/templates/hud`;
@@ -275,16 +275,17 @@ export class ActionHud extends HandlebarsApplicationMixin(ApplicationV2) {
     return rollActorCheck(this.actor, this.token, target.dataset.check, { ask: event.shiftKey });
   }
 
-  /** Use a skill (Shift: and roll its Check) or a usable item. */
+  /** Use a skill (Shift: and roll its Check; a monster's attack always, with monsterDamage) or a usable item. */
   static async #onUse(event, target) {
     const item = this.actor?.items.get(target.closest("[data-item-id]")?.dataset.itemId);
     if (!item) return;
     if (item.type === "usable") {
-      if (await checkUsable(item)) await useItem(item);
+      await useItem(item);
       return;
     }
     const message = await item.ItemThrow();
-    if (message && event.shiftKey && (item.type === "skill")) await rollCheck(item, message);
+    if (!message || (item.type !== "skill")) return;
+    if (event.shiftKey || monsterAttack(item, this.token)) await rollCheck(item, message);
   }
 
   /** Pin / unpin a shortcut on the bar. */
@@ -455,9 +456,18 @@ function syncHotbar() {
   document.body.classList.toggle("lhauto-no-hotbar", (mode === "hide") || ((mode === "swap") && shown));
 }
 
-/** +1 / −1 Fate Point of a character (never above its maximum). */
+/**
+ * A monster's attack (or a hostile NPC's): a skill with a Check against Evasion or Resistance, used with one click
+ * (setting monsterDamage: its damage then follows when it hits, helpers/combat-cards.mjs).
+ */
+function monsterAttack(item, token) {
+  if (!setting("monsterDamage") || isAdventurer(item.actor, token?.document ?? null)) return false;
+  return ["evasion", "resistance"].includes(item.system.check?.vs) && skillRollable(item).check;
+}
+
+/** +1 / −1 Fate Point of a character or a boss (never above its maximum). */
 async function setFate(actor, delta) {
-  if ((actor?.type !== "character") || !actor.isOwner) return;
+  if (!spendsFate(actor) || !actor.isOwner) return;
   const value = toInt(actor._source.system.fate?.value), max = toInt(actor.system.fate?.max);
   const next = Math.max(0, value + delta);
   if ((delta > 0) && max && (next > max)) return;

@@ -19,7 +19,11 @@
  * Skills of an item (its trigger powers, see content.mjs, or any skill an item links to) are also checked
  * like the usage limit: the item must be equipped, the user's Character Rank below the item's lock
  * ("〔CR21〕This item's effect cannot be used"), its Hate high enough, and so on (flags of the skill).
- * Usable items with a Character Rank lock are checked the same way before they are used (checkUsable).
+ * Usable items go through the same checks and record (planItemUse, commitItemUse: their Timing, the action they spend
+ * and give back on Undo, their Character Rank lock), and their card gets the same line.
+ *
+ * A monster's (Menor) takes its Minor Action too when it is free, and a boss's [Destino N] is asked before the card
+ * (bestiary/minor.mjs): both go on the record, with the Undo.
  */
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { parseSkillField } from "../helpers/skill-fields.mjs";
@@ -40,9 +44,10 @@ import { isRecharging } from "../bestiary/recharge.mjs";
 import { troopTargets } from "../bestiary/troop.mjs";
 import { rampageIssues } from "../bestiary/rampage.mjs";
 import { monsterUseIssues } from "../bestiary/use-checks.mjs";
+import { askFateOption, fateOptionText, minorOf, minorText } from "../bestiary/minor.mjs";
 
-/** The action a Timing spends in the Main Process. */
-const ACTIONS = { Major: "major", Minor: "minor", Move: "move" };
+/** The action a Timing spends in the Main Process ([Instant]: one in the user's own Main Process, III.b). */
+const ACTIONS = { Major: "major", Minor: "minor", Move: "move", Instant: "instant" };
 /** Timings used during the user's own Main Process. */
 const OWN_PROCESS = new Set(["Major", "Minor", "Move", "Main Process", "Instant"]);
 /** Timings used outside combat. */
@@ -187,7 +192,8 @@ function spentActions(actor, combat) {
     key,
     major: same ? toInt(saved.major) : 0,
     minor: same ? toInt(saved.minor) : 0,
-    move: same ? toInt(saved.move) : 0
+    move: same ? toInt(saved.move) : 0,
+    instant: same ? toInt(saved.instant) : 0
   };
 }
 
@@ -281,19 +287,6 @@ async function decide(item, issues) {
   return ok ? issues.map(i => i.text) : null;
 }
 
-/**
- * Before a usable item is used: its Character Rank lock ("(CR21): This item has no effect"), by the setting
- * of the usage limits.
- * @param {Item} item
- * @returns {Promise<boolean>}   Whether the use goes on.
- */
-export async function checkUsable(item) {
-  const mode = setting("limits");
-  const lock = crLockOf(item);
-  if (!mode || (mode === "off") || !lock || (crOf(item.actor) < lock)) return true;
-  return !!(await decide(item, [{ text: L("Use.CrLocked", { lock }), mode }]));
-}
-
 /* -------------------------------------------- */
 /*  Before and after the card                   */
 /* -------------------------------------------- */
@@ -327,6 +320,8 @@ export function inspectUse(item, { targets = null } = {}) {
     // A class Motor may change the action (the Samurai's Iai, at Initiative, spends the Major Action).
     const motorAction = motorActionOf(item, actor);
     action = (motorAction !== undefined) ? motorAction : (ACTIONS[timing] ?? null);
+    // [Instant]: counted in the user's own Main Process; out of it (a reaction's moment) it isn't
+    if ((action === "instant") && !((combat.phase === "main") && (combat.progress.active === combatant.id))) action = null;
     // A skill used only out of turn (the Divine Flash) has its own moment (conditions/window.mjs).
     const timingProblems = offTurnIssues(item, actor, combat, combatant) ?? timingIssues(timing, combat, combatant);
     const spent = !!action && (spentActions(actor, combat)[action] >= actionAllowance(actor)[action]);
@@ -335,6 +330,12 @@ export function inspectUse(item, { targets = null } = {}) {
     if (!windowed) {
       for (const text of timingProblems) issues.push({ text, mode: actionsMode, kind: "timing" });
       if (spent) issues.push({ text: L(`Use.ActionSpent.${action}`), mode: actionsMode, kind: "action" });
+      // An action it spends besides its own (the Dash: the Minor Action too); without it, it can't be used
+      const used = spentActions(actor, combat);
+      const allowed = actionAllowance(actor);
+      for (const other of alsoSpendsOf(item)) {
+        if (used[other] >= allowed[other]) issues.push({ text: L(`Use.AlsoSpent.${other}`), mode: actionsMode, kind: "action" });
+      }
     }
   }
 
@@ -385,7 +386,8 @@ export function actionsLeft(actor) {
   if (!mode || (mode === "off") || !combat || !combatantOf(combat, actor)) return null;
   const spent = spentActions(actor, combat);
   const allowed = actionAllowance(actor);
-  return { major: spent.major < allowed.major, minor: spent.minor < allowed.minor, move: spent.move < allowed.move };
+  return { major: spent.major < allowed.major, minor: spent.minor < allowed.minor, move: spent.move < allowed.move,
+    instant: spent.instant < allowed.instant };
 }
 
 /**
@@ -402,6 +404,37 @@ export async function spendAction(actor, action) {
 }
 
 /**
+ * The actions a skill spends besides its own Timing's: its Motor's (Silence Before the Strike) and its own
+ * (`flags.eternia.alsoSpends`: the Dash and the Shift also take the Minor Action).
+ * @param {Item} item
+ * @returns {string[]}
+ */
+function alsoSpendsOf(item) {
+  const list = [...(skillMotor(item)?.alsoSpends ?? []), ...(item.getFlag?.(SYSTEM_ID, "alsoSpends") ?? [])];
+  return [...new Set(list)].filter(a => Object.values(ACTIONS).includes(a));
+}
+
+/**
+ * Check the use of a usable item and decide whether it goes on: its Timing in the combat, the action it spends, its
+ * Character Rank lock (as a skill's; outside a started combat only the lock).
+ * @param {Item} item
+ * @returns {Promise<object|null>}   The plan for commitItemUse, or null when the use stops.
+ */
+export async function planItemUse(item) {
+  return planUse(item);
+}
+
+/**
+ * Record the use of a usable item on its card: the action spent, with the Undo.
+ * @param {Item} item
+ * @param {object} plan          See planItemUse
+ * @param {ChatMessage} message  The item's use card
+ */
+export async function commitItemUse(item, plan, message) {
+  return commitUse(item, plan, message);
+}
+
+/**
  * Check the use and decide whether it goes on.
  * @param {Item} item
  * @returns {Promise<object|null>}   The plan to record after the card, or null when the use stops.
@@ -413,7 +446,24 @@ async function planUse(item) {
   // What a class Motor will spend: kept on the skill before its card, for its formulas (null: cancelled).
   const motor = await planMotorUse(item, item.actor);
   if (motor === null) return null;
-  return { ...state, forced, motor };
+  // A boss's [Destino N]: asked now, before the card and its targets (bestiary/minor.mjs)
+  const fateOption = (item.type === "skill") ? await askFateOption(item) : null;
+  return { ...state, forced, motor, minor: minorPlan(item, state), fateOption };
+}
+
+/**
+ * A monster's (Menor): the bonus its Minor Action adds, when the use is in its own Main Process with that action free
+ * after what the use itself spends (bestiary/minor.mjs).
+ * @param {Item} item
+ * @param {object} state   See inspectUse
+ * @returns {{damage: number, statuses: object[]}|null}
+ */
+function minorPlan(item, state) {
+  const minor = (item.type === "skill") ? minorOf(item) : null;
+  const { combat, combatant, action } = state;
+  if (!minor || !setting("monsterMinor") || !combatant || state.windowed || !action || (action === "minor")) return null;
+  if ((combat.phase !== "main") || (combat.progress.active !== combatant.id) || alsoSpendsOf(item).includes("minor")) return null;
+  return (spentActions(item.actor, combat).minor < actionAllowance(item.actor).minor) ? minor : null;
 }
 
 /**
@@ -432,8 +482,9 @@ async function commitUse(item, plan, message) {
   const updates = {};
 
   // The actions it spends: the Timing's (or the one its Motor says), and any other its Motor takes too
-  // (Silence Before the Strike: no Move Action this Main Process).
-  const also = plan.combat ? (skillMotor(item)?.alsoSpends ?? []).filter(a => Object.values(ACTIONS).includes(a)) : [];
+  // (Silence Before the Strike: no Move Action this Main Process); a monster's (Menor), the Minor Action.
+  const also = plan.combat ? [...alsoSpendsOf(item), ...(plan.minor ? ["minor"] : [])] : [];
+  if (plan.minor && plan.combat) record.minor = plan.minor;
   if (plan.windowed && plan.action && plan.combat) {
     // An action of a window out of the Main Process (the Divine Flash): conditions/window.mjs
     record.window = await spendWindow(actor, plan.combat, plan.action);
@@ -467,6 +518,15 @@ async function commitUse(item, plan, message) {
       record.fateTotal = fate - paid;
     }
   }
+  // A boss's [Destino N], taken when asked
+  if (plan.fateOption) {
+    const fate = updates["system.fate.value"] ?? toInt(actor._source.system.fate?.value);
+    const paid = Math.min(fate, plan.fateOption.fate);
+    updates["system.fate.value"] = fate - paid;
+    record.fate += paid;
+    record.fateTotal = fate - paid;
+    record.fateOption = plan.fateOption;
+  }
   if (!foundry.utils.isEmpty(updates)) await actor.update(updates);
   // HP as a cost (Golpe sem Medo), and a window of actions the skill opens: conditions/immortal.mjs, window.mjs
   record.hp = await payHpCost(item, actor);
@@ -484,7 +544,7 @@ async function commitUse(item, plan, message) {
     .catch(err => (console.error(`${SYSTEM_ID} | Motor of ${item.uuid}`, err), null));
 
   if (record.hate || record.fate || record.action || record.limit || record.group || record.forced.length || record.motor
-    || record.hp || record.opened) {
+    || record.hp || record.opened || record.alsoSpent || record.minor) {
     await message.setFlag(SYSTEM_ID, "usage", record);
   }
   // The conditions an action sets off: [Shocked] hurts on a Major Action, which also ends [Intangible] and
@@ -496,14 +556,33 @@ async function commitUse(item, plan, message) {
    * @param {Item} item
    * @param {{actor: Actor, action: string|null, targets: Actor[], message: ChatMessage}} context
    */
-  Hooks.callAll("eternia.skillUsed", item, {
+  if (item.type === "skill") Hooks.callAll("eternia.skillUsed", item, {
     actor, action: plan.action, targets: [...game.user.targets].map(t => t.actor).filter(Boolean), message
   });
+  // The Major, Minor and Move Actions of the Main Process all spent: the turn may end (III.b)
+  if (plan.combat && plan.action) await offerEndTurn(actor, plan.combat);
 }
 
 /**
- * Give back what a use took: Hate, Fate, the counted use and action. The effects the skill applied
- * are not removed.
+ * The user spent every action of its Main Process (Major, Minor and Move): ask whether the turn ends, or end it
+ * (setting autoEndTurn).
+ * @param {Actor} actor
+ * @param {Combat} combat
+ */
+async function offerEndTurn(actor, combat) {
+  const mode = setting("autoEndTurn");
+  if (!mode || (mode === "off") || (combat.phase !== "main")) return;
+  const combatant = combatantOf(combat, actor);
+  if (!combatant || (combat.progress.active !== combatant.id)) return;
+  const left = actionsLeft(actor);
+  if (!left || left.major || left.minor || left.move) return;
+  if ((mode === "ask") && !(await confirm({ title: L("Use.EndTurnTitle"), content: `<p>${escape(L("Use.EndTurnAsk", { name: actorName(actor) }))}</p>` }))) return;
+  if ((combat.phase === "main") && (combat.progress.active === combatant.id)) await combat.nextTurn();
+}
+
+/**
+ * Give back what a use took: Hate, Fate, the counted use and action, and the effects the skill applied (its use id,
+ * on every actor: helpers/sustained.mjs endSustainedUse). The damage it dealt has its own Undo on the result card.
  * @param {ChatMessage} message
  */
 export async function undoUse(message) {
@@ -530,6 +609,13 @@ export async function undoUse(message) {
   }
 
   if (record.motor) await undoMotorUse(record.motor);
+  // The effects the use gave, wherever they went
+  const skillUse = message.getFlag(SYSTEM_ID, "skillUse");
+  if (skillUse?.useId && actor) {
+    const { endSustainedUse } = await import("../helpers/sustained.mjs");
+    await endSustainedUse(actor, skillUse.useId, item?.name ?? "", { reason: L("Use.Undone") })
+      .catch(err => console.error(`${SYSTEM_ID} | Could not end the effects of ${record.itemUuid}`, err));
+  }
 
   const uses = item?.getFlag(SYSTEM_ID, "uses");
   if (record.limit && item?.isOwner && (uses?.key === record.limit.key)) {
@@ -547,9 +633,14 @@ function renderUse(message, html) {
 
   const parts = [];
   if (record.action) parts.push(L(`Use.Action.${record.action}`) + (record.window ? ` (${L("Window.OutOfTurn")})` : ""));
+  // The actions it took besides (the Dash's Minor Action), and what a monster's Minor Action gave
+  for (const action of record.alsoSpent ?? []) {
+    parts.push(((action === "minor") && record.minor) ? `${L("Use.Action.minor")}: ${minorText(record.minor)}` : L(`Use.Action.${action}`));
+  }
   if (record.hp) parts.push(L("Immortal.HpPaid", { n: record.hp }));
   if (record.hate) parts.push(L("Use.Paid.Hate", { n: record.hate, total: record.hateTotal }));
   if (record.fate) parts.push(L("Use.Paid.Fate", { n: record.fate, total: record.fateTotal }));
+  if (record.fateOption) parts.push(fateOptionText(record.fateOption));
   if (record.limit) parts.push(L("Use.Uses", { n: record.limit.n, max: record.limit.max, per: L(`Use.Per.${record.limit.type}`) }));
   if (record.group) parts.push(L("Use.Group", { group: record.group }));
 

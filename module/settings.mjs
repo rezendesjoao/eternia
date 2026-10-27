@@ -53,6 +53,14 @@ export function registerSettings() {
   toggle("cleanup");
   toggle("endOfProcess");
   toggle("incapacitated");
+  // The turn ends when its actions are spent (ask, by itself, or not), and Setup / Cleanup go on by themselves
+  // when nobody has anything of theirs to use (automation/round.mjs)
+  game.settings.register(SYSTEM_ID, "autoEndTurn", {
+    name: "ETERNIA.Settings.autoEndTurn.Name", hint: "ETERNIA.Settings.autoEndTurn.Hint", scope: "world", config: true,
+    type: String, default: "ask",
+    choices: { off: "ETERNIA.Settings.autoEndTurn.off", ask: "ETERNIA.Settings.autoEndTurn.ask", auto: "ETERNIA.Settings.autoEndTurn.auto" }
+  });
+  toggle("autoPhases");
   toggle("endOfScene");
   toggle("revive");
   // Evolving the form of a race (races/evolution.mjs): a player's request waits for the GM
@@ -65,6 +73,17 @@ export function registerSettings() {
   toggle("cards");
   // The characters roll their Dodge Check when the attack is declared, like the monsters (helpers/combat-cards.mjs)
   toggle("autoDodge");
+  // Damage, healing and the skill's effects applied by themselves on the GM's window, to every target or the enemies;
+  // a monster's damage rolled at once; a monster's turn aimed at the Hate Top (helpers/combat-cards.mjs, automation/turn.mjs)
+  game.settings.register(SYSTEM_ID, "autoApply", {
+    name: "ETERNIA.Settings.autoApply.Name", hint: "ETERNIA.Settings.autoApply.Hint", scope: "world", config: true,
+    type: String, default: "all",
+    choices: { manual: "ETERNIA.Settings.autoApply.manual", enemies: "ETERNIA.Settings.autoApply.enemies", all: "ETERNIA.Settings.autoApply.all" }
+  });
+  toggle("monsterDamage");
+  toggle("monsterTarget");
+  // A monster's (Menor): its Minor Action spent and the bonus added when it is free (bestiary/minor.mjs)
+  toggle("monsterMinor");
   toggle("fate");
   toggle("statusLinks");
   toggle("quickEffect");

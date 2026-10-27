@@ -8,6 +8,9 @@
  * Version 2 (0.42, docs/matematica.md): the 17 monsters whose damage went up (the party loses at least 65% of its HP
  * per encounter, more at higher CR) take the damage of their attacks again: each skill with damage, by name, takes the
  * compendium's damage, text and monster rule (the acid of the Bog's embrace). Their HP stays.
+ * Version 3 (0.44, bestiary/minor.mjs): the skills with a (Menor) or a [Destino 1] in their text take it as data
+ * (`flags.eternia.minor`, `fateOption`), by name, on the monster and on its tokens that carry their own copy of the
+ * skill; the bosses' Fate bar shows for the GM (the prototype token and the tokens on the scenes whose bars were off).
  */
 import { SYSTEM_ID } from "../settings.mjs";
 
@@ -195,12 +198,74 @@ async function damage042(pack, prefix) {
   console.log(`${SYSTEM_ID} | Bestiary: ${items} attacks of the Empire's monsters with the damage of 0.42`);
 }
 
+/** Version 3: the flags of the (Menor) and the [Destino 1] that a world skill lacks, from the compendium's skill. */
+function blowFlagChanges(items, source) {
+  const updates = [];
+  for (const item of items) {
+    if (item.type !== "skill") continue;
+    const from = source.items.find(i => (i.type === "skill") && (i.name === item.name));
+    const update = { _id: item._id };
+    for (const key of ["minor", "fateOption"]) {
+      const value = from?.flags?.[SYSTEM_ID]?.[key];
+      if (value && !item.flags?.[SYSTEM_ID]?.[key]) update[`flags.${SYSTEM_ID}.${key}`] = foundry.utils.deepClone(value);
+    }
+    if (Object.keys(update).length > 1) updates.push(update);
+  }
+  return updates;
+}
+
+async function blows044(pack, prefix) {
+  const loaded = new Map();
+  const sourceOf = async actor => {
+    const uuid = actor?._stats?.compendiumSource;
+    if (!uuid?.startsWith(prefix)) return null;
+    const id = uuid.slice(prefix.length);
+    if (!loaded.has(id)) loaded.set(id, (await pack.getDocument(id).catch(() => null))?._source ?? null);
+    return loaded.get(id);
+  };
+  // A boss's bar: on for its owner where the token still has the bars off (the Rifts' clock is the first bar)
+  const barOn = (data, source) => (source?.prototypeToken?.displayBars > 0) && !(Number(data?.displayBars) > 0);
+  let items = 0, actors = 0, tokens = 0;
+  for (const actor of game.actors) {
+    const source = await sourceOf(actor);
+    if (!source) continue;
+    const updates = blowFlagChanges(actor._source.items, source);
+    if (updates.length) {
+      await actor.updateEmbeddedDocuments("Item", updates, { eterniaMigration: true });
+      items += updates.length;
+    }
+    if (barOn(actor._source.prototypeToken, source)) {
+      await actor.update({ "prototypeToken.displayBars": source.prototypeToken.displayBars }, { eterniaMigration: true });
+      actors++;
+    }
+  }
+  for (const scene of game.scenes) {
+    const updates = [];
+    for (const token of scene.tokens) {
+      const source = await sourceOf(token.baseActor ?? game.actors.get(token.actorId));
+      if (!source) continue;
+      if (barOn(token._source, source)) updates.push({ _id: token.id, displayBars: source.prototypeToken.displayBars });
+      // The skills an unlinked token carries a copy of (a use it counted, say)
+      const own = (!token.actorLink && token.actor) ? (token.delta?._source?.items ?? []) : [];
+      const changes = own.length ? blowFlagChanges(own, source) : [];
+      if (changes.length) {
+        await token.actor.updateEmbeddedDocuments("Item", changes, { eterniaMigration: true });
+        items += changes.length;
+      }
+    }
+    if (updates.length) await scene.updateEmbeddedDocuments("Token", updates, { eterniaMigration: true });
+    tokens += updates.length;
+  }
+  console.log(`${SYSTEM_ID} | Bestiary: ${items} skills with their (Menor) or [Destino 1] as data, the Fate bar of ${actors} bosses and ${tokens} tokens`);
+}
+
 async function run(done = 0) {
   const pack = game.packs.get(`${SYSTEM_ID}.bestiary`);
   if (!pack) return true;
   // the names first: version 2 finds the attacks by their names of 0.37
   if (done < 1) await renames(pack);
   if (done < 2) await damage042(pack, `Compendium.${SYSTEM_ID}.bestiary.Actor.`);
+  if (done < 3) await blows044(pack, `Compendium.${SYSTEM_ID}.bestiary.Actor.`);
   return true;
 }
 
@@ -249,4 +314,4 @@ async function renames(pack) {
   return true;
 }
 
-export const BESTIARY_MIGRATION = { id: "bestiary", setting: "bestiaryMigrationVersion", version: 2, run };
+export const BESTIARY_MIGRATION = { id: "bestiary", setting: "bestiaryMigrationVersion", version: 3, run };

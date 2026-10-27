@@ -7,9 +7,13 @@
  * - untarget: when a Main Process the user is responsible for ends, the user's targets are cleared, so the next
  *   skill doesn't go to the old target.
  * Each is a client setting: every player turns on what helps them. Simultaneous combats are followed apart.
+ * - aim: when a monster's (or a hostile NPC's) Main Process starts, the GM's window targets the [Hate Top] it can
+ *   reach with its attacks, else the nearest Adventurer (world setting monsterTarget; a fury's own rule aims first).
  */
 import { L, setting } from "../settings.mjs";
-import { actorName } from "../helpers/utils.mjs";
+import { actorName, isAdventurer, outOfAction } from "../helpers/utils.mjs";
+import { parseRange } from "../helpers/hands.mjs";
+import { aimsNearest, squaresBetween } from "../bestiary/nearest.mjs";
 
 /** The combatant in its Main Process, by combat id, as last seen by this window. */
 const lastActive = new Map();
@@ -59,7 +63,31 @@ function onProcessStart(combatant) {
   const token = tokenOnCanvas(combatant);
   if (!token) return;
   if (mine && setting("turnSelect") && token.isOwner) token.control({ releaseOthers: true });
+  if (mine && game.user.isGM && setting("monsterTarget") && !isAdventurer(combatant.actor, combatant.token)) aimAtHateTop(combatant, token);
   if (setting("turnPan") && token.visible) canvas.animatePan({ x: token.center.x, y: token.center.y, duration: 300 });
+}
+
+/** How far a creature's attacks reach, in squares (the longest; a close one counts its neighbours with closeReach). */
+function reachOf(actor) {
+  const close = setting("closeReach") ? 1 : 0;
+  const ranges = actor.items.filter(i => (i.type === "skill") && ["evasion", "resistance"].includes(i.system.check?.vs))
+    .map(i => parseRange(i.system.range, actor)).filter(n => n !== null).map(n => Math.max(n, close));
+  return ranges.length ? Math.max(...ranges) : close;
+}
+
+/** A monster's turn: target the [Hate Top] it can reach, else the nearest Adventurer standing. */
+function aimAtHateTop(combatant, token) {
+  if (aimsNearest(combatant.actor)) return;
+  const own = token.document;
+  const foes = combatant.parent.combatants.filter(c => c.token && (c.token.parent === own.parent) && !c.token.hidden && c.actor
+    && isAdventurer(c.actor, c.token) && !outOfAction(c));
+  if (!foes.length) return;
+  const far = c => squaresBetween(own, c.token);
+  const reach = reachOf(combatant.actor);
+  const byDistance = list => [...list].sort((a, b) => far(a) - far(b));
+  const tops = byDistance(foes.filter(c => c.actor.statuses.has("hateTop") && (far(c) <= reach)));
+  const pick = tops[0] ?? byDistance(foes)[0];
+  pick.token.object?.setTarget(true, { releaseOthers: true });
 }
 
 function onProcessEnd(combatant) {

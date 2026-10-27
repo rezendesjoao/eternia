@@ -16,6 +16,9 @@
  *
  * The phase work runs once, on the GM window that changed the phase (the system's own hook point,
  * EterniaCombat#_onPhaseStart); the rest on the window that made the change.
+ * - Setup and Cleanup go on by themselves when nobody still fighting has a skill of that phase to use (setting
+ *   autoPhases), unless one side has nobody standing (the GM ends the combat).
+ * - A combatant that falls in its own Main Process ends it.
  */
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
@@ -26,6 +29,9 @@ import { attackedThisRound, cleanupConditions, endOwnProcess, endOwnStatuses, se
 import { agonyPain, healBlocker, healingHurts, recovered, spendExtraBreath, takeDamage } from "../conditions/damage.mjs";
 import { losesTurn } from "../conditions/actions.mjs";
 import { has, removeStatuses, sameActor, sourcesOf } from "../conditions/rules.mjs";
+import { inspectUse } from "./use.mjs";
+import { parseSkillField } from "../helpers/skill-fields.mjs";
+import { isAdventurer } from "../helpers/utils.mjs";
 
 /** Call during the `init` hook. */
 export function registerRound() {
@@ -56,6 +62,40 @@ export function registerRound() {
   Hooks.on("updateActor", onUpdateActor);
   Hooks.on("createActiveEffect", onCreateEffect);
   Hooks.on("deleteCombat", onDeleteCombat);
+  Hooks.on("eternia.phaseDone", (combat, { phase, round }) => autoAdvance(combat, phase, round)
+    .catch(err => console.error(`${SYSTEM_ID} | Could not go on from the ${phase}`, err)));
+}
+
+/** How long the round waits on a phase before going on by itself (the summaries come first). */
+const AUTO_DELAY = 1200;
+
+/** Whether someone still fighting has a skill of this phase to use now (Setup or Cleanup). */
+function phaseSkillsLeft(combat, phase) {
+  const timing = (phase === "setup") ? "Setup" : "Cleanup";
+  for (const combatant of combat.combatants) {
+    const actor = combatant.actor;
+    if (!actor || outOfAction(combatant)) continue;
+    for (const item of actor.items) {
+      if ((item.type !== "skill") || (parseSkillField("timing", item.system.timing).type !== timing)) continue;
+      if (!inspectUse(item).issues.length) return true;
+    }
+  }
+  return false;
+}
+
+/** Whether both sides still have someone standing (else the GM ends the combat: the round doesn't spin on). */
+function bothSidesStanding(combat) {
+  const standing = combat.combatants.filter(c => c.actor && !outOfAction(c));
+  return standing.some(c => isAdventurer(c.actor, c.token)) && standing.some(c => !isAdventurer(c.actor, c.token));
+}
+
+/** A Setup or Cleanup whose work is done: on to the next step when nobody has anything of that phase to use. */
+async function autoAdvance(combat, phase, round) {
+  if (!setting("autoPhases") || !["setup", "cleanup"].includes(phase)) return;
+  await new Promise(resolve => setTimeout(resolve, AUTO_DELAY));
+  if (!game.combats.has(combat.id) || (combat.round !== round) || (combat.phase !== phase)) return;
+  if (!bothSidesStanding(combat) || phaseSkillsLeft(combat, phase)) return;
+  await combat.nextTurn();
 }
 
 /* -------------------------------------------- */
@@ -281,6 +321,17 @@ async function onCreateEffect(effect, options, userId) {
   const actor = effect.parent;
   if ((actor instanceof Actor) && (toInt(actor.system.health?.value) > 0)) {
     await actor.update({ "system.health.value": 0 });
+  }
+  // Fallen in its own Main Process: the turn ends (after the card that felled it is done), unless the turns end by hand
+  if (setting("autoEndTurn") === "off") return;
+  for (const combat of game.combats.filter(c => c.started && (c.phase === "main"))) {
+    const active = combat.combatants.get(combat.progress?.active);
+    if (!active?.actor || !(actor instanceof Actor) || !sameActor(active.actor, actor)) continue;
+    setTimeout(() => {
+      if ((combat.phase === "main") && (combat.progress?.active === active.id)) {
+        combat.nextTurn().catch(err => console.error(`${SYSTEM_ID} | Could not end the turn of ${actor.uuid}`, err));
+      }
+    }, AUTO_DELAY);
   }
 }
 

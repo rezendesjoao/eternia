@@ -233,11 +233,31 @@ leva fixa; a Grande: 11, 2, `growOn: "fall"` e `wave: [{ uuids: [...], count: 2 
   (`rollDrops(..., { force: true, receiver })`) e o token escondido. A Fenda não rola itens ao cair (só ao fechar), e a
   passiva Rasgo na Escrita (`eternia.passive.cancel` 999) anula o dano.
 
+## O (Menor) e o [Destino 1]
+
+Desde a 0.44 (`bestiary/minor.mjs`), o bônus que o texto do ataque promete também é dado da habilidade:
+
+- **O (Menor):** `flags.eternia.minor = { damage: N }` ("(Menor): +N de dano.") ou `{ statuses: [{ statusId, value }] }`
+  ("(Menor): o alvo fica [Derrubado]."). Usado no próprio Processo Principal, com a Ação Menor livre depois do que o
+  próprio uso gasta, o ataque gasta também a Ação Menor (`usage.alsoSpent`, `usage.minor`, no registro do cartão): o dano
+  entra na rolagem (`minorBonuses`, em `rollDamage` de `chat/cards.mjs`) e os estados no `onHit` do cartão de dano
+  (`useHitStatuses`). Configuração `monsterMinor`.
+- **O [Destino 1]:** `flags.eternia.fateOption = { fate: 1, mode, range, statuses }`, perguntado no uso (`askFateOption`,
+  em `planUse`). `mode` é `engaged` ("o golpe acerta todos os personagens engajados com este inimigo": perguntado com dois
+  ou mais Aventureiros engajados, só os que lutam no combate, e marca todos como alvo antes do cartão), `area` ("Área
+  (Escolha) a até N Qd": perguntado quando o Mestre marca mais de um alvo; `range` vai no texto da pergunta) ou `status`
+  (os estados vão em quem o golpe acertar, como os do (Menor)). O Destino sai junto com os custos (`usage.fate`,
+  `usage.fateOption`), e o Desfazer devolve.
+- **O chefe** (Destino máximo acima de 0, sem `rift`) usa os botões de Destino pela tela do Mestre (`spendsFate`, em
+  `automation/fate.mjs`), o HUD mostra o Destino dele e o token traz a barra de Destino à vista do dono
+  (`prototypeToken.displayBars = 40`). A Fenda fica de fora: o Destino dela é o relógio.
+
 ## Criar um monstro
 
 1. O monstro no compêndio `bestiary`: os números do Guia de Criação de Inimigos (compêndio `rules`) pelo tipo e pelo NP
    (lacaio: PV pela metade e testes fixos, 3 por dado; chefe de grupo: PV ×2, 3 de Destino; sozinho: PV ×4).
-2. As habilidades com os campos da automação (`check`, `damage`, as flags acima). Um ataque com [Menor] fica no texto.
+2. As habilidades com os campos da automação (`check`, `damage`, as flags acima). O (Menor) e o [Destino 1] ficam no
+   texto e nos dados (veja acima).
 3. A tabela: itens guardados com `flags.eternia.drop` (ou, numa ficha do mundo, arrastar itens para a aba).
 4. Os monstros do Império foram gerados por um script (fora do repositório; a fonte é o JSON em `src/packs/bestiary`,
    pasta O Império, com uma subpasta por NP), com ids estáveis. Os ids saem do primeiro nome de cada monstro: a 0.37

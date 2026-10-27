@@ -33,7 +33,7 @@
 				{{/if}}
 			</nav>
 		</div>
-		{{#if character}}
+		{{#if (or character fate)}}
 		<div class="lhh-res">
 			{{#if fate}}<span class="lhh-fate" data-action="lhh-fate" data-tooltip-text="{{fate.tooltip}}" data-tooltip-direction="UP">{{#each fate.pips}}<i class="{{#if this}}fa-solid{{else}}fa-regular{{/if}} fa-star"></i>{{/each}}</span>{{/if}}
 			{{#if hate}}<span class="lhh-hate{{#if hate.rank}} {{hate.rank}}{{/if}}" data-tooltip-text="{{hate.tooltip}}" data-tooltip-direction="UP"><b>{{localize 'ETERNIA.Sheet.Hate'}}</b>{{hate.value}}{{#if (eq hate.rank 'top')}}<i class="fa-solid fa-crown"></i>{{/if}}{{#if (eq hate.rank 'under')}}<i class="fa-solid fa-angles-down"></i>{{/if}}</span>{{/if}}

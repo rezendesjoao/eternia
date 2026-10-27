@@ -15,7 +15,6 @@ import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { useItem } from "../helpers/item-use.mjs";
 import { removeBadStatus } from "../automation/fate.mjs";
 import { itemSkillsOf, linkedSkill } from "../content/content.mjs";
-import { checkUsable } from "../automation/use.mjs";
 import { actorName, escape, toInt } from "../helpers/utils.mjs";
 import { isEmpty, tagLabel, term } from "../i18n/terms.mjs";
 import { EterniaActorSheet } from "./actor-sheet.mjs";
@@ -782,7 +781,7 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
   /** A usable item, used after the check of its Character Rank lock (use.mjs). */
   static async #onItemUse(event, target) {
     const item = this.actor.items.get(target.closest(".item")?.dataset.itemId);
-    if (item && (await checkUsable(item))) return useItem(item);
+    if (item) return useItem(item);
   }
 
   /** Add or spend gold, with a note in the chat (the table's economy log). */
