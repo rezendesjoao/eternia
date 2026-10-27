@@ -5,9 +5,18 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.45.0
+## Versão 0.46.0
 
-- **Novo na 0.45.0: o Mercado e as lojas.** O botão Mercado (na barra dos tokens) abre todos os itens dos compêndios
+- **Novo na 0.46.0: o Guia do Jogador e o visual novo.** O compêndio **Guia do Jogador** explica o sistema como um
+  livro de RPG, em 21 páginas (o jogo, o personagem, a criação, raças, classes, Magias, habilidades, evolução, sessões,
+  combate, ataque e dano, Ódio, Destino, estados, equipamento, profissões, fora de combate e a mesa virtual, com
+  glossário e referência rápida), com caixas de Regra, Exemplo, Dica, Atenção, Na mesa virtual, Em resumo e Com o
+  Mestre. O guia entra sozinho no Diário de cada mundo, para todos lerem, e se atualiza com o sistema. Todo diário vira
+  um livro em pergaminho, com o sumário no estandarte verde e as caixas no menu Eternia do editor, e a interface do
+  Foundry (a barra lateral e os botões dela, as listas, os controles da cena, os menus e os avisos) fica no verde e
+  dourado da Eternia; cada jogador pode desligar os dois visuais (veja [O Guia do Jogador](#o-guia-do-jogador) e
+  [Os diários e a interface](#os-diários-e-a-interface)).
+- **Desde a 0.45.0: o Mercado e as lojas.** O botão Mercado (na barra dos tokens) abre todos os itens dos compêndios
   numa janela grande, com o preço, o que cada um dá e a descrição, filtros por tipo, Nível, preço, venda, grau, pasta e
   tags, e a busca. Só o Mestre compra para um personagem, dá de graça ou arrasta para uma ficha; os jogadores só olham.
   O Mestre marca itens e cria uma loja, que vira um token na cena: com dois cliques nele, o jogador vê só os itens

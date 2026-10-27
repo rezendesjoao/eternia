@@ -1,6 +1,6 @@
 # Changelog
 
-## Não lançado
+## 0.46.0 — 2026-10-27
 
 O Guia do Jogador no Diário, e o Foundry inteiro no visual da Eternia.
 
