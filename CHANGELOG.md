@@ -1,5 +1,51 @@
 # Changelog
 
+## 0.44.0 — 2026-10-27
+
+O lote 2 da lista `Eternia-Automacao/O-que-falta-automatizar.md` (fora do repositório): menos cliques no combate. Cada
+automação nova tem a sua configuração, para a mesa que prefere fazer à mão.
+
+### Adicionado
+- **Dano, cura e efeitos aplicados sozinhos** (configuração "Aplicar dano, cura e efeitos sozinho": à mão, só nos
+  inimigos ou em todos; vem em todos): a tela do Mestre aplica o cartão de dano em quem o golpe atingiu e os efeitos da
+  habilidade em quem ele alcançou. Quem ainda pode usar uma reação Antes do Dano espera o dono clicar. Um cartão de
+  resultado por golpe, com uma linha por alvo, o Desfazer de cada linha e o Desfazer tudo (o dos monstros só para o
+  Mestre, porque mostra a Defesa deles). O botão de efeitos do cartão da habilidade passa a dizer "Efeitos aplicados".
+- **O ataque sem dano também pesa:** quando a esquiva falha, ele vira um cartão de 0 que aplica o Dano de Ódio, a
+  Perseguição, a Fraqueza, o [Marcado] e o −1 de Ódio, e passa pelo O Único, pelos Clones, pelo Contragolpe e por quem
+  protege, como um golpe com dano.
+- **O ataque do monstro em um clique** (configuração): no HUD, um clique no ataque de um monstro usa a habilidade e rola
+  o Teste; quando ele acerta, o dano é rolado na hora (e aplicado, com a configuração acima).
+- **O monstro mira o Topo de Ódio** (configuração): no começo do turno de um monstro, a tela do Mestre marca como alvo o
+  Topo de Ódio que ele alcança com os ataques (senão, o Aventureiro mais perto). O Mestre troca com um clique.
+- **O (Menor) dos monstros** (34 habilidades do Império; configuração "O (Menor) do monstro sozinho"): usado no próprio
+  turno com a Ação Menor livre, o ataque gasta essa ação junto e soma o +N de dano, ou dá o estado em quem acertar. A
+  linha do cartão diz o que a Ação Menor deu, e o Desfazer devolve.
+- **O Destino dos chefes:** os 17 chefes do Império usam os botões de Destino (+1d6, rerrolar o acerto e a esquiva, a
+  estrela da ficha que tira um Estado Negativo) pela tela do Mestre; o HUD mostra o Destino deles e a barra de Destino
+  aparece para o Mestre no token. O [Destino 1] dos 10 chefes que o têm é perguntado no uso: o "todos os engajados"
+  quando há dois ou mais personagens engajados com ele (e marca todos), o de área quando o Mestre marca mais de um alvo,
+  o de estado sempre. Gasta 1 Destino, devolvido pelo Desfazer. A Fenda continua usando o Destino como relógio.
+- **Fim do turno** (configuração "Fim do turno com as ações gastas": perguntar, encerrar sozinho ou nada; vem em
+  perguntar): gastas as Ações Maior, Menor e de Movimento, o sistema pergunta se o turno acaba. Quem cai na própria vez
+  tem o turno encerrado.
+- **Manutenção e Encerramento sozinhos** (configuração): a rodada passa por essas fases sem clique quando ninguém que
+  ainda luta tem uma habilidade delas para usar e os dois lados têm alguém de pé.
+
+### Alterado
+- **A Ação Instantânea** conta como as outras três: uma por turno, no próprio Processo Principal (a reação fora da vez não
+  conta), e aparece no HUD.
+- **Os itens usáveis** passam pela conferência das habilidades: gastam a ação do Momento deles (Maior, Menor, de
+  Movimento ou Instantânea), com o registro no cartão e o Desfazer.
+- **Disparada e Deslocar-se** gastam também a Ação Menor (sem ela, avisam). A linha do cartão mostra as duas ações, e o
+  Desfazer devolve as duas.
+- **O Desfazer do uso** tira também os efeitos que a habilidade deu, em quem estiverem.
+
+### Migração
+- **Bestiário (versão 3):** as cópias dos monstros do Império no mundo ganham o (Menor) e o [Destino 1] como dados, e os
+  chefes, a barra de Destino (no token-modelo e nos tokens das cenas que estavam com as barras desligadas).
+- **Conteúdo (versão 2):** a Disparada e o Deslocar-se do mundo e dos personagens gastam também a Ação Menor.
+
 ## 0.43.0 — 2026-10-27
 
 O lote 1 da lista `Eternia-Automacao/O-que-falta-automatizar.md` (fora do repositório): os erros achados na varredura.

@@ -1,5 +1,6 @@
 /**
- * What's new: once per user and release line, a short window with the news of this version (0.43: the fixes, the
+ * What's new: once per user and release line, a short window with the news of this version (0.44: fewer clicks in
+ * combat, damage and effects applied by themselves, the monster's turn, the (Menor) and the bosses' Fate; 0.43: the fixes, the
  * damage button with the attacker's statuses, the Hate Top of the attack, the tracker that doesn't repeat, the hostile
  * NPC as an enemy, the bags, the potions' grades, Protect, the Bestiary with the Eternia creatures only; 0.42: the balance, the
  * 14 classes in one band, the Ancestral Magias' extra die and Taboos of the same weight, six races, one source of
@@ -31,7 +32,7 @@
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 
 /** The release line the notice speaks about. */
-const NOTICE = "0.43";
+const NOTICE = "0.44";
 
 /** Call during the `init` hook. */
 export function registerNotice() {
