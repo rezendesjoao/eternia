@@ -945,7 +945,7 @@
       "Whip": "Whips. Classes that can equip [Whip] can use it.",
       "MartialArts": "Fist weapons and unarmed techniques. Classes that can equip [Martial Arts] can use it.",
       "Instrument": "Musical instruments, used by Bards.",
-      "MagicStone": "Catalyst stones. Its Magic Power can't be combined with a [Staff].",
+      "MagicStone": "Catalyst stones. Its Magic Power doesn't combine with a [Staff]'s nor with another Magic Stone's or Ring's: the highest counts.",
       "Light": "Light weapons. Classes that can equip [Light] can use it (e.g. Sorcerers can use Short Swords, but not other [Blade] items).",
       "LightArmor": "Light armor. Classes that can equip [Light Armor] can use it.",
       "MediumArmor": "Medium armor. Classes that can equip [Medium Armor] can use it.",
@@ -976,7 +976,7 @@
       "Charm": "Charm or talisman.",
       "Medicine": "Medicine item.",
       "MagicTool": "Magic tool.",
-      "MagicRing": "Magic ring.",
+      "MagicRing": "Magic ring. Like a Magic Stone, its Magic Power doesn't combine with a [Staff]'s nor with another Stone's or Ring's: the highest counts.",
       "Embroidery": "Embroidery item.",
       "SummoningWhistle": "Whistle that calls a mount or companion.",
       "Flag": "Flag or banner.",
@@ -2611,11 +2611,11 @@
         "PerfectReady": "Perfect Cut ready",
         "Card": {
           "Gain": "In the Setup Process, with the blade sheathed: +1 Cut.",
-          "Spend": "The Iai (Initiative, spends the Major Action) draws and spends them all: each Cut adds 2d6 + CR to the damage.",
-          "Cap": "2 Cuts, +1 every 5 CR. With a full Sheath, a Perfect Cut: automatic hit and +[CR×2+10].",
+          "Spend": "The Iai (Initiative, spends the Major Action) draws and spends them all: each Cut adds 1d6 + CR÷2 to the damage.",
+          "Cap": "2 Cuts, +1 every 5 CR. With a full Sheath, a Perfect Cut: automatic hit; the first one of the scene adds +[CR×2+10].",
           "Reset": "Any other weapon attack draws the blade and loses the Cuts. Sheathing is a Minor Action.",
           "GainLesser": "In the Setup Process, with the blade sheathed: +1 Cut.",
-          "SpendLesser": "The Iai draws and spends them all: each Cut adds 2d6 + CR to the damage, without a Perfect Cut.",
+          "SpendLesser": "The Iai draws and spends them all: each Cut adds 1d6 + CR÷2 to the damage, without a Perfect Cut.",
           "CapLesser": "Half the Sheath's cap, at least 1.",
           "ResetLesser": "Any other weapon attack draws the blade and loses the Cuts."
         }
@@ -2639,7 +2639,7 @@
         "Card": {
           "Gain": "Any hit anyone lands on the Target: +1 Breach (your Stab: +2).",
           "Spend": "The Execution, only on the Target, spends them all: each Breach adds 1d6 + CR. A Target left at HP ≤ [Breaches × (CR+5)] falls (not a [Boss]).",
-          "Cap": "3 Breaches, +1 every 5 CR.",
+          "Cap": "3 Breaches, +1 every 5 CR. With a full Contract, the Execution hits without a Dodge Check.",
           "Reset": "Swearing a Contract on another Target loses the Breaches. The Target falling fulfills the Contract: you are free.",
           "GainLesser": "Any hit anyone lands on the Target: +1 Breach.",
           "SpendLesser": "The Execution, only on the Target, spends them all: each Breach adds 1d6 + CR, without the fall.",
@@ -2658,11 +2658,11 @@
         "Ancestors": "The Ancestors",
         "Card": {
           "Gain": "+1 Rage every time an enemy attack takes HP from you; +1 more at half your HP or less.",
-          "Spend": "Savage Strike spends it all: (2+Rage)d6 + Rage×CR. Breath of Blood turns Rage into HP.",
-          "Cap": "3 Rage, +1 every 5 CR. With Rage, weapon attacks add +[Rage × 2] to the damage.",
+          "Spend": "Savage Strike spends it all: (1+Rage)d6 + Rage×CR. Breath of Blood turns Rage into HP.",
+          "Cap": "3 Rage, +1 every 5 CR. With Rage, weapon attacks add +[Rage] to the damage.",
           "Reset": "At the Cleanup Process of a round in which you neither attacked nor lost HP, lose 1 Rage.",
           "GainLesser": "+1 Rage every time an enemy attack takes HP from you.",
-          "SpendLesser": "Savage Strike spends it all: (2+Rage)d6 + Rage×CR.",
+          "SpendLesser": "Savage Strike spends it all: (1+Rage)d6 + Rage×CR.",
           "CapLesser": "Half the Rage cap, at least 1. With Rage, weapon attacks add +[Rage] to the damage.",
           "ResetLesser": "At the Cleanup Process of a round in which you neither attacked nor lost HP, lose 1 Rage."
         }
@@ -2705,7 +2705,8 @@
         },
         "Ready": "Orders at the cap",
         "Banner": "Standard raised",
-        "FreeOrder": "Free Order this round"
+        "FreeOrder": "Free Order this round",
+        "MarshalIssue": "Marshal: an Order for two allies spends 2 Orders."
       },
       "Druida": {
         "Name": "Forms",
@@ -2804,11 +2805,11 @@
         "Ready": "Sure strike ready",
         "Card": {
           "Gain": "+1 Layer every time an enemy makes an attack against you, hit or miss.",
-          "Spend": "The Bulwark Strike spends them all: each Layer adds 1d6 + CR to the damage, and the target is [Taunted].",
-          "Cap": "3 Layers, +1 every 5 CR. In combat, each Layer is [Cancel: 2].",
+          "Spend": "The Bulwark Strike spends them all: (1 + Layers)d6 + Attack Power, and the target is [Taunted].",
+          "Cap": "3 Layers, +1 every 5 CR. In combat, each Layer is [Cancel: 1].",
           "Reset": "At the Cleanup Process of a round in which no enemy attacked you, lose 1 Layer.",
           "GainLesser": "+1 Layer every time an enemy makes an attack against you, hit or miss.",
-          "SpendLesser": "The Bulwark Strike spends them all: each Layer adds 1d6 + CR to the damage.",
+          "SpendLesser": "The Bulwark Strike spends them all: (1 + Layers)d6 + Attack Power.",
           "CapLesser": "Half the Bulwark's cap, at least 1. In combat, each Layer is [Cancel: 1].",
           "ResetLesser": "At the Cleanup Process of a round in which no enemy attacked you, lose 1 Layer."
         }
@@ -2823,12 +2824,12 @@
           "fada": "Fairy"
         },
         "Card": {
-          "Gain": "Summon Spirit: choose the Wolf, the Golem or the Fairy and pay [CR+3] HP per Link. With a spirit there, the spells of the Magias give +1 Link (the big ones, +2).",
-          "Spend": "The special commands spend Links; the Living Shield spends 1. Command: Attack adds the Links to its damage. The supreme spells need the cap and spend them all, with a spirit that came before this round.",
+          "Gain": "Summon Spirit: choose the Wolf, the Golem or the Fairy and pay [CR÷2+2] HP per Link. With a spirit there, the spells of the Magias give +1 Link (the big ones, +2).",
+          "Spend": "The special commands spend Links; the Living Shield spends 1. Command: Attack rolls 1d6 more per Link. The supreme spells need the cap and spend them all, with a spirit that came before this round.",
           "Cap": "3 Links, +1 every 5 CR. Wolf: +1d6 to its strikes; Golem: [Cancel: Links]; Fairy: [Regen: Links × 2].",
           "Reset": "With 0 Links the spirit fades. Every combat starts without a spirit.",
-          "GainLesser": "Summon Spirit, the Wolf only: [CR+3] HP per Link.",
-          "SpendLesser": "Command: Attack adds the Links to its damage, and the Wolf adds +1d6.",
+          "GainLesser": "Summon Spirit, the Wolf only: [CR÷2+2] HP per Link.",
+          "SpendLesser": "Command: Attack rolls 1d6 more per Link, and the Wolf adds +1d6.",
           "CapLesser": "Half the Pact's cap, at least 1.",
           "ResetLesser": "With 0 Links the Wolf fades. Every combat starts without a spirit."
         },
@@ -2890,11 +2891,11 @@
         "WeaponIssue": "The Chain strikes need a [Martial Arts] weapon in the main hand or both hands empty.",
         "Card": {
           "Gain": "Opening Strike and Quick Link: +1 Link each.",
-          "Spend": "The Final Strike spends them all: each Link adds 2d6 + CR to the damage. With a full Chain, the target is [Dazed].",
+          "Spend": "The Final Strike spends them all: (1 + Links)d6 + Links×CR. With a full Chain, the target is [Dazed].",
           "Cap": "3 Links, +1 every 5 CR.",
           "Reset": "A turn without a Chain skill breaks it. Each enemy attack that takes your HP takes 1 Link.",
           "GainLesser": "Opening Strike: +1 Link.",
-          "SpendLesser": "The Final Strike spends them all: each Link adds 2d6 + CR to the damage, without the full Chain's effect.",
+          "SpendLesser": "The Final Strike spends them all: (1 + Links)d6 + Links×CR, without the full Chain's effect.",
           "CapLesser": "Half the Chain's cap, at least 1.",
           "ResetLesser": "A turn without a Chain skill breaks it. Each enemy attack that takes your HP takes 1 Link."
         }
@@ -3114,12 +3115,12 @@
           "escrita": "Written"
         },
         "Card": {
-          "Gain": "A check of anyone in the combat with two dice that add up to the Law: +1 Rune (6 to 8), +2 (4, 5, 9, 10) or +3 (2, 3, 11, 12). Every Spell, the class's or the Magias', lights +1 (the big ones, +2).",
-          "Spend": "On the attack cards, 1 Rune: the lowest die of a check goes up by 1 or the highest goes down by 1 (2 Runes when that makes or unmakes a Critical or a Fumble). The supreme spells need the cap and spend them all.",
+          "Gain": "A check of anyone in the combat with two dice that add up to the Law: +1 Rune (6 to 8), +2 (4, 5, 9, 10) or +3 (2, 3, 11, 12), at most 2 a round. Every Spell, the class's or the Magias', lights +1 (the big ones, +2).",
+          "Spend": "On the attack cards, 2 Runes: the lowest die of a check goes up by 1 or the highest goes down by 1 (3 Runes when that makes or unmakes a Critical or a Fumble). The supreme spells need the cap and spend them all.",
           "Cap": "3 Runes, +1 every 5 CR. The Law, a number from 2 to 12, is written at the Setup Process.",
           "Reset": "At the end of the combat. Changing the Law in the middle of a combat puts out the Runes.",
-          "GainLesser": "A check of anyone in the combat with two dice that add up to the Law: +1 Rune (6 to 8), +2 (4, 5, 9, 10) or +3 (2, 3, 11, 12).",
-          "SpendLesser": "On the attack cards, 1 Rune: the lowest die of a check goes up by 1 (2 Runes when that makes a Critical or unmakes a Fumble).",
+          "GainLesser": "A check of anyone in the combat with two dice that add up to the Law: +1 Rune (6 to 8), +2 (4, 5, 9, 10) or +3 (2, 3, 11, 12), at most 2 a round.",
+          "SpendLesser": "On the attack cards, 2 Runes: the lowest die of a check goes up by 1 (3 Runes when that makes a Critical or unmakes a Fumble).",
           "CapLesser": "Half the Law's cap, at least 1.",
           "ResetLesser": "At the end of the combat. Changing the Law in the middle of a combat puts out the Runes."
         },
@@ -3137,10 +3138,10 @@
         "Six": "Rune → 6",
         "One": "Rune → 1",
         "Fate": "Verdict",
-        "UpTip": "1 Rune: the lowest die of the check goes up by 1. Costs 2 when it makes or unmakes a Critical or a Fumble.",
-        "DownTip": "1 Rune: the highest die of the check goes down by 1. Costs 2 when it makes or unmakes a Critical or a Fumble.",
-        "SixTip": "1 Rune: the lowest die of the check becomes 6. Costs 2 when it makes a Critical or unmakes a Fumble.",
-        "OneTip": "1 Rune: the highest die of the check becomes 1. Costs 2 when it makes a Fumble or unmakes a Critical.",
+        "UpTip": "2 Runes: the lowest die of the check goes up by 1. Costs 3 when it makes or unmakes a Critical or a Fumble.",
+        "DownTip": "2 Runes: the highest die of the check goes down by 1. Costs 3 when it makes or unmakes a Critical or a Fumble.",
+        "SixTip": "3 Runes, once a round: the lowest die of the check becomes 6. Costs 4 when it makes a Critical or unmakes a Fumble.",
+        "OneTip": "3 Runes, once a round: the highest die of the check becomes 1. Costs 4 when it makes a Fumble or unmakes a Critical.",
         "FateTip": "Every Rune (at least 3): the check becomes a Fumble. Once per combat.",
         "Cost": "{label} ({n} Runes)",
         "Free": "{label} (free)",
@@ -3150,7 +3151,8 @@
         "NoteOne": "{name}: Rune → 1",
         "NoteFate": "{name}: Verdict",
         "NoDie": "No die of that check can change that way.",
-        "NoRunes": "Too few Runes: it needs {n}."
+        "NoRunes": "Too few Runes: it needs {n}.",
+        "CostOne": "{label} (1 Rune)"
       },
       "MagoNegro": {
         "Name": "Pressure",
@@ -3182,11 +3184,11 @@
           "foco": "Focus"
         },
         "Card": {
-          "Gain": "At the Setup: +1 Charge. Spells, the class's or the Magias': +1 (the big ones, +2). Summoned Blade, with the Sword: +1.",
+          "Gain": "At the Setup: +1 Charge. Spells, the class's or the Magias': +1 (the big ones, +2). Summoned Blade: +1.",
           "Spend": "Requip: the piece that leaves releases its Discharge, and the new one starts with half the Charge. The supreme spells of the Magias need the cap and spend it all.",
           "Cap": "3 Charge, +1 every 5 CR. Sword: +[Charge × 2] to weapon attacks. Armor: [Cancel: Charge × 2]. Focus: +[Charge × 2] to Spells and heals.",
           "Reset": "The end of the combat zeroes the Charge; the piece stays in hand.",
-          "GainLesser": "At the Setup: +1 Charge. Summoned Blade, with the Sword: +1.",
+          "GainLesser": "At the Setup: +1 Charge. Summoned Blade: +1.",
           "SpendLesser": "Requip between the Sword and the Armor: the piece that leaves releases its Discharge.",
           "CapLesser": "Half the cap of the Arsenal, at least 1. Only the Sword and the Armor.",
           "ResetLesser": "The end of the combat zeroes the Charge; the piece stays in hand."
@@ -3552,7 +3554,7 @@
         "holder": "The magic lives in an equipped object: the staff, the cards, the keys, the armors.",
         "lost": "Hits harder than the others of the same CR, but has a Taboo that takes its price in combat.",
         "forbidden": "The most dangerous: very strong, with a heavy Taboo.",
-        "ancestral": "Ancient: its supreme spell only comes at CR 10.",
+        "ancestral": "Ancient and without a Taboo: its attack spells roll 1d6 more, and its supreme spell only comes at CR 10.",
         "curse": "The demons' power, which isn't magic: as strong as the Lost, with a Taboo, and [Silenced] doesn't stop its spells."
       },
       "Role": {
@@ -3831,11 +3833,11 @@
           "cacador": "The Aim shoots with a [Bow], a [Crossbow] or [Throwing]: the Arco de Caça reaches 3 Sq, and the Brinco da Acuidade adds +1 Perception.",
           "comandante": "Who gives the Orders stays standing: a one-handed spear with the Broquel, medium armor and the Joia do Renascimento for whoever falls.",
           "matador": "Dragon strikes are [Magic Attack]s: the Anel Cinzento adds +4 Magic Power, and the Soqueira keeps the fists ready.",
-          "magonegro": "Everything is a spell: the Cajado de Carvalho (Magic 5) and the Anel Cinzento (+4) give Magic Power 9. The Talisman guards against magic.",
-          "magobranco": "The Staff and the Ring for the spells, and two Joias do Renascimento: who heals also raises the fallen.",
-          "magovermelho": "Sword and spell in one staff: the Cajado de Carvalho has Attack 3 and Magic 5, and the Ring and the Bracelete raise both.",
-          "magoazul": "The souls fight with magic: the Staff and the Ring give Magic Power 9, and medium armor holds the form up front.",
-          "invocador": "Who calls the spirits stays behind: the Staff and the Ring for the spells, light armor and the Enciclopédia (+1 Knowledge).",
+          "magonegro": "Everything is a spell: the Cajado de Carvalho (Magic 5) and the Guarda de Sigilos (+1) give Magic Power 6. The Talisman guards against magic.",
+          "magobranco": "The Staff and the Guarda de Sigilos for the spells, and two Joias do Renascimento: who heals also raises the fallen.",
+          "magovermelho": "Sword and spell in one staff: the Cajado de Carvalho has Attack 3 and Magic 5, and the Guarda de Sigilos and the Bracelete raise both.",
+          "magoazul": "The souls fight with magic: the Staff and the Guarda de Sigilos give Magic Power 6, and medium armor holds the form up front.",
+          "invocador": "Who calls the spirits stays behind: the Staff and the Guarda de Sigilos for the spells, light armor and the Enciclopédia (+1 Knowledge).",
           "pictomante": "The Wand leaves the other hand for the Broquel, and the Anel Cinzento gives the Molds their Magic Power. The Óculos add +1 Analysis.",
           "family": "A weapon, armor and what helps the class's strikes."
         },

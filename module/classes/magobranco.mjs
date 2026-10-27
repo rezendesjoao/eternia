@@ -6,11 +6,12 @@
  * The Weaver's Pattern made the engine of the Magias. The mage writes a number from 2 to 12 in runes, the Law (with
  * Write the Law; changing it in a combat puts out the Runes already lit). Any check of anyone in the combat (Hit
  * Checks and Dodge Checks included) with two dice that add up to the Law lights Runes, once per check: 1 for 6 to 8,
- * 2 for 4, 5, 9 and 10, 3 for 2, 3, 11 and 12 (doubled on the Path of Augury); every Spell, the class's or a Magia's,
- * lights 1 more (the big ones 2: their own motor.gain). Up to the cap (3, +1 every 5 CR, + the SR of Runic Circle).
- * Runes are spent on the attack cards (cardActions, Rewrite): 1 Rune, the lowest die of a check goes up by 1 or the
- * highest down by 1; 2 Runes when that makes or unmakes a Critical or a Fumble. On the Path of the Absolute Law the die
- * goes to 6 (the mage's and the allies' checks) or to 1 (the enemies'). Other talents spend Runes on seals, barriers,
+ * 2 for 4, 5, 9 and 10, 3 for 2, 3, 11 and 12 (doubled on the Path of Augury), at most 2 a round; every Spell, the
+ * class's or a Magia's, lights 1 more (the big ones 2: their own motor.gain). Up to the cap (3, +1 every 5 CR, + the SR
+ * of Runic Circle). Runes are spent on the attack cards (cardActions, Rewrite): 2 Runes, the lowest die of a check goes
+ * up by 1 or the highest down by 1; 3 Runes when that makes or unmakes a Critical or a Fumble. On the Path of the
+ * Absolute Law the die goes to 6 (the mage's and the allies' checks) or to 1 (the enemies'), once a round, for 1 Rune
+ * more. Other talents spend Runes on seals, barriers,
  * healing and the Sacred Rune's damage; the supreme spells of the Magias need the cap and spend them all.
  *
  * State in flags.eternia.motor.magobranco:
@@ -22,6 +23,9 @@
  *   siege    "<combat>.<round>" of the last Siege Rune
  *   pulled   "<combat>.<round>" of the Apex's cheaper rewrite
  *   fate     id of the combat where the Verdict was given
+ *   lit      { key: "<combat>.<round>", n }: the Runes the Law lit in the round (at most 2)
+ *   absolute "<combat>.<round>" of the Absolute Law's rewrite (once a round)
+ *   sentence the Final Sentence's sure strike was used in this combat (once per scene)
  */
 import { L } from "../settings.mjs";
 import { combatOf, toInt } from "../helpers/utils.mjs";
@@ -36,7 +40,13 @@ export const MAGOBRANCO_ID = "magobranco";
 /** Identifier of a White Mage skill. */
 const T = name => `${MAGOBRANCO_ID}-${name}`;
 
-const DEFAULTS = { state: "escrita", value: 0, pattern: 7, second: null, doubles: null, siege: null, pulled: null, fate: null };
+const DEFAULTS = {
+  state: "escrita", value: 0, pattern: 7, second: null, doubles: null, siege: null, pulled: null, fate: null,
+  lit: null, absolute: null, sentence: false
+};
+
+/** The Runes the Law lights in a round, at most. */
+const LAW_PER_ROUND = 2;
 
 /** Runes a number of the Law lights: the rarer the sum of two dice, the more. */
 export function runesFor(n) {
@@ -142,16 +152,18 @@ function rewritten(dice, action) {
 }
 
 /**
- * Runes a rewrite costs: 1, 2 when it makes or unmakes a Critical or a Fumble (always 1 on the mage's and the allies'
- * checks with the Guiding Rune), every Rune (at least 3) for the Verdict. The Apex's rewrite of the round costs 1 less
- * (nothing on the Path of the Absolute Law).
+ * Runes a rewrite costs: 2, 3 when it makes or unmakes a Critical or a Fumble (never the extra one on the mage's and the
+ * allies' checks with the Guiding Rune), 1 more on the Path of the Absolute Law, every Rune (at least 3) for the
+ * Verdict. The Apex's rewrite of the round costs 1 less (2 less on the Path of the Absolute Law).
  */
 function rewriteCost(actor, lesser, data, action, outcome, next, relation) {
   if (action === "fate") return Math.max(3, toInt(data.value));
   const after = judge(next);
-  let cost = ((!!outcome.critical !== after.critical) || (!!outcome.fumble !== after.fumble)) ? 2 : 1;
-  if ((cost > 1) && (relation !== "enemy") && !lesser && talentOf(actor, T("runa-guia"))) cost = 1;
-  if (apex(actor, lesser) && (data.pulled !== roundKey(actor))) cost = (path(actor, lesser) === "lei-absoluta") ? 0 : cost - 1;
+  const flips = (!!outcome.critical !== after.critical) || (!!outcome.fumble !== after.fumble);
+  const guided = (relation !== "enemy") && !lesser && !!talentOf(actor, T("runa-guia"));
+  const absolute = path(actor, lesser) === "lei-absoluta";
+  let cost = 2 + ((flips && !guided) ? 1 : 0) + (absolute ? 1 : 0);
+  if (apex(actor, lesser) && (data.pulled !== roundKey(actor))) cost -= absolute ? 2 : 1;
   return Math.max(0, cost);
 }
 
@@ -159,7 +171,8 @@ function rewriteCost(actor, lesser, data, action, outcome, next, relation) {
 function rewriteActions(actor, lesser, data, relation) {
   if (lesser) return ["up"];
   if (path(actor, lesser) === "lei-absoluta") {
-    const list = [(relation === "enemy") ? "one" : "six"];
+    // The Absolute Law's rewrite: once a round.
+    const list = (data.absolute === roundKey(actor)) ? [] : [(relation === "enemy") ? "one" : "six"];
     const combat = combatOf(actor);
     if ((relation === "enemy") && talentOf(actor, T("veredicto")) && (toInt(data.value) >= 3) && combat && (data.fate !== combat.id)) {
       list.push("fate");
@@ -241,8 +254,10 @@ export const MAGOBRANCO = {
       if (talentOf(actor, T("grande-augurio")) && (runesFor(n) === 3)) plan.gain = 1;
       return plan;
     }
-    if ((id === T("runa-sagrada")) && !lesser && talentOf(actor, T("sentenca-final")) && (max > 0) && (plan.spent >= max)) {
+    if ((id === T("runa-sagrada")) && !lesser && talentOf(actor, T("sentenca-final")) && (max > 0) && (plan.spent >= max)
+      && !data.sentence) {
       plan.autoHit = true;
+      plan.changes.sentence = true;
     }
     return plan;
   },
@@ -263,7 +278,7 @@ export const MAGOBRANCO = {
   display(actor, { lesser, data, max }) {
     const list = laws(actor, data, lesser);
     const note = (list.length > 1) ? L("Motor.MagoBranco.NoteTwo", { a: list[0], b: list[1] }) : L("Motor.MagoBranco.Note", { n: list[0] });
-    const ready = !lesser && (max > 0) && (toInt(data.value) >= max) && !!talentOf(actor, T("sentenca-final"));
+    const ready = !lesser && (max > 0) && (toInt(data.value) >= max) && !data.sentence && !!talentOf(actor, T("sentenca-final"));
     return { note, ready, readyLabel: L("Motor.MagoBranco.ReadyLabel") };
   },
 
@@ -286,7 +301,7 @@ export const MAGOBRANCO = {
       const label = L(`Motor.MagoBranco.${ACTION_KEYS[action]}`);
       buttons.push({
         action,
-        label: (cost === 1) ? label : L(cost ? "Motor.MagoBranco.Cost" : "Motor.MagoBranco.Free", { label, n: cost }),
+        label: L(cost ? ((cost === 1) ? "Motor.MagoBranco.CostOne" : "Motor.MagoBranco.Cost") : "Motor.MagoBranco.Free", { label, n: cost }),
         tooltip: L(`Motor.MagoBranco.${ACTION_KEYS[action]}Tip`),
         icon: "fa-solid fa-feather-pointed"
       });
@@ -309,6 +324,7 @@ export const MAGOBRANCO = {
       if (toInt(data.value) < cost) return ui.notifications.warn(L("Motor.MagoBranco.NoRunes", { n: cost }));
       const changes = { value: toInt(data.value) - cost };
       if (apex(actor, lesser) && (data.pulled !== roundKey(actor))) changes.pulled = roundKey(actor);
+      if ((action === "six") || (action === "one")) changes.absolute = roundKey(actor);
       if (action === "fate") changes.fate = combatOf(actor)?.id ?? null;
       await setMotor(actor, MAGOBRANCO_ID, { ...data, ...changes });
       const { adjustCardRoll } = await import("../helpers/combat-cards.mjs");
@@ -318,7 +334,8 @@ export const MAGOBRANCO = {
       });
       if (!ok) {
         return setMotor(actor, MAGOBRANCO_ID, {
-          ...motorData(actor, MAGOBRANCO_ID), value: toInt(data.value), pulled: data.pulled, fate: data.fate
+          ...motorData(actor, MAGOBRANCO_ID), value: toInt(data.value), pulled: data.pulled, fate: data.fate,
+          absolute: data.absolute ?? null
         });
       }
       if (roller) await afterRewrite(actor, lesser, roller, relation, outcome, judge(next));
@@ -332,7 +349,10 @@ export const MAGOBRANCO = {
   /** Every combat starts with the Runes of Carved Runes. */
   async onCombatStart(actor) {
     const data = motorData(actor, MAGOBRANCO_ID);
-    await setMotor(actor, MAGOBRANCO_ID, { ...data, value: talentRank(actor, T("runas-gravadas")), doubles: null, siege: null, pulled: null, fate: null });
+    await setMotor(actor, MAGOBRANCO_ID, {
+      ...data, value: talentRank(actor, T("runas-gravadas")), doubles: null, siege: null, pulled: null, fate: null,
+      lit: null, absolute: null, sentence: false
+    });
   },
 
   /** Path of Augury: the Law is rolled at each Setup Process (both numbers with the Apex); the Great Augury. */
@@ -351,20 +371,24 @@ export const MAGOBRANCO = {
   },
 
   /**
-   * Any check of the combat that shows the Law: Runes (once per check; one more on the mage's own Seal of Light);
-   * a pair, the Twin Rune.
+   * Any check of the combat that shows the Law: Runes (once per check, at most 2 a round; one more on the mage's own
+   * Seal of Light); a pair, the Twin Rune.
    */
   onAnyCheck(actor, { lesser }, roller, roll, context) {
     const dice = rollDice(roll);
     if (dice.length < 2) return;
     return serial(actor, async () => {
       const data = motorData(actor, MAGOBRANCO_ID);
-      let gain = 0;
-      for (const n of laws(actor, data, lesser)) if (shows(dice, n)) gain = Math.max(gain, runesFor(n));
-      if (gain && (path(actor, lesser) === "augurio")) gain *= 2;
-      if (gain && (roller?.id === actor.id) && (identifierOf(context?.item) === T("selo-de-luz"))) gain += 1;
-      const changes = {};
+      let law = 0;
+      for (const n of laws(actor, data, lesser)) if (shows(dice, n)) law = Math.max(law, runesFor(n));
+      const shown = law > 0;
+      if (law && (path(actor, lesser) === "augurio")) law *= 2;
       const key = roundKey(actor);
+      const lit = (data.lit?.key === key) ? toInt(data.lit.n) : 0;
+      law = Math.min(law, Math.max(0, LAW_PER_ROUND - lit));
+      const changes = law ? { lit: { key, n: lit + law } } : {};
+      let gain = law;
+      if (shown && (roller?.id === actor.id) && (identifierOf(context?.item) === T("selo-de-luz"))) gain += 1;
       if (!lesser && hasPair(dice) && talentOf(actor, T("runa-gemea")) && (data.doubles !== key)) {
         gain += 1;
         changes.doubles = key;

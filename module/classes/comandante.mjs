@@ -5,7 +5,8 @@
  * The commander gathers Orders: +1 at each Setup Process and +1 with Survey the Field (Minor). An Order lets an ally
  * act out of turn: Order: Attack! (the ally makes a basic attack now, with [Focused], and its Major Action is given
  * back when that attack's result is known), Order: Advance! (the ally moves now and gets [Barrier]), and the talents'
- * orders. Cap: 2, +1 every 5 CR (+ the SR of Tactical Reserve); the Lesser Tactics hold 1.
+ * orders. Cap: 2, +1 every 5 CR (+ the SR of Tactical Reserve); the Lesser Tactics hold 1. On the Marshal Path an
+ * Order for two allies spends 2 Orders (1 when it is the Apex's free Order).
  *
  * State in flags.eternia.motor.comandante:
  *   value     Orders
@@ -71,6 +72,16 @@ function freeOrder(actor, item, motor, data, lesser) {
   return !!key && !!action && (action !== "none") && (data.free !== key);
 }
 
+/** Orders the Marshal Path gives to two allies at once. */
+const MARSHAL_ORDERS = ["attack", "advance", "hold"];
+
+/** Marshal: an Order of the Path aimed at two allies (it spends 2 Orders, but the Apex's free Order). */
+function marshalPair(actor, item, motor, data, lesser) {
+  if (lesser || (pathOf(actor, COMANDANTE_ID) !== "marechal") || !MARSHAL_ORDERS.includes(motor?.order)) return false;
+  if (freeOrder(actor, item, motor, data, lesser)) return false;
+  return [...(game.user?.targets ?? [])].length >= 2;
+}
+
 /** Whether a skill is one of the basic attacks (Order: Attack!). */
 const basicAttack = item => BASIC_ATTACKS.includes(String(item?.name ?? "").trim().toLowerCase());
 
@@ -114,7 +125,7 @@ async function orderedAttack(actor, lesser, attacker, item, message, hit) {
 
 /**
  * The Banner Path: at each Setup Process, the allies within 3 Sq (5 with Tall Mast, which also includes the
- * commander; all of them with the Apex) get [Empowered: Orders × 2] until the end of the round ([Cancel: Orders] too
+ * commander; all of them with the Apex) get [Empowered: Orders÷2 + 1] until the end of the round ([Cancel: Orders] too
  * with Banner Oath). The commander's earlier aura goes first. Run by the GM (the round work).
  */
 async function bannerAura(actor) {
@@ -129,7 +140,7 @@ async function bannerAura(actor) {
     const old = peer.effects.filter(e => e.flags?.eternia?.commandAura === actor.uuid).map(e => e.id);
     if (old.length) await peer.deleteEmbeddedDocuments("ActiveEffect", old).catch(() => null);
     if (!orders || (squaresBetween(actor, peer) > reach)) continue;
-    const effects = [statusEffectData("empowered", orders * 2, "", { caster: actor, expires: "endOfRound" })];
+    const effects = [statusEffectData("empowered", Math.floor(orders / 2) + 1, "", { caster: actor, expires: "endOfRound" })];
     if (oath) effects.push(statusEffectData("cancel", orders, "", { caster: actor, expires: "endOfRound" }));
     for (const effect of effects) effect.flags.eternia.commandAura = actor.uuid;
     await peer.createEmbeddedDocuments("ActiveEffect", effects);
@@ -159,10 +170,17 @@ export const COMANDANTE = {
     return action;
   },
 
+  /** Marshal: an Order for two allies needs 2 Orders. */
+  issues(actor, item, motor, { data, lesser }) {
+    if (!marshalPair(actor, item, motor, data, lesser)) return [];
+    return (toInt(data.value) < 2) ? [L("Motor.Comandante.MarshalIssue")] : [];
+  },
+
   /** What a use sets: the free Order of the round, who was told to attack, the Standard, the Battle Plan. */
   plan(actor, item, motor, { data, lesser, plan }) {
     const id = identifierOf(item);
     const key = roundKey(actor);
+    if (marshalPair(actor, item, motor, data, lesser)) plan.spent = Math.max(toInt(plan.spent), Math.min(2, toInt(data.value)));
     if (freeOrder(actor, item, motor, data, lesser)) plan.changes.free = key;
     if ((motor.order === "attack") && key) {
       const captain = path(actor, lesser) === "capitao";

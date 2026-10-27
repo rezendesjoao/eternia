@@ -84,15 +84,25 @@ export function readDescription(html) {
 }
 
 /**
+ * The effects of a spell's index entry. Once the pack's documents are loaded (a migration, the skill browser), Foundry
+ * rebuilds the entry with "effects" as an object instead of a list: then the loaded document's own effects are read.
+ */
+function entryEffects(entry, pack) {
+  if (Array.isArray(entry.effects)) return entry.effects;
+  const doc = pack?.get?.(entry._id);
+  return doc ? doc.effects.map(e => e._source) : [];
+}
+
+/**
  * A spell of a Magia, from its index entry: when it comes, how hard it hits, the statuses it gives (on a hit, or with
  * its effects) and what they mean for the roles of the Magia.
  */
-function readSpell(entry) {
+function readSpell(entry, pack) {
   const f = entry.flags?.eternia ?? {};
   const system = entry.system ?? {};
   const damage = system.damage ?? {};
   const motor = f.motor ?? {};
-  const effects = (entry.effects ?? []).filter(e => e && (typeof e === "object") && !e.transfer);
+  const effects = entryEffects(entry, pack).filter(e => e && (typeof e === "object") && !e.transfer);
   const hit = (f.hitStatuses ?? []).map(s => s.statusId).filter(Boolean);
   const given = effects.flatMap(e => [...(e.statuses ?? []), e.flags?.eternia?.statusData?.statusId]).filter(Boolean);
   const statuses = [...new Set([...hit, ...given])];
@@ -178,7 +188,7 @@ async function buildCatalog() {
       const magic = entry.flags.eternia.magic;
       const spells = (spellsOf.get(magic.id) ?? [])
         .sort((a, b) => ((Number(a.flags.eternia.minRank) || 1) - (Number(b.flags.eternia.minRank) || 1)) || (a.sort - b.sort))
-        .map(readSpell);
+        .map(entry => readSpell(entry, pack));
       // The roles of the Magia: those of its spells, the most frequent first
       const counts = new Map();
       for (const spell of spells) for (const role of spell.roles) counts.set(role, (counts.get(role) ?? 0) + 1);

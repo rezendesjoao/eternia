@@ -9,7 +9,7 @@
  * Wide Grimoire), kept from one combat to the next; when it is full, the soul of the lowest level goes (the oldest on a
  * tie), maybe the new one. A soul has the monster's name, level and nature (its highest attribute: Strength a Beast,
  * Dexterity an Animal, Power a Demon, Intelligence a Spirit) and, from its tags, an element. Take Over wears a soul: in
- * combat its nature is a passive status valued [min(level, CR) ÷ 2 + 2] (statuses: Beast [Empowered], Animal [Hasted] and
+ * combat its nature is a passive status valued [min(level, CR) ÷ 3 + 2] (statuses: Beast [Empowered], Animal [Hasted] and
  * half the Value as [Empowered], Demon [Awakened], Spirit [Cancel]) and its element goes into the damage of the mage's
  * Spells (damageTags). Essence: every Spell (+1, the big ones +2: their motor.gain), a soul absorbed (+1), each Setup
  * Process in a form (+1); the Soul Strike spends it all (the nature's mark on whoever it hits), the supreme spells of the
@@ -26,6 +26,7 @@
  *   fresh    ids of the souls absorbed in this combat (Blue Lesson)
  *   round    { key, natures }: the natures worn in the round "<combat>.<round>" (A Thousand Skins)
  *   wild, barrier, hurt, swap   "<combat>.<round>" of Wild Soul, Borrowed Skin, Pain That Feeds, the Metamorphosis swap
+ *   inescapable   the Inescapable Strike was used in this combat (once per scene)
  */
 import { L } from "../settings.mjs";
 import { combatOf, postSummary, toInt } from "../helpers/utils.mjs";
@@ -42,7 +43,7 @@ const T = name => `${MAGOAZUL_ID}-${name}`;
 
 const DEFAULTS = {
   state: "humano", value: 0, first: null, souls: [], worn: null, second: null, fresh: [], round: null,
-  wild: null, barrier: null, hurt: null, swap: null
+  wild: null, barrier: null, hurt: null, swap: null, inescapable: false
 };
 
 /** The natures, by the attribute that gives them (ties go to the first of the list). */
@@ -140,14 +141,12 @@ function wornSouls(actor, data) {
   return [data.worn, data.second].map(id => soulById(actor, data, id)).filter(Boolean);
 }
 
-/** The Value of a worn soul's nature: [min(level, CR) ÷ 2 + 2], the CR for a fresh soul (Blue Lesson), + Essence (Perfect Form). */
+/** The Value of a worn soul's nature: [min(level, CR) ÷ 3 + 2], the CR for a fresh soul (Blue Lesson). */
 function natureValue(actor, data, soul, lesser) {
   const cr = crOf(actor);
   let level = Math.min(toInt(soul.rank), cr);
   if (!lesser && talentOf(actor, T("licao-azul")) && (data.fresh ?? []).includes(soul.id)) level = cr;
-  let value = Math.floor(level / 2) + 2;
-  if (!lesser && talentOf(actor, T("forma-perfeita"))) value += toInt(data.value);
-  return Math.max(1, value);
+  return Math.max(1, Math.floor(level / 3) + 2);
 }
 
 /** A soul as an option of a dialog: "Name: Nature, level N (Element)". */
@@ -257,8 +256,10 @@ export const MAGOAZUL = {
   async plan(actor, item, motor, { data, max, lesser, plan }) {
     const id = identifierOf(item);
     if (id === T("take-over")) return planTakeOver(actor, item, data, lesser, plan);
-    if (id === T("golpe-da-alma") && !lesser && talentOf(actor, T("golpe-inescapavel")) && (max > 0) && (plan.spent >= max)) {
+    if (id === T("golpe-da-alma") && !lesser && talentOf(actor, T("golpe-inescapavel")) && (max > 0) && (plan.spent >= max)
+      && !data.inescapable) {
       plan.autoHit = true;
+      plan.changes.inescapable = true;
     }
     if (id === T("banquete-de-almas")) {
       const options = (data.souls ?? []).map(s => ({ value: s.id, label: soulLabel(s) }));
@@ -291,10 +292,13 @@ export const MAGOAZUL = {
     }
   },
 
-  /** The worn souls' natures, in combat. */
+  /** The worn souls' natures, in combat; Perfect Form, [Cancel: Essence] in a form. */
   statuses(actor, { data, lesser }) {
     if (!combatOf(actor)) return [];
     const out = [];
+    if (!lesser && data.worn && (toInt(data.value) > 0) && talentOf(actor, T("forma-perfeita"))) {
+      out.push({ key: "perfeita", statusId: "cancel", value: toInt(data.value) });
+    }
     wornSouls(actor, data).forEach((soul, i) => {
       const value = natureValue(actor, data, soul, lesser);
       const key = `forma${i + 1}`;
@@ -352,7 +356,8 @@ export const MAGOAZUL = {
     const worn = wornSouls(actor, data);
     const note = worn.length ? worn.map(s => s.name).join(" + ")
       : L("Motor.MagoAzul.Book", { n: (data.souls ?? []).length, max: capacity(actor, lesser) });
-    const ready = !lesser && (max > 0) && (toInt(data.value) >= max) && !!talentOf(actor, T("golpe-inescapavel"));
+    const ready = !lesser && (max > 0) && (toInt(data.value) >= max) && !data.inescapable
+      && !!talentOf(actor, T("golpe-inescapavel"));
     return { note, ready, readyLabel: L("Motor.MagoAzul.ReadyLabel") };
   },
 
@@ -365,17 +370,17 @@ export const MAGOAZUL = {
     const data = motorData(actor, MAGOAZUL_ID);
     await setMotor(actor, MAGOAZUL_ID, {
       ...data, state: "humano", worn: null, second: null, value: talentRank(actor, T("essencia-guardada")), fresh: [],
-      round: null, wild: null, barrier: null, hurt: null, swap: null
+      round: null, wild: null, barrier: null, hurt: null, swap: null, inescapable: false
     });
   },
 
-  /** In a form, the soul grows at each Setup Process (+1, +2 on the Whole Body, +3 with its Apex); Full Grimoire. */
+  /** In a form, the soul grows at each Setup Process (+1, +2 on the Whole Body); Full Grimoire. */
   async onSetup(actor, { lesser }) {
     const data = motorData(actor, MAGOAZUL_ID);
     let gain = 0;
     if (data.worn) {
       gain = 1;
-      if (path(actor, lesser) === "corpo-inteiro") gain = apex(actor, lesser) ? 3 : 2;
+      if (path(actor, lesser) === "corpo-inteiro") gain = 2;
     }
     if (!lesser && talentOf(actor, T("grimorio-cheio")) && ((data.souls ?? []).length >= capacity(actor, lesser))) gain += 1;
     if (gain) await setMotor(actor, MAGOAZUL_ID, { ...data, value: toInt(data.value) + gain });

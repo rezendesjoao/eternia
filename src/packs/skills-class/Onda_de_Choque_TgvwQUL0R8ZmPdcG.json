@@ -2,7 +2,7 @@
   "name": "Onda de Choque",
   "type": "skill",
   "system": {
-    "description": "<p>Com pelo menos 2 Camadas, você crava o escudo no chão: todos os inimigos do seu quadrado sofrem [(Camadas)d6 + Poder de Ataque + (Camadas×NP)÷2] de dano físico e ficam [Provocado] por você. Gasta todas as Camadas.</p><p><em>O chão racha em círculo em volta do escudo.</em></p>",
+    "description": "<p>Com pelo menos 2 Camadas, você crava o escudo no chão: todos os inimigos do seu quadrado sofrem [(Camadas)d6 + Poder de Ataque] de dano físico e ficam [Provocado] por você. Gasta todas as Camadas.</p><p><em>O chão racha em círculo em volta do escudo.</em></p>",
     "tags": [
       "Weapon Attack"
     ],
@@ -25,7 +25,7 @@
     },
     "damage": {
       "dice": "@spent",
-      "mod": "floor(@spent*@cr/2)",
+      "mod": 0,
       "type": "physical",
       "recovery": false
     },

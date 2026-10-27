@@ -3,10 +3,10 @@
  * player reads them.
  *
  * Every attack that takes HP from the berserker adds 1 Rage (2 when it leaves the berserker at half its HP or less),
- * up to the cap (3, +1 every 5 CR, + the SR of War Scars). While it has Rage its weapon attacks add +[Rage × 2] to the
- * damage (+1D every 2 Rage on the Giant's Path; +Rage for the Lesser Rage). Savage Strike spends all of it ((2 +
- * Rage)D + Rage × CR); Breath of Blood turns the Rage spent into HP; Bleed trades HP for Rage. A round in which the
- * berserker neither attacked nor lost HP costs 1 Rage at the Cleanup Process.
+ * up to the cap (3, +1 every 5 CR, + the SR of War Scars). While it has Rage its weapon attacks add +[Rage] to the
+ * damage (+1D every 2 Rage on the Giant's Path). Savage Strike spends all of it ((1 + Rage)d6 + Rage × CR; Rage ×
+ * CR÷2 as the Dragon's Breath, which strikes a line); Breath of Blood turns the Rage spent into HP; Bleed trades HP
+ * for Rage. A round in which the berserker neither attacked nor lost HP costs 1 Rage at the Cleanup Process.
  *
  * Refuse to Fall (3 Rage) and the Apex (2 Rage) keep [Last Stand] on the berserker (statuses below): when it saves
  * the berserker from 0 HP, the damage event finds it gone and takes the Rage it costs.
@@ -14,6 +14,7 @@
  * State in flags.eternia.motor.berserker:
  *   value    Rage
  *   active   "<combat>.<round>" of the last attack made or HP lost (the Cleanup decay)
+ *   eyesUsed Red Eyes already gave this combat its automatic hit
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { canHeal } from "../conditions/damage.mjs";
@@ -29,7 +30,7 @@ export const BERSERKER_ID = "berserker";
 /** Identifier of a Berserker skill. */
 const T = name => `${BERSERKER_ID}-${name}`;
 
-const DEFAULTS = { state: "acesa", value: 0, active: null };
+const DEFAULTS = { state: "acesa", value: 0, active: null, eyesUsed: false };
 
 /** The key of the [Last Stand] the Motor keeps (motor.mjs syncMotorStatuses). */
 const LAST_STAND = `${BERSERKER_ID}:lastStand`;
@@ -96,18 +97,25 @@ export const BERSERKER = {
     return action;
   },
 
-  /** Boiling Blood (+3 Rage from Bleed), Red Eyes (in [Berserk], the Savage Strike always hits), Bestial Breath. */
-  plan(actor, item, motor, { lesser, plan }) {
+  /**
+   * Red Eyes (once a combat, in [Berserk], the Savage Strike hits without a Dodge Check), Bestial Breath, and the Rage's
+   * CR in the Savage Strike (@use.per: CR, or CR÷2 as the Dragon's Breath).
+   */
+  plan(actor, item, motor, { data, lesser, plan }) {
     const id = identifierOf(item);
-    if ((id === T("sangrar")) && talentOf(actor, T("sangue-fervente"))) plan.gain = 3;
-    if ((id === T("golpe-selvagem")) && !lesser && talentOf(actor, T("olhos-vermelhos")) && actor.statuses.has("berserk")) {
-      plan.autoHit = true;
+    if (id === T("golpe-selvagem")) {
+      const cr = crOf(actor);
+      plan.vars.per = (!lesser && (pathOf(actor, BERSERKER_ID) === "dragao")) ? Math.floor(cr / 2) : cr;
+      if (!lesser && talentOf(actor, T("olhos-vermelhos")) && actor.statuses.has("berserk") && !data.eyesUsed) {
+        plan.autoHit = true;
+        plan.changes.eyesUsed = true;
+      }
     }
     if (id === T("folego")) plan.vars.bestial = talentOf(actor, T("folego-bestial")) ? 1 : 0;
     return plan;
   },
 
-  /** Bleed costs [CR+5] HP; the Dragon's Savage Strike with the Apex keeps half the Rage spent. */
+  /** Bleed costs [CR+5] HP; the Dragon's Savage Strike with the Apex keeps 2 Rage. */
   async after(actor, item, plan, next) {
     const id = identifierOf(item);
     if (id === T("sangrar")) {
@@ -117,12 +125,12 @@ export const BERSERKER = {
     }
     if ((id === T("golpe-selvagem")) && !motorOf(actor, BERSERKER_ID)?.lesser && (pathOf(actor, BERSERKER_ID) === "dragao")
       && hasApex(actor, BERSERKER_ID)) {
-      next.value = Math.floor(toInt(plan.spent) / 2);
+      next.value = Math.min(2, toInt(plan.spent));
     }
     return next;
   },
 
-  /** The Rage in the damage of weapon attacks: +2 per Rage; +1D every 2 Rage on the Giant's Path (every Rage with the Apex). */
+  /** The Rage in the damage of weapon attacks: +1 per Rage; +1D every 2 Rage on the Giant's Path (every Rage with the Apex). */
   rollBonuses(actor, item, which, { lesser }) {
     if ((which !== "damage") || !isWeaponAttack(item)) return [];
     const rage = toInt(motorData(actor, BERSERKER_ID).value);
@@ -134,7 +142,7 @@ export const BERSERKER = {
       if (isTwoHanded(getHands(actor).main)) dice += 1;
       return dice ? [{ dice, mod: 0, label }] : [];
     }
-    return [{ dice: 0, mod: rage * 2, label }];
+    return [{ dice: 0, mod: rage, label }];
   },
 
   /** Statuses on whoever the Savage Strike hits: Earthquake (4 Rage: [Prone]), Dragon's Heart ([Burning: Rage spent]). */
@@ -247,7 +255,7 @@ export const BERSERKER = {
 
   /**
    * Ancestors' Path: an ally falls: +2 Rage (+3 and [CR+5] HP with the Apex); Fury of the Ancestors puts the
-   * berserker in [Berserk: Rage × 2].
+   * berserker in [Berserk: half the Rage, rounded up].
    */
   async onAnyKill(actor, { lesser }, victim) {
     if ((path(actor, lesser) !== "ancestrais") || !combatOf(actor) || !areAllies(actor, victim)) return;
@@ -257,7 +265,7 @@ export const BERSERKER = {
     const fury = talentOf(actor, T("furia-dos-ancestrais"));
     if (fury) {
       const rage = toInt(motorData(actor, BERSERKER_ID).value);
-      await game.eternia.applyStatus(actor, "berserk", { value: Math.max(1, rage * 2), from: actor });
+      await game.eternia.applyStatus(actor, "berserk", { value: Math.max(1, Math.ceil(rage / 2)), from: actor });
     }
   }
 };

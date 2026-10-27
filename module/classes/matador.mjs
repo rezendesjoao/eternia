@@ -15,10 +15,11 @@
  * flags.eternia.scenario, moves on).
  *
  * The Paths are the generations: the First eats the other elements too (the Dual Dragon Mode: their tag and status
- * join the dragon moves for the combat); the Second's lacrima gives +1 Scale at each Setup Process (and being struck
- * by the element gives none); the Third enters the Force at will (its Path skill, a Minor Action with half the cap).
- * The Apex, the Dragon King Mode, doubles the CR of the Force, keeps half of what a Secret Art spent, and gives each
- * generation a little more (another element: +1; the lacrima: +2; the Force without an action).
+ * join the dragon moves for the combat); the Second's lacrima gives +1 Scale at each Setup Process outside the Force
+ * (and being struck by the element gives none); the Third enters the Force at will (its Path skill, a Minor Action with
+ * half the cap). The Secret Arts deal (1 + Scales)d6 + (Scales × CR) / 2. The Apex, the Dragon King Mode, keeps half of
+ * what a Secret Art spent (the Force goes on) and gives the First and the Third a little more (another element: +1;
+ * the Force without an action).
  *
  * State in flags.eternia.motor.matador:
  *   state    "humano" | "forca" (the Dragon Force)
@@ -110,10 +111,9 @@ function grownSeed(actor, data) {
   return { n, scenario: scenarioOf(actor) };
 }
 
-/** What the Dragon Force adds to the damage (and leaves as [Fatigue]): CR + 2 × Seed; CR × 2 + 2 × Seed with the Apex. */
+/** What the Dragon Force adds to the damage (and leaves as [Fatigue]): CR + 2 × Seed. */
 function forceValue(actor, data) {
-  const cr = crOf(actor);
-  return (hasApex(actor, MATADOR_ID) ? cr * 2 : cr) + (2 * seedOf(actor, data));
+  return crOf(actor) + (2 * seedOf(actor, data));
 }
 
 /** The [Awakened] part of the Force and the part rolled as a bonus (Contained Seed halves the [Fatigue]). */
@@ -373,10 +373,10 @@ export const MATADOR = {
     });
   },
 
-  /** Setup Process: the Second Generation's lacrima (+1, +2 with the Apex). */
+  /** Setup Process: the Second Generation's lacrima (+1, outside the Dragon Force). */
   async onSetup(actor, { lesser }) {
-    if (path(actor, lesser) !== "segunda") return;
-    await addScales(actor, hasApex(actor, MATADOR_ID) ? 2 : 1);
+    if ((path(actor, lesser) !== "segunda") || (motorData(actor, MATADOR_ID).state === "forca")) return;
+    await addScales(actor, 1);
   },
 
   /** Cleanup Process: the Force burns 1 Scale (not with Limitless Force). */

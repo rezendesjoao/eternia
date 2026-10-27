@@ -256,7 +256,7 @@
       "name": "Dracônicos",
       "type": "race",
       "system": {
-        "description": "<p><strong>Atributos:</strong> FOR +1, POD +1. <strong>PV:</strong> +12. <strong>Destino:</strong> +0.</p><p><strong>Habilidades inatas:</strong> um Sangue de Brasa, à escolha da linhagem (Fogo, Ferro, Céu, Raio, Branco, Sombras ou Veneno), e Sopro.</p><p><strong>Os estágios da forma:</strong> <strong>II · Escamado</strong> (NP 3): Comer o Elemento. <em>Rito:</em> comer uma chama, um raio ou um metal sagrado (de um altar, de uma forja, de uma tempestade).<br><strong>III · Chifrudo</strong> (NP 7): Chifres e Cauda. <em>Rito:</em> vencer sozinho uma fera grande e rugir sobre o corpo dela.<br><strong>IV · Alado</strong> (NP 12): Asas e +1 em FOR ou POD. <em>Rito:</em> absorver uma Lágrima de dragão.<br><strong>V · O Dragão</strong> (NP 16): O Dragão. <em>Rito:</em> voar sobre as Montanhas do Fim.</p><hr><p><em>Olhos dourados de pupila em fenda, escamas nas têmporas e nos pulsos, pele sempre quente e fumaça na respiração quando a raiva sobe. Descendem dos dragões que tomaram parceiros humanos antes da Domação, vivem nas cidades dos vulcões e nas falésias perto dos ninhos e são os melhores ferreiros do mundo e os piores vizinhos numa briga. Comem fogo como quem come pão, e enjoam em qualquer carroça.</em></p>",
+        "description": "<p><strong>Atributos:</strong> FOR +1, POD +1. <strong>PV:</strong> +16. <strong>Destino:</strong> +0.</p><p><strong>Habilidades inatas:</strong> um Sangue de Brasa, à escolha da linhagem (Fogo, Ferro, Céu, Raio, Branco, Sombras ou Veneno), e Sopro.</p><p><strong>Os estágios da forma:</strong> <strong>II · Escamado</strong> (NP 3): Comer o Elemento. <em>Rito:</em> comer uma chama, um raio ou um metal sagrado (de um altar, de uma forja, de uma tempestade).<br><strong>III · Chifrudo</strong> (NP 7): Chifres e Cauda. <em>Rito:</em> vencer sozinho uma fera grande e rugir sobre o corpo dela.<br><strong>IV · Alado</strong> (NP 12): Asas e +1 em FOR ou POD. <em>Rito:</em> absorver uma Lágrima de dragão.<br><strong>V · O Dragão</strong> (NP 16): O Dragão. <em>Rito:</em> voar sobre as Montanhas do Fim.</p><hr><p><em>Olhos dourados de pupila em fenda, escamas nas têmporas e nos pulsos, pele sempre quente e fumaça na respiração quando a raiva sobe. Descendem dos dragões que tomaram parceiros humanos antes da Domação, vivem nas cidades dos vulcões e nas falésias perto dos ninhos e são os melhores ferreiros do mundo e os piores vizinhos numa briga. Comem fogo como quem come pão, e enjoam em qualquer carroça.</em></p>",
         "tags": [],
         "identifier": "draconic",
         "attributes": {
@@ -265,7 +265,7 @@
           "pow": 1,
           "int": 0
         },
-        "hp": 12,
+        "hp": 16,
         "fate": 0,
         "grants": [
           {
@@ -954,7 +954,7 @@
       "name": "Comer o Elemento",
       "type": "skill",
       "system": {
-        "description": "<p>Você come um pouco do elemento da sua linhagem que esteja ao alcance (uma chama, um metal, uma rajada de vento, uma faísca, gelo, sombra ou veneno) e recupera [NP×3] PV. Uma vez por cena.</p><hr><p><em>Você morde a chama como quem morde pão quente e mastiga o raio como quem mastiga gelo. O elemento desce pela garganta e acende alguma coisa que estava se apagando.</em></p>",
+        "description": "<p>Você come um pouco do elemento da sua linhagem que esteja ao alcance (uma chama, um metal, uma rajada de vento, uma faísca, gelo, sombra ou veneno) e recupera [NP×2] PV. Uma vez por cena.</p><hr><p><em>Você morde a chama como quem morde pão quente e mastiga o raio como quem mastiga gelo. O elemento desce pela garganta e acende alguma coisa que estava se apagando.</em></p>",
         "tags": [],
         "timing": "Minor",
         "checkType": "",
@@ -975,7 +975,7 @@
         },
         "damage": {
           "dice": 0,
-          "mod": "@cr*3",
+          "mod": "@cr*2",
           "type": "",
           "recovery": true,
           "noPower": true
@@ -988,11 +988,7 @@
         "eternia": {
           "minRank": 3,
           "choiceOnly": true,
-          "raceStage": 2,
-          "grantedBy": {
-            "type": "race",
-            "source": "Compendium.eternia.races-classes.Item.id6vxNwZmttMjVbS"
-          }
+          "raceStage": 2
         }
       },
       "_stats": {
@@ -1114,7 +1110,7 @@
       "name": "Ira",
       "type": "skill",
       "system": {
-        "description": "<p><strong>Motor do Berserker.</strong> A dor vira <strong>Ira</strong>. Todo combate começa com 0 de Ira.</p><ul><li><strong>Ganha:</strong> +1 Ira cada vez que um ataque de um inimigo tira PV de você; +1 a mais se você ficar com metade dos PV ou menos.</li><li><strong>Efeito:</strong> enquanto tiver Ira, os seus Ataques com Arma somam +[Ira × 2] ao dano.</li><li><strong>Gasta:</strong> o Golpe Selvagem gasta toda a Ira num golpe só; o Fôlego de Sangue troca Ira por PV.</li><li><strong>Teto:</strong> 3 de Ira, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> no Encerramento de uma rodada em que você não atacou nem perdeu PV, perde 1 Ira.</li></ul><p><em>Cada ferida aberta é uma porta para algo que estava esperando para sair.</em></p>",
+        "description": "<p><strong>Motor do Berserker.</strong> A dor vira <strong>Ira</strong>. Todo combate começa com 0 de Ira.</p><ul><li><strong>Ganha:</strong> +1 Ira cada vez que um ataque de um inimigo tira PV de você; +1 a mais se você ficar com metade dos PV ou menos.</li><li><strong>Efeito:</strong> enquanto tiver Ira, os seus Ataques com Arma somam +[Ira] ao dano.</li><li><strong>Gasta:</strong> o Golpe Selvagem gasta toda a Ira num golpe só; o Fôlego de Sangue troca Ira por PV.</li><li><strong>Teto:</strong> 3 de Ira, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> no Encerramento de uma rodada em que você não atacou nem perdeu PV, perde 1 Ira.</li></ul><p><em>Cada ferida aberta é uma porta para algo que estava esperando para sair.</em></p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -1152,10 +1148,6 @@
           "motor": {
             "id": "berserker",
             "role": "core"
-          },
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.MAuTQy4tVGMZv5CD"
           }
         }
       },
@@ -1248,7 +1240,7 @@
       "name": "Golpe Selvagem",
       "type": "skill",
       "system": {
-        "description": "<p>Com pelo menos 1 de Ira, você solta tudo num golpe: [(2 + Ira)d6 + Poder de Ataque + Ira×NP] de dano físico. Gasta toda a Ira.</p><hr><p><em>Não há técnica nenhuma. Só o peso do corpo inteiro atrás da arma.</em></p>",
+        "description": "<p>Com pelo menos 1 de Ira, você solta tudo num golpe: [(1 + Ira)d6 + Poder de Ataque + Ira×NP] de dano físico. Gasta toda a Ira.</p><hr><p><em>Não há técnica nenhuma. Só o peso do corpo inteiro atrás da arma.</em></p>",
         "tags": [
           "Weapon Attack"
         ],
@@ -1270,8 +1262,8 @@
           "stat": "accuracy"
         },
         "damage": {
-          "dice": "2+@spent",
-          "mod": "@spent*@cr",
+          "dice": "1+@spent",
+          "mod": "@spent*@use.per",
           "type": "physical",
           "recovery": false
         },
@@ -1292,11 +1284,7 @@
             },
             "spend": "all"
           },
-          "damageText": "(2+Ira)d6 + [Poder de Ataque] + Ira×NP Físico",
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.MAuTQy4tVGMZv5CD"
-          }
+          "damageText": "(2+Ira)d6 + [Poder de Ataque] + Ira×NP Físico"
         }
       },
       "_stats": {
@@ -1391,7 +1379,7 @@
       "name": "Caminho do Gigante",
       "type": "skill",
       "system": {
-        "description": "<p><strong>Reescreve o efeito da Ira.</strong> Os seus Ataques com Arma somam +1d6 a cada 2 de Ira, em vez de +[Ira × 2]; com uma arma [Duas Mãos], +1d6 a mais.</p><p><strong>Talentos do Caminho:</strong> Passo de Gigante (NP 3) e Terremoto (NP 7).</p><hr><p><em>Armas grandes demais para qualquer um, e leves demais para ele.</em></p>",
+        "description": "<p><strong>Reescreve o efeito da Ira.</strong> Os seus Ataques com Arma somam +1d6 a cada 2 de Ira, em vez de +[Ira]; com uma arma [Duas Mãos], +1d6 a mais.</p><p><strong>Talentos do Caminho:</strong> Passo de Gigante (NP 3) e Terremoto (NP 7).</p><hr><p><em>Armas grandes demais para qualquer um, e leves demais para ele.</em></p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -1429,10 +1417,6 @@
           "path": {
             "class": "berserker",
             "id": "gigante"
-          },
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.MAuTQy4tVGMZv5CD"
           }
         }
       },

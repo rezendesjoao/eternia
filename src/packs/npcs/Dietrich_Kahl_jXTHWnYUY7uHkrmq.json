@@ -794,7 +794,7 @@
       "name": "Ira",
       "type": "skill",
       "system": {
-        "description": "<p><strong>Motor do Berserker.</strong> A dor vira <strong>Ira</strong>. Todo combate começa com 0 de Ira.</p><ul><li><strong>Ganha:</strong> +1 Ira cada vez que um ataque de um inimigo tira PV de você; +1 a mais se você ficar com metade dos PV ou menos.</li><li><strong>Efeito:</strong> enquanto tiver Ira, os seus Ataques com Arma somam +[Ira × 2] ao dano.</li><li><strong>Gasta:</strong> o Golpe Selvagem gasta toda a Ira num golpe só; o Fôlego de Sangue troca Ira por PV.</li><li><strong>Teto:</strong> 3 de Ira, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> no Encerramento de uma rodada em que você não atacou nem perdeu PV, perde 1 Ira.</li></ul><p><em>Cada ferida aberta é uma porta para algo que estava esperando para sair.</em></p>",
+        "description": "<p><strong>Motor do Berserker.</strong> A dor vira <strong>Ira</strong>. Todo combate começa com 0 de Ira.</p><ul><li><strong>Ganha:</strong> +1 Ira cada vez que um ataque de um inimigo tira PV de você; +1 a mais se você ficar com metade dos PV ou menos.</li><li><strong>Efeito:</strong> enquanto tiver Ira, os seus Ataques com Arma somam +[Ira] ao dano.</li><li><strong>Gasta:</strong> o Golpe Selvagem gasta toda a Ira num golpe só; o Fôlego de Sangue troca Ira por PV.</li><li><strong>Teto:</strong> 3 de Ira, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> no Encerramento de uma rodada em que você não atacou nem perdeu PV, perde 1 Ira.</li></ul><p><em>Cada ferida aberta é uma porta para algo que estava esperando para sair.</em></p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -832,10 +832,6 @@
           "motor": {
             "id": "berserker",
             "role": "core"
-          },
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.MAuTQy4tVGMZv5CD"
           }
         }
       },
@@ -928,7 +924,7 @@
       "name": "Golpe Selvagem",
       "type": "skill",
       "system": {
-        "description": "<p>Com pelo menos 1 de Ira, você solta tudo num golpe: [(2 + Ira)d6 + Poder de Ataque + Ira×NP] de dano físico. Gasta toda a Ira.</p><hr><p><em>Não há técnica nenhuma. Só o peso do corpo inteiro atrás da arma.</em></p>",
+        "description": "<p>Com pelo menos 1 de Ira, você solta tudo num golpe: [(1 + Ira)d6 + Poder de Ataque + Ira×NP] de dano físico. Gasta toda a Ira.</p><hr><p><em>Não há técnica nenhuma. Só o peso do corpo inteiro atrás da arma.</em></p>",
         "tags": [
           "Weapon Attack"
         ],
@@ -950,8 +946,8 @@
           "stat": "accuracy"
         },
         "damage": {
-          "dice": "2+@spent",
-          "mod": "@spent*@cr",
+          "dice": "1+@spent",
+          "mod": "@spent*@use.per",
           "type": "physical",
           "recovery": false
         },
@@ -972,11 +968,7 @@
             },
             "spend": "all"
           },
-          "damageText": "(2+Ira)d6 + [Poder de Ataque] + Ira×NP Físico",
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.MAuTQy4tVGMZv5CD"
-          }
+          "damageText": "(2+Ira)d6 + [Poder de Ataque] + Ira×NP Físico"
         }
       },
       "_stats": {
@@ -1071,7 +1063,7 @@
       "name": "Caminho do Dragão",
       "type": "skill",
       "system": {
-        "description": "<p><strong>Reescreve o Golpe Selvagem.</strong> Ele vira o Sopro do Dragão: atinge todos os inimigos numa linha de até [2 + Ira] Qd (escolha os alvos no caminho), e o dano é de [Chama].</p><p><strong>Talentos do Caminho:</strong> Escamas de Dragão (NP 3) e Coração de Dragão (NP 7).</p><hr><p><em>A raiva sobe pela garganta e sai em brasa.</em></p>",
+        "description": "<p><strong>Reescreve o Golpe Selvagem.</strong> Ele vira o Sopro do Dragão: atinge todos os inimigos numa linha de até [2 + Ira] Qd (escolha os alvos no caminho), o dano é de [Chama] e cada Ira soma NP÷2 (em vez de NP), como nos outros golpes em área.</p><p><strong>Talentos do Caminho:</strong> Escamas de Dragão (NP 3) e Coração de Dragão (NP 7).</p><hr><p><em>A raiva sobe pela garganta e sai em brasa.</em></p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -1175,10 +1167,6 @@
           "path": {
             "class": "berserker",
             "id": "dragao"
-          },
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.MAuTQy4tVGMZv5CD"
           }
         }
       },
@@ -1204,7 +1192,7 @@
       "name": "Fúria Imortal",
       "type": "skill",
       "system": {
-        "description": "<p><strong>Ápice do Berserker (NP 10).</strong> Em combate, com 2 de Ira ou mais, você tem [Último Fôlego]: quando um dano o levaria a 0 PV, você fica com 1 PV e perde 2 de Ira (em vez de toda, se tiver Recusar a Queda). Enquanto houver Ira, você não cai.</p><ul><li><strong>Gigante:</strong> +1d6 a cada 1 de Ira, em vez de a cada 2.</li><li><strong>Dragão:</strong> o Sopro do Dragão mantém metade da Ira gasta (arredondado para baixo).</li><li><strong>Ancestrais:</strong> cada aliado que cai lhe dá 3 de Ira e [NP+5] PV.</li></ul><hr><p><em>Já o deram por morto tantas vezes que ele perdeu a conta.</em></p>",
+        "description": "<p><strong>Ápice do Berserker (NP 10).</strong> Em combate, com 2 de Ira ou mais, você tem [Último Fôlego]: quando um dano o levaria a 0 PV, você fica com 1 PV e perde 2 de Ira (em vez de toda, se tiver Recusar a Queda). Enquanto houver Ira, você não cai.</p><ul><li><strong>Gigante:</strong> +1d6 a cada 1 de Ira, em vez de a cada 2.</li><li><strong>Dragão:</strong> o Sopro do Dragão mantém 2 de Ira.</li><li><strong>Ancestrais:</strong> cada aliado que cai lhe dá 3 de Ira e [NP+5] PV.</li></ul><hr><p><em>Já o deram por morto tantas vezes que ele perdeu a conta.</em></p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -1239,11 +1227,7 @@
           "kind": "bends",
           "branch": "apex",
           "choiceOnly": true,
-          "apex": "berserker",
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.MAuTQy4tVGMZv5CD"
-          }
+          "apex": "berserker"
         }
       },
       "_stats": {

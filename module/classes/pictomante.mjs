@@ -9,7 +9,7 @@
  * up to the cap (3, +1 every 5 CR, + the SR of Wide Studio). Breaking them turns into damage (Shatter: (1 + broken)d6
  * + broken × CR) or defense (Sculpted Shield: [Cancel: broken × (CR+5)] against one hit, an effect of the skill); the
  * supreme spells of the Magias need the cap and break them all. The Paths: the Weapon breaks Molds inside any damage
- * Spell (+1d6 + CR each), the Creature has the standing Molds hunt the nearest enemy at each Cleanup, the Landscape
+ * Spell (+2d6 + CR each), the Creature has the standing Molds hunt the nearest enemy at each Cleanup, the Landscape
  * turns the Shield into a wall for the allies for the whole round (its effects, by the Path's name). The Apex rebuilds
  * half of the Molds broken in the round before at the next Setup.
  *
@@ -91,12 +91,12 @@ function nearestEnemy(actor, n) {
   return best?.actor ?? null;
 }
 
-/** The Creature's beasts hunt: the nearest enemy within 3 squares takes [count × (CR÷2 + 1)] direct damage. */
+/** The Creature's beasts hunt: the nearest enemy within 3 squares takes [count × (CR÷4 + 1)] direct damage. */
 async function hunt(actor, count) {
   if (count <= 0) return;
   const prey = nearestEnemy(actor, 3);
   if (!prey) return;
-  const damage = count * (Math.floor(crOf(actor) / 2) + 1);
+  const damage = count * (Math.floor(crOf(actor) / 4) + 1);
   await takeDamage(prey, damage, { what: nameOf(actor, "criatura") || L("Motor.Pictomante.Hunt"), from: actor });
 }
 
@@ -178,12 +178,12 @@ export const PICTOMANTE = {
     return next;
   },
 
-  /** The Weapon Path: each Mold a Spell broke adds 1d6 + CR to its damage. */
+  /** The Weapon Path: each Mold a Spell broke adds 2d6 + CR to its damage. */
   rollBonuses(actor, item, which, { lesser }) {
     if ((which !== "damage") || (path(actor, lesser) !== "arma")) return [];
     const broken = toInt(recentUse(item)?.vars?.broken);
     if (!broken) return [];
-    return [{ dice: broken, mod: broken * crOf(actor), label: L("Motor.Pictomante.Broken", { n: broken }) }];
+    return [{ dice: broken * 2, mod: broken * crOf(actor), label: L("Motor.Pictomante.Broken", { n: broken }) }];
   },
 
   /** Shrapnel ([Fissured] from the shards) and the Weight of the Work ([Prone] when 2 Molds or more were broken). */

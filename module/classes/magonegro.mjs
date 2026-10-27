@@ -5,7 +5,7 @@
  * ("@class" in their flags.eternia.motor, see motor.mjs).
  *
  * Every Spell heats the pressure of the mage's magic power (+1, the big ones +2: their own motor.gain), up to the cap
- * (3, +1 every 5 CR, + the SR of Deep Reserve, +2 on the S-Class Path, +1 with the Apex). The Pressure adds to the
+ * (3, +1 every 5 CR, + the SR of Deep Reserve, +1 on the S-Class Path, +1 with the Apex). The Pressure adds to the
  * damage of the mage's Spells (+Pressure × 2). At the cap the mage is at the Critical Point, and at the Cleanup Process
  * takes Pressure × CR direct damage (Overload) unless it contains the magic first (Contain the Magic) or spends it all
  * on a Release (an area blast: 1D + CR per point) or on a Magia's supreme spell.
@@ -109,7 +109,7 @@ export const MAGONEGRO = {
     if (lesser) return Math.max(1, Math.floor(max / 2));
     let extra = talentRank(actor, T("reserva-profunda"));
     if (hasApex(actor, MAGONEGRO_ID)) extra += 1;
-    if (pathOf(actor, MAGONEGRO_ID) === "classe-s") extra += 2;
+    if (pathOf(actor, MAGONEGRO_ID) === "classe-s") extra += 1;
     return max + extra;
   },
 

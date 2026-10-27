@@ -794,7 +794,7 @@
       "name": "Baluarte",
       "type": "skill",
       "system": {
-        "description": "<p><strong>Motor do Centurião.</strong> O seu Baluarte junta <strong>Camadas</strong>. Todo combate começa com 0 Camadas.</p><ul><li><strong>Ganha:</strong> +1 Camada cada vez que um inimigo faz um ataque contra você, acerte ou não.</li><li><strong>Efeito:</strong> em combate, cada Camada dá [Anulação: 2]: com 3 Camadas, todo dano que você sofre cai 6.</li><li><strong>Gasta:</strong> o Golpe do Baluarte gasta todas as Camadas num golpe que prende o inimigo a você.</li><li><strong>Teto:</strong> 3 Camadas, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> no Encerramento de uma rodada em que nenhum inimigo atacou você, perde 1 Camada.</li></ul><p><em>Cada golpe que bate no escudo assenta mais uma pedra na muralha.</em></p>",
+        "description": "<p><strong>Motor do Centurião.</strong> O seu Baluarte junta <strong>Camadas</strong>. Todo combate começa com 0 Camadas.</p><ul><li><strong>Ganha:</strong> +1 Camada cada vez que um inimigo faz um ataque contra você, acerte ou não.</li><li><strong>Efeito:</strong> em combate, cada Camada dá [Anulação: 1]: com 3 Camadas, todo dano que você sofre cai 3.</li><li><strong>Gasta:</strong> o Golpe do Baluarte gasta todas as Camadas num golpe que prende o inimigo a você.</li><li><strong>Teto:</strong> 3 Camadas, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> no Encerramento de uma rodada em que nenhum inimigo atacou você, perde 1 Camada.</li></ul><p><em>Cada golpe que bate no escudo assenta mais uma pedra na muralha.</em></p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -886,10 +886,6 @@
           "motor": {
             "id": "guardiao",
             "role": "core"
-          },
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.8lcN320RSz2DTnqW"
           }
         }
       },
@@ -1098,7 +1094,7 @@
       "name": "Golpe do Baluarte",
       "type": "skill",
       "system": {
-        "description": "<p>Com pelo menos 1 Camada, você empurra todo o peso do Baluarte num golpe: [(1 + Camadas)d6 + Poder de Ataque + Camadas×NP] de dano físico, e o alvo fica [Provocado] por você. Gasta todas as Camadas.</p><p><strong>Custo:</strong> Ódio 1 + as Camadas gastas.</p><hr><p><em>A muralha inteira desaba de uma vez sobre um só inimigo.</em></p>",
+        "description": "<p>Com pelo menos 1 Camada, você empurra todo o peso do Baluarte num golpe: [(1 + Camadas)d6 + Poder de Ataque] de dano físico, e o alvo fica [Provocado] por você. Gasta todas as Camadas.</p><p><strong>Custo:</strong> Ódio 1 + as Camadas gastas.</p><hr><p><em>A muralha inteira desaba de uma vez sobre um só inimigo.</em></p>",
         "tags": [
           "Weapon Attack"
         ],
@@ -1121,7 +1117,7 @@
         },
         "damage": {
           "dice": "1+@spent",
-          "mod": "@spent*@cr+@use.wrath*(@cr*2+10)",
+          "mod": "@use.wrath*(@cr+5)",
           "type": "physical",
           "recovery": false
         },
@@ -1142,11 +1138,7 @@
             },
             "spend": "all"
           },
-          "damageText": "(1+Camadas)d6 + [Poder de Ataque] + Camadas×NP Físico",
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.8lcN320RSz2DTnqW"
-          }
+          "damageText": "(1+Camadas)d6 + [Poder de Ataque] + Camadas×NP Físico"
         }
       },
       "_stats": {

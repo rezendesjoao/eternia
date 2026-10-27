@@ -31,10 +31,10 @@ export const MIGRATIONS = [
   HANDS_MIGRATION,               // Two-Handed + off hand, equipped non-equipment
   EFFECTS_MIGRATION,             // broken active effect keys -> valid effect targets
   ON_USE_SKILLS_MIGRATION,       // skills whose effects apply on use (transfer: false)
-  KUDEN_CLEANUP_MIGRATION,       // what the Kuden and the archetypes left, the class icons, the Magia slots, the renamed classes and Magia, the Dragon Slayer's new elements, the Magias of the review (classes/migration.mjs)
+  KUDEN_CLEANUP_MIGRATION,       // what the Kuden and the archetypes left, the class icons, the Magia slots, the renamed classes and Magia, the Dragon Slayer's new elements, the Magias of the review, the balance of 0.42 (classes/migration.mjs)
   TOKENS_MIGRATION,              // the characters' tokens see and are linked, every name shows, core's turn marker off (canvas/token-defaults.mjs)
   RACE_STAGES_MIGRATION,         // the race items take the stages of their compendium race again (races/migration.mjs)
-  BESTIARY_MIGRATION             // the Empire's monsters already in the world take the names and the art of 0.37 (bestiary/migration.mjs)
+  BESTIARY_MIGRATION             // the Empire's monsters already in the world take the names and the art of 0.37, and the damage of 0.42 (bestiary/migration.mjs)
 ];
 
 /** Register the world setting of every migration. Call during the `init` hook. */

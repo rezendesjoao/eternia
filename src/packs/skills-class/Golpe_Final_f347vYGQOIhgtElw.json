@@ -2,7 +2,7 @@
   "name": "Golpe Final",
   "type": "skill",
   "system": {
-    "description": "<p>Com pelo menos 2 Elos: o golpe que fecha a Corrente. [(2×Elos)d6 + Poder de Ataque + Elos×NP] de dano físico. Gasta todos os Elos.</p><p><strong>Corrente cheia:</strong> com os Elos no Teto, o alvo fica [Atordoado].</p><p><strong>Custo:</strong> Ódio 1 + os Elos gastos.</p><hr><p><em>Todos os golpes anteriores eram só o caminho até este.</em></p>",
+    "description": "<p>Com pelo menos 2 Elos: o golpe que fecha a Corrente. [(1 + Elos)d6 + Poder de Ataque + Elos×NP] de dano físico. Gasta todos os Elos.</p><p><strong>Corrente cheia:</strong> com os Elos no Teto, o alvo fica [Atordoado].</p><p><strong>Custo:</strong> Ódio 1 + os Elos gastos.</p><hr><p><em>Todos os golpes anteriores eram só o caminho até este.</em></p>",
     "tags": [
       "Weapon Attack"
     ],
@@ -24,7 +24,7 @@
       "stat": "accuracy"
     },
     "damage": {
-      "dice": "@per*@spent",
+      "dice": "@use.base+@spent",
       "mod": "floor(@spent*@cr*@use.flat/2)",
       "type": "physical",
       "recovery": false

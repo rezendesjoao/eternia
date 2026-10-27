@@ -2,7 +2,7 @@
   "name": "Nova Sagrada",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Dragão Branco. Arte Secreta do Matador de Dragões.</strong> Só na Força do Dragão: você junta toda a luz no punho e a solta à queima-roupa num inimigo engajado com você, como uma estrela que explode. Teste de Precisão contra a Esquiva; [(2 + 2×Escamas)d6 + Poder de Ataque + Escamas×NP] de dano mágico de [Radiância], e ele fica [Cego] (além de [Marcado]). Gasta todas as Escamas, e a Força acaba.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Por um instante, o campo inteiro fica branco. Depois, só o eco.</em></p>",
+    "description": "<p><strong>Dragão Branco. Arte Secreta do Matador de Dragões.</strong> Só na Força do Dragão: você junta toda a luz no punho e a solta à queima-roupa num inimigo engajado com você, como uma estrela que explode. Teste de Precisão contra a Esquiva; [(1 + Escamas)d6 + Poder de Ataque + (Escamas×NP)÷2] de dano mágico de [Radiância], e ele fica [Cego] (além de [Marcado]). Gasta todas as Escamas, e a Força acaba.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Por um instante, o campo inteiro fica branco. Depois, só o eco.</em></p>",
     "tags": [
       "Magic Attack",
       "Radiance"
@@ -25,8 +25,8 @@
       "stat": "accuracy"
     },
     "damage": {
-      "dice": "2+2*@spent",
-      "mod": "@attack+@spent*@cr",
+      "dice": "1+@spent",
+      "mod": "@attack+floor(@spent*@cr/2)",
       "type": "magical",
       "recovery": false,
       "noPower": true

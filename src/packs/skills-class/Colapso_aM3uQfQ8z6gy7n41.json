@@ -2,7 +2,7 @@
   "name": "Colapso",
   "type": "skill",
   "system": {
-    "description": "<p>Só no Ponto Crítico: você solta toda a Pressão num alvo a até 4 Qd. Teste de Precisão contra a Resistência; [(2 + 2×Pressão)d6 + Poder Mágico + Pressão×NP] de dano mágico, e quem o dano atinge fica [Atordoado].</p><p><strong>Custo:</strong> Ódio 1 + a Pressão gasta.</p><hr><p><em>O alvo some dentro de uma esfera de luz que se fecha num ponto, e o ponto estoura.</em></p>",
+    "description": "<p>Só no Ponto Crítico: você solta toda a Pressão num alvo a até 4 Qd. Teste de Precisão contra a Resistência; [(1 + Pressão)d6 + Poder Mágico + Pressão×NP] de dano mágico, e quem o dano atinge fica [Atordoado].</p><p><strong>Custo:</strong> Ódio 1 + a Pressão gasta.</p><hr><p><em>O alvo some dentro de uma esfera de luz que se fecha num ponto, e o ponto estoura.</em></p>",
     "tags": [
       "Spell",
       "Magic Attack"
@@ -25,7 +25,7 @@
       "stat": "accuracy"
     },
     "damage": {
-      "dice": "2+2*@spent",
+      "dice": "1+@spent",
       "mod": "@spent*@cr",
       "type": "magical",
       "recovery": false

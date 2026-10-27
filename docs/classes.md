@@ -158,9 +158,11 @@ Antes de entrar no sistema, cada classe passa por esta lista:
 5. Nenhum número solto; o NH mexe em frequência, capacidade ou alcance.
 6. Cada Caminho reescreve uma regra; o Ápice transforma o Motor.
 7. A classe tem o que fazer fora de combate (os talentos Gerais).
-8. A curva de poder segue a de Log Horizon: PV pela faixa, dano por rodada parecido com o das habilidades oficiais no
-   mesmo NP. A Régua do Golpe do Kuden (`Desktop/Daggerheart/Log Horizon TTRPG/kuden/calibragem.md`, fora do
-   repositório) vira ferramenta de quem desenha a classe, para conferir o dano; o jogador nunca a vê.
+8. A curva de poder segue a régua de `docs/matematica.md`: PV pela faixa, valor por rodada de 0,8× a 1,3× a régua
+   do NP 3 ao NP 7 (0,6× a 1,1× no NP 1, 1,1× a 1,4× no NP 10), conferido no simulador antes de entrar. E as Leis do
+   Motor de lá: 2 pontos por rodada; 1d6 + NP por ponto num alvo e 1d6 + NP÷2 em área no golpe que gasta tudo; um
+   bônus só de Motor cheio, uma vez por cena quando vem de talento; talento de Teto +1; o Ápice transforma sem dar
+   ação a mais; NP÷2 sempre para baixo.
 9. O nome não bate com o de uma profissão (Bardo, Alquimista, Engenheiro...) nem com o de uma raça.
 10. O Motor cabe num cartão de seis linhas e aparece no token.
 
@@ -271,14 +273,14 @@ HUD), as Brechas de qualquer acerto no Alvo (`onAnyHit`, com os extras da Punhal
 Cerco), a Execução (o custo "Hate 1+Brechas", o dano por `@spent` e a queda pelo `onAnyDamaged`, que zera os PV do
 Alvo e avisa o `eternia.defeated`), o Contrato cumprido (`onAnyKill`, com as Brechas que passam adiante na Teia e em
 Segunda Execução, Sombra Viva, Última Palavra e Contrato Cumprido), Toxina Lenta (`onCleanup`), Lâmina Envenenada e
-Corte de Tendão (`onHit`), Dose Certa (`rollBonuses`), os acertos automáticos (Na Garganta, Machado Erguido, Lâmina
-Invisível e a linha do Fantasma no Ápice), Marcar a Presa e Rede Fechada ([Marcado] no Alvo), Ferida que Não Fecha
+Corte de Tendão (`onHit`), Dose Certa (`rollBonuses`), os acertos automáticos (o Contrato cheio, Na Garganta, Lâmina
+Invisível e a linha do Fantasma no Ápice), o [Exposto] de Machado Erguido (`onHit`), Marcar a Presa e Rede Fechada ([Marcado] no Alvo), Ferida que Não Fecha
 ([Maldito]) e Estudar o Alvo (o Contrato já firmado no começo do combate seguinte).
 
 ### Berserker
 
 O Motor **Ira** mexe nos PV baixos: cada ataque de um inimigo que tira PV do Berserker dá 1 Ira (2 com metade dos PV
-ou menos), e com Ira os Ataques com Arma somam +[Ira × 2] ao dano. O Golpe Selvagem gasta toda (+(2+Ira)d6 + Ira×NP),
+ou menos), e com Ira os Ataques com Arma somam +[Ira] ao dano. O Golpe Selvagem gasta toda (+(1+Ira)d6 + Ira×NP),
 o Fôlego de Sangue a troca por PV e Sangrar troca PV por Ira. Uma rodada sem atacar nem perder PV custa 1 Ira no
 Encerramento.
 
@@ -330,8 +332,8 @@ gasta toda a Mira (cada ponto soma 1d6 + NP) e, com a Mira cheia, deixa o alvo [
 ### Centurião
 
 O Motor **Baluarte** mexe no Ódio: cada ataque que um inimigo faz contra o Centurião assenta uma Camada, e cada Camada
-é [Anulação: 2] contra todo dano (o efeito passivo `eternia.passive.cancel` = `@motor.value × @motor.layer`). O Golpe
-do Baluarte gasta todas (+(1+Camadas)d6 + Camadas×NP) e prende o alvo com [Provocado]. Uma rodada sem ser atacado
+é [Anulação: 1] contra todo dano (o efeito passivo `eternia.passive.cancel` = `@motor.value × @motor.layer`). O Golpe
+do Baluarte gasta todas (+(1+Camadas)d6, sem somar o NP) e prende o alvo com [Provocado]. Uma rodada sem ser atacado
 custa uma Camada no Encerramento.
 
 | Parte | O que tem |
@@ -478,8 +480,8 @@ Mestre, com `flags.eternia.commandAura`).
 ### Invocador
 
 O Motor **Pacto** mexe numa criatura extra: um espírito (Lobo, Golem ou Fada) fica preso ao Invocador por Laços que
-ele compra com os próprios PV ([NP+3] cada), sem token: o espírito age pelas habilidades do Invocador. O Comando:
-Ataque soma os Laços ao dano, os comandos especiais gastam Laços, e com 0 Laços o espírito se desfaz. Cada espírito tem
+ele compra com os próprios PV ([NP÷2+2] cada), sem token: o espírito age pelas habilidades do Invocador. O Comando:
+Ataque rola 1d6 a mais por Laço, os comandos especiais gastam Laços, e com 0 Laços o espírito se desfaz. Cada espírito tem
 um traço (Lobo +1d6, Golem [Anulação: Laços], Fada [Regeneração: Laços × 2]). É uma **classe de magia** desde a
 0.13: escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10. Com um espírito presente, os Feitiços das Magias
 dão +1 Laço (os grandes, +2; sem espírito, nada), e os supremos pedem o Teto, gastam todos os Laços e só saem com um
@@ -509,7 +511,7 @@ Barreira) e o Desfazer do cartão não o devolve.
 ### Lutador
 
 O Motor **Corrente** mexe na sequência de golpes: o Golpe de Entrada e o Elo Rápido somam Elos, e o Golpe Final gasta
-todos (cada um soma 2d6 + NP; com a Corrente cheia, o alvo fica [Atordoado]). Um turno sem habilidade da Corrente a
+todos ([(1 + Elos)d6 + Poder + Elos×NP]; com a Corrente cheia, o alvo fica [Atordoado]). Um turno sem habilidade da Corrente a
 quebra, e cada ataque de um inimigo que tira PV do lutador tira 1 Elo. Os golpes pedem [Artes Marciais] ou as duas mãos
 vazias.
 
@@ -530,7 +532,7 @@ vazias.
 \* talentos [Dedicação].
 
 Automação (`module/classes/lutador.mjs`): os Elos que cada golpe soma e o Golpe Final gasta (com o custo "Hate 1+Elos" e
-o dano por `@per`, `@spent` e `@use.flat`), a quebra no fim do turno (`onTurnEnd`), o Elo perdido no dano
+o dano por `@use.base`, `@spent` e `@use.flat`), a quebra no fim do turno (`onTurnEnd`), o Elo perdido no dano
 (`onDamaged`), a Corrente cheia ([Atordoado] pelo `onHit`; acerto automático com Punho que Atravessa), Desviar e
 Seguir (`onDodged`), Último Elo (`onKill`), Maré Viva (`onCleanup`), Pele de Ferro (estado passivo), Pés Leves e Raiz
 da Montanha (efeitos com `motorAtLeast`), Fluxo Ininterrupto (a segunda vez do Elo Rápido gasta o Movimento) e as
@@ -544,7 +546,7 @@ atributo dele (Força é Fera, Destreza é Animal, Poder é Demônio, Inteligên
 de elemento dele (Chama, Frio, Choque...). O grimório começa com a Primeira Alma (a natureza escolhida no primeiro Take
 Over, o nível sempre o NP do mago) e guarda mais 3 + ⌊NP/5⌋, de um combate para o outro; cheio, sai a de menor nível
 (a mais antiga no empate), que pode ser a nova. O Take Over (Menor) veste uma alma: em combate, a natureza vira um estado
-passivo com o Valor ⌊min(nível, NP) ÷ 2⌋ + 2 (Fera [Fortalecido], Animal [Acelerado] e metade em [Fortalecido], Demônio
+passivo com o Valor ⌊min(nível, NP) ÷ 3⌋ + 2 (Fera [Fortalecido], Animal [Acelerado] e metade em [Fortalecido], Demônio
 [Despertado], que deixa [Fadiga] ao sair, Espírito [Anulação]) e o elemento entra no dano dos Feitiços do mago. A
 Essência vem dos Feitiços (+1, os grandes +2), da alma absorvida (+1) e de cada Manutenção na forma (+1); o Golpe da
 Alma gasta toda e deixa a marca da natureza (Fera [Derrubado], Animal [Lento], Demônio [Medo], Espírito [Atordoado]).
@@ -575,7 +577,7 @@ Estado em `flags.eternia.motor.magoazul`: `state` (`humano`, `fera`, `animal`, `
 vestida), `value` (Essência), `first` (a natureza da Primeira Alma), `souls` (as almas absorvidas: `{ id, name, img,
 rank, nature, element }`), `worn` e `second` (as almas vestidas; `primeira` é a Primeira Alma), `fresh` (as absorvidas no
 combate, para a Lição Azul), `round` (as naturezas vestidas na rodada, para Mil Peles) e as marcas de uma vez por rodada
-(`wild`, `barrier`, `hurt`, `swap`).
+(`wild`, `barrier`, `hurt`, `swap`) e `inescapable` (o Golpe Inescapável, uma vez por cena).
 
 Automação: a absorção (`onKill` do Absorver ou de qualquer golpe com Fome de Almas; `onAnyKill` no Grimório Azul, pela
 distância dos tokens), a natureza e o elemento lidos do monstro (atributos e tags), o Take Over (`plan`: a Primeira Alma,
@@ -590,8 +592,9 @@ criaturas) e os alvos das áreas.
 O Motor **Lei** mexe nos dados dos outros e é o motor das Magias: o Padrão do Tecelão com outra cara. O Mago Branco
 escreve um número de 2 a 12, e cada teste de qualquer personagem no combate (Esquivas incluídas) com dois dados que
 somam esse número acende Runas (1 para 6 a 8, 2 para 4, 5, 9 e 10, 3 para 2, 3, 11 e 12); cada Feitiço, da classe ou
-das Magias, acende mais uma (os grandes, duas). Nos cartões de ataque, cada Runa reescreve um dado de um teste já
-rolado: o menor sobe 1 ou o maior desce 1 (2 Runas quando isso cria ou desfaz um Crítico ou uma Falha Crítica); os
+das Magias, acende mais uma (os grandes, duas). Nos cartões de ataque, 2 Runas reescrevem um dado de um teste já
+rolado: o menor sobe 1 ou o maior desce 1 (3 Runas quando isso cria ou desfaz um Crítico ou uma Falha Crítica; a Lei
+acende no máximo 2 Runas por rodada); os
 feitiços supremos das Magias pedem o Teto e gastam todas. Teto 3 + ⌊NP/5⌋; zera no fim do combate, e trocar a Lei no
 meio do combate apaga as Runas. É uma **classe de magia**: escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP
 10. Código em `module/classes/magobranco.mjs`.
@@ -618,14 +621,15 @@ Augúrio (o Acaso), Lei Absoluta (o Destino) e Cerco (o Bordado).
 
 Estado em `flags.eternia.motor.magobranco`: `state` (`escrita`, um só), `value` (Runas), `pattern` (a Lei), `second` (o
 segundo número), `doubles` (a Runa Gêmea da rodada), `siege` (a Runa do Cerco da rodada), `pulled` (a correção mais
-barata do Ápice na rodada) e `fate` (o combate do Veredicto).
+barata do Ápice na rodada), `fate` (o combate do Veredicto), `lit` (as Runas que a Lei acendeu na rodada, até 2),
+`absolute` (a correção da Lei Absoluta na rodada) e `sentence` (a Sentença Final da cena).
 
 Automação: o ganho em qualquer teste do combate (`onAnyCheck`, com a Runa Gêmea e a Runa a mais do Selo de Luz), os
 Feitiços (`motor.gain`), os botões do cartão de ataque (`cardActions`: +1/−1, → 6/→ 1 na Lei Absoluta, Veredicto) que
-mudam os dados por `adjustCardRoll` e cobram as Runas (2 quando muda Crítico ou Falha Crítica; Runa Guia e a correção
+mudam os dados por `adjustCardRoll` e cobram as Runas (2, 3 quando muda Crítico ou Falha Crítica, +1 na Lei Absoluta, uma vez por rodada; Runa Guia e a correção
 mais barata do Ápice), o que a correção causa ([Marcado] do Selo de Marca, [Lento]/[Enraizado] do Cerco, o dano da
 Runa Partida, o [Fortalecido] da Lei Dourada), a Lei rolada do Augúrio (`onSetup`) e a Roda do Céu, os estados no alvo
-atingido (`onHit`), o acerto automático da Sentença Final e a Runa do Cerco. Ficam no texto os talentos Gerais
+atingido (`onHit`), o acerto automático da Sentença Final (uma vez por cena) e a Runa do Cerco. Ficam no texto os talentos Gerais
 (presságios, caminho de volta, selos de porta).
 
 ### Mago Negro
@@ -652,7 +656,7 @@ NP 5 e a terceira no NP 10. Código em `module/classes/magonegro.mjs`.
 
 \* talentos [Dedicação].
 
-Os Caminhos são os do Feiticeiro com outra cara: a Classe S reescreve o Teto (+2, e a Liberação no Teto soma +[NP×2+10]),
+Os Caminhos são os do Feiticeiro com outra cara: a Classe S reescreve o Teto (+1, e a Liberação no Teto soma +[NP×2+10]),
 o Mago Santo reescreve o que a Pressão faz ([Lento] e [Enraizado] no lugar do dano) e Spriggan reescreve o risco
 ([Despertado] no lugar da Sobrecarga). O Ápice, a Segunda Origem, dá +1 no Teto e deixa metade da Pressão depois da
 Liberação.
@@ -675,7 +679,7 @@ ou cura) e a nova começa com metade da Carga. Teto: 3 + ⌊NP/5⌋. A peça fic
 | Parte | O que tem |
 |---|---|
 | Base | FOR 3, DES 2, POD 3, INT 2; faixa Firme (40, +6/NP); papéis Damage e Defense |
-| Kit | Arsenal (Motor), Reequipar (Menor), Lâmina Convocada (Maior, +1 com a Espada), Disparo do Foco (Maior, Feitiço, +1); a primeira Magia |
+| Kit | Arsenal (Motor), Reequipar (Menor), Lâmina Convocada (Maior, +1), Disparo do Foco (Maior, Feitiço, +1); a primeira Magia |
 | A Espada | Fio Encantado, Aço que Responde*, Golpe da Descarga, Lâmina Longa |
 | A Armadura | Couraça Encantada*, Golpe Aparado, Escudo Convocado*, Armadura Inabalável |
 | O Foco | Rajada do Foco, Luz Restauradora, Foco Amplo, Bênção do Foco |
@@ -688,7 +692,7 @@ ou cura) e a nova começa com metade da Carga. Teto: 3 + ⌊NP/5⌋. A peça fic
 \* talentos [Dedicação].
 
 Os Caminhos são os do Ressonante com outra cara: a Arma Selada reescreve o Reequipar (não troca em combate, +2 no Teto),
-a Panóplia reescreve o que a Carga faz (as três peças a meio valor) e a Troca Relâmpago reescreve o Reequipar de outro
+a Panóplia reescreve o que a Carga faz (a peça na mão a meio valor, as outras duas a um terço) e a Troca Relâmpago reescreve o Reequipar de outro
 jeito (a Descarga em dobro, a peça nova em 0). O Ápice, Arsenal Infinito, tira o custo do Reequipar e deixa a peça que
 saiu valendo até o fim da rodada.
 
@@ -728,8 +732,9 @@ próprios. Código em `module/classes/matador.mjs`.
 
 Os Caminhos são as gerações e cada um reescreve uma regra: a Primeira, o que se come (os outros elementos de dragão
 também dão Escamas e põem o Matador no Modo Dragão Duplo, com a tag e o estado deles nos golpes); a Segunda, o ganho
-(+1 na Manutenção pela lacrima; o elemento que atinge não dá); a Terceira, a entrada na Força (a habilidade do Caminho,
-Menor, com metade do Teto). As Artes Secretas (os talentos de NP 7 de cada elemento) só saem na Força e gastam tudo.
+(+1 na Manutenção pela lacrima, fora da Força; o elemento que atinge não dá); a Terceira, a entrada na Força (a habilidade do Caminho,
+Menor, com metade do Teto). As Artes Secretas (os talentos de NP 7 de cada elemento) só saem na Força e gastam tudo: [(1 + Escamas)d6 +
+Poder de Ataque + (Escamas×NP)÷2], de alvo único ou de área.
 
 Estado em `flags.eternia.motor.matador`: `state` (`humano`, `forca`), `value` (Escamas), `dual` (o elemento do Modo
 Dragão Duplo), `seed` (`{ n, scenario }`: a Semente e o cenário em que conta, pelo contador `flags.eternia.scenario`),
@@ -845,8 +850,8 @@ escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10. Código em `modu
 \* talentos [Dedicação].
 
 Os Caminhos são os três jeitos de moldar: a Arma reescreve como os Moldes viram dano (qualquer Feitiço de dano quebra
-Moldes junto, +1d6 + NP cada, e então não ergue nenhum), a Criatura reescreve o que eles fazem em pé (no Encerramento,
-as feras atacam o inimigo mais perto, a até 3 Qd: [Moldes × (NP÷2 + 1)] de dano direto) e a Paisagem reescreve como
+Moldes junto, +2d6 + NP cada, e então não ergue nenhum), a Criatura reescreve o que eles fazem em pé (no Encerramento,
+as feras atacam o inimigo mais perto, a até 3 Qd: [Moldes × (NP÷4 + 1)] de dano direto) e a Paisagem reescreve como
 viram defesa (o Escudo Esculpido vira muralha: todos os aliados escolhidos num quadrado, até o fim da rodada, com
 metade da Anulação). O Ápice, a Obra-Prima, refaz na Manutenção metade dos Moldes quebrados na rodada anterior.
 
@@ -932,8 +937,8 @@ Corpo-Escudo (o dano vai para você pelo cartão) e os talentos Gerais.
 ### Samurai
 
 O Motor **Bainha** mexe no tempo: a lâmina Embainhada junta Cortes na Manutenção, e o Iai, no Processo de
-Iniciativa de qualquer personagem, saca gastando todos (cada um soma 2d6 + NP; com a Bainha cheia, Corte Perfeito:
-acerto sem Esquiva e +[NP×2+10]).
+Iniciativa de qualquer personagem, saca gastando todos (cada um soma 1d6 + NP÷2; com a Bainha cheia, Corte Perfeito:
+acerto sem Esquiva, e o primeiro da cena soma +[NP×2+10]).
 
 | Parte | O que tem |
 |---|---|
@@ -1009,12 +1014,12 @@ REGRAS (a geral e uma página por Magia).
 | Amarras | Conjuração | Ninguém Foge | Chicote de Tubo, Tubo de Amarra, Arranhão Secreto, Rede de Tubos, Explosão Felina, Prisão de Mil Tubos (supremo) |
 | Aprimoramento | Maldição (Tabu: na primeira rodada do combate, as Defesas Física e Mágica caem [NP]) | Dor Amplificada | Garras-Chicote, Aprimorar o Corpo, Amplificação da Dor ([Fraqueza: NP]), Aprimoramento por Segundo ([Despertado]), Amplificação da Dor em Massa, Privação dos Sentidos (supremo, num alvo só) |
 | Arca | Ancestral (o supremo no NP 10; a Execução) | Luz Sagrada | Faça-se a Luz ([Cego] em demônios e em quem usa Maldição), Revigorar (cura e tira um Estado Negativo), Manto Sagrado (imunes a [Maldito] e [Chama Negra], [Anulação (Corrupção)]), Purgar (Execução), Flecha da Salvação, Arca Ômega (supremo, NP 10; apaga [Chama Negra] e [Maldito] dos aliados) |
-| Arco da Grande Árvore | Perdida (Tabu: em combate, −1d6 nas Esquivas) | Força da Terra | Explosões em Linha, Fusão com a Árvore ([Oculto], [Regeneração]), Lâminas de Folha, Bomba-Relógio de Raízes ([Pavio]), Estouro da Torre, Terra Clamare (supremo, num alvo só) |
+| Arco da Grande Árvore | Perdida (Tabu: em combate, −2 nas Esquivas) | Força da Terra | Explosões em Linha, Fusão com a Árvore ([Oculto], [Regeneração]), Lâminas de Folha, Bomba-Relógio de Raízes ([Pavio]), Estouro da Torre, Terra Clamare (supremo, num alvo só) |
 | Arco da Materialização | Perdida (Tabu: em combate, a Iniciativa cai [NP] e a Defesa Física cai [NP÷2]) | Mundo Imaginado | Espada Negra, Escudo Dourado, Asas de Pégaso, Fantasmas de Brittia, Fera Sagrada: Belcusas do Trovão ([Servo]), Torre de Dingir (supremo) |
 | Arco do Tempo | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP÷2]) | Tempo Emprestado | Avanço Rápido, Tempo Lento, Restaurar, Acelerar, Arco do Tempo: Envelhecer, Última Era (supremo, cura os aliados e deixa [Fadiga] em quem conjura) |
 | Areia | Conjuração | Deserto | Rebelião da Areia, Lufada de Areia, Corpo de Areia, Cova da Formiga-Leão, Areias da Morte, Mundo de Areia (supremo) |
 | Armas Mágicas | Portadora (as armas) | Bala Certa | Tiro Mágico, Bala de Bolha, Bala Teleguiada (sem Teste de Precisão), Mira Travada, Bala Explosiva, Chuva de Balas (supremo) |
-| Artes Brancas | Proibida (Tabu: em combate, a Recuperação cai [NP], e o Prazer pega aliados na área) | Corpo sem Vontade | Lâminas de Luz, Alma Faminta, Descanse em Paz ([Adormecido]), Dois Dedos, Prazer, Êxtase (supremo) |
+| Artes Brancas | Proibida (Tabu: em combate, a Recuperação cai [NP] e a Defesa Mágica cai [NP÷2], e o Prazer pega aliados na área) | Corpo sem Vontade | Lâminas de Luz, Alma Faminta, Descanse em Paz ([Adormecido]), Dois Dedos, Prazer, Êxtase (supremo) |
 | Artes Negras | Proibida (Tabu: [Maldito] em combate; a Predação da Morte pega aliados) | Morte em Volta | Toque da Morte, Esfera da Morte, Aura da Morte ([Maldito] nos engajados), Predação da Morte, Sentença Negra (supremo) |
 | Bomba | Maldição (Tabu: em combate, a Defesa Física cai [NP]) | Tudo Explode | Explosão (detona o [Pavio]), Conversão em Bomba (Após o Dano), Mina Terrestre, Bomba de Captura, Espiral Explosiva, Detonação (supremo, a até 2 Qd de você; detona os [Pavio]) |
 | Cabelo Carmesim | Conjuração | Cabelo Vivo | Cabelo que Prende, Cabelo Esponja (contra [Água]), Chuva de Cabelo: Mil Pássaros, Marca em Brasa, Chuva de Cabelo: Vaga-lumes, Chuva de Cabelo: Presa de Lobo (supremo, num alvo só) |
@@ -1025,7 +1030,7 @@ REGRAS (a geral e uma página por Magia).
 | Chamas do Purgatório | Maldição (Tabu: em combate, [Fraqueza (Radiância): NP]) | Fogo que Não Apaga | Encantamento: Chama Infernal (a arma dá [Chama Negra: 2]), Pássaro Infernal, Onda Infernal, Cão Infernal ([Servo]), Dragão das Cinzas, Mil Cortes Divinos (supremo, num alvo só) |
 | Comando M | Conjuração | Escala Errada | Comando: Redução, Comando: Expansão, Comando: Encolher a Magia (em você ou num aliado), Qualidade do Poder Mágico, Comando: Terreno, Demolidora de Países (supremo) |
 | Combo Estelar | Maldição (Tabu: em combate, a Defesa Física cai [NP]) | Sequência | Golpe Estelar (Combo +2), Passo Estelar ([Concentrado]), Guarda da Sequência (o dano não zera o Combo), Golpe em Dobro (Combo +3), Chuva Estelar (+1 por alvo), Estrela Final (supremo, o Combo dobrado) |
-| Contra-ataque | Perdida (Tabu: em combate, −1d6 nas Esquivas) | Mais que o Dobro | Contra-ataque Total e Contra-ataque Físico ([Contragolpe], só alvo único), Contra-ataque Evanescente ([Anulação] em você e nos aliados), Contra-ataque Vingativo ([Rancor]), Golpe do Rancor (gasta o Rancor), Contra-ataque Absoluto (supremo, Antes do Dano, devolve até área) |
+| Contra-ataque | Perdida (Tabu: em combate, −2 nas Esquivas) | Mais que o Dobro | Contra-ataque Total e Contra-ataque Físico ([Contragolpe], só alvo único), Contra-ataque Evanescente ([Anulação] em você e nos aliados), Contra-ataque Vingativo ([Rancor]), Golpe do Rancor (gasta o Rancor), Contra-ataque Absoluto (supremo, Antes do Dano, devolve até área) |
 | Cópia | Conjuração (o Copiar decora um feitiço; a Imitação repete a tag e o estado dele) | Memória Perfeita | Copiar, Ouvir a Alma (+1d6 nas Esquivas na cena), Imitação, Copiar e Anular, Derreter, Ars Magia (supremo) |
 | Corpos Celestes | Conjuração | Rastro de Luz | Estrela Cadente, Meteoro, Velocidade da Luz, Altairis, Sete Estrelas do Julgamento: Grand Chariot, Sema (supremo) |
 | Correntes | Proibida (Tabu: em combate, −1d6 nas Resistências) | Selos de Amaterasu | Corrente do Grimório, Balas Mágicas, Raio do Grimório, Amaterasu: Fórmula 28, Amaterasu: Fórmula 100, Lei do Grimório (supremo) |
@@ -1037,7 +1042,7 @@ REGRAS (a geral e uma página por Magia).
 | Escrita Sólida | Conjuração | Palavra Pesada | Escrita Sólida: Fogo, Escrita Sólida: Guarda, Escrita Sólida: Silêncio, Escrita Sólida: Ferro, Escrita Sólida: Trovão, A Palavra Final (supremo) |
 | Esmagamento | Conjuração | Desmonte | Toque Esmagador, Onda de Esmagamento, Desmontagem, Quebrar a Guarda, Ruptura, Esmagamento Absoluto (supremo) |
 | Espadas Mágicas | Portadora (a espada) | Lâmina na Bainha | Kata do Corte, Kata Rasteira, Lampejo Vazio de Yasha, Kata do Voo, Chama de Garuda, Lâmina Desembainhada (supremo, num alvo só) |
-| Espinhos | Maldição (Tabu: em combate, a Recuperação cai [NP] e −1d6 nas Esquivas) | Espinhos que Entram | Vinhas de Espinhos, Manto de Espinhos ([Espelho]), Jardim de Espinhos, Rosa Explosiva, Dea Yggdrasil, Memento Mori (supremo, [Sentença: 3]) |
+| Espinhos | Maldição (Tabu: em combate, a Recuperação cai [NP] e −2 nas Esquivas) | Espinhos que Entram | Vinhas de Espinhos, Manto de Espinhos ([Espelho]), Jardim de Espinhos, Rosa Explosiva, Dea Yggdrasil, Memento Mori (supremo, [Sentença: 3]) |
 | Espíritos Celestiais | Portadora (as chaves) | Chaves do Zodíaco | Portão do Touro ([Servo]), Portão do Carneiro, Portão do Sagitário, Portão do Aguadeiro (pega aliados também), Portão do Leão: Impacto de Régulo, Vestido Estelar, Urano Metria (supremo) |
 | Fogo | Conjuração | Brasa Viva | Chama Laranja, Chama Roxa (dobra o [Queimando]), Chama Azul, Chama Amarela, Coluna de Fogo (consome o [Queimando]), Chama Arco-Íris (supremo) |
 | Fonte da Juventude | Proibida (Tabu: em combate, a cura de feitiços e itens cura metade) | Imortal | Corpo Imortal (a Regeneração agora), Golpe sem Medo (custa PV), Dádiva (PV para um aliado), Escudo de Carne (o golpe do aliado em você), Vida sem Fim ([Exposto]), Gota da Fonte (supremo: cura e imortalidade) |
@@ -1059,10 +1064,10 @@ REGRAS (a geral e uma página por Magia).
 | Magia Viva | Perdida (Tabu: em combate, a Recuperação e a Defesa Mágica caem [NP]) | Fonte de Vida | Centelha da Vida, Cria de Barro, Sangue Vivo, Corpo Refeito, Fera Criada ([Servo]), Gênese (supremo) |
 | Maldição do Boneco | Perdida, no boneco (Tabu: em combate, a Recuperação cai [NP] e a Defesa Mágica cai [NP÷2]) | Corpo no Boneco | Fio no Boneco, Dodoskoi, Boneco de Ferro, Boneco de Névoa, Foguete Metálico, Dodoskoi Brilhante (supremo) |
 | Mandamentos | Maldição (Tabu: o Decreto pega você e os aliados, em combate) | Marca do Rei Demônio | Revelar o Mandamento (alcance 6 Qd e dano em quem quebra), Espadas da Rebelião, Mandamento Materializado (a maldição no golpe), Forma de Assalto ([Despertado], alcance ×2), Absorver Mandamento (passivo, um segundo Decreto), Os Dez Mandamentos (supremo, os dez por uma rodada); e os 10 Decretos, só por escolha |
-| Matador de Demônios | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP]) | Caça-Demônios | Fúria do Demônio de Gelo, Garra do Demônio de Gelo, Gelo do Demônio, Gelo que Cala, Arco da Destruição do Demônio de Gelo, Lâmina da Destruição do Demônio de Gelo (supremo) |
-| Matador de Deuses do Céu | Perdida (Tabu: em combate, a Iniciativa cai [NP] e a Velocidade cai 1) | Ar dos Deuses | Rugido do Deus do Céu, Sopro Curativo, Dança do Deus do Céu, Bênção do Deus do Céu, Bóreas do Deus do Céu, Arte Secreta: Lança Celestial (supremo) |
+| Matador de Demônios | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP÷2]) | Caça-Demônios | Fúria do Demônio de Gelo, Garra do Demônio de Gelo, Gelo do Demônio, Gelo que Cala, Arco da Destruição do Demônio de Gelo, Lâmina da Destruição do Demônio de Gelo (supremo) |
+| Matador de Deuses do Céu | Perdida (Tabu: em combate, a Iniciativa cai [NP], a Velocidade cai 1 e a Defesa Física cai [NP÷2]) | Ar dos Deuses | Rugido do Deus do Céu, Sopro Curativo, Dança do Deus do Céu, Bênção do Deus do Céu, Bóreas do Deus do Céu, Arte Secreta: Lança Celestial (supremo) |
 | Matador de Deuses do Fogo | Perdida (Tabu: em combate, a Recuperação cai [NP] e a Defesa Física cai [NP÷2]) | Chama que Devora | Rugido do Deus do Fogo, Devorar as Chamas (contra um ataque de [Chama]), Foice do Deus do Fogo, Chama Explosiva do Deus do Fogo, Kagutsuchi do Deus do Fogo, Ceia do Deus do Fogo (supremo, num alvo só) |
-| Matador de Deuses do Raio | Perdida (Tabu: em combate, a Defesa Mágica cai [NP]) | Raio que Apaga | Rugido do Deus do Raio, Devorar o Raio, Canhão de Raio Negro de 120 mm, Couraça de Raio Negro, Trovão Negro do Deus do Raio, Canhão de Partículas do Deus do Raio (supremo, em linha) |
+| Matador de Deuses do Raio | Perdida (Tabu: em combate, a Defesa Mágica cai [NP] e a Defesa Física cai [NP÷2]) | Raio que Apaga | Rugido do Deus do Raio, Devorar o Raio, Canhão de Raio Negro de 120 mm, Couraça de Raio Negro, Trovão Negro do Deus do Raio, Canhão de Partículas do Deus do Raio (supremo, em linha) |
 | Moldagem de Gelo | Conjuração | Gelo que Não Derrete | Moldagem de Gelo: Lança, Moldagem de Gelo: Escudo, Moldagem de Gelo: Martelo, Moldagem de Gelo: Chão, Moldagem de Gelo: Águias, Lâmina de Gelo: Dança dos Sete Cortes, Impacto de Gelo (supremo) |
 | Moldagem de Madeira | Conjuração | Tábuas e Pregos | Moldagem de Madeira: Aproximação Violenta, Moldagem de Madeira: Senso de Distância do Coração, Fusão com a Madeira, Moldagem de Madeira: Represa do Amor Tímido, Moldagem de Madeira: A Distância Entre Nós Dois É Eterna, Moldagem de Madeira: Soco Divino (supremo, num alvo só) |
 | Moldagem de Memória | Conjuração | Lembrança Apagada | Memorizar, Moldagem de Memória: Feitiço Lembrado, Moldagem de Memória: Esquecimento, Moldagem de Memória: Fortaleza da Terra Ardente, Moldagem de Memória: Noite das Estrelas Cadentes, Moldagem de Memória: Lembrança Absoluta (supremo) |
@@ -1075,7 +1080,7 @@ REGRAS (a geral e uma página por Magia).
 | Perfume Mágico | Portadora (os frascos) | Nariz Treinado | Perfume do Trovão, Perfume da Força, Perfume Analgésico (cura o grupo), Perfume da Dor, Perfume Venenoso, Perfume da Força: Máximo (supremo, num alvo só) |
 | Pintura Mágica | Portadora (pincéis e tintas) | Grade Pintada | Fera Pintada ([Servo]), Asas Pintadas, Jaula Pintada, Armadura Pintada, Dragão Pintado, Mural Vivo (supremo) |
 | Plantas | Portadora (as sementes) | Jardineiro | Chicote de Cipó, Broto da Vida, Esporos Venenosos, Muralha de Raízes, Floresta Súbita, Jardim Carnívoro (supremo) |
-| Portão do Inferno | Maldição (Tabu: em combate, a Recuperação cai [NP]) | Banquete de Almas | Anel de Invocação ([Servo]), Chamado das Almas ([Atordoado]; [Paralisado] com pouco PV), Atravessar o Portão ([Concentrado]), Casulo das Trevas ([Agarrado], [Pesadelo]; alimenta o Motor), Veneno Mortal, Rito do Rancor dos Mortos (supremo; quem cai vira [Servo]) |
+| Portão do Inferno | Maldição (Tabu: em combate, a Recuperação cai [NP] e a Defesa Mágica cai [NP÷2]) | Banquete de Almas | Anel de Invocação ([Servo]), Chamado das Almas ([Atordoado]; [Paralisado] com pouco PV), Atravessar o Portão ([Concentrado]), Casulo das Trevas ([Agarrado], [Pesadelo]; alimenta o Motor), Veneno Mortal, Rito do Rancor dos Mortos (supremo; quem cai vira [Servo]) |
 | Praga | Maldição (Tabu: em combate, o seu dano para em 1 PV) | A Hora Chega | Correntes do Rancor ([Agarrado], [Agonia]), Cinco Perdas ([Cego], [Silenciado], [Atordoado]), Enxame Descartável ([Envenenado], [Servo]), Rosto Emprestado ([Oculto]; o golpe deixa [Confuso]), Tempo Roubado ([Sentença: 4]), Grande Praga (supremo; [Sentença: 3], [Agonia: NP]) |
 | Projeção de Pensamento | Conjuração | Mente Dividida | Eco de Pensamento, Voz do Pensamento, Projeção, Muitas Projeções, Exército de Pensamento, Projeção Astral (supremo) |
 | Raio | Conjuração | Para-raios | Relâmpago, Corrente Elétrica, Passo do Relâmpago, Trovão, Tempestade de Raios, Palácio do Trovão (supremo) |
@@ -1083,7 +1088,7 @@ REGRAS (a geral e uma página por Magia).
 | Reflexão | Conjuração | Golpe Torto | Torção, Reflexo, Miragem, Corpo Torcido, Mundo Torcido, Reflexão Total (supremo) |
 | Roubo | Proibida (Tabu: em combate, a Defesa Mágica cai [NP], e o Festival pega aliados) | Mão Leve | Caça Física, Caça da Raposa ([Desarmado]), Sinal Zero ([Oculto]), Caçada de Assalto, Caçada Louca (Dreno), Festival da Caça (supremo, Dreno) |
 | Ruptura Crítica | Maldição (Tabu: em combate, a Iniciativa cai [NP] e a Defesa Mágica [NP÷2]) | Armadura Viva | Romper o Limite ([Ímpeto]), Corte Certeiro, Estocadas do Céu, Vendaval de Cortes, Onda do Caos (metade da Defesa), Golpe que Parte Montanhas (supremo, o Ímpeto dobrado, sem Fadiga) |
-| Sangue Demoníaco | Proibida (Tabu: em combate, a Recuperação cai [NP] e [Fraqueza (Radiância): NP÷2]) | Demônio Cinzento (o terceiro feitiço da cena: [Despertado] e [Voando]) | Ácido ([Deterioração], [Fissurado]), Neve Negra ([Pavio] em até 3), Beco sem Saída (detona os [Pavio], sem teste), Onda do Sangue Negro ([Chama Negra]), Despertar do Demônio (transforma na hora; [Medo]), Nebulosa Negra (supremo; [Cego]) |
+| Sangue Demoníaco | Proibida (Tabu: em combate, a Recuperação cai [NP], a Defesa Mágica cai [NP÷2] e [Fraqueza (Radiância): NP÷2]) | Demônio Cinzento (o terceiro feitiço da cena: [Despertado] e [Voando]) | Ácido ([Deterioração], [Fissurado]), Neve Negra ([Pavio] em até 3), Beco sem Saída (detona os [Pavio], sem teste), Onda do Sangue Negro ([Chama Negra]), Despertar do Demônio (transforma na hora; [Medo]), Nebulosa Negra (supremo; [Cego]) |
 | Selo do Tempo | Perdida (Tabu: em combate, as Defesas Física e Mágica caem [NP÷2]) | O Tempo é Seu | Raio de Âge (sem teste), Selar o Tempo, Arranhão de Âge, Passo Fora do Tempo, Transbordamento, Alma Divina: Cronos (supremo, [Paralisado]) |
 | Shikigami | Conjuração | Mil Papéis | Torrente de Shikigami ([Servo]), Véu de Ilusão ([Oculto] em você ou num aliado), Prisão de Papel, Bomba Negra de Shikigami, Revoada de Shikigami, Mil Bonecos de Papel (supremo) |
 | Sol | Ancestral (o supremo no NP 10; o Relógio do Sol) | Orgulho do Leão | Sol Cruel ([Espelho] igual ao Sol), Punho de Hélio, Proeminência Louca, Chama do Orgulho, Espada Divina, Proeminência Final (supremo, NP 10; estende o [O Único]) |
@@ -1098,7 +1103,7 @@ REGRAS (a geral e uma página por Magia).
 | Visão | Perdida (Tabu: em combate, a Iniciativa cai [NP]; o Presságio) | Olhos do Oráculo | Ver o Golpe, Profecia (um 6), Destino Fixo ([Marcado] e um 1), Caleidoscópio (dois dados), Futuro Visto, O Fim Já Escrito (supremo, sem teste, os dados viram dano) |
 
 As categorias são as da série: Conjuração (a magia sai do corpo), Portadora (precisa de um objeto equipado), Perdida e
-Proibida (mais fortes, com um Tabu), Ancestral (feitiços supremos de NP 10) e Maldição (o poder dos
+Proibida (mais fortes, com um Tabu), Ancestral (sem Tabu, 1d6 a mais nos feitiços de ataque e o supremo no NP 10) e Maldição (o poder dos
 demônios, que não é magia: forte como as Perdidas, com um Tabu, e o [Silenciado] não impede os feitiços). O catálogo vai
 crescer em lotes, até cobrir
 a magia de cada personagem (as Trevas, a Areia, o Teleporte...). Com o Fogo, o Raio, a

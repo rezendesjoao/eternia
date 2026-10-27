@@ -2,7 +2,7 @@
   "name": "Duas Sentenças",
   "type": "skill",
   "system": {
-    "description": "<p>Precisa de pelo menos 2 Runas e gasta todas: a luz se divide sobre até 2 alvos a até 4 Qd. Teste de Precisão contra a Resistência; [(Runas)d6 + Poder Mágico + (Runas×NP)÷2] de dano mágico de [Radiância] em cada um.</p><p><strong>Custo:</strong> Ódio 1 + as Runas gastas.</p>",
+    "description": "<p>Precisa de pelo menos 2 Runas e gasta todas: a luz se divide sobre até 2 alvos a até 4 Qd. Teste de Precisão contra a Resistência; [(Runas)d6 + Poder Mágico + (Runas×NP)÷4] de dano mágico de [Radiância] em cada um.</p><p><strong>Custo:</strong> Ódio 1 + as Runas gastas.</p>",
     "tags": [
       "Spell",
       "Magic Attack",
@@ -27,7 +27,7 @@
     },
     "damage": {
       "dice": "@spent",
-      "mod": "floor(@spent*@cr/2)",
+      "mod": "floor(@spent*@cr/4)",
       "type": "magical",
       "recovery": false
     },

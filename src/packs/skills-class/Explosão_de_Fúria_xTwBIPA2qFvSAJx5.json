@@ -2,7 +2,7 @@
   "name": "Explosão de Fúria",
   "type": "skill",
   "system": {
-    "description": "<p>Com pelo menos 2 de Ira, você entra em [Fúria: Ira × 2] até o fim da cena (ou até gastar uma Ação Maior para sair): +[Ira × 2] de dano nos ataques, −1d6 nas Esquivas, e só habilidades que atacam ou de movimento. Não gasta a Ira.</p><hr><p><em>O mundo fica vermelho e estreito, do tamanho de um inimigo.</em></p>",
+    "description": "<p>Com pelo menos 2 de Ira, você entra em [Fúria: metade da Ira, para cima] até o fim da cena (ou até gastar uma Ação Maior para sair): esse valor a mais de dano nos ataques, −1d6 nas Esquivas, e só habilidades que atacam ou de movimento. Não gasta a Ira.</p><hr><p><em>O mundo fica vermelho e estreito, do tamanho de um inimigo.</em></p>",
     "tags": [
       "Dedication"
     ],
@@ -48,7 +48,7 @@
         "eternia": {
           "statusData": {
             "statusId": "berserk",
-            "value": "@motor.value*2"
+            "value": "ceil(@motor.value/2)"
           },
           "expires": "endOfScene"
         }

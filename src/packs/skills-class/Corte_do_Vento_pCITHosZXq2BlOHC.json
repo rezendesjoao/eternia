@@ -2,7 +2,7 @@
   "name": "Corte do Vento",
   "type": "skill",
   "system": {
-    "description": "<p>Use no Processo de Iniciativa: gasta a sua Ação Maior desta rodada. Com a lâmina Embainhada e pelo menos 1 Corte, o saque solta uma lâmina de vento contra um alvo a até 3 Qd: [(2×Cortes)d6 + Poder de Ataque] de dano físico, sem Corte Perfeito. Gasta todos os Cortes e deixa a lâmina Desembainhada.</p>",
+    "description": "<p>Use no Processo de Iniciativa: gasta a sua Ação Maior desta rodada. Com a lâmina Embainhada e pelo menos 1 Corte, o saque solta uma lâmina de vento contra um alvo a até 3 Qd: [(1 + Cortes)d6 + Poder de Ataque] de dano físico, sem Corte Perfeito. Gasta todos os Cortes e deixa a lâmina Desembainhada.</p>",
     "tags": [
       "Weapon Attack",
       "Iai"
@@ -25,7 +25,7 @@
       "stat": "accuracy"
     },
     "damage": {
-      "dice": "2*@spent",
+      "dice": "1+@spent",
       "mod": 0,
       "type": "physical",
       "recovery": false

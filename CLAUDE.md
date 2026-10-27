@@ -22,6 +22,10 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   seletor do mesmo peso, como `.application.creation-wizard .wz-hero .wz-name input[type="text"]`.
 
 ## Compêndios
+- **A matemática do sistema fica em `docs/matematica.md`.** Toda classe, Magia, habilidade de raça ou criatura nova (e
+  toda mudança de número numa delas) segue a régua de lá: o valor por rodada das classes e as Leis do Motor, os dados
+  dos feitiços por categoria e o peso do Tabu, o orçamento das raças, o dano dos inimigos por NP e o alvo do encontro
+  (o grupo de 4 perde pelo menos 65% dos PV no NP 1, +1,5% por NP). Confira no simulador antes de entrar.
 - Fonte em `src/packs/<pacote>/*.json`, em português. Campos lidos pela automação (tags, Momento, alcance, alvo,
   custo, limite, tipos, subtipos) ficam em inglês; `module/i18n/` traduz na tela.
 - Raças, classes e habilidades gerais e de combate da Eternia ficam em `races-classes`, `skills-racial`,

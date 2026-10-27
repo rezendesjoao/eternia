@@ -2,7 +2,7 @@
   "name": "Execução",
   "type": "skill",
   "system": {
-    "description": "<p>Só contra o Alvo do Contrato, com pelo menos 2 Brechas: [(1 + Brechas)d6 + Poder de Ataque + Brechas×NP] de dano físico. Gasta todas as Brechas.</p><p><strong>A queda:</strong> se o golpe deixar o Alvo com PV iguais ou menores que [Brechas gastas × (NP+5)], ele cai (0 PV). Não vale contra [Chefe].</p><p><strong>Custo:</strong> Ódio 1 + as Brechas gastas.</p><hr><p><em>Ninguém viu a lâmina entrar. Todos viram o corpo cair.</em></p>",
+    "description": "<p>Só contra o Alvo do Contrato, com pelo menos 2 Brechas: [(1 + Brechas)d6 + Poder de Ataque + Brechas×NP] de dano físico. Gasta todas as Brechas.</p><p><strong>A queda:</strong> se o golpe deixar o Alvo com PV iguais ou menores que [Brechas gastas × (NP+5)], ele cai (0 PV). Não vale contra [Chefe].</p><p><strong>Contrato cheio:</strong> com as Brechas no Teto, a Execução acerta sem Teste de Esquiva.</p><p><strong>Custo:</strong> Ódio 1 + as Brechas gastas.</p><hr><p><em>Ninguém viu a lâmina entrar. Todos viram o corpo cair.</em></p>",
     "tags": [
       "Weapon Attack"
     ],
@@ -24,7 +24,7 @@
       "stat": "accuracy"
     },
     "damage": {
-      "dice": "1+@spent",
+      "dice": "1+@spent*@use.per",
       "mod": "@spent*@cr",
       "type": "physical",
       "recovery": false

@@ -3,9 +3,11 @@
  * player reads them.
  *
  * The blade is sheathed or drawn; sheathed, it gathers Cuts (Cortes) at each Setup Process, up to the cap
- * (2, +1 every 5 CR, +2 on the Full Moon Path, + the SR of Long Sheath). The Iai (Initiative, it spends the
- * round's Major Action) draws and spends every Cut: each adds 2D + CR to its damage, and with a full Sheath it
- * is a Perfect Cut (automatic hit, + [CR×2+10]). Any other weapon attack draws the blade and loses the Cuts.
+ * (2, +1 every 5 CR, +1 on the Full Moon Path, + Long Sheath). The Iai (Initiative, it spends the round's Major
+ * Action) draws and spends every Cut: each adds 1d6 + CR÷2 to its damage (1d6 alone on the Lightning Path, which
+ * strikes a whole line), and with a full Sheath it is a Perfect Cut: an automatic hit, and the first one of each
+ * scene adds [CR×2+10] (on the Full Moon Path, every Perfect Cut adds [CR÷2+5]). Any other weapon attack draws the
+ * blade and loses the Cuts.
  *
  * State in flags.eternia.motor.samurai:
  *   state   "sheathed" | "drawn"
@@ -14,6 +16,7 @@
  *   first   no Iai yet in this combat (First Blade)
  *   perfectLast  the last Iai was a Perfect Cut (Eclipse)
  *   attacked     "<combat>.<round>" of the last attack (Lunar Tide)
+ *   bonusUsed    the first Perfect Cut of this combat already had its [CR×2+10]
  */
 import { L } from "../settings.mjs";
 import { takeDamage } from "../conditions/damage.mjs";
@@ -28,14 +31,14 @@ export const SAMURAI_ID = "samurai";
 /** Identifier of a Samurai skill. */
 const T = name => `samurai-${name}`;
 
-const DEFAULTS = { state: "sheathed", value: 0, last: 0, first: true, perfectLast: 0, attacked: null };
+const DEFAULTS = { state: "sheathed", value: 0, last: 0, first: true, perfectLast: 0, attacked: null, bonusUsed: false };
 
 /** The Path the actor follows (none with only the Lesser Sheath). */
 const path = (actor, lesser) => (lesser ? null : pathOf(actor, SAMURAI_ID));
 
-/** Cuts a Perfect Cut needs: the cap, one less on the Full Moon with the Apex. */
+/** Cuts a Perfect Cut needs: the cap, one less with the Apex (Empty Mind). */
 function perfectNeed(actor, max) {
-  return ((pathOf(actor, SAMURAI_ID) === "lua") && hasApex(actor, SAMURAI_ID)) ? Math.max(1, max - 1) : max;
+  return hasApex(actor, SAMURAI_ID) ? Math.max(1, max - 1) : max;
 }
 
 export const SAMURAI = {
@@ -49,7 +52,7 @@ export const SAMURAI = {
   max(actor, { lesser }) {
     let max = 2 + Math.floor(crOf(actor) / 5);
     if (lesser) max = Math.max(1, Math.floor(max / 2));
-    else if (pathOf(actor, SAMURAI_ID) === "lua") max += 2;
+    else if (pathOf(actor, SAMURAI_ID) === "lua") max += 1;
     return max + talentRank(actor, T("bainha-longa"));
   },
 
@@ -60,11 +63,9 @@ export const SAMURAI = {
     return (toInt(data.value) < need) ? [L("Motor.Samurai.FullMoonIssue", { n: need })] : [];
   },
 
-  /** Empty Mind: the Iai spends no action. Hand on the Hilt: Sheathe is a Move Action. */
+  /** Hand on the Hilt: Sheathe is a Move Action. */
   actionOf(actor, item, motor, action) {
-    const id = identifierOf(item);
-    if ((id === T("iai")) && hasApex(actor, SAMURAI_ID)) return "none";
-    if ((id === T("embainhar")) && talentOf(actor, T("mao-no-cabo"))) return "move";
+    if ((identifierOf(item) === T("embainhar")) && talentOf(actor, T("mao-no-cabo"))) return "move";
     return action;
   },
 
@@ -81,10 +82,21 @@ export const SAMURAI = {
     }
     // Any attack of the round (a draw, Kesagiri…): Lunar Tide only gains in rounds without one.
     if (motor.draw || (item.system.tags ?? []).includes("Weapon Attack")) plan.changes.attacked = roundKey(actor);
+    // The Iai's formula reads @use.flat (the CR÷2 of each Cut; none on the Lightning Path) and @use.bonus.
+    plan.vars.flat = (followed === "relampago") ? 0 : 1;
+    plan.vars.bonus = 0;
     if (motor.perfect && !lesser) {
       const first = data.first && !!talentOf(actor, T("primeira-lamina"));
       const full = toInt(data.value) >= perfectNeed(actor, max);
-      if (first || full) plan.perfect = (followed === "lua") ? 2 : 1;
+      if (first || full) {
+        plan.perfect = 1;
+        // Full Moon: every Perfect Cut adds [CR÷2+5]; otherwise the first one of the scene adds [CR×2+10].
+        if (followed === "lua") plan.vars.bonus = Math.floor(crOf(actor) / 2) + 5;
+        else if (!data.bonusUsed) {
+          plan.vars.bonus = crOf(actor) * 2 + 10;
+          plan.changes.bonusUsed = true;
+        }
+      }
       plan.changes.first = false;
       plan.changes.perfectLast = plan.perfect;
     }
@@ -141,12 +153,13 @@ export const SAMURAI = {
     await setMotor(actor, SAMURAI_ID, { ...data, value: toInt(data.value) + 1 });
   },
 
-  /** Lunar Tide: Cleanup Process of a round without attacking, sheathed: +1 Cut. */
+  /** Lunar Tide: Cleanup Process of a round without attacking, sheathed: +1 Cut (+2 with Empty Mind). */
   async onCleanup(actor, { lesser }, combat, round) {
     if ((path(actor, lesser) !== "lua") || !talentOf(actor, T("mare-lunar"))) return;
     const data = motorData(actor, SAMURAI_ID);
     if ((data.state !== "sheathed") || (data.attacked === `${combat.id}.${round}`)) return;
-    await setMotor(actor, SAMURAI_ID, { ...data, value: toInt(data.value) + 1 });
+    const n = hasApex(actor, SAMURAI_ID) ? 2 : 1;
+    await setMotor(actor, SAMURAI_ID, { ...data, value: toInt(data.value) + n });
   },
 
   async onCombatEnd(actor) {

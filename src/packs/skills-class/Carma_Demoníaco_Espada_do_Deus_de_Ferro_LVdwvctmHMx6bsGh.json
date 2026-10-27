@@ -2,7 +2,7 @@
   "name": "Carma Demoníaco: Espada do Deus de Ferro",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Dragão de Ferro. Arte Secreta do Matador de Dragões.</strong> Só na Força do Dragão: o seu braço vira uma espada de ferro do tamanho de uma árvore, contra um inimigo engajado com você. Teste de Precisão contra a Esquiva; [(2 + 2×Escamas)d6 + Poder de Ataque + Escamas×NP] de dano mágico de [Ferro], e quem ela acerta fica [Exposto]. Gasta todas as Escamas, e a Força acaba.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>A lâmina desce com o peso de uma montanha, e o chão racha antes do golpe.</em></p>",
+    "description": "<p><strong>Dragão de Ferro. Arte Secreta do Matador de Dragões.</strong> Só na Força do Dragão: o seu braço vira uma espada de ferro do tamanho de uma árvore, contra um inimigo engajado com você. Teste de Precisão contra a Esquiva; [(1 + Escamas)d6 + Poder de Ataque + (Escamas×NP)÷2] de dano mágico de [Ferro], e quem ela acerta fica [Exposto]. Gasta todas as Escamas, e a Força acaba.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>A lâmina desce com o peso de uma montanha, e o chão racha antes do golpe.</em></p>",
     "tags": [
       "Magic Attack",
       "Iron"
@@ -25,8 +25,8 @@
       "stat": "accuracy"
     },
     "damage": {
-      "dice": "2+2*@spent",
-      "mod": "@attack+@spent*@cr",
+      "dice": "1+@spent",
+      "mod": "@attack+floor(@spent*@cr/2)",
       "type": "magical",
       "recovery": false,
       "noPower": true

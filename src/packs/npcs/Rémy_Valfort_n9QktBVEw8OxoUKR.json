@@ -794,7 +794,7 @@
       "name": "Contrato",
       "type": "skill",
       "system": {
-        "description": "<p><strong>Motor do Assassino.</strong> Você firma um <strong>Contrato</strong> com um inimigo, o <strong>Alvo</strong>, e cada golpe nele abre <strong>Brechas</strong>. Todo combate começa sem Contrato.</p><ul><li><strong>Ganha:</strong> sempre que qualquer personagem acerta o Alvo com um ataque, +1 Brecha.</li><li><strong>Gasta:</strong> a Execução, só no Alvo, gasta todas as Brechas: cada uma soma 1d6 + NP ao dano.</li><li><strong>Teto:</strong> 3 Brechas, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> firmar um Contrato com outro Alvo perde as Brechas. Quando o Alvo cai, o Contrato está cumprido e você fica livre.</li><li><strong>A queda:</strong> se a Execução deixar o Alvo com PV iguais ou menores que [Brechas gastas × (NP+5)], ele cai (0 PV). Não vale contra [Chefe].</li></ul><p><em>Um nome, um rosto, e a paciência de esperar o grupo abrir o caminho.</em></p>",
+        "description": "<p><strong>Motor do Assassino.</strong> Você firma um <strong>Contrato</strong> com um inimigo, o <strong>Alvo</strong>, e cada golpe nele abre <strong>Brechas</strong>. Todo combate começa sem Contrato.</p><ul><li><strong>Ganha:</strong> sempre que qualquer personagem acerta o Alvo com um ataque, +1 Brecha.</li><li><strong>Gasta:</strong> a Execução, só no Alvo, gasta todas as Brechas: cada uma soma 1d6 + NP ao dano.</li><li><strong>Teto:</strong> 3 Brechas, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> firmar um Contrato com outro Alvo perde as Brechas. Quando o Alvo cai, o Contrato está cumprido e você fica livre.</li><li><strong>A queda:</strong> se a Execução deixar o Alvo com PV iguais ou menores que [Brechas gastas × (NP+5)], ele cai (0 PV). Não vale contra [Chefe].</li><li><strong>Contrato cheio:</strong> a Execução feita com as Brechas no Teto acerta sem Teste de Esquiva.</li></ul><p><em>Um nome, um rosto, e a paciência de esperar o grupo abrir o caminho.</em></p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -832,10 +832,6 @@
           "motor": {
             "id": "assassino",
             "role": "core"
-          },
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.QwhijlqoFZdFZNCf"
           }
         }
       },
@@ -996,7 +992,7 @@
       "name": "Execução",
       "type": "skill",
       "system": {
-        "description": "<p>Só contra o Alvo do Contrato, com pelo menos 2 Brechas: [(1 + Brechas)d6 + Poder de Ataque + Brechas×NP] de dano físico. Gasta todas as Brechas.</p><p><strong>A queda:</strong> se o golpe deixar o Alvo com PV iguais ou menores que [Brechas gastas × (NP+5)], ele cai (0 PV). Não vale contra [Chefe].</p><p><strong>Custo:</strong> Ódio 1 + as Brechas gastas.</p><hr><p><em>Ninguém viu a lâmina entrar. Todos viram o corpo cair.</em></p>",
+        "description": "<p>Só contra o Alvo do Contrato, com pelo menos 2 Brechas: [(1 + Brechas)d6 + Poder de Ataque + Brechas×NP] de dano físico. Gasta todas as Brechas.</p><p><strong>A queda:</strong> se o golpe deixar o Alvo com PV iguais ou menores que [Brechas gastas × (NP+5)], ele cai (0 PV). Não vale contra [Chefe].</p><p><strong>Contrato cheio:</strong> com as Brechas no Teto, a Execução acerta sem Teste de Esquiva.</p><p><strong>Custo:</strong> Ódio 1 + as Brechas gastas.</p><hr><p><em>Ninguém viu a lâmina entrar. Todos viram o corpo cair.</em></p>",
         "tags": [
           "Weapon Attack"
         ],
@@ -1018,7 +1014,7 @@
           "stat": "accuracy"
         },
         "damage": {
-          "dice": "1+@spent",
+          "dice": "1+@spent*@use.per",
           "mod": "@spent*@cr",
           "type": "physical",
           "recovery": false
@@ -1042,11 +1038,7 @@
             "spend": "all",
             "execute": true
           },
-          "damageText": "(1+Brechas)d6 + [Poder de Ataque] + Brechas×NP Físico",
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.QwhijlqoFZdFZNCf"
-          }
+          "damageText": "(1+Brechas)d6 + [Poder de Ataque] + Brechas×NP Físico"
         }
       },
       "_stats": {
@@ -1071,7 +1063,7 @@
       "name": "Caminho do Carrasco",
       "type": "skill",
       "system": {
-        "description": "<p><strong>Reescreve a Execução.</strong> Ela só sai com o Contrato cheio, mas a queda vale com PV iguais ou menores que [Brechas gastas × (NP+10)].</p><p><strong>Talentos do Caminho:</strong> Machado Erguido (NP 3) e Última Palavra (NP 7).</p><hr><p><em>Um golpe por Contrato, e nenhum Contrato sem fim.</em></p>",
+        "description": "<p><strong>Reescreve a Execução.</strong> Ela só sai com o Contrato cheio, mas cada Brecha soma 2d6 + NP (em vez de 1d6 + NP) e a queda vale com PV iguais ou menores que [Brechas gastas × (NP+10)].</p><p><strong>Talentos do Caminho:</strong> Machado Erguido (NP 3) e Última Palavra (NP 7).</p><hr><p><em>Um golpe por Contrato, e nenhum Contrato sem fim.</em></p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -1109,10 +1101,6 @@
           "path": {
             "class": "assassino",
             "id": "carrasco"
-          },
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.QwhijlqoFZdFZNCf"
           }
         }
       },

@@ -2,7 +2,7 @@
   "name": "Luz Despedaçadora: Broca do Céu",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Dragão do Céu. Arte Secreta do Matador de Dragões.</strong> Só na Força do Dragão: você junta o vento num redemoinho que fura tudo numa linha de até 4 Qd. Teste de Precisão contra a Resistência de cada alvo da Linha; [(1 + Escamas)d6 + Poder de Ataque + Escamas×NP] de dano mágico de [Vento], e quem ele acerta fica [Derrubado]. Gasta todas as Escamas, e a Força acaba.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>O céu inteiro parece girar em volta de um ponto só.</em></p>",
+    "description": "<p><strong>Dragão do Céu. Arte Secreta do Matador de Dragões.</strong> Só na Força do Dragão: você junta o vento num redemoinho que fura tudo numa linha de até 4 Qd. Teste de Precisão contra a Resistência de cada alvo da Linha; [(1 + Escamas)d6 + Poder de Ataque + (Escamas×NP)÷2] de dano mágico de [Vento], e quem ele acerta fica [Derrubado]. Gasta todas as Escamas, e a Força acaba.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>O céu inteiro parece girar em volta de um ponto só.</em></p>",
     "tags": [
       "Magic Attack",
       "Wind"
@@ -26,7 +26,7 @@
     },
     "damage": {
       "dice": "1+@spent",
-      "mod": "@attack+@spent*@cr",
+      "mod": "@attack+floor(@spent*@cr/2)",
       "type": "magical",
       "recovery": false,
       "noPower": true

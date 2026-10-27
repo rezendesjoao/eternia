@@ -1014,7 +1014,7 @@
       "name": "Tiro Certeiro",
       "type": "skill",
       "system": {
-        "description": "<p>Com pelo menos 1 de Mira e uma arma [Arco], [Besta] ou [Arremesso] na mão principal: o tiro que você esperou. [(2 + Mira)d6 + Poder de Ataque + Mira×NP] de dano físico. A Mira toda se gasta.</p><p><strong>Mira cheia</strong> (Mira no Teto): o alvo atingido fica [Exposto].</p><p><strong>Custo:</strong> Ódio 1 + a Mira gasta.</p><hr><p><em>Um sopro, e a flecha já está do outro lado.</em></p>",
+        "description": "<p>Com pelo menos 1 de Mira e uma arma [Arco], [Besta] ou [Arremesso] na mão principal: o tiro que você esperou. [(1 + Mira)d6 + Poder de Ataque + Mira×NP] de dano físico. A Mira toda se gasta.</p><p><strong>Mira cheia</strong> (Mira no Teto): o alvo atingido fica [Exposto].</p><p><strong>Custo:</strong> Ódio 1 + a Mira gasta.</p><hr><p><em>Um sopro, e a flecha já está do outro lado.</em></p>",
         "tags": [
           "Weapon Attack",
           "Ranged Attack"
@@ -1037,8 +1037,8 @@
           "stat": "accuracy"
         },
         "damage": {
-          "dice": "2+@spent",
-          "mod": "@spent*@use.flat+@use.cold*(@cr*2+10)",
+          "dice": "1+@spent",
+          "mod": "@spent*@use.flat+@use.cold*(@cr+5)",
           "type": "physical",
           "recovery": false
         },
@@ -1064,11 +1064,7 @@
             },
             "spend": "all"
           },
-          "damageText": "(2+Mira)d6 + [Poder de Ataque] + Mira×NP Físico",
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.oa9LfRymCrnXNtuS"
-          }
+          "damageText": "(2+Mira)d6 + [Poder de Ataque] + Mira×NP Físico"
         }
       },
       "_stats": {

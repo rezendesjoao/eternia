@@ -143,10 +143,12 @@ export const ASSASSINO = {
     }
     if (motor.execute) {
       const apex = !lesser && hasApex(actor, ASSASSINO_ID);
-      plan.vars = { ...plan.vars, cut: (followed === "carrasco") ? (apex ? 15 : 10) : 5 };
+      // The Executioner: 2d6 + CR per Breach (@use.per), and the fall up to Breaches × (CR+10).
+      plan.vars = { ...plan.vars, cut: (followed === "carrasco") ? (apex ? 15 : 10) : 5, per: (followed === "carrasco") ? 2 : 1 };
       const target = actorFrom(data.target);
       const full = toInt(data.value) >= max;
-      if ((followed === "carrasco") && full && talentOf(actor, T("machado-erguido"))) plan.autoHit = true;
+      // A full Contract: the Execution hits without a Dodge Check (not the Lesser Contract).
+      if (!lesser && full) plan.autoHit = true;
       if (target && talentOf(actor, T("na-garganta")) && OPEN.some(s => target.statuses?.has(s))) plan.autoHit = true;
       if ((followed === "fantasma") && apex && !data.firstExec) plan.autoHit = true;
       plan.changes.firstExec = true;
@@ -167,6 +169,11 @@ export const ASSASSINO = {
       out.push({ statusId: "poisoned", value: Math.floor(crOf(actor) / 2) + 2, name: L("Motor.Assassino.Poison") });
     }
     if (identifierOf(item) === T("corte-de-tendao")) out.push({ statusId: "slowed", value: null, name: item.name });
+    // Raised Axe (the Executioner): the Execution leaves the Target [Exposed].
+    const axe = talentOf(actor, T("machado-erguido"));
+    if (axe && !lesser && (identifierOf(item) === T("execucao")) && (path(actor, lesser) === "carrasco")) {
+      out.push({ statusId: "exposed", value: null, name: axe.name });
+    }
     return out;
   },
 

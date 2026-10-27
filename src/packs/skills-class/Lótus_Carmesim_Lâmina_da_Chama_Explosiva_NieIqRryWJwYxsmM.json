@@ -2,7 +2,7 @@
   "name": "Lótus Carmesim: Lâmina da Chama Explosiva",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Dragão de Fogo. Arte Secreta do Matador de Dragões.</strong> Só na Força do Dragão: você gira e solta todas as Escamas em lâminas de fogo, em todos os inimigos a até 1 Qd. Teste de Precisão contra a Esquiva de cada um; [(1 + Escamas)d6 + Poder de Ataque + Escamas×NP] de dano mágico de [Chama], e quem as lâminas acertam fica [Queimando: Escamas×2]. Gasta todas as Escamas, e a Força acaba.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Uma espiral vermelha se abre como uma flor, e cada pétala corta.</em></p>",
+    "description": "<p><strong>Dragão de Fogo. Arte Secreta do Matador de Dragões.</strong> Só na Força do Dragão: você gira e solta todas as Escamas em lâminas de fogo, em todos os inimigos a até 1 Qd. Teste de Precisão contra a Esquiva de cada um; [(1 + Escamas)d6 + Poder de Ataque + (Escamas×NP)÷2] de dano mágico de [Chama], e quem as lâminas acertam fica [Queimando: Escamas×2]. Gasta todas as Escamas, e a Força acaba.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Uma espiral vermelha se abre como uma flor, e cada pétala corta.</em></p>",
     "tags": [
       "Magic Attack",
       "Flame"
@@ -26,7 +26,7 @@
     },
     "damage": {
       "dice": "1+@spent",
-      "mod": "@attack+@spent*@cr",
+      "mod": "@attack+floor(@spent*@cr/2)",
       "type": "magical",
       "recovery": false,
       "noPower": true

@@ -5,6 +5,9 @@
  * and the names inside its texts and items, replaced as the compendium had them), and the ones brought before 0.36 take
  * the token art (the Rifts, their light too). Only the old names and Foundry's own icons are replaced: what the GM wrote
  * stays.
+ * Version 2 (0.42, docs/matematica.md): the 17 monsters whose damage went up (the party loses at least 65% of its HP
+ * per encounter, more at higher CR) take the damage of their attacks again: each skill with damage, by name, takes the
+ * compendium's damage, text and monster rule (the acid of the Bog's embrace). Their HP stays.
  */
 import { SYSTEM_ID } from "../settings.mjs";
 
@@ -156,9 +159,52 @@ function tokenChanges(data, source) {
   return changes;
 }
 
-async function run() {
+/** The monsters of the compendium whose damage went up in 0.42 (version 2). */
+const DAMAGE_042 = new Set(["2lxB27dxYneozYzf", "6h3V8Wbfz0iJxVIw", "8NvUhMnaRyqzRkhg", "90ylIHmyFWVsGitd", "ABzg5y8NnwsPPim7", "AUe07k6AlwL58yaS", "CJFrRICLYY3sh6Jh", "CkhKRE70mCL9DaG6", "HkGDyVSdVwMmXMUh", "QuHpyFWwbDiRUuZK", "XHQDEBynAv2Rg0rA", "ZJ7O443V1jPfFxSN", "cQT8OBd1Rr476m14", "dO7jJkg4fKhwhwU4", "dn2syyY6tBP2PQPW", "qgglrIIrmgbachDa", "s852m3qnXl3CWKUy"]);
+
+/** Version 2: the skills with damage of a world monster take the compendium's damage, text and monster rule. */
+function damageChanges(items, source) {
+  const updates = [];
+  for (const item of items) {
+    if (item.type !== "skill") continue;
+    const from = source.items.find(i => (i.type === "skill") && (i.name === item.name));
+    const damage = from?.system?.damage;
+    if (!from || !(damage?.dice || damage?.mod) || damage.recovery) continue;
+    const update = { _id: item._id };
+    if (!foundry.utils.objectsEqual(item.system?.damage ?? {}, damage)) update["system.damage"] = foundry.utils.deepClone(damage);
+    if (item.system?.description !== from.system.description) update["system.description"] = from.system.description;
+    const rule = from.flags?.[SYSTEM_ID]?.monster;
+    if (rule && !foundry.utils.objectsEqual(item.flags?.[SYSTEM_ID]?.monster ?? {}, rule)) update[`flags.${SYSTEM_ID}.monster`] = foundry.utils.deepClone(rule);
+    if (Object.keys(update).length > 1) updates.push(update);
+  }
+  return updates;
+}
+
+async function damage042(pack, prefix) {
+  let items = 0;
+  for (const actor of game.actors) {
+    const uuid = actor._stats?.compendiumSource;
+    if (!uuid?.startsWith(prefix) || !DAMAGE_042.has(uuid.slice(prefix.length))) continue;
+    const source = (await pack.getDocument(uuid.slice(prefix.length)).catch(() => null))?._source;
+    if (!source) continue;
+    const updates = damageChanges(actor._source.items, source);
+    if (!updates.length) continue;
+    await actor.updateEmbeddedDocuments("Item", updates, { eterniaMigration: true });
+    items += updates.length;
+  }
+  console.log(`${SYSTEM_ID} | Bestiary: ${items} attacks of the Empire's monsters with the damage of 0.42`);
+}
+
+async function run(done = 0) {
   const pack = game.packs.get(`${SYSTEM_ID}.bestiary`);
   if (!pack) return true;
+  // the names first: version 2 finds the attacks by their names of 0.37
+  if (done < 1) await renames(pack);
+  if (done < 2) await damage042(pack, `Compendium.${SYSTEM_ID}.bestiary.Actor.`);
+  return true;
+}
+
+async function renames(pack) {
   const prefix = `Compendium.${SYSTEM_ID}.bestiary.Actor.`;
   // The compendium monster of each world monster made from one of the Empire's
   const sources = new Map();
@@ -203,4 +249,4 @@ async function run() {
   return true;
 }
 
-export const BESTIARY_MIGRATION = { id: "bestiary", setting: "bestiaryMigrationVersion", version: 1, run };
+export const BESTIARY_MIGRATION = { id: "bestiary", setting: "bestiaryMigrationVersion", version: 2, run };

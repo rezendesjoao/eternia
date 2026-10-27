@@ -4,6 +4,7 @@ import { syncChestImage } from "../piles/piles.mjs";
 import { completeChecksChange, legacyChecksUpdate, prepareMonsterChecks } from "../helpers/monster-checks.mjs";
 import { classStats, raceStats } from "../helpers/character-options.mjs";
 import { getHands } from "../helpers/hands.mjs";
+import { equipmentMagic } from "../helpers/magic-power.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
 import { collectRollBonus, isSkillFilterKey } from "../helpers/roll-bonuses.mjs";
 import { ATTRIBUTES_PHASE } from "./eterniaActiveEffect.mjs";
@@ -354,9 +355,11 @@ export class EterniaActor extends Actor {
     bStatus.power.attack.base = mainWeapon?.system.attack ?? 0;
     bStatus.power.magic.base = mainWeapon?.system.magic ?? 0;
 
-    // Assign values to total (accessories such as Magic stones add to the magic power)
+    // Assign values to total. Magic Power has one source (the main weapon or the best Magic Stone, see
+    // helpers/magic-power.mjs), and the accessories over the equippable limit give none.
     bStatus.power.attack.total = bStatus.power.attack.base + (bStatus.power.attack.mod ?? 0);
-    bStatus.power.magic.total = bStatus.power.magic.base + (bStatus.power.magic.mod ?? 0) + sum(accessories, "magic");
+    const magicAccessories = accessoryBonus.map(item => ({ magic: item.system.magic, tags: item.system.tags }));
+    bStatus.power.magic.total = equipmentMagic(bStatus.power.magic.base, magicAccessories) + (bStatus.power.magic.mod ?? 0);
     bStatus.power.restoration.total = bStatus.power.restoration.mod ?? 0;
 
     /**

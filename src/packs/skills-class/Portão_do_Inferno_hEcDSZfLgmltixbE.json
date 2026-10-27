@@ -2,7 +2,7 @@
   "name": "Portão do Inferno",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Maldição.</strong> Você abre os portões do inferno. Por eles saem demônios menores, passam você e os seus e entram as almas de quem cai perto de você: você as come, e elas viram poder. Um casulo de trevas prende quem você quiser num pesadelo e transforma o rancor dele em força para você. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, Fome sem Fim:</strong> nada mais alimenta você: em combate, a sua Recuperação cai [NP] (as suas curas curam menos). Só as almas matam a fome.</li><li><strong>Traço, Banquete de Almas:</strong> você é imune a [Envenenado], e quando uma criatura cai (0 PV) a até 4 Qd de você, em combate, você come a alma dela: +1 no Motor da sua classe e você recupera [NP] PV. Uma vez por rodada.</li><li><strong>Feitiços:</strong> Anel de Invocação e Chamado das Almas (NP 1), Atravessar o Portão e Casulo das Trevas (NP 3), Veneno Mortal (NP 5) e o feitiço supremo Rito do Rancor dos Mortos (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Rito do Rancor dos Mortos pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você nunca está com fome. Você está sempre com fome.</em></p>",
+    "description": "<p><strong>Maldição.</strong> Você abre os portões do inferno. Por eles saem demônios menores, passam você e os seus e entram as almas de quem cai perto de você: você as come, e elas viram poder. Um casulo de trevas prende quem você quiser num pesadelo e transforma o rancor dele em força para você. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, Fome sem Fim:</strong> nada mais alimenta você: em combate, a sua Recuperação cai [NP] (as suas curas curam menos) e a sua Defesa Mágica cai [NP÷2]. Só as almas matam a fome.</li><li><strong>Traço, Banquete de Almas:</strong> você é imune a [Envenenado], e quando uma criatura cai (0 PV) a até 4 Qd de você, em combate, você come a alma dela: +1 no Motor da sua classe e você recupera [NP] PV. Uma vez por rodada.</li><li><strong>Feitiços:</strong> Anel de Invocação e Chamado das Almas (NP 1), Atravessar o Portão e Casulo das Trevas (NP 3), Veneno Mortal (NP 5) e o feitiço supremo Rito do Rancor dos Mortos (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Rito do Rancor dos Mortos pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você nunca está com fome. Você está sempre com fome.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -71,6 +71,13 @@
             "key": "system.battle-status.power.restoration.mod",
             "type": "add",
             "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          },
+          {
+            "key": "system.battle-status.defense.magic.mod",
+            "type": "add",
+            "value": "-floor(@cr/2)",
             "phase": "initial",
             "priority": null
           }

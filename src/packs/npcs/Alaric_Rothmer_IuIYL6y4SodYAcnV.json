@@ -1075,7 +1075,8 @@
                   "type": "hasSkill",
                   "value": "Ponto de Ataque"
                 }
-              ]
+              ],
+              "consumeOn": "attack"
             }
           },
           "_stats": {
@@ -1119,10 +1120,6 @@
             },
             "spend": 1,
             "order": "attack"
-          },
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.vVQcxWIHl3nFcYO9"
           }
         }
       },
@@ -1267,7 +1264,7 @@
       "name": "Caminho do Marechal",
       "type": "skill",
       "system": {
-        "description": "<p><strong>Reescreve o alcance das Ordens.</strong> Ordem: Atacar!, Ordem: Avançar! e Ordem: Segurar! valem para até dois aliados ao mesmo tempo, pelo mesmo custo.</p><p><strong>Talentos do Caminho:</strong> Comando em Cadeia (NP 3) e Linha de Comando (NP 7).</p><hr><p><em>Uma ordem, duas lâminas.</em></p>",
+        "description": "<p><strong>Reescreve o alcance das Ordens.</strong> Ordem: Atacar!, Ordem: Avançar! e Ordem: Segurar! valem para até dois aliados ao mesmo tempo; para dois aliados, gastam 2 Ordens.</p><p><strong>Talentos do Caminho:</strong> Comando em Cadeia (NP 3) e Linha de Comando (NP 7).</p><hr><p><em>Uma ordem, duas lâminas.</em></p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -1367,10 +1364,6 @@
           "path": {
             "class": "comandante",
             "id": "marechal"
-          },
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.vVQcxWIHl3nFcYO9"
           }
         }
       },
@@ -1396,7 +1389,7 @@
       "name": "Comando Supremo",
       "type": "skill",
       "system": {
-        "description": "<p><strong>Ápice do Hierofante (NP 10).</strong> Uma vez por rodada, uma Ordem não gasta a sua ação.</p><ul><li><strong>Marechal:</strong> essa Ordem vale para até três aliados.</li><li><strong>Capitão:</strong> você começa todo combate com as Ordens no Teto.</li><li><strong>Bandeira:</strong> a Bandeira alcança todos os aliados no combate.</li></ul><hr><p><em>O campo inteiro respira no ritmo da sua voz.</em></p>",
+        "description": "<p><strong>Ápice do Hierofante (NP 10).</strong> Uma vez por rodada, uma Ordem não gasta a sua ação.</p><ul><li><strong>Marechal:</strong> essa Ordem vale para dois aliados gastando 1 Ordem só.</li><li><strong>Capitão:</strong> você começa todo combate com as Ordens no Teto.</li><li><strong>Bandeira:</strong> a Bandeira alcança todos os aliados no combate.</li></ul><hr><p><em>O campo inteiro respira no ritmo da sua voz.</em></p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -1431,11 +1424,7 @@
           "kind": "bends",
           "branch": "apex",
           "choiceOnly": true,
-          "apex": "comandante",
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.vVQcxWIHl3nFcYO9"
-          }
+          "apex": "comandante"
         }
       },
       "_stats": {

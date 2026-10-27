@@ -256,7 +256,7 @@
       "name": "Dracônicos",
       "type": "race",
       "system": {
-        "description": "<p><strong>Atributos:</strong> FOR +1, POD +1. <strong>PV:</strong> +12. <strong>Destino:</strong> +0.</p><p><strong>Habilidades inatas:</strong> um Sangue de Brasa, à escolha da linhagem (Fogo, Ferro, Céu, Raio, Branco, Sombras ou Veneno), e Sopro.</p><p><strong>Os estágios da forma:</strong> <strong>II · Escamado</strong> (NP 3): Comer o Elemento. <em>Rito:</em> comer uma chama, um raio ou um metal sagrado (de um altar, de uma forja, de uma tempestade).<br><strong>III · Chifrudo</strong> (NP 7): Chifres e Cauda. <em>Rito:</em> vencer sozinho uma fera grande e rugir sobre o corpo dela.<br><strong>IV · Alado</strong> (NP 12): Asas e +1 em FOR ou POD. <em>Rito:</em> absorver uma Lágrima de dragão.<br><strong>V · O Dragão</strong> (NP 16): O Dragão. <em>Rito:</em> voar sobre as Montanhas do Fim.</p><hr><p><em>Olhos dourados de pupila em fenda, escamas nas têmporas e nos pulsos, pele sempre quente e fumaça na respiração quando a raiva sobe. Descendem dos dragões que tomaram parceiros humanos antes da Domação, vivem nas cidades dos vulcões e nas falésias perto dos ninhos e são os melhores ferreiros do mundo e os piores vizinhos numa briga. Comem fogo como quem come pão, e enjoam em qualquer carroça.</em></p>",
+        "description": "<p><strong>Atributos:</strong> FOR +1, POD +1. <strong>PV:</strong> +16. <strong>Destino:</strong> +0.</p><p><strong>Habilidades inatas:</strong> um Sangue de Brasa, à escolha da linhagem (Fogo, Ferro, Céu, Raio, Branco, Sombras ou Veneno), e Sopro.</p><p><strong>Os estágios da forma:</strong> <strong>II · Escamado</strong> (NP 3): Comer o Elemento. <em>Rito:</em> comer uma chama, um raio ou um metal sagrado (de um altar, de uma forja, de uma tempestade).<br><strong>III · Chifrudo</strong> (NP 7): Chifres e Cauda. <em>Rito:</em> vencer sozinho uma fera grande e rugir sobre o corpo dela.<br><strong>IV · Alado</strong> (NP 12): Asas e +1 em FOR ou POD. <em>Rito:</em> absorver uma Lágrima de dragão.<br><strong>V · O Dragão</strong> (NP 16): O Dragão. <em>Rito:</em> voar sobre as Montanhas do Fim.</p><hr><p><em>Olhos dourados de pupila em fenda, escamas nas têmporas e nos pulsos, pele sempre quente e fumaça na respiração quando a raiva sobe. Descendem dos dragões que tomaram parceiros humanos antes da Domação, vivem nas cidades dos vulcões e nas falésias perto dos ninhos e são os melhores ferreiros do mundo e os piores vizinhos numa briga. Comem fogo como quem come pão, e enjoam em qualquer carroça.</em></p>",
         "tags": [],
         "identifier": "draconic",
         "attributes": {
@@ -265,7 +265,7 @@
           "pow": 1,
           "int": 0
         },
-        "hp": 12,
+        "hp": 16,
         "fate": 0,
         "grants": [
           {
@@ -870,7 +870,7 @@
       "name": "Comer o Elemento",
       "type": "skill",
       "system": {
-        "description": "<p>Você come um pouco do elemento da sua linhagem que esteja ao alcance (uma chama, um metal, uma rajada de vento, uma faísca, gelo, sombra ou veneno) e recupera [NP×3] PV. Uma vez por cena.</p><hr><p><em>Você morde a chama como quem morde pão quente e mastiga o raio como quem mastiga gelo. O elemento desce pela garganta e acende alguma coisa que estava se apagando.</em></p>",
+        "description": "<p>Você come um pouco do elemento da sua linhagem que esteja ao alcance (uma chama, um metal, uma rajada de vento, uma faísca, gelo, sombra ou veneno) e recupera [NP×2] PV. Uma vez por cena.</p><hr><p><em>Você morde a chama como quem morde pão quente e mastiga o raio como quem mastiga gelo. O elemento desce pela garganta e acende alguma coisa que estava se apagando.</em></p>",
         "tags": [],
         "timing": "Minor",
         "checkType": "",
@@ -891,7 +891,7 @@
         },
         "damage": {
           "dice": 0,
-          "mod": "@cr*3",
+          "mod": "@cr*2",
           "type": "",
           "recovery": true,
           "noPower": true
@@ -904,11 +904,7 @@
         "eternia": {
           "minRank": 3,
           "choiceOnly": true,
-          "raceStage": 2,
-          "grantedBy": {
-            "type": "race",
-            "source": "Compendium.eternia.races-classes.Item.id6vxNwZmttMjVbS"
-          }
+          "raceStage": 2
         }
       },
       "_stats": {

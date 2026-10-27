@@ -20,6 +20,9 @@
  * Shadow, Poison) in their element choice, and the Magia Matador de Deuses is the Matador de Deuses do Céu.
  * Version 7, the review of the Magias (0.26): the Magias and their spells that the characters have take their
  * compendium version again (each Magia's Trait, the spells that changed), keeping their Skill Rank and use records.
+ * Version 8, the balance of 0.42 (docs/matematica.md): the class skills, Magias and spells, and the racial skills that
+ * changed take their compendium version again the same way (the Skill Rank kept, up to the new maximum), and the
+ * Draconic race items their HP (+16).
  */
 const KUDEN_TYPES = new Set(["kudenResource", "kudenResourceFull", "sceneDay", "sceneNight", "sceneNoon", "sceneOpenSky",
   "sceneDarkness", "sceneMiasma", "sceneNoMiasma", "targetBossRaid", "hpAtMost"]);
@@ -155,6 +158,100 @@ async function cleanItems(items, parent, done) {
   return updates.length;
 }
 
+/** The class skills (by identifier) and the racial skills (by compendium id) that changed in 0.42. */
+const BALANCE_CLASS = new Set([
+  "arca-arca", "arca-flecha", "arca-luz", "arca-purgar", "arco-grande-arvore-arco-grande-arvore",
+  "artes-brancas-artes-brancas", "artes-negras-esfera-da-morte", "artes-negras-predacao-da-morte",
+  "artes-negras-toque-da-morte", "assassino-carrasco", "assassino-contrato", "assassino-execucao",
+  "assassino-machado-erguido", "berserker-dragao", "berserker-explosao", "berserker-furia-dos-ancestrais",
+  "berserker-furia-imortal", "berserker-gigante", "berserker-golpe-selvagem", "berserker-ira",
+  "berserker-olhos-vermelhos", "berserker-sangue-fervente", "cacador-aguia", "cacador-concentracao",
+  "cacador-olhar-frio", "cacador-olho-do-ceu", "cacador-respiracao-contida", "cacador-tiro-certeiro",
+  "cacador-tiro-impossivel", "caos-caos", "caos-forma", "caos-realidade", "comandante-alvo-prioritario",
+  "comandante-bandeira", "comandante-clarim-de-guerra", "comandante-comando-supremo", "comandante-marechal",
+  "comandante-ordem-atacar", "comandante-ponto-de-ataque", "contra-ataque-contra-ataque",
+  "contra-ataque-golpe-do-rancor", "criacao-abraco-da-rainha", "criacao-criacao", "criacao-gladio-da-grande-terra",
+  "criacao-martelo-duplo", "desastre-desastre", "desastre-gota-condensada", "desastre-murchar",
+  "desastre-vinha-amaldicoada", "espinhos-espinhos", "fadas-brilho", "fadas-fadas", "fadas-luz", "guardiao-baluarte",
+  "guardiao-golpe", "guardiao-ira-do-bastiao", "guardiao-martelo-do-bastiao", "guardiao-onda-de-choque",
+  "guardiao-pedra-angular", "guardiao-retaliacao", "invocador-comando-ataque", "invocador-investida",
+  "invocador-invocar", "invocador-legiao", "invocador-pacto", "invocador-pacto-eterno", "invocador-pacto-menor", "invocador-selo", "invocador-tita",
+  "lampejo-faiscante", "lampejo-lampejo", "lampejo-rajada", "magoazul-alma-soberana", "magoazul-forma-perfeita",
+  "magoazul-golpe-inescapavel", "magoazul-take-over", "magobranco-duas-sentencas", "magobranco-lei",
+  "magobranco-lei-absoluta", "magobranco-lei-perfeita", "magobranco-reescrever", "magobranco-runa-guia",
+  "magobranco-runa-sagrada", "magobranco-sentenca-final", "magonegro-classe-s", "magonegro-colapso",
+  "magonegro-segunda-origem", "magovermelho-arsenal", "magovermelho-lamina-convocada", "magovermelho-panoplia",
+  "matador-abismo", "matador-carma-demoniaco", "matador-demonios-arco", "matador-demonios-matador-demonios",
+  "matador-deuses-matador-deuses", "matador-deuses-raio-matador-deuses-raio", "matador-lotus-carmesim",
+  "matador-luz-despedacadora", "matador-mandibula", "matador-nova-sagrada", "matador-rei-dragao", "matador-segunda",
+  "matador-trovao-rugente", "monge-corrente", "monge-corrente-infinita", "monge-golpe-final",
+  "monge-investida-do-tigre", "monge-montanha", "monge-punho-que-atravessa", "monge-tempestade", "pictomante-arma",
+  "pictomante-criatura", "pictomante-golpe-esculpido", "portao-inferno-chamado", "portao-inferno-portao-inferno",
+  "portao-inferno-veneno", "samurai-bainha", "samurai-bainha-longa", "samurai-contra-saque",
+  "samurai-corte-circular", "samurai-corte-do-vento", "samurai-iai", "samurai-lua", "samurai-mao-no-cabo",
+  "samurai-mente-vazia", "samurai-relampago", "samurai-silencio", "sangue-demoniaco-sangue-demoniaco",
+  "sol-chama-do-orgulho", "sol-espada-divina", "sol-proeminencia-louca", "sol-punho-de-helio", "sol-sol",
+  "sol-sol-cruel"
+]);
+const BALANCE_RACIAL = new Set([
+  "7E1mggdoGOD8QuPs", "IOxQ5fElUNU4QS24", "Kdh400VjaYkn8eB8", "KswX20cUPAQT9Vw5", "QQ0ddm1QULt33uY0",
+  "WtNsydeBGwRNhQR2", "Z7f2hSnBS8pvguh7", "ivk6bhPxmG6y2Ak1", "k8yKSVvSM8Tx7b1M", "nM0n1Ffk1pOwjJb7",
+  "sTxMEIOu32apqvt7"
+]);
+
+/** The skills of a compendium pack: by identifier (skills-class) or by id (skills-racial). */
+async function packSkills(name, key) {
+  const docs = await game.packs.get(`eternia.${name}`)?.getDocuments() ?? [];
+  return new Map(docs.map(d => [key(d), d]));
+}
+
+/**
+ * Version 8: the class and racial skills of 0.42 among these items take their compendium version again (name,
+ * picture, data, flags and effects), keeping their Skill Rank (up to the new maximum) and their use record; the
+ * Draconic race items take their new HP.
+ * @param {Collection<Item>|Item[]} items
+ * @param {Actor|null} parent
+ * @param {{classes: Map<string, Item>, racial: Map<string, Item>, races: Map<string, Item>}} sources
+ * @returns {Promise<number>}
+ */
+async function refreshBalance(items, parent, sources) {
+  let count = 0;
+  for (const item of items) {
+    if (item.type === "race") {
+      const race = sources.races.get(item._source.system?.identifier);
+      // only the old +12 (a GM's own number stays)
+      if (!race || (item._source.system?.hp !== 12)) continue;
+      const update = { _id: item.id, "system.hp": race.system.hp, "system.description": race.system.description };
+      if (parent) await parent.updateEmbeddedDocuments("Item", [update]);
+      else await item.update(update);
+      count++;
+      continue;
+    }
+    if (item.type !== "skill") continue;
+    const flags = item._source.flags?.eternia ?? {};
+    const compendiumId = String(item._source._stats?.compendiumSource ?? "").split(".").pop();
+    const source = BALANCE_CLASS.has(flags.identifier) ? sources.classes.get(flags.identifier)
+      : (BALANCE_RACIAL.has(compendiumId) ? sources.racial.get(compendiumId) : null);
+    if (!source) continue;
+    const data = source.toObject();
+    const max = Math.max(1, Number(data.system.skillRank?.max) || 1);
+    const rank = Math.min(Number(item._source.system?.skillRank?.value) || 1, max);
+    const eternia = { ...data.flags.eternia, ...(flags.usage ? { usage: flags.usage } : {}) };
+    const update = {
+      _id: item.id, name: data.name, img: data.img,
+      system: { ...data.system, skillRank: { ...data.system.skillRank, value: rank } },
+      flags: { ...item._source.flags, eternia: eternia }
+    };
+    if (parent) await parent.updateEmbeddedDocuments("Item", [update], { recursive: false, diff: false });
+    else await item.update(update, { recursive: false, diff: false });
+    const old = item.effects.map(e => e.id);
+    if (old.length) await item.deleteEmbeddedDocuments("ActiveEffect", old);
+    if (data.effects?.length) await item.createEmbeddedDocuments("ActiveEffect", data.effects, { keepId: true });
+    count++;
+  }
+  return count;
+}
+
 /** The Magias and spells of the compendium, by identifier (read once per run). */
 async function magiaSources() {
   const docs = await game.packs.get("eternia.skills-class")?.getDocuments() ?? [];
@@ -197,11 +294,19 @@ async function refreshMagias(items, parent, sources) {
 async function run(done) {
   let changed = 0;
   const sources = (done < 7) ? await magiaSources() : null;
+  const balance = (done < 8) ? {
+    classes: await packSkills("skills-class", d => d.flags?.eternia?.identifier),
+    racial: await packSkills("skills-racial", d => d.id),
+    races: new Map(((await game.packs.get("eternia.races-classes")?.getDocuments({ type: "race" })) ?? [])
+      .filter(d => d.system.identifier === "draconic").map(d => [d.system.identifier, d]))
+  } : null;
   changed += await cleanItems(game.items, null, done);
   if (sources) changed += await refreshMagias(game.items, null, sources);
+  if (balance) changed += await refreshBalance(game.items, null, balance);
   for (const actor of game.actors) {
     changed += await cleanItems(actor.items, actor, done);
     if (sources) changed += await refreshMagias(actor.items, actor, sources);
+    if (balance) changed += await refreshBalance(actor.items, actor, balance);
     if (done >= 1) continue;
     const effects = effectChanges(actor);
     if (effects.length) await actor.updateEmbeddedDocuments("ActiveEffect", effects);
@@ -216,4 +321,4 @@ async function run(done) {
   return true;
 }
 
-export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 7, run };
+export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 8, run };

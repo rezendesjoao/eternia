@@ -494,7 +494,7 @@
       "name": "Maldição",
       "type": "skill",
       "system": {
-        "description": "<p>Use quando um ataque seu acertar. O alvo fica [Maldito] até o fim da cena: não recupera PV de nenhuma forma, e efeitos não lhe dão [Barreira] nem [Regeneração].</p><hr><p><em>A partir do ferimento, a escrita do seu Livro se espalha pela pele do inimigo como tinta em papel molhado. Por onde ela passa, as feridas param de fechar, e qualquer luz de cura se apaga ao tocar a pele.</em></p>",
+        "description": "<p>Use quando um ataque seu acertar. O alvo fica [Maldito] e [Enfraquecido: NP÷2] até o fim da cena: não recupera PV de nenhuma forma, efeitos não lhe dão [Barreira] nem [Regeneração], e os ataques dele causam −NP÷2 de dano.</p><hr><p><em>A partir do ferimento, a escrita do seu Livro se espalha pela pele do inimigo como tinta em papel molhado. Por onde ela passa, as feridas param de fechar, e qualquer luz de cura se apaga ao tocar a pele.</em></p>",
         "tags": [],
         "timing": "Instant",
         "checkType": "",
@@ -565,15 +565,59 @@
           "showIcon": 1,
           "_id": "KVVEkh076eYt8G6l",
           "_key": "!actors.items.effects!rVho0eWeLw57pX3J.AdnLMjYIJW6jyYKN.KVVEkh076eYt8G6l"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "weakened",
+                "value": "floor(@cr/2)"
+              },
+              "expires": "endOfScene",
+              "renew": 999
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Maldição: Enfraquecido",
+          "img": "systems/eternia/assets/ui/status/weakened.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "weakened"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "gyhopVvAiYrxwZck",
+          "_key": "!actors.items.effects!rVho0eWeLw57pX3J.AdnLMjYIJW6jyYKN.gyhopVvAiYrxwZck"
         }
       ],
       "flags": {
         "eternia": {
-          "choiceOnly": true,
-          "grantedBy": {
-            "type": "race",
-            "source": "Compendium.eternia.races-classes.Item.SH6YrhpBBf42yaFT"
-          }
+          "choiceOnly": true
         }
       },
       "_stats": {

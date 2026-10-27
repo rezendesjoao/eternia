@@ -3,7 +3,7 @@
  * reads them.
  *
  * The monk's strikes link into a chain of Links (Elos): the Opening Strike and the Quick Link add one each, and the
- * Final Strike spends them all, 2D + CR each (with a full Chain, the target is [Dazed]). The chain breaks when one of
+ * Final Strike spends them all, (1 + Links)d6 + Links × CR (with a full Chain, the target is [Dazed]). The chain breaks when one of
  * the monk's turns ends without a Chain skill, an enemy's attack that takes HP away loses one Link, and every combat
  * starts with none. The strikes need a [Martial Arts] weapon in the main hand, or both hands empty.
  *
@@ -11,6 +11,7 @@
  *   value   Links
  *   struck  "<combat>.<round>" of the last Chain skill (the turn-end break)
  *   hurt    "<combat>.<round>" of the last HP lost to an attack (River's Living Tide)
+ *   pierceUsed  Piercing Fist already gave this combat its automatic hit
  */
 import { L } from "../settings.mjs";
 import { getHands } from "../helpers/hands.mjs";
@@ -27,7 +28,7 @@ export const MONGE_ID = "monge";
 /** Identifier of a Monk skill. */
 const T = name => `monge-${name}`;
 
-const DEFAULTS = { state: "aberta", value: 0, struck: null, hurt: null };
+const DEFAULTS = { state: "aberta", value: 0, struck: null, hurt: null, pierceUsed: false };
 
 /** What a full Chain frees the monk of, with Unmoving Heart. */
 const CLEARED = ["dazed", "staggered", "confused", "slowed"];
@@ -89,16 +90,22 @@ export const MONGE = {
     if (motor.chain || motor.keep || item.flags?.eternia?.magicSpell) plan.changes.struck = roundKey(actor);
     if (id === T("golpe-final")) {
       const full = !lesser && (max > 0) && (toInt(data.value) >= max);
-      plan.vars = { ...plan.vars, full: full ? 1 : 0, flat: (followed === "tempestade") ? 1 : 2 };
-      plan.per = ((followed === "montanha") || (followed === "tempestade")) ? 1 : 2;
+      // (base + Links)d6 + Links × CR × flat÷2: the Mountain loses the base die, the Storm counts CR÷2.
+      plan.vars = { ...plan.vars, full: full ? 1 : 0, flat: (followed === "tempestade") ? 1 : 2, base: (followed === "montanha") ? 0 : 1 };
+      plan.per = 1;
       const apex = !lesser && hasApex(actor, MONGE_ID);
-      if (full && (talentOf(actor, T("punho-que-atravessa")) || (apex && (followed === "montanha")))) plan.autoHit = true;
-      let keep = apex ? Math.floor(plan.spent / 2) : 0;
+      // The Mountain with the Apex always hits with a full Chain; Piercing Fist, once a combat.
+      if (full && apex && (followed === "montanha")) plan.autoHit = true;
+      else if (full && talentOf(actor, T("punho-que-atravessa")) && !data.pierceUsed) {
+        plan.autoHit = true;
+        plan.changes.pierceUsed = true;
+      }
+      let keep = (apex && (plan.spent > 0)) ? 1 : 0;
       if ((followed === "tempestade") && talentOf(actor, T("ciclone"))) keep = Math.max(keep, 1);
       plan.gain += keep;
     }
     if ((id === T("chute-giratorio")) && !lesser && hasApex(actor, MONGE_ID) && (followed === "tempestade")) {
-      plan.gain += Math.floor(plan.spent / 2);
+      plan.gain += (plan.spent > 0) ? 1 : 0;
     }
     return plan;
   },

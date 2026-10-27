@@ -736,7 +736,7 @@
       "name": "Asas de Luz",
       "type": "skill",
       "system": {
-        "description": "<p>Você abre as asas e recebe [Voando] até o fim da cena; para pousar, tire o estado. Fora de combate, você voa livremente.</p><hr><p><em>As penas surgem do nada, feitas de luz sólida, e se abrem com o som de um sino distante. Cada batida deixa no ar um rastro de poeira dourada que demora a se apagar.</em></p>",
+        "description": "<p>Você abre as asas e recebe [Voando] até o fim da cena; enquanto voa, tem +1d6 nas Esquivas contra ataques corpo a corpo. Para pousar, tire o estado. Fora de combate, você voa livremente.</p><hr><p><em>As penas surgem do nada, feitas de luz sólida, e se abrem com o som de um sino distante. Cada batida deixa no ar um rastro de poeira dourada que demora a se apagar.</em></p>",
         "tags": [],
         "timing": "Move",
         "checkType": "",
@@ -796,7 +796,15 @@
           "img": "systems/eternia/assets/ui/status/flying.svg",
           "type": "base",
           "system": {
-            "changes": []
+            "changes": [
+              {
+                "key": "eternia.passive.closeDodge",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
           },
           "description": "",
           "statuses": [
@@ -813,11 +821,7 @@
         "eternia": {
           "choiceOnly": true,
           "minRank": 7,
-          "raceStage": 3,
-          "grantedBy": {
-            "type": "race",
-            "source": "Compendium.eternia.races-classes.Item.EIO5aUf1MA5yflW5"
-          }
+          "raceStage": 3
         }
       },
       "_stats": {

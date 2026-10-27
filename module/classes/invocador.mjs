@@ -48,13 +48,13 @@ const path = (actor, lesser) => (lesser ? null : pathOf(actor, INVOCADOR_ID));
 /** The spirits a summoner can call: the Lesser Pact only knows the wolf. */
 const spiritsOf = lesser => (lesser ? ["lobo"] : SPIRITS);
 
-/** HP a Link costs: CR+3; Legion CR/2+2; Titan twice that (back to the normal with the Apex). */
+/** HP a Link costs: CR/2+2; Legion CR/4+1; Titan twice that (back to the normal with the Apex). */
 export function linkCost(actor, lesser) {
   const cr = crOf(actor);
   const followed = path(actor, lesser);
-  if (followed === "legiao") return Math.floor(cr / 2) + 2;
-  if ((followed === "tita") && !hasApex(actor, INVOCADOR_ID)) return 2 * (cr + 3);
-  return cr + 3;
+  if (followed === "legiao") return Math.floor(cr / 4) + 1;
+  if ((followed === "tita") && !hasApex(actor, INVOCADOR_ID)) return 2 * (Math.floor(cr / 2) + 2);
+  return Math.floor(cr / 2) + 2;
 }
 
 /** The summoner's HP now. */

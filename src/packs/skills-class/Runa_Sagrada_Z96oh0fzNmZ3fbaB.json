@@ -2,7 +2,7 @@
   "name": "Runa Sagrada",
   "type": "skill",
   "system": {
-    "description": "<p>Precisa de pelo menos 1 Runa e gasta todas: as runas acesas descem juntas sobre um alvo a até 4 Qd. Teste de Precisão contra a Resistência; [(1 + Runas)d6 + Poder Mágico + Runas×NP] de dano mágico de [Radiância].</p><p><strong>Custo:</strong> Ódio 1 + as Runas gastas.</p><hr><p><em>Uma coluna de luz branca, e no chão, por um instante, a Lei escrita em letras de fogo.</em></p>",
+    "description": "<p>Precisa de pelo menos 1 Runa e gasta todas: as runas acesas descem juntas sobre um alvo a até 4 Qd. Teste de Precisão contra a Resistência; [(1 + Runas)d6 + Poder Mágico + (Runas×NP)÷2] de dano mágico de [Radiância].</p><p><strong>Custo:</strong> Ódio 1 + as Runas gastas.</p><hr><p><em>Uma coluna de luz branca, e no chão, por um instante, a Lei escrita em letras de fogo.</em></p>",
     "tags": [
       "Spell",
       "Magic Attack",
@@ -28,7 +28,7 @@
     },
     "damage": {
       "dice": "1+@spent",
-      "mod": "@spent*@cr",
+      "mod": "floor(@spent*@cr/2)",
       "type": "magical",
       "recovery": false
     },

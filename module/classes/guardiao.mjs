@@ -3,17 +3,20 @@
  * as the player reads them.
  *
  * Every enemy attack declared against the guardian lays one more Layer (Camada) on the Bulwark, up to the cap (3, +1
- * every 5 CR, + the SR of High Wall, +2 on the Fortress with the Apex). In combat each Layer is [Cancel: 2] against
- * any damage ([Cancel: 3] with Cornerstone, 1 for the Lesser Bulwark): the passive effect of the Bulwark skill,
- * eternia.passive.cancel = @motor.value × @motor.layer. The Bulwark Strike spends every Layer: + (1 + Layers)D +
- * Layers × CR, and the target is [Taunted]. A round in which no enemy attacked the guardian costs a Layer at the
- * Cleanup Process (not on the Fortress Path).
+ * every 5 CR, + the SR of High Wall, +2 on the Fortress with the Apex). In combat each Layer is [Cancel: 1] against
+ * any damage ([Cancel: 2] with Cornerstone): the passive effect of the Bulwark skill, eternia.passive.cancel =
+ * @motor.value × @motor.layer. The Bulwark Strike spends every Layer: (1 + Layers)d6 + Attack Power, and the target is
+ * [Taunted]. A round in which no enemy attacked the guardian costs a Layer at the Cleanup Process (not on the Fortress
+ * Path). The automatic hit of Bastion's Hammer and the bonus of Bastion's Wrath come once a combat; Retaliation, once a
+ * round.
  *
  * State in flags.eternia.motor.guardiao:
  *   value           Layers
  *   attacked        "<combat>.<round>" of the last enemy attack against the guardian (the Cleanup decay)
  *   attackers       actor uuids of the enemies that attacked it in the round `attackersRound` (Bastion's Wrath)
  *   ward, wardName  the ally sworn by the Oath of Protection: enemy attacks against it feed the Bulwark too
+ *   hammerUsed, wrathUsed  Bastion's Hammer and Bastion's Wrath were used in this combat
+ *   retaliated      "<combat>.<round>" of the last Retaliation
  */
 import { L } from "../settings.mjs";
 import { takeDamage } from "../conditions/damage.mjs";
@@ -29,13 +32,16 @@ export const GUARDIAO_ID = "guardiao";
 /** Identifier of a Guardian skill. */
 const T = name => `${GUARDIAO_ID}-${name}`;
 
-const DEFAULTS = { state: "erguido", value: 0, attacked: null, attackers: [], attackersRound: null, ward: null, wardName: "" };
+const DEFAULTS = {
+  state: "erguido", value: 0, attacked: null, attackers: [], attackersRound: null, ward: null, wardName: "",
+  hammerUsed: false, wrathUsed: false, retaliated: null
+};
 
 /** The Path the actor follows (none with only the Lesser Bulwark). */
 const path = (actor, lesser) => (lesser ? null : pathOf(actor, GUARDIAO_ID));
 
-/** [Cancel] of each Layer: 2, 3 with Cornerstone, 1 for the Lesser Bulwark. */
-const layerCancel = (actor, lesser) => (lesser ? 1 : (talentOf(actor, T("pedra-angular")) ? 3 : 2));
+/** [Cancel] of each Layer: 1, 2 with Cornerstone. */
+const layerCancel = (actor, lesser) => ((!lesser && talentOf(actor, T("pedra-angular"))) ? 2 : 1);
 
 /** The token of an actor on its scene (a synthetic actor's own). */
 const tokenOf = actor => actor?.token ?? actor?.getActiveTokens?.(false, true)?.[0] ?? null;
@@ -102,12 +108,17 @@ export const GUARDIAO = {
     if (id === T("golpe")) {
       // Fortress: the strike spends half the Layers (rounded up), and counts only those.
       if (followed === "fortaleza") plan.spent = Math.ceil(toInt(data.value) / 2);
-      // Bastion's Hammer: with the Bulwark at its cap, the strike hits without a Dodge Check.
-      if (!lesser && talentOf(actor, T("martelo-do-bastiao")) && (toInt(data.value) >= max)) plan.autoHit = true;
-      // Bastion's Wrath: + [CR×2+10] against an enemy that attacked the guardian this round.
-      if ((followed === "retaliacao") && talentOf(actor, T("ira-do-bastiao"))) {
+      // Bastion's Hammer: once a combat, with the Bulwark at its cap, the strike hits without a Dodge Check.
+      if (!lesser && talentOf(actor, T("martelo-do-bastiao")) && (toInt(data.value) >= max) && !data.hammerUsed) {
+        plan.autoHit = true;
+        plan.changes.hammerUsed = true;
+      }
+      // Bastion's Wrath: once a combat, + [CR+5] against an enemy that attacked the guardian this round.
+      plan.vars.wrath = 0;
+      if ((followed === "retaliacao") && talentOf(actor, T("ira-do-bastiao")) && !data.wrathUsed) {
         const attackers = (data.attackersRound === roundKey(actor)) ? (data.attackers ?? []) : [];
         plan.vars.wrath = targetedActors().some(a => attackers.includes(a.uuid)) ? 1 : 0;
+        if (plan.vars.wrath) plan.changes.wrathUsed = true;
       }
     }
     // Living Wall: the Interception gives 2 Layers.
@@ -200,7 +211,7 @@ export const GUARDIAO = {
     });
   },
 
-  /** A dodged enemy attack: Stone on Stone (+1 Layer); Retaliation (the attacker takes Layers × CR, −1 Layer). */
+  /** A dodged enemy attack: Stone on Stone (+1 Layer); Retaliation (once a round, the attacker takes CR + 2, −1 Layer). */
   async onDodged(actor, { lesser }, attacker) {
     if (!combatOf(actor) || !areEnemies(actor, attacker)) return;
     const followed = path(actor, lesser);
@@ -210,9 +221,11 @@ export const GUARDIAO = {
       data = motorData(actor, GUARDIAO_ID);
     }
     const layers = toInt(data.value);
-    if ((followed !== "retaliacao") || !attacker || (layers < 1)) return;
-    await takeDamage(attacker, layers * crOf(actor), { what: pathSkill(actor)?.name ?? "", from: actor });
-    if (!hasApex(actor, GUARDIAO_ID)) await setMotor(actor, GUARDIAO_ID, { ...motorData(actor, GUARDIAO_ID), value: layers - 1 });
+    const key = roundKey(actor);
+    if ((followed !== "retaliacao") || !attacker || (layers < 1) || (data.retaliated === key)) return;
+    await takeDamage(attacker, crOf(actor) + 2, { what: pathSkill(actor)?.name ?? "", from: actor });
+    const after = motorData(actor, GUARDIAO_ID);
+    await setMotor(actor, GUARDIAO_ID, { ...after, value: hasApex(actor, GUARDIAO_ID) ? layers : layers - 1, retaliated: key });
   },
 
   /** Enemy attacks against the ward, or (Raised Shield) against an ally in the guardian's square. */

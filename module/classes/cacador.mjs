@@ -3,10 +3,11 @@
  * reads them.
  *
  * The hunter aims by standing still: +1 Aim at each Setup Process when its token didn't move in the round before
- * (+2 with Shooter's Focus), and +1 with Steady Aim (its Move Action spent without moving). Moving the token loses
- * all the Aim (the Falcon Path loses only 1 for up to 2 Sq; some talents give a free step). Sure Shot (Major, a
- * [Bow], [Crossbow] or [Throwing] weapon) spends it all: each point adds 1D + CR to the damage, and with a full Aim
- * the target is [Exposed]. Cap: 3, +1 every 5 CR (+2 on the Eagle Eye Path, + the SR of Hunter's Patience).
+ * (moved or not with Shooter's Focus), and +1 with Steady Aim (its Move Action spent without moving; +2 on the Eagle
+ * Eye Path). Moving the token loses all the Aim (the Falcon Path loses only 1 for up to 2 Sq; some talents give a free
+ * step). Sure Shot (Major, a [Bow], [Crossbow] or [Throwing] weapon) spends it all: (1 + Aim)d6 + Aim × CR, and with
+ * a full Aim the target is [Exposed]. Cold Gaze and Impossible Shot work once a combat. Cap: 3, +1 every 5 CR (+1 on
+ * the Eagle Eye Path, + the SR of Hunter's Patience).
  *
  * State in flags.eternia.motor.cacador:
  *   value   Aim
@@ -15,6 +16,7 @@
  *   step    "<combat>.<round>" of the last free step of Shooting on the Move
  *   dove    "<combat>.<round>" of a Falcon Dive: the next Shot that hits gains 1 Aim
  *   high    the High Ground taken in the Briefing: +1 Aim when the combat starts
+ *   coldUsed, impUsed  Cold Gaze and Impossible Shot were used in this combat
  */
 import { L } from "../settings.mjs";
 import { combatOf, toInt } from "../helpers/utils.mjs";
@@ -31,7 +33,7 @@ export const RANGED = ["Bow", "Crossbow", "Throwing"];
 /** Identifier of a Hunter skill. */
 const T = name => `cacador-${name}`;
 
-const DEFAULTS = { state: "firme", value: 0, moved: false, free: null, step: null, dove: null, high: false };
+const DEFAULTS = { state: "firme", value: 0, moved: false, free: null, step: null, dove: null, high: false, coldUsed: false, impUsed: false };
 
 /** The Path the actor follows (none with only the Lesser Aim). */
 const path = (actor, lesser) => (lesser ? null : pathOf(actor, CACADOR_ID));
@@ -69,7 +71,7 @@ export const CACADOR = {
   max(actor, { lesser }) {
     let max = 3 + Math.floor(crOf(actor) / 5);
     if (lesser) max = Math.max(1, Math.floor(max / 2));
-    else if (pathOf(actor, CACADOR_ID) === "aguia") max += 2;
+    else if (pathOf(actor, CACADOR_ID) === "aguia") max += 1;
     return max + talentRank(actor, T("paciencia"));
   },
 
@@ -83,19 +85,25 @@ export const CACADOR = {
   plan(actor, item, motor, { data, max, lesser, plan }) {
     const id = identifierOf(item);
     const followed = path(actor, lesser);
-    const apex = !lesser && hasApex(actor, CACADOR_ID);
     if (id === T("firmar")) {
-      plan.gain = apex ? 2 : 1;
+      plan.gain = (followed === "aguia") ? 2 : 1;
       // Shooter's Breath (Eagle Eye): +1 more without having moved this round
       if ((followed === "aguia") && !data.moved && talentOf(actor, T("respiracao-do-atirador"))) plan.gain += 1;
     }
     if (id === T("tiro-certeiro")) {
       const full = !lesser && isFull(data, max);
       plan.vars.full = full ? 1 : 0;
-      // Rain of Arrows: each point adds CR÷2 instead of CR (the whole CR again with the Apex)
-      plan.vars.flat = ((followed === "chuva") && !apex) ? Math.floor(crOf(actor) / 2) : crOf(actor);
-      plan.vars.cold = (full && talentOf(actor, T("olhar-frio"))) ? 1 : 0;
-      if (full && (followed === "aguia") && talentOf(actor, T("tiro-impossivel"))) plan.autoHit = true;
+      // Rain of Arrows: each point adds CR÷2 instead of CR
+      plan.vars.flat = (followed === "chuva") ? Math.floor(crOf(actor) / 2) : crOf(actor);
+      // Cold Gaze (+[CR+5]) and Impossible Shot (no Dodge Check, no [Exposed]): once a combat each, with a full Aim
+      plan.vars.cold = (full && talentOf(actor, T("olhar-frio")) && !data.coldUsed) ? 1 : 0;
+      if (plan.vars.cold) plan.changes.coldUsed = true;
+      plan.vars.unexposed = 0;
+      if (full && (followed === "aguia") && talentOf(actor, T("tiro-impossivel")) && !data.impUsed) {
+        plan.autoHit = true;
+        plan.vars.unexposed = 1;
+        plan.changes.impUsed = true;
+      }
       const targets = [...(game.user?.targets ?? [])].map(t => t.actor).filter(Boolean);
       if (talentOf(actor, T("presa-ferida")) && targets.length && targets.every(wounded)) plan.autoHit = true;
     }
@@ -124,7 +132,7 @@ export const CACADOR = {
     const hits = [];
     if (id === T("tiro-certeiro")) {
       if (toInt(use?.vars?.full)) {
-        hits.push({ statusId: "exposed", value: null, name: item.name });
+        if (!toInt(use?.vars?.unexposed)) hits.push({ statusId: "exposed", value: null, name: item.name });
         const wing = (followed === "falcao") && talentOf(actor, T("asa-quebrada"));
         if (wing) hits.push({ statusId: "prone", value: null, name: wing.name });
       }
@@ -158,14 +166,14 @@ export const CACADOR = {
   },
 
   /**
-   * Setup Process: +1 Aim when the token didn't move in the round before (+2 with Shooter's Focus), +1 hidden with
+   * Setup Process: +1 Aim when the token didn't move in the round before (moved or not with Shooter's Focus), +1 hidden with
    * Patient Ambush; never on the Eagle Eye Path, nor with the Lesser Aim. The round starts unmoved.
    */
   async onSetup(actor, { lesser }) {
     const data = motorData(actor, CACADOR_ID);
     let gain = 0;
     if (!lesser && (path(actor, lesser) !== "aguia")) {
-      if (!data.moved) gain += talentOf(actor, T("concentracao")) ? 2 : 1;
+      if (!data.moved || talentOf(actor, T("concentracao"))) gain += 1;
       if (actor.statuses?.has("hidden") && talentOf(actor, T("tocaia"))) gain += 1;
     }
     await setMotor(actor, CACADOR_ID, { ...data, value: toInt(data.value) + gain, moved: false });

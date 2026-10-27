@@ -17,6 +17,7 @@ import { L, SYSTEM_ID } from "../settings.mjs";
 import { escape, toInt } from "../helpers/utils.mjs";
 import { tagLabel, term } from "../i18n/terms.mjs";
 import { tagKey } from "../helpers/tag-catalog.mjs";
+import { equipmentMagic } from "../helpers/magic-power.mjs";
 import { fold } from "./magic-catalog.mjs";
 import { STATS, firstSentence, loadDocuments, skillSummary } from "./creation-catalog.mjs";
 
@@ -55,8 +56,8 @@ const TWO_HANDED = tagKey("Two-Handed");
 
 /**
  * The kit recommended for each class (by the class item's identifier), by item name, in the order it is bought: what
- * the class fights with (the Samurai's [Katana], the Hunter's [Bow], a caster's staff with the Grey Ring's Magic
- * Power), the armor of its band of HP and what helps its Motor. Each one costs 350 gold at most; why, in
+ * the class fights with (the Samurai's [Katana], the Hunter's [Bow], a caster's staff with the Sigil Guard's Magic
+ * Power on top), the armor of its band of HP and what helps its Motor. Each one costs 350 gold at most; why, in
  * ETERNIA.Wizard.Items.Kit.<id>.
  */
 export const KITS = {
@@ -69,18 +70,18 @@ export const KITS = {
   cacador: ["Arco de Caça", "Camisa de Couro", "Bracelete", "Brinco da Acuidade", "Panaceia I", "Joia do Renascimento I"],
   comandante: ["Lança Curta", "Broquel", "Armadura de Couro", "Colar da Empatia", "Joia do Renascimento I", "Panaceia I"],
   matador: ["Soqueira Kaiser", "Armadura de Couro", "Anel Cinzento", "Panaceia I"],
-  magonegro: ["Cajado de Carvalho", "Anel Cinzento", "Camisa de Couro", "Talismã Aoi (Amuleto da Flor Azul)", "Panaceia I"],
-  magobranco: ["Cajado de Carvalho", "Anel Cinzento", "Camisa de Couro", "Joia do Renascimento I", "Joia do Renascimento I",
+  magonegro: ["Cajado de Carvalho", "Guarda de Sigilos", "Camisa de Couro", "Talismã Aoi (Amuleto da Flor Azul)", "Panaceia I"],
+  magobranco: ["Cajado de Carvalho", "Guarda de Sigilos", "Camisa de Couro", "Joia do Renascimento I", "Joia do Renascimento I",
     "Panaceia I"],
-  magovermelho: ["Cajado de Carvalho", "Armadura de Couro", "Anel Cinzento", "Bracelete"],
-  magoazul: ["Cajado de Carvalho", "Anel Cinzento", "Armadura de Couro", "Panaceia I"],
-  invocador: ["Cajado de Carvalho", "Anel Cinzento", "Camisa de Couro", "Enciclopédia", "Panaceia I", "Joia do Renascimento I"],
+  magovermelho: ["Cajado de Carvalho", "Armadura de Couro", "Guarda de Sigilos", "Bracelete"],
+  magoazul: ["Cajado de Carvalho", "Guarda de Sigilos", "Armadura de Couro", "Panaceia I"],
+  invocador: ["Cajado de Carvalho", "Guarda de Sigilos", "Camisa de Couro", "Enciclopédia", "Panaceia I", "Joia do Renascimento I"],
   pictomante: ["Varinha de Carvalho", "Broquel", "Anel Cinzento", "Camisa de Couro", "Óculos do Artesão", "Panaceia I"]
 };
 /** A class without a kit of its own, by family. */
 const FAMILY_KITS = {
   physical: ["Espada Grande", "Armadura de Couro", "Bracelete", "Panaceia I"],
-  magic: ["Cajado de Carvalho", "Anel Cinzento", "Camisa de Couro", "Panaceia I"]
+  magic: ["Cajado de Carvalho", "Guarda de Sigilos", "Camisa de Couro", "Panaceia I"]
 };
 
 /* -------------------------------------------- */
@@ -350,8 +351,8 @@ export function gearLayout(units, have = { equipped: [], carried: 0 }) {
 }
 
 /**
- * What the equipped pieces add to the numbers of play, as the character's sheet counts them: the main weapon's Attack
- * and Magic Power, the accessories' Magic, the Accuracy of the weapons in the hands, the Defenses and the Initiative of
+ * What the equipped pieces add to the numbers of play, as the character's sheet counts them: the main weapon's Attack,
+ * the Magic Power (one source, the weapon or the best Magic Stone, plus the other accessories: helpers/magic-power.mjs), the Accuracy of the weapons in the hands, the Defenses and the Initiative of
  * the armor, the shield and the accessories, and their effects (the Bracelet's +1 Attack Power, a check's +1).
  * @param {object} layout   gearLayout()
  * @returns {{attack: number, magic: number, accuracy: number, pdef: number, mdef: number, initiative: number, checks: object}}
@@ -367,7 +368,7 @@ export function gearNumbers(layout) {
   for (const e of equipped) for (const [k, n] of Object.entries(e.bonus.checks)) checks[k] = (checks[k] ?? 0) + n;
   return {
     attack: (main?.stats.attack ?? 0) + bonus("attack"),
-    magic: (main?.stats.magic ?? 0) + sum(accessories, "magic") + bonus("magic"),
+    magic: equipmentMagic(main?.stats.magic ?? 0, accessories.map(e => ({ magic: e.stats.magic, tags: e.tags }))) + bonus("magic"),
     accuracy: sum(weapons, "accuracy"),
     pdef: sum(defenders, "pdef") + bonus("pdef"),
     mdef: sum(defenders, "mdef") + bonus("mdef"),

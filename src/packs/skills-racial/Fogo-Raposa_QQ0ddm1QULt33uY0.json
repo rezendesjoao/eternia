@@ -2,7 +2,7 @@
   "name": "Fogo-Raposa",
   "type": "skill",
   "system": {
-    "description": "<p>Causa [(NH+1)d6 + Poder Mágico] de dano mágico com a tag [Chama], e o alvo recebe [Queimando: NP].</p><p>Gaste um uso de Caudas para o fogo atingir também outro inimigo a até 2 Qd do alvo (inclua-o entre os alvos).</p><hr><p><em>Chamas azul-claras, frias ao toque de quem as conjura, brotam da ponta das caudas e correm pelo ar como raposas de fogo. Ao alcançar o alvo, mordem e não soltam mais, ardendo em silêncio.</em></p>",
+    "description": "<p>Causa [(NH+1)d6 + Poder Mágico] de dano mágico com a tag [Chama], e o alvo recebe [Queimando: NP÷2].</p><p>Gaste um uso de Caudas para o fogo atingir também outro inimigo a até 2 Qd do alvo (inclua-o entre os alvos).</p><hr><p><em>Chamas azul-claras, frias ao toque de quem as conjura, brotam da ponta das caudas e correm pelo ar como raposas de fogo. Ao alcançar o alvo, mordem e não soltam mais, ardendo em silêncio.</em></p>",
     "tags": [
       "Magic Attack",
       "Flame"
@@ -49,7 +49,7 @@
         "eternia": {
           "statusData": {
             "statusId": "burning",
-            "value": "@cr"
+            "value": "floor(@cr/2)"
           },
           "expires": "endOfScene"
         }

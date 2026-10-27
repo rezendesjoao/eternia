@@ -2,7 +2,7 @@
   "name": "Golpe Selvagem",
   "type": "skill",
   "system": {
-    "description": "<p>Com pelo menos 1 de Ira, você solta tudo num golpe: [(2 + Ira)d6 + Poder de Ataque + Ira×NP] de dano físico. Gasta toda a Ira.</p><hr><p><em>Não há técnica nenhuma. Só o peso do corpo inteiro atrás da arma.</em></p>",
+    "description": "<p>Com pelo menos 1 de Ira, você solta tudo num golpe: [(1 + Ira)d6 + Poder de Ataque + Ira×NP] de dano físico. Gasta toda a Ira.</p><hr><p><em>Não há técnica nenhuma. Só o peso do corpo inteiro atrás da arma.</em></p>",
     "tags": [
       "Weapon Attack"
     ],
@@ -24,8 +24,8 @@
       "stat": "accuracy"
     },
     "damage": {
-      "dice": "2+@spent",
-      "mod": "@spent*@cr",
+      "dice": "1+@spent",
+      "mod": "@spent*@use.per",
       "type": "physical",
       "recovery": false
     },

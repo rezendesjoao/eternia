@@ -11,8 +11,9 @@
  * [Cancel: Charge×2]; the Focus, +[Charge×2] to Spells and heals. Requip swaps the piece: the old one releases its
  * Discharge (Sword: the next weapon attack adds +[Charge×CR]; Armor: [Barrier: Charge×(CR+5)]; Focus: the next Spell or
  * heal adds +[Charge×CR]) and the new one starts with half the Charge, rounded up. The Paths: the Sealed Weapon never
- * swaps in combat (+2 cap), the Panoply has the Charge in the three pieces at half power, the Lightning Requip doubles
- * the Discharge and starts the new piece at 0.
+ * swaps in combat (+2 cap), the Panoply has the Charge in the three pieces (half power in hand, a third in the other
+ * two), the Lightning Requip doubles the Discharge and starts the new piece at 0. Summoned Blade gives +1 Charge with
+ * any piece in hand.
  *
  * State in flags.eternia.motor.magovermelho:
  *   state      "espada" | "armadura" | "foco": the piece in hand (it stays from one combat to the next)
@@ -65,8 +66,8 @@ const pieceOf = (state, lesser) => (piecesOf(lesser).includes(state) ? state : "
 
 /**
  * How much of the Charge a piece has now: 1 in hand (2 on the Sealed Weapon with the Apex), 1 in the piece just left
- * until the end of that round (the Apex), ½ in the others on the Panoply (1 with Master Piece in hand, and in all of
- * them with the Apex), else 0.
+ * until the end of that round (the Apex); on the Panoply ½ in hand (1 with Master Piece) and ⅓ in the other two (1 in
+ * all of them with the Apex); else 0.
  * @param {Actor} actor
  * @param {object} data     The Motor's state
  * @param {string} piece
@@ -78,8 +79,9 @@ export function shareOf(actor, data, piece, lesser) {
   const apex = !lesser && hasApex(actor, MAGOVERMELHO_ID);
   const here = data.state === piece;
   if (followed === "panoplia") {
-    if (apex || (here && talentOf(actor, T("peca-mestra")))) return 1;
-    return 0.5;
+    if (apex) return 1;
+    if (here) return talentOf(actor, T("peca-mestra")) ? 1 : 0.5;
+    return 1 / 3;
   }
   if (here) return (apex && (followed === "arma-selada")) ? 2 : 1;
   const echo = apex && (data.prev === piece) && !!data.prevRound && (data.prevRound === roundKey(actor));
@@ -193,7 +195,6 @@ export const MAGOVERMELHO = {
       plan.vars = { newValue: 0, barrier: half * (cr + 5) };
       plan.changes = { release: { espada: half * cr, foco: half * cr } };
     }
-    else if ((id === T("lamina-convocada")) && (data.state !== "espada")) plan.gain = 0;
     else if (id === T("cuidar-das-pecas")) plan.changes.ember = 1;
     return plan;
   },

@@ -594,7 +594,7 @@
       "name": "Maldição",
       "type": "skill",
       "system": {
-        "description": "<p>Use quando um ataque seu acertar. O alvo fica [Maldito] até o fim da cena: não recupera PV de nenhuma forma, e efeitos não lhe dão [Barreira] nem [Regeneração].</p><hr><p><em>A partir do ferimento, a escrita do seu Livro se espalha pela pele do inimigo como tinta em papel molhado. Por onde ela passa, as feridas param de fechar, e qualquer luz de cura se apaga ao tocar a pele.</em></p>",
+        "description": "<p>Use quando um ataque seu acertar. O alvo fica [Maldito] e [Enfraquecido: NP÷2] até o fim da cena: não recupera PV de nenhuma forma, efeitos não lhe dão [Barreira] nem [Regeneração], e os ataques dele causam −NP÷2 de dano.</p><hr><p><em>A partir do ferimento, a escrita do seu Livro se espalha pela pele do inimigo como tinta em papel molhado. Por onde ela passa, as feridas param de fechar, e qualquer luz de cura se apaga ao tocar a pele.</em></p>",
         "tags": [],
         "timing": "Instant",
         "checkType": "",
@@ -665,15 +665,59 @@
           "showIcon": 1,
           "_id": "KVVEkh076eYt8G6l",
           "_key": "!actors.items.effects!gcmTXFFDriB0Ml3H.kdYZ9HHZEDTwM0j7.KVVEkh076eYt8G6l"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "weakened",
+                "value": "floor(@cr/2)"
+              },
+              "expires": "endOfScene",
+              "renew": 999
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Maldição: Enfraquecido",
+          "img": "systems/eternia/assets/ui/status/weakened.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "weakened"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "gyhopVvAiYrxwZck",
+          "_key": "!actors.items.effects!gcmTXFFDriB0Ml3H.kdYZ9HHZEDTwM0j7.gyhopVvAiYrxwZck"
         }
       ],
       "flags": {
         "eternia": {
-          "choiceOnly": true,
-          "grantedBy": {
-            "type": "race",
-            "source": "Compendium.eternia.races-classes.Item.SH6YrhpBBf42yaFT"
-          }
+          "choiceOnly": true
         }
       },
       "_stats": {
@@ -811,7 +855,7 @@
       "name": "Contrato",
       "type": "skill",
       "system": {
-        "description": "<p><strong>Motor do Assassino.</strong> Você firma um <strong>Contrato</strong> com um inimigo, o <strong>Alvo</strong>, e cada golpe nele abre <strong>Brechas</strong>. Todo combate começa sem Contrato.</p><ul><li><strong>Ganha:</strong> sempre que qualquer personagem acerta o Alvo com um ataque, +1 Brecha.</li><li><strong>Gasta:</strong> a Execução, só no Alvo, gasta todas as Brechas: cada uma soma 1d6 + NP ao dano.</li><li><strong>Teto:</strong> 3 Brechas, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> firmar um Contrato com outro Alvo perde as Brechas. Quando o Alvo cai, o Contrato está cumprido e você fica livre.</li><li><strong>A queda:</strong> se a Execução deixar o Alvo com PV iguais ou menores que [Brechas gastas × (NP+5)], ele cai (0 PV). Não vale contra [Chefe].</li></ul><p><em>Um nome, um rosto, e a paciência de esperar o grupo abrir o caminho.</em></p>",
+        "description": "<p><strong>Motor do Assassino.</strong> Você firma um <strong>Contrato</strong> com um inimigo, o <strong>Alvo</strong>, e cada golpe nele abre <strong>Brechas</strong>. Todo combate começa sem Contrato.</p><ul><li><strong>Ganha:</strong> sempre que qualquer personagem acerta o Alvo com um ataque, +1 Brecha.</li><li><strong>Gasta:</strong> a Execução, só no Alvo, gasta todas as Brechas: cada uma soma 1d6 + NP ao dano.</li><li><strong>Teto:</strong> 3 Brechas, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> firmar um Contrato com outro Alvo perde as Brechas. Quando o Alvo cai, o Contrato está cumprido e você fica livre.</li><li><strong>A queda:</strong> se a Execução deixar o Alvo com PV iguais ou menores que [Brechas gastas × (NP+5)], ele cai (0 PV). Não vale contra [Chefe].</li><li><strong>Contrato cheio:</strong> a Execução feita com as Brechas no Teto acerta sem Teste de Esquiva.</li></ul><p><em>Um nome, um rosto, e a paciência de esperar o grupo abrir o caminho.</em></p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -849,10 +893,6 @@
           "motor": {
             "id": "assassino",
             "role": "core"
-          },
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.QwhijlqoFZdFZNCf"
           }
         }
       },
@@ -1013,7 +1053,7 @@
       "name": "Execução",
       "type": "skill",
       "system": {
-        "description": "<p>Só contra o Alvo do Contrato, com pelo menos 2 Brechas: [(1 + Brechas)d6 + Poder de Ataque + Brechas×NP] de dano físico. Gasta todas as Brechas.</p><p><strong>A queda:</strong> se o golpe deixar o Alvo com PV iguais ou menores que [Brechas gastas × (NP+5)], ele cai (0 PV). Não vale contra [Chefe].</p><p><strong>Custo:</strong> Ódio 1 + as Brechas gastas.</p><hr><p><em>Ninguém viu a lâmina entrar. Todos viram o corpo cair.</em></p>",
+        "description": "<p>Só contra o Alvo do Contrato, com pelo menos 2 Brechas: [(1 + Brechas)d6 + Poder de Ataque + Brechas×NP] de dano físico. Gasta todas as Brechas.</p><p><strong>A queda:</strong> se o golpe deixar o Alvo com PV iguais ou menores que [Brechas gastas × (NP+5)], ele cai (0 PV). Não vale contra [Chefe].</p><p><strong>Contrato cheio:</strong> com as Brechas no Teto, a Execução acerta sem Teste de Esquiva.</p><p><strong>Custo:</strong> Ódio 1 + as Brechas gastas.</p><hr><p><em>Ninguém viu a lâmina entrar. Todos viram o corpo cair.</em></p>",
         "tags": [
           "Weapon Attack"
         ],
@@ -1035,7 +1075,7 @@
           "stat": "accuracy"
         },
         "damage": {
-          "dice": "1+@spent",
+          "dice": "1+@spent*@use.per",
           "mod": "@spent*@cr",
           "type": "physical",
           "recovery": false
@@ -1059,11 +1099,7 @@
             "spend": "all",
             "execute": true
           },
-          "damageText": "(1+Brechas)d6 + [Poder de Ataque] + Brechas×NP Físico",
-          "grantedBy": {
-            "type": "class",
-            "source": "Compendium.eternia.races-classes.Item.QwhijlqoFZdFZNCf"
-          }
+          "damageText": "(1+Brechas)d6 + [Poder de Ataque] + Brechas×NP Físico"
         }
       },
       "_stats": {
