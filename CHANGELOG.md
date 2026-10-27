@@ -1,5 +1,54 @@
 # Changelog
 
+## 0.42.0 — 2026-10-27
+
+A conta inteira está em `docs/matematica.md`, que passa a ser a régua de toda classe, Magia, raça e criatura nova.
+
+### Alterado
+- **As 14 classes** na mesma faixa (de 0,8× a 1,4× a régua do NP 3 ao NP 7; antes iam de 0,7× a 3,7×, e a 4,7× no
+  NP 10), sem mudar o que cada Motor faz. O ponto do Motor vale 1d6 + NP no golpe que gasta tudo (NP÷2 em área e nos Caminhos que ganham mais
+  rápido); os acertos automáticos e os bônus grandes que vêm de talento valem uma vez por cena; os Ápices não dão ação
+  a mais nem dobram o ponto. Samurai (Iai, Lua Cheia, Bainha Longa, Mão no Cabo), Berserker (Golpe Selvagem, Olhos
+  Vermelhos, Dragão), Lutador (Golpe Final, Montanha, Punho que Atravessa), Centurião (Golpe do Baluarte, Pedra
+  Angular, Retaliação), Caçador (Tiro Certeiro, Olhar Frio, Tiro Impossível, Olho de Águia), Hierofante (Bandeira,
+  Clarim, Alvo Prioritário, Ponto de Ataque, Marechal), Assassino (o Contrato cheio acerta sem esquiva; Carrasco),
+  Invocador (o Laço custa NP÷2 + 2 PV; o Comando: Ataque rola 1d6 por Laço), Mago Azul (Valor da natureza nível÷3 + 2,
+  Forma Perfeita dá Anulação, Golpe Inescapável uma vez por cena), Mago Branco (Reescrever custa 2 Runas, a Lei acende
+  no máximo 2 por rodada, Lei Absoluta uma vez por rodada, Runa Sagrada e Duas Sentenças com Runas×NP÷2 e ÷4),
+  Mago Negro (Colapso (1 + Pressão)d6, Classe S Teto +1), Mago Vermelho (Lâmina Convocada com qualquer peça,
+  Panóplia a um terço fora da mão), Matador de Dragões (Artes Secretas (1 + Escamas)d6 + Escamas×NP÷2, a Força do Ápice
+  sem dobrar, a lacrima fora da Força) e Pictomante (Criatura Moldes×(NP÷4 + 1), Arma 2d6 + NP por Molde, Golpe
+  Esculpido +2 Moldes).
+- **O Poder Mágico do equipamento** vem de uma fonte só: o Cajado ou a melhor Pedra Mágica ou Anel, a maior; os outros
+  acessórios mágicos somam por cima. Antes a ficha somava o Cajado com todas as Pedras. Os kits de Nível 1 das classes
+  mágicas trocam o Anel Cinzento pela Guarda de Sigilos, que soma por cima do Cajado (Poder Mágico 6), e as dicas do
+  assistente de criação dizem isso.
+- **As Magias:** as Ancestrais rolam 1d6 a mais em todo feitiço de ataque (as mais fortes, sem Tabu); os Tabus pesam
+  parecido ("−1d6 nas Esquivas" virou "−2 nas Esquivas" no Arco da Grande Árvore, no Contra-ataque e nos Espinhos; o
+  Matador de Demônios cai NP÷2 nas Defesas; Portão do Inferno, Artes Brancas e Sangue Demoníaco perdem também Defesa
+  Mágica NP÷2; os Matadores de Deuses do Céu e do Raio, Defesa Física NP÷2); dados novos no Portão do Inferno (−1d6),
+  no Contra-ataque e nas Artes Negras (+1d6) e no feitiço de NP 5 do Matador de Demônios (+1d6).
+- **As raças:** Caudas dos Vulpinos 1 + NP÷5 por cena, a Ilusão com [Anulação: NP] e o Fogo-Raposa [Queimando: NP÷2];
+  o Uivo dos Lupinos em você e até 2 aliados, o [Medo] num inimigo; Dracônicos com PV +16 e o Comer o Elemento curando
+  NP×2; a Maldição dos Demônios também deixa [Enfraquecido: NP÷2] até o fim da cena; o Pacto Espiritual dos Elfos
+  NH + 1 vezes por cena e o Meio-Espírito uma vez por cena; as Asas de Luz dos Celestiais dão +1d6 nas Esquivas contra
+  corpo a corpo.
+- **Os inimigos batem mais:** um encontro padrão custa ao grupo pelo menos 65% dos PV no NP 1, e 1,5% a mais por NP
+  (78,5% no NP 10), sem a luta ficar mais longa (nenhum PV mudou). 17 criaturas do Império que ficavam abaixo disso
+  ganharam dano (de ×1,05 a ×2); o Guia de Criação de Inimigos está com o dano novo nas 90 fichas; AS REGRAS ganham o
+  XIV.g. O PESO DOS ENCONTROS, com quantas de cada criatura usar.
+
+### Corrigido
+- **O catálogo de Magias** (a janela de escolha de Magia e o assistente de criação) dava erro quando os documentos do
+  compêndio já tinham sido carregados antes, como faz a migração: agora lê os efeitos do próprio documento.
+- **O README** com os Tabus novos na tabela das Magias e o PV +16 dos Dracônicos.
+
+### Migração
+- **Classes (versão 8):** as habilidades de classe, as Magias e os feitiços e as habilidades de raça que mudaram voltam
+  à versão do compêndio nas fichas dos mundos, com o NH (até o novo máximo) e o registro de uso. As raças Dracônicas com
+  PV +12 passam a +16.
+- **Bestiário (versão 2):** as 17 criaturas do Império que já estão nos mundos tomam o dano novo dos ataques.
+
 ## 0.41.0 — 2026-10-26
 
 ### Adicionado

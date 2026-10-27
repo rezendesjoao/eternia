@@ -5,9 +5,16 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.41.0
+## Versão 0.42.0
 
-- **Novo na 0.41.0: 18 personagens maiores novos.** O compêndio Personagens Maiores (só do Mestre) ganha a pasta v2,
+- **Novo na 0.42.0: o balanço.** As 14 classes ficam na mesma faixa de força (cada Motor faz o que fazia, com números
+  novos), as Magias Ancestrais rolam 1d6 a mais nos feitiços de ataque, os Tabus pesam parecido, seis raças foram
+  ajustadas e o Poder Mágico do equipamento vem de uma fonte só (o Cajado ou a melhor Pedra Mágica). Os inimigos batem
+  mais, sem ganhar PV: um encontro padrão custa ao grupo pelo menos 65% dos PV no NP 1, e mais a cada NP. O Guia de
+  Criação de Inimigos está com o dano novo, e AS REGRAS dizem quantas de cada criatura usar (XIV.g. O PESO DOS
+  ENCONTROS). As fichas e as criaturas que o mundo já tem são atualizadas sozinhas (veja [As classes](#as-classes) e
+  [As Magias](#as-magias)).
+- **Desde a 0.41.0: 18 personagens maiores novos.** O compêndio Personagens Maiores (só do Mestre) ganha a pasta v2,
   com mais 18 personagens de grande relevância na história, entre eles Bercouli, Chudelkin e Deusolbert com os nomes da
   obra: agora são 140. Como os outros, cada um vem com nome, raça e token e retrato no traço de anime, e a ficha em
   branco para o Mestre montar (veja [O bestiário](#o-bestiário)).
