@@ -327,12 +327,22 @@ export async function applyItemEffects(item, actors, { useId, sustained, only, o
   return [...new Set([...names, ...acted])];
 }
 
-/** GM side of applyItemEffects, for actors the user doesn't own. */
-async function _onApplyEffectsRequest({ actorUuid, effects, replace, sameName }) {
+/**
+ * GM side of applyItemEffects, for actors the user doesn't own. Only the effects of an item an actor of the user's own
+ * used, each one of that item's effects by name: a player can't send any effect to anyone.
+ */
+async function _onApplyEffectsRequest({ actorUuid, effects, replace, sameName }, user) {
   const actor = await fromUuid(actorUuid);
   if (!(actor instanceof Actor) || !Array.isArray(effects)) return { ok: false };
   const data = effects.filter(e => e?.flags?.eternia?.itemUse && e?.flags?.eternia?.source);
   if (!data.length) return { ok: false };
+  const allowed = data.every(e => {
+    const item = e.flags.eternia.source.itemUuid ? fromUuidSync(e.flags.eternia.source.itemUuid) : null;
+    if (!(item instanceof Item)) return false;
+    if (!user?.isGM && !item.actor?.testUserPermission(user, "OWNER")) return false;
+    return item.effects.some(f => f.name === e.name);
+  });
+  if (!allowed) return { ok: false };
   const sampleSource = data[0]?.flags?.eternia?.source;
   if (replace && sampleSource) {
     const toDeleteIds = actor.effects

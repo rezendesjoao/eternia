@@ -97,12 +97,17 @@ export function checkModifier(actor, { item = null, stat = "", targets = [] } = 
  * @param {Actor} [context.attacker]
  * @param {Item} [context.item]   The attack
  * @returns {{dice: number, mod: number, text: string, consume: string[], autoFail: string|null}}
- *   `autoFail`: the status that fails it outright ([Asleep], [Petrified], [Nightmare]), or null
+ *   `autoFail`: the status that fails it outright ([Incapacitated], [Asleep], [Petrified], [Nightmare]), or null
  */
 export function dodgeModifier(actor, { vs = "evasion", attacker = null, item = null } = {}) {
   const t = tally();
   t.autoFail = null;
   if (!actor) return t;
+  // [Incapacitated] makes no check at all: a rule of the base system, on with the conditions' automation off
+  if (has(actor, "incapacitated")) {
+    t.autoFail = "incapacitated";
+    return t;
+  }
   t.consume.push(...consumedBy(actor, ["dodge", vs]).map(id => `effect:${id}`));
   // [Dazed] is a rule of the base system: it stays on with the conditions' automation off.
   if (has(actor, "dazed")) t.add("dazed", -1);

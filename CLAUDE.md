@@ -11,6 +11,12 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
 - Configurações, teclas e o socket usam o id `eternia`. A API de macros fica em `game.eternia`.
 - Os prefixos de CSS e de `data-action` herdados do módulo (`lhpf` ficha, `lhc` chat, `lhh` HUD, `lhwin` janelas,
   `lhauto`) continuam como estão; a aba Classe usa `lhcl`.
+- Quem é Aventureiro (a disputa de Ódio, os custos, o desempate de Iniciativa, o −1 de Ódio na esquiva falha, o fim de
+  cena) é `isAdventurer` de `helpers/utils.mjs`: personagem num token que não é hostil. Um NPC pronto num token hostil
+  luta como inimigo; não decida isso pelo tipo de ficha.
+- O combate guarda o que já rodou na rodada (`flags.eternia.ran`, em `EterniaCombat#_applyState`): depois de Voltar
+  turno ou rodada, o que se refaz chega com `options.eterniaRepeat` (`phase`, `start`, `ended`) no `updateCombat`, e o
+  `_onPhaseStart` nem roda. Um gancho novo de começo ou fim de turno ou de fase pula o que vier marcado como repetido.
 
 ## CSS
 - `css/eternia.css` e `css/piles.css` são a base (camada `system`).
@@ -78,7 +84,8 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   porque o `getTokenDocument` só vê os tokens que já existem). Teste de monstro numa cena: dentro do `sceneRect` (fora dele, o empurrar para na borda). A fera com
   nome sai de `module/bestiary/named-template.mjs`, que não pode importar nada do Foundry: a coroa da ficha e o gerador
   do compêndio usam o mesmo arquivo. Os monstros do Império (pasta O Império) foram gerados por um script fora do
-  repositório: a fonte é o JSON. Um monstro do Império já trazido para um mundo é uma cópia: mudou um nome ou a arte no
+  repositório: a fonte é o JSON. Desde a 0.43 o Bestiário só tem essas criaturas (os monstros antigos de Log
+  Horizon saíram). Um monstro do Império já trazido para um mundo é uma cópia: mudou um nome ou a arte no
   compêndio, a migração `bestiary` (`module/bestiary/migration.mjs`) leva a mudança às cópias.
   Uma tabela nova escrita no formato dos livros vira dados com `node tools/convert-drops.mjs`.
 - NPCs e personagens maiores ficam fora do Bestiário (desde a 0.40), em compêndios próprios, para o Mestre importar só a

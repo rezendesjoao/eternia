@@ -96,10 +96,10 @@ async function onMainProcess(combatant) {
 
 /** Call during the `init` hook. */
 export function registerNearest() {
-  Hooks.on("updateCombat", (combat, changes) => {
+  Hooks.on("updateCombat", (combat, changes, options) => {
     if (!rulesOn() || !isPrimaryGM()) return;
     const active = foundry.utils.getProperty(changes, "flags.eternia.active");
-    if (!active || (combat.phase !== "main")) return;
+    if (!active || (combat.phase !== "main") || options?.eterniaRepeat?.start) return;
     onMainProcess(combat.combatants.get(active)).catch(err => console.error(`${SYSTEM_ID} | Nearest failed`, err));
   });
 }

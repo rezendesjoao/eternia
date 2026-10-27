@@ -41,6 +41,21 @@ export function combatOf(actor) {
 /** The combatant of an actor in a combat. */
 export const combatantOf = (combat, actor) => combat?.combatants.find(c => c.actor?.uuid === actor?.uuid) ?? null;
 
+/**
+ * Whether an actor fights as an Adventurer: a character whose token isn't hostile. A ready NPC (a character sheet) on a
+ * hostile token fights as an enemy, like a monster: it stays out of the party's Hate, pays no costs, doesn't win the
+ * characters' Initiative tie, makes the characters lose Hate when they fail to dodge it, and dies at the end of the
+ * scene when it falls.
+ * @param {Actor} actor
+ * @param {TokenDocument} [token]   The token it fights with (a combatant's); else its own, its first one on the scene or
+ *                                  its prototype
+ */
+export function isAdventurer(actor, token = null) {
+  if (actor?.type !== "character") return false;
+  const doc = token ?? actor.token ?? actor.getActiveTokens?.(false, true)?.[0] ?? actor.prototypeToken;
+  return doc?.disposition !== CONST.TOKEN_DISPOSITIONS.HOSTILE;
+}
+
 /** The distinct actors of a combat. */
 export function combatActors(combat) {
   const actors = new Map();

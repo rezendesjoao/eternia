@@ -235,7 +235,8 @@ Quatro personagens do mesmo NP contra **um** destes (todos têm o PV de cerca de
 
 - **4 comuns**, o encontro mais fácil: é nele que a tabela abaixo bate o alvo;
 - **6 lacaios** (metade do PV, testes fixos, o mesmo dano): fica um pouco abaixo do alvo nos NP baixos; 8 lacaios já
-  passam de 85%;
+  passam de 85% (os lacaios do Império batem mais: 4 Estirges, 4 Goblins Saqueadores, 5 Kobolds Batedores; veja a
+  coluna "Quantas no alvo" abaixo);
 - **1 chefe de grupo + 2 comuns** (o chefe com o dobro do PV, Destino, [Destino 1]: área e o (Menor)): o clímax, de 83%
   a 90%, com o grupo todo caindo em metade das vezes;
 - **1 chefe solo** (4 vezes o PV, área e o [Destino 1]): fica no alvo.

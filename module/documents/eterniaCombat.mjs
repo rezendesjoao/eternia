@@ -2,6 +2,7 @@ import { rulesOn } from "../conditions/rules.mjs";
 import { registerHandler, request } from "../piles/pile-socket.mjs";
 // Identifies this browser window: the same user can be logged in from several.
 import { CLIENT_ID } from "../helpers/clients.mjs";
+import { isAdventurer } from "../helpers/utils.mjs";
 
 /**
  * Eternia Round Progression:
@@ -104,7 +105,8 @@ export class EterniaCombat extends Combat {
 			return standby.includes(c.id) ? 3 : 2 + slowed(c);
 		};
 		const init = c => Number.isNumeric(c.initiative) ? Math.floor(c.initiative) : -Infinity;
-		const pc = c => c.actor?.type === "character" ? 0 : 1;
+		// Adventurers win the tie (a ready NPC on a hostile token is an enemy: helpers/utils.mjs isAdventurer)
+		const pc = c => isAdventurer(c.actor, c.token) ? 0 : 1;
 		return this.combatants.contents.sort((a, b) => {
 			const ga = group(a), gb = group(b);
 			if (ga !== gb) return ga - gb;
@@ -130,15 +132,40 @@ export class EterniaCombat extends Combat {
 		const active = phase === "main" ? state.active : null;
 		const next = { ...state, active };
 		const turn = active ? this._orderTurns(next).findIndex(c => c.id === active) : null;
+		// What already ran (flags.eternia.ran, the last two rounds: "3:phase:cleanup", "3:start:<id>", "3:end:<id>"):
+		// stepping back in the tracker (previousTurn, previousRound: options.eterniaRewind) and forward again runs nothing
+		// twice, until the combat reaches a step it hadn't been to (flags.eternia.rewound). The update says what repeats
+		// (options.eterniaRepeat), and the phase work (_onPhaseStart), the start and the end of a Main Process skip it:
+		// [Poisoned] doesn't hurt again, the Cleanup doesn't heal twice, the Motors don't gain twice. A step forced by a
+		// macro (another turn for someone, the Cleanup again) is new: it runs as always.
+		const rewinding = options.eterniaRewind === true;
+		const rewound = rewinding || !!this.getFlag("eternia", "rewound");
+		const ran = new Set((this.getFlag("eternia", "ran") ?? []).filter(key => Number(String(key).split(":")[0]) >= round - 1));
+		let fresh = 0;
+		const seen = key => {
+			if (ran.has(key)) return rewound;
+			ran.add(key);
+			fresh++;
+			return false;
+		};
+		const before = this.progress;
+		const repeat = {
+			phase: ((phase !== this.phase) || (round !== this.round)) && seen(`${round}:phase:${phase}`),
+			start: !!active && (active !== before.active) && seen(`${round}:start:${active}`),
+			ended: next.acted.filter(id => !before.acted.includes(id)).filter(id => seen(`${round}:end:${id}`))
+		};
 		const updateData = {
 			round, turn,
 			"flags.eternia.phase": phase,
 			"flags.eternia.acted": next.acted,
 			"flags.eternia.active": active,
 			"flags.eternia.standby": next.standby,
+			"flags.eternia.ran": [...ran],
+			// Still on the stretch stepped back over, until a step brings something new
+			"flags.eternia.rewound": rewinding || (rewound && !fresh),
 			...extra
 		};
-		const updateOptions = { direction: 1, ...options, eterniaOrigin: CLIENT_ID };
+		const updateOptions = { direction: 1, ...options, eterniaOrigin: CLIENT_ID, eterniaRepeat: repeat };
 		Hooks.callAll(round !== this.round ? "combatRound" : "combatTurn", this, updateData, updateOptions);
 		await this.update(updateData, updateOptions);
 		await this._syncStandbyStatus();
@@ -182,7 +209,7 @@ export class EterniaCombat extends Combat {
 			//Do not roll for defeated combatants
 			if (c.defeated) continue;
 
-			if (c.actor.type === 'character') {
+			if (isAdventurer(c.actor, c.token)) {
 				Init += 0.1;
 			}
 
@@ -224,7 +251,7 @@ export class EterniaCombat extends Combat {
 		this._playCombatSound("startEncounter");
 		const updateData = {
 			round: 1, turn: null,
-			"flags.eternia": { phase: "setup", acted: [], active: null, standby: [], prev: null }
+			"flags.eternia": { phase: "setup", acted: [], active: null, standby: [], prev: null, ran: ["1:phase:setup"] }
 		};
 		Hooks.callAll("combatStart", this, updateData);
 		await this.update(updateData, { eterniaOrigin: CLIENT_ID });
@@ -287,9 +314,11 @@ export class EterniaCombat extends Combat {
 
 		const state = this.progress;
 		if (this.phase === "setup") return this.previousRound();
-		if (!state.acted.length) return this._applyState("setup", { ...state, active: null });
+		// A step back: going forward again over it doesn't repeat what already ran (see _applyState)
+		const back = { options: { eterniaRewind: true } };
+		if (!state.acted.length) return this._applyState("setup", { ...state, active: null }, back);
 		const acted = state.acted.slice(0, -1);
-		return this._applyState("main", { ...state, acted, active: state.acted.at(-1) });
+		return this._applyState("main", { ...state, acted, active: state.acted.at(-1) }, back);
 	}
 
 	/**
@@ -315,7 +344,7 @@ export class EterniaCombat extends Combat {
 	 */
 	async previousRound() {
 		if (this.round <= 1) {
-			return this.phase === "setup" ? this : this._applyState("setup", { acted: [], active: null, standby: [] });
+			return this.phase === "setup" ? this : this._applyState("setup", { acted: [], active: null, standby: [] }, { options: { eterniaRewind: true } });
 		}
 		if (!game.user.isGM) return this._requestGM("previousRound");
 		await this._refreshInitiative();
@@ -324,7 +353,7 @@ export class EterniaCombat extends Combat {
 		const acted = prev.acted ?? this.turns.map(c => c.id);
 		return this._applyState("cleanup", { acted, active: null, standby: prev.standby ?? [] }, {
 			round: this.round - 1,
-			options: { direction: -1, worldTime: { delta: -CONFIG.time.roundTime } },
+			options: { direction: -1, worldTime: { delta: -CONFIG.time.roundTime }, eterniaRewind: true },
 			extra: { "flags.eternia.prev": null }
 		});
 	}
@@ -403,16 +432,19 @@ export class EterniaCombat extends Combat {
 		if (before && before.round === after.round && before.phase === after.phase) return;
 		if (!("round" in changed) && !("turn" in changed) && !foundry.utils.hasProperty(changed, "flags.eternia.phase")) return;
 
+		// The tracker stepped back and forward again into a phase that already began (see _applyState)
+		const repeat = !!options.eterniaRepeat?.phase;
 		/**
 		 * A new Round Progression phase started. Called on every client.
 		 * @param {EterniaCombat} combat
 		 * @param {{round: number, phase: string}} current
 		 * @param {{round: number, phase: string}|undefined} previous
+		 * @param {{repeat: boolean}} context   `repeat`: this phase already began this round (its work doesn't run again)
 		 */
-		Hooks.callAll("eternia.combatPhase", this, after, before);
+		Hooks.callAll("eternia.combatPhase", this, after, before, { repeat });
 		// Only the window that made the change runs it: never twice, even with several GMs
 		// or the same user logged in from two windows.
-		if (options.eterniaOrigin === CLIENT_ID) this._onPhaseStart(after.phase, after.round, before);
+		if ((options.eterniaOrigin === CLIENT_ID) && !repeat) this._onPhaseStart(after.phase, after.round, before);
 	}
 
 	/**

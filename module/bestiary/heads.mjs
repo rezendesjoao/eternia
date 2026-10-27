@@ -137,10 +137,10 @@ function hydrasOf(combat) {
 }
 
 /** A Main Process starts (on the primary GM): how many Major Actions the heads give it. */
-function onUpdateCombat(combat, changes) {
+function onUpdateCombat(combat, changes, options) {
   if (!rulesOn() || !isPrimaryGM()) return;
   const active = foundry.utils.getProperty(changes, "flags.eternia.active");
-  if (!active || (combat.phase !== "main")) return;
+  if (!active || (combat.phase !== "main") || options?.eterniaRepeat?.start) return;
   const actor = combat.combatants.get(active)?.actor;
   const heads = headsOf(actor);
   if (!heads || actor.statuses.has("dead") || actor.statuses.has("incapacitated")) return;

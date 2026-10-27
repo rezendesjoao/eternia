@@ -24,7 +24,7 @@
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { skillModifiers } from "../helpers/roll-bonuses.mjs";
-import { actorName, combatantOf, combatOf, confirm, escape, toInt, wrap } from "../helpers/utils.mjs";
+import { actorName, combatantOf, combatOf, confirm, escape, isAdventurer, toInt, wrap } from "../helpers/utils.mjs";
 import { counter } from "./scenes.mjs";
 import { ITEM_SKILL, linkedSkill } from "../content/content.mjs";
 import { actionAllowance, conditionUseIssues } from "../conditions/actions.mjs";
@@ -363,8 +363,8 @@ export function inspectUse(item, { targets = null } = {}) {
     for (const text of motorUseIssues(item, actor)) issues.push({ text, mode: limitsMode, kind: "motor" });
   }
 
-  // Costs: the Fate must be there to pay
-  const cost = (setting("costs") && (actor.type === "character")) ? costOf(item, actor) : null;
+  // Costs: the Fate must be there to pay. An enemy (a monster, a ready NPC on a hostile token) pays none.
+  const cost = (setting("costs") && isAdventurer(actor, combatant?.token)) ? costOf(item, actor) : null;
   if (cost?.fate && (cost.group !== "Allies")) {
     const fate = toInt(actor._source.system.fate?.value);
     if (fate < cost.fate) issues.push({ text: L("Use.NoFate", { need: cost.fate, have: fate }), mode: "block", kind: "fate" });

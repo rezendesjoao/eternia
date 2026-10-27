@@ -23,6 +23,8 @@ import { rollBonuses, rollBonusesLabel } from "../helpers/roll-bonuses.mjs";
 import { confirm, escape, sameTarget, targetActor, toInt } from "../helpers/utils.mjs";
 import { withCloseReach } from "../automation/reach.mjs";
 import { motorRollBonuses } from "../classes/motor.mjs";
+import { consumeAfterRoll, damageModifier } from "../conditions/rolls.mjs";
+import { surpriseBonuses } from "../bestiary/surprise.mjs";
 
 /** Battle status a character skill's damage adds, by type (as the system's skill-rolls.mjs). */
 const DAMAGE_POWER = { physical: "attack", magical: "magic" };
@@ -108,13 +110,22 @@ export async function rollDamage(item, attackMessage) {
   const data = (values.formula || values.diceFormula) ? formulaData(actor ?? item.actor, item) : null;
   if (values.diceFormula) dice += Math.max(0, evaluateFormula(values.diceFormula, data) ?? 0);
   if (values.formula) mod += evaluateFormula(values.formula, data) ?? 0;
-  const bonuses = rollBonuses(actor, item, "damage", { targets: rollTargets(attackMessage) });
+  const against = rollTargets(attackMessage);
+  const bonuses = rollBonuses(actor, item, "damage", { targets: against });
   // Bonuses of the roller's class Motor (the Samurai's Echo of Steel)
   bonuses.push(...motorRollBonuses(actor ?? item.actor, item, "damage"));
+  // A monster's surprise blow, against whoever hasn't acted yet this round (bestiary/surprise.mjs)
+  bonuses.push(...surpriseBonuses(actor ?? item.actor, item, "damage", against));
   for (const bonus of bonuses) {
     dice += bonus.dice;
     mod += bonus.mod;
   }
+  // The roller's conditions (conditions/rolls.mjs), as rollSkill adds them: [Empowered], [Combo], the Pack… and the
+  // effects the roll spends (a Spark Stone's next blow, [Rhythm])
+  const roller = actor ?? item.actor;
+  const condition = damageModifier(roller, item);
+  dice += Math.max(0, condition.dice);
+  mod += condition.mod;
 
   let flavor = `${item.name} - ${game.i18n.localize("ETERNIA.Skill.Label.Damage")}`;
   const type = values.recovery ? RECOVERY_LABEL : TYPE_LABELS[values.type];
@@ -128,13 +139,16 @@ export async function rollDamage(item, attackMessage) {
   }
 
   pending = { itemUuid: item.uuid, attackId: attackMessage?.id ?? null };
+  let result;
   try {
-    return await createDamageCard(item, actor, diceFormula({ dice, mod }), flavor, attackMessage, targets,
-      { bonuses: rollBonusesLabel(bonuses) });
+    result = await createDamageCard(item, actor, diceFormula({ dice, mod }), flavor, attackMessage, targets,
+      { bonuses: [rollBonusesLabel(bonuses), condition.text].filter(Boolean).join(", ") });
   }
   finally {
     pending = null;
   }
+  if (result) await consumeAfterRoll(roller, condition.consume);
+  return result;
 }
 
 /* -------------------------------------------- */

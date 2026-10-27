@@ -23,9 +23,9 @@ import { actorName, combatActors, outOfAction, postSummary, toInt, wrap } from "
 import { bumpCounter, endOfSceneFor } from "./scenes.mjs";
 import { NO_ACTIONS } from "../conditions/catalog.mjs";
 import { attackedThisRound, cleanupConditions, endOwnProcess, endOwnStatuses, setupConditions } from "../conditions/turns.mjs";
-import { agonyPain, healBlocker, healingHurts, recovered, spendExtraBreath } from "../conditions/damage.mjs";
+import { agonyPain, healBlocker, healingHurts, recovered, spendExtraBreath, takeDamage } from "../conditions/damage.mjs";
 import { losesTurn } from "../conditions/actions.mjs";
-import { has, removeStatuses } from "../conditions/rules.mjs";
+import { has, removeStatuses, sameActor, sourcesOf } from "../conditions/rules.mjs";
 
 /** Call during the `init` hook. */
 export function registerRound() {
@@ -123,14 +123,22 @@ async function cleanup(combat, round) {
     }
     // [Decay], and the [Regen] an [Inversion] turned into damage, through [Barrier]
     let barrier = toInt(bad.barrier);
+    let loss = 0;
+    let hurt = false;
     for (const [n, key] of [[decay, "Round.Decay"], [turned, "Round.RegenInverted"]]) {
       if (n <= 0) continue;
       const absorbed = Math.min(barrier, n);
       barrier -= absorbed;
       if (absorbed) updates["system.bad-status.barrier"] = barrier;
-      hp = Math.max(0, hp - (n - absorbed));
+      loss += n - absorbed;
+      hurt = true;
       parts.push(L(key, { n: n - absorbed }) + (absorbed ? ` ${L("Round.Barrier", { n: absorbed })}` : ""));
     }
+    // [Bond]: half the HP it takes goes to the source, as on the cards (conditions/damage.mjs afterDamage)
+    const bondSource = ((loss > 1) && has(actor, "bond")) ? sourcesOf(actor, "bond")[0] : null;
+    const shared = (bondSource && !sameActor(bondSource, actor)) ? Math.floor(loss / 2) : 0;
+    if (shared) parts.push(L("Conditions.Applied.Bond", { n: shared, name: actorName(bondSource) }));
+    hp = Math.max(0, hp - (loss - shared));
     // At 0 HP: [Last Stand], then an Extra Breath (conditions/damage.mjs)
     let breath = null;
     let stood = false;
@@ -149,7 +157,12 @@ async function cleanup(combat, round) {
     }
     updates["system.health.value"] = hp;
     await actor.update(updates);
-    if (stood) await removeStatuses(actor, ["lastStand"]);
+    // As any damage: the sleeper wakes, the hidden come out (conditions/damage.mjs takeDamage)
+    const ending = stood ? ["lastStand"] : [];
+    if (hurt && has(actor, "asleep")) ending.push("asleep");
+    if ((loss - shared > 0) && has(actor, "hidden")) ending.push("hidden");
+    if (ending.length) await removeStatuses(actor, ending);
+    if (shared) await takeDamage(bondSource, shared, { reason: "bond", from: actor });
     if (breath) Hooks.callAll("eternia.revived", actor, { effect: breath.effect, hp: breath.hp, left: breath.left });
     const line = L("Round.Line", { name: actorName(actor), parts: parts.join(", "), hp, max });
     own.push(line);
@@ -204,9 +217,11 @@ async function onUpdateCombat(combat, changes, options, userId) {
   const acted = foundry.utils.getProperty(changes, "flags.eternia.acted");
   if (!Array.isArray(acted) || (combat.round < (options.eterniaRound ?? combat.round))) return;
   const before = options.eterniaActed ?? [];
+  // A Main Process that already ended this round (the tracker stepped back and forward again) doesn't end twice
+  const repeated = options.eterniaRepeat?.ended ?? [];
   const lines = [];
   const gmLines = [];
-  for (const id of acted.filter(id => !before.includes(id))) {
+  for (const id of acted.filter(id => !before.includes(id) && !repeated.includes(id))) {
     const actor = combat.combatants.get(id)?.actor;
     if (!actor) continue;
     // Whether it lost this Main Process ([Paralyzed], [Petrified]…), read before those statuses end with it
@@ -231,9 +246,18 @@ async function onUpdateCombat(combat, changes, options, userId) {
   if (lines.length || gmLines.length) await postSummary(L("Round.ProcessEndTitle"), lines, gmLines);
 }
 
-/** HP or Fatigue changed: Incapacitated at 0 HP (characters also at 0 Max HP). */
+/**
+ * HP or Fatigue changed: Incapacitated at 0 HP (characters also at 0 Max HP). More [Fatigue] lowers the Max HP, and the
+ * HP above it drop to it (30/30 with Fatigue 10 becomes 20/20, not 30/20).
+ */
 function onUpdateActor(actor, changes, options, userId) {
-  if (!setting("incapacitated") || !isLocalChange(options, userId)) return;
+  if (!isLocalChange(options, userId)) return;
+  if (foundry.utils.hasProperty(changes, "system.infos.fatigue")) {
+    const hp = toInt(actor.system.health?.value);
+    const max = Math.max(0, toInt(actor.system.health?.max));
+    if (hp > max) actor.update({ "system.health.value": max }).catch(err => console.error(`${SYSTEM_ID} | Could not lower the HP to the Max HP`, err));
+  }
+  if (!setting("incapacitated")) return;
   if (!foundry.utils.hasProperty(changes, "system.health") && !foundry.utils.hasProperty(changes, "system.infos.fatigue")) return;
   // After the system's own reaction (its damage card marks Incapacitated right after the update).
   setTimeout(() => checkIncapacitated(actor).catch(err => console.error(`${SYSTEM_ID} | Incapacitated check failed`, err)), 250);
@@ -272,7 +296,9 @@ async function onDeleteCombat(combat, options, userId) {
     try {
       await bumpCounter(actor, "scene");
       if (setting("endOfScene")) {
-        const line = await endOfSceneFor(actor);
+        // The token it fought with says on which side (a ready NPC on a hostile token is an enemy)
+        const token = combat.combatants.find(c => c.actor?.uuid === actor.uuid)?.token ?? null;
+        const line = await endOfSceneFor(actor, token);
         if (line) lines.push(line);
       }
     }

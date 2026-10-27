@@ -435,8 +435,8 @@ function onCreateEffect(effect, options, userId) {
 }
 
 /** Os Dez Mandamentos and the like: `decreeRounds` counts down in each Cleanup Process, and the effect ends at 0. */
-async function onCombatPhase(combat, after, before) {
-  if (!isPrimaryGM() || (after?.phase !== "cleanup") || !before) return;
+async function onCombatPhase(combat, after, before, { repeat = false } = {}) {
+  if (!isPrimaryGM() || (after?.phase !== "cleanup") || !before || repeat) return;
   if ((after.round < before.round) || ((after.round === before.round) && (before.phase === "cleanup"))) return;
   for (const actor of combatActors(combat)) {
     for (const effect of actor.effects.filter(e => toInt(flag(e, "decreeRounds")) > 0)) {

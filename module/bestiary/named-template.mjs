@@ -3,8 +3,10 @@
  * Foundry (bestiary/named.mjs gives it the button; the bestiary's generator, the beasts of the compendium). From the
  * monster's data it makes a new one: Level +2, every attribute +1, Defenses +3, Evasion and Resistance +1, Initiative
  * +1, HP ×1.25 and then ×2 with its pack or ×4 alone, 3 Fate, the [Boss] tag (not [Mob]), Hate ×+1, Identification +2,
- * its attacks +1 to hit and +6 damage, its drops ×4 plus an Anima-mundi of the Level + 1 and a [Material-Base] of the
- * Level, fixed, and one Mark of the Weight (MARKS), a passive skill of its own.
+ * its attacks +1 to hit and the damage of the new Level (scaleDamage: the common's of each Level, docs/matematica.md),
+ * [Fate 1] on its strongest attack (it hits everyone engaged with it, as the bosses of the Guide), its drops ×4 plus an
+ * Anima-mundi of the Level + 1 and a [Material-Base] of the Level, fixed, and one Mark of the Weight (MARKS), a passive
+ * skill of its own.
  */
 
 /** The Marks of the Weight: what the named beast has that the others don't. */
@@ -12,6 +14,25 @@ export const MARKS = ["skin", "eyes", "fury", "sparks", "regen", "breath"];
 
 const int = value => Math.trunc(Number(value) || 0);
 const html = text => `<p>${text}</p>`;
+
+/** The average damage of the common's main attack at Levels 1 to 10 (docs/matematica.md, "O comum de cada NP"). */
+const COMMON = [29, 29, 29, 38, 47, 53, 63, 78, 78, 97, 104];
+
+/** The average damage of the common at a Level: from Level 11 on, the Guide's 2d6 + (57 + 4.7 a Level) × (1.10 + 0.05 × Level). */
+function commonDamage(level) {
+  if (level <= 10) return COMMON[Math.max(1, level)];
+  return (7 + 57 + (4.7 * (level - 10))) * (1.10 + (0.05 * level));
+}
+
+/**
+ * A damage at one Level carried to another, in the proportion of the common's: the dice stay, the fixed part changes (a
+ * creature that hits less than the common keeps hitting less, by as much).
+ * @returns {number}   The new fixed part
+ */
+export function scaleDamage(dice, mod, from, to) {
+  const average = (3.5 * int(dice)) + int(mod);
+  return Math.round((average * commonDamage(to) / commonDamage(from)) - (3.5 * int(dice)));
+}
 
 /** The effect data of a Mark's passive skill (transferred to the beast). */
 function passive(id, name, img, { changes = [], flags = {} } = {}) {
@@ -118,6 +139,7 @@ export function nameBeast(data, { name, solo = false, mark, newId, catalyst, t }
   s.description = html(t("header", { from, before, rank, mark: t(`${mark}.name`) })) + (s.description ?? "");
 
   const items = [];
+  let strongest = null;
   for (const item of out.items ?? []) {
     const copy = structuredClone(item);
     copy._id = newId();
@@ -125,7 +147,16 @@ export function nameBeast(data, { name, solo = false, mark, newId, catalyst, t }
     for (const effect of copy.effects ?? []) { effect._id = newId(); delete effect._key; }
     if (copy.type === "skill") {
       const dmg = copy.system.damage ?? {};
-      if ((int(dmg.dice) || int(dmg.mod)) && !dmg.recovery) dmg.mod = int(dmg.mod) + 6;
+      if ((int(dmg.dice) || int(dmg.mod)) && !dmg.recovery) {
+        const mod = scaleDamage(dmg.dice, dmg.mod, before, rank);
+        // The damage written in the text follows ("2d6 + 22" → "2d6 + 40")
+        if (copy.system.description && int(dmg.dice)) {
+          copy.system.description = copy.system.description.replace(new RegExp(`(${int(dmg.dice)}d6\\s*\\+\\s*)${int(dmg.mod)}\\b`, "g"), `$1${mod}`);
+        }
+        dmg.mod = mod;
+        const average = (3.5 * int(dmg.dice)) + mod;
+        if (["evasion", "resistance"].includes(copy.system.check?.vs) && (!strongest || (average > strongest.average))) strongest = { copy, average };
+      }
       if (copy.system.check && ["evasion", "resistance"].includes(copy.system.check.vs)) copy.system.check.mod = int(copy.system.check.mod) + 1;
     }
     const drop = copy.flags?.eternia?.drop;
@@ -134,6 +165,10 @@ export function nameBeast(data, { name, solo = false, mark, newId, catalyst, t }
       else drop.qty = (int(drop.qty) || 1) * 4;
     }
     items.push(copy);
+  }
+  // [Fate 1] on its strongest attack, as the Guide's bosses (unless it has one already)
+  if (strongest && !/\[(Destino|Fate) 1\]/.test(strongest.copy.system.description ?? "")) {
+    strongest.copy.system.description = (strongest.copy.system.description ?? "") + html(t("fate1"));
   }
   items.push(markSkill(mark, rank, newId, t));
   const anima = catalyst(Math.min(rank + 1, 10));

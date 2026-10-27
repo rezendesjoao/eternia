@@ -2,7 +2,7 @@
   "name": "Transfusão",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Mistério da Vida.</strong> Use quando um aliado a até 2 Qd for sofrer o dano de um ataque: você sofre o dano no lugar dele, como em Proteger, sem precisar estar em [Pré-Ação], e ganha +1 Fardo. Aplique o dano em você pelo cartão de dano. Não gasta ação; uma vez por rodada.</p>",
+    "description": "<p><strong>Mistério da Vida.</strong> Use quando um aliado a até 2 Qd for sofrer o dano de um ataque: você sofre o dano no lugar dele, como em Proteger, sem precisar estar em [Pré-Ação], e ganha +1 Fardo. O dano vem para você sozinho, como dano direto, depois da Defesa e da Anulação do aliado. Não gasta ação; uma vez por rodada.</p>",
     "tags": [],
     "timing": "Before Damage",
     "checkType": "",
@@ -30,7 +30,51 @@
     "macroeffect": ""
   },
   "img": "icons/magic/unholy/projectile-helix-blood-red.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "cover": true,
+          "consumeOn": "damage",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.43.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Transfusão",
+      "img": "icons/magic/unholy/projectile-helix-blood-red.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "zhZyy1WYxrWBVOMH",
+      "_key": "!items.effects!zNSyIKwHSwlqgyfo.zhZyy1WYxrWBVOMH"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "oraculo-transfusao",

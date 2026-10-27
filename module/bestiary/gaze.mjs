@@ -220,10 +220,10 @@ export function registerGaze() {
   registerHandler("bestiaryGaze", (payload, user) => onAnswer(payload ?? {}, user));
   Hooks.on("renderChatMessageHTML", onRenderMessage);
   // Whose Main Process starts: the combatant set active by this update (as conditions/turns.mjs reads it)
-  Hooks.on("updateCombat", (combat, changes) => {
+  Hooks.on("updateCombat", (combat, changes, options) => {
     if (!rulesOn() || !isPrimaryGM()) return;
     const active = foundry.utils.getProperty(changes, "flags.eternia.active");
-    if (!active || (combat.phase !== "main")) return;
+    if (!active || (combat.phase !== "main") || options?.eterniaRepeat?.start) return;
     onProcessStart(combat, combat.combatants.get(active)).catch(err => console.error(`${SYSTEM_ID} | Gaze failed`, err));
   });
   Hooks.on("eternia.processEnd", (actor, combat) => onProcessEnd(actor, combat).catch(err => console.error(`${SYSTEM_ID} | Gaze failed`, err)));

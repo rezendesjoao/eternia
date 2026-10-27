@@ -144,7 +144,7 @@ export function registerPhase() {
   // A Main Process begins: a phased monster comes back
   Hooks.on("updateCombat", (combat, changes, options, userId) => {
     const active = foundry.utils.getProperty(changes, `flags.${SYSTEM_ID}.active`);
-    if (!active || !isLocalChange(options, userId) || (combat.phase !== "main")) return;
+    if (!active || !isLocalChange(options, userId) || (combat.phase !== "main") || options.eterniaRepeat?.start) return;
     const combatant = combat.combatants.get(active);
     if (!isPhased(combatant?.actor)) return;
     phaseBack(combat, combatant).catch(err => console.error(`${SYSTEM_ID} | Phase failed`, err));

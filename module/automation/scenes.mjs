@@ -12,7 +12,7 @@
  * [Fatigue: Max HP − 1]; an Incapacitated enemy dies.
  */
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
-import { actorName, confirm, escape, postSummary, toInt } from "../helpers/utils.mjs";
+import { actorName, confirm, escape, isAdventurer, postSummary, toInt } from "../helpers/utils.mjs";
 import { fillWorld } from "../content/content.mjs";
 import { LH_STATUSES } from "../helpers/statuses.mjs";
 import { END_OF_SCENE_GROUPS, END_OF_SCENE_OTHERS } from "../conditions/catalog.mjs";
@@ -32,9 +32,10 @@ export async function bumpCounter(actor, name) {
 /**
  * End the scene for one actor: statuses, Incapacitated and Dead (see the module comment).
  * @param {Actor} actor
+ * @param {TokenDocument} [token]   The token it fought with (its side: helpers/utils.mjs isAdventurer)
  * @returns {Promise<string|null>}   A line for the summary card, if something worth telling happened.
  */
-export async function endOfSceneFor(actor) {
+export async function endOfSceneFor(actor, token = null) {
   // A transformation that ends with the scene drops its bearer, and this end doesn't lift it (conditions/transformations.mjs)
   const fallen = await fallAtSceneEnd(actor);
   const updates = {};
@@ -54,7 +55,8 @@ export async function endOfSceneFor(actor) {
   const off = [];
   const on = [];
   let line = null;
-  if (actor.type === "character") {
+  // Adventurers come back; enemies (monsters, a ready NPC on a hostile token) die
+  if (isAdventurer(actor, token)) {
     if (statuses.has("dead") && setting("revive")) {
       // A race skill that brings the character back whole (`flags.eternia.special: "book"`).
       const book = actor.items.find(i => (i.type === "skill") && (i.getFlag("eternia", "special") === "book"));

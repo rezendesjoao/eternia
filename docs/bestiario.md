@@ -195,7 +195,8 @@ da cena, uma habilidade que liberta). O token volta no quadrado livre mais perto
 `nameBeast(dados, { name, solo, mark, newId, catalyst, t })` (`named-template.mjs`) faz os dados de um monstro novo a partir
 dos de outro: Nível +2, atributos +1, Defesas +3, Esquiva e Resistência +1, Iniciativa +1, multiplicador de Ódio +1,
 Identificação +2, PV ×1,25 e então ×2 (com o bando) ou ×4 (`solo`), 3 de Destino, [Boss] (sem [Mob]), os ataques +1 no
-acerto e +6 no dano, as linhas dos itens deixados ×4 (o ouro, `(fórmula)*4`), o Anima-mundi do Nível + 1 (`catalyst(nível)`
+acerto e o dano do Nível novo (`scaleDamage`: na proporção do comum de cada NP de `docs/matematica.md`; o número escrito no
+texto segue), o [Destino 1] no ataque mais forte, as linhas dos itens deixados ×4 (o ouro, `(fórmula)*4`), o Anima-mundi do Nível + 1 (`catalyst(nível)`
 dá os dados do item) e um troféu ([Core Material], 20 × Nível de preço), fixos, o cabeçalho na descrição, a Marca e
 `flags.eternia.named`. Os efeitos com estados ficam para trás.
 

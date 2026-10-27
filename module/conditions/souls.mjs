@@ -14,7 +14,7 @@
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isLocalChange, isPrimaryGM } from "../helpers/clients.mjs";
-import { actorName, postSummary, toInt } from "../helpers/utils.mjs";
+import { actorName, combatOf, postSummary, toInt } from "../helpers/utils.mjs";
 import { evaluateFormula, formulaData, isFormula } from "../helpers/effect-formulas.mjs";
 import { addToMotor, classMotorId, motorData, motorDef, motorUnit, roundKey } from "../classes/motor.mjs";
 import { opposed, sideOn } from "./blows.mjs";
@@ -31,22 +31,37 @@ const down = actor => !actor || actor.statuses.has("incapacitated") || actor.sta
 /** The document of a uuid, or null (none for an empty one). */
 const fromUuidOrNull = uuid => (uuid ? fromUuidSync(uuid) : null);
 
-/** The token an actor stands on in the viewed scene, or null. */
-const tokenOf = actor => actor?.token?.object ?? actor?.getActiveTokens?.(true)?.[0] ?? null;
+/** The scene an actor fights in: its combat's, else the viewed one (not whatever scene the GM is looking at). */
+const sceneOf = actor => combatOf(actor)?.scene ?? canvas?.scene ?? null;
 
-/** Squares between two tokens, counted from the square of each center (a diagonal counts as 2), or null. */
+/** The token (document) an actor stands on in a scene, or null. */
+function tokenOf(actor, scene = sceneOf(actor)) {
+  if (!actor || !scene) return null;
+  if (actor.token && (actor.token.parent === scene)) return actor.token;
+  return actor.getDependentTokens?.({ scenes: scene })?.[0] ?? null;
+}
+
+/** The grid square of a token's center. */
+function squareOf(token) {
+  const size = token.parent?.grid?.size || 100;
+  return {
+    i: Math.floor((token.y + ((token.height * size) / 2)) / size),
+    j: Math.floor((token.x + ((token.width * size) / 2)) / size)
+  };
+}
+
+/** Squares between two tokens of a scene, counted from the square of each center (a diagonal counts as 2), or null. */
 function squares(a, b) {
-  if (!a || !b || !canvas.ready || (canvas.grid.type !== CONST.GRID_TYPES.SQUARE)) return null;
-  const p = canvas.grid.getOffset(a.center);
-  const q = canvas.grid.getOffset(b.center);
+  if (!a || !b || (a.parent !== b.parent) || (a.parent?.grid?.type !== CONST.GRID_TYPES.SQUARE)) return null;
+  const p = squareOf(a);
+  const q = squareOf(b);
   return Math.abs(p.i - q.i) + Math.abs(p.j - q.j);
 }
 
-/** The creatures standing in the viewed scene, each once, with a token. */
-function standing() {
-  if (!canvas.ready) return [];
+/** The creatures standing in a scene, each once, with a token. */
+function standing(scene) {
   const seen = new Map();
-  for (const token of canvas.tokens.placeables) {
+  for (const token of scene?.tokens ?? []) {
     const actor = token.actor;
     if (actor && !seen.has(actor.uuid)) seen.set(actor.uuid, { actor, token });
   }
@@ -82,7 +97,7 @@ function soulTrait(actor) {
  */
 async function onFall(fallen) {
   const at = tokenOf(fallen);
-  for (const { actor, token } of standing()) {
+  for (const { actor, token } of standing(at?.parent ?? sceneOf(fallen))) {
     if (sameActor(actor, fallen) || down(actor)) continue;
     const soul = soulTrait(actor);
     if (soul) await eatSoul(actor, token, fallen, at, soul).catch(err => console.error(`${SYSTEM_ID} | Soul eating failed`, err));
@@ -163,7 +178,7 @@ async function cleanse(effect) {
   const from = tokenOf(bearer);
   const reach = toInt(data?.reach);
   const lines = [];
-  const near = standing().filter(({ actor, token }) => !sameActor(actor, bearer) && (sideOn(actor) === sideOn(bearer))
+  const near = standing(from?.parent ?? sceneOf(bearer)).filter(({ actor, token }) => !sameActor(actor, bearer) && (sideOn(actor) === sideOn(bearer))
     && (squares(from, token) !== null) && (squares(from, token) <= reach)).map(e => e.actor);
   for (const actor of [bearer, ...near]) {
     const ids = statuses.filter(id => has(actor, id));

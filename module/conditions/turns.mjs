@@ -395,16 +395,21 @@ export async function cleanupConditions(actor) {
 async function servantStrike(actor) {
   const value = rating(actor, "servant");
   // The servant of a [Pacified] master hurts no one either.
-  if ((value <= 0) || !canvas.ready || has(actor, "pacified")) return null;
-  const token = actor.token?.object ?? actor.getActiveTokens(true)[0];
-  const side = token?.document.disposition ?? 0;
+  if ((value <= 0) || has(actor, "pacified")) return null;
+  // The scene of the master's combat, not the one the GM is viewing
+  const scene = combatOf(actor)?.scene ?? canvas?.scene ?? null;
+  const token = !scene ? null
+    : ((actor.token?.parent === scene) ? actor.token : (actor.getDependentTokens({ scenes: scene })[0] ?? null));
+  const side = token?.disposition ?? 0;
   if (!token || !side) return null;
-  const at = canvas.grid.getOffset(token.center);
-  const [nearest] = canvas.tokens.placeables
-    .filter(t => (t !== token) && t.actor && (t.document.disposition === -side)
+  const size = scene.grid?.size || 100;
+  const squareOf = t => ({ i: Math.floor((t.y + ((t.height * size) / 2)) / size), j: Math.floor((t.x + ((t.width * size) / 2)) / size) });
+  const at = squareOf(token);
+  const [nearest] = scene.tokens.contents
+    .filter(t => (t !== token) && t.actor && (t.disposition === -side)
       && !t.actor.statuses.has("incapacitated") && !t.actor.statuses.has("dead"))
     .map(t => {
-      const p = canvas.grid.getOffset(t.center);
+      const p = squareOf(t);
       return { actor: t.actor, squares: Math.abs(p.i - at.i) + Math.abs(p.j - at.j) };
     })
     .filter(e => e.squares <= SERVANT_REACH)
@@ -422,7 +427,8 @@ async function servantStrike(actor) {
 function onUpdateCombat(combat, changes, options, userId) {
   if (!rulesOn() || !isPrimaryGM()) return;
   const active = foundry.utils.getProperty(changes, "flags.eternia.active");
-  if (!active || (combat.phase !== "main")) return;
+  // A Main Process that already began this round (the tracker stepped back and forward again)
+  if (!active || (combat.phase !== "main") || options?.eterniaRepeat?.start) return;
   const combatant = combat.combatants.get(active);
   onMainProcessStart(combat, combatant).catch(err => console.error(`${SYSTEM_ID} | Main Process conditions failed`, err));
 }

@@ -563,8 +563,9 @@ function cardAttacker(card) {
 const hasTag = (card, key) => (card.tags ?? []).some(t => String(t).toLowerCase().includes(key));
 
 /**
- * Direct damage from a condition: through [Barrier] (and [Cancel] for a tagged damage such as [Burning]'s Flame),
- * [Last Stand] and Incapacitated. Asked to the GM when the user doesn't own the actor.
+ * Direct damage from a condition: through [Barrier] (and [Cancel] for a tagged damage such as [Burning]'s Flame, none
+ * on an [Exposed] actor), [Bond] (half to its source), [Last Stand] and Incapacitated. Asked to the GM when the user
+ * doesn't own the actor.
  * @param {Actor} actor
  * @param {number} amount
  * @param {object} [options]
@@ -585,7 +586,8 @@ export async function takeDamage(actor, amount, { reason = "", what: named = "",
   const bad = actor._source.system?.["bad-status"] ?? {};
   let damage = amount;
   const parts = [];
-  if (tag) {
+  // [Exposed]: no [Cancel], as on the cards
+  if (tag && !(rulesOn() && has(actor, "exposed"))) {
     const cancel = [...listStatusEntries(bad.cancels, true), ...passiveCancels(actor)]
       .filter(e => !e.tag || (e.tag.toLowerCase() === tag.toLowerCase()))
       .reduce((best, e) => Math.max(best, e.value), 0);
@@ -598,6 +600,13 @@ export async function takeDamage(actor, amount, { reason = "", what: named = "",
   const absorbed = Math.min(barrier, damage);
   damage -= absorbed;
   if (absorbed) parts.push(`− ${absorbed} ${label("barrier")}`);
+  // [Bond]: half the HP loss goes to the source, as on the cards (afterDamage); not the share it already took
+  const bondSource = (rulesOn() && (reason !== "bond") && has(actor, "bond")) ? sourcesOf(actor, "bond")[0] : null;
+  const shared = (bondSource && (damage > 1) && !sameActor(bondSource, actor)) ? Math.floor(damage / 2) : 0;
+  if (shared) {
+    damage -= shared;
+    parts.push(L("Conditions.Applied.Bond", { n: shared, name: actorName(bondSource) }));
+  }
   const before = toInt(actor.system.health?.value);
   let hp = Math.max(0, before - damage);
   const updates = { "system.health.value": hp };
@@ -626,6 +635,7 @@ export async function takeDamage(actor, amount, { reason = "", what: named = "",
   await actor.update(updates);
   if (end.length) await removeStatuses(actor, end);
   if ((hp <= 0) && !actor.statuses.has("incapacitated")) await actor.toggleStatusEffect("incapacitated", { active: true });
+  if (shared) await takeDamage(bondSource, shared, { reason: "bond", from: actor });
 
   if (breath) announceBreath(actor, breath);
 

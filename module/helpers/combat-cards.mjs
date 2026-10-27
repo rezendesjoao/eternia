@@ -45,6 +45,7 @@ import { lastingCard, lastingHitData } from "../conditions/lasting.mjs";
 import { statusDefinition } from "./statuses.mjs";
 import { tagLabel as termTag } from "../i18n/terms.mjs";
 import { setting } from "../settings.mjs";
+import { isAdventurer } from "./utils.mjs";
 
 const TEMPLATES = {
   attack: "systems/eternia/templates/chat/attack-card.hbs",
@@ -389,10 +390,16 @@ export async function createAttackCard(item, attacker, formula, flavor, { bonuse
     rangeLabel += ` (${range ? `${range}Sq` : L("Close")})`;
   }
   const origin = actorToken(attacker ?? item.actor);
-  const targets = userTargets().map(target => ({
-    ...target, dodge: null, hit: auto ? true : null, auto,
-    distance: sqDistance(origin, fromUuidSync(target.tokenUuid)?.object)
-  }));
+  const targets = userTargets().map(target => {
+    // Who was [Hate Top], and with how much Hate, when the attack came: the Hate Damage of the card is worked out from
+    // this, not from the order the targets' damage is applied in (one's −1 Hate could make another the Top)
+    const actor = targetActor(target);
+    return {
+      ...target, dodge: null, hit: auto ? true : null, auto,
+      distance: sqDistance(origin, fromUuidSync(target.tokenUuid)?.object),
+      hateTop: !!actor && (hateRank(actor) === "top"), hate: toInt(actor?.system.infos?.hate)
+    };
+  });
   const far = targets.filter(t => (range !== null) && (t.distance !== null) && (t.distance > range));
   if (far.length) {
     ui.notifications.warn(game.i18n.format("ETERNIA.Combat.Notif.OutOfRange", {
@@ -433,6 +440,8 @@ export async function createAttackCard(item, attacker, formula, flavor, { bonuse
     auto,
     attack,
     attackerType: attacker?.type ?? item.actor?.type ?? null,
+    // A monster, or a ready NPC on a hostile token (helpers/utils.mjs isAdventurer)
+    attackerEnemy: !isAdventurer(attacker ?? item.actor),
     hateMultiplier: hateMultiplier(attacker ?? item.actor),
     targets
   };
@@ -627,7 +636,8 @@ export async function createDamageCard(item, attacker, formula, flavor, attackMe
     ? attack.targets.filter(t => t.hit !== false).map(t => ({
       tokenUuid: t.tokenUuid, actorUuid: t.actorUuid, name: t.name, img: t.img,
       // Pending dodges are treated as failed: the attack was not dodged (yet).
-      dodgeFailed: !attack.auto, applied: null
+      dodgeFailed: !attack.auto, applied: null,
+      hateTop: t.hateTop, hate: t.hate
     }))
     : (defaultTargets ?? userTargets()).map(t => ({ ...t, dodgeFailed: false, applied: null }));
 
@@ -665,6 +675,7 @@ export async function createDamageCard(item, attacker, formula, flavor, attackMe
     ...lastingCard(item, attacker),
     attackerUuid: (attacker ?? item.actor)?.uuid ?? "",
     attackerType: attack?.attackerType ?? attacker?.type ?? item.actor?.type ?? null,
+    attackerEnemy: attack?.attackerEnemy ?? !isAdventurer(attacker ?? item.actor),
     hateMultiplier: attack?.hateMultiplier ?? hateMultiplier(attacker ?? item.actor),
     // The attack's Hit Check was a Critical (an Extra Breath with `not: ["critical"]` doesn't hold against it)
     critical: !!attack?.attack?.critical,
@@ -704,9 +715,10 @@ function defenseOf(actor, type) {
  * @param {object} card          The damage card data
  * @param {string} mode          damage | half | double | direct | heal
  * @param {boolean} dodgeFailed  Whether Hate Damage / Pursuit / Weakness apply
+ * @param {object} [target]      The card's target entry: who was [Hate Top] when the attack came (hateTop, hate)
  * @returns {Promise<string>}    Short result shown on the damage card
  */
-async function applyDamage(actor, card, mode, dodgeFailed) {
+async function applyDamage(actor, card, mode, dodgeFailed, target = null) {
   const system = actor.system;
   const bad = system["bad-status"] ?? {};
   // The statuses before the hit (a status that escalates, the fire that only dries the water)
@@ -820,6 +832,8 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
       if (vs.consume && status) consumed.push(status);
     }
   }
+  // What the Defense and [Cancel] took (IV.c: with [Barrier], they may take the blow to 0)
+  let defended = 0;
   if (!direct && !condition.immune) {
     let defense = condition.noDefense ? 0 : defenseOf(actor, card.type);
     const halved = (defense > 0) && (card.pierce?.defense === "half");
@@ -827,7 +841,8 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
     if (defense) steps.push(`− ${defense} ${L(card.type === "magical" ? "Applied.MDef" : "Applied.PDef")}${halved ? " (÷2)" : ""}`);
     const cancel = (condition.noCancel || card.pierce?.cancel) ? null : bestTagged(bad, "cancels", "cancel", tags, passiveCancels(actor));
     if (cancel) steps.push(`− ${cancel.value} ${tagLabel("cancel", cancel)}`);
-    amount -= defense + (cancel?.value ?? 0);
+    defended = defense + (cancel?.value ?? 0);
+    amount -= defended;
   }
   amount = Math.max(amount, 0);
   // [Petrified]: the stone takes half of it.
@@ -859,6 +874,10 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   const absorbed = hit(amount);
   if (absorbed) steps.push(`− ${absorbed} ${game.i18n.localize("ETERNIA.StatusEffect.barrier")}`);
   lines.push(`${L(direct ? "Mode.direct" : "Applied.Damage")}: ${steps.join(" ")} → ${amount - absorbed} HP`);
+  // IV.c: the Defense, [Cancel] and [Barrier] took the damage to 0, so the blow's statuses don't take (the Failed Dodge's
+  // Hate Damage, Pursuit and Weakness still do). Not a blow that was 0 for another reason: a [Pacified] attacker's, one
+  // a Motor eats, one an [Inversion] turns into healing (their statuses take, as their rules say).
+  const zeroed = !condition.immune && !inverted && ((defended + absorbed) > 0) && ((amount - absorbed) <= 0);
   if (covered) lines.push(covered.line);
   if (countered) lines.push(countered.line);
   if (inverted) lines.push(condition.absorbs
@@ -879,8 +898,10 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
       const absorbed = hit(value);
       lines.push(`${label}: ${value}${absorbed ? ` − ${absorbed} ${game.i18n.localize("ETERNIA.StatusEffect.barrier")}` : ""} → ${value - absorbed} HP`);
     };
-    if ((card.hateMultiplier > 0) && (hateRank(actor) === "top")) {
-      extra(L("Applied.Hate"), Math.floor(before.hate * card.hateMultiplier));
+    // The Hate Top when the attack came (cards from before 0.43 don't keep it: the Top now)
+    const wasTop = (typeof target?.hateTop === "boolean") ? target.hateTop : (hateRank(actor) === "top");
+    if ((card.hateMultiplier > 0) && wasTop) {
+      extra(L("Applied.Hate"), Math.floor(((typeof target?.hateTop === "boolean") ? toInt(target.hate) : before.hate) * card.hateMultiplier));
     }
     if (before.pursuits.length && !condition.harmless) {
       const top = Math.max(...before.pursuits);
@@ -897,8 +918,9 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
       extra(game.i18n.localize("ETERNIA.StatusEffect.marked"), mark);
       before.marked = true;
     }
-    // A character who fails a Dodge Check against an enemy loses 1 Hate.
-    if ((actor.type === "character") && (card.attackerType === "monster") && (before.hate > 0)) {
+    // An Adventurer who fails a Dodge Check against an enemy (a monster, a ready NPC on a hostile token) loses 1 Hate.
+    const enemy = card.attackerEnemy ?? (card.attackerType === "monster");
+    if (enemy && isAdventurer(actor, target?.tokenUuid ? fromUuidSync(target.tokenUuid) : null) && (before.hate > 0)) {
       updates["system.infos.hate"] = before.hate - 1;
       lines.push(L("Applied.HateDown"));
     }
@@ -970,14 +992,14 @@ async function applyDamage(actor, card, mode, dodgeFailed) {
   }
   // Statuses the attacker's effects give on a hit (an Engineer's Spark Stone), and those that escalate from a status
   // the target already had (a Magia's Trait): Undo takes them back. Fire on a [Soaked] target only dries it. Nothing
-  // of an attack that didn't reach the target ([Counter], [The One]).
+  // of an attack that didn't reach the target ([Counter], [The One]) nor of one whose damage was taken to 0.
   const dried = had.has("soaked") && (card.tags ?? []).some(t => /flame/i.test(String(t)));
   const escalated = (card.escalate ?? []).filter(e => had.has(e.if)).flatMap(e => e.add.map(a => ({ ...a, name: e.name })));
-  const onHit = untouched ? [] : [...(card.onHit ?? []), ...escalated]
+  const onHit = (untouched || zeroed) ? [] : [...(card.onHit ?? []), ...escalated]
     .filter(h => h.statusId && !(dried && (h.statusId === "burning")) && !(h.rankBelow && (crOf(actor) >= h.rankBelow))
       && hitApplies(actor, h, hp));
   // A Trait that steals: the first of these bonuses the target has passes to the attacker (the Roubo).
-  const stolen = (untouched || !attacker) ? null : (card.steal ?? []).find(id => has(actor, id));
+  const stolen = (untouched || zeroed || !attacker) ? null : (card.steal ?? []).find(id => has(actor, id));
   if (stolen) {
     const line = await stealStatuses(actor, [stolen], attacker);
     if (line) lines.push(line);
@@ -1060,7 +1082,7 @@ async function onApplyDamage(message, index, mode) {
   const target = card.targets[index];
   const actor = target && targetActor(target);
   if (!actor?.isOwner) return;
-  const result = await applyDamage(actor, card, mode, target.dodgeFailed);
+  const result = await applyDamage(actor, card, mode, target.dodgeFailed, target);
   await updateCardTarget(message, "damage", index, { applied: result });
 }
 

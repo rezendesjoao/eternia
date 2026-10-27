@@ -2,7 +2,7 @@
   "name": "Corpo-Escudo",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Caminho do Mártir.</strong> Use quando um aliado no seu quadrado for sofrer o dano de um ataque: você sofre o dano no lugar dele, como em Proteger, mas sem precisar estar em [Pré-Ação]. Aplique o dano em você pelo cartão de dano.</p><p><strong>Usos:</strong> 1 por rodada.</p>",
+    "description": "<p><strong>Caminho do Mártir.</strong> Use quando um aliado no seu quadrado for sofrer o dano de um ataque: você sofre o dano no lugar dele, como em Proteger, mas sem precisar estar em [Pré-Ação]. O dano vem para você sozinho, como dano direto, depois da Defesa e da Anulação do aliado.</p><p><strong>Usos:</strong> 1 por rodada.</p>",
     "tags": [],
     "timing": "Before Damage",
     "checkType": "",
@@ -30,7 +30,51 @@
     "macroeffect": ""
   },
   "img": "icons/magic/defensive/armor-shield-barrier-steel.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "cover": true,
+          "consumeOn": "damage",
+          "expires": "endOfRound"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.43.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Corpo-Escudo",
+      "img": "icons/magic/defensive/armor-shield-barrier-steel.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "c1larGt1PZA0qiIm",
+      "_key": "!items.effects!eiFs5Revt2LGfQ2M.c1larGt1PZA0qiIm"
+    }
+  ],
   "flags": {
     "eternia": {
       "identifier": "sacerdote-corpo-escudo",

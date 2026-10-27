@@ -718,8 +718,8 @@ deu o veneno ou o fogo que o feriu), e o que não cabe no inventário fica numa 
 tem o **Desfazer** do Mestre. Seguem as regras do Log Horizon: o Fixo cai sempre, e quem entrou no combate depois do
 começo (os chamados, as levas, um token posto no meio da luta) não deixa nada. A configuração **Itens deixados: quando
 rolar** troca a queda pelo fim do combate ou pela rolagem à mão (o botão Rolar da aba, que também escolhe quem recebe).
-As 70 tabelas que o bestiário trazia como texto viraram dados; um monstro do mundo com a tabela no texto rola por ela
-mesmo, e a aba tem o **Virar dados**. Arrastar um item para a ficha de um monstro cria uma linha, nas faces livres, e a
+Um monstro do mundo com a tabela escrita no texto rola por ela mesmo, e a aba tem o **Virar dados**. O Bestiário traz
+só as criaturas da Eternia (os monstros antigos de Log Horizon saíram na 0.43). Arrastar um item para a ficha de um monstro cria uma linha, nas faces livres, e a
 aba compara a média da tabela com a do Guia de Criação de Inimigos.
 
 **O bestiário do Império** (pasta O Império do compêndio Bestiário, uma pasta por NP, do 1 ao 9) traz 52 monstros com

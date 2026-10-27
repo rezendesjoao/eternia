@@ -8,11 +8,12 @@
  * who is [Hate Top] on the tokens.
  *
  * Highest Hate among the characters still fighting = [Hate Top] (ties included); the others are
- * [Hate Under]. Incapacitated and Dead characters have neither, nor characters outside any combat.
+ * [Hate Under]. Incapacitated and Dead characters have neither, nor characters outside any combat, nor a ready NPC on
+ * a hostile token (an enemy: helpers/utils.mjs isAdventurer).
  */
 import { SYSTEM_ID, setting } from "../settings.mjs";
 import { isPrimaryGM } from "../helpers/clients.mjs";
-import { combatActors, fightsIn, toInt } from "../helpers/utils.mjs";
+import { combatActors, fightsIn, isAdventurer, toInt } from "../helpers/utils.mjs";
 
 const STATUSES = ["hateTop", "hateUnder"];
 
@@ -53,7 +54,9 @@ async function refresh(combat) {
     for (const actor of characters) if (!combatsOf(actor).length) await setHateStatus(actor, null);
     return;
   }
-  const fighting = characters.filter(a => !a.statuses.has("incapacitated") && !a.statuses.has("dead"));
+  // A ready NPC on a hostile token is an enemy: out of the party's Hate (neither status)
+  const enemies = characters.filter(a => !combat.combatants.some(c => (c.actor === a) && isAdventurer(a, c.token)));
+  const fighting = characters.filter(a => !enemies.includes(a) && !a.statuses.has("incapacitated") && !a.statuses.has("dead"));
   const hate = actor => toInt(actor.system.infos?.hate);
   const top = fighting.length ? Math.max(...fighting.map(hate)) : 0;
   for (const actor of characters) {
@@ -83,6 +86,11 @@ export function registerHate() {
       if (actor instanceof Actor) for (const combat of combatsOf(actor)) schedule(combat);
     });
   }
+  // A token turned hostile (or back): a ready NPC leaves the party's Hate, or comes back to it
+  Hooks.on("updateToken", (token, changes) => {
+    if (!active() || !("disposition" in changes) || !token.actor) return;
+    for (const combat of combatsOf(token.actor)) schedule(combat);
+  });
   Hooks.on("createCombatant", combatant => active() && schedule(combatant.parent));
   Hooks.on("deleteCombatant", combatant => {
     if (!active()) return;

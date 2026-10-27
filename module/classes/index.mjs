@@ -126,11 +126,13 @@ async function onUpdateCombat(combat, changes, options, userId) {
   if (!before) return;
   const now = combat.progress ?? {};
   const actorOf = id => combat.combatants.get(id)?.actor ?? null;
-  for (const id of (now.acted ?? []).filter(id => !before.acted.includes(id))) {
+  // What already began or ended this round doesn't again (the tracker stepped back and forward: EterniaCombat#_applyState)
+  const repeat = options.eterniaRepeat ?? {};
+  for (const id of (now.acted ?? []).filter(id => !before.acted.includes(id) && !(repeat.ended ?? []).includes(id))) {
     const actor = actorOf(id);
     if (actor && motorsOf(actor).length) await motorEvent(actor, "onTurnEnd", combat);
   }
-  if (now.active && (now.active !== before.active)) {
+  if (now.active && (now.active !== before.active) && !repeat.start) {
     const actor = actorOf(now.active);
     if (actor && motorsOf(actor).length) await motorEvent(actor, "onTurnStart", combat);
   }
