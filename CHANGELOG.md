@@ -1,5 +1,32 @@
 # Changelog
 
+## Não lançado
+
+O Guia do Jogador no Diário, e o Foundry inteiro no visual da Eternia.
+
+### Adicionado
+- **O Guia do Jogador** (compêndio novo `guide`, o primeiro da pasta Eternia): 21 páginas que explicam o sistema como
+  um livro de RPG: o jogo e os testes, o personagem, a criação, as raças e a forma, as classes e o Motor, as Magias, as
+  habilidades, a evolução, as sessões e cenas, o combate, o ataque e o dano, o Ódio, o Destino, os estados e condições,
+  o equipamento e a riqueza, as profissões, o que se faz fora de combate e a mesa virtual, com um glossário e uma
+  referência rápida. As listas de raças, classes, Magias e habilidades ficam nos compêndios e em AS REGRAS; o guia
+  explica como as peças funcionam, com caixas de Regra, Exemplo, Dica, Atenção, Na mesa virtual, Em resumo e Com o
+  Mestre, links entre as páginas e para AS REGRAS, e as etiquetas coloridas dos colchetes.
+- **O guia no Diário de cada mundo** (configuração "Guia do Jogador no Diário", ligada): o primeiro Mestre conectado
+  põe o guia no Diário, legível por todos, e o reescreve quando o sistema traz uma versão nova dele (a pasta, as
+  permissões e a ordem que o Mestre escolheu ficam). `game.eternia.syncGuide()` faz isso na hora.
+- **Os diários como livro da Eternia** (configuração de cada jogador, ligada): todo diário em pergaminho, com o sumário
+  no estandarte verde, o nome do diário no alto da página, títulos em Eczar com o losango dourado, texto em Gelasio,
+  regras douradas, tabelas com a faixa verde, links em etiqueta e o mesmo visual ao escrever uma página; a imagem
+  mostrada aos jogadores ganha a moldura. Os blocos de livro (abertura de capítulo, capa, capitular, caixas, cartões,
+  fluxos, passos numerados, regra em uma linha, glossário, faces de dado) servem a qualquer página.
+- **O menu Eternia no editor de páginas:** põe as caixas (Regra, Exemplo, Dica, Atenção, Na mesa virtual, Em resumo e
+  Com o Mestre), o parágrafo de abertura com a letra grande e a regra em uma linha.
+- **A interface no visual da Eternia** (configuração de cada jogador, ligada): os botões da barra lateral e os controles
+  da cena em medalhões com aro dourado (o ativo em ouro), as listas de Atores, Itens, Diário e Compêndios com as pastas
+  em faixa verde, os jogadores, a navegação das cenas, a caixa do chat, a pausa, os avisos, os menus de contexto, as
+  dicas e a barra de toda janela no verde e dourado da Eternia.
+
 ## 0.45.0 — 2026-10-27
 
 O Mercado e as lojas: todos os itens dos compêndios numa janela só, e lojas na cena que os jogadores abrem com dois

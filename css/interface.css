@@ -1,0 +1,436 @@
+/* ==========================================================================
+   Foundry's interface in the look of Eternia (module/journal/index.mjs adds body.et-ui, a setting of each player)
+   The green of the sheet's banner, gold rims and parchment text: the sidebar and its tabs (round medallions, the
+   active one in gold), the directories (Actors, Items, Journal, Compendiums...), the scene controls, the players,
+   the scene navigation, the chat box, the pause, the notifications, the context menus, the tooltips and the bar of
+   every window. Documents keep their own looks (the sheets, the journal book, the chat cards).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Palette: Foundry's base colours turned to the green and gold of Eternia
+   -------------------------------------------------------------------------- */
+body.et-ui {
+  --et-green: #1f5137;
+  --et-green-dark: #173f2b;
+  --et-green-deep: #10291b;
+  --et-green-night: #0c1d14;
+  --et-green-light: #2b6747;
+  --et-gold: #b19a55;
+  --et-gold-bright: #d8bd6e;
+  --et-gold-light: #e9d7a1;
+  --et-gold-pale: #f4ead0;
+  --et-parch-text: #efe3c2;
+  --et-serif: "Eternia Eczar", "Eczar", Georgia, serif;
+  --et-body: "Eternia Gelasio", "Gelasio", Georgia, serif;
+  --et-sans: "Signika", "Roboto", sans-serif;
+  --et-rim: rgba(177, 154, 85, 0.55);
+  --et-rim-soft: rgba(177, 154, 85, 0.22);
+
+  --color-cool-5: #0c1d14;
+  --color-cool-5-25: rgba(12, 29, 20, 0.25);
+  --color-cool-5-50: rgba(12, 29, 20, 0.5);
+  --color-cool-5-75: rgba(12, 29, 20, 0.78);
+  --color-cool-5-90: rgba(12, 29, 20, 0.92);
+  --color-cool-4: #183526;
+  --color-cool-3: #24493a;
+  --color-warm-1: #d8bd6e;
+  --color-warm-2: #2b6747;
+  --color-warm-3: #1f5137;
+  --color-light-1: #fbf4e0;
+  --color-light-2: #efe3c2;
+  --color-light-3: #ddcfa9;
+  --color-light-4: #c3b38a;
+  --color-light-5: #9d8f6d;
+  --color-light-6: #6e6650;
+}
+
+/* The interface layer (Foundry themes it on #interface itself) */
+body.et-ui #interface {
+  --sidebar-background: rgba(13, 31, 21, 0.95);
+  --sidebar-separator: 1px solid rgba(177, 154, 85, 0.16);
+  --sidebar-entry-hover-bg: rgba(177, 154, 85, 0.12);
+  --sidebar-folder-color: #1c4631;
+  --color-text-primary: var(--et-parch-text);
+  --color-text-secondary: #d9cba4;
+  --color-text-emphatic: #fff8e2;
+  --color-text-subtle: #a99a74;
+  --hr-gradient: linear-gradient(90deg, transparent 0%, var(--et-gold) 50%, transparent 100%);
+}
+body.et-ui #interface .ui-control,
+body.et-ui .ui-control {
+  --control-size: 34px;
+  --control-bg-color: rgba(16, 41, 27, 0.9);
+  --control-border-color: var(--et-rim);
+  --control-icon-color: var(--et-gold-light);
+  --control-hover-bg-color: var(--et-green);
+  --control-hover-border-color: var(--et-gold-light);
+  --control-hover-icon-color: #fff;
+  --control-active-bg-color: #b9a05a;
+  --control-active-border-color: var(--et-gold-pale);
+  --control-active-icon-color: var(--et-green-deep);
+  --control-button-border-color: var(--et-gold);
+  --control-button-hover-bg-color: var(--et-green);
+  --control-button-hover-border-color: var(--et-gold-light);
+  --toggle-border-color: var(--et-gold);
+  --toggle-active-bg-color: var(--et-green-light);
+  --toggle-active-border-color: var(--et-gold-light);
+}
+
+/* --------------------------------------------------------------------------
+   Round medallions: the sidebar tabs and the scene controls
+   -------------------------------------------------------------------------- */
+body.et-ui :is(#sidebar-tabs, #scene-controls) .ui-control {
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.45);
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease, box-shadow 120ms ease;
+}
+body.et-ui :is(#sidebar-tabs, #scene-controls) .ui-control:hover {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35), 0 0 0 2px rgba(177, 154, 85, 0.28), 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+body.et-ui :is(#sidebar-tabs, #scene-controls) .ui-control:is(.active, [aria-pressed="true"]) {
+  background: radial-gradient(circle at 38% 30%, #e7cf86, #b39a52 60%, #8e7a3e);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35), 0 0 0 2px rgba(16, 41, 27, 0.85), 0 0 0 3px var(--et-gold), 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+body.et-ui #sidebar-tabs > menu {
+  gap: 9px;
+}
+body.et-ui #sidebar-tabs .notification-pip,
+body.et-ui .notification-pip {
+  border: 1px solid var(--et-gold-pale);
+  background: #b5452e;
+}
+/* The sub-tools of the scene controls: smaller medallions */
+body.et-ui #scene-controls-tools .ui-control {
+  --control-size: 30px;
+}
+
+/* --------------------------------------------------------------------------
+   The sidebar
+   -------------------------------------------------------------------------- */
+body.et-ui #sidebar-content .sidebar-tab:not(.sidebar-popout),
+body.et-ui .sidebar-popout .window-content {
+  border: 1px solid rgba(177, 154, 85, 0.5);
+  border-right: none;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0) 14px),
+    linear-gradient(rgba(14, 34, 23, 0.94), rgba(11, 27, 18, 0.96));
+  box-shadow: inset 1px 0 0 rgba(177, 154, 85, 0.2), -3px 0 10px rgba(0, 0, 0, 0.35);
+  color: var(--et-parch-text);
+  scrollbar-width: thin;
+  scrollbar-color: var(--et-gold) transparent;
+}
+body.et-ui #sidebar-content :is(.directory-list, .chat-scroll, .combat-tracker, .scrollable) {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(177, 154, 85, 0.7) transparent;
+}
+
+/* Header of a directory: the two buttons and the search */
+body.et-ui .directory .directory-header {
+  margin-block: 10px 6px;
+}
+body.et-ui .directory .directory-header .action-buttons button {
+  --button-background-color: rgba(31, 81, 55, 0.65);
+  --button-border-color: var(--et-rim);
+  --button-text-color: var(--et-gold-pale);
+  --button-hover-background-color: var(--et-green-light);
+  --button-hover-border-color: var(--et-gold-light);
+  --button-hover-text-color: #fff;
+  height: 30px;
+  border-radius: 3px;
+  font: 500 13.5px/1 var(--et-serif);
+  letter-spacing: 0.02em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+body.et-ui .directory .directory-header .action-buttons button i {
+  color: var(--et-gold-light);
+}
+body.et-ui .directory .directory-header search {
+  margin-inline: 8px;
+  padding: 0 4px;
+  border: 1px solid var(--et-rim-soft);
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.22);
+}
+body.et-ui .directory .directory-header search input {
+  --input-background-color: transparent;
+  --input-border-color: transparent;
+  --input-text-color: var(--et-gold-pale);
+  --input-placeholder-color: rgba(233, 215, 161, 0.5);
+  font-family: var(--et-body);
+  font-style: italic;
+  box-shadow: none;
+}
+body.et-ui .directory .directory-header search :is(button, .inline-control) {
+  --button-text-color: var(--et-gold-light);
+  --button-hover-text-color: #fff;
+}
+
+/* Entries */
+body.et-ui .directory .directory-item {
+  border-top-color: rgba(177, 154, 85, 0.13);
+}
+body.et-ui .directory .directory-item.document,
+body.et-ui .directory .directory-item.entry {
+  color: var(--et-parch-text);
+}
+body.et-ui .directory .directory-item .entry-name,
+body.et-ui .directory .directory-item .entry-name a,
+body.et-ui .directory .directory-item.document .document-name {
+  color: var(--et-parch-text);
+  font-family: var(--et-body);
+  font-size: 14px;
+}
+body.et-ui .directory .directory-item.entry:hover,
+body.et-ui .directory .directory-item.document:hover {
+  background: linear-gradient(90deg, rgba(177, 154, 85, 0.18), rgba(177, 154, 85, 0.04));
+}
+body.et-ui .directory .directory-item.entry:hover .entry-name {
+  color: #fff8e2;
+}
+body.et-ui .directory .directory-item img.thumbnail,
+body.et-ui .directory .directory-item > img {
+  border-right: 1px solid rgba(177, 154, 85, 0.25);
+}
+body.et-ui .directory .directory-item:is(.context, .active)::after {
+  border-color: var(--et-gold);
+}
+body.et-ui .journal-sidebar .directory-item.entry .entry-name::before {
+  content: "\f518";
+  margin-right: 8px;
+  color: var(--et-gold);
+  font: 900 11px/1 "Font Awesome 7 Pro", "Font Awesome 6 Pro";
+  opacity: 0.85;
+}
+
+/* Folders: a green band with a gold rule */
+body.et-ui li.folder > .folder-header {
+  border-bottom: 1px solid rgba(177, 154, 85, 0.35);
+  color: var(--et-gold-pale);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), inset 0 -8px 12px rgba(0, 0, 0, 0.12);
+}
+body.et-ui li.folder > .folder-header .folder-name {
+  font: 500 15px/var(--sidebar-folder-height) var(--et-serif);
+  letter-spacing: 0.03em;
+}
+body.et-ui li.folder > .folder-header > i,
+body.et-ui li.folder > .folder-header .folder-icon {
+  color: var(--et-gold-light);
+}
+body.et-ui .directory .directory-item .subdirectory {
+  border-left-width: 3px;
+}
+
+/* Footer of a directory */
+body.et-ui .directory .directory-footer:not(:empty) {
+  border-top: 1px solid var(--et-rim-soft);
+  background: rgba(0, 0, 0, 0.2);
+}
+body.et-ui .directory .directory-footer button {
+  --button-background-color: rgba(31, 81, 55, 0.6);
+  --button-border-color: var(--et-rim);
+  --button-text-color: var(--et-gold-pale);
+  --button-hover-background-color: var(--et-green-light);
+}
+body.et-ui .directory .directory-footer button:not([class*="fa-"]) {
+  font-family: var(--et-serif);
+}
+
+/* The compendium list: each pack a ruled row, Eternia's folder in green */
+body.et-ui .compendium-directory .directory-item.compendium {
+  border-top-color: rgba(177, 154, 85, 0.13);
+}
+body.et-ui .compendium-directory .directory-item.compendium .entry-name,
+body.et-ui .compendium-directory .directory-item.compendium .compendium-name {
+  font-family: var(--et-body);
+}
+body.et-ui .compendium-directory .directory-item.compendium :is(.compendium-footer, .source, .entry-type) {
+  color: #b8a77c;
+}
+
+/* The settings tab: green buttons */
+body.et-ui #settings :is(button, .button) {
+  --button-background-color: rgba(31, 81, 55, 0.55);
+  --button-border-color: var(--et-rim);
+  --button-text-color: var(--et-gold-pale);
+  --button-hover-background-color: var(--et-green-light);
+  --button-hover-border-color: var(--et-gold-light);
+  --button-hover-text-color: #fff;
+}
+body.et-ui #settings :is(button, .button):not([class*="fa-"]) {
+  font-family: var(--et-serif);
+}
+body.et-ui #settings :is(h2, h3, h4) {
+  border-bottom: 1px solid var(--et-rim-soft);
+  color: var(--et-gold-light);
+  font-family: var(--et-serif);
+}
+
+/* --------------------------------------------------------------------------
+   The chat box and the combat tracker
+   -------------------------------------------------------------------------- */
+body.et-ui #chat-message {
+  --input-background-color: rgba(10, 25, 17, 0.88);
+  --input-border-color: var(--et-rim);
+  --input-text-color: var(--et-gold-pale);
+  border: 1px solid var(--et-rim);
+  border-radius: 4px;
+  background: rgba(10, 25, 17, 0.88);
+  color: var(--et-gold-pale);
+  font-family: var(--et-body);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+body.et-ui #chat-message .editor-content {
+  color: var(--et-gold-pale);
+  font-family: var(--et-body);
+}
+body.et-ui #chat-message:focus-within {
+  border-color: var(--et-gold-light);
+}
+body.et-ui #chat-controls,
+body.et-ui #roll-privacy {
+  --button-text-color: var(--et-gold-light);
+  --button-hover-text-color: #fff;
+}
+body.et-ui #roll-privacy button[aria-pressed="true"],
+body.et-ui #chat-controls .ui-control[aria-pressed="true"] {
+  --button-background-color: var(--et-gold);
+  --button-text-color: var(--et-green-deep);
+}
+body.et-ui .combat-sidebar .combat-tracker-header,
+body.et-ui #combat .combat-tracker-header {
+  border-bottom: 1px solid var(--et-rim-soft);
+}
+body.et-ui :is(#combat, .combat-sidebar) .encounter-title,
+body.et-ui :is(#combat, .combat-sidebar) .encounter-controls h3 {
+  color: var(--et-gold-light);
+  font-family: var(--et-serif);
+}
+body.et-ui :is(#combat, .combat-sidebar) .combatant.active {
+  border-color: var(--et-gold);
+  background: linear-gradient(90deg, rgba(177, 154, 85, 0.24), rgba(177, 154, 85, 0.06));
+}
+body.et-ui :is(#combat, .combat-sidebar) .combatant .token-name {
+  font-family: var(--et-body);
+}
+
+/* --------------------------------------------------------------------------
+   Players, scene navigation, the pause
+   -------------------------------------------------------------------------- */
+body.et-ui #players {
+  border: 1px solid var(--et-rim);
+  border-radius: 4px;
+  background: linear-gradient(rgba(16, 41, 27, 0.92), rgba(11, 27, 18, 0.94));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+body.et-ui #players .player-name {
+  color: var(--et-parch-text);
+  font-family: var(--et-body);
+}
+body.et-ui #players .player.gm .player-name {
+  color: var(--et-gold-light);
+}
+body.et-ui #players #performance-stats label {
+  color: #b5a57a;
+}
+body.et-ui #scene-navigation .scene.ui-control {
+  border-radius: 3px;
+  background: linear-gradient(rgba(31, 81, 55, 0.92), rgba(19, 50, 34, 0.94));
+  color: var(--et-gold-pale);
+  font-family: var(--et-serif);
+}
+body.et-ui #scene-navigation .scene.ui-control.active,
+body.et-ui #scene-navigation .scene.ui-control.view {
+  border-color: var(--et-gold-light);
+  box-shadow: inset 0 -2px 0 var(--et-gold);
+}
+body.et-ui #pause {
+  background: linear-gradient(90deg, rgba(12, 29, 20, 0), rgba(12, 29, 20, 0.78) 25%, rgba(12, 29, 20, 0.78) 75%, rgba(12, 29, 20, 0));
+}
+body.et-ui #pause figcaption {
+  color: var(--et-gold-light);
+  font-family: var(--et-serif);
+  letter-spacing: 0.3em;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+body.et-ui #pause img {
+  filter: sepia(1) saturate(2.2) hue-rotate(5deg) brightness(0.95) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+  opacity: 0.85;
+}
+
+/* --------------------------------------------------------------------------
+   Notifications, context menus, tooltips
+   -------------------------------------------------------------------------- */
+body.et-ui #notifications .notification {
+  border: 1px solid var(--et-rim);
+  border-left-width: 5px;
+  border-radius: 3px;
+  background: linear-gradient(rgba(16, 41, 27, 0.96), rgba(11, 27, 18, 0.97));
+  color: var(--et-gold-pale);
+  font-family: var(--et-body);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  text-shadow: none;
+}
+body.et-ui #notifications .notification.info {
+  border-left-color: var(--et-green-light);
+}
+body.et-ui #notifications .notification.warning {
+  border-left-color: var(--et-gold-bright);
+}
+body.et-ui #notifications .notification.error {
+  border-left-color: #b5452e;
+}
+body.et-ui #notifications .notification.success {
+  border-left-color: #6fae6a;
+}
+body.et-ui #context-menu {
+  --background-color: #10291b;
+  --border-color: var(--et-gold);
+  border: 1px solid var(--et-gold);
+  border-radius: 3px;
+  background: linear-gradient(#143322, #0e2318);
+  color: var(--et-parch-text);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+}
+body.et-ui #context-menu .context-item {
+  font-family: var(--et-body);
+}
+body.et-ui #context-menu .context-item:hover {
+  background: rgba(177, 154, 85, 0.2);
+  color: #fff;
+}
+body.et-ui #context-menu .context-item i {
+  color: var(--et-gold-light);
+}
+body.et-ui #tooltip,
+body.et-ui .locked-tooltip {
+  border: 1px solid rgba(177, 154, 85, 0.7);
+  border-radius: 3px;
+  background: rgba(12, 29, 20, 0.96);
+  color: var(--et-gold-pale);
+  font-family: var(--et-body);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.55);
+}
+
+/* --------------------------------------------------------------------------
+   The bar of every window: green with a gold line (the system's own windows already have theirs)
+   -------------------------------------------------------------------------- */
+body.et-ui .application:not(.lhpf):not(.lhwin):not(.journal-sheet):not(.journal-entry-page):not(.image-popout) > .window-header {
+  border-bottom: 1px solid var(--et-gold);
+  background: linear-gradient(#1c4430, #10291b);
+  color: var(--et-gold-pale);
+}
+body.et-ui .application:not(.lhpf):not(.lhwin):not(.journal-sheet):not(.journal-entry-page):not(.image-popout) > .window-header .window-title {
+  font-family: var(--et-serif);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+body.et-ui .application:not(.lhpf):not(.lhwin):not(.journal-sheet):not(.journal-entry-page):not(.image-popout) > .window-header :is(.header-control, button) {
+  --button-text-color: var(--et-gold-light);
+  --button-hover-text-color: #fff;
+  color: var(--et-gold-light);
+}
+body.et-ui .application.theme-dark:not(.lhpf):not(.lhwin) {
+  --background: rgba(13, 31, 21, 0.96);
+  border-color: rgba(177, 154, 85, 0.45);
+}

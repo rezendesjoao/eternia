@@ -91,6 +91,8 @@ export function registerSettings() {
   toggle("creationCard");
   // Content
   toggle("content");
+  // The Player's Guide kept in the world's Journal (journal/index.mjs)
+  toggle("guideJournal");
   // Look
   toggle("chatTheme");
   game.settings.register(SYSTEM_ID, "windowTheme", {
@@ -101,6 +103,17 @@ export function registerSettings() {
     type: Boolean,
     default: true,
     requiresReload: true
+  });
+  // Each player's: Foundry's interface and the journals in the look of Eternia (journal/index.mjs)
+  const look = () => Hooks.callAll("eterniaLook");
+  for (const key of ["uiTheme", "journalTheme"]) game.settings.register(SYSTEM_ID, key, {
+    name: `ETERNIA.Settings.${key}.Name`,
+    hint: `ETERNIA.Settings.${key}.Hint`,
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true,
+    onChange: look
   });
   // Item icons (icons/index.mjs): each player may keep them still.
   game.settings.register(SYSTEM_ID, "iconEffects", {

@@ -240,8 +240,8 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   [As condições](#as-condições)).
 - **Já vem pronto:** a ficha de personagem e a de monstro, o HUD de ações, o chat, os tokens e as outras janelas no
   mesmo visual; toda a automação de combate e de uso de habilidades; a interface em português do Brasil.
-- **Compêndios com conteúdo:** Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre, Itens, Bestiário,
-  Regras e O Mundo de Eternia (o mundo de jogo, só do Mestre), em português.
+- **Compêndios com conteúdo:** Guia do Jogador, Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre,
+  Itens, Bestiário, Regras e O Mundo de Eternia (o mundo de jogo, só do Mestre), em português.
 - **Compêndios da Eternia:** Raças e Classes (as 6 raças em 8 itens, com os Bestiais em três linhagens, e as 6 antigas; as 10 profissões; as 22 classes, 14 na lista e 8 antigas), Habilidades Raciais e
   Habilidades de Classe (36 por classe, 64 no Matador de Dragões, e as 97 Magias com os feitiços: 1511 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
@@ -746,6 +746,34 @@ Ilusão) e os custos. As raças antigas (Oni, Flügel, Etherious, Vargr, Kitsune
 as usam continuam funcionando, sem os estágios. A página **XIII. AS RAÇAS E A FORMA** do diário AS REGRAS tem tudo, com
 os ritos.
 
+## O Guia do Jogador
+
+O compêndio **Guia do Jogador** (o primeiro da pasta Eternia, legível pelos jogadores) explica o sistema como um livro
+de RPG, em 21 páginas: o jogo e os testes, o personagem, a criação, as raças e a forma, as classes e o Motor, as
+Magias, as habilidades, a evolução, as sessões e cenas, o combate, o ataque e o dano, o Ódio, o Destino, os estados e
+condições, o equipamento e a riqueza, as profissões, fora de combate e a mesa virtual, mais um glossário e uma
+referência rápida. As listas de raças, classes, Magias e habilidades ficam nos compêndios e em AS REGRAS: o guia diz
+como cada peça funciona, com caixas de Regra, Exemplo, Dica, Atenção, Na mesa virtual, Em resumo e Com o Mestre.
+
+Com a configuração **Guia do Jogador no Diário** (ligada), o primeiro Mestre conectado põe o guia no Diário do mundo,
+para todos lerem, e o reescreve sozinho quando uma versão nova do sistema muda o guia (a pasta, as permissões e a
+ordem que o Mestre escolheu ficam; as páginas voltam a ser as do compêndio). As páginas saem dos capítulos em
+`src/guide/` (veja [Desenvolvimento](#desenvolvimento)).
+
+## Os diários e a interface
+
+- **Diários como livro da Eternia** (configuração de cada jogador, ligada): todo diário em pergaminho, com o sumário
+  no estandarte verde, o nome do diário no alto da página, títulos em Eczar com o losango dourado, texto em Gelasio
+  numa coluna de leitura, regras douradas, tabelas com a faixa verde e links em etiqueta. A página sendo escrita tem o
+  mesmo visual, e a imagem mostrada aos jogadores ganha uma moldura.
+- **O menu Eternia do editor:** ao escrever uma página de diário, o menu Eternia põe as caixas do guia (Regra,
+  Exemplo, Dica, Atenção, Na mesa virtual, Em resumo e Com o Mestre), o parágrafo de abertura com a letra grande e a
+  regra em uma linha. A caixa sem título usa o nome do tipo; um título em Cabeçalho 4 na primeira linha troca o nome.
+- **Interface no visual da Eternia** (configuração de cada jogador, ligada): os botões da barra lateral e os controles
+  da cena em medalhões com aro dourado (o ativo em ouro), as listas de Atores, Itens, Diário e Compêndios com as pastas
+  em faixa verde, os jogadores, a navegação das cenas, a caixa do chat, a pausa, os avisos, os menus de contexto, as
+  dicas e a barra de toda janela no verde e dourado da Eternia. Fichas, cartões do chat e o diário têm o visual próprio.
+
 ## O Mundo de Eternia
 
 O compêndio **O Mundo de Eternia** (só do Mestre) traz o mundo de jogo: a criação e os deuses, a história, os lugares,
@@ -1111,6 +1139,7 @@ janelas em pergaminho, que pedem para recarregar.
 | Estados clicáveis no chat | ligado |
 | Criar efeito a partir de um cartão | ligado |
 | Conteúdo dos itens e monstros | ligado |
+| Guia do Jogador no Diário | ligado |
 | Itens deixados: quando rolar | quando o monstro cai |
 | Tema pergaminho no chat | ligado |
 | Janelas do sistema em pergaminho | ligado |
@@ -1120,7 +1149,8 @@ janelas em pergaminho, que pedem para recarregar.
 
 Cada jogador escolhe as suas: HUD de ações (ligado), HUD sem token selecionado (ligado), barra de macros do Foundry
 (esconder), aviso da sua vez (ligado), selecionar o token na sua vez (desligado), levar a tela até quem age
-(desligado), limpar os alvos no fim da sua vez (ligado) e ícones animados (ligado).
+(desligado), limpar os alvos no fim da sua vez (ligado), ícones animados (ligado), interface no visual da Eternia
+(ligado) e diários como livro da Eternia (ligado).
 
 ## Instalação
 
@@ -1173,6 +1203,7 @@ eternia.market.createShopDialog(entries); // a caixa de loja nova, com entradas 
 eternia.market.createShop({ name, img, entries, stock: 3, buyPercent: 110 }); // uma loja direto (Mestre)
 eternia.market.purchase(actor, entry, { quantity: 2, free: false }); // o Mestre compra (ou dá) um item do catálogo
 (await eternia.market.catalog()).entries; // todos os itens do Mercado, como a janela os lê
+eternia.syncGuide();                  // o Guia do Jogador no Diário, como o compêndio o tem (Mestre)
 ```
 
 ## Limites conhecidos
@@ -1200,7 +1231,13 @@ eternia.market.purchase(actor, entry, { quantity: 2, free: false }); // o Mestre
   em português). `templates/`, `css/` e `lang/` seguem a
   mesma divisão.
 - O visual de pergaminho (`css/automation.css`, `sheet.css`, `chat.css`, `windows.css`, `hud.css` e `tbg.css`) entra
-  na camada de CSS `modules` (veja `styles` no `system.json`), acima do CSS base do sistema e do Foundry.
+  na camada de CSS `modules` (veja `styles` no `system.json`), acima do CSS base do sistema e do Foundry. A interface do
+  Foundry fica em `css/interface.css` e o diário como livro em `css/journal.css`, ligados pelas classes `et-ui` e
+  `et-journal` do `body` (`module/journal/index.mjs`).
+- **O Guia do Jogador** é escrito em `src/guide/*.html`, um capítulo por arquivo, com o id, o nome curto e o título da
+  página na primeira linha. `node tools/build-guide.mjs` monta o compêndio `guide` em `src/packs/guide` (links entre os
+  capítulos com `@Guia[nome]{texto}`, para AS REGRAS com `@Regras[XI]{texto}`) e a versão que faz os mundos
+  reescreverem a cópia do Diário. Toda mudança de regra, de mecânica ou da ficha vem com a mudança no guia.
 - Os compêndios são versionados em `src/packs/<pacote>/*.json`, em português. Os campos que a automação lê (tags,
   Momento, alcance, alvo, custo, limite, tipos) ficam em inglês e aparecem traduzidos na tela.
   - `npm install` e depois `npm run packs:build` compila `src/packs` → `packs` (com o mundo fechado).

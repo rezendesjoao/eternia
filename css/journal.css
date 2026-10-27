@@ -1,0 +1,1291 @@
+/* ==========================================================================
+   The journal as an Eternia book (module/journal/index.mjs adds body.et-journal, a setting of each player)
+   Every journal entry: the green window bar, the table of contents on the green banner of the character sheet and
+   the pages on parchment, with Eczar titles, Gelasio text and gold rules. The text pages also read the blocks of a
+   rules book, which anyone can write in a page (the editor's Eternia menu inserts them):
+     header.et-cap        chapter opening (span.et-cap-num, span.et-cap-titulo, span.et-cap-epi)
+     .et-capa             cover (img, .et-capa-titulo, .et-capa-sub, .et-capa-versao)
+     p.et-abre            opening paragraph with a drop cap
+     aside.et-box         box with a header band (h4 first, or the variant's own label):
+                          .et-regra .et-exemplo .et-dica .et-atencao .et-foundry .et-resumo .et-mestre
+     aside.et-lado        a box beside the text when the page is wide
+     .et-grade/.et-cartao card grid        .et-fluxo   flow of steps        ol.et-passos   numbered steps
+     .et-formula          a rule in one line        dl.et-def   glossary         .et-rodape  "see also"
+     span.et-d6           a die face        kbd   a key        .et-sumario  table of contents
+   ========================================================================== */
+
+/* Eczar draws the multiplication sign as a diamond: the signs of the formulas come from Gelasio */
+@font-face {
+  font-family: "Eternia Sinais";
+  src: url("../assets/fonts/gelasio/Gelasio-SemiBold.woff2") format("woff2");
+  font-weight: 100 900;
+  unicode-range: U+00D7, U+00F7, U+2212;
+}
+
+body.et-journal {
+  --jt-green: #1f5137;
+  --jt-green-dark: #173f2b;
+  --jt-green-deep: #10291b;
+  --jt-green-light: #2b6747;
+  --jt-teal: #1d4248;
+  --jt-gold: #b19a55;
+  --jt-gold-light: #e9d7a1;
+  --jt-gold-pale: #f4ead0;
+  --jt-gold-dark: #8a7340;
+  --jt-brown: #6d5427;
+  --jt-brown-dark: #443730;
+  --jt-brick: #8c2f2f;
+  --jt-slate: #2c3f4a;
+  --jt-ink: #2a241b;
+  --jt-ink-soft: #5a5244;
+  --jt-paper: #f6f0e1;
+  --jt-line: #cdbd96;
+  --jt-serif: "Eternia Sinais", "Eternia Eczar", "Eczar", Georgia, serif;
+  --jt-body: "Eternia Gelasio", "Gelasio", Georgia, serif;
+  --jt-sans: "Signika", "Roboto", sans-serif;
+  --jt-fa: "Font Awesome 7 Pro", "Font Awesome 6 Pro";
+}
+
+/* --------------------------------------------------------------------------
+   The window
+   -------------------------------------------------------------------------- */
+body.et-journal .application.journal-sheet,
+body.et-journal .application.journal-entry-page,
+body.et-journal .application.image-popout {
+  --background: #f3eee2;
+  --color-text-primary: var(--jt-ink);
+  --color-text-secondary: var(--jt-ink-soft);
+  --color-text-emphatic: var(--jt-green-dark);
+  --color-text-subtle: var(--jt-ink-soft);
+  --color-border: var(--jt-line);
+  --color-form-label: var(--jt-brown-dark);
+  --color-form-hint: var(--jt-ink-soft);
+  --input-background-color: rgba(255, 255, 255, 0.55);
+  --input-border-color: var(--jt-line);
+  --input-text-color: var(--jt-ink);
+  --input-placeholder-color: rgba(90, 82, 68, 0.6);
+  --input-focus-outline-color: var(--jt-green-light);
+  --button-background-color: rgba(255, 255, 255, 0.5);
+  --button-border-color: var(--jt-line);
+  --button-text-color: var(--jt-ink);
+  --button-hover-background-color: var(--jt-green);
+  --button-hover-border-color: var(--jt-green-dark);
+  --button-hover-text-color: #fff;
+  --button-focus-outline-color: var(--jt-green-light);
+  border: 1px solid #0b1d13;
+  border-radius: 4px;
+  background: #f3eee2;
+  box-shadow: 0 0 0 1px rgba(177, 154, 85, 0.35), 0 10px 28px rgba(0, 0, 0, 0.55);
+  color: var(--jt-ink);
+}
+body.et-journal .application:is(.journal-sheet, .journal-entry-page, .image-popout) > .window-header {
+  border-bottom: 1px solid var(--jt-gold);
+  background: linear-gradient(#1c4430, #10291b);
+  color: var(--jt-gold-pale);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.55);
+}
+body.et-journal .application:is(.journal-sheet, .journal-entry-page, .image-popout) > .window-header .window-title {
+  font-family: var(--jt-serif);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+body.et-journal .application:is(.journal-sheet, .journal-entry-page, .image-popout) > .window-header :is(.header-control, button) {
+  --button-text-color: var(--jt-gold-light);
+  --button-hover-text-color: #fff;
+  --button-background-color: transparent;
+  --button-hover-background-color: transparent;
+  --button-border-color: transparent;
+  --button-hover-border-color: transparent;
+  color: var(--jt-gold-light);
+}
+body.et-journal .application:is(.journal-sheet, .journal-entry-page, .image-popout) > .window-header :is(.header-control, button):hover {
+  color: #fff;
+}
+body.et-journal .application:is(.journal-sheet, .journal-entry-page, .image-popout) .window-content {
+  padding: 0;
+  background: #f3eee2 url("../assets/sheet/parchment.webp") center / cover;
+  color: var(--jt-ink);
+  backdrop-filter: none;
+  scrollbar-width: thin;
+  scrollbar-color: #9c8a6d transparent;
+}
+body.et-journal .application:is(.journal-sheet, .journal-entry-page, .image-popout) .window-resize-handle {
+  filter: none;
+}
+body.et-journal .application:is(.journal-sheet, .journal-entry-page, .image-popout) ::selection {
+  background: rgba(31, 81, 55, 0.25);
+  color: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   The table of contents: the green banner
+   -------------------------------------------------------------------------- */
+body.et-journal .journal-sheet .journal-sidebar {
+  --sidebar-background: transparent;
+  position: relative;
+  border-right: 1px solid #0b1d13;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0) 92%, rgba(0, 0, 0, 0.28)),
+    url("../assets/sheet/sidebar.webp") center / 100% 100%;
+  box-shadow: inset -1px 0 0 rgba(177, 154, 85, 0.55), 2px 0 6px rgba(0, 0, 0, 0.25);
+  color: var(--jt-gold-light);
+  scrollbar-color: var(--jt-gold) transparent;
+}
+body.et-journal .journal-sheet .journal-sidebar search {
+  margin: 10px 10px 6px;
+  padding: 0 4px;
+  border: 1px solid rgba(177, 154, 85, 0.55);
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.22);
+}
+body.et-journal .journal-sheet .journal-sidebar search input {
+  --input-background-color: transparent;
+  --input-border-color: transparent;
+  --input-text-color: var(--jt-gold-pale);
+  --input-placeholder-color: rgba(233, 215, 161, 0.55);
+  font-family: var(--jt-body);
+  font-style: italic;
+  box-shadow: none;
+}
+body.et-journal .journal-sheet .journal-sidebar :is(search button, .inline-control) {
+  --button-text-color: var(--jt-gold-light);
+  --button-hover-text-color: #fff;
+  color: var(--jt-gold-light);
+}
+body.et-journal .journal-sheet .journal-sidebar nav.toc {
+  padding: 4px 0 10px;
+}
+body.et-journal .journal-sheet .journal-sidebar nav.toc > ol > li.page {
+  border: none;
+  margin: 0;
+}
+body.et-journal .journal-sheet .journal-sidebar .page-heading {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  margin: 1px 8px 1px 6px;
+  padding: 3px 8px 3px 6px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: #efe3c2;
+  font-family: var(--jt-serif);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+}
+body.et-journal .journal-sheet .journal-sidebar .page-heading:hover {
+  border-color: rgba(177, 154, 85, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+body.et-journal .journal-sheet .journal-sidebar .page-heading .page-index {
+  flex: 0 0 26px;
+  height: 22px;
+  border: 1px solid rgba(177, 154, 85, 0.6);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--jt-gold-light);
+  font: 600 11px/20px var(--jt-sans);
+  text-align: center;
+}
+body.et-journal .journal-sheet .journal-sidebar .page-heading .page-title {
+  flex: 1;
+}
+body.et-journal .journal-sheet .journal-sidebar li.page.active > .page-heading {
+  border-color: rgba(177, 154, 85, 0.85);
+  background: linear-gradient(90deg, rgba(177, 154, 85, 0.32), rgba(177, 154, 85, 0.08));
+  color: #fff8e1;
+  box-shadow: inset 3px 0 0 var(--jt-gold);
+}
+body.et-journal .journal-sheet .journal-sidebar li.page.active > .page-heading .page-index {
+  border-color: var(--jt-gold-light);
+  background: var(--jt-gold);
+  color: var(--jt-green-deep);
+}
+body.et-journal .journal-sheet .journal-sidebar li.page.hidden,
+body.et-journal .journal-sheet .journal-sidebar li.page[data-visibility] {
+  opacity: 0.85;
+}
+body.et-journal .journal-sheet .journal-sidebar ol.headings {
+  margin: 2px 10px 6px 40px;
+  padding: 2px 0 2px 8px;
+  border-left: 1px solid rgba(177, 154, 85, 0.45);
+}
+body.et-journal .journal-sheet .journal-sidebar ol.headings .heading {
+  margin: 0;
+  border: none;
+}
+body.et-journal .journal-sheet .journal-sidebar ol.headings .heading-link {
+  display: block;
+  padding: 2px 4px;
+  color: #d9c99a;
+  font: italic 400 13px/1.35 var(--jt-body);
+  cursor: pointer;
+}
+body.et-journal .journal-sheet .journal-sidebar ol.headings .heading.h3 .heading-link {
+  padding-left: 14px;
+  color: #bfae80;
+  font-size: 12px;
+}
+body.et-journal .journal-sheet .journal-sidebar ol.headings .heading-link:hover {
+  color: #fff;
+  text-shadow: none;
+}
+body.et-journal .journal-sheet .journal-sidebar footer,
+body.et-journal .journal-sheet .journal-sidebar .action-buttons {
+  padding: 8px 10px;
+  border-top: 1px solid rgba(177, 154, 85, 0.4);
+  background: rgba(0, 0, 0, 0.18);
+}
+body.et-journal .journal-sheet .journal-sidebar :is(footer, .action-buttons) button {
+  --button-background-color: rgba(0, 0, 0, 0.25);
+  --button-border-color: rgba(177, 154, 85, 0.6);
+  --button-text-color: var(--jt-gold-light);
+  --button-hover-background-color: var(--jt-gold);
+  --button-hover-border-color: var(--jt-gold-light);
+  --button-hover-text-color: var(--jt-green-deep);
+}
+body.et-journal .journal-sheet .journal-sidebar :is(footer, .action-buttons) button:not([class*="fa-"]) {
+  font-family: var(--jt-serif);
+}
+/* The sidebar folded: a thin banner */
+body.et-journal .journal-sheet.collapsed .journal-sidebar,
+body.et-journal .journal-sheet .journal-sidebar.collapsed {
+  box-shadow: inset -1px 0 0 rgba(177, 154, 85, 0.55);
+}
+
+/* --------------------------------------------------------------------------
+   The pages: parchment, a running header and a book column
+   -------------------------------------------------------------------------- */
+body.et-journal .journal-sheet .journal-entry-content {
+  background: transparent;
+}
+body.et-journal .journal-sheet.journal-entry .journal-header {
+  margin: 0 28px;
+  padding: 12px 0 6px;
+  border-bottom: 1px solid transparent;
+  background: url("../assets/ui/journal/divider.svg") no-repeat center bottom / 240px 12px;
+}
+body.et-journal .journal-sheet.journal-entry .journal-header input.title {
+  height: auto;
+  margin: 0 0 10px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  color: var(--jt-gold-dark);
+  font: 600 13px/1.4 var(--jt-serif);
+  letter-spacing: 0.24em;
+  text-align: center;
+  text-transform: uppercase;
+}
+body.et-journal .journal-sheet.journal-entry .journal-header input.title:not(:disabled):hover,
+body.et-journal .journal-sheet.journal-entry .journal-header input.title:not(:disabled):focus {
+  background: rgba(255, 255, 255, 0.4);
+  outline: 1px solid var(--jt-line);
+}
+body.et-journal .journal-sheet .journal-entry-pages {
+  padding: 0 0 24px;
+  scrollbar-width: thin;
+  scrollbar-color: #9c8a6d transparent;
+}
+body.et-journal .journal-sheet .journal-entry-page {
+  container: et-page / inline-size;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 18px 36px 26px;
+}
+body.et-journal .journal-sheet .journal-entry-page + .journal-entry-page {
+  border-top: none;
+  background: url("../assets/ui/journal/divider.svg") no-repeat center top / 300px 15px;
+  padding-top: 40px;
+}
+/* The page title, when the page shows it */
+body.et-journal .journal-entry-page .journal-page-header {
+  margin: 4px 0 14px;
+  padding: 0 0 18px;
+  border: none;
+  background: url("../assets/ui/journal/divider.svg") no-repeat center bottom / 260px 13px;
+  text-align: center;
+}
+body.et-journal .journal-entry-page .journal-page-header :is(h1, h2, h3, h4) {
+  margin: 0;
+  border: none;
+  color: var(--jt-green);
+  font-family: var(--jt-serif);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+}
+body.et-journal .journal-entry-page .journal-page-header h1 {
+  font-size: 32px;
+}
+body.et-journal .journal-entry-page .journal-page-header h2 {
+  font-size: 26px;
+}
+/* Edit controls of a page (owner) */
+body.et-journal .journal-entry-page .journal-page-header .controls,
+body.et-journal .journal-entry-page .page-controls {
+  --button-text-color: var(--jt-green-dark);
+}
+
+/* --------------------------------------------------------------------------
+   The text of a page, and the same text while it is written
+   -------------------------------------------------------------------------- */
+body.et-journal :where(.journal-sheet .journal-page-content, .journal-entry-page.text prose-mirror .editor-content, .journal-entry-page.text .editor-content) {
+  color: var(--jt-ink);
+  font-family: var(--jt-body);
+  font-size: 15px;
+  line-height: 1.62;
+  text-rendering: optimizeLegibility;
+  text-shadow: none;
+  hyphens: manual;
+  overflow-wrap: break-word;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) p {
+  margin: 0 0 0.75em;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) :is(dt, dd, li, td, th, span, strong, em) {
+  text-shadow: none;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) p:empty {
+  display: none;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) :is(strong, b) {
+  color: #1c1810;
+  font-weight: 700;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) em {
+  color: inherit;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) a:not(.content-link):not(.inline-roll) {
+  color: var(--jt-green);
+  text-decoration: underline;
+  text-decoration-color: rgba(31, 81, 55, 0.35);
+  text-underline-offset: 2px;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) a:hover {
+  text-shadow: none;
+}
+
+/* Headings */
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) :is(h1, h2, h3, h4, h5, h6) {
+  border: none;
+  color: var(--jt-green);
+  font-family: var(--jt-serif);
+  font-weight: 600;
+  line-height: 1.2;
+  text-shadow: none;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) h1 {
+  margin: 0.4em 0 0.5em;
+  padding-bottom: 14px;
+  background: url("../assets/ui/journal/divider.svg") no-repeat center bottom / 240px 12px;
+  font-size: 30px;
+  text-align: center;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) h2 {
+  position: relative;
+  margin: 1.5em 0 0.6em;
+  padding: 0 0 5px 20px;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg, var(--jt-gold), rgba(177, 154, 85, 0.15)) 1;
+  font-size: 23px;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) h2::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.42em;
+  width: 9px;
+  height: 9px;
+  background: var(--jt-gold);
+  transform: rotate(45deg);
+  box-shadow: 0 0 0 2px rgba(177, 154, 85, 0.25);
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) h3 {
+  margin: 1.25em 0 0.45em;
+  color: var(--jt-brown);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) h4 {
+  margin: 1.1em 0 0.35em;
+  color: var(--jt-green-dark);
+  font: 600 12.5px/1.3 var(--jt-sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) :is(h5, h6) {
+  margin: 1em 0 0.3em;
+  color: var(--jt-brown);
+  font: italic 600 14px/1.3 var(--jt-body);
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) :is(h1, h2, h3, h4, h5, h6):first-child {
+  margin-top: 0.2em;
+}
+
+/* Lists: gold diamonds and green numbers */
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) :is(ul, ol) {
+  margin: 0.3em 0 0.85em;
+  padding-left: 1.6em;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) ul {
+  list-style: none;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) ul > li {
+  position: relative;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) ul > li::before {
+  content: "";
+  position: absolute;
+  left: -1.05em;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  background: var(--jt-gold);
+  transform: rotate(45deg);
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) ol > li::marker {
+  color: var(--jt-green);
+  font-family: var(--jt-serif);
+  font-weight: 600;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) li {
+  margin: 0 0 0.3em;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) li > p {
+  margin: 0 0 0.25em;
+}
+
+/* Rules: a gold line with a diamond */
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) hr {
+  height: 15px;
+  margin: 1.4em auto;
+  border: none;
+  background: url("../assets/ui/journal/divider.svg") no-repeat center / 300px 15px;
+}
+
+/* Quotes */
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) blockquote {
+  margin: 1em 0;
+  padding: 8px 16px;
+  border: none;
+  border-left: 3px solid var(--jt-gold);
+  background: rgba(255, 255, 255, 0.32);
+  color: var(--jt-ink-soft);
+  font-style: italic;
+}
+
+/* Images */
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) img {
+  max-width: 100%;
+  height: auto;
+  border: none;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) figure {
+  margin: 1em 0;
+  text-align: center;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) figcaption {
+  margin-top: 4px;
+  color: var(--jt-ink-soft);
+  font: italic 13px/1.4 var(--jt-body);
+}
+
+/* Tables: a green head, ruled rows */
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) table {
+  width: 100%;
+  margin: 0.8em 0 1.1em;
+  border: 1px solid var(--jt-line);
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.28);
+  font-size: 14px;
+  line-height: 1.45;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) table :is(th, td) {
+  padding: 5px 9px;
+  border: none;
+  border-bottom: 1px solid rgba(177, 154, 85, 0.35);
+  text-align: left;
+  vertical-align: top;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) table th {
+  border-bottom: 1px solid var(--jt-green-deep);
+  background: linear-gradient(#245a3e, #1a4430);
+  color: var(--jt-gold-pale);
+  font: 600 12.5px/1.3 var(--jt-sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) table tbody tr:nth-child(even) {
+  background: rgba(177, 154, 85, 0.1);
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) table td:first-child {
+  color: #1c1810;
+  font-weight: 600;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) table caption {
+  padding: 0 0 4px;
+  color: var(--jt-brown);
+  font: italic 600 13px var(--jt-body);
+  text-align: left;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) table.et-livre td:first-child {
+  font-weight: 400;
+}
+
+/* Links to documents: a small green label */
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) a.content-link {
+  padding: 0 5px;
+  border: 1px solid rgba(31, 81, 55, 0.35);
+  border-radius: 3px;
+  background: rgba(31, 81, 55, 0.08);
+  color: var(--jt-green-dark);
+  font-family: var(--jt-body);
+  font-weight: 600;
+  white-space: normal;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) a.content-link:hover {
+  border-color: var(--jt-green);
+  background: rgba(31, 81, 55, 0.16);
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) a.content-link i {
+  color: var(--jt-gold-dark);
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) a.inline-roll {
+  border-color: var(--jt-line);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--jt-ink);
+}
+
+/* Keys and code */
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0 6px;
+  border: 1px solid #a8977a;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: linear-gradient(#fffdf7, #efe6d2);
+  color: var(--jt-ink);
+  font: 600 12px/1.6 var(--jt-sans);
+  text-align: center;
+  box-shadow: none;
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) code {
+  padding: 0 4px;
+  border: 1px solid var(--jt-line);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--jt-brown-dark);
+}
+
+/* Secrets (the GM's) */
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) section.secret {
+  margin: 1em 0;
+  padding: 8px 14px;
+  border: 1px dashed rgba(140, 47, 47, 0.6);
+  border-radius: 3px;
+  background: rgba(140, 47, 47, 0.06);
+}
+body.et-journal :where(.journal-page-content, .journal-entry-page.text .editor-content) section.secret:not(.revealed) {
+  box-shadow: inset 3px 0 0 rgba(140, 47, 47, 0.55);
+}
+
+/* --------------------------------------------------------------------------
+   The book's blocks
+   -------------------------------------------------------------------------- */
+/* Chapter opening */
+body.et-journal .et-cap {
+  display: block;
+  margin: 6px 0 22px;
+  padding: 0 0 22px;
+  background: url("../assets/ui/journal/divider.svg") no-repeat center bottom / 300px 15px;
+  text-align: center;
+}
+body.et-journal .et-cap .et-cap-num {
+  display: block;
+  margin: 0 auto 2px;
+  padding: 0 70px;
+  background:
+    url("../assets/ui/journal/rule-left.svg") no-repeat left center / 60px 10px,
+    url("../assets/ui/journal/rule-right.svg") no-repeat right center / 60px 10px;
+  width: fit-content;
+  color: var(--jt-gold-dark);
+  font: 600 12px/1.6 var(--jt-sans);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+body.et-journal .et-cap .et-cap-titulo {
+  display: block;
+  color: var(--jt-green);
+  font: 600 36px/1.1 var(--jt-serif);
+  letter-spacing: 0.01em;
+}
+body.et-journal .et-cap .et-cap-epi {
+  display: block;
+  max-width: 34em;
+  margin: 10px auto 0;
+  color: var(--jt-ink-soft);
+  font: italic 400 15px/1.5 var(--jt-body);
+}
+
+/* Cover */
+body.et-journal .et-capa {
+  position: relative;
+  margin: 8px 0 26px;
+  padding: 28px 30px 26px;
+  border: 1px solid var(--jt-gold);
+  outline: 1px solid rgba(177, 154, 85, 0.45);
+  outline-offset: -7px;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0) 70%);
+  text-align: center;
+}
+body.et-journal .et-capa::before,
+body.et-journal .et-capa::after {
+  content: "";
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background: url("../assets/ui/journal/corner.svg") no-repeat center / contain;
+  pointer-events: none;
+}
+body.et-journal .et-capa::before {
+  left: -1px;
+  top: -1px;
+}
+body.et-journal .et-capa::after {
+  right: -1px;
+  bottom: -1px;
+  transform: rotate(180deg);
+}
+body.et-journal .et-capa img {
+  display: block;
+  width: min(420px, 90%);
+  margin: 0 auto 6px;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.35));
+}
+body.et-journal .et-capa .et-capa-titulo {
+  display: block;
+  margin: 2px 0 0;
+  color: var(--jt-green);
+  font: 700 34px/1.1 var(--jt-serif);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+body.et-journal .et-capa .et-capa-sub {
+  display: block;
+  max-width: 30em;
+  margin: 10px auto 0;
+  color: var(--jt-ink-soft);
+  font: italic 400 16px/1.5 var(--jt-body);
+}
+body.et-journal .et-capa .et-capa-versao {
+  display: block;
+  margin-top: 16px;
+  color: var(--jt-gold-dark);
+  font: 600 11px/1.4 var(--jt-sans);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+/* Opening paragraph: the drop cap (the paragraph holds its letter, so nothing below slides beside it) */
+body.et-journal p.et-abre {
+  display: flow-root;
+}
+body.et-journal p.et-abre::first-letter {
+  float: left;
+  margin: 0.06em 0.1em 0 0;
+  padding: 0 4px 0 0;
+  color: var(--jt-green);
+  font: 600 3.55em/0.82 var(--jt-serif);
+  text-shadow: 1px 1px 0 rgba(177, 154, 85, 0.45);
+}
+body.et-journal p.et-abre::first-line {
+  font-variant: small-caps;
+  letter-spacing: 0.03em;
+}
+
+/* Boxes */
+body.et-journal .et-box {
+  --box: var(--jt-green);
+  --box-text: var(--jt-gold-pale);
+  --box-bg: rgba(255, 255, 255, 0.4);
+  --box-icon: "\f05a";
+  position: relative;
+  display: block;
+  margin: 1.15em 0;
+  padding: 10px 16px 6px;
+  border: 1px solid var(--box);
+  border-top-width: 0;
+  border-radius: 3px;
+  background: var(--box-bg);
+  box-shadow: 0 1px 2px rgba(60, 40, 10, 0.18), inset 0 0 18px rgba(177, 154, 85, 0.12);
+  font-size: 14.5px;
+  line-height: 1.55;
+  break-inside: avoid;
+}
+body.et-journal .et-box > h4:first-child,
+body.et-journal .et-box:not(:has(> h4:first-child))::before {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: -10px -16px 9px;
+  padding: 5px 14px 4px;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(color-mix(in srgb, var(--box) 88%, #fff), var(--box));
+  color: var(--box-text);
+  font: 600 13px/1.35 var(--jt-serif);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+body.et-journal .et-box > h4:first-child::before {
+  content: var(--box-icon);
+  font: 900 12px/1 var(--jt-fa);
+  opacity: 0.9;
+}
+body.et-journal .et-box:not(:has(> h4:first-child))::before {
+  content: var(--box-label, "Nota");
+}
+body.et-journal .et-box > :last-child {
+  margin-bottom: 0.45em;
+}
+body.et-journal .et-box :is(ul, ol) {
+  margin-bottom: 0.4em;
+}
+body.et-journal .et-box table {
+  font-size: 13.5px;
+}
+body.et-journal .et-box.et-regra {
+  --box: #1f5137;
+  --box-icon: "\f70e";
+  --box-label: "Regra";
+}
+body.et-journal .et-box.et-exemplo {
+  --box: #6d5427;
+  --box-text: #fbf1d6;
+  --box-bg: rgba(233, 215, 161, 0.28);
+  --box-icon: "\f6d1";
+  --box-label: "Exemplo";
+}
+body.et-journal .et-box.et-exemplo p {
+  font-style: italic;
+}
+body.et-journal .et-box.et-exemplo p :is(strong, b) {
+  font-style: normal;
+}
+body.et-journal .et-box.et-dica {
+  --box: #1d4248;
+  --box-text: #e3f1ee;
+  --box-bg: rgba(220, 236, 230, 0.35);
+  --box-icon: "\f0eb";
+  --box-label: "Dica";
+}
+body.et-journal .et-box.et-atencao {
+  --box: #8c2f2f;
+  --box-text: #fbe9e2;
+  --box-bg: rgba(248, 228, 220, 0.4);
+  --box-icon: "\f071";
+  --box-label: "Atenção";
+}
+body.et-journal .et-box.et-foundry {
+  --box: #2c3f4a;
+  --box-text: #e4ecef;
+  --box-bg: rgba(226, 232, 234, 0.38);
+  --box-icon: "\f013";
+  --box-label: "Na mesa virtual";
+}
+body.et-journal .et-box.et-resumo {
+  --box: #b19a55;
+  --box-text: #1d2a1f;
+  --box-bg: rgba(244, 234, 208, 0.55);
+  --box-icon: "\f0ae";
+  --box-label: "Em resumo";
+  border-width: 0 1px 1px;
+  outline: 1px solid rgba(177, 154, 85, 0.4);
+  outline-offset: 3px;
+}
+body.et-journal .et-box.et-mestre {
+  --box: #4a2e45;
+  --box-text: #f3e6ee;
+  --box-bg: rgba(236, 224, 232, 0.35);
+  --box-icon: "\f521";
+  --box-label: "Com o Mestre";
+}
+
+/* A box beside the text when the page is wide */
+body.et-journal .et-box.et-lado {
+  float: right;
+  clear: right;
+  width: 42%;
+  margin: 0.3em 0 0.9em 1.3em;
+}
+@container et-page (max-width: 620px) {
+  body.et-journal .et-box.et-lado {
+    float: none;
+    width: auto;
+    margin: 1.15em 0;
+  }
+}
+body.et-journal :is(h2, h3, .et-cap, .et-limpa) {
+  clear: both;
+}
+
+/* Card grid */
+body.et-journal .et-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+  margin: 0.9em 0 1.1em;
+}
+body.et-journal .et-grade.et-duas {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+body.et-journal .et-cartao {
+  position: relative;
+  margin: 0;
+  padding: 8px 12px 6px;
+  border: 1px solid var(--jt-line);
+  border-top: 3px solid var(--jt-green);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: 0 1px 2px rgba(60, 40, 10, 0.15);
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+body.et-journal .et-cartao > :first-child {
+  margin-top: 0;
+}
+body.et-journal .et-cartao > :last-child {
+  margin-bottom: 0.2em;
+}
+body.et-journal .et-cartao .et-cartao-titulo {
+  display: block;
+  margin: 0 0 3px;
+  color: var(--jt-green);
+  font: 600 16px/1.2 var(--jt-serif);
+}
+body.et-journal .et-cartao .et-cartao-sigla {
+  float: right;
+  margin-left: 6px;
+  padding: 0 6px;
+  border: 1px solid var(--jt-gold);
+  border-radius: 2px;
+  background: var(--jt-gold-pale);
+  color: var(--jt-brown-dark);
+  font: 700 11px/1.6 var(--jt-sans);
+  letter-spacing: 0.08em;
+}
+body.et-journal .et-cartao.et-ouro {
+  border-top-color: var(--jt-gold);
+}
+body.et-journal .et-cartao.et-vinho {
+  border-top-color: var(--jt-brick);
+}
+body.et-journal .et-cartao.et-azul {
+  border-top-color: var(--jt-teal);
+}
+body.et-journal .et-cartao.et-ardosia {
+  border-top-color: var(--jt-slate);
+}
+
+/* Flow of steps: pills joined by arrows */
+body.et-journal .et-fluxo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 0;
+  margin: 1em 0 1.2em;
+  padding: 10px 8px;
+  border-top: 1px solid rgba(177, 154, 85, 0.45);
+  border-bottom: 1px solid rgba(177, 154, 85, 0.45);
+}
+body.et-journal .et-fluxo > span {
+  position: relative;
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid var(--jt-green-deep);
+  border-radius: 14px;
+  background: linear-gradient(#2a6446, #1d4a33);
+  color: var(--jt-gold-pale);
+  font: 600 13px/1.3 var(--jt-serif);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+body.et-journal .et-fluxo > span + span {
+  margin-left: 28px;
+}
+body.et-journal .et-fluxo > span + span::before {
+  content: "\f061";
+  position: absolute;
+  left: -21px;
+  top: 50%;
+  color: var(--jt-gold-dark);
+  font: 900 12px/1 var(--jt-fa);
+  transform: translateY(-50%);
+}
+body.et-journal .et-fluxo > span.et-volta {
+  border-color: var(--jt-gold-dark);
+  background: linear-gradient(#d2bb76, #a88e48);
+  color: var(--jt-green-deep);
+  font-style: italic;
+}
+body.et-journal .et-fluxo > span.et-volta::before {
+  content: "\f2ea";
+}
+body.et-journal .et-fluxo > span.et-fim {
+  border-color: #3b2a12;
+  background: linear-gradient(#7a5f2e, #5a4320);
+}
+body.et-journal .et-fluxo-nota {
+  display: block;
+  margin: -0.6em 0 1em;
+  color: var(--jt-ink-soft);
+  font: italic 13px/1.4 var(--jt-body);
+  text-align: center;
+}
+
+/* Numbered steps */
+body.et-journal ol.et-passos {
+  counter-reset: et-passo;
+  margin: 0.8em 0 1em;
+  padding: 0;
+  list-style: none;
+}
+body.et-journal ol.et-passos > li {
+  position: relative;
+  min-height: 30px;
+  margin: 0 0 0.65em;
+  padding: 2px 0 0 42px;
+  counter-increment: et-passo;
+}
+body.et-journal ol.et-passos > li::before {
+  content: counter(et-passo);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--jt-gold);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #2f6e4c, #173f2b);
+  color: var(--jt-gold-pale);
+  font: 600 15px/27px var(--jt-serif);
+  text-align: center;
+  box-shadow: 0 0 0 2px rgba(177, 154, 85, 0.25);
+}
+body.et-journal ol.et-passos > li::marker {
+  content: none;
+}
+
+/* A rule in one line */
+body.et-journal .et-formula {
+  display: block;
+  margin: 0.9em auto 1.1em;
+  padding: 9px 14px;
+  border-top: 1px solid var(--jt-gold);
+  border-bottom: 1px solid var(--jt-gold);
+  background: linear-gradient(90deg, rgba(244, 234, 208, 0), rgba(244, 234, 208, 0.75), rgba(244, 234, 208, 0));
+  color: var(--jt-green-dark);
+  font: 600 16.5px/1.4 var(--jt-serif);
+  text-align: center;
+}
+body.et-journal .et-formula small {
+  display: block;
+  color: var(--jt-ink-soft);
+  font: italic 400 13px/1.4 var(--jt-body);
+}
+
+/* Glossary */
+body.et-journal dl.et-def {
+  margin: 0.6em 0 1em;
+}
+body.et-journal dl.et-def dt {
+  margin: 0.7em 0 0.1em;
+  text-shadow: none;
+  color: var(--jt-green);
+  font: 600 15.5px/1.3 var(--jt-serif);
+}
+body.et-journal dl.et-def dd {
+  margin: 0 0 0.3em 1.1em;
+  padding-left: 10px;
+  border-left: 2px solid rgba(177, 154, 85, 0.45);
+}
+body.et-journal .et-letra {
+  display: block;
+  clear: both;
+  margin: 1.2em 0 0.2em;
+  padding-bottom: 2px;
+  border-bottom: 1px solid rgba(177, 154, 85, 0.5);
+  color: var(--jt-gold-dark);
+  font: 700 22px/1.2 var(--jt-serif);
+}
+
+/* See also */
+body.et-journal .et-rodape {
+  clear: both;
+  margin: 1.8em 0 0.4em;
+  padding: 10px 0 0;
+  border-top: 1px dotted var(--jt-line);
+  color: var(--jt-ink-soft);
+  font-size: 13.5px;
+}
+body.et-journal .et-rodape::before {
+  content: "Veja também";
+  display: block;
+  margin-bottom: 4px;
+  color: var(--jt-gold-dark);
+  font: 600 11px/1.4 var(--jt-sans);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* A die face, a small mark */
+body.et-journal .et-d6 {
+  display: inline-block;
+  width: 1.45em;
+  height: 1.45em;
+  margin: 0 1px;
+  border: 1px solid #6f604a;
+  border-radius: 4px;
+  background: linear-gradient(#fffdf8, #eee3cb);
+  color: #241d12;
+  font: 700 0.82em/1.6em var(--jt-sans);
+  text-align: center;
+  vertical-align: 0.05em;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+body.et-journal .et-d6.et-seis {
+  border-color: var(--jt-green);
+  background: linear-gradient(#2f6e4c, #1a4430);
+  color: #fff6d8;
+}
+body.et-journal .et-d6.et-um {
+  border-color: var(--jt-brick);
+  background: linear-gradient(#a64242, #7b2828);
+  color: #fff0ea;
+}
+body.et-journal .et-sigla {
+  display: inline-block;
+  padding: 0 5px;
+  border: 1px solid var(--jt-gold);
+  border-radius: 2px;
+  background: var(--jt-gold-pale);
+  color: var(--jt-brown-dark);
+  font: 700 11px/1.55 var(--jt-sans);
+  letter-spacing: 0.06em;
+  vertical-align: 0.1em;
+}
+
+/* A bar meter (the Hate of a group) */
+body.et-journal .et-medidor {
+  margin: 0.8em 0 1.1em;
+  padding: 10px 14px 6px;
+  border: 1px solid var(--jt-line);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.35);
+}
+body.et-journal .et-medidor > p {
+  display: grid;
+  grid-template-columns: 9.5em 1fr 2.4em;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 6px;
+  font-size: 13.5px;
+}
+body.et-journal .et-medidor > p > span:nth-child(2) {
+  position: relative;
+  height: 12px;
+  border: 1px solid rgba(68, 55, 48, 0.4);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+body.et-journal .et-medidor > p > span:nth-child(2)::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--et-v, 0) * 10%);
+  background: linear-gradient(90deg, #d38a3a, #b45a24);
+}
+body.et-journal .et-medidor > p.et-topo > span:nth-child(2)::after {
+  background: linear-gradient(90deg, #c4512c, #8c2f2f);
+}
+body.et-journal .et-medidor > p.et-topo > span:first-child {
+  color: var(--jt-brick);
+  font-weight: 700;
+}
+body.et-journal .et-medidor > p > span:last-child {
+  color: var(--jt-ink);
+  font: 700 14px var(--jt-serif);
+  text-align: right;
+}
+body.et-journal .et-medidor .v1 { --et-v: 1; }
+body.et-journal .et-medidor .v2 { --et-v: 2; }
+body.et-journal .et-medidor .v3 { --et-v: 3; }
+body.et-journal .et-medidor .v4 { --et-v: 4; }
+body.et-journal .et-medidor .v5 { --et-v: 5; }
+body.et-journal .et-medidor .v6 { --et-v: 6; }
+body.et-journal .et-medidor .v7 { --et-v: 7; }
+body.et-journal .et-medidor .v8 { --et-v: 8; }
+body.et-journal .et-medidor .v9 { --et-v: 9; }
+body.et-journal .et-medidor .v10 { --et-v: 10; }
+
+/* A grid of squares (distances) */
+body.et-journal table.et-quadros {
+  width: auto;
+  margin: 0.6em auto 1em;
+  border: 2px solid var(--jt-green-dark);
+  background: rgba(255, 255, 255, 0.4);
+}
+body.et-journal table.et-quadros td {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid rgba(31, 81, 55, 0.3);
+  color: var(--jt-green-dark);
+  font: 600 14px/32px var(--jt-serif);
+  text-align: center;
+}
+body.et-journal table.et-quadros tbody tr:nth-child(even) {
+  background: transparent;
+}
+body.et-journal table.et-quadros td:first-child {
+  font-weight: 600;
+}
+body.et-journal table.et-quadros td.et-eu {
+  background: var(--jt-green);
+  color: var(--jt-gold-pale);
+}
+body.et-journal table.et-quadros td.et-perto {
+  background: rgba(177, 154, 85, 0.35);
+}
+
+/* Table of contents of the cover */
+body.et-journal .et-sumario {
+  columns: 2 220px;
+  column-gap: 26px;
+  margin: 0.8em 0 1.2em;
+  padding: 0;
+  list-style: none;
+}
+body.et-journal .et-sumario > li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 0 5px;
+  padding: 0;
+  break-inside: avoid;
+}
+body.et-journal .et-sumario > li::before {
+  content: none;
+}
+body.et-journal .et-sumario .et-n {
+  flex: 0 0 26px;
+  color: var(--jt-gold-dark);
+  font: 700 14px/1.3 var(--jt-serif);
+  text-align: right;
+}
+body.et-journal .et-sumario .et-s {
+  display: block;
+  color: var(--jt-ink-soft);
+  font: italic 13px/1.35 var(--jt-body);
+}
+body.et-journal .et-sumario a.content-link {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--jt-green);
+  font: 600 15.5px/1.3 var(--jt-serif);
+}
+body.et-journal .et-sumario a.content-link i {
+  display: none;
+}
+body.et-journal .et-sumario a.content-link:hover {
+  background: none;
+  color: var(--jt-green-light);
+  text-decoration: underline;
+  text-decoration-color: rgba(177, 154, 85, 0.7);
+}
+body.et-journal .et-grade > .et-box {
+  margin: 0;
+}
+
+/* Inline highlight of a term being defined */
+body.et-journal .et-termo {
+  color: var(--jt-green-dark);
+  font-weight: 700;
+  font-variant: small-caps;
+  letter-spacing: 0.02em;
+}
+
+/* --------------------------------------------------------------------------
+   Writing a page: the editor on parchment
+   -------------------------------------------------------------------------- */
+body.et-journal .application.journal-entry-page .window-content {
+  padding: 10px 14px;
+}
+body.et-journal .application.journal-entry-page :is(input[type="text"], select) {
+  border: 1px solid var(--jt-line);
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--jt-ink);
+}
+body.et-journal .application.journal-entry-page prose-mirror {
+  --menu-background: rgba(255, 255, 255, 0.55);
+  --dropdown-background: #f8f2e2;
+  --dropdown-border: var(--jt-line);
+  --color-control-hover: rgba(31, 81, 55, 0.12);
+}
+body.et-journal .application.journal-entry-page prose-mirror menu {
+  border: 1px solid var(--jt-line);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.5);
+}
+body.et-journal .application.journal-entry-page prose-mirror menu button {
+  color: var(--jt-ink-soft);
+}
+body.et-journal .application.journal-entry-page prose-mirror menu button:hover,
+body.et-journal .application.journal-entry-page prose-mirror menu button.active {
+  background: rgba(31, 81, 55, 0.12);
+  color: var(--jt-green);
+}
+body.et-journal .application.journal-entry-page prose-mirror .editor-content {
+  padding: 14px 22px;
+  border: 1px solid var(--jt-line);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.25);
+}
+body.et-journal .application.journal-entry-page footer button:not([class*="fa-"]) {
+  font-family: var(--jt-serif);
+}
+body.et-journal .application.journal-entry-page footer button[type="submit"] {
+  --button-background-color: var(--jt-green);
+  --button-border-color: var(--jt-green-dark);
+  --button-text-color: var(--jt-gold-pale);
+  --button-hover-background-color: var(--jt-green-light);
+  --button-hover-text-color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Images shown to the players (handouts)
+   -------------------------------------------------------------------------- */
+body.et-journal .application.image-popout .window-content {
+  padding: 10px;
+}
+body.et-journal .application.image-popout figure img {
+  border: 1px solid var(--jt-gold);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.35), 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+body.et-journal .application.image-popout figcaption {
+  color: var(--jt-ink-soft);
+  font: italic 14px var(--jt-body);
+}

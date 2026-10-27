@@ -26,8 +26,34 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   `usage.alsoSpent` no registro; o (Menor) e o [Destino 1] dos monstros, em `flags.eternia.minor` e `fateOption`
   (`bestiary/minor.mjs`, veja `docs/bestiario.md`).
 
+## O Guia do Jogador (manter sempre atualizado)
+- **Toda mudança no sistema que o jogador sente (uma regra, uma mecânica, um número das tabelas, uma aba ou um botão da
+  ficha, do HUD ou do chat) vem com a mudança no Guia do Jogador, na mesma entrega.** Pedido do usuário: "toda vez que a
+  gente mexer alguma coisa no sistema, você vai lá e também altera o guia do jogador".
+- O guia explica como o sistema funciona; não lista raças, classes, Magias nem habilidades (essas ficam nos compêndios
+  e em AS REGRAS). Texto próprio, em pt-BR, sem nomes de obras; os exemplos usam os personagens do guia (Tadeu,
+  Centurião Dracônico; Lia, Maga Negra Elfa; Ravi, Caçador Bestial Lupino; Mirela, Hierofante; Kenji, Samurai Felino).
+- Fonte: `src/guide/NN-nome.html`, um capítulo por página, com `<!-- id: … | slug: … | titulo: … -->` na primeira
+  linha (o id é da página para sempre; capítulo novo pega id novo). Links: `@Guia[slug]{texto}` entre capítulos,
+  `@Regras[XI]{texto}` para AS REGRAS. `node tools/build-guide.mjs` gera `src/packs/guide` com a versão (um hash das
+  páginas) que faz cada mundo reescrever a cópia do Diário (`module/journal/index.mjs`, `syncGuide`).
+- Os blocos de livro estão no cabeçalho de `css/journal.css`: `header.et-cap`, `p.et-abre`, `aside.et-box` com
+  `.et-regra/.et-exemplo/.et-dica/.et-atencao/.et-foundry/.et-resumo/.et-mestre` (h4 na primeira linha é o título),
+  `.et-grade` + `.et-cartao` (`.et-duas` para quatro cartões), `.et-fluxo`, `ol.et-passos`, `.et-formula`, `dl.et-def`,
+  `.et-medidor`, `table.et-quadros`, `span.et-d6`. Sem SVG embutido (o Foundry o tira do HTML salvo); sem estilo inline.
+- Para testar sem recompilar o compêndio (o servidor trava o LevelDB): leia o JSON por
+  `fetch("systems/eternia/src/packs/guide/…json")` e recrie as páginas da cópia do Diário.
+
 ## CSS
 - `css/eternia.css` e `css/piles.css` são a base (camada `system`).
+- `css/interface.css` (a interface do Foundry: barra lateral, listas, controles, jogadores, avisos, menus, a barra das
+  janelas) e `css/journal.css` (o diário como livro) ficam na camada `modules`, debaixo das classes `et-ui` e `et-journal`
+  do `body`, que duas configurações de cada jogador ligam (`uiTheme`, `journalTheme`). As cores do Foundry viram as da
+  Eternia trocando as variáveis base (`--color-cool-*`, `--color-warm-*`, `--color-light-*`) no `body`; o Foundry declara
+  as variáveis da interface no próprio `#interface`, então as de lá se trocam no `#interface`. As regras de texto do
+  diário usam `:where()` para os blocos de livro (que pesam mais) ganharem delas; botão que é só ícone (`fa-` na classe)
+  não pode receber `font-family`. O Eczar desenha o "×" como losango: os sinais das fórmulas vêm do Gelasio (a fonte
+  "Eternia Sinais", por `unicode-range`).
 - O visual de pergaminho (`automation.css`, `sheet.css`, `chat.css`, `windows.css`, `hud.css`, `tbg.css`) vai na
   camada `modules` (campo `layer` em `styles` do `system.json`): ganha da base sem disputa de especificidade, como
   quando era um módulo. Arquivo novo de CSS no manifesto exige reiniciar o servidor do Foundry.

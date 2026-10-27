@@ -50,6 +50,7 @@ import { fillWorld, registerContent, syncItemSkills } from "./content/content.mj
 import { parseMonsterDamage } from "./content/monster-damage.mjs";
 import { registerPortugueseDisplay } from "./i18n/display.mjs";
 import { registerWindows } from "./apps/window-theme.mjs";
+import { registerJournal, syncGuide } from "./journal/index.mjs";
 import { registerNotice } from "./apps/notice.mjs";
 import { actionHud, registerHud, rollActorCheck } from "./hud/hud.mjs";
 import { registerTokens } from "./canvas/token-style.mjs";
@@ -109,7 +110,9 @@ Hooks.once('init', async function () {
     professions: professionsApi,
     motor: MOTOR_API,
     icons: iconsApi,
-    hud: actionHud
+    hud: actionHud,
+    // The Player's Guide in the world's Journal, as the compendium has it (journal/index.mjs)
+    syncGuide
   };
 
   // Add custom constants for configuration.
@@ -212,6 +215,8 @@ Hooks.once('init', async function () {
   registerPortugueseDisplay();
   registerChat();
   registerWindows();
+  // The journal as an Eternia book, the interface in its look and the Player's Guide in the world's Journal
+  registerJournal();
   registerReach();
   registerHud();
   registerClientSettings();

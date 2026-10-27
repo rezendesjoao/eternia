@@ -1,0 +1,914 @@
+{
+  "name": "Guia do Jogador",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Guia do Jogador",
+      "type": "text",
+      "_id": "EtGuiaPagina0000",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<div class=\"et-capa\">\n<img src=\"systems/eternia/assets/logo.webp\" alt=\"Eternia\">\n<span class=\"et-capa-titulo\">Guia do Jogador</span>\n<span class=\"et-capa-sub\">Como criar um personagem, ler a ficha e jogar uma sessão inteira de Eternia, do primeiro teste ao último golpe.</span>\n<span class=\"et-capa-versao\">Sistema Eternia · versão 0.45.0</span>\n</div>\n<h2>Bem-vindo a Eternia</h2>\n<p class=\"et-abre\">Eternia é um RPG de mesa jogado no Foundry. Uma pessoa do grupo é o Mestre: descreve o mundo, dá voz a todos que não são personagens dos jogadores e decide o que as regras deixam em aberto. As outras são os jogadores, e cada uma dá vida a um Aventureiro, alguém com uma raça, uma classe, uma Magia, um ofício e uma história para contar.</p>\n<p>As regras existem para dar peso às escolhas. Quando o resultado de uma ação é incerto, os dados decidem; quando a luta começa, o tempo passa em rodadas e cada ação conta. Quase toda a conta fica com a mesa virtual: a ficha calcula os números, o chat rola e aplica o dano, o rastreador de combate conduz as fases. Este guia explica o que acontece por trás de cada botão, para você jogar sabendo o porquê.</p>\n<h2>Como ler este guia</h2>\n<p>Os capítulos seguem a ordem em que você vai precisar deles. Na primeira vez, leia do 1 ao 3 e crie o seu personagem. Antes da primeira luta, leia Combate, Ataque e Dano, Ódio e Destino. O resto é consulta: volte a ele quando a regra aparecer na mesa.</p>\n<p>O guia não traz a lista das raças, das classes, das Magias nem das habilidades. Elas ficam nos compêndios do sistema (<strong>Raças e Classes</strong>, <strong>Habilidades de Classe</strong>, <strong>Habilidades Raciais</strong>) e nas páginas de AS REGRAS, e o assistente de criação mostra cada uma enquanto você escolhe. Aqui fica como essas peças funcionam e se encaixam.</p>\n<p>Os termos entre colchetes, como [Atordoado] ou [2d6 + Poder de Ataque], aparecem como etiquetas coloridas, iguais às dos textos da ficha. Passe o mouse sobre uma delas para ler o que ela significa.</p>\n<h2>As caixas do guia</h2>\n<p>Ao longo do texto, caixas separam o que merece um olhar à parte. Cada cor tem um papel:</p>\n<div class=\"et-grade et-duas\">\n<aside class=\"et-box et-regra\"><h4>Regra</h4><p>A regra exata, escrita para consultar no meio do jogo.</p></aside>\n<aside class=\"et-box et-exemplo\"><h4>Exemplo</h4><p>Uma cena de jogo com a regra acontecendo.</p></aside>\n<aside class=\"et-box et-dica\"><h4>Dica</h4><p>Conselhos de mesa: como tirar proveito da regra.</p></aside>\n<aside class=\"et-box et-atencao\"><h4>Atenção</h4><p>Exceções e enganos comuns que mudam o resultado.</p></aside>\n<aside class=\"et-box et-foundry\"><h4>Na mesa virtual</h4><p>O que o sistema faz sozinho no Foundry, e onde clicar.</p></aside>\n<aside class=\"et-box et-resumo\"><h4>Em resumo</h4><p>O capítulo em poucas linhas, para revisar depressa.</p></aside>\n</div>\n<h2>Sumário</h2>\n<ol class=\"et-sumario\">\n<li><span class=\"et-n\">1</span><span>@UUID[.EtGuiaPagina0001]{O Jogo}<span class=\"et-s\">os dados, os testes e o crítico</span></span></li>\n<li><span class=\"et-n\">2</span><span>@UUID[.EtGuiaPagina0002]{O Personagem}<span class=\"et-s\">atributos, perícias e números</span></span></li>\n<li><span class=\"et-n\">3</span><span>@UUID[.EtGuiaPagina0003]{Criando o Personagem}<span class=\"et-s\">os oito passos do assistente</span></span></li>\n<li><span class=\"et-n\">4</span><span>@UUID[.EtGuiaPagina0004]{Raças e a Forma}<span class=\"et-s\">as inatas e os cinco estágios</span></span></li>\n<li><span class=\"et-n\">5</span><span>@UUID[.EtGuiaPagina0005]{Classes e o Motor}<span class=\"et-s\">a regra que só a sua classe tem</span></span></li>\n<li><span class=\"et-n\">6</span><span>@UUID[.EtGuiaPagina0006]{Magias}<span class=\"et-s\">vagas, feitiços, Traço e Tabu</span></span></li>\n<li><span class=\"et-n\">7</span><span>@UUID[.EtGuiaPagina0007]{Habilidades}<span class=\"et-s\">como ler um bloco de habilidade</span></span></li>\n<li><span class=\"et-n\">8</span><span>@UUID[.EtGuiaPagina0008]{Evolução}<span class=\"et-s\">subir de NP e o que chega com ele</span></span></li>\n<li><span class=\"et-n\">9</span><span>@UUID[.EtGuiaPagina0009]{Sessões e Cenas}<span class=\"et-s\">o tempo fora do combate</span></span></li>\n<li><span class=\"et-n\">10</span><span>@UUID[.EtGuiaPagina0010]{Combate}<span class=\"et-s\">a rodada, o turno e o movimento</span></span></li>\n<li><span class=\"et-n\">11</span><span>@UUID[.EtGuiaPagina0011]{Ataque e Dano}<span class=\"et-s\">acertar, esquivar e ferir</span></span></li>\n<li><span class=\"et-n\">12</span><span>@UUID[.EtGuiaPagina0012]{Ódio}<span class=\"et-s\">para onde o inimigo olha</span></span></li>\n<li><span class=\"et-n\">13</span><span>@UUID[.EtGuiaPagina0013]{Destino}<span class=\"et-s\">o empurrão que muda o dado</span></span></li>\n<li><span class=\"et-n\">14</span><span>@UUID[.EtGuiaPagina0014]{Estados e Condições}<span class=\"et-s\">o que prende, queima e protege</span></span></li>\n<li><span class=\"et-n\">15</span><span>@UUID[.EtGuiaPagina0015]{Equipamento e Riqueza}<span class=\"et-s\">o corpo, a bolsa e o ouro</span></span></li>\n<li><span class=\"et-n\">16</span><span>@UUID[.EtGuiaPagina0016]{Profissões}<span class=\"et-s\">a Oficina, os Ranks e a Fusão</span></span></li>\n<li><span class=\"et-n\">17</span><span>@UUID[.EtGuiaPagina0017]{Fora de Combate}<span class=\"et-s\">perícias, Conexões e descanso</span></span></li>\n<li><span class=\"et-n\">18</span><span>@UUID[.EtGuiaPagina0018]{A Mesa Virtual}<span class=\"et-s\">ficha, HUD, chat e tokens</span></span></li>\n<li><span class=\"et-n\">19</span><span>@UUID[.EtGuiaPagina0019]{Glossário}<span class=\"et-s\">os termos de A a Z</span></span></li>\n<li><span class=\"et-n\">20</span><span>@UUID[.EtGuiaPagina0020]{Referência Rápida}<span class=\"et-s\">a rodada e o ataque numa página</span></span></li>\n</ol>\n<p class=\"et-fluxo-nota\">Este guia acompanha o sistema: quando uma regra muda, a página muda junto.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "capa"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0000"
+    },
+    {
+      "sort": 200000,
+      "name": "O Jogo",
+      "type": "text",
+      "_id": "EtGuiaPagina0001",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 1</span><span class=\"et-cap-titulo\">O Jogo</span><span class=\"et-cap-epi\">Os dados não contam a história. Eles dizem quanto ela vai custar.</span></header>\r\n<p class=\"et-abre\">Uma sessão de Eternia é uma conversa. O Mestre descreve onde os personagens estão e o que está acontecendo; cada jogador diz o que o seu personagem faz; o Mestre conta o que acontece em seguida. Quase tudo se resolve assim, na conversa. Os dados entram quando o resultado é incerto e falhar teria consequência: pular de um telhado para o outro, convencer um guarda desconfiado, acertar um golpe num kobold.</p>\r\n<h2>O teste</h2>\r\n<p>Todo teste da Eternia usa a mesma conta. Você rola dois dados de seis faces e soma o valor da perícia que a ação usa (as perícias estão no @UUID[.EtGuiaPagina0002]{capítulo 2}).</p>\r\n<p class=\"et-formula\">Teste = 2d6 + perícia<small>a ação dá certo quando o total supera o número a vencer</small></p>\r\n<p>Há dois tipos de teste, e a diferença está no número que você precisa vencer.</p>\r\n<div class=\"et-grade et-duas\">\r\n<div class=\"et-cartao\"><span class=\"et-cartao-titulo\">Teste Básico</span><p>Contra uma dificuldade fixa, que o Mestre diz ou que o texto da habilidade traz. Para passar, o total precisa <strong>superar</strong> a dificuldade: empatar não basta.</p></div>\r\n<div class=\"et-cartao et-ouro\"><span class=\"et-cartao-titulo\">Teste Oposto</span><p>Contra o teste de outra pessoa. Os dois rolam, e vence quem tirar mais. No <strong>empate, vence quem se defende</strong>. Todo ataque é um Teste Oposto: a Precisão de quem ataca contra a Esquiva ou a Resistência do alvo.</p></div>\r\n</div>\r\n<aside class=\"et-box et-exemplo\"><h4>Exemplo: a ponte</h4><p>A ponte de cordas balança sobre o rio. O Mestre pede um teste de Atletismo de dificuldade 9 para atravessar correndo. Ravi tem Atletismo 2 e rola <span class=\"et-d6\">4</span><span class=\"et-d6\">3</span>: 7 + 2 = 9. Empatou, e empatar não supera: no meio do caminho uma tábua se solta, Ravi se agarra às cordas e precisa voltar ao começo, encharcado e com a mochila pingando.</p></aside>\r\n<h2>Crítico e Falha Crítica</h2>\r\n<p>Os dados podem decidir sozinhos, sem olhar para o total:</p>\r\n<ul>\r\n<li><strong>Crítico:</strong> dois ou mais dados mostram <span class=\"et-d6 et-seis\">6</span>. O teste dá certo, seja qual for o número a vencer.</li>\r\n<li><strong>Falha Crítica:</strong> todos os dados mostram <span class=\"et-d6 et-um\">1</span>. O teste falha, seja qual for o bônus; quando o total importa, ele conta como 0.</li>\r\n</ul>\r\n<p>Num Teste Oposto em que os dois lados tiram Crítico, vence quem se defende. Muitas habilidades têm um efeito a mais no Crítico (o texto diz), e algumas cobram um preço na Falha Crítica.</p>\r\n<h2>Mais dados, menos dados</h2>\r\n<p>Alguns efeitos mudam a quantidade de dados: “+1d6 no teste” faz você rolar três dados e somar os três; “−1d6” tira um. Um dado a mais vale mais do que parece, porque com três dados fica bem mais fácil sair um par de 6. Por outro lado, um teste nunca rola menos de um dado.</p>\r\n<aside class=\"et-box et-regra\"><h4>A ordem do teste</h4><ol>\r\n<li>Some os dados a mais e a menos (no mínimo 1 dado).</li>\r\n<li>Role e veja os dados: Crítico ou Falha Crítica decidem na hora.</li>\r\n<li>Senão, some a perícia e os bônus e compare com o número a vencer.</li>\r\n</ol></aside>\r\n<h2>Os números da Eternia</h2>\r\n<p>Os textos das habilidades escrevem fórmulas com os números do personagem. As três mais comuns:</p>\r\n<ul>\r\n<li><strong>NP</strong>, o Nível de Personagem: o quanto o personagem já cresceu. Vai do 1 em diante.</li>\r\n<li><strong>NH</strong>, o Nível de Habilidade: o quanto ele domina aquela habilidade específica.</li>\r\n<li><strong>Qd</strong>, o quadrado: a medida de distância do combate.</li>\r\n</ul>\r\n<p>Toda divisão arredonda <strong>para baixo</strong>, a não ser que o texto diga o contrário. [NP÷2] de um personagem de NP 5 é 2.</p>\r\n<h2>A regra de ouro</h2>\r\n<p>A regra específica vence a geral: quando o texto de uma habilidade contradiz este guia, vale o texto da habilidade. E quando nada diz como resolver uma situação, o Mestre decide, de preferência do jeito que deixa a cena mais interessante. As regras servem à mesa, não o contrário.</p>\r\n<aside class=\"et-box et-foundry\"><p>Você não precisa rolar dados físicos nem fazer contas. Um clique numa perícia da ficha rola o teste; no chat, os dados aparecem como faces, o total num selo e o Crítico ou a Falha Crítica escritos no cartão. No HUD de ações, <kbd>Shift</kbd> + clique numa habilidade já usa e rola o teste dela.</p></aside>\r\n<aside class=\"et-box et-resumo\"><ul>\r\n<li>Teste = 2d6 + perícia. Supere a dificuldade (empate falha) ou o teste do outro (empate é de quem defende).</li>\r\n<li>Dois 6 ou mais: Crítico, sucesso automático. Todos os dados em 1: Falha Crítica.</li>\r\n<li>+1d6 e −1d6 mudam a quantidade de dados; nunca menos de um.</li>\r\n<li>Divisões arredondam para baixo. A regra específica vence a geral; na dúvida, o Mestre decide.</li>\r\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "o-jogo"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0001"
+    },
+    {
+      "sort": 300000,
+      "name": "O Personagem",
+      "type": "text",
+      "_id": "EtGuiaPagina0002",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 2</span><span class=\"et-cap-titulo\">O Personagem</span><span class=\"et-cap-epi\">Quatro números dizem do que você é feito. O resto diz o que você fez com isso.</span></header>\r\n<p class=\"et-abre\">A ficha de um Aventureiro parece cheia de números, mas quase todos nascem de quatro atributos e do equipamento. Entender de onde cada número vem ajuda a escolher bem na criação e a saber o que muda quando o personagem cresce. Este capítulo percorre a ficha de cima para baixo.</p>\r\n<h2>Os quatro atributos</h2>\r\n<div class=\"et-grade et-duas\">\r\n<div class=\"et-cartao\"><span class=\"et-cartao-sigla\">FOR</span><span class=\"et-cartao-titulo\">Força</span><p>Músculo e resistência física. Dá Atletismo e Vigor, a Defesa Física e metade da Iniciativa.</p></div>\r\n<div class=\"et-cartao et-azul\"><span class=\"et-cartao-sigla\">DES</span><span class=\"et-cartao-titulo\">Destreza</span><p>Reflexo e mãos firmes. Dá Desarme, Operação e a Esquiva.</p></div>\r\n<div class=\"et-cartao et-ouro\"><span class=\"et-cartao-sigla\">POD</span><span class=\"et-cartao-titulo\">Poder</span><p>Vontade e espírito. Dá Percepção, Negociação e a Resistência contra magia.</p></div>\r\n<div class=\"et-cartao et-ardosia\"><span class=\"et-cartao-sigla\">INT</span><span class=\"et-cartao-titulo\">Inteligência</span><p>Estudo e raciocínio. Dá Conhecimento, Análise, a Defesa Mágica e metade da Iniciativa.</p></div>\r\n</div>\r\n<p>Cada atributo tem dois números. O grande, que cresce a cada NP, é o <span class=\"et-termo\">Atributo Base</span>. O pequeno, que entra nos testes e nas contas, é o <span class=\"et-termo\">modificador</span>:</p>\r\n<p class=\"et-formula\">Modificador = Atributo Base ÷ 3, para baixo<small>quando um texto escreve FOR, DES, POD ou INT, ele fala do modificador</small></p>\r\n<table>\r\n<thead><tr><th>Atributo Base</th><th>0–2</th><th>3–5</th><th>6–8</th><th>9–11</th><th>12–14</th><th>15–17</th><th>18–20</th></tr></thead>\r\n<tbody><tr><td>Modificador</td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr></tbody>\r\n</table>\r\n<aside class=\"et-box et-dica et-lado\"><h4>Quanto falta?</h4><p>O modificador só sobe a cada três pontos. Um Atributo Base 8 está a um ponto do modificador 3; um Base 6 está a três. Na criação, distribua os pontos pensando no próximo degrau: o assistente marca com losangos quanto falta em cada atributo.</p></aside>\r\n<p>O Atributo Base vem da classe (10 pontos), da raça (+2) e de 5 pontos que você distribui na criação. Depois, todos os Atributos Base sobem 1 a cada NP, então os modificadores crescem sozinhos com o tempo.</p>\r\n<h2>As perícias</h2>\r\n<p>As perícias são o que você rola nos testes. Cada uma parte de um atributo e soma os bônus das habilidades e dos itens.</p>\r\n<table>\r\n<thead><tr><th>Perícia</th><th>Atributo</th><th>Para quê</th></tr></thead>\r\n<tbody>\r\n<tr><td>Atletismo</td><td>FOR</td><td>escalar, saltar, correr, se equilibrar e continuar escondido</td></tr>\r\n<tr><td>Vigor</td><td>FOR</td><td>aguentar cansaço, frio, fome, doença e esforço longo</td></tr>\r\n<tr><td>Desarme</td><td>DES</td><td>abrir fechaduras, desmontar armadilhas e mecanismos, armar os seus</td></tr>\r\n<tr><td>Operação</td><td>DES</td><td>usar instrumentos, máquinas e veículos, tocar música</td></tr>\r\n<tr><td>Percepção</td><td>POD</td><td>notar detalhes, achar o que está escondido, perceber uma mentira</td></tr>\r\n<tr><td>Negociação</td><td>POD</td><td>convencer, pedir, barganhar, enganar, levar a conversa</td></tr>\r\n<tr><td>Conhecimento</td><td>INT</td><td>lembrar o que se estudou, identificar monstros</td></tr>\r\n<tr><td>Análise</td><td>INT</td><td>examinar objetos e armadilhas, avaliar itens, decifrar</td></tr>\r\n<tr><td>Precisão</td><td>o maior modificador</td><td>acertar ataques; fora de combate, mira de todo tipo</td></tr>\r\n<tr><td>Esquiva</td><td>DES</td><td>escapar de golpes, flechas e armadilhas</td></tr>\r\n<tr><td>Resistência</td><td>POD</td><td>resistir a magia, a maldições e ao que mexe com a mente</td></tr>\r\n</tbody>\r\n</table>\r\n<h2>Os números de combate</h2>\r\n<p>O estandarte verde da ficha guarda os números que você usa em toda luta:</p>\r\n<table>\r\n<thead><tr><th>Número</th><th>De onde vem</th></tr></thead>\r\n<tbody>\r\n<tr><td>PV</td><td>a faixa da classe, somada aos PV da raça, e mais um tanto a cada NP. Zerou, o personagem cai [Incapacitado].</td></tr>\r\n<tr><td>Destino</td><td>vem da raça (e de alguns itens). É o seu recurso para mudar um dado: veja @UUID[.EtGuiaPagina0013]{Destino}.</td></tr>\r\n<tr><td>Poder de Ataque</td><td>a arma empunhada e os bônus. Entra no dano dos golpes com arma.</td></tr>\r\n<tr><td>Poder Mágico</td><td>uma fonte só no equipamento (o cajado ou a melhor pedra mágica) e os bônus. Entra no dano dos feitiços.</td></tr>\r\n<tr><td>Poder de Recuperação</td><td>itens e habilidades. Soma nas curas que você faz.</td></tr>\r\n<tr><td>Defesa Física</td><td>2 × FOR, a armadura e o escudo. Tira do dano físico.</td></tr>\r\n<tr><td>Defesa Mágica</td><td>2 × INT e a armadura. Tira do dano mágico.</td></tr>\r\n<tr><td>Iniciativa</td><td>FOR + INT e os itens. Diz quem age primeiro na rodada.</td></tr>\r\n<tr><td>Velocidade</td><td>2 e os bônus. Quantos quadrados você corre numa Ação de Movimento.</td></tr>\r\n</tbody>\r\n</table>\r\n<p>Ao lado deles ficam o <strong>Ódio</strong> (o quanto os inimigos querem você, no @UUID[.EtGuiaPagina0012]{capítulo 12}), a <strong>Fadiga</strong> (cansaço que baixa os PV máximos) e a <strong>Barreira</strong> (um escudo de PV que some antes da vida).</p>\r\n<h2>NP e NH</h2>\r\n<p>O <span class=\"et-termo\">NP</span>, Nível de Personagem, mede o quanto o personagem já cresceu: todo mundo começa no 1, e o Mestre diz quando sobe (veja @UUID[.EtGuiaPagina0008]{Evolução}). O <span class=\"et-termo\">NH</span>, Nível de Habilidade, é o domínio de cada habilidade: começa em 1 quando você a aprende e pode subir até o NH Máximo dela, mas nunca acima do seu NP.</p>\r\n<h2>As quatro escolhas</h2>\r\n<p>Quatro escolhas dizem quem o personagem é, e cada uma tem o seu capítulo:</p>\r\n<div class=\"et-grade et-duas\">\r\n<div class=\"et-cartao\"><span class=\"et-cartao-titulo\">Raça</span><p>O povo e a criatura que dorme por baixo da forma. @UUID[.EtGuiaPagina0004]{Raças e a Forma}</p></div>\r\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-titulo\">Classe</span><p>O jeito de lutar, com uma regra só dela, o Motor. @UUID[.EtGuiaPagina0005]{Classes e o Motor}</p></div>\r\n<div class=\"et-cartao et-azul\"><span class=\"et-cartao-titulo\">Magia</span><p>O poder que despertou, com os seus feitiços. @UUID[.EtGuiaPagina0006]{Magias}</p></div>\r\n<div class=\"et-cartao et-ouro\"><span class=\"et-cartao-titulo\">Profissão</span><p>O ofício fora de combate. @UUID[.EtGuiaPagina0016]{Profissões}</p></div>\r\n</div>\r\n<aside class=\"et-box et-foundry\"><p>A ficha faz todas essas contas. O estandarte mostra os PV (com a barra do que resta), o Ódio e a Fadiga, as Defesas, a Iniciativa e a Velocidade, os três Poderes e os testes de Precisão, Esquiva e Resistência, que rolam com um clique. A aba Personagem mostra os quatro atributos com os testes de cada um. Passe o mouse sobre qualquer número para ver de onde ele vem.</p></aside>\r\n<aside class=\"et-box et-resumo\"><ul>\r\n<li>FOR, DES, POD e INT: o modificador é o Atributo Base ÷ 3, para baixo.</li>\r\n<li>Perícias = atributo + bônus. Precisão usa o maior modificador.</li>\r\n<li>Defesa Física = 2 × FOR + armadura; Defesa Mágica = 2 × INT + armadura; Iniciativa = FOR + INT.</li>\r\n<li>NP é o nível do personagem; NH é o nível de cada habilidade, nunca acima do NP.</li>\r\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "personagem"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0002"
+    },
+    {
+      "sort": 400000,
+      "name": "Criando o Personagem",
+      "type": "text",
+      "_id": "EtGuiaPagina0003",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 3</span><span class=\"et-cap-titulo\">Criando o Personagem</span><span class=\"et-cap-epi\">Antes da ficha, uma pergunta: quem é essa pessoa quando ninguém está olhando?</span></header>\n<p class=\"et-abre\">Criar um personagem leva uns vinte minutos. O assistente de criação abre sozinho quando você cria um ator novo e guia você por oito passos, explicando cada opção, com a ficha se montando ao lado. Nada muda de verdade até o botão final: dá para voltar, trocar e experimentar à vontade.</p>\n<h2>Antes de começar</h2>\n<p>Pense num conceito em uma frase: “uma caçadora que deixou a aldeia para pagar uma dívida”, “um ferreiro que descobriu tarde demais que tem sangue de dragão”. Converse com o grupo sobre o que cada um quer fazer na mesa. Um grupo equilibrado costuma ter alguém que segura os inimigos, alguém que causa dano e alguém que apoia, mas não é obrigatório: o importante é que cada um tenha o seu momento.</p>\n<h2>Os oito passos</h2>\n<ol class=\"et-passos\">\n<li><strong>Raça.</strong> Escolha o povo do personagem. A raça dá +2 em atributos, PV, Destino e duas habilidades inatas, uma Geral e uma de Combate. Algumas pedem uma escolha ali mesmo (a Bênção dos Humanos, o Pacto dos Elfos, a linhagem dos Dracônicos, o Astro dos Celestiais), e os Bestiais escolhem a linhagem: Felino, Lupino ou Vulpino.</li>\n<li><strong>Classe.</strong> A classe dá a base de atributos (10 pontos), a faixa de PV, o Motor e o kit do NP 1. O Matador de Dragões escolhe o seu elemento aqui.</li>\n<li><strong>Magia.</strong> A primeira Magia do personagem, escolhida numa janela com todas elas. O Matador de Dragões só recebe a primeira no NP 5 (o elemento faz esse papel até lá). Algumas Magias pedem uma escolha a mais, que aparece logo abaixo.</li>\n<li><strong>Profissão.</strong> O ofício fora de combate. Pode ficar para depois.</li>\n<li><strong>Atributos.</strong> Distribua <strong>5 pontos</strong> entre os quatro atributos. Nenhum Atributo Base pode passar de <strong>7</strong> na criação. O botão de sugestão põe os pontos onde a classe mais precisa.</li>\n<li><strong>Habilidades.</strong> Escolha <strong>três de Combate e uma Geral</strong> entre os talentos da classe e os feitiços da sua Magia. No NP 1 todas ficam no NH 1, e no máximo duas podem ter a tag [Treinamento]. O que a raça, a classe e a Magia já dão aparece no alto e não gasta escolha.</li>\n<li><strong>Itens.</strong> A Mochila, o Kit de Aventureiro e um Sanduíche vêm de graça, e você tem <strong>350 de ouro</strong> para gastar numa loja com os itens de Nível 1. Cada classe tem um kit recomendado, que já vem montado no corpo; troque o que quiser. Itens mágicos não entram na criação.</li>\n<li><strong>Resumo.</strong> A página do personagem pronta: confira, dê um nome e clique em <strong>Criar personagem</strong>.</li>\n</ol>\n<aside class=\"et-box et-exemplo\"><h4>Exemplo: Tadeu, o muro</h4><p>Bruna quer um protetor. Escolhe um <strong>Dracônico</strong> (FOR +1 e POD +1, 16 PV, nenhum Destino) e a classe <strong>Centurião</strong> (FOR 4, DES 2, POD 3, INT 1; PV 55). Somando, Tadeu fica com FOR 5, DES 2, POD 4 e INT 1. Ela põe 2 pontos em FOR (7), 2 em POD (6) e 1 em DES (3): os modificadores ficam FOR 2, DES 1, POD 2 e INT 0.</p><p>Na ficha: 71 PV (55 + 16), Defesa Física 4 mais a armadura, Iniciativa 2, Precisão 2, Esquiva 1 e Resistência 2. Sem Destino, Tadeu vai depender dos amigos nas horas difíceis, e Bruna gostou disso.</p></aside>\n<h2>Depois da criação</h2>\n<p>Com a ficha pronta, falta o que os números não dizem:</p>\n<ul>\n<li><strong>A Biografia.</strong> A aba tem quatro partes: o Perfil (dados pessoais, aparência, personalidade e as Origens que a raça, a classe e a Magia contam sobre você), a História, os Laços e as Anotações.</li>\n<li><strong>Uma Conexão.</strong> Todo personagem começa com uma Conexão com outro personagem do grupo: um amigo de infância, uma dívida, uma rivalidade. Combine com o colega e anote nos Laços. Mais sobre isso em @UUID[.EtGuiaPagina0017]{Fora de Combate}.</li>\n<li><strong>O retrato.</strong> Troque a imagem da ficha e o token troca junto.</li>\n</ul>\n<aside class=\"et-box et-dica\"><h4>Escolhas que rendem</h4><p>No NP 1, prefira habilidades que você vai usar toda luta: as que alimentam ou gastam o Motor da sua classe. As de situação ficam ótimas mais tarde, quando você tiver escolhas de sobra. E leia a frase da Magia com calma: ela vai acompanhar o personagem até o fim.</p></aside>\n<aside class=\"et-box et-foundry\"><p>O assistente abre sozinho ao criar um personagem, pelo convite da aba Personagem de uma ficha em branco e pelo botão da pena no cabeçalho de um personagem de NP 1. Abrir de novo num personagem já criado começa das escolhas dele: criar outra vez troca o que veio da raça, da classe, das escolhas e dos itens iniciais (o ouro deles volta), e o resto fica. Ao criar, o chat recebe um cartão com o personagem novo.</p></aside>\n<aside class=\"et-box et-resumo\"><ul>\n<li>Raça, classe, Magia, profissão, atributos, habilidades, itens e resumo.</li>\n<li>5 pontos de atributo, nenhum Atributo Base acima de 7.</li>\n<li>3 habilidades de Combate e 1 Geral, NH 1, no máximo duas de [Treinamento].</li>\n<li>350 de ouro, Mochila, Kit de Aventureiro e Sanduíche. Uma Conexão com outro personagem.</li>\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "criacao"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0003"
+    },
+    {
+      "sort": 500000,
+      "name": "Raças e a Forma",
+      "type": "text",
+      "_id": "EtGuiaPagina0004",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 4</span><span class=\"et-cap-titulo\">Raças e a Forma</span><span class=\"et-cap-epi\">Por baixo de cada rosto dorme uma criatura antiga. Acordá-la é sempre uma escolha.</span></header>\r\n<p class=\"et-abre\">A raça diz de que povo o personagem vem, mas também guarda um segredo: por baixo da forma de cada raça dorme uma criatura, e a raça pode evoluir em cinco estágios, cada um mais bestial e mais forte que o anterior. As seis raças são os Humanos, os Elfos, os Dracônicos, os Demônios, os Celestiais e os Bestiais, estes em três linhagens (Felinos, Lupinos e Vulpinos). O que cada uma dá está no compêndio <strong>Raças e Classes</strong> e na página @UUID[Compendium.eternia.rules.JournalEntry.n6euoAzKnihoeO0K.JournalEntryPage.aFdNjxxYCx9phdnB]{XIII. AS RAÇAS E A FORMA}; aqui fica como as peças funcionam.</p>\r\n<h2>O que a raça dá</h2>\r\n<div class=\"et-grade et-duas\">\r\n<div class=\"et-cartao\"><span class=\"et-cartao-titulo\">+2 em atributos</span><p>Somados à base da classe. Cada raça tem os seus; os Humanos escolhem dois atributos para o +1.</p></div>\r\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-titulo\">PV e Destino</span><p>As raças dividem o mesmo orçamento: 16 pontos, em que 1 Destino vale 8 PV. Umas são mais duras (16 PV, nenhum Destino), outras mais sortudas (2 Destino, nenhum PV a mais), e a maioria fica no meio (8 PV e 1 Destino).</p></div>\r\n<div class=\"et-cartao et-azul\"><span class=\"et-cartao-titulo\">Duas inatas</span><p>Uma habilidade Geral e uma de Combate, que entram ao escolher a raça e não gastam escolhas.</p></div>\r\n<div class=\"et-cartao et-ouro\"><span class=\"et-cartao-titulo\">Cinco estágios</span><p>A forma da raça, que desperta aos poucos ao longo da campanha.</p></div>\r\n</div>\r\n<h2>Os estágios da forma</h2>\r\n<p>Todo personagem começa no estágio I, com as duas inatas. Os outros quatro chegam com o NP, mas só despertam quando o personagem cumpre o <span class=\"et-termo\">rito</span> do estágio em jogo: comer uma chama sagrada, vencer o alfa de uma matilha, fazer um voto e cumpri-lo. Cada raça tem os seus ritos, e o Mestre pode trocar um rito por outro do mesmo peso.</p>\r\n<table>\r\n<thead><tr><th>Estágio</th><th>Abre no</th><th>O que dá</th><th>O que o mundo vê</th></tr></thead>\r\n<tbody>\r\n<tr><td>I</td><td>NP 1</td><td>as duas inatas</td><td>a raça, só isso</td></tr>\r\n<tr><td>II</td><td>NP 3</td><td>uma habilidade Geral da raça</td><td>pode ser escondido</td></tr>\r\n<tr><td>III</td><td>NP 7</td><td>uma habilidade de Combate da raça</td><td>aparece na luta</td></tr>\r\n<tr><td>IV</td><td>NP 12</td><td>uma habilidade nova e +1 num atributo da raça</td><td>não se esconde mais</td></tr>\r\n<tr><td>V</td><td>NP 16</td><td>a forma da Fera: virar a criatura por uma cena, uma vez por cenário</td><td>a criatura</td></tr>\r\n</tbody>\r\n</table>\r\n<p>As habilidades dos estágios não gastam escolhas de habilidade. Se você já tinha aprendido uma delas com uma escolha, recebe a escolha de volta quando o estágio a dá. Os Humanos não têm uma criatura para despir: a forma deles vai para o outro lado, e no estágio V escolhem entre dois caminhos.</p>\r\n<aside class=\"et-box et-atencao\"><h4>Não evoluir também é escolha</h4><p>Nada se perde por ficar num estágio. Um personagem pode parar no II a campanha inteira porque tem medo do que vem depois, ou porque a forma revelada traria problemas com quem caça as Feras. Converse com o Mestre sobre o que o seu personagem sente pela criatura que carrega: isso costuma render as melhores cenas.</p></aside>\r\n<h2>Como evoluir</h2>\r\n<ol class=\"et-passos\">\r\n<li>Quando o seu NP chega ao do próximo estágio, o selo <strong>Forma</strong> do cartão da raça brilha com uma pata, e a aba Raça ganha um número.</li>\r\n<li>Cumpra o rito em jogo, combinando com o Mestre.</li>\r\n<li>Clique no selo (ou em <strong>Evoluir</strong>, na aba Raça). A caixa mostra o que o estágio dá e pede as escolhas (a habilidade, o +1 do estágio IV).</li>\r\n<li>O pedido vai ao Mestre, que aprova ou recusa no chat. Aprovado, as habilidades entram e o chat registra a evolução.</li>\r\n</ol>\r\n<aside class=\"et-box et-exemplo\"><h4>Exemplo: o rito de Ravi</h4><p>Ravi, um Bestial Lupino, chegou ao NP 3. O rito do estágio II é caçar sozinho numa noite de lua cheia. O Mestre prepara a cena: Ravi sai do acampamento sem avisar ninguém e volta de madrugada com um cervo nas costas e as garras à mostra. A jogadora clica no selo Forma, confere a habilidade que o estágio dá e envia o pedido; o Mestre aprova. Ravi agora tem garras, e ninguém do grupo sabe ainda.</p></aside>\r\n<aside class=\"et-box et-foundry\"><p>A aba Raça mostra os cinco estágios da sua raça numa trilha: o que cada um muda no corpo, o rito, o que o mundo vê e as habilidades, com o NP em que abrem. Com a configuração “Evolução da forma com o Mestre” ligada (o padrão), o pedido vai ao Mestre num cartão sussurrado com Aprovar e Recusar; desligada, você evolui sozinho ao chegar no NP. O Mestre pode adiantar um estágio e também voltar um (as habilidades que ele deu saem, e o +1 também).</p></aside>\r\n<aside class=\"et-box et-resumo\"><ul>\r\n<li>A raça dá +2 em atributos, PV e Destino (16 pontos no total) e duas inatas.</li>\r\n<li>Estágios II, III, IV e V nos NP 3, 7, 12 e 16, cada um com um rito cumprido em jogo.</li>\r\n<li>Habilidades dos estágios não gastam escolhas. O IV dá +1 num atributo; o V é a Fera por uma cena.</li>\r\n<li>Evoluir é sempre opcional, e o Mestre aprova o pedido.</li>\r\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "racas"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0004"
+    },
+    {
+      "sort": 600000,
+      "name": "Classes e o Motor",
+      "type": "text",
+      "_id": "EtGuiaPagina0005",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 5</span><span class=\"et-cap-titulo\">Classes e o Motor</span><span class=\"et-cap-epi\">Toda classe faz uma pergunta em cada rodada. Jogar bem é saber a resposta da sua.</span></header>\n<p class=\"et-abre\">A classe é o jeito de lutar do personagem, e cada uma das catorze classes da Eternia gira em volta de uma regra que só ela tem: o <span class=\"et-termo\">Motor</span>. O Samurai junta Cortes com a lâmina na bainha e solta tudo num saque; o Caçador fica parado e a Mira cresce; o Centurião transforma cada golpe que leva numa camada de muralha. Tudo o mais da classe, os talentos, o Caminho, o Ápice, existe para alimentar, gastar ou dobrar o Motor. As classes estão no compêndio <strong>Raças e Classes</strong>, e cada uma tem a sua página a partir de @UUID[Compendium.eternia.rules.JournalEntry.n6euoAzKnihoeO0K.JournalEntryPage.EtrnClasses0000a]{XI. CLASSES}.</p>\n<h2>Família e função</h2>\n<p>As classes se dividem em duas famílias de sete. As <strong>físicas</strong> lutam com o corpo e as armas; as <strong>mágicas</strong> conjuram. Toda classe também tem uma função no grupo, que dá a cor do emblema e da aba Classe:</p>\n<div class=\"et-grade et-duas\">\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-titulo\">Físicas · tons quentes</span><p><strong>Tanque</strong> (bronze), <strong>Dano</strong> (carmesim), <strong>Precisão</strong> (laranja) e <strong>Suporte</strong> (ouro).</p></div>\n<div class=\"et-cartao et-azul\"><span class=\"et-cartao-titulo\">Mágicas · tons frios</span><p><strong>Dano</strong> (violeta), <strong>Híbrida</strong> (azul), <strong>Controle</strong> (turquesa) e <strong>Suporte</strong> (prata).</p></div>\n</div>\n<p>A função diz o que a classe faz melhor, não o que ela é obrigada a fazer. E as duas famílias têm Magia: nas físicas, ela se mistura ao jeito de lutar (veja @UUID[.EtGuiaPagina0006]{Magias}).</p>\n<h2>A base</h2>\n<p>Cada classe define a sua base: <strong>10 pontos</strong> entre os quatro atributos (de 0 a 4 em cada) e uma das cinco faixas de PV, que diz quanto ela aguenta. Quanto mais o Motor pede para apanhar ou segurar a linha, mais alta a faixa.</p>\n<table>\n<thead><tr><th>Faixa</th><th>PV no NP 1</th><th>A cada NP</th><th>No NP 10*</th></tr></thead>\n<tbody>\n<tr><td>Frágil</td><td>35</td><td>+4</td><td>71</td></tr>\n<tr><td>Leve</td><td>40</td><td>+5</td><td>85</td></tr>\n<tr><td>Firme</td><td>40</td><td>+6</td><td>94</td></tr>\n<tr><td>Robusta</td><td>50</td><td>+8</td><td>122</td></tr>\n<tr><td>Colossal</td><td>55</td><td>+9</td><td>136</td></tr>\n</tbody>\n<caption>* sem os PV da raça, que somam por cima</caption>\n</table>\n<p>A classe não tem lista de armas: o equipamento é livre. Quem pede uma arma é a habilidade (um saque pede uma [Katana] ou uma [Lâmina] na mão principal; um disparo pede um arco).</p>\n<h2>O Motor</h2>\n<p>O Motor é escrito como um cartão de poucas linhas, sempre com os mesmos campos. Lendo o cartão, você sabe o que a sua classe quer fazer a cada rodada.</p>\n<table class=\"et-livre\">\n<thead><tr><th>Campo</th><th>O que diz</th></tr></thead>\n<tbody>\n<tr><td><strong>Forma</strong></td><td>o que o Motor é: pontos que enchem, um estado que alterna, uma marca no inimigo, um número escolhido, uma peça que muda de lugar</td></tr>\n<tr><td><strong>Ganha</strong></td><td>como ele enche ou avança</td></tr>\n<tr><td><strong>Gasta</strong></td><td>o que acontece quando você o usa</td></tr>\n<tr><td><strong>Teto</strong></td><td>quanto cabe nele, e como cresce com o NP</td></tr>\n<tr><td><strong>Zera</strong></td><td>quando ele volta ao começo</td></tr>\n<tr><td><strong>A decisão</strong></td><td>a pergunta que ele faz em quase toda rodada: guardar ou gastar, agora ou depois, em quem, onde</td></tr>\n</tbody>\n</table>\n<aside class=\"et-box et-exemplo\"><h4>Exemplo: a Bainha do Samurai</h4><p>Com a lâmina <strong>embainhada</strong>, Kenji junta um Corte a cada Manutenção. Ele pode esperar: quanto mais Cortes, mais forte o saque. No Processo de Iniciativa de qualquer personagem, Kenji usa o <strong>Iai</strong> (gastando a Ação Maior do seu turno): a lâmina sai e todos os Cortes viram dano, cada um somando 1d6 + [NP÷2]. Com a Bainha cheia, o saque é um Corte Perfeito, que acerta sem Esquiva.</p><p>A pergunta da Bainha é sempre a mesma: sacar agora, com o que tenho, ou esperar mais uma rodada pelo golpe perfeito?</p></aside>\n<h2>Os talentos</h2>\n<p>Os talentos são as habilidades de Combate e Gerais da classe, aprendidas com as escolhas de cada NP. Todo talento mexe no Motor de um de três jeitos, e o texto diz qual:</p>\n<div class=\"et-grade\">\n<div class=\"et-cartao\"><span class=\"et-cartao-titulo\">Alimenta</span><p>Uma outra forma de ganhar pontos do Motor.</p></div>\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-titulo\">Gasta</span><p>Uma outra forma de usar o que o Motor juntou.</p></div>\n<div class=\"et-cartao et-ouro\"><span class=\"et-cartao-titulo\">Dobra</span><p>Muda uma regra do Motor: o Teto, quando zera, o que ele faz.</p></div>\n</div>\n<p>Os talentos de Combate se organizam em ramos: alguns pedem um NP mínimo e um talento anterior. Os Gerais usam o Motor fora de combate, em viagens, conversas e investigações. Talento aprendido é fixo, e subir o NH dele aumenta a frequência, a capacidade ou o alcance da regra, não o dano bruto.</p>\n<h2>Caminho, Dedicação e Ápice</h2>\n<div class=\"et-grade\">\n<div class=\"et-cartao\"><span class=\"et-cartao-sigla\">NP 3</span><span class=\"et-cartao-titulo\">Caminho</span><p>Você escolhe um dos três Caminhos da classe, para sempre. Ele reescreve uma regra do Motor e traz dois talentos próprios (nos NP 3 e 7).</p></div>\n<div class=\"et-cartao et-azul\"><span class=\"et-cartao-sigla\">NP 5</span><span class=\"et-cartao-titulo\">Dedicação</span><p>A multiclasse. Gastando uma escolha de Combate, você ganha o <strong>Motor Menor</strong> de outra classe (o Teto pela metade, sem a regra mais forte) e abre os talentos [Dedicação] dela, cada um dois NP depois do normal. No máximo duas Dedicações; a segunda só depois de dois talentos da primeira.</p></div>\n<div class=\"et-cartao et-ouro\"><span class=\"et-cartao-sigla\">NP 10</span><span class=\"et-cartao-titulo\">Ápice</span><p>Chega sem pedir: uma regra que transforma o Motor de vez.</p></div>\n</div>\n<p>A Dedicação nunca dá o Caminho nem o Ápice da outra classe, e cada talento mexe só no Motor da própria classe.</p>\n<h2>A classe pelo caminho</h2>\n<table>\n<thead><tr><th>NP</th><th>O que chega</th></tr></thead>\n<tbody>\n<tr><td>1</td><td>a base, o Motor e o kit de entrada; 3 escolhas de Combate e 1 Geral; a primeira Magia (no Matador de Dragões, o elemento)</td></tr>\n<tr><td>2 a 10</td><td>2 escolhas de Combate e 1 Geral a cada NP</td></tr>\n<tr><td>3</td><td>o Caminho</td></tr>\n<tr><td>5</td><td>a Dedicação fica disponível; a segunda Magia das classes mágicas (a primeira do Matador de Dragões)</td></tr>\n<tr><td>10</td><td>o Ápice e a última Magia</td></tr>\n<tr><td>11 em diante</td><td>1 escolha de Combate e 1 Geral a cada NP</td></tr>\n</tbody>\n</table>\n<aside class=\"et-box et-dica\"><h4>Aprenda a sua pergunta</h4><p>Antes da primeira sessão, leia o cartão do Motor da sua classe e responda em voz alta: o que me faz ganhar pontos, o que gasta, e o que zera tudo. Quem sabe o que zera o próprio Motor (mover o token, apanhar, parar de atacar) já joga melhor que metade da mesa.</p></aside>\n<aside class=\"et-box et-foundry\"><p>O Motor fica à vista em três lugares: na aba Classe (o estado, os pontos e o aviso quando o golpe mais forte está pronto), no HUD de ações e no token, numa fileira de losangos. Os ganhos e os gastos seguem o combate sozinhos: a Manutenção e o Encerramento, os turnos, o movimento do token, os ataques, os acertos e as esquivas, o dano e a cura aplicados, os inimigos derrubados. Um clique nos losangos corrige os pontos à mão, e o <strong>Desfazer</strong> de um cartão devolve o Motor junto com o Ódio e a ação.</p></aside>\n<aside class=\"et-box et-resumo\"><ul>\n<li>7 classes físicas e 7 mágicas; a função (Tanque, Dano, Precisão, Suporte, Híbrida, Controle) dá a cor.</li>\n<li>Base: 10 pontos de atributo e uma faixa de PV. Equipamento livre.</li>\n<li>O Motor: ganha, gasta, Teto, zera, e a pergunta da rodada. Todo talento alimenta, gasta ou dobra.</li>\n<li>Caminho no NP 3, Dedicação a partir do NP 5, Ápice no NP 10.</li>\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "classes"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0005"
+    },
+    {
+      "sort": 700000,
+      "name": "Magias",
+      "type": "text",
+      "_id": "EtGuiaPagina0006",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 6</span><span class=\"et-cap-titulo\">Magias</span><span class=\"et-cap-epi\">A classe diz como você luta. A Magia diz o que acordou dentro de você.</span></header>\n<p class=\"et-abre\">Todo personagem da Eternia tem Magia, até o guerreiro que nunca abriu um livro. A <strong>classe</strong> diz <em>como</em> você luta ou conjura; a <strong>Magia</strong> diz <em>o que</em> você conjura. Dois personagens com a mesma Magia jogam de jeitos diferentes se a classe for outra, e a mesma classe com Magias diferentes também. As Magias estão no compêndio <strong>Habilidades de Classe</strong>, pasta Magias, e cada uma tem a sua página a partir de @UUID[Compendium.eternia.rules.JournalEntry.n6euoAzKnihoeO0K.JournalEntryPage.EtrnMagias0000aa]{XII. MAGIAS}.</p>\n<h2>As vagas de Magia</h2>\n<p>A classe diz em que NP você recebe cada Magia. Cada vaga é uma escolha, feita numa janela com todas as Magias, e é para sempre.</p>\n<table>\n<thead><tr><th>Classe</th><th>Vagas de Magia</th></tr></thead>\n<tbody>\n<tr><td>Classes mágicas</td><td>NP 1, NP 5 e NP 10</td></tr>\n<tr><td>Matador de Dragões</td><td>NP 5 e NP 10 (o elemento faz o papel da Magia no NP 1)</td></tr>\n<tr><td>Classes físicas</td><td>NP 1 e NP 10</td></tr>\n</tbody>\n</table>\n<h2>Os feitiços</h2>\n<p>Cada Magia é uma habilidade passiva (com o Traço e, às vezes, o Tabu) e uma lista de <span class=\"et-termo\">feitiços</span>. Os feitiços não chegam sozinhos: você os aprende com as escolhas de Combate e Gerais de cada NP, como os talentos da classe, e cada um tem o seu NP mínimo. Ter a Magia abre a lista; as escolhas dizem quais feitiços você domina.</p>\n<h3>Os feitiços e o Motor</h3>\n<p>Os feitiços alimentam o Motor da sua classe: cada um dá <strong>+1</strong>, e os grandes dão <strong>+2</strong>. O feitiço <strong>supremo</strong> de cada Magia (NP 7; NP 10 nas Ancestrais) pede o Motor no Teto e gasta tudo, e as fórmulas dele contam os “pontos gastos”. Nas classes físicas, a Magia se mistura ao jeito de lutar: o Samurai só junta Cortes com a lâmina embainhada, o Assassino abre Brechas quando o feitiço acerta o alvo do Contrato, e o Lutador conta o feitiço como um golpe da Corrente.</p>\n<h2>As categorias</h2>\n<p>Toda Magia tem uma categoria, que diz de onde vem o poder e quanto ele cobra:</p>\n<div class=\"et-grade et-duas\">\n<div class=\"et-cartao\"><span class=\"et-cartao-titulo\">Conjuração</span><p>A magia sai do corpo de quem conjura. A base de todas.</p></div>\n<div class=\"et-cartao et-ardosia\"><span class=\"et-cartao-titulo\">Portadora</span><p>Mora num objeto equipado (um cajado, um baralho, um pincel, uma arma).</p></div>\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-titulo\">Perdida e Proibida</span><p>Mais fortes que as comuns (cerca de 1d6 a mais por feitiço de ataque), e pagam com um Tabu.</p></div>\n<div class=\"et-cartao et-ouro\"><span class=\"et-cartao-titulo\">Ancestral</span><p>As mais raras: sem Tabu e com 1d6 a mais nos feitiços de ataque. O supremo só chega no NP 10.</p></div>\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-titulo\">Maldição</span><p>Não é magia: é o poder dos demônios. Forte como as Perdidas, com um Tabu, e o [Silenciado] não impede os feitiços dela.</p></div>\n</div>\n<h2>O Traço e o Tabu</h2>\n<div class=\"et-grade et-duas\">\n<div class=\"et-cartao et-azul\"><span class=\"et-cartao-titulo\">Traço</span><p>Toda Magia tem uma regra passiva própria, que vale para os feitiços dela: dano a mais contra quem já tem um estado (o Fogo em quem queima), um estado que escala, uma imunidade, um golpe que atravessa a Barreira ou a Anulação.</p></div>\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-titulo\">Tabu</span><p>O preço das Magias Perdidas, Proibidas e das Maldições. Vale enquanto você tiver a Magia, quase sempre em combate: as Defesas caem [NP÷2], −2 nas Esquivas, a Recuperação cai [NP], [Maldito] em combate.</p></div>\n</div>\n<aside class=\"et-box et-atencao\"><h4>O Tabu não tira férias</h4><p>O Tabu vale em todo combate, mesmo nas lutas em que você não conjura nenhum feitiço daquela Magia. Antes de escolher uma Magia Perdida, Proibida ou uma Maldição, leia o Tabu inteiro e pense na sua classe: −2 nas Esquivas pesa pouco num mago que fica atrás e muito num lutador no meio dos inimigos.</p></aside>\n<h2>Feitiço, Canção e silêncio</h2>\n<p>Duas tags marcam habilidades de magia que não atacam: [Feitiço] (bênçãos, curas, proteções) e [Canção] (cantos, hinos e sons mágicos). O estado [Silenciado] impede as duas e também os ataques mágicos, menos os feitiços das Maldições.</p>\n<aside class=\"et-box et-exemplo\"><h4>Exemplo: Lia e o fogo</h4><p>Lia é uma Elfa <strong>Maga Negra</strong>, e no NP 1 escolheu a Magia <strong>Fogo</strong>. O Motor do Mago Negro é a Pressão: cada feitiço puxa mais poder. Lia lança a chama laranja num goblin, que fica [Queimando], e a Pressão sobe 1. Na rodada seguinte, ataca o mesmo goblin: o Traço do Fogo faz o golpe bater mais forte em quem já queima, e a Pressão sobe de novo. Quando chegar ao Teto, Lia vai decidir entre soltar tudo de uma vez ou arriscar a Sobrecarga.</p></aside>\n<aside class=\"et-box et-foundry\"><p>A aba <strong>Magias</strong> da ficha mostra as vagas da classe e a página de cada Magia: a categoria, a frase, o Traço, o Tabu e todos os feitiços (os do NP acima ficam apagados, com o NP em que chegam). Uma vaga aberta brilha e tem o botão de escolher a Magia: a janela mostra um cartão por Magia, com filtros por categoria e função; o ponteiro sobre um feitiço mostra o que ele faz. No HUD, o painel <strong>Magias</strong> agrupa os feitiços sob o nome de cada Magia.</p></aside>\n<aside class=\"et-box et-resumo\"><ul>\n<li>Vagas: mágicas no NP 1, 5 e 10; Matador de Dragões no 5 e 10; físicas no 1 e 10.</li>\n<li>Os feitiços são aprendidos com as escolhas de cada NP e dão +1 ao Motor (+2 os grandes); o supremo pede o Motor no Teto.</li>\n<li>Conjuração e Portadora são a base; Perdida, Proibida e Maldição batem mais e têm Tabu; Ancestral bate mais sem Tabu.</li>\n<li>Toda Magia tem um Traço. [Silenciado] impede [Feitiço], [Canção] e ataques mágicos, menos os das Maldições.</li>\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "magias"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0006"
+    },
+    {
+      "sort": 800000,
+      "name": "Habilidades",
+      "type": "text",
+      "_id": "EtGuiaPagina0007",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 7</span><span class=\"et-cap-titulo\">Habilidades</span><span class=\"et-cap-epi\">Cada habilidade é uma pequena regra. Saber lê-la é metade da luta.</span></header>\r\n<p class=\"et-abre\">Quase tudo o que um personagem faz de especial é uma habilidade: os talentos da classe, os feitiços da Magia, as inatas da raça, as ações básicas que todo mundo tem. Todas são escritas do mesmo jeito, num bloco com campos fixos. Este capítulo ensina a ler esse bloco, campo a campo.</p>\r\n<h2>Anatomia de um bloco</h2>\r\n<p>Veja a habilidade básica que todo personagem tem para atacar com a arma:</p>\r\n<div class=\"et-cartao et-ouro\">\r\n<span class=\"et-cartao-titulo\">Ataque Básico com Arma</span>\r\n<p><span class=\"et-sigla\">Básica</span> &nbsp;<strong>Momento:</strong> Ação Maior · <strong>Teste:</strong> Precisão contra Esquiva · <strong>Alvo:</strong> Individual · <strong>Alcance:</strong> Arma · <strong>Custo:</strong> — · <strong>Limite:</strong> —</p>\r\n<p>Você causa [1d6 + Poder de Ataque] de dano físico.</p>\r\n</div>\r\n<p>Lendo: no seu turno, gastando a Ação Maior, você escolhe um alvo ao alcance da arma e rola Precisão contra a Esquiva dele. Se acertar, causa 1d6 mais o seu Poder de Ataque de dano físico. Não custa nada e não tem limite de usos.</p>\r\n<h2>Os campos</h2>\r\n<h3>Tipo e NH</h3>\r\n<p>O tipo é <strong>Combate</strong>, <strong>Geral</strong> ou <strong>Básica</strong>. As de Combate e as Gerais são aprendidas com as escolhas de cada NP (as de Combate com as escolhas de Combate, e as Gerais com as Gerais); as Básicas todo mundo tem. O <strong>NH Máximo</strong> diz até onde a habilidade sobe. Fórmulas com [NH] crescem com ele.</p>\r\n<h3>Momento</h3>\r\n<p>O Momento diz quando a habilidade pode ser usada:</p>\r\n<table class=\"et-livre\">\r\n<thead><tr><th>Momento</th><th>Quando</th></tr></thead>\r\n<tbody>\r\n<tr><td><strong>Passiva</strong></td><td>sempre em efeito, sem usar</td></tr>\r\n<tr><td><strong>Ação Maior, Menor, de Movimento, Instantânea</strong></td><td>no seu turno, gastando aquela ação (uma de cada por turno)</td></tr>\r\n<tr><td><strong>Turno</strong></td><td>no seu turno, mesmo com as ações gastas</td></tr>\r\n<tr><td><strong>Manutenção, Iniciativa, Encerramento</strong></td><td>naquele processo da rodada de combate</td></tr>\r\n<tr><td><strong>Preparação</strong></td><td>na cena logo antes do combate, uma vez cada</td></tr>\r\n<tr><td><strong>Antes do Teste, Após o Teste</strong></td><td>em reação a um teste, logo antes ou depois dele</td></tr>\r\n<tr><td><strong>Rolagem de Dano</strong></td><td>logo antes de rolar o dano</td></tr>\r\n<tr><td><strong>Antes do Dano, Após o Dano</strong></td><td>logo antes ou depois de causar ou sofrer dano</td></tr>\r\n<tr><td><strong>Pré-Jogo, Interlúdio, Descanso</strong></td><td>no começo da sessão, entre as cenas, ou com tempo e calma</td></tr>\r\n<tr><td><strong>Ação, Ver texto</strong></td><td>em resposta ao que o texto descreve</td></tr>\r\n</tbody>\r\n</table>\r\n<h3>Teste</h3>\r\n<ul>\r\n<li><strong>Nenhum:</strong> sem teste, e o alvo precisa aceitar.</li>\r\n<li><strong>Automático:</strong> funciona sempre. Atenção: sem teste, não há Esquiva para falhar, e os efeitos que dependem de uma Esquiva falha (o Dano de Ódio, por exemplo) não acontecem.</li>\r\n<li><strong>Básico (perícia / dificuldade):</strong> você rola a perícia contra um número.</li>\r\n<li><strong>Oposto (perícia contra perícia):</strong> a primeira é a sua, a segunda é a do alvo. É o caso de quase todo ataque.</li>\r\n</ul>\r\n<h3>Alvo e Alcance</h3>\r\n<table class=\"et-livre\">\r\n<thead><tr><th>Alvo</th><th>Quem a habilidade pega</th></tr></thead>\r\n<tbody>\r\n<tr><td><strong>Pessoal</strong></td><td>só você</td></tr>\r\n<tr><td><strong>Individual</strong> (ou <strong>n Alvos</strong>)</td><td>um personagem (ou até n) dentro do alcance</td></tr>\r\n<tr><td><strong>Área</strong></td><td>todos num quadrado escolhido dentro do alcance</td></tr>\r\n<tr><td><strong>Amplo n</strong></td><td>o quadrado escolhido e os quadrados a até n dele</td></tr>\r\n<tr><td><strong>Linha n</strong></td><td>n quadrados numa reta a partir de você, numa das quatro direções</td></tr>\r\n</tbody>\r\n</table>\r\n<p>Nas áreas, <strong>(E)</strong> quer dizer Escolha: você escolhe quem é afetado, por exemplo só os inimigos. <strong>(T)</strong> quer dizer Todos: aliados e inimigos do mesmo jeito. O alcance é <strong>Corpo a corpo</strong> (encostado no alvo), <strong>Arma</strong> (o da arma empunhada) ou um número de quadrados, como 4 Qd.</p>\r\n<h3>Custo e Limite</h3>\r\n<p>O custo mais comum é o <strong>Ódio</strong>: “Ódio 2” faz o seu Ódio subir 2 (veja @UUID[.EtGuiaPagina0012]{Ódio}). “Destino 1” gasta um ponto de Destino. “(Grupo)” faz você e os aliados pagarem; “(Aliados)”, só os aliados. Muitos talentos também gastam o Motor.</p>\r\n<p>O limite conta os usos: <strong>Rodada 1</strong> é uma vez por rodada; <strong>Cena 2</strong>, duas vezes por cena; <strong>Cenário (NH)</strong>, tantas vezes por cenário quanto o NH da habilidade.</p>\r\n<h2>As palavras dos textos</h2>\r\n<dl class=\"et-def\">\r\n<dt>Você, Alvo, Aliado, Inimigo</dt><dd>Quem usa a habilidade, quem ela pega, quem luta do seu lado e quem luta contra.</dd>\r\n<dt>Estados</dt><dd>EN é Estado Negativo, EC é Estado de Combate, EV é Estado Vital e OE é Outro Estado (veja @UUID[.EtGuiaPagina0014]{Estados e Condições}).</dd>\r\n<dt>Tags</dt><dd>Palavras-chave entre colchetes, como [Chama], [Lâmina] ou [Feitiço]. Sozinhas não fazem nada; outras regras olham para elas.</dd>\r\n<dt>[Estilo]</dt><dd>Só uma habilidade de [Estilo] vale por vez. Trocar de Estilo é a sua ação na Manutenção.</dd>\r\n</dl>\r\n<h2>As etiquetas coloridas</h2>\r\n<p>Nos textos da ficha, do chat e deste guia, cada colchete vira uma etiqueta com a cor da sua função. Passe o mouse para ler a explicação:</p>\r\n<div class=\"et-grade et-duas\">\r\n<div class=\"et-cartao\"><span class=\"et-cartao-titulo\">Fórmulas</span><p>Verdes: [NP+3], [2d6 + Poder Mágico]. Num texto do seu personagem, mostram o valor ao lado.</p></div>\r\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-titulo\">Estados</span><p>Vermelhas: [Atordoado], [Barreira: 10]. No chat, um clique aplica o estado nos alvos.</p></div>\r\n<div class=\"et-cartao et-ouro\"><span class=\"et-cartao-titulo\">Tags e Momentos</span><p>Pergaminho e dourado: [Chama], [Momento: Ação Maior].</p></div>\r\n<div class=\"et-cartao et-azul\"><span class=\"et-cartao-titulo\">Valores</span><p>Azuis: [FOR], [Esquiva], [Poder de Ataque].</p></div>\r\n</div>\r\n<aside class=\"et-box et-foundry\"><p>Na aba Habilidades, as habilidades ficam agrupadas pelo Momento. Clique na imagem para usar e no nome para abrir o texto ali mesmo. Antes de usar, o sistema confere o Momento, a ação, o custo, o limite e as condições, e avisa (ou bloqueia, conforme a configuração da mesa) quando algo não bate. O cartão no chat registra o que foi gasto e tem o botão <strong>Desfazer uso</strong>, que devolve tudo.</p></aside>\r\n<aside class=\"et-box et-resumo\"><ul>\r\n<li>Tipo, NH, Momento, Teste, Alvo, Alcance, Custo, Limite e o texto.</li>\r\n<li>Uma Ação Maior, uma Menor, uma de Movimento e uma Instantânea por turno.</li>\r\n<li>Teste Automático não abre Esquiva: nada que dependa de uma Esquiva falha acontece.</li>\r\n<li>(E) escolhe quem a área pega; (T) pega todos. Ódio n sobe o seu Ódio.</li>\r\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "habilidades"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0007"
+    },
+    {
+      "sort": 900000,
+      "name": "Evolução",
+      "type": "text",
+      "_id": "EtGuiaPagina0008",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 8</span><span class=\"et-cap-titulo\">Evolução</span><span class=\"et-cap-epi\">Ninguém volta da mesma aventura com o mesmo tamanho.</span></header>\n<p class=\"et-abre\">Os personagens crescem subindo de NP. É o Mestre quem diz quando, em geral no fim de um cenário ou depois de um desafio importante, e o grupo costuma subir junto. Cada NP traz um pouco de tudo: atributos, vida, habilidades novas e, em alguns degraus, os marcos da classe, da Magia e da raça.</p>\n<h2>A cada NP</h2>\n<ul>\n<li><strong>Atributos:</strong> todos os quatro Atributos Base sobem 1. Os modificadores sobem quando um Base chega a um múltiplo de 3.</li>\n<li><strong>PV:</strong> os PV máximos sobem o tanto da faixa da classe (de +4 a +9).</li>\n<li><strong>Escolhas:</strong> do NP 2 ao 10, duas escolhas de Combate e uma Geral; do NP 11 em diante, uma de cada.</li>\n</ul>\n<p>Cada escolha aprende uma habilidade nova (um talento da classe ou de uma Dedicação, um feitiço das suas Magias, uma habilidade da raça) ou sobe em 1 o NH de uma que você já tem. Várias escolhas podem ir para a mesma habilidade, aprender e subir, ou subir duas vezes, desde que ela não passe do NH Máximo dela nem do seu NP.</p>\n<aside class=\"et-box et-regra\"><h4>Os limites do NH</h4><p>Uma habilidade nunca passa do próprio NH Máximo, e nunca passa do seu NP. No NP 1, todo NH é 1; no NP 3, uma habilidade de NH Máximo 5 chega no máximo ao 3.</p></aside>\n<h2>Os marcos</h2>\n<table>\n<thead><tr><th>NP</th><th>Classe e Magia</th><th>Raça</th></tr></thead>\n<tbody>\n<tr><td>1</td><td>a base, o Motor e o kit; a primeira Magia (no Matador de Dragões, o elemento)</td><td>estágio I</td></tr>\n<tr><td>3</td><td>o Caminho</td><td>estágio II (com o rito)</td></tr>\n<tr><td>5</td><td>a Dedicação fica disponível; a segunda Magia das mágicas (a primeira do Matador de Dragões)</td><td>—</td></tr>\n<tr><td>7</td><td>os talentos de NP 7 do Caminho</td><td>estágio III</td></tr>\n<tr><td>10</td><td>o Ápice e a última Magia</td><td>—</td></tr>\n<tr><td>12</td><td>—</td><td>estágio IV (+1 num atributo da raça)</td></tr>\n<tr><td>16</td><td>—</td><td>estágio V, a Fera</td></tr>\n</tbody>\n</table>\n<aside class=\"et-box et-exemplo\"><h4>Exemplo: Kenji chega ao NP 3</h4><p>O Mestre encerra o cenário e anuncia: todos sobem para o NP 3. Kenji, o Samurai, tinha FOR 8; agora tem 9, e o modificador de FOR vai de 2 para 3. Os outros atributos também sobem 1. Os PV ganham +8, da faixa Robusta. Ele usa as duas escolhas de Combate para aprender um talento novo e subir o Iai para o NH 2, e a escolha Geral num talento de viagem. Por fim escolhe o Caminho, para sempre. Kenji também é um Bestial Felino: o estágio II da forma ficou disponível, mas só desperta depois do rito.</p></aside>\n<aside class=\"et-box et-dica\"><h4>Profundo antes de largo</h4><p>Espalhar escolhas em muitas habilidades de NH 1 parece versátil, mas um Motor bem alimentado rende mais. Suba primeiro o que você usa toda luta, e guarde as habilidades de situação para quando sobrarem escolhas. O navegador de habilidades mostra o que cada talento pede antes, para você planejar os ramos.</p></aside>\n<aside class=\"et-box et-foundry\"><p>Suba pelo botão ao lado do brasão do NP, no cabeçalho da ficha, ou digitando o NP novo no brasão (vários de uma vez, ou para baixo). Antes de mudar, uma caixa mostra o resumo: os Atributos Base antes e depois, os PV, as escolhas e o que a classe dá em cada NP do salto. Confirmado, o chat recebe o cartão de NP, a classe oferece o que é dela (o Caminho, a Magia) e o navegador de habilidades abre com as escolhas contadas. Descer de NP oferece desfazer as escolhas feitas acima do NP novo.</p></aside>\n<aside class=\"et-box et-resumo\"><ul>\n<li>A cada NP: +1 em todos os Atributos Base, PV da faixa e as escolhas (2 de Combate e 1 Geral até o NP 10).</li>\n<li>Uma escolha aprende uma habilidade ou sobe 1 NH; NH nunca acima do NH Máximo nem do NP.</li>\n<li>Marcos: Caminho no 3, Dedicação e Magia no 5, Ápice e Magia no 10; a forma no 3, 7, 12 e 16.</li>\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "evolucao"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0008"
+    },
+    {
+      "sort": 1000000,
+      "name": "Sessões e Cenas",
+      "type": "text",
+      "_id": "EtGuiaPagina0009",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 9</span><span class=\"et-cap-titulo\">Sessões e Cenas</span><span class=\"et-cap-epi\">Uma história se mede em cenas, e as cenas se medem no que muda nelas.</span></header>\r\n<p class=\"et-abre\">Fora do combate, o tempo da Eternia passa em cenas. Uma cena é um trecho da história num lugar e num momento: a conversa com o prefeito, a descida à mina, a noite no acampamento. Várias cenas formam um <span class=\"et-termo\">cenário</span>, uma aventura com começo, meio e fim, que costuma caber numa sessão de jogo. Muitas regras contam usos por cena e por cenário, então vale saber onde cada uma começa e termina.</p>\r\n<h2>A sessão</h2>\r\n<div class=\"et-fluxo\"><span>Pré-Jogo</span><span>Introdução</span><span>Intermediária</span><span>Clímax</span><span>Desfecho</span><span class=\"et-fim\">Pós-Jogo</span></div>\r\n<dl class=\"et-def\">\r\n<dt>Pré-Jogo</dt><dd>Antes de a história começar: o Mestre apresenta a premissa, quem precisa termina a ficha ou sobe de NP, e as habilidades de Momento Pré-Jogo podem ser usadas.</dd>\r\n<dt>Jogo Principal</dt><dd>A história, em quatro fases. Na <strong>Introdução</strong>, o problema aparece; na fase <strong>Intermediária</strong>, o grupo corre atrás do objetivo; no <strong>Clímax</strong>, enfrenta o último obstáculo, muitas vezes um chefe; no <strong>Desfecho</strong>, vê o que conquistou. Ao fim de cada fase, todo personagem recupera 1 ponto de Destino.</dd>\r\n<dt>Pós-Jogo</dt><dd>Depois da história: os personagens voltam com os PV e o Destino cheios, os tesouros indesejados são vendidos e o Mestre entrega as recompensas.</dd>\r\n</dl>\r\n<h2>As cenas</h2>\r\n<p>Uma cena acaba quando a história muda de lugar, de tempo ou de assunto, e o Mestre é quem diz. O fim de um combate também é o fim de uma cena para quem lutou nele. Quando uma cena acaba:</p>\r\n<ul>\r\n<li>os Estados Negativos e os Estados de Combate terminam (os Estados Vitais, como a Fadiga, ficam);</li>\r\n<li>um Aventureiro [Incapacitado] se levanta com os PV cheios;</li>\r\n<li>um Aventureiro morto volta com 1 PV e uma [Fadiga] igual aos PV máximos menos 1;</li>\r\n<li>um inimigo [Incapacitado] morre, a não ser que o Mestre queira outra coisa;</li>\r\n<li>os usos “por cena” voltam.</li>\r\n</ul>\r\n<aside class=\"et-box et-atencao\"><h4>Cair custa caro</h4><p>Os Aventureiros voltam no fim da cena, então uma derrota raramente acaba a campanha. Mas quem volta da morte volta com 1 PV e uma Fadiga enorme, e a Fadiga só sai com comida e descanso. Uma luta perdida no começo do cenário pesa até o fim dele.</p></aside>\r\n<h2>Entre as cenas</h2>\r\n<p>Entre uma cena e outra há o <span class=\"et-termo\">Interlúdio</span>, a hora das habilidades de Momento Interlúdio e da Oficina das profissões. Quando o grupo tem tempo e segurança (uma estalagem, um acampamento protegido), é <span class=\"et-termo\">Descanso</span>: as habilidades de Momento Descanso funcionam, e comida e repouso tiram Fadiga.</p>\r\n<h2>O cenário</h2>\r\n<p>O cenário é a aventura inteira. Os usos “por cenário” voltam quando ele acaba, e algumas coisas só se renovam aí: as tentativas das profissões, por exemplo. É no fim do cenário que o Mestre costuma subir o NP do grupo.</p>\r\n<aside class=\"et-box et-foundry\"><p>Encerrar um combate no rastreador encerra a cena de todos que lutaram nele, com um resumo no chat (quem se levantou, quem voltou, quem morreu). Para o resto, o Mestre usa as <strong>Ferramentas do Mestre</strong> (Configurar Opções, Eternia): encerrar a cena ou o cenário dos tokens selecionados ou de todos os personagens. A mesa pode rodar várias histórias ao mesmo tempo: cada personagem conta as próprias cenas e cenários.</p></aside>\r\n<aside class=\"et-box et-resumo\"><ul>\r\n<li>Sessão: Pré-Jogo, Jogo Principal (Introdução, Intermediária, Clímax, Desfecho) e Pós-Jogo.</li>\r\n<li>+1 Destino ao fim de cada fase; PV e Destino cheios no Pós-Jogo.</li>\r\n<li>Fim de cena: estados negativos e de combate acabam, Aventureiros caídos voltam, usos por cena voltam.</li>\r\n<li>Interlúdio entre cenas; Descanso com tempo e segurança; usos por cenário voltam no fim do cenário.</li>\r\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "sessao"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0009"
+    },
+    {
+      "sort": 1100000,
+      "name": "Combate",
+      "type": "text",
+      "_id": "EtGuiaPagina0010",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 10</span><span class=\"et-cap-titulo\">Combate</span><span class=\"et-cap-epi\">Na luta, o tempo encolhe. Cada segundo vira uma escolha.</span></header>\r\n<p class=\"et-abre\">Quando a luta começa, a conversa livre dá lugar às rodadas. Uma rodada é um punhado de segundos em que todos agem uma vez, na ordem da Iniciativa, passando por quatro processos fixos. Este capítulo explica a rodada, o turno e o movimento; o ataque em si fica para o @UUID[.EtGuiaPagina0011]{próximo capítulo}.</p>\r\n<h2>Antes da luta: a Preparação</h2>\r\n<p>Quando o grupo vê o perigo chegando, há uma <span class=\"et-termo\">Cena de Preparação</span>. Os jogadores podem perguntar o nome, o nível, as tags e os estados de todo inimigo à vista, tentar descobrir mais (com Reconhecer Inimigo, por exemplo) e usar as habilidades de Momento Preparação, cada uma uma vez. Ninguém ganha Ódio na Preparação.</p>\r\n<aside class=\"et-box et-atencao\"><h4>Surpresa</h4><p>Numa emboscada não há Preparação. Na primeira rodada, quem foi pego desprevenido não age na Manutenção e começa [Atordoado] e já em Pós-Ação: perde o primeiro turno. O Mestre decide quem foi surpreendido.</p></aside>\r\n<h2>A rodada</h2>\r\n<div class=\"et-fluxo\"><span>Manutenção</span><span>Iniciativa</span><span>Turno</span><span class=\"et-volta\">até todos agirem</span><span class=\"et-fim\">Encerramento</span></div>\r\n<p class=\"et-fluxo-nota\">Depois do Encerramento, começa a Manutenção da rodada seguinte.</p>\r\n<dl class=\"et-def\">\r\n<dt>Manutenção</dt><dd>O começo da rodada. Todos voltam ao estado de Pré-Ação (prontos para agir), e quem tem habilidades de Momento Manutenção as usa: identificar um inimigo, procurar o que está escondido, trocar de Estilo, juntar pontos do Motor.</dd>\r\n<dt>Iniciativa</dt><dd>Escolhe quem age agora: entre quem ainda está em Pré-Ação, o de maior Iniciativa. Nos empates, os Aventureiros vão primeiro (e combinam entre si a ordem). As habilidades de Momento Iniciativa podem ser usadas aqui, antes de qualquer turno.</dd>\r\n<dt>Turno</dt><dd>O personagem escolhido age. Ao terminar, passa para Pós-Ação, e a rodada volta à Iniciativa para escolher o próximo. Quando ninguém mais está em Pré-Ação, vem o Encerramento.</dd>\r\n<dt>Encerramento</dt><dd>O fim da rodada: primeiro as curas por rodada ([Regeneração]), depois os danos por rodada ([Deterioração], [Queimando]...), as habilidades de Momento Encerramento e o que dura “até o fim da rodada”.</dd>\r\n</dl>\r\n<h2>O seu turno</h2>\r\n<p>No seu turno você tem quatro ações, e pode usar cada uma uma vez, na ordem que quiser:</p>\r\n<div class=\"et-grade et-duas\">\r\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-titulo\">Ação Maior</span><p>A ação principal: um ataque, um feitiço, examinar algo com cuidado.</p></div>\r\n<div class=\"et-cartao et-ouro\"><span class=\"et-cartao-titulo\">Ação Menor</span><p>Algo rápido: trocar de arma, passar um item, uma habilidade de apoio.</p></div>\r\n<div class=\"et-cartao\"><span class=\"et-cartao-titulo\">Ação de Movimento</span><p>Andar pelo campo: correr, se deslocar, trocar de lugar com um aliado.</p></div>\r\n<div class=\"et-cartao et-azul\"><span class=\"et-cartao-titulo\">Ação Instantânea</span><p>Uma só, a qualquer momento do seu turno, entre as outras.</p></div>\r\n</div>\r\n<p>Você não precisa usar todas. Quando terminar, encerre o turno: as condições [Cambaleante] e [Atordoado] que estiverem em você acabam nesse momento.</p>\r\n<h3>Esperar</h3>\r\n<p>Na sua vez, antes de fazer qualquer coisa, você pode entrar em <span class=\"et-termo\">Espera</span>: o seu turno fica para depois que todos os outros agirem. Entre os que esperaram, age primeiro quem tem a <em>menor</em> Iniciativa. Só dá para esperar uma vez por rodada.</p>\r\n<h2>Quadrados e movimento</h2>\r\n<p>O campo de batalha é dividido em quadrados de uns 5 metros (Qd). Distâncias, alcances e movimento se contam em quadrados, e só contam os quatro vizinhos de lado: andar na diagonal custa dois quadrados.</p>\r\n<table class=\"et-quadros\"><tbody>\r\n<tr><td>4</td><td>3</td><td>2</td><td>3</td><td>4</td></tr>\r\n<tr><td>3</td><td class=\"et-perto\">2</td><td class=\"et-perto\">1</td><td class=\"et-perto\">2</td><td>3</td></tr>\r\n<tr><td>2</td><td class=\"et-perto\">1</td><td class=\"et-eu\">●</td><td class=\"et-perto\">1</td><td>2</td></tr>\r\n<tr><td>3</td><td class=\"et-perto\">2</td><td class=\"et-perto\">1</td><td class=\"et-perto\">2</td><td>3</td></tr>\r\n<tr><td>4</td><td>3</td><td>2</td><td>3</td><td>4</td></tr>\r\n</tbody></table>\r\n<p class=\"et-fluxo-nota\">A distância de cada quadrado até o personagem. Os quadrados dourados são o alcance Corpo a corpo da Eternia.</p>\r\n<ul>\r\n<li><strong>Corpo a corpo:</strong> o seu quadrado e os oito em volta, de lado ou na diagonal (uma regra da casa da Eternia, ligada por padrão).</li>\r\n<li><strong>Linha de visão:</strong> paredes e obstáculos sólidos bloqueiam a visão; não dá para escolher como alvo o que você não vê.</li>\r\n<li><strong>Vários num quadrado:</strong> não há limite de personagens por quadrado, a não ser que o Mestre diga.</li>\r\n</ul>\r\n<h3>Tipos de movimento</h3>\r\n<dl class=\"et-def\">\r\n<dt>Movimento Normal</dt><dd>O comum. Pode ser interrompido por uma Obstrução.</dd>\r\n<dt>Movimento Seguro</dt><dd>Ignora os inimigos (não sofre Obstrução), mas não o terreno.</dd>\r\n<dt>Teleporte</dt><dd>Vai direto ao quadrado escolhido, ignorando inimigos e terreno.</dd>\r\n<dt>Obstrução</dt><dd>Quando um inimigo no seu alcance Corpo a corpo tenta um Movimento Normal, você pode declarar Obstrução, e o movimento dele acaba ali.</dd>\r\n</dl>\r\n<h2>As ações básicas</h2>\r\n<p>Todo personagem tem as habilidades básicas, as ações que qualquer um sabe fazer:</p>\r\n<table class=\"et-livre\">\r\n<thead><tr><th>Ação</th><th>Momento</th><th>O que faz</th></tr></thead>\r\n<tbody>\r\n<tr><td><strong>Correr</strong></td><td>Movimento</td><td>Movimento Normal de até [Velocidade] Qd.</td></tr>\r\n<tr><td><strong>Disparada</strong></td><td>Movimento</td><td>Movimento Normal de até [Velocidade] + 2 Qd; gasta também a Ação Menor.</td></tr>\r\n<tr><td><strong>Deslocar-se</strong></td><td>Movimento</td><td>Movimento Seguro de 1 Qd; gasta também a Ação Menor.</td></tr>\r\n<tr><td><strong>Switch</strong></td><td>Movimento</td><td>Você e um aliado a até 2 Qd trocam de lugar e de Ódio, e ele fica [Concentrado]. Uma vez por rodada.</td></tr>\r\n<tr><td><strong>Ataque Básico com Arma</strong></td><td>Maior</td><td>Precisão contra Esquiva; [1d6 + Poder de Ataque] de dano físico.</td></tr>\r\n<tr><td><strong>Ataque Mágico Básico</strong></td><td>Maior</td><td>Precisão contra Resistência, a até 4 Qd; [1d6 + Poder Mágico] de dano mágico.</td></tr>\r\n<tr><td><strong>Esconder-se</strong></td><td>Maior</td><td>Você fica [Oculto], se não estiver no Topo de Ódio, perto de um inimigo ou com um Estado Negativo.</td></tr>\r\n<tr><td><strong>Analisar, Avaliar, Desarmar</strong></td><td>Maior</td><td>Examinar um objeto de cena ou um item, e desarmar o que foi analisado.</td></tr>\r\n<tr><td><strong>Trocar Equipamento</strong></td><td>Menor</td><td>Equipar, guardar, pegar ou largar itens.</td></tr>\r\n<tr><td><strong>Negociar</strong></td><td>Menor</td><td>Passar um item para um aliado ao seu lado.</td></tr>\r\n<tr><td><strong>Identificar Inimigo</strong></td><td>Manutenção</td><td>Conhecimento contra a dificuldade do inimigo; ele fica [Identificado].</td></tr>\r\n<tr><td><strong>Detectar Anomalias</strong></td><td>Manutenção</td><td>Percepção para achar o que está [Oculto] ou escondido por perto.</td></tr>\r\n<tr><td><strong>Reconhecer Inimigo</strong></td><td>Preparação</td><td>Descobrir quantos e quais inimigos vêm aí.</td></tr>\r\n<tr><td><strong>Proteger</strong></td><td>Antes do Dano</td><td>Levar no seu lugar o golpe que ia ferir um aliado ao seu lado; gasta o seu turno da rodada.</td></tr>\r\n<tr><td><strong>Golpe de Misericórdia</strong></td><td>Instantânea</td><td>Depois de ferir um inimigo [Incapacitado] no seu turno, ele morre.</td></tr>\r\n</tbody>\r\n</table>\r\n<aside class=\"et-box et-exemplo\"><h4>Exemplo: uma rodada</h4><p>Três kobolds saem da galeria. Na <strong>Manutenção</strong>, Lia usa Identificar Inimigo no maior deles. Na <strong>Iniciativa</strong>, Tadeu tem a maior do grupo e age primeiro: <strong>corre</strong> 2 quadrados até os kobolds (Ação de Movimento) e ataca (Ação Maior). Os kobolds agem a seguir. Lia decide <strong>esperar</strong> para ver onde eles vão parar e age por último, lançando um feitiço em área sem pegar Tadeu. No <strong>Encerramento</strong>, o kobold que queimava sofre o dano do [Queimando].</p></aside>\r\n<aside class=\"et-box et-foundry\"><p>O rastreador de combate conduz a rodada: a Preparação, a Manutenção, os turnos pela Iniciativa e o Encerramento, e passa sozinho pela Manutenção e pelo Encerramento quando ninguém tem nada deles para usar. O HUD de ações mostra a rodada, o processo e as ações que ainda restam no seu turno, com os botões <strong>Espera</strong> e <strong>Encerrar</strong>; gastas as ações, o sistema pergunta se o turno acaba (ou acaba sozinho, conforme a mesa). Um som avisa quando chega a sua vez, e o botão <strong>Entrar</strong> põe o seu token num combate em andamento.</p></aside>\r\n<aside class=\"et-box et-resumo\"><ul>\r\n<li>Preparação antes da luta (sem ela, numa surpresa). A rodada: Manutenção, Iniciativa e Turno até todos agirem, Encerramento.</li>\r\n<li>No turno: uma Ação Maior, uma Menor, uma de Movimento e uma Instantânea.</li>\r\n<li>Maior Iniciativa age primeiro; empate, os Aventureiros. Espera uma vez por rodada.</li>\r\n<li>Distância sem diagonal; Corpo a corpo é o seu quadrado e os oito em volta.</li>\r\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "combate"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0010"
+    },
+    {
+      "sort": 1200000,
+      "name": "Ataque e Dano",
+      "type": "text",
+      "_id": "EtGuiaPagina0011",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 11</span><span class=\"et-cap-titulo\">Ataque e Dano</span><span class=\"et-cap-epi\">Acertar é só o começo. O que importa é o que atravessa a guarda.</span></header>\n<p class=\"et-abre\">Todo ataque segue o mesmo caminho: alguém declara, os dois lados rolam, e o dano que acerta passa pelas defesas até chegar à vida. Conhecer a ordem desses passos explica por que um golpe forte às vezes não fere e por que um golpe fraco às vezes derruba. Os ataques são de três tipos: <strong>com Arma</strong> (Corpo a corpo ou à Distância), <strong>Mágicos</strong> e <strong>Especiais</strong> (máquinas, espíritos, canções).</p>\n<h2>Os passos do ataque</h2>\n<ol class=\"et-passos\">\n<li><strong>Declarar.</strong> Quem ataca escolhe a habilidade e os alvos. O alcance, a linha de visão e o tipo de alvo precisam valer.</li>\n<li><strong>Teste de Acerto contra Esquiva.</strong> Quem ataca rola Precisão; cada alvo rola Esquiva ou Resistência, o que a habilidade disser (golpes físicos costumam pedir Esquiva; magia e efeitos na mente, Resistência). O ataque acerta quem tirou menos. Empate é de quem defende, e o Crítico dos dois lados também.</li>\n<li><strong>Rolagem de Dano.</strong> Uma rolagem só, mesmo com vários alvos, como a habilidade escreve: [2d6 + Poder de Ataque], por exemplo. Ela nunca rola menos de 1d6.</li>\n<li><strong>Antes do Dano.</strong> Quem tem uma reação desse Momento (como Proteger) pode usá-la agora.</li>\n<li><strong>Aplicar o dano.</strong> Do total sai a Defesa (a Física contra dano físico, a Mágica contra dano mágico), depois a Anulação; o que sobrar vai primeiro para a Barreira e só então para os PV.</li>\n<li><strong>Os efeitos.</strong> Quem chegou a 0 PV cai [Incapacitado]. Depois entram os Estados Negativos do golpe, o −1 de Ódio de quem falhou a Esquiva e, por fim, os efeitos secundários, como a cura de quem atacou.</li>\n</ol>\n<aside class=\"et-box et-atencao\"><h4>O golpe que não passou</h4><p>Se a Defesa, a Anulação e a Barreira juntas reduzem o dano a 0, o golpe não fere, e os estados que ele daria não pegam. Três coisas pegam mesmo assim, porque dependem só da Esquiva falha: o Dano de Ódio, a [Perseguição] e a [Fraqueza].</p></aside>\n<h2>Os tipos de dano</h2>\n<table>\n<thead><tr><th>Tipo</th><th>O que o segura</th></tr></thead>\n<tbody>\n<tr><td>Físico</td><td>a Defesa Física, a Anulação e a Barreira</td></tr>\n<tr><td>Mágico</td><td>a Defesa Mágica, a Anulação e a Barreira</td></tr>\n<tr><td>Penetrante</td><td>ignora as Defesas; a Anulação e a Barreira ainda contam</td></tr>\n<tr><td>Direto</td><td>ignora as Defesas e a Anulação, e não abre reações de dano; só a Barreira o segura</td></tr>\n</tbody>\n</table>\n<p>O dano também pode ter tags de elemento, como [Chama], [Frio], [Choque] ou [Radiância]. Elas não mudam o tipo, mas outras regras olham para elas: a Anulação contra fogo, a Fraqueza a raio, o Traço de uma Magia.</p>\n<h2>As proteções</h2>\n<div class=\"et-grade\">\n<div class=\"et-cartao\"><span class=\"et-cartao-titulo\">Defesa</span><p>Tira um valor fixo de todo golpe do seu tipo. Vem dos atributos e da armadura.</p></div>\n<div class=\"et-cartao et-ardosia\"><span class=\"et-cartao-titulo\">Anulação</span><p>Tira o seu Valor de cada golpe, de qualquer tipo ou só do que a condição diz, como [Anulação (Chama): 10]. Com várias, vale só a maior que se aplica.</p></div>\n<div class=\"et-cartao et-azul\"><span class=\"et-cartao-titulo\">Barreira</span><p>Um escudo de PV que absorve o dano antes da vida e vai se gastando. Uma nova Barreira não soma: fica a maior.</p></div>\n</div>\n<h2>Ferimentos a mais</h2>\n<p>Três coisas causam dano direto extra quando o alvo falha a Esquiva, cada uma passando pela Barreira separadamente:</p>\n<ul>\n<li><strong>Dano de Ódio:</strong> o golpe de um inimigo em quem está no [Topo de Ódio] (veja @UUID[.EtGuiaPagina0012]{Ódio}).</li>\n<li><strong>[Fraqueza]:</strong> a vulnerabilidade a um tipo de dano, como [Fraqueza (Chama): 5]. Vale a maior que se aplica.</li>\n<li><strong>[Perseguição]:</strong> uma guarda aberta que soma o seu Valor no próximo golpe e se gasta.</li>\n</ul>\n<h2>Cair</h2>\n<p>Quem chega a 0 PV fica [Incapacitado]: não age, não faz testes e não usa Obstrução até ser curado ou a cena acabar. O Ódio dele fica guardado, mas ele sai do Topo e do Abaixo. Um Aventureiro se levanta sozinho no fim da cena, com os PV cheios. Um inimigo Incapacitado morre no fim da cena, e o Golpe de Misericórdia mata antes disso.</p>\n<h3>Curar</h3>\n<p>As curas somam o Poder de Recuperação de quem cura, e nenhuma cura passa dos PV máximos (que a Fadiga reduz). A [Regeneração] cura o seu Valor a cada Encerramento.</p>\n<aside class=\"et-box et-exemplo\"><h4>Exemplo: a flecha de Ravi</h4><p>Ravi atira num goblin: Precisão 3 contra a Esquiva 2 do goblin. Ravi rola <span class=\"et-d6\">5</span><span class=\"et-d6\">4</span> e soma 3: 12. O goblin rola <span class=\"et-d6\">6</span><span class=\"et-d6\">3</span> e soma 2: 11. Acertou por um. O dano é [2d6 + Poder de Ataque]: Ravi tira 8 e soma o Poder de Ataque 9, total 17. O goblin tem Defesa Física 6 e [Anulação: 3]: sofre 17 − 6 − 3 = 8. Ele estava com uma [Barreira: 5], que absorve 5, e os PV caem só 3. Se a Barreira fosse de 8, o golpe chegaria a 0, e o [Atordoado] que a flecha daria não pegaria.</p></aside>\n<aside class=\"et-box et-foundry\"><p>Usar uma habilidade de ataque com os alvos marcados (tecla <kbd>T</kbd> sobre o token) declara o ataque. Os alvos esquivam sozinhos, e o cartão já sai com quem esquivou e quem foi atingido. O dano rola pelo botão do cartão e entra sozinho em quem o golpe atingiu, com um cartão de resultado por alvo mostrando cada desconto (Defesa, Anulação, Barreira) e o <strong>Desfazer</strong>. Antes do dano, quem tem uma reação de Antes do Dano para usar tem a vez. O Destino rerrola o acerto ou a esquiva pelos botões do cartão.</p></aside>\n<aside class=\"et-box et-resumo\"><ul>\n<li>Declarar, Precisão contra Esquiva ou Resistência (empate é da defesa), rolar o dano, reações, aplicar, efeitos.</li>\n<li>Dano − Defesa − Anulação; o resto vai para a Barreira e depois para os PV.</li>\n<li>Penetrante ignora as Defesas; Direto ignora Defesas e Anulação.</li>\n<li>Zerado pelas proteções, o golpe não dá estados; Dano de Ódio, Fraqueza e Perseguição valem mesmo assim.</li>\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "ataque"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0011"
+    },
+    {
+      "sort": 1300000,
+      "name": "Ódio",
+      "type": "text",
+      "_id": "EtGuiaPagina0012",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 12</span><span class=\"et-cap-titulo\">Ódio</span><span class=\"et-cap-epi\">Todo golpe que você dá é um convite. O Ódio diz quem os inimigos aceitam.</span></header>\r\n<p class=\"et-abre\">O Ódio mede o quanto os inimigos enxergam você como ameaça. Cada personagem tem um número de Ódio, e ele vale para todos os inimigos da luta ao mesmo tempo: se o seu Ódio é 5, todo monstro da cena trata você como 5. É a regra que transforma um grupo de heróis num time, porque decide quem apanha e quem fica livre para agir.</p>\r\n<h2>Topo de Ódio e Abaixo no Ódio</h2>\r\n<p>A cada momento da luta, quem tem o maior Ódio do grupo está no <span class=\"et-termo\">Topo de Ódio</span> (no empate, todos os empatados estão). Todos os outros estão <span class=\"et-termo\">Abaixo no Ódio</span>.</p>\r\n<div class=\"et-grade et-duas\">\r\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-titulo\">Topo de Ódio</span><p>Quando um inimigo ataca você e você falha a Esquiva, sofre, além do dano do golpe, o <strong>Dano de Ódio</strong>: dano direto igual ao seu Ódio vezes o multiplicador de Ódio daquele inimigo.</p></div>\r\n<div class=\"et-cartao\"><span class=\"et-cartao-titulo\">Abaixo no Ódio</span><p>Você recebe <strong>+2 nas Esquivas</strong> contra os ataques dos inimigos. É mais difícil acertar quem não está chamando atenção.</p></div>\r\n</div>\r\n<p class=\"et-formula\">Dano de Ódio = Ódio de quem está no Topo × multiplicador do inimigo<small>só numa Esquiva falha; passa pela Barreira, mas não pela Defesa nem pela Anulação</small></p>\r\n<div class=\"et-medidor\">\r\n<p class=\"et-topo\"><span>Tadeu · Centurião</span><span class=\"v6\"></span><span>6</span></p>\r\n<p><span>Mirela · Hierofante</span><span class=\"v4\"></span><span>4</span></p>\r\n<p><span>Lia · Maga Negra</span><span class=\"v3\"></span><span>3</span></p>\r\n<p><span>Ravi · Caçador</span><span class=\"v2\"></span><span>2</span></p>\r\n</div>\r\n<p class=\"et-fluxo-nota\">Tadeu está no Topo de Ódio. Mirela, Lia e Ravi estão Abaixo, com +2 nas Esquivas.</p>\r\n<h2>Como o Ódio sobe</h2>\r\n<ul>\r\n<li><strong>O custo das habilidades.</strong> “Ódio 2” no campo de custo faz o seu Ódio subir 2 quando você a usa. Golpes fortes, provocações e magias vistosas costumam custar mais.</li>\r\n<li><strong>Efeitos.</strong> Algumas habilidades e estados mexem no Ódio direto: [Confuso], por exemplo, faz o seu Ódio subir 1 no começo de cada um dos seus turnos.</li>\r\n</ul>\r\n<p>O Ódio só se acumula em combate: na Preparação e fora da luta, os custos de Ódio não contam.</p>\r\n<h2>Como o Ódio desce</h2>\r\n<ul>\r\n<li><strong>Esquiva falha:</strong> cada vez que um inimigo ataca um Aventureiro e ele falha a Esquiva, o Ódio dele cai 1, depois de aplicados os estados do golpe. Isso pode mudar quem está no Topo.</li>\r\n<li><strong>Switch:</strong> a ação básica que troca o seu lugar e o seu Ódio com os de um aliado a até 2 quadrados.</li>\r\n<li><strong>Começo e fim:</strong> o Ódio de todos volta a 0 quando o combate começa e quando termina. Ele nunca fica abaixo de 0 e não tem teto.</li>\r\n</ul>\r\n<aside class=\"et-box et-regra\"><h4>Quem não entra na conta</h4><p>Inimigos não têm Ódio; o Ódio é dos Aventureiros (e dos aliados que o Mestre quiser). Quem está [Incapacitado] sai das regras de Ódio: o número fica guardado, mas ele não pode estar no Topo nem Abaixo, e os inimigos costumam ignorá-lo. Se ele voltar a lutar com o maior Ódio, volta direto para o Topo.</p></aside>\r\n<h2>O multiplicador do inimigo</h2>\r\n<p>Todo inimigo tem um multiplicador de Ódio, que costuma ser ×1 nos de nível baixo e subir com o nível. Contra um inimigo ×2, um Topo com Ódio 6 sofre 12 de dano direto a cada Esquiva falha. Um inimigo [Identificado] revela o multiplicador, junto com qual das suas Defesas é a menor.</p>\r\n<aside class=\"et-box et-exemplo\"><h4>Exemplo: segurando a linha</h4><p>Um ogro (multiplicador ×2) ataca Tadeu, que está no Topo com Ódio 6. Tadeu falha a Esquiva: sofre o golpe (menos a Defesa Física) e mais 6 × 2 = 12 de Dano de Ódio direto. Em seguida, o Ódio dele cai para 5. Na rodada seguinte, o ogro tenta pegar Lia, que está Abaixo: ela rola a Esquiva com +2 e escapa. No turno dela, Lia lança um feitiço que custa Ódio 3, e o Ódio dela vai a 6. Agora Tadeu (5) está Abaixo, e Lia está no Topo. Tadeu sabe o que fazer: usa uma habilidade que provoca e volta a subir.</p></aside>\r\n<h2>Jogando com o Ódio</h2>\r\n<ul>\r\n<li><strong>O tanque fica no Topo.</strong> Quem tem PV, Defesa e Anulação para aguentar o Dano de Ódio deve manter o Ódio mais alto do grupo. O Centurião, por exemplo, transforma cada ataque contra ele em muralha.</li>\r\n<li><strong>Quem bate forte fica Abaixo.</strong> O +2 nas Esquivas é uma proteção enorme. Olhe o Ódio do tanque antes de usar um golpe caro.</li>\r\n<li><strong>O Ódio é um recurso.</strong> Gastar Ódio não é proibido: é uma conta. Se o tanque está bem acima, você pode usar o golpe caro sem medo.</li>\r\n<li><strong>O Switch salva vidas.</strong> Quando o Topo está quase caindo, um aliado troca de lugar e de Ódio com ele, e o inimigo muda de alvo.</li>\r\n</ul>\r\n<aside class=\"et-box et-mestre\"><p>O Ódio é um incentivo, não uma corrente: nada obriga um inimigo a atacar o Topo. Ainda assim, os monstros da Eternia, por padrão, miram o Topo de Ódio que conseguem alcançar e, se não alcançam ninguém no Topo, o Aventureiro mais perto. Alguns inimigos têm regras próprias para escolher o alvo, e o texto deles diz.</p></aside>\r\n<aside class=\"et-box et-foundry\"><p>O Ódio aparece numa caixa laranja no estandarte da ficha, com uma coroa quando você está no Topo, e no HUD. Os custos são pagos ao usar a habilidade, o −1 da Esquiva falha entra sozinho, e o Topo e o Abaixo são calculados por combate, certos mesmo com várias lutas acontecendo ao mesmo tempo. No turno de um monstro, a tela do Mestre já marca o alvo pelo Topo de Ódio, e o Switch troca os tokens e o Ódio sozinho.</p></aside>\r\n<aside class=\"et-box et-resumo\"><ul>\r\n<li>Maior Ódio do grupo: Topo. Os outros: Abaixo, com +2 nas Esquivas contra inimigos.</li>\r\n<li>No Topo, a Esquiva falha soma o Dano de Ódio: Ódio × multiplicador, direto.</li>\r\n<li>Sobe pelo custo das habilidades; cai 1 a cada Esquiva falha; zera no começo e no fim do combate.</li>\r\n<li>O tanque segura o Topo; o Switch passa o Ódio adiante.</li>\r\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "odio"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0012"
+    },
+    {
+      "sort": 1400000,
+      "name": "Destino",
+      "type": "text",
+      "_id": "EtGuiaPagina0013",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 13</span><span class=\"et-cap-titulo\">Destino</span><span class=\"et-cap-epi\">Há momentos em que a sorte não basta. Para eles, existe a vontade.</span></header>\n<p class=\"et-abre\">O Destino é a teimosia do herói, aquilo que separa um Aventureiro de uma pessoa comum. Cada personagem tem alguns pontos de Destino, que vêm da raça, e pode gastá-los para mudar um momento que importa. São poucos e voltam devagar: usar bem o Destino é uma das decisões mais importantes da mesa.</p>\n<h2>Para que serve</h2>\n<div class=\"et-grade\">\n<div class=\"et-cartao\"><span class=\"et-cartao-sigla\">1</span><span class=\"et-cartao-titulo\">+1d6 num teste</span><p>Antes de rolar um teste, gaste 1 Destino para rolar um dado a mais.</p></div>\n<div class=\"et-cartao et-ouro\"><span class=\"et-cartao-sigla\">1</span><span class=\"et-cartao-titulo\">Rolar de novo</span><p>Depois de rolar, gaste 1 Destino para rolar de novo todos os dados de um teste: o acerto, a esquiva ou qualquer 2d6. Vale o novo resultado.</p></div>\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-sigla\">1</span><span class=\"et-cartao-titulo\">Livrar-se de um estado</span><p>A qualquer momento, gaste 1 Destino para remover um Estado Negativo de você.</p></div>\n</div>\n<p>Além disso, algumas habilidades custam Destino (“Destino 1” no campo de custo) e só podem ser usadas por quem tem os pontos.</p>\n<h2>Quantos e quando voltam</h2>\n<ul>\n<li><strong>O máximo</strong> vem da raça (de 0 a 2) e de alguns itens. Uma raça com mais Destino tem menos PV, e o contrário.</li>\n<li><strong>Ao fim de cada fase</strong> do Jogo Principal, cada personagem recupera 1 ponto (veja @UUID[.EtGuiaPagina0009]{Sessões e Cenas}).</li>\n<li><strong>No Pós-Jogo</strong>, o Destino volta ao máximo.</li>\n</ul>\n<aside class=\"et-box et-atencao\"><h4>O Aflito</h4><p>O estado [Aflito] impede que [Cambaleante], [Atordoado], [Confuso], [Fraqueza] e [Presunçoso] saiam: gastar Destino neles não adianta enquanto o Aflito estiver lá. Livre-se primeiro do Aflito (com uma Ação Menor ou Maior, ou com o próprio Destino) e só então dos outros.</p></aside>\n<aside class=\"et-box et-exemplo\"><h4>Exemplo: a esquiva que importava</h4><p>Mirela está com 9 PV, e o chefe dos goblins acerta um golpe que a derrubaria: a Esquiva dela deu 8 contra 10. Ela tem 1 Destino. Clica em <strong>Rerrolar a esquiva</strong> no cartão, os dados giram de novo e saem <span class=\"et-d6 et-seis\">6</span><span class=\"et-d6 et-seis\">6</span>: Crítico, e o golpe passa raspando. Mirela fica sem Destino até o fim da fase, mas continua de pé.</p></aside>\n<aside class=\"et-box et-dica\"><h4>Quando gastar</h4><p>Guarde o Destino para o que muda a luta: a esquiva que evita cair, o acerto do golpe que gasta o Motor inteiro, o [Atordoado] no turno em que você precisa agir. Rolar de novo um teste fácil de exploração quase nunca vale a pena. E lembre que ele volta a cada fase: um ponto parado no fim da fase é um ponto desperdiçado.</p></aside>\n<aside class=\"et-box et-foundry\"><p>O Destino aparece em estrelas no cabeçalho da ficha (um clique soma 1, o botão direito tira 1) e no HUD. Os cartões de ataque têm os botões <strong>Rerrolar o acerto</strong> e <strong>Rerrolar a esquiva</strong>, e o cartão de uso tem o <strong>+1d6</strong> antes do teste. O botão de remover um Estado Negativo fica junto dos estados ativos, no estandarte. Os chefes também usam Destino, pela tela do Mestre.</p></aside>\n<aside class=\"et-box et-resumo\"><ul>\n<li>1 Destino: +1d6 antes de um teste, rolar de novo um teste, ou remover um Estado Negativo.</li>\n<li>O máximo vem da raça; volta 1 ao fim de cada fase e tudo no Pós-Jogo.</li>\n<li>Com [Aflito], tire o Aflito primeiro.</li>\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "destino"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0013"
+    },
+    {
+      "sort": 1500000,
+      "name": "Estados e Condições",
+      "type": "text",
+      "_id": "EtGuiaPagina0014",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 14</span><span class=\"et-cap-titulo\">Estados e Condições</span><span class=\"et-cap-epi\">Um golpe passa. O veneno fica.</span></header>\r\n<p class=\"et-abre\">Estados são marcas que ficam num personagem depois de um efeito: o fogo que continua queimando, o medo que paralisa as pernas, a barreira que protege, a pressa que dá uma ação a mais. A Eternia tem os estados de base e mais de cinquenta condições próprias, e todas seguem as mesmas regras gerais, que estão neste capítulo. A regra de cada uma aparece ao passar o mouse sobre ela, e a lista completa está em @UUID[Compendium.eternia.rules.JournalEntry.n6euoAzKnihoeO0K.JournalEntryPage.EtrnCondicoes026]{IX. CONDIÇÕES DA ETERNIA}.</p>\r\n<h2>Os quatro tipos</h2>\r\n<div class=\"et-grade et-duas\">\r\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-titulo\">Estados Negativos (EN)</span><p>Atrapalham: [Atordoado], [Queimando], [Medo], [Agarrado]. Saem com tudo o que remove Estados Negativos, inclusive o Destino.</p></div>\r\n<div class=\"et-cartao et-ouro\"><span class=\"et-cartao-titulo\">Estados de Combate (EC)</span><p>Ajudam: [Barreira], [Regeneração], [Fortalecido], [Acelerado]. Você pode recusar um que for receber e tirar os seus com uma Ação Instantânea.</p></div>\r\n<div class=\"et-cartao\"><span class=\"et-cartao-titulo\">Estados Vitais (EV)</span><p>A condição do corpo: [Fadiga], [Incapacitado], [Morto]. Não acabam com a cena.</p></div>\r\n<div class=\"et-cartao et-ardosia\"><span class=\"et-cartao-titulo\">Outros Estados (OE)</span><p>Situações: [Oculto], [Voando], [Identificado], Pré-Ação e Pós-Ação, o Topo de Ódio.</p></div>\r\n</div>\r\n<h2>As regras gerais</h2>\r\n<dl class=\"et-def\">\r\n<dt>Duração</dt><dd>Todo Estado Negativo e todo Estado de Combate acaba no fim da cena, a não ser que a descrição diga outra coisa. Alguns acabam antes: [Atordoado] e [Cambaleante] saem no fim do turno de quem os tem.</dd>\r\n<dt>Valor</dt><dd>Muitos estados têm um número, escrito como [Queimando: 5]. Recebendo de novo o mesmo estado, fica só o maior Valor, a não ser nos que acumulam.</dd>\r\n<dt>Acúmulo</dt><dd>[Congelando] e [Fissurado] somam até 3, e no terceiro se transformam: o Congelando paralisa, o Fissurado quebra a guarda (a Barreira some e vem o [Exposto]). Alguns de combate, como o [Combo] e o [Ímpeto], também somam, com regras próprias. A [Fadiga] sempre soma.</dd>\r\n<dt>Origem</dt><dd>[Medo], [Encantado], [Provocado], [Dominado], [Agarrado] e outros lembram quem os causou, e as regras deles valem contra (ou através de) essa pessoa: o Medo atrapalha os testes contra quem assustou você.</dd>\r\n<dt>Livrar-se com uma ação</dt><dd>Muitos Estados Negativos saem quando você gasta a ação que a descrição diz, no seu turno: uma Ação Menor para apagar o [Queimando], uma de Movimento para se levantar do [Derrubado], uma Maior para tratar o [Envenenado].</dd>\r\n</dl>\r\n<h2>As famílias</h2>\r\n<p>As condições da Eternia se organizam em famílias, que ajudam a lembrar o que cada uma faz:</p>\r\n<table class=\"et-livre\">\r\n<thead><tr><th>Família</th><th>O que fazem</th><th>Exemplos</th></tr></thead>\r\n<tbody>\r\n<tr><td><strong>Controle</strong></td><td>prendem o corpo, tiram o turno ou o movimento</td><td>[Paralisado], [Enraizado], [Derrubado], [Lento]</td></tr>\r\n<tr><td><strong>Bloqueio</strong></td><td>tiram uma capacidade</td><td>[Silenciado], [Desarmado], [Cego], [Selado]</td></tr>\r\n<tr><td><strong>Mente</strong></td><td>mexem na vontade e nos alvos</td><td>[Medo], [Encantado], [Provocado], [Dominado]</td></tr>\r\n<tr><td><strong>Elementais</strong></td><td>ferem a cada rodada ou mudam o dano</td><td>[Queimando], [Envenenado], [Eletrificado], [Encharcado]</td></tr>\r\n<tr><td><strong>Quebra de guarda</strong></td><td>abrem as defesas</td><td>[Exposto], [Fissurado], [Marcado]</td></tr>\r\n<tr><td><strong>De Combate</strong></td><td>dão vantagens</td><td>[Acelerado], [Fortalecido], [Concentrado], [Intangível]</td></tr>\r\n</tbody>\r\n</table>\r\n<h2>Os estados que todo mundo encontra</h2>\r\n<dl class=\"et-def\">\r\n<dt>[Fadiga]</dt><dd>Cansaço que tira o seu Valor dos PV máximos. Novas Fadigas somam. Comida e descanso tiram Fadiga, e ela some no Pós-Jogo. Se os PV máximos chegarem a 0, você cai e não se levanta até eles voltarem.</dd>\r\n<dt>[Incapacitado] e [Morto]</dt><dd>Com 0 PV você cai Incapacitado. Um Aventureiro levanta no fim da cena; morto, volta no fim da cena com 1 PV e Fadiga igual aos PV máximos menos 1 (veja @UUID[.EtGuiaPagina0009]{Sessões e Cenas}).</dd>\r\n<dt>[Regeneração] e [Deterioração]</dt><dd>Curam e ferem o seu Valor a cada Encerramento, nessa ordem. Fica só a maior de cada.</dd>\r\n<dt>[Atordoado] e [Cambaleante]</dt><dd>O Atordoado dá −1d6 nos testes em que você se defende; o Cambaleante, −1d6 nas ações Maiores e de Turno. Os dois acabam no fim do seu turno.</dd>\r\n<dt>[Confuso]</dt><dd>−1d6 em todos os testes, e o seu Ódio sobe 1 no começo de cada turno seu. Sai com uma Ação Maior.</dd>\r\n</dl>\r\n<aside class=\"et-box et-foundry\"><p>Os estados aparecem no estandarte da ficha, no HUD e no token, e a regra de cada um aparece ao passar o mouse. O sistema aplica quase tudo sozinho: os dados a mais e a menos, o dano por rodada no Encerramento, as perdas de turno, os acúmulos, as Defesas que caem e o fim de cada estado. Ele também avisa (ou bloqueia) quando um estado proíbe uma ação, um alvo ou um movimento. No HUD, o ícone de corrida ao lado de um estado gasta a ação que o tira; nos cartões do chat, um estado escrito entre colchetes aplica o estado nos seus alvos com um clique.</p></aside>\r\n<aside class=\"et-box et-resumo\"><ul>\r\n<li>EN atrapalham, EC ajudam, EV são o corpo, OE são situações.</li>\r\n<li>EN e EC acabam no fim da cena; fica o maior Valor; Congelando e Fissurado acumulam até 3.</li>\r\n<li>Muitos EN saem com a ação que a descrição diz, ou com 1 Destino.</li>\r\n<li>A Fadiga tira dos PV máximos e só sai com comida, descanso ou no Pós-Jogo.</li>\r\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "estados"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0014"
+    },
+    {
+      "sort": 1600000,
+      "name": "Equipamento e Riqueza",
+      "type": "text",
+      "_id": "EtGuiaPagina0015",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 15</span><span class=\"et-cap-titulo\">Equipamento e Riqueza</span><span class=\"et-cap-epi\">Uma boa espada não faz o herói. Mas ajuda bastante.</span></header>\r\n<p class=\"et-abre\">O equipamento é de onde vêm boa parte dos números do personagem: o Poder de Ataque está na arma, as Defesas estão na armadura, e os acessórios completam o resto. A classe não proíbe nenhuma peça; são as habilidades que pedem uma arma certa. Este capítulo explica onde cada coisa vai, o que os graus mágicos significam e como o ouro circula.</p>\r\n<h2>O corpo</h2>\r\n<p>Cada personagem tem sete espaços de equipamento:</p>\r\n<div class=\"et-grade\">\r\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-titulo\">Mão principal</span><p>A arma com que você ataca. Dá o Poder de Ataque (ou o Poder Mágico, num cajado), a Precisão e o alcance.</p></div>\r\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-titulo\">Outra mão</span><p>Um escudo, uma segunda arma ou nada. Uma arma de [Duas Mãos] ocupa as duas.</p></div>\r\n<div class=\"et-cartao\"><span class=\"et-cartao-titulo\">Armadura</span><p>As Defesas Física e Mágica. As pesadas protegem mais e costumam pesar na Iniciativa.</p></div>\r\n<div class=\"et-cartao et-ouro\"><span class=\"et-cartao-titulo\">Bolsa</span><p>Mais espaço no inventário.</p></div>\r\n<div class=\"et-cartao et-azul\"><span class=\"et-cartao-titulo\">Três acessórios</span><p>Anéis, amuletos, capas, botas: bônus variados.</p></div>\r\n</div>\r\n<h3>Duas armas</h3>\r\n<p>Com uma arma em cada mão você fica [Empunhando Duas Armas]: soma os bônus de Precisão e de Iniciativa das duas, mas ataca com uma só e usa o Poder de Ataque e o alcance da arma principal.</p>\r\n<h3>O Poder Mágico</h3>\r\n<p>O Poder Mágico do equipamento vem de <strong>uma fonte só</strong>: o cajado na mão ou a melhor pedra ou anel mágico, o maior deles. Os acessórios que dão Poder Mágico de outro jeito somam por cima, dentro dos três espaços de acessório.</p>\r\n<h2>A bolsa</h2>\r\n<p>Tudo o que você carrega e não está equipado ocupa espaço no inventário: 2 espaços, mais os da bolsa equipada. Os consumíveis (poções, comidas, pergaminhos, bombas) se usam com a ação que o item diz, como uma habilidade. A comida tira Fadiga.</p>\r\n<h2>Os graus mágicos</h2>\r\n<p>Os itens comuns não têm grau. Os mágicos levam uma tag de grau, e a moldura do ícone mostra qual:</p>\r\n<table>\r\n<thead><tr><th>Grau</th><th>Nome</th><th>Moldura</th></tr></thead>\r\n<tbody>\r\n<tr><td>[M1], [M2], [M3]</td><td>Itens Mágicos</td><td>uma linha verde, azul ou roxa</td></tr>\r\n<tr><td>[M4], [M5], [M6]</td><td>Artefatos</td><td>dourada, com uma gema nos cantos</td></tr>\r\n<tr><td>[M7]</td><td>Fantasmais</td><td>espectral</td></tr>\r\n</tbody>\r\n</table>\r\n<p>Outras tags dizem como o item circula: [Raro] (pede o aval do Mestre para comprar), [Invendável] e [Intransferível]. Alguns poderes de item só funcionam a partir de um NP mínimo, e muitos itens raros trazem habilidades próprias, que aparecem entre as habilidades de quem os equipa.</p>\r\n<h2>O ouro</h2>\r\n<ul>\r\n<li><strong>Comprar.</strong> No Mercado, o Mestre compra para você qualquer item dos compêndios. Nas lojas, você mesmo compra, com dois cliques no token da loja.</li>\r\n<li><strong>Vender.</strong> Cada loja diz se compra e por quanto. Tesouros feitos para vender, como os [Valioso], rendem o preço cheio; equipamento usado rende bem menos.</li>\r\n<li><strong>Itens deixados.</strong> Quando um monstro cai, o que ele deixa é rolado na hora, e quem o derrubou leva os itens e o ouro.</li>\r\n<li><strong>Tíquetes.</strong> Recompensas especiais que o Mestre entrega (de Tesouro, de Destino, de Conexão, de Reinício) e que ficam no inventário até serem usadas.</li>\r\n</ul>\r\n<aside class=\"et-box et-exemplo\"><h4>Exemplo: a loja do anão</h4><p>O grupo chega à vila e o Mestre põe na cena o token da ferraria. Ravi dá dois cliques nele: abre a vitrine só com os itens daquela loja, com o preço e o estoque. Ele compra um arco melhor e vende a adaga velha que carregava na bolsa, pelo preço que a loja paga. O chat registra as duas coisas, e o ouro da ficha se ajusta sozinho.</p></aside>\r\n<aside class=\"et-box et-foundry\"><p>A aba <strong>Inventário</strong> mostra o boneco de equipamento (cada espaço ligado à parte do corpo), a riqueza (receber e gastar ouro fica registrado no chat), o espaço da bolsa e os tíquetes, e embaixo o que você carrega. O botão <strong>Mercado</strong>, na barra dos tokens, abre todos os itens dos compêndios com filtros e busca; o que os jogadores veem nele é a mesa que decide. Uma loja fechada ou longe demais avisa ao abrir.</p></aside>\r\n<aside class=\"et-box et-resumo\"><ul>\r\n<li>Sete espaços: duas mãos, armadura, bolsa e três acessórios. Equipamento livre.</li>\r\n<li>Poder Mágico do equipamento: uma fonte só (cajado ou a melhor pedra ou anel).</li>\r\n<li>Inventário: 2 espaços mais os da bolsa. Consumíveis gastam a ação que o item diz.</li>\r\n<li>M1–M3 Itens Mágicos, M4–M6 Artefatos, M7 Fantasmais. Compras no Mercado (pelo Mestre) e nas lojas.</li>\r\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "equipamento"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0015"
+    },
+    {
+      "sort": 1700000,
+      "name": "Profissões",
+      "type": "text",
+      "_id": "EtGuiaPagina0016",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 16</span><span class=\"et-cap-titulo\">Profissões</span><span class=\"et-cap-epi\">Entre uma luta e outra, alguém precisa afiar as lâminas.</span></header>\n<p class=\"et-abre\">A profissão é o ofício do personagem fora de combate: o ferreiro que forja, a alquimista que destila, o mercador que sabe o preço de tudo. Ela faz itens com aprimoramentos, sobe de Rank com a experiência e tem um talento próprio. As dez profissões estão no compêndio <strong>Raças e Classes</strong>, pasta Profissões, e as regras completas em @UUID[Compendium.eternia.rules.JournalEntry.n6euoAzKnihoeO0K.JournalEntryPage.EtrnProfissoes27]{X. PROFISSÕES}.</p>\n<h2>As dez profissões</h2>\n<table class=\"et-livre\">\n<thead><tr><th>Profissão</th><th>O que faz</th></tr></thead>\n<tbody>\n<tr><td><strong>Ferreiro</strong></td><td>armas, armaduras pesadas e médias, escudos</td></tr>\n<tr><td><strong>Alfaiate</strong></td><td>armaduras leves, roupas e bolsas</td></tr>\n<tr><td><strong>Artesão</strong></td><td>acessórios, amuletos e gemas</td></tr>\n<tr><td><strong>Alquimista</strong></td><td>poções e toxinas</td></tr>\n<tr><td><strong>Cozinheiro</strong></td><td>comidas</td></tr>\n<tr><td><strong>Escriba</strong></td><td>pergaminhos</td></tr>\n<tr><td><strong>Engenheiro</strong></td><td>bombas, redes e pedras de faísca</td></tr>\n<tr><td><strong>Bardo</strong></td><td>canções gravadas em cristal</td></tr>\n<tr><td><strong>Coletor</strong></td><td>colhe os materiais (Anima-mundi e Quintessência)</td></tr>\n<tr><td><strong>Mercador</strong></td><td>retoca os aprimoramentos e vende tudo pelo valor cheio</td></tr>\n</tbody>\n</table>\n<p>O personagem tem uma profissão por vez, escolhida no Pré-Jogo. Trocar guarda a experiência da anterior: voltar a ela devolve o Rank.</p>\n<h2>Rank e experiência</h2>\n<p>Toda profissão vai do Rank 1 ao 5, pela experiência (EXP) que o trabalho dá: Rank 2 com 20 EXP, Rank 3 com 40, Rank 4 com 80 e Rank 5 com 160. Cada Rank dá:</p>\n<ul>\n<li><strong>+Rank</strong> nas rolagens da profissão;</li>\n<li><strong>Rank + 1 tentativas</strong> por cenário (as tentativas voltam no fim do cenário);</li>\n<li>itens até o nível <strong>Rank × 6</strong>.</li>\n</ul>\n<h2>A Oficina</h2>\n<p>No Interlúdio ou no Pós-Jogo, uma tentativa cria um item. Escolha a base (um item da mochila, que vira a obra se der certo, ou um do catálogo, que você paga se der certo), gaste <strong>1 Anima-mundi</strong> do nível do item e role:</p>\n<p class=\"et-formula\">Oficina = 2d6 + Rank</p>\n<table>\n<thead><tr><th>Resultado</th><th>O que sai</th><th>EXP</th></tr></thead>\n<tbody>\n<tr><td>até 6</td><td>Falha: nada sai e o material se perde</td><td>+1</td></tr>\n<tr><td>7 a 9</td><td>Aproveitamento: nada sai, mas o material volta</td><td>+2</td></tr>\n<tr><td>10 a 11</td><td>Incomum [M1], com 1 aprimoramento</td><td>+3</td></tr>\n<tr><td>12 a 13</td><td>Raro [M2], com 2 aprimoramentos</td><td>+5</td></tr>\n<tr><td>14 ou mais</td><td>Perfeito [M3], com 3 aprimoramentos</td><td>+8</td></tr>\n</tbody>\n</table>\n<p>Dois 6 nos dados sobem um degrau. Os aprimoramentos são escolhidos numa lista por tipo de item (armas, proteções, acessórios, consumíveis), e os números deles dobram do nível 11 e triplicam do 21.</p>\n<h2>Fusão e Lendários</h2>\n<p>Dois itens feitos iguais (mesma base e mesmo grau) se fundem num item do grau acima, com os aprimoramentos de um deles e mais um: Incomum + Incomum = Raro, Raro + Raro = Perfeito. A Fusão não gasta tentativa. E dois Perfeitos com uma <strong>Quintessência</strong> viram um <strong>Lendário [M4]</strong>, com o aprimoramento lendário da lista.</p>\n<aside class=\"et-box et-exemplo\"><h4>Exemplo: a primeira espada</h4><p>Tadeu é Ferreiro, Rank 1. No Interlúdio, escolhe uma Espada Longa da mochila, gasta uma Anima-mundi 1 e rola <span class=\"et-d6\">6</span><span class=\"et-d6\">4</span> + 1 = 11: Incomum [M1]. Ele escolhe o aprimoramento Afiada (+2 de Poder de Ataque), e a espada vira a “Espada Longa do Gume”. São +3 EXP: faltam 17 para o Rank 2.</p></aside>\n<aside class=\"et-box et-dica\"><h4>O ofício do grupo</h4><p>Combine as profissões com o grupo. Um Coletor abastece os outros de Anima-mundi; um Ferreiro e um Artesão equipam todo mundo; um Cozinheiro tira a Fadiga do grupo depois de cada luta. Um grupo com três ofícios diferentes chega muito mais longe que um com três ferreiros.</p></aside>\n<aside class=\"et-box et-foundry\"><p>A aba <strong>Profissão</strong> da ficha mostra o brasão com o Rank, a EXP e as tentativas, os materiais, o talento e as obras na mochila. A bancada (Oficina, Fusão, Coleta, Retoque, Venda e o talento) faz cada ação passo a passo, rola na tela, gasta o material, cobra o ouro, cria o item e soma a EXP, com um cartão no chat.</p></aside>\n<aside class=\"et-box et-resumo\"><ul>\n<li>Uma profissão por vez; Rank 1 a 5 pela EXP (20, 40, 80, 160).</li>\n<li>Cada Rank: +Rank nas rolagens, Rank + 1 tentativas por cenário, itens até o nível Rank × 6.</li>\n<li>Oficina: 1 Anima-mundi e 2d6 + Rank; dois 6 sobem um degrau.</li>\n<li>Fusão: dois iguais viram o grau acima; dois Perfeitos e uma Quintessência, um Lendário.</li>\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "profissoes"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0016"
+    },
+    {
+      "sort": 1800000,
+      "name": "Fora de Combate",
+      "type": "text",
+      "_id": "EtGuiaPagina0017",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 17</span><span class=\"et-cap-titulo\">Fora de Combate</span><span class=\"et-cap-epi\">A maioria das portas não se abre com uma espada.</span></header>\n<p class=\"et-abre\">Boa parte de uma sessão acontece longe das rodadas: conversas, viagens, investigações, a noite no acampamento. Aqui as regras ficam mais leves e a conversa manda. Os dados entram quando o resultado é incerto, e o Mestre escolhe qual perícia faz sentido para o que você descreveu.</p>\n<h2>Testes de perícia</h2>\n<p>Descreva o que o personagem faz e como; o Mestre diz se precisa de teste, qual perícia e contra qual número. Uma boa descrição pode dispensar o teste, ou mudar a perícia: subir o muro pela hera é Atletismo, convencer o guarda a abrir o portão é Negociação, achar a passagem secreta é Percepção. Quando duas pessoas disputam a mesma coisa (uma barganha, um blefe, uma corrida), é um Teste Oposto.</p>\n<aside class=\"et-box et-dica et-lado\"><h4>Quem testa</h4><p>Nem todo mundo precisa rolar. Quando o grupo procura uma pista, quem tem a melhor perícia rola, e os outros descrevem como ajudam.</p></aside>\n<h3>Informações</h3>\n<p>Para investigar, qualquer perícia serve se você justificar: Negociação para perguntar na taverna, Conhecimento para lembrar o que leu, Análise para examinar o lugar do crime, Percepção para seguir um rastro. Negociação contra uma pessoa costuma ser um Teste Oposto.</p>\n<h2>Exploração</h2>\n<p>Armadilhas, portas trancadas, mecanismos antigos e passagens escondidas são <span class=\"et-termo\">Objetos de cena</span>. Eles podem ter dificuldades próprias:</p>\n<ul>\n<li><strong>Dificuldade de Detecção:</strong> para achar o que está escondido, com Detectar Anomalias (Percepção).</li>\n<li><strong>Dificuldade de Análise:</strong> para entender como funciona, com Analisar Objeto de Cena (Análise). Um objeto precisa estar [Analisado] antes de ser desarmado.</li>\n<li><strong>Dificuldade de Desarme:</strong> para desligar, com Desarmar Objeto de Cena (Desarme).</li>\n</ul>\n<p>Itens desconhecidos se examinam com Avaliar Item (Análise), e inimigos com Identificar Inimigo (Conhecimento).</p>\n<h2>Conexões e Uniões</h2>\n<p>Uma <span class=\"et-termo\">Conexão</span> é alguém com quem o personagem tem um laço: um amigo, um mestre, uma rival, uma dívida. Uma <span class=\"et-termo\">União</span> é um grupo inteiro: uma guilda, uma ordem, um bando de aventureiros. Elas dizem ao Mestre de quem você gosta e o que importa para o seu personagem, e é por elas que a história costuma voltar até você.</p>\n<ul>\n<li>Todo personagem começa com uma Conexão com outro personagem do grupo.</li>\n<li>Durante o jogo, quando um personagem do Mestre conquista o seu, peça a Conexão. O Mestre pode dá-la até o fim do cenário, ou para sempre.</li>\n<li>Uma Conexão pode ajudar: dar uma pista, um abrigo, um favor. Quando ela ajuda num teste, o Mestre pode dar um bônus.</li>\n</ul>\n<h2>Viagens, cansaço e descanso</h2>\n<p>Jornadas longas, noites sem dormir e lutas seguidas cansam. O Mestre pode dar [Fadiga] ou pedir uma rolagem de exaustão (1d6) depois de um esforço grande, e os recursos do grupo (comida, dinheiro, equipamento) podem se gastar no caminho. A comida e o descanso numa estalagem tiram a Fadiga, e é por isso que vale levar um Sanduíche na bolsa.</p>\n<aside class=\"et-box et-exemplo\"><h4>Exemplo: o guarda do portão</h4><p>A cidade fechou os portões ao anoitecer. Mirela conta ao Mestre que mostra ao guarda o selo da guilda e diz que trazem notícias urgentes para o capitão. O Mestre pede Negociação contra a Percepção do guarda, que desconfia. Mirela tem uma Conexão com o capitão, criada no cenário anterior, e o Mestre dá +2 no teste. Ela vence por pouco: o guarda abre a portinhola, resmungando, e manda um menino correr para avisar o capitão.</p></aside>\n<aside class=\"et-box et-foundry\"><p>A aba <strong>Biografia</strong> guarda o que os números não dizem: o Perfil, a História, os <strong>Laços</strong> (as suas Conexões e Uniões) e as Anotações, onde vale escrever os nomes, as pistas e as promessas da campanha. As perícias rolam com um clique na aba Personagem (cada atributo mostra as dele) e no painel Testes do HUD.</p></aside>\n<aside class=\"et-box et-resumo\"><ul>\n<li>Descreva, o Mestre escolhe a perícia e a dificuldade; disputas são Testes Opostos.</li>\n<li>Objetos de cena: Detecção (achar), Análise (entender) e Desarme (desligar).</li>\n<li>Conexões são pessoas; Uniões são grupos. Comece com uma Conexão com outro personagem.</li>\n<li>Fadiga sai com comida e descanso.</li>\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "fora-de-combate"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0017"
+    },
+    {
+      "sort": 1900000,
+      "name": "A Mesa Virtual",
+      "type": "text",
+      "_id": "EtGuiaPagina0018",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Capítulo 18</span><span class=\"et-cap-titulo\">A Mesa Virtual</span><span class=\"et-cap-epi\">A conta fica com a mesa. A escolha fica com você.</span></header>\r\n<p class=\"et-abre\">No Foundry, a Eternia faz quase toda a conta sozinha: paga os custos, rola, aplica o dano, conta as ações, os usos e as fases. O seu trabalho é decidir. Este capítulo mostra onde cada coisa fica na tela, para você achar o que precisa no meio da luta sem perder a vez.</p>\r\n<h2>A ficha</h2>\r\n<p>À esquerda, o estandarte verde com os números de jogo (PV, Ódio, Fadiga, Defesas, Iniciativa, Velocidade, os três Poderes e os testes de Precisão, Esquiva e Resistência). No alto, o nome, a raça, a classe e a profissão, o Destino em estrelas e o NP no brasão. À direita, as abas; um número dourado numa aba avisa que há algo esperando por você ali.</p>\r\n<table class=\"et-livre\">\r\n<thead><tr><th>Aba</th><th>O que tem</th></tr></thead>\r\n<tbody>\r\n<tr><td><strong>Personagem</strong></td><td>o retrato, os cartões de raça, classe e profissão, os atributos com os testes de cada um</td></tr>\r\n<tr><td><strong>Habilidades</strong></td><td>todas as habilidades, agrupadas pelo Momento, com busca e o botão Explorar</td></tr>\r\n<tr><td><strong>Raça</strong></td><td>os cinco estágios da forma, com o botão Evoluir</td></tr>\r\n<tr><td><strong>Classe</strong></td><td>o Motor, a trilha do NP, os talentos por ramo, o Caminho, o Ápice e as Dedicações</td></tr>\r\n<tr><td><strong>Magias</strong></td><td>as vagas e a página de cada Magia, com todos os feitiços</td></tr>\r\n<tr><td><strong>Inventário</strong></td><td>o boneco de equipamento, o ouro, a bolsa e os tíquetes</td></tr>\r\n<tr><td><strong>Profissão</strong></td><td>o Rank, a EXP, as tentativas e a bancada</td></tr>\r\n<tr><td><strong>Efeitos</strong></td><td>os efeitos e estados ativos</td></tr>\r\n<tr><td><strong>Biografia</strong></td><td>o Perfil, a História, os Laços e as Anotações</td></tr>\r\n</tbody>\r\n</table>\r\n<h2>O HUD de ações</h2>\r\n<p>Com o seu token selecionado (ou sempre, para o personagem do jogador), uma barra de pergaminho fica no pé da tela. Ela mostra os recursos (PV, Barreira, Destino, Ódio, Fadiga e o Motor), a rodada e as ações que restam no seu turno, com <strong>Espera</strong> e <strong>Encerrar</strong>, e os painéis:</p>\r\n<div class=\"et-fluxo\"><span>Testes</span><span>Gerais</span><span>Magias</span><span>Classe</span><span>Itens</span><span>Estados</span></div>\r\n<p>As habilidades que não dá para usar agora ficam apagadas, com o motivo ao passar o mouse. <kbd>Shift</kbd> + clique usa a habilidade e já rola o teste. O alfinete fixa um atalho, e <kbd>Esc</kbd> fecha o painel.</p>\r\n<h2>O seu turno, passo a passo</h2>\r\n<ol class=\"et-passos\">\r\n<li>Um som avisa que é a sua vez, e o HUD mostra as quatro ações livres.</li>\r\n<li>Para se mover, use Correr (ou Disparada, ou Deslocar-se) no painel Gerais, que gasta a Ação de Movimento, e arraste o token até o quadrado.</li>\r\n<li>Marque o alvo: passe o mouse sobre o token dele e aperte <kbd>T</kbd>.</li>\r\n<li>No painel certo do HUD, clique na habilidade (ou <kbd>Shift</kbd> + clique para já rolar o teste).</li>\r\n<li>Confira o cartão no chat: quem esquivou, quem foi atingido. Se acertou, clique em <strong>Dano</strong>; ele entra sozinho em quem foi atingido.</li>\r\n<li>Gastas as ações, o turno acaba (ou clique em <strong>Encerrar</strong> quando terminar).</li>\r\n</ol>\r\n<h2>O chat</h2>\r\n<ul>\r\n<li><strong>Rolagens:</strong> os dados como faces, o total num selo, o Crítico e a Falha Crítica escritos.</li>\r\n<li><strong>Cartões de uso:</strong> o Momento, o alvo, o teste e o dano da habilidade, o que foi gasto e o botão <strong>Desfazer uso</strong>, que devolve os custos, a ação e os efeitos.</li>\r\n<li><strong>Cartões de ataque:</strong> cada alvo numa linha, com a distância, a esquiva e o resultado, e os botões de Destino para rolar de novo.</li>\r\n<li><strong>Resultados de dano:</strong> um por alvo, com cada desconto e o Desfazer.</li>\r\n<li><strong>Estados clicáveis:</strong> um estado escrito entre colchetes num cartão aplica o estado nos seus alvos com um clique.</li>\r\n</ul>\r\n<h2>Os tokens</h2>\r\n<p>O token do seu personagem já vem ligado à ficha e enxergando. Em combate, ele mostra a barra de PV num arco no aro de cima, o Destino em losangos dourados embaixo, o Motor numa fileira de losangos e os estados do lado esquerdo; fora de combate, só o nome. Um estado novo aparece girando até o seu lugar.</p>\r\n<h2>O diário</h2>\r\n<p>Este guia fica no Diário do mundo, e o sistema o mantém atualizado. Quem escreve páginas de diário (anotações da campanha, cartas, mapas) encontra no editor o menu <strong>Eternia</strong>, que põe as mesmas caixas deste guia no texto: Regra, Exemplo, Dica, Atenção, Na mesa virtual, Em resumo e Com o Mestre, além do parágrafo de abertura com a letra grande.</p>\r\n<h2>As suas configurações</h2>\r\n<p>Em <strong>Configurar Opções → Eternia</strong>, cada jogador escolhe as suas: o HUD de ações, o aviso da sua vez, selecionar o token e levar a tela até quem age, limpar os alvos no fim da vez, os ícones animados, a <strong>interface no visual da Eternia</strong> e os <strong>diários como livro da Eternia</strong>.</p>\r\n<aside class=\"et-box et-dica\"><h4>Errou? Desfaça</h4><p>Quase tudo tem volta: o <strong>Desfazer uso</strong> do cartão devolve o Ódio, o Destino, o Motor, a ação e os efeitos; o <strong>Desfazer</strong> de um resultado de dano devolve os PV. Clicou na habilidade errada, desfaça antes de rolar a próxima.</p></aside>\r\n<aside class=\"et-box et-resumo\"><ul>\r\n<li>Ficha: estandarte com os números, abas com um número quando algo espera por você.</li>\r\n<li>HUD: recursos, ações do turno e os painéis; <kbd>Shift</kbd> + clique usa e rola.</li>\r\n<li>Marque o alvo com <kbd>T</kbd>; o dano entra sozinho em quem foi atingido.</li>\r\n<li>Desfazer uso e Desfazer dano devolvem tudo.</li>\r\n</ul></aside>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "mesa-virtual"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0018"
+    },
+    {
+      "sort": 2000000,
+      "name": "Glossário",
+      "type": "text",
+      "_id": "EtGuiaPagina0019",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Apêndice</span><span class=\"et-cap-titulo\">Glossário</span><span class=\"et-cap-epi\">Os termos do jogo, de A a Z.</span></header>\n<span class=\"et-letra\">A</span>\n<dl class=\"et-def\">\n<dt>Abaixo no Ódio</dt><dd>Quem não tem o maior Ódio do grupo. Recebe +2 nas Esquivas contra inimigos. @UUID[.EtGuiaPagina0012]{Ódio}</dd>\n<dt>Ação Instantânea, Maior, Menor, de Movimento</dt><dd>As quatro ações do turno, uma de cada. @UUID[.EtGuiaPagina0010]{Combate}</dd>\n<dt>Aflito</dt><dd>Estado que impede que outros Estados Negativos saiam até ele mesmo sair.</dd>\n<dt>Aliado</dt><dd>Quem luta do seu lado.</dd>\n<dt>Alcance</dt><dd>Até onde uma habilidade escolhe alvos: Corpo a corpo, Arma ou um número de quadrados.</dd>\n<dt>Anima-mundi</dt><dd>O material mágico das profissões, do nível 1 ao 10. @UUID[.EtGuiaPagina0016]{Profissões}</dd>\n<dt>Anulação</dt><dd>Estado de Combate que tira o seu Valor de cada golpe (de todos, ou só dos que a condição diz).</dd>\n<dt>Ápice</dt><dd>A regra que transforma o Motor da classe no NP 10. @UUID[.EtGuiaPagina0005]{Classes e o Motor}</dd>\n<dt>Atributo Base</dt><dd>O número grande de cada atributo. O modificador é ele ÷ 3, para baixo.</dd>\n<dt>Aventureiro</dt><dd>Um personagem dos jogadores, ou um aliado que luta com eles. Os Aventureiros voltam no fim da cena quando caem.</dd>\n</dl>\n<span class=\"et-letra\">B · C</span>\n<dl class=\"et-def\">\n<dt>Barreira</dt><dd>Estado de Combate que absorve dano antes dos PV e se gasta.</dd>\n<dt>Caminho</dt><dd>Uma das três vertentes da classe, escolhida no NP 3, que reescreve uma regra do Motor.</dd>\n<dt>Cena</dt><dd>Um trecho da história num lugar e num momento. Muitos efeitos duram até o fim da cena. @UUID[.EtGuiaPagina0009]{Sessões e Cenas}</dd>\n<dt>Cenário</dt><dd>Uma aventura inteira, com várias cenas. Usos “por cenário” voltam quando ele acaba.</dd>\n<dt>Conexão</dt><dd>Um laço com uma pessoa. @UUID[.EtGuiaPagina0017]{Fora de Combate}</dd>\n<dt>Corpo a corpo</dt><dd>O alcance do seu quadrado e dos oito em volta.</dd>\n<dt>Crítico</dt><dd>Dois ou mais 6 num teste: sucesso automático.</dd>\n</dl>\n<span class=\"et-letra\">D · E</span>\n<dl class=\"et-def\">\n<dt>Dano de Ódio</dt><dd>Dano direto que quem está no Topo de Ódio sofre numa Esquiva falha: Ódio × o multiplicador do inimigo.</dd>\n<dt>Dano Direto, Penetrante</dt><dd>O Direto ignora Defesas e Anulação; o Penetrante, só as Defesas. @UUID[.EtGuiaPagina0011]{Ataque e Dano}</dd>\n<dt>Dedicação</dt><dd>A multiclasse: o Motor Menor de outra classe, a partir do NP 5.</dd>\n<dt>Destino</dt><dd>Pontos para rolar +1d6, rolar de novo ou tirar um Estado Negativo. @UUID[.EtGuiaPagina0013]{Destino}</dd>\n<dt>Deterioração</dt><dd>Estado Negativo que fere o seu Valor a cada Encerramento.</dd>\n<dt>Encerramento</dt><dd>O último processo da rodada: curas e danos por rodada, e o fim do que dura uma rodada.</dd>\n<dt>Espera</dt><dd>Adiar o seu turno para depois de todos os outros, uma vez por rodada.</dd>\n<dt>Estado</dt><dd>Uma marca num personagem: Negativo (EN), de Combate (EC), Vital (EV) ou Outro (OE). @UUID[.EtGuiaPagina0014]{Estados e Condições}</dd>\n</dl>\n<span class=\"et-letra\">F · I</span>\n<dl class=\"et-def\">\n<dt>Fadiga</dt><dd>Cansaço que tira o seu Valor dos PV máximos. Sai com comida e descanso.</dd>\n<dt>Falha Crítica</dt><dd>Todos os dados em 1 num teste: falha automática.</dd>\n<dt>Feitiço</dt><dd>Uma habilidade de uma Magia. A tag [Feitiço] marca as que não atacam (curas, bênçãos, proteções).</dd>\n<dt>Forma</dt><dd>Os cinco estágios da raça. @UUID[.EtGuiaPagina0004]{Raças e a Forma}</dd>\n<dt>Incapacitado</dt><dd>Quem chegou a 0 PV. Não age até ser curado ou a cena acabar.</dd>\n<dt>Iniciativa</dt><dd>FOR + INT e os bônus. Diz a ordem dos turnos.</dd>\n<dt>Interlúdio</dt><dd>O intervalo entre cenas.</dd>\n</dl>\n<span class=\"et-letra\">M · N</span>\n<dl class=\"et-def\">\n<dt>Magia</dt><dd>O poder do personagem, com os seus feitiços, o Traço e, às vezes, o Tabu. @UUID[.EtGuiaPagina0006]{Magias}</dd>\n<dt>Manutenção</dt><dd>O primeiro processo da rodada: todos voltam à Pré-Ação.</dd>\n<dt>Momento</dt><dd>Quando uma habilidade pode ser usada. @UUID[.EtGuiaPagina0007]{Habilidades}</dd>\n<dt>Motor</dt><dd>A regra que só a sua classe tem: ganha, gasta, tem um Teto e zera.</dd>\n<dt>Multiplicador de Ódio</dt><dd>O número do inimigo que multiplica o Ódio do Topo no Dano de Ódio.</dd>\n<dt>NH</dt><dd>Nível de Habilidade: o domínio de uma habilidade, nunca acima do NP.</dd>\n<dt>NP</dt><dd>Nível de Personagem. @UUID[.EtGuiaPagina0008]{Evolução}</dd>\n</dl>\n<span class=\"et-letra\">O · P · Q</span>\n<dl class=\"et-def\">\n<dt>Obstrução</dt><dd>Parar o Movimento Normal de um inimigo no seu alcance Corpo a corpo.</dd>\n<dt>Ódio</dt><dd>O quanto os inimigos enxergam você como ameaça.</dd>\n<dt>Pré-Ação, Pós-Ação</dt><dd>Quem ainda vai agir na rodada, e quem já agiu.</dd>\n<dt>Preparação</dt><dd>A cena logo antes do combate, para olhar o inimigo e se preparar.</dd>\n<dt>Profissão</dt><dd>O ofício fora de combate: a subclasse da Eternia.</dd>\n<dt>PV</dt><dd>Pontos de Vida. Zerou, o personagem cai Incapacitado.</dd>\n<dt>Qd</dt><dd>Quadrado, a medida de distância do combate (uns 5 metros).</dd>\n</dl>\n<span class=\"et-letra\">R · T · V</span>\n<dl class=\"et-def\">\n<dt>Regeneração</dt><dd>Estado de Combate que cura o seu Valor a cada Encerramento.</dd>\n<dt>Rito</dt><dd>O feito em jogo que desperta um estágio da forma.</dd>\n<dt>Tabu</dt><dd>O preço das Magias Perdidas, Proibidas e das Maldições.</dd>\n<dt>Tag</dt><dd>Palavra-chave entre colchetes que outras regras leem.</dd>\n<dt>Teste Básico, Oposto</dt><dd>Contra uma dificuldade (supere-a), ou contra o teste de outro (empate é de quem defende). @UUID[.EtGuiaPagina0001]{O Jogo}</dd>\n<dt>Teto</dt><dd>O máximo que cabe no Motor.</dd>\n<dt>Topo de Ódio</dt><dd>Quem tem o maior Ódio do grupo.</dd>\n<dt>Traço</dt><dd>A regra passiva própria de cada Magia.</dd>\n<dt>Turno</dt><dd>A vez de um personagem na rodada, com as suas quatro ações.</dd>\n<dt>Valor</dt><dd>O número de um estado, como em [Queimando: 5].</dd>\n<dt>Velocidade</dt><dd>Quantos quadrados você corre numa Ação de Movimento.</dd>\n</dl>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "glossario"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0019"
+    },
+    {
+      "sort": 2100000,
+      "name": "Referência Rápida",
+      "type": "text",
+      "_id": "EtGuiaPagina0020",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<header class=\"et-cap\"><span class=\"et-cap-num\">Apêndice</span><span class=\"et-cap-titulo\">Referência Rápida</span><span class=\"et-cap-epi\">O que consultar no meio da luta.</span></header>\r\n<p class=\"et-formula\">Teste = 2d6 + perícia<small>Básico: supere a dificuldade · Oposto: vença o outro (empate é de quem defende) · dois 6: Crítico · tudo 1: Falha Crítica</small></p>\r\n<h2>A rodada</h2>\r\n<div class=\"et-fluxo\"><span>Manutenção</span><span>Iniciativa</span><span>Turno</span><span class=\"et-volta\">até todos agirem</span><span class=\"et-fim\">Encerramento</span></div>\r\n<div class=\"et-grade et-duas\">\r\n<div class=\"et-cartao\"><span class=\"et-cartao-titulo\">Manutenção</span><p>Todos em Pré-Ação; habilidades de Manutenção (Identificar Inimigo, Detectar Anomalias, trocar de Estilo).</p></div>\r\n<div class=\"et-cartao et-ouro\"><span class=\"et-cartao-titulo\">Iniciativa</span><p>Age quem tem a maior; empate, os Aventureiros. Quem esperou age por último, da menor para a maior.</p></div>\r\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-titulo\">Turno</span><p>Uma Ação Maior, uma Menor, uma de Movimento e uma Instantânea. No fim, saem [Atordoado] e [Cambaleante].</p></div>\r\n<div class=\"et-cartao et-ardosia\"><span class=\"et-cartao-titulo\">Encerramento</span><p>Primeiro as curas ([Regeneração]), depois os danos por rodada; o que dura uma rodada acaba.</p></div>\r\n</div>\r\n<h2>O ataque</h2>\r\n<ol class=\"et-passos\">\r\n<li>Declarar a habilidade e os alvos (alcance e linha de visão).</li>\r\n<li>Precisão contra Esquiva ou Resistência. Abaixo no Ódio: +2 na Esquiva.</li>\r\n<li>Rolar o dano, uma vez para todos os alvos (no mínimo 1d6).</li>\r\n<li>Dano − Defesa − Anulação; o resto na Barreira, depois nos PV.</li>\r\n<li>0 PV: [Incapacitado]. Depois, os estados do golpe e o −1 de Ódio de quem falhou a Esquiva.</li>\r\n</ol>\r\n<h2>Ódio e Destino</h2>\r\n<div class=\"et-grade et-duas\">\r\n<div class=\"et-cartao et-vinho\"><span class=\"et-cartao-titulo\">Ódio</span><p><strong>Topo:</strong> Esquiva falha soma Ódio × multiplicador de dano direto. <strong>Abaixo:</strong> +2 nas Esquivas contra inimigos. Sobe pelo custo das habilidades, cai 1 a cada Esquiva falha, zera no começo e no fim do combate. O Switch troca o Ódio.</p></div>\r\n<div class=\"et-cartao et-ouro\"><span class=\"et-cartao-titulo\">Destino</span><p>Gaste 1 para: +1d6 antes de um teste; rolar de novo um teste; remover um Estado Negativo. Volta 1 ao fim de cada fase e tudo no Pós-Jogo.</p></div>\r\n</div>\r\n<h2>Dano e proteções</h2>\r\n<table>\r\n<thead><tr><th>Tipo</th><th>Defesa</th><th>Anulação</th><th>Barreira</th></tr></thead>\r\n<tbody>\r\n<tr><td>Físico</td><td>Física</td><td>sim</td><td>sim</td></tr>\r\n<tr><td>Mágico</td><td>Mágica</td><td>sim</td><td>sim</td></tr>\r\n<tr><td>Penetrante</td><td>não</td><td>sim</td><td>sim</td></tr>\r\n<tr><td>Direto</td><td>não</td><td>não</td><td>sim</td></tr>\r\n</tbody>\r\n</table>\r\n<h2>Movimento</h2>\r\n<div class=\"et-grade et-duas\">\r\n<div class=\"et-cartao\"><span class=\"et-cartao-titulo\">Distância</span><p>Em quadrados, sem diagonal (a diagonal conta 2). Corpo a corpo: o seu quadrado e os oito em volta.</p></div>\r\n<div class=\"et-cartao et-azul\"><span class=\"et-cartao-titulo\">Ações de movimento</span><p>Correr: [Velocidade] Qd. Disparada: +2 Qd e gasta a Ação Menor. Deslocar-se: 1 Qd seguro e gasta a Ação Menor. Switch: troca de lugar e de Ódio, uma vez por rodada.</p></div>\r\n</div>\r\n<h2>Fim de cena</h2>\r\n<p>Estados Negativos e de Combate acabam (a Fadiga fica). Aventureiro [Incapacitado] levanta com os PV cheios; morto, volta com 1 PV e Fadiga igual aos PV máximos menos 1. Inimigo Incapacitado morre. Os usos por cena voltam.</p>\r\n<div class=\"et-rodape\">@UUID[.EtGuiaPagina0010]{Combate} · @UUID[.EtGuiaPagina0011]{Ataque e Dano} · @UUID[.EtGuiaPagina0012]{Ódio} · @UUID[.EtGuiaPagina0013]{Destino} · @UUID[.EtGuiaPagina0014]{Estados e Condições}</div>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1
+      },
+      "flags": {
+        "eternia": {
+          "guidePage": "referencia"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.45.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!EterniaGuiaJogad.EtGuiaPagina0020"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "guide": {
+        "version": "8a1dc3b9ed45",
+        "system": "0.45.0"
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.45.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "EterniaGuiaJogad",
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "categories": [],
+  "folder": null,
+  "_key": "!journal!EterniaGuiaJogad"
+}
