@@ -54,6 +54,11 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   diário usam `:where()` para os blocos de livro (que pesam mais) ganharem delas; botão que é só ícone (`fa-` na classe)
   não pode receber `font-family`. O Eczar desenha o "×" como losango: os sinais das fórmulas vêm do Gelasio (a fonte
   "Eternia Sinais", por `unicode-range`).
+- Na interface (`css/interface.css`), listas, botões, campos, menus e dicas usam a Signika (`--et-sans`); Eczar e Gelasio
+  ficam para títulos e para o texto de leitura em pergaminho. O usuário achou a serifa pequena na barra lateral ruim de
+  ler no fundo escuro. As dicas comuns (`#tooltip`) entram com `:where(body.et-ui)`, abaixo das dicas próprias do sistema
+  (`#tooltip.lhb-tooltip`, `.lhcl-tooltip`, `.lhh-tip`), que são pergaminho com texto escuro: um seletor mais pesado
+  pinta o fundo delas de verde e o texto some.
 - O visual de pergaminho (`automation.css`, `sheet.css`, `chat.css`, `windows.css`, `hud.css`, `tbg.css`) vai na
   camada `modules` (campo `layer` em `styles` do `system.json`): ganha da base sem disputa de especificidade, como
   quando era um módulo. Arquivo novo de CSS no manifesto exige reiniciar o servidor do Foundry.

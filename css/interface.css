@@ -137,8 +137,8 @@ body.et-ui .directory .directory-header .action-buttons button {
   --button-hover-text-color: #fff;
   height: 30px;
   border-radius: 3px;
-  font: 500 13.5px/1 var(--et-serif);
-  letter-spacing: 0.02em;
+  font: 500 13.5px/1 var(--et-sans);
+  letter-spacing: 0.01em;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 body.et-ui .directory .directory-header .action-buttons button i {
@@ -156,8 +156,7 @@ body.et-ui .directory .directory-header search input {
   --input-border-color: transparent;
   --input-text-color: var(--et-gold-pale);
   --input-placeholder-color: rgba(233, 215, 161, 0.5);
-  font-family: var(--et-body);
-  font-style: italic;
+  font-family: var(--et-sans);
   box-shadow: none;
 }
 body.et-ui .directory .directory-header search :is(button, .inline-control) {
@@ -177,8 +176,10 @@ body.et-ui .directory .directory-item .entry-name,
 body.et-ui .directory .directory-item .entry-name a,
 body.et-ui .directory .directory-item.document .document-name {
   color: var(--et-parch-text);
-  font-family: var(--et-body);
-  font-size: 14px;
+  font-family: var(--et-sans);
+  font-size: 14.5px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 body.et-ui .directory .directory-item.entry:hover,
 body.et-ui .directory .directory-item.document:hover {
@@ -210,8 +211,8 @@ body.et-ui li.folder > .folder-header {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), inset 0 -8px 12px rgba(0, 0, 0, 0.12);
 }
 body.et-ui li.folder > .folder-header .folder-name {
-  font: 500 15px/var(--sidebar-folder-height) var(--et-serif);
-  letter-spacing: 0.03em;
+  font: 600 14.5px/var(--sidebar-folder-height) var(--et-sans);
+  letter-spacing: 0.02em;
 }
 body.et-ui li.folder > .folder-header > i,
 body.et-ui li.folder > .folder-header .folder-icon {
@@ -233,7 +234,7 @@ body.et-ui .directory .directory-footer button {
   --button-hover-background-color: var(--et-green-light);
 }
 body.et-ui .directory .directory-footer button:not([class*="fa-"]) {
-  font-family: var(--et-serif);
+  font-family: var(--et-sans);
 }
 
 /* The compendium list: each pack a ruled row, Eternia's folder in green */
@@ -242,7 +243,7 @@ body.et-ui .compendium-directory .directory-item.compendium {
 }
 body.et-ui .compendium-directory .directory-item.compendium .entry-name,
 body.et-ui .compendium-directory .directory-item.compendium .compendium-name {
-  font-family: var(--et-body);
+  font-family: var(--et-sans);
 }
 body.et-ui .compendium-directory .directory-item.compendium :is(.compendium-footer, .source, .entry-type) {
   color: #b8a77c;
@@ -258,7 +259,7 @@ body.et-ui #settings :is(button, .button) {
   --button-hover-text-color: #fff;
 }
 body.et-ui #settings :is(button, .button):not([class*="fa-"]) {
-  font-family: var(--et-serif);
+  font-family: var(--et-sans);
 }
 body.et-ui #settings :is(h2, h3, h4) {
   border-bottom: 1px solid var(--et-rim-soft);
@@ -277,12 +278,12 @@ body.et-ui #chat-message {
   border-radius: 4px;
   background: rgba(10, 25, 17, 0.88);
   color: var(--et-gold-pale);
-  font-family: var(--et-body);
+  font-family: var(--et-sans);
   box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 body.et-ui #chat-message .editor-content {
   color: var(--et-gold-pale);
-  font-family: var(--et-body);
+  font-family: var(--et-sans);
 }
 body.et-ui #chat-message:focus-within {
   border-color: var(--et-gold-light);
@@ -311,7 +312,7 @@ body.et-ui :is(#combat, .combat-sidebar) .combatant.active {
   background: linear-gradient(90deg, rgba(177, 154, 85, 0.24), rgba(177, 154, 85, 0.06));
 }
 body.et-ui :is(#combat, .combat-sidebar) .combatant .token-name {
-  font-family: var(--et-body);
+  font-family: var(--et-sans);
 }
 
 /* --------------------------------------------------------------------------
@@ -325,7 +326,7 @@ body.et-ui #players {
 }
 body.et-ui #players .player-name {
   color: var(--et-parch-text);
-  font-family: var(--et-body);
+  font-family: var(--et-sans);
 }
 body.et-ui #players .player.gm .player-name {
   color: var(--et-gold-light);
@@ -337,7 +338,7 @@ body.et-ui #scene-navigation .scene.ui-control {
   border-radius: 3px;
   background: linear-gradient(rgba(31, 81, 55, 0.92), rgba(19, 50, 34, 0.94));
   color: var(--et-gold-pale);
-  font-family: var(--et-serif);
+  font-family: var(--et-sans);
 }
 body.et-ui #scene-navigation .scene.ui-control.active,
 body.et-ui #scene-navigation .scene.ui-control.view {
@@ -367,7 +368,7 @@ body.et-ui #notifications .notification {
   border-radius: 3px;
   background: linear-gradient(rgba(16, 41, 27, 0.96), rgba(11, 27, 18, 0.97));
   color: var(--et-gold-pale);
-  font-family: var(--et-body);
+  font-family: var(--et-sans);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
   text-shadow: none;
 }
@@ -393,7 +394,7 @@ body.et-ui #context-menu {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
 }
 body.et-ui #context-menu .context-item {
-  font-family: var(--et-body);
+  font-family: var(--et-sans);
 }
 body.et-ui #context-menu .context-item:hover {
   background: rgba(177, 154, 85, 0.2);
@@ -402,13 +403,15 @@ body.et-ui #context-menu .context-item:hover {
 body.et-ui #context-menu .context-item i {
   color: var(--et-gold-light);
 }
-body.et-ui #tooltip,
-body.et-ui .locked-tooltip {
+/* Only the plain tooltips: :where() keeps this rule below the system's own tooltips (#tooltip.lhb-tooltip,
+   .lhcl-tooltip, .lhh-tip...), which are parchment with dark text */
+:where(body.et-ui) #tooltip,
+:where(body.et-ui) .locked-tooltip {
   border: 1px solid rgba(177, 154, 85, 0.7);
   border-radius: 3px;
   background: rgba(12, 29, 20, 0.96);
   color: var(--et-gold-pale);
-  font-family: var(--et-body);
+  font-family: var(--et-sans);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.55);
 }
 

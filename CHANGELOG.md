@@ -1,5 +1,15 @@
 # Changelog
 
+## Não lançado
+
+### Alterado
+- **A fonte da interface:** as listas da barra lateral (Atores, Itens, Diário, Compêndios), os botões, a busca, a caixa
+  do chat, os jogadores, a navegação das cenas, os avisos, os menus e as dicas usam a Signika, a fonte dos rótulos da
+  ficha: a serifa pequena ficava ruim de ler no fundo escuro. Os títulos das janelas continuam em Eczar.
+- **As dicas do sistema voltam ao pergaminho:** as dicas das etiquetas dos colchetes (no guia, a do [Atordoado]), da aba
+  Classe, do assistente, da janela de Magias e do HUD tinham ficado com o fundo verde das dicas comuns e o texto escuro
+  delas, ilegível. Só as dicas comuns do Foundry ficam verdes.
+
 ## 0.46.0 — 2026-10-27
 
 O Guia do Jogador no Diário, e o Foundry inteiro no visual da Eternia.
