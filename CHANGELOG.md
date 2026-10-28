@@ -1,6 +1,6 @@
 # Changelog
 
-## Não lançado
+## 0.48.0 — 2026-10-28
 
 A economia do Yuld: a moeda nova e todo preço e todo drop tirados de um modelo só (docs/matematica.md, seção 9).
 

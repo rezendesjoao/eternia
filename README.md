@@ -5,9 +5,18 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.47.3
+## Versão 0.48.0
 
-- **Novo na 0.47.3: os rótulos de Dano certos.** O campo Dano da dica do HUD e da ficha de 24 habilidades ainda
+- **Novo na 0.48.0: a economia do Yuld.** A moeda agora é o Yuld, na ficha, no Mercado, nas lojas, no assistente de
+  criação, nos cartões e nos itens deixados. Todo preço e todo drop sai de um modelo só, medido em "comuns" (o que um
+  monstro comum do NP deixa): um encontro rende 4 comuns ao grupo, seja qual for a mistura de monstros, e um Anima-mundi
+  de nível 1 custa o que dois monstros de NP 1 deixam. Os itens custam o dobro, o Anima-mundi 3,3 vezes, e cada
+  personagem começa com 700 Yuld. AS REGRAS ganharam a tabela de recompensa de missão por NP: a missão padrão (12 comuns
+  por personagem, uma por NP) mantém o equipamento no NP; sem ela, é preciso farmar o triplo. As lojas pagam o preço cheio
+  pelos tesouros, a metade pelos itens mágicos e pelo Anima-mundi e 1/10 pelo usado; o Anima-mundi sem o Selo do Anima (o
+  da Coleta e certas partes de monstro) não se vende, e a Coleta acha até o NP do personagem. Os mundos que já existem
+  ganham as bolsas em Yuld (×2), os preços e os drops novos sozinhos (veja [A economia](#a-economia)).
+- **Desde a 0.47.3: os rótulos de Dano certos.** O campo Dano da dica do HUD e da ficha de 24 habilidades ainda
   trazia a fórmula de antes do balanço da 0.42 (o Iai, o Corte do Vento, as Artes do Matador de Dragões, o Laço, a
   Estrela Final e outras), embora o texto e a rolagem já fossem os novos; agora ele diz o mesmo que o texto. As fichas
   que já existem nos mundos ganham o rótulo novo sozinhas quando o Mestre abre o mundo.
