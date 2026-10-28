@@ -5,9 +5,14 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.47.1
+## Versão 0.47.2
 
-- **Novo na 0.47.1: o disfarce que esconde o token.** Os monstros disfarçados (o Graveto-Praga, o Espantalho Vivo, a
+- **Novo na 0.47.2: a caixa de leitura das habilidades.** No passo Habilidades do assistente de criação, um clique
+  numa habilidade abre o texto inteiro dela numa caixa, com as tags, o Momento, o teste, o alvo, o alcance, o custo e
+  o limite; as setas (e as teclas ← e →) passam para a anterior e a próxima, e o botão Escolher marca ali mesmo. O
+  quadradinho ao lado de cada habilidade escolhe direto na lista (veja
+  [A criação de personagem](#a-criação-de-personagem)).
+- **Desde a 0.47.1: o disfarce que esconde o token.** Os monstros disfarçados (o Graveto-Praga, o Espantalho Vivo, a
   Estalactite Viva, o Besouro-Moeda, a Aranha-Isca, o Cavalo-d'Água, o Mímico e a Gárgula) entram na cena escondidos,
   com a arte deles, em vez de virar um ícone do Foundry: o Mestre os vê transparentes e descreve o que os jogadores
   veem. Eles aparecem quando andam (um quadrado basta), usam uma habilidade, são tocados ou atacados, ou quando o

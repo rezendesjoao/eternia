@@ -1,6 +1,6 @@
 # Changelog
 
-## Não lançado
+## 0.47.2 — 2026-10-28
 
 A caixa de leitura das habilidades no assistente de criação.
 
