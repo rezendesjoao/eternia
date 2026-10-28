@@ -5,9 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.47.2
+## Versão 0.47.3
 
-- **Novo na 0.47.2: a caixa de leitura das habilidades.** No passo Habilidades do assistente de criação, um clique
+- **Novo na 0.47.3: os rótulos de Dano certos.** O campo Dano da dica do HUD e da ficha de 24 habilidades ainda
+  trazia a fórmula de antes do balanço da 0.42 (o Iai, o Corte do Vento, as Artes do Matador de Dragões, o Laço, a
+  Estrela Final e outras), embora o texto e a rolagem já fossem os novos; agora ele diz o mesmo que o texto. As fichas
+  que já existem nos mundos ganham o rótulo novo sozinhas quando o Mestre abre o mundo.
+- **Desde a 0.47.2: a caixa de leitura das habilidades.** No passo Habilidades do assistente de criação, um clique
   numa habilidade abre o texto inteiro dela numa caixa, com as tags, o Momento, o teste, o alvo, o alcance, o custo e
   o limite; as setas (e as teclas ← e →) passam para a anterior e a próxima, e o botão Escolher marca ali mesmo. O
   quadradinho ao lado de cada habilidade escolhe direto na lista (veja

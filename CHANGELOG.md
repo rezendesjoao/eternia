@@ -1,6 +1,6 @@
 # Changelog
 
-## Não lançado
+## 0.47.3 — 2026-10-28
 
 Os rótulos de Dano que tinham ficado com a fórmula antiga.
 
