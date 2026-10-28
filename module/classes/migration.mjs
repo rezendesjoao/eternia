@@ -23,6 +23,8 @@
  * Version 8, the balance of 0.42 (docs/matematica.md): the class skills, Magias and spells, and the racial skills that
  * changed take their compendium version again the same way (the Skill Rank kept, up to the new maximum), and the
  * Draconic race items their HP (+16).
+ * Version 9, the Dano labels: the skills whose label (`flags.eternia.damageText`) still carried the formula from before
+ * 0.42, though their text and their roll were already the new ones, take the compendium's label (nothing else changes).
  */
 const KUDEN_TYPES = new Set(["kudenResource", "kudenResourceFull", "sceneDay", "sceneNight", "sceneNoon", "sceneOpenSky",
   "sceneDarkness", "sceneMiasma", "sceneNoMiasma", "targetBossRaid", "hpAtMost"]);
@@ -252,6 +254,37 @@ async function refreshBalance(items, parent, sources) {
   return count;
 }
 
+/** Version 9: the skills whose Dano label still carried the formula from before 0.42, by identifier. */
+const DAMAGE_LABELS = new Set([
+  "berserker-golpe-selvagem", "cacador-tiro-certeiro", "combo-estelar-estrela-final", "guardiao-golpe",
+  "guardiao-onda-de-choque", "invocador-comando-ataque", "invocador-investida", "magobranco-duas-sentencas",
+  "magobranco-runa-sagrada", "magonegro-colapso", "matador-abismo", "matador-carma-demoniaco", "matador-lotus-carmesim",
+  "matador-luz-despedacadora", "matador-mandibula", "matador-nova-sagrada", "matador-trovao-rugente", "monge-golpe-final",
+  "ruptura-critica-parte-montanhas", "samurai-contra-saque", "samurai-corte-circular", "samurai-corte-do-vento",
+  "samurai-iai", "tecelao-laco"
+]);
+
+/**
+ * Version 9: the copies of those skills among these items take the compendium's Dano label.
+ * @param {Collection<Item>|Item[]} items
+ * @param {Actor|null} parent
+ * @param {Map<string, Item>} sources  The class skills of the compendium, by identifier
+ * @returns {Promise<number>}
+ */
+async function refreshDamageLabels(items, parent, sources) {
+  const updates = [];
+  for (const item of items) {
+    const flags = item._source.flags?.eternia ?? {};
+    if ((item.type !== "skill") || !DAMAGE_LABELS.has(flags.identifier) || !flags.damageText) continue;
+    const label = sources.get(flags.identifier)?.flags?.eternia?.damageText;
+    if (label && (label !== flags.damageText)) updates.push({ _id: item.id, "flags.eternia.damageText": label });
+  }
+  if (!updates.length) return 0;
+  if (parent) await parent.updateEmbeddedDocuments("Item", updates);
+  else for (const update of updates) await game.items.get(update._id)?.update(update);
+  return updates.length;
+}
+
 /** The Magias and spells of the compendium, by identifier (read once per run). */
 async function magiaSources() {
   const docs = await game.packs.get("eternia.skills-class")?.getDocuments() ?? [];
@@ -300,13 +333,16 @@ async function run(done) {
     races: new Map(((await game.packs.get("eternia.races-classes")?.getDocuments({ type: "race" })) ?? [])
       .filter(d => d.system.identifier === "draconic").map(d => [d.system.identifier, d]))
   } : null;
+  const labels = (done < 9) ? (balance?.classes ?? await packSkills("skills-class", d => d.flags?.eternia?.identifier)) : null;
   changed += await cleanItems(game.items, null, done);
   if (sources) changed += await refreshMagias(game.items, null, sources);
   if (balance) changed += await refreshBalance(game.items, null, balance);
+  if (labels) changed += await refreshDamageLabels(game.items, null, labels);
   for (const actor of game.actors) {
     changed += await cleanItems(actor.items, actor, done);
     if (sources) changed += await refreshMagias(actor.items, actor, sources);
     if (balance) changed += await refreshBalance(actor.items, actor, balance);
+    if (labels) changed += await refreshDamageLabels(actor.items, actor, labels);
     if (done >= 1) continue;
     const effects = effectChanges(actor);
     if (effects.length) await actor.updateEmbeddedDocuments("ActiveEffect", effects);
@@ -321,4 +357,4 @@ async function run(done) {
   return true;
 }
 
-export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 8, run };
+export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 9, run };

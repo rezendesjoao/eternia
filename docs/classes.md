@@ -1227,7 +1227,7 @@ O cabeçalho de `module/classes/motor.mjs` tem a lista completa. Em resumo:
 | `magic` | `{ id, category, tagline }`: uma Magia (só dada pela vaga de Magia da classe); `tagline` é a frase curta do cartão na escolha da Magia |
 | `magicSpell` | `{ id }`: um feitiço da Magia; o navegador o mostra (origem Magia) só para quem tem a Magia |
 | `hitStatuses` | `[{ statusId, value }]`: estados que o dano da habilidade dá em quem acerta (o valor é uma fórmula) |
-| `damageText` | o texto do dano no lugar da fórmula (`[Poder de Ataque] + (1+2×Cortes)d6 + Cortes×NP Físico`) |
+| `damageText` | o texto do dano no lugar da fórmula (`(1+Cortes)d6 + [Poder de Ataque] + Cortes×NP÷2 Físico`), mostrado no campo Dano do HUD e da ficha; mudou a fórmula (os dados, o texto), muda este texto junto |
 | `minRank`, `choiceOnly` | como nas raças: NP mínimo; listada só depois de dada (kit, Caminhos, Ápice, Motor Menor) |
 
 O item `class` leva `identifier`, atributos, `hp`, `hpPerRank`, as tags de papel (`Damage`, `Defense`, `Healing`,

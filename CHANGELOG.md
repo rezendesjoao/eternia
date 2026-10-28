@@ -1,5 +1,23 @@
 # Changelog
 
+## Não lançado
+
+Os rótulos de Dano que tinham ficado com a fórmula antiga.
+
+### Corrigido
+- **O rótulo de Dano de 24 habilidades** (o campo Dano da dica do HUD e da ficha da habilidade) ainda trazia a fórmula
+  de antes do balanço da 0.42, embora o texto e a rolagem já fossem os novos (o Iai dizia "(1+2×Cortes)d6 + … +
+  Cortes×NP" e rola "(1+Cortes)d6 + … + Cortes×NP÷2"). Agora o rótulo diz o mesmo que o texto: Iai, Corte do Vento,
+  Contra-saque e Corte Circular (Samurai), Golpe Selvagem (Berserker), Tiro Certeiro (Caçador), Golpe Final (Lutador),
+  Golpe do Baluarte e Onda de Choque (Centurião), Colapso (Mago Negro), Comando: Ataque e Investida do Lobo
+  (Invocador), Runa Sagrada e Duas Sentenças (Mago Branco), Laço (Tecelão, que rola 1d6: não gasta Fios), as sete
+  Artes do Matador de Dragões que somam (Escamas×NP)÷2 (Abismo do Dragão das Sombras, Carma Demoníaco, Luz
+  Despedaçadora, Lótus Carmesim, Mandíbula do Dragão do Veneno, Nova Sagrada e Trovão Rugente) e, com o bônus que
+  faltava no rótulo, os feitiços Estrela Final (+ Combo×2) e Golpe que Parte Montanhas (+ Ímpeto×2). As cópias delas
+  nos NPCs prontos (32) também.
+- **A migração `kudenCleanup` (versão 9):** as cópias dessas habilidades que os personagens e os itens do mundo já têm
+  ganham o rótulo novo; nada mais muda nelas.
+
 ## 0.47.2 — 2026-10-28
 
 A caixa de leitura das habilidades no assistente de criação.

@@ -133,7 +133,7 @@ export function skillTip(view) {
 
 /**
  * The fields of a skill the reading box shows: the action HUD's tooltip fields (hud/data.mjs), without the damage, which
- * the text tells (the label of a few skills still carries an old formula).
+ * the text right below tells with its highlights.
  */
 const READING_FIELDS = [
   ["ETERNIA.Item.Label.Timing", "timing", "timing"], ["ETERNIA.Item.Label.Check", "checkLabel", "check"],

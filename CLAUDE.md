@@ -150,6 +150,9 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   Molduras e efeitos são desenhados no navegador (`module/icons/`, veja `docs/icones.md`).
 - Fórmulas de rolagem ficam no próprio campo: `damage.dice: "@sr+1"`, `damage.mod: "@cr*2+10"` (nunca em
   `diceFormula`/`formula`, que são derivados). Flags de efeito e de habilidade: veja `docs/condicoes.md`.
+- O `flags.eternia.damageText` (o rótulo do campo Dano, no HUD e na ficha) repete a fórmula em texto: mudou os dados,
+  o modificador ou a fórmula escrita no texto de uma habilidade, mude o rótulo junto, e nas cópias dos NPCs prontos
+  (`npcs`). O balanço da 0.42 deixou 24 rótulos velhos (corrigidos depois, com a migração `kudenCleanup` 9).
 - `npm run packs:build` (Foundry CLI, com o mundo fechado) gera `packs/`; `npm run packs:unpack` volta para `src/`.
 - Índices de compêndio: todo campo que o código lê de um índice de Item entra em `ITEM_INDEX_FIELDS`
   (`module/helpers/pack-index.mjs`, posto em `CONFIG.Item.compendiumIndexFields`). O Foundry guarda um índice por

@@ -125,7 +125,7 @@ export function prepareSkillRolls(item) {
 
   system.checkLabel = isLegacy ? legacyText : checkLabel(system.check, monster);
   // A skill whose damage formula reads a class Motor shows the text of its rule instead (flags.eternia.damageText:
-  // "(1+2×Cortes)d6 + [Poder de Ataque] + Cortes×NP Físico").
+  // "(1+Cortes)d6 + [Poder de Ataque] + Cortes×NP÷2 Físico"). A rule's formula that changes changes this text too.
   system.damageLabel = item.flags?.eternia?.damageText || damageLabel(system.damage, monster);
 }
 
