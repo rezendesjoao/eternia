@@ -1,0 +1,528 @@
+{
+  "name": "Devorador de Escudos",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/devorador-de-escudos.webp",
+  "system": {
+    "health": {
+      "value": 60,
+      "max": 60,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Natural",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 3,
+        "magic": 5
+      },
+      "speed": 2,
+      "initiative": 4
+    },
+    "rank": 2,
+    "idendification": "8",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 3,
+        "mod": 1
+      },
+      "resistance": {
+        "dice": 3,
+        "mod": 2
+      }
+    },
+    "description": "<p>Um tubo de carne cinzenta do tamanho de um barril, com uma boca de lampreia numa ponta e nada na outra, que se arrasta pelos corredores úmidos da Cova do Norte. Não come gente: come o que a gente carrega. Engole o escudo, a couraça, a malha, e guarda tudo na barriga, onde o metal dorme sem enferrujar. O ventre de um devorador velho é um arsenal; o de um novo, só o seu escudo.</p><p><b>Na mesa:</b> comum de NP 2, da Cova do Norte e das galerias úmidas. A Bocarra engole uma peça de quem ela fere: o escudo, ou, sem escudo, a armadura (a peça sai do corpo e não volta até ele cair ou a luta acabar). Sem a peça, as Defesas caem na hora. A Pele Mole anula 4 do dano [Contundente] e não fica [Derrubada]. Matá-lo devolve tudo.</p>"
+  },
+  "prototypeToken": {
+    "name": "Devorador de Escudos",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/devorador-de-escudos.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 2,
+    "height": 2,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Bocarra",
+      "type": "skill",
+      "img": "icons/creatures/abilities/mouth-teeth-lamprey-red.webp",
+      "system": {
+        "description": "<p>[2d6 + 11] de dano físico. Se ferir, engole o escudo do alvo (ou, sem escudo, a armadura): a peça sai do corpo e só volta quando o devorador cair ou a luta acabar.</p><p>(Menor): +3 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 11,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "devour",
+            "types": [
+              "shield",
+              "armor"
+            ]
+          },
+          "minor": {
+            "damage": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "xHTKh0zUg6R8hTdI",
+      "_key": "!actors.items!Mfjio66e509CVdJT.xHTKh0zUg6R8hTdI"
+    },
+    {
+      "name": "Pele Mole",
+      "type": "skill",
+      "img": "icons/creatures/slimes/slime-movement-pseudopods-green.webp",
+      "system": {
+        "description": "<p>[Anulação (Contundente): 4]. Não fica [Derrubado] nem [Agarrado].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "cancelTag": "Hafted",
+              "immune": [
+                "prone",
+                "grappled"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Pele Mole",
+          "img": "icons/creatures/slimes/slime-movement-pseudopods-green.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.cancel",
+                "type": "add",
+                "value": "4",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "2rSKwxzOngwShSWr",
+          "_key": "!actors.items.effects!Mfjio66e509CVdJT.P60m1y6572HbK3z6.2rSKwxzOngwShSWr"
+        }
+      ],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "P60m1y6572HbK3z6",
+      "_key": "!actors.items!Mfjio66e509CVdJT.P60m1y6572HbK3z6"
+    },
+    {
+      "name": "Sucata do Ventre",
+      "type": "gear",
+      "img": "icons/commodities/metal/fragments-steel-ring.webp",
+      "system": {
+        "description": "<p>Fivelas, rebites e pedaços de malha que o devorador não digeriu.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 15,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "bhBZFif9fhlHQFkb",
+      "sort": 300000,
+      "_key": "!actors.items!Mfjio66e509CVdJT.bhBZFif9fhlHQFkb"
+    },
+    {
+      "name": "Escudo Esquecido",
+      "type": "gear",
+      "img": "icons/equipment/shield/heater-steel-worn.webp",
+      "system": {
+        "description": "<p>Um escudo antigo, sem um arranhão, com o brasão de um aventureiro que entrou na Cova e não saiu.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 35,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "9TpPdp9NCx08yIdp",
+      "sort": 400000,
+      "_key": "!actors.items!Mfjio66e509CVdJT.9TpPdp9NCx08yIdp"
+    },
+    {
+      "name": "Pedra do Ventre",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-rough-cushion-blue.webp",
+      "system": {
+        "description": "<p>Uma pedra lisa que o devorador usa para triturar o metal. Os ferreiros a usam para polir lâminas.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 55,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ma3z8awCo17bdufU",
+      "sort": 500000,
+      "_key": "!actors.items!Mfjio66e509CVdJT.ma3z8awCo17bdufU"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 220000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Mfjio66e509CVdJT",
+  "folder": "AkcsXT1tICuoFTMn",
+  "_key": "!actors!Mfjio66e509CVdJT"
+}

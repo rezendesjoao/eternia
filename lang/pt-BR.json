@@ -485,7 +485,8 @@
       "inversion": "Inversão",
       "rhythm": "Ritmo",
       "clones": "Clones",
-      "bond": "Vínculo"
+      "bond": "Vínculo",
+      "contagion": "Contágio"
     },
     "StatusGroup": {
       "bad": "Estado Negativo",
@@ -1876,7 +1877,8 @@
       "inversion": "O dano mágico que sofreria (depois da Defesa e da Anulação) vira cura. Em troca, a cura que recebe vira dano, e os efeitos que lhe dariam [Fortalecido] ou [Regeneração] dão [Enfraquecido] ou [Deterioração] com o mesmo Valor. Sai no Encerramento.",
       "rhythm": "[Ritmo: n] (até 3): o próximo dano de um feitiço seu (ou de um [Ataque Mágico] ou [Feitiço]) soma +n d6, e o Ritmo sai. Novos Ritmos somam. Sai também no fim da cena.",
       "clones": "[Clones: n] (até 6): quando um ataque acertaria você, role 1d6: com resultado até n, ele acerta uma cópia (nada chega, nem dano nem estados) e os Clones caem 1. Os seus ataques corpo a corpo causam +n de dano. Novos Clones somam. Sai no fim da cena.",
-      "bond": "Metade do dano que sofreria nos PV vai para quem fez o Vínculo, como dano direto. Sai no fim da cena ou se essa pessoa ficar Incapacitada."
+      "bond": "Metade do dano que sofreria nos PV vai para quem fez o Vínculo, como dano direto. Sai no fim da cena ou se essa pessoa ficar Incapacitada.",
+      "contagion": "[Contágio: n]: sofre n de dano direto no Encerramento e passa [Contágio: n] aos aliados a até 1 Qd que ainda não o têm (quem pegou só sofre e passa a partir do Encerramento seguinte). Fica o de maior Valor. Sai com uma Ação Maior."
     },
     "StatusFamily": {
       "core": "Clássicos",
@@ -2024,7 +2026,8 @@
         "Flavor": "Sair de {status}: {check} contra {dc}",
         "Done": "{name} venceu o teste ({check} {n} contra {dc}).",
         "Failed": "{name} não se livrou de {status} ({check} {n} contra {dc}): a ação foi gasta."
-      }
+      },
+      "ContagionSpreads": "O [Contágio] de {name} passa para {list}."
     },
     "Omen": {
       "Title": "Presságio",
@@ -4183,7 +4186,31 @@
       "PossessHostFell": "{host} caiu: {name} sai do corpo.",
       "PossessGhostFell": "{name} caiu lá dentro: {host} está livre.",
       "PossessFreed": "{host} está livre: {name} sai do corpo.",
-      "PossessInside": "{name} está dentro de {host}: não age até sair."
+      "PossessInside": "{name} está dentro de {host}: não age até sair.",
+      "Breed": "{name}: nascem mais {n} ({total} na cena).",
+      "Brood": "{name} cai, e saem de dentro dele: {list}.",
+      "Curse": {
+        "Given": "{by} amaldiçoou {name}: {statuses}, até {by} cair.",
+        "Title": "A maldição se desfaz",
+        "Ended": "{name} caiu, e a maldição dele se desfaz: {list}."
+      },
+      "Shuffle": "A escrita de {name} muda: {form}.",
+      "Devour": {
+        "Swallowed": "{name} engoliu {piece} de {target}: a peça só volta quando {name} cair ou a luta acabar.",
+        "Back": "{piece} de {target} volta.",
+        "Title": "O que foi engolido volta",
+        "Inside": "{piece} está dentro de {name}: só volta quando ele cair ou a luta acabar."
+      },
+      "Spill": "{name} ficou [{status}]: perde a força e fica com {statuses} até o fim da cena.",
+      "Thirst": {
+        "Quenched": "{name} bebeu sangue de novo: a sede passa.",
+        "Dry": "{name} passou a rodada sem ferir ninguém e seca ({n}): {statuses}. Faltam {left} rodadas assim para ele cair.",
+        "Dead": "{name} passou rodadas demais sem sangue: seca e cai."
+      },
+      "Bow": {
+        "Spares": "{name} não ataca quem se curvou ([Derrubado]): {targets}.",
+        "Leaves": "Todos se curvaram diante de {name}: ele aceita a reverência e vai embora."
+      }
     },
     "Rift": {
       "Eyebrow": "Fenda",
@@ -4295,7 +4322,8 @@
       "NoOne": "Selecione o token do personagem que vai arrancar.",
       "TooFar": "{name} precisa estar junto de {host} (no mesmo quadrado ou ao lado) para arrancar.",
       "NotYourProcess": "{name} só pode arrancar no próprio turno.",
-      "NoMinor": "{name} já gastou a Ação Menor deste turno."
+      "NoMinor": "{name} já gastou a Ação Menor deste turno.",
+      "Weighs": "{name} pesa mais em {host}: {status}."
     },
     "Gaze": {
       "GazeLabel": "Olhar",

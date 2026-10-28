@@ -1,0 +1,648 @@
+{
+  "name": "Espantalho Vivo",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/espantalho-vivo.webp",
+  "system": {
+    "health": {
+      "value": 56,
+      "max": 56,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Artificial",
+      "Magical"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 10,
+        "magic": 3
+      },
+      "speed": 2,
+      "initiative": 1
+    },
+    "rank": 1,
+    "idendification": "6",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 1
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Um espantalho de saco de estopa, com botões pretos no lugar dos olhos, chapéu furado e uma foice enferrujada amarrada no braço de pau. Fica no meio do trigal o ano inteiro, e ninguém lembra de quem o pôs ali. Nas noites de colheita, os corvos não pousam nele, e quem passa pela trilha sente o olhar de botão grudado nas costas. Quem o encara de volta não consegue mais se mexer.</p><p><b>Na mesa:</b> comum de NP 1, dos campos de trigo e das fazendas. Começa disfarçado de espantalho comum e se revela quando age ou quando o tocam. Os Olhos de Botão são um olhar: quem começa o turno a até 3 Qd dele escolhe Encarar (Resistência contra 2d6 + 4; na falha, [Medo] até se livrar com uma Ação Maior, depois [Paralisado]) ou Desviar (−1d6 nos ataques até o fim do turno). A Palha Seca queima bem: [Fraqueza (Chama): 6].</p>"
+  },
+  "prototypeToken": {
+    "name": "Espantalho Vivo",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/espantalho-vivo.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Foice Enferrujada",
+      "type": "skill",
+      "img": "icons/weapons/sickles/scythe-curved-steel.webp",
+      "system": {
+        "description": "<p>[2d6 + 8] de dano físico.</p><p>(Menor): +3 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 8,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "minor": {
+            "damage": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "clhDSzTEfiooMgDh",
+      "_key": "!actors.items!czuJxBZcek36iIu4.clhDSzTEfiooMgDh"
+    },
+    {
+      "name": "Olhos de Botão",
+      "type": "skill",
+      "img": "icons/magic/perception/eye-ringed-glow-angry-red.webp",
+      "system": {
+        "description": "<p>Quem começa o turno a até 3 Qd deste inimigo, sem estar [Cego], escolhe: Encarar (Resistência contra 2d6 + 4; na falha, fica com [Medo] até se livrar com uma Ação Maior e, se já tinha, [Paralisado]) ou Desviar o olhar (−1d6 nos ataques até o fim do turno).</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "gaze",
+            "radius": 3,
+            "dice": 2,
+            "mod": 4,
+            "steps": [
+              "frightened",
+              "paralyzed"
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "eutg3XJGObprVIhL",
+      "_key": "!actors.items!czuJxBZcek36iIu4.eutg3XJGObprVIhL"
+    },
+    {
+      "name": "Só um Espantalho",
+      "type": "skill",
+      "img": "icons/environment/settlement/scarecrow.webp",
+      "system": {
+        "description": "<p>Este inimigo entra na cena como um espantalho comum: os jogadores veem só o espantalho. Revela-se quando age, se move ou é tocado ou atacado.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "disguise",
+            "name": "Espantalho",
+            "img": "icons/skills/trades/farming-scarecrow-simple-green.webp"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "wuKcURzR7Sap5p5D",
+      "_key": "!actors.items!czuJxBZcek36iIu4.wuKcURzR7Sap5p5D"
+    },
+    {
+      "name": "Palha Seca",
+      "type": "skill",
+      "img": "icons/magic/fire/flame-burning-tree-stump.webp",
+      "system": {
+        "description": "<p>[Fraqueza (Chama): 6]: quando falha na Esquiva contra um golpe de [Chama], sofre +6 de dano direto. Não fica [Envenenado] nem [Adormecido].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "weaknessTag": "Flame",
+              "immune": [
+                "poisoned",
+                "asleep"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Palha Seca",
+          "img": "icons/magic/fire/flame-burning-tree-stump.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.weakness",
+                "type": "add",
+                "value": "6",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "o5Uzl54ZdUZvy26G",
+          "_key": "!actors.items.effects!czuJxBZcek36iIu4.g03kcame85ozrJE3.o5Uzl54ZdUZvy26G"
+        }
+      ],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "g03kcame85ozrJE3",
+      "_key": "!actors.items!czuJxBZcek36iIu4.g03kcame85ozrJE3"
+    },
+    {
+      "name": "Botão Preto",
+      "type": "gear",
+      "img": "icons/tools/fasteners/button.webp",
+      "system": {
+        "description": "<p>Um dos olhos de botão. Quem o guarda no bolso sente que alguém olha por cima do ombro.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 12,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "bZjUw6oZyzGUaJjN",
+      "sort": 500000,
+      "_key": "!actors.items!czuJxBZcek36iIu4.bZjUw6oZyzGUaJjN"
+    },
+    {
+      "name": "Foice do Trigal",
+      "type": "gear",
+      "img": "icons/weapons/sickles/scythe-curved-steel.webp",
+      "system": {
+        "description": "<p>A foice enferrujada, que corta trigo melhor que qualquer foice nova.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 28,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "SDE7dwCaoHWtkJDm",
+      "sort": 600000,
+      "_key": "!actors.items!czuJxBZcek36iIu4.SDE7dwCaoHWtkJDm"
+    },
+    {
+      "name": "Chapéu do Espantalho",
+      "type": "gear",
+      "img": "icons/equipment/head/hat-straw-cloth-mask.webp",
+      "system": {
+        "description": "<p>O chapéu furado. Pendurado na porta, nenhum corvo pousa no telhado da casa.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 45,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "3laR3hIQJyaXH3gf",
+      "sort": 700000,
+      "_key": "!actors.items!czuJxBZcek36iIu4.3laR3hIQJyaXH3gf"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 210000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "czuJxBZcek36iIu4",
+  "folder": "XA2JmuxkhmuaArlg",
+  "_key": "!actors!czuJxBZcek36iIu4"
+}

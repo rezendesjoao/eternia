@@ -1,0 +1,899 @@
+{
+  "name": "Juiz de Pedra",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/juiz-de-pedra.webp",
+  "system": {
+    "health": {
+      "value": 146,
+      "max": 146,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Artificial",
+      "Construct"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 14,
+        "magic": 9
+      },
+      "speed": 1,
+      "initiative": 3
+    },
+    "rank": 3,
+    "idendification": "9",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 2
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 3
+      }
+    },
+    "description": "<p>No salão mais fundo da Cova do Norte, diante da ossada do Dragão Branco, há uma estátua sentada num trono de gelo, com um martelo nos joelhos, um sorriso fixo de pedra e três frases gravadas na parede atrás dela, numa Língua Sagrada antiga: curvem-se diante do Juiz; provem a sua fé; ninguém sai sem ter lutado. Quando alguém entra, o sorriso abre um pouco mais, os olhos acendem e as estátuas guardiãs do salão descem dos pedestais.</p><p><b>Na mesa:</b> chefe de grupo de NP 3, o fundo da Cova do Norte, com duas Estátuas Sentinelas (e as que ele chama). Prove a Sua Fé é um Decreto: quem terminar o turno sem ter atacado na rodada fica [Cego] e [Queimando: 3]. Curvem-se: ele e as estátuas não atacam quem está [Derrubado] (os ataques corpo a corpo de quem está no chão rolam −1d6). Os Guardiões do Salão chamam mais duas estátuas uma vez por cena, e elas caem quando ele cair. As frases da parede são as regras: o grupo que as lê vence.</p>"
+  },
+  "prototypeToken": {
+    "name": "Juiz de Pedra",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/juiz-de-pedra.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 2,
+    "height": 2,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 40,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Martelo da Sentença",
+      "type": "skill",
+      "img": "icons/weapons/hammers/hammer-war-spiked.webp",
+      "system": {
+        "description": "<p>[2d6 + 21] de dano físico.</p><p>(Menor): +4 de dano.</p><p>[Destino 1]: Área (Escolha) a até 2 Qd.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 21,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "minor": {
+            "damage": 4
+          },
+          "fateOption": {
+            "fate": 1,
+            "mode": "area",
+            "range": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "EfCHSveO2yzUecKp",
+      "_key": "!actors.items!CqdCVJNEgdArZdiN.EfCHSveO2yzUecKp"
+    },
+    {
+      "name": "Olhar de Juízo",
+      "type": "skill",
+      "img": "icons/magic/light/beam-rays-yellow.webp",
+      "system": {
+        "description": "<p>Alcance 4 Qd. [2d6 + 18] de dano mágico de [Radiância].</p>",
+        "tags": [
+          "Magic Attack",
+          "Radiance"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 18,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "EfrAW8DoNEPMFXNh",
+      "_key": "!actors.items!CqdCVJNEgdArZdiN.EfrAW8DoNEPMFXNh"
+    },
+    {
+      "name": "Prove a Sua Fé",
+      "type": "skill",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow.webp",
+      "system": {
+        "description": "<p>Um Decreto, a até 4 Qd dele, enquanto ele luta: quem terminar o próprio turno sem ter atacado na rodada fica [Cego] e [Queimando: 3].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "decree": "fe"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Prove a Sua Fé",
+          "img": "icons/magic/holy/prayer-hands-glowing-yellow.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "F49BrPcrVhwnZI1R",
+          "_key": "!actors.items.effects!CqdCVJNEgdArZdiN.0woACvQU4esC0prI.F49BrPcrVhwnZI1R"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "0woACvQU4esC0prI",
+      "_key": "!actors.items!CqdCVJNEgdArZdiN.0woACvQU4esC0prI"
+    },
+    {
+      "name": "Curvem-se",
+      "type": "skill",
+      "img": "icons/magic/holy/angel-wings-gray.webp",
+      "system": {
+        "description": "<p>Ele não ataca quem está [Derrubado] (curvado diante dele).</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "bow"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "RQZJ7glJASQ1AqTb",
+      "_key": "!actors.items!CqdCVJNEgdArZdiN.RQZJ7glJASQ1AqTb"
+    },
+    {
+      "name": "Os Guardiões do Salão",
+      "type": "skill",
+      "img": "icons/commodities/treasure/statue-runed-blue-grey.webp",
+      "system": {
+        "description": "<p>Duas Estátuas Sentinelas descem dos pedestais a até 2 Qd dele e entram no combate (não deixam itens). Quando o Juiz cai, as estátuas dele caem junto.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "summon",
+            "radius": 2,
+            "bound": true,
+            "actors": [
+              {
+                "uuid": "Compendium.eternia.bestiary.Actor.gNfi1btMIgMMec8V",
+                "count": 2
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "PPvnpvoPBmD4VvDO",
+      "_key": "!actors.items!CqdCVJNEgdArZdiN.PPvnpvoPBmD4VvDO"
+    },
+    {
+      "name": "Pedra Antiga",
+      "type": "skill",
+      "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
+      "system": {
+        "description": "<p>Não fica com [Medo], [Encantado], [Envenenado], [Adormecido], [Derrubado] nem [Dominado].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "immune": [
+                "frightened",
+                "charmed",
+                "poisoned",
+                "asleep",
+                "prone",
+                "dominated"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Pedra Antiga",
+          "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "S5b3CAUFykuDAl0N",
+          "_key": "!actors.items.effects!CqdCVJNEgdArZdiN.4My8nubuGgcyTelI.S5b3CAUFykuDAl0N"
+        }
+      ],
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "4My8nubuGgcyTelI",
+      "_key": "!actors.items!CqdCVJNEgdArZdiN.4My8nubuGgcyTelI"
+    },
+    {
+      "name": "Lascas do Trono de Gelo",
+      "type": "gear",
+      "img": "icons/magic/water/barrier-ice-crystal-wall-jagged-blue.webp",
+      "system": {
+        "description": "<p>Lascas do trono, de um gelo azul que não derrete nem no fogo.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 75,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ZMqhdRMBOTFJPZ1n",
+      "sort": 700000,
+      "_key": "!actors.items!CqdCVJNEgdArZdiN.ZMqhdRMBOTFJPZ1n"
+    },
+    {
+      "name": "Olhos do Juiz",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-faceted-round-white.webp",
+      "system": {
+        "description": "<p>As duas gemas dos olhos, que ainda acendem quando alguém mente perto delas.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 170,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "eQpYQLfd01CaHibs",
+      "sort": 800000,
+      "_key": "!actors.items!CqdCVJNEgdArZdiN.eQpYQLfd01CaHibs"
+    },
+    {
+      "name": "Martelo da Sentença",
+      "type": "gear",
+      "img": "icons/weapons/hammers/hammer-war-spiked.webp",
+      "system": {
+        "description": "<p>O martelo de pedra, gravado com a mesma Língua Sagrada da parede. Nenhum homem o levanta sozinho.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 270,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "FAP39A4ApcknzL17",
+      "sort": 900000,
+      "_key": "!actors.items!CqdCVJNEgdArZdiN.FAP39A4ApcknzL17"
+    },
+    {
+      "name": "Anima-mundi 4",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 4 gasta uma Anima-mundi 4 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 4"
+        ],
+        "rank": 4,
+        "price": 30,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 108
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.UjH3cQFAVDAO0WpF",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "IIjp9fr8wS5zMww6",
+      "sort": 1000000,
+      "_key": "!actors.items!CqdCVJNEgdArZdiN.IIjp9fr8wS5zMww6"
+    },
+    {
+      "name": "Tábua dos Mandamentos",
+      "type": "gear",
+      "img": "icons/sundries/scrolls/scroll-runed-brown-purple.webp",
+      "system": {
+        "description": "<p>Um pedaço da parede do salão, com uma das frases. Um [Material-Base] de NP 3.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 1,
+        "price": 60,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ElIWLaFmICgRIk7E",
+      "sort": 1100000,
+      "_key": "!actors.items!CqdCVJNEgdArZdiN.ElIWLaFmICgRIk7E"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 250000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "CqdCVJNEgdArZdiN",
+  "folder": "nOCT1FwbTpBWjiiE",
+  "_key": "!actors!CqdCVJNEgdArZdiN"
+}

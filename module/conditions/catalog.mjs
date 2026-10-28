@@ -1,5 +1,5 @@
 /**
- * The conditions of Eternia (docs/condicoes.md): the 52 statuses added to the 23 of the base rules, and what every
+ * The conditions of Eternia (docs/condicoes.md): the 53 statuses added to the 23 of the base rules, and what every
  * status does at the table. The definitions join the system's status list (helpers/statuses.mjs); the tables below
  * are read by the mechanisms of this folder (rolls, actions, damage, turns, recovery).
  *
@@ -60,6 +60,8 @@ export const NEW_STATUSES = [
   // The fuses add up (a big stack, no threshold): each new one makes the blast bigger
   { id: "fuse", group: "bad", family: "element", img: icon("fuse"), path: "bad-status.fuse", rated: true, stack: 999 },
   { id: "cursed", group: "bad", family: "element", img: icon("cursed") },
+  // A sickness that hurts in the Cleanup and passes to the allies within 1 square (conditions/turns.mjs)
+  { id: "contagion", group: "bad", family: "element", img: icon("contagion"), path: "bad-status.contagion", rated: true },
   // The fire of Purgatory: no action, water or swim puts it out, and it stops all healing (conditions/damage.mjs)
   { id: "blackFlame", group: "bad", family: "element", img: icon("blackFlame"), path: "bad-status.blackFlame", rated: true, source: true },
   // Guard break
@@ -156,6 +158,7 @@ export const RECOVERY = {
   berserk: ["major"],
   burning: ["minor"],
   poisoned: ["major"],
+  contagion: ["major"],
   freezing: ["major"],
   fissured: ["major"],
   fuse: ["major"],

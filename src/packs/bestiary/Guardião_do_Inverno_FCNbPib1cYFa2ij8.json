@@ -1,0 +1,758 @@
+{
+  "name": "Guardião do Inverno",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/guardiao-do-inverno.webp",
+  "system": {
+    "health": {
+      "value": 240,
+      "max": 240,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 4,
+      "max": 4,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Spirit",
+      "Magical"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 12,
+        "magic": 10
+      },
+      "speed": 2,
+      "initiative": 4
+    },
+    "rank": 3,
+    "idendification": "7",
+    "hateMultiplier": "3",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 3
+      }
+    },
+    "description": "<p>Um guerreiro de armadura branca da altura de dois homens, de elmo com chifres de gelo e uma espada longa e curva de cristal, que chega dentro da nevasca quando alguém caça os flocos-vivos das encostas. Não fala. Ergue a espada, e a nevasca fica tão densa que não se vê a própria mão. Os velhos da serra ensinam o único jeito de sair vivo: soltar os flocos, largar as armas, ajoelhar-se na neve e esperar. Ele não corta quem se curva.</p><p><b>Na mesa:</b> chefe solo de NP 3, das Montanhas do Fim, e o castigo de quem caça Flocos-Vivos (o primeiro floco que cai o chama, em qualquer NP). A Reverência: ele não ataca quem está [Derrubado], e vai embora no Encerramento da rodada em que todos os inimigos dele estão [Derrubados] (ajoelhar-se é deitar o token: [Derrubado]). Para um grupo de NP 3, é uma luta de chefe: a Lâmina e a Nevasca congelam, e a Couraça de Gelo o livra de um Estado Negativo por rodada. Para um grupo de NP 1, é uma lição de etiqueta.</p>"
+  },
+  "prototypeToken": {
+    "name": "Guardião do Inverno",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/guardiao-do-inverno.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 2,
+    "height": 2,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 40,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Lâmina do Inverno",
+      "type": "skill",
+      "img": "icons/weapons/swords/sword-katana-purple.webp",
+      "system": {
+        "description": "<p>[2d6 + 31] de dano físico de [Frio], e o alvo fica [Congelando: 1].</p><p>(Menor): +5 de dano.</p><p>[Destino 1]: o golpe acerta todos os personagens engajados com este inimigo.</p>",
+        "tags": [
+          "Melee Attack",
+          "Cold"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 6,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 31,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "freezing",
+              "value": 1
+            }
+          ],
+          "minor": {
+            "damage": 5
+          },
+          "fateOption": {
+            "fate": 1,
+            "mode": "engaged"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "e1fDaSD5BZwpKPa9",
+      "_key": "!actors.items!FCNbPib1cYFa2ij8.e1fDaSD5BZwpKPa9"
+    },
+    {
+      "name": "Nevasca",
+      "type": "skill",
+      "img": "icons/magic/air/weather-clouds-snow.webp",
+      "system": {
+        "description": "<p>Área (Escolha) a até 3 Qd: [2d6 + 19] de dano mágico de [Frio], e quem é atingido fica [Congelando: 1].</p>",
+        "tags": [
+          "Magic Attack",
+          "Cold"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 6,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 19,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "freezing",
+              "value": 1
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "pyXFbGJeOwVgPvoG",
+      "_key": "!actors.items!FCNbPib1cYFa2ij8.pyXFbGJeOwVgPvoG"
+    },
+    {
+      "name": "Reverência",
+      "type": "skill",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow.webp",
+      "system": {
+        "description": "<p>Ele não ataca quem está [Derrubado] (ajoelhado na neve). No Encerramento da rodada em que todos os inimigos dele no combate estão [Derrubados] ou caídos, ele aceita a reverência e vai embora, sem deixar itens.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "bow",
+            "leave": true
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ojEFqecKy9bpja9c",
+      "_key": "!actors.items!FCNbPib1cYFa2ij8.ojEFqecKy9bpja9c"
+    },
+    {
+      "name": "Couraça de Gelo",
+      "type": "skill",
+      "img": "icons/magic/water/barrier-ice-crystal-wall-jagged-blue.webp",
+      "system": {
+        "description": "<p>No Encerramento, ele se livra de um Estado Negativo. O dano de [Frio] o cura, e ele não fica [Congelando].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "absorb": [
+                "Cold"
+              ],
+              "immune": [
+                "freezing"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Filho do Inverno",
+          "img": "icons/magic/water/barrier-ice-crystal-wall-jagged-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "gqeHTWCiTerwqQ2K",
+          "_key": "!actors.items.effects!FCNbPib1cYFa2ij8.1gw9cU33atxo22O6.gqeHTWCiTerwqQ2K"
+        }
+      ],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "cleanse",
+            "count": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "1gw9cU33atxo22O6",
+      "_key": "!actors.items!FCNbPib1cYFa2ij8.1gw9cU33atxo22O6"
+    },
+    {
+      "name": "Placa de Gelo Eterno",
+      "type": "gear",
+      "img": "icons/magic/water/barrier-ice-crystal-wall-jagged-blue.webp",
+      "system": {
+        "description": "<p>Uma placa da armadura dele, de gelo que não derrete. Os armeiros de Zakkaria brigam por ela.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 75,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "dpR7gtjDIBR1rhL4",
+      "sort": 500000,
+      "_key": "!actors.items!FCNbPib1cYFa2ij8.dpR7gtjDIBR1rhL4"
+    },
+    {
+      "name": "Chifre do Elmo",
+      "type": "gear",
+      "img": "icons/commodities/bones/horn-curved-grey-purple.webp",
+      "system": {
+        "description": "<p>Um chifre de gelo azul do elmo, frio como o fundo de um lago no inverno.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 170,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "5p12cEh2MaqvryTL",
+      "sort": 600000,
+      "_key": "!actors.items!FCNbPib1cYFa2ij8.5p12cEh2MaqvryTL"
+    },
+    {
+      "name": "Espada de Cristal Partida",
+      "type": "gear",
+      "img": "icons/weapons/swords/sword-katana-purple.webp",
+      "system": {
+        "description": "<p>A lâmina curva, partida ao meio. Mesmo quebrada, corta o vento.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 270,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "hwud7A8aVsdXTrdC",
+      "sort": 700000,
+      "_key": "!actors.items!FCNbPib1cYFa2ij8.hwud7A8aVsdXTrdC"
+    },
+    {
+      "name": "Anima-mundi 4",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 4 gasta uma Anima-mundi 4 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 4"
+        ],
+        "rank": 4,
+        "price": 30,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 108
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.UjH3cQFAVDAO0WpF",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "LPyhJWP9uoNwmQlo",
+      "sort": 800000,
+      "_key": "!actors.items!FCNbPib1cYFa2ij8.LPyhJWP9uoNwmQlo"
+    },
+    {
+      "name": "Coração da Nevasca",
+      "type": "gear",
+      "img": "icons/magic/water/snowflake-ice-blue.webp",
+      "system": {
+        "description": "<p>Um floco de neve do tamanho de uma mão, que gira devagar e esfria o ar em volta. Um [Material-Base] de NP 3.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 1,
+        "price": 60,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "fNiCIC6UC3JoUNCW",
+      "sort": 900000,
+      "_key": "!actors.items!FCNbPib1cYFa2ij8.fNiCIC6UC3JoUNCW"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 150000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "FCNbPib1cYFa2ij8",
+  "folder": "nOCT1FwbTpBWjiiE",
+  "_key": "!actors!FCNbPib1cYFa2ij8"
+}

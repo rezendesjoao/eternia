@@ -1,0 +1,545 @@
+{
+  "name": "Pisadeira",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/pisadeira.webp",
+  "system": {
+    "health": {
+      "value": 45,
+      "max": 45,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Spirit",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 6,
+        "magic": 8
+      },
+      "speed": 2,
+      "initiative": 6
+    },
+    "rank": 2,
+    "idendification": "7",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 1
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 3
+      }
+    },
+    "description": "<p>Uma velha magra e comprida, de unhas como foices e uma gargalhada que se ouve do telhado. Anda pelos telhados das aldeias nas noites de lua nova, procurando quem foi dormir de barriga cheia, e senta no peito: a vítima acorda sem conseguir se mexer nem gritar, com o peso de uma casa em cima e os olhos dela a um palmo do rosto. Nos acampamentos, ataca a guarda que cochilou.</p><p><b>Na mesa:</b> comum de NP 2, das aldeias e dos acampamentos à noite. Sentar no Peito deixa [Adormecido] quem falha na Resistência: não age, falha nas Esquivas, e só acorda com dano ou com um aliado gastando uma Ação Menor. As Unhas Compridas ferem +10 quem está [Adormecido]. Surpresa da Noite: +1d6 de dano contra quem ainda não agiu na rodada. Acordar os amigos é o turno mais importante da luta.</p>"
+  },
+  "prototypeToken": {
+    "name": "Pisadeira",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/pisadeira.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Sentar no Peito",
+      "type": "skill",
+      "img": "icons/magic/control/sleep-bubble-purple.webp",
+      "system": {
+        "description": "<p>[2d6 + 7] de dano mágico, e o alvo fica [Adormecido] (acorda com dano, ou quando alguém gasta uma Ação Menor para acordá-lo).</p>",
+        "tags": [
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 7,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "asleep"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "df1SPHXRjQoW6Dyu",
+      "_key": "!actors.items!ogNZsihlSdAapnAq.df1SPHXRjQoW6Dyu"
+    },
+    {
+      "name": "Unhas Compridas",
+      "type": "skill",
+      "img": "icons/creatures/claws/claw-curved-jagged-gray.webp",
+      "system": {
+        "description": "<p>[2d6 + 16] de dano físico; +10 contra quem está [Adormecido].</p><p>(Menor): +4 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 16,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "bonusVs": [
+            {
+              "statuses": [
+                "asleep"
+              ],
+              "value": 10
+            }
+          ],
+          "minor": {
+            "damage": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "XHgvPDGvsspB71Re",
+      "_key": "!actors.items!ogNZsihlSdAapnAq.XHgvPDGvsspB71Re"
+    },
+    {
+      "name": "Surpresa da Noite",
+      "type": "skill",
+      "img": "icons/magic/control/fear-fright-shadow-monster-red.webp",
+      "system": {
+        "description": "<p>+1d6 nas rolagens de dano contra quem ainda não agiu na rodada.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "surprise",
+            "dice": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "qNquPHKaGdQ2MGqL",
+      "_key": "!actors.items!ogNZsihlSdAapnAq.qNquPHKaGdQ2MGqL"
+    },
+    {
+      "name": "Unha de Pisadeira",
+      "type": "gear",
+      "img": "icons/commodities/bones/teeth-pointed-gray.webp",
+      "system": {
+        "description": "<p>Uma unha comprida e curva. Pendurada na cabeceira, dizem que a dona não volta.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 15,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "As1gmMfHbVU8bCn4",
+      "sort": 400000,
+      "_key": "!actors.items!ogNZsihlSdAapnAq.As1gmMfHbVU8bCn4"
+    },
+    {
+      "name": "Xale de Teia de Sótão",
+      "type": "gear",
+      "img": "icons/equipment/back/cloak-hooded-blue.webp",
+      "system": {
+        "description": "<p>O xale cinzento que ela usava, leve como teia. Quem o veste anda nos telhados sem fazer barulho.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 35,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "oX4nZpQVWqdxVnJf",
+      "sort": 500000,
+      "_key": "!actors.items!ogNZsihlSdAapnAq.oX4nZpQVWqdxVnJf"
+    },
+    {
+      "name": "Pedra do Pesadelo",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-rough-ball-purple.webp",
+      "system": {
+        "description": "<p>Uma pedra roxa que pesa mais à noite. Os curandeiros de Zakkaria a usam para tirar pesadelos de quem dorme mal, um de cada vez.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 55,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "MMMdbNriWQ2DdCY6",
+      "sort": 600000,
+      "_key": "!actors.items!ogNZsihlSdAapnAq.MMMdbNriWQ2DdCY6"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 160000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ogNZsihlSdAapnAq",
+  "folder": "AkcsXT1tICuoFTMn",
+  "_key": "!actors!ogNZsihlSdAapnAq"
+}

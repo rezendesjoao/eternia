@@ -1,0 +1,610 @@
+{
+  "name": "Cervo do Inverno",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/cervo-do-inverno.webp",
+  "system": {
+    "health": {
+      "value": 52,
+      "max": 52,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Natural",
+      "Mythic"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 10,
+        "magic": 7
+      },
+      "speed": 3,
+      "initiative": 5
+    },
+    "rank": 3,
+    "idendification": "8",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>Um cervo branco do tamanho de um cavalo de guerra, de chifres de cristal azul que tilintam como sinos quando ele corre. Os Remanescentes das vilas de cristal dizem que é o guardião das florestas geladas: onde ele pasta, a neve não mata as árvores. Os caçadores de Zakkaria dizem que um par de chifres paga um ano. Os dois estão certos, e por isso o cervo luta como quem sabe o que vale.</p><p><b>Na mesa:</b> comum de NP 3, das florestas geladas perto das vilas élficas. Os Chifres de Cristal investem até 3 Qd, empurram 2 Qd e derrubam (uma vez por rodada). A Fera Sagrada pode ser poupada: com os PV a 1/4, quem está engajado gasta a Ação Maior e rola Negociação contra a Resistência dele (o botão Salvar do cartão); vencendo, ele se acalma, sai da luta e pode virar Conexão. A Lágrima da Mata: matá-lo deixa [Maldito] (sem cura até o fim da cena) quem estiver a até 1 Qd dele.</p>"
+  },
+  "prototypeToken": {
+    "name": "Cervo do Inverno",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/cervo-do-inverno.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 2,
+    "height": 2,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Chifres de Cristal",
+      "type": "skill",
+      "img": "icons/creatures/abilities/bull-head-horns-glowing.webp",
+      "system": {
+        "description": "<p>Avança até 3 Qd. [2d6 + 21] de dano físico; o alvo é empurrado 2 Qd para longe e fica [Derrubado]. Uma vez por rodada.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 21,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "push",
+              "value": 2
+            }
+          ],
+          "hitStatuses": [
+            {
+              "statusId": "prone"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "cKhj6FwjCeMrDf9U",
+      "_key": "!actors.items!zX1TMBP3smgPH0Su.cKhj6FwjCeMrDf9U"
+    },
+    {
+      "name": "Coice",
+      "type": "skill",
+      "img": "icons/environment/creatures/horse-white.webp",
+      "system": {
+        "description": "<p>[2d6 + 18] de dano físico.</p><p>(Menor): +4 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 18,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "minor": {
+            "damage": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "LhbJhdZhOB7PIsW9",
+      "_key": "!actors.items!zX1TMBP3smgPH0Su.LhbJhdZhOB7PIsW9"
+    },
+    {
+      "name": "Fera Sagrada",
+      "type": "skill",
+      "img": "icons/creatures/mammals/spirit-deer-herd-blue.webp",
+      "system": {
+        "description": "<p>Com os PV a 1/4 ou menos, o cervo pode ser poupado: quem está engajado gasta a Ação Maior e rola Negociação contra a Resistência dele (o botão Salvar do cartão). Vencendo, ele fica [Pacificado], sai da luta sem deixar itens, e o Mestre pode fazê-lo Conexão de quem o acalmou.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "save",
+            "below": 0.25
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "PKCmQkL7IawHP8dh",
+      "_key": "!actors.items!zX1TMBP3smgPH0Su.PKCmQkL7IawHP8dh"
+    },
+    {
+      "name": "Lágrima da Mata",
+      "type": "skill",
+      "img": "icons/magic/nature/leaf-glow-teal.webp",
+      "system": {
+        "description": "<p>Quando o cervo cai, a floresta chora: quem estiver a até 1 Qd dele sofre [1d6] de dano mágico e fica [Maldito] (não recupera PV) até o fim da cena. Sem Teste de Esquiva.</p>",
+        "tags": [
+          "Curse"
+        ],
+        "timing": "Refer",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 1,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "fall",
+            "radius": 1
+          },
+          "hitStatuses": [
+            {
+              "statusId": "cursed"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "TrgGhoaMde5w2nKU",
+      "_key": "!actors.items!zX1TMBP3smgPH0Su.TrgGhoaMde5w2nKU"
+    },
+    {
+      "name": "Pelo do Cervo Branco",
+      "type": "gear",
+      "img": "icons/commodities/leather/fur-white.webp",
+      "system": {
+        "description": "<p>Um pelo branco que guarda o calor como uma lareira. Os Remanescentes não compram: tomam de quem o carrega.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "2EMS0KhbkIFNVOe1",
+      "sort": 500000,
+      "_key": "!actors.items!zX1TMBP3smgPH0Su.2EMS0KhbkIFNVOe1"
+    },
+    {
+      "name": "Ponta de Chifre de Cristal",
+      "type": "gear",
+      "img": "icons/commodities/bones/horn-antler-pink-white.webp",
+      "system": {
+        "description": "<p>Uma ponta de chifre azul que tilinta quando o vento passa.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 40,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "mPyY41dBQMW1id9c",
+      "sort": 600000,
+      "_key": "!actors.items!zX1TMBP3smgPH0Su.mPyY41dBQMW1id9c"
+    },
+    {
+      "name": "Chifres de Cristal",
+      "type": "gear",
+      "img": "icons/commodities/bones/horn-antler-pink.webp",
+      "system": {
+        "description": "<p>O par inteiro, azul e brilhante como gelo ao sol. Um ano de vida para um caçador; uma guerra, se um elfo souber de onde veio.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 70,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "iOickBGg98ng5col",
+      "sort": 700000,
+      "_key": "!actors.items!zX1TMBP3smgPH0Su.iOickBGg98ng5col"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 110000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "zX1TMBP3smgPH0Su",
+  "folder": "nOCT1FwbTpBWjiiE",
+  "_key": "!actors!zX1TMBP3smgPH0Su"
+}

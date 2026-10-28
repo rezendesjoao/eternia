@@ -1,0 +1,430 @@
+{
+  "name": "Morcego-de-Gelo",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/morcego-de-gelo.webp",
+  "system": {
+    "health": {
+      "value": 16,
+      "max": 16,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mob",
+      "Natural",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 4,
+        "magic": 4
+      },
+      "speed": 3,
+      "initiative": 4
+    },
+    "rank": 1,
+    "idendification": "5",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 0,
+        "mod": 9
+      },
+      "resistance": {
+        "dice": 0,
+        "mod": 7
+      }
+    },
+    "description": "<p>Um morcego branco de asas transparentes como gelo fino, que dorme pendurado no teto da Cova do Norte em cachos de dezenas. Tem os dentes frios: a mordida não sangra, congela. Os poucos que voltaram da Cova contam do barulho das asas no escuro, como vidro batendo, e do amigo que foi ficando duro, passo a passo, até parar.</p><p><b>Na mesa:</b> lacaio de NP 1, da Cova do Norte e das cavernas geladas da serra, em revoadas de quatro a oito. A Mordida Fria deixa [Congelando: 1]: três acúmulos congelam a vítima ([Paralisado]), e o dano de [Chama] derrete o gelo. O Enxame morde +2 por outro inimigo engajado com o alvo. Voa e enxerga pelo som: não fica [Cego].</p>"
+  },
+  "prototypeToken": {
+    "name": "Morcego-de-Gelo",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/morcego-de-gelo.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Mordida Fria",
+      "type": "skill",
+      "img": "icons/creatures/abilities/fang-tooth-blood-red.webp",
+      "system": {
+        "description": "<p>[2d6 + 17] de dano físico de [Frio], e o alvo fica [Congelando: 1].</p>",
+        "tags": [
+          "Melee Attack",
+          "Cold"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 11,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 17,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "freezing",
+              "value": 1
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "NPbLKPbOBtkPBQym",
+      "_key": "!actors.items!P11ye0Zk2D4RmZn9.NPbLKPbOBtkPBQym"
+    },
+    {
+      "name": "Enxame no Escuro",
+      "type": "skill",
+      "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
+      "system": {
+        "description": "<p>Este morcego causa +2 de dano para cada outro inimigo engajado com o alvo. Está sempre [Voando] e não fica [Cego].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "immune": [
+                "blinded"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Asas de Gelo",
+          "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "flying"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "YOgowqZsJ7pzvtSO",
+          "_key": "!actors.items.effects!P11ye0Zk2D4RmZn9.QUeVtX18ZThPLklg.YOgowqZsJ7pzvtSO"
+        }
+      ],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "pack",
+            "per": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "QUeVtX18ZThPLklg",
+      "_key": "!actors.items!P11ye0Zk2D4RmZn9.QUeVtX18ZThPLklg"
+    },
+    {
+      "name": "Asa de Gelo",
+      "type": "gear",
+      "img": "icons/creatures/abilities/wing-batlike-white-blue.webp",
+      "system": {
+        "description": "<p>Uma asa transparente, fria como gelo, que não derrete. Os vidraceiros de Zakkaria a usam para colorir vitrais.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 5,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "RRATmpSGaBWjVHcf",
+      "sort": 300000,
+      "_key": "!actors.items!P11ye0Zk2D4RmZn9.RRATmpSGaBWjVHcf"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 310000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "P11ye0Zk2D4RmZn9",
+  "folder": "XA2JmuxkhmuaArlg",
+  "_key": "!actors!P11ye0Zk2D4RmZn9"
+}

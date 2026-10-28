@@ -1,0 +1,650 @@
+{
+  "name": "Coisa-Sem-Nome",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/coisa-sem-nome.webp",
+  "system": {
+    "health": {
+      "value": 60,
+      "max": 60,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Spirit",
+      "Cryptid",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 9,
+        "magic": 8
+      },
+      "speed": 2,
+      "initiative": 4
+    },
+    "rank": 3,
+    "idendification": "9",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 2
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>Ninguém sabe a forma dela, porque ela não tem: é o que mora no poço velho, debaixo da escada, no armário do quarto das crianças. No escuro é uma mancha que respira e garras que arranham. Os velhos de Norlangarth têm uma regra: nunca dê nome ao que mora na casa. Quem o nomeia lhe dá forma, e a forma que ela toma é sempre a do medo de quem a nomeou, maior a cada vez.</p><p><b>Na mesa:</b> comum de NP 3, das casas antigas, dos poços e dos porões das aldeias. O Nome dá Forma vira do avesso o costume de identificar tudo: a primeira vez na cena que ela fica [Identificada], ganha [Fortalecido: 8] e [Acelerado] até o fim da cena. Os Sussurros no Escuro dão [Medo] em área uma vez por cena. Sem Forma: não fica [Encantada], [Pacificada] nem [Dominada]. O grupo que luta sem ver os números dela luta contra a coisa menor.</p>"
+  },
+  "prototypeToken": {
+    "name": "Coisa-Sem-Nome",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/coisa-sem-nome.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Garras do Escuro",
+      "type": "skill",
+      "img": "icons/creatures/claws/claw-hooked-purple.webp",
+      "system": {
+        "description": "<p>[2d6 + 17] de dano físico.</p><p>(Menor): +3 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 17,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "minor": {
+            "damage": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "XWhXcT6ayQwcmnfl",
+      "_key": "!actors.items!PO4U3oIXGODWY0pq.XWhXcT6ayQwcmnfl"
+    },
+    {
+      "name": "O Nome dá Forma",
+      "type": "skill",
+      "img": "icons/magic/perception/eye-tendrils-web-purple.webp",
+      "system": {
+        "description": "<p>A primeira vez na cena que ela fica [Identificada], toma a forma do medo de quem a nomeou: [Fortalecido: 8] e [Acelerado] até o fim da cena.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "spill",
+            "when": [
+              "identified"
+            ],
+            "statuses": [
+              {
+                "statusId": "empowered",
+                "value": 8
+              },
+              {
+                "statusId": "hasted"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "5OlJCTcgKUZV3jx1",
+      "_key": "!actors.items!PO4U3oIXGODWY0pq.5OlJCTcgKUZV3jx1"
+    },
+    {
+      "name": "Sussurros no Escuro",
+      "type": "skill",
+      "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
+      "system": {
+        "description": "<p>Uma vez por cena. Área (Escolha) a até 3 Qd: quem falha na Resistência fica com [Medo] dela.</p>",
+        "tags": [
+          "Magic Attack"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "frightened"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "cNRmOLBFig6KY69B",
+      "_key": "!actors.items!PO4U3oIXGODWY0pq.cNRmOLBFig6KY69B"
+    },
+    {
+      "name": "Sem Forma",
+      "type": "skill",
+      "img": "icons/magic/control/fear-fright-shadow-monster-red.webp",
+      "system": {
+        "description": "<p>Não fica [Encantada], [Pacificada], [Dominada], [Derrubada] nem [Agarrada].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "immune": [
+                "charmed",
+                "pacified",
+                "dominated",
+                "prone",
+                "grappled"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Sem Forma",
+          "img": "icons/magic/control/fear-fright-shadow-monster-red.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "ActQbPi7hKIDEa86",
+          "_key": "!actors.items.effects!PO4U3oIXGODWY0pq.oNlB3jpyIHYycLGT.ActQbPi7hKIDEa86"
+        }
+      ],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "oNlB3jpyIHYycLGT",
+      "_key": "!actors.items!PO4U3oIXGODWY0pq.oNlB3jpyIHYycLGT"
+    },
+    {
+      "name": "Poeira do Armário",
+      "type": "gear",
+      "img": "icons/commodities/materials/powder-black.webp",
+      "system": {
+        "description": "<p>Um pó negro que se mexe sozinho dentro do frasco, na direção de quem tem medo.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Nohfq59zdeu2c2ge",
+      "sort": 500000,
+      "_key": "!actors.items!PO4U3oIXGODWY0pq.Nohfq59zdeu2c2ge"
+    },
+    {
+      "name": "Capa Verde de Capuz",
+      "type": "gear",
+      "img": "icons/equipment/back/cloak-hooded-green-gold.webp",
+      "system": {
+        "description": "<p>Uma capa verde que estava no fundo do poço. Dizem que as coisas sem nome vão embora vestidas com ela, se a deixam junto ao fogo.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 40,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "xihYwVEXY5aY4Qz8",
+      "sort": 600000,
+      "_key": "!actors.items!PO4U3oIXGODWY0pq.xihYwVEXY5aY4Qz8"
+    },
+    {
+      "name": "Nome Esquecido",
+      "type": "gear",
+      "img": "icons/sundries/scrolls/scroll-bound-black-tan.webp",
+      "system": {
+        "description": "<p>Um papel com um nome escrito que ninguém consegue ler em voz alta. Os escribas da Igreja o guardam trancado.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 70,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "NnvNgpac3QUSuIV6",
+      "sort": 700000,
+      "_key": "!actors.items!PO4U3oIXGODWY0pq.NnvNgpac3QUSuIV6"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 130000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "PO4U3oIXGODWY0pq",
+  "folder": "nOCT1FwbTpBWjiiE",
+  "_key": "!actors!PO4U3oIXGODWY0pq"
+}

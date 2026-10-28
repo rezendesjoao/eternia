@@ -13,7 +13,8 @@
  *   noKill    true: its damage cards stop at 1 HP. Only the conditions fell (the Praga's Taboo).
  * On a defender's effect:
  *   healingHurts "allySpell": the healing an ally's spell would give turns into direct damage (O Soberano's Taboo;
- *             the card's healing branch treats it like [Inversion]: allySpellHurts).
+ *             the card's healing branch treats it like [Inversion]: allySpellHurts); "any": every healing card does (the
+ *             Inside-Out Imp of the bestiary).
  * And the conditional on-hit statuses (hitStatuses): `targetTags` (only on a target with one of the tags) and
  * `belowHp` (only on a target that ends the hit with that many HP or less, worked out when the card is made).
  */
@@ -149,9 +150,12 @@ export function hitApplies(actor, status, hp) {
  * @returns {string|null}   The name of the effect that turns it, or null
  */
 export function allySpellHurts(actor, card) {
-  if (!rulesOn() || !card?.recovery) return null;
-  const taboo = [...(actor?.allApplicableEffects?.() ?? [])].find(e => e.active && (e.getFlag(SYSTEM_ID, "healingHurts") === "allySpell"));
+  if (!rulesOn()) return null;
+  const taboo = [...(actor?.allApplicableEffects?.() ?? [])].find(e => e.active && ["allySpell", "any"].includes(e.getFlag(SYSTEM_ID, "healingHurts")));
   if (!taboo) return null;
+  // "any": every healing a card gives it hurts (the Inside-Out Imp, bestiary)
+  if (taboo.getFlag(SYSTEM_ID, "healingHurts") === "any") return taboo.name;
+  if (!card?.recovery) return null;
   const { item, attacker } = cardSource(card);
   if (!attacker || sameActor(attacker, actor) || (sideOn(attacker) !== sideOn(actor))) return null;
   return (item?.system?.tags ?? []).some(t => String(t).toLowerCase() === "spell") ? taboo.name : null;

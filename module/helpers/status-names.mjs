@@ -27,7 +27,9 @@ export const LINKABLE = {
   grudge: { rated: true },
   // The conditions shared by the Magias of the high categories (0.28)
   petrified: {}, pacified: {}, agony: { rated: true }, amnesia: {}, nightmare: { rated: true }, impetus: { rated: true },
-  combo: { rated: true }, untouchable: {}, inversion: {}, rhythm: { rated: true }, clones: { rated: true }
+  combo: { rated: true }, untouchable: {}, inversion: {}, rhythm: { rated: true }, clones: { rated: true },
+  // The sickness of the bestiary's expansion (0.47)
+  contagion: { rated: true }
 };
 
 /** Extra names some texts use. */
@@ -43,7 +45,7 @@ export const SYNONYMS = {
   "last stand": "lastStand", awaken: "awakened", transformação: "awakened", link: "bond",
   soak: "soaked", molhado: "soaked", weaken: "weakened", enfraquecer: "weakened", dominate: "dominated",
   dominação: "dominated", servo: "servant",
-  "fogo negro": "blackFlame", "chamas negras": "blackFlame", hellblaze: "blackFlame", "the one": "theOne",
+  contagio: "contagion", "contágio": "contagion", peste: "contagion", "fogo negro": "blackFlame", "chamas negras": "blackFlame", hellblaze: "blackFlame", "the one": "theOne",
   "contra-ataque": "counter", vingança: "grudge",
   petrify: "petrified", petrificação: "petrified", pedra: "petrified", pacify: "pacified", pacificar: "pacified",
   "dor": "agony", amnésia: "amnesia", esquecimento: "amnesia", pesadelos: "nightmare", ímpeto: "impetus",

@@ -1,0 +1,596 @@
+{
+  "name": "Bocarra Pútrida",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/bocarra-putrida.webp",
+  "system": {
+    "health": {
+      "value": 46,
+      "max": 46,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Plant",
+      "Natural"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 8,
+        "magic": 10
+      },
+      "speed": 0,
+      "initiative": 3
+    },
+    "rank": 3,
+    "idendification": "8",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 1
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>Uma planta do tamanho de uma cabana, toda boca: um bulbo verde-escuro cheio de dentes, cercado de vinhas com bocas menores nas pontas, plantado no meio do pântano como um poço podre. O hálito dela é tudo de ruim ao mesmo tempo: quem respira tosse, chora, esquece o caminho, perde a voz, cai no sono. Os sapos do pântano vivem em volta dela e comem o que ela larga.</p><p><b>Na mesa:</b> comum de NP 3, do fundo dos pântanos. O Hálito Fétido, em área, deixa em cada um que acerta um estado ao acaso: [Envenenado: 4], [Cego], [Confuso], [Lento] ou [Silenciado]. A Vinha Mordedora alcança 2 Qd e puxa. Não sai do lugar (Velocidade 0) nem fica [Derrubada], [Agarrada] ou [Enraizada]. Bater de longe, fora do alcance da vinha, e espalhar-se contra o hálito é o jogo.</p>"
+  },
+  "prototypeToken": {
+    "name": "Bocarra Pútrida",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/bocarra-putrida.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 2,
+    "height": 2,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Hálito Fétido",
+      "type": "skill",
+      "img": "icons/magic/air/fog-gas-smoke-dense-green.webp",
+      "system": {
+        "description": "<p>Área (Escolha) a até 3 Qd: [2d6 + 9] de dano mágico de [Veneno], e cada um que é atingido fica com um destes, ao acaso: [Envenenado: 4], [Cego], [Confuso], [Lento] ou [Silenciado].</p>",
+        "tags": [
+          "Magic Attack",
+          "Poison"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 3,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 9,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "randomHit": [
+            {
+              "statusId": "poisoned",
+              "value": 4
+            },
+            {
+              "statusId": "blinded"
+            },
+            {
+              "statusId": "confused"
+            },
+            {
+              "statusId": "slowed"
+            },
+            {
+              "statusId": "silenced"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Kt0cna1bC78uaeQp",
+      "_key": "!actors.items!up9d4DNE9O9SHZH8.Kt0cna1bC78uaeQp"
+    },
+    {
+      "name": "Vinha Mordedora",
+      "type": "skill",
+      "img": "icons/consumables/plants/thorned-curled-vine-green.webp",
+      "system": {
+        "description": "<p>Alcance 2 Qd. [2d6 + 13] de dano físico, e o alvo é puxado para o quadrado dela.</p><p>(Menor): +3 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "2Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 13,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "pull"
+            }
+          ],
+          "minor": {
+            "damage": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "aEQ034olYES9eO36",
+      "_key": "!actors.items!up9d4DNE9O9SHZH8.aEQ034olYES9eO36"
+    },
+    {
+      "name": "Raízes no Lodo",
+      "type": "skill",
+      "img": "icons/consumables/plants/dried-stem-vine-root-bramble-brown.webp",
+      "system": {
+        "description": "<p>Não sai do lugar (Velocidade 0). Não fica [Derrubada], [Agarrada], [Enraizada] nem [Envenenada].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "immune": [
+                "prone",
+                "grappled",
+                "rooted",
+                "poisoned"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Raízes no Lodo",
+          "img": "icons/consumables/plants/dried-stem-vine-root-bramble-brown.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "N79ZghQiT5cCU1oh",
+          "_key": "!actors.items.effects!up9d4DNE9O9SHZH8.o5EOB3BQhBCbC8sn.N79ZghQiT5cCU1oh"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "o5EOB3BQhBCbC8sn",
+      "_key": "!actors.items!up9d4DNE9O9SHZH8.o5EOB3BQhBCbC8sn"
+    },
+    {
+      "name": "Seiva Fétida",
+      "type": "gear",
+      "img": "icons/consumables/potions/potion-jar-corked-green.webp",
+      "system": {
+        "description": "<p>Um pote de seiva verde. Os boticários fazem dela o sal de cheirar que acorda desmaiado.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "vuvDyeadsQkVhmTy",
+      "sort": 400000,
+      "_key": "!actors.items!up9d4DNE9O9SHZH8.vuvDyeadsQkVhmTy"
+    },
+    {
+      "name": "Dentes de Bulbo",
+      "type": "gear",
+      "img": "icons/commodities/bones/teeth-sharp-white.webp",
+      "system": {
+        "description": "<p>Dentes verdes de planta, duros como osso. Os caçadores do pântano fazem pontas de flecha com eles.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 40,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Ab1iRQnRG6M387FH",
+      "sort": 500000,
+      "_key": "!actors.items!up9d4DNE9O9SHZH8.Ab1iRQnRG6M387FH"
+    },
+    {
+      "name": "Flor do Pântano",
+      "type": "gear",
+      "img": "icons/commodities/flowers/flower-grey-orange.webp",
+      "system": {
+        "description": "<p>A única flor que a bocarra dá, uma vez a cada sete anos. Seca, cura qualquer veneno.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 70,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "jW7Nlkhxp3EWTbQr",
+      "sort": 600000,
+      "_key": "!actors.items!up9d4DNE9O9SHZH8.jW7Nlkhxp3EWTbQr"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 160000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "up9d4DNE9O9SHZH8",
+  "folder": "nOCT1FwbTpBWjiiE",
+  "_key": "!actors!up9d4DNE9O9SHZH8"
+}

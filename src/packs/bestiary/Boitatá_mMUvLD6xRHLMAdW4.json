@@ -1,0 +1,778 @@
+{
+  "name": "Boitatá",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/boitata.webp",
+  "system": {
+    "health": {
+      "value": 96,
+      "max": 96,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Spirit",
+      "Mythic"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 10,
+        "magic": 9
+      },
+      "speed": 3,
+      "initiative": 5
+    },
+    "rank": 3,
+    "idendification": "9",
+    "hateMultiplier": "3",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>Uma serpente de fogo-fátuo do comprimento de um rio, com dois olhos enormes que brilham como faróis e um corpo de chamas azuis e amarelas que não queima as árvores, só quem as derruba. Desperta quando alguém incendeia a floresta ou derruba árvore demais, e caça os culpados à noite. Quem olha os olhos dela fica cego de medo; quem toca o corpo dela, queima. Os lenhadores de Rulid deixam um prato de comida na beira do bosque antes de cada inverno.</p><p><b>Na mesa:</b> chefe de grupo de NP 3, das florestas fundas, com dois Gravetos-Praga ou duas Mudas do Giga Cedro (que não queimam). Os Olhos de Fogo são um olhar: quem começa o turno a até 3 Qd escolhe Encarar (Resistência contra 2d6 + 6; na falha, [Medo] e, depois, [Cego]) ou Desviar (−1d6 nos ataques). A Mordida de Brasa queima. O Corpo de Fogo-Fátuo come a [Chama], queima quem a golpeia de perto e tem [Fraqueza (Água): 6]. O Rastro de Fogo fere todos a até 1 Qd dela no Encerramento.</p>"
+  },
+  "prototypeToken": {
+    "name": "Boitatá",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/boitata.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 2,
+    "height": 2,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 40,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Mordida de Brasa",
+      "type": "skill",
+      "img": "icons/creatures/abilities/mouth-teeth-fire-orange.webp",
+      "system": {
+        "description": "<p>[2d6 + 12] de dano mágico de [Chama], e o alvo fica [Queimando: 4].</p><p>(Menor): +3 de dano.</p><p>[Destino 1]: Área (Escolha) a até 2 Qd.</p>",
+        "tags": [
+          "Melee Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 12,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "burning",
+              "value": 4
+            }
+          ],
+          "minor": {
+            "damage": 3
+          },
+          "fateOption": {
+            "fate": 1,
+            "mode": "area",
+            "range": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "3Ufkjvij04gooLOz",
+      "_key": "!actors.items!mMUvLD6xRHLMAdW4.3Ufkjvij04gooLOz"
+    },
+    {
+      "name": "Olhos de Fogo",
+      "type": "skill",
+      "img": "icons/magic/perception/eye-ringed-glow-angry-large-red.webp",
+      "system": {
+        "description": "<p>Quem começa o turno a até 3 Qd dela, sem estar [Cego], escolhe: Encarar (Resistência contra 2d6 + 6; na falha, fica com [Medo] até se livrar com uma Ação Maior e, se já tinha, [Cego]) ou Desviar o olhar (−1d6 nos ataques até o fim do turno).</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "gaze",
+            "radius": 3,
+            "dice": 2,
+            "mod": 6,
+            "steps": [
+              "frightened",
+              "blinded"
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "sxxI2CS29IRUn08a",
+      "_key": "!actors.items!mMUvLD6xRHLMAdW4.sxxI2CS29IRUn08a"
+    },
+    {
+      "name": "Corpo de Fogo-Fátuo",
+      "type": "skill",
+      "img": "icons/magic/fire/flame-burning-creature-skeleton.webp",
+      "system": {
+        "description": "<p>Quem a fere com um golpe corpo a corpo fica [Queimando: 3]. O dano de [Chama] a cura. [Fraqueza (Água): 6]. Não fica [Queimando] nem com [Medo].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "absorb": [
+                "Flame"
+              ],
+              "weaknessTag": "Water",
+              "immune": [
+                "burning",
+                "frightened"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Corpo de Fogo-Fátuo",
+          "img": "icons/magic/fire/flame-burning-creature-skeleton.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.weakness",
+                "type": "add",
+                "value": "6",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "Y5tKnZ3JaiKDIOH4",
+          "_key": "!actors.items.effects!mMUvLD6xRHLMAdW4.dcBfnQx8E0uqTjzS.Y5tKnZ3JaiKDIOH4"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "contact",
+            "close": true,
+            "statuses": [
+              {
+                "statusId": "burning",
+                "value": 3
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "dcBfnQx8E0uqTjzS",
+      "_key": "!actors.items!mMUvLD6xRHLMAdW4.dcBfnQx8E0uqTjzS"
+    },
+    {
+      "name": "Rastro de Fogo",
+      "type": "skill",
+      "img": "icons/magic/fire/flame-burning-tree-stump.webp",
+      "system": {
+        "description": "<p>No Encerramento, quem estiver a até 1 Qd dela sofre [2d6 + 6] de dano mágico de [Chama], sem Teste de Esquiva.</p>",
+        "tags": [
+          "Flame"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 6,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "pulse",
+            "radius": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "j4xU4AJh7pEdjgNa",
+      "_key": "!actors.items!mMUvLD6xRHLMAdW4.j4xU4AJh7pEdjgNa"
+    },
+    {
+      "name": "Escamas de Fogo-Fátuo",
+      "type": "gear",
+      "img": "icons/magic/fire/flame-burning-embers-yellow.webp",
+      "system": {
+        "description": "<p>Escamas de luz que esquentam a mão sem queimar. Os ferreiros de Southcroith as querem para as forjas que não podem apagar.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 75,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "lXqqrGQ0EtYMw1n4",
+      "sort": 500000,
+      "_key": "!actors.items!mMUvLD6xRHLMAdW4.lXqqrGQ0EtYMw1n4"
+    },
+    {
+      "name": "Olho de Farol",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-rough-cushion-yellow.webp",
+      "system": {
+        "description": "<p>Um dos olhos, uma pedra amarela que ilumina a sala inteira e mostra o caminho de quem se perdeu na mata.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 170,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "j7JN1IIS0IRK6HXZ",
+      "sort": 600000,
+      "_key": "!actors.items!mMUvLD6xRHLMAdW4.j7JN1IIS0IRK6HXZ"
+    },
+    {
+      "name": "Coração de Brasa Azul",
+      "type": "gear",
+      "img": "icons/magic/fire/orb-vortex.webp",
+      "system": {
+        "description": "<p>Uma brasa azul do tamanho de um punho que não apaga nunca. A Igreja manda buscá-la para o altar da Catedral.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 270,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "YLkldX3wvr0eLamQ",
+      "sort": 700000,
+      "_key": "!actors.items!mMUvLD6xRHLMAdW4.YLkldX3wvr0eLamQ"
+    },
+    {
+      "name": "Anima-mundi 4",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 4 gasta uma Anima-mundi 4 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 4"
+        ],
+        "rank": 4,
+        "price": 30,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 108
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.UjH3cQFAVDAO0WpF",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "pYaTjbGWfxpV1R38",
+      "sort": 800000,
+      "_key": "!actors.items!mMUvLD6xRHLMAdW4.pYaTjbGWfxpV1R38"
+    },
+    {
+      "name": "Chama da Guardiã",
+      "type": "gear",
+      "img": "icons/magic/fire/flame-burning-embers-yellow.webp",
+      "system": {
+        "description": "<p>Uma chama azul presa numa pedra, que só queima quem derruba árvore. Um [Material-Base] de NP 3.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 1,
+        "price": 60,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "KOeowHvkjYPippWw",
+      "sort": 900000,
+      "_key": "!actors.items!mMUvLD6xRHLMAdW4.KOeowHvkjYPippWw"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 120000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "mMUvLD6xRHLMAdW4",
+  "folder": "nOCT1FwbTpBWjiiE",
+  "_key": "!actors!mMUvLD6xRHLMAdW4"
+}

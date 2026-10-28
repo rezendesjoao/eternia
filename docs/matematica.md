@@ -1,8 +1,8 @@
 # A matemática da Eternia
 
 Este documento é a régua do sistema. Toda classe, Magia, habilidade de raça ou criatura nova é medida contra ele antes
-de entrar no compêndio: os números de cada seção são os que as 14 classes, as 97 Magias, as 8 raças e as 52 criaturas
-do Império seguem desde a 0.42. As contas vêm de um simulador (Monte Carlo de lutas, com os dados e as regras de
+de entrar no compêndio: os números de cada seção são os que as 14 classes, as 97 Magias, as 8 raças e as 104 criaturas
+do bestiário seguem (as 52 do Império desde a 0.42, as 52 de Norlangarth desde a 0.47). As contas vêm de um simulador (Monte Carlo de lutas, com os dados e as regras de
 `module/helpers/combat-cards.mjs`), em `Desktop/Daggerheart/Eternia-Balanceamento/simulador` (fora do repositório; a
 seção 8 diz como rodar). Onde este documento e uma regra do compêndio discordarem, vale a regra, e o documento está
 desatualizado.
@@ -352,6 +352,77 @@ mortos que o Necromante levanta e a [Névoa de Cinza]; a aura de [Congelando] e 
 "Quantas no alvo" é o maior número delas que fica até o alvo + 10 pontos. A migração `bestiary` (versão 2) leva o dano
 novo às criaturas que já estão nos mundos.
 
+### Norlangarth na 0.47
+
+As 52 criaturas novas de NP 1 a 3 (as florestas, as aldeias, as minas, os lagos, as Montanhas do Fim, as catacumbas e a Cova
+do Norte) partiram do Guia (o PV, as defesas e os testes do Tipo E) e tiveram o dano calibrado no simulador: `calib-new.js`
+mede cada uma no encontro dela e `tune-new.js` acha o fator no dano dos ataques e do (Menor) que a leva ao alvo (as auras
+do Encerramento ficam como foram desenhadas). Quem tem o que o simulador não conta (multiplicar-se, chamar outros, cópias,
+[Intangível], maldições, comer o equipamento, ossos que remontam, auras de controle, disfarce) ficou **abaixo** do alvo
+de propósito, pela regra do item 3 de "Criar uma criatura"; a última coluna diz o quê. A coluna "Por encontro" é quantas
+cabem no alvo + 10 num grupo de 4 (a conta do `weights.js`): as novas foram feitas para o encontro padrão, 4 comuns ou 6
+lacaios.
+
+| NP | Criatura | Tipo | Encontro dela | Por encontro | O que a conta não pega (e a deixa abaixo) |
+|---|---|---|---|---|---|
+| 1 | Batedor do Grisu | lacaio | 6 dela: 67% | 6 | os Pavios que somam |
+| 1 | Besouro-Moeda | lacaio | 6 dela: 69% | 6 | o disfarce de tesouro |
+| 1 | Boneco de Neve Vivo | comum | 4 dela: 70% | 4 | o [Congelando] que paralisa, a neve que explode |
+| 1 | Caveira Errante | lacaio | 6 dela: 60% | 6 | o [Desarmado] |
+| 1 | Coelho-Chifrudo | lacaio | 6 dela: 58% | 6 | a Ninhada (mais coelhos a cada rodada sem ferimento) |
+| 1 | Corvos Ladrões | comum | 2 dela: 74% | 2 | tropa: conta como 2 comuns; foge na metade dos PV |
+| 1 | Cão da Estrada | comum | 4 dela: 71% | 4 | o avanço de graça, +8 contra quem caiu |
+| 1 | Diabrete do Azar | lacaio | 6 dela: 60% | 6 | a aura de [Presunçoso] |
+| 1 | Duende do Avesso | comum | 4 dela: 59% | 4 | o dano físico o cura |
+| 1 | Espantalho Vivo | comum | 4 dela: 58% | 4 | o olhar ([Medo], [Paralisado]), o disfarce |
+| 1 | Estalactite Viva | lacaio | 6 dela: 67% | 6 | o disfarce no teto |
+| 1 | Floco-Vivo | lacaio | 6 dela: 9% | à vontade | inofensivo: o perigo é o Guardião do Inverno que ele chama |
+| 1 | Graveto-Praga | lacaio | 6 dela: 64% | 6 | o disfarce, o fogo que não pega |
+| 1 | Lagartixa-Tesouro | comum | 4 dela: 17% | à vontade | evento de tesouro: foge na 3ª rodada |
+| 1 | Morcego-de-Gelo | lacaio | 6 dela: 63% | 6 | o [Congelando] que paralisa |
+| 1 | Mão-de-Lodo | comum | 4 dela: 65% | 4 | começa [Oculta]; [Agarrado] e [Nadando] |
+| 1 | Nepente Faminta | comum | 4 dela: 58% | 4 | o Fruto chama 1d2 nepentes |
+| 1 | Nepente-Mãe | chefe de grupo | ele + 2 comuns: 79% | — | o encanto que puxa, as filhas que chama |
+| 1 | Raposa-das-Neves | comum | 4 dela: 60% | 4 | as cópias ([Clones]) |
+| 1 | Ratazana do Celeiro | lacaio | 6 dela: 68% | 6 | o [Contágio] que passa adiante |
+| 1 | Rei dos Ratos | chefe de grupo | ele + 2 comuns: 80% | — | as ratazanas que se soltam |
+| 1 | Sapo-Boca-de-Poço | comum | 4 dela: 62% | 4 | engolir (tira um personagem da luta) |
+| 2 | Aranha-Isca | comum | 4 dela: 63% | 4 | a isca disfarçada, o encanto que puxa |
+| 2 | Armadura-Colônia | comum | 4 dela: 63% | 4 | metade do dano de [Lâmina] e [Contundente] |
+| 2 | Ceifeira do Meio-Dia | chefe de grupo | ele + 2 comuns: 84% | — | o Decreto da Fé |
+| 2 | Criança-Fardo | comum | 4 dela: 64% | 4 | o peso ([Lento], [Enraizado], [Derrubado]) |
+| 2 | Cão da Maldição | comum | 4 dela: 57% | 4 | a [Sentença: 3] que só sai com a morte daquele cão |
+| 2 | Devorador de Escudos | comum | 4 dela: 63% | 4 | engole o escudo ou a armadura |
+| 2 | Fogo-Fátuo | comum | 4 dela: 60% | 4 | [Intangível], o encanto que puxa, o Último Suspiro |
+| 2 | Kappa | comum | 4 dela: 71% | 4 | fica fraco quando derrubado (a conta não dá esse desconto) |
+| 2 | Lasca-Sussurrante | lacaio | 6 dela: 56% | 6 | a magia a divide; estoura ao cair |
+| 2 | Muda do Giga Cedro | comum | 4 dela: 71% | 4 | imune a fogo, Anulação 4, a cura das raízes |
+| 2 | Mão do Teto | comum | 4 dela: 71% | 4 | começa [Oculta]; separa o grupo |
+| 2 | Pisadeira | comum | 4 dela: 68% | 4 | o [Adormecido] e +10 contra quem dorme |
+| 2 | Rasura | comum | 4 dela: 67% | 4 | a forma que muda (Anulação, [Espelho], [Regeneração]…) |
+| 2 | Serpente de Presas Azuis | chefe de grupo | ele + 2 comuns: 85% | — | o abraço que suga 6 PV por rodada |
+| 3 | Boca-Balbuciante | comum | 4 dela: 67% | 4 | a aura de [Confuso] |
+| 3 | Bocarra Pútrida | comum | 4 dela: 70% | 4 | o estado ao acaso do hálito |
+| 3 | Boitatá | chefe de grupo | ele + 2 comuns: 85% | — | o olhar, o fogo de quem a golpeia |
+| 3 | Cavalo-d'Água | comum | 4 dela: 68% | 4 | engolir, o disfarce, a crina que cola |
+| 3 | Caveira Flamejante | comum | 4 dela: 68% | 4 | volta das cinzas uma vez |
+| 3 | Cervo do Inverno | comum | 4 dela: 68% | 4 | pode ser poupado; o [Maldito] ao morrer |
+| 3 | Coisa-Sem-Nome | comum | 4 dela: 65% | 4 | cresce quando identificada |
+| 3 | Cão de Ossos de Dragão | comum | 4 dela: 60% | 4 | remonta duas vezes (menos contra [Contundente] e [Radiância]) |
+| 3 | Draugr do Túmulo | chefe de grupo | ele + 2 comuns: 84% | — | crescer, erguer os caídos |
+| 3 | Estátua Sentinela | lacaio | 6 dela: 62% | 6 | metade do dano físico; prende a arma ao cair |
+| 3 | Gorro-Vermelho | comum | 4 dela: 74% | 4 | a cura pelo golpe; a sede pode matá-lo |
+| 3 | Guardião do Inverno | chefe solo | sozinho: 74% | — | poupa e vai embora quando todos se curvam |
+| 3 | Juiz de Pedra | chefe de grupo | ele + 2 comuns: 81% | — | o Decreto da Fé, a reverência, as estátuas |
+| 3 | Névoa-Mentirosa | comum | 4 dela: 67% | 4 | a névoa que deixa todos [Ocultos], o encanto |
+| 3 | Reflexo de Gelo | comum | 4 dela: 67% | 4 | o [Espelho: 5], copiar o rosto |
+| 3 | Verme de Gelo | comum | 4 dela: 63% | 4 | a explosão de gelo ao cair |
+
+O simulador ganhou três coisas na 0.47: os ataques com limite "n/Cena" (a Queda do Teto) só são usados n vezes por luta,
+o [Pavio] e o [Contágio] contam como dano por rodada (1 e 3 rodadas), e o `pulseK` deixa uma aura de Encerramento fora do
+fator. O Floco-Vivo e a Lagartixa-Tesouro não foram calibrados: um é inofensivo e chama o Guardião do Inverno (chefe solo
+de NP 3) quando o primeiro cai, o outro é um evento de tesouro.
+
 ## 8. Como refazer as contas
 
 O simulador fica em `Desktop/Daggerheart/Eternia-Balanceamento/simulador` (Node, sem dependências) e lê o compêndio
@@ -364,6 +435,8 @@ node races-final.js   # o valor das raças (seção 6)
 node magias-score.js && node tabu.js                  # as Magias e os Tabus (seção 5)
 node calib.js         # cada criatura do Império no encontro dela, e o fator que a leva ao alvo (seção 7)
 node weights.js       # quantas de cada comum cabem no alvo
+node calib-new.js     # as criaturas de Norlangarth (0.47) no encontro delas, contra a faixa
+node tune-new.js      # o fator de dano que leva cada uma ao alvo dela (tune-new.json; apply-tune.py o aplica nos lotes)
 node calib-guide4.js && node doc-table.js             # a tabela do comum por NP (seção 7)
 ```
 

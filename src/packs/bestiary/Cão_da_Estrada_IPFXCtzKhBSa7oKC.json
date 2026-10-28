@@ -1,0 +1,487 @@
+{
+  "name": "Cão da Estrada",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/cao-da-estrada.webp",
+  "system": {
+    "health": {
+      "value": 36,
+      "max": 36,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mythic",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 6,
+        "magic": 4
+      },
+      "speed": 2,
+      "initiative": 3
+    },
+    "rank": 1,
+    "idendification": "7",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 2
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Um cão negro do tamanho de um bezerro, de olhos amarelos, que aparece atrás de quem anda sozinho pela estrada depois do sino da noite. Não ataca. Segue: para quando você para, anda quando você anda, e chega mais perto a cada curva. Os velhos ensinam que ele só morde quem tropeça, e por isso ninguém corre. Quem cai na frente dele não levanta mais.</p><p><b>Na mesa:</b> comum de NP 1, das estradas à noite e das trilhas entre as aldeias. Seguir os Passos o faz avançar até um inimigo uma vez por rodada, sem gastar ação. O Latido Rouco derruba quem ele morde (o (Menor)), e Quem Cai, Não Levanta dá +8 de dano contra quem está [Derrubado]. Levantar (a Ação de Movimento) e manter os pés firmes é o jogo.</p>"
+  },
+  "prototypeToken": {
+    "name": "Cão da Estrada",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/cao-da-estrada.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Mordida na Estrada",
+      "type": "skill",
+      "img": "icons/creatures/abilities/fangs-teeth-bite.webp",
+      "system": {
+        "description": "<p>[2d6 + 16] de dano físico; +8 contra quem está [Derrubado] (Quem Cai, Não Levanta).</p><p>(Menor): o Latido Rouco: o alvo fica [Derrubado].</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 3,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 16,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "minor": {
+            "statuses": [
+              {
+                "statusId": "prone"
+              }
+            ]
+          },
+          "bonusVs": [
+            {
+              "statuses": [
+                "prone"
+              ],
+              "value": 8
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "nYekcr51zEVe50Y5",
+      "_key": "!actors.items!IPFXCtzKhBSa7oKC.nYekcr51zEVe50Y5"
+    },
+    {
+      "name": "Seguir os Passos",
+      "type": "skill",
+      "img": "icons/creatures/abilities/paw-print-pair-purple.webp",
+      "system": {
+        "description": "<p>Uma vez por rodada, sem gastar ação, este inimigo avança na direção de um inimigo até a Velocidade dele e fica engajado com ele.</p>",
+        "tags": [],
+        "timing": "Instant",
+        "checkType": "",
+        "range": "-",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "rush"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "0CHbRp5Ng5rKa8hG",
+      "_key": "!actors.items!IPFXCtzKhBSa7oKC.0CHbRp5Ng5rKa8hG"
+    },
+    {
+      "name": "Dente de Cão Negro",
+      "type": "gear",
+      "img": "icons/commodities/bones/tooth-canine-white.webp",
+      "system": {
+        "description": "<p>Um dente amarelado. Os viajantes o penduram no pescoço: dizem que outro cão não segue quem já matou um.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 12,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "RpWqmHdSBSdQN88B",
+      "sort": 300000,
+      "_key": "!actors.items!IPFXCtzKhBSa7oKC.RpWqmHdSBSdQN88B"
+    },
+    {
+      "name": "Pelo da Noite",
+      "type": "gear",
+      "img": "icons/commodities/leather/fur-pelt-brown.webp",
+      "system": {
+        "description": "<p>Um pelo negro que não reflete a luz da lanterna.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 28,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "cthl4uhTSVBI23dx",
+      "sort": 400000,
+      "_key": "!actors.items!IPFXCtzKhBSa7oKC.cthl4uhTSVBI23dx"
+    },
+    {
+      "name": "Olho Amarelo",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-rough-cushion-yellow.webp",
+      "system": {
+        "description": "<p>Um dos olhos, que virou pedra quando o cão morreu e ainda brilha um pouco à noite.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 45,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ColwC9KhGqvddL9L",
+      "sort": 500000,
+      "_key": "!actors.items!IPFXCtzKhBSa7oKC.ColwC9KhGqvddL9L"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 220000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "IPFXCtzKhBSa7oKC",
+  "folder": "XA2JmuxkhmuaArlg",
+  "_key": "!actors!IPFXCtzKhBSa7oKC"
+}

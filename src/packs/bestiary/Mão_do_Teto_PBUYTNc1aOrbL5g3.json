@@ -1,0 +1,547 @@
+{
+  "name": "Mão do Teto",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/mao-do-teto.webp",
+  "system": {
+    "health": {
+      "value": 61,
+      "max": 61,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mythic",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 8,
+        "magic": 4
+      },
+      "speed": 2,
+      "initiative": 2
+    },
+    "rank": 2,
+    "idendification": "8",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 2
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Uma mão gigante, cinzenta e sem corpo, do tamanho de uma carroça, que mora no teto dos corredores da Cova do Norte. A única coisa que avisa é a sombra: uma mancha escura no chão que cresce em cima de quem anda distraído. Ela cai, fecha os dedos e leva embora, para longe do grupo, de volta ao começo do corredor, para o escuro. Os que voltam contam que o pior é a espera, preso nos dedos dela, sem saber para onde.</p><p><b>Na mesa:</b> comum de NP 2, dos corredores da Cova do Norte. Começa [Oculta] no teto, e o Golpe Surpresa fere +2d6 quem ainda não agiu na rodada. Levar Embora arremessa quem ela fere até 6 Qd (o Mestre escolhe a linha ou um alvo: quem é atingido também sofre o golpe) e o deixa [Derrubado]. Separa o grupo: o arqueiro acaba no meio dos besouros, o mago longe do tanque.</p>"
+  },
+  "prototypeToken": {
+    "name": "Mão do Teto",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/mao-do-teto.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 2,
+    "height": 2,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Levar Embora",
+      "type": "skill",
+      "img": "icons/commodities/biological/hand-clawed-grey.webp",
+      "system": {
+        "description": "<p>[2d6 + 12] de dano físico; se ferir, a mão leva o alvo até 6 Qd (contra uma criatura no caminho, que sofre o golpe, ou numa linha reta), e ele fica [Derrubado].</p><p>(Menor): +3 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 12,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "throw",
+            "squares": 6
+          },
+          "hitStatuses": [
+            {
+              "statusId": "prone"
+            }
+          ],
+          "minor": {
+            "damage": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "8wp915Fn4ajbEICv",
+      "_key": "!actors.items!PBUYTNc1aOrbL5g3.8wp915Fn4ajbEICv"
+    },
+    {
+      "name": "No Teto",
+      "type": "skill",
+      "img": "icons/environment/wilderness/cave-entrance-mountain.webp",
+      "system": {
+        "description": "<p>Na primeira Manutenção do combate, fica [Oculta] no teto: não pode ser alvo, a não ser de área, até usar uma Ação Maior ou sofrer dano.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "start",
+            "statuses": [
+              {
+                "statusId": "hidden"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "k9od2xL9QKPkBoHQ",
+      "_key": "!actors.items!PBUYTNc1aOrbL5g3.k9od2xL9QKPkBoHQ"
+    },
+    {
+      "name": "Golpe Surpresa",
+      "type": "skill",
+      "img": "icons/magic/control/fear-fright-shadow-monster-red.webp",
+      "system": {
+        "description": "<p>+2d6 nas rolagens de dano contra quem ainda não agiu na rodada.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "surprise",
+            "dice": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "FArMsXFxJNIIa9hD",
+      "_key": "!actors.items!PBUYTNc1aOrbL5g3.FArMsXFxJNIIa9hD"
+    },
+    {
+      "name": "Unha de Pedra",
+      "type": "gear",
+      "img": "icons/commodities/bones/teeth-pointed-gray.webp",
+      "system": {
+        "description": "<p>Uma unha do tamanho de um escudo pequeno, cinzenta e lisa como ardósia.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 15,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "HwJ8DvbxiXs7FsrU",
+      "sort": 400000,
+      "_key": "!actors.items!PBUYTNc1aOrbL5g3.HwJ8DvbxiXs7FsrU"
+    },
+    {
+      "name": "Anel do Dedo Grande",
+      "type": "gear",
+      "img": "icons/equipment/finger/ring-band-copper.webp",
+      "system": {
+        "description": "<p>Um anel de ferro do tamanho de uma coleira, que estava num dos dedos. Ninguém sabe quem o pôs ali.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 35,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "d3hPjq109oduv3ee",
+      "sort": 500000,
+      "_key": "!actors.items!PBUYTNc1aOrbL5g3.d3hPjq109oduv3ee"
+    },
+    {
+      "name": "Palma Riscada",
+      "type": "gear",
+      "img": "icons/sundries/scrolls/scroll-runed-brown-purple.webp",
+      "system": {
+        "description": "<p>Um pedaço da pele da palma, com linhas que formam um mapa dos corredores da Cova.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 55,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "eG8L1L9GfecDeyES",
+      "sort": 600000,
+      "_key": "!actors.items!PBUYTNc1aOrbL5g3.eG8L1L9GfecDeyES"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 230000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "PBUYTNc1aOrbL5g3",
+  "folder": "AkcsXT1tICuoFTMn",
+  "_key": "!actors!PBUYTNc1aOrbL5g3"
+}

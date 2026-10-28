@@ -1,0 +1,591 @@
+{
+  "name": "Sapo-Boca-de-Poço",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/sapo-boca-de-poco.webp",
+  "system": {
+    "health": {
+      "value": 52,
+      "max": 52,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Natural",
+      "Aquatic"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 2,
+        "magic": 4
+      },
+      "speed": 2,
+      "initiative": 3
+    },
+    "rank": 1,
+    "idendification": "5",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 3,
+        "mod": 1
+      },
+      "resistance": {
+        "dice": 3,
+        "mod": 1
+      }
+    },
+    "description": "<p>Um sapo do tamanho de uma carroça, verde-musgo e de barriga amarela, que dorme meio enterrado na lama da margem e acorda com fome no degelo. A língua alcança três passos e cola como piche; a boca engole um homem inteiro, e só um homem: o resto fica para depois. Os pescadores dos lagos de Norlangarth contam que ele cospe quem veste malha de ferro, e por isso usam colete de anéis até para pescar.</p><p><b>Na mesa:</b> comum de NP 1, dos lagos, dos pântanos e das margens no degelo. A Língua puxa o alvo de até 3 Qd para o quadrado dele. O Engolir põe quem ele fere dentro da barriga: [Agarrado] lá dentro, o suco de [2d6 + 4] em cada Manutenção, e só sai vencendo Atletismo contra 9 (o Livrar-se, uma Ação Maior) ou quando ele cai; um golpe no sapo pode acertar quem está dentro. O Gosto Ruim do Metal: ele não engole quem veste armadura ou escudo de metal. A Barriga de Borracha anula 5 do dano [Contundente].</p>"
+  },
+  "prototypeToken": {
+    "name": "Sapo-Boca-de-Poço",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/sapo-boca-de-poco.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 2,
+    "height": 2,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Língua",
+      "type": "skill",
+      "img": "icons/creatures/abilities/mouth-teeth-tongue-purple.webp",
+      "system": {
+        "description": "<p>Alcance 3 Qd. [2d6 + 11] de dano físico, e o alvo é puxado para o quadrado do sapo.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 11,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "pull"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "fy4NaNGk14WTn2lf",
+      "_key": "!actors.items!tW0gIikLryLvDiXE.fy4NaNGk14WTn2lf"
+    },
+    {
+      "name": "Engolir",
+      "type": "skill",
+      "img": "icons/creatures/abilities/mouth-teeth-human.webp",
+      "system": {
+        "description": "<p>[2d6 + 13] de dano físico. Se ferir, o sapo engole o alvo (um por vez; nunca quem veste armadura ou escudo de metal): [Agarrado] dentro dele, o token vai junto, e em cada Manutenção sofre [2d6 + 4] de dano direto. Sai com o Livrar-se (Atletismo contra 9), ou quando o sapo cai. Um golpe que fere o sapo acerta quem está dentro num 1d6 de 1 ou 2.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 13,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "engulf",
+            "acid": "2d6+4",
+            "escape": {
+              "check": "athletics",
+              "dc": 9
+            },
+            "max": 1,
+            "through": 2,
+            "notMetal": true
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "l7OXeFbmpDnTXGFn",
+      "_key": "!actors.items!tW0gIikLryLvDiXE.l7OXeFbmpDnTXGFn"
+    },
+    {
+      "name": "Barriga de Borracha",
+      "type": "skill",
+      "img": "icons/creatures/amphibians/bullfrog-glass-teal.webp",
+      "system": {
+        "description": "<p>[Anulação (Contundente): 5]. Não fica [Derrubado].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "cancelTag": "Hafted",
+              "immune": [
+                "prone"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Barriga de Borracha",
+          "img": "icons/creatures/amphibians/bullfrog-glass-teal.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.cancel",
+                "type": "add",
+                "value": "5",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "cEMgQCfKGxVoXyQb",
+          "_key": "!actors.items.effects!tW0gIikLryLvDiXE.ZJ2tfo1cDbek27xr.cEMgQCfKGxVoXyQb"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ZJ2tfo1cDbek27xr",
+      "_key": "!actors.items!tW0gIikLryLvDiXE.ZJ2tfo1cDbek27xr"
+    },
+    {
+      "name": "Pele de Sapo",
+      "type": "gear",
+      "img": "icons/commodities/leather/scales-green.webp",
+      "system": {
+        "description": "<p>Um pedaço de couro verde e liso que não deixa passar água. As botas dos pescadores são feitas dele.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 12,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "JaLC54C2OzO7I9Jy",
+      "sort": 400000,
+      "_key": "!actors.items!tW0gIikLryLvDiXE.JaLC54C2OzO7I9Jy"
+    },
+    {
+      "name": "Coxa de Sapo-Gigante",
+      "type": "gear",
+      "img": "icons/consumables/meat/frog-leg-raw-green.webp",
+      "system": {
+        "description": "<p>Uma coxa inteira, carne branca e macia. Nas tavernas da beira do lago é prato de festa.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 28,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "IdiKAHLnI9IiDeAy",
+      "sort": 500000,
+      "_key": "!actors.items!tW0gIikLryLvDiXE.IdiKAHLnI9IiDeAy"
+    },
+    {
+      "name": "Pedra da Barriga",
+      "type": "gear",
+      "img": "icons/commodities/gems/pearl-beige-smooth.webp",
+      "system": {
+        "description": "<p>Uma pedra lisa e verde que o sapo engoliu há anos. Os pescadores juram que, no anzol, chama os peixes grandes.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 45,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "c07db2yB9nzzASED",
+      "sort": 600000,
+      "_key": "!actors.items!tW0gIikLryLvDiXE.c07db2yB9nzzASED"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 250000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "tW0gIikLryLvDiXE",
+  "folder": "XA2JmuxkhmuaArlg",
+  "_key": "!actors!tW0gIikLryLvDiXE"
+}

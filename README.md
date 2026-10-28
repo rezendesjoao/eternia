@@ -11,6 +11,15 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   os jogadores, os avisos e os menus usam a Signika, mais fácil de ler no fundo escuro, e as dicas do sistema (as
   etiquetas dos colchetes, a aba Classe, o assistente, a janela de Magias e o HUD) voltam ao pergaminho com o texto
   escuro (veja [Os diários e a interface](#os-diários-e-a-interface)).
+- **Desde a 0.47.0: o bestiário de Norlangarth.** 52 criaturas novas de NP 1 a 3 para as florestas geladas, as
+  aldeias, as minas da serra, os lagos, as Montanhas do Fim, as catacumbas e a Cova do Norte (a masmorra de gelo da
+  ossada do Dragão Branco): agora são 25 no NP 1, 20 no NP 2 e 25 no NP 3. Cada uma pede um jeito próprio de lutar, com
+  regras automatizadas novas: coelhos que se multiplicam enquanto ninguém os fere, a maldição que só acaba com a morte do
+  cão que mordeu, a lagartixa de tesouro que foge na terceira rodada, a criança que pesa mais a cada rodada, o duende que
+  a cura fere, a criatura de Fenda que muda de forma, o bicho que engole o escudo, o kappa que perde a força quando cai,
+  o gorro que morre de sede sem sangue, o guardião que poupa quem se curva, e a condição nova [Contágio], que passa aos
+  aliados ao lado. Todas têm retrato e token no traço de anime, com a moldura do Império (veja
+  [O bestiário](#o-bestiário)).
 - **Desde a 0.46.0: o Guia do Jogador e o visual novo.** O compêndio **Guia do Jogador** explica o sistema como um
   livro de RPG, em 21 páginas (o jogo, o personagem, a criação, raças, classes, Magias, habilidades, evolução, sessões,
   combate, ataque e dano, Ódio, Destino, estados, equipamento, profissões, fora de combate e a mesa virtual, com
@@ -810,8 +819,8 @@ Um monstro do mundo com a tabela escrita no texto rola por ela mesmo, e a aba te
 só as criaturas da Eternia (os monstros antigos de Log Horizon saíram na 0.43). Arrastar um item para a ficha de um monstro cria uma linha, nas faces livres, e a
 aba compara a média da tabela com a do Guia de Criação de Inimigos.
 
-**O bestiário do Império** (pasta O Império do compêndio Bestiário, uma pasta por NP, do 1 ao 9) traz 52 monstros com
-regras automatizadas:
+**O bestiário do Império** (pasta O Império do compêndio Bestiário, uma pasta por NP, do 1 ao 9) traz 104 monstros com
+regras automatizadas: os 52 da tabela abaixo e as 52 criaturas de Norlangarth da 0.47 (a tabela seguinte).
 
 | NP | Monstro | O que faz |
 |---|---|---|
@@ -898,10 +907,69 @@ Algumas regras valem para um grupo inteiro:
   linha leva o que ela deixa. A Grande solta 2 feras sorteadas em cada Manutenção; a Fenda-mãe solta na primeira rodada o
   Uivo Violeta (que deixa os itens dele) e depois 2 ou 3 feras sorteadas a cada Manutenção.
 
-**A arte.** Os 52 monstros do Império têm retrato e token próprios, no traço de anime: o token redondo com a moldura da
-Eternia (aro de ouro, fio carmesim e um losango de cada lado, sobre fundo branco) e, nas Fendas, um hexágono de fundo
-roxo com brilhos e uma luz violeta animada (estrelas na Pequena, um campo de energia na Grande e um vórtice na
-Fenda-mãe). Os monstros que um mundo já tinha trazido do compêndio (arrastados, chamados, soltos por uma Fenda)
+**O bestiário de Norlangarth** (desde a 0.47, nas mesmas pastas por NP): 52 criaturas de NP 1 a 3, cada uma com um
+quebra-cabeça. O dano de cada uma foi medido no simulador do balanço: as comuns vão de 4 em 4 e os lacaios de 6 em 6 no
+encontro padrão, e os Corvos Ladrões, que são uma tropa, de 2 em 2.
+
+| NP | Criatura | O que faz |
+|---|---|---|
+| 1 | **Coelho-Chifrudo** | Lacaio, em ninhada: em cada Manutenção (da segunda rodada em diante), cada par de coelhos sem ferimento a até 1 Qd faz mais um, até 8. Ferir todos segura o bando. |
+| 1 | **Graveto-Praga** | Lacaio do bosque do Giga Cedro, disfarçado de moita seca (quem pisa fica [Enraizado]); o fogo não o queima, a lâmina corta mais. |
+| 1 | **Nepente Faminta** | A planta-jarra: o cipó alcança 2 Qd, o suco envenena, e o Fruto estoura na metade dos PV e chama 1d2 nepentes. |
+| 1 | **Nepente-Mãe** | Chefe: não sai do lugar, e o perfume deixa [Encantado] e puxa até ela; as vinhas prendem a 3 Qd e as filhas brotam uma vez por cena. |
+| 1 | **Raposa-das-Neves** | Entra com [Clones: 2] e faz mais uma cópia por rodada, até 3: quem ataca muitas vezes acha a de verdade. |
+| 1 | **Corvos Ladrões** | Tropa: ataques em área a acertam em dobro; o bico cega, rouba ouro e foge com ele na metade dos PV. |
+| 1 | **Duende do Avesso** | O dano físico o cura, a cura o fere e a magia fere normal; quem ele toca fica [Inversão]. |
+| 1 | **Diabrete do Azar** | Lacaio: os inimigos a até 2 Qd ficam [Presunçosos] (todo 1 natural vira Falha Crítica). |
+| 1 | **Ratazana do Celeiro** | Lacaio, em bando: a mordida dá [Contágio: 2], que passa aos aliados ao lado. |
+| 1 | **Rei dos Ratos** | Chefe e tropa: a peste dá [Contágio: 3], a corte dá [Fortalecido] aos aliados, e a cada terço dos PV duas ratazanas se soltam do nó. |
+| 1 | **Espantalho Vivo** | Disfarçado de espantalho; o olhar ([Medo], depois [Paralisado]) e a [Fraqueza (Chama)]. |
+| 1 | **Cão da Estrada** | Avança uma vez por rodada sem gastar ação, derruba com o latido e fere +8 quem está [Derrubado]. |
+| 1 | **Boneco de Neve Vivo** | O abraço deixa [Congelando], o frio o cura, o fogo o desmancha, e cai explodindo em neve. |
+| 1 | **Floco-Vivo** | Lacaio inofensivo e valioso: o primeiro que cai na cena chama o Guardião do Inverno. |
+| 1 | **Sapo-Boca-de-Poço** | 2×2: a língua puxa de 3 Qd e o Engolir põe o alvo na barriga; não engole quem veste metal. |
+| 1 | **Mão-de-Lodo** | Começa [Oculta] sob o gelo do lago; puxa para o fundo ([Agarrado] e [Nadando]) e afoga. |
+| 1 | **Caveira Errante** | Lacaio: a chama azul deixa [Desarmado] quem ela toca. |
+| 1 | **Batedor do Grisu** | Lacaio das minas: a batida dá [Pavio: 4] (o gás explode no Encerramento, e os Pavios somam). |
+| 1 | **Estalactite Viva** | Lacaio disfarçado no teto: cai uma vez por cena e derruba; no chão, não anda. |
+| 1 | **Besouro-Moeda** | Lacaio disfarçado de montinho de moedas (quem toca fica [Envenenado]); deixa moedas de verdade. |
+| 1 | **Morcego-de-Gelo** | Lacaio, em revoada: a mordida deixa [Congelando], que no terceiro acúmulo paralisa. |
+| 1 | **Lagartixa-Tesouro** | Evento de tesouro: foge na Manutenção da terceira rodada, a menos que esteja presa; deixa itens de chefe. |
+| 2 | **Muda do Giga Cedro** | Imune a fogo; as raízes ferem todos a até 1 Qd no Encerramento e a curam. |
+| 2 | **Fogo-Fátuo** | Sempre [Intangível]; a luz encanta e puxa, e quem fica com 8 PV ou menos cai. A água o apaga. |
+| 2 | **Aranha-Isca** | Disfarçada de criança que chora: o choro encanta e puxa, e quem a toca fica preso na teia. |
+| 2 | **Cão da Maldição** | A mordida dá [Sentença: 3], que só acaba quando aquele cão cai. |
+| 2 | **Criança-Fardo** | Gruda nas costas e pesa mais a cada Manutenção: [Lento], [Enraizado], [Derrubado], até alguém arrancá-la. |
+| 2 | **Pisadeira** | Deixa [Adormecido] e fere +10 quem dorme; acordar os amigos é o turno que importa. |
+| 2 | **Ceifeira do Meio-Dia** | Chefe: o Decreto da Fé (quem não ataca na rodada fica [Cego] e [Queimando]); a Pergunta deixa [Confuso]. |
+| 2 | **Kappa** | Empurra e derruba; quando ele mesmo fica [Derrubado], a água do prato derrama e ele fica [Exposto] e [Enfraquecido]. |
+| 2 | **Serpente de Presas Azuis** | Chefe: o veneno, o [Paralisado] que recarrega e o abraço que suga 6 PV por rodada. |
+| 2 | **Armadura-Colônia** | Metade do dano de [Lâmina] e [Contundente]; a lança entra pelas juntas. |
+| 2 | **Lasca-Sussurrante** | Lacaio das minas: a magia a divide em duas; estoura ao cair. |
+| 2 | **Devorador de Escudos** | Engole o escudo (ou a armadura) de quem fere, até cair ou a luta acabar. |
+| 2 | **Mão do Teto** | Começa [Oculta] no teto, fere +2d6 quem não agiu e leva a vítima até 6 Qd. |
+| 2 | **Rasura** | A criatura mal escrita das Fendas: a forma muda em cada Manutenção ([Anulação], metade do físico, [Espelho], [Fortalecido], [Acelerado], [Regeneração]). |
+| 3 | **Cervo do Inverno** | Investe e derruba; pode ser poupado (o Salvar) e, se morrer, deixa [Maldito] quem estiver perto. |
+| 3 | **Boitatá** | Chefe: o olhar de fogo, a mordida que queima, o corpo que queima quem a golpeia e o rastro de fogo. |
+| 3 | **Coisa-Sem-Nome** | Fica [Fortalecida] e [Acelerada] quando é identificada. |
+| 3 | **Gorro-Vermelho** | Cura-se com o golpe e ganha ações quando derruba alguém, mas seca e cai depois de três rodadas sem ferir ninguém. |
+| 3 | **Guardião do Inverno** | Chefe solo: não ataca quem está [Derrubado] e vai embora quando todos se curvam. |
+| 3 | **Bocarra Pútrida** | O hálito em área dá um estado ao acaso; a vinha puxa; não sai do lugar. |
+| 3 | **Cavalo-d'Água** | Disfarçado de cavalo branco: quem monta (ou o golpeia) fica colado, e ele afoga quem leva. |
+| 3 | **Névoa-Mentirosa** | Deixa a si e aos aliados [Ocultos] em cada Manutenção, e a lanterna encanta e puxa. O vento a desfaz. |
+| 3 | **Draugr do Túmulo** | Chefe: incha e cresce, o hálito dá [Deterioração] e ergue os caídos como zumbis. |
+| 3 | **Boca-Balbuciante** | Os inimigos a até 2 Qd ficam [Confusos]; as bocas derrubam. |
+| 3 | **Caveira Flamejante** | Volta das cinzas uma vez por cena, menos contra [Radiância] e [Água]. |
+| 3 | **Cão de Ossos de Dragão** | Remonta duas vezes por cena, menos contra [Contundente] e [Radiância]. |
+| 3 | **Reflexo de Gelo** | Copia o rosto de quem toca e tem [Espelho: 5]; o fogo o racha. |
+| 3 | **Verme de Gelo** | O trinado deixa [Lento] e [Congelando], e cai explodindo em gelo a até 2 Qd. |
+| 3 | **Juiz de Pedra** | Chefe da Cova do Norte: o Decreto da Fé, não ataca quem se curva, e as estátuas que ele chama caem com ele. |
+| 3 | **Estátua Sentinela** | Lacaio: metade do dano físico sem magia, não ataca quem se curva, e prende a arma de quem a derruba ([Desarmado]). |
+
+**A arte.** Os 52 monstros do Império e as 52 criaturas de Norlangarth têm retrato e token próprios, no traço de
+anime: o token redondo com a moldura da Eternia (aro de ouro, fio carmesim e um losango de cada lado, sobre fundo
+branco) e, nas Fendas, um hexágono de fundo roxo com brilhos e uma luz violeta animada (estrelas na Pequena, um campo
+de energia na Grande e um vórtice na Fenda-mãe). Os monstros que um mundo já tinha trazido do compêndio (arrastados, chamados, soltos por uma Fenda)
 ganham os nomes de hoje e a arte na migração da 0.37; o que o Mestre mudou neles fica.
 
 **No mapa**, cada criatura do Bestiário ganha um número romano depois do nome: Kobold I, Kobold II, Kobold III. Vale
@@ -1283,8 +1351,8 @@ eternia.syncGuide();                  // o Guia do Jogador no Diário, como o co
   Aincrad, Alfheim e Submundo. A Eternia não é oficial nem tem vínculo com eles.
 - **Ícones** de [game-icons.net](https://game-icons.net) sob [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
   (fundos dos estados recoloridos; Encharcado, Enfraquecido, Pavio, Servo, Dominado, Chama Negra, Sol, O Único,
-  Contragolpe, Rancor, Petrificado, Pacificado, Agonia, Amnésia, Pesadelo, Ímpeto, Combo, Intocável, Inversão, Ritmo e
-  Clones são arte própria). Autores: Lorc, Delapouite, Skoll, Sbed, Zeromancer e
+  Contragolpe, Rancor, Petrificado, Pacificado, Agonia, Amnésia, Pesadelo, Ímpeto, Combo, Intocável, Inversão, Ritmo,
+  Clones e Contágio são arte própria). Autores: Lorc, Delapouite, Skoll, Sbed, Zeromancer e
   Carl Olsen.
 
 <details>

@@ -1,0 +1,823 @@
+{
+  "name": "Draugr do Túmulo",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/draugr-do-tumulo.webp",
+  "system": {
+    "health": {
+      "value": 146,
+      "max": 146,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Undead"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 4,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 14,
+        "magic": 7
+      },
+      "speed": 2,
+      "initiative": 3
+    },
+    "rank": 3,
+    "idendification": "8",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 2
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Um guerreiro morto há duzentos anos, enterrado com a espada e o ouro num túmulo de pedra sob uma colina do norte, que não aceitou a morte. A pele é azul-escura como um afogado, os olhos são duas brasas, e o corpo incha quando ele se enfurece: cresce, pesa, fica do tamanho de um boi. Guarda o túmulo e o que há nele. Os outros mortos do túmulo levantam quando ele chama.</p><p><b>Na mesa:</b> chefe de grupo de NP 3, dos túmulos e das catacumbas do norte, com dois Zumbis Cambaleantes. Inchar (Ação Menor, duas vezes por cena) o faz crescer: [Fortalecido] que soma, PV de volta e, no segundo, um token 2×2. O Hálito de Túmulo dá [Deterioração: 4] em área (recarga). Os que Dormem levanta como zumbis dele os caídos a até 4 Qd, dos dois lados, e eles caem quando ele cair. Derrubá-lo antes que cresça, e cuidar dos próprios caídos, decide a luta.</p>"
+  },
+  "prototypeToken": {
+    "name": "Draugr do Túmulo",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/draugr-do-tumulo.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 40,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Espada do Túmulo",
+      "type": "skill",
+      "img": "icons/weapons/swords/sword-broad-worn.webp",
+      "system": {
+        "description": "<p>[2d6 + 22] de dano físico.</p><p>(Menor): +4 de dano.</p><p>[Destino 1]: o golpe acerta todos os personagens engajados com este inimigo.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 22,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "minor": {
+            "damage": 4
+          },
+          "fateOption": {
+            "fate": 1,
+            "mode": "engaged"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "wfLTqPIHqJexxBoY",
+      "_key": "!actors.items!I3tuvXdGpd4GQrtH.wfLTqPIHqJexxBoY"
+    },
+    {
+      "name": "Inchar",
+      "type": "skill",
+      "img": "icons/magic/death/undead-skeleton-deformed-red.webp",
+      "system": {
+        "description": "<p>O morto incha e cresce: recupera 10 PV e fica [Fortalecido: 4] por vez que inchou na cena. Na segunda, passa a ocupar 2×2 quadrados.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "2/Scene",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "grow",
+            "empowered": 4,
+            "heal": 10,
+            "at": 2,
+            "size": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "QPzXcyeetX6OVkvw",
+      "_key": "!actors.items!I3tuvXdGpd4GQrtH.QPzXcyeetX6OVkvw"
+    },
+    {
+      "name": "Hálito de Túmulo",
+      "type": "skill",
+      "img": "icons/magic/air/fog-gas-smoke-dense-brown.webp",
+      "system": {
+        "description": "<p>Área (Escolha) a até 2 Qd: [2d6 + 11] de dano mágico de [Corrupção], e quem é atingido fica [Deterioração: 4]. Recarga.</p>",
+        "tags": [
+          "Magic Attack",
+          "Blight"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "2Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 11,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "recharge",
+            "min": 5
+          },
+          "hitStatuses": [
+            {
+              "statusId": "decay",
+              "value": 4
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "2XQbbVkbzxflFbLb",
+      "_key": "!actors.items!I3tuvXdGpd4GQrtH.2XQbbVkbzxflFbLb"
+    },
+    {
+      "name": "Os que Dormem",
+      "type": "skill",
+      "img": "icons/magic/death/hand-undead-skeleton-fire-green.webp",
+      "system": {
+        "description": "<p>Uma vez por cena. Cada criatura caída a até 4 Qd dele, de qualquer lado, levanta como Zumbi Cambaleante dele. Quando o draugr cai, os mortos dele caem junto.</p>",
+        "tags": [
+          "Curse"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "raise",
+            "radius": 4,
+            "uuid": "Compendium.eternia.bestiary.Actor.CkhKRE70mCL9DaG6",
+            "bound": true
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "KV3F9z56LUzC2rXK",
+      "_key": "!actors.items!I3tuvXdGpd4GQrtH.KV3F9z56LUzC2rXK"
+    },
+    {
+      "name": "Carne de Afogado",
+      "type": "skill",
+      "img": "icons/magic/death/skull-horned-goat-pentagram-red.webp",
+      "system": {
+        "description": "<p>[Fraqueza (Radiância): 6]. Não fica com [Medo], [Encantado], [Envenenado] nem [Adormecido].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "weaknessTag": "Radiance",
+              "immune": [
+                "frightened",
+                "charmed",
+                "poisoned",
+                "asleep"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Carne de Afogado",
+          "img": "icons/magic/death/skull-horned-goat-pentagram-red.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.weakness",
+                "type": "add",
+                "value": "6",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "Dq4n5d1wPz97z80f",
+          "_key": "!actors.items.effects!I3tuvXdGpd4GQrtH.x8mKvE0VX9zsgjLB.Dq4n5d1wPz97z80f"
+        }
+      ],
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "x8mKvE0VX9zsgjLB",
+      "_key": "!actors.items!I3tuvXdGpd4GQrtH.x8mKvE0VX9zsgjLB"
+    },
+    {
+      "name": "Ouro do Túmulo",
+      "type": "gear",
+      "img": "icons/commodities/currency/coins-plain-stack-gold.webp",
+      "system": {
+        "description": "<p>Moedas de um rei de duzentos anos atrás, verdes de limo. Os antiquários de Centória pagam bem; os padres mandam devolver.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 75,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Tjk51NAeZwYRAmwk",
+      "sort": 600000,
+      "_key": "!actors.items!I3tuvXdGpd4GQrtH.Tjk51NAeZwYRAmwk"
+    },
+    {
+      "name": "Espada do Morto",
+      "type": "gear",
+      "img": "icons/weapons/swords/sword-broad-worn.webp",
+      "system": {
+        "description": "<p>A espada larga, de um aço que não enferrujou em dois séculos.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 170,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "up29bGYmoiydOjki",
+      "sort": 700000,
+      "_key": "!actors.items!I3tuvXdGpd4GQrtH.up29bGYmoiydOjki"
+    },
+    {
+      "name": "Elmo do Rei Afogado",
+      "type": "gear",
+      "img": "icons/equipment/head/greathelm-banded-steel.webp",
+      "system": {
+        "description": "<p>Um elmo de ouro e ferro, com chifres, que ainda guarda o frio do túmulo.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 270,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "CfDb2KpeJga9s5DO",
+      "sort": 800000,
+      "_key": "!actors.items!I3tuvXdGpd4GQrtH.CfDb2KpeJga9s5DO"
+    },
+    {
+      "name": "Anima-mundi 4",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 4 gasta uma Anima-mundi 4 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 4"
+        ],
+        "rank": 4,
+        "price": 30,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 108
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.UjH3cQFAVDAO0WpF",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "9LQQZVT5XdvFf88T",
+      "sort": 900000,
+      "_key": "!actors.items!I3tuvXdGpd4GQrtH.9LQQZVT5XdvFf88T"
+    },
+    {
+      "name": "Coração Afogado",
+      "type": "gear",
+      "img": "icons/commodities/biological/organ-heart-red.webp",
+      "system": {
+        "description": "<p>O coração do draugr, duro e azul como pedra de rio. Um [Material-Base] de NP 3.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 1,
+        "price": 60,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "K1iIhgifPpw1zbv5",
+      "sort": 1000000,
+      "_key": "!actors.items!I3tuvXdGpd4GQrtH.K1iIhgifPpw1zbv5"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 190000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "I3tuvXdGpd4GQrtH",
+  "folder": "nOCT1FwbTpBWjiiE",
+  "_key": "!actors!I3tuvXdGpd4GQrtH"
+}

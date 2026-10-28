@@ -1,0 +1,591 @@
+{
+  "name": "Cão de Ossos de Dragão",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/cao-de-ossos-de-dragao.webp",
+  "system": {
+    "health": {
+      "value": 48,
+      "max": 48,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Undead",
+      "Natural"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 10,
+        "magic": 7
+      },
+      "speed": 2,
+      "initiative": 5
+    },
+    "rank": 3,
+    "idendification": "8",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Um cão do tamanho de um lobo, feito de ossos brancos que não são de cão: lascas da ossada do Dragão Branco, que o frio da Cova do Norte juntou e pôs para andar. Os ossos rangem como gelo, e a mordida queima de frio. Quando a espada o desmonta, os ossos se procuram no chão e se juntam de novo, a menos que alguém os esmague ou os benza antes.</p><p><b>Na mesa:</b> comum de NP 3, da Cova do Norte, em matilhas de três ou quatro. A Mordida de Osso Gelado deixa [Congelando: 1], e a Matilha de Ossos morde +3 por outro inimigo engajado com o alvo. Remontar: duas vezes por cena, quando cairia, volta com metade dos PV, a menos que o golpe seja [Contundente] ou de [Radiância]. Maças, martelos e luz sagrada resolvem; espadas e flechas, não.</p>"
+  },
+  "prototypeToken": {
+    "name": "Cão de Ossos de Dragão",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/cao-de-ossos-de-dragao.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Mordida de Osso Gelado",
+      "type": "skill",
+      "img": "icons/commodities/bones/skull-canine-beige.webp",
+      "system": {
+        "description": "<p>[2d6 + 13] de dano físico de [Frio], e o alvo fica [Congelando: 1].</p><p>(Menor): +3 de dano.</p>",
+        "tags": [
+          "Melee Attack",
+          "Cold"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 13,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "freezing",
+              "value": 1
+            }
+          ],
+          "minor": {
+            "damage": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "mBeEzOxE4kDpfrQg",
+      "_key": "!actors.items!QFMRSjYfiyaaGkML.mBeEzOxE4kDpfrQg"
+    },
+    {
+      "name": "Matilha de Ossos",
+      "type": "skill",
+      "img": "icons/commodities/bones/bones-stack-grey.webp",
+      "system": {
+        "description": "<p>Este cão causa +3 de dano para cada outro inimigo engajado com o alvo.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "pack",
+            "per": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "h21rBTA8bjJpThY0",
+      "_key": "!actors.items!QFMRSjYfiyaaGkML.h21rBTA8bjJpThY0"
+    },
+    {
+      "name": "Remontar",
+      "type": "skill",
+      "img": "icons/commodities/bones/bones-dragon-grey.webp",
+      "system": {
+        "description": "<p>Duas vezes por cena, quando cairia a 0 PV, os ossos se juntam e ele fica com metade dos PV, a menos que o golpe seja [Contundente] ou de [Radiância]. Não fica com [Medo], [Encantado], [Envenenado], [Adormecido] nem [Congelando].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "revive": {
+                "uses": 2,
+                "per": "scene",
+                "hp": "@hpMax/2",
+                "not": [
+                  "Hafted",
+                  "Radiance"
+                ]
+              },
+              "immune": [
+                "frightened",
+                "charmed",
+                "poisoned",
+                "asleep",
+                "freezing"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Remontar",
+          "img": "icons/commodities/bones/bones-dragon-grey.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "4bCOGHL1ciW4gOOq",
+          "_key": "!actors.items.effects!QFMRSjYfiyaaGkML.2xSo0yaObY13PbDl.4bCOGHL1ciW4gOOq"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "2xSo0yaObY13PbDl",
+      "_key": "!actors.items!QFMRSjYfiyaaGkML.2xSo0yaObY13PbDl"
+    },
+    {
+      "name": "Lasca de Osso de Dragão",
+      "type": "gear",
+      "img": "icons/commodities/bones/bone-fragments-white.webp",
+      "system": {
+        "description": "<p>Uma lasca branca, fria como gelo. Os ferreiros a moem na liga das lâminas que não quebram no frio.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "5KHOhZY1NTvpS2MQ",
+      "sort": 400000,
+      "_key": "!actors.items!QFMRSjYfiyaaGkML.5KHOhZY1NTvpS2MQ"
+    },
+    {
+      "name": "Vértebra do Dragão Branco",
+      "type": "gear",
+      "img": "icons/commodities/bones/bone-spine-white.webp",
+      "system": {
+        "description": "<p>Uma vértebra inteira do Dragão Branco. A Igreja proíbe a venda; os colecionadores pagam o dobro por isso.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 40,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "b2Xv0iwn4epyVqu9",
+      "sort": 500000,
+      "_key": "!actors.items!QFMRSjYfiyaaGkML.b2Xv0iwn4epyVqu9"
+    },
+    {
+      "name": "Dente do Dragão Branco",
+      "type": "gear",
+      "img": "icons/commodities/bones/tooth-shark-brown-white.webp",
+      "system": {
+        "description": "<p>Um dente do dragão, do tamanho de uma adaga, que o cão usava como presa. Dizem que o machado dos lenhadores de Rulid foi feito de um igual.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 70,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "AaEpIg4vhuMCbE3x",
+      "sort": 600000,
+      "_key": "!actors.items!QFMRSjYfiyaaGkML.AaEpIg4vhuMCbE3x"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 220000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "QFMRSjYfiyaaGkML",
+  "folder": "nOCT1FwbTpBWjiiE",
+  "_key": "!actors!QFMRSjYfiyaaGkML"
+}

@@ -1,0 +1,549 @@
+{
+  "name": "Nepente Faminta",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/nepente-faminta.webp",
+  "system": {
+    "health": {
+      "value": 53,
+      "max": 53,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Plant",
+      "Natural"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 6,
+        "magic": 2
+      },
+      "speed": 1,
+      "initiative": 1
+    },
+    "rank": 1,
+    "idendification": "6",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 1
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Uma planta-jarra da altura de um homem, que anda arrastando as raízes como pés: o corpo é um jarro verde cheio de suco, a boca é a tampa, e dois cipós grossos fazem de braços. Algumas carregam na cabeça um fruto vermelho, inchado de cheiro: quando ele estoura, todas as nepentes do bosque sentem e vêm. Os caçadores das florestas geladas ensinam aos aprendizes a primeira regra da mata: corte as de fruto primeiro, e de uma vez.</p><p><b>Na mesa:</b> comum de NP 1, das clareiras úmidas das florestas. Os Cipós alcançam 2 Qd. O Fruto é o quebra-cabeça: a primeira vez que os PV dela caem à metade e ela continua de pé, o fruto estoura e 1d2 Nepentes Famintas chegam a até 3 Qd (as que chegam assim não chamam outras). Derrubá-la da metade até o zero na mesma rajada, ou de longe antes de ela andar, poupa o grupo da segunda leva. Anda devagar (Velocidade 1).</p>"
+  },
+  "prototypeToken": {
+    "name": "Nepente Faminta",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/nepente-faminta.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Cipós",
+      "type": "skill",
+      "img": "icons/consumables/plants/thorned-stem-vine-green.webp",
+      "system": {
+        "description": "<p>Alcance 2 Qd. [2d6 + 10] de dano físico.</p><p>(Menor): +2 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "2Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 10,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "minor": {
+            "damage": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ahatwhFMoKmpj8p9",
+      "_key": "!actors.items!kHykrqetrlgrs1wy.ahatwhFMoKmpj8p9"
+    },
+    {
+      "name": "Suco Digestivo",
+      "type": "skill",
+      "img": "icons/consumables/potions/potion-jar-capped-teal.webp",
+      "system": {
+        "description": "<p>A tampa do jarro se abre sobre o alvo. [2d6 + 5] de dano físico, e o alvo fica [Envenenado: 3].</p>",
+        "tags": [
+          "Melee Attack",
+          "Poison"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 5,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "poisoned",
+              "value": 3
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "FQ8FjUeFYTbLpIAS",
+      "_key": "!actors.items!kHykrqetrlgrs1wy.FQ8FjUeFYTbLpIAS"
+    },
+    {
+      "name": "O Fruto",
+      "type": "skill",
+      "img": "icons/consumables/fruit/pomegranate-ripe-red.webp",
+      "system": {
+        "description": "<p>A primeira vez que os PV deste inimigo caem à metade ou menos e ele continua de pé, o fruto da cabeça estoura: 1d2 Nepentes Famintas chegam a até 3 Qd dele e entram no combate (não deixam itens, e não chamam outras).</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "threshold",
+            "below": 0.5,
+            "statuses": [],
+            "summon": {
+              "radius": 3,
+              "actors": [
+                {
+                  "uuid": "Compendium.eternia.bestiary.Actor.kHykrqetrlgrs1wy",
+                  "count": "1d2"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "iLJLC6153kFEB3pS",
+      "_key": "!actors.items!kHykrqetrlgrs1wy.iLJLC6153kFEB3pS"
+    },
+    {
+      "name": "Suco de Nepente",
+      "type": "gear",
+      "img": "icons/consumables/potions/potion-jar-capped-teal.webp",
+      "system": {
+        "description": "<p>Um frasco do suco digestivo, que come couro e madeira devagar. Os curtumes usam para tirar o pelo das peles.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 12,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "d8sxNoZoLshUe93s",
+      "sort": 400000,
+      "_key": "!actors.items!kHykrqetrlgrs1wy.d8sxNoZoLshUe93s"
+    },
+    {
+      "name": "Cipó de Nepente",
+      "type": "gear",
+      "img": "icons/consumables/plants/thorned-stem-vine-green.webp",
+      "system": {
+        "description": "<p>Um cipó inteiro, verde e elástico como couro novo. Os arqueiros de Rulid trançam cordas de arco com ele.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 28,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "lFhEwXdxl7h8U0jv",
+      "sort": 500000,
+      "_key": "!actors.items!kHykrqetrlgrs1wy.lFhEwXdxl7h8U0jv"
+    },
+    {
+      "name": "Fruto da Nepente",
+      "type": "gear",
+      "img": "icons/consumables/fruit/pomegranate-ripe-red.webp",
+      "system": {
+        "description": "<p>O fruto vermelho que não estourou. Guardado num pote de cera, o cheiro dele atrai feras por uma semana: os caçadores usam como isca, e os ladrões, como vingança.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 45,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "P8gfIDCbCpfzLvnw",
+      "sort": 600000,
+      "_key": "!actors.items!kHykrqetrlgrs1wy.P8gfIDCbCpfzLvnw"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 130000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "kHykrqetrlgrs1wy",
+  "folder": "XA2JmuxkhmuaArlg",
+  "_key": "!actors!kHykrqetrlgrs1wy"
+}

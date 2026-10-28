@@ -1,0 +1,488 @@
+{
+  "name": "Lasca-Sussurrante",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/lasca-sussurrante.webp",
+  "system": {
+    "health": {
+      "value": 18,
+      "max": 18,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mob",
+      "Magical",
+      "Inorganic"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 5,
+        "magic": 8
+      },
+      "speed": 3,
+      "initiative": 5
+    },
+    "rank": 2,
+    "idendification": "8",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 0,
+        "mod": 8
+      },
+      "resistance": {
+        "dice": 0,
+        "mod": 8
+      }
+    },
+    "description": "<p>Um estilhaço de Anima-mundi do tamanho de uma mão, verde e afiado, que flutua nas galerias fundas das minas da serra onde o veio foi arrancado com pressa. Em volta dele o ar sussurra palavras sem sentido, e quem fica perto ouve o próprio nome. Os mineiros dizem que são pedaços do sangue de Terrarius, bravos por terem sido arrancados. Os magos da Academia aprenderam do pior jeito que a magia não os apaga: multiplica.</p><p><b>Na mesa:</b> lacaio de NP 2, das minas fundas e das Fendas perto delas, em grupos de três a seis. O Estilhaço corta de até 3 Qd. Dividir pela Magia: o dano mágico que fere a lasca a divide em duas, cada uma com metade dos PV (até 4 da família); o físico, não. Estoura quando cai, cortando quem está a até 1 Qd. Armas físicas e golpes que terminam o trabalho são a resposta; o mago, desta vez, segura o grupo.</p>"
+  },
+  "prototypeToken": {
+    "name": "Lasca-Sussurrante",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/lasca-sussurrante.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Estilhaço",
+      "type": "skill",
+      "img": "icons/magic/earth/projectile-stone-ball-green.webp",
+      "system": {
+        "description": "<p>Alcance 3 Qd. [2d6 + 18] de dano físico.</p>",
+        "tags": [
+          "Ranged Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 12,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 18,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "hATcQHUP7hhU1riO",
+      "_key": "!actors.items!sv5uQLoWgB74CoRy.hATcQHUP7hhU1riO"
+    },
+    {
+      "name": "Dividir pela Magia",
+      "type": "skill",
+      "img": "icons/commodities/gems/gem-fragments-rough-green.webp",
+      "system": {
+        "description": "<p>O dano mágico que fere esta lasca a divide: ela fica com metade dos PV que sobravam e uma lasca nova sai ao lado com a outra metade (até 4 da família; com menos de 2 PV, não divide). Está sempre [Voando] e não fica [Envenenada], [Adormecida], com [Medo] nem [Encantada].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "immune": [
+                "poisoned",
+                "asleep",
+                "frightened",
+                "charmed"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Flutua",
+          "img": "icons/commodities/gems/gem-fragments-rough-green.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "flying"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "LEEIa0ZLNUN2jJpv",
+          "_key": "!actors.items.effects!sv5uQLoWgB74CoRy.CYBvL2HQW8cS8yN2.LEEIa0ZLNUN2jJpv"
+        }
+      ],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "split",
+            "types": [
+              "magical"
+            ],
+            "not": [],
+            "max": 4,
+            "min": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "CYBvL2HQW8cS8yN2",
+      "_key": "!actors.items!sv5uQLoWgB74CoRy.CYBvL2HQW8cS8yN2"
+    },
+    {
+      "name": "Estoura",
+      "type": "skill",
+      "img": "icons/magic/earth/explosion-lava-stone-green.webp",
+      "system": {
+        "description": "<p>Quando esta lasca cai, estoura: quem estiver a até 1 Qd sofre [2d6 + 4] de dano físico. Sem Teste de Esquiva.</p>",
+        "tags": [],
+        "timing": "Refer",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 4,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "fall",
+            "radius": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "pSLVik67wUzPryQR",
+      "_key": "!actors.items!sv5uQLoWgB74CoRy.pSLVik67wUzPryQR"
+    },
+    {
+      "name": "Caco de Anima Sussurrante",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-fragments-rough-green.webp",
+      "system": {
+        "description": "<p>Um caco verde que ainda sussurra baixinho. O Ofício do Anima não compra sem o Selo; os curiosos de Zakkaria, sim.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 7,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "h6W6TU0BMXDPceBO",
+      "sort": 400000,
+      "_key": "!actors.items!sv5uQLoWgB74CoRy.h6W6TU0BMXDPceBO"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 210000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "sv5uQLoWgB74CoRy",
+  "folder": "AkcsXT1tICuoFTMn",
+  "_key": "!actors!sv5uQLoWgB74CoRy"
+}

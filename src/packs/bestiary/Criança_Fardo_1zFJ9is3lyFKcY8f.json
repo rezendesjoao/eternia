@@ -1,0 +1,529 @@
+{
+  "name": "Criança-Fardo",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/crianca-fardo.webp",
+  "system": {
+    "health": {
+      "value": 45,
+      "max": 45,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Undead",
+      "Spirit"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 6,
+        "magic": 8
+      },
+      "speed": 2,
+      "initiative": 6
+    },
+    "rank": 2,
+    "idendification": "7",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 1
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 3
+      }
+    },
+    "description": "<p>Uma criança pálida, de pés descalços e roupa de enterro, que aparece sentada na beira da estrada à noite, perto dos cemitérios sem padre, e pede colo. Pesa nada quando sobe nas costas. A cada passo pesa mais: um saco de trigo, uma pedra de moinho, a laje de um túmulo. Quem a carrega afunda na estrada até não conseguir mais levantar, e ela fica ali, sentada no peito, esperando o próximo.</p><p><b>Na mesa:</b> comum de NP 2, das estradas e dos cemitérios à noite. O Agarrar-se às Costas gruda a criança em quem ela fere (o token vai junto): em cada Manutenção a vítima perde 3 PV e fica mais pesada: [Lenta], depois [Enraizada], depois [Derrubada], até alguém arrancá-la (uma Ação Menor da vítima ou de quem está junto, no botão Arrancar do cartão). O peso some quando ela solta. Quem anda sozinho é quem afunda.</p>"
+  },
+  "prototypeToken": {
+    "name": "Criança-Fardo",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/crianca-fardo.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Agarrar-se às Costas",
+      "type": "skill",
+      "img": "icons/magic/death/hand-undead-skeleton-fire-green.webp",
+      "system": {
+        "description": "<p>[2d6 + 19] de dano físico. Se ferir, a criança gruda nas costas do alvo: o token dela vai para o quadrado dele e o segue. Em cada Manutenção, o alvo perde 3 PV e fica mais pesado: [Lento], na seguinte [Enraizado], depois [Derrubado] (até ela soltar). Enquanto gruda, não ataca. O alvo, ou quem está junto, a arranca com uma Ação Menor (o botão Arrancar do cartão).</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 19,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "latch",
+            "drain": 3,
+            "steps": [
+              "slowed",
+              "rooted",
+              "prone"
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Srz9LD0KAWoXxWgV",
+      "_key": "!actors.items!1zFJ9is3lyFKcY8f.Srz9LD0KAWoXxWgV"
+    },
+    {
+      "name": "Morto que Pede Colo",
+      "type": "skill",
+      "img": "icons/magic/death/undead-ghost-scream-teal.webp",
+      "system": {
+        "description": "<p>[Fraqueza (Radiância): 5]. Não fica com [Medo], [Encantado], [Envenenado] nem [Adormecido].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "weaknessTag": "Radiance",
+              "immune": [
+                "frightened",
+                "charmed",
+                "poisoned",
+                "asleep"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Morto que Pede Colo",
+          "img": "icons/magic/death/undead-ghost-scream-teal.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.weakness",
+                "type": "add",
+                "value": "5",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "wvBkcgj3POJGWsaQ",
+          "_key": "!actors.items.effects!1zFJ9is3lyFKcY8f.6yhVonbAgGJJY82v.wvBkcgj3POJGWsaQ"
+        }
+      ],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "6yhVonbAgGJJY82v",
+      "_key": "!actors.items!1zFJ9is3lyFKcY8f.6yhVonbAgGJJY82v"
+    },
+    {
+      "name": "Fita de Enterro",
+      "type": "gear",
+      "img": "icons/commodities/cloth/cloth-bolt-glow-white.webp",
+      "system": {
+        "description": "<p>A fita que amarrava a roupa de enterro, com um nome bordado. Devolvê-la ao cemitério certo acalma a estrada.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 15,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "2gVU1fbaTHqRWsc3",
+      "sort": 300000,
+      "_key": "!actors.items!1zFJ9is3lyFKcY8f.2gVU1fbaTHqRWsc3"
+    },
+    {
+      "name": "Sapatinho de Pedra",
+      "type": "gear",
+      "img": "icons/equipment/feet/shoes-leather-simple-brown.webp",
+      "system": {
+        "description": "<p>Um sapato de criança que virou pedra. Pesa como um sino.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 35,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "VshyBb4YSaBGfJln",
+      "sort": 400000,
+      "_key": "!actors.items!1zFJ9is3lyFKcY8f.VshyBb4YSaBGfJln"
+    },
+    {
+      "name": "Medalha de Batismo",
+      "type": "gear",
+      "img": "icons/equipment/neck/pendant-silver-red.webp",
+      "system": {
+        "description": "<p>Uma medalha de prata com a data de um batismo de cem anos atrás.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 55,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "MVd9344ZJOPHTaie",
+      "sort": 500000,
+      "_key": "!actors.items!1zFJ9is3lyFKcY8f.MVd9344ZJOPHTaie"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 150000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "1zFJ9is3lyFKcY8f",
+  "folder": "AkcsXT1tICuoFTMn",
+  "_key": "!actors!1zFJ9is3lyFKcY8f"
+}

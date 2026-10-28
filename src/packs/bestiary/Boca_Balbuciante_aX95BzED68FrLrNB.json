@@ -1,0 +1,524 @@
+{
+  "name": "Boca-Balbuciante",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/boca-balbuciante.webp",
+  "system": {
+    "health": {
+      "value": 67,
+      "max": 67,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mythic",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 4,
+        "magic": 6
+      },
+      "speed": 1,
+      "initiative": 5
+    },
+    "rank": 3,
+    "idendification": "8",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 3,
+        "mod": 1
+      },
+      "resistance": {
+        "dice": 3,
+        "mod": 2
+      }
+    },
+    "description": "<p>Uma massa de carne do tamanho de um carro de bois, coberta de bocas e de olhos que abrem e fecham sem parar, que se arrasta pelos ossários e pelas galerias fundas comendo o que encontra. As bocas falam o tempo todo, com as vozes de quem ela comeu: pedidos, nomes, orações, risadas. Quem fica perto perde o fio do pensamento e esquece o que ia fazer.</p><p><b>Na mesa:</b> comum de NP 3, das catacumbas, dos ossários e das galerias fundas. O Balbucio deixa os inimigos a até 2 Qd dela [Confusos] em cada Manutenção (−1d6 em todos os testes e +1 de Ódio no começo de cada turno; sai com uma Ação Maior). As Mil Bocas mordem as pernas e derrubam. Anda devagar (Velocidade 1). Ficar a 3 Qd e bater de longe resolve; quem entra no corpo a corpo luta confuso.</p>"
+  },
+  "prototypeToken": {
+    "name": "Boca-Balbuciante",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/boca-balbuciante.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Mil Bocas",
+      "type": "skill",
+      "img": "icons/creatures/abilities/mouth-teeth-rows-needles-purple.webp",
+      "system": {
+        "description": "<p>[2d6 + 21] de dano físico, e o alvo fica [Derrubado].</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 21,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "prone"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "hZ6ztWykgyWl5fX0",
+      "_key": "!actors.items!aX95BzED68FrLrNB.hZ6ztWykgyWl5fX0"
+    },
+    {
+      "name": "Balbucio",
+      "type": "skill",
+      "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
+      "system": {
+        "description": "<p>Em cada Manutenção, os inimigos a até 2 Qd dela ficam [Confusos]. Ela não fica [Derrubada], [Agarrada], [Cega] nem [Confusa].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "realm": {
+                "radius": 2,
+                "enemies": [
+                  {
+                    "statusId": "confused"
+                  }
+                ]
+              },
+              "immune": [
+                "prone",
+                "grappled",
+                "blinded",
+                "confused"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Balbucio",
+          "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "4ncGZJgz8izzPoER",
+          "_key": "!actors.items.effects!aX95BzED68FrLrNB.zzCYxPhvH0QnR60i.4ncGZJgz8izzPoER"
+        }
+      ],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "zzCYxPhvH0QnR60i",
+      "_key": "!actors.items!aX95BzED68FrLrNB.zzCYxPhvH0QnR60i"
+    },
+    {
+      "name": "Dentes Misturados",
+      "type": "gear",
+      "img": "icons/commodities/bones/teeth-sharp-white.webp",
+      "system": {
+        "description": "<p>Um saco de dentes de todo tipo: de gente, de cão, de peixe. Os boticários os moem para pó de dente.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "CpQzqdK5Wt5EOVK5",
+      "sort": 300000,
+      "_key": "!actors.items!aX95BzED68FrLrNB.CpQzqdK5Wt5EOVK5"
+    },
+    {
+      "name": "Olho que Pisca",
+      "type": "gear",
+      "img": "icons/creatures/eyes/humanoid-single-blind.webp",
+      "system": {
+        "description": "<p>Um olho que continua piscando num pote de sal. Um mago de Centória jura que ele lembra o que viu.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 40,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "RjTeDM7s61w2jBMu",
+      "sort": 400000,
+      "_key": "!actors.items!aX95BzED68FrLrNB.RjTeDM7s61w2jBMu"
+    },
+    {
+      "name": "Língua das Vozes",
+      "type": "gear",
+      "img": "icons/commodities/biological/tongue-pink.webp",
+      "system": {
+        "description": "<p>Uma língua que, de noite, fala baixinho com as vozes de quem a boca comeu. Há quem pague para ouvir de novo uma voz perdida.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 70,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "pDzcyhwIctRPJIZh",
+      "sort": 500000,
+      "_key": "!actors.items!aX95BzED68FrLrNB.pDzcyhwIctRPJIZh"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "aX95BzED68FrLrNB",
+  "folder": "nOCT1FwbTpBWjiiE",
+  "_key": "!actors!aX95BzED68FrLrNB"
+}

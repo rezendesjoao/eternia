@@ -1,0 +1,601 @@
+{
+  "name": "Mão-de-Lodo",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/mao-de-lodo.webp",
+  "system": {
+    "health": {
+      "value": 53,
+      "max": 53,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Spirit",
+      "Aquatic"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 6,
+        "magic": 2
+      },
+      "speed": 2,
+      "initiative": 1
+    },
+    "rank": 1,
+    "idendification": "6",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 1
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Uma velha de pele verde e cabelo de alga, com dentes de agulha e braços compridos demais, que mora debaixo do gelo dos lagos e da lama dos juncos. Espera no escuro, sob o gelo fino, a criança que escorrega ou o viajante que pisa onde não devia, e puxa para o fundo. As mães de Norlangarth contam dela para os filhos não brincarem na margem; os filhos que não ouvem viram as histórias que as mães contam.</p><p><b>Na mesa:</b> comum de NP 1, dos lagos congelados e dos juncos. Sob o Gelo: começa [Oculta] (não pode ser alvo, só de área, até agir ou sofrer dano). Puxar para o Fundo deixa o alvo [Agarrado] e [Nadando] (−1d6 em todos os testes, as Esquivas também), e Afogar fere +6 quem está [Nadando]. Livrar-se do [Agarrado] (uma Ação Maior) é a saída. O Cabelo de Alga queima: [Fraqueza (Chama): 4].</p>"
+  },
+  "prototypeToken": {
+    "name": "Mão-de-Lodo",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/mao-de-lodo.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Puxar para o Fundo",
+      "type": "skill",
+      "img": "icons/commodities/biological/hand-gnarled-green.webp",
+      "system": {
+        "description": "<p>[2d6 + 10] de dano físico, e o alvo fica [Agarrado] e [Nadando]. Afogar: +6 de dano contra quem já está [Nadando].</p><p>(Menor): +3 de dano.</p>",
+        "tags": [
+          "Melee Attack",
+          "Water"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 10,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "grappled"
+            },
+            {
+              "statusId": "swimming"
+            }
+          ],
+          "bonusVs": [
+            {
+              "statuses": [
+                "swimming"
+              ],
+              "value": 6
+            }
+          ],
+          "minor": {
+            "damage": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "uAL67b0ZFImHX81b",
+      "_key": "!actors.items!IHkgSo3CWpGpJFyW.uAL67b0ZFImHX81b"
+    },
+    {
+      "name": "Sob o Gelo",
+      "type": "skill",
+      "img": "icons/magic/water/barrier-ice-wall-snow.webp",
+      "system": {
+        "description": "<p>Na primeira Manutenção do combate, fica [Oculta] debaixo do gelo ou da lama: não pode ser alvo, a não ser de ataques em área, até usar uma Ação Maior ou sofrer dano.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "start",
+            "statuses": [
+              {
+                "statusId": "hidden"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "dURfw5S70FFS1WDg",
+      "_key": "!actors.items!IHkgSo3CWpGpJFyW.dURfw5S70FFS1WDg"
+    },
+    {
+      "name": "Cabelo de Alga",
+      "type": "skill",
+      "img": "icons/consumables/plants/leaf-stem-bush-branch-green-brown.webp",
+      "system": {
+        "description": "<p>[Fraqueza (Chama): 4]. Nunca fica [Nadando]: a água é a casa dela.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "weaknessTag": "Flame",
+              "immune": [
+                "swimming"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Cabelo de Alga",
+          "img": "icons/consumables/plants/leaf-stem-bush-branch-green-brown.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.weakness",
+                "type": "add",
+                "value": "4",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "OzHJCoTwDfdW8r3p",
+          "_key": "!actors.items.effects!IHkgSo3CWpGpJFyW.kZ34d0STygcQqJBH.OzHJCoTwDfdW8r3p"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "kZ34d0STygcQqJBH",
+      "_key": "!actors.items!IHkgSo3CWpGpJFyW.kZ34d0STygcQqJBH"
+    },
+    {
+      "name": "Cabelo de Alga",
+      "type": "gear",
+      "img": "icons/consumables/plants/leaf-stem-bush-branch-green-brown.webp",
+      "system": {
+        "description": "<p>Um punhado de alga que nunca seca. Os boticários fazem com ela o emplastro de queimadura.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 12,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "9XwyWhNn94bXbTvu",
+      "sort": 400000,
+      "_key": "!actors.items!IHkgSo3CWpGpJFyW.9XwyWhNn94bXbTvu"
+    },
+    {
+      "name": "Dentes de Agulha",
+      "type": "gear",
+      "img": "icons/commodities/bones/teeth-pointed-white.webp",
+      "system": {
+        "description": "<p>Uma fileira de dentes finos como agulhas de costura. As costureiras de Zakkaria os querem para bordar couro.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 28,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "g3rbBcTb0j85P8mn",
+      "sort": 500000,
+      "_key": "!actors.items!IHkgSo3CWpGpJFyW.g3rbBcTb0j85P8mn"
+    },
+    {
+      "name": "Colar do Fundo",
+      "type": "gear",
+      "img": "icons/equipment/neck/necklace-carved-stone-spiral.webp",
+      "system": {
+        "description": "<p>Um colar de conchas e um anel de noivado de alguém que caiu no lago há muito tempo.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 45,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "WuHRfeycYN8JkDFS",
+      "sort": 600000,
+      "_key": "!actors.items!IHkgSo3CWpGpJFyW.WuHRfeycYN8JkDFS"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 260000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "IHkgSo3CWpGpJFyW",
+  "folder": "XA2JmuxkhmuaArlg",
+  "_key": "!actors!IHkgSo3CWpGpJFyW"
+}

@@ -1,0 +1,437 @@
+{
+  "name": "Floco-Vivo",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/floco-vivo.webp",
+  "system": {
+    "health": {
+      "value": 8,
+      "max": 8,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mob",
+      "Spirit",
+      "Magical"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 2,
+        "magic": 4
+      },
+      "speed": 3,
+      "initiative": 4
+    },
+    "rank": 1,
+    "idendification": "4",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 0,
+        "mod": 9
+      },
+      "resistance": {
+        "dice": 0,
+        "mod": 7
+      }
+    },
+    "description": "<p>Uma bolinha de neve com dois olhos pretos e um sorriso, que flutua em bandos sobre as encostas das Montanhas do Fim e cai no chão como neve comum quando morre. Os flocos-vivos não fazem mal a quase ninguém, e cada um vale um bom punhado de Shia nas boticárias de Zakkaria, que fazem deles o gelo que não derrete. Por isso os novatos sobem a serra no inverno com redes e sacos. E por isso tantos não voltam: quem caça os flocos chama o que os guarda.</p><p><b>Na mesa:</b> lacaio de NP 1, das encostas nevadas, em bandos de seis a doze. Fracos e valiosos: o Sopro de Neve deixa [Congelando: 1]. O Chamado do Inverno é a pegadinha: quando o primeiro floco cai na cena, o Guardião do Inverno (chefe de NP 3) chega a até 3 Qd. O grupo de NP 1 que quiser sair vivo precisa entender o Guardião: ele só ataca quem está de pé, e vai embora quando todos se curvam. Ganância medida: só mais um?</p>"
+  },
+  "prototypeToken": {
+    "name": "Floco-Vivo",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/floco-vivo.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Sopro de Neve",
+      "type": "skill",
+      "img": "icons/magic/air/wind-weather-snow-gusts.webp",
+      "system": {
+        "description": "<p>[2d6 + 6] de dano mágico de [Frio], e o alvo fica [Congelando: 1].</p>",
+        "tags": [
+          "Magic Attack",
+          "Cold"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "2Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 9,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 6,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "freezing",
+              "value": 1
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "WcFcIpytIjLz2c0K",
+      "_key": "!actors.items!NvCKwgxPSJcZSTUW.WcFcIpytIjLz2c0K"
+    },
+    {
+      "name": "Chamado do Inverno",
+      "type": "skill",
+      "img": "icons/magic/water/snowflake-ice-blue.webp",
+      "system": {
+        "description": "<p>Quando o primeiro Floco-Vivo da cena cai, o Guardião do Inverno chega a até 3 Qd dele e entra no combate (uma vez por cena, para o bando inteiro). Está sempre [Voando], e o dano de [Frio] o cura.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "absorb": [
+                "Cold"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Flutua",
+          "img": "icons/magic/water/snowflake-ice-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "flying"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "cv44e6rIUudxlGZX",
+          "_key": "!actors.items.effects!NvCKwgxPSJcZSTUW.LZ3Jt3BbDDhhTwbX.cv44e6rIUudxlGZX"
+        }
+      ],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "brood",
+            "once": true,
+            "radius": 3,
+            "actors": [
+              {
+                "uuid": "Compendium.eternia.bestiary.Actor.FCNbPib1cYFa2ij8",
+                "count": 1
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "LZ3Jt3BbDDhhTwbX",
+      "_key": "!actors.items!NvCKwgxPSJcZSTUW.LZ3Jt3BbDDhhTwbX"
+    },
+    {
+      "name": "Floco Eterno",
+      "type": "gear",
+      "img": "icons/magic/water/snowflake-ice-blue-white.webp",
+      "system": {
+        "description": "<p>O que sobra de um floco-vivo: um cristal de neve do tamanho de uma moeda, que não derrete. As boticárias de Zakkaria compram por unidade.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 12,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "vTVdnaozeszN8ztS",
+      "sort": 300000,
+      "_key": "!actors.items!NvCKwgxPSJcZSTUW.vTVdnaozeszN8ztS"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 240000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "NvCKwgxPSJcZSTUW",
+  "folder": "XA2JmuxkhmuaArlg",
+  "_key": "!actors!NvCKwgxPSJcZSTUW"
+}

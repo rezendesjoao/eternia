@@ -485,7 +485,8 @@
       "inversion": "Inversion",
       "rhythm": "Rhythm",
       "clones": "Clones",
-      "bond": "Bond"
+      "bond": "Bond",
+      "contagion": "Contagion"
     },
     "StatusGroup": {
       "bad": "Bad Status",
@@ -1876,7 +1877,8 @@
       "inversion": "The magic damage it would take (after Defense and Cancel) heals it instead. In turn, the healing it gets hurts, and the effects that would give it [Empowered] or [Regen] give [Weakened] or [Decay] with the same Rating. Ends in the Cleanup Process.",
       "rhythm": "[Rhythm: n] (up to 3): the next damage of one of your spells (or of a [Magic Attack] or [Spell]) adds +n d6, and the Rhythm ends. New Rhythms add up. Also ends at the end of the scene.",
       "clones": "[Clones: n] (up to 6): when an attack would hit you, roll 1d6: up to n, it hits a copy (nothing reaches you, no damage nor statuses) and the Clones go down by 1. Your Close attacks deal +n damage. New Clones add up. Ends at the end of the scene.",
-      "bond": "Half the HP damage they would take goes to whoever made the Bond, as direct damage. Ends at the end of the scene or if that character is Incapacitated."
+      "bond": "Half the HP damage they would take goes to whoever made the Bond, as direct damage. Ends at the end of the scene or if that character is Incapacitated.",
+      "contagion": "[Contagion: n]: takes n direct damage in the Cleanup and passes [Contagion: n] to the allies within 1 square that don't have it yet (whoever caught it only hurts and spreads from the next Cleanup). The highest Rating stays. Ends with a Major Action."
     },
     "StatusFamily": {
       "core": "Classic",
@@ -2024,7 +2026,8 @@
         "Flavor": "Getting out of {status}: {check} against {dc}",
         "Done": "{name} won the test ({check} {n} against {dc}).",
         "Failed": "{name} didn't get out of {status} ({check} {n} against {dc}): the action is spent."
-      }
+      },
+      "ContagionSpreads": "{name}'s [Contagion] passes to {list}."
     },
     "Omen": {
       "Title": "Omen",
@@ -4183,7 +4186,31 @@
       "PossessHostFell": "{host} fell: {name} leaves the body.",
       "PossessGhostFell": "{name} fell inside: {host} is free.",
       "PossessFreed": "{host} is free: {name} leaves the body.",
-      "PossessInside": "{name} is inside {host}: it doesn't act until it is out."
+      "PossessInside": "{name} is inside {host}: it doesn't act until it is out.",
+      "Breed": "{name}: {n} more are born ({total} on the scene).",
+      "Brood": "{name} falls, and out of it come: {list}.",
+      "Curse": {
+        "Given": "{by} cursed {name}: {statuses}, until {by} falls.",
+        "Title": "The curse breaks",
+        "Ended": "{name} fell, and its curse breaks: {list}."
+      },
+      "Shuffle": "{name}'s writing changes: {form}.",
+      "Devour": {
+        "Swallowed": "{name} swallowed {target}'s {piece}: it only comes back when {name} falls or the fight ends.",
+        "Back": "{target}'s {piece} comes back.",
+        "Title": "What was swallowed comes back",
+        "Inside": "{piece} is inside {name}: it only comes back when it falls or the fight ends."
+      },
+      "Spill": "{name} is [{status}]: it loses its strength and has {statuses} until the end of the scene.",
+      "Thirst": {
+        "Quenched": "{name} drew blood again: the thirst goes.",
+        "Dry": "{name} went a round without wounding anyone and dries ({n}): {statuses}. {left} more such rounds and it falls.",
+        "Dead": "{name} went too many rounds without blood: it dries up and falls."
+      },
+      "Bow": {
+        "Spares": "{name} doesn't attack whoever bowed ([Prone]): {targets}.",
+        "Leaves": "Everyone bowed before {name}: it accepts the reverence and goes away."
+      }
     },
     "Rift": {
       "Eyebrow": "Rift",
@@ -4295,7 +4322,8 @@
       "NoOne": "Select the token of the character who rips it off.",
       "TooFar": "{name} must be right by {host} (on the same square or next to it) to rip it off.",
       "NotYourProcess": "{name} can only rip it off on their own turn.",
-      "NoMinor": "{name} already spent the Minor Action of this turn."
+      "NoMinor": "{name} already spent the Minor Action of this turn.",
+      "Weighs": "{name} weighs more on {host}: {status}."
     },
     "Gaze": {
       "GazeLabel": "Gaze",

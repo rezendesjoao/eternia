@@ -8,7 +8,7 @@ diz onde cada regra está no código e como criar uma condição nova.
 
 | Arquivo | O que faz |
 |---|---|
-| `module/conditions/catalog.mjs` | As 52 condições (id, grupo, família, ícone, campo do Valor, acúmulo, contagem, origem) e as tabelas das regras: quem perde a vez (`NO_ACTIONS`), sem movimento (`NO_MOVEMENT`), sem reações (`NO_REACTIONS`), quem falha nas Esquivas (`NO_DODGE`), tags que o Silenciado impede (as habilidades com [Maldição] passam), o que acaba no fim do próprio turno (`END_OF_OWN_PROCESS`; os de `WHOLE_TURN` dados no próprio turno duram até o fim do próximo), no Encerramento e no fim da cena, o que o Aflito protege, a ação para se livrar (`RECOVERY`) e os limiares dos acúmulos e o Sol (`SUN_NOON`, `SUN_NIGHT`). |
+| `module/conditions/catalog.mjs` | As 53 condições (id, grupo, família, ícone, campo do Valor, acúmulo, contagem, origem) e as tabelas das regras: quem perde a vez (`NO_ACTIONS`), sem movimento (`NO_MOVEMENT`), sem reações (`NO_REACTIONS`), quem falha nas Esquivas (`NO_DODGE`), tags que o Silenciado impede (as habilidades com [Maldição] passam), o que acaba no fim do próprio turno (`END_OF_OWN_PROCESS`; os de `WHOLE_TURN` dados no próprio turno duram até o fim do próximo), no Encerramento e no fim da cena, o que o Aflito protege, a ação para se livrar (`RECOVERY`) e os limiares dos acúmulos e o Sol (`SUN_NOON`, `SUN_NIGHT`). |
 | `module/conditions/rules.mjs` | Consultas comuns: `has`, `rating`, `sourcesOf`, `isHostile`, `removeStatuses`, `addStatus` e as duas configurações. |
 | `module/conditions/rolls.mjs` | −1d6 e +1d6 dos testes e das Esquivas, a Esquiva que falha sozinha (Adormecido, Petrificado, Pesadelo), o dano a mais (Ímpeto, Combo, Clones no corpo a corpo; o Ritmo em d6 no próximo feitiço, `isSpell`) e o a menos do Enfraquecido, e o Concentrado e o Ritmo que se gastam. Chamado pelas rolagens de habilidade, pelos cartões de ataque, pelas fichas, pelo HUD e pelo Destino. |
 | `module/conditions/damage.mjs` | O dano dos cartões (antes: Exposto, Intangível, Intocável, Encharcado, Pacificado de quem ataca, os Clones (`cloneDecoy`), Petrificado pela metade, a Inversão que cura; depois: Último Fôlego, o Fôlego Extra (`spendExtraBreath`), Vínculo, Espelho, Combo que quebra, Adormecido, Encantado, Chama no Congelando e no Encharcado), o que o Desfazer devolve, o Maldito, O Único (nada de ataques chega), o Contragolpe (`counterFor` e `counterBack`: o dano volta dobrado ao atacante, só de golpe direto, ou de qualquer um com o tipo "any"), o Rancor (guarda o PV perdido, até NP×4), a Chama Negra e o Maldito que bloqueiam a cura (`healBlocker`), o `takeDamage` (o dano das próprias condições, com Barreira, Anulação da tag e linha no chat; quem não é dono pede ao Mestre pelo socket) e o `takeHealing` (a cura do Dreno, pelo mesmo caminho; com Inversão, fere), a Agonia (`agonyPain`) e a Inversão que troca Fortalecido e Regeneração por Enfraquecido e Deterioração (`invertGift`). |
@@ -117,7 +117,7 @@ as flags de golpe, nos cartões de dano: `helpers/combat-cards.mjs`, `helpers/ma
 | Efeito | `renew` | quantos fins naturais dos estados do efeito ainda passam em branco (a Promoção de Estado) |
 | Efeito | `fromSpell` | o estado veio do acerto de um feitiço (cartão de dano): o Cancelamento Absoluto o conhece |
 | Efeito | `noKill` | o dano dos cartões de quem o tem para em 1 PV (o Tabu da Praga, `conditions: inCombat`); só as condições derrubam |
-| Efeito | `healingHurts` | `"allySpell"`: a cura de um [Feitiço] de um aliado vira dano direto em quem o tem (o Tabu d'O Soberano) |
+| Efeito | `healingHurts` | `"allySpell"`: a cura de um [Feitiço] de um aliado vira dano direto em quem o tem (o Tabu d'O Soberano); `"any"`: toda cura que um cartão lhe dá vira dano direto (o Duende do Avesso, no bestiário) |
 | Efeito | `harvest` | `{ value, max, tag }`: enquanto dura, cada inimigo de quem o tem que cai sobe o [Servo] dele em `value` (até `max`), com a tag (o Rito do Rancor dos Mortos) |
 | Efeito | `feedSource` | n: em cada Encerramento, enquanto o efeito durar, o Motor da classe de quem o deu ganha n (o Casulo das Trevas) |
 | Efeito | `cleanse` | `{ statuses, reach }`: ao chegar, quem o tem e os aliados a até `reach` Qd perdem esses estados; o efeito sai (a Arca Ômega) |
@@ -209,6 +209,15 @@ as flags de golpe, nos cartões de dano: `helpers/combat-cards.mjs`, `helpers/ma
   foi crítico, e a lista que recebe as linhas dos Fôlegos que não seguraram), `breathsLeft(actor, effect?)` e
   `giveUpBreaths(actor, n?, { effect })` (entrega usos sem cair: a transformação que gasta os corações que restam; os
   sem limite ficam), em `conditions/damage.mjs`.
+
+## O Contágio (0.47)
+
+- **Contágio** (`contagion`, Valor, família dos elementais): no Encerramento, quem o tem sofre o Valor como dano direto
+  (`takeDamage`, motivo `contagion`) e o passa, com o mesmo Valor e a mesma origem, aos aliados (a mesma disposição do
+  token) a até 1 Qd dele que ainda não o têm (`spreadContagion` em `conditions/turns.mjs`). Quem o pega leva
+  `flags.eternia.caughtAt` = "<combate>.<rodada>": nesse mesmo Encerramento não sofre nem passa (`caughtNow`), para a
+  doença não correr a fila inteira de uma vez. Fica o de maior Valor; sai com uma Ação Maior (`RECOVERY`). As ratazanas do
+  bestiário o dão; o simulador o conta como 3 rodadas de dano.
 
 ## Os Decretos
 

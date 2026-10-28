@@ -60,18 +60,23 @@ const INVERTED_GIFTS = { empowered: "weakened", regen: "decay" };
 /** How much damage a [Grudge] keeps: its bearer's CR times this. */
 const GRUDGE_CAP = 4;
 
+/** The tags a damage card's type adds to its own (as the halving reads them: bestiary/halve.mjs). */
+const TYPE_TAGS = { physical: ["Physical"], magical: ["Magic", "Magical"] };
+
 /**
  * The tag of a damage card that a creature eats (an active effect with `flags.eternia.absorb`, a list of tags: the
- * Glowing Lizard eats the light), as the table writes it, or null.
+ * Glowing Lizard eats the light, the Inside-Out Imp the physical blows), as the table writes it, or null. The card's
+ * type counts as a tag ([Physical], [Magic]).
  * @param {Actor} actor
  * @param {object} card
  * @returns {string|null}
  */
 function absorbedTag(actor, card) {
+  const cardTags = [...(card.tags ?? []), ...(TYPE_TAGS[card.type] ?? [])].map(c => String(c).toLowerCase());
   for (const effect of actor?.allApplicableEffects?.() ?? []) {
     const tags = effect.active ? effect.getFlag(SYSTEM_ID, "absorb") : null;
     if (!Array.isArray(tags)) continue;
-    const tag = tags.find(t => (card.tags ?? []).some(c => String(c).toLowerCase() === String(t).toLowerCase()));
+    const tag = tags.find(t => cardTags.includes(String(t).toLowerCase()));
     if (tag) return tagLabel(tag);
   }
   return null;

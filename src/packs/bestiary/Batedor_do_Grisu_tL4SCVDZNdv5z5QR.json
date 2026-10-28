@@ -1,0 +1,423 @@
+{
+  "name": "Batedor do Grisu",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/batedor-do-grisu.webp",
+  "system": {
+    "health": {
+      "value": 20,
+      "max": 20,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mob",
+      "Spirit"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 4,
+        "magic": 6
+      },
+      "speed": 2,
+      "initiative": 5
+    },
+    "rank": 1,
+    "idendification": "7",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 0,
+        "mod": 7
+      },
+      "resistance": {
+        "dice": 0,
+        "mod": 8
+      }
+    },
+    "description": "<p>Um velhinho do tamanho de um palmo, de barba branca até os pés, gorro de couro e uma lanterna de ferro maior que a cabeça. Os mineiros da serra o ouvem antes de vê-lo: tuc, tuc, tuc, na pedra, onde o gás da mina se junta. Uns dizem que ele avisa do desabamento. Outros dizem que ele bate onde quer que a rocha caia, e que a fagulha da lanterna dele é o que acende o grisu. Os dois estão certos.</p><p><b>Na mesa:</b> lacaio de NP 1, das galerias das minas da serra, em grupos de três a cinco, junto de kobolds e de feras das galerias. A Batida no Grisu deixa [Pavio: 4] em quem ela acerta: no Encerramento o gás explode, [Chama] igual ao Valor, e os Pavios novos somam (três batedores no mesmo alvo dão 12). Desarmar o Pavio custa uma Ação Maior: o grupo escolhe entre bater e se salvar. Some na Fenda da Rocha o esconde uma vez por cena.</p>"
+  },
+  "prototypeToken": {
+    "name": "Batedor do Grisu",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/batedor-do-grisu.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Batida no Grisu",
+      "type": "skill",
+      "img": "icons/tools/hand/hammer-and-nail.webp",
+      "system": {
+        "description": "<p>Alcance 3 Qd. [2d6 + 14] de dano mágico, e o alvo fica [Pavio: 4]: no Encerramento, explode em dano de [Chama] igual ao Valor (Pavios novos somam). Desarmar gasta uma Ação Maior.</p>",
+        "tags": [
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 10,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 14,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "fuse",
+              "value": 4
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "tBwpIfKb9hyrqj27",
+      "_key": "!actors.items!tL4SCVDZNdv5z5QR.tBwpIfKb9hyrqj27"
+    },
+    {
+      "name": "Some na Fenda da Rocha",
+      "type": "skill",
+      "img": "icons/environment/wilderness/cave-entrance-mountain.webp",
+      "system": {
+        "description": "<p>Este inimigo some numa fresta da rocha (só onde há parede de pedra): fica [Oculto].</p>",
+        "tags": [],
+        "timing": "Move",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "statusData": {
+                "statusId": "hidden"
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Some na Fenda da Rocha",
+          "img": "icons/environment/wilderness/cave-entrance-mountain.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "hidden"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "nSTN83vEwnVTzH0V",
+          "_key": "!actors.items.effects!tL4SCVDZNdv5z5QR.fLk4EAzdYhsxfRoy.nSTN83vEwnVTzH0V"
+        }
+      ],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "fLk4EAzdYhsxfRoy",
+      "_key": "!actors.items!tL4SCVDZNdv5z5QR.fLk4EAzdYhsxfRoy"
+    },
+    {
+      "name": "Lanterninha de Grisu",
+      "type": "gear",
+      "img": "icons/sundries/lights/lantern-iron-lit-yellow.webp",
+      "system": {
+        "description": "<p>A lanterna minúscula do batedor, que fica vermelha perto do gás da mina. Todo capataz quer uma.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 6,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "7BwpNWdCeaog31YU",
+      "sort": 300000,
+      "_key": "!actors.items!tL4SCVDZNdv5z5QR.7BwpNWdCeaog31YU"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 280000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "tL4SCVDZNdv5z5QR",
+  "folder": "XA2JmuxkhmuaArlg",
+  "_key": "!actors!tL4SCVDZNdv5z5QR"
+}

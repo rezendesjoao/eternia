@@ -10,6 +10,9 @@
  * - it ends when someone rips it off (the card's Rip off button: the host, or whoever touches it, spends a Minor Action
  *   in its own Main Process; the monster lands next to the host), when the monster's token moves away (by itself or
  *   forced: `eterniaLatch` marks the moves that keep it), when either of them falls, and with the scene.
+ * With `steps` (a list of status ids), the latch weighs: in each Setup Process the host also gets the first of them it
+ * doesn't have yet, infinite while the latch lasts (the Burden Child: [Slowed], then [Rooted], then [Prone]); they end
+ * when the monster lets go (`flags.eternia.latchStep` = the monster's token).
  * A monster holds on to one host at a time, and only to a creature of the other side. The card
  * (`templates/chat/latch-card.hbs`) says what it drains and closes when it lets go. The latch, the drain and the moves run
  * on the primary GM; the Rip off of a player goes to it by the socket (`bestiaryLatch`).
@@ -22,6 +25,8 @@ import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { actionsLeft, spendAction } from "../automation/use.mjs";
 import { takeDamage, takeHealing } from "../conditions/damage.mjs";
 import { rulesOn } from "../conditions/rules.mjs";
+import { giveEffects } from "../chat/status-links.mjs";
+import { statusList } from "./rust.mjs";
 
 const TEMPLATE = "systems/eternia/templates/chat/latch-card.hbs";
 
@@ -137,7 +142,7 @@ async function latch({ monsterUuid, hostUuid, itemUuid }) {
   const [effect] = await host.createEmbeddedDocuments("ActiveEffect", [{
     name: L("Latch.Effect", { name: own.name }), img: own.texture?.src || monster.img, type: "base", origin: item.uuid,
     transfer: false, disabled: false, statuses: [], showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS,
-    flags: { [SYSTEM_ID]: { latch: { tokenUuid: own.uuid, actorUuid: monster.uuid, drain, item: item.name }, expires: "endOfScene" } }
+    flags: { [SYSTEM_ID]: { latch: { tokenUuid: own.uuid, actorUuid: monster.uuid, drain, item: item.name, steps: rule.steps ?? [] }, expires: "endOfScene" } }
   }]);
   // On the host's square, at once (the rules that count who is engaged read where the token is drawn); the moves of a
   // latched monster keep it (`eterniaLatch`)
@@ -166,6 +171,9 @@ async function letGo(effect, event, { toss = false } = {}) {
   letting.add(effect.id);
   await effect.delete().catch(() => null);
   letting.delete(effect.id);
+  // The weight it laid on the host goes with it
+  const weights = host.effects.filter(e => e.getFlag(SYSTEM_ID, "latchStep") === data.tokenUuid).map(e => e.id);
+  if (weights.length) await host.deleteEmbeddedDocuments("ActiveEffect", weights).catch(() => null);
   const token = fromUuidSync(data.tokenUuid ?? "");
   const at = token ? tokenOn(host, token.parent) : null;
   const spot = (toss && token && at) ? freeNextTo(at, token) : null;
@@ -245,6 +253,13 @@ async function setupDrain(combat) {
       const own = actor.hasPlayerOwner ? lines : gmLines;
       if (hurt) own.push(hurt.line);
       if (healed?.line) gmLines.push(healed.line);
+      // The weight: the next of its steps the host doesn't have yet
+      const next = (data.steps ?? []).find(id => !actor.statuses.has(id));
+      if (next) {
+        const { effects, names } = statusList([{ statusId: next }], monster, { infinite: true });
+        for (const e of effects) e.flags[SYSTEM_ID].latchStep = data.tokenUuid;
+        if (await giveEffects(actor, effects)) own.push(L("Latch.Weighs", { name: token.name, host: actorName(actor), status: names.join(", ") }));
+      }
     }
   }
   if (lines.length || gmLines.length) await postSummary(L("Latch.DrainTitle"), lines, gmLines);

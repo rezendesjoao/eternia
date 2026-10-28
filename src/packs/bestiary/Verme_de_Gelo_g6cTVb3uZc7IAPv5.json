@@ -1,0 +1,610 @@
+{
+  "name": "Verme de Gelo",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/verme-de-gelo.webp",
+  "system": {
+    "health": {
+      "value": 67,
+      "max": 67,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Natural",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 4,
+        "magic": 6
+      },
+      "speed": 2,
+      "initiative": 5
+    },
+    "rank": 3,
+    "idendification": "8",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 3,
+        "mod": 1
+      },
+      "resistance": {
+        "dice": 3,
+        "mod": 2
+      }
+    },
+    "description": "<p>Um verme branco-azulado da grossura de um tonel, de boca redonda cheia de dentes de gelo, que cava túneis no gelo da Cova do Norte como uma toupeira na terra. Canta antes de atacar: um trinado agudo, como um copo de vidro esfregado, que gela o sangue e pesa nas pernas. E quando morre, o frio que guardava a vida inteira sai de uma vez, numa explosão de gelo que congela tudo em volta.</p><p><b>Na mesa:</b> comum de NP 3, da Cova do Norte e das cavernas de gelo da serra. A Mordida deixa [Congelando: 1]. O Trinado, em área, deixa [Lento] e [Congelando: 1] quem falha na Resistência. A Morte Gélida: quando cai, quem estiver a até 2 Qd sofre [2d6 + 20] de [Frio] e fica [Congelando: 2], o que, com mais um acúmulo, congela ([Paralisado]). Matá-lo de longe, ou recuar antes do golpe final, salva o grupo.</p>"
+  },
+  "prototypeToken": {
+    "name": "Verme de Gelo",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/verme-de-gelo.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 2,
+    "height": 2,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Mordida de Gelo",
+      "type": "skill",
+      "img": "icons/creatures/abilities/mouth-teeth-rows-white.webp",
+      "system": {
+        "description": "<p>[2d6 + 16] de dano físico de [Frio], e o alvo fica [Congelando: 1].</p><p>(Menor): +4 de dano.</p>",
+        "tags": [
+          "Melee Attack",
+          "Cold"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 16,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "freezing",
+              "value": 1
+            }
+          ],
+          "minor": {
+            "damage": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "fYXWyC1SJWciwSNK",
+      "_key": "!actors.items!g6cTVb3uZc7IAPv5.fYXWyC1SJWciwSNK"
+    },
+    {
+      "name": "Trinado",
+      "type": "skill",
+      "img": "icons/magic/sonic/bell-alarm-red-purple.webp",
+      "system": {
+        "description": "<p>Área (Escolha) a até 3 Qd: [2d6 + 4] de dano mágico de [Frio], e quem é atingido fica [Lento] e [Congelando: 1]. Recarga.</p>",
+        "tags": [
+          "Magic Attack",
+          "Cold"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 4,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "recharge",
+            "min": 5
+          },
+          "hitStatuses": [
+            {
+              "statusId": "slowed"
+            },
+            {
+              "statusId": "freezing",
+              "value": 1
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "5nMXAUBAefVlVeHv",
+      "_key": "!actors.items!g6cTVb3uZc7IAPv5.5nMXAUBAefVlVeHv"
+    },
+    {
+      "name": "Morte Gélida",
+      "type": "skill",
+      "img": "icons/magic/water/projectile-icecicle-glowing.webp",
+      "system": {
+        "description": "<p>Quando este inimigo cai, o frio dele explode: quem estiver a até 2 Qd sofre [2d6 + 20] de dano mágico de [Frio] e fica [Congelando: 2]. Sem Teste de Esquiva. O dano de [Frio] o cura; não fica [Congelando], [Derrubado] nem [Cego].</p>",
+        "tags": [
+          "Cold"
+        ],
+        "timing": "Refer",
+        "checkType": "",
+        "range": "2Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 20,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "absorb": [
+                "Cold"
+              ],
+              "immune": [
+                "freezing",
+                "prone",
+                "blinded"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Corpo de Gelo",
+          "img": "icons/magic/water/projectile-icecicle-glowing.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "iupisMVRGYEI71cC",
+          "_key": "!actors.items.effects!g6cTVb3uZc7IAPv5.Ol3blmGw8tAHev4v.iupisMVRGYEI71cC"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "fall",
+            "radius": 2
+          },
+          "hitStatuses": [
+            {
+              "statusId": "freezing",
+              "value": 2
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Ol3blmGw8tAHev4v",
+      "_key": "!actors.items!g6cTVb3uZc7IAPv5.Ol3blmGw8tAHev4v"
+    },
+    {
+      "name": "Dentes de Gelo",
+      "type": "gear",
+      "img": "icons/commodities/bones/teeth-pointed-white.webp",
+      "system": {
+        "description": "<p>Uma fileira de dentes de gelo que não derretem. Os boticários conservam sangue com eles.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "EFeUVHChVfzdb9s6",
+      "sort": 400000,
+      "_key": "!actors.items!g6cTVb3uZc7IAPv5.EFeUVHChVfzdb9s6"
+    },
+    {
+      "name": "Pele de Verme Branca",
+      "type": "gear",
+      "img": "icons/commodities/leather/scales-white.webp",
+      "system": {
+        "description": "<p>Um couro branco e frio que não deixa o calor sair. As capas dos Cavaleiros da serra são forradas dele.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 40,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "HpgsLYc1DOMtn71I",
+      "sort": 500000,
+      "_key": "!actors.items!g6cTVb3uZc7IAPv5.HpgsLYc1DOMtn71I"
+    },
+    {
+      "name": "Glândula do Frio",
+      "type": "gear",
+      "img": "icons/commodities/biological/organ-bladder-red.webp",
+      "system": {
+        "description": "<p>A glândula que guardava o frio da explosão, ainda cheia. Cuidado: quebra.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 70,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "QzvO2IL7JqHEGRlN",
+      "sort": 600000,
+      "_key": "!actors.items!g6cTVb3uZc7IAPv5.QzvO2IL7JqHEGRlN"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 240000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "g6cTVb3uZc7IAPv5",
+  "folder": "nOCT1FwbTpBWjiiE",
+  "_key": "!actors!g6cTVb3uZc7IAPv5"
+}

@@ -1,0 +1,634 @@
+{
+  "name": "Lagartixa-Tesouro",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/lagartixa-tesouro.webp",
+  "system": {
+    "health": {
+      "value": 30,
+      "max": 30,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Natural",
+      "Mythic"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 8,
+        "magic": 8
+      },
+      "speed": 3,
+      "initiative": 6
+    },
+    "rank": 1,
+    "idendification": "9",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 3,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Uma lagartixa do tamanho de um gato, de escamas que são lascas de Anima-mundi vivas: azuis, verdes, às vezes douradas, e na ponta da cauda um nó de cristal que brilha como estrela. Corre pelas paredes das minas fundas e da Cova do Norte e foge de tudo. Ninguém sabe de onde vem; todo mineiro já viu uma, e quase nenhum pegou. Quem pegou não precisou mais minerar.</p><p><b>Na mesa:</b> comum de NP 1, um evento de tesouro nas minas e na Cova do Norte. Esquiva altíssima, PV baixos, mordida fraca. Fugir com o Brilho: na Manutenção da terceira rodada ela foge e leva tudo, a menos que esteja presa ([Agarrada], [Enraizada], [Paralisada], [Petrificada] ou [Adormecida]); presa, tenta de novo em cada Manutenção. Prender primeiro e bater depois é o jogo, e os itens deixados valem por um chefe.</p>"
+  },
+  "prototypeToken": {
+    "name": "Lagartixa-Tesouro",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/lagartixa-tesouro.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Mordidinha",
+      "type": "skill",
+      "img": "icons/creatures/abilities/mouth-teeth-sharp.webp",
+      "system": {
+        "description": "<p>[2d6 + 8] de dano físico.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 8,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "xz6xBCWy3chvIgPo",
+      "_key": "!actors.items!whPD2miDy5Naodt8.xz6xBCWy3chvIgPo"
+    },
+    {
+      "name": "Fugir com o Brilho",
+      "type": "skill",
+      "img": "icons/creatures/reptiles/lizard-iguana-green.webp",
+      "system": {
+        "description": "<p>Na Manutenção da terceira rodada, esta lagartixa foge pela parede: sai da cena e não deixa itens. [Agarrada], [Enraizada], [Paralisada], [Petrificada] ou [Adormecida], fica, e tenta de novo em cada Manutenção.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "retreat",
+            "round": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "2Zdq34KHd3daHpaJ",
+      "_key": "!actors.items!whPD2miDy5Naodt8.2Zdq34KHd3daHpaJ"
+    },
+    {
+      "name": "Escamas de Anima",
+      "type": "skill",
+      "img": "icons/commodities/gems/gem-fragments-rough-green.webp",
+      "system": {
+        "description": "<p>[Anulação (Mágico): 3]: as escamas bebem um pouco da magia.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "cancelTag": "Magic"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Escamas de Anima",
+          "img": "icons/commodities/gems/gem-fragments-rough-green.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.cancel",
+                "type": "add",
+                "value": "3",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "x5QpXKx6II7bJLsN",
+          "_key": "!actors.items.effects!whPD2miDy5Naodt8.zt5yYtjzc8bNt51D.x5QpXKx6II7bJLsN"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "zt5yYtjzc8bNt51D",
+      "_key": "!actors.items!whPD2miDy5Naodt8.zt5yYtjzc8bNt51D"
+    },
+    {
+      "name": "Anima-mundi 2",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 2 gasta uma Anima-mundi 2 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 2"
+        ],
+        "rank": 2,
+        "price": 20,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 36
+          },
+          "drop": {
+            "min": 1,
+            "max": 2,
+            "qty": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.98b1DOCsJYStKfaN",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "jqhR1GMEoENyhJwN",
+      "sort": 400000,
+      "_key": "!actors.items!whPD2miDy5Naodt8.jqhR1GMEoENyhJwN"
+    },
+    {
+      "name": "Escamas de Anima Viva",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-fragments-rough-green.webp",
+      "system": {
+        "description": "<p>Escamas que ainda brilham por dentro. O Ofício do Anima não compra sem o Selo, mas os joalheiros de Zakkaria não perguntam.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 60,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 3,
+            "max": 4,
+            "qty": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "aSQQuYHEBQwyMeaz",
+      "sort": 500000,
+      "_key": "!actors.items!whPD2miDy5Naodt8.aSQQuYHEBQwyMeaz"
+    },
+    {
+      "name": "Anima-mundi 3",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 3 gasta uma Anima-mundi 3 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 3"
+        ],
+        "rank": 3,
+        "price": 25,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 72
+          },
+          "drop": {
+            "min": 5,
+            "max": 5,
+            "qty": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.sIQlqF1Du4YEZVLK",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "OKfx0Ca2tBez3Wax",
+      "sort": 600000,
+      "_key": "!actors.items!whPD2miDy5Naodt8.OKfx0Ca2tBez3Wax"
+    },
+    {
+      "name": "Nó de Cristal da Cauda",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-rough-cushion-violet.webp",
+      "system": {
+        "description": "<p>A estrela da ponta da cauda: um cristal que pulsa devagar, como um coração. Um nobre de Centória daria uma casa por ele.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 250,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "JsFMLPfUUisX1u91",
+      "sort": 700000,
+      "_key": "!actors.items!whPD2miDy5Naodt8.JsFMLPfUUisX1u91"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 320000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "whPD2miDy5Naodt8",
+  "folder": "XA2JmuxkhmuaArlg",
+  "_key": "!actors!whPD2miDy5Naodt8"
+}

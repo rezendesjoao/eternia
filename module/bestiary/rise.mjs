@@ -178,7 +178,7 @@ async function raiseDead(actor, item) {
 
 /** A raiser bound to its dead fell: whoever it called or raised falls with it. GM only. */
 async function boundFall(actor) {
-  const skill = withRule(actor, "raise").find(i => ruleOf(i).bound);
+  const skill = withRule(actor, "raise").find(i => ruleOf(i).bound) ?? withRule(actor, "summon").find(i => ruleOf(i).bound);
   const scene = skill ? tokenOf(actor)?.parent : null;
   if (!scene) return;
   const dead = scene.tokens.filter(t => (t.getFlag(SYSTEM_ID, "calledBy") === actor.uuid) && !t.hidden && t.actor && !isDown(t.actor));

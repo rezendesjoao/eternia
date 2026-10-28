@@ -1,7 +1,8 @@
 /**
  * Engulfing (a monster rule, docs/bestiario.md): a monster whose attack carries `flags.eternia.monster = { rule:
- * "engulf", acid, tag, escape, max, through, statuses }` swallows whoever its damage card reaches (the Gelatinous Cube
- * going over whoever stands in the corridor, the Shambling Mound).
+ * "engulf", acid, tag, escape, max, through, statuses, notMetal }` swallows whoever its damage card reaches (the
+ * Gelatinous Cube going over whoever stands in the corridor, the Shambling Mound). With `notMetal`, it won't swallow
+ * whoever wears metal (an armor or shield of metal, bestiary/rust.mjs: the Well-Mouth Toad spits it out).
  * - Swallowed: when the blow takes HP or Barrier from a creature no bigger than the monster (while it holds fewer than
  *   `max`; 0: no limit), the creature is [Grappled] by it, in an effect with `flags.eternia.engulfed = { by, item }` (the
  *   monster's token, the skill) and `flags.eternia.escape = escape` (`{ check, dc }`, conditions/escape.mjs); the
@@ -22,6 +23,7 @@ import { actorName, postSummary, toInt, wrap } from "../helpers/utils.mjs";
 import { giveEffects, statusEffectData } from "../chat/status-links.mjs";
 import { isAreaAttack, takeDamage } from "../conditions/damage.mjs";
 import { rulesOn, sameActor } from "../conditions/rules.mjs";
+import { wornMetal } from "./rust.mjs";
 
 /** The test to get out when the rule doesn't say: Athletics against 10. */
 const ESCAPE = { check: "athletics", dc: 10 };
@@ -127,6 +129,8 @@ export async function engulf(monster, victim, item = engulfSkill(monster?.actor)
   if ((toInt(victim.width) > toInt(monster.width)) || (toInt(victim.height) > toInt(monster.height))) return false;
   const inside = insideOf(monster);
   if ((toInt(rule.max) > 0) && (inside.length >= toInt(rule.max))) return false;
+  // It spits out the taste of metal
+  if (rule.notMetal && wornMetal(actor)) return false;
   const mark = { engulfed: { by: monster.uuid, item: item?.uuid ?? "" } };
   const held = statusEffectData("grappled", null, "", { caster: monster.actor, expires: "endOfScene" });
   Object.assign(held.flags[SYSTEM_ID], mark, { escape: { ...ESCAPE, ...(rule.escape ?? {}) } });

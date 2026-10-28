@@ -1,0 +1,601 @@
+{
+  "name": "Kappa",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/kappa.webp",
+  "system": {
+    "health": {
+      "value": 61,
+      "max": 61,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mythic",
+      "Aquatic"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 8,
+        "magic": 4
+      },
+      "speed": 2,
+      "initiative": 2
+    },
+    "rank": 2,
+    "idendification": "7",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 2
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Um bicho do tamanho de um menino, de casco de tartaruga nas costas, bico de pássaro, mãos de sapo e, no alto da cabeça, um prato raso cheio d'água. Mora nos lagos e nos rios de Norlangarth, desafia os viajantes para a luta no barro da margem e afoga quem perde. É forte como três homens enquanto o prato está cheio. Os pescadores sabem o truque: derrubá-lo, que a água do prato derrama e a força vai junto.</p><p><b>Na mesa:</b> comum de NP 2, dos lagos e dos rios. O Empurrão de Barro empurra 2 Qd e derruba. O Prato d'Água: a primeira vez na cena que o kappa fica [Derrubado], a água derrama e ele fica [Exposto] (Defesas 0 até o Encerramento) e [Enfraquecido: 6] até o fim da cena (o [Exposto] sai no Encerramento, o [Enfraquecido] dura). Derrubá-lo (empurrões, rasteiras, o que derrubar) é a resposta. O Casco anula 4.</p>"
+  },
+  "prototypeToken": {
+    "name": "Kappa",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/kappa.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Empurrão de Barro",
+      "type": "skill",
+      "img": "icons/skills/melee/unarmed-punch-fist.webp",
+      "system": {
+        "description": "<p>[2d6 + 12] de dano físico; o alvo é empurrado 2 Qd para longe e fica [Derrubado].</p><p>(Menor): +3 de dano.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 5,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 12,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "push",
+              "value": 2
+            }
+          ],
+          "hitStatuses": [
+            {
+              "statusId": "prone"
+            }
+          ],
+          "minor": {
+            "damage": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "YLNvi5llbCUOVkEq",
+      "_key": "!actors.items!XsDQULsEcwdptO9E.YLNvi5llbCUOVkEq"
+    },
+    {
+      "name": "Prato d'Água",
+      "type": "skill",
+      "img": "icons/containers/kitchenware/bowl-clay-brown.webp",
+      "system": {
+        "description": "<p>A primeira vez na cena que o kappa fica [Derrubado], a água do prato derrama: ele fica [Exposto] e [Enfraquecido: 6] até o fim da cena.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "spill",
+            "when": [
+              "prone"
+            ],
+            "statuses": [
+              {
+                "statusId": "exposed"
+              },
+              {
+                "statusId": "weakened",
+                "value": 6
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "C7pEmx8P20MgR5bJ",
+      "_key": "!actors.items!XsDQULsEcwdptO9E.C7pEmx8P20MgR5bJ"
+    },
+    {
+      "name": "Casco",
+      "type": "skill",
+      "img": "icons/creatures/reptiles/turtle-shell-glowing-green.webp",
+      "system": {
+        "description": "<p>[Anulação: 4]. Nunca fica [Nadando].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "immune": [
+                "swimming"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Casco",
+          "img": "icons/creatures/reptiles/turtle-shell-glowing-green.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.cancel",
+                "type": "add",
+                "value": "4",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "MjQIzJk0eszGBIkS",
+          "_key": "!actors.items.effects!XsDQULsEcwdptO9E.MDyycQSv9lTXZ9Fc.MjQIzJk0eszGBIkS"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "MDyycQSv9lTXZ9Fc",
+      "_key": "!actors.items!XsDQULsEcwdptO9E.MDyycQSv9lTXZ9Fc"
+    },
+    {
+      "name": "Escama do Casco",
+      "type": "gear",
+      "img": "icons/commodities/biological/shell-ribbed-grey.webp",
+      "system": {
+        "description": "<p>Uma placa do casco, verde e dura. Os ferreiros a usam de molde para escudos pequenos.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 15,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "r5QvToY8maSVfk5r",
+      "sort": 400000,
+      "_key": "!actors.items!XsDQULsEcwdptO9E.r5QvToY8maSVfk5r"
+    },
+    {
+      "name": "Bico de Kappa",
+      "type": "gear",
+      "img": "icons/commodities/bones/beak-orange-green.webp",
+      "system": {
+        "description": "<p>O bico, que os curandeiros moem para emplastro de osso quebrado.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 35,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "lhBZNxoOWD3WYzvO",
+      "sort": 500000,
+      "_key": "!actors.items!XsDQULsEcwdptO9E.lhBZNxoOWD3WYzvO"
+    },
+    {
+      "name": "Prato do Kappa",
+      "type": "gear",
+      "img": "icons/containers/kitchenware/bowl-clay-brown.webp",
+      "system": {
+        "description": "<p>O prato da cabeça, de osso liso. Cheio de água, a água nunca seca.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 55,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "0AVIeO2Lb27k6ep8",
+      "sort": 600000,
+      "_key": "!actors.items!XsDQULsEcwdptO9E.0AVIeO2Lb27k6ep8"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 180000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "XsDQULsEcwdptO9E",
+  "folder": "AkcsXT1tICuoFTMn",
+  "_key": "!actors!XsDQULsEcwdptO9E"
+}

@@ -1,0 +1,434 @@
+{
+  "name": "Caveira Errante",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/caveira-errante.webp",
+  "system": {
+    "health": {
+      "value": 15,
+      "max": 15,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mob",
+      "Undead",
+      "Spirit"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 4,
+        "magic": 6
+      },
+      "speed": 3,
+      "initiative": 4
+    },
+    "rank": 1,
+    "idendification": "6",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 0,
+        "mod": 7
+      },
+      "resistance": {
+        "dice": 0,
+        "mod": 8
+      }
+    },
+    "description": "<p>Um crânio humano envolto numa chama azul e fria que não queima a mão, mas a amolece: quem a toca larga o que segura, como se os dedos esquecessem. Flutua pelas catacumbas antigas e pelos ossários das igrejas de aldeia, em grupos de três ou quatro, rindo baixinho com uma mandíbula que não tem. Os coveiros de Zakkaria só descem às criptas de mão vazia e lanterna no pau.</p><p><b>Na mesa:</b> lacaio de NP 1, das catacumbas e dos ossários. A Chama Azul deixa [Desarmado] quem ela toca: sem ataques com arma até recuperar a arma (uma Ação Menor). Os magos e quem luta de mão vazia não sofrem com ela; os espadachins, sim. Voa, e o Osso Oco tem [Fraqueza (Radiância): 5].</p>"
+  },
+  "prototypeToken": {
+    "name": "Caveira Errante",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/caveira-errante.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Chama Azul",
+      "type": "skill",
+      "img": "icons/magic/fire/explosion-flame-blue.webp",
+      "system": {
+        "description": "<p>[2d6 + 14] de dano mágico de [Chama], e o alvo fica [Desarmado] (recuperar a arma gasta uma Ação Menor).</p>",
+        "tags": [
+          "Melee Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 11,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 14,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "disarmed"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "8HehcD01bPtJc5vV",
+      "_key": "!actors.items!xZ1Eret5HUOjeMee.8HehcD01bPtJc5vV"
+    },
+    {
+      "name": "Osso Oco",
+      "type": "skill",
+      "img": "icons/commodities/bones/skull-hollow-worn-blue.webp",
+      "system": {
+        "description": "<p>Está sempre [Voando]. [Fraqueza (Radiância): 5]. Não fica com [Medo], [Encantado], [Envenenado] nem [Adormecido].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "weaknessTag": "Radiance",
+              "immune": [
+                "frightened",
+                "charmed",
+                "poisoned",
+                "asleep"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Osso Oco",
+          "img": "icons/commodities/bones/skull-hollow-worn-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.weakness",
+                "type": "add",
+                "value": "5",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [
+            "flying"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "shHM6z6moCNfSlEk",
+          "_key": "!actors.items.effects!xZ1Eret5HUOjeMee.FP07a5HF75SI52Fp.shHM6z6moCNfSlEk"
+        }
+      ],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "FP07a5HF75SI52Fp",
+      "_key": "!actors.items!xZ1Eret5HUOjeMee.FP07a5HF75SI52Fp"
+    },
+    {
+      "name": "Lasca de Crânio Azul",
+      "type": "gear",
+      "img": "icons/commodities/bones/skull-hollow-worn-blue.webp",
+      "system": {
+        "description": "<p>Um caco de osso que brilha azul no escuro por uma semana. Os mineiros o usam como lanterna que não acende o grisu.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 6,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "UbAussr192JAdzRo",
+      "sort": 300000,
+      "_key": "!actors.items!xZ1Eret5HUOjeMee.UbAussr192JAdzRo"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 270000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "xZ1Eret5HUOjeMee",
+  "folder": "XA2JmuxkhmuaArlg",
+  "_key": "!actors!xZ1Eret5HUOjeMee"
+}

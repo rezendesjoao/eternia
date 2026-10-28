@@ -88,6 +88,51 @@ export async function afterAction(actor, item, action) {
 /*  The Sun clock                               */
 /* -------------------------------------------- */
 
+/* -------------------------------------------- */
+/*  The contagion                               */
+/* -------------------------------------------- */
+
+/** The key of a combat's Cleanup ("<combat>.<round>"), or null outside a combat. */
+function cleanupKey(actor) {
+  const combat = combatOf(actor);
+  return combat ? `${combat.id}.${combat.round}` : null;
+}
+
+/** Whether an actor caught its [Contagion] in this very Cleanup (it only hurts and spreads from the next one). */
+function caughtNow(actor) {
+  const key = cleanupKey(actor);
+  return !!key && statusEffects(actor, "contagion").length > 0
+    && statusEffects(actor, "contagion").every(e => e.getFlag(SYSTEM_ID, "caughtAt") === key);
+}
+
+/**
+ * [Contagion] passes from an actor to the allies (same token disposition) within 1 square of it that don't have it
+ * yet, with the same Rating and source. In a combat only.
+ * @returns {Promise<string[]>}   Lines for the Cleanup summary
+ */
+async function spreadContagion(actor, value) {
+  const key = cleanupKey(actor);
+  const token = actor.token ?? actor.getActiveTokens?.(false, true)[0] ?? null;
+  const scene = token?.parent;
+  if (!key || !scene) return [];
+  const size = scene.grid.size;
+  const box = t => ({ x0: Math.round(t.x / size), y0: Math.round(t.y / size), x1: Math.round(t.x / size) + Math.max(1, toInt(t.width)) - 1, y1: Math.round(t.y / size) + Math.max(1, toInt(t.height)) - 1 });
+  const a = box(token);
+  const source = sourcesOf(actor, "contagion")[0] ?? null;
+  const caught = [];
+  for (const other of scene.tokens) {
+    const ally = other.actor;
+    if ((other === token) || other.hidden || !ally || (other.disposition !== token.disposition) || (ally.type === "pile")) continue;
+    if (ally.statuses.has("dead") || ally.statuses.has("incapacitated") || has(ally, "contagion")) continue;
+    const b = box(other);
+    if (Math.max(0, b.x0 - a.x1, a.x0 - b.x1, b.y0 - a.y1, a.y0 - b.y1) > 1) continue;
+    const effect = statusEffectData("contagion", value, "", { caster: source });
+    effect.flags[SYSTEM_ID].caughtAt = key;
+    if (await giveEffects(ally, [effect])) caught.push(actorName(ally));
+  }
+  return caught.length ? [L("Conditions.ContagionSpreads", { name: actorName(actor), list: caught.join(", ") })] : [];
+}
+
 /** The started combat an actor fights in (the viewed one first), or null. */
 function combatOf(actor) {
   const fights = combat => combat?.started && combat.combatants.some(c => c.actor && sameActor(c.actor, actor));
@@ -360,6 +405,13 @@ export async function cleanupConditions(actor) {
       lines.push(L("Conditions.DoomFalls", { name: actorName(actor) }));
     }
     else lines.push(L("Conditions.DoomCount", { name: actorName(actor), n: next }));
+  }
+  // [Contagion] hurts, then passes to the allies within 1 square (not the one caught in this same Cleanup)
+  const contagion = rating(actor, "contagion");
+  if ((contagion > 0) && !caughtNow(actor)) {
+    const result = await takeDamage(actor, contagion, { reason: "contagion", silent: true });
+    if (result) lines.push(result.line);
+    lines.push(...await spreadContagion(actor, contagion));
   }
   const fuse = rating(actor, "fuse");
   if (fuse > 0) {

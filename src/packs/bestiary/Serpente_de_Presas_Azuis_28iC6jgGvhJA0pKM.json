@@ -1,0 +1,716 @@
+{
+  "name": "Serpente de Presas Azuis",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/serpente-de-presas-azuis.webp",
+  "system": {
+    "health": {
+      "value": 84,
+      "max": 84,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Natural",
+      "Aquatic"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 8,
+        "magic": 6
+      },
+      "speed": 2,
+      "initiative": 4
+    },
+    "rank": 2,
+    "idendification": "8",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Uma cobra d'água da grossura de um tronco e do comprimento de uma ponte, de escamas verde-escuras e duas presas azuis do tamanho de facas, que mora no fundo dos pântanos e das cavernas alagadas da serra. O veneno das presas para o coração por um instante; o abraço quebra os ossos devagar. A glândula de veneno azul é o remédio de uma doença que só ela causa: as boticárias de Zakkaria pagam por ela o preço de uma casa.</p><p><b>Na mesa:</b> chefe de grupo de NP 2, do fundo dos pântanos e das grutas alagadas, com dois Sapos-Boca-de-Poço ou duas Mãos-de-Lodo. As Presas Azuis envenenam; o Veneno que Para deixa [Paralisado] (recarga). O Enrolar gruda a serpente no alvo e o aperta: 6 PV em cada Manutenção até alguém arrancá-la (Ação Menor). A Troca de Pele a livra de um Estado Negativo por rodada.</p>"
+  },
+  "prototypeToken": {
+    "name": "Serpente de Presas Azuis",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/serpente-de-presas-azuis.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 2,
+    "height": 2,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 40,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Presas Azuis",
+      "type": "skill",
+      "img": "icons/creatures/abilities/fang-tooth-venomous.webp",
+      "system": {
+        "description": "<p>[2d6 + 11] de dano físico, e o alvo fica [Envenenado: 4].</p><p>(Menor): +3 de dano.</p><p>[Destino 1]: o golpe acerta todos os personagens engajados com este inimigo.</p>",
+        "tags": [
+          "Melee Attack",
+          "Poison"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 11,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "poisoned",
+              "value": 4
+            }
+          ],
+          "minor": {
+            "damage": 3
+          },
+          "fateOption": {
+            "fate": 1,
+            "mode": "engaged"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "GK1Rb07E8XRuRlpY",
+      "_key": "!actors.items!28iC6jgGvhJA0pKM.GK1Rb07E8XRuRlpY"
+    },
+    {
+      "name": "Veneno que Para",
+      "type": "skill",
+      "img": "icons/creatures/abilities/fang-tooth-poison-green.webp",
+      "system": {
+        "description": "<p>[2d6 + 5] de dano físico, e o alvo fica [Paralisado] (perde o próximo turno). Recarga.</p>",
+        "tags": [
+          "Melee Attack",
+          "Poison"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 5,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "recharge",
+            "min": 5
+          },
+          "hitStatuses": [
+            {
+              "statusId": "paralyzed"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "phA4lRkjzSDmsGip",
+      "_key": "!actors.items!28iC6jgGvhJA0pKM.phA4lRkjzSDmsGip"
+    },
+    {
+      "name": "Enrolar",
+      "type": "skill",
+      "img": "icons/creatures/reptiles/snake-poised-white.webp",
+      "system": {
+        "description": "<p>[2d6 + 4] de dano físico. Se ferir, a serpente se enrola no alvo: o token dela vai para o quadrado dele e o segue, e em cada Manutenção ele perde 6 PV (ela se cura com eles). Enquanto aperta, não ataca. O alvo, ou quem está junto, a arranca com uma Ação Menor.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 4,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "latch",
+            "drain": 6
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "M3csEOrQCpkYTuBD",
+      "_key": "!actors.items!28iC6jgGvhJA0pKM.M3csEOrQCpkYTuBD"
+    },
+    {
+      "name": "Troca de Pele",
+      "type": "skill",
+      "img": "icons/commodities/leather/scales-green.webp",
+      "system": {
+        "description": "<p>No Encerramento, ela se livra de um Estado Negativo: a pele velha sai com ele.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "cleanse",
+            "count": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "vrZBA0a1prvevhLN",
+      "_key": "!actors.items!28iC6jgGvhJA0pKM.vrZBA0a1prvevhLN"
+    },
+    {
+      "name": "Escamas Verde-Escuras",
+      "type": "gear",
+      "img": "icons/commodities/leather/scales-green.webp",
+      "system": {
+        "description": "<p>Escamas grandes como a palma da mão. Os armeiros de Zakkaria fazem delas brigantinas leves.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 60,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "3OdNKUM23H39UkN8",
+      "sort": 500000,
+      "_key": "!actors.items!28iC6jgGvhJA0pKM.3OdNKUM23H39UkN8"
+    },
+    {
+      "name": "Pele Trocada",
+      "type": "gear",
+      "img": "icons/commodities/leather/scales-white.webp",
+      "system": {
+        "description": "<p>Uma pele inteira, transparente e fria, que a serpente largou. Enrolada, cabe numa bolsa; esticada, cobre uma sala.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 135,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "91ut6j7cXPBMRDUX",
+      "sort": 600000,
+      "_key": "!actors.items!28iC6jgGvhJA0pKM.91ut6j7cXPBMRDUX"
+    },
+    {
+      "name": "Presa Azul",
+      "type": "gear",
+      "img": "icons/commodities/bones/tooth-canine-white.webp",
+      "system": {
+        "description": "<p>Uma das presas, azul como gelo e oca como uma agulha. Ainda pinga.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 220,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "89V0lO0MYmL4FHlA",
+      "sort": 700000,
+      "_key": "!actors.items!28iC6jgGvhJA0pKM.89V0lO0MYmL4FHlA"
+    },
+    {
+      "name": "Anima-mundi 3",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 3 gasta uma Anima-mundi 3 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 3"
+        ],
+        "rank": 3,
+        "price": 25,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 72
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.sIQlqF1Du4YEZVLK",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "uVbSxwzKBE1lHUZC",
+      "sort": 800000,
+      "_key": "!actors.items!28iC6jgGvhJA0pKM.uVbSxwzKBE1lHUZC"
+    },
+    {
+      "name": "Glândula de Veneno Azul",
+      "type": "gear",
+      "img": "icons/commodities/biological/organ-bladder-red.webp",
+      "system": {
+        "description": "<p>A glândula de veneno, que as boticárias de Zakkaria transformam no remédio da febre azul. Um [Material-Base] de NP 2.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 1,
+        "price": 40,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "y032J89Vcv3sdv8I",
+      "sort": 900000,
+      "_key": "!actors.items!28iC6jgGvhJA0pKM.y032J89Vcv3sdv8I"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 190000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "28iC6jgGvhJA0pKM",
+  "folder": "AkcsXT1tICuoFTMn",
+  "_key": "!actors!28iC6jgGvhJA0pKM"
+}

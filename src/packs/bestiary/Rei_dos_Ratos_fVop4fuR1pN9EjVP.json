@@ -1,0 +1,832 @@
+{
+  "name": "Rei dos Ratos",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/rei-dos-ratos.webp",
+  "system": {
+    "health": {
+      "value": 106,
+      "max": 106,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 3,
+      "max": 3,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Boss",
+      "Natural"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 6,
+        "magic": 4
+      },
+      "speed": 2,
+      "initiative": 2
+    },
+    "rank": 1,
+    "idendification": "8",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 1
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>Doze ratazanas com os rabos atados num nó de pelo, sangue e palha, que não se separam nunca mais e andam como um bicho só: um ninho vivo de dentes, que pensa com doze cabeças e não esquece. Nasce no fundo dos celeiros mais velhos, onde a febre do porão apodrece o grão, e manda em todos os ratos da aldeia. Quando o nó afrouxa, os ratos que se soltam atacam primeiro e morrem depois.</p><p><b>Na mesa:</b> chefe de grupo de NP 1, o fundo de um celeiro, de um esgoto ou de um porão, com duas Ratazanas do Celeiro. É uma Tropa: ataques em área o acertam em dobro. A Mordida da Peste dá [Contágio: 3], e a Corte da Ninhada deixa os aliados a até 2 Qd [Fortalecidos: 2]. A cada terço dos PV, o nó afrouxa e duas ratazanas se soltam (O Nó Afrouxa, O Nó Arrebenta). Separe-se, trate a febre e use o fogo e as áreas.</p>"
+  },
+  "prototypeToken": {
+    "name": "Rei dos Ratos",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/rei-dos-ratos.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 2,
+    "height": 2,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 40,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Mordida da Peste",
+      "type": "skill",
+      "img": "icons/creatures/abilities/mouth-teeth-rows-red.webp",
+      "system": {
+        "description": "<p>[2d6 + 11] de dano físico, e o alvo fica [Contágio: 3].</p><p>(Menor): +3 de dano.</p><p>[Destino 1]: o golpe acerta todos os personagens engajados com este inimigo.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 2,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 11,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "contagion",
+              "value": 3
+            }
+          ],
+          "minor": {
+            "damage": 3
+          },
+          "fateOption": {
+            "fate": 1,
+            "mode": "engaged"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "PQdvrcEaBCWFt2l3",
+      "_key": "!actors.items!fVop4fuR1pN9EjVP.PQdvrcEaBCWFt2l3"
+    },
+    {
+      "name": "Nó de Caudas",
+      "type": "skill",
+      "img": "icons/creatures/mammals/rodent-rat-green.webp",
+      "system": {
+        "description": "<p>Um bando num token: o dano de um ataque em área o acerta em dobro.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "troop",
+            "size": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "vTEdnvZneYES2ccg",
+      "_key": "!actors.items!fVop4fuR1pN9EjVP.vTEdnvZneYES2ccg"
+    },
+    {
+      "name": "Corte da Ninhada",
+      "type": "skill",
+      "img": "icons/magic/control/fear-fright-monster-grin-red-orange.webp",
+      "system": {
+        "description": "<p>Em cada Manutenção, este inimigo e os aliados a até 2 Qd dele ficam [Fortalecidos: 2].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "realm": {
+                "radius": 2,
+                "allies": [
+                  {
+                    "statusId": "empowered",
+                    "value": 2
+                  }
+                ]
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Corte da Ninhada",
+          "img": "icons/magic/control/fear-fright-monster-grin-red-orange.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "aYoNNJKaNTI5O165",
+          "_key": "!actors.items.effects!fVop4fuR1pN9EjVP.7l3zxnMEfrKYJV4O.aYoNNJKaNTI5O165"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "7l3zxnMEfrKYJV4O",
+      "_key": "!actors.items!fVop4fuR1pN9EjVP.7l3zxnMEfrKYJV4O"
+    },
+    {
+      "name": "O Nó Afrouxa",
+      "type": "skill",
+      "img": "icons/creatures/mammals/rodent-rat-diseaed-gray.webp",
+      "system": {
+        "description": "<p>A primeira vez que os PV deste inimigo caem a 2/3 ou menos, duas Ratazanas do Celeiro se soltam do nó, a até 2 Qd dele (entram no combate e não deixam itens).</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "threshold",
+            "below": 0.66,
+            "statuses": [],
+            "summon": {
+              "radius": 2,
+              "actors": [
+                {
+                  "uuid": "Compendium.eternia.bestiary.Actor.bQCwaDZVkbnp9Pac",
+                  "count": 2
+                }
+              ]
+            }
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "oyFxIfij1LroFnF2",
+      "_key": "!actors.items!fVop4fuR1pN9EjVP.oyFxIfij1LroFnF2"
+    },
+    {
+      "name": "O Nó Arrebenta",
+      "type": "skill",
+      "img": "icons/creatures/mammals/rodent-rat-diseaed-gray.webp",
+      "system": {
+        "description": "<p>A primeira vez que os PV deste inimigo caem a 1/3 ou menos, mais duas Ratazanas do Celeiro se soltam, e ele fica [Fúria: 3] até o fim da cena.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "threshold",
+            "below": 0.33,
+            "statuses": [
+              {
+                "statusId": "berserk",
+                "value": 3
+              }
+            ],
+            "summon": {
+              "radius": 2,
+              "actors": [
+                {
+                  "uuid": "Compendium.eternia.bestiary.Actor.bQCwaDZVkbnp9Pac",
+                  "count": 2
+                }
+              ]
+            }
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "3pb86kfObviNYbUJ",
+      "_key": "!actors.items!fVop4fuR1pN9EjVP.3pb86kfObviNYbUJ"
+    },
+    {
+      "name": "Nó de Rabos",
+      "type": "gear",
+      "img": "icons/commodities/biological/tail-rodent-orange.webp",
+      "system": {
+        "description": "<p>O nó inteiro, seco e duro como pedra. Os sábios da Academia pagam para estudar como doze bichos viraram um.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 50,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "lF9jf8QiIyXBBoYc",
+      "sort": 600000,
+      "_key": "!actors.items!fVop4fuR1pN9EjVP.lF9jf8QiIyXBBoYc"
+    },
+    {
+      "name": "Tesouro do Celeiro",
+      "type": "gear",
+      "img": "icons/commodities/treasure/brooch-gold-ruby.webp",
+      "system": {
+        "description": "<p>O que os ratos arrastaram para o ninho em anos: moedas velhas, um broche, a aliança de alguém.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 110,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "pvRAE7QYfxDjaRo3",
+      "sort": 700000,
+      "_key": "!actors.items!fVop4fuR1pN9EjVP.pvRAE7QYfxDjaRo3"
+    },
+    {
+      "name": "Coroa de Palha e Ouro",
+      "type": "gear",
+      "img": "icons/equipment/head/crown-gold-blue.webp",
+      "system": {
+        "description": "<p>Uma coroa torta, de arame de ouro e palha, que o nó carregava no meio das cabeças. Ninguém sabe quem a pôs lá.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 180,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "2wd1gIW8YUhedtlj",
+      "sort": 800000,
+      "_key": "!actors.items!fVop4fuR1pN9EjVP.2wd1gIW8YUhedtlj"
+    },
+    {
+      "name": "Anima-mundi 2",
+      "type": "gear",
+      "system": {
+        "description": "<p>Material das profissões. Cada tentativa na Oficina de um item de nível 2 gasta uma Anima-mundi 2 (do nível 10 para cima, a Anima-mundi 10). O Coletor a encontra na Coleta.</p><hr><p><em>Um cristal translúcido que pulsa devagar, como se respirasse: um pedaço da alma do mundo. Nasce em veios nas minas e dentro das criaturas, e move o comércio das cidades.</em></p>",
+        "tags": [
+          "Magic Catalyst 2"
+        ],
+        "rank": 2,
+        "price": 20,
+        "equipped": false,
+        "timing": "-",
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "attack": 0,
+        "magic": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "check": ""
+      },
+      "img": "icons/commodities/gems/gem-cluster-teal.webp",
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "hue": 36
+          },
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.98b1DOCsJYStKfaN",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "mI3QdeG6KPRnNhWK",
+      "sort": 900000,
+      "_key": "!actors.items!fVop4fuR1pN9EjVP.mI3QdeG6KPRnNhWK"
+    },
+    {
+      "name": "Coração da Ninhada",
+      "type": "gear",
+      "img": "icons/commodities/biological/organ-heart-red.webp",
+      "system": {
+        "description": "<p>O coração do meio do nó, ainda batendo fraco. Um [Material-Base] de NP 1.</p>",
+        "tags": [
+          "Core Material"
+        ],
+        "rank": 1,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "xRdcajli7SWvE2q8",
+      "sort": 1000000,
+      "_key": "!actors.items!fVop4fuR1pN9EjVP.xRdcajli7SWvE2q8"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "fVop4fuR1pN9EjVP",
+  "folder": "XA2JmuxkhmuaArlg",
+  "_key": "!actors!fVop4fuR1pN9EjVP"
+}

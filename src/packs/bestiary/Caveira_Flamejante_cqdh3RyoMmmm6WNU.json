@@ -1,0 +1,608 @@
+{
+  "name": "Caveira Flamejante",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/caveira-flamejante.webp",
+  "system": {
+    "health": {
+      "value": 38,
+      "max": 38,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Undead",
+      "Magical"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 6,
+        "magic": 10
+      },
+      "speed": 3,
+      "initiative": 6
+    },
+    "rank": 3,
+    "idendification": "8",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 1
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>O crânio de um mago de fogo que pediu para não morrer e foi atendido pela metade: sem corpo, sem paz, envolto numa chama verde e laranja que nunca se apaga, guardando a biblioteca ou o túmulo onde morreu. Conjura como em vida, ri como em vida e, derrubado, junta as cinzas e acende de novo na noite seguinte. Só a água benta ou a luz sagrada apagam a chama de vez.</p><p><b>Na mesa:</b> comum de NP 3, das catacumbas, das bibliotecas em ruína e da Cova do Norte. O Raio de Fogo queima; a Bola de Fogo, em área, recarrega. Volta das Cinzas: uma vez por cena, quando cairia, fica com metade dos PV, a menos que o golpe seja de [Radiância] ou de [Água]. O Crânio de Fogo come a [Chama] e tem [Fraqueza (Água): 6]. Voa.</p>"
+  },
+  "prototypeToken": {
+    "name": "Caveira Flamejante",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/caveira-flamejante.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Raio de Fogo",
+      "type": "skill",
+      "img": "icons/magic/fire/beam-jet-stream-embers.webp",
+      "system": {
+        "description": "<p>Alcance 4 Qd. [2d6 + 24] de dano mágico de [Chama], e o alvo fica [Queimando: 4].</p><p>(Menor): +4 de dano.</p>",
+        "tags": [
+          "Magic Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 3,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 24,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "burning",
+              "value": 4
+            }
+          ],
+          "minor": {
+            "damage": 4
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "VoDMU1iKHM8lD0Zs",
+      "_key": "!actors.items!cqdh3RyoMmmm6WNU.VoDMU1iKHM8lD0Zs"
+    },
+    {
+      "name": "Bola de Fogo",
+      "type": "skill",
+      "img": "icons/magic/fire/explosion-fireball-large-orange.webp",
+      "system": {
+        "description": "<p>Área (Escolha) a até 4 Qd: [2d6 + 14] de dano mágico de [Chama]. Recarga.</p>",
+        "tags": [
+          "Magic Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Area",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 3,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 14,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "recharge",
+            "min": 5
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Xm7PtBY0WuKosLOX",
+      "_key": "!actors.items!cqdh3RyoMmmm6WNU.Xm7PtBY0WuKosLOX"
+    },
+    {
+      "name": "Volta das Cinzas",
+      "type": "skill",
+      "img": "icons/magic/fire/flame-burning-skull-orange.webp",
+      "system": {
+        "description": "<p>Uma vez por cena, quando cairia a 0 PV, fica com metade dos PV, a menos que o golpe seja de [Radiância] ou de [Água]. O dano de [Chama] a cura. [Fraqueza (Água): 6]. Está sempre [Voando]. Não fica [Queimando], com [Medo], [Encantada], [Envenenada] nem [Adormecida].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "revive": {
+                "uses": 1,
+                "per": "scene",
+                "hp": "@hpMax/2",
+                "not": [
+                  "Radiance",
+                  "Water"
+                ]
+              },
+              "absorb": [
+                "Flame"
+              ],
+              "weaknessTag": "Water",
+              "immune": [
+                "burning",
+                "frightened",
+                "charmed",
+                "poisoned",
+                "asleep"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Volta das Cinzas",
+          "img": "icons/magic/fire/flame-burning-skull-orange.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.weakness",
+                "type": "add",
+                "value": "6",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [
+            "flying"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "KlNvdTaS8uuBUA0p",
+          "_key": "!actors.items.effects!cqdh3RyoMmmm6WNU.R48N43lm85SaniCP.KlNvdTaS8uuBUA0p"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "R48N43lm85SaniCP",
+      "_key": "!actors.items!cqdh3RyoMmmm6WNU.R48N43lm85SaniCP"
+    },
+    {
+      "name": "Cinza de Mago",
+      "type": "gear",
+      "img": "icons/commodities/materials/powder-grey.webp",
+      "system": {
+        "description": "<p>Um punhado de cinza morna. Os alquimistas fazem dela a tinta das runas de fogo.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "6kIDaBPOiW9JOcLv",
+      "sort": 400000,
+      "_key": "!actors.items!cqdh3RyoMmmm6WNU.6kIDaBPOiW9JOcLv"
+    },
+    {
+      "name": "Dente de Ouro do Mago",
+      "type": "gear",
+      "img": "icons/commodities/bones/tooth-molar-yellow.webp",
+      "system": {
+        "description": "<p>Um dente de ouro com uma runa gravada por dentro.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 40,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "7cU5drxKOUNgtdJ2",
+      "sort": 500000,
+      "_key": "!actors.items!cqdh3RyoMmmm6WNU.7cU5drxKOUNgtdJ2"
+    },
+    {
+      "name": "Grimório Chamuscado",
+      "type": "gear",
+      "img": "icons/sundries/books/book-embossed-bound-brown.webp",
+      "system": {
+        "description": "<p>Um livro meio queimado com as anotações do mago. Metade é bobagem; a outra metade vale uma bolsa de estudos.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 70,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "gH9VrBa2DpA528y2",
+      "sort": 600000,
+      "_key": "!actors.items!cqdh3RyoMmmm6WNU.gH9VrBa2DpA528y2"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 210000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "cqdh3RyoMmmm6WNU",
+  "folder": "nOCT1FwbTpBWjiiE",
+  "_key": "!actors!cqdh3RyoMmmm6WNU"
+}

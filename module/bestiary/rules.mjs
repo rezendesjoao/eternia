@@ -11,6 +11,10 @@
  *                               the end of the scene and calls `summon` (the howl; a monster that was called doesn't).
  *   fall       { radius }       Passive. When it falls, the skill's damage hits every creature within `radius` squares
  *                               of it (a damage card, no Dodge Check), with the skill's hitStatuses.
+ *   brood      { actors: [{ uuid, count }], radius, once }  Passive. When it falls, those monsters come out of it, next
+ *                               to it, in its combat, and leave no drops (bestiary/spawn.mjs); with `once`, only the
+ *                               first of its kind to fall in a scene calls them (the Living Flake and the Winter
+ *                               Guardian; the scene's `flags.eternia.brood` keeps the item names).
  *   cleanse    { count }        Passive. In each Cleanup Process it ends `count` of its Bad Statuses.
  *   summon     { actors: [{ uuid, count }], radius }  Its use: those monsters come out next to it, in its combat, and
  *                               leave no drops (bestiary/spawn.mjs).
@@ -27,9 +31,11 @@
  *   troop      { size }         Passive. A band in one token (bestiary/troop.mjs): area attacks hit it double; at 2/3
  *                               and 1/3 of its HP it loses one of the band (`troopLeft`), and its area attacks reach
  *                               one target less.
- *   retreat    { below, held }  Passive. When its HP fall to `below` of the max (0.25), it flees with what it stole
- *                               (the token hides, out of the combat, no drops), unless a status of `held` (grappled,
- *                               rooted, paralyzed, petrified, asleep) holds it; held, it tries again in each Setup.
+ *   retreat    { below, held, round }  Passive. When its HP fall to `below` of the max (0.25), it flees with what it
+ *                               stole (the token hides, out of the combat, no drops), unless a status of `held`
+ *                               (grappled, rooted, paralyzed, petrified, asleep) holds it; held, it tries again in each
+ *                               Setup. With `round`, it flees in the Setup after that round whatever its HP (and by
+ *                               `below` only when the rule gives it): the treasure lizard.
  *   forget     {}               Passive. When it spends an Extra Breath (`flags.eternia.revive`), one of its skills
  *                               that aren't passive (by chance) becomes [Sealed] until the end of the scene.
  *   pulse      { radius, self } Passive. In each Cleanup Process, the skill's damage hits every creature within
@@ -177,13 +183,17 @@ const HOLDS = ["grappled", "rooted", "paralyzed", "petrified", "asleep"];
  * HP changed, or a Setup Process came: a monster with the retreat rule under its share of HP flees with what it stole,
  * unless something holds it (told once when it tries, and again at each Setup it stays held).
  */
-async function checkRetreat(actor, { setup = false } = {}) {
+async function checkRetreat(actor, { setup = false, round = 0 } = {}) {
   const hp = toInt(actor.system.health?.value);
   const max = toInt(actor.system.health?.max);
   if ((hp <= 0) || (max <= 0) || actor.getFlag(SYSTEM_ID, "fled")) return;
   for (const item of withRule(actor, "retreat")) {
     const rule = ruleOf(item);
-    if (hp > Math.floor(max * (Number(rule.below) || 0.25))) continue;
+    // `round`: it flees in the Setup after that round, whatever its HP (the treasure that runs); `below` too, when given
+    const timed = toInt(rule.round) > 0;
+    const late = timed && setup && (round > toInt(rule.round));
+    const low = (!timed || (rule.below !== undefined)) && (hp <= Math.floor(max * (Number(rule.below) || 0.25)));
+    if (!late && !low) continue;
     const holding = (rule.held ?? HOLDS).filter(id => actor.statuses.has(id));
     if (holding.length) {
       if (!setup && actor.getFlag(SYSTEM_ID, "retreatHeld")) continue;
@@ -205,7 +215,7 @@ async function setupRetreat(combat) {
     const actor = combatant.actor;
     if (!actor || seen.has(actor.uuid) || combatant.defeated || !withRule(actor, "retreat").length) continue;
     seen.add(actor.uuid);
-    await checkRetreat(actor, { setup: true });
+    await checkRetreat(actor, { setup: true, round: combat.round });
   }
 }
 
@@ -242,10 +252,23 @@ function tokensAround(token, radius) {
   });
 }
 
-/** A monster fell: its fall skills hit everyone around it (a damage card with them as the targets). */
+/**
+ * A monster fell: its fall skills hit everyone around it (a damage card with them as the targets), and its brood comes
+ * out of it (the shell's mollusks, the snowman's head).
+ */
 async function onFall(actor) {
   const token = tokenOf(actor);
   if (!token) return;
+  for (const item of withRule(actor, "brood")) {
+    const rule = ruleOf(item);
+    if (rule.once) {
+      const done = token.parent.getFlag(SYSTEM_ID, "brood") ?? [];
+      if (done.includes(item.name)) continue;
+      await token.parent.setFlag(SYSTEM_ID, "brood", [...done, item.name]);
+    }
+    const tokens = await spawnNear(token, rule.actors ?? [], { radius: toInt(rule.radius) || 1, by: actor.uuid });
+    if (tokens.length) await postSummary(item.name, [L("Bestiary.Brood", { name: actorName(actor), list: tokens.map(t => t.name).join(", ") })]);
+  }
   for (const item of withRule(actor, "fall")) {
     const rule = ruleOf(item);
     const around = tokensAround(token, Math.max(0, toInt(rule.radius)));

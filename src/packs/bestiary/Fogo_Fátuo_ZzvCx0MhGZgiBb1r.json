@@ -1,0 +1,594 @@
+{
+  "name": "Fogo-Fátuo",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/fogo-fatuo.webp",
+  "system": {
+    "health": {
+      "value": 34,
+      "max": 34,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Spirit",
+      "Magical"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 5,
+        "magic": 8
+      },
+      "speed": 3,
+      "initiative": 5
+    },
+    "rank": 2,
+    "idendification": "7",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 1
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 2
+      }
+    },
+    "description": "<p>Uma luz azulada do tamanho de uma lanterna, que dança sobre os pântanos e as trilhas da floresta à noite. Quem a vê sente vontade de segui-la: parece a janela de uma casa, a tocha de um amigo, o caminho de volta. Ela leva o viajante pela lama até onde a água é funda, espera ele afundar e bebe o último suspiro, que a deixa mais brilhante. O aço passa através dela como através de fumaça.</p><p><b>Na mesa:</b> comum de NP 2, dos pântanos, dos juncos e das florestas à noite. O Corpo de Luz a deixa sempre [Intangível] (o dano físico não a toca). A Luz que Chama deixa [Encantado] quem falha na Resistência, e A Luz Atrai faz o encantado andar até ela no começo do turno, até sofrer dano. O Último Suspiro: quem fica com 8 PV ou menos depois do golpe dela cai na hora. A água a apaga: [Fraqueza (Água): 6]. Magia e Radiância a ferem normalmente.</p>"
+  },
+  "prototypeToken": {
+    "name": "Fogo-Fátuo",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/fogo-fatuo.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Luz que Chama",
+      "type": "skill",
+      "img": "icons/magic/light/orb-lightbulb-gray.webp",
+      "system": {
+        "description": "<p>Alcance 4 Qd. [2d6 + 11] de dano mágico, e o alvo fica [Encantado] por ela (veja A Luz Atrai). O Último Suspiro: quem fica com 8 PV ou menos depois do golpe cai na hora.</p><p>(Menor): +3 de dano.</p>",
+        "tags": [
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 3,
+          "vs": "resistance"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 11,
+          "type": "magical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "hitStatuses": [
+            {
+              "statusId": "charmed"
+            }
+          ],
+          "execute": {
+            "below": 8
+          },
+          "minor": {
+            "damage": 3
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "jt0hqKydbaSDdzaP",
+      "_key": "!actors.items!ZzvCx0MhGZgiBb1r.jt0hqKydbaSDdzaP"
+    },
+    {
+      "name": "A Luz Atrai",
+      "type": "skill",
+      "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
+      "system": {
+        "description": "<p>Quem o Fogo-Fátuo deixa [Encantado] anda até ele: no começo de cada turno, gasta a Ação de Movimento e anda a Velocidade dele na direção da luz. Qualquer dano acaba com o encanto, de qualquer um.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "lure"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "gZaMKctaSResc5yG",
+      "_key": "!actors.items!ZzvCx0MhGZgiBb1r.gZaMKctaSResc5yG"
+    },
+    {
+      "name": "Corpo de Luz",
+      "type": "skill",
+      "img": "icons/creatures/magical/spirit-fire-yellow.webp",
+      "system": {
+        "description": "<p>Está sempre [Intangível] (não sofre dano físico) e [Voando]. [Fraqueza (Água): 6]. Não fica [Agarrado], [Enraizado], [Derrubado], [Envenenado] nem [Adormecido].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "weaknessTag": "Water",
+              "immune": [
+                "grappled",
+                "rooted",
+                "prone",
+                "poisoned",
+                "asleep"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Corpo de Luz",
+          "img": "icons/creatures/magical/spirit-fire-yellow.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.weakness",
+                "type": "add",
+                "value": "6",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [
+            "intangible",
+            "flying"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "HlvUc2U9o0SZEAJO",
+          "_key": "!actors.items.effects!ZzvCx0MhGZgiBb1r.UVG98LdS62JkwAQ6.HlvUc2U9o0SZEAJO"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "UVG98LdS62JkwAQ6",
+      "_key": "!actors.items!ZzvCx0MhGZgiBb1r.UVG98LdS62JkwAQ6"
+    },
+    {
+      "name": "Brasa Fria",
+      "type": "gear",
+      "img": "icons/magic/fire/flame-burning-fist-strike.webp",
+      "system": {
+        "description": "<p>Uma brasa azul que não esquenta e dura uma lua. Os ladrões a usam como lanterna que não mostra o rosto.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 15,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "BIt3ddFT0qkXcyQT",
+      "sort": 400000,
+      "_key": "!actors.items!ZzvCx0MhGZgiBb1r.BIt3ddFT0qkXcyQT"
+    },
+    {
+      "name": "Pó de Luz",
+      "type": "gear",
+      "img": "icons/commodities/gems/powder-raw-white.webp",
+      "system": {
+        "description": "<p>O pó que fica onde ela se apagou. Na tinta, faz letras que só se leem no escuro.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 35,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "vgfTueCmqQjobXuE",
+      "sort": 500000,
+      "_key": "!actors.items!ZzvCx0MhGZgiBb1r.vgfTueCmqQjobXuE"
+    },
+    {
+      "name": "Último Suspiro",
+      "type": "gear",
+      "img": "icons/commodities/gems/gem-faceted-round-white.webp",
+      "system": {
+        "description": "<p>Uma conta de vidro com uma luz presa dentro, que se mexe como se respirasse. Ninguém quer saber de quem era.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 55,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "HnoWTUovscDQCdGw",
+      "sort": 600000,
+      "_key": "!actors.items!ZzvCx0MhGZgiBb1r.HnoWTUovscDQCdGw"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 120000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ZzvCx0MhGZgiBb1r",
+  "folder": "AkcsXT1tICuoFTMn",
+  "_key": "!actors!ZzvCx0MhGZgiBb1r"
+}

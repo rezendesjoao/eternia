@@ -1,0 +1,613 @@
+{
+  "name": "Gorro-Vermelho",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/gorro-vermelho.webp",
+  "system": {
+    "health": {
+      "value": 50,
+      "max": 50,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Fairy",
+      "Mythic",
+      "Night Vision"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 3,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 10,
+        "magic": 7
+      },
+      "speed": 3,
+      "initiative": 5
+    },
+    "rank": 3,
+    "idendification": "8",
+    "hateMultiplier": "2",
+    "checks": {
+      "evasion": {
+        "dice": 2,
+        "mod": 3
+      },
+      "resistance": {
+        "dice": 2,
+        "mod": 1
+      }
+    },
+    "description": "<p>Um velho baixinho e ossudo, de dentes de lobo e botas de ferro pesadas como bigornas, com um gorro de lã encharcado de sangue na cabeça e uma foice na mão. Mora nas torres em ruína das velhas guarnições do norte e mata quem entra, não por fome, mas pelo gorro: ele precisa estar sempre molhado de sangue fresco. Se o gorro secar, o dono morre. Por isso ele não para, e é rápido demais para um velho com aquelas botas.</p><p><b>Na mesa:</b> comum de NP 3, das torres em ruína e das masmorras antigas. A Sede do Barrete é a chave: cada rodada em que ele não tirar PV de ninguém, seca: [Enfraquecido: 3], depois [Lento], e na terceira rodada seguida cai morto. Ferir alguém zera a sede. A Foice de Ferro o cura com metade dos PV que tira, e Mais Sangue dá a ele um golpe a mais cada vez que derruba alguém. Esquiva, [Barreira], [Pacificado] e recuar viram armas: quem defende vence. A [Radiância] o fere mais.</p>"
+  },
+  "prototypeToken": {
+    "name": "Gorro-Vermelho",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/gorro-vermelho.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Foice de Ferro",
+      "type": "skill",
+      "img": "icons/weapons/sickles/scythe-curved-steel.webp",
+      "system": {
+        "description": "<p>[2d6 + 24] de dano físico; ele recupera metade dos PV que tirar.</p><p>(Menor): as Botas de Ferro: o alvo fica [Derrubado].</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 24,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drain": 0.5,
+          "minor": {
+            "statuses": [
+              {
+                "statusId": "prone"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ZBaqbwlyFeiOXJer",
+      "_key": "!actors.items!GXMKxvcPgErwxjK6.ZBaqbwlyFeiOXJer"
+    },
+    {
+      "name": "Mais Sangue",
+      "type": "skill",
+      "img": "icons/skills/wounds/blood-spurt-spray-red.webp",
+      "system": {
+        "description": "<p>Só com a ação que ele ganha ao derrubar alguém: corre até 3 Qd e golpeia de novo, [2d6 + 14] de dano físico. Cada queda dá mais uma.</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 3,
+          "mod": 4,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 14,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "rampage"
+          },
+          "useActions": [
+            {
+              "type": "rush",
+              "value": 3,
+              "onUse": true
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "TsBMngDGeY5CO09Y",
+      "_key": "!actors.items!GXMKxvcPgErwxjK6.TsBMngDGeY5CO09Y"
+    },
+    {
+      "name": "Sede do Barrete",
+      "type": "skill",
+      "img": "icons/equipment/back/cloak-hooded-red.webp",
+      "system": {
+        "description": "<p>No Encerramento de cada rodada em que ele não tirou PV de ninguém, o gorro seca: na primeira, [Enfraquecido: 3]; na segunda seguida, [Lento]; na terceira, ele cai morto. Tirar PV de alguém zera a sede e os estados dela. [Fraqueza (Radiância): 5]. Não fica com [Medo].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "weaknessTag": "Radiance",
+              "immune": [
+                "frightened"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Velho Maldito",
+          "img": "icons/equipment/back/cloak-hooded-red.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.weakness",
+                "type": "add",
+                "value": "5",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "DgRYQAvQBH8Oks92",
+          "_key": "!actors.items.effects!GXMKxvcPgErwxjK6.ZBFphaLF1hYrVLM6.DgRYQAvQBH8Oks92"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "thirst",
+            "steps": [
+              [
+                {
+                  "statusId": "weakened",
+                  "value": 3
+                }
+              ],
+              [
+                {
+                  "statusId": "slowed"
+                }
+              ]
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ZBFphaLF1hYrVLM6",
+      "_key": "!actors.items!GXMKxvcPgErwxjK6.ZBFphaLF1hYrVLM6"
+    },
+    {
+      "name": "Dente de Lobo do Velho",
+      "type": "gear",
+      "img": "icons/commodities/bones/tooth-canine-tan.webp",
+      "system": {
+        "description": "<p>Um dente amarelo e comprido demais para boca de gente.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 20,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 1,
+            "max": 3,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "MiBnZRCQgCN2mvUQ",
+      "sort": 400000,
+      "_key": "!actors.items!GXMKxvcPgErwxjK6.MiBnZRCQgCN2mvUQ"
+    },
+    {
+      "name": "Botas de Ferro",
+      "type": "gear",
+      "img": "icons/equipment/feet/boots-plate-grey.webp",
+      "system": {
+        "description": "<p>As botas, pesadas como bigornas. Nenhum homem consegue andar com elas, e ninguém sabe como ele corria.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 40,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 4,
+            "max": 5,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "QwP6iJNe9u1ZnCj3",
+      "sort": 500000,
+      "_key": "!actors.items!GXMKxvcPgErwxjK6.QwP6iJNe9u1ZnCj3"
+    },
+    {
+      "name": "Gorro de Sangue",
+      "type": "gear",
+      "img": "icons/equipment/back/cloak-hooded-red.webp",
+      "system": {
+        "description": "<p>O gorro, ainda úmido. Não seca nunca. Os padres querem queimá-lo; os alquimistas, estudá-lo.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 70,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "min": 6,
+            "max": 6,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "RQbawuFU2wsf86Vw",
+      "sort": 600000,
+      "_key": "!actors.items!GXMKxvcPgErwxjK6.RQbawuFU2wsf86Vw"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 140000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "GXMKxvcPgErwxjK6",
+  "folder": "nOCT1FwbTpBWjiiE",
+  "_key": "!actors!GXMKxvcPgErwxjK6"
+}

@@ -112,8 +112,10 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   ele cai; quem derrubou leva tudo (um token posto no meio do combate leva `noLoot` no próprio token: `cameLate` lê o do
   ator e o do token). As regras de monstro vão em `flags.eternia.monster = { rule, ... }` nas habilidades (`pack`,
   `grow`, `threshold`, `fall`, `cleanse`, `summon`, `recharge`, `struck`, `offer`, `troop`, `retreat`, `forget`,
-  `pulse`, `start`, `save` e, na 0.37, `disguise`, `conceal`, `engulf`, `split`, `rust`, `contact`, `latch`, `gaze`,
-  `lure`, `rise`, `raise`, `stack`, `rampage`, `surprise`, `throw`, `blink`, `copy`, `phase`, `nearest`, `heads`; cada
+  `pulse`, `start`, `save`; na 0.37, `disguise`, `conceal`, `engulf`, `split`, `rust`, `contact`, `latch`, `gaze`,
+  `lure`, `rise`, `raise`, `stack`, `rampage`, `surprise`, `throw`, `blink`, `copy`, `phase`, `nearest`, `heads`; e, na 0.47,
+  `breed`, `brood`, `curse`, `shuffle`, `devour`, `spill`, `thirst` e `bow` (com `round` no `retreat`, `steps` no `latch`,
+  `notMetal` no `engulf` e `bound` no `summon`); cada
   uma no seu arquivo de `module/bestiary/`, como o Salvar dos Desgarrados em `save.mjs` e o levantar e o erguer dos
   mortos em `rise.mjs`); a Mão Leve é um efeito de uso com `flags.eternia.pickpocket`, a criatura que come um dano, um
   efeito com `flags.eternia.absorb` (lista de tags), o dano pela metade, `flags.eternia.halve`, e a Possessão, a flag de
@@ -124,7 +126,12 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   nome sai de `module/bestiary/named-template.mjs`, que não pode importar nada do Foundry: a coroa da ficha e o gerador
   do compêndio usam o mesmo arquivo. Os monstros do Império (pasta O Império) foram gerados por um script fora do
   repositório: a fonte é o JSON. Desde a 0.43 o Bestiário só tem essas criaturas (os monstros antigos de Log
-  Horizon saíram). Um monstro do Império já trazido para um mundo é uma cópia: mudou um nome ou a arte no
+  Horizon saíram). As 52 de Norlangarth (NP 1 a 3, a 0.47) saem de `Eternia-Bestiario-Expansao/gerador/make-new.mjs`
+  (fora do repositório), que escreve só elas, com o dano calibrado pelo simulador (`tune-new.js` → `apply-tune.py`):
+  nunca rode o gerador antigo do Império por cima, porque a 0.42 e a 0.44 mudaram aqueles JSON à mão. A arte de cada
+  criatura (o token com a moldura, que também é o retrato) é `assets/tokens/bestiary/<nome sem acentos>.webp`: o
+  `make-new.mjs` a põe sozinho quando o arquivo existe, e os tokens saem de `prompts/bestiario-norlangarth/tokens.py`
+  (fora do repositório, ao lado das imagens do ChatGPT). Um monstro do Império já trazido para um mundo é uma cópia: mudou um nome ou a arte no
   compêndio, a migração `bestiary` (`module/bestiary/migration.mjs`) leva a mudança às cópias.
   Uma tabela nova escrita no formato dos livros vira dados com `node tools/convert-drops.mjs`.
 - NPCs e personagens maiores ficam fora do Bestiário (desde a 0.40), em compêndios próprios, para o Mestre importar só a

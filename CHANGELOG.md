@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.47.0 — 2026-10-28
+
+O bestiário de Norlangarth: 52 criaturas novas de NP 1 a 3.
+
+### Adicionado
+- **52 criaturas no Bestiário** (pasta O Império, nas pastas NP1, NP2 e NP3), para as florestas geladas e o bosque do Giga
+  Cedro, as aldeias e os campos, as minas da serra, os lagos e os pântanos, as Montanhas do Fim, as catacumbas e a Cova do
+  Norte: agora são 25 criaturas no NP 1, 20 no NP 2 e 25 no NP 3. São 22 de NP 1 (Coelho-Chifrudo, Graveto-Praga, Nepente
+  Faminta, Nepente-Mãe, Raposa-das-Neves, Corvos Ladrões, Duende do Avesso, Diabrete do Azar, Ratazana do Celeiro, Rei dos
+  Ratos, Espantalho Vivo, Cão da Estrada, Boneco de Neve Vivo, Floco-Vivo, Sapo-Boca-de-Poço, Mão-de-Lodo, Caveira
+  Errante, Batedor do Grisu, Estalactite Viva, Besouro-Moeda, Morcego-de-Gelo e Lagartixa-Tesouro), 14 de NP 2 (Muda do
+  Giga Cedro, Fogo-Fátuo, Aranha-Isca, Cão da Maldição, Criança-Fardo, Pisadeira, Ceifeira do Meio-Dia, Kappa, Serpente de
+  Presas Azuis, Armadura-Colônia, Lasca-Sussurrante, Devorador de Escudos, Mão do Teto e Rasura) e 16 de NP 3 (Cervo do
+  Inverno, Boitatá, Coisa-Sem-Nome, Gorro-Vermelho, Guardião do Inverno, Bocarra Pútrida, Cavalo-d'Água, Névoa-Mentirosa,
+  Draugr do Túmulo, Boca-Balbuciante, Caveira Flamejante, Cão de Ossos de Dragão, Reflexo de Gelo, Verme de Gelo, Juiz de
+  Pedra e Estátua Sentinela). Cada uma tem o quebra-cabeça automatizado, a descrição com "Na mesa" e a tabela de itens
+  deixados no valor do Guia.
+- **A arte das 52:** retrato e token próprios no traço de anime, com a moldura dos monstros do Império (aro de ouro, fio
+  carmesim e um losango de cada lado, sobre fundo branco).
+- **A condição [Contágio]** (Valor, família dos elementais, ícone próprio): no Encerramento fere o Valor como dano direto e
+  passa aos aliados a até 1 Qd que ainda não a têm (quem pegou só sofre e passa no Encerramento seguinte); sai com uma
+  Ação Maior.
+- **Regras de monstro novas:** a ninhada (`breed`: os pares sem ferimento fazem mais um em cada Manutenção), a cria ao cair
+  (`brood`, com `once` para uma vez por cena), a maldição (`curse`: os estados acabam quando aquele monstro cai), a escrita
+  instável (`shuffle`: uma forma ao acaso por rodada), engolir o equipamento (`devour`: o escudo ou a armadura sai do corpo
+  até o monstro cair ou a luta acabar), o derrame (`spill`: um estado que tira a força dele), a sede (`thirst`: seca e cai
+  sem ferir ninguém) e a reverência (`bow`: não ataca quem está [Derrubado] e, com `leave`, vai embora quando todos se
+  curvam). Regras antigas com campos novos: `retreat` com `round` (a fuga na rodada certa), `latch` com `steps` (o peso que
+  cresce), `engulf` com `notMetal` e `summon` com `bound` (quem ele chamou cai com ele).
+
+### Alterado
+- **O `absorb`** (a criatura que come um tipo de dano) conta o tipo do cartão como tag ([Físico], [Mágico]), como a metade
+  do dano já contava. O `healingHurts` aceita `"any"`: toda cura que um cartão dá ao portador vira dano direto.
+- **AS REGRAS**, página XIV (as regras novas e a lista do bestiário por NP) e página IX (o [Contágio]); o capítulo 14 do
+  Guia do Jogador (o [Contágio] entre os estados que ferem a cada rodada); `docs/bestiario.md`, `docs/condicoes.md` e
+  `docs/matematica.md` (a tabela das 52 no encontro delas, a calibragem e o que o simulador passou a contar).
+
 ## 0.46.1 — 2026-10-27
 
 A fonte da interface e as dicas do sistema de volta ao pergaminho.

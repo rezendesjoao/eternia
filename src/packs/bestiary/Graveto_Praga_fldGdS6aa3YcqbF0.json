@@ -1,0 +1,500 @@
+{
+  "name": "Graveto-Praga",
+  "type": "monster",
+  "img": "systems/eternia/assets/tokens/bestiary/graveto-praga.webp",
+  "system": {
+    "health": {
+      "value": 24,
+      "max": 24,
+      "mod": 0,
+      "rc": 0,
+      "jb": 0,
+      "effect": 0
+    },
+    "fate": {
+      "value": 0,
+      "max": 0,
+      "rc": 0,
+      "effect": 0
+    },
+    "tags": [
+      "Mob",
+      "Plant"
+    ],
+    "biography": "",
+    "race": "",
+    "attributes": {
+      "str": {
+        "value": 0,
+        "mod": 2,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "dex": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "pow": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      },
+      "int": {
+        "value": 0,
+        "mod": 1,
+        "total": 0,
+        "effect": 0,
+        "jb": 0,
+        "rc": 0
+      }
+    },
+    "bad-status": {
+      "regen": 0,
+      "cancel": 0,
+      "barrier": 0,
+      "decay": 0,
+      "pursuit": 0,
+      "dazed": false,
+      "rigor": false,
+      "confused": false,
+      "staggered": false,
+      "afflicted": false,
+      "overconfident": false
+    },
+    "battle-status": {
+      "defense": {
+        "phys": 6,
+        "magic": 2
+      },
+      "speed": 2,
+      "initiative": 1
+    },
+    "rank": 1,
+    "idendification": "7",
+    "hateMultiplier": "1",
+    "checks": {
+      "evasion": {
+        "dice": 0,
+        "mod": 7
+      },
+      "resistance": {
+        "dice": 0,
+        "mod": 7
+      }
+    },
+    "description": "<p>Um feixe de galhos secos do tamanho de uma criança, amarrado por raízes, que anda curvado e range como lenha velha. Nasce das lascas do Giga Cedro: onde um lenhador corta e deixa a lasca cair, a lasca bebe a terra e se levanta. Fica parado entre as moitas até alguém passar, e então os galhos se fecham no tornozelo. Como a árvore de onde veio, o fogo não o pega.</p><p><b>Na mesa:</b> lacaio de NP 1, do bosque ao sul de Rulid, em grupos de quatro a seis. Começa disfarçado de moita seca: quem pisa no quadrado dele fica [Enraizado]. A Lasca do Cedro anula o fogo inteiro, e o grupo que pensa em queimar o bosque descobre por quê: a lâmina corta melhor (+4 de dano em quem falha na Esquiva contra golpe de [Lâmina]).</p>"
+  },
+  "prototypeToken": {
+    "name": "Graveto-Praga",
+    "displayName": 0,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/eternia/assets/tokens/bestiary/graveto-praga.webp",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "health"
+    },
+    "bar2": {
+      "attribute": "fate"
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "negative": false,
+      "priority": 0
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": true,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null
+  },
+  "items": [
+    {
+      "name": "Galhos que Prendem",
+      "type": "skill",
+      "img": "icons/consumables/plants/thorned-dried-stem-brown.webp",
+      "system": {
+        "description": "<p>[2d6 + 17] de dano físico.</p><p>(Menor): o alvo fica [Enraizado].</p>",
+        "tags": [
+          "Melee Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 10,
+          "vs": "evasion"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 17,
+          "type": "physical",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "minor": {
+            "statuses": [
+              {
+                "statusId": "rooted"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "u8faxpJBtlA6w63n",
+      "_key": "!actors.items!fldGdS6aa3YcqbF0.u8faxpJBtlA6w63n"
+    },
+    {
+      "name": "Moita Seca",
+      "type": "skill",
+      "img": "icons/consumables/plants/dried-stem-vine-root-bramble-brown.webp",
+      "system": {
+        "description": "<p>Este inimigo entra na cena disfarçado de moita seca: os jogadores veem só a moita. Revela-se quando age ou quando alguém do outro lado pisa no quadrado dele (que fica [Enraizado]) ou o ataca.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [],
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "monster": {
+            "rule": "disguise",
+            "name": "Moita Seca",
+            "img": "icons/consumables/plants/dried-stem-vine-root-bramble-brown.webp",
+            "touch": [
+              {
+                "statusId": "rooted"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ERDHfgZfqIgtKhlN",
+      "_key": "!actors.items!fldGdS6aa3YcqbF0.ERDHfgZfqIgtKhlN"
+    },
+    {
+      "name": "Lasca do Cedro",
+      "type": "skill",
+      "img": "icons/magic/nature/tree-animated-stump-mushrooms-teal.webp",
+      "system": {
+        "description": "<p>[Anulação (Chama): 99]: o fogo não o queima. [Fraqueza (Lâmina): 4]: quando falha na Esquiva contra um golpe de [Lâmina], sofre +4 de dano direto.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Monster",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "macroeffect": "",
+        "check": {
+          "stat": "",
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false,
+          "noPower": false
+        }
+      },
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "cancelTag": "Flame",
+              "weaknessTag": "Blade"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.360",
+            "systemId": "eternia",
+            "systemVersion": "0.46.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Lasca do Cedro",
+          "img": "icons/magic/nature/tree-animated-stump-mushrooms-teal.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.cancel",
+                "type": "add",
+                "value": "99",
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "eternia.passive.weakness",
+                "type": "add",
+                "value": "4",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "t29i1NCSpUfZivNG",
+          "_key": "!actors.items.effects!fldGdS6aa3YcqbF0.9pOft4kpVOfvPaIu.t29i1NCSpUfZivNG"
+        }
+      ],
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "9pOft4kpVOfvPaIu",
+      "_key": "!actors.items!fldGdS6aa3YcqbF0.9pOft4kpVOfvPaIu"
+    },
+    {
+      "name": "Lasca do Giga Cedro",
+      "type": "gear",
+      "img": "icons/commodities/wood/lumber-plank-brown.webp",
+      "system": {
+        "description": "<p>Uma lasca escura, mais pesada do que deveria, que não pega fogo. Os carpinteiros de Zakkaria pagam por ela para fazer cabos que não queimam na forja.</p>",
+        "tags": [
+          "Valuable"
+        ],
+        "rank": 1,
+        "price": 6,
+        "equipped": false,
+        "skillText": "",
+        "linkedSkillUuid": "",
+        "timing": "",
+        "checkType": "",
+        "range": "",
+        "target": ""
+      },
+      "effects": [],
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "drop": {
+            "fixed": true,
+            "qty": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "eternia",
+        "systemVersion": "0.46.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "E9qz6EQEgCJb8vmm",
+      "sort": 400000,
+      "_key": "!actors.items!fldGdS6aa3YcqbF0.E9qz6EQEgCJb8vmm"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "eternia",
+    "systemVersion": "0.46.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 120000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "fldGdS6aa3YcqbF0",
+  "folder": "XA2JmuxkhmuaArlg",
+  "_key": "!actors!fldGdS6aa3YcqbF0"
+}

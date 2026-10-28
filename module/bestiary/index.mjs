@@ -34,6 +34,10 @@
  * - possess.mjs     the blow that possesses: the monster inside someone, hurt with it, burned out by the light;
  * - heads.mjs       the heads: a Major Action for each, cut by each fifth of the HP, grown back unless burned;
  * - use-checks.mjs  what those three say against using a skill (read by automation/use.mjs).
+ * - breed.mjs, curse.mjs, shuffle.mjs, devour.mjs, spill.mjs, thirst.mjs, bow.mjs  the hares that multiply while
+ *                   unhurt, the bite whose curse ends with the one that bit, the badly written creature that changes every
+ *                   round, the maw that swallows a shield, the status that spills a creature's strength, the cap that dies
+ *                   dry without blood, and the ones that spare whoever bows (the bestiary of 0.47).
  * The API for macros is `game.eternia.bestiary`.
  */
 import { convertTable, dropRows, parseDropTable, rollDrops, undoDrop, registerDrops } from "./drops.mjs";
@@ -62,6 +66,13 @@ import { isPhased, registerPhase } from "./phase.mjs";
 import { nearestTo, registerNearest } from "./nearest.mjs";
 import { possessingOf, registerPossess } from "./possess.mjs";
 import { headsOf, registerHeads } from "./heads.mjs";
+import { registerBreed } from "./breed.mjs";
+import { registerCurse } from "./curse.mjs";
+import { registerShuffle } from "./shuffle.mjs";
+import { giveBack, registerDevour } from "./devour.mjs";
+import { registerSpill } from "./spill.mjs";
+import { registerThirst } from "./thirst.mjs";
+import { registerBow } from "./bow.mjs";
 
 /** Call during the `init` hook. */
 export function registerBestiary() {
@@ -88,6 +99,13 @@ export function registerBestiary() {
   registerNearest();
   registerPossess();
   registerHeads();
+  registerBreed();
+  registerCurse();
+  registerShuffle();
+  registerDevour();
+  registerSpill();
+  registerThirst();
+  registerBow();
   game.eternia.bestiary = {
     disguise,
     reveal,
@@ -119,6 +137,7 @@ export function registerBestiary() {
     throwCreature,
     copyLook,
     restoreLook,
-    isPhased
+    isPhased,
+    giveBack
   };
 }
