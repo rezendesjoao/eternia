@@ -1,5 +1,6 @@
 /**
- * What's new: once per user and release line, a short window with the news of this version (0.46: the Player's
+ * What's new: once per user and release line, a short window with the news of this version (0.47: the bestiary of
+ * Norlangarth, 52 creatures of CR 1 to 3 with their own automated puzzles and art, the North Pit and [Contagion]; 0.46: the Player's
  * Guide in the Journal of every world, the journals as an Eternia book and Foundry's interface in its look; 0.45: the Market with
  * every item of the compendiums and the shops the players open on the scene; 0.44: fewer clicks in
  * combat, damage and effects applied by themselves, the monster's turn, the (Menor) and the bosses' Fate; 0.43: the fixes, the
@@ -34,7 +35,7 @@
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 
 /** The release line the notice speaks about. */
-const NOTICE = "0.46";
+const NOTICE = "0.47";
 
 /** Call during the `init` hook. */
 export function registerNotice() {

@@ -5,13 +5,9 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.46.1
+## Versão 0.47.0
 
-- **Novo na 0.46.1: a fonte da interface e as dicas.** As listas da barra lateral, os botões, a busca, a caixa do chat,
-  os jogadores, os avisos e os menus usam a Signika, mais fácil de ler no fundo escuro, e as dicas do sistema (as
-  etiquetas dos colchetes, a aba Classe, o assistente, a janela de Magias e o HUD) voltam ao pergaminho com o texto
-  escuro (veja [Os diários e a interface](#os-diários-e-a-interface)).
-- **Desde a 0.47.0: o bestiário de Norlangarth.** 52 criaturas novas de NP 1 a 3 para as florestas geladas, as
+- **Novo na 0.47.0: o bestiário de Norlangarth.** 52 criaturas novas de NP 1 a 3 para as florestas geladas, as
   aldeias, as minas da serra, os lagos, as Montanhas do Fim, as catacumbas e a Cova do Norte (a masmorra de gelo da
   ossada do Dragão Branco): agora são 25 no NP 1, 20 no NP 2 e 25 no NP 3. Cada uma pede um jeito próprio de lutar, com
   regras automatizadas novas: coelhos que se multiplicam enquanto ninguém os fere, a maldição que só acaba com a morte do
@@ -20,6 +16,10 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   o gorro que morre de sede sem sangue, o guardião que poupa quem se curva, e a condição nova [Contágio], que passa aos
   aliados ao lado. Todas têm retrato e token no traço de anime, com a moldura do Império (veja
   [O bestiário](#o-bestiário)).
+- **Desde a 0.46.1: a fonte da interface e as dicas.** As listas da barra lateral, os botões, a busca, a caixa do chat,
+  os jogadores, os avisos e os menus usam a Signika, mais fácil de ler no fundo escuro, e as dicas do sistema (as
+  etiquetas dos colchetes, a aba Classe, o assistente, a janela de Magias e o HUD) voltam ao pergaminho com o texto
+  escuro (veja [Os diários e a interface](#os-diários-e-a-interface)).
 - **Desde a 0.46.0: o Guia do Jogador e o visual novo.** O compêndio **Guia do Jogador** explica o sistema como um
   livro de RPG, em 21 páginas (o jogo, o personagem, a criação, raças, classes, Magias, habilidades, evolução, sessões,
   combate, ataque e dano, Ódio, Destino, estados, equipamento, profissões, fora de combate e a mesa virtual, com
