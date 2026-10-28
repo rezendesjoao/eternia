@@ -5,9 +5,14 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.47.0
+## Versão 0.47.1
 
-- **Novo na 0.47.0: o bestiário de Norlangarth.** 52 criaturas novas de NP 1 a 3 para as florestas geladas, as
+- **Novo na 0.47.1: o disfarce que esconde o token.** Os monstros disfarçados (o Graveto-Praga, o Espantalho Vivo, a
+  Estalactite Viva, o Besouro-Moeda, a Aranha-Isca, o Cavalo-d'Água, o Mímico e a Gárgula) entram na cena escondidos,
+  com a arte deles, em vez de virar um ícone do Foundry: o Mestre os vê transparentes e descreve o que os jogadores
+  veem. Eles aparecem quando andam (um quadrado basta), usam uma habilidade, são tocados ou atacados, ou quando o
+  Mestre mostra o token pelo olho do HUD (veja [O bestiário](#o-bestiário)).
+- **Desde a 0.47.0: o bestiário de Norlangarth.** 52 criaturas novas de NP 1 a 3 para as florestas geladas, as
   aldeias, as minas da serra, os lagos, as Montanhas do Fim, as catacumbas e a Cova do Norte (a masmorra de gelo da
   ossada do Dragão Branco): agora são 25 no NP 1, 20 no NP 2 e 25 no NP 3. Cada uma pede um jeito próprio de lutar, com
   regras automatizadas novas: coelhos que se multiplicam enquanto ninguém os fere, a maldição que só acaba com a morte do

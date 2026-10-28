@@ -1,6 +1,6 @@
 # Changelog
 
-## Não lançado
+## 0.47.1 — 2026-10-28
 
 O disfarce dos monstros esconde o token em vez de trocá-lo por um ícone.
 
