@@ -1,11 +1,12 @@
 {{!-- SKILLS: the creation picks (three Combat skills and one General), among what the class, the Magia and the
-     profession open at CR 1, each with its first lines; what the character gets anyway is listed on top. --}}
+     profession open at CR 1, each with its first lines; what the character gets anyway is listed on top. A click on a
+     skill opens its whole text in the reading box (reader.hbs); the box at its side chooses it. --}}
 <div class="wz-skills">
 	<div class="wz-skill-lists wz-scroll">
 		{{#if granted.length}}
 		<section class="wz-granted">
 			<h4><i class="fa-solid fa-gift"></i>{{localize "ETERNIA.Wizard.Skills.Granted"}}</h4>
-			<ul class="wz-chip-list">{{#each granted}}<li><img src="{{img}}" alt="">{{name}}</li>{{/each}}</ul>
+			<ul class="wz-chip-list">{{#each granted}}<li data-uuid="{{uuid}}" data-action="read" tabindex="0" role="button" aria-haspopup="dialog"><img src="{{img}}" alt="">{{name}}</li>{{/each}}</ul>
 		</section>
 		{{/if}}
 
@@ -19,13 +20,17 @@
 			<h5>{{s.label}}</h5>
 			<ul class="wz-skill-grid">
 				{{#each s.rows as |r|}}
-				<li class="wz-skill{{#if r.picked}} picked{{/if}}{{#if r.disabled}} disabled{{/if}}" data-uuid="{{r.uuid}}" data-name="{{r.name}}" data-img="{{r.img}}" data-reason="{{r.reason}}"{{#if r.clickable}} data-action="skill" tabindex="0"{{/if}}{{#if r.reason}} data-tooltip="{{r.reason}}"{{/if}}>
+				<li class="wz-skill{{#if r.picked}} picked{{/if}}{{#if r.disabled}} disabled{{/if}}" data-uuid="{{r.uuid}}" data-action="read" tabindex="0" role="button" aria-haspopup="dialog"{{#if r.reason}} data-tooltip="{{r.reason}}"{{/if}}>
 					<img src="{{r.img}}" alt="">
 					<span class="wz-skill-body">
 						<b>{{r.name}}{{#if r.training}}<em>{{localize "ETERNIA.Wizard.Skills.Training"}}</em>{{/if}}</b>
 						<small>{{r.text}}</small>
 					</span>
-					<i class="wz-skill-check fa-{{#if r.picked}}solid fa-square-check{{else}}regular fa-square{{/if}}"></i>
+					{{#if r.clickable}}
+					<button type="button" class="wz-skill-check" data-action="skill" aria-pressed="{{#if r.picked}}true{{else}}false{{/if}}" data-tooltip="{{#if r.picked}}{{localize 'ETERNIA.Wizard.Skills.Unpick'}}{{else}}{{localize 'ETERNIA.Wizard.Skills.Pick'}}{{/if}}" aria-label="{{#if r.picked}}{{localize 'ETERNIA.Wizard.Skills.Unpick'}}{{else}}{{localize 'ETERNIA.Wizard.Skills.Pick'}}{{/if}}"><i class="fa-{{#if r.picked}}solid fa-square-check{{else}}regular fa-square{{/if}}"></i></button>
+					{{else}}
+					<span class="wz-skill-check"><i class="fa-regular fa-square"></i></span>
+					{{/if}}
 				</li>
 				{{/each}}
 			</ul>

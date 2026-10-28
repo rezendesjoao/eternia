@@ -14,7 +14,9 @@
  *                  the race give, the modifier and its checks; the numbers of play below, and the points suggested for
  *                  the class above (one click uses them).
  *   6. Skills      the creation picks: three Combat skills and one General (at most two [Training]), among the class's
- *                  talents, the Magia's spells and the profession's skills of CR 1 (the skill browser's rules).
+ *                  talents, the Magia's spells and the profession's skills of CR 1 (the skill browser's rules). A click
+ *                  on a skill opens its whole text in a reading box over the step, which goes to the skills before and
+ *                  after it and chooses it too; the box at a skill's side chooses it at once.
  *   7. Items       the starting gear (apps/starting-gear.mjs): a Backpack, an Adventurer's Kit and a Sandwich for free,
  *                  and the character's gold (350) to spend in the shop of Item Rank 1. The kit recommended for the class
  *                  comes equipped, on a paper doll (DOLL) with each piece where it is worn and the numbers it gives;
@@ -37,7 +39,7 @@ import {
 } from "./skill-browser.mjs";
 import { MAGIC_BROWSER, MagicBrowser, magicBrowserContext } from "./magic-picker.mjs";
 import { fold } from "./magic-catalog.mjs";
-import { STATS, creationCatalog, loadDocuments, skillSummary, skillTip } from "./creation-catalog.mjs";
+import { STATS, creationCatalog, loadDocuments, skillReading, skillSummary, skillTip } from "./creation-catalog.mjs";
 import { BONUS_POINTS, MAX_BASE_STAT } from "./stat-allocation.mjs";
 import {
   SHOP_CATEGORIES, STARTING_FLAG, STARTING_GEAR_FLAG, gearLayout, gearNumbers, gearOf, magiaSuggestion, recommendedKit,
@@ -227,6 +229,9 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       emptyCart: CreationWizard.#onEmptyCart,
       shopFilter: CreationWizard.#onShopFilter,
       skill: CreationWizard.#onSkill,
+      read: CreationWizard.#onRead,
+      readerMove: CreationWizard.#onReaderMove,
+      readerClose: CreationWizard.#onReaderClose,
       decree: CreationWizard.#onDecree,
       later: CreationWizard.#onLater,
       family: CreationWizard.#onFamily,
@@ -259,6 +264,11 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   #family = "";
   /** The descriptions of the skills shown in the skills step (uuid → summary). */
   #texts = new Map();
+  /** The reading box of the skills step: the skill it shows and whether it goes through what comes ({uuid, granted}),
+      or null when closed. */
+  #reader = null;
+  /** What the reading box shows of each skill (uuid → promise of skillReading), read once. */
+  #readings = new Map();
   /** What the shop sells (apps/starting-gear.mjs). */
   #shop = null;
   /** The gear the character already has (not given by the wizard): the slots it takes, what it carries. */
@@ -620,6 +630,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   goTo(id, { render = true } = {}) {
     if (!STEPS.some(s => s.id === id)) return;
     if (this.#catalog && !this.#reachable(id)) return;
+    if (id !== this.step) this.#closeReader({ focus: false });
     this.step = id;
     if (render) this.render({ parts: ["head", "rail", "step", "foot"] });
   }
@@ -1104,16 +1115,19 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     return [...rows.values()];
   }
 
-  async #skillsStep() {
-    const magia = this.#magia();
-    const profession = this.#profession();
-    const sources = {
-      class: this.#job()?.name ?? "",
-      magic: magia?.name ?? "",
-      subclass: profession?.name ?? "",
-      race: this.#race()?.name ?? "",
+  /** The name of where a skill to pick comes from (the class, the Magia, the profession, the race, the common ones). */
+  #sourceLabel(source) {
+    const names = {
+      class: this.#job()?.name,
+      magic: this.#magia()?.name,
+      subclass: this.#profession()?.name,
+      race: this.#race()?.name,
       common: L("SkillBrowser.Source.common")
     };
+    return names[source] || L(`SkillBrowser.Source.${source}`);
+  }
+
+  async #skillsStep() {
     const group = subtype => {
       const rows = this.#candidates.filter(c => c.subtype === subtype).map(c => ({
         uuid: c.uuid, name: c.name, img: c.img, picked: c.picked, reason: c.picked ? "" : c.reason, training: c.training,
@@ -1126,7 +1140,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       }
       const order = ["class", "magic", "subclass", "race", "common"];
       return [...bySource.entries()].sort((a, b) => order.indexOf(a[0]) - order.indexOf(b[0]))
-        .map(([source, list]) => ({ source, label: sources[source] || L(`SkillBrowser.Source.${source}`), rows: list }));
+        .map(([source, list]) => ({ source, label: this.#sourceLabel(source), rows: list }));
     };
     const combat = this.#picksOf("Combat");
     const general = this.#picksOf("General");
@@ -1278,7 +1292,18 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     if (parts.includes("step")) {
       this.#activateStep(root.querySelector(".wz-step"));
       if (this.step === "summary") this.#activateSummary(root);
+      // The reading box stays over the skills step drawn again (a pick changes what can be chosen)
+      if (this.#reader) {
+        if (this.step === "skills") this.#renderReader();
+        else this.#closeReader({ focus: false });
+      }
     }
+  }
+
+  /** @override */
+  _onClose(options) {
+    this.#closeReader({ focus: false });
+    super._onClose(options);
   }
 
   /** The behavior of the open step: the page of the option under the pointer, the tooltips, the Magia browser. */
@@ -1321,9 +1346,11 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       });
       tile.addEventListener("pointerleave", () => game.tooltip.deactivate());
     }
-    // Enter or space on a card chooses it (as a click)
+    // Enter or space on a card chooses it (as a click); on a button, the button's own. Neither goes on to the core's
+    // keys (the space would pause the game)
     step.addEventListener("keydown", event => {
       if (!["Enter", " "].includes(event.key)) return;
+      if (event.target.closest?.("button, [data-action][tabindex]")) event.stopPropagation();
       const card = event.target.closest?.("[data-action][tabindex]");
       if (!card || (card !== event.target)) return;
       event.preventDefault();
@@ -1400,6 +1427,183 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       this.draft.basics = event.currentTarget.checked;
     });
   }
+
+  /* -------------------------------------------- */
+  /*  The reading box                             */
+  /* -------------------------------------------- */
+
+  /**
+   * The skills the reading box goes through, in the order the step shows them: the ones to pick (Combat, then General),
+   * or, opened from what comes with the race, the class and the Magia, those.
+   */
+  #readerOrder({ granted = false } = {}) {
+    const selector = granted ? ".wz-granted [data-action='read'][data-uuid]" : ".wz-skill[data-action='read'][data-uuid]";
+    const nodes = this.element?.querySelectorAll(`.wz-step ${selector}`) ?? [];
+    return [...new Set([...nodes].map(node => node.dataset.uuid))];
+  }
+
+  /** What the reading box shows of a skill (its document read and its text enriched once). */
+  #reading(uuid) {
+    if (!this.#readings.has(uuid)) {
+      this.#readings.set(uuid, loadDocuments([uuid]).then(docs => skillReading(docs.get(uuid))).catch(err => {
+        this.#readings.delete(uuid);
+        throw err;
+      }));
+    }
+    return this.#readings.get(uuid);
+  }
+
+  /**
+   * The data of the reading box: the skill (a pick, or one the character gets anyway), where it comes from, its
+   * fields and its whole text, whether it can be chosen now (and why not), the quota of its kind and where it is in
+   * the step.
+   */
+  async #readerContext(uuid, order) {
+    const reading = await this.#reading(uuid);
+    const candidate = this.#candidates.find(c => c.uuid === uuid);
+    const granted = candidate ? null : this.#granted().find(g => g.uuid === uuid);
+    const view = candidate ?? this.#skillView(uuid) ?? this.#indexView(uuid) ?? {};
+    const subtype = candidate?.subtype ?? reading.subtype;
+    // The Magia says its category (a Magia is a passive skill of Combat, which says little)
+    const magia = this.#magia();
+    const kind = (magia?.uuid === uuid) ? magia.categoryLabel : (subtype ? L(`Skill.Type.${subtype}`) : "");
+    const from = candidate ? this.#sourceLabel(candidate.source) : (granted ? L(`Wizard.Reader.From.${granted.by}`) : "");
+    const picks = candidate ? this.#picksOf(subtype) : null;
+    const index = order.indexOf(uuid);
+    return {
+      uuid,
+      name: view.name || reading.name,
+      img: view.img || reading.img,
+      eyebrow: [kind, from].filter(Boolean).join(" · "),
+      training: !!candidate?.training,
+      tags: reading.tags,
+      fields: reading.fields,
+      html: reading.html || `<p class="wz-reader-empty">${L("Wizard.Reader.NoText")}</p>`,
+      reason: (candidate && !candidate.picked) ? candidate.reason : "",
+      pickable: !!candidate,
+      picked: !!candidate?.picked,
+      blocked: !!candidate && !candidate.picked && !!candidate.reason,
+      granted: granted ? L("Wizard.Reader.Granted") : "",
+      quota: picks && {
+        label: L(`Skill.Type.${subtype}`),
+        picked: picks.picked,
+        quota: picks.quota,
+        full: picks.picked >= picks.quota,
+        pips: Array.from({ length: picks.max }, (_, i) => ({ on: i < picks.picked }))
+      },
+      position: L("Wizard.Reader.Position", { n: index + 1, total: order.length }),
+      prev: index > 0,
+      next: index < order.length - 1
+    };
+  }
+
+  /**
+   * Open the reading box on a skill of the step.
+   * @param {string} uuid
+   * @param {object} [options]
+   * @param {boolean} [options.granted]  One of what comes with the race, the class and the Magia (not a pick)
+   */
+  #openReader(uuid, { granted = false } = {}) {
+    if (!uuid || (this.step !== "skills")) return;
+    if (!this.#reader) document.addEventListener("keydown", this.#onReaderKey, true);
+    this.#reader = { uuid, granted };
+    return this.#renderReader();
+  }
+
+  /**
+   * Draw the reading box (again, when it moves to another skill or a pick changes what can be chosen). It goes in the
+   * window's content, beside the parts, over the step's area: drawing the step again leaves it there.
+   */
+  async #renderReader() {
+    const reader = this.#reader;
+    if (!reader) return;
+    const order = this.#readerOrder(reader);
+    if (!order.includes(reader.uuid)) return this.#closeReader({ focus: false });
+    const html = await foundry.applications.handlebars.renderTemplate(`${DIR}/reader.hbs`, await this.#readerContext(reader.uuid, order));
+    const content = this.element?.querySelector(".window-content");
+    // Closed or moved on while it was being read
+    if ((this.#reader !== reader) || !content) return;
+    let host = content.querySelector(":scope > .wz-reader");
+    const fresh = !host;
+    if (fresh) {
+      host = document.createElement("div");
+      host.className = "wz-reader";
+      // Space and Enter on its buttons are theirs (not the core's keys: the pause)
+      host.addEventListener("keydown", event => {
+        if ([" ", "Enter"].includes(event.key)) event.stopPropagation();
+      });
+      content.append(host);
+    }
+    // The same skill drawn again keeps where its text was scrolled and the button in focus
+    const same = host.dataset.uuid === reader.uuid;
+    const scroll = same ? (host.querySelector(".wz-reader-text")?.scrollTop ?? 0) : 0;
+    const focused = host.contains(document.activeElement) ? document.activeElement : null;
+    const focusKey = focused?.dataset.action ? `[data-action="${focused.dataset.action}"]${focused.dataset.dir ? `[data-dir="${focused.dataset.dir}"]` : ""}` : "";
+    host.dataset.uuid = reader.uuid;
+    host.innerHTML = html;
+    const box = host.querySelector(".wz-reader-box");
+    host.querySelector(".wz-reader-text").scrollTop = scroll;
+    const step = this.element.querySelector("[data-application-part='step']");
+    if (step) step.inert = true;
+    const again = focusKey && host.querySelector(`.wz-reader-box ${focusKey}:not(:disabled)`);
+    (again || box).focus({ preventScroll: true });
+    const motion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (fresh && motion) {
+      host.querySelector(".wz-reader-shade").animate?.([{ opacity: 0 }, { opacity: 1 }], { duration: 160, easing: "ease-out" });
+      box.animate?.([{ opacity: 0, transform: "translateY(8px) scale(0.98)" }, { opacity: 1, transform: "none" }], { duration: 180, easing: "ease-out" });
+    }
+    else if (!same && motion) host.querySelector(".wz-reader-text").animate?.([{ opacity: 0.25 }, { opacity: 1 }], { duration: 140, easing: "ease-out" });
+    // The skills before and after it, read ahead
+    for (const near of [order[order.indexOf(reader.uuid) - 1], order[order.indexOf(reader.uuid) + 1]]) {
+      if (near) this.#reading(near).catch(() => null);
+    }
+  }
+
+  /** Show the skill before (−1) or after (+1) the one open. */
+  #moveReader(dir) {
+    const reader = this.#reader;
+    if (!reader) return;
+    const order = this.#readerOrder(reader);
+    const uuid = order[order.indexOf(reader.uuid) + dir];
+    if (!uuid) return;
+    this.#reader = { uuid, granted: reader.granted };
+    this.#renderReader();
+  }
+
+  /**
+   * Close the reading box. With `focus`, the skill it showed last comes into view and takes the focus (after going
+   * through the list, the step is where the reading stopped).
+   */
+  #closeReader({ focus = true } = {}) {
+    const reader = this.#reader;
+    if (!reader) return;
+    this.#reader = null;
+    document.removeEventListener("keydown", this.#onReaderKey, true);
+    const root = this.element;
+    if (!root) return;
+    root.querySelector(".window-content > .wz-reader")?.remove();
+    const step = root.querySelector("[data-application-part='step']");
+    if (step) step.inert = false;
+    if (!focus) return;
+    const tile = root.querySelector(`.wz-step [data-action='read'][data-uuid="${CSS.escape(reader.uuid)}"]`);
+    tile?.scrollIntoView({ block: "nearest" });
+    tile?.focus({ preventScroll: true });
+  }
+
+  /**
+   * The keys of the reading box: Escape closes it (and only it: the core's Escape would close every window), the arrows
+   * go to the skill before and after. Not while another window's field has the focus.
+   * @param {KeyboardEvent} event
+   */
+  #onReaderKey = event => {
+    if (!this.#reader || !["Escape", "ArrowLeft", "ArrowRight"].includes(event.key)) return;
+    const active = document.activeElement;
+    if (active && (active !== document.body) && !this.element?.contains(active)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.key === "Escape") this.#closeReader();
+    else this.#moveReader((event.key === "ArrowLeft") ? -1 : 1);
+  };
 
   /* -------------------------------------------- */
   /*  Actions                                     */
@@ -1575,6 +1779,20 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     else if (!candidate.reason) picks.push(uuid);
     else return;
     this.#refresh();
+  }
+
+  /** Read a skill of the skills step whole (a tile or a chip of what comes). */
+  static #onRead(event, target) {
+    this.#openReader(target.closest("[data-uuid]")?.dataset.uuid, { granted: !!target.closest(".wz-granted") });
+  }
+
+  /** The skill before or after the one in the reading box. */
+  static #onReaderMove(event, target) {
+    this.#moveReader(Number(target.dataset.dir) || 1);
+  }
+
+  static #onReaderClose() {
+    this.#closeReader();
   }
 
   /** The Decree of the Mandamentos (a Magia's choice). */

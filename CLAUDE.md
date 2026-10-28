@@ -178,7 +178,12 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   silhueta; `dollPlace` põe o cartão do lado certo). Cada acessório vai para a parte do corpo que o nome diz
   (`ACCESSORY_SPOTS`, por expressão no nome dobrado; o que não casa fica no quadril), e a coluna da esquerda segue o
   corpo de cima para baixo para as linhas não se cruzarem. O passo equipa o kit uma vez só, ao chegar com o carrinho
-  vazio (`draft.kitOffered`). Os textos dos feitiços na janela de Magias vêm de `spellTexts` (`apps/magic-catalog.mjs`);
+  vazio (`draft.kitOffered`). No passo Habilidades, o clique numa habilidade abre a caixa de leitura (`#renderReader`,
+  `templates/apps/creation/reader.hbs`, dados de `skillReading` em `creation-catalog.mjs`) e quem escolhe é o
+  quadradinho (`data-action="skill"`). A caixa vai no `.window-content`, ao lado das partes, sobre a área do passo
+  (`grid-area: step`): desenhar o passo de novo (uma escolha) a deixa lá, e ela se redesenha no `_onRender`. O Esc e as
+  setas dela são pegos no `document`, em captura, porque o Esc do core fecha todas as janelas; o Espaço num botão do
+  assistente não segue para as teclas do core (pausaria o jogo do Mestre). Os textos dos feitiços na janela de Magias vêm de `spellTexts` (`apps/magic-catalog.mjs`);
   `loadDocuments` fica em `helpers/pack-index.mjs` para o catálogo de Magias e o do assistente usarem sem importar um
   ao outro.
 

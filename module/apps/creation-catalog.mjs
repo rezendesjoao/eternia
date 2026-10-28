@@ -9,7 +9,7 @@ import { getOptionIndex } from "./option-browser.mjs";
 import { CLASSES, KIND_ICONS } from "../classes/data.mjs";
 import { motorDef, motorName } from "../classes/motor.mjs";
 import { chipText } from "../helpers/text-chips.mjs";
-import { tagLabel, term } from "../i18n/terms.mjs";
+import { isEmpty, tagLabel, term } from "../i18n/terms.mjs";
 import { PROFESSIONS, TALENTS } from "../professions/data.mjs";
 import { escape } from "../helpers/utils.mjs";
 import { loadDocuments } from "../helpers/pack-index.mjs";
@@ -129,6 +129,32 @@ export function skillTip(view) {
   return `<div class="lhcl-tip"><header><img src="${view.img}" alt=""><div><strong>${escape(view.name)}</strong>`
     + `${view.meta ? `<span>${escape(view.meta)}</span>` : ""}</div></header>`
     + `${view.text ? `<p>${escape(view.text)}</p>` : ""}</div>`;
+}
+
+/**
+ * The fields of a skill the reading box shows: the action HUD's tooltip fields (hud/data.mjs), without the damage, which
+ * the text tells (the label of a few skills still carries an old formula).
+ */
+const READING_FIELDS = [
+  ["ETERNIA.Item.Label.Timing", "timing", "timing"], ["ETERNIA.Item.Label.Check", "checkLabel", "check"],
+  ["ETERNIA.Item.Label.Target", "target", "target"], ["ETERNIA.Item.Label.Range", "range", "range"],
+  ["ETERNIA.Sheet.Cost", "cost", "cost"], ["ETERNIA.Sheet.Limit", "limit", "limit"]
+];
+
+/**
+ * What the reading box of the skills step shows of a skill: its name and picture, the fields and the tags as the table
+ * reads them, the SR it can reach (from 1, at creation) and its whole text.
+ * @param {Item|undefined} doc  The skill's document
+ * @returns {Promise<{name: string, img: string, subtype: string, fields: {label: string, value: string}[], tags: string[], html: string}>}
+ */
+export async function skillReading(doc) {
+  const s = doc?.system ?? {};
+  const fields = READING_FIELDS.filter(([, key]) => !isEmpty(s[key]))
+    .map(([label, key, field]) => ({ label: game.i18n.localize(label), value: term(field, s[key]) }));
+  const maxSR = Number(s.skillRank?.max) || 1;
+  if (maxSR > 1) fields.push({ label: L("Wizard.Reader.SR"), value: L("Wizard.Reader.SRValue", { max: maxSR }) });
+  const html = doc ? await foundry.applications.ux.TextEditor.implementation.enrichHTML(s.description ?? "", { relativeTo: doc }) : "";
+  return { name: doc?.name ?? "", img: doc?.img ?? "", subtype: s.subtype ?? "", fields, tags: (s.tags ?? []).map(tagLabel), html };
 }
 
 /** The grants of an option item at a CR: { index, rank, choice, auto, magic, uuids }. */

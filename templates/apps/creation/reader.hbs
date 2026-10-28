@@ -1,0 +1,36 @@
+{{!-- The reading box of the skills step (CreationWizard#renderReader), over the step: a skill's whole text with its
+     fields and tags, why it can't be chosen (if so), the way to the skill before and after it, and the choice itself
+     (a skill the race, the class or the Magia gives says so instead). --}}
+<div class="wz-reader-shade" data-action="readerClose"></div>
+<article class="wz-reader-box{{#if picked}} picked{{/if}}" role="dialog" aria-modal="true" aria-labelledby="wz-reader-name" tabindex="-1">
+	<header class="wz-reader-head">
+		<span class="wz-reader-img"><img src="{{img}}" alt="">{{#if picked}}<i class="fa-solid fa-check"></i>{{/if}}</span>
+		<div class="wz-reader-titles">
+			<span class="wz-reader-eyebrow">{{eyebrow}}</span>
+			<h3 id="wz-reader-name">{{name}}{{#if training}}<em>{{localize "ETERNIA.Wizard.Skills.Training"}}</em>{{/if}}</h3>
+			{{#if tags.length}}<ul class="wz-reader-tags">{{#each tags}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
+		</div>
+		<button type="button" class="wz-reader-x" data-action="readerClose" data-tooltip="{{localize 'ETERNIA.Wizard.Reader.Close'}}" aria-label="{{localize 'ETERNIA.Wizard.Reader.Close'}}"><i class="fa-solid fa-xmark"></i></button>
+	</header>
+	{{#if fields.length}}
+	<dl class="wz-reader-fields">{{#each fields}}<div><dt>{{label}}</dt><dd>{{value}}</dd></div>{{/each}}</dl>
+	{{/if}}
+	<div class="wz-reader-text">{{{html}}}</div>
+	{{#if reason}}<p class="wz-reader-reason"><i class="fa-solid fa-lock"></i><span>{{reason}}</span></p>{{/if}}
+	<footer class="wz-reader-foot">
+		<span class="wz-reader-nav">
+			<button type="button" data-action="readerMove" data-dir="-1" data-tooltip="{{localize 'ETERNIA.Wizard.Reader.Prev'}}" aria-label="{{localize 'ETERNIA.Wizard.Reader.Prev'}}" {{#unless prev}}disabled{{/unless}}><i class="fa-solid fa-chevron-left"></i></button>
+			<span>{{position}}</span>
+			<button type="button" data-action="readerMove" data-dir="1" data-tooltip="{{localize 'ETERNIA.Wizard.Reader.Next'}}" aria-label="{{localize 'ETERNIA.Wizard.Reader.Next'}}" {{#unless next}}disabled{{/unless}}><i class="fa-solid fa-chevron-right"></i></button>
+		</span>
+		{{#if quota}}
+		<span class="wz-reader-quota{{#if quota.full}} full{{/if}}"><span class="wz-pips">{{#each quota.pips}}<i class="{{#if on}}on{{/if}}"></i>{{/each}}</span>{{quota.label}} <b>{{quota.picked}}/{{quota.quota}}</b></span>
+		{{else if granted}}
+		<span class="wz-reader-granted"><i class="fa-solid fa-gift"></i>{{granted}}</span>
+		{{/if}}
+		<button type="button" class="wz-reader-close" data-action="readerClose">{{localize "ETERNIA.Wizard.Reader.Close"}}</button>
+		{{#if pickable}}
+		<button type="button" class="wz-reader-pick{{#if picked}} picked{{/if}}" data-action="skill" data-uuid="{{uuid}}" {{#if blocked}}disabled{{/if}}><i class="fa-solid {{#if picked}}fa-xmark{{else}}fa-check{{/if}}"></i>{{#if picked}}{{localize "ETERNIA.Wizard.Skills.Unpick"}}{{else}}{{localize "ETERNIA.Wizard.Skills.Pick"}}{{/if}}</button>
+		{{/if}}
+	</footer>
+</article>

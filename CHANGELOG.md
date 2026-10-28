@@ -1,5 +1,25 @@
 # Changelog
 
+## Não lançado
+
+A caixa de leitura das habilidades no assistente de criação.
+
+### Adicionado
+- **A caixa de leitura no passo Habilidades do assistente de criação:** um clique numa habilidade (das de escolher ou
+  das que já vêm com a raça, a classe e a Magia) abre o texto inteiro dela numa caixa sobre o passo, no visual das
+  caixas de mensagem: o nome, de onde ela vem, as tags, os campos (Momento, Teste, Alvo, Alcance, Custo, Limite e até
+  que NH ela sobe) e o texto com os destaques dos colchetes. As setas da caixa (e as teclas ← e →) passam para a
+  habilidade anterior e a próxima; o botão Escolher / Tirar a escolha marca ali mesmo, com a cota do tipo ao lado, e
+  diz por que não dá quando não dá. Esc, o ×, Fechar ou um clique fora fecham, e a lista volta na última habilidade
+  lida. A faixa do personagem e o rodapé continuam à vista e mudam na hora.
+
+### Alterado
+- No passo Habilidades, o clique na habilidade lê; quem escolhe é o quadradinho ao lado dela (ou o botão da caixa).
+- O Guia do Jogador (capítulo 3, a criação) e o README contam a caixa de leitura.
+
+### Corrigido
+- No assistente de criação, a barra de espaço numa opção ou num botão não pausa mais o jogo do Mestre.
+
 ## 0.47.1 — 2026-10-28
 
 O disfarce dos monstros esconde o token em vez de trocá-lo por um ícone.

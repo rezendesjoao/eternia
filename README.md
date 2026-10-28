@@ -361,7 +361,11 @@ campos vazios de raça, classe e profissão e pelo botão da pena no cabeçalho 
    é alta, até o próximo modificador; cada atributo mostra quanto a sugestão põe nele.
 6. **Habilidades:** as três de Combate e a Geral da criação (no máximo duas de [Treino]), entre os talentos da classe
    e os feitiços da Magia do NP 1, cada uma com as primeiras linhas; as regras são as do navegador de habilidades (um
-   talento aparece com o que ele pede, e entra junto). No alto, o que a raça, a classe e a Magia já dão.
+   talento aparece com o que ele pede, e entra junto). No alto, o que a raça, a classe e a Magia já dão. Um clique
+   numa habilidade (ou numa das que já vêm) abre a **caixa de leitura** sobre o passo: o texto inteiro, as tags e os
+   campos (Momento, Teste, Alvo, Alcance, Custo, Limite e até que NH ela sobe), por que não dá para escolher agora,
+   quando for o caso, as setas (e as teclas ← e →) para a anterior e a próxima, a cota do tipo e o botão Escolher /
+   Tirar a escolha; Esc ou um clique fora fecha. O quadradinho ao lado de cada habilidade escolhe direto na lista.
 7. **Itens:** a Mochila, o Kit de Aventureiro e o Sanduíche vêm de graça, e o ouro do personagem (350) compra o resto
    numa loja com os itens de Nível 1 dos compêndios do sistema e do mundo (sem os [Invendáveis], os [Intransferíveis]
    e os mágicos [M1]–[M7]; um [Raro] aparece com uma gema, para combinar com o mestre). O **kit recomendado para a
