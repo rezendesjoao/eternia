@@ -837,7 +837,7 @@ regras automatizadas: os 52 da tabela abaixo e as 52 criaturas de Norlangarth da
 | 3 | **Senhor Kobold** | Chefe: a aura de [Fortalecido] dos kobolds à volta, a couraça que tira um Estado Negativo no Encerramento, [Fúria] e [Acelerado] na metade dos PV, o chamado de 1d3 Kobolds Batedores e a explosão que acerta quem estiver a 1 Qd quando ele cai. |
 | 3 | **Javali Atroz** | A investida empurra 2 Qd e derruba, a Ferocidade o deixa com 1 PV uma vez por cena, e o couro de cristal anula 5 de dano até o fogo rachá-lo ([Fissurado] a cada golpe de [Chama]). |
 | 3 | **Contrabandista** | O Selo não o deixa matar, o golpe para em 1 PV; a lâmina envenena; a bomba de fumaça esconde o grupo dele. |
-| 3 | **Mímico** | O token é um baú até alguém tocá-lo ou até ele agir; quem pisa nele ou o golpeia corpo a corpo fica [Agarrado], e a mordida fere mais quem está preso. |
+| 3 | **Mímico** | Entra escondido (o Mestre descreve um baú) até alguém tocá-lo ou até ele agir; quem pisa nele ou o golpeia corpo a corpo fica [Agarrado], e a mordida fere mais quem está preso. |
 | 3 | **Monstro da Ferrugem** | As antenas enferrujam a armadura de metal, [Fissurado] que soma até quebrar a guarda; quem o fere com uma arma de metal fica [Enfraquecido: 4] até limpar a arma. |
 | 3 | **Harpia** | Voa; o canto deixa [Encantado] em área, e quem ela encanta anda até ela no começo de cada turno, até sofrer dano de qualquer um. |
 | 3 | **Sombra** | Sempre [Intangível]: só as Artes e o dano direto a ferem; o toque deixa [Enfraquecido] que soma e não passa sozinho; quem ela derruba levanta como Sombra na Manutenção seguinte, a menos que volte a ter PV antes. |
@@ -848,7 +848,7 @@ regras automatizadas: os 52 da tabela abaixo e as 52 criaturas de Norlangarth da
 | 4 | **Cubo Gelatinoso** | 2×2, começa [Oculto]; o Engolfar passa por cima de quem está no caminho e o engole: [Agarrado] dentro dele, ácido em cada Manutenção, e só sai vencendo Atletismo contra 10. Bater no cubo pode acertar quem está dentro. |
 | 4 | **Bugbear Emboscador** | Começa [Oculto]; +2d6 de dano contra quem ainda não agiu na rodada; a maça alcança a 2 Qd. |
 | 4 | **Doppelganger** | Tomar o Rosto: o token dele vira o de quem ele toca, com a imagem, o nome, o tamanho e a borda, até de um personagem, e o rosto dele volta quando ele cai ou fica [Identificado]. |
-| 4 | **Gárgula** | O token é uma estátua até ela se mexer, a Pose de Pedra a deixa estátua de novo uma vez por cena, e a Pele de Pedra corta pela metade o dano físico sem magia. |
+| 4 | **Gárgula** | Entra escondida (o Mestre descreve uma estátua) até se mexer, a Pose de Pedra a esconde de novo uma vez por cena, e a Pele de Pedra corta pela metade o dano físico sem magia. |
 | 5 | **Lagarto-Lanterna** | A [Radiância] o cura, quem fica perto fica [Cego] em cada Manutenção, e o Vômito de Luz recarrega com 5 ou 6 no 1d6. |
 | 5 | **Capitão Contrabandista** | Chefe de grupo: [Clones: 3] dos sósias; a Mão Leve rouba ouro de quem ele fere, e o ouro volta nos itens deixados; **A Proposta** põe no chat um cartão com o ouro que ele oferece para ir embora, com Aceitar e Recusar. |
 | 5 | **Goblin Saqueador** | Lacaio, com a Mão Leve. |

@@ -91,7 +91,7 @@
         "mod": 1
       }
     },
-    "description": "<p>Um bicho que imita coisas: um baú de madeira com cantoneiras de ferro, esquecido no fundo de uma galeria, com uma moeda de ouro à vista na fresta da tampa. A madeira é pele, a fechadura é um olho, e a tampa é a boca. Quem encosta a mão fica grudado: o mímico solta uma cola pela pele, e só então mostra os dentes.</p><p><b>Na mesa:</b> padrão de NP 3, a armadilha viva das minas. O token é um baú até alguém tocá-lo ou até ele agir: quem pisa no quadrado dele fica [Agarrado], e quem bate nele com um ataque corpo a corpo também (a arma cola). A Mordida da Tampa fere mais quem está [Agarrado]. Desconfiar dos baús e bater de longe, com flechas ou magia, é a jogada.</p>"
+    "description": "<p>Um bicho que imita coisas: um baú de madeira com cantoneiras de ferro, esquecido no fundo de uma galeria, com uma moeda de ouro à vista na fresta da tampa. A madeira é pele, a fechadura é um olho, e a tampa é a boca. Quem encosta a mão fica grudado: o mímico solta uma cola pela pele, e só então mostra os dentes.</p><p><b>Na mesa:</b> padrão de NP 3, a armadilha viva das minas. O token fica escondido dos jogadores (o Mestre descreve um baú) até alguém tocá-lo ou até ele agir: quem pisa no quadrado dele fica [Agarrado], e quem bate nele com um ataque corpo a corpo também (a arma cola). A Mordida da Tampa fere mais quem está [Agarrado]. Desconfiar dos baús e bater de longe, com flechas ou magia, é a jogada.</p>"
   },
   "prototypeToken": {
     "name": "Mímico",
@@ -193,7 +193,7 @@
       "type": "skill",
       "img": "icons/containers/chest/chest-reinforced-steel-walnut-brown.webp",
       "system": {
-        "description": "<p>Na cena, este inimigo é um baú: o token tem o nome e a imagem de um baú, sem barras, e os personagens não o miram. Ele se mostra quando age (usa uma habilidade ou se move) ou quando é tocado: quem pisa no quadrado dele fica [Agarrado] por ele; um ataque ou um cartão de dano também o revela.</p>",
+        "description": "<p>Na cena, este inimigo começa escondido: os jogadores não veem o token, e o Mestre descreve um baú. Ele aparece quando age (usa uma habilidade ou se move) ou quando é tocado: quem pisa no quadrado dele fica [Agarrado] por ele; um ataque ou um cartão de dano também o revela.</p>",
         "tags": [],
         "timing": "Constant",
         "checkType": "",
@@ -231,7 +231,6 @@
           "monster": {
             "rule": "disguise",
             "name": "Baú",
-            "img": "icons/containers/chest/chest-reinforced-steel-walnut-brown.webp",
             "touch": [
               {
                 "statusId": "grappled"

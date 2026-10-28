@@ -1,5 +1,20 @@
 # Changelog
 
+## Não lançado
+
+O disfarce dos monstros esconde o token em vez de trocá-lo por um ícone.
+
+### Alterado
+- **O monstro disfarçado entra escondido:** o Graveto-Praga, o Espantalho Vivo, a Estalactite Viva, o Besouro-Moeda, a
+  Aranha-Isca, o Cavalo-d'Água, o Mímico e a Gárgula, arrastados para a cena, entram com o token escondido e a arte
+  deles, em vez de virar um ícone do Foundry (a moita, o baú, a estátua). O Mestre os vê transparentes e descreve o que
+  os jogadores veem; os jogadores não veem o token no mapa nem no rastreador. Ele aparece quando anda (um quadrado
+  basta), usa uma habilidade, é tocado ou atacado, e quando o Mestre mostra o token pelo olho do HUD, com a linha no
+  chat ("Moita Seca era Graveto-Praga I!"). A Pose de Pedra da Gárgula esconde o token de novo.
+- Os textos das oito, a página XIV de AS REGRAS e o Guia do Jogador (capítulo 18, os tokens) contam o disfarce novo.
+- **A migração `bestiary` (versão 4):** os monstros desses oito que o mundo já tinha trazido do compêndio ganham os
+  textos novos, e os tokens já disfarçados nas cenas, com o ícone, voltam à arte deles, escondidos.
+
 ## 0.47.0 — 2026-10-28
 
 O bestiário de Norlangarth: 52 criaturas novas de NP 1 a 3.

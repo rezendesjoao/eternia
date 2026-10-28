@@ -35,7 +35,7 @@ export const MIGRATIONS = [
   KUDEN_CLEANUP_MIGRATION,       // what the Kuden and the archetypes left, the class icons, the Magia slots, the renamed classes and Magia, the Dragon Slayer's new elements, the Magias of the review, the balance of 0.42 (classes/migration.mjs)
   TOKENS_MIGRATION,              // the characters' tokens see and are linked, every name shows, core's turn marker off (canvas/token-defaults.mjs)
   RACE_STAGES_MIGRATION,         // the race items take the stages of their compendium race again (races/migration.mjs)
-  BESTIARY_MIGRATION,            // the Empire's monsters already in the world take the names and the art of 0.37, and the damage of 0.42 (bestiary/migration.mjs)
+  BESTIARY_MIGRATION,            // the bestiary monsters already in the world take the names and the art of 0.37, the damage of 0.42, the (Menor) of 0.44 and the hidden disguise of 0.47.1 (bestiary/migration.mjs)
   CONTENT_MIGRATION              // the items and skills of the world take the data their compendium gained: the bags, the grades and the NP locks, the cover of 0.43 (content/migration.mjs)
 ];
 

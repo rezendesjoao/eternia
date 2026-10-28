@@ -11,6 +11,10 @@
  * Version 3 (0.44, bestiary/minor.mjs): the skills with a (Menor) or a [Destino 1] in their text take it as data
  * (`flags.eternia.minor`, `fateOption`), by name, on the monster and on its tokens that carry their own copy of the
  * skill; the bosses' Fate bar shows for the GM (the prototype token and the tokens on the scenes whose bars were off).
+ * Version 4 (0.47.1, bestiary/disguise.mjs): a disguise hides the token instead of dressing it as a chest or a statue.
+ * The skills of the disguise and of the stone pose take the compendium's text, by name, and lose the old picture of the
+ * rule; the table notes that said the token was a chest or a statue take the new sentence; the tokens disguised the old
+ * way on the scenes get their look and side back, hidden.
  */
 import { SYSTEM_ID } from "../settings.mjs";
 
@@ -259,6 +263,86 @@ async function blows044(pack, prefix) {
   console.log(`${SYSTEM_ID} | Bestiary: ${items} skills with their (Menor) or [Destino 1] as data, the Fate bar of ${actors} bosses and ${tokens} tokens`);
 }
 
+/** Version 4: the sentences of the table notes that told the old disguise, and the ones of 0.47.1. */
+const DISGUISE_NOTES = [
+  ["O token dela é uma estátua (sem nome, sem barra, sem borda, fora do rastreador) até ela se mexer ou alguém pisar no quadrado dela ou atacá-la; então ela entra no combate.",
+    "O token dela fica escondido dos jogadores (o Mestre descreve uma estátua) até ela se mexer ou alguém pisar no quadrado dela ou atacá-la; então ela aparece e entra no combate."],
+  ["O token é um baú até alguém tocá-lo ou até ele agir:",
+    "O token fica escondido dos jogadores (o Mestre descreve um baú) até alguém tocá-lo ou até ele agir:"]
+];
+
+/** Whether a skill is a disguise or the stone pose. */
+const disguiseSkill = item => ["disguise", "conceal"].includes(item?.flags?.[SYSTEM_ID]?.monster?.rule);
+
+/** Version 4: the disguise skills of a world monster with the compendium's text and without the rule's old picture. */
+function disguiseSkillChanges(items, source) {
+  const updates = [];
+  for (const item of items) {
+    const from = disguiseSkill(item) ? source.items.find(i => (i.type === "skill") && (i.name === item.name) && disguiseSkill(i)) : null;
+    if (!from) continue;
+    const update = { _id: item._id };
+    if (item.system?.description !== from.system.description) update["system.description"] = from.system.description;
+    for (const key of ["img", "scale"]) {
+      if (item.flags[SYSTEM_ID].monster[key] !== undefined) update[`flags.${SYSTEM_ID}.monster.-=${key}`] = null;
+    }
+    if (Object.keys(update).length > 1) updates.push(update);
+  }
+  return updates;
+}
+
+async function disguise047(pack, prefix) {
+  const loaded = new Map();
+  const sourceOf = async actor => {
+    const uuid = actor?._stats?.compendiumSource;
+    if (!uuid?.startsWith(prefix)) return null;
+    const id = uuid.slice(prefix.length);
+    if (!loaded.has(id)) loaded.set(id, (await pack.getDocument(id).catch(() => null))?._source ?? null);
+    return loaded.get(id);
+  };
+  let items = 0, actors = 0, tokens = 0;
+  for (const actor of game.actors) {
+    const source = await sourceOf(actor);
+    if (!source?.items.some(disguiseSkill)) continue;
+    const updates = disguiseSkillChanges(actor._source.items, source);
+    if (updates.length) {
+      await actor.updateEmbeddedDocuments("Item", updates, { eterniaMigration: true });
+      items += updates.length;
+    }
+    const before = actor._source.system?.description ?? "";
+    const description = DISGUISE_NOTES.reduce((text, [old, now]) => text.replace(old, now), before);
+    if (description !== before) {
+      await actor.update({ "system.description": description }, { eterniaMigration: true });
+      actors++;
+    }
+  }
+  for (const scene of game.scenes) {
+    const updates = [];
+    for (const token of scene.tokens) {
+      // A token disguised the old way: the rule's picture and name and the secret disposition, its own look in the flag
+      const look = token._source.flags?.[SYSTEM_ID]?.disguise;
+      if (look?.img) {
+        updates.push({
+          _id: token.id, name: look.name, "texture.src": look.img, "texture.scaleX": look.scaleX ?? 1, "texture.scaleY": look.scaleY ?? 1,
+          disposition: look.disposition ?? CONST.TOKEN_DISPOSITIONS.HOSTILE, hidden: true,
+          ...Object.fromEntries(["name", "img", "scaleX", "scaleY", "disposition"].map(k => [`flags.${SYSTEM_ID}.disguise.-=${k}`, null])),
+          [`flags.${SYSTEM_ID}.disguise.hidden`]: true
+        });
+      }
+      // The disguise skills an unlinked token carries a copy of
+      const own = (!token.actorLink && token.actor) ? (token.delta?._source?.items ?? []) : [];
+      const source = own.some(disguiseSkill) ? await sourceOf(token.baseActor ?? game.actors.get(token.actorId)) : null;
+      const changes = source ? disguiseSkillChanges(own, source) : [];
+      if (changes.length) {
+        await token.actor.updateEmbeddedDocuments("Item", changes, { eterniaMigration: true });
+        items += changes.length;
+      }
+    }
+    if (updates.length) await scene.updateEmbeddedDocuments("Token", updates, { eterniaMigration: true });
+    tokens += updates.length;
+  }
+  console.log(`${SYSTEM_ID} | Bestiary: ${items} disguise skills, ${actors} table notes and ${tokens} disguised tokens hidden as themselves`);
+}
+
 async function run(done = 0) {
   const pack = game.packs.get(`${SYSTEM_ID}.bestiary`);
   if (!pack) return true;
@@ -266,6 +350,7 @@ async function run(done = 0) {
   if (done < 1) await renames(pack);
   if (done < 2) await damage042(pack, `Compendium.${SYSTEM_ID}.bestiary.Actor.`);
   if (done < 3) await blows044(pack, `Compendium.${SYSTEM_ID}.bestiary.Actor.`);
+  if (done < 4) await disguise047(pack, `Compendium.${SYSTEM_ID}.bestiary.Actor.`);
   return true;
 }
 
@@ -314,4 +399,4 @@ async function renames(pack) {
   return true;
 }
 
-export const BESTIARY_MIGRATION = { id: "bestiary", setting: "bestiaryMigrationVersion", version: 3, run };
+export const BESTIARY_MIGRATION = { id: "bestiary", setting: "bestiaryMigrationVersion", version: 4, run };

@@ -117,7 +117,9 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   `breed`, `brood`, `curse`, `shuffle`, `devour`, `spill`, `thirst` e `bow` (com `round` no `retreat`, `steps` no `latch`,
   `notMetal` no `engulf` e `bound` no `summon`); cada
   uma no seu arquivo de `module/bestiary/`, como o Salvar dos Desgarrados em `save.mjs` e o levantar e o erguer dos
-  mortos em `rise.mjs`); a Mão Leve é um efeito de uso com `flags.eternia.pickpocket`, a criatura que come um dano, um
+  mortos em `rise.mjs`); o disfarce (`disguise`, desde a 0.47.1) esconde o token (`hidden`), com a arte e o lado dele,
+  até ele andar um quadrado, agir, ser tocado ou atacado, ou o Mestre o mostrar pelo olho do HUD (o usuário não quis o
+  ícone do Foundry no lugar da arte); a Mão Leve é um efeito de uso com `flags.eternia.pickpocket`, a criatura que come um dano, um
   efeito com `flags.eternia.absorb` (lista de tags), o dano pela metade, `flags.eternia.halve`, e a Possessão, a flag de
   habilidade `flags.eternia.possess`. A Fenda é um monstro com `flags.eternia.rift` e o relógio no Destino (`growOn: "fall"`: cresce quando
   quem escreve cai). As criaturas numeram o token com número romano ("Kobold II": `freeNumber` em
