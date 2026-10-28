@@ -19,8 +19,9 @@ import { tagDescription } from "../helpers/tag-catalog.mjs";
 import { tagLabel } from "../i18n/terms.mjs";
 import { fold } from "../apps/magic-catalog.mjs";
 import { STOCK_FLAG, PHYSICAL_TYPES, MAX_TICKETS, MAX_UNITS } from "../piles/pile-config.mjs";
+import { RESALE } from "../economy/data.mjs";
 import {
-  buyPrice, freeSpace, getGold, getInteractingActor, getStock, isWithinReach, sellPrice, usedSpace
+  buyPrice, freeSpace, getGold, getInteractingActor, getStock, isWithinReach, sellPrice, unsold, usedSpace
 } from "../piles/pile-utils.mjs";
 import { GRADES, MARKET_TYPES, facetsOf, marketCatalog, marketEntry } from "./catalog.mjs";
 import {
@@ -212,7 +213,9 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
     }
     else if (this.#tab === "sell") {
       const buyer = this.buyer;
-      const items = (buyer?.items.contents ?? []).filter(i => PHYSICAL_TYPES.includes(i.type) && (i.system.equipped !== true));
+      // What the shop won't buy (an Anima-mundi without the Seal) stays out of the list
+      const items = (buyer?.items.contents ?? []).filter(i => PHYSICAL_TYPES.includes(i.type) && (i.system.equipped !== true)
+        && !unsold(this.merchant, i));
       entries = items.map(item => ({
         ...marketEntry(item), key: item.id, itemId: item.id, basePrice: toInt(item.system.price),
         price: sellPrice(this.merchant, item), forSale: true
@@ -336,7 +339,7 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
         { icon: "fa-solid fa-tag", value: `${buy}%`, label: L("Market.Fact.Prices") },
         {
           icon: system.merchant?.acceptsSales ? "fa-solid fa-hand-holding-dollar" : "fa-solid fa-ban",
-          value: system.merchant?.acceptsSales ? `${Math.round(Number(system.merchant?.sellMultiplier ?? 0.5) * 100)}%` : "—",
+          value: system.merchant?.acceptsSales ? `${Math.round(Number(system.merchant?.sellMultiplier ?? RESALE.other) * 100)}%` : "—",
           label: L("Market.Fact.Buys")
         }
       ]

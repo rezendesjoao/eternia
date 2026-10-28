@@ -16,12 +16,13 @@ import {
   fusionKey, scrollFromSkill, unavailableReason
 } from "./forge.mjs";
 import { giveCopies, materialData, materialFor, materialsOf, professionOf, record, shardData } from "./state.mjs";
+import { UNSEALED, gatherLevelCap, retouchCost as retouchPrice } from "../economy/data.mjs";
 
 const CHAT_CARD = `systems/${SYSTEM_ID}/templates/professions/chat-card.hbs`;
 /** Flag of a crafting attempt waiting for its enhancements. */
 export const PENDING = "craftPending";
-/** The Retouch: its price doubles with each one the item already had. */
-export const retouchCost = craft => 100 * (2 ** toInt(craft?.retouches));
+/** The Retouch: 2 Anima-mundi of the item's level, doubling with each one the item already had (economy/data.mjs). */
+export const retouchCost = craft => retouchPrice(toInt(craft?.base?.system?.rank) || 1, toInt(craft?.retouches));
 /** EXP of the actions that aren't a Workshop roll. */
 export const EXP = { retouch: 5, copy: 2, sale: 2 };
 
@@ -367,11 +368,11 @@ export async function retouch(actor, { itemId, out, pick }) {
   return made;
 }
 
-/** Items a Merchant can sell: carried (not equipped), with a price, not [Not For Sale]. */
+/** Items a Merchant can sell: carried (not equipped), with a price, not [Not For Sale], not an Anima-mundi without the Seal. */
 export function sellable(actor) {
   return actor.items.filter(i => ["weapon", "armor", "shield", "accessory", "bag", "gear", "usable"].includes(i.type)
     && !i.system.equipped && (toInt(i.system.price) > 0)
-    && !(i.system.tags ?? []).some(t => /not for sale|untradeable/i.test(String(t))));
+    && !(i.system.tags ?? []).some(t => /not for sale|untradeable/i.test(String(t))) && !i.getFlag(SYSTEM_ID, UNSEALED));
 }
 
 /**
@@ -400,11 +401,18 @@ export async function sell(actor, itemId) {
 /*  Gatherer                                    */
 /* -------------------------------------------- */
 
-/** Highest Anima-mundi the Gatherer finds. */
-export const gatherCap = p => Math.min(MAX_MATERIAL, p.cap);
+/** A material the Gatherer found: without the Seal of the Anima. */
+function unsealed(data) {
+  if (data) foundry.utils.setProperty(data, `flags.${SYSTEM_ID}.${UNSEALED}`, true);
+  return data;
+}
+
+/** Highest Anima-mundi the Gatherer finds: up to its NP and the profession's cap (economy/data.mjs). */
+export const gatherCap = (p, actor) => Math.min(MAX_MATERIAL, gatherLevelCap(actor?.system?.infos?.crank ?? 1, p.cap));
 
 /**
  * Gathering: 2D + Rank finds Anima-mundi of the chosen level (8+: one, 11+: two) and, on two sixes, a Quintessence.
+ * What it finds has no Seal of the Anima (`flags.eternia.unsealed`): the Workshop takes it, no shop buys it.
  * @param {Actor} actor
  * @param {number} level
  */
@@ -412,11 +420,11 @@ export async function gather(actor, level) {
   const p = professionOf(actor);
   if (p?.id !== "gatherer") return warn("Profession.Error.NoProfession");
   if (!p.attempts.left) return warn("Profession.Error.NoAttempts");
-  const n = Math.clamp(toInt(level), 1, gatherCap(p));
+  const n = Math.clamp(toInt(level), 1, gatherCap(p, actor));
   const { roll, dice } = await rollDice(p.rank);
   const outcome = gatherOutcome(dice, p.rank);
-  const found = await giveCopies(actor, await materialData(n), outcome.count);
-  const shards = outcome.shard ? await giveCopies(actor, await shardData(), 1) : [];
+  const found = await giveCopies(actor, unsealed(await materialData(n)), outcome.count);
+  const shards = outcome.shard ? await giveCopies(actor, unsealed(await shardData()), 1) : [];
   const done = await record(actor, { exp: outcome.exp, attempt: true });
   const lines = [L(`Profession.Chat.Gather.${outcome.id}`, { n, count: found.length })];
   if (shards.length) lines.push(L("Profession.Chat.Gather.shard"));

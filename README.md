@@ -103,7 +103,7 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   de Aincrad, a Fenda Grande e a Fenda-mãe, e os seis **Desgarrados**, que podem ser salvos: com 1/4 dos PV, o botão
   **Salvar** no chat, a Negociação contra a Resistência e a Conexão de quem o salvou (veja [O bestiário](#o-bestiário)).
 - **Desde a 0.34.0: o bestiário do Império e os itens deixados automáticos.** Quando um monstro cai, o 1d6 dos itens
-  deixados rola sozinho e quem o derrubou leva os itens e o ouro, com um cartão no chat e o Desfazer do Mestre; a ficha de
+  deixados rola sozinho e quem o derrubou leva os itens e o Yuld, com um cartão no chat e o Desfazer do Mestre; a ficha de
   monstro ganhou a aba **Itens Deixados**. Os primeiros monstros do Império chegam com regras próprias automatizadas (os
   kobolds das galerias, as feras do Peso, os contrabandistas e a Fenda Pequena), e a coroa **Dar Nome** faz de qualquer
   fera uma fera com nome (veja [O bestiário](#o-bestiário)).
@@ -127,7 +127,7 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   estado posto num token gira até o lugar dele entre os ícones, no lugar do texto com o nome (veja [O chat](#o-chat) e
   [Os tokens](#os-tokens)).
 - **Desde a 0.30.0: os itens iniciais e a sugestão de atributos.** O assistente de criação ganhou o passo **Itens**:
-  a Mochila, o Kit de Aventureiro e o Sanduíche vêm de graça, e os 350 de ouro compram o resto numa loja com os itens
+  a Mochila, o Kit de Aventureiro e o Sanduíche vêm de graça, e os 700 Yuld compram o resto numa loja com os itens
   de Nível 1. Cada classe tem um kit recomendado que um clique compra, e a bolsa ao lado mostra onde cada peça vai e os
   números que o equipamento dá; ao criar, tudo entra equipado. O passo Atributos sugere os cinco pontos para a classe
   (veja [A criação de personagem](#a-criação-de-personagem)).
@@ -330,7 +330,7 @@ molduras finas e rótulos em versalete. Cada aba tem o ícone e o nome, e um nú
   mostra o que fazem; os do NP acima ficam apagados com o NP em que chegam). Uma vaga aberta brilha e tem o botão de
   escolher a Magia.
 - **Inventário:** o boneco de equipamento (sete espaços ligados por linhas às partes do corpo) e, ao lado, a riqueza
-  (receber e gastar ouro fica registrado no chat), o espaço da bolsa e os tíquetes; embaixo, o que se carrega.
+  (receber e gastar Yuld fica registrado no chat), o espaço da bolsa e os tíquetes; embaixo, o que se carrega.
 - **Profissão:** o brasão da profissão com o Rank, a EXP e as tentativas do cenário, os botões da bancada (Oficina,
   Fusão, talentos), as chances, os materiais, o talento, as obras e os Ranks; sem profissão, as dez para escolher.
 - **Efeitos e estados** (os efeitos dos itens dizem "Passivo" na duração).
@@ -345,7 +345,7 @@ molduras finas e rótulos em versalete. Cada aba tem o ícone e o nome, e um nú
 ## A criação de personagem
 
 Um assistente de oito passos numa janela grande, com a ficha montando numa faixa verde à esquerda (o retrato, o nome,
-o que foi escolhido, os itens e o ouro, os atributos, os PV, o Destino e as defesas). Ele abre sozinho quando um
+o que foi escolhido, os itens e o Yuld, os atributos, os PV, o Destino e as defesas). Ele abre sozinho quando um
 usuário cria um personagem (a configuração "Assistente de criação" desliga), pelo convite da aba Personagem, pelos
 campos vazios de raça, classe e profissão e pelo botão da pena no cabeçalho de um personagem de NP 1.
 
@@ -375,7 +375,7 @@ campos vazios de raça, classe e profissão e pelo botão da pena no cabeçalho 
    campos (Momento, Teste, Alvo, Alcance, Custo, Limite e até que NH ela sobe), por que não dá para escolher agora,
    quando for o caso, as setas (e as teclas ← e →) para a anterior e a próxima, a cota do tipo e o botão Escolher /
    Tirar a escolha; Esc ou um clique fora fecha. O quadradinho ao lado de cada habilidade escolhe direto na lista.
-7. **Itens:** a Mochila, o Kit de Aventureiro e o Sanduíche vêm de graça, e o ouro do personagem (350) compra o resto
+7. **Itens:** a Mochila, o Kit de Aventureiro e o Sanduíche vêm de graça, e o Yuld do personagem (700) compra o resto
    numa loja com os itens de Nível 1 dos compêndios do sistema e do mundo (sem os [Invendáveis], os [Intransferíveis]
    e os mágicos [M1]–[M7]; um [Raro] aparece com uma gema, para combinar com o mestre). O **kit recomendado para a
    classe** já vem equipado ao chegar no passo; no alto ficam o porquê, o preço e um botão que o equipa de novo, e os
@@ -385,22 +385,22 @@ campos vazios de raça, classe e profissão e pelo botão da pena no cabeçalho 
    cada um onde é usado: o anel na mão, o amuleto no pescoço, o brinco na orelha, a capa nos ombros, as botas nos pés),
    com os números que o equipamento dá nos cantos (Poder de Ataque e Mágico, Precisão, Defesas e Iniciativa) e, embaixo,
    o que vai na bolsa, com o espaço (2, mais o da bolsa equipada). Clicar num lugar filtra a loja para ele, e o **×**
-   devolve a peça. À direita, a loja: o ouro que sobra, a busca e os filtros por tipo; um clique compra (uma arma,
+   devolve a peça. À direita, a loja: o Yuld que sobra, a busca e os filtros por tipo; um clique compra (uma arma,
    armadura ou escudo novo vai para o corpo, e o que estava lá passa para a bolsa), o **−** devolve, e o ponteiro mostra
    o que o item faz.
 8. **Resumo:** a página do personagem. No alto, o retrato (o token pega o retrato), o nome, a raça · classe · Magia ·
-   profissão, o NP, os PV, o Destino e o ouro; embaixo, as **Origens** (a raça, a classe com o Motor, a Magia com a
+   profissão, o NP, os PV, o Destino e o Yuld; embaixo, as **Origens** (a raça, a classe com o Motor, a Magia com a
    categoria e a frase dela e a profissão), os **Atributos e números**, as **Habilidades** que vão entrar (da raça, da
    classe, da Magia e as escolhidas, cada uma com o que faz ao passar o mouse, e a opção de dar as 16 habilidades
-   básicas) e o **Equipamento** (o corpo, a bolsa e o ouro).
+   básicas) e o **Equipamento** (o corpo, a bolsa e o Yuld).
 
 Nada muda na ficha até **Criar personagem**: aí vêm, de uma vez, a raça (com o +1 do Humano), a classe, a profissão, o
 kit, a escolha do NP 1, a Magia (com o Decreto), as escolhas da criação marcadas como escolhas (o navegador de
 habilidades as conta como feitas, e descer de NP as desfaz como antes), as habilidades básicas e os itens iniciais,
-equipados onde a bolsa mostrou, com o ouro que sobrou, PV e Destino cheios e um cartão no chat com a raça, a classe, a
+equipados onde a bolsa mostrou, com o Yuld que sobrou, PV e Destino cheios e um cartão no chat com a raça, a classe, a
 Magia, a profissão e o equipamento (a configuração "Cartão de personagem novo" desliga). Abrir o assistente num
 personagem de NP 1 já criado começa das escolhas dele; criar de novo troca o que veio da raça, da classe, das escolhas
-e dos itens iniciais (o ouro deles volta), e o resto da ficha fica.
+e dos itens iniciais (o Yuld deles volta), e o resto da ficha fica.
 
 ## A ficha de monstro
 
@@ -458,7 +458,7 @@ lado: a descrição inteira, as tags com a regra de cada uma e de onde ele vem.
   Mãos] mostram o que tem as duas). Cada botão diz quantos itens mostraria com os outros filtros ligados. A busca
   procura no nome, no efeito e nas tags, sem precisar de acento. A ordem: tipo e nível, nome, preço ou nível.
 - **Só o Mestre compra e dá.** No rodapé, o Mestre escolhe o personagem (o do token selecionado vem primeiro); na página
-  do item, **Comprar para** (o ouro sai do personagem, e o espaço do inventário é conferido) e **Dar a** (de graça),
+  do item, **Comprar para** (o Yuld sai do personagem, e o espaço do inventário é conferido) e **Dar a** (de graça),
   com a quantidade (um tíquete soma na pilha que o personagem já tem). Arrastar uma linha para uma ficha também dá o
   item. Os jogadores só olham; a configuração "O que os jogadores veem no Mercado" escolhe entre todos os itens, só o
   que se vende em lojas ou nada (o botão some para eles).
@@ -468,14 +468,37 @@ lado: a descrição inteira, as tags com a regra de cada uma e de onde ele vem.
   (vazio: sem fim), o alcance (qualquer lugar da cena, ao lado do token ou até 3 quadrados) e se o token já vai para o
   meio da cena que o Mestre está vendo. A loja fica na pasta Lojas dos atores, com o token vinculado.
 - **Na loja:** com dois cliques no token, o jogador abre a mesma janela só com os itens daquela loja, com o preço e o
-  estoque dela. Compra quantos o estoque, o ouro e o espaço deixam (o Mestre confere tudo pela tela dele, e o chat
+  estoque dela. Compra quantos o estoque, o Yuld e o espaço deixam (o Mestre confere tudo pela tela dele, e o chat
   registra a compra) e, se a loja compra, vende na aba Vender o que carrega e não está equipado. Longe demais, a loja
   não abre; fechada, mostra só o aviso.
 - **O Mestre na loja:** os dois cliques no token abrem a mesma vitrine, com o estoque de cada item para mudar, Tirar da
   loja, o botão Aberta/Fechada, a porcentagem do preço, **Pôr itens do Mercado** (o Mercado abre pondo nesta loja) e
-  Configurar (a ficha da loja, com o resto: o alcance, o ouro, a revenda). Itens arrastados para a janela (do Mercado,
+  Configurar (a ficha da loja, com o resto: o alcance, o Yuld, a revenda). Itens arrastados para a janela (do Mercado,
   de um compêndio ou da barra lateral) entram na loja. Um mercador feito antes (as pilhas) abre do mesmo jeito, e a
   ficha dele ganhou o botão "Abrir a loja".
+
+## A economia
+
+A moeda é o **Yuld**. Os números ficam em `module/economy/data.mjs` e a conta inteira, com as simulações, na seção 9 de
+`docs/matematica.md`.
+
+- **O comum:** a unidade de tudo, o que um inimigo comum deixa no NP dele (25 Yuld no NP 1, 56 no 5, 129 no 10). Um
+  encontro padrão vale 4 comuns (4 comuns, 6 lacaios ou as criaturas que pesam o mesmo); um chefe deixa 4 comuns na
+  rolagem, mais um Anima-mundi do NP seguinte e um [Material-Base], fixos.
+- **Os preços:** cada item custa o dobro do livro, o que dá um peso por categoria em comuns do nível do item (uma arma de
+  duas mãos, 7,5; uma armadura, 8 a 9,5; um acessório, 4,5; uma poção, 3). O Anima-mundi de nível N custa
+  (2 + 0,1 × (N − 1)) comuns do NP N: 50 Yuld no 1, 370 no 10. Os itens nomeados custam a receita. O começo é 700 Yuld.
+- **A venda:** tesouros ([Valioso], [Material-Base]) pelo preço cheio; itens mágicos, o Anima-mundi e a Quintessência
+  pela metade; o resto por 1/10 (ou a taxa da loja, 10% por padrão). O Anima-mundi sem o Selo do Anima não se vende (nem
+  pelo Mercador): só serve na Oficina.
+- **As missões:** a tabela de AS REGRAS (V.e. TESOURO) diz quanto pagar a cada personagem por NP (pequena 4 comuns,
+  padrão 12, grande 24, épica 48). A padrão, uma por NP, mantém o equipamento no NP; os encontros sozinhos pagam cerca de
+  um terço.
+- **As profissões:** a Coleta acha Anima-mundi até o NP do personagem, sem o Selo; o Retoque custa 2 Anima-mundi do
+  nível do item, dobrando a cada retoque.
+- **Os mundos de antes:** a migração `economy` multiplica por 2 as bolsas (personagens, pilhas, o que o assistente gastou,
+  o que a Mão Leve roubou), dá aos itens das fichas e do mundo o preço do compêndio, traz os drops novos às criaturas do
+  bestiário já postas no mundo e passa as lojas que pagavam 50% para 10%.
 
 ## Os colchetes dos textos
 

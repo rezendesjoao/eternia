@@ -1,5 +1,49 @@
 # Changelog
 
+## Não lançado
+
+A economia do Yuld: a moeda nova e todo preço e todo drop tirados de um modelo só (docs/matematica.md, seção 9).
+
+### Adicionado
+- **O modelo da economia** em `module/economy/data.mjs` (sem Foundry, lido também pelo simulador): a unidade é o
+  comum, o que um inimigo comum do NP deixa ((3 × NP² + 13 × NP + 84) ÷ 4 Yuld: 25 no NP 1, 129 no 10). Um encontro
+  vale 4 comuns, seja quem for que o encha; um lacaio, 1 encontro ÷ 6; um chefe, 4 comuns no 1d6 (6 se solo) mais um
+  Anima-mundi do NP + 1 e um [Material-Base] do NP. O Anima-mundi de nível N custa (2 + 0,1 × (N − 1)) comuns do NP N
+  (50 a 370 Yuld): a âncora do usuário, um Anima-mundi 1 pelo que dois monstros de NP 1 deixam.
+- **A tabela de recompensa de missão** em AS REGRAS (V.e. TESOURO, reescrita): pequena 4 comuns por personagem, padrão
+  12 (uma por NP; mantém o equipamento no NP), grande 24, épica 48, de NP 1 a 10 em Yuld; o valor do comum, do encontro
+  e do chefe por NP; os preços do Anima-mundi e do [Material-Base]; as regras de venda.
+- **A venda por tipo de item** (`saleRate`, `sellPrice` das lojas): tesouros ([Valioso], [Material-Base]) pelo cheio;
+  itens mágicos, o Anima-mundi e a Quintessência pela metade; o resto pela taxa da loja (10% por padrão, antes 50%).
+- **O Anima-mundi sem o Selo do Anima** (`flags.eternia.unsealed`): o da Coleta e as partes de monstro que o texto
+  chama "sem o Selo" servem na Oficina, mas nenhuma loja compra (nem o Mercador); a loja recusa e a aba Vender não as
+  mostra.
+- **As simulações da economia** no simulador (`economia-*.mjs`): Monte Carlo dos drops e dos encontros, lutas para cada
+  Anima-mundi, o custo de manter o equipamento do balanço, a missão que o mantém, o atraso em 11 cenários, as sessões
+  para equipar, o equipamento atrasado nos encontros e a comparação com a 0.47.
+- **A migração `economy` (versão 1):** as bolsas dos mundos de antes em Yuld (×2: personagens, pilhas, tokens, o gasto
+  do assistente, o que a Mão Leve roubou); os itens das fichas e do mundo com o preço do compêndio (os feitos na Oficina,
+  a base nova mais o Anima-mundi × grau); as criaturas do bestiário já postas no mundo com os drops e os textos novos;
+  as lojas que pagavam 50% passam a 10%.
+
+### Alterado
+- **A moeda se chama Yuld** em toda a interface (ficha, Mercado, lojas, assistente, profissões, cartões de chat,
+  itens deixados, Proposta e Mão Leve), em AS REGRAS, no Guia de Criação de Inimigos, no Guia do Jogador e em O Mundo de
+  Eternia (que chamava a moeda de Shia). Nos dados, o campo continua o do ouro.
+- **Os preços de todos os itens** (968): o do livro × 2, com o Anima-mundi, o [Material-Base] e a Quintessência pelas
+  fórmulas; os 178 itens nomeados com receita custam a receita refeita, e o texto da receita mostra os valores novos em
+  Yuld. O começo é 700 Yuld (o kit mais caro de uma classe).
+- **Os itens deixados das 104 criaturas** pelo modelo: as linhas guardam as faces, os nomes e as partes; o Anima-mundi
+  pelo preço do nível, com menos cópias quando uma já vale a linha (as Lágrimas ×4 viram ×1); as linhas de Yuld guardam
+  a parte delas; as partes completam o resto. A Mão Leve rouba o dobro; a Proposta oferece a metade do que o monstro
+  deixa (2d6 × 35 no Capitão Contrabandista); o Anima sem Selo do Contrabandista caiu para as faces 1–2.
+- **Os NPCs** com a bolsa ×2 e **os personagens maiores** com os 700 Yuld do começo.
+- **A Coleta** acha Anima-mundi até o NP do personagem (e o teto da profissão); **o Retoque** custa 2 Anima-mundi do
+  nível do item, dobrando a cada retoque (antes, 100 G em qualquer nível).
+- **O Guia do Jogador:** Equipamento e Riqueza (o Yuld, o comum, as missões, a venda, a tabela por NP, o equipamento
+  atrasado e o exemplo do primeiro Anima-mundi), Criação (700 Yuld), Profissões, Mesa Virtual, Glossário (Comum, Yuld).
+- **docs/matematica.md:** a seção 9, a economia, com o modelo, as tabelas e as simulações.
+
 ## 0.47.3 — 2026-10-28
 
 Os rótulos de Dano que tinham ficado com a fórmula antiga.

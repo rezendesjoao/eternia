@@ -8,7 +8,7 @@ código, que dados um item feito guarda e como criar uma profissão ou um aprimo
 
 | Arquivo | O que faz |
 |---|---|
-| `module/professions/data.mjs` | As dez profissões (cor, ícone, tipos de item que fazem, talento), os talentos, a escada de Ranks (`RANK_EXP`), a tabela da Oficina (`QUALITIES`) e da Coleta (`GATHER`), os preços da Anima-mundi, o multiplicador por nível, o tipo de cada item (`kindOf`) e as listas de aprimoramentos (`ENHANCEMENTS`, `LEGENDARY`). |
+| `module/professions/data.mjs` | As dez profissões (cor, ícone, tipos de item que fazem, talento), os talentos, a escada de Ranks (`RANK_EXP`), a tabela da Oficina (`QUALITIES`) e da Coleta (`GATHER`), os preços da Anima-mundi (de `economy/data.mjs`), o multiplicador por nível, o tipo de cada item (`kindOf`) e as listas de aprimoramentos (`ENHANCEMENTS`, `LEGENDARY`). |
 | `module/professions/state.mjs` | A profissão do personagem (`professionOf`), a EXP e as tentativas (`record`, `setExp`, `refundAttempt`), o cartão de Rank novo e os materiais (`materialsOf`, `materialFor`, `materialData`, `shardData`). |
 | `module/professions/forge.mjs` | O item feito: `buildCrafted` monta o item a partir da base e dos aprimoramentos (campos, efeitos, tags, grau, nome, preço e texto); o que cada aprimoramento faz e o texto dele; o pergaminho do Escriba (`scrollFromSkill`) e o Banquete (`banquetFrom`). |
 | `module/professions/actions.mjs` | As ações, cada uma com o seu cartão de chat: `craftAttempt` e `finishCraft` (Oficina), `fuse` (Fusão), `retouch` e `sell` (Mercador), `gather` (Coletor), `sharpen`, `mend`, `banquet` e `copy` (talentos). |
@@ -25,7 +25,7 @@ como o Último Fôlego do Coração Estelar), `helpers/item-use.mjs` (itens usá
 `helpers/combat-cards.mjs` (tags de dano e estados ao acertar vindos de efeitos, como a Pedra de Faísca),
 `conditions/rolls.mjs` (efeitos gastos pelo próximo dano, `consumeOn: "attack"`), `conditions/effects.mjs` (ação
 `removeStatus`), `documents/actor.mjs` (`eternia.passive.luck`, o Destino máximo do Da Sorte) e
-`piles/pile-utils.mjs` (o Mercador vende pelo valor cheio nas lojas).
+`piles/pile-utils.mjs` (o Mercador vende pelo valor cheio nas lojas, menos o Anima-mundi sem o Selo, `flags.eternia.unsealed`).
 
 ## Os dados
 
@@ -56,7 +56,7 @@ flags.eternia.craft = {
   base,                          // os dados da base (sem ids), para a Fusão e o Retoque refazerem o item
   crafter, profession, rank,     // quem fez
   masterpiece?,                  // "mass" | "instant" (Obra-prima do Bardo)
-  retouches                      // quantos Retoques o item já teve (o preço dobra a cada um)
+  retouches                      // quantos Retoques o item já teve (2 Anima-mundi do nível, dobrando a cada um: retouchCost)
 }
 ```
 
@@ -74,7 +74,9 @@ flags.eternia.craft = {
 
 ### Materiais e itens novos
 
-- Anima-mundi N: `gear` com a tag `Magic Catalyst N` (`catalystLevel`).
+- Anima-mundi N: `gear` com a tag `Magic Catalyst N` (`catalystLevel`), preço `animaPrice(N)` (50 a 370 Yuld). O que a Coleta
+  acha leva `flags.eternia.unsealed` (sem o Selo do Anima): serve na Oficina e nenhuma loja compra (`saleRate`). A Coleta
+  acha até o NP do personagem (`gatherLevelCap`).
 - Quintessência: `gear` com `flags.eternia.material = "starShard"` (o valor vem do nome que ela tinha na 0.4.0,
   Estilhaço Estelar).
 - Engenhocas: `usable` com a tag `Gadget`; bombas e redes têm `flags.eternia.trap = true`. A Pedra de Faísca dá um

@@ -172,9 +172,9 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   navegador no NP 1: uma regra nova do navegador vale para os dois.
 - Itens iniciais (`module/apps/starting-gear.mjs`): a Mochila, o Kit de Aventureiro e o Sanduíche de graça (por uuid
   do compêndio `eternia.items`) e uma loja com os itens de Nível 1 com preço dos compêndios do sistema e do mundo, sem
-  [Not For Sale], [Untradeable] nem [M1]–[M7]. O orçamento é o ouro do personagem (350 no template). Os itens criados
+  [Not For Sale], [Untradeable] nem [M1]–[M7]. O orçamento é o Yuld do personagem (700 no template, `START_YULD`). Os itens criados
   levam `flags.eternia.starting` ("free" ou "bought") e o personagem `flags.eternia.startingGear { spent }`: criar de
-  novo apaga os marcados e devolve o ouro gasto. Onde cada peça vai é `gearLayout` (o mesmo cálculo da prévia e da
+  novo apaga os marcados e devolve o Yuld gasto. Onde cada peça vai é `gearLayout` (o mesmo cálculo da prévia e da
   criação); os números seguem `EterniaActor#_computeBattleStatuses`. O kit de cada classe é `KITS` (nomes de itens) e
   a sugestão de atributos é `suggestBonus` (a base da classe ao quadrado pesa cada modificador).
 - O passo Itens desenha o corpo com `DOLL` (`creation-wizard.mjs`: o tamanho do palco e o ponto de cada lugar na
@@ -189,6 +189,20 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   assistente não segue para as teclas do core (pausaria o jogo do Mestre). Os textos dos feitiços na janela de Magias vêm de `spellTexts` (`apps/magic-catalog.mjs`);
   `loadDocuments` fica em `helpers/pack-index.mjs` para o catálogo de Magias e o do assistente usarem sem importar um
   ao outro.
+
+## A economia (0.48)
+- **A moeda é o Yuld; os números da economia ficam em `module/economy/data.mjs`** (puro, sem Foundry: o bestiário, a
+  fera com nome, as profissões, o assistente, as lojas e os scripts `economia-*` do simulador o leem). A unidade é o
+  comum (o que um comum do NP deixa); a régua, a seção 9 de `docs/matematica.md`. Nos dados, o campo continua o do ouro
+  (`system.inventory.gold`, `system.gold` da pilha, `gold` da linha de drop, `stolenGold`, `startingGear.spent`): só o
+  nome na tela mudou. Texto novo diz Yuld, nunca ouro ou "G" (o ouro que é metal fica).
+- Preço de item novo: o peso da categoria (a tabela da seção 9) × o comum do nível × a força dele; drop de criatura nova:
+  `monsterValue` (pelo tipo e por quantas fazem um encontro), conferido com `node economia-drops.mjs`. Os preços e os
+  drops do compêndio saem de `economia-aplicar.mjs` (no simulador), a partir de `economia-base.json` (os de 0.47):
+  mudou um número de `data.mjs`, rode-o de novo em vez de editar os JSON à mão.
+- A venda é `saleRate` (`sellPrice` de `piles/pile-utils.mjs`): tesouros pelo cheio, mágicos e Anima-mundi pela metade, o
+  resto pela taxa da loja (10% por padrão); o Anima-mundi sem o Selo (`flags.eternia.unsealed`) não se vende, nem pelo
+  Mercador. A migração `economy` (`economy/migration.mjs`) levou as bolsas (×2), os preços e os drops aos mundos de antes.
 
 ## O Mercado e as lojas
 - `module/market/`: `catalog.mjs` (`marketCatalog`: todo item físico dos compêndios de Item do sistema e do mundo e os

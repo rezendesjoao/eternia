@@ -91,7 +91,7 @@
         "mod": 4
       }
     },
-    "description": "<p>Quem manda no contrabando de uma cidade de mina inteira: bem vestido, de bengala e anel de sinete, com uma Tarefa limpa de comerciante e três nomes em três cidades. Nunca carrega o Anima: carrega o livro-caixa, os sósias e a proposta. Prefere pagar a lutar, e lutar a ser preso.</p><p><b>Na mesa:</b> o chefe de grupo dos contrabandistas, para um dia em Centória que acaba mal. Vem com dois a quatro Contrabandistas. Os Sósias lhe dão [Clones: 3] no começo da luta; a Mão Leve rouba ouro de quem ele fere (o ouro volta nos itens deixados quando ele cai); A Proposta põe um cartão no chat: o grupo aceita o ouro e ele vai embora, sem deixar itens, ou recusa e luta. Como os outros, o Selo não o deixa matar.</p>"
+    "description": "<p>Quem manda no contrabando de uma cidade de mina inteira: bem vestido, de bengala e anel de sinete, com uma Tarefa limpa de comerciante e três nomes em três cidades. Nunca carrega o Anima: carrega o livro-caixa, os sósias e a proposta. Prefere pagar a lutar, e lutar a ser preso.</p><p><b>Na mesa:</b> o chefe de grupo dos contrabandistas, para um dia em Centória que acaba mal. Vem com dois a quatro Contrabandistas. Os Sósias lhe dão [Clones: 3] no começo da luta; a Mão Leve rouba Yuld de quem ele fere (o Yuld volta nos itens deixados quando ele cai); A Proposta põe um cartão no chat: o grupo aceita o Yuld e ele vai embora, sem deixar itens, ou recusa e luta. Como os outros, o Selo não o deixa matar.</p>"
   },
   "prototypeToken": {
     "name": "Capitão Contrabandista",
@@ -258,7 +258,7 @@
       "type": "skill",
       "img": "icons/skills/melee/strike-dagger-arcane-pink.webp",
       "system": {
-        "description": "<p>O próximo golpe deste inimigo nesta rodada que causar dano a um personagem tira [2d6 × 5] de ouro da bolsa dele (o que ele tiver). O ouro roubado volta nos itens deixados.</p>",
+        "description": "<p>O próximo golpe deste inimigo nesta rodada que causar dano a um personagem tira [2d6 × 10] Yuld da bolsa dele (o que ele tiver). O Yuld roubado volta nos itens deixados.</p>",
         "tags": [],
         "timing": "Minor",
         "checkType": "",
@@ -302,7 +302,7 @@
             "eternia": {
               "recipients": "self",
               "pickpocket": {
-                "gold": "2d6*5"
+                "gold": "2d6*10"
               },
               "expires": "endOfRound"
             }
@@ -421,7 +421,7 @@
       "type": "skill",
       "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
       "system": {
-        "description": "<p>Este inimigo oferece [2d6 × 10] de ouro para ser deixado ir: um cartão no chat. Se o grupo aceita, o ouro vai para quem aceitou e ele sai da cena, sem deixar itens; se recusa, a luta segue.</p>",
+        "description": "<p>Este inimigo oferece [2d6 × 35] Yuld para ser deixado ir: um cartão no chat. Se o grupo aceita, o Yuld vai para quem aceitou e ele sai da cena, sem deixar itens; se recusa, a luta segue.</p>",
         "tags": [],
         "timing": "Minor",
         "checkType": "",
@@ -458,7 +458,7 @@
         "eternia": {
           "monster": {
             "rule": "offer",
-            "gold": "2d6*10"
+            "gold": "2d6*35"
           }
         }
       },
@@ -572,7 +572,7 @@
       "_key": "!actors.items!8NvUhMnaRyqzRkhg.AoJQhBsccT5MQfVp"
     },
     {
-      "name": "Ouro",
+      "name": "Yuld",
       "type": "gear",
       "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
       "system": {
@@ -626,7 +626,7 @@
           "Valuable"
         ],
         "rank": 5,
-        "price": 120,
+        "price": 135,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -673,7 +673,7 @@
           "Magic Catalyst 5"
         ],
         "rank": 5,
-        "price": 40,
+        "price": 135,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -691,8 +691,9 @@
           "drop": {
             "min": 3,
             "max": 4,
-            "qty": 4
-          }
+            "qty": 1
+          },
+          "unsealed": true
         }
       },
       "_stats": {
@@ -720,7 +721,7 @@
           "Valuable"
         ],
         "rank": 5,
-        "price": 220,
+        "price": 250,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -767,7 +768,7 @@
           "Valuable"
         ],
         "rank": 5,
-        "price": 300,
+        "price": 340,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",
@@ -813,7 +814,7 @@
           "Magic Catalyst 6"
         ],
         "rank": 6,
-        "price": 50,
+        "price": 170,
         "equipped": false,
         "timing": "-",
         "checkType": "-",
@@ -868,7 +869,7 @@
           "Core Material"
         ],
         "rank": 5,
-        "price": 100,
+        "price": 85,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",

@@ -1,6 +1,6 @@
 /**
  * The starting gear of a new character (AS REGRAS, II. PERSONAGENS, "Itens Iniciais"): a Backpack, an Adventurer's Kit
- * and a Sandwich for free, and the gold the character has (350, the template's) to spend in the creation wizard's shop.
+ * and a Sandwich for free, and the Yuld the character has (700, the template's: economy/data.mjs START_YULD) to spend in the creation wizard's shop.
  * The shop sells what can be bought at CR 1: the items of Item Rank 1 with a price, from the system's and the world's
  * compendiums, without [Not For Sale], [Untradeable] nor a magic grade ([M1]…[M7]); a [Rare] one is sold, marked.
  *
@@ -57,7 +57,7 @@ const TWO_HANDED = tagKey("Two-Handed");
 /**
  * The kit recommended for each class (by the class item's identifier), by item name, in the order it is bought: what
  * the class fights with (the Samurai's [Katana], the Hunter's [Bow], a caster's staff with the Sigil Guard's Magic
- * Power on top), the armor of its band of HP and what helps its Motor. Each one costs 350 gold at most; why, in
+ * Power on top), the armor of its band of HP and what helps its Motor. Each one costs 700 Yuld at most (START_YULD); why, in
  * ETERNIA.Wizard.Items.Kit.<id>.
  */
 export const KITS = {

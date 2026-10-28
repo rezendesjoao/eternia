@@ -206,13 +206,13 @@ async function shopFolder() {
  * @param {number} [options.stock=-1]
  * @param {number} [options.buyPercent=100]   What the shop asks, in % of the price
  * @param {boolean} [options.acceptsSales=true]
- * @param {number} [options.sellPercent=50]   What it pays for what it buys
+ * @param {number} [options.sellPercent=10]   What it pays for what it buys (the used gear: treasures and magic items have their own share, economy/data.mjs)
  * @param {number} [options.distance=-1]      How near a character must be (-1: anywhere on the scene)
  * @param {boolean} [options.place=true]      Put its token in the middle of the scene being viewed
  * @returns {Promise<Actor|null>}
  */
 export async function createShop({
-  name, img, description = "", entries = [], stock = -1, buyPercent = 100, acceptsSales = true, sellPercent = 50,
+  name, img, description = "", entries = [], stock = -1, buyPercent = 100, acceptsSales = true, sellPercent = 10,
   distance = -1, place = true
 } = {}) {
   if (!game.user.isGM) return null;
@@ -285,7 +285,7 @@ export async function createShopDialog(entries = []) {
     ${field(L("Market.Shop.Img"), `<file-picker name="img" type="image" value="${DEFAULT_IMAGES.merchant}"></file-picker>`)}
     ${field(L("Market.Shop.Greeting"), `<textarea name="greeting" rows="2" placeholder="${escape(L("Market.Shop.GreetingHint"))}"></textarea>`)}
     ${field(L("Market.Shop.BuyPercent"), `<input type="number" name="buyPercent" value="100" min="0" step="5">`)}
-    ${field(L("Market.Shop.Buys"), `<input type="checkbox" name="acceptsSales" checked><input type="number" name="sellPercent" value="50" min="0" step="5" data-tooltip="${escape(L("Market.Shop.SellPercent"))}">`, L("Market.Shop.BuysHint"))}
+    ${field(L("Market.Shop.Buys"), `<input type="checkbox" name="acceptsSales" checked><input type="number" name="sellPercent" value="10" min="0" step="5" data-tooltip="${escape(L("Market.Shop.SellPercent"))}">`, L("Market.Shop.BuysHint"))}
     ${field(L("Market.Shop.Stock"), `<input type="number" name="stock" min="1" step="1" placeholder="∞">`, L("Market.Shop.StockHint"))}
     ${field(L("Market.Shop.Reach.Label"), `<select name="distance">${reach}</select>`)}
     ${field(L("Market.Shop.Place"), `<input type="checkbox" name="place"${canvas.ready && canvas.scene ? " checked" : " disabled"}>`)}
@@ -345,7 +345,7 @@ export async function createShopDialog(entries = []) {
     stock: (toInt(data.stock) > 0) ? toInt(data.stock) : -1,
     buyPercent: data.buyPercent ?? 100,
     acceptsSales: !!data.acceptsSales,
-    sellPercent: data.sellPercent ?? 50,
+    sellPercent: data.sellPercent ?? 10,
     distance: toInt(data.distance ?? -1),
     place: !!data.place
   });

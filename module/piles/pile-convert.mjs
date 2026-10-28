@@ -55,7 +55,7 @@ function buildSystem(mode, ip, { gold = 0, description = "" } = {}) {
       resellSold: false,
       infiniteGold: ip.infiniteCurrencies ?? true,
       buyMultiplier: Number.isFinite(ip.buyPriceModifier) ? ip.buyPriceModifier : 1,
-      sellMultiplier: Number.isFinite(ip.sellPriceModifier) ? ip.sellPriceModifier : 0.5
+      sellMultiplier: Number.isFinite(ip.sellPriceModifier) ? ip.sellPriceModifier : 0.1
     }
   };
   return system;

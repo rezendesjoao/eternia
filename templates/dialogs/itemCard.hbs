@@ -49,7 +49,7 @@
 			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Quantity'}}</span><span class="chat-stat-value">{{system.quantity}}</span></div>
 		{{/if}}
 		<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Rank'}}</span><span class="chat-stat-value">{{system.rank}}</span></div>
-		{{#if system.price}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Price'}}</span><span class="chat-stat-value">{{system.price}}G</span></div>{{/if}}
+		{{#if system.price}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Price'}}</span><span class="chat-stat-value">{{localize "ETERNIA.Drops.Value" n=system.price}}</span></div>{{/if}}
 	</div>
 
 	{{#if enrichedSkillText}}

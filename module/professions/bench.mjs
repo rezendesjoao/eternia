@@ -318,7 +318,7 @@ export class ProfessionBench extends HandlebarsApplicationMixin(ApplicationV2) {
         };
       }
       case "gather": {
-        const cap = gatherCap(p);
+        const cap = gatherCap(p, actor);
         const { levels, shards } = materialsOf(actor);
         const items = Array.from({ length: cap }, (_, i) => i + 1).map(n => card({
           key: String(n), name: L("Profession.Bench.MaterialName", { n }), img: "icons/commodities/gems/gem-cluster-teal.webp",

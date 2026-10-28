@@ -18,7 +18,7 @@
  *                  on a skill opens its whole text in a reading box over the step, which goes to the skills before and
  *                  after it and chooses it too; the box at a skill's side chooses it at once.
  *   7. Items       the starting gear (apps/starting-gear.mjs): a Backpack, an Adventurer's Kit and a Sandwich for free,
- *                  and the character's gold (350) to spend in the shop of Item Rank 1. The kit recommended for the class
+ *                  and the character's Yuld (700, economy/data.mjs START_YULD) to spend in the shop of Item Rank 1. The kit recommended for the class
  *                  comes equipped, on a paper doll (DOLL) with each piece where it is worn and the numbers it gives;
  *                  the shop beside it.
  *   8. Summary     the character's page: the portrait, the name and the numbers, the origins, the attributes, the

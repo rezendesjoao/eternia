@@ -24,10 +24,11 @@
  *                               that hurts it gives it those statuses and ends those (the fire that cracks the crystal
  *                               hide, the fire that stops the regeneration until the next Setup).
  *   pickpocket { gold }         Its use readies a light hand (an effect with `flags.eternia.pickpocket`): its next
- *                               damage on a character takes that gold (a formula, "2d6*5") from the purse, kept in the
+ *                               damage on a character takes that many Yuld (a formula, "2d6*10") from the purse, kept in the
  *                               monster's `stolenGold` (it comes back with its drops).
- *   offer      { gold }         Its use offers that gold (a formula) to be let go: a card with Accept and Refuse; on
- *                               Accept the gold goes to whoever accepted and the monster leaves (no drops).
+ *   offer      { gold }         Its use offers that many Yuld (a formula; half of what it leaves, economy/data.mjs
+ *                               OFFER_SHARE) to be let go: a card with Accept and Refuse; on Accept the Yuld goes to
+ *                               whoever accepted and the monster leaves (no drops).
  *   troop      { size }         Passive. A band in one token (bestiary/troop.mjs): area attacks hit it double; at 2/3
  *                               and 1/3 of its HP it loses one of the band (`troopLeft`), and its area attacks reach
  *                               one target less.
@@ -422,7 +423,7 @@ async function pickpocket({ attackerUuid, targetUuid }) {
   const target = fromUuidSync(targetUuid);
   const hand = handOf(attacker);
   if (!hand || !(target instanceof Actor)) return { ok: true };
-  const formula = String(hand.getFlag(SYSTEM_ID, "pickpocket")?.gold ?? "2d6*5").replace(/×/g, "*");
+  const formula = String(hand.getFlag(SYSTEM_ID, "pickpocket")?.gold ?? "2d6*10").replace(/×/g, "*");
   const rolled = toInt((await new Roll(formula).evaluate()).total);
   const taken = Math.min(rolled, getGold(target));
   await attacker.deleteEmbeddedDocuments("ActiveEffect", [hand.id]);
@@ -441,7 +442,7 @@ async function pickpocket({ attackerUuid, targetUuid }) {
 /** A monster offers gold to be let go: the card with Accept and Refuse. */
 async function offer(actor, item) {
   const rule = ruleOf(item);
-  const gold = toInt((await new Roll(String(rule.gold ?? "2d6*10").replace(/×/g, "*")).evaluate()).total);
+  const gold = toInt((await new Roll(String(rule.gold ?? "2d6*20").replace(/×/g, "*")).evaluate()).total);
   const data = { actorUuid: actor.uuid, itemName: item.name, gold, state: "open", receiver: null };
   await ChatMessage.create({
     speaker: { alias: actorName(actor) },
@@ -455,7 +456,7 @@ function renderOffer(actor, data) {
   const state = (data.state === "accepted") ? L("Bestiary.OfferAccepted", { name: data.receiver, gold: data.gold, monster: actorName(actor) })
     : (data.state === "refused") ? L("Bestiary.OfferRefused", { monster: actorName(actor) }) : null;
   return foundry.applications.handlebars.renderTemplate(OFFER_TEMPLATE, {
-    img: actor.img, name: actorName(actor), eyebrow: data.itemName, gold: `${data.gold} G`,
+    img: actor.img, name: actorName(actor), eyebrow: data.itemName, gold: L("Drops.Value", { n: data.gold }),
     lead: L("Bestiary.OfferLead", { monster: actorName(actor), gold: data.gold }), open: data.state === "open", state,
     accept: L("Bestiary.OfferAccept"), refuse: L("Bestiary.OfferRefuse"), goldLabel: L("Bestiary.OfferGold")
   });

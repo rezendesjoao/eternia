@@ -159,7 +159,7 @@ export class EterniaPileSheet extends HandlebarsApplicationMixin(foundry.applica
         .filter(([value]) => !(merchant && (value === "type")))
         .map(([value, label]) => ({ value, label: game.i18n.localize(label), selected: value === view.sort })),
       buyPercent: Math.round(Number(system.merchant?.buyMultiplier ?? 1) * 100),
-      sellPercent: Math.round(Number(system.merchant?.sellMultiplier ?? 0.5) * 100)
+      sellPercent: Math.round(Number(system.merchant?.sellMultiplier ?? 0.1) * 100)
     });
     return context;
   }

@@ -4,7 +4,8 @@
  * A row of the table is an item kept in the monster, with `flags.eternia.drop`:
  *   min, max   the faces of the 1d6 that give it (1 to 6); `fixed: true` instead: it always drops ("Fixo")
  *   qty        how many copies (a ticket gets one item with that quantity)
- *   gold       a formula ("2d6*3"): the row gives that gold instead of its item (the item is only the row's card)
+ *   gold       a formula ("2d6*3"): the row gives that many Yuld instead of its item (the item is only the row's card;
+ *              the field keeps its old name, as the purse's: the currency is the Yuld since 0.48)
  *   growth     true: one more set of copies for each point the monster grew (`flags.eternia.growth`, the
  *              bestiary rules), whatever the 1d6 says
  * A monster with no rows rolls the "Itens Deixados" table of its description instead (the format of the books, read
@@ -31,13 +32,14 @@ import { getGold, goldPath, usedSpace } from "../piles/pile-utils.mjs";
 import { lootAt } from "../piles/pile-operations.mjs";
 import { ITEMS_PACK } from "../professions/data.mjs";
 import { GOLD_ICON, nameKey, nameKeys, parseDropTable, parseRange, partIcon, priceOf, withoutDropTable } from "./drop-table.mjs";
+import { commonValue } from "../economy/data.mjs";
 
 export { parseDropTable, parseRange };
 
 const TEMPLATE = "systems/eternia/templates/chat/drop-card.hbs";
 
-/** The value of the drops the Guide of enemies expects of a common enemy, by Level (1 to 10). */
-export const EXPECTED_VALUE = [23, 28, 35, 42, 52, 63, 75, 89, 104, 120];
+/** What a common enemy leaves, by Level (1 to 10): the economy's unit (economy/data.mjs commonValue, 25 to 129 Yuld). */
+export const EXPECTED_VALUE = Array.from({ length: 10 }, (_, i) => Math.round(commonValue(i + 1)));
 
 /** The statuses that hurt their bearer, and so may have felled it (their source took the kill). */
 const HURTING = ["poisoned", "burning", "decay", "blackFlame", "nightmare", "doom", "fuse", "shocked", "agony", "servant"];
@@ -289,7 +291,7 @@ async function rollTable(actor, receiver) {
       let amount = 0;
       for (let n = 0; n < sets; n++) amount += toInt((await new Roll(rule.gold.replace(/×/g, "*")).evaluate()).total);
       gold += amount;
-      lines.push({ img: data.img, name: L("Drops.GoldRow"), value: `${amount} G`, formula: rule.gold, gold: true, range: rangeLabel(rule) });
+      lines.push({ img: data.img, name: L("Drops.GoldRow"), value: L("Drops.Value", { n: amount }), formula: rule.gold, gold: true, range: rangeLabel(rule) });
       continue;
     }
     const copies = rule.qty * sets;
@@ -301,12 +303,12 @@ async function rollTable(actor, receiver) {
     else for (let n = 0; n < copies; n++) items.push(foundry.utils.deepClone(copy));
     lines.push({
       img: data.img, name: data.name, qty: copies, range: rangeLabel(rule),
-      tags: (data.system?.tags ?? []).map(t => tagLabel(t)), value: `${priceOf(data) * copies} G`
+      tags: (data.system?.tags ?? []).map(t => tagLabel(t)), value: L("Drops.Value", { n: priceOf(data) * copies })
     });
   }
   if (stolen) {
     gold += stolen;
-    lines.push({ img: "icons/commodities/currency/coins-plain-stack-gold.webp", name: L("Drops.Stolen"), value: `${stolen} G`, gold: true });
+    lines.push({ img: "icons/commodities/currency/coins-plain-stack-gold.webp", name: L("Drops.Stolen"), value: L("Drops.Value", { n: stolen }), gold: true });
   }
 
   const feller = (receiver === undefined) ? fellerOf(actor) : receiver;
@@ -379,7 +381,7 @@ async function renderCard(actor, { face, lines, given, gold }, { undone = false 
   return foundry.applications.handlebars.renderTemplate(TEMPLATE, {
     img: actor.img, name: actorName(actor), eyebrow: L("Drops.Eyebrow"),
     face, dieIcon: DIE_ICONS[face] ?? "", faceLabel: L("Drops.Die"), fixedLabel: L("Drops.FixedOnly"),
-    lines, gold: gold ? `${gold} G` : null, goldLabel: L(name ? "Drops.GoldTo" : "Drops.GoldFloor", { name }),
+    lines, gold: gold ? L("Drops.Value", { n: gold }) : null, goldLabel: L(name ? "Drops.GoldTo" : "Drops.GoldFloor", { name }),
     where, pile: !!given.pile, pileLabel: L("Drops.PileHint"),
     undone, undoLabel: L("Drops.Undo"), undoneLabel: L("Drops.Undone"), nothing: !lines.length ? L("Drops.Nothing") : null
   });

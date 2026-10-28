@@ -8,9 +8,9 @@ entrega 7 do plano do mundo (o capítulo 18 de `Eternia-Mundo/`, fora do reposit
 
 | Arquivo | O que faz |
 |---|---|
-| `module/bestiary/drop-table.mjs` | A tabela "Itens Deixados" escrita na descrição (o formato dos livros), lida sem Foundry: as faces (`parseRange`), cada entrada (`parseEntry`: nome, tags, preço, `x3`, ouro "2d6×3", "conforme a Lista de Itens"), a tabela inteira (`parseDropTable`), a descrição sem ela (`withoutDropTable`), o ícone de uma parte pelo nome (`partIcon`) e o preço de um catalisador sem preço (`priceOf`). Usado também por `tools/convert-drops.mjs`. |
+| `module/bestiary/drop-table.mjs` | A tabela "Itens Deixados" escrita na descrição (o formato dos livros), lida sem Foundry: as faces (`parseRange`), cada entrada (`parseEntry`: nome, tags, preço em Yuld ou no "G" dos livros, `x3`, Yuld "2d6×3", "conforme a Lista de Itens"), a tabela inteira (`parseDropTable`), a descrição sem ela (`withoutDropTable`), o ícone de uma parte pelo nome (`partIcon`) e o preço de um catalisador sem preço (`priceOf`, o Anima-mundi de `economy/data.mjs`). Usado também por `tools/convert-drops.mjs`. |
 | `module/bestiary/drops.mjs` | Os itens deixados: as linhas (`dropRows`: as guardadas no monstro, senão a tabela do texto), a conversão do texto em linhas (`convertTable`), quem derrubou (`fellerOf`), a rolagem (`rollDrops`), a entrega (o inventário de quem derrubou; o que não cabe, uma pilha no chão, por `lootAt` de `piles/pile-operations.mjs`), o cartão (`templates/chat/drop-card.hbs`) e o Desfazer (`undoDrop`). Também a configuração `dropRoll` e os ganchos: a queda (Incapacitado ou Morto chegando, no Mestre principal), `eternia.defeated` (quem derrubou), o fim do combate, o token posto no meio do combate (`noLoot` no token; `cameLate` lê o do ator e o do token). |
-| `module/bestiary/drop-tab.mjs` | A aba Itens Deixados da ficha de monstro (`templates/monster/drops.hbs`): as linhas pelas faces, os campos das faces, das cópias e da fórmula do ouro, a média da tabela e a do Guia de Criação de Inimigos, a linha de ouro, o botão Rolar (com a escolha de quem recebe) e o Virar dados. Soltar um item físico na ficha cria uma linha (`addDropRow`, chamado por `EterniaMonsterSheet#_onDropItem`). |
+| `module/bestiary/drop-tab.mjs` | A aba Itens Deixados da ficha de monstro (`templates/monster/drops.hbs`): as linhas pelas faces, os campos das faces, das cópias e da fórmula do Yuld, a média da tabela e a da economia (`economy/data.mjs`), a linha de Yuld, o botão Rolar (com a escolha de quem recebe) e o Virar dados. Soltar um item físico na ficha cria uma linha (`addDropRow`, chamado por `EterniaMonsterSheet#_onDropItem`). |
 | `module/bestiary/pack.mjs` | O Bando: as entradas `bonusVs` com `pack` que o cartão de dano leva (`packBonuses`, chamado por `createDamageCard`) e o bônus contado quando o dano é aplicado (`packBonus`, em `applyDamage`). |
 | `module/bestiary/rules.mjs` | As outras regras de monstro: crescer, o limiar (e o uivo que chama), a queda, a couraça, o chamado, a recarga (gastar no uso, o 1d6 da Manutenção), o golpe de uma tag, a Mão Leve, A Proposta (o cartão `templates/chat/offer-card.hbs`), as perdas da tropa, o recuar e o esquecer; os pedidos ao Mestre `bestiaryPickpocket` e `bestiaryOffer`. |
 | `module/bestiary/recharge.mjs` | Quais habilidades recarregam e quais estão gastas (lido também por `automation/use.mjs`, que avisa como num limite). |
@@ -78,7 +78,7 @@ flags.eternia.drop = {
   fixed: true,   // cai sempre ("Fixo")
   growth: true,  // cai uma vez por passo de crescimento (flags.eternia.growth do monstro), qualquer que seja o 1d6
   qty,           // cópias (um tíquete vem com essa quantidade)
-  gold           // fórmula ("2d6*3"): a linha dá esse ouro, e o item é só o cartão da linha
+  gold           // fórmula ("2d6*3"): a linha dá esse Yuld (o campo guarda o nome antigo), e o item é só o cartão da linha
 }
 ```
 
@@ -90,7 +90,7 @@ No monstro (o token, num monstro sem vínculo):
 | `noLoot` | chegou depois do começo do combate (chamado, leva de Fenda; o token posto com o combate andando leva a flag no próprio token) ou foi embora por A Proposta: não rola sozinho |
 | `felledBy` | o uuid de quem o derrubou (o atacante do cartão de dano que o levou a 0 PV) |
 | `growth` | os passos de crescimento (a regra `grow`) |
-| `stolenGold` | o ouro que a Mão Leve roubou, que volta nos itens deixados |
+| `stolenGold` | o Yuld que a Mão Leve roubou, que volta nos itens deixados |
 | `recharging` | os ids das habilidades gastas (a regra `recharge`); o fim do combate limpa |
 | `named` | `{ from, mark, solo, rank }`: a fera com nome, de que monstro e de que Nível ela veio |
 | `troopLeft` | quantos do bando restam numa tropa (a regra `troop`); os perdidos não voltam com a cura |
@@ -108,13 +108,13 @@ No monstro (o token, num monstro sem vínculo):
 | `heads` | `{ n, stumps, cut, other }`: as cabeças, os tocos abertos, os quintos dos PV já cortados e a rodada em que a Ação Maior livre foi usada (a regra `heads`) |
 | `possessing` | `{ host, effect, absent }`: o token de quem ele possui e os dois efeitos (o [Dominado] do possuído, o [Ausente] dele) |
 
-- **Quem leva:** quem derrubou (decisão da mesa, 2026-10-25): todos os itens e todo o ouro. Sem ninguém (ou um
+- **Quem leva:** quem derrubou (decisão da mesa, 2026-10-25): todos os itens e todo o Yuld. Sem ninguém (ou um
   monstro), tudo vai para a pilha. Quem derrubou é `felledBy`, senão a origem de um estado que fere ([Envenenado],
   [Queimando], [Deterioração]…).
 - **Os itens** vão com as cópias inteiras (`system.equipped: false`, sem a flag `drop`); o que passa do espaço do
   inventário (`maxSpace − usedSpace`, só os tipos que ocupam espaço) vai para a pilha.
-- **O cartão** guarda em `flags.eternia.dropCard` o que foi dado (ids, ouro, a pilha) para o Desfazer.
-- **O Guia de Criação de Inimigos** (`EXPECTED_VALUE`: 23, 28, 35, 42, 52, 63, 75, 89, 104 e 120 G do NP 1 ao 10): a aba
+- **O cartão** guarda em `flags.eternia.dropCard` o que foi dado (ids, Yuld, a pilha) para o Desfazer.
+- **A economia** (`economy/data.mjs`, docs/matematica.md seção 9; `EXPECTED_VALUE` = o comum: 25, 31, 38, 46, 56, 68, 81, 95, 111 e 129 Yuld do NP 1 ao 10): a aba
   compara a média da tabela com o valor do NP (lacaio: um quarto, fixo; chefe: ×4 no 1d6, mais um Anima-mundi do NP + 1 e
   um [Material-Base] do NP, fixos).
 
@@ -132,10 +132,10 @@ Uma habilidade de monstro traz uma regra em `flags.eternia.monster = { rule, ...
 | `summon` | `actors: [{ uuid, count }]`, `radius` | O uso: os monstros saem a até `radius` Qd, no combate, sem itens deixados (`count`: número ou fórmula) | `eternia.skillUsed` |
 | `recharge` | `min` | O uso a gasta (`recharging`); em cada Manutenção, um 1d6 por habilidade gasta: `min` (5) ou mais, ela volta. Gasta, o uso avisa (ou bloqueia, pela configuração dos limites) | `eternia.skillUsed`; `_onPhaseStart` da Manutenção |
 | `struck` | `tags`, `self: [{ statusId, value }]`, `strip: [statusId]` | Passiva. Um cartão de dano com uma das tags que fere o monstro, ou que ele come (o efeito `absorb`: o dano vira cura), lhe dá os estados de `self` (o [Fissurado] que soma; o [Acelerado] do Arbusto Errante) e tira os de `strip` (a [Regeneração]) | `eternia.damaged`, na janela que aplicou |
-| `pickpocket` | `gold` | Não é regra de habilidade: um efeito de uso em quem usa com `flags.eternia.pickpocket = { gold }` (a Mão Leve, `recipients: "self"`, até o fim da rodada). O próximo cartão de dano dele que fere um personagem pede `bestiaryPickpocket`: o Mestre rola a fórmula ("2d6*5"), tira até o que a bolsa tem, soma em `stolenGold` e apaga a mão | `eternia.damaged`; o Mestre |
-| `offer` | `gold` | O uso: um cartão com o ouro (a fórmula, "2d6*10") e Aceitar/Recusar (`flags.eternia.offerCard = { actorUuid, itemName, gold, state, receiver }`). Aceitar acha o personagem de quem clicou (o token selecionado, senão o personagem do jogador; o Mestre escolhe) e pede `bestiaryOffer`: o ouro vai para ele, o monstro ganha `noLoot`, sai do combate (derrotado) e o token some | `eternia.skillUsed`; o Mestre |
+| `pickpocket` | `gold` | Não é regra de habilidade: um efeito de uso em quem usa com `flags.eternia.pickpocket = { gold }` (a Mão Leve, `recipients: "self"`, até o fim da rodada). O próximo cartão de dano dele que fere um personagem pede `bestiaryPickpocket`: o Mestre rola a fórmula ("2d6*10"), tira até o que a bolsa tem, soma em `stolenGold` e apaga a mão | `eternia.damaged`; o Mestre |
+| `offer` | `gold` | O uso: um cartão com o Yuld (a fórmula; a metade do que o monstro deixa, `OFFER_SHARE`) e Aceitar/Recusar (`flags.eternia.offerCard = { actorUuid, itemName, gold, state, receiver }`). Aceitar acha o personagem de quem clicou (o token selecionado, senão o personagem do jogador; o Mestre escolhe) e pede `bestiaryOffer`: o Yuld vai para ele, o monstro ganha `noLoot`, sai do combate (derrotado) e o token some | `eternia.skillUsed`; o Mestre |
 | `troop` | `size` (4) | Passiva. Um bando num token (`troop.mjs`): o cartão de dano de um ataque em área (`isAreaAttack`: Área, Linha, vários alvos) o acerta em dobro, depois da Defesa; com 2/3 e 1/3 dos PV, `troopLeft` cai 1 e sai a mensagem; os ataques em área dele com mais alvos que `troopLeft` avisam no uso | o cartão de dano; `updateActor`; `inspectUse` |
-| `retreat` | `below` (0.25), `held` | Passiva. Com os PV em `below` do máximo ou menos (de pé), foge: `fled`, `leave` (noLoot, derrotado no combate, token escondido) e o ouro roubado vai com ele. Com um estado de `held` (padrão: Agarrado, Enraizado, Paralisado, Petrificado, Adormecido), fica e avisa (`retreatHeld`); tenta de novo em cada Manutenção | `updateActor`; `_onPhaseStart` da Manutenção |
+| `retreat` | `below` (0.25), `held` | Passiva. Com os PV em `below` do máximo ou menos (de pé), foge: `fled`, `leave` (noLoot, derrotado no combate, token escondido) e o Yuld roubado vai com ele. Com um estado de `held` (padrão: Agarrado, Enraizado, Paralisado, Petrificado, Adormecido), fica e avisa (`retreatHeld`); tenta de novo em cada Manutenção | `updateActor`; `_onPhaseStart` da Manutenção |
 | `forget` | — | Passiva. Quando um Fôlego Extra dele é gasto (`eternia.revived`), uma das habilidades dele que não são Passivas nem regras, ao acaso, fica [Selada] (o `sealed` com a tag do nome) até o fim da cena | `eternia.revived`, na janela que aplicou o golpe |
 | `pulse` | `radius`, `self` | Passiva. No Encerramento, um cartão de dano da habilidade (o `damage` e as tags dela) contra todos a até `radius` Qd e, com `self`, ele mesmo; sem Esquiva. Não age quem está derrotado no combate | `_onPhaseStart` do Encerramento |
 | `start` | `statuses` | Passiva. Na Manutenção da rodada 1, os estados até o fim da cena (`started` guarda o combate: uma vez por combate) | `_onPhaseStart` da Manutenção |
@@ -219,8 +219,8 @@ da cena, uma habilidade que liberta). O token volta no quadrado livre mais perto
 dos de outro: Nível +2, atributos +1, Defesas +3, Esquiva e Resistência +1, Iniciativa +1, multiplicador de Ódio +1,
 Identificação +2, PV ×1,25 e então ×2 (com o bando) ou ×4 (`solo`), 3 de Destino, [Boss] (sem [Mob]), os ataques +1 no
 acerto e o dano do Nível novo (`scaleDamage`: na proporção do comum de cada NP de `docs/matematica.md`; o número escrito no
-texto segue), o [Destino 1] no ataque mais forte, as linhas dos itens deixados ×4 (o ouro, `(fórmula)*4`), o Anima-mundi do Nível + 1 (`catalyst(nível)`
-dá os dados do item) e um troféu ([Core Material], 20 × Nível de preço), fixos, o cabeçalho na descrição, a Marca e
+texto segue), o [Destino 1] no ataque mais forte, as linhas dos itens deixados ×4 (o Yuld, `(fórmula)*4`), o Anima-mundi do Nível + 1 (`catalyst(nível)`
+dá os dados do item) e um troféu ([Core Material], o preço do [Material-Base] do Nível, `materialPrice`), fixos, o cabeçalho na descrição, a Marca e
 `flags.eternia.named`. Os efeitos com estados ficam para trás.
 
 | Marca (`mark`) | O que vira |

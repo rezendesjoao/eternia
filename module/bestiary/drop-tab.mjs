@@ -8,8 +8,9 @@ import { L, SYSTEM_ID } from "../settings.mjs";
 import { confirm, toInt } from "../helpers/utils.mjs";
 import { tagLabel } from "../i18n/terms.mjs";
 import { PHYSICAL_TYPES } from "../piles/pile-config.mjs";
-import { EXPECTED_VALUE, cameLate, convertTable, dropRows, dropRule, expectedValue, freeRange, rangeLabel, rollDrops } from "./drops.mjs";
+import { cameLate, convertTable, dropRows, dropRule, expectedValue, freeRange, rangeLabel, rollDrops } from "./drops.mjs";
 import { GOLD_ICON, parseDropTable, parseRange } from "./drop-table.mjs";
+import { BOSS_TABLE, MAX_ANIMA, commonValue, monsterValue } from "../economy/data.mjs";
 
 const { DialogV2 } = foundry.applications.api;
 
@@ -17,17 +18,18 @@ const { DialogV2 } = foundry.applications.api;
 const order = rule => (rule.growth ? 20 : (rule.fixed ? 10 : rule.min + (rule.max / 10)));
 
 /**
- * What the Guide of enemies asks of the monster's table: a common enemy's value for its Level on the 1d6; a mob's,
- * fixed, at a quarter (half, and half again); a boss's ×4 on the 1d6, plus an Anima-mundi of the Level + 1 and a
- * [Material-Base] of the Level, fixed.
+ * What the economy asks of the monster's table (economy/data.mjs, docs/matematica.md section 9): a common enemy, the
+ * common of its Level (an encounter ÷ 4); a mob, fixed, an encounter ÷ 6; a boss, 4 commons on the 1d6 plus an
+ * Anima-mundi of the Level + 1 and a [Material-Base] of the Level, fixed.
  */
 function guideText(actor) {
-  const rank = Math.clamp(toInt(actor.system.rank) || 1, 1, 10);
-  const base = EXPECTED_VALUE[rank - 1];
+  const rank = Math.max(1, toInt(actor.system.rank) || 1);
   const tags = (actor.system.tags ?? []).map(t => String(t).toLowerCase());
-  if (tags.includes("boss")) return L("Drops.GuideBoss", { value: base * 4, n: Math.min(rank + 1, 10) });
-  if (tags.includes("mob")) return L("Drops.GuideMob", { value: Math.round(base / 4) });
-  return L("Drops.GuideCommon", { value: base });
+  if (tags.includes("boss")) {
+    return L("Drops.GuideBoss", { value: Math.round(BOSS_TABLE.boss * commonValue(rank)), n: Math.min(rank + 1, MAX_ANIMA) });
+  }
+  if (tags.includes("mob")) return L("Drops.GuideMob", { value: Math.round(monsterValue(rank, { kind: "mob" })) });
+  return L("Drops.GuideCommon", { value: Math.round(commonValue(rank)) });
 }
 
 /**
@@ -48,7 +50,7 @@ export async function dropsContext(actor) {
     qty: rule.qty,
     gold: rule.gold,
     tags: (data.system?.tags ?? []).map(t => tagLabel(t)),
-    value: rule.gold ? rule.gold : `${(toInt(data.system?.price) || 0) * rule.qty} G`,
+    value: rule.gold ? rule.gold : L("Drops.Value", { n: (toInt(data.system?.price) || 0) * rule.qty }),
     sort: order(rule)
   })).sort((a, b) => a.sort - b.sort);
   const dropped = actor.getFlag(SYSTEM_ID, "dropped");
@@ -82,13 +84,13 @@ export async function addDropRow(actor, data) {
   return actor.createEmbeddedDocuments("Item", [item]);
 }
 
-/** A row of gold ("2d6×NP"), on the free faces. */
+/** A row of Yuld, on the free faces: 2d6 × k, half of what a common of the Level leaves (2d6×2 at NP 1, 2d6×9 at 10). */
 export async function addGoldRow(actor) {
   const rank = Math.max(1, toInt(actor.system.rank));
   return actor.createEmbeddedDocuments("Item", [{
     name: L("Drops.GoldRow"), type: "gear", img: GOLD_ICON,
     system: { price: 0, tags: [], equipped: false },
-    flags: { [SYSTEM_ID]: { drop: { ...freeRange(actor), qty: 1, gold: `2d6*${rank}` } } }
+    flags: { [SYSTEM_ID]: { drop: { ...freeRange(actor), qty: 1, gold: `2d6*${Math.max(1, Math.round(commonValue(rank) / 14))}` } } }
   }]);
 }
 

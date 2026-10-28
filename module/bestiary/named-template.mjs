@@ -8,6 +8,7 @@
  * Anima-mundi of the Level + 1 and a [Material-Base] of the Level, fixed, and one Mark of the Weight (MARKS), a passive
  * skill of its own.
  */
+import { materialPrice } from "../economy/data.mjs";
 
 /** The Marks of the Weight: what the named beast has that the others don't. */
 export const MARKS = ["skin", "eyes", "fury", "sparks", "regen", "breath"];
@@ -181,7 +182,7 @@ export function nameBeast(data, { name, solo = false, mark, newId, catalyst, t }
   }
   items.push({
     _id: newId(), name: t("trophy.name", { name }), type: "gear", img: "icons/commodities/treasure/plaque-skull-blue-green.webp",
-    system: { description: html(t("trophy.text", { name })), tags: ["Core Material"], rank, price: 20 * rank, equipped: false,
+    system: { description: html(t("trophy.text", { name })), tags: ["Core Material"], rank, price: materialPrice(rank), equipped: false,
       skillText: "", linkedSkillUuid: "", timing: "", checkType: "", range: "", target: "" },
     effects: [], ownership: { default: 0 }, flags: { eternia: { drop: { fixed: true, qty: 1 } } }
   });

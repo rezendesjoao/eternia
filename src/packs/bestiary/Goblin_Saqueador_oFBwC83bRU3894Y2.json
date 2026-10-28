@@ -93,7 +93,7 @@
         "mod": 8
       }
     },
-    "description": "<p>Um Indomado das Terras Áridas, magro e cinzento, de orelhas compridas e olhos amarelos que doem na luz do dia. Cruza a serra pelas cavernas em bandos de trinta, para levar comida, Anima-mundi e o que estiver solto. Briga sujo, foge rápido e não resiste a uma bolsa pendurada no cinto.</p><p><b>Na mesa:</b> lacaio de NP 5, das minas fundas e das vilas de borda. Vem em bandos, quase sempre com a Tropa Goblin, um Goblin Piromaníaco e o Chefe. A Mão Leve rouba ouro de quem ele fere (o ouro volta nos itens deixados), e a luz é a arma do grupo: a [Radiância] fere mais e o deixa com [Medo].</p>"
+    "description": "<p>Um Indomado das Terras Áridas, magro e cinzento, de orelhas compridas e olhos amarelos que doem na luz do dia. Cruza a serra pelas cavernas em bandos de trinta, para levar comida, Anima-mundi e o que estiver solto. Briga sujo, foge rápido e não resiste a uma bolsa pendurada no cinto.</p><p><b>Na mesa:</b> lacaio de NP 5, das minas fundas e das vilas de borda. Vem em bandos, quase sempre com a Tropa Goblin, um Goblin Piromaníaco e o Chefe. A Mão Leve rouba Yuld de quem ele fere (o Yuld volta nos itens deixados), e a luz é a arma do grupo: a [Radiância] fere mais e o deixa com [Medo].</p>"
   },
   "prototypeToken": {
     "name": "Goblin Saqueador",
@@ -256,7 +256,7 @@
       "type": "skill",
       "img": "icons/skills/melee/strike-dagger-arcane-pink.webp",
       "system": {
-        "description": "<p>O próximo golpe deste inimigo nesta rodada que causar dano a um personagem tira [2d6 × 2] de ouro da bolsa dele. O ouro roubado volta nos itens deixados.</p>",
+        "description": "<p>O próximo golpe deste inimigo nesta rodada que causar dano a um personagem tira [2d6 × 4] Yuld da bolsa dele. O Yuld roubado volta nos itens deixados.</p>",
         "tags": [],
         "timing": "Minor",
         "checkType": "",
@@ -300,7 +300,7 @@
             "eternia": {
               "recipients": "self",
               "pickpocket": {
-                "gold": "2d6*2"
+                "gold": "2d6*4"
               },
               "expires": "endOfRound"
             }
@@ -468,7 +468,7 @@
       "_key": "!actors.items!oFBwC83bRU3894Y2.WCjOqnpRqN5DRBSl"
     },
     {
-      "name": "Ouro",
+      "name": "Yuld",
       "type": "gear",
       "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
       "system": {
@@ -493,7 +493,7 @@
           "drop": {
             "fixed": true,
             "qty": 1,
-            "gold": "2d6"
+            "gold": "2d6*4"
           }
         }
       },
@@ -522,7 +522,7 @@
           "Valuable"
         ],
         "rank": 5,
-        "price": 6,
+        "price": 28,
         "equipped": false,
         "skillText": "",
         "linkedSkillUuid": "",

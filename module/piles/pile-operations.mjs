@@ -7,7 +7,7 @@ import { registerHandler } from "./pile-socket.mjs";
 import { DEFAULT_IMAGES, DEFAULT_LOOT_FLAG, MAX_TICKETS, MAX_UNITS, SETTINGS, STOCK_FLAG } from "./pile-config.mjs";
 import {
   isPile, isMerchant, isPhysical, getGold, goldPath, resolveActor, itemQuantity, getStock,
-  hasRoomFor, buyPrice, sellPrice, isWithinReach, actorTokens
+  hasRoomFor, buyPrice, sellPrice, unsold, isWithinReach, actorTokens
 } from "./pile-utils.mjs";
 
 export function registerOperations() {
@@ -425,6 +425,7 @@ async function sellItem({ merchantUuid, sellerUuid, itemId, quantity }, user) {
   if (!merchant.system.merchant?.acceptsSales && !user.isGM) return fail("ETERNIA.Piles.Error.NoSales", { pile: pileName(merchant) });
   const denied = checkAccess(user, merchant, seller);
   if (denied) return denied;
+  if (unsold(merchant, item)) return fail("ETERNIA.Piles.Error.Unsealed", { item: item.name, pile: pileName(merchant) });
 
   const qty = clampQuantity(item, quantity);
   const earned = sellPrice(merchant, item) * qty;

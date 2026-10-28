@@ -4,7 +4,7 @@
 	<div class="lhp-done-rays"></div>
 	<div class="lhp-done-card">
 		{{#if d.item}}<a class="lhp-done-art" {{#if d.item.uuid}}data-action="view" data-uuid="{{d.item.uuid}}" data-tooltip="{{localize 'ETERNIA.Profession.Bench.Open'}}"{{/if}}><img src="{{d.item.img}}" alt=""></a>{{/if}}
-		{{#if d.coins}}<div class="lhp-done-coins"><i class="fa-solid fa-coins"></i><b>+{{d.coins}} G</b></div>{{/if}}
+		{{#if d.coins}}<div class="lhp-done-coins"><i class="fa-solid fa-coins"></i><b>+{{localize "ETERNIA.Drops.Value" n=d.coins}}</b></div>{{/if}}
 		<span class="lhp-done-title">{{d.title}}</span>
 		{{#if d.item}}<h2>{{d.item.name}}</h2>{{/if}}
 		{{#if d.quality}}<span class="lhp-quality-ribbon">{{d.quality.label}}</span>{{/if}}

@@ -7,6 +7,7 @@
  */
 import { tagKey } from "../helpers/tag-catalog.mjs";
 import { toInt } from "../helpers/utils.mjs";
+import { MAX_ANIMA, animaPrice } from "../economy/data.mjs";
 
 /**
  * The ten professions: picture and color of the crest, the kinds of item they make (kindOf) and their talent.
@@ -118,8 +119,8 @@ export function gatherOutcome(dice, rank) {
 /*  Materials                                   */
 /* -------------------------------------------- */
 
-/** Anima-mundi 1 to 10 ([Magic Catalyst N]): its price. */
-export const MATERIAL_PRICES = [15, 20, 25, 30, 40, 50, 60, 70, 90, 110];
+/** Anima-mundi 1 to 10 ([Magic Catalyst N]): its price (economy/data.mjs, 50 to 375 Yuld). */
+export const MATERIAL_PRICES = Array.from({ length: MAX_ANIMA }, (_, i) => animaPrice(i + 1));
 export const MAX_MATERIAL = MATERIAL_PRICES.length;
 /** The Anima-mundi an item of this level takes (10 from level 10 up). */
 export const materialLevel = level => Math.clamp(toInt(level), 1, MAX_MATERIAL);

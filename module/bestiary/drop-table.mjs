@@ -1,14 +1,22 @@
 /**
  * The "Itens Deixados" table as the books write it in a monster's description, read without Foundry (also used by
  * tools/convert-drops.mjs): a row per line, with the faces of the 1d6 ("1~5", "1-4", "6", "Fixo") and the entry
- * ("Mandíbula Negra [Valioso] (30G)", "Pedra de Cores Vivas [Catalisador Mágico 1](15G)x2", "2d6×3 de ouro",
- * "Cota de Anéis (conforme a Lista de Itens)", "Olho Dourado Radiante (Catalisador Mágico 6)").
+ * ("Mandíbula Negra [Valioso] (30 Yuld)", "Pedra de Cores Vivas [Catalisador Mágico 1](50 Yuld)x2", "2d6×3 Yuld",
+ * "Cota de Anéis (conforme a Lista de Itens)", "Olho Dourado Radiante (Catalisador Mágico 6)"). The books' "30G" and
+ * "de ouro" still read: the currency was gold before 0.48.
  */
+import { MAX_ANIMA, animaPrice } from "../economy/data.mjs";
 
 const ENTITIES = { "&nbsp;": " ", "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": "\"", "&#39;": "'" };
 const plain = html => String(html ?? "").replace(/<[^>]+>/g, " ").replace(/&[a-z#0-9]+;/gi, e => ENTITIES[e.toLowerCase()] ?? " ")
   .replace(/\s+/g, " ").trim();
 const int = value => Math.trunc(Number(value) || 0);
+/** A price in a table: "30G", "30 G", "1.200 Yuld". */
+const PRICE = /(\d[\d.]*)\s*(?:G|Yuld)\b/i;
+const priceIn = text => {
+  const m = String(text ?? "").match(PRICE);
+  return m ? int(m[1].replace(/\./g, "")) : null;
+};
 
 /** "1-3", "1~3", "6", "Fixo" → the faces of a row: { fixed } or { min, max } (null for anything else). */
 export function parseRange(text) {
@@ -40,9 +48,9 @@ function bookTag(text) {
 export function parseEntry(text) {
   let c = String(text ?? "").replace(/^fix[oe]d?\s*:\s*/i, "").trim();
   const out = { name: "", tags: [], price: null, qty: 1, gold: "", listed: false };
-  let m = c.match(/^(\d+)\s*d\s*6\s*[×x*]\s*(\d+)\s*(?:de ouro|g)?$/i);
+  let m = c.match(/^(\d+)\s*d\s*6\s*[×x*]\s*(\d+)\s*(?:de ouro|de yuld|yuld|g)?$/i);
   if (m) return { ...out, gold: `${m[1]}d6*${m[2]}` };
-  m = c.match(/^dinheiro ca[ií]do\s*\((\d+)\s*G\)$/i);
+  m = c.match(/^dinheiro ca[ií]do\s*\((\d+)\s*(?:G|Yuld)\)$/i);
   if (m) return { ...out, gold: m[1] };
   // "x3" may come before a note in parentheses ("Hambúrguer Crescente x3 (conforme a Lista de Itens)")
   m = c.match(/(?:\s|\))[x×]\s*(\d+)\b/i);
@@ -57,21 +65,21 @@ export function parseEntry(text) {
   for (const b of c.matchAll(/\[([^\]]+)\]/g)) {
     const tag = bookTag(b[1]);
     if (tag) out.tags.push(tag);
-    const g = b[1].match(/(\d+)\s*G\b/i);
-    if (g) out.price = int(g[1]);
+    const g = priceIn(b[1]);
+    if (g !== null) out.price = g;
   }
   c = c.replace(/\[[^\]]*\]/g, " ");
   for (const p of c.matchAll(/\(([^)]*)\)/g)) {
     for (const part of p[1].split(/[,;]/)) {
       const tag = bookTag(part);
       if (tag) out.tags.push(tag);
-      const g = part.match(/(\d+)\s*G\b/i);
-      if (g) out.price = int(g[1]);
+      const g = priceIn(part);
+      if (g !== null) out.price = g;
     }
   }
   c = c.replace(/\([^)]*\)/g, " ");
-  const g = c.match(/(\d+)\s*G\b/i);
-  if (g && (out.price === null)) { out.price = int(g[1]); c = c.replace(g[0], " "); }
+  const g = c.match(PRICE);
+  if (g && (out.price === null)) { out.price = int(g[1].replace(/\./g, "")); c = c.replace(g[0], " "); }
   out.tags = [...new Set(out.tags)];
   out.name = c.replace(/\s+/g, " ").trim();
   return out;
@@ -135,15 +143,12 @@ export const PART_ICON = "icons/commodities/treasure/brooch-gold-green.webp";
 export const GOLD_ICON = "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp";
 export const partIcon = name => PART_ICONS.find(([re]) => re.test(name))?.[1] ?? PART_ICON;
 
-/** Anima-mundi 1 to 10 ([Magic Catalyst N]): its price (professions/data.mjs keeps the same numbers). */
-const CATALYST_PRICES = [15, 20, 25, 30, 40, 50, 60, 70, 90, 110];
-
-/** The price of an item's data, or the Anima-mundi's when it is a catalyst with no price. */
+/** The price of an item's data, or the Anima-mundi's (economy/data.mjs) when it is a catalyst with no price. */
 export function priceOf(data) {
   const price = int(data?.system?.price);
   if (price) return price;
   const tag = (data?.system?.tags ?? []).find(t => /^magic catalyst \d+$/i.test(String(t)));
-  return tag ? (CATALYST_PRICES[Math.min(Math.max(int(String(tag).match(/\d+/)[0]), 1), 10) - 1] ?? 0) : 0;
+  return tag ? animaPrice(Math.min(Math.max(int(String(tag).match(/\d+/)[0]), 1), MAX_ANIMA)) : 0;
 }
 
 /** The compendium's name of an item without the "(NP1) " the food carries, for matching. */

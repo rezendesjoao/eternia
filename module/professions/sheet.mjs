@@ -23,11 +23,11 @@ const MODE_ICONS = {
 };
 
 /** What a talent says about the character now (the copies of the Batch…). */
-function talentNote(p) {
+function talentNote(p, actor) {
   switch (p.def.talent) {
     case "batch": return L("Profession.Sheet.BatchNow", { n: batchOf(p.rank) });
     case "mend": return L("Profession.Sheet.MendNow", { n: p.rank * 3 });
-    case "gather": return L("Profession.Sheet.GatherNow", { n: gatherCap(p) });
+    case "gather": return L("Profession.Sheet.GatherNow", { n: gatherCap(p, actor) });
     case "retouch": return L("Profession.Sheet.RetouchNow");
     default: return "";
   }
@@ -107,7 +107,7 @@ export function professionContext(actor, { editable }) {
   const statBox = (icon, value, label) => ({ icon, value, label });
   const stats = [statBox("fa-solid fa-dice", `+${p.rank}`, L("Profession.Sheet.RollBonus"))];
   if (crafter) stats.push(statBox("fa-solid fa-layer-group", p.cap, L("Profession.Sheet.Cap")));
-  if (p.id === "gatherer") stats.push(statBox("fa-solid fa-cube", gatherCap(p), L("Profession.Sheet.GatherCap")));
+  if (p.id === "gatherer") stats.push(statBox("fa-solid fa-cube", gatherCap(p, actor), L("Profession.Sheet.GatherCap")));
   if (p.id === "merchant") stats.push(statBox("fa-solid fa-coins", "100%", L("Profession.Sheet.FullPrice")));
   stats.push(statBox("fa-solid fa-hammer", p.attempts.max, L("Profession.Sheet.AttemptsStat")));
 
@@ -132,7 +132,7 @@ export function professionContext(actor, { editable }) {
     shards: shards.length,
     talent: {
       name: L(`Profession.Talent.${p.def.talent}.name`), text: L(`Profession.Talent.${p.def.talent}.text`),
-      icon: talent.icon, passive: !talent.action, note: talentNote(p),
+      icon: talent.icon, passive: !talent.action, note: talentNote(p, actor),
       cost: talent.attempt ? L("Profession.Sheet.CostsAttempt") : ""
     },
     traps: (p.id === "engineer") ? {

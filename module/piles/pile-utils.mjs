@@ -1,4 +1,5 @@
 import { PILE_TYPE, PHYSICAL_TYPES, SPACE_TYPES, STOCK_FLAG } from "./pile-config.mjs";
+import { RESALE, saleRate } from "../economy/data.mjs";
 
 /* -------------------------------------------- */
 /*  Actors & gold                               */
@@ -84,10 +85,19 @@ export function buyPrice(merchant, item) {
 /** A character with the Merchant profession (professions/) sells at full price. */
 const sellsAtFullPrice = actor => !!actor?.items?.some(i => (i.type === "subclass") && (i.system.identifier === "merchant"));
 
+/**
+ * What a shop pays for an item (economy/data.mjs saleRate, AS REGRAS V.e): treasures in full, magic items and the
+ * Anima-mundi by half, the rest by the shop's rate (a tenth by default); an Anima-mundi without the Seal, nothing. The
+ * Merchant sells everything it can sell in full.
+ */
 export function sellPrice(merchant, item) {
-  const mult = Math.max(Number(merchant.system.merchant?.sellMultiplier ?? 0.5), sellsAtFullPrice(item.actor) ? 1 : 0);
+  const rate = saleRate(item, Number(merchant.system.merchant?.sellMultiplier ?? RESALE.other));
+  const mult = (rate && sellsAtFullPrice(item.actor)) ? 1 : rate;
   return Math.max(0, Math.floor((Number(item.system.price) || 0) * mult));
 }
+
+/** An item with a price that the shops don't buy (the Anima-mundi without the Seal). */
+export const unsold = (merchant, item) => ((Number(item.system.price) || 0) > 0) && !sellPrice(merchant, item);
 
 /* -------------------------------------------- */
 /*  Tokens & reach                              */

@@ -22,6 +22,7 @@ import { TOKENS_MIGRATION } from "../canvas/token-defaults.mjs";
 import { RACE_STAGES_MIGRATION } from "../races/migration.mjs";
 import { BESTIARY_MIGRATION } from "../bestiary/migration.mjs";
 import { CONTENT_MIGRATION } from "../content/migration.mjs";
+import { ECONOMY_MIGRATION } from "../economy/migration.mjs";
 import { clientsDiscovered, isPrimaryGM } from "./clients.mjs";
 
 export const MIGRATIONS = [
@@ -36,7 +37,8 @@ export const MIGRATIONS = [
   TOKENS_MIGRATION,              // the characters' tokens see and are linked, every name shows, core's turn marker off (canvas/token-defaults.mjs)
   RACE_STAGES_MIGRATION,         // the race items take the stages of their compendium race again (races/migration.mjs)
   BESTIARY_MIGRATION,            // the bestiary monsters already in the world take the names and the art of 0.37, the damage of 0.42, the (Menor) of 0.44 and the hidden disguise of 0.47.1 (bestiary/migration.mjs)
-  CONTENT_MIGRATION              // the items and skills of the world take the data their compendium gained: the bags, the grades and the NP locks, the cover of 0.43 (content/migration.mjs)
+  CONTENT_MIGRATION,             // the items and skills of the world take the data their compendium gained: the bags, the grades and the NP locks, the cover of 0.43 (content/migration.mjs)
+  ECONOMY_MIGRATION              // the Yuld of 0.48: the purses, the prices of the items, the drops of the bestiary's monsters and the shops' rate (economy/migration.mjs)
 ];
 
 /** Register the world setting of every migration. Call during the `init` hook. */
