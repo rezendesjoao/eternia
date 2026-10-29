@@ -1,0 +1,36 @@
+{{!-- The cards of a duel (module/duels/duels.mjs postCard): it begins (the two face to face, the mode and its rule), and
+     its result (who won, the points each one won or lost, the rounds and the time; a fall to the death says the duel
+     is decided and the combat goes on). --}}
+<div class="eternia chat-card dl-card {{kind}}{{#if death}} death{{/if}}">
+	<header class="dl-card-head">
+		<span class="dl-card-icon"><i class="fa-solid {{#if start}}fa-swords{{else}}fa-trophy{{/if}}"></i></span>
+		<div>
+			<span class="dl-card-eyebrow">{{localize "ETERNIA.Duel.Title"}} · {{mode}}</span>
+			<h3>{{#if start}}{{localize "ETERNIA.Duel.Card.Begins"}}{{else}}{{#if draw}}{{localize "ETERNIA.Duel.Card.Draw"}}{{else}}{{localize "ETERNIA.Duel.Card.Won" name=winner.name}}{{/if}}{{/if}}</h3>
+		</div>
+	</header>
+	<div class="dl-card-versus">
+		{{#with a}}
+		<figure class="dl-card-side{{#if won}} won{{/if}}{{#if lost}} lost{{/if}}">
+			<img src="{{img}}" alt="">
+			<figcaption>{{name}}</figcaption>
+			{{#if delta}}<span class="dl-card-delta{{#if up}} up{{/if}}" data-tooltip-text="{{tier}}">{{delta}} · {{rating}}</span>{{/if}}
+		</figure>
+		{{/with}}
+		<span class="dl-card-vs"><i class="fa-solid fa-swords"></i></span>
+		{{#with b}}
+		<figure class="dl-card-side{{#if won}} won{{/if}}{{#if lost}} lost{{/if}}">
+			<img src="{{img}}" alt="">
+			<figcaption>{{name}}</figcaption>
+			{{#if delta}}<span class="dl-card-delta{{#if up}} up{{/if}}" data-tooltip-text="{{tier}}">{{delta}} · {{rating}}</span>{{/if}}
+		</figure>
+		{{/with}}
+	</div>
+	{{#if start}}
+	<p class="dl-card-rule">{{modeRule}}</p>
+	{{else}}
+	<p class="dl-card-line">{{line}}</p>
+	<p class="dl-card-meta"><i class="fa-solid fa-hourglass-half"></i>{{localize "ETERNIA.Duel.Card.Meta" rounds=rounds time=time}}</p>
+	{{#if fell}}<p class="dl-card-fall"><i class="fa-solid fa-skull"></i>{{localize "ETERNIA.Duel.Card.Fell" name=fallen}}</p>{{/if}}
+	{{/if}}
+</div>

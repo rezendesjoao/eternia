@@ -1,0 +1,150 @@
+{{!-- The Hall of Fame (module/hall/hall.mjs): the head with the search (and the GM's "Add"), the fields as filters, a
+     plaque for each name and, beside them, the page of the one under the pointer (or of the one selected; with none,
+     how the Hall reads). The GM edits an entry in its page, and picks the characters to add in the same place. --}}
+<div class="hf-body">
+
+	<header class="hf-head">
+		<span class="hf-emblem"><i class="fa-solid fa-building-columns"></i></span>
+		<div class="hf-head-text">
+			<span class="hf-eyebrow">{{localize "ETERNIA.Hall.Eyebrow"}}</span>
+			<h2>{{localize "ETERNIA.Hall.Heading"}}</h2>
+			<p>{{lead}}</p>
+		</div>
+		<label class="hf-search">
+			<i class="fa-solid fa-magnifying-glass"></i>
+			<input type="search" value="{{query}}" placeholder="{{localize 'ETERNIA.Hall.Search'}}" autocomplete="off" spellcheck="false">
+		</label>
+		{{#if gm}}<button type="button" class="hf-add{{#if adding}} active{{/if}}" data-action="adding"><i class="fa-solid {{#if adding}}fa-xmark{{else}}fa-user-plus{{/if}}"></i>{{#if adding}}{{localize "ETERNIA.Hall.AddDone"}}{{else}}{{localize "ETERNIA.Hall.Add"}}{{/if}}</button>{{/if}}
+	</header>
+
+	<nav class="hf-chips">
+		<button type="button" class="hf-chip{{#unless category}} active{{/unless}}" data-category=""><i class="fa-solid fa-star"></i>{{localize "ETERNIA.Hall.All"}}<b>{{total}}</b></button>
+		{{#each categories}}
+		<button type="button" class="hf-chip{{#if (eq id ../category)}} active{{/if}}" data-category="{{id}}" style="--hf-cat: {{color}}" data-tooltip-text="{{hint}}"><i class="{{icon}}"></i>{{label}}<b>{{count}}</b></button>
+		{{/each}}
+		{{#if hiddenCount}}<span class="hf-hidden-note" data-tooltip-text="{{localize 'ETERNIA.Hall.HiddenNoteHint'}}"><i class="fa-solid fa-eye-slash"></i>{{localize "ETERNIA.Hall.HiddenNote" n=hiddenCount}}</span>{{/if}}
+	</nav>
+
+	<div class="hf-main">
+		<ol class="hf-wall" role="listbox" aria-label="{{localize 'ETERNIA.Hall.Heading'}}">
+			{{#each entries}}
+			<li class="hf-plaque{{#if selected}} selected{{/if}}{{#if hidden}} veiled{{/if}}{{#if pinned}} pinned{{/if}}" role="option" tabindex="0"
+				aria-selected="{{#if selected}}true{{else}}false{{/if}}" data-id="{{id}}" data-category="{{categoryId}}" data-search="{{search}}" style="--hf-cat: {{categoryColor}}">
+				{{#if pinned}}<span class="hf-ribbon" data-tooltip-text="{{localize 'ETERNIA.Hall.Pinned'}}"><i class="fa-solid fa-thumbtack"></i></span>{{/if}}
+				{{#if hidden}}<span class="hf-veil" data-tooltip-text="{{localize 'ETERNIA.Hall.HiddenHint'}}"><i class="fa-solid fa-eye-slash"></i></span>{{/if}}
+				<span class="hf-plaque-art"><img src="{{img}}" alt="" loading="lazy"></span>
+				<span class="hf-plaque-cat" data-tooltip-text="{{categoryLabel}}"><i class="{{categoryIcon}}"></i></span>
+				<span class="hf-plaque-name">{{name}}</span>
+				<span class="hf-plaque-epithet">{{#if epithet}}{{epithet}}{{else}}&nbsp;{{/if}}</span>
+				<span class="hf-stars" data-tooltip-text="{{label}}">{{#each stars}}<i class="fa-solid fa-star{{#unless on}} off{{/unless}}"></i>{{/each}}</span>
+			</li>
+			{{/each}}
+			<li class="hf-none" hidden><i class="fa-solid fa-magnifying-glass"></i>{{localize "ETERNIA.Hall.NoMatch"}}</li>
+			{{#unless entries.length}}
+			<li class="hf-empty">
+				<i class="fa-solid fa-building-columns"></i>
+				<strong>{{localize "ETERNIA.Hall.EmptyTitle"}}</strong>
+				<span>{{#if gm}}{{localize "ETERNIA.Hall.EmptyGM"}}{{else}}{{localize "ETERNIA.Hall.Empty"}}{{/if}}</span>
+			</li>
+			{{/unless}}
+		</ol>
+
+		<aside class="hf-spotlight">
+			{{#if adding}}
+			{{!-- The GM picks a character of the world (or drops one from a compendium) --}}
+			<section class="hf-add-panel">
+				<h3><i class="fa-solid fa-user-plus"></i>{{localize "ETERNIA.Hall.AddTitle"}}</h3>
+				<p class="hf-add-lead">{{localize "ETERNIA.Hall.AddLead"}}</p>
+				<label class="hf-add-search"><i class="fa-solid fa-magnifying-glass"></i><input type="search" placeholder="{{localize 'ETERNIA.Hall.AddSearch'}}" autocomplete="off" spellcheck="false"></label>
+				<ol class="hf-add-list">
+					{{#each candidates}}
+					<li class="hf-candidate" data-search="{{search}}">
+						<button type="button" data-action="addActor" data-uuid="{{uuid}}">
+							<img src="{{img}}" alt="" loading="lazy">
+							<span><b>{{name}}</b>{{#if epithet}}<em>{{epithet}}</em>{{/if}}</span>
+							{{#if player}}<small data-tooltip-text="{{localize 'ETERNIA.Hall.PlayerHint'}}"><i class="fa-solid fa-user"></i></small>{{/if}}
+							<i class="fa-solid fa-plus"></i>
+						</button>
+					</li>
+					{{else}}
+					<li class="hf-add-none">{{localize "ETERNIA.Hall.AddNone"}}</li>
+					{{/each}}
+				</ol>
+			</section>
+			{{else}}
+
+			{{!-- With no one under the pointer nor selected: how the Hall reads --}}
+			<article class="hf-page hf-welcome">
+				<header class="hf-welcome-head">
+					<i class="fa-solid fa-building-columns"></i>
+					<div>
+						<span class="hf-page-eyebrow">{{localize "ETERNIA.Hall.WelcomeEyebrow"}}</span>
+						<h3>{{localize "ETERNIA.Hall.WelcomeTitle"}}</h3>
+					</div>
+				</header>
+				<p>{{localize "ETERNIA.Hall.WelcomeText"}}</p>
+				<h4>{{localize "ETERNIA.Hall.RenownTitle"}}</h4>
+				<ol class="hf-tiers">
+					{{#each tiers}}
+					<li><span class="hf-stars">{{#each stars}}<i class="fa-solid fa-star{{#unless on}} off{{/unless}}"></i>{{/each}}</span><p><b>{{label}}.</b> {{hint}}</p></li>
+					{{/each}}
+				</ol>
+				{{#if gm}}<p class="hf-gm-note"><i class="fa-solid fa-hand-pointer"></i>{{localize "ETERNIA.Hall.WelcomeGM"}}</p>{{/if}}
+			</article>
+
+			{{#each entries}}
+			{{#if editing}}
+			<form class="hf-page hf-edit" data-id="{{id}}" style="--hf-cat: {{categoryColor}}" autocomplete="off">
+				<header class="hf-page-head">
+					<span class="hf-portrait"><img src="{{img}}" alt=""></span>
+					<div class="hf-edit-name">
+						<span class="hf-page-eyebrow">{{localize "ETERNIA.Hall.Editing"}}</span>
+						<input type="text" name="name" value="{{name}}" placeholder="{{localize 'ETERNIA.Hall.Field.Name'}}">
+					</div>
+				</header>
+				<label class="hf-field"><span class="hf-label">{{localize "ETERNIA.Hall.Field.Epithet"}}</span>
+					<input type="text" name="epithet" value="{{epithet}}" placeholder="{{localize 'ETERNIA.Hall.Field.EpithetHint'}}"></label>
+				<label class="hf-field"><span class="hf-label">{{localize "ETERNIA.Hall.Field.Category"}}</span>
+					<select name="category">{{#each ../choices}}<option value="{{id}}"{{#if (eq id ../categoryId)}} selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+				<div class="hf-field"><span class="hf-label">{{localize "ETERNIA.Hall.Field.Renown"}}</span>
+					<span class="hf-star-row">{{#each stars}}<button type="button" class="hf-star-pick{{#if on}} on{{/if}}" data-action="star" data-n="{{n}}"><i class="fa-solid fa-star"></i></button>{{/each}}<em class="hf-star-label">{{label}}</em></span></div>
+				<label class="hf-field grow"><span class="hf-label">{{localize "ETERNIA.Hall.Field.Reason"}}</span>
+					<textarea name="reason" rows="7" placeholder="{{localize 'ETERNIA.Hall.Field.ReasonHint'}}">{{reason}}</textarea></label>
+				<footer class="hf-edit-foot">
+					<button type="button" class="hf-ghost" data-action="cancelEdit"><i class="fa-solid fa-xmark"></i>{{localize "ETERNIA.Hall.Cancel"}}</button>
+					<button type="button" class="hf-primary" data-action="save"><i class="fa-solid fa-check"></i>{{localize "ETERNIA.Hall.Save"}}</button>
+				</footer>
+			</form>
+			{{else}}
+			<article class="hf-page" data-id="{{id}}" style="--hf-cat: {{categoryColor}}" hidden>
+				<header class="hf-page-head">
+					<span class="hf-portrait"><img src="{{img}}" alt=""></span>
+					<div>
+						<span class="hf-page-cat"><i class="{{categoryIcon}}"></i>{{categoryLabel}}</span>
+						<h3>{{name}}</h3>
+						{{#if epithet}}<p class="hf-page-epithet">{{epithet}}</p>{{/if}}
+					</div>
+				</header>
+				<div class="hf-renown" data-tooltip-text="{{hint}}">
+					<span class="hf-stars">{{#each stars}}<i class="fa-solid fa-star{{#unless on}} off{{/unless}}"></i>{{/each}}</span>
+					<b>{{label}}</b><span>{{hint}}</span>
+				</div>
+				<h4>{{localize "ETERNIA.Hall.Why"}}</h4>
+				{{#if reasonHtml}}<blockquote class="hf-reason">{{{reasonHtml}}}</blockquote>
+				{{else}}<p class="hf-reason-none">{{localize "ETERNIA.Hall.NoReason"}}</p>{{/if}}
+				{{#if ../gm}}
+				<footer class="hf-gm-tools">
+					<button type="button" data-action="edit" data-tooltip-text="{{localize 'ETERNIA.Hall.Edit'}}"><i class="fa-solid fa-pen"></i>{{localize "ETERNIA.Hall.Edit"}}</button>
+					<button type="button" data-action="toggleHidden" class="{{#if hidden}}on{{/if}}" data-tooltip-text="{{#if hidden}}{{localize 'ETERNIA.Hall.Reveal'}}{{else}}{{localize 'ETERNIA.Hall.Hide'}}{{/if}}"><i class="fa-solid {{#if hidden}}fa-eye-slash{{else}}fa-eye{{/if}}"></i></button>
+					<button type="button" data-action="togglePinned" class="{{#if pinned}}on{{/if}}" data-tooltip-text="{{#if pinned}}{{localize 'ETERNIA.Hall.Unpin'}}{{else}}{{localize 'ETERNIA.Hall.Pin'}}{{/if}}"><i class="fa-solid fa-thumbtack"></i></button>
+					{{#if canOpen}}<button type="button" data-action="openSheet" data-tooltip-text="{{localize 'ETERNIA.Hall.OpenSheet'}}"><i class="fa-solid fa-id-card"></i></button>{{/if}}
+					<button type="button" data-action="remove" class="danger" data-tooltip-text="{{localize 'ETERNIA.Hall.Remove'}}"><i class="fa-solid fa-trash"></i></button>
+				</footer>
+				{{/if}}
+			</article>
+			{{/if}}
+			{{/each}}
+			{{/if}}
+		</aside>
+	</div>
+</div>

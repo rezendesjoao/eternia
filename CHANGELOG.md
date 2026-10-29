@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.52.0 — 2026-10-29
+
+O Grimório, o Hall da Fama e os duelos: três botões novos na barra dos tokens, logo abaixo do Mercado, e as regras dos
+duelos de Aincrad no visual da Eternia, com o ranking da Arena.
+
+### Adicionado
+- **O Grimório** (`module/apps/magic-codex.mjs`): o botão abre a janela de Magias com todas as Magias do mundo para ler,
+  sem nada para escolher; as do personagem selecionado levam um livrinho dourado, os feitiços do NP dele ficam marcados
+  e os portadores das Magias com limite aparecem como na escolha.
+- **O Hall da Fama** (`module/hall/`): as pessoas famosas do mundo e por quê. O Mestre põe personagens (arrastando,
+  pelo menu da lista de atores ou com Adicionar), escreve a alcunha (vem da Biografia), o campo, a fama de 1 a 5
+  estrelas e o motivo, esconde um nome dos jogadores ou o põe em destaque. As entradas ficam na configuração do mundo
+  `hallOfFame`, com cópia do nome e do retrato.
+- **Os duelos** (`module/duels/`): o desafio pelo botão direito no token de outro personagem ou pela Arena, os três
+  modos (Primeiro Golpe, Metade da Vida, Até a Morte), o pedido com um minuto para responder, a contagem na tela de
+  todos, o combate do duelo começando sozinho, a barra do duelo com os PV dos dois, Desistir, o vencedor na tela de
+  todos e os cartões de começo e de resultado no chat. Nos dois primeiros modos os PV param em 1 e ninguém cai; no Até
+  a Morte, quem cai fica [Morrendo] e o combate segue até o Mestre encerrar. O Mestre decide, empata ou cancela pela
+  barra. Tudo passa pelo Mestre principal (socket, escopo `duels`); o duelo é um combate com `flags.eternia.duel`.
+- **A Arena:** o ranking dos duelos (pontos de Elo a partir de 1000, que pesam pelo modo; títulos; vitórias, derrotas,
+  sequência, últimos resultados e o Campeão), os duelos acontecendo, quem desafiar na cena e os recentes; o Mestre anula
+  um duelo ou zera tudo. A história fica na configuração do mundo `duelHistory`, e o ranking é refeito a partir dela.
+- **Configurações:** Duelos entre personagens, Permitir duelo até a morte e Contagem antes do duelo.
+- **Guia do Jogador:** o capítulo 18, Duelos e a Arena; a Mesa Virtual (agora capítulo 19) com os botões da barra dos
+  tokens e o clique direito no token de outro personagem; o Grimório no capítulo das Magias; Arena, Duelo, Grimório e
+  Hall da Fama no glossário.
+
+### Alterado
+- Num duelo, os dois são inimigos um do outro: o "aplicar só nos inimigos" aplica o dano neles, o Ódio do grupo não
+  conta (sem Topo nem Abaixo no Ódio) e a Manutenção e o Encerramento seguem sozinhos enquanto os dois estão de pé.
+- O clique direito no token do personagem de outro jogador, que não fazia nada, abre a caixinha do duelo.
+
 ## 0.51.1 — 2026-10-29
 
 A Fruta do Tremor agora se chama **Cataclismo**.

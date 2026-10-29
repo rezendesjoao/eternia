@@ -22,6 +22,7 @@
  */
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
+import { isDuelCombat } from "../duels/state.mjs";
 import { actorName, combatActors, outOfAction, postSummary, toInt, wrap } from "../helpers/utils.mjs";
 import { bumpCounter, endOfSceneFor } from "./scenes.mjs";
 import { NO_ACTIONS } from "../conditions/catalog.mjs";
@@ -83,9 +84,13 @@ function phaseSkillsLeft(combat, phase) {
   return false;
 }
 
-/** Whether both sides still have someone standing (else the GM ends the combat: the round doesn't spin on). */
+/**
+ * Whether both sides still have someone standing (else the GM ends the combat: the round doesn't spin on). The sides of
+ * a duel are its two duelists (duels/state.mjs).
+ */
 function bothSidesStanding(combat) {
   const standing = combat.combatants.filter(c => c.actor && !outOfAction(c));
+  if (isDuelCombat(combat)) return new Set(standing.map(c => c.actor.uuid)).size >= 2;
   return standing.some(c => isAdventurer(c.actor, c.token)) && standing.some(c => !isAdventurer(c.actor, c.token));
 }
 

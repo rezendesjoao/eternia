@@ -30,6 +30,28 @@ export class EterniaToken extends foundry.canvas.placeables.Token {
     return super._onClickLeft2(event);
   }
 
+  /**
+   * @override
+   * A right-click on someone else's character (a player's) opens the duel's bubble (duels/ui.mjs) instead of nothing.
+   */
+  _canHUD(user, event) {
+    if (super._canHUD(user, event)) return true;
+    if (!this.layer.active || this.layer._draggedToken || canvas.regions?._placementContext || canvas.controls.ruler.active) return false;
+    if (CONFIG.Canvas.rulerClass.canMeasure && (event?.type === "pointerdown")) return false;
+    return !!game.eternia?.duels?.bubbleFor?.(this, user);
+  }
+
+  /** @override */
+  _onClickRight(event) {
+    if (!this.isOwner && game.eternia?.duels?.bubbleFor?.(this)) return game.eternia.duels.openBubble(this);
+    return super._onClickRight(event);
+  }
+
+  /** @override: the bubble's right-click still reaches the canvas (a drag from it pans, as before) */
+  _propagateRightClick(event) {
+    return !this.isOwner || super._propagateRightClick(event);
+  }
+
   /** @override */
   _getTargetAlpha() {
     const alpha = super._getTargetAlpha();

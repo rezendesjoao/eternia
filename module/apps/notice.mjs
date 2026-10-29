@@ -41,7 +41,7 @@
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 
 /** The release line the notice speaks about. */
-const NOTICE = "0.51";
+const NOTICE = "0.52";
 
 /** Call during the `init` hook. */
 export function registerNotice() {

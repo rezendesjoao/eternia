@@ -934,3 +934,58 @@
 .magic-picker .mp-page-holders.full b { color: #8c2f2f; }
 .magic-picker .mp-page-exclusive { border: 1px solid #b9923a; background: linear-gradient(180deg, #fbf1d4, #f2dfa8); color: #5c4310; }
 .magic-picker .mp-page-blocked { border: 1px solid #8c2f2f; background: #f6e2dc; color: #6d2222; }
+
+
+/* -------------------------------------------- */
+/*  The Grimório (0.52)                          */
+/* -------------------------------------------- */
+
+/* Every Magia to read (module/apps/magic-codex.mjs): the picker's window with the medallion of the Market in the head,
+   the reader's Magias marked on their cards, and only "Close" at the foot */
+.application.magic-codex .mp-head { align-items: center; }
+.magic-picker .mp-emblem {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  padding: 3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--mp-gold-light), var(--mp-gold) 50%, var(--mp-gold-dark));
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  font-size: 21px;
+}
+.magic-picker .mp-emblem i {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #12301f;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, var(--pf-primary-light, #2b6747), var(--pf-primary-dark, #173f2b));
+  color: var(--mp-gold-light);
+}
+.magic-picker .mp-card-owned {
+  position: absolute;
+  bottom: 7px;
+  left: 50px;
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  border: 1px solid var(--mp-gold-dark);
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--mp-gold-light), var(--mp-gold));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  color: #3a2a08;
+  font-size: 9px;
+}
+.application.magic-codex .mp-skip {
+  min-width: 140px;
+  border: 1px solid var(--pf-primary-dark, #173f2b);
+  background: linear-gradient(180deg, var(--pf-primary-light, #2b6747), var(--pf-primary-dark, #173f2b));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 6px rgba(0, 0, 0, 0.25);
+  color: #fbf4df;
+}
+.application.magic-codex .mp-skip:hover { filter: brightness(1.12); }
+.application.magic-codex .mp-skip i { color: var(--mp-gold-light); }

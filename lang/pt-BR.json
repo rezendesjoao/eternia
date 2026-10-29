@@ -1396,6 +1396,18 @@
         "all": "Todos os itens",
         "sale": "Só o que se vende em lojas",
         "none": "Nada (o botão some para eles)"
+      },
+      "duels": {
+        "Name": "Duelos entre personagens",
+        "Hint": "Um personagem desafia outro (botão direito no token dele, ou a Arena, no botão Duelos da barra dos tokens) e escolhe o modo; aceito, o duelo começa sozinho e conta no ranking da Arena."
+      },
+      "duelDeath": {
+        "Name": "Permitir duelo até a morte",
+        "Hint": "Desligado, o modo Até a Morte some: só Primeiro Golpe e Metade da Vida."
+      },
+      "duelCountdown": {
+        "Name": "Contagem antes do duelo (segundos)",
+        "Hint": "Quanto tempo a contagem fica na tela de todos antes de o combate do duelo começar. 0 começa na hora."
       }
     },
     "Use": {
@@ -1814,7 +1826,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.51</strong></p><ul><li><strong>A onda das Magias apelonas:</strong> treze Magias mais fortes que as outras de propósito, cada uma com uma regra que nenhuma outra tem e um preço do tamanho dela: Selo do Ceifador (a vida selada para sempre), Sangue de Ferro, Permeação, Olhar que Apaga, Retrocesso, Cobiça (o Yuld vira dano), Impecável, Manto Devorador, Golias, Santo da Espada, Portador de Bênçãos, Aposta Mortal (os carretéis e o Jackpot) e Cataclismo. Com elas, onze condições novas.</li><li><strong>A categoria Absoluta:</strong> a mais forte de todas, com um portador só e um Tabu pesado. Quem tem uma nunca terá outra Magia: as vagas do NP 5 e 10 fecham. O Sol virou Absoluta.</li><li><strong>Os portadores:</strong> quase toda Magia que não é Conjuração tem um limite no mundo (1, 2 ou 3). Esgotada, ela não sai no Despertar e não se escolhe; a janela mostra quantos já a têm.</li><li><strong>Mais fortes:</strong> o Sol, as Artes Negras, a Magia das Fadas e o Contra-ataque bateram mais e ganharam defeitos pesados.</li></ul><p><strong>E da 0.50</strong></p><ul><li><strong>O Despertar:</strong> a primeira Magia não se escolhe, desperta. No assistente de criação você rola até três vezes (um dado com uma face para cada Magia livre: todas com a mesma chance, até as Ancestrais e as Proibidas) e fica com uma das que saírem. As rolagens saem no chat, ficam guardadas na ficha e não se refazem, e a Magia do Despertar não sai mais da ficha. O Mestre escolhe livre.</li><li><strong>A morte é para sempre:</strong> quem cai fica [Morrendo: 2]. No Encerramento de cada rodada vem o Teste da Morte: 2d6 acima do Valor segura (e ele sobe 1); o Valor ou menos mata. Antes de rolar, 1 Destino rola 3d6; ou escolha o Último Ato, uma rodada de pé sem poder cair, e depois a morte. Ninguém revive.</li><li><strong>O Mercado em páginas:</strong> 50 itens por vez, mais leve para PCs fracos.</li></ul>"
+      "Body": "<p><strong>Novidades da Eternia 0.52</strong></p><ul><li><strong>Grimório:</strong> o botão novo abaixo do Mercado, na barra dos tokens, mostra todas as Magias do mundo para ler, com os feitiços de cada uma. As Magias do seu personagem levam um livrinho dourado.</li><li><strong>Hall da Fama:</strong> as pessoas de quem o mundo fala e por que são famosas, com estrelas que dizem até onde a fama chega. O Mestre escolhe quem entra.</li><li><strong>Duelos:</strong> clique com o botão direito no token de outro personagem e desafie para um duelo de Primeiro Golpe, Metade da Vida ou Até a Morte. O outro jogador tem um minuto para aceitar, todos veem a contagem, e a mesa diz quem venceu. Nos dois primeiros modos ninguém cai; no Até a Morte, quem cai pode morrer de verdade.</li><li><strong>Arena:</strong> o botão Duelos abre o ranking: pontos, títulos, vitórias e o Campeão da Arena. Vencer quem está acima vale mais.</li></ul><p>O Guia do Jogador tem um capítulo novo, Duelos e a Arena.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -4732,6 +4744,272 @@
       "Exclusive": "Absoluta: quem a tem não terá outra Magia (as outras vagas fecham).",
       "SlotClosed": "Fechada",
       "SlotClosedHint": "{name} é Absoluta: ocupa todas as vagas de Magia."
+    },
+    "Grimoire": {
+      "Title": "Grimório",
+      "Button": "Grimório: todas as Magias",
+      "Eyebrow": "Grimório",
+      "Heading": "Todas as Magias",
+      "Lead": "As {n} Magias do mundo. Passe o ponteiro numa Magia para ler a página dela; um clique num feitiço abre o texto inteiro.",
+      "OwnedTip": "Uma Magia de {name}",
+      "Mine": "As Magias de {name}: {names}.",
+      "Hint": "Os feitiços vêm na ordem do NP em que chegam. O 1/1 nos cartões diz quantos portadores a Magia pode ter no mundo.",
+      "Close": "Fechar"
+    },
+    "Hall": {
+      "Title": "Hall da Fama",
+      "Button": "Hall da Fama",
+      "Eyebrow": "Hall da Fama",
+      "Heading": "Os nomes que todos conhecem",
+      "Lead": "Quem o povo comenta nas tavernas, nas praças e nas academias, e por quê.",
+      "LeadGM": "Quem o povo comenta, e por quê. Arraste um personagem para cá (da barra lateral ou de um compêndio) ou use Adicionar; o olho esconde um nome dos jogadores.",
+      "Search": "Buscar nome, alcunha ou feito",
+      "Add": "Adicionar",
+      "AddDone": "Pronto",
+      "All": "Todos",
+      "HiddenNote": "{n} só para você",
+      "HiddenNoteHint": "Nomes com o olho fechado: só o Mestre os vê.",
+      "Pinned": "Em destaque",
+      "HiddenHint": "Oculto: os jogadores não veem este nome",
+      "NoMatch": "Ninguém com esses filtros.",
+      "EmptyTitle": "O Hall ainda está vazio",
+      "Empty": "Quando um nome correr de boca em boca, o Mestre o põe aqui.",
+      "EmptyGM": "Arraste um personagem da barra lateral ou de um compêndio para esta janela, ou clique em Adicionar.",
+      "AddTitle": "Quem entra no Hall",
+      "AddLead": "Os personagens do mundo que ainda não estão aqui (os dos jogadores no fim). De um compêndio, arraste para a janela.",
+      "AddSearch": "Buscar personagem",
+      "PlayerHint": "Personagem de um jogador",
+      "AddNone": "Todos os personagens do mundo já estão no Hall.",
+      "WelcomeEyebrow": "Antes de ler",
+      "WelcomeTitle": "Como o Hall funciona",
+      "WelcomeText": "Cada placa é alguém de quem o mundo fala. Passe o ponteiro numa placa para ler por que aquele nome é conhecido; as estrelas dizem até onde a fama chega.",
+      "RenownTitle": "As estrelas",
+      "WelcomeGM": "Clique numa placa e depois em Editar para escrever a alcunha, o campo, as estrelas e o motivo da fama.",
+      "Editing": "Editando",
+      "Field": {
+        "Name": "Nome",
+        "Epithet": "Alcunha",
+        "EpithetHint": "Ex.: a Espada do Norte",
+        "Category": "Campo",
+        "Renown": "Fama",
+        "Reason": "Por que é famoso",
+        "ReasonHint": "O que o povo conta sobre esse nome. Uma linha em branco separa os parágrafos."
+      },
+      "Cancel": "Cancelar",
+      "Save": "Salvar",
+      "Why": "Por que é famoso",
+      "NoReason": "O Mestre ainda não contou por quê.",
+      "Edit": "Editar",
+      "Reveal": "Mostrar aos jogadores",
+      "Hide": "Esconder dos jogadores",
+      "Pin": "Pôr em destaque",
+      "Unpin": "Tirar do destaque",
+      "OpenSheet": "Abrir a ficha",
+      "Remove": "Tirar do Hall",
+      "RemoveTitle": "Tirar do Hall da Fama",
+      "RemoveConfirm": "Tirar {name} do Hall da Fama? A ficha continua no mundo.",
+      "Missing": "A ficha de {name} não existe mais.",
+      "GMOnly": "Só o Mestre muda o Hall da Fama.",
+      "OnlyCharacters": "Só personagens entram no Hall da Fama.",
+      "ContextAdd": "Pôr no Hall da Fama",
+      "Added": "{name} entrou no Hall da Fama.",
+      "Category": {
+        "arms": "Armas",
+        "magic": "Magia",
+        "crown": "Nobreza",
+        "faith": "Fé",
+        "craft": "Ofícios",
+        "arena": "Arena",
+        "lore": "Saber",
+        "infamy": "Infâmia"
+      },
+      "CategoryHint": {
+        "arms": "Guerreiros, cavaleiros e espadachins: famosos pelo que fazem com as armas.",
+        "magic": "Magos e portadores de Magias raras.",
+        "crown": "Reis, nobres e quem manda.",
+        "faith": "A igreja, os santos e os milagres.",
+        "craft": "Ferreiros, mercadores, artesãos e mestres de um ofício.",
+        "arena": "Duelistas e campeões de torneios.",
+        "lore": "Sábios, professores, estudiosos e exploradores.",
+        "infamy": "Famosos pelo mal que fizeram: bandidos, traidores e procurados."
+      },
+      "Renown": {
+        "1": "Conhecido",
+        "2": "Respeitado",
+        "3": "Famoso",
+        "4": "Célebre",
+        "5": "Lendário"
+      },
+      "RenownHint": {
+        "1": "O nome é conhecido na vizinhança.",
+        "2": "O nome é falado na cidade inteira.",
+        "3": "O nome corre pelas estradas e pelas tavernas.",
+        "4": "Os bardos cantam e os nobres citam o nome.",
+        "5": "Uma lenda viva: todo mundo conhece a história."
+      }
+    },
+    "Duel": {
+      "Title": "Duelo",
+      "Button": "Duelos e ranking",
+      "Mode": {
+        "strike": "Primeiro Golpe",
+        "half": "Metade da Vida",
+        "death": "Até a Morte"
+      },
+      "ModeRule": {
+        "strike": "Perde quem perder PV primeiro. Ninguém cai: os PV param em 1.",
+        "half": "Perde quem ficar com metade dos PV máximos ou menos. Ninguém cai: os PV param em 1.",
+        "death": "Perde quem cair. Quem cai fica Morrendo, como em qualquer luta, e pode morrer de verdade."
+      },
+      "Error": {
+        "Off": "Os duelos estão desligados neste mundo.",
+        "Missing": "Um dos dois não está mais na cena.",
+        "Mode": "Escolha um modo de duelo.",
+        "NoDeath": "O Mestre não permite duelos até a morte neste mundo.",
+        "Scene": "Os dois precisam estar na mesma cena.",
+        "Self": "Ninguém duela consigo mesmo.",
+        "NotCharacter": "{name} não é um personagem: só personagens duelam.",
+        "Busy": "{name} já está num duelo ou num desafio.",
+        "Down": "{name} está caído e não pode duelar.",
+        "Half": "{name} já está com metade da vida ou menos: cure-se antes de um duelo de Metade da Vida.",
+        "SceneDuel": "Já há um duelo nesta cena. Esperem ele acabar.",
+        "SceneCombat": "Há um combate em andamento nesta cena: o duelo espera ele acabar.",
+        "NotYours": "Esse personagem não é seu.",
+        "Away": "Quem responde por {name} não está na mesa agora.",
+        "Gone": "Esse desafio ou duelo já acabou.",
+        "GMOnly": "Só o Mestre pode fazer isso.",
+        "Generic": "Não deu para mandar o desafio.",
+        "NoChallenger": "Selecione o seu personagem na cena (clique no token dele) para desafiar alguém."
+      },
+      "Time": {
+        "Seconds": "{s}s",
+        "Minutes": "{m}min {s}s"
+      },
+      "Result": {
+        "strike": "{winner} acertou primeiro: {loser} perdeu.",
+        "half": "{winner} deixou {loser} com metade da vida.",
+        "fall": "{winner} derrubou {loser}.",
+        "resign": "{loser} desistiu: vitória de {winner}.",
+        "gm": "O Mestre deu a vitória a {winner}.",
+        "draw": "Empate.",
+        "cancel": "O duelo foi cancelado."
+      },
+      "Tier": {
+        "aspirant": "Aspirante",
+        "duelist": "Duelista",
+        "veteran": "Veterano",
+        "master": "Mestre de Duelos",
+        "legend": "Lenda da Arena"
+      },
+      "TierHint": {
+        "aspirant": "Abaixo de 960 pontos.",
+        "duelist": "De 960 a 1039 pontos (todo mundo começa com 1000).",
+        "veteran": "De 1040 a 1119 pontos.",
+        "master": "De 1120 a 1199 pontos.",
+        "legend": "1200 pontos ou mais."
+      },
+      "Card": {
+        "Begins": "O duelo começou!",
+        "Draw": "Empate",
+        "Won": "{name} venceu o duelo",
+        "Meta": "Rodadas: {rounds} · {time}",
+        "Fell": "{name} caiu e está Morrendo: o duelo acabou, mas o combate segue até o Mestre encerrar."
+      },
+      "UI": {
+        "Ok": "OK",
+        "ChallengeTitle": "Duelo",
+        "ChooseMode": "Escolha como você quer duelar com {name}.",
+        "Send": "Desafiar",
+        "Cancel": "Cancelar",
+        "WaitTitle": "Desafio enviado",
+        "Waiting": "Esperando {name} responder…",
+        "WaitingFor": "Quem responde: {names}",
+        "Withdraw": "Retirar",
+        "AskTitle": "Desafio de duelo",
+        "Asks": "{name} desafiou {target} para um duelo.",
+        "DeathWarning": "Até a morte: quem cair pode morrer de verdade.",
+        "Question": "Aceita?",
+        "Accept": "Aceitar",
+        "Decline": "Recusar",
+        "Closed": {
+          "declined": "{name} recusou o duelo.",
+          "expired": "{name} não respondeu a tempo.",
+          "cancelledAsked": "{name} retirou o desafio.",
+          "expiredAsked": "O tempo para responder acabou."
+        },
+        "Go": "Duelo!",
+        "Winner": "Vencedor",
+        "DrawEyebrow": "Empate",
+        "Rounds": "Rodadas: {n}",
+        "Points": "{delta} pontos ({rating})",
+        "CalledOff": "O duelo entre {a} e {b} foi cancelado.",
+        "Round": "Rodada {n}",
+        "Ready": "Prontos…",
+        "Resign": "Desistir",
+        "Decide": "Decidir",
+        "GiveTo": "Vitória de {name}",
+        "Draw": "Empate",
+        "CallOff": "Cancelar o duelo",
+        "ChallengeTo": "Desafiar para um duelo",
+        "SeeRanking": "Ver o ranking"
+      },
+      "Ago": {
+        "Now": "agora",
+        "Minutes": "há {n} min",
+        "Hours": "há {n} h",
+        "Days": "há {n} d"
+      },
+      "Arena": {
+        "Title": "Arena",
+        "Eyebrow": "Arena",
+        "Heading": "Ranking de Duelos",
+        "Lead": "Todo duelo que termina conta aqui. Vencer quem está acima vale mais; perder para quem está acima custa menos.",
+        "Fact": {
+          "Duels": "duelos",
+          "Duelists": "duelistas",
+          "Live": "agora"
+        },
+        "Champion": "Campeão da Arena",
+        "Record": "{wins} V · {losses} D",
+        "Points": "pontos",
+        "Col": {
+          "Duelist": "Duelista",
+          "Points": "Pontos",
+          "Record": "V–D",
+          "Form": "Últimos"
+        },
+        "StreakWins": "{n} vitórias seguidas",
+        "StreakLosses": "{n} derrotas seguidas",
+        "Form": {
+          "win": "Vitória",
+          "loss": "Derrota",
+          "draw": "Empate"
+        },
+        "DeathWins": "Duelos até a morte vencidos: {n}",
+        "EmptyTitle": "Nenhum duelo ainda",
+        "Empty": "Clique com o botão direito no token de outro personagem e escolha Desafiar, ou use a lista ao lado.",
+        "Live": "Acontecendo agora",
+        "Challenge": "Desafiar",
+        "You": "Você: {name}",
+        "NoOpponents": "Ninguém mais na cena para desafiar.",
+        "NoChallenger": "Selecione o seu personagem na cena para desafiar alguém.",
+        "Recent": {
+          "Title": "Duelos recentes",
+          "None": "Nenhum duelo ainda.",
+          "strike": "{winner} venceu {loser}",
+          "half": "{winner} venceu {loser}",
+          "fall": "{winner} derrubou {loser}",
+          "resign": "{loser} desistiu contra {winner}",
+          "gm": "{winner} venceu {loser}",
+          "draw": "{winner} e {loser} empataram"
+        },
+        "Void": "Anular este duelo (o ranking é refeito sem ele)",
+        "VoidTitle": "Anular duelo",
+        "VoidConfirm": "Anular o duelo entre {a} e {b}? O ranking é refeito sem ele.",
+        "Reset": "Zerar o ranking",
+        "ResetTitle": "Zerar o ranking",
+        "ResetConfirm": "Apagar os {n} duelos do histórico e zerar o ranking de todo mundo? Não dá para desfazer."
+      }
     }
   },
   "Cancel": "Cancelar"

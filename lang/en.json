@@ -1396,6 +1396,18 @@
         "all": "Every item",
         "sale": "Only what shops sell",
         "none": "Nothing (the button is hidden for them)"
+      },
+      "duels": {
+        "Name": "Duels between characters",
+        "Hint": "A character challenges another (right-click its token, or the Arena on the Duels button of the token controls) and picks the mode; accepted, the duel starts by itself and counts in the Arena's ranking."
+      },
+      "duelDeath": {
+        "Name": "Allow duels to the death",
+        "Hint": "Off, the To the Death mode is gone: only First Strike and Half Loss."
+      },
+      "duelCountdown": {
+        "Name": "Countdown before a duel (seconds)",
+        "Hint": "How long the countdown stays on everyone's screen before the duel's combat starts. 0 starts at once."
       }
     },
     "Use": {
@@ -1814,7 +1826,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.51</strong></p><ul><li><strong>The wave of overpowered Magias:</strong> thirteen Magias stronger than the others on purpose, each one with a rule no other has and a price to match: Selo do Ceifador (life sealed for good), Sangue de Ferro, Permeação, Olhar que Apaga, Retrocesso, Cobiça (the Yuld turns into damage), Impecável, Manto Devorador, Golias, Santo da Espada, Portador de Bênçãos, Aposta Mortal (the reels and the Jackpot) and Cataclismo. With them, eleven new conditions.</li><li><strong>The Absolute category:</strong> the strongest of all, with a single holder and a heavy Taboo. Whoever has one will never have another Magia: the slots of CR 5 and 10 close. The Sun is now Absolute.</li><li><strong>The holders:</strong> almost every Magia that isn't a Casting has a limit in the world (1, 2 or 3). Taken, it doesn't come out in the Awakening and can't be chosen; the window shows how many have it.</li><li><strong>Stronger:</strong> the Sun, the Black Arts, the Fairy Magic and the Counter hit harder and got heavy drawbacks.</li></ul><p><strong>And from 0.50</strong></p><ul><li><strong>The Awakening:</strong> your first Magia isn't chosen, it awakens. In the creation wizard you roll up to three times (a die with one face for each free Magia: all equally likely, the Ancestral and the Forbidden ones too) and keep one of what comes out. The rolls go to the chat, stay on the sheet and can't be redone, and the Magia of the Awakening never leaves the sheet. The GM chooses freely.</li><li><strong>Death is for good:</strong> whoever falls is [Dying: 2]. In the Cleanup of every round comes the Death Check: 2d6 above the Rating holds (and it goes up 1); the Rating or less kills. Before rolling, 1 Fate rolls 3d6; or choose the Last Act, one round on your feet unable to fall, and then death. Nobody comes back.</li><li><strong>The Market in pages:</strong> 50 items at a time, lighter on weak PCs.</li></ul>"
+      "Body": "<p><strong>What's new in Eternia 0.52</strong></p><ul><li><strong>Grimoire:</strong> the new button below the Market, on the token controls, shows every Magia of the world to read, with each one's spells. Your character's Magias carry a little gold book.</li><li><strong>Hall of Fame:</strong> the people the world talks about and why they are famous, with stars that say how far the fame goes. The GM chooses who goes in.</li><li><strong>Duels:</strong> right-click another character's token and challenge them to a duel of First Strike, Half Loss or To the Death. The other player has a minute to accept, everyone sees the countdown, and the table says who won. In the first two modes nobody falls; to the death, whoever falls may die for good.</li><li><strong>Arena:</strong> the Duels button opens the ranking: points, titles, wins and the Arena Champion. Beating someone above you is worth more.</li></ul><p>The Player's Guide has a new chapter, Duels and the Arena.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -4732,6 +4744,272 @@
       "Exclusive": "Absolute: whoever has it will have no other Magia (the other slots close).",
       "SlotClosed": "Closed",
       "SlotClosedHint": "{name} is Absolute: it takes every Magia slot."
+    },
+    "Grimoire": {
+      "Title": "Grimoire",
+      "Button": "Grimoire: every Magia",
+      "Eyebrow": "Grimoire",
+      "Heading": "Every Magia",
+      "Lead": "The {n} Magias of the world. Point at a Magia to read its page; a click on a spell opens its whole text.",
+      "OwnedTip": "A Magia of {name}",
+      "Mine": "{name}'s Magias: {names}.",
+      "Hint": "The spells come in the order of the CR they arrive at. The 1/1 on the cards says how many holders the Magia may have in the world.",
+      "Close": "Close"
+    },
+    "Hall": {
+      "Title": "Hall of Fame",
+      "Button": "Hall of Fame",
+      "Eyebrow": "Hall of Fame",
+      "Heading": "The names everyone knows",
+      "Lead": "Who people talk about in the taverns, the squares and the academies, and why.",
+      "LeadGM": "Who people talk about, and why. Drop a character here (from the sidebar or a compendium) or use Add; the eye hides a name from the players.",
+      "Search": "Search a name, an epithet or a deed",
+      "Add": "Add",
+      "AddDone": "Done",
+      "All": "All",
+      "HiddenNote": "{n} only for you",
+      "HiddenNoteHint": "Names with the eye closed: only the GM sees them.",
+      "Pinned": "Featured",
+      "HiddenHint": "Hidden: the players don't see this name",
+      "NoMatch": "No one with these filters.",
+      "EmptyTitle": "The Hall is still empty",
+      "Empty": "When a name goes from mouth to mouth, the GM puts it here.",
+      "EmptyGM": "Drop a character from the sidebar or a compendium on this window, or click Add.",
+      "AddTitle": "Who goes into the Hall",
+      "AddLead": "The world's characters not here yet (the players' last). From a compendium, drop it on the window.",
+      "AddSearch": "Search a character",
+      "PlayerHint": "A player's character",
+      "AddNone": "Every character of the world is in the Hall already.",
+      "WelcomeEyebrow": "Before reading",
+      "WelcomeTitle": "How the Hall works",
+      "WelcomeText": "Each plaque is someone the world talks about. Point at a plaque to read why that name is known; the stars say how far the fame goes.",
+      "RenownTitle": "The stars",
+      "WelcomeGM": "Click a plaque and then Edit to write the epithet, the field, the stars and the reason of the fame.",
+      "Editing": "Editing",
+      "Field": {
+        "Name": "Name",
+        "Epithet": "Epithet",
+        "EpithetHint": "E.g. the Sword of the North",
+        "Category": "Field",
+        "Renown": "Fame",
+        "Reason": "Why they are famous",
+        "ReasonHint": "What people tell about this name. A blank line splits the paragraphs."
+      },
+      "Cancel": "Cancel",
+      "Save": "Save",
+      "Why": "Why they are famous",
+      "NoReason": "The GM hasn't told why yet.",
+      "Edit": "Edit",
+      "Reveal": "Show to the players",
+      "Hide": "Hide from the players",
+      "Pin": "Feature",
+      "Unpin": "Stop featuring",
+      "OpenSheet": "Open the sheet",
+      "Remove": "Take out of the Hall",
+      "RemoveTitle": "Take out of the Hall of Fame",
+      "RemoveConfirm": "Take {name} out of the Hall of Fame? The sheet stays in the world.",
+      "Missing": "{name}'s sheet doesn't exist any more.",
+      "GMOnly": "Only the GM changes the Hall of Fame.",
+      "OnlyCharacters": "Only characters go into the Hall of Fame.",
+      "ContextAdd": "Put in the Hall of Fame",
+      "Added": "{name} is in the Hall of Fame.",
+      "Category": {
+        "arms": "Arms",
+        "magic": "Magic",
+        "crown": "Nobility",
+        "faith": "Faith",
+        "craft": "Crafts",
+        "arena": "Arena",
+        "lore": "Lore",
+        "infamy": "Infamy"
+      },
+      "CategoryHint": {
+        "arms": "Warriors, knights and swordsmen: famous for what they do with their weapons.",
+        "magic": "Mages and holders of rare Magias.",
+        "crown": "Kings, nobles and whoever rules.",
+        "faith": "The church, the saints and the miracles.",
+        "craft": "Smiths, merchants, artisans and masters of a craft.",
+        "arena": "Duelists and tournament champions.",
+        "lore": "Sages, teachers, scholars and explorers.",
+        "infamy": "Famous for the harm they did: bandits, traitors and the wanted."
+      },
+      "Renown": {
+        "1": "Known",
+        "2": "Respected",
+        "3": "Famous",
+        "4": "Celebrated",
+        "5": "Legendary"
+      },
+      "RenownHint": {
+        "1": "The name is known around the neighborhood.",
+        "2": "The whole city talks about the name.",
+        "3": "The name runs along the roads and the taverns.",
+        "4": "The bards sing and the nobles quote the name.",
+        "5": "A living legend: everyone knows the story."
+      }
+    },
+    "Duel": {
+      "Title": "Duel",
+      "Button": "Duels and ranking",
+      "Mode": {
+        "strike": "First Strike",
+        "half": "Half Loss",
+        "death": "To the Death"
+      },
+      "ModeRule": {
+        "strike": "Whoever loses HP first loses. Nobody falls: the HP stops at 1.",
+        "half": "Whoever is left with half the Max HP or less loses. Nobody falls: the HP stops at 1.",
+        "death": "Whoever falls loses. Who falls is Dying, as in any fight, and may die for good."
+      },
+      "Error": {
+        "Off": "Duels are off in this world.",
+        "Missing": "One of the two isn't on the scene any more.",
+        "Mode": "Pick a mode of duel.",
+        "NoDeath": "The GM doesn't allow duels to the death in this world.",
+        "Scene": "The two must be on the same scene.",
+        "Self": "Nobody duels themselves.",
+        "NotCharacter": "{name} isn't a character: only characters duel.",
+        "Busy": "{name} is in a duel or a challenge already.",
+        "Down": "{name} is down and can't duel.",
+        "Half": "{name} has half the HP or less already: heal before a duel of Half Loss.",
+        "SceneDuel": "There's a duel on this scene already. Wait for it to end.",
+        "SceneCombat": "A combat is going on on this scene: the duel waits for it to end.",
+        "NotYours": "That character isn't yours.",
+        "Away": "Whoever answers for {name} isn't at the table now.",
+        "Gone": "That challenge or duel is over already.",
+        "GMOnly": "Only the GM can do that.",
+        "Generic": "The challenge couldn't be sent.",
+        "NoChallenger": "Select your character on the scene (click its token) to challenge someone."
+      },
+      "Time": {
+        "Seconds": "{s}s",
+        "Minutes": "{m}min {s}s"
+      },
+      "Result": {
+        "strike": "{winner} struck first: {loser} lost.",
+        "half": "{winner} left {loser} with half the HP.",
+        "fall": "{winner} felled {loser}.",
+        "resign": "{loser} gave up: {winner} wins.",
+        "gm": "The GM gave the win to {winner}.",
+        "draw": "A draw.",
+        "cancel": "The duel was called off."
+      },
+      "Tier": {
+        "aspirant": "Aspirant",
+        "duelist": "Duelist",
+        "veteran": "Veteran",
+        "master": "Duel Master",
+        "legend": "Arena Legend"
+      },
+      "TierHint": {
+        "aspirant": "Below 960 points.",
+        "duelist": "From 960 to 1039 points (everyone starts at 1000).",
+        "veteran": "From 1040 to 1119 points.",
+        "master": "From 1120 to 1199 points.",
+        "legend": "1200 points or more."
+      },
+      "Card": {
+        "Begins": "The duel has begun!",
+        "Draw": "A draw",
+        "Won": "{name} won the duel",
+        "Meta": "Rounds: {rounds} · {time}",
+        "Fell": "{name} fell and is Dying: the duel is over, but the combat goes on until the GM ends it."
+      },
+      "UI": {
+        "Ok": "OK",
+        "ChallengeTitle": "Duel",
+        "ChooseMode": "Choose how you want to duel {name}.",
+        "Send": "Challenge",
+        "Cancel": "Cancel",
+        "WaitTitle": "Challenge sent",
+        "Waiting": "Waiting for {name} to answer…",
+        "WaitingFor": "Who answers: {names}",
+        "Withdraw": "Withdraw",
+        "AskTitle": "Duel challenge",
+        "Asks": "{name} challenged {target} to a duel.",
+        "DeathWarning": "To the death: whoever falls may die for good.",
+        "Question": "Accept?",
+        "Accept": "Accept",
+        "Decline": "Decline",
+        "Closed": {
+          "declined": "{name} declined the duel.",
+          "expired": "{name} didn't answer in time.",
+          "cancelledAsked": "{name} withdrew the challenge.",
+          "expiredAsked": "The time to answer is over."
+        },
+        "Go": "Duel!",
+        "Winner": "Winner",
+        "DrawEyebrow": "Draw",
+        "Rounds": "Rounds: {n}",
+        "Points": "{delta} points ({rating})",
+        "CalledOff": "The duel between {a} and {b} was called off.",
+        "Round": "Round {n}",
+        "Ready": "Ready…",
+        "Resign": "Give up",
+        "Decide": "Decide",
+        "GiveTo": "{name} wins",
+        "Draw": "Draw",
+        "CallOff": "Call the duel off",
+        "ChallengeTo": "Challenge to a duel",
+        "SeeRanking": "See the ranking"
+      },
+      "Ago": {
+        "Now": "now",
+        "Minutes": "{n} min ago",
+        "Hours": "{n} h ago",
+        "Days": "{n} d ago"
+      },
+      "Arena": {
+        "Title": "Arena",
+        "Eyebrow": "Arena",
+        "Heading": "Duel Ranking",
+        "Lead": "Every duel that ends counts here. Beating someone above you is worth more; losing to someone above you costs less.",
+        "Fact": {
+          "Duels": "duels",
+          "Duelists": "duelists",
+          "Live": "now"
+        },
+        "Champion": "Arena Champion",
+        "Record": "{wins} W · {losses} L",
+        "Points": "points",
+        "Col": {
+          "Duelist": "Duelist",
+          "Points": "Points",
+          "Record": "W–L",
+          "Form": "Latest"
+        },
+        "StreakWins": "{n} wins in a row",
+        "StreakLosses": "{n} losses in a row",
+        "Form": {
+          "win": "Win",
+          "loss": "Loss",
+          "draw": "Draw"
+        },
+        "DeathWins": "Duels to the death won: {n}",
+        "EmptyTitle": "No duel yet",
+        "Empty": "Right-click another character's token and pick Challenge, or use the list beside.",
+        "Live": "Going on now",
+        "Challenge": "Challenge",
+        "You": "You: {name}",
+        "NoOpponents": "Nobody else on the scene to challenge.",
+        "NoChallenger": "Select your character on the scene to challenge someone.",
+        "Recent": {
+          "Title": "Latest duels",
+          "None": "No duel yet.",
+          "strike": "{winner} beat {loser}",
+          "half": "{winner} beat {loser}",
+          "fall": "{winner} felled {loser}",
+          "resign": "{loser} gave up against {winner}",
+          "gm": "{winner} beat {loser}",
+          "draw": "{winner} and {loser} drew"
+        },
+        "Void": "Void this duel (the ranking is replayed without it)",
+        "VoidTitle": "Void duel",
+        "VoidConfirm": "Void the duel between {a} and {b}? The ranking is replayed without it.",
+        "Reset": "Reset the ranking",
+        "ResetTitle": "Reset the ranking",
+        "ResetConfirm": "Erase the {n} duels of the history and reset everyone's ranking? It can't be undone."
+      }
     }
   },
   "Cancel": "Cancel"

@@ -9,11 +9,12 @@
  *
  * Highest Hate among the characters still fighting = [Hate Top] (ties included); the others are
  * [Hate Under]. Incapacitated and Dead characters have neither, nor characters outside any combat, nor a ready NPC on
- * a hostile token (an enemy: helpers/utils.mjs isAdventurer).
+ * a hostile token (an enemy: helpers/utils.mjs isAdventurer), nor the two of a duel (duels/state.mjs: no party there).
  */
 import { SYSTEM_ID, setting } from "../settings.mjs";
 import { isPrimaryGM } from "../helpers/clients.mjs";
 import { combatActors, fightsIn, isAdventurer, toInt } from "../helpers/utils.mjs";
+import { isDuelCombat } from "../duels/state.mjs";
 
 const STATUSES = ["hateTop", "hateUnder"];
 
@@ -22,8 +23,8 @@ const pending = new Map();
 
 const active = () => setting("hatePerCombat") && isPrimaryGM();
 
-/** The started combats an actor fights in. */
-const combatsOf = actor => game.combats.filter(c => c.started && fightsIn(c, actor));
+/** The started combats an actor fights in (a duel has no party Hate). */
+const combatsOf = actor => game.combats.filter(c => c.started && !isDuelCombat(c) && fightsIn(c, actor));
 
 function schedule(combat) {
   if (!combat) return;
@@ -50,7 +51,7 @@ export async function setHateStatus(actor, wanted) {
 async function refresh(combat) {
   if (!game.combats.has(combat.id)) return;
   const characters = combatActors(combat).filter(a => a.type === "character");
-  if (!combat.started) {
+  if (!combat.started || isDuelCombat(combat)) {
     for (const actor of characters) if (!combatsOf(actor).length) await setHateStatus(actor, null);
     return;
   }

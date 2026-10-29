@@ -46,6 +46,7 @@ import { statusDefinition } from "./statuses.mjs";
 import { tagLabel as termTag } from "../i18n/terms.mjs";
 import { setting } from "../settings.mjs";
 import { isAdventurer } from "./utils.mjs";
+import { areDuelFoes, sparedNow } from "../duels/state.mjs";
 import { isPrimaryGM } from "./clients.mjs";
 import { parseSkillField } from "./skill-fields.mjs";
 import { useHitStatuses } from "../bestiary/minor.mjs";
@@ -1011,6 +1012,8 @@ async function applyDamage(actor, card, mode, dodgeFailed, target = null) {
     lines.push(game.i18n.format("ETERNIA.Reaper.Sealed", { name: actor.token?.name ?? actor.name, n: seal.added, total: seal.total }));
   }
   await actor.update(updates);
+  // In a duel where nobody falls the HP stopped at 1 (duels/duels.mjs): the blow didn't fell anyone
+  if (sparedNow(actor)) hp = toInt(actor.system.health?.value);
   if (after.end.length) await removeConditionStatuses(actor, after.end);
   // Effects that only stood in the way of this damage (an illusion taking the blow).
   const spent = consumedBy(actor, ["damage"]);
@@ -1268,7 +1271,9 @@ async function autoApplyDamage(id) {
       if (!actor) continue;
       // The blow hit this target (a dodge still to roll waits)
       if (attack && (attack.targets.find(t => t.tokenUuid ? (t.tokenUuid === target.tokenUuid) : (t.actorUuid === target.actorUuid))?.hit !== true)) continue;
-      if (enemiesOnly && isAdventurer(actor, target.tokenUuid ? fromUuidSync(target.tokenUuid) : null)) continue;
+      // The two of a duel are each other's enemies (duels/state.mjs)
+      if (enemiesOnly && isAdventurer(actor, target.tokenUuid ? fromUuidSync(target.tokenUuid) : null)
+        && !areDuelFoes(actor, card.attackerUuid ? fromUuidSync(card.attackerUuid) : null)) continue;
       if (!card.recovery && waitsToReact(actor, inspectUse)) continue;
       const result = await applyDamage(actor, card, mode, target.dodgeFailed, target);
       await _applyTargetPatch(game.messages.get(id), "damage", index, { applied: result, reached: lastReach });

@@ -1,0 +1,971 @@
+/* ==========================================================================
+   The duels (module/duels/): the rules of the floating castle's duels, in the look of Eternia. The boxes (the
+   challenge, the request, the waiting, the notes) are the system's message boxes: the green bar with a gold edge, warm
+   parchment, the two faces with the gold medallion of the crossed swords between them, the action in green (warm red
+   in a duel to the death) and Cancel in parchment. The countdown is a gold medallion over the scene, the duel bar and
+   the winner's card are parchment, the Arena is a parchment window like the Market's and the Hall of Fame's, and the
+   chat cards have the dark band of the system's cards.
+   ========================================================================== */
+
+#eternia-duels,
+.application.eternia-arena,
+.dl-card {
+  --dl-green: #1f5137;
+  --dl-green-dark: #173f2b;
+  --dl-green-deep: #0e2519;
+  --dl-green-light: #2d6a49;
+  --dl-gold: #c9a24a;
+  --dl-gold-light: #f2db94;
+  --dl-gold-dark: #8a6a25;
+  --dl-cream: #f8efd5;
+  --dl-paper: #fffaf0;
+  --dl-paper-dark: #f1e5c8;
+  --dl-line: #dacba8;
+  --dl-ink: #2b2116;
+  --dl-soft: #6b5c44;
+  --dl-red: #8c2f2f;
+  --dl-serif: "Eternia Eczar", "Eczar", Georgia, serif;
+  --dl-body: "Eternia Gelasio", "Gelasio", Georgia, serif;
+  --dl-sans: "Signika", "Roboto", sans-serif;
+  /* The frame of the system's boxes: a gold line, the dark green band, a faint gold line */
+  --dl-frame: 0 0 0 1px rgba(201, 162, 74, 0.6), 0 0 0 4px rgba(16, 41, 27, 0.92), 0 0 0 5px rgba(201, 162, 74, 0.35);
+  /* The ring of the portraits */
+  --dl-ring: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39, 0 4px 10px rgba(0, 0, 0, 0.32);
+}
+
+/* The layer over the interface: only what's in it takes the pointer */
+#eternia-duels {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  font-family: var(--dl-sans);
+}
+
+@keyframes dl-in {
+  from { opacity: 0; transform: translate(-50%, 10px) scale(0.97); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+@keyframes dl-out {
+  to { opacity: 0; transform: translate(-50%, -6px) scale(0.98); }
+}
+
+/* The gold medallion of the crossed swords (the boxes, the bar, the cards, the Arena) */
+#eternia-duels :is(.dl-vs, .dl-bar-vs),
+.dl-card .dl-card-vs,
+.eternia-arena .dl-arena-emblem {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, var(--dl-green-light), var(--dl-green-dark));
+  box-shadow: 0 0 0 2px var(--dl-gold), 0 0 0 3px var(--dl-green-deep), 0 3px 8px rgba(0, 0, 0, 0.35);
+  color: var(--dl-gold-light);
+}
+
+/* Boxes: the challenge, the waiting, the request and the notes
+   ------------------------------------------------------------------------ */
+#eternia-duels .dl-box {
+  position: absolute;
+  top: 15vh;
+  left: 50%;
+  width: min(470px, calc(100vw - 32px));
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: var(--dl-frame), 0 20px 48px rgba(8, 20, 13, 0.55);
+  color: var(--dl-ink);
+  pointer-events: auto;
+  transform: translateX(-50%);
+  animation: dl-in 0.22s ease-out;
+}
+#eternia-duels .dl-box.closing { animation: dl-out 0.2s ease forwards; }
+#eternia-duels .dl-box-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 14px;
+  border-bottom: 1px solid rgba(201, 162, 74, 0.7);
+  background: linear-gradient(135deg, #245a3e 0%, #163a28 55%, #0e2519 100%);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+  color: var(--dl-cream);
+  font: 600 15.5px/1.2 var(--dl-serif);
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+#eternia-duels .dl-box-head i { color: #e6c878; font-size: 14px; }
+#eternia-duels .dl-box.danger .dl-box-head { background: linear-gradient(135deg, #6e2428 0%, #44171a 55%, #241010 100%); }
+#eternia-duels .dl-box.danger .dl-box-head i { color: #f0b45c; }
+#eternia-duels .dl-box-body {
+  padding: 16px 20px 16px;
+  background:
+    radial-gradient(140% 80% at 50% 0%, rgba(255, 252, 242, 0.95) 0%, rgba(255, 252, 242, 0) 60%),
+    #f3eee2 url("../assets/sheet/parchment.webp") center / cover;
+  text-align: center;
+}
+#eternia-duels .dl-box-lead { margin: 12px 0 2px; color: var(--dl-ink); font: 500 15px/1.45 var(--dl-body); }
+#eternia-duels .dl-box-small { margin: 2px 0 0; color: var(--dl-soft); font: italic 13px/1.4 var(--dl-body); }
+#eternia-duels .dl-box-rule { margin: 4px 0 0; color: var(--dl-soft); font: italic 13.5px/1.45 var(--dl-body); }
+#eternia-duels .dl-box-question {
+  margin: 14px 0 0;
+  color: var(--dl-green-dark);
+  font: 600 19px/1.1 var(--dl-serif);
+}
+#eternia-duels :is(.dl-box-warning, .dl-box-error) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding: 7px 12px;
+  border: 1px solid rgba(140, 47, 47, 0.45);
+  border-radius: 6px;
+  background: rgba(140, 47, 47, 0.08);
+  color: #6d2222;
+  font: 600 13px/1.35 var(--dl-sans);
+}
+#eternia-duels .dl-box-error[hidden] { display: none; }
+#eternia-duels .dl-box-timer {
+  height: 4px;
+  margin: 14px 0 0;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgba(120, 100, 82, 0.2);
+  box-shadow: inset 0 1px 1px rgba(60, 40, 10, 0.15);
+}
+#eternia-duels .dl-box-timer span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--dl-gold-dark), var(--dl-gold), var(--dl-gold-light));
+}
+#eternia-duels .dl-box.danger .dl-box-timer span { background: linear-gradient(90deg, #6e2428, #a5483c); }
+
+/* The two faces, and the medallion between them */
+#eternia-duels .dl-versus {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+#eternia-duels .dl-face { display: grid; justify-items: center; gap: 8px; margin: 0; min-width: 0; }
+#eternia-duels .dl-face span {
+  display: block;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4);
+  box-shadow: var(--dl-ring);
+  overflow: hidden;
+}
+#eternia-duels .dl-face img { width: 100%; height: 100%; border: none; border-radius: 50%; object-fit: cover; }
+#eternia-duels .dl-face figcaption {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--dl-ink);
+  font: 600 16px/1.15 var(--dl-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#eternia-duels .dl-vs { width: 36px; height: 36px; font-size: 15px; }
+#eternia-duels .dl-box.danger .dl-vs { background: radial-gradient(circle at 50% 35%, #8a3036, #3a1214); }
+#eternia-duels .dl-mode-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 12px 0 0;
+  padding: 3px 12px;
+  border: 1px solid #c8b79a;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--dl-green-dark);
+  font: 700 10.5px/1.6 var(--dl-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+#eternia-duels .dl-mode-chip i { color: var(--dl-gold-dark); }
+#eternia-duels .dl-mode-chip.death { border-color: rgba(140, 47, 47, 0.5); color: #6d2222; }
+#eternia-duels .dl-mode-chip.death i { color: var(--dl-red); }
+
+/* The modes to pick: the rows of the system's lists */
+#eternia-duels .dl-modes { display: grid; gap: 6px; margin: 10px 0 0; text-align: left; }
+#eternia-duels .dl-mode {
+  display: grid;
+  grid-template-columns: auto 22px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1px solid var(--dl-line);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: border-color 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+}
+#eternia-duels .dl-mode:hover { border-color: #a99572; background: rgba(255, 255, 255, 0.8); }
+#eternia-duels .dl-mode:has(input:checked) {
+  border-color: var(--dl-green);
+  background: linear-gradient(90deg, rgba(31, 81, 55, 0.1), rgba(255, 255, 255, 0.75));
+  box-shadow: 0 0 0 1px var(--dl-green), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+#eternia-duels .dl-mode.death:has(input:checked) {
+  border-color: var(--dl-red);
+  background: linear-gradient(90deg, rgba(140, 47, 47, 0.1), rgba(255, 255, 255, 0.75));
+  box-shadow: 0 0 0 1px var(--dl-red), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+#eternia-duels .dl-mode.off { opacity: 0.5; cursor: not-allowed; }
+#eternia-duels .dl-mode input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  border: 2px solid #b8a57f;
+  border-radius: 50%;
+  background: #fffdf6;
+  box-shadow: none;
+}
+#eternia-duels .dl-mode input[type="radio"]::before,
+#eternia-duels .dl-mode input[type="radio"]::after { content: none; display: none; }
+#eternia-duels .dl-mode input[type="radio"]:checked { border-color: var(--dl-green); background: radial-gradient(circle, var(--dl-green) 0 38%, #fffdf6 44%); }
+#eternia-duels .dl-mode.death input[type="radio"]:checked { border-color: var(--dl-red); background: radial-gradient(circle, var(--dl-red) 0 38%, #fffdf6 44%); }
+#eternia-duels .dl-mode > i { color: var(--dl-gold-dark); font-size: 15px; text-align: center; }
+#eternia-duels .dl-mode.death > i { color: var(--dl-red); }
+#eternia-duels .dl-mode span { display: grid; gap: 2px; }
+#eternia-duels .dl-mode b { color: var(--dl-ink); font: 600 16px/1.15 var(--dl-serif); }
+#eternia-duels .dl-mode em { color: var(--dl-soft); font: italic 13px/1.35 var(--dl-body); }
+
+/* The buttons: equal width, the action green (warm red to the death), Cancel parchment */
+#eternia-duels .dl-box-foot {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed #cdbd99;
+}
+#eternia-duels .dl-btn {
+  display: inline-flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: auto;
+  min-height: 38px;
+  margin: 0;
+  padding: 6px 14px;
+  border: 1px solid var(--dl-green-dark);
+  border-radius: 6px;
+  background: linear-gradient(180deg, #2d6a49 0%, #1f5137 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 2px rgba(0, 0, 0, 0.25);
+  color: var(--dl-cream);
+  font: 600 12.5px/1.15 var(--dl-sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+#eternia-duels .dl-btn i { color: var(--dl-gold-light); font-size: 12px; }
+#eternia-duels .dl-btn.primary:hover { background: linear-gradient(180deg, #357a55 0%, #245c3f 100%); color: #fff; }
+#eternia-duels .dl-btn.ghost {
+  border-color: #c3b18d;
+  background: linear-gradient(180deg, #fffaf0 0%, #eee2c4 100%);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 2px rgba(0, 0, 0, 0.12);
+  color: #3b3022;
+}
+#eternia-duels .dl-btn.ghost i { color: var(--dl-soft); }
+#eternia-duels .dl-btn.ghost:hover { border-color: #9a7a2c; background: linear-gradient(180deg, #fffdf6 0%, #f3e9cf 100%); color: #1c1c1c; }
+#eternia-duels .dl-box.danger .dl-btn.primary { border-color: #5f201c; background: linear-gradient(180deg, #a5483c 0%, #7a2a23 100%); }
+#eternia-duels .dl-box.danger .dl-btn.primary:hover { background: linear-gradient(180deg, #b55244 0%, #883027 100%); }
+#eternia-duels .dl-btn:focus-visible { outline: 2px solid var(--dl-gold); outline-offset: 2px; }
+#eternia-duels .dl-btn:disabled { opacity: 0.55; cursor: progress; }
+
+/* The countdown: a gold medallion over the scene, then "Duel!"
+   ------------------------------------------------------------------------ */
+#eternia-duels .dl-count {
+  position: absolute;
+  top: 18vh;
+  left: 50%;
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  text-align: center;
+  transform: translateX(-50%);
+}
+#eternia-duels .dl-count-names {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 7px 20px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #245a3e 0%, #163a28 55%, #0e2519 100%);
+  box-shadow: var(--dl-frame), 0 10px 26px rgba(8, 20, 13, 0.45);
+  color: var(--dl-cream);
+  font: 600 19px/1.1 var(--dl-serif);
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+#eternia-duels .dl-count-names i { color: var(--dl-gold-light); font-size: 15px; }
+#eternia-duels .dl-count.death .dl-count-names { background: linear-gradient(135deg, #6e2428 0%, #44171a 55%, #241010 100%); }
+#eternia-duels .dl-count-ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, #2d6a49, #173f2b 55%, #0e2519);
+  box-shadow: 0 0 0 4px var(--dl-gold), 0 0 0 6px var(--dl-green-deep), 0 0 0 7px rgba(201, 162, 74, 0.5), 0 16px 34px rgba(8, 20, 13, 0.5);
+}
+#eternia-duels .dl-count.death .dl-count-ring { background: radial-gradient(circle at 50% 35%, #8a3036, #44171a 55%, #241010); }
+#eternia-duels .dl-count-ring svg { position: absolute; inset: 6px; width: calc(100% - 12px); height: calc(100% - 12px); overflow: visible; transform: rotate(-90deg); }
+#eternia-duels .dl-count-ring circle {
+  fill: none;
+  stroke: var(--dl-gold-light);
+  stroke-dasharray: 289;
+  stroke-linecap: round;
+  stroke-width: 3.5;
+  opacity: 0.9;
+}
+#eternia-duels .dl-count-n {
+  position: relative;
+  color: #f5e2a6;
+  font: 700 78px/1 var(--dl-serif);
+  text-shadow: 0 2px 0 var(--dl-green-deep), 0 0 16px rgba(201, 162, 74, 0.45);
+}
+#eternia-duels .dl-count.death .dl-count-n { text-shadow: 0 2px 0 #241010, 0 0 16px rgba(201, 162, 74, 0.4); }
+#eternia-duels .dl-count-mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 15px;
+  border: 1px solid #c8b79a;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fffaf0, #eee2c4);
+  box-shadow: 0 6px 16px rgba(8, 20, 13, 0.35);
+  color: var(--dl-green-dark);
+  font: 700 11px/1.3 var(--dl-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+#eternia-duels .dl-count-mode i { color: var(--dl-gold-dark); }
+#eternia-duels .dl-count.death .dl-count-mode { color: #6d2222; }
+#eternia-duels .dl-count.death .dl-count-mode i { color: var(--dl-red); }
+#eternia-duels .dl-go {
+  display: block;
+  color: var(--dl-gold-light);
+  font: 700 108px/1.1 var(--dl-serif);
+  letter-spacing: 0.02em;
+  text-shadow: 0 3px 0 var(--dl-green-deep), 0 0 2px var(--dl-green-deep), 0 0 22px rgba(201, 162, 74, 0.6);
+  -webkit-text-stroke: 1px var(--dl-gold-dark);
+}
+#eternia-duels .dl-count.death .dl-go { text-shadow: 0 3px 0 #241010, 0 0 2px #241010, 0 0 22px rgba(165, 72, 60, 0.6); }
+
+/* The winner's card
+   ------------------------------------------------------------------------ */
+#eternia-duels .dl-winner {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  min-width: 380px;
+  max-width: min(640px, calc(100vw - 40px));
+  padding: 38px 46px 20px;
+  border-radius: 10px;
+  background:
+    radial-gradient(140% 80% at 50% 0%, rgba(255, 252, 242, 0.96) 0%, rgba(255, 252, 242, 0) 65%),
+    #f3eee2 url("../assets/sheet/parchment.webp") center / cover;
+  box-shadow: var(--dl-frame), 0 26px 64px rgba(8, 20, 13, 0.55);
+  text-align: center;
+  pointer-events: auto;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+#eternia-duels .dl-winner-medal {
+  position: absolute;
+  top: -27px;
+  left: calc(50% - 27px);
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, var(--dl-green-light), var(--dl-green-dark));
+  box-shadow: 0 0 0 3px var(--dl-gold), 0 0 0 5px var(--dl-green-deep), 0 0 0 6px rgba(201, 162, 74, 0.5), 0 6px 14px rgba(0, 0, 0, 0.4);
+  color: var(--dl-gold-light);
+  font-size: 21px;
+}
+#eternia-duels .dl-winner.death .dl-winner-medal { background: radial-gradient(circle at 50% 35%, #8a3036, #3a1214); }
+#eternia-duels .dl-winner-eyebrow { color: var(--dl-gold-dark); font: 700 11px/1.2 var(--dl-sans); letter-spacing: 0.32em; text-transform: uppercase; }
+#eternia-duels .dl-winner-face {
+  display: block;
+  width: 84px;
+  height: 84px;
+  margin: 4px 0 2px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4);
+  box-shadow: var(--dl-ring);
+}
+#eternia-duels .dl-winner-face img { width: 100%; height: 100%; border: none; border-radius: 50%; object-fit: cover; }
+#eternia-duels .dl-winner-name { max-width: 100%; color: var(--dl-green-dark); font: 600 38px/1.1 var(--dl-serif); overflow-wrap: anywhere; }
+#eternia-duels .dl-winner-line { color: var(--dl-ink); font: italic 15px/1.4 var(--dl-body); }
+#eternia-duels .dl-winner-meta {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px dashed #cdbd99;
+  color: var(--dl-soft);
+  font: 600 11px/1.3 var(--dl-sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* The duel bar: the two duelists' HP at the top of the screen
+   ------------------------------------------------------------------------ */
+#eternia-duels .dl-bar {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 4px 14px;
+  width: min(620px, calc(100vw - 440px));
+  min-width: 420px;
+  padding: 9px 14px 8px;
+  border-radius: 8px;
+  background:
+    radial-gradient(140% 90% at 50% 0%, rgba(255, 252, 242, 0.95) 0%, rgba(255, 252, 242, 0) 70%),
+    #f3eee2 url("../assets/sheet/parchment.webp") center / cover;
+  box-shadow: var(--dl-frame), 0 10px 26px rgba(8, 20, 13, 0.45);
+  color: var(--dl-ink);
+  pointer-events: auto;
+  transform: translateX(-50%);
+}
+#eternia-duels .dl-bar-side { display: flex; align-items: center; gap: 10px; min-width: 0; }
+#eternia-duels .dl-bar-side.b { flex-direction: row-reverse; text-align: right; }
+#eternia-duels .dl-bar-face { display: block; flex: 0 0 auto; width: 42px; height: 42px; overflow: hidden; border-radius: 50%; background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4); box-shadow: var(--dl-ring); }
+#eternia-duels .dl-bar-face img { display: block; width: 100%; height: 100%; border: none; border-radius: 50%; object-fit: cover; }
+#eternia-duels .dl-bar-info { display: grid; flex: 1; gap: 3px; min-width: 0; }
+#eternia-duels .dl-bar-name { overflow: hidden; color: var(--dl-ink); font: 600 15px/1.15 var(--dl-serif); text-overflow: ellipsis; white-space: nowrap; }
+#eternia-duels .dl-bar-info small { color: var(--dl-soft); font: 600 11px/1 var(--dl-sans); }
+#eternia-duels .dl-hp {
+  position: relative;
+  display: flex;
+  height: 9px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: rgba(60, 45, 20, 0.18);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+#eternia-duels .dl-bar-side.b .dl-hp { justify-content: flex-end; }
+#eternia-duels .dl-hp i { display: block; height: 100%; transition: width 0.4s ease; }
+#eternia-duels .dl-hp.high i { background: linear-gradient(180deg, #4a9a68, var(--dl-green)); }
+#eternia-duels .dl-hp.mid i { background: linear-gradient(180deg, #e2bf5e, #a8822c); }
+#eternia-duels .dl-hp.low i { background: linear-gradient(180deg, #b5564a, #7a2a23); }
+#eternia-duels .dl-hp-mark {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 1px);
+  width: 2px;
+  background: var(--dl-green-deep);
+  box-shadow: 0 0 0 1px rgba(242, 219, 148, 0.8);
+}
+#eternia-duels .dl-bar-mid { display: grid; justify-items: center; gap: 3px; }
+#eternia-duels .dl-bar-vs { width: 26px; height: 26px; font-size: 11px; }
+#eternia-duels .dl-bar.death .dl-bar-vs { background: radial-gradient(circle at 50% 35%, #8a3036, #3a1214); }
+#eternia-duels .dl-bar-mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--dl-green-dark);
+  font: 700 9.5px/1 var(--dl-sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+#eternia-duels .dl-bar-mode i { color: var(--dl-gold-dark); }
+#eternia-duels .dl-bar.death .dl-bar-mode { color: #6d2222; }
+#eternia-duels .dl-bar-round { color: var(--dl-soft); font: italic 12px/1 var(--dl-body); white-space: nowrap; }
+#eternia-duels .dl-bar-actions {
+  position: relative;
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: center;
+  gap: 8px;
+  padding-top: 6px;
+  border-top: 1px dashed #cdbd99;
+}
+#eternia-duels .dl-bar-actions > button,
+#eternia-duels .dl-bar-menu button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  height: 26px;
+  margin: 0;
+  padding: 0 12px;
+  border: 1px solid #c3b18d;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #fffaf0 0%, #eee2c4 100%);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 2px rgba(0, 0, 0, 0.12);
+  color: #3b3022;
+  font: 600 11.5px/1 var(--dl-sans);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+#eternia-duels .dl-bar-actions > button i { color: var(--dl-gold-dark); }
+#eternia-duels .dl-bar-actions > button:hover { border-color: #9a7a2c; color: #1c1c1c; }
+#eternia-duels .dl-bar-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  display: grid;
+  gap: 4px;
+  min-width: 210px;
+  padding: 6px;
+  border-radius: 7px;
+  background: #f3eee2 url("../assets/sheet/parchment.webp") center / cover;
+  box-shadow: var(--dl-frame), 0 12px 28px rgba(8, 20, 13, 0.45);
+  transform: translateX(-50%);
+}
+#eternia-duels .dl-bar-menu[hidden] { display: none; }
+#eternia-duels .dl-bar-menu button { justify-content: flex-start; width: 100%; height: 30px; }
+#eternia-duels .dl-bar-menu button:hover { border-color: var(--dl-green); background: linear-gradient(180deg, #fff, #e9f0e6); }
+#eternia-duels .dl-bar-menu button.danger:hover { border-color: var(--dl-red); color: var(--dl-red); background: linear-gradient(180deg, #fffaf0, #f6e2dc); }
+
+/* The bubble by someone else's character
+   ------------------------------------------------------------------------ */
+#eternia-duels .dl-bubble {
+  position: absolute;
+  display: grid;
+  min-width: 210px;
+  border-radius: 7px;
+  background: #f3eee2 url("../assets/sheet/parchment.webp") center / cover;
+  box-shadow: var(--dl-frame), 0 14px 32px rgba(8, 20, 13, 0.45);
+  pointer-events: auto;
+  transform: translate(-50%, calc(-100% - 14px));
+  animation: dl-bubble 0.16s ease-out;
+}
+@keyframes dl-bubble {
+  from { opacity: 0; transform: translate(-50%, calc(-100% - 6px)); }
+  to { opacity: 1; transform: translate(-50%, calc(-100% - 14px)); }
+}
+#eternia-duels .dl-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: calc(50% - 6px);
+  width: 12px;
+  height: 12px;
+  background: #ece3cd;
+  box-shadow: 1px 1px 0 rgba(201, 162, 74, 0.6), 3px 3px 0 rgba(16, 41, 27, 0.92);
+  transform: rotate(45deg);
+}
+#eternia-duels .dl-bubble header {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px;
+  border-bottom: 1px solid rgba(201, 162, 74, 0.7);
+  border-radius: 7px 7px 0 0;
+  background: linear-gradient(135deg, #245a3e 0%, #163a28 55%, #0e2519 100%);
+  color: var(--dl-cream);
+  font: 600 14.5px/1.2 var(--dl-serif);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+#eternia-duels .dl-bubble header img { width: 28px; height: 28px; border: none; border-radius: 50%; background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4); box-shadow: 0 0 0 1px var(--dl-gold); object-fit: cover; }
+#eternia-duels .dl-bubble button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  height: 34px;
+  margin: 0;
+  padding: 0 12px;
+  border: none;
+  border-bottom: 1px solid rgba(186, 169, 145, 0.45);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--dl-ink);
+  font: 600 13px/1 var(--dl-sans);
+  text-align: left;
+  cursor: pointer;
+}
+#eternia-duels .dl-bubble button:last-child { border-bottom: none; border-radius: 0 0 7px 7px; }
+#eternia-duels .dl-bubble button i { width: 16px; color: var(--dl-gold-dark); text-align: center; }
+#eternia-duels .dl-bubble button:hover { background: rgba(31, 81, 55, 0.1); color: var(--dl-green-dark); }
+#eternia-duels .dl-bubble button:hover i { color: var(--dl-green); }
+
+/* The Arena: a parchment window like the Market's
+   ------------------------------------------------------------------------ */
+.application.eternia-arena {
+  min-width: 860px;
+  min-height: 520px;
+}
+.application.eternia-arena .window-content {
+  padding: 0;
+  overflow: hidden;
+}
+.eternia-arena .dl-arena { display: grid; grid-template-rows: auto minmax(0, 1fr); height: 100%; min-height: 0; }
+.eternia-arena .dl-arena-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 13px 20px 11px;
+  border-bottom: 1px solid rgba(186, 169, 145, 0.7);
+  background:
+    radial-gradient(120% 180% at 0% 0%, rgba(31, 81, 55, 0.15), transparent 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+}
+.eternia-arena .dl-arena-emblem {
+  width: 54px;
+  height: 54px;
+  box-shadow: 0 0 0 3px var(--dl-gold), 0 0 0 5px var(--dl-green-deep), 0 0 0 6px rgba(201, 162, 74, 0.45), 0 3px 10px rgba(0, 0, 0, 0.3);
+  font-size: 21px;
+}
+.eternia-arena .dl-arena-title { flex: 1; min-width: 0; }
+.eternia-arena .dl-eyebrow { display: block; color: var(--dl-gold-dark); font: 700 10px/1.3 var(--dl-sans); letter-spacing: 0.22em; text-transform: uppercase; }
+.eternia-arena .dl-arena-title h2 { margin: 1px 0 2px; border: none; color: var(--pf-primary-dark, #173f2b); font: 600 26px/1.1 var(--dl-serif); }
+.eternia-arena .dl-arena-title p { margin: 0; color: var(--pf-text-soft, #59554b); font: italic 13px/1.4 var(--dl-body); }
+.eternia-arena .dl-facts { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.eternia-arena .dl-facts li {
+  display: grid;
+  justify-items: center;
+  min-width: 80px;
+  padding: 6px 12px;
+  border: 1px solid #cdbb98;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+}
+.eternia-arena .dl-facts b { color: var(--dl-green-dark); font: 600 19px/1.1 var(--dl-serif); }
+.eternia-arena .dl-facts small { color: var(--dl-soft); font: 600 9px/1.3 var(--dl-sans); letter-spacing: 0.12em; text-transform: uppercase; }
+.eternia-arena .dl-facts li.live { border-color: var(--dl-green); background: rgba(31, 81, 55, 0.08); }
+
+.eternia-arena .dl-arena-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(280px, 32%, 360px);
+  gap: 16px;
+  min-height: 0;
+  padding: 12px 14px 14px 20px;
+}
+.eternia-arena .dl-board { display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+.eternia-arena .dl-champion {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 18px;
+  border: 1px solid rgba(201, 162, 74, 0.7);
+  border-radius: 10px;
+  background:
+    radial-gradient(90% 140% at 0% 50%, rgba(201, 162, 74, 0.22), transparent 70%),
+    linear-gradient(180deg, #fffaf0, #f1e5c8);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 2px 8px rgba(60, 40, 10, 0.14);
+}
+.eternia-arena .dl-champion-face { position: relative; display: block; width: 66px; height: 66px; }
+.eternia-arena .dl-champion-face img {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4);
+  box-shadow: 0 0 0 1px var(--dl-gold-dark), 0 0 0 3px rgba(255, 250, 235, 0.95), 0 0 0 4px var(--dl-gold), 0 4px 10px rgba(0, 0, 0, 0.28);
+  object-fit: cover;
+}
+.eternia-arena .dl-champion-face i {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  color: var(--dl-gold);
+  font-size: 18px;
+  filter: drop-shadow(0 1px 1px rgba(60, 40, 10, 0.5));
+  transform: translateX(-50%) rotate(-8deg);
+}
+.eternia-arena .dl-champion-text { display: grid; gap: 2px; min-width: 0; }
+.eternia-arena .dl-champion-text strong { overflow: hidden; color: var(--dl-green-dark); font: 600 24px/1.15 var(--dl-serif); text-overflow: ellipsis; white-space: nowrap; }
+.eternia-arena .dl-champion-text > span:last-child { color: var(--dl-soft); font: italic 13px/1.3 var(--dl-body); }
+.eternia-arena .dl-champion-points { display: grid; justify-items: end; }
+.eternia-arena .dl-champion-points b { color: var(--dl-gold-dark); font: 700 32px/1 var(--dl-serif); }
+.eternia-arena .dl-champion-points small { color: var(--dl-soft); font: 600 9.5px/1.4 var(--dl-sans); letter-spacing: 0.14em; text-transform: uppercase; }
+
+.eternia-arena .dl-row {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 76px 150px 86px;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
+}
+.eternia-arena .dl-row-head {
+  padding-top: 2px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(186, 169, 145, 0.7);
+  color: var(--dl-soft);
+  font: 700 10px/1 var(--dl-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.eternia-arena .dl-table {
+  display: grid;
+  grid-auto-rows: max-content;
+  gap: 5px;
+  min-height: 0;
+  margin: 0;
+  padding: 2px 4px 6px 0;
+  overflow-y: auto;
+  list-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-alt, #786452) transparent;
+}
+.eternia-arena .dl-table .dl-row {
+  border: 1px solid #cdbb98;
+  border-radius: 9px;
+  background: linear-gradient(180deg, var(--dl-paper), var(--dl-paper-dark));
+  box-shadow: 0 1px 2px rgba(60, 40, 10, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+.eternia-arena .dl-table .dl-row.mine { border-color: var(--dl-green); box-shadow: 0 0 0 1px var(--dl-green), 0 1px 2px rgba(60, 40, 10, 0.12); }
+.eternia-arena .dl-rank { display: flex; align-items: center; gap: 6px; color: var(--dl-soft); font: 600 17px/1 var(--dl-serif); }
+.eternia-arena .dl-rank i { font-size: 15px; }
+.eternia-arena .medal-1 .dl-rank i { color: #c99a2e; }
+.eternia-arena .medal-2 .dl-rank i { color: #9da2ac; }
+.eternia-arena .medal-3 .dl-rank i { color: #b0703f; }
+.eternia-arena .medal-1 .dl-rank b { color: var(--dl-gold-dark); }
+.eternia-arena .dl-who { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.eternia-arena .dl-who img {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4);
+  box-shadow: 0 0 0 1px var(--dl-gold-dark), 0 0 0 2px rgba(255, 250, 235, 0.9), 0 0 0 3px var(--dl-gold);
+  object-fit: cover;
+}
+.eternia-arena .dl-who > span { display: grid; min-width: 0; }
+.eternia-arena .dl-who b { overflow: hidden; color: var(--dl-ink); font: 600 15.5px/1.2 var(--dl-serif); text-overflow: ellipsis; white-space: nowrap; }
+.eternia-arena .dl-who em { color: var(--dl-gold-dark); font: italic 12px/1.25 var(--dl-body); }
+.eternia-arena .dl-points b { color: var(--dl-green-dark); font: 600 20px/1 var(--dl-serif); }
+.eternia-arena .dl-record { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 3px; color: var(--dl-soft); font: 600 13px/1.2 var(--dl-sans); }
+.eternia-arena .dl-record b { color: var(--dl-ink); }
+.eternia-arena .dl-record small { margin-left: 5px; color: var(--dl-soft); font-size: 11px; }
+.eternia-arena .dl-record em { flex-basis: 100%; color: var(--dl-soft); font: italic 11.5px/1.25 var(--dl-body); }
+.eternia-arena .dl-record em.hot { color: #a5483c; font-weight: 600; }
+.eternia-arena .dl-form { display: flex; gap: 4px; }
+.eternia-arena .dl-dot { display: block; width: 11px; height: 11px; border-radius: 50%; background: #d8cdb4; box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.18); }
+.eternia-arena .dl-dot.win { background: var(--dl-green-light); }
+.eternia-arena .dl-dot.loss { background: var(--dl-red); }
+.eternia-arena .dl-dot.draw { background: var(--dl-gold); }
+.eternia-arena .tier-legend { color: #a37a14; font-weight: 600; }
+.eternia-arena .tier-master { color: var(--dl-green); font-weight: 600; }
+.eternia-arena .dl-board-empty {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 46px 20px;
+  color: var(--dl-soft);
+  font: italic 14px/1.45 var(--dl-body);
+  text-align: center;
+}
+.eternia-arena .dl-board-empty i { color: var(--dl-gold); font-size: 30px; }
+.eternia-arena .dl-board-empty strong { color: var(--dl-green-dark); font: 600 20px/1.2 var(--dl-serif); font-style: normal; }
+.eternia-arena .dl-board-empty span { max-width: 430px; }
+.eternia-arena .dl-tiers { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 7px 0 0; border-top: 1px solid rgba(186, 169, 145, 0.7); list-style: none; }
+.eternia-arena .dl-tiers li {
+  padding: 3px 10px;
+  border: 1px solid #cdbb98;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--dl-soft);
+  font: 600 11px/1.3 var(--dl-sans);
+  cursor: help;
+}
+
+.eternia-arena .dl-side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  padding: 2px 4px 2px 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-alt, #786452) transparent;
+}
+.eternia-arena .dl-side section {
+  padding: 11px 13px 12px;
+  border: 1px solid #cdbb98;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fffdf6, var(--dl-paper-dark));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 1px 3px rgba(60, 40, 10, 0.12);
+}
+.eternia-arena .dl-side h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  padding: 0 0 4px;
+  border: none;
+  border-bottom: 1px solid rgba(186, 169, 145, 0.7);
+  color: var(--pf-alt-dark, #443730);
+  font: 700 10.5px/1.3 var(--dl-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.eternia-arena .dl-side h3 i { color: var(--dl-gold-dark); }
+.eternia-arena .dl-live h3 i { color: var(--dl-red); font-size: 8px; animation: dl-pulse 1.4s ease-in-out infinite; }
+@keyframes dl-pulse { 50% { opacity: 0.25; } }
+.eternia-arena .dl-side ol { display: grid; gap: 5px; margin: 0; padding: 0; list-style: none; }
+.eternia-arena .dl-live li { display: flex; align-items: center; gap: 9px; color: var(--dl-ink); font: 14px/1.3 var(--dl-serif); }
+.eternia-arena .dl-live li > i { color: var(--dl-gold-dark); }
+.eternia-arena .dl-live li span { display: grid; }
+.eternia-arena .dl-live small { color: var(--dl-soft); font: italic 12px/1.3 var(--dl-body); }
+.eternia-arena .dl-you { display: flex; align-items: center; gap: 9px; margin: 0 0 8px; color: var(--dl-ink); font: 600 14px/1.25 var(--dl-serif); }
+.eternia-arena .dl-you img { width: 34px; height: 34px; border: none; border-radius: 50%; background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4); box-shadow: 0 0 0 2px var(--dl-green); object-fit: cover; }
+.eternia-arena .dl-you span { display: grid; }
+.eternia-arena .dl-you small { color: var(--dl-soft); font: 600 11px/1.2 var(--dl-sans); }
+.eternia-arena .dl-opponents button {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 5px 10px 5px 5px;
+  border: 1px solid #cdbb98;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: none;
+  color: var(--dl-ink);
+  text-align: left;
+  cursor: pointer;
+}
+.eternia-arena .dl-opponents button:hover { border-color: var(--pf-primary-light, #2b6747); background: #fff; }
+.eternia-arena .dl-opponents img { width: 34px; height: 34px; border: none; border-radius: 50%; background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4); box-shadow: 0 0 0 1px var(--dl-gold-dark); object-fit: cover; }
+.eternia-arena .dl-opponents span { display: grid; min-width: 0; }
+.eternia-arena .dl-opponents b { overflow: hidden; font: 600 14px/1.2 var(--dl-serif); text-overflow: ellipsis; white-space: nowrap; }
+.eternia-arena .dl-opponents small { color: var(--dl-soft); font: 600 11px/1.25 var(--dl-sans); }
+.eternia-arena .dl-opponents button > i { color: var(--dl-green); font-size: 13px; }
+.eternia-arena .dl-recent li {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 2px;
+  border-bottom: 1px dashed rgba(186, 169, 145, 0.6);
+}
+.eternia-arena .dl-recent li:last-child { border-bottom: none; }
+.eternia-arena .dl-recent img { width: 30px; height: 30px; border: none; border-radius: 50%; background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4); box-shadow: 0 0 0 1px var(--dl-gold-dark); object-fit: cover; }
+.eternia-arena .dl-recent span { display: grid; min-width: 0; }
+.eternia-arena .dl-recent b { color: var(--dl-ink); font: 600 13.5px/1.25 var(--dl-serif); }
+.eternia-arena .dl-recent small { display: flex; align-items: center; gap: 5px; color: var(--dl-soft); font: italic 11.5px/1.3 var(--dl-body); }
+.eternia-arena .dl-recent small i { color: var(--dl-gold-dark); font-style: normal; }
+.eternia-arena .dl-recent li.death small i { color: var(--dl-red); }
+.eternia-arena .dl-recent em { color: var(--dl-green); font: 700 13px/1 var(--dl-sans); font-style: normal; }
+.eternia-arena .dl-void {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+  color: #b8a57f;
+  cursor: pointer;
+}
+.eternia-arena .dl-void:hover { background: rgba(140, 47, 47, 0.1); color: var(--dl-red); }
+.eternia-arena .dl-side-none { color: var(--dl-soft); font: italic 13px/1.45 var(--dl-body); }
+.eternia-arena .dl-gm { display: flex; justify-content: flex-end; margin-top: auto; }
+.eternia-arena .dl-gm button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  width: auto;
+  height: 32px;
+  margin: 0;
+  padding: 0 14px;
+  border: 1px solid #c3b18d;
+  border-radius: 7px;
+  background: linear-gradient(180deg, #fffaf0 0%, #eee2c4 100%);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 2px rgba(0, 0, 0, 0.12);
+  color: #3b3022;
+  font: 600 12.5px/1 var(--dl-sans);
+  cursor: pointer;
+}
+.eternia-arena .dl-gm button.danger:hover { border-color: var(--dl-red); color: var(--dl-red); }
+
+/* The chat cards: the dark band of the system's cards (green; warm red to the death), parchment below
+   ------------------------------------------------------------------------ */
+.chat-message .dl-card.chat-card {
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid var(--dl-green-dark);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--dl-paper), var(--dl-paper-dark));
+  color: var(--dl-ink);
+}
+.chat-message .dl-card.chat-card.death { border-color: #6b2a2a; }
+.chat-message .dl-card .dl-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: linear-gradient(120deg, #245a3e, #0e2519);
+  color: var(--dl-cream);
+}
+.chat-message .dl-card.death .dl-card-head { background: linear-gradient(120deg, #5a1a1e, #241010); }
+.chat-message .dl-card .dl-card-icon {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, var(--dl-green-light), var(--dl-green-dark));
+  box-shadow: 0 0 0 2px var(--dl-gold), 0 0 0 3px var(--dl-green-deep);
+  color: var(--dl-gold-light);
+  font-size: 13px;
+}
+.chat-message .dl-card.death .dl-card-icon { background: radial-gradient(circle at 50% 35%, #8a3036, #3a1214); }
+.chat-message .dl-card .dl-card-eyebrow { display: block; color: #e6c878; font: 700 9px/1.2 var(--dl-sans); letter-spacing: 0.16em; text-transform: uppercase; }
+.chat-message .dl-card .dl-card-head h3 { margin: 1px 0 0; border: none; color: var(--dl-cream); font: 600 17px/1.15 var(--dl-serif); }
+.chat-message .dl-card .dl-card-versus {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 6px;
+  padding: 10px 10px 2px;
+}
+.chat-message .dl-card .dl-card-side { display: grid; justify-items: center; gap: 4px; margin: 0; min-width: 0; }
+.chat-message .dl-card .dl-card-side img {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4);
+  box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39;
+  object-fit: cover;
+}
+.chat-message .dl-card .dl-card-side.won img { box-shadow: 0 0 0 1px var(--dl-gold-dark), 0 0 0 3px var(--dl-gold-light), 0 0 0 4px var(--dl-gold), 0 0 10px rgba(201, 162, 74, 0.6); }
+.chat-message .dl-card .dl-card-side.lost img { filter: grayscale(0.6); opacity: 0.8; }
+.chat-message .dl-card .dl-card-side figcaption { max-width: 100%; overflow: hidden; font: 600 13.5px/1.2 var(--dl-serif); text-overflow: ellipsis; white-space: nowrap; }
+.chat-message .dl-card .dl-card-vs { width: 26px; height: 26px; font-size: 11px; }
+.chat-message .dl-card.death .dl-card-vs { background: radial-gradient(circle at 50% 35%, #8a3036, #3a1214); }
+.chat-message .dl-card .dl-card-delta { padding: 1px 7px; border-radius: 9px; background: rgba(140, 47, 47, 0.1); color: #7a2a23; font: 700 10.5px/1.5 var(--dl-sans); }
+.chat-message .dl-card .dl-card-delta.up { background: rgba(31, 81, 55, 0.12); color: var(--dl-green); }
+.chat-message .dl-card :is(.dl-card-rule, .dl-card-line, .dl-card-meta, .dl-card-fall) { margin: 0; padding: 6px 10px 0; }
+.chat-message .dl-card .dl-card-rule { padding-bottom: 9px; color: var(--dl-soft); font: italic 12.5px/1.4 var(--dl-body); text-align: center; }
+.chat-message .dl-card .dl-card-line { color: var(--dl-ink); font: 600 13px/1.4 var(--dl-sans); text-align: center; }
+.chat-message .dl-card .dl-card-meta { display: flex; align-items: center; justify-content: center; gap: 6px; padding-bottom: 9px; color: var(--dl-soft); font: 600 11px/1.3 var(--dl-sans); }
+.chat-message .dl-card .dl-card-meta i { color: var(--dl-gold-dark); }
+.chat-message .dl-card .dl-card-fall { display: flex; gap: 7px; margin: 0 10px 10px; padding: 6px 9px; border-radius: 6px; background: rgba(140, 47, 47, 0.09); color: #6d2222; font: 600 12px/1.4 var(--dl-sans); }
+
+@media (prefers-reduced-motion: reduce) {
+  #eternia-duels .dl-box,
+  #eternia-duels .dl-bubble { animation: none; }
+  #eternia-duels .dl-hp i { transition: none; }
+}

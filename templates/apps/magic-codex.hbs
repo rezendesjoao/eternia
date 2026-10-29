@@ -1,0 +1,24 @@
+{{!-- The Grimório (module/apps/magic-codex.mjs): every Magia of the world to read, in the Magia browser of the picker
+     (filters, cards and the page of the Magia under the pointer), with nothing to choose. --}}
+<div class="mp-body codex">
+
+	<header class="mp-head">
+		<span class="mp-emblem"><i class="fa-solid fa-book-open"></i></span>
+		<div class="mp-head-text">
+			<span class="mp-eyebrow">{{localize "ETERNIA.Grimoire.Eyebrow"}}</span>
+			<h2>{{localize "ETERNIA.Grimoire.Heading"}}</h2>
+			<p>{{lead}}</p>
+		</div>
+		<label class="mp-search">
+			<i class="fa-solid fa-magnifying-glass"></i>
+			<input type="search" placeholder="{{localize 'ETERNIA.MagicPicker.Search'}}" autocomplete="off" spellcheck="false">
+		</label>
+	</header>
+
+	{{> "systems/eternia/templates/apps/magic-browser.hbs"}}
+
+	<footer class="mp-foot">
+		<span class="mp-foot-note">{{#if mine}}<i class="fa-solid fa-book"></i>{{localize "ETERNIA.Grimoire.Mine" name=reader names=mine}}{{else}}<i class="fa-solid fa-circle-info"></i>{{localize "ETERNIA.Grimoire.Hint"}}{{/if}}</span>
+		<button type="button" class="mp-skip" data-action="close"><i class="fa-solid fa-xmark"></i>{{localize "ETERNIA.Grimoire.Close"}}</button>
+	</footer>
+</div>

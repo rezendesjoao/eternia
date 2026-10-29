@@ -5,9 +5,20 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.51.0
+## Versão 0.52.0
 
-- **Novo na 0.51.0: as Magias apelonas.** Treze Magias mais fortes que as outras de propósito, cada uma com uma regra
+- **Novo na 0.52.0: o Grimório, o Hall da Fama e os duelos.** Três botões novos na barra dos tokens, logo abaixo do
+  Mercado. O **Grimório** abre a lista inteira das Magias do mundo para qualquer um ler (os feitiços por NP, o Traço, o
+  Tabu e quantos portadores cada uma pode ter; as do personagem levam um livrinho dourado). O **Hall da Fama** mostra as
+  pessoas de quem o mundo fala e por quê: o Mestre põe um personagem lá (arrastando, pelo menu da lista de atores ou com
+  Adicionar), escreve a alcunha, o campo, as estrelas da fama e o motivo, e pode deixar um nome oculto até a hora certa.
+  Os **duelos** seguem as regras dos duelos de Aincrad: um personagem desafia outro (botão direito no token dele, ou a
+  Arena), escolhe o modo (**Primeiro Golpe**, **Metade da Vida** ou **Até a Morte**), o jogador do outro tem um minuto
+  para aceitar, todos veem a contagem e o combate do duelo começa sozinho; a mesa percebe quando acaba (nos dois
+  primeiros modos ninguém cai: os PV param em 1), mostra o vencedor na tela de todos e leva o resultado ao ranking da
+  **Arena** (o botão Duelos), com pontos, títulos e o Campeão. Tudo no visual da Eternia (veja [O Grimório](#o-grimório),
+  [O Hall da Fama](#o-hall-da-fama) e [Os duelos e a Arena](#os-duelos-e-a-arena)).
+- **Desde a 0.51.0: as Magias apelonas.** Treze Magias mais fortes que as outras de propósito, cada uma com uma regra
   que nenhuma outra tem e um preço do tamanho dela: o **Selo do Ceifador** (a vida máxima selada para sempre, inclusive
   a dos jogadores, e a morte de quem usa o supremo), o **Sangue de Ferro** (cada passo corta), a **Permeação** (nada
   chega, e cada golpe que passa vira força), o **Olhar que Apaga** (sem a faixa, ninguém em volta faz magia; com ela,
@@ -488,7 +499,7 @@ converter itens mostram o item ou o personagem.
 
 ## O Mercado e as lojas
 
-O botão **Mercado** (a lojinha, o último da barra dos tokens) abre uma janela grande, no visual do assistente de criação,
+O botão **Mercado** (a lojinha, na barra dos tokens, logo acima do Grimório) abre uma janela grande, no visual do assistente de criação,
 com **todos os itens** dos compêndios do sistema e do mundo e os itens do próprio mundo: cada um com o ícone, o grau, o
 que dá (Ataque, Defesas, Precisão…), o começo da descrição, o Nível e o preço. Clicar num item abre a página dele ao
 lado: a descrição inteira, as tags com a regra de cada uma e de onde ele vem.
@@ -516,6 +527,56 @@ lado: a descrição inteira, as tags com a regra de cada uma e de onde ele vem.
   Configurar (a ficha da loja, com o resto: o alcance, o Yuld, a revenda). Itens arrastados para a janela (do Mercado,
   de um compêndio ou da barra lateral) entram na loja. Um mercador feito antes (as pilhas) abre do mesmo jeito, e a
   ficha dele ganhou o botão "Abrir a loja".
+
+## O Grimório
+
+O botão **Grimório** (o livro aberto, logo abaixo do Mercado na barra dos tokens) abre a mesma janela grande da escolha
+de Magia, sem nada para escolher: um cartão por Magia do mundo, com os filtros por categoria e função e a busca (Magia
+ou feitiço, sem precisar de acento). O ponteiro sobre um cartão mostra a página da Magia ao lado (a frase, o Traço, o
+Tabu e os feitiços por NP; um clique num feitiço abre o texto inteiro dele). O "1/1" dos cartões diz quantos portadores
+a Magia pode ter no mundo e quem já a tem; as Magias do personagem selecionado (ou do personagem do jogador) levam um
+livrinho dourado, e os feitiços que ele já alcança no NP dele ficam marcados. Os jogadores e o Mestre veem o mesmo.
+
+## O Hall da Fama
+
+O botão **Hall da Fama** (o prédio de colunas, abaixo do Grimório) mostra as pessoas de quem o mundo fala: uma placa por
+nome (o retrato numa moldura dourada, a alcunha e as estrelas da fama) e, ao lado, a página de quem está sob o ponteiro,
+com o campo (Armas, Magia, Nobreza, Fé, Ofícios, Arena, Saber ou Infâmia), as estrelas (Conhecido, Respeitado, Famoso,
+Célebre, Lendário) e **por que é famoso**. Os destaques vêm primeiro, depois os mais famosos.
+
+- **O Mestre põe um nome no Hall** arrastando um personagem para a janela (da barra lateral ou de um compêndio, como os
+  NPCs prontos), pelo menu da lista de atores (**Pôr no Hall da Fama**) ou com **Adicionar**, que lista os personagens do
+  mundo. A alcunha vem da Biografia da ficha; o resto o Mestre escreve na página (Editar).
+- **Oculto e destaque:** o olho esconde um nome dos jogadores (o Mestre o vê tracejado), e o alfinete o põe em
+  destaque. O Hall guarda uma cópia do nome e do retrato: o jogador vê a placa sem precisar de permissão na ficha.
+
+## Os duelos e a Arena
+
+Os duelos seguem as regras dos de Aincrad, no visual da Eternia. Um personagem desafia outro com o botão direito no
+token dele (**Desafiar para um duelo**) ou pela Arena, e escolhe o modo:
+
+| Modo | Quem perde | Alguém cai? |
+|---|---|---|
+| Primeiro Golpe | quem perder PV primeiro | não: os PV param em 1 |
+| Metade da Vida | quem ficar com metade dos PV máximos ou menos | não: os PV param em 1 |
+| Até a Morte | quem cair | sim: [Morrendo], como em qualquer luta |
+
+- **O pedido** vai ao jogador do desafiado (ou ao Mestre, quando o personagem não tem jogador) numa caixa com o tempo
+  correndo: um minuto para Aceitar ou Recusar, e quem desafiou pode Retirar. Aceito, todos veem a contagem (10 segundos,
+  configurável) e o combate do duelo começa sozinho, só com os dois.
+- **Durante o duelo,** uma barra no alto da tela de quem está na cena mostra os dois, os PV (com a marca da metade), o
+  modo e a rodada; **Desistir** entrega a vitória. A mesa percebe sozinha quando o duelo acaba, mostra o vencedor na tela
+  de todos e põe o começo e o resultado no chat. Num duelo em que ninguém cai, o combate acaba logo depois; no Até a
+  Morte, quem cai fica [Morrendo] e o combate continua até o Mestre encerrar (os Testes da Morte, o golpe no chão).
+- **Quando não dá:** só personagens duelam, na mesma cena e de pé; nunca com um combate ou outro duelo em andamento na
+  cena; a Metade da Vida pede mais da metade dos PV; o jogador do desafiado precisa estar na mesa.
+- **A Arena** (o botão Duelos) é o ranking: os pontos de cada duelista (todos começam com 1000; vencer quem está acima
+  vale mais, e o Até a Morte pesa o dobro do Primeiro Golpe), o título (Aspirante, Duelista, Veterano, Mestre de Duelos,
+  Lenda da Arena), as vitórias, as derrotas, a sequência e os últimos cinco resultados, com o Campeão no alto; ao lado,
+  os duelos acontecendo agora, quem dá para desafiar na cena e os duelos recentes.
+- **O Mestre** decide um duelo pela barra (a vitória de um lado, empate ou cancelar, que não conta), anula um duelo na
+  Arena (o ranking é refeito sem ele) ou zera tudo. As configurações do mundo ligam os duelos, o modo Até a Morte e o
+  tempo da contagem.
 
 ## A economia
 
@@ -1299,6 +1360,9 @@ janelas em pergaminho, que pedem para recarregar.
 |---|---|
 | Cobrar custos de Ódio e Destino | ligado |
 | O que os jogadores veem no Mercado | todos os itens |
+| Duelos entre personagens | ligado |
+| Permitir duelo até a morte | ligado |
+| Contagem antes do duelo (segundos) | 10 |
 | Limites de uso | avisar |
 | Momento e economia de ações | avisar |
 | Topo e Abaixo no Ódio por combate | ligado |
@@ -1388,6 +1452,15 @@ eternia.market.createShop({ name, img, entries, stock: 3, buyPercent: 110 }); //
 eternia.market.purchase(actor, entry, { quantity: 2, free: false }); // o Mestre compra (ou dá) um item do catálogo
 (await eternia.market.catalog()).entries; // todos os itens do Mercado, como a janela os lê
 eternia.syncGuide();                  // o Guia do Jogador no Diário, como o compêndio o tem (Mestre)
+eternia.grimoire.open();              // o Grimório (todas as Magias)
+eternia.hall.open();                  // o Hall da Fama
+eternia.hall.add(actorOrUuid, { reason: "…", category: "arms", renown: 4, hidden: false }); // um nome no Hall (Mestre)
+eternia.hall.update(id, { renown: 5, pinned: true }); // muda um nome (Mestre); eternia.hall.entries() lista todos
+eternia.duels.open();                 // a Arena (o ranking dos duelos)
+eternia.duels.challenge(token);       // desafia esse token com o personagem selecionado (abre a caixa do modo)
+eternia.duels.send(tokenA, tokenB, "half"); // manda o desafio direto (strike, half ou death)
+eternia.duels.stop(combatId, "a");    // o Mestre decide um duelo ("a", "b", "draw" ou "cancel")
+eternia.duels.standings();            // o ranking: { records, deltas }, refeito a partir de eternia.duels.history()
 ```
 
 ## Limites conhecidos

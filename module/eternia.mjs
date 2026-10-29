@@ -16,6 +16,9 @@ import { registerTags } from "./helpers/tags.mjs";
 import { EterniaToken } from "./canvas/eterniaToken.mjs";
 import { registerPiles } from "./piles/piles.mjs";
 import { registerMarket } from "./market/index.mjs";
+import { registerMagicCodex } from "./apps/magic-codex.mjs";
+import { registerHall } from "./hall/index.mjs";
+import { registerDuels } from "./duels/index.mjs";
 import { registerCharacterOptions } from "./helpers/character-options.mjs";
 import { registerRankGrants } from "./apps/rank-grants.mjs";
 import { OptionBrowser, registerOptionBrowser } from "./apps/option-browser.mjs";
@@ -175,6 +178,10 @@ Hooks.once('init', async function () {
   registerPiles();
   // The Market (every item of the compendiums) and the shops' counters
   registerMarket();
+  // After the Market, in the order of their buttons: the Grimório, the Hall of Fame and the duels
+  registerMagicCodex();
+  registerHall();
+  registerDuels();
 
   // Race / Class / Subclass items: single copy per character, core compendium, legacy migration
   registerCharacterOptions();

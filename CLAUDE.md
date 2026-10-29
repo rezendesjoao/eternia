@@ -250,6 +250,35 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   pegarem (`Token#_canView`), e a loja criada pelo Mercado já vem assim.
 - Não use `tab` como `data-action` numa janela nova: é a ação de abas do `ApplicationV2`.
 
+## O Grimório, o Hall da Fama e os duelos (0.52)
+- Os botões da barra dos tokens saem na ordem em que os `register*` rodam no `init` (cada um usa
+  `order: Object.keys(tokens.tools).length`): Mercado, Grimório (`apps/magic-codex.mjs`), Hall da Fama (`hall/`) e
+  Duelos (`duels/`). Botão novo entra depois deles, do mesmo jeito.
+- **O visual é sempre o da Eternia** (verde, pergaminho e dourado; as caixas de `windows.css`, o medalhão dourado do
+  Mercado). Os duelos seguem as regras dos duelos de Aincrad, mas o usuário rejeitou o visual de lá: um pedido "tipo
+  <obra>" é sobre a mecânica, nunca sobre as cores.
+- O Grimório é a `MagicBrowser` da escolha de Magia com todas as Magias (`magicBrowserContext` sem `ownedIds`), sem
+  bloquear nenhuma (`blocked: null`) e com `owned` nas do personagem selecionado (o livrinho de `magic-browser.hbs`).
+- O Hall guarda as entradas na configuração do mundo `hallOfFame` (`{ id, uuid, name, img, epithet, reason, category,
+  renown, hidden, pinned }`), com cópia do nome e do retrato; só o Mestre grava, e `visibleEntries` tira os ocultos dos
+  jogadores. O menu da lista de atores vem do gancho `getActorContextOptions` (`label`/`visible`/`onClick`, v14).
+- Um duelo é um combate com `flags.eternia.duel` (`duels/state.mjs`: `{ id, mode, state, a, b, result… }`, o lado `a` é
+  quem desafiou). O Mestre principal faz tudo pelos `request` das pilhas (`duelChallenge`, `duelAnswer`, `duelCancel`,
+  `duelResign`, `duelStop`) e avisa as telas no socket, escopo `duels` (`ask`, `closed`, `countdown`, `end`; `to` limita
+  a usuários); os desafios esperando ficam só na memória dele. Ele vigia os dois pelo `updateActor` e pelos estados
+  (`watch`); o "ninguém cai" do Primeiro Golpe e da Metade da Vida são ganchos em toda tela (`preUpdateActor` segura os
+  PV em 1, `preCreateActiveEffect` barra [Incapacitado] e [Morto]) e valem enquanto o combate do duelo existir; o
+  cartão de dano relê os PV depois do `update` (`sparedNow`). Fora isso, o duelo é um combate comum: `areDuelFoes` faz
+  os dois inimigos no "aplicar só nos inimigos", o Ódio do grupo ignora combates de duelo (`hate.mjs`) e os dois lados
+  do `bothSidesStanding` (`round.mjs`) são os dois duelistas.
+- O ranking é refeito da história (`duelHistory`, configuração do mundo, um registro por duelo com resultado) em
+  `duels/ranking.mjs`: Elo a partir de 1000, `K_FACTOR` por modo, títulos em `TIERS`. Anular um duelo é tirá-lo da
+  história. A bolha do clique direito no personagem de outro jogador vem de `EterniaToken` (`_canHUD`,
+  `_onClickRight`, `_propagateRightClick`), pela API (`game.eternia.duels.bubbleFor`/`openBubble`), sem importar o
+  módulo dos duelos no token.
+- Testes: `Data/eternia-tests/test-052.js` (faz os dois duelistas e apaga no fim); para testar o pedido de verdade, um
+  segundo navegador entra como "Jogador Teste".
+
 ## A morte (0.50)
 - `module/automation/death.mjs`: quem cai num token que não é hostil (`isAdventurer`) fica [Morrendo: 2]
   (`system.bad-status.dying`, um Estado Vital: o Destino não tira), menos o colapso pela Fadiga e a queda de uma

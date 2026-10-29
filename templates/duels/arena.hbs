@@ -1,0 +1,116 @@
+{{!-- The Arena (module/duels/arena.mjs): the ranking of the duels. The champion and the table of every duelist at the
+     left; at the right the duels going on now, who the user can challenge on the scene and the latest duels; the GM's
+     tools at the bottom of that column. --}}
+<div class="dl-arena">
+
+	<header class="dl-arena-head">
+		<span class="dl-arena-emblem"><i class="fa-solid fa-swords"></i></span>
+		<div class="dl-arena-title">
+			<span class="dl-eyebrow">{{localize "ETERNIA.Duel.Arena.Eyebrow"}}</span>
+			<h2>{{localize "ETERNIA.Duel.Arena.Heading"}}</h2>
+			<p>{{lead}}</p>
+		</div>
+		<ul class="dl-facts">
+			<li><b>{{totals.duels}}</b><small>{{localize "ETERNIA.Duel.Arena.Fact.Duels"}}</small></li>
+			<li><b>{{totals.duelists}}</b><small>{{localize "ETERNIA.Duel.Arena.Fact.Duelists"}}</small></li>
+			<li class="{{#if totals.live}}live{{/if}}"><b>{{totals.live}}</b><small>{{localize "ETERNIA.Duel.Arena.Fact.Live"}}</small></li>
+		</ul>
+	</header>
+
+	<div class="dl-arena-main">
+		<section class="dl-board">
+			{{#if champion}}
+			<div class="dl-champion">
+				<span class="dl-champion-face"><img src="{{champion.img}}" alt=""><i class="fa-solid fa-crown"></i></span>
+				<div class="dl-champion-text">
+					<span class="dl-eyebrow">{{localize "ETERNIA.Duel.Arena.Champion"}}</span>
+					<strong>{{champion.name}}</strong>
+					<span>{{champion.tier}} · {{localize "ETERNIA.Duel.Arena.Record" wins=champion.wins losses=champion.losses}}{{#if champion.streakText}} · {{champion.streakText}}{{/if}}</span>
+				</div>
+				<span class="dl-champion-points"><b>{{champion.rating}}</b><small>{{localize "ETERNIA.Duel.Arena.Points"}}</small></span>
+			</div>
+			{{/if}}
+
+			<div class="dl-row dl-row-head" aria-hidden="true">
+				<span>#</span><span>{{localize "ETERNIA.Duel.Arena.Col.Duelist"}}</span><span>{{localize "ETERNIA.Duel.Arena.Col.Points"}}</span>
+				<span>{{localize "ETERNIA.Duel.Arena.Col.Record"}}</span><span>{{localize "ETERNIA.Duel.Arena.Col.Form"}}</span>
+			</div>
+			<ol class="dl-table">
+				{{#each rows}}
+				<li class="dl-row{{#if mine}} mine{{/if}}{{#if medal}} medal-{{medal}}{{/if}}">
+					<span class="dl-rank">{{#if medal}}<i class="fa-solid fa-medal"></i>{{/if}}<b>{{rank}}</b></span>
+					<span class="dl-who">
+						<img src="{{img}}" alt="" loading="lazy">
+						<span><b>{{name}}</b><em class="tier-{{tierId}}">{{tier}}{{#if deathWins}} · <i class="fa-solid fa-skull" data-tooltip-text="{{localize 'ETERNIA.Duel.Arena.DeathWins' n=deathWins}}"></i> {{deathWins}}{{/if}}</em></span>
+					</span>
+					<span class="dl-points"><b>{{rating}}</b></span>
+					<span class="dl-record"><b>{{wins}}</b>–<b>{{losses}}</b>{{#if draws}}–<b>{{draws}}</b>{{/if}}<small>{{pct}}%</small>{{#if streakText}}<em class="{{#if hot}}hot{{/if}}">{{#if hot}}<i class="fa-solid fa-fire"></i>{{/if}}{{streakText}}</em>{{/if}}</span>
+					<span class="dl-form">{{#each form}}<i class="dl-dot {{result}}" data-tooltip-text="{{label}}"></i>{{/each}}</span>
+				</li>
+				{{else}}
+				<li class="dl-board-empty">
+					<i class="fa-solid fa-swords"></i>
+					<strong>{{localize "ETERNIA.Duel.Arena.EmptyTitle"}}</strong>
+					<span>{{localize "ETERNIA.Duel.Arena.Empty"}}</span>
+				</li>
+				{{/each}}
+			</ol>
+			<ul class="dl-tiers">
+				{{#each tiers}}<li class="tier-{{id}}" data-tooltip-text="{{hint}}">{{label}}</li>{{/each}}
+			</ul>
+		</section>
+
+		<aside class="dl-side">
+			{{#if live.length}}
+			<section class="dl-live">
+				<h3><i class="fa-solid fa-circle"></i>{{localize "ETERNIA.Duel.Arena.Live"}}</h3>
+				<ol>
+					{{#each live}}
+					<li><i class="{{modeIcon}}"></i><span><b>{{a}}</b> × <b>{{b}}</b><small>{{mode}} · {{state}}{{#if scene}} · {{scene}}{{/if}}</small></span></li>
+					{{/each}}
+				</ol>
+			</section>
+			{{/if}}
+
+			<section class="dl-challenge">
+				<h3><i class="fa-solid fa-swords"></i>{{localize "ETERNIA.Duel.Arena.Challenge"}}</h3>
+				{{#if mine}}
+				<p class="dl-you"><img src="{{mine.img}}" alt=""><span>{{localize "ETERNIA.Duel.Arena.You" name=mine.name}}<small>{{mine.rating}} {{localize "ETERNIA.Duel.Arena.Points"}}</small></span></p>
+				<ol class="dl-opponents">
+					{{#each opponents}}
+					<li><button type="button" data-action="challenge" data-uuid="{{uuid}}">
+						<img src="{{img}}" alt="" loading="lazy"><span><b>{{name}}</b><small>{{tier}} · {{rating}}</small></span><i class="fa-solid fa-chevron-right"></i>
+					</button></li>
+					{{else}}
+					<li class="dl-side-none">{{localize "ETERNIA.Duel.Arena.NoOpponents"}}</li>
+					{{/each}}
+				</ol>
+				{{else}}
+				<p class="dl-side-none">{{localize "ETERNIA.Duel.Arena.NoChallenger"}}</p>
+				{{/if}}
+			</section>
+
+			<section class="dl-recent">
+				<h3><i class="fa-solid fa-clock-rotate-left"></i>{{localize "ETERNIA.Duel.Arena.Recent.Title"}}</h3>
+				<ol>
+					{{#each recent}}
+					<li class="{{mode}}{{#if draw}} draw{{/if}}">
+						<img src="{{winnerImg}}" alt="" loading="lazy">
+						<span><b>{{line}}</b><small><i class="{{modeIcon}}"></i>{{modeLabel}} · {{meta}}</small></span>
+						{{#if delta}}<em>{{delta}}</em>{{/if}}
+						{{#if ../gm}}<button type="button" class="dl-void" data-action="voidDuel" data-id="{{id}}" data-tooltip-text="{{localize 'ETERNIA.Duel.Arena.Void'}}"><i class="fa-solid fa-eraser"></i></button>{{/if}}
+					</li>
+					{{else}}
+					<li class="dl-side-none">{{localize "ETERNIA.Duel.Arena.Recent.None"}}</li>
+					{{/each}}
+				</ol>
+			</section>
+
+			{{#if gm}}
+			<footer class="dl-gm">
+				<button type="button" data-action="reset" class="danger"><i class="fa-solid fa-trash"></i>{{localize "ETERNIA.Duel.Arena.Reset"}}</button>
+			</footer>
+			{{/if}}
+		</aside>
+	</div>
+</div>

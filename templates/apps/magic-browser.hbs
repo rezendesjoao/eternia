@@ -28,6 +28,7 @@
 			</span>
 			<span class="mp-card-roles">{{#each cardRoles}}<i class="{{icon}}" data-tooltip-text="{{label}}"></i>{{/each}}</span>
 			{{#if holderLabel}}<span class="mp-card-holders{{#if holderFull}} full{{/if}}" data-tooltip-text="{{holderTip}}"><i class="fa-solid {{#if exclusive}}fa-crown{{else}}fa-user{{/if}}"></i>{{holderLabel}}</span>{{/if}}
+			{{#if owned}}<span class="mp-card-owned" data-tooltip-text="{{ownedTip}}"><i class="fa-solid fa-book"></i></span>{{/if}}
 			<i class="mp-card-check fa-solid fa-check"></i>
 		</li>
 		{{/each}}

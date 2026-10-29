@@ -1,0 +1,637 @@
+/* ==========================================================================
+   The Hall of Fame (module/hall/hall.mjs, templates/hall/hall.hbs): a large parchment window like the Market's. The
+   head says what the Hall is, the fields are the filters, the names hang on the wall as plaques (a portrait in a gold
+   ring, the name, the epithet and the stars) and, at the right, the page of the one under the pointer. Each field has
+   its own color (--hf-cat).
+   ========================================================================== */
+
+.application.eternia-hall {
+  --hf-gold: #c9a24a;
+  --hf-gold-light: #f2db94;
+  --hf-gold-dark: #8a6a25;
+  --hf-line: #cdbb98;
+  --hf-paper: #fffaf0;
+  --hf-paper-dark: #f1e5c8;
+  --hf-cat: #1f5137;
+  min-width: 860px;
+  min-height: 520px;
+}
+.application.eternia-hall .window-content {
+  padding: 0;
+  overflow: hidden;
+}
+.eternia-hall .hf-body {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  height: 100%;
+  min-height: 0;
+}
+.eternia-hall.hf-dropping .hf-wall {
+  outline: 2px dashed var(--hf-gold-dark);
+  outline-offset: -8px;
+  background: rgba(201, 162, 74, 0.08);
+}
+
+/* Head: what the Hall is, the search and the GM's "Add"
+   ------------------------------------------------------------------------ */
+.eternia-hall .hf-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 13px 20px 11px;
+  border-bottom: 1px solid rgba(186, 169, 145, 0.7);
+  background:
+    radial-gradient(120% 180% at 0% 0%, rgba(138, 106, 37, 0.18), transparent 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+}
+.eternia-hall .hf-emblem {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  padding: 3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--hf-gold-light), var(--hf-gold) 50%, var(--hf-gold-dark));
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  font-size: 21px;
+}
+.eternia-hall .hf-emblem i {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #12301f;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, var(--pf-primary-light), var(--pf-primary-dark));
+  color: var(--hf-gold-light);
+}
+.eternia-hall .hf-head-text { flex: 1; min-width: 0; }
+.eternia-hall .hf-eyebrow,
+.eternia-hall .hf-page-eyebrow {
+  display: block;
+  color: var(--hf-gold-dark);
+  font: 700 10px/1.3 var(--pf-sans);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.eternia-hall .hf-head h2 {
+  margin: 1px 0 2px;
+  border: none;
+  color: var(--pf-primary-dark);
+  font: 600 26px/1.1 var(--pf-serif);
+}
+.eternia-hall .hf-head p {
+  margin: 0;
+  color: var(--pf-text-soft);
+  font: italic 13px/1.4 var(--pf-body);
+}
+.eternia-hall .hf-search,
+.eternia-hall .hf-add-search {
+  position: relative;
+  flex: 0 0 240px;
+}
+.eternia-hall .hf-search i,
+.eternia-hall .hf-add-search i {
+  position: absolute;
+  top: 50%;
+  left: 11px;
+  transform: translateY(-50%);
+  color: var(--pf-alt);
+  font-size: 12px;
+  pointer-events: none;
+}
+.application.eternia-hall .hf-search input[type="search"],
+.application.eternia-hall .hf-add-search input[type="search"] {
+  width: 100%;
+  height: 32px;
+  padding: 0 12px 0 31px;
+  border: 1px solid var(--hf-line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1px 3px rgba(60, 40, 10, 0.12);
+  color: var(--pf-text);
+  font: 13px var(--pf-body);
+}
+.eternia-hall .hf-add {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  height: 34px;
+  margin: 0;
+  padding: 0 16px;
+  border: 1px solid var(--pf-primary-dark);
+  border-radius: 17px;
+  background: linear-gradient(180deg, var(--pf-primary-light), var(--pf-primary-dark));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 6px rgba(0, 0, 0, 0.22);
+  color: #fbf4df;
+  font: 600 13px/1 var(--pf-sans);
+}
+.eternia-hall .hf-add i { color: var(--hf-gold-light); }
+.eternia-hall .hf-add:hover { filter: brightness(1.12); }
+.eternia-hall .hf-add.active { background: linear-gradient(180deg, #8c7a5c, #5c4c36); border-color: #4a3a2c; }
+
+/* The fields: one at a time
+   ------------------------------------------------------------------------ */
+.eternia-hall .hf-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 20px 9px;
+}
+.eternia-hall .hf-chip {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  height: 27px;
+  margin: 0;
+  padding: 0 11px;
+  border: 1px solid var(--hf-line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--pf-text);
+  font: 600 12px/1 var(--pf-sans);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+.eternia-hall .hf-chip i { color: var(--hf-cat, var(--hf-gold-dark)); font-size: 11px; }
+.eternia-hall .hf-chip b {
+  min-width: 18px;
+  padding: 2px 5px;
+  border-radius: 9px;
+  background: rgba(120, 100, 82, 0.14);
+  color: var(--pf-alt-dark);
+  font: 700 10px/1 var(--pf-sans);
+  text-align: center;
+}
+.eternia-hall .hf-chip:hover { border-color: var(--hf-cat, var(--hf-gold-dark)); background: rgba(255, 255, 255, 0.85); }
+.eternia-hall .hf-chip.active {
+  border-color: var(--hf-cat, var(--pf-primary-dark));
+  background: var(--hf-cat, var(--pf-primary));
+  color: #fbf4df;
+}
+.eternia-hall .hf-chip.active i { color: #fbf4df; }
+.eternia-hall .hf-chip.active b { background: rgba(255, 255, 255, 0.2); color: #fbf4df; }
+.eternia-hall .hf-hidden-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  color: var(--pf-alt);
+  font: italic 12px/1 var(--pf-body);
+}
+
+/* The wall: a plaque per name
+   ------------------------------------------------------------------------ */
+.eternia-hall .hf-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(320px, 33%, 420px);
+  gap: 14px;
+  min-height: 0;
+  padding: 0 14px 14px 20px;
+}
+.eternia-hall .hf-wall {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  grid-auto-rows: max-content;
+  align-content: start;
+  gap: 12px;
+  min-height: 0;
+  margin: 0;
+  padding: 6px 6px 8px 2px;
+  overflow-y: auto;
+  list-style: none;
+  border-radius: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-alt) transparent;
+}
+.eternia-hall .hf-plaque {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 3px;
+  padding: 14px 10px 12px;
+  border: 1px solid var(--hf-line);
+  border-radius: 12px;
+  background:
+    radial-gradient(100% 70% at 50% 0%, color-mix(in srgb, var(--hf-cat) 10%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--hf-paper), var(--hf-paper-dark));
+  box-shadow: 0 1px 2px rgba(60, 40, 10, 0.14), inset 0 0 0 1px rgba(255, 255, 255, 0.65);
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+}
+.eternia-hall .hf-plaque::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--hf-cat), transparent);
+  opacity: 0.85;
+}
+.eternia-hall .hf-plaque:hover,
+.eternia-hall .hf-plaque:focus-visible {
+  z-index: 1;
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--hf-cat) 65%, var(--hf-line));
+  outline: none;
+  box-shadow: 0 8px 18px rgba(40, 28, 8, 0.22), 0 0 0 1px color-mix(in srgb, var(--hf-cat) 50%, transparent);
+}
+.eternia-hall .hf-plaque.selected {
+  border-color: var(--hf-cat);
+  box-shadow: 0 0 0 2px var(--hf-cat), 0 8px 18px rgba(40, 28, 8, 0.22);
+}
+.eternia-hall .hf-plaque[hidden] { display: none; }
+.eternia-hall .hf-plaque.veiled { border-style: dashed; opacity: 0.72; }
+.eternia-hall .hf-plaque.veiled:hover,
+.eternia-hall .hf-plaque.veiled.selected { opacity: 0.95; }
+.eternia-hall .hf-plaque-art {
+  display: block;
+  width: 86px;
+  height: 86px;
+  margin-bottom: 6px;
+  padding: 3px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #ead8a8);
+  box-shadow:
+    0 0 0 1px var(--hf-gold-dark),
+    0 0 0 3px rgba(255, 250, 235, 0.95),
+    0 0 0 4px var(--hf-gold),
+    0 4px 10px rgba(0, 0, 0, 0.28);
+  transition: transform 0.2s ease;
+}
+.eternia-hall .hf-plaque:hover .hf-plaque-art,
+.eternia-hall .hf-plaque.selected .hf-plaque-art { transform: scale(1.05); }
+.eternia-hall .hf-plaque-art img,
+.eternia-hall .hf-portrait img {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.eternia-hall .hf-plaque-cat {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--hf-cat);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  color: #fbf4df;
+  font-size: 10px;
+}
+.eternia-hall .hf-ribbon,
+.eternia-hall .hf-veil {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 10px;
+}
+.eternia-hall .hf-ribbon { background: linear-gradient(180deg, var(--hf-gold-light), var(--hf-gold)); color: #3a2a08; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
+.eternia-hall .hf-veil { background: #e7dfcf; color: var(--pf-alt-dark); }
+.eternia-hall .hf-plaque.pinned .hf-veil { right: 34px; }
+.eternia-hall .hf-plaque-name {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--pf-text);
+  font: 600 16px/1.2 var(--pf-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.eternia-hall .hf-plaque-epithet {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--hf-gold-dark);
+  font: italic 12px/1.3 var(--pf-body);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.eternia-hall .hf-stars { display: inline-flex; gap: 2px; color: var(--hf-gold); font-size: 10.5px; }
+.eternia-hall .hf-stars i { text-shadow: 0 1px 0 rgba(90, 60, 10, 0.35); }
+.eternia-hall .hf-stars i.off { color: rgba(120, 100, 82, 0.25); text-shadow: none; }
+.eternia-hall :is(.hf-none, .hf-empty) {
+  display: grid;
+  grid-column: 1 / -1;
+  justify-items: center;
+  gap: 8px;
+  padding: 50px 20px;
+  color: var(--pf-text-soft);
+  font: italic 14px/1.4 var(--pf-body);
+  text-align: center;
+}
+.eternia-hall :is(.hf-none, .hf-empty) i { color: var(--hf-gold); font-size: 30px; }
+.eternia-hall .hf-empty strong { color: var(--pf-primary-dark); font: 600 20px/1.2 var(--pf-serif); font-style: normal; }
+.eternia-hall .hf-empty span { max-width: 420px; }
+.eternia-hall .hf-none[hidden] { display: none; }
+
+/* The page of a name
+   ------------------------------------------------------------------------ */
+.eternia-hall .hf-spotlight {
+  position: relative;
+  min-height: 0;
+  margin-top: 6px;
+  padding: 18px 20px 16px;
+  overflow-y: auto;
+  border: 1px solid var(--hf-line);
+  border-radius: 12px;
+  background:
+    radial-gradient(120% 60% at 50% 0%, rgba(201, 162, 74, 0.16), transparent 65%),
+    linear-gradient(180deg, #fffdf6, var(--hf-paper-dark));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 2px 8px rgba(60, 40, 10, 0.12);
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-alt) transparent;
+  transition: box-shadow 0.15s ease;
+}
+.eternia-hall .hf-spotlight.preview { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 0 0 2px rgba(201, 162, 74, 0.35); }
+.eternia-hall .hf-page[hidden] { display: none; }
+.eternia-hall .hf-page-head {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.eternia-hall .hf-portrait {
+  display: block;
+  width: 132px;
+  height: 132px;
+  margin-bottom: 8px;
+  padding: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #ead8a8);
+  box-shadow:
+    0 0 0 1px var(--hf-gold-dark),
+    0 0 0 4px rgba(255, 250, 235, 0.95),
+    0 0 0 6px var(--hf-gold),
+    0 0 0 7px color-mix(in srgb, var(--hf-cat) 70%, var(--hf-gold-dark)),
+    0 8px 20px rgba(0, 0, 0, 0.3);
+}
+.eternia-hall .hf-page-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border-radius: 10px;
+  background: var(--hf-cat);
+  color: #fbf4df;
+  font: 700 9.5px/1.6 var(--pf-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.eternia-hall .hf-page h3 {
+  margin: 4px 0 0;
+  border: none;
+  color: var(--pf-primary-dark);
+  font: 600 27px/1.1 var(--pf-serif);
+}
+.eternia-hall .hf-page-epithet {
+  margin: 0;
+  color: var(--hf-gold-dark);
+  font: italic 15px/1.3 var(--pf-body);
+}
+.eternia-hall .hf-renown {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 10px;
+  margin: 0 0 14px;
+  padding: 8px 12px;
+  border: 1px solid rgba(201, 162, 74, 0.55);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fbf3da, #f3e3b6);
+}
+.eternia-hall .hf-renown .hf-stars { grid-row: span 2; font-size: 14px; }
+.eternia-hall .hf-renown b { color: #5c4310; font: 600 15px/1.2 var(--pf-serif); }
+.eternia-hall .hf-renown span:last-child { color: #6d5a2f; font: italic 12px/1.3 var(--pf-body); }
+.eternia-hall .hf-page h4,
+.eternia-hall .hf-welcome h4 {
+  margin: 0 0 6px;
+  padding: 0 0 3px;
+  border-bottom: 1px solid rgba(186, 169, 145, 0.7);
+  color: var(--pf-alt-dark);
+  font: 700 10.5px/1.3 var(--pf-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.eternia-hall .hf-reason {
+  position: relative;
+  margin: 0;
+  padding: 12px 14px 10px 30px;
+  border: none;
+  border-left: 3px solid var(--hf-cat);
+  border-radius: 0 8px 8px 0;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--pf-text);
+  font: 14px/1.55 var(--pf-body);
+}
+.eternia-hall .hf-reason::before {
+  content: "\201C";
+  position: absolute;
+  top: 2px;
+  left: 8px;
+  color: color-mix(in srgb, var(--hf-cat) 60%, var(--hf-gold));
+  font: 700 34px/1 var(--pf-serif);
+}
+.eternia-hall .hf-reason p { margin: 0 0 8px; }
+.eternia-hall .hf-reason p:last-child { margin-bottom: 0; }
+.eternia-hall .hf-reason-none { margin: 0; color: var(--pf-text-soft); font: italic 13px/1.4 var(--pf-body); }
+.eternia-hall .hf-gm-tools {
+  display: flex;
+  gap: 6px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(186, 169, 145, 0.8);
+}
+.eternia-hall .hf-gm-tools button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: auto;
+  min-width: 34px;
+  height: 32px;
+  margin: 0;
+  padding: 0 11px;
+  border: 1px solid var(--hf-line);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--pf-alt-dark);
+  font: 600 12.5px/1 var(--pf-sans);
+}
+.eternia-hall .hf-gm-tools button:first-child { flex: 1; }
+.eternia-hall .hf-gm-tools button:hover { border-color: var(--hf-gold-dark); background: #fff; }
+.eternia-hall .hf-gm-tools button.on { border-color: var(--hf-gold-dark); background: linear-gradient(180deg, var(--hf-gold-light), var(--hf-gold)); color: #3a2a08; }
+.eternia-hall .hf-gm-tools button.danger:hover { border-color: #8c2f2f; color: #8c2f2f; }
+
+/* The welcome page: how the Hall reads */
+.eternia-hall .hf-welcome-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.eternia-hall .hf-welcome-head > i {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, var(--pf-primary-light), var(--pf-primary-dark));
+  box-shadow: 0 0 0 2px var(--hf-gold), 0 3px 8px rgba(0, 0, 0, 0.25);
+  color: var(--hf-gold-light);
+  font-size: 19px;
+}
+.eternia-hall .hf-welcome h3 { margin: 1px 0 0; border: none; color: var(--pf-primary-dark); font: 600 21px/1.15 var(--pf-serif); }
+.eternia-hall .hf-welcome > p { margin: 0 0 14px; color: var(--pf-text); font: 13.5px/1.5 var(--pf-body); }
+.eternia-hall .hf-tiers { display: grid; gap: 7px; margin: 0 0 12px; padding: 0; list-style: none; }
+.eternia-hall .hf-tiers li { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: baseline; gap: 8px; }
+.eternia-hall .hf-tiers .hf-stars { font-size: 10px; }
+.eternia-hall .hf-tiers p { margin: 0; color: var(--pf-text-soft); font: 12.5px/1.4 var(--pf-body); }
+.eternia-hall .hf-tiers b { color: var(--pf-text); }
+.eternia-hall .hf-gm-note {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 7px;
+  background: rgba(31, 81, 55, 0.08);
+  color: var(--pf-primary-dark);
+  font: 12.5px/1.4 var(--pf-sans);
+}
+
+/* The GM's form, in the page */
+.eternia-hall .hf-edit { display: flex; flex-direction: column; gap: 10px; min-height: 100%; }
+.eternia-hall .hf-edit .hf-page-head { margin-bottom: 2px; }
+.eternia-hall .hf-edit .hf-portrait { width: 96px; height: 96px; }
+.eternia-hall .hf-edit-name { display: grid; justify-items: center; gap: 4px; width: 100%; }
+.application.eternia-hall .hf-edit-name input[type="text"] {
+  width: 100%;
+  height: 34px;
+  border: 1px solid var(--hf-line);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--pf-primary-dark);
+  font: 600 19px/1 var(--pf-serif);
+  text-align: center;
+}
+.eternia-hall .hf-field { display: grid; gap: 4px; }
+.eternia-hall .hf-field > .hf-label {
+  color: var(--pf-alt-dark);
+  font: 700 10px/1.2 var(--pf-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.eternia-hall .hf-field.grow { flex: 1; }
+.application.eternia-hall .hf-field :is(input[type="text"], select, textarea) {
+  width: 100%;
+  border: 1px solid var(--hf-line);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--pf-text);
+  font: 13.5px/1.45 var(--pf-body);
+}
+.application.eternia-hall .hf-field :is(input[type="text"], select) { height: 32px; }
+.application.eternia-hall .hf-field textarea { min-height: 130px; height: 100%; padding: 8px 10px; resize: vertical; }
+.eternia-hall .hf-star-row { display: flex; align-items: center; gap: 2px; }
+.eternia-hall .hf-star-pick {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: rgba(120, 100, 82, 0.3);
+  font-size: 17px;
+  cursor: pointer;
+}
+.eternia-hall .hf-star-pick.on { color: var(--hf-gold); text-shadow: 0 1px 0 rgba(90, 60, 10, 0.35); }
+.eternia-hall .hf-star-pick:hover { transform: scale(1.15); }
+.eternia-hall .hf-star-label { margin-left: 8px; color: #5c4310; font: italic 13px/1 var(--pf-body); }
+.eternia-hall .hf-edit-foot { display: flex; justify-content: flex-end; gap: 8px; padding-top: 4px; }
+.eternia-hall .hf-edit-foot button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 7px;
+  width: auto;
+  height: 34px;
+  margin: 0;
+  padding: 0 16px;
+  border-radius: 7px;
+  font: 600 13px/1 var(--pf-sans);
+}
+.eternia-hall .hf-ghost { border: 1px solid var(--hf-line); background: rgba(255, 255, 255, 0.6); color: var(--pf-alt-dark); }
+.eternia-hall .hf-primary {
+  border: 1px solid var(--pf-primary-dark);
+  background: linear-gradient(180deg, var(--pf-primary-light), var(--pf-primary-dark));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 6px rgba(0, 0, 0, 0.22);
+  color: #fbf4df;
+}
+.eternia-hall .hf-primary i { color: var(--hf-gold-light); }
+
+/* The GM picks who to add */
+.eternia-hall .hf-add-panel { display: flex; flex-direction: column; gap: 10px; height: 100%; min-height: 0; }
+.eternia-hall .hf-add-panel h3 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  border: none;
+  color: var(--pf-primary-dark);
+  font: 600 20px/1.2 var(--pf-serif);
+}
+.eternia-hall .hf-add-panel h3 i { color: var(--hf-gold-dark); font-size: 16px; }
+.eternia-hall .hf-add-lead { margin: 0; color: var(--pf-text-soft); font: italic 12.5px/1.4 var(--pf-body); }
+.eternia-hall .hf-add-search { flex: 0 0 auto; }
+.eternia-hall .hf-add-list { display: grid; gap: 5px; min-height: 0; margin: 0; padding: 0 2px 0 0; overflow-y: auto; list-style: none; }
+.eternia-hall .hf-candidate[hidden] { display: none; }
+.eternia-hall .hf-candidate button {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 5px 10px 5px 6px;
+  border: 1px solid var(--hf-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--pf-text);
+  text-align: left;
+}
+.eternia-hall .hf-candidate button:hover { border-color: var(--pf-primary-light); background: #fff; }
+.eternia-hall .hf-candidate img { width: 38px; height: 38px; border: none; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 1px var(--hf-gold-dark); }
+.eternia-hall .hf-candidate span { display: grid; min-width: 0; }
+.eternia-hall .hf-candidate b { overflow: hidden; font: 600 14px/1.2 var(--pf-serif); text-overflow: ellipsis; white-space: nowrap; }
+.eternia-hall .hf-candidate em { overflow: hidden; color: var(--hf-gold-dark); font: italic 11.5px/1.2 var(--pf-body); text-overflow: ellipsis; white-space: nowrap; }
+.eternia-hall .hf-candidate small { color: var(--pf-alt); font-size: 11px; }
+.eternia-hall .hf-candidate > button > i { color: var(--pf-primary); }
+.eternia-hall .hf-add-none { padding: 20px; color: var(--pf-text-soft); font: italic 13px/1.4 var(--pf-body); text-align: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .eternia-hall .hf-plaque,
+  .eternia-hall .hf-plaque-art { transition: none; }
+  .eternia-hall .hf-plaque:hover,
+  .eternia-hall .hf-plaque:focus-visible { transform: none; }
+}
