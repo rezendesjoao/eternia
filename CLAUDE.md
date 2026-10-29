@@ -100,7 +100,9 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   Contra-ataque saem de `Eternia-Onda-Apelona/` (fora do repositório: `gen.mjs` escreve só as 13, `buffs.py` as quatro
   com buff e os limites de portadores, `rules.py` AS REGRAS XII, `lang.py` os textos). Nunca rode os geradores antigos
   dos kits de Magias por cima: o balanço da 0.42 mudou aqueles JSON à mão. Mudou uma Magia que as fichas já têm, suba a
-  versão da migração `kudenCleanup` (`refreshMagias` com a lista dela, como `BUFFED_051`).
+  versão da migração `kudenCleanup` (`refreshMagias` com a lista dela, como `BUFFED_051`). A Cataclismo é a antiga Fruta
+  do Tremor (renomeada na 0.51.1, com o mesmo id, `fruta-do-tremor`, e o nome repetido de propósito com o talento do
+  Feiticeiro aposentado: `SHARED_WITH_RETIRED` no `lib.mjs` do gerador).
 - Um efeito de habilidade que depende de outra habilidade (um Caminho, um talento) usa as condições `hasSkill` e
   `notSkill`, pelo nome, conferidas em quem usa (o Escudo Esculpido do Pictomante vira muralha no Caminho da Paisagem).
 - Raça = item `race` com atributos, `hp`, `fate` e `grants` (as 2 inatas, uma Geral e uma de Combate; uma escolha vira

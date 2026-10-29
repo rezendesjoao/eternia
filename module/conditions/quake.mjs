@@ -1,5 +1,5 @@
 /**
- * The Quake (the Magia Fruta do Tremor), and the blows that find their own targets.
+ * The Quake (the Magia Cataclismo, id `fruta-do-tremor`), and the blows that find their own targets.
  * - A skill with `quakeGain` (n): its user's [Quake] (`quake`, a count up to 5) rises n when it is used
  *   (eternia.skillUsed). The spells add it to their damage by their `selfBonus`.
  * - A skill with `around: { radius, enemiesOnly }`: its targets are found when its check is rolled

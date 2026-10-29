@@ -28,9 +28,13 @@
  * Version 10, the wave of 0.51: the Magias that got stronger with heavier defects (Sol, now an Absoluta, Artes Negras,
  * Magia das Fadas and Contra-ataque) and their spells take their compendium version again, as in version 7; and every
  * Magia the characters have takes the limit of holders and the Absoluta mark of its compendium version (the flag only).
+ * Version 11, the Cataclismo (0.51.1): the Fruta do Tremor got a new name (the same id, `fruta-do-tremor`), texts
+ * without the fruit and a new picture; its copies and their spells take their compendium version again, as in version 7.
  */
 /** The Magias whose copies version 10 refreshes whole (with their spells). */
 const BUFFED_051 = new Set(["sol", "artes-negras", "fadas", "contra-ataque"]);
+/** The Magias whose copies version 11 refreshes whole (renamed). */
+const RENAMED_0511 = new Set(["fruta-do-tremor"]);
 const KUDEN_TYPES = new Set(["kudenResource", "kudenResourceFull", "sceneDay", "sceneNight", "sceneNoon", "sceneOpenSky",
   "sceneDarkness", "sceneMiasma", "sceneNoMiasma", "targetBossRaid", "hpAtMost"]);
 
@@ -355,8 +359,8 @@ async function refreshHolders(items, parent, sources) {
 
 async function run(done) {
   let changed = 0;
-  const sources = (done < 10) ? await magiaSources() : null;
-  const refresh = (done < 7) ? null : BUFFED_051;
+  const sources = (done < 11) ? await magiaSources() : null;
+  const refresh = (done < 7) ? null : new Set([...((done < 10) ? BUFFED_051 : []), ...RENAMED_0511]);
   const balance = (done < 8) ? {
     classes: await packSkills("skills-class", d => d.flags?.eternia?.identifier),
     racial: await packSkills("skills-racial", d => d.id),
@@ -366,13 +370,13 @@ async function run(done) {
   const labels = (done < 9) ? (balance?.classes ?? await packSkills("skills-class", d => d.flags?.eternia?.identifier)) : null;
   changed += await cleanItems(game.items, null, done);
   if (sources) changed += await refreshMagias(game.items, null, sources, refresh);
-  if (sources && (done >= 7)) changed += await refreshHolders(game.items, null, sources);
+  if (sources && (done >= 7) && (done < 10)) changed += await refreshHolders(game.items, null, sources);
   if (balance) changed += await refreshBalance(game.items, null, balance);
   if (labels) changed += await refreshDamageLabels(game.items, null, labels);
   for (const actor of game.actors) {
     changed += await cleanItems(actor.items, actor, done);
     if (sources) changed += await refreshMagias(actor.items, actor, sources, refresh);
-    if (sources && (done >= 7)) changed += await refreshHolders(actor.items, actor, sources);
+    if (sources && (done >= 7) && (done < 10)) changed += await refreshHolders(actor.items, actor, sources);
     if (balance) changed += await refreshBalance(actor.items, actor, balance);
     if (labels) changed += await refreshDamageLabels(actor.items, actor, labels);
     if (done >= 1) continue;
@@ -389,4 +393,4 @@ async function run(done) {
   return true;
 }
 
-export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 10, run };
+export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 11, run };

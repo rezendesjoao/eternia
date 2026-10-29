@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.51.1 — 2026-10-29
+
+A Fruta do Tremor agora se chama **Cataclismo**.
+
+### Alterado
+- **Cataclismo:** o nome novo da Fruta do Tremor (Absoluta), com os textos sem a fruta (a descrição, a frase de abertura,
+  o Tabu, que agora se chama Água que Cala, e o aviso de quando ele impede um feitiço) e um ícone novo; as regras não
+  mudaram. O id interno continua `fruta-do-tremor`, e o nome repete de propósito o do talento Cataclismo do Feiticeiro,
+  classe que saiu da lista na 0.16.
+- **AS REGRAS:** a página da Magia virou a XII.25 (as que ficavam entre ela e a antiga XII.46 andaram um número), com a
+  XII.b e o [Abalo] da IX.
+- **Migração `kudenCleanup` 11:** as cópias da Magia e dos feitiços dela nas fichas voltam à versão do compêndio (o nome,
+  os textos e o ícone), com o NH e os usos guardados.
+
 ## 0.51.0 — 2026-10-29
 
 A onda das Magias apelonas: treze Magias mais fortes que as outras de propósito, cada uma com uma regra que nenhuma

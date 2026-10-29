@@ -41,7 +41,7 @@ diz onde cada regra está no código e como criar uma condição nova.
 | `module/conditions/goliath.mjs` | O limiar (o Golias): `thresholdOf` (lido pelo cartão de dano), `unmovable` e `unmovedLine` (lidos por `effects.mjs` no puxar, no empurrar e no Switch) e `refreshBarrier` (`barrierEachRound`, na Manutenção). |
 | `module/conditions/blessings.mjs` | As bênçãos (o Portador de Bênçãos): `adapt` (a imunidade ao Estado Negativo que pegou e a metade do elemento que feriu, até o fim da cena), `manaHog`, `hateAtStart` (`hateStart`) e `worthyIssue` (`worthyOnly`, lido por `automation/use.mjs`). |
 | `module/conditions/jackpot.mjs` | Os carretéis e o [Jackpot] (a Aposta Mortal): `spin` (3d6 e um cartão `.et-slots` no chat), `hitJackpot`, o giro de cada feitiço (`eternia.skillUsed`), `jackpotSetup` e `jackpotCleanup` (chamados por `turns.mjs`) e a [Sorte] no 3. |
-| `module/conditions/quake.mjs` | O tremor (a Fruta do Tremor): o `quakeGain`, os alvos achados sozinhos (`aimAround`, chamado por `helpers/skill-rolls.mjs` antes do cartão de ataque), o `seaCurse` (lido por `actions.mjs`) e o `vulnerable` (lido pelo cartão de dano). |
+| `module/conditions/quake.mjs` | O tremor (o Cataclismo): o `quakeGain`, os alvos achados sozinhos (`aimAround`, chamado por `helpers/skill-rolls.mjs` antes do cartão de ataque), o `seaCurse` (lido por `actions.mjs`) e o `vulnerable` (lido pelo cartão de dano). |
 | `module/conditions/index.mjs` | Registra os ganchos. |
 
 Também tocam nas condições: `helpers/statuses.mjs` (a lista dos 89 estados, o painel da ficha por família, a
@@ -202,10 +202,10 @@ as flags de golpe, nos cartões de dano: `helpers/combat-cards.mjs`, `helpers/ma
 | Efeito | `revive.per: "scenario"` | o Fôlego Extra volta só num cenário novo (`flags.eternia.reviveScenario { key, spent }`; o fim da cena não o devolve): a Fênix do Portador de Bênçãos |
 | Traço | `slots` | cada feitiço da Magia gira três carretéis ao ser usado (a Aposta Mortal) |
 | Efeito | `slotsEachRound`, `pairsDouble` | os carretéis giram também em cada Manutenção; um par dá +2 de [Sorte] em vez de +1 (o Domínio da Aposta) |
-| Habilidade | `quakeGain` | n: o [Abalo] de quem usa sobe n ao usar (a Fruta do Tremor) |
+| Habilidade | `quakeGain` | n: o [Abalo] de quem usa sobe n ao usar (o Cataclismo) |
 | Habilidade | `around` | `{ radius, enemiesOnly }`: os alvos são achados ao rolar: toda criatura a até `radius` Qd de quem usa (não ele, nem um [Voando]), aliados também, menos com `enemiesOnly`; os alvos marcados são trocados |
-| Traço | `seaCurse` | com [Encharcado] ou [Nadando], os feitiços da Magia não saem (o Tabu da Fruta do Tremor) |
-| Efeito | `vulnerable` | tags: o dano de um cartão com uma delas (ou com o tipo) dobra, depois da Defesa e da Anulação (a [Água] contra a Fruta do Tremor) |
+| Traço | `seaCurse` | com [Encharcado] ou [Nadando], os feitiços da Magia não saem (o Tabu do Cataclismo) |
+| Efeito | `vulnerable` | tags: o dano de um cartão com uma delas (ou com o tipo) dobra, depois da Defesa e da Anulação (a [Água] contra o Cataclismo) |
 | Efeito | `realm` (0.51) | também `notSelf: true` (a área não pega quem tem o efeito: o olhar que apaga) e `damage: { enemies, allies, tag }` (fórmulas: dano direto em cada Manutenção nos inimigos e aliados da área; a Contradição das Artes Negras) |
 | Efeito | `cleanupFatigue` | fórmula: a [Fadiga] que quem tem o efeito ganha em cada Encerramento (os olhos que secam) |
 | Traço | `counterMult` | o [Contragolpe] devolve o dano vezes esse número em vez de 2 (o Contra-ataque: 3) |

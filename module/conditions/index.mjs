@@ -36,7 +36,7 @@
  * - goliath.mjs     the threshold of a giant's body, the forced moves it ignores, the Barrier that comes back (Golias);
  * - blessings.mjs   the blessings that come when they are needed, the spirits that gather (Portador de Bênçãos);
  * - jackpot.mjs     the reels, the Luck and the prize (Sorte Grande);
- * - quake.mjs       the quakes, the blows that find their own targets, the sea's curse (Fruta do Tremor).
+ * - quake.mjs       the quakes, the blows that find their own targets, the sea's curse (Cataclismo).
  * The statuses themselves are registered with the others (helpers/statuses.mjs).
  */
 import { registerConditionDamage } from "./damage.mjs";
