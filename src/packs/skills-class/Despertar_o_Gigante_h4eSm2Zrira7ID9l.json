@@ -1,0 +1,120 @@
+{
+  "name": "Despertar o Gigante",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Golias.</strong> O gigante acorda: você fica com [Golias: NP×3 + 10] até o fim da cena. Golpes abaixo disso não fazem nada, nada move você, os seus ataques físicos causam +NP, e a couraça volta a [Barreira: NP×2 + 5] em cada Manutenção. Quando acaba, [Fadiga: NP]. Uma vez por cena.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>A armadura estala nas costuras. Ela não foi feita para esse tamanho.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/environment/creatures/gargoyle-grey-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "expires": "endOfScene",
+          "fatigueOnEnd": "@cr",
+          "barrierEachRound": "@cr*2+5",
+          "statusData": {
+            "statusId": "goliath",
+            "value": "@cr*3+10"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Despertar o Gigante",
+      "img": "icons/environment/creatures/gargoyle-grey-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "goliath"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "UBRSDA6c0TNG30Hj",
+      "_key": "!items.effects!h4eSm2Zrira7ID9l.UBRSDA6c0TNG30Hj"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "golias-despertar",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "golias"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "h4eSm2Zrira7ID9l",
+  "folder": "60ktoW5IhbWk9V8z",
+  "_key": "!items!h4eSm2Zrira7ID9l"
+}

@@ -211,7 +211,8 @@ export class EterniaActor extends Actor {
     int.total = int.jb + int.value + int.rc + int.effect;
     pow.total = pow.jb + pow.value + pow.rc + pow.effect;
     fate.max = fate.rc + fate.effect + this._luck();
-    hp.max = hp.jb + hp.mod + hp.rc - fati + hp.effect;
+    // Life sealed by a death god stays off the Max HP, scene after scene (conditions/reaper.mjs)
+    hp.max = hp.jb + hp.mod + hp.rc - fati + hp.effect - Math.max(0, Math.trunc(Number(system["bad-status"]?.reaped) || 0));
 
     // Attributes modifiers
     for (const attribute of Object.values(system.attributes)) {

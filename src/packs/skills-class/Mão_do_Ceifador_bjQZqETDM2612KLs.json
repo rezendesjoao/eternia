@@ -1,0 +1,73 @@
+{
+  "name": "Mão do Ceifador",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Selo do Ceifador.</strong> A mão do deus da morte atravessa o seu peito e agarra a alma de um inimigo engajado com você: Teste de Precisão contra a Resistência; [3d6 + Poder Mágico] de dano mágico de [Corrupção], e ele perde [NP÷2 + 2] de PV máximo para sempre ([Vida Selada]).</p><p><strong>Custo:</strong> Ódio 2 e 1 de [Vida Selada] em você.</p><hr><p><em>Por um instante, todo mundo vê o braço magro saindo do seu peito.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/biological/hand-gnarled-purple.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "ceifador-mao",
+      "kind": "feeds",
+      "branch": "magic",
+      "seal": "floor(@cr/2)+2",
+      "selfSeal": 1,
+      "magicSpell": {
+        "id": "ceifador"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "bjQZqETDM2612KLs",
+  "folder": "FkkSRNz3QouFXBka",
+  "_key": "!items!bjQZqETDM2612KLs"
+}

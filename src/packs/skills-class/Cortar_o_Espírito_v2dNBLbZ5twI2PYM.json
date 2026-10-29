@@ -1,0 +1,80 @@
+{
+  "name": "Cortar o Espírito",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Santo da Espada.</strong> Você corta o que está em volta de um alvo a até 4 Qd: o ataque acerta sem teste; [2d6 + Poder de Ataque] de dano físico, e o golpe corta dele [Servo], [Clones], [Barreira], [Anulação], [Espelho], [Intangível], [Intocável], [Permeando] e [Regeneração].</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>O espírito que guardava o mago caiu em dois pedaços de luz.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "auto",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 2,
+      "mod": 0,
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/weapons/swords/scimitar-bone.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "santo-da-espada-espirito",
+      "kind": "feeds",
+      "branch": "magic",
+      "strip": [
+        "servant",
+        "clones",
+        "barrier",
+        "cancel",
+        "mirror",
+        "intangible",
+        "untouchable",
+        "phasing",
+        "regen"
+      ],
+      "magicSpell": {
+        "id": "santo-da-espada"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "v2dNBLbZ5twI2PYM",
+  "folder": "eSZGQY4nb0BAuJln",
+  "_key": "!items!v2dNBLbZ5twI2PYM"
+}

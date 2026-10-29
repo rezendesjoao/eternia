@@ -8,8 +8,8 @@
  * - The GM tools end the scene or the scenario of the selected tokens, or the scenario of every character.
  *
  * End of a scene: Bad and Combat Statuses end (Life Statuses such as Fatigue and Weakness stay), the Extra Breaths
- * spent come back; an Incapacitated Adventurer gets back up with full HP, a Dead one comes back with 1 HP and
- * [Fatigue: Max HP − 1]; an Incapacitated enemy dies.
+ * spent come back; an Incapacitated Adventurer gets back up with full HP, one still [Dying] makes its last Death Check
+ * and one in its Last Act dies (automation/death.mjs); the dead stay dead. An Incapacitated enemy dies.
  */
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { actorName, confirm, escape, isAdventurer, postSummary, toInt } from "../helpers/utils.mjs";
@@ -17,6 +17,8 @@ import { fillWorld } from "../content/content.mjs";
 import { LH_STATUSES } from "../helpers/statuses.mjs";
 import { END_OF_SCENE_GROUPS, END_OF_SCENE_OTHERS } from "../conditions/catalog.mjs";
 import { fallAtSceneEnd } from "../conditions/transformations.mjs";
+import { deathAtSceneEnd } from "./death.mjs";
+import { reaperAtSceneEnd } from "../conditions/reaper.mjs";
 
 /** The statuses that end with the scene: the Bad and Combat Statuses, and a few others ([Hidden], [Bond]). */
 const endsWithScene = s => END_OF_SCENE_GROUPS.includes(s.group) || END_OF_SCENE_OTHERS.includes(s.id);
@@ -30,12 +32,14 @@ export async function bumpCounter(actor, name) {
 }
 
 /**
- * End the scene for one actor: statuses, Incapacitated and Dead (see the module comment).
+ * End the scene for one actor: statuses, Incapacitated, Dying and the Last Act (see the module comment).
  * @param {Actor} actor
  * @param {TokenDocument} [token]   The token it fought with (its side: helpers/utils.mjs isAdventurer)
  * @returns {Promise<string|null>}   A line for the summary card, if something worth telling happened.
  */
 export async function endOfSceneFor(actor, token = null) {
+  // A soul promised to the death god: the scene's end takes it (conditions/reaper.mjs)
+  const taken = await reaperAtSceneEnd(actor);
   // A transformation that ends with the scene drops its bearer, and this end doesn't lift it (conditions/transformations.mjs)
   const fallen = await fallAtSceneEnd(actor);
   const updates = {};
@@ -55,19 +59,12 @@ export async function endOfSceneFor(actor, token = null) {
   const off = [];
   const on = [];
   let line = null;
-  // Adventurers come back; enemies (monsters, a ready NPC on a hostile token) die
-  if (isAdventurer(actor, token)) {
-    if (statuses.has("dead") && setting("revive")) {
-      // A race skill that brings the character back whole (`flags.eternia.special: "book"`).
-      const book = actor.items.find(i => (i.type === "skill") && (i.getFlag("eternia", "special") === "book"));
-      const max = toInt(actor.system.health?.max);
-      const fatigue = toInt(actor._source.system.infos?.fatigue) + (book ? 0 : Math.max(0, max - 1));
-      updates["system.infos.fatigue"] = fatigue;
-      updates["system.health.value"] = 1;
-      off.push("dead", "incapacitated");
-      line = book ? L("Scene.RevivedWhole", { name: actorName(actor), skill: book.name })
-        : L("Scene.Revived", { name: actorName(actor), fatigue });
-    }
+  // Adventurers: the Last Act ends in death, one still [Dying] makes its last Death Check, the fallen get up, and the
+  // dead stay dead. Enemies (monsters, a ready NPC on a hostile token) die.
+  if (taken) line = taken;
+  else if (isAdventurer(actor, token)) {
+    const death = await deathAtSceneEnd(actor);
+    if (death) line = death;
     else if (statuses.has("incapacitated") && !statuses.has("dead") && !fallen) {
       updates["system.health.value"] = toInt(actor.system.health?.max);
       off.push("incapacitated");

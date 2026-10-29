@@ -1,0 +1,175 @@
+{
+  "name": "Permeação",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Perdida.</strong> O seu corpo deixa de estar ali: golpes, magias, paredes e o chão passam através de você. É o melhor escudo que existe, e o mais cego: enquanto atravessa, você não vê, não ouve e não respira. Por isso você aprendeu a ler a luta antes dela acontecer, e cada golpe que passa por você é um golpe que você já sabe de onde vem. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Portadores:</strong> no máximo 2 no mundo de cada vez.</li><li><strong>Permeando:</strong> com [Permeando], nenhum ataque chega em você (nem dano, nem estados) e cada um que passa dá +1 de [Antecipação] (até 5); em troca, você não ataca nem usa habilidades contra os outros, só o que é feito para isso. Os golpes da Permeação gastam a Antecipação e a somam no dano.</li><li><strong>Tabu, Sem Ar:</strong> atravessar tira o fôlego: cada vez que o [Permeando] acaba, você fica com [Fadiga: 1]; e em combate você tem −2 nas Esquivas (sólido, você é um alvo fácil).</li><li><strong>Traço, Ler a Luta:</strong> você é imune a [Agarrado] e [Enraizado] (nada segura quem atravessa), e os seus feitiços da Permeação causam +NP÷2 de dano em quem está [Derrubado].</li><li><strong>Feitiços:</strong> Atravessar e Golpe Antecipado (NP 1), Mergulho no Chão e Contragolpe Fantasma (NP 3), Saída por Baixo (NP 5) e o feitiço supremo Cem Ângulos (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Cem Ângulos pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Eles batem com toda a força. Só não sabem que você já estava atrás deles.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Sem Ar",
+      "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.checks.evasion.mod",
+            "type": "add",
+            "value": -2,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "Iio8Egq97cemMWqB",
+      "_key": "!items.effects!qHj1nphHqjSFxM5s.Iio8Egq97cemMWqB"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "permeacao",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "prone"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          },
+          "immune": [
+            "grappled",
+            "rooted"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Ler a Luta",
+      "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "3y5hHoqnEJl4la0b",
+      "_key": "!items.effects!qHj1nphHqjSFxM5s.3y5hHoqnEJl4la0b"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "permeacao-permeacao",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "permeacao",
+        "category": "lost",
+        "tagline": "Tudo passa através de você, e você passa através de tudo.",
+        "holders": 2
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "qHj1nphHqjSFxM5s",
+  "folder": "7Vrajd1uqDZbEQsW",
+  "_key": "!items!qHj1nphHqjSFxM5s"
+}

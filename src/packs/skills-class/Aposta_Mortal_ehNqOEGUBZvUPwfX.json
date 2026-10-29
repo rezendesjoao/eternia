@@ -1,0 +1,168 @@
+{
+  "name": "Aposta Mortal",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Maldição.</strong> A sua maldição é um jogo de azar. Cada golpe gira os carretéis de uma máquina que só você vê, e quase sempre não dá nada. Mas cada par que sai deixa a máquina mais quente, e quando os três carretéis param iguais é o prêmio: por algumas rodadas a força não acaba, e qualquer ferida fecha na hora. Você não é o mais forte. Você só precisa ter sorte uma vez. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços.</p><ul><li><strong>Única:</strong> só uma pessoa no mundo tem esta Magia de cada vez.</li><li><strong>Os Carretéis:</strong> cada feitiço da Aposta Mortal gira três carretéis (3d6, no chat). Três iguais: [Jackpot]. Um par: +1 de [Sorte]; no 3, é o [Jackpot]. Durante o [Jackpot] não se gira.</li><li><strong>O Jackpot:</strong> por 3 rodadas você recupera todo o PV na hora e em cada Manutenção, não cai (a 0 PV, volta com o PV cheio), os seus feitiços não custam Ódio e os seus ataques causam +NP de dano.</li><li><strong>Tabu, A Casa Sempre Ganha:</strong> fora do prêmio você é só um jogador apostando o corpo: em combate, a sua Defesa Física cai [NP].</li><li><strong>Traço, Febre do Jogo:</strong> você é imune a [Medo] e [Confuso] (o jogador não tem medo da mesa).</li><li><strong>Feitiços:</strong> Golpe da Aposta e Portas do Jogo (NP 1), Girar os Carretéis e Pagar para Ver (NP 3), Domínio da Aposta (NP 5) e o feitiço supremo Prêmio Máximo (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Prêmio Máximo pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Três sete. A música toca. Ele sorri como quem já sabia.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/sundries/gaming/gaming-set-dice.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "A Casa Sempre Ganha",
+      "img": "icons/sundries/gaming/gaming-set-dice.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.defense.phys.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "cJmdQLWMvLb2TDPq",
+      "_key": "!items.effects!ehNqOEGUBZvUPwfX.cJmdQLWMvLb2TDPq"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "aposta-mortal",
+            "slots": true
+          },
+          "immune": [
+            "frightened",
+            "confused"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Febre do Jogo",
+      "img": "icons/sundries/gaming/gaming-set-dice.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "f4cDpA82gDd0hyRq",
+      "_key": "!items.effects!ehNqOEGUBZvUPwfX.f4cDpA82gDd0hyRq"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "aposta-mortal-aposta-mortal",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "aposta-mortal",
+        "category": "curse",
+        "tagline": "Os carretéis giram a cada golpe; quando dá o prêmio, você não morre mais.",
+        "holders": 1
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "ehNqOEGUBZvUPwfX",
+  "folder": "qtXTQQN9FcXURMNQ",
+  "_key": "!items!ehNqOEGUBZvUPwfX"
+}

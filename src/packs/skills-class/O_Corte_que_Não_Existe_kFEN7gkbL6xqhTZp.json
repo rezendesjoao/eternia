@@ -1,0 +1,76 @@
+{
+  "name": "O Corte que Não Existe",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Santo da Espada. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: um corte que acontece sem ter começado. Um alvo a até 6 Qd: o ataque acerta sem teste; [(2 + 2×pontos gastos)d6 + Poder de Ataque + pontos gastos×NP] de dano físico, que ignora a Defesa inteira (e nada o deixa passar ao lado). Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Ninguém viu a lâmina sair. Ninguém viu ela voltar.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "auto",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/weapons/swords/greatsword-guard-gold.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "santo-da-espada-inexistente",
+      "kind": "spends",
+      "branch": "magic",
+      "pierce": {
+        "defense": "none"
+      },
+      "magicSpell": {
+        "id": "santo-da-espada"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder de Ataque] + pontos gastos×NP Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "kFEN7gkbL6xqhTZp",
+  "folder": "eSZGQY4nb0BAuJln",
+  "_key": "!items!kFEN7gkbL6xqhTZp"
+}

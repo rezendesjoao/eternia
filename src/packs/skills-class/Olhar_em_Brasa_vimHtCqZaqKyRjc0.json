@@ -1,0 +1,73 @@
+{
+  "name": "Olhar em Brasa",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Olhar que Apaga. Feitiço grande.</strong> Com o [Olhar Aberto], os seus olhos ardem e apagam tudo numa área a até 6 Qd: o ataque acerta sem teste; [6d6 + Poder de Ataque] de dano físico, e os efeitos de feitiço saem de quem está nela: os bons dos inimigos, os ruins dos aliados. Uma vez por cena.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>A barreira dele some, a maldição dela some. Só o seu olhar fica.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "auto",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 6,
+      "mod": 0,
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/tech/electronics-sensor-eye.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "olhar-que-apaga-vermelhos",
+      "kind": "feeds",
+      "branch": "magic",
+      "needsStatus": "gaze",
+      "useActions": [
+        {
+          "type": "cancelSpells"
+        }
+      ],
+      "magicSpell": {
+        "id": "olhar-que-apaga"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "vimHtCqZaqKyRjc0",
+  "folder": "QYyWSy6Eyksy3wOD",
+  "_key": "!items!vimHtCqZaqKyRjc0"
+}

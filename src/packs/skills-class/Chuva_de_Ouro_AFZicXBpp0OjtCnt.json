@@ -1,0 +1,74 @@
+{
+  "name": "Chuva de Ouro",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Cobiça. Feitiço grande.</strong> Moedas caem do céu como granizo numa área a até 4 Qd: Teste de Precisão contra a Esquiva de cada alvo; [(3 + Fortuna)d6 + Poder Mágico] de dano mágico de [Ferro].</p><p><strong>Custo:</strong> Ódio 3 e 2 comuns do seu NP em Yuld.</p><hr><p><em>Quando a chuva para, ninguém se abaixa para pegar as moedas.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Iron"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "3+@fortune",
+      "mod": 0,
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/currency/coins-assorted-crown-blue.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "cobica-chuva",
+      "kind": "feeds",
+      "branch": "magic",
+      "yuldCost": "floor((3*@cr*@cr+13*@cr+84)/2)",
+      "magicSpell": {
+        "id": "cobica"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      },
+      "damageText": "(3 + Fortuna)d6 + [Poder Mágico] Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "AFZicXBpp0OjtCnt",
+  "folder": "u4PFjsbfS7LphCO9",
+  "_key": "!items!AFZicXBpp0OjtCnt"
+}

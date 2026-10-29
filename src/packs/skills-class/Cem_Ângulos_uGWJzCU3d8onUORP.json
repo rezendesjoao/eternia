@@ -1,0 +1,91 @@
+{
+  "name": "Cem Ângulos",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Permeação. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você entra e sai do corpo de um inimigo engajado com você cem vezes num segundo, batendo de todos os lados. O ataque acerta sem teste; [(2 + 2×pontos gastos)d6 + Poder de Ataque + pontos gastos×NP] de dano físico, +NP para cada ponto de [Antecipação], que zera. Usar tira o seu [Permeando]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>De onde ele estava, parecia que havia cem de você.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "auto",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/weapons/fist/boxing-gloves.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "permeacao-angulos",
+      "kind": "spends",
+      "branch": "magic",
+      "whilePhasing": true,
+      "selfBonus": [
+        {
+          "statusId": "anticipation",
+          "per": "@cr",
+          "spend": true
+        }
+      ],
+      "useActions": [
+        {
+          "type": "removeStatus",
+          "statuses": [
+            "phasing"
+          ],
+          "recipients": "self",
+          "onUse": true
+        }
+      ],
+      "magicSpell": {
+        "id": "permeacao"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder de Ataque] + pontos gastos×NP + Antecipação×NP Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "uGWJzCU3d8onUORP",
+  "folder": "7Vrajd1uqDZbEQsW",
+  "_key": "!items!uGWJzCU3d8onUORP"
+}

@@ -91,6 +91,16 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   vagas de Magia (o Invocador na 0.13; as físicas e o Matador de Dragões na 0.22) entra em `MAGIC_CLASSES` de
   `module/classes/migration.mjs`, com os NP das vagas: a migração `kudenCleanup` põe as vagas no item de classe das
   fichas.
+- Os portadores e a Absoluta (0.51): toda Magia que não é Conjuração pode ter um limite de portadores no mundo
+  (`flags.eternia.magic.holders`: 1, 2 ou 3; sem a flag, sem limite), contado por `module/apps/magic-holders.mjs` (as
+  fichas do mundo, os tokens soltos das cenas e o Despertar ainda aberto); esgotada, não sai no sorteio e o jogador não a
+  escolhe. A Absoluta (`category: "absolute"`, `exclusive: true`) fecha as vagas do NP 5 e 10 e só entra numa ficha sem
+  outra Magia. Uma Magia nova pede o limite dela e, se for de propósito mais forte que as outras, a "apelação" (a régua
+  na seção 5 de `docs/matematica.md`). As 13 Magias da 0.51 e o buff do Sol, das Artes Negras, da Magia das Fadas e do
+  Contra-ataque saem de `Eternia-Onda-Apelona/` (fora do repositório: `gen.mjs` escreve só as 13, `buffs.py` as quatro
+  com buff e os limites de portadores, `rules.py` AS REGRAS XII, `lang.py` os textos). Nunca rode os geradores antigos
+  dos kits de Magias por cima: o balanço da 0.42 mudou aqueles JSON à mão. Mudou uma Magia que as fichas já têm, suba a
+  versão da migração `kudenCleanup` (`refreshMagias` com a lista dela, como `BUFFED_051`).
 - Um efeito de habilidade que depende de outra habilidade (um Caminho, um talento) usa as condições `hasSkill` e
   `notSkill`, pelo nome, conferidas em quem usa (o Escudo Esculpido do Pictomante vira muralha no Caminho da Paisagem).
 - Raça = item `race` com atributos, `hp`, `fate` e `grants` (as 2 inatas, uma Geral e uma de Combate; uma escolha vira
@@ -158,10 +168,14 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   (`module/helpers/pack-index.mjs`, posto em `CONFIG.Item.compendiumIndexFields`). O Foundry guarda um índice por
   compêndio com os campos do último pedido: um `getIndex({ fields })` com um campo de fora dessa lista busca o índice
   inteiro de novo (e o seguinte, também). As descrições ficam de fora (pesariam todos os compêndios): quem as lê carrega
-  os documentos (o catálogo de Magias carrega só as 97 Magias, uma vez).
-- O que as janelas leem dos compêndios é preparado com o jogo ocioso (`module/helpers/prewarm.mjs`): o índice das
-  habilidades de classe, o do navegador de habilidades, as opções, o catálogo de Magias (`apps/magic-catalog.mjs`) e o do
-  assistente de criação (`apps/creation-catalog.mjs`). Cada um se refaz quando um item de compêndio muda.
+  os documentos (o catálogo de Magias carrega só as 110 Magias, uma vez). A exceção é o Mercado: ele pede as descrições
+  (`INDEX_FIELDS` de `market/catalog.mjs`) só ao índice dos compêndios com itens físicos, de propósito, para não carregar
+  ~1000 documentos.
+- O que as janelas leem dos compêndios é preparado com o jogo ocioso (`module/helpers/prewarm.mjs`), um passo por vez,
+  cada um esperando o jogo ficar ocioso de novo: o índice das habilidades de classe, o do navegador de habilidades, as
+  opções, o catálogo de Magias (`apps/magic-catalog.mjs`) e, para o Mestre ou para o jogador que ainda tem um personagem
+  de NP 1, o do assistente de criação (`apps/creation-catalog.mjs`) e a loja dele; para o Mestre, o Mercado por último.
+  Cada um se refaz quando um item de compêndio muda.
 
 ## Criação de personagem
 - O assistente (`module/apps/creation-wizard.mjs`, `templates/apps/creation/`, `css/creation-wizard.css`) não muda o ator
@@ -189,6 +203,14 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   assistente não segue para as teclas do core (pausaria o jogo do Mestre). Os textos dos feitiços na janela de Magias vêm de `spellTexts` (`apps/magic-catalog.mjs`);
   `loadDocuments` fica em `helpers/pack-index.mjs` para o catálogo de Magias e o do assistente usarem sem importar um
   ao outro.
+- O Despertar (`module/apps/awakening.mjs`, configuração `awakening`): a Magia do NP 1 de um jogador é sorteada. As
+  rolagens (1d o número de Magias livres, `awakeningPool`: as esgotadas pelo limite de portadores ficam de fora; uma
+  repetida rola de novo, até 3) ficam em `flags.eternia.awakening`
+  `{ rolls, chosen }` assim que saem, com um cartão no chat; `chosen` trava a Magia (o `preDeleteItem` e a lixeira da
+  ficha não deixam o jogador tirá-la). Um personagem sem a flag e com Magia despertou com a primeira (`awakeningOf`).
+  Mostram o sorteio o passo Magia do assistente e a `MagicPicker` com `awakening: true`, que `offerGrants` abre para a
+  primeira vaga de NP 1; o Mestre sempre escolhe livre, e a escolha dele também trava. `resetAwakening` (o botão do
+  Mestre no assistente) grava a flag vazia, para o sorteio abrir mesmo com a Magia na ficha.
 
 ## A economia (0.48)
 - **A moeda é o Yuld; os números da economia ficam em `module/economy/data.mjs`** (puro, sem Foundry: o bestiário, a
@@ -213,7 +235,9 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
 - `module/market/`: `catalog.mjs` (`marketCatalog`: todo item físico dos compêndios de Item do sistema e do mundo e os
   itens do mundo, o primeiro de cada nome e tipo vale, o do sistema antes; a entrada é a `gearEntry` do assistente com o
   grau, `forSale`, a pasta e a busca), `market.mjs` (`EterniaMarket`: uma classe para o Mercado e para a vitrine de uma
-  loja; os filtros rodam nas entradas, sem desenhar de novo, em `#applyFilters`, que também conta cada botão), `shops.mjs`
+  loja; os filtros rodam nas entradas em `#filter`, que também conta cada botão, e a lista desenha só a página atual,
+  `PAGE_SIZE` linhas, com o paginador; filtro, busca (com 200 ms de espera) e ordem voltam à página 1 e desenham só a
+  parte "list"; as contagens do banner são escritas por `#applyCounts`, sem desenhar o banner), `shops.mjs`
   (`marketPurchase`, só do Mestre e na tela dele; `createShop`/`createShopDialog`/`addToShop`/`placeShop`; `buyFromShop`
   vai pelo `buyItem` das pilhas) e `index.mjs` (configuração `marketPlayers`, o botão na barra dos tokens, os ganchos que
   desenham de novo a vitrine quando a loja ou quem compra muda, e `game.eternia.market`). Modelos em `templates/market/`,
@@ -223,6 +247,16 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   o Mestre também); a ficha continua para configurar. O jogador precisa de Limitado no ator da loja para os dois cliques
   pegarem (`Token#_canView`), e a loja criada pelo Mercado já vem assim.
 - Não use `tab` como `data-action` numa janela nova: é a ação de abas do `ApplicationV2`.
+
+## A morte (0.50)
+- `module/automation/death.mjs`: quem cai num token que não é hostil (`isAdventurer`) fica [Morrendo: 2]
+  (`system.bad-status.dying`, um Estado Vital: o Destino não tira), menos o colapso pela Fadiga e a queda de uma
+  transformação no fim da cena (`fallingNow`). No Encerramento (gancho `eternia.combatPhase`, no Mestre principal) sai um
+  cartão do Teste da Morte por personagem; o ator guarda o cartão que espera em `flags.eternia.deathCheck`, e os botões
+  vão ao Mestre por `request("deathCheck")`, que rola, muda o ator e o cartão. O dano no chão passa por `groundBlow`
+  (`afterDamage` e `takeDamage`); o Desfazer devolve a morte de um crítico (`dead` em `snapshotForUndo`). O fim da cena
+  chama `deathAtSceneEnd`. A configuração `revive` não existe mais: ninguém revive. Monstros e personagens em token
+  hostil caem como antes (mortos no fim da cena). O Erguer os Mortos e a Sombra não levantam quem está [Morrendo].
 
 ## Ficha e tokens
 - A aba Raça (`module/races/sheet.mjs`, `templates/character/race.hbs`, CSS em `css/classes.css`, prefixo `lhrc`) usa a
@@ -253,7 +287,8 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   `resources/app/main.mjs`. Entrar como Gamemaster, sem senha.
 - Os testes ficam em `Data/eternia-tests` (fora do repositório) e rodam na página do jogo: `run-044.js` roda a bateria
   inteira. As suítes de antes da 0.44 rodam com as automações do lote 2 desligadas (`OLD` no executor), como foram
-  escritas. O `createEmbeddedDocuments` devolve os documentos em qualquer ordem: ache cada um pelo nome.
+  escritas. `test-050.js` cobre a morte e o Despertar pela API; o Despertar do jogador se testa entrando como "Jogador
+  Teste" (sem senha) num personagem dele. O `createEmbeddedDocuments` devolve os documentos em qualquer ordem: ache cada um pelo nome.
 
 ## Release
 1. `version` e a URL de `download` no `system.json`, e a entrada no CHANGELOG.

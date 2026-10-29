@@ -1,7 +1,7 @@
 # A matemática da Eternia
 
 Este documento é a régua do sistema. Toda classe, Magia, habilidade de raça ou criatura nova é medida contra ele antes
-de entrar no compêndio: os números de cada seção são os que as 14 classes, as 97 Magias, as 8 raças e as 104 criaturas
+de entrar no compêndio: os números de cada seção são os que as 14 classes, as 110 Magias, as 8 raças e as 104 criaturas
 do bestiário seguem (as 52 do Império desde a 0.42, as 52 de Norlangarth desde a 0.47). As contas vêm de um simulador (Monte Carlo de lutas, com os dados e as regras de
 `module/helpers/combat-cards.mjs`), em `Desktop/Daggerheart/Eternia-Balanceamento/simulador` (fora do repositório; a
 seção 8 diz como rodar). Desde a 0.48, a seção 9 faz o mesmo com a economia: o preço de cada item, o que cada criatura
@@ -144,9 +144,10 @@ lei que ele quebra.
 | Conjuração e Portadora (as comuns) | a base | — (a Portadora pede o objeto equipado) |
 | Perdida, Proibida e Maldição | cerca de +1d6 por feitiço de ataque | um **Tabu** que custa de 1,5 a 3,5 de dano recebido por rodada no NP 10 |
 | Ancestral | **+1d6 em todo feitiço de ataque** que não é o supremo | nada (sem Tabu); o supremo só chega no NP 10 |
+| Absoluta (0.51) | os dados da Ancestral, um feitiço a mais no NP 7 (6d6) e uma regra que quebra uma lei do jogo | um Tabu que pode perder uma luta e **todas as vagas de Magia** (as do NP 5 e 10 fecham) |
 
-As Ancestrais são as mais fortes (as mais raras no sorteio, 3%); as Perdidas, Proibidas e Maldições ficam acima das
-comuns e pagam o Tabu.
+As Absolutas são as mais fortes de propósito (veja "A apelação" abaixo); depois delas, as Ancestrais (as mais raras no
+sorteio, 3%); as Perdidas, Proibidas e Maldições ficam acima das comuns e pagam o Tabu.
 
 ### Os dados dos feitiços de ataque
 
@@ -191,6 +192,52 @@ demônios, +NP contra a tag) e, às vezes, imunidade a um ou dois estados. Um Tr
 **Conferir uma Magia nova:** os feitiços na linha da categoria (tabela acima), o supremo com a fórmula do supremo, o
 Tabu entre 1,5 e 3,5. Rode `node magias-score.js` e `node tabu.js`: o ganho por feitiço contra as comuns e o custo do
 Tabu aparecem lado a lado.
+
+### A apelação (0.51)
+
+A onda da 0.51 trouxe treze Magias mais fortes que as outras de propósito, cada uma com uma nota de 0 a 10 (a
+"apelação", pedida pelo usuário). A nota diz até onde a Magia pode passar da régua acima e quanto ela paga:
+
+| Apelação | Categoria | Portadores | Feitiços de ataque (NP 1 / 3 / 5 / 7) | Supremo | A regra própria | O preço |
+|---|---|---|---|---|---|---|
+| até 5 | a régua de sempre | 3 ou sem limite | a linha da categoria | o de sempre | uma regra da família | o Tabu da faixa |
+| 6 | Perdida | 2 | 3d6 / 3d6 / 5d6 / supremo | NP 7 | uma regra que nenhuma outra tem (o dano do movimento, atravessar os golpes) | o Tabu da faixa e um custo na própria regra (a Fadiga ao sair do [Permeando], o PV de cada feitiço) |
+| 7 | Perdida | 1 | 3d6 / 2d6–4d6 / 5d6 / supremo | NP 7 | atravessa as defesas especiais (`pierce.all`, `rankAbove`) | um Tabu acima da faixa (recusa toda [Barreira] e [Anulação]) |
+| 8 | Proibida, Maldição ou Perdida | 1 | 2d6–3d6 / 3d6 / 4d6–5d6 / supremo | NP 7, com um extra (o Golias, o Jackpot × NP, o Yuld gasto ÷ 10) | uma regra que muda a luta (o selo da vida, o retrato da rodada, a Fortuna, a mordida, o limiar, os carretéis) | um Tabu pesado e um preço na regra (a vida de quem usa, o sono, o Yuld, a tosse, a Fadiga) |
+| 9 | Absoluta | 1 | 3d6 / 4d6 / 5d6 / 6d6 | NP 10 | uma regra que quebra uma lei do jogo (o alvo único erra, a magia apagada, o tremor que acha os alvos) | as vagas do NP 5 e 10 fecham; um Tabu que pode perder uma luta (cego, sem matar, sem feitiços no mar) |
+| 10 | Absoluta | 1 | 3d6 / — / 5d6 / — | NP 10, (3 + 2 × pontos)d6 + pontos × NP × 2 | várias regras (a imunidade que chega, a Fênix por cenário, a espada que só sai contra um digno) | as vagas fecham; o Tabu pesa no grupo (os feitiços dos aliados perto rolam 1d6 a menos, o Ódio começa em NP) |
+
+O Sol (9 na régua, desde a 0.51 uma Absoluta) segue a linha do 9. As Artes Negras, a Magia das Fadas e o Contra-ataque
+ganharam dados e regras (1d6 a mais, a Lei das Fadas que acha os alvos, o [Contragolpe] triplo) e pagam com Tabus e
+limites novos (a Contradição que fere os aliados, a Lei uma vez por cenário com metade do PV máximo e a Fadiga, o Tabu
+do Contra-ataque também na Resistência). Uma Magia de apelação 8 ou mais não precisa caber na faixa do Tabu: o preço
+dela pode estar na própria regra, mas tem que existir e pesar à mesa.
+
+**A régua da Absoluta:** os dados de uma Ancestral, o supremo no NP 10, um portador só e nenhuma outra Magia na ficha
+(`flags.eternia.magic.exclusive`: as vagas do NP 5 e 10 fecham na aba Magias, na subida de NP e na janela; ela só entra
+numa ficha sem outra Magia). Os feitiços dela não levam as tags Feitiço nem Ataque Mágico (o [Silenciado] não os impede;
+o [Apagado] impede, porque olha a flag `magicSpell`).
+
+### Os portadores (0.51)
+
+Toda Magia que não é Conjuração pode ter um limite de portadores no mundo (`flags.eternia.magic.holders`: 1, 2 ou 3;
+sem a flag, sem limite). O limite segue a força e a unicidade da Magia: as Absolutas e quase todas as Proibidas,
+Maldições e Ancestrais têm 1; as que são de uma família (os Arcos, os Matadores) ou que cabem num grupo, 2; as que um
+exército inteiro poderia ter (os Mandamentos, a Forma Indura, as Espadas Mágicas), 3. Na 0.51:
+
+| Categoria | 1 portador | 2 portadores | 3 portadores | Sem limite |
+|---|---|---|---|---|
+| Absoluta | 5 | — | — | — |
+| Ancestral | 4 | 2 | — | — |
+| Proibida | 6 | 2 | 1 | — |
+| Maldição | 16 | 1 | 1 | — |
+| Perdida | 12 | 7 | — | — |
+| Portadora | 2 | 3 | 1 | 6 |
+| Conjuração | — | — | — | 41 |
+
+Contam as fichas do mundo (e os tokens soltos das cenas) e o Despertar ainda aberto que a sorteou
+(`module/apps/magic-holders.mjs`). Esgotada, a Magia não sai no sorteio (o dado do Despertar tem uma face para cada
+Magia livre) e o jogador não a escolhe; o Mestre escolhe livre.
 
 ## 6. As raças
 

@@ -8,10 +8,10 @@
  *                                   cards), of either side, rises as that monster, its servant (the Necromancer's Raise
  *                                   the Dead); with `bound`, whoever it called or raised falls when it falls.
  * Rising: the body's token hides and the monster takes its square, in the combat, on the side of whoever raised it,
- * leaving no drops (bestiary/spawn.mjs), named after the body ("Sombra de Kenji"); the body is [Dead] (a character comes
- * back at the end of the scene, by the Return: automation/scenes.mjs) and rises once. When the risen falls, or its token
- * goes, the body is back on its square and the risen's token hides; a character's body also shows again when its [Dead]
- * ends. The marks: `rising = { uuid, by, combat, round }` on the token of who fell by a riser, `risen` (the risen's
+ * leaving no drops (bestiary/spawn.mjs), named after the body ("Sombra de Kenji"); the body is [Dead], for good, and
+ * rises once. A character still [Dying] holds its body (automation/death.mjs): it doesn't rise while it lives, and one
+ * marked by a riser rises in a later Setup if it dies. When the risen falls, or its token goes, the body is back on its
+ * square and the risen's token hides; a character's body also shows again if the GM takes its [Dead] away. The marks: `rising = { uuid, by, combat, round }` on the token of who fell by a riser, `risen` (the risen's
  * token) on the body's token, `risenFrom` (the body's token) on the risen's. The rising runs on the GM: the Setup, the
  * use of the skill, the falls; the mark, on the window that applied the blow.
  */
@@ -22,6 +22,7 @@ import { rulesOn } from "../conditions/rules.mjs";
 import { ruleOf } from "./rules.mjs";
 import { spawnNear } from "./spawn.mjs";
 import { isRift } from "./rifts.mjs";
+import { isDying } from "../automation/death.mjs";
 
 /** An actor's skills with a rule of this kind. */
 const withRule = (actor, kind) => (actor?.items ?? []).filter(i => (i.type === "skill") && (ruleOf(i)?.rule === kind));
@@ -62,7 +63,8 @@ function squareOf(token) {
 function fallenAround(token, radius) {
   const at = squareOf(token);
   return token.parent.tokens.filter(t => {
-    if ((t === token) || t.hidden || !isBody(t) || !isDown(t.actor)) return false;
+    // A character still [Dying] holds its body
+    if ((t === token) || t.hidden || !isBody(t) || !isDown(t.actor) || isDying(t.actor)) return false;
     const p = squareOf(t);
     return (Math.abs(p.i - at.i) + Math.abs(p.j - at.j)) <= radius;
   });
@@ -150,6 +152,8 @@ async function setupRise(combat, round) {
       await token.unsetFlag(SYSTEM_ID, "rising");
       continue;
     }
+    // A character still [Dying] holds its body: it rises only once dead
+    if (isDying(token.actor)) continue;
     const raiser = fromUuidSync(mark.by, { strict: false });
     const risen = await riseAs(token, mark.uuid, { by: mark.by, disposition: tokenOf(raiser)?.disposition ?? null });
     if (risen) lines.push(L("Bestiary.Rose", { name: token.name, as: risen.name }));
@@ -215,7 +219,7 @@ export function registerRise() {
   Hooks.on("deleteToken", token => {
     if (token.getFlag(SYSTEM_ID, "risenFrom") && isPrimaryGM()) bodyBack(token, { gone: true }).catch(fail("Body back"));
   });
-  // A character back from the dead (the Return at the end of the scene): its body shows again, and may rise again
+  // A character whose [Dead] the GM took away: its body shows again, and may rise again
   Hooks.on("deleteActiveEffect", effect => {
     const actor = effect.parent;
     if (!(actor instanceof Actor) || (actor.type !== "character") || !effect.statuses?.has("dead") || !isPrimaryGM()) return;

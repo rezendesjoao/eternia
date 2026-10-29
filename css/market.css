@@ -438,17 +438,22 @@
 .eternia-market .mk-tool-button:not(:disabled):hover { border-color: var(--pf-primary-light); background: rgba(255, 255, 255, 0.9); }
 .eternia-market .mk-tool-button:disabled { opacity: 0.45; cursor: default; }
 
-/* List: one card per item
+/* List: one card per item, a page at a time (the pager below it)
    ------------------------------------------------------------------------ */
-.eternia-market .mk-list {
+.eternia-market .mk-results {
   grid-area: list;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.eternia-market .mk-list {
+  flex: 1;
   min-height: 0;
   padding: 2px 10px 14px 14px;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--pf-alt) transparent;
 }
-.eternia-market .mk-group[hidden] { display: none; }
 .eternia-market .mk-group + .mk-group { margin-top: 10px; }
 .eternia-market .mk-group-head {
   position: sticky;
@@ -484,7 +489,6 @@
   transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
 }
 .eternia-market .mk-row:has(.mk-mark) { grid-template-columns: 20px 44px minmax(0, 1fr) auto; }
-.eternia-market .mk-row[hidden] { display: none; }
 /* The grade's stripe */
 .eternia-market .mk-row::before {
   content: "";
@@ -626,7 +630,6 @@
   color: var(--pf-text-soft);
   font: italic 13.5px/1.3 var(--pf-body);
 }
-.eternia-market .mk-empty[hidden] { display: none; }
 .eternia-market .mk-closed {
   display: grid;
   place-items: center;
@@ -655,6 +658,52 @@
   outline-offset: -6px;
   background: rgba(47, 107, 74, 0.06);
 }
+
+/* Pager: which rows the page shows, and the pages
+   ------------------------------------------------------------------------ */
+.eternia-market .mk-pager {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 10px;
+  margin: 0 10px 0 14px;
+  padding: 7px 0 9px;
+  border-top: 1px solid var(--mk-line);
+}
+.eternia-market .mk-pager-range {
+  color: var(--pf-text-soft);
+  font: italic 12.5px/1 var(--pf-body);
+  white-space: nowrap;
+}
+.eternia-market .mk-pager-pages { display: flex; align-items: center; gap: 3px; }
+.eternia-market .mk-pager-button {
+  display: grid;
+  place-items: center;
+  width: auto;
+  min-width: 26px;
+  height: 26px;
+  margin: 0;
+  padding: 0 7px;
+  border: 1px solid var(--mk-line);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--pf-text);
+  font: 600 12px/1 var(--pf-sans);
+  cursor: pointer;
+}
+.eternia-market .mk-pager-button i { color: var(--pf-primary); font-size: 10px; }
+.eternia-market .mk-pager-button:not(:disabled, .current):hover { border-color: var(--pf-primary-light); background: #fff; }
+.eternia-market .mk-pager-button:disabled { opacity: 0.4; cursor: default; }
+.eternia-market .mk-pager-button.current {
+  border-color: var(--pf-primary-dark);
+  background: var(--pf-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  color: #fbf4df;
+  cursor: default;
+}
+.eternia-market .mk-pager-button:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(43, 103, 71, 0.35); }
 
 /* Detail: the page of the item chosen
    ------------------------------------------------------------------------ */

@@ -1,0 +1,79 @@
+{
+  "name": "O Futuro Fechado",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Impecável. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você mostra a até 5 alvos a até 6 Qd todos os futuros em que eles morrem, e atira em cada um deles. O ataque acerta sem teste; [(2 + 2×pontos gastos)d6 + Poder de Ataque + pontos gastos×NP] de dano físico (pelo Voto, para em 1 PV), e cada um fica [Atordoado] e com [Medo] de você. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Eles entenderam que estavam vivos porque você quis.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Targets",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "auto",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/weapons/guns/pistol-handgun-large.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "impecavel-fechado",
+      "kind": "spends",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "frightened"
+        },
+        {
+          "statusId": "dazed"
+        }
+      ],
+      "magicSpell": {
+        "id": "impecavel"
+      },
+      "minRank": 10,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder de Ataque] + pontos gastos×NP Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "hFTAMhtFEA7HYq5z",
+  "folder": "P9aGMuJe4Gva39Ak",
+  "_key": "!items!hFTAMhtFEA7HYq5z"
+}

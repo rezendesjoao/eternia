@@ -8,6 +8,11 @@
  * what the Market filters by: the magic grade ([M1]–[M7]), whether shops sell it (no [Not For Sale], [Untradeable] nor
  * grade), the folder and a search text with the description. A shop's wares and what a character can sell are entries
  * of the same kind (marketEntry), made from the items themselves.
+ *
+ * The compendium items are read from their compendium's index, asked for the fields the entries read (INDEX_FIELDS,
+ * the description and the effects among them, only of the compendiums with something to carry), not as documents: a
+ * thousand Items made at once would hold a weak PC for seconds. The entries are made a slice at a time, the game drawing
+ * its frames between the slices.
  */
 import { SYSTEM_ID } from "../settings.mjs";
 import { toInt } from "../helpers/utils.mjs";
@@ -57,8 +62,26 @@ const GROUP_OF = new Map(TAG_CATALOG.map(t => [tagKey(t.label), t.group.split(".
 export const RANK_BANDS = [[1, 5], [6, 10], [11, 15], [16, 20], [21, 25], [26, 30]];
 
 /**
+ * The fields of a compendium index that gearEntry and marketEntry read of an item (asked only of the compendiums with
+ * something to carry: the other indexes stay without the descriptions, helpers/pack-index.mjs). An effect's changes are
+ * asked in both places: Foundry 14's `system.changes` and the `changes` of an older save.
+ */
+const INDEX_FIELDS = [
+  "system.description", "system.tags", "system.price", "system.rank", "system.quantity", "system.attack", "system.magic",
+  "system.accuracy", "system.pdef", "system.mdef", "system.initiative", "system.bagSpace", "system.range",
+  "effects.disabled", "effects.transfer", "effects.system.changes", "effects.changes"
+];
+/** The types of an effect's changes saved before Foundry 14, by their numeric mode. */
+const CHANGE_TYPES = ["custom", "multiply", "add", "downgrade", "upgrade", "override"];
+/** How long the entries are made on a row before the game draws a frame (ms). */
+const SLICE_MS = 10;
+
+/** A moment for the game to draw its frames and read the input, in the middle of a long work. */
+const pause = () => (globalThis.scheduler?.yield ? globalThis.scheduler.yield() : new Promise(resolve => setTimeout(resolve)));
+
+/**
  * An item as the Market shows it.
- * @param {Item} item
+ * @param {Item|object} item        An item, or a compendium index entry standing for one (indexedItem)
  * @param {object} [extra]
  * @param {string} [extra.folder]   The name of its folder
  * @param {string} [extra.source]   Where it comes from (the compendium's label)
@@ -109,6 +132,28 @@ export function clearMarketCatalog() {
 /** Whether the catalog is already read (the window opens at once). */
 export const catalogReady = () => !!catalogPromise;
 
+/**
+ * A compendium index entry (read with INDEX_FIELDS) as the item it stands for: what gearEntry and marketEntry read of an
+ * item, its system data and its effects, with the changes as Foundry 14 reads them (an older save's numeric `mode` made
+ * a `type`).
+ * @param {object} e   The index entry
+ * @returns {object|null}  Null when Foundry indexed the entry again from its document (loaded or changed since), which
+ *   leaves the effects out: the document is read instead
+ */
+function indexedItem(e) {
+  if (!Array.isArray(e.effects)) return null;
+  const changes = effect => (effect.system?.changes ?? effect.changes ?? []).map(change => (((change.type === undefined)
+    && (typeof change.mode === "number")) ? { ...change, type: CHANGE_TYPES[change.mode] ?? `custom.${change.mode}` } : change));
+  return {
+    uuid: e.uuid,
+    name: e.name,
+    img: e.img || Item.implementation.getDefaultArtwork(e).img,
+    type: e.type,
+    system: e.system ?? {},
+    effects: e.effects.map(effect => ({ disabled: !!effect.disabled, transfer: effect.transfer, system: { changes: changes(effect) } }))
+  };
+}
+
 async function buildCatalog() {
   const ours = p => (p.metadata.packageType === "system") && (p.metadata.packageName === SYSTEM_ID);
   const packs = game.packs.filter(p => (p.documentName === "Item") && p.visible && (ours(p) || (p.metadata.packageType === "world")))
@@ -116,8 +161,12 @@ async function buildCatalog() {
   const seen = new Set();
   const uuids = [];
   const info = new Map();
+  /** Each item by uuid: its document when it is loaded already, else what its index entry tells. */
+  const items = new Map();
   for (const pack of packs) {
-    const index = await pack.getIndex();
+    // Only a compendium with something to carry is asked for the fields the Market reads
+    if (!pack.index.some(e => TYPES.includes(e.type))) continue;
+    const index = await pack.getIndex({ fields: INDEX_FIELDS });
     for (const e of index) {
       if (!TYPES.includes(e.type)) continue;
       const key = `${e.type}|${fold(e.name)}`;
@@ -126,13 +175,27 @@ async function buildCatalog() {
       const uuid = e.uuid ?? pack.getUuid(e._id);
       uuids.push(uuid);
       info.set(uuid, { source: pack.metadata.label, folder: pack.folders.get(e.folder)?.name ?? "" });
+      const item = pack.has(e._id) ? pack.get(e._id) : indexedItem(e);
+      if (item) items.set(uuid, item);
     }
   }
-  const docs = await loadDocuments(uuids);
-  const entries = uuids.map(uuid => {
-    const doc = docs.get(uuid);
-    return doc ? marketEntry(doc, info.get(uuid)) : null;
-  }).filter(Boolean);
+  // The entries indexed again without their effects: their documents
+  const missing = uuids.filter(uuid => !items.has(uuid));
+  if (missing.length) for (const [uuid, doc] of await loadDocuments(missing)) items.set(uuid, doc);
+
+  // A slice at a time: the game draws its frames between them
+  let slice = performance.now();
+  const breathe = async () => {
+    if ((performance.now() - slice) < SLICE_MS) return;
+    await pause();
+    slice = performance.now();
+  };
+  const entries = [];
+  for (const uuid of uuids) {
+    const item = items.get(uuid);
+    if (item) entries.push(marketEntry(item, info.get(uuid)));
+    await breathe();
+  }
 
   // The world's own items (not the copies of a compendium item already listed)
   const listed = new Set(uuids);
@@ -142,6 +205,7 @@ async function buildCatalog() {
     const from = item._stats?.compendiumSource ?? item.flags?.core?.sourceId;
     if ((from && listed.has(from)) || seen.has(`${item.type}|${fold(item.name)}`)) continue;
     entries.push(marketEntry(item, { source: worldLabel, folder: item.folder?.name ?? "" }));
+    await breathe();
   }
 
   const order = type => TYPES.indexOf(type);

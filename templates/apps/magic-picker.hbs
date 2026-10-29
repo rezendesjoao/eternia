@@ -1,18 +1,28 @@
 {{!-- The Magia picker (module/apps/magic-picker.mjs): what this choice is and the search, the Magia browser (filters,
-     cards and the page of the Magia under the pointer) and the choice. --}}
-<div class="mp-body" style="--mp-class: {{color}}">
+     cards and the page of the Magia under the pointer) and the choice. A player's first Magia is drawn (the Awakening,
+     module/apps/awakening.mjs): the bar of the rolls instead of the search, and only the Magias rolled. --}}
+<div class="mp-body{{#if awakening}} aw-mode{{/if}}" style="--mp-class: {{color}}">
 
 	<header class="mp-head">
 		<div class="mp-head-text">
 			<span class="mp-eyebrow">{{#if className}}{{className}} · {{/if}}{{slot}}</span>
+			{{#if awakening}}
+			<h2>{{localize "ETERNIA.Awakening.Heading"}}</h2>
+			<p>{{localize "ETERNIA.Awakening.Lead"}}</p>
+			{{else}}
 			<h2>{{localize "ETERNIA.MagicPicker.Heading"}}</h2>
 			<p>{{localize "ETERNIA.MagicPicker.Lead"}}</p>
+			{{/if}}
 		</div>
+		{{#unless awakening}}
 		<label class="mp-search">
 			<i class="fa-solid fa-magnifying-glass"></i>
 			<input type="search" placeholder="{{localize 'ETERNIA.MagicPicker.Search'}}" autocomplete="off" spellcheck="false">
 		</label>
+		{{/unless}}
 	</header>
+
+	{{#if awakening}}{{> "systems/eternia/templates/apps/awakening-bar.hbs"}}{{/if}}
 
 	{{> "systems/eternia/templates/apps/magic-browser.hbs"}}
 

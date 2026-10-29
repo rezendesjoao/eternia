@@ -1,0 +1,172 @@
+{
+  "name": "Olhar que Apaga",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Absoluta.</strong> Os seus olhos apagam magia. Não é feitiço: é o que eles são. Quem você olha não conjura, nem aliado, nem inimigo, nem demônio. Por isso a faixa: sobre os olhos, sempre, menos quando a luta pede. Com ela você não vê nada. Sem ela, ninguém à sua volta faz magia, e os seus olhos secam. Mais forte que todas as outras categorias.</p><ul><li><strong>Absoluta:</strong> só uma pessoa no mundo tem esta Magia, e ela ocupa todas as vagas de Magia: você nunca terá outra. [Silenciado] não impede os feitiços dela.</li><li><strong>A Faixa:</strong> com a faixa (sempre, fora do [Olhar Aberto]) você está [Cego]: só ataca quem está a até 1 Qd e rola −1d6 nos testes (menos Resistência) e nas Esquivas contra a Esquiva.</li><li><strong>O Olhar:</strong> com o [Olhar Aberto], todo mundo a até 4 Qd de você (aliados também, menos você) fica [Apagado] na hora e em cada Manutenção: não usa feitiços (nem Maldições), e os Traços das Magias param.</li><li><strong>Tabu, Olhos que Secam:</strong> cada Encerramento com o olhar aberto dá [Fadiga: 1], e ele fecha sozinho depois de 3 rodadas (ou com uma Ação Menor, no Livrar-se). O olhar não escolhe: apaga os aliados também.</li><li><strong>Traço, Olhos Vermelhos:</strong> você é imune a [Apagado], [Encantado] e [Confuso] (nada engana esses olhos), e os seus feitiços causam +NP de dano em quem está [Apagado].</li><li><strong>Feitiços:</strong> Tirar a Faixa e Faixa de Captura (NP 1), Olhar Fixo (NP 3), Faixa em Rede (NP 5), Olhar em Brasa (NP 7) e o feitiço supremo O Fim da Magia (NP 10).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Fim da Magia pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Ele tira a faixa. Em volta, todo feitiço morre na boca de quem ia falar.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/biological/eye-brown-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "notStatus",
+              "value": "gaze"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "A Faixa",
+      "img": "icons/commodities/biological/eye-brown-red.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "blinded"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "2Lc3R4um2fbzcQ9T",
+      "_key": "!items.effects!IhypJmJj2GFZyOKg.2Lc3R4um2fbzcQ9T"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "olhar-que-apaga",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "erased"
+                ],
+                "value": "@cr"
+              }
+            ]
+          },
+          "immune": [
+            "erased",
+            "charmed",
+            "confused"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Olhos Vermelhos",
+      "img": "icons/commodities/biological/eye-brown-red.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "YhGpzban5x3RC3qU",
+      "_key": "!items.effects!IhypJmJj2GFZyOKg.YhGpzban5x3RC3qU"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "olhar-que-apaga-olhar-que-apaga",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "olhar-que-apaga",
+        "category": "absolute",
+        "tagline": "Onde o seu olho pousa, a magia some: de qualquer um.",
+        "holders": 1,
+        "exclusive": true
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "IhypJmJj2GFZyOKg",
+  "folder": "QYyWSy6Eyksy3wOD",
+  "_key": "!items!IhypJmJj2GFZyOKg"
+}

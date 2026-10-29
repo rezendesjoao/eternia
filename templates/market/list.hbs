@@ -1,36 +1,48 @@
-{{!-- The Market's list (module/market/market.mjs): one row per item, by kind (or in the order chosen), with its
-     picture, name, grade, what it gives, the start of what it does, its Item Rank and price (and a shop's stock). A click
-     opens its page beside the list; the GM marks rows (for a shop) and drags them to a sheet. --}}
-<div class="mk-list{{#if dropHint}} mk-droppable{{/if}}">
-	{{#if closed}}
-	<div class="mk-closed"><i class="fa-solid fa-store-slash"></i><p>{{localize "ETERNIA.Piles.ShopClosedHint"}}</p></div>
-	{{else}}
-	{{#each groups as |g|}}
-	<section class="mk-group" data-group="{{g.id}}">
-		{{#if g.label}}<h3 class="mk-group-head"><i class="{{g.icon}}"></i><span>{{g.label}}</span><b data-group-count></b></h3>{{/if}}
-		<ol class="mk-rows">
-			{{#each g.rows as |r|}}
-			<li class="mk-row{{#if r.selected}} selected{{/if}}{{#if r.marked}} marked{{/if}}{{#if r.soldOut}} sold-out{{/if}}{{#if r.notSale}} not-sale{{/if}}" data-key="{{r.key}}"{{#if r.itemId}} data-item-id="{{r.itemId}}"{{/if}} data-action="select" tabindex="0"{{#if @root.drag}} draggable="true"{{/if}} style="--mk-grade: {{r.gradeColor}}">
-				{{#if @root.canMark}}<button type="button" class="mk-mark" data-action="mark" aria-pressed="{{#if r.marked}}true{{else}}false{{/if}}" aria-label="{{localize 'ETERNIA.Market.Mark'}}" data-tooltip="{{localize 'ETERNIA.Market.Mark'}}"><i class="fa-solid fa-check"></i></button>{{/if}}
-				<span class="mk-row-img"><img src="{{r.img}}" alt="{{r.name}}">{{#if r.qty}}<b>×{{r.qty}}</b>{{/if}}</span>
-				<span class="mk-row-body">
-					<span class="mk-row-name"><b>{{r.name}}</b>{{#if r.gradeLabel}}<em class="mk-grade">{{r.gradeLabel}}</em>{{/if}}</span>
-					<small class="mk-row-line"><span class="mk-row-type">{{r.typeLabel}}</span>{{#if r.line}} · {{r.line}}{{/if}}</small>
-					{{#if r.text}}<span class="mk-row-text">{{r.text}}</span>{{/if}}
-				</span>
-				<span class="mk-row-side">
-					<span class="mk-rank" data-tooltip="{{localize 'ETERNIA.Item.Label.Rank'}} {{r.rank}}"><small>{{localize "ETERNIA.Market.RankShort"}}</small>{{r.rank}}</span>
-					<span class="mk-price{{#if r.short}} short{{/if}}"><i class="fa-solid fa-coins"></i>{{r.priceLabel}}</span>
-					{{#if r.stockLabel}}<small class="mk-stock{{#if r.soldOut}} out{{/if}}">{{r.stockLabel}}</small>{{/if}}
-					{{#if r.blockedLabel}}<small class="mk-blocked">{{r.blockedLabel}}</small>{{/if}}
-				</span>
-			</li>
-			{{/each}}
-		</ol>
-	</section>
-	{{/each}}
-	{{#if empty}}<p class="mk-none"><i class="fa-solid fa-box-open"></i><span>{{empty}}</span></p>{{/if}}
-	<p class="mk-empty" hidden><i class="fa-solid fa-magnifying-glass"></i><span>{{localize "ETERNIA.Market.NoMatch"}}</span></p>
-	{{#if dropHint}}<p class="mk-drop-hint"><i class="fa-solid fa-hand-holding-hand"></i><span>{{localize "ETERNIA.Market.DropHint"}}</span></p>{{/if}}
+{{!-- The Market's list (module/market/market.mjs): a page of the items the filters let through, one row per item, by
+     kind (or in the order chosen), with its picture, name, grade, what it gives, the start of what it does, its Item
+     Rank and price (and a shop's stock). A click opens its page beside the list; the GM marks rows (for a shop) and
+     drags them to a sheet. Below, with more than a page, the pager: the first page, the one before, a few around this
+     one, the next and the last, and which rows of how many this one shows. --}}
+<div class="mk-results">
+	<div class="mk-list{{#if dropHint}} mk-droppable{{/if}}">
+		{{#if closed}}
+		<div class="mk-closed"><i class="fa-solid fa-store-slash"></i><p>{{localize "ETERNIA.Piles.ShopClosedHint"}}</p></div>
+		{{else}}
+		{{#each groups as |g|}}
+		<section class="mk-group" data-group="{{g.id}}">
+			{{#if g.label}}<h3 class="mk-group-head"><i class="{{g.icon}}"></i><span>{{g.label}}</span><b>{{g.count}}</b></h3>{{/if}}
+			<ol class="mk-rows">
+				{{#each g.rows as |r|}}
+				<li class="mk-row{{#if r.selected}} selected{{/if}}{{#if r.marked}} marked{{/if}}{{#if r.soldOut}} sold-out{{/if}}{{#if r.notSale}} not-sale{{/if}}" data-key="{{r.key}}"{{#if r.itemId}} data-item-id="{{r.itemId}}"{{/if}} data-action="select" tabindex="0"{{#if @root.drag}} draggable="true"{{/if}} style="--mk-grade: {{r.gradeColor}}">
+					{{#if @root.canMark}}<button type="button" class="mk-mark" data-action="mark" aria-pressed="{{#if r.marked}}true{{else}}false{{/if}}" aria-label="{{localize 'ETERNIA.Market.Mark'}}" data-tooltip="{{localize 'ETERNIA.Market.Mark'}}"><i class="fa-solid fa-check"></i></button>{{/if}}
+					<span class="mk-row-img"><img src="{{r.img}}" alt="{{r.name}}" loading="lazy" decoding="async">{{#if r.qty}}<b>×{{r.qty}}</b>{{/if}}</span>
+					<span class="mk-row-body">
+						<span class="mk-row-name"><b>{{r.name}}</b>{{#if r.gradeLabel}}<em class="mk-grade">{{r.gradeLabel}}</em>{{/if}}</span>
+						<small class="mk-row-line"><span class="mk-row-type">{{r.typeLabel}}</span>{{#if r.line}} · {{r.line}}{{/if}}</small>
+						{{#if r.text}}<span class="mk-row-text">{{r.text}}</span>{{/if}}
+					</span>
+					<span class="mk-row-side">
+						<span class="mk-rank" data-tooltip="{{localize 'ETERNIA.Item.Label.Rank'}} {{r.rank}}"><small>{{localize "ETERNIA.Market.RankShort"}}</small>{{r.rank}}</span>
+						<span class="mk-price{{#if r.short}} short{{/if}}"><i class="fa-solid fa-coins"></i>{{r.priceLabel}}</span>
+						{{#if r.stockLabel}}<small class="mk-stock{{#if r.soldOut}} out{{/if}}">{{r.stockLabel}}</small>{{/if}}
+						{{#if r.blockedLabel}}<small class="mk-blocked">{{r.blockedLabel}}</small>{{/if}}
+					</span>
+				</li>
+				{{/each}}
+			</ol>
+		</section>
+		{{/each}}
+		{{#if empty}}<p class="mk-none"><i class="fa-solid fa-box-open"></i><span>{{empty}}</span></p>{{/if}}
+		{{#if noMatch}}<p class="mk-empty"><i class="fa-solid fa-magnifying-glass"></i><span>{{localize "ETERNIA.Market.NoMatch"}}</span></p>{{/if}}
+		{{#if dropHint}}<p class="mk-drop-hint"><i class="fa-solid fa-hand-holding-hand"></i><span>{{localize "ETERNIA.Market.DropHint"}}</span></p>{{/if}}
+		{{/if}}
+	</div>
+	{{#if pager}}
+	<nav class="mk-pager" aria-label="{{localize 'ETERNIA.Market.Pager.Label'}}">
+		<span class="mk-pager-range">{{pager.range}}</span>
+		<span class="mk-pager-pages">
+			{{#each pager.buttons}}<button type="button" class="mk-pager-button{{#if current}} current{{/if}}" data-action="page" data-page="{{page}}"{{#if step}} data-step="{{step}}"{{/if}}{{#if current}} aria-current="page"{{/if}} aria-label="{{label}}"{{#if icon}} data-tooltip="{{label}}"{{/if}}{{#if disabled}} disabled{{/if}}>{{#if icon}}<i class="{{icon}}"></i>{{else}}{{text}}{{/if}}</button>{{/each}}
+		</span>
+	</nav>
 	{{/if}}
 </div>

@@ -36,6 +36,11 @@ import { afterAction } from "../conditions/turns.mjs";
 import { copyUses } from "../conditions/copies.mjs";
 import { closeWindow, offTurnIssues, openWindow, refundWindow, spendWindow, windowCovers } from "../conditions/window.mjs";
 import { payHpCost, refundHpCost } from "../conditions/immortal.mjs";
+import { paySelfSeal, refundSelfSeal } from "../conditions/reaper.mjs";
+import { payYuldCost, refundYuld, yuldIssue } from "../conditions/fortune.mjs";
+import { worthyIssue } from "../conditions/blessings.mjs";
+import { isSpell } from "../conditions/rolls.mjs";
+import { has, rulesOn } from "../conditions/rules.mjs";
 import {
   commitMotorUse, motorActionOf, motorCostValues, motorUseIssues, planMotorUse, skillMotor, undoMotorUse
 } from "../classes/motor.mjs";
@@ -178,6 +183,8 @@ export function costOf(item, actor) {
   }
   const modified = skillModifiers(actor, item).cost;
   if (modified) hate = modified.value;
+  // The prize: spells cost no Hate while the [Jackpot] lasts (conditions/jackpot.mjs)
+  if (rulesOn() && has(actor, "jackpot") && isSpell(item)) hate = 0;
   hate = Math.max(0, hate);
   fate = Math.max(0, fate);
   return (hate || fate) ? { hate, fate, group } : null;
@@ -349,6 +356,12 @@ export function inspectUse(item, { targets = null } = {}) {
   }
   // The bestiary's own: the nearest of a fury, the heads' Major Actions, a monster inside someone (bestiary/use-checks.mjs)
   issues.push(...monsterUseIssues(item, actor, { targets, combat }));
+  // A blade that only comes out against a worthy enemy (conditions/blessings.mjs), and the Yuld a skill eats
+  // (conditions/fortune.mjs)
+  const worthy = worthyIssue(item, actor, targets);
+  if (worthy) issues.push({ text: worthy, mode: setting("conditionLimits") || "warn", kind: "condition" });
+  const yuld = yuldIssue(item, actor);
+  if (yuld) issues.push({ text: yuld, mode: "block", kind: "item" });
 
   // Usage limit, and the conditions of an item's skill
   const limitsMode = setting("limits");
@@ -530,6 +543,9 @@ async function commitUse(item, plan, message) {
   if (!foundry.utils.isEmpty(updates)) await actor.update(updates);
   // HP as a cost (Golpe sem Medo), and a window of actions the skill opens: conditions/immortal.mjs, window.mjs
   record.hp = await payHpCost(item, actor);
+  // The death god's price in life, and the Yuld the skill eats (conditions/reaper.mjs, conditions/fortune.mjs)
+  record.seal = await paySelfSeal(item, actor);
+  record.yuld = await payYuldCost(item, actor);
   if (plan.combat) record.opened = await openWindow(actor, plan.combat, item);
 
   // A reaction one of the user's [Clones] makes for it doesn't count (conditions/copies.mjs)
@@ -544,7 +560,7 @@ async function commitUse(item, plan, message) {
     .catch(err => (console.error(`${SYSTEM_ID} | Motor of ${item.uuid}`, err), null));
 
   if (record.hate || record.fate || record.action || record.limit || record.group || record.forced.length || record.motor
-    || record.hp || record.opened || record.alsoSpent || record.minor) {
+    || record.hp || record.opened || record.alsoSpent || record.minor || record.seal || record.yuld) {
     await message.setFlag(SYSTEM_ID, "usage", record);
   }
   // The conditions an action sets off: [Shocked] hurts on a Major Action, which also ends [Intangible] and
@@ -606,6 +622,8 @@ export async function undoUse(message) {
     if (record.window) await refundWindow(actor, record.action, record.window);
     if (record.opened) await closeWindow(actor, record.opened);
     if (record.hp) await refundHpCost(actor, record.hp);
+    if (record.seal) await refundSelfSeal(actor, record.seal);
+    if (record.yuld) await refundYuld(actor, record.yuld);
   }
 
   if (record.motor) await undoMotorUse(record.motor);
@@ -638,6 +656,8 @@ function renderUse(message, html) {
     parts.push(((action === "minor") && record.minor) ? `${L("Use.Action.minor")}: ${minorText(record.minor)}` : L(`Use.Action.${action}`));
   }
   if (record.hp) parts.push(L("Immortal.HpPaid", { n: record.hp }));
+  if (record.seal) parts.push(L("Reaper.PricePaid", { n: record.seal }));
+  if (record.yuld) parts.push(L("Fortune.Paid", { n: record.yuld }));
   if (record.hate) parts.push(L("Use.Paid.Hate", { n: record.hate, total: record.hateTotal }));
   if (record.fate) parts.push(L("Use.Paid.Fate", { n: record.fate, total: record.fateTotal }));
   if (record.fateOption) parts.push(fateOptionText(record.fateOption));

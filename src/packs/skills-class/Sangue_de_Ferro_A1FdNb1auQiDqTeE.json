@@ -1,0 +1,172 @@
+{
+  "name": "Sangue de Ferro",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Perdida.</strong> Você sente o ferro: o das armas, o das armaduras e o pouco que corre no sangue de cada um. Com um gesto, o ferro do sangue de alguém se junta e vira navalha, prego, bisturi, e sai rasgando por dentro. Quem sabe o que você faz para de correr: cada passo mexe as lâminas. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Portadores:</strong> no máximo 2 no mundo de cada vez.</li><li><strong>Ferro no Sangue:</strong> os feitiços deixam [Ferro no Sangue] em quem acertam (até 5). Cada quadrado que o alvo anda por conta própria custa o Valor em dano direto; no 5, o ferro sai do sangue de uma vez: [Atordoado] e [Lento].</li><li><strong>Tabu, Sangue Ralo:</strong> o ferro que você move sai do seu sangue também: em combate, a sua Defesa Física cai [NP÷2], e cada feitiço de Sangue de Ferro custa 2 PV.</li><li><strong>Traço, Magnetismo:</strong> você é imune a [Desarmado], os seus feitiços de Sangue de Ferro ignoram a Defesa Física de quem tem [Ferro no Sangue] (o golpe vem de dentro), e usar esses feitiços não tira o seu [Oculto].</li><li><strong>Feitiços:</strong> Navalhas e Pregos (NP 1), Magnetismo: Desarme e Manto de Limalha (NP 3), Tesouras no Sangue (NP 5) e o feitiço supremo Hipóxia (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Hipóxia pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Ninguém percebe que está sangrando ferro até tentar correr.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/wounds/blood-cells-vessel-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Sangue Ralo",
+      "img": "icons/skills/wounds/blood-cells-vessel-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.defense.phys.mod",
+            "type": "add",
+            "value": "-floor(@cr/2)",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "9c5mAXpOYHHxLsvE",
+      "_key": "!items.effects!A1FdNb1auQiDqTeE.9c5mAXpOYHHxLsvE"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "sangue-de-ferro",
+            "pierce": {
+              "inside": [
+                "ironBlood"
+              ]
+            },
+            "keepHidden": true
+          },
+          "immune": [
+            "disarmed"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Magnetismo",
+      "img": "icons/skills/wounds/blood-cells-vessel-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "X6X4G4Zz9TICHyNo",
+      "_key": "!items.effects!A1FdNb1auQiDqTeE.X6X4G4Zz9TICHyNo"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "sangue-de-ferro-sangue-de-ferro",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "sangue-de-ferro",
+        "category": "lost",
+        "tagline": "O ferro do sangue dos outros vira lâmina, de dentro para fora.",
+        "holders": 2
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "A1FdNb1auQiDqTeE",
+  "folder": "cBrpXcHD61wfVnyp",
+  "_key": "!items!A1FdNb1auQiDqTeE"
+}

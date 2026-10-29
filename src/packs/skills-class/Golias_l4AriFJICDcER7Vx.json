@@ -1,0 +1,175 @@
+{
+  "name": "Golias",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Perdida.</strong> Você desperta o gigante que dorme no seu corpo: os músculos crescem, a pele vira couraça, o chão afunda onde você pisa. Nessa forma, golpe pequeno não arranha e nada empurra você, e cada soco seu joga o inimigo longe. Mas o corpo cobra: quando o gigante volta a dormir, você mal fica de pé. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Única:</strong> só uma pessoa no mundo tem esta Magia de cada vez.</li><li><strong>O Gigante:</strong> com [Golias: n], um golpe cujo dano (depois da Defesa e da Anulação) fica abaixo de n não faz nada, nem os estados dele; de n para cima passa inteiro. Você não é puxado, empurrado nem trocado de lugar, os seus ataques físicos causam +NP de dano, e a couraça volta a [Barreira: NP×2 + 5] em cada Manutenção.</li><li><strong>Tabu, O Gigante Cansa:</strong> um alvo grande não se esquiva: com [Golias], −1d6 nas Esquivas. Quando o gigante volta a dormir (o [Golias] acaba), você fica com [Fadiga: NP].</li><li><strong>Traço, Corpo de Gigante:</strong> você é imune a [Derrubado], e os seus feitiços de Golias causam +NP÷2 de dano em quem está [Derrubado].</li><li><strong>Feitiços:</strong> Despertar o Gigante e Soco de Golias (NP 1), Pisão e Peito de Aço (NP 3), Queda da Montanha (NP 5) e o feitiço supremo Punho que Racha o Céu (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Punho que Racha o Céu pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>O golpe acertou em cheio. Ele nem olhou para baixo.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/environment/creatures/gargoyle-grey-stone.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "status",
+              "value": "goliath"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "O Gigante Cansa",
+      "img": "icons/environment/creatures/gargoyle-grey-stone.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.checks.evasion.dice",
+            "type": "add",
+            "value": -1,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "POML9A7GugXBsOI7",
+      "_key": "!items.effects!l4AriFJICDcER7Vx.POML9A7GugXBsOI7"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "golias",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "prone"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          },
+          "immune": [
+            "prone"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Corpo de Gigante",
+      "img": "icons/environment/creatures/gargoyle-grey-stone.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "PjrOBatEKlqqET0S",
+      "_key": "!items.effects!l4AriFJICDcER7Vx.PjrOBatEKlqqET0S"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "golias-golias",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "golias",
+        "category": "lost",
+        "tagline": "O corpo que não cede: golpe fraco nem arranha, e o seu derruba montanhas.",
+        "holders": 1
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "l4AriFJICDcER7Vx",
+  "folder": "60ktoW5IhbWk9V8z",
+  "_key": "!items!l4AriFJICDcER7Vx"
+}

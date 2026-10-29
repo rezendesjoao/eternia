@@ -25,6 +25,8 @@ import { has, isHostile, isSourceOf, limitsMode, rulesOn, sameActor, sourcesOf }
 import { engagedIssues } from "./distance.mjs";
 import { needsIssues } from "./copies.mjs";
 import { extraMajors } from "../bestiary/heads.mjs";
+import { erasable } from "./erasure.mjs";
+import { seaCursed } from "./quake.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 const REACTIONS = new Set(["Before Check", "After Check", "Damage Roll", "Before Damage", "After Damage"]);
@@ -74,9 +76,16 @@ export function conditionUseIssues(item, actor, { targets = null } = {}) {
     push("silenced", "Silenced");
   }
   if (has(actor, "disarmed") && isWeaponAttack(item)) push("disarmed", "Disarmed");
+  // [Erased]: no magic at all, the Curses too (conditions/erasure.mjs)
+  if (has(actor, "erased") && erasable(item)) push("erased", "Erased");
+  // The sea's curse: no spell of the fruit while soaked or swimming (conditions/quake.mjs)
+  const sea = seaCursed(actor, item);
+  if (sea) push(has(actor, "swimming") ? "swimming" : "soaked", "SeaCurse", { effect: sea.name });
   if (has(actor, "amnesia") && !isBasicSkill(item, actor)) push("amnesia", "Amnesia");
   if (has(actor, "sealed") && sealedSkills(actor).includes(item.name.trim().toLowerCase())) push("sealed", "Sealed");
   const hostile = isHostile(item);
+  // [Phasing]: going through everything, it attacks no one (only what is made for it: `whilePhasing`)
+  if (has(actor, "phasing") && hostile && !item.getFlag?.("eternia", "whilePhasing")) push("phasing", "Phasing");
   // [Berserk] still moves, and uses the skills made for it (those that require it): only the other skills that
   // don't attack are out.
   if (has(actor, "berserk") && !hostile && !tags.includes("movement") && (timing !== "Move") && !requires(item, "berserk")) {

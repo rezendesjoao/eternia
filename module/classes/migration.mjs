@@ -25,7 +25,12 @@
  * Draconic race items their HP (+16).
  * Version 9, the Dano labels: the skills whose label (`flags.eternia.damageText`) still carried the formula from before
  * 0.42, though their text and their roll were already the new ones, take the compendium's label (nothing else changes).
+ * Version 10, the wave of 0.51: the Magias that got stronger with heavier defects (Sol, now an Absoluta, Artes Negras,
+ * Magia das Fadas and Contra-ataque) and their spells take their compendium version again, as in version 7; and every
+ * Magia the characters have takes the limit of holders and the Absoluta mark of its compendium version (the flag only).
  */
+/** The Magias whose copies version 10 refreshes whole (with their spells). */
+const BUFFED_051 = new Set(["sol", "artes-negras", "fadas", "contra-ataque"]);
 const KUDEN_TYPES = new Set(["kudenResource", "kudenResourceFull", "sceneDay", "sceneNight", "sceneNoon", "sceneOpenSky",
   "sceneDarkness", "sceneMiasma", "sceneNoMiasma", "targetBossRaid", "hpAtMost"]);
 
@@ -300,11 +305,12 @@ async function magiaSources() {
  * @param {Map<string, Item>} sources
  * @returns {Promise<number>}
  */
-async function refreshMagias(items, parent, sources) {
+async function refreshMagias(items, parent, sources, only = null) {
   let count = 0;
   for (const item of items) {
     const flags = item._source.flags?.eternia ?? {};
     if ((item.type !== "skill") || !(flags.magic || flags.magicSpell)) continue;
+    if (only && !only.has(flags.magic?.id ?? flags.magicSpell?.id)) continue;
     const source = sources.get(flags.identifier);
     if (!source) continue;
     const data = source.toObject();
@@ -324,9 +330,33 @@ async function refreshMagias(items, parent, sources) {
   return count;
 }
 
+/**
+ * Version 10: the other Magias among these items take the limit of holders and the Absoluta mark of their compendium
+ * version (only those keys of `flags.eternia.magic`).
+ */
+async function refreshHolders(items, parent, sources) {
+  const updates = [];
+  for (const item of items) {
+    const magic = item._source.flags?.eternia?.magic;
+    if ((item.type !== "skill") || !magic?.id || BUFFED_051.has(magic.id)) continue;
+    const source = sources.get(item._source.flags.eternia.identifier)?.flags?.eternia?.magic;
+    if (!source) continue;
+    const update = { _id: item.id };
+    if ((source.holders ?? null) !== (magic.holders ?? null)) update["flags.eternia.magic.holders"] = source.holders ?? null;
+    if (!!source.exclusive !== !!magic.exclusive) update["flags.eternia.magic.exclusive"] = !!source.exclusive;
+    if (source.category !== magic.category) update["flags.eternia.magic.category"] = source.category;
+    if (Object.keys(update).length > 1) updates.push(update);
+  }
+  if (!updates.length) return 0;
+  if (parent) await parent.updateEmbeddedDocuments("Item", updates);
+  else for (const { _id, ...data } of updates) await game.items.get(_id)?.update(data);
+  return updates.length;
+}
+
 async function run(done) {
   let changed = 0;
-  const sources = (done < 7) ? await magiaSources() : null;
+  const sources = (done < 10) ? await magiaSources() : null;
+  const refresh = (done < 7) ? null : BUFFED_051;
   const balance = (done < 8) ? {
     classes: await packSkills("skills-class", d => d.flags?.eternia?.identifier),
     racial: await packSkills("skills-racial", d => d.id),
@@ -335,12 +365,14 @@ async function run(done) {
   } : null;
   const labels = (done < 9) ? (balance?.classes ?? await packSkills("skills-class", d => d.flags?.eternia?.identifier)) : null;
   changed += await cleanItems(game.items, null, done);
-  if (sources) changed += await refreshMagias(game.items, null, sources);
+  if (sources) changed += await refreshMagias(game.items, null, sources, refresh);
+  if (sources && (done >= 7)) changed += await refreshHolders(game.items, null, sources);
   if (balance) changed += await refreshBalance(game.items, null, balance);
   if (labels) changed += await refreshDamageLabels(game.items, null, labels);
   for (const actor of game.actors) {
     changed += await cleanItems(actor.items, actor, done);
-    if (sources) changed += await refreshMagias(actor.items, actor, sources);
+    if (sources) changed += await refreshMagias(actor.items, actor, sources, refresh);
+    if (sources && (done >= 7)) changed += await refreshHolders(actor.items, actor, sources);
     if (balance) changed += await refreshBalance(actor.items, actor, balance);
     if (labels) changed += await refreshDamageLabels(actor.items, actor, labels);
     if (done >= 1) continue;
@@ -357,4 +389,4 @@ async function run(done) {
   return true;
 }
 
-export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 9, run };
+export const KUDEN_CLEANUP_MIGRATION = { id: "kudenCleanup", setting: "kudenCleanupVersion", version: 10, run };

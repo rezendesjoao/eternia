@@ -19,6 +19,8 @@ import { chipText } from "../helpers/text-chips.mjs";
 import {
   MAGIC_CATEGORIES, MAGIC_ROLES, categoryView, fold, magicCatalog, magicTexts, roleView, spellTexts
 } from "./magic-catalog.mjs";
+import { awakeningChoices, awakeningView, rollAwakening } from "./awakening.mjs";
+import { holderState } from "./magic-holders.mjs";
 
 export { MAGIC_CATEGORIES } from "./magic-catalog.mjs";
 
@@ -44,9 +46,11 @@ export const magicSlotsOf = job => (job?.system?.grants ?? []).filter(g => g?.ma
  * @param {Set<string>} [options.ownedIds]    The ids of the Magias it has
  * @param {Set<string>} [options.ownedNames]  Their names (folded)
  * @param {number[]} [options.slots]          The CRs of the class's Magia slots (the guide says them)
+ * @param {Actor} [options.actor]             Who chooses: the holders of each Magia are counted without it
+ *                                            (apps/magic-holders.mjs), and a player can't take one it may not hold
  * @returns {Promise<object>}
  */
-export async function magicBrowserContext({ cr = 1, ownedIds = new Set(), ownedNames = new Set(), slots = [] } = {}) {
+export async function magicBrowserContext({ cr = 1, ownedIds = new Set(), ownedNames = new Set(), slots = [], actor = null } = {}) {
   const [catalog, texts] = await Promise.all([magicCatalog(), magicTexts(), foundry.applications.handlebars.getTemplate(MAGIC_PAGE)]);
   const magias = catalog.filter(m => !ownedIds.has(m.id) && !ownedNames.has(fold(m.name))).map(m => {
     const category = categoryView(m.category);
@@ -62,7 +66,8 @@ export async function magicBrowserContext({ cr = 1, ownedIds = new Set(), ownedN
       cardRoles: m.roles.slice(0, 4).map(roleView),
       allRoles: m.roles.map(roleView),
       nowCount: m.spells.filter(s => s.minRank <= cr).length,
-      spells: m.spells.map(s => ({ ...s, now: s.minRank <= cr }))
+      spells: m.spells.map(s => ({ ...s, now: s.minRank <= cr })),
+      ...holderView(m, actor)
     };
   });
   const categories = Object.keys(MAGIC_CATEGORIES).map(id => ({ ...categoryView(id), count: magias.filter(m => m.category === id).length }))
@@ -76,6 +81,23 @@ export async function magicBrowserContext({ cr = 1, ownedIds = new Set(), ownedN
     categories,
     roles,
     guideSlots: slots.length ? L("MagicPicker.Guide.Slots", { count: slots.length, ranks }) : L("MagicPicker.Guide.SlotsAny")
+  };
+}
+
+/**
+ * What the cards and the pages say about who holds a Magia: "1/1" (full or not), the crown of the exclusive ones, and
+ * whether this user may take it (a player can't take one that is full, nor an exclusive one beside another Magia).
+ */
+function holderView(magia, actor) {
+  const state = holderState(magia, actor);
+  const names = state.names.length ? state.names.join(", ") : L("Holders.Nobody");
+  return {
+    holderLabel: state.label,
+    holderFull: state.full,
+    holderTip: state.limit ? L("Holders.Tip", { n: state.limit, names }) : "",
+    exclusive: state.exclusive,
+    blocked: game.user.isGM ? null : state.blocked,
+    blockedNote: state.blocked
   };
 }
 
@@ -315,13 +337,14 @@ export class MagicPicker extends HandlebarsApplicationMixin(ApplicationV2) {
    * @param {object} [options]
    * @param {Item} [options.source]  The class item that gives the slot
    * @param {number} [options.rank]  The CR of the slot (1, 5 or 10)
+   * @param {boolean} [options.awakening]  The player draws it (apps/awakening.mjs): the rolls, and only the Magias rolled
    * @returns {Promise<string|null>}  The uuid of the Magia chosen
    */
-  static choose(actor, { source = null, rank = 1 } = {}) {
-    return new Promise(resolve => new this({ actor, source, rank, resolve }).render({ force: true }));
+  static choose(actor, { source = null, rank = 1, awakening = false } = {}) {
+    return new Promise(resolve => new this({ actor, source, rank, awakening, resolve }).render({ force: true }));
   }
 
-  constructor({ actor, source, rank, resolve, ...options } = {}) {
+  constructor({ actor, source, rank, awakening = false, resolve, ...options } = {}) {
     // As large as the screen allows, centered
     const width = Math.min(1180, window.innerWidth - 40);
     const height = Math.min(820, window.innerHeight - 40);
@@ -329,6 +352,7 @@ export class MagicPicker extends HandlebarsApplicationMixin(ApplicationV2) {
     this.actor = actor;
     this.source = source;
     this.rank = rank;
+    this.awakening = !!awakening;
     this.#resolve = resolve;
   }
 
@@ -338,7 +362,8 @@ export class MagicPicker extends HandlebarsApplicationMixin(ApplicationV2) {
     window: { icon: "fa-solid fa-hat-wizard", resizable: true },
     actions: {
       choose: MagicPicker.#onChoose,
-      skip: MagicPicker.#onSkip
+      skip: MagicPicker.#onSkip,
+      awaken: MagicPicker.#onAwaken
     }
   };
 
@@ -354,6 +379,7 @@ export class MagicPicker extends HandlebarsApplicationMixin(ApplicationV2) {
 
   /** @override */
   get title() {
+    if (this.awakening) return L("Awakening.Title", { name: this.actor.name });
     return L("MagicPicker.Title", { name: this.source?.name ?? this.actor.name });
   }
 
@@ -366,8 +392,16 @@ export class MagicPicker extends HandlebarsApplicationMixin(ApplicationV2) {
       cr,
       ownedIds: new Set(owned.map(i => i.getFlag("eternia", "magic").id)),
       ownedNames: new Set(owned.map(i => fold(i.name))),
-      slots: magicSlotsOf(this.source)
+      slots: magicSlotsOf(this.source),
+      actor: this.actor
     });
+    // The Awakening: the bar of the rolls, and only the Magias rolled
+    if (this.awakening) {
+      const all = browser.magias;
+      browser.magias = awakeningChoices(this.actor).map(uuid => all.find(m => m.uuid === uuid)).filter(Boolean);
+      browser.awakening = await awakeningView(this.actor, all);
+      browser.awakenWaiting = !browser.magias.length;
+    }
     return {
       ...browser,
       cr,
@@ -383,18 +417,43 @@ export class MagicPicker extends HandlebarsApplicationMixin(ApplicationV2) {
   async _onRender(context, options) {
     await super._onRender(context, options);
     const button = this.element.querySelector(".mp-choose");
+    // A roll in the Awakening's bar selects its Magia too
+    const rolls = [...this.element.querySelectorAll(".aw-roll.made[data-uuid]")];
+    const selected = this.#selectNext ?? this.#browser?.selected ?? null;
+    this.#selectNext = null;
     this.#browser = new MagicBrowser(this.element, {
       magias: context.magias,
-      selected: this.#browser?.selected ?? null,
+      selected,
       onSelect: uuid => {
+        rolls.forEach(li => li.classList.toggle("selected", li.dataset.uuid === uuid));
         if (!button) return;
         const magia = context.magias.find(m => m.uuid === uuid);
-        button.disabled = !magia;
-        button.querySelector("span").textContent = magia ? L("MagicPicker.Choose", { name: magia.name }) : L("MagicPicker.ChooseNone");
+        // One this player may not hold (full, or an exclusive one beside another Magia): seen, not taken
+        button.disabled = !magia || !!magia.blocked;
+        button.querySelector("span").textContent = !magia ? L("MagicPicker.ChooseNone")
+          : (magia.blocked ? magia.blocked : L("MagicPicker.Choose", { name: magia.name }));
       },
       onChoose: uuid => this.#finish(uuid)
     });
+    for (const li of rolls) li.addEventListener("click", () => this.#browser.select(li.dataset.uuid));
     this.element.querySelector(".mp-search input")?.focus();
+  }
+
+  /** The Magia to select once the window is drawn again (the one just rolled). */
+  #selectNext = null;
+
+  /** The next roll of the Awakening; the first Magia rolled comes selected. */
+  static async #onAwaken(event, target) {
+    if (target) target.disabled = true;
+    try {
+      const roll = await rollAwakening(this.actor);
+      if (roll && !this.#browser?.selected) this.#selectNext = roll.uuid;
+    }
+    catch (err) {
+      console.error("eternia | Could not roll the Awakening", err);
+      ui.notifications.error(L("Awakening.Error", { error: err.message }));
+    }
+    await this.render();
   }
 
   /** @override */
@@ -404,9 +463,11 @@ export class MagicPicker extends HandlebarsApplicationMixin(ApplicationV2) {
     this.#resolve = null;
   }
 
-  /** Close with this Magia. */
+  /** Close with this Magia (not one this player may not hold). */
   #finish(uuid) {
     if (!uuid) return;
+    const blocked = this.#browser?.magias.get(uuid)?.blocked;
+    if (blocked) return ui.notifications.warn(blocked);
     this.#resolve?.(uuid);
     this.#resolve = null;
     this.close();

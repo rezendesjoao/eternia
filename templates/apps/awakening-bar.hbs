@@ -1,0 +1,26 @@
+{{!-- The Awakening (module/apps/awakening.mjs): the three rolls of a player's first Magia, made or to make, and where
+     it stands. A click on a roll made selects its Magia in the browser below. Used by the Magia step of the creation
+     wizard and by the Magia picker. --}}
+<section class="aw-bar{{#if awakening.locked}} locked{{/if}}">
+	<span class="aw-seal"><i class="fa-solid {{#if awakening.locked}}fa-lock{{else}}fa-dice-d20{{/if}}"></i></span>
+	<p class="aw-note">{{awakening.note}}</p>
+	<ol class="aw-rolls">
+		{{#each awakening.slots as |s|}}
+		{{#if s.roll}}
+		<li class="aw-roll made{{#if s.roll.chosen}} chosen{{/if}}" data-uuid="{{s.roll.uuid}}" style="--mp-cat: {{s.roll.categoryColor}}" tabindex="0">
+			<span class="aw-die"><small>1d{{s.roll.faces}}</small><b>{{s.roll.n}}</b></span>
+			<span class="aw-roll-text"><small><i class="{{s.roll.categoryIcon}}"></i>{{s.roll.categoryLabel}}</small><b>{{s.roll.name}}</b></span>
+		</li>
+		{{else if s.next}}
+		<li class="aw-roll next">
+			<button type="button" data-action="awaken"><i class="fa-solid fa-dice"></i><span><b>{{localize "ETERNIA.Awakening.Roll"}}</b><small>{{localize "ETERNIA.Awakening.RollN" n=s.index}}</small></span></button>
+		</li>
+		{{else}}
+		<li class="aw-roll blank">
+			<span class="aw-die"><i class="fa-solid {{#if s.spent}}fa-lock{{else}}fa-dice{{/if}}"></i></span>
+			<span class="aw-roll-text"><small>{{localize "ETERNIA.Awakening.RollN" n=s.index}}</small></span>
+		</li>
+		{{/if}}
+		{{/each}}
+	</ol>
+</section>

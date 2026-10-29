@@ -1,0 +1,27 @@
+{{!-- The Death Check (module/automation/death.mjs): who is dying and its [Dying] Rating, the rule and the chance of
+     dying, and the choices (shown only to the owners and the GM while it waits); once answered, the dice and what came of
+     them. --}}
+<div class="eternia chat-card eternia-death{{#if result}} {{result.outcome}}{{/if}}">
+	<header>
+		<img src="{{img}}" alt="">
+		<div><small>{{eyebrow}}</small><h3>{{name}}</h3></div>
+		<span class="dc-rating" data-tooltip="{{localize 'ETERNIA.StatusEffect.dying'}}"><i class="fa-solid fa-skull"></i>{{rating}}</span>
+	</header>
+	{{#if result}}
+	<div class="dc-result">
+		{{#if result.dice}}<p class="dc-dice">{{#each result.dice}}<b{{#if six}} class="six"{{/if}}>{{value}}</b>{{/each}}<em>= {{result.total}}</em>{{#if result.fate}}<small><i class="fa-solid fa-star"></i>{{localize "ETERNIA.Death.Card.WithFate"}}</small>{{/if}}</p>{{/if}}
+		<p class="dc-text">{{result.text}}</p>
+	</div>
+	{{else}}
+	<p class="dc-rule">{{rule}}</p>
+	<ul class="dc-odds">
+		<li><i class="fa-solid fa-dice"></i>{{localize "ETERNIA.Death.Card.Odds" chance=chance}}</li>
+		{{#if fateChance}}<li><i class="fa-solid fa-star"></i>{{localize "ETERNIA.Death.Card.OddsFate" chance=fateChance}}</li>{{/if}}
+	</ul>
+	<div class="dc-buttons" hidden>
+		<button type="button" data-death="roll"><i class="fa-solid fa-dice"></i>{{localize "ETERNIA.Death.Card.Roll"}}</button>
+		{{#if fate}}<button type="button" data-death="fate"><i class="fa-solid fa-star"></i>{{localize "ETERNIA.Death.Card.RollFate"}}</button>{{/if}}
+		{{#if lastAct}}<button type="button" data-death="lastAct" data-tooltip="{{localize 'ETERNIA.Death.Card.LastActTip'}}"><i class="fa-solid fa-khanda"></i>{{localize "ETERNIA.Death.Card.LastAct"}}</button>{{/if}}
+	</div>
+	{{/if}}
+</div>

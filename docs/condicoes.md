@@ -8,7 +8,7 @@ diz onde cada regra está no código e como criar uma condição nova.
 
 | Arquivo | O que faz |
 |---|---|
-| `module/conditions/catalog.mjs` | As 53 condições (id, grupo, família, ícone, campo do Valor, acúmulo, contagem, origem) e as tabelas das regras: quem perde a vez (`NO_ACTIONS`), sem movimento (`NO_MOVEMENT`), sem reações (`NO_REACTIONS`), quem falha nas Esquivas (`NO_DODGE`), tags que o Silenciado impede (as habilidades com [Maldição] passam), o que acaba no fim do próprio turno (`END_OF_OWN_PROCESS`; os de `WHOLE_TURN` dados no próprio turno duram até o fim do próximo), no Encerramento e no fim da cena, o que o Aflito protege, a ação para se livrar (`RECOVERY`) e os limiares dos acúmulos e o Sol (`SUN_NOON`, `SUN_NIGHT`). |
+| `module/conditions/catalog.mjs` | As 64 condições (id, grupo, família, ícone, campo do Valor, acúmulo, contagem, origem) e as tabelas das regras: quem perde a vez (`NO_ACTIONS`), sem movimento (`NO_MOVEMENT`), sem reações (`NO_REACTIONS`), quem falha nas Esquivas (`NO_DODGE`), tags que o Silenciado impede (as habilidades com [Maldição] passam), o que acaba no fim do próprio turno (`END_OF_OWN_PROCESS`; os de `WHOLE_TURN` dados no próprio turno duram até o fim do próximo), no Encerramento e no fim da cena, o que o Aflito protege, a ação para se livrar (`RECOVERY`) e os limiares dos acúmulos e o Sol (`SUN_NOON`, `SUN_NIGHT`). |
 | `module/conditions/rules.mjs` | Consultas comuns: `has`, `rating`, `sourcesOf`, `isHostile`, `removeStatuses`, `addStatus` e as duas configurações. |
 | `module/conditions/rolls.mjs` | −1d6 e +1d6 dos testes e das Esquivas, a Esquiva que falha sozinha (Adormecido, Petrificado, Pesadelo), o dano a mais (Ímpeto, Combo, Clones no corpo a corpo; o Ritmo em d6 no próximo feitiço, `isSpell`) e o a menos do Enfraquecido, e o Concentrado e o Ritmo que se gastam. Chamado pelas rolagens de habilidade, pelos cartões de ataque, pelas fichas, pelo HUD e pelo Destino. |
 | `module/conditions/damage.mjs` | O dano dos cartões (antes: Exposto, Intangível, Intocável, Encharcado, Pacificado de quem ataca, os Clones (`cloneDecoy`), Petrificado pela metade, a Inversão que cura; depois: Último Fôlego, o Fôlego Extra (`spendExtraBreath`), Vínculo, Espelho, Combo que quebra, Adormecido, Encantado, Chama no Congelando e no Encharcado), o que o Desfazer devolve, o Maldito, O Único (nada de ataques chega), o Contragolpe (`counterFor` e `counterBack`: o dano volta dobrado ao atacante, só de golpe direto, ou de qualquer um com o tipo "any"), o Rancor (guarda o PV perdido, até NP×4), a Chama Negra e o Maldito que bloqueiam a cura (`healBlocker`), o `takeDamage` (o dano das próprias condições, com Barreira, Anulação da tag e linha no chat; quem não é dono pede ao Mestre pelo socket) e o `takeHealing` (a cura do Dreno, pelo mesmo caminho; com Inversão, fere), a Agonia (`agonyPain`) e a Inversão que troca Fortalecido e Regeneração por Enfraquecido e Deterioração (`invertGift`). |
@@ -29,10 +29,22 @@ diz onde cada regra está no código e como criar uma condição nova.
 | `module/conditions/omen.mjs` | O Presságio: os dados rolados no começo do combate (Manutenção da rodada 1) por quem tem um Traço com `omen`, guardados em `flags.eternia.omen = { combat, dice }`; os botões nos cartões de ataque (um por valor que ajuda: no teste de quem é do mesmo lado, o menor dado sobe; no de um inimigo, o maior desce) que chamam o `adjustCardRoll`; o `omenFocus`; a ação de uso `omen`; o `omenSpend` (o Presságio acaba quando o dano é rolado). |
 | `module/conditions/window.mjs` | Agir fora do turno: a janela de ações (`flags.eternia.window = { key, move, minor, major, from }`, a chave "<combate>.<rodada>.<quantos agiram>", `from` a habilidade que a abriu) aberta por uma habilidade com `window`; com `offTurn`, ela só é usada no fim do turno de outra criatura. `automation/use.mjs` deixa uma ação da janela ser usada fora do turno (ou depois das do turno), conta à parte e devolve no Desfazer. A chave (`keyOf`) é exportada: a Fúria Sanguinária do bestiário (`bestiary/rampage.mjs`) abre a janela sem uma habilidade com `window`, uma ação a mais por criatura derrubada. |
 | `module/conditions/immortal.mjs` | O Imortal: a [Regeneração] dos Traços com `immortal` na Manutenção; a cura de feitiços e itens multiplicada pelo `healTaken` (o Tabu da Fonte da Juventude: nos cartões de cura e no `takeHealing`, menos a cura `natural`); o `cover` (o Escudo de Carne: quem deu o efeito sofre o golpe no lugar, como dano direto); o `hpCost`; as ações de uso `regenNow` e `giveHp`. |
-| `module/conditions/realm.mjs` | O Reino: um efeito com `realm` dá os estados da regra a quem está a até `radius` Qd de quem conjura (inimigos e aliados pela disposição do token), quando chega e em cada Manutenção. |
+| `module/conditions/realm.mjs` | O Reino: um efeito com `realm` dá os estados da regra a quem está a até `radius` Qd de quem conjura (inimigos e aliados pela disposição do token), quando chega e em cada Manutenção; com `notSelf`, não pega quem conjura, e `damage` fere a área (`realmReach` é exportado: o transbordamento da [Ampulheta] o usa). |
+| `module/conditions/reaper.mjs` | A [Vida Selada] (o Selo do Ceifador): o registro de quem selou quanto (`flags.eternia.reaped = [{ by, name, n }]`, o Valor é a soma, uma contagem que só estas regras mudam), `sealUpdates` (o selo na mesma atualização do PV, que cai junto com o PV máximo), `sealLife` (pelo socket `reaperSeal` quando quem sela não é dono), o preço de quem usa (`selfSeal`, pago e devolvido em `automation/use.mjs`), a alma de quem cai (cada um que selou recebe 1 do próprio preço de volta), a morte de quem selou (toda vida que ele selou volta, nos atores do mundo e nos tokens soltos das cenas), `sealStriker` (chamado por `afterDamage`) e `diesAtSceneEnd` (`reaperAtSceneEnd`, no começo do fim de cena). |
+| `module/conditions/iron.mjs` | O [Ferro no Sangue]: o `preUpdateToken` guarda de onde o token saiu (`options.eterniaIronFrom`, pela fonte) e o `updateToken` cobra o Valor por quadrado andado como dano direto (`takeDamage`, motivo `ironBlood`), menos nos movimentos forçados (`eterniaForced`). |
+| `module/conditions/passage.mjs` | O que deixa um golpe passar ao lado (lido por `beforeDamage` antes de tudo do defensor): o [Permeando], `cutSpell`, `spaceCut` e `arrowWard`; `pierce.all` passa por tudo. `squaresBetween` e `cardDistance` medem a distância pela posição da fonte (o `x` do documento fica no lugar antigo enquanto o movimento anima), usados também pela mordida, pelos espíritos e pelos tremores. |
+| `module/conditions/erasure.mjs` | O [Apagado]: `erasable` (os feitiços de Magia, [Feitiço], [Ataque Mágico], [Canção] e [Maldição]), `isErased` e `traitErased` (os Traços das Magias param, por `determineSuppression` em `documents/eterniaActiveEffect.mjs`). |
+| `module/conditions/rewind.mjs` | O retrato da rodada (na Manutenção, o Mestre principal guarda o PV, os Estados Negativos e quem está caído de cada combatente em `flags.eternia.rewind = { round, actors: [{ uuid, hp, bad, down }] }` do combate), a ação de uso `rewind` (`rewindActor`) e a [Ampulheta] (`hourglass`, `overflow`). |
+| `module/conditions/fortune.mjs` | A Fortuna (a Cobiça): `yuldOf`, `fortuneOf` (1 por 5 comuns do NP na bolsa, até o NP), o `yuldCost` (pago e devolvido em `automation/use.mjs`, com `yuldPaid` na habilidade para a fórmula `@yuldPaid`), o `goldBonus` (`greedBonus`, lido por `bestiary/drops.mjs`) e o `goldOnFall`. |
+| `module/conditions/foresight.mjs` | A previsão (o Impecável): `foresees`, `foreseen` e `foreseenDodge` (lidos por `createAttackCard`: o ataque de alvo único erra, menos o de quem também vê o futuro) e `areaDodge` (a chave `eternia.passive.areaDodge`, lida por `rolls.mjs`). |
+| `module/conditions/beast.mjs` | A fera do Manto Devorador: a mordida (`retaliate`, pelo gancho `eternia.attack`) e a tosse (`cough`, `coughAtTurnStart`, chamada no começo do turno por `turns.mjs`). |
+| `module/conditions/goliath.mjs` | O limiar (o Golias): `thresholdOf` (lido pelo cartão de dano), `unmovable` e `unmovedLine` (lidos por `effects.mjs` no puxar, no empurrar e no Switch) e `refreshBarrier` (`barrierEachRound`, na Manutenção). |
+| `module/conditions/blessings.mjs` | As bênçãos (o Portador de Bênçãos): `adapt` (a imunidade ao Estado Negativo que pegou e a metade do elemento que feriu, até o fim da cena), `manaHog`, `hateAtStart` (`hateStart`) e `worthyIssue` (`worthyOnly`, lido por `automation/use.mjs`). |
+| `module/conditions/jackpot.mjs` | Os carretéis e o [Jackpot] (a Aposta Mortal): `spin` (3d6 e um cartão `.et-slots` no chat), `hitJackpot`, o giro de cada feitiço (`eternia.skillUsed`), `jackpotSetup` e `jackpotCleanup` (chamados por `turns.mjs`) e a [Sorte] no 3. |
+| `module/conditions/quake.mjs` | O tremor (a Fruta do Tremor): o `quakeGain`, os alvos achados sozinhos (`aimAround`, chamado por `helpers/skill-rolls.mjs` antes do cartão de ataque), o `seaCurse` (lido por `actions.mjs`) e o `vulnerable` (lido pelo cartão de dano). |
 | `module/conditions/index.mjs` | Registra os ganchos. |
 
-Também tocam nas condições: `helpers/statuses.mjs` (a lista dos 75 estados, o painel da ficha por família, a
+Também tocam nas condições: `helpers/statuses.mjs` (a lista dos 89 estados, o painel da ficha por família, a
 sincronia campo ↔ efeito e os acúmulos), `helpers/combat-cards.mjs` e `helpers/magic-traits.mjs` (as flags de
 golpe e o Traço das Magias, abaixo), `automation/round.mjs` (perder a vez, o Encerramento, o fim do próprio
 Turno), `automation/scenes.mjs` (fim de cena), `documents/eterniaCombat.mjs` (a ordem do Lento),
@@ -161,6 +173,43 @@ as flags de golpe, nos cartões de dano: `helpers/combat-cards.mjs`, `helpers/ma
 | Habilidade | `special` | `"pack"` (Matilha, em `rolls.mjs`), `"book"` (O Livro, no renascimento) ou `"transcend"` (o Transcendente: o [Despertado] de quem a tem não deixa Fadiga, em `turns.mjs`) |
 | Habilidade | `minRank`, `choiceOnly`, `rankGrants` | NP mínimo, só por escolha, e habilidades dadas a cada NH |
 | Habilidade | `raceStage` | o estágio da forma que dá a habilidade (2 a 5): só a evolução a dá (`races/evolution.mjs`) |
+| Habilidade | `seal` | fórmula de quem conjura: o cartão de dano sela esse tanto do PV máximo de cada alvo que o golpe alcançou ([Vida Selada]; o Desfazer devolve) |
+| Habilidade | `selfSeal` | número: o preço do deus da morte, selado em quem usa ao usar (o Desfazer devolve) |
+| Efeito | `sealStriker` | fórmula de quem tem o efeito: quem lhe causa dano com um cartão de dano tem esse tanto da vida selado por ele (a Guarda do Ceifador) |
+| Efeito | `diesAtSceneEnd` | quem tem o efeito morre quando a cena acaba (o Selamento do Ceifador) |
+| Habilidade | `whilePhasing` | a habilidade pode ser usada com o [Permeando] (as outras hostis, não) |
+| Efeito | `cutSpell` | o golpe de um feitiço (de Magia, [Feitiço] ou [Ataque Mágico]) não chega em quem tem o efeito (Cortar o Feitiço) |
+| Efeito | `spaceCut` | nenhum golpe de mais de 1 Qd de distância chega em quem tem o efeito (o Corte do Espaço) |
+| Efeito | `arrowWard` | nenhum golpe físico de mais de 1 Qd de distância chega em quem tem o efeito (as flechas que não acertam o Portador de Bênçãos) |
+| Habilidade | `pierce` (0.51) | também `all: true` (o golpe atravessa o que o deixaria passar ao lado: [O Único], cópias, [Contragolpe], as imunidades do [Intangível] e do [Intocável], o [Permeando], `cutSpell`, `spaceCut`, `arrowWard` e o limiar do [Golias]), `inside: [estados]` (sem a Defesa contra quem tem um dos estados: o Traço do Sangue de Ferro, `["ironBlood"]`) e `defense: "none"` (sem a Defesa) |
+| Habilidade | `rankAbove` | número: dano a mais por NP (o Rank num monstro) do alvo acima do de quem ataca (o Traço do Santo da Espada, +3). Também num Traço |
+| Traço | `rewind` | quem tem o Traço faz o Mestre principal tirar o retrato da rodada em cada Manutenção (o Retrocesso) |
+| Habilidade | `hourglass`, `overflow` | `hourglass`: n, a [Ampulheta] de quem usa sobe n (até 3); usada com ela cheia, transborda. `overflow: true`: sempre transborda (Antes de Existir) |
+| Habilidade | `yuldCost` | fórmula de quem usa (`"@yuld"` para tudo): o Yuld pago ao usar; sem ele, a habilidade não sai (o Desfazer devolve) |
+| Traço | `goldBonus` | fração: o Yuld deixado pelas criaturas que quem tem o Traço derruba vem com essa parte a mais (a Cobiça, 0.5) |
+| Efeito | `goldOnFall` | fração: quem tem o efeito perde essa parte do Yuld quando cai (o Tabu da Cobiça) |
+| Traço | `foresight` | todo ataque de alvo único contra quem tem o Traço erra, com ou sem teste, menos o de quem também vê o futuro (o Impecável) |
+| Efeito | chave `eternia.passive.areaDodge` | dados nas Esquivas contra área, linha ou vários alvos (o Voto do Impecável, −1) |
+| Efeito | `retaliate` | `{ reach, value }`: quando um inimigo a até `reach` Qd declara um ataque contra quem tem o efeito, sofre `value` (fórmula de quem tem o efeito) de dano direto, acerte ou erre (a fera do Manto Devorador) |
+| Efeito | `cough` | `{ chance, damage }`: no começo de cada turno de quem tem o efeito, em combate, 1d6; com `chance` ou menos, a Ação Maior do turno é gasta e ele sofre `damage` de dano direto (o Tabu do Manto Devorador) |
+| Efeito | `unmovable` | nada move quem tem o efeito à força (puxar, empurrar, o Switch), como o [Golias] |
+| Efeito | `barrierEachRound` | fórmula: a [Barreira] de quem tem o efeito volta até esse tanto em cada Manutenção (a couraça do Golias) |
+| Traço | `adapt` | em combate, o Estado Negativo que pega em quem tem o Traço dá imunidade a ele até o fim da cena, e o golpe de um elemento que fere dá o `halve` desse elemento até o fim da cena (o Portador de Bênçãos) |
+| Efeito | `immuneKeep` | o `immune` do efeito não tira o estado que já está no ator (o primeiro fica até acabar; os próximos não pegam) |
+| Efeito | `manaHog` | os feitiços dos aliados a até 3 Qd de quem tem o efeito rolam 1d6 a menos de dano (o Tabu do Portador de Bênçãos) |
+| Efeito | `hateStart` | fórmula: o Ódio de quem tem o efeito sobe esse tanto na Manutenção da primeira rodada (o Tabu do Portador de Bênçãos, `@cr`) |
+| Habilidade | `worthyOnly` | só contra um inimigo digno: NP (o Rank num monstro) igual ou maior que o de quem usa (a Espada do Dragão) |
+| Efeito | `revive.per: "scenario"` | o Fôlego Extra volta só num cenário novo (`flags.eternia.reviveScenario { key, spent }`; o fim da cena não o devolve): a Fênix do Portador de Bênçãos |
+| Traço | `slots` | cada feitiço da Magia gira três carretéis ao ser usado (a Aposta Mortal) |
+| Efeito | `slotsEachRound`, `pairsDouble` | os carretéis giram também em cada Manutenção; um par dá +2 de [Sorte] em vez de +1 (o Domínio da Aposta) |
+| Habilidade | `quakeGain` | n: o [Abalo] de quem usa sobe n ao usar (a Fruta do Tremor) |
+| Habilidade | `around` | `{ radius, enemiesOnly }`: os alvos são achados ao rolar: toda criatura a até `radius` Qd de quem usa (não ele, nem um [Voando]), aliados também, menos com `enemiesOnly`; os alvos marcados são trocados |
+| Traço | `seaCurse` | com [Encharcado] ou [Nadando], os feitiços da Magia não saem (o Tabu da Fruta do Tremor) |
+| Efeito | `vulnerable` | tags: o dano de um cartão com uma delas (ou com o tipo) dobra, depois da Defesa e da Anulação (a [Água] contra a Fruta do Tremor) |
+| Efeito | `realm` (0.51) | também `notSelf: true` (a área não pega quem tem o efeito: o olhar que apaga) e `damage: { enemies, allies, tag }` (fórmulas: dano direto em cada Manutenção nos inimigos e aliados da área; a Contradição das Artes Negras) |
+| Efeito | `cleanupFatigue` | fórmula: a [Fadiga] que quem tem o efeito ganha em cada Encerramento (os olhos que secam) |
+| Traço | `counterMult` | o [Contragolpe] devolve o dano vezes esse número em vez de 2 (o Contra-ataque: 3) |
+| Fórmula | `@yuld`, `@fortune`, `@yuldPaid` | o Yuld de quem usa, a Fortuna dele e o Yuld que o uso acabou de pagar |
 
 ## O Relógio do Sol e o Contragolpe
 
@@ -170,10 +219,12 @@ as flags de golpe, nos cartões de dano: `helpers/combat-cards.mjs`, `helpers/ma
   Manutenção. Numa cena com a escuridão em 0.5 ou mais (`scene.environment.darknessLevel`), o Sol para em
   `SUN_NIGHT` (2). O Valor d'O Único cai 1 em cada Encerramento; a Proeminência Final o leva a 2 com um efeito de
   `fatigueOnEnd`, e a Fadiga chega quando ele acaba.
+  Desde a 0.51 (o Sol virou Absoluta), o Traço pode mudar esses números: veja "A onda da 0.51" abaixo (`sunClock` com número, `sunPower`, `noonRounds`, `pride`, `sunNight`, `nightDice`).
 - **Contragolpe:** um efeito com `statusData = { statusId: "counter", value, tag }` (`magical`, `physical` ou
   `any`). No cartão de dano, o dano de um golpe direto do tipo (alvo único; `any` vale para tudo, até área) é
   calculado com a Defesa e a Anulação e volta ao atacante dobrado + o Valor + o `counterBonus` dos Traços, como dano
-  direto; nada do golpe (estados, dano de Esquiva falha) chega a quem devolveu, e o Contragolpe sai.
+  direto; nada do golpe (estados, dano de Esquiva falha) chega a quem devolveu, e o Contragolpe sai. Com um Traço com
+  `counterMult` (o Contra-ataque, 3), o dano volta vezes ele em vez de dobrado.
 
 ## As condições comuns das Magias altas (0.28)
 
@@ -296,6 +347,47 @@ as flags de golpe, nos cartões de dano: `helpers/combat-cards.mjs`, `helpers/ma
 - **Reino:** o efeito com `realm` fica em quem conjura até o fim da cena; quem estiver a até `radius` Qd do token dele
   recebe os estados da regra quando o efeito chega e em cada Manutenção (quem já tem o estado com esse Valor ou mais
   fica como está; as imunidades valem).
+
+## A onda da 0.51
+
+Treze Magias de apelação 6 a 10 (a régua: seção 5 de `docs/matematica.md`), cada uma com uma regra que nenhuma outra
+tem, e onze condições:
+
+- **Vida Selada** (`reaped`, Outro, contagem até 9999): o Valor sai do PV máximo (`documents/actor.mjs`; num monstro,
+  `conditions/derived.mjs`) e não acaba com a cena. O cartão de dano de um feitiço com `seal` sela na mesma atualização do
+  PV (o Desfazer guarda `before.reaped` e devolve); o registro diz quem selou, para a alma devolver o preço e a morte de
+  quem selou soltar tudo (o Mestre principal, nos atores do mundo e nos tokens soltos das cenas).
+- **Ferro no Sangue** (`ironBlood`, Valor, acumula até 5, origem, família dos elementais): cada quadrado andado por conta
+  própria custa o Valor; no 5, [Atordoado] e [Lento] (`STACK_THRESHOLDS`); sai com uma Ação Maior (`RECOVERY`). O Traço
+  do Sangue de Ferro faz os feitiços ignorarem a Defesa Física de quem o tem (`pierce.inside`).
+- **Permeando** (`phasing`, Combate, `WHOLE_TURN`): nenhum golpe chega (nem dano, nem estados) e cada um que passa dá 1
+  de [Antecipação]; quem o tem só usa as habilidades com `whilePhasing`.
+- **Antecipação** (`anticipation`, Combate, contagem até 5): cada golpe que atravessa o [Permeando] dá 1; os golpes da
+  Permeação a gastam no dano (`selfBonus` com `spend`: Golpe Antecipado, Cem Ângulos).
+- **Apagado** (`erased`, Bloqueio, acaba no Encerramento): sem feitiços nem Maldições e com os Traços das Magias parados;
+  o [Silenciado] não pega as Absolutas nem as Maldições, o [Apagado] pega.
+- **Olhar Aberto** (`gaze`, Combate): o Reino do olhar (`realm` com `notSelf`) dá [Apagado] a todos a até 4 Qd em cada
+  Manutenção; a cegueira da faixa (o [Cego] passivo da Magia, com a condição `notStatus: gaze`) some enquanto ele dura;
+  `decreeRounds: 3` e `cleanupFatigue: 1`; sai com uma Ação Menor (`RECOVERY`).
+- **Ampulheta** (`hourglass`, Combate, contagem até 3), **Jackpot** (`jackpot`, Combate, o Valor são as rodadas que
+  faltam), **Sorte** (`luck`, Combate, contagem até 3), **Golias** (`goliath`, Combate, o Valor é o limiar) e **Abalo**
+  (`quake`, Combate, contagem até 5): veja os arquivos acima.
+
+O que mudou nas regras que já existiam:
+
+- **Dados a menos:** uma condição pode tirar dados do dano (`dice` negativo em `rolls.mjs`), nunca abaixo de um dado
+  (`helpers/skill-rolls.mjs` e `chat/cards.mjs`: `Math.max(Math.min(dice, 1), dice + condition.dice)`).
+- **O Relógio do Sol (Absoluta):** no Traço, `sunClock` pode ser um número (quanto o Sol sobe por rodada: 2), `sunPower`
+  (o dano de cada ponto: 2), `noonRounds` (as rodadas do meio-dia: 2), `pride` (com o Sol acima de 0, a Esquiva falha
+  sozinha), `sunNight` (o teto do Sol de noite: 0, o Sol não nasce) e `nightDice` (dados no dano dos feitiços de noite:
+  −2). `sunRules(actor)` em `turns.mjs` lê as chaves.
+- **O Contragolpe:** `counterFor` devolve `mult` (o maior `counterMult` dos Traços, 2 sem ele) e `counterBack` cobra
+  `dano × mult + Valor + counterBonus`.
+- **O Fôlego Extra por cenário:** `per: "scenario"` (o `giveUpBreaths` não entrega esses).
+- **A Absoluta e os portadores:** `module/apps/magic-holders.mjs` (`holderLimit`, `holdersOf`, `holderState`,
+  `exclusiveMagia`), lido pela janela de Magias, pelo Despertar (`awakeningPool`), pelas vagas da classe
+  (`apps/option-grants.mjs`, `apps/rank-up.mjs`, a aba Magias) e pelo assistente. Os feitiços das Absolutas não levam as
+  tags Feitiço nem Ataque Mágico (o [Silenciado] não os impede).
 
 ## Ganchos das condições
 

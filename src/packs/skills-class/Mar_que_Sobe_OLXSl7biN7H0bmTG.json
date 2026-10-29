@@ -1,0 +1,89 @@
+{
+  "name": "Mar que Sobe",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Fruta do Tremor. Feitiço grande.</strong> Você racha o fundo do mar e manda a onda: todo mundo no chão a até 6 Qd de você, aliados também (os alvos se acham sozinhos). Teste de Precisão contra a Esquiva de cada um; [6d6 + Poder de Ataque] de dano físico de [Água] (+NP÷2 por ponto de [Abalo]), ignorando a Defesa, [Derrubado] e [Encharcado: NP÷2]. Você não se molha: a onda é sua. O [Abalo] sobe 2.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>O mar subiu pela rua principal e levou a feira inteira.</em></p>",
+    "tags": [
+      "Water"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 6,
+      "mod": 0,
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/air/wind-weather-sailing-ship.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "fruta-do-tremor-maremoto",
+      "kind": "feeds",
+      "branch": "magic",
+      "quakeGain": 2,
+      "around": {
+        "radius": 6
+      },
+      "hitStatuses": [
+        {
+          "statusId": "prone"
+        },
+        {
+          "statusId": "soaked",
+          "value": "floor(@cr/2)"
+        }
+      ],
+      "selfBonus": [
+        {
+          "statusId": "quake",
+          "per": "floor(@cr/2)"
+        }
+      ],
+      "magicSpell": {
+        "id": "fruta-do-tremor"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      },
+      "damageText": "6d6 + [Poder de Ataque] + Abalo×NP÷2 Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "OLXSl7biN7H0bmTG",
+  "folder": "HEHmGT5tx06Emshe",
+  "_key": "!items!OLXSl7biN7H0bmTG"
+}

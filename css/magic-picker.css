@@ -696,3 +696,241 @@
   color: #8a6a25;
   font: 600 10.5px/1.3 "Signika", sans-serif;
 }
+
+/* The Awakening (module/apps/awakening.mjs): a player's first Magia is drawn. The bar of the three rolls over the
+   browser (the search and the filters leave: only the Magias rolled show), and the card of each roll in the chat.
+   ------------------------------------------------------------------------ */
+.magic-picker.aw-mode .mp-filters,
+.magic-picker .aw-mode .mp-filters { display: none; }
+.magic-picker .mp-body.aw-mode .aw-bar { margin: 10px 18px 0; }
+.magic-picker .aw-bar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas: "seal note" "rolls rolls";
+  align-items: center;
+  gap: 8px 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--mp-gold-dark);
+  border-radius: 12px;
+  background:
+    radial-gradient(120% 160% at 0% 0%, color-mix(in srgb, var(--mp-class) 18%, transparent), transparent 65%),
+    linear-gradient(180deg, #fffaf0, #f1e5c8);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+.magic-picker .aw-seal {
+  grid-area: seal;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, #2d6b4a, #12301f);
+  box-shadow: 0 0 0 2px var(--mp-gold), 0 2px 5px rgba(0, 0, 0, 0.3);
+  color: var(--mp-gold-light);
+  font-size: 16px;
+}
+.magic-picker .aw-note { grid-area: note; margin: 0; color: var(--pf-text); font: italic 13px/1.4 var(--pf-body); }
+.magic-picker .aw-rolls {
+  grid-area: rolls;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.magic-picker .aw-roll {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  min-height: 52px;
+  padding: 5px 9px 5px 6px;
+  border: 1px solid var(--mp-line);
+  border-radius: 10px;
+  background: rgba(255, 250, 240, 0.7);
+}
+.magic-picker .aw-roll.made {
+  --mp-cat: #2f6b4a;
+  border-color: color-mix(in srgb, var(--mp-cat) 55%, var(--mp-line));
+  background:
+    radial-gradient(100% 140% at 0% 50%, color-mix(in srgb, var(--mp-cat) 14%, transparent), transparent 75%),
+    linear-gradient(180deg, var(--mp-paper), var(--mp-paper-dark));
+  cursor: pointer;
+  transition: box-shadow 0.14s ease, transform 0.14s ease;
+}
+.magic-picker .aw-roll.made:hover,
+.magic-picker .aw-roll.made:focus-visible { outline: none; transform: translateY(-1px); box-shadow: 0 0 0 1px var(--mp-cat), 0 5px 12px rgba(40, 28, 8, 0.18); }
+.magic-picker .aw-roll.made.selected { box-shadow: 0 0 0 2px var(--mp-cat), 0 5px 14px rgba(40, 28, 8, 0.22); }
+.magic-picker .aw-roll.blank { border-style: dashed; opacity: 0.6; }
+.magic-picker .aw-die {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  width: 42px;
+  height: 42px;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  background: linear-gradient(160deg, color-mix(in srgb, var(--mp-cat, #2f6b4a) 80%, #fff), color-mix(in srgb, var(--mp-cat, #2f6b4a) 90%, #000));
+  color: #fbf4df;
+}
+.magic-picker .aw-roll.blank .aw-die { background: linear-gradient(160deg, #cdbb98, #a8936c); }
+.magic-picker .aw-die small { font: 700 8px/1 var(--pf-sans); letter-spacing: 0.06em; opacity: 0.85; }
+.magic-picker .aw-die b { font: 700 18px/1 var(--pf-serif); }
+.magic-picker .aw-roll-text { display: grid; gap: 1px; min-width: 0; }
+.magic-picker .aw-roll-text small {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: color-mix(in srgb, var(--mp-cat, #8a6a25) 85%, #000);
+  font: 700 9px/1.2 var(--pf-sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.magic-picker .aw-roll.blank .aw-roll-text small { color: var(--pf-text-soft); }
+.magic-picker .aw-roll-text b { overflow: hidden; color: var(--pf-primary-dark); font: 600 15px/1.15 var(--pf-serif); text-overflow: ellipsis; white-space: nowrap; }
+.magic-picker .aw-roll.next { grid-template-columns: minmax(0, 1fr); padding: 0; border: none; background: none; }
+.magic-picker .aw-roll.next button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 100%;
+  min-height: 52px;
+  margin: 0;
+  border: 1px solid var(--mp-gold-dark);
+  border-radius: 10px;
+  background: linear-gradient(180deg, #2d6b4a, #12301f);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 2px 6px rgba(0, 0, 0, 0.25);
+  color: #fbf4df;
+  cursor: pointer;
+}
+.magic-picker .aw-roll.next button:hover { background: linear-gradient(180deg, #357c57, #173c27); }
+.magic-picker .aw-roll.next button:disabled { opacity: 0.6; cursor: progress; }
+.magic-picker .aw-roll.next button i { color: var(--mp-gold-light); font-size: 20px; }
+.magic-picker .aw-roll.next button span { display: grid; text-align: left; }
+.magic-picker .aw-roll.next button b { font: 700 14px/1.1 var(--pf-sans); letter-spacing: 0.04em; }
+.magic-picker .aw-roll.next button small { color: var(--mp-gold-light); font: 600 10px/1.2 var(--pf-sans); }
+.magic-picker .aw-bar.locked { border-style: solid; }
+.magic-picker .mp-empty.aw-waiting { align-content: center; min-height: 160px; }
+.creation-wizard .wz-magic .aw-gm {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+  color: var(--pf-alt-dark, #5a4a2a);
+  font: normal 12px/1.35 var(--pf-sans);
+}
+.creation-wizard .wz-magic .aw-gm i { color: var(--mp-gold-dark); }
+.creation-wizard .wz-magic .aw-gm button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 1px 8px;
+  border: 1px solid var(--mp-gold-dark);
+  border-radius: 999px;
+  background: #fffaf0;
+  color: var(--pf-primary-dark);
+  font: 700 11px/1.5 var(--pf-sans);
+  cursor: pointer;
+}
+
+.chat-message .eternia-awakening {
+  --mp-cat: #2f6b4a;
+  overflow: hidden;
+  border: 1px solid #cdbb98;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fffaf0, #f1e5c8);
+}
+.chat-message .eternia-awakening header {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: linear-gradient(120deg, color-mix(in srgb, var(--mp-cat) 80%, #000), #12301f);
+  color: #fbf4df;
+}
+.chat-message .eternia-awakening header img {
+  width: 46px;
+  height: 46px;
+  border: 2px solid #c9a24a;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.chat-message .eternia-awakening header small {
+  color: #f2db94;
+  font: 700 9px/1.2 "Signika", sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.chat-message .eternia-awakening header h3 {
+  margin: 1px 0 0;
+  border: none;
+  color: #fbf4df;
+  font: 600 18px/1.15 "Eternia Eczar", "Eczar", serif;
+}
+.chat-message .eternia-awakening .aw-card-die {
+  padding: 3px 8px;
+  border: 1px solid #c9a24a;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.25);
+  color: #f2db94;
+  font: 700 12px/1.2 "Signika", sans-serif;
+  white-space: nowrap;
+}
+.chat-message .eternia-awakening .aw-card-cat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 7px 10px 2px;
+  color: color-mix(in srgb, var(--mp-cat) 85%, #000);
+  font: 600 12px/1.35 "Signika", sans-serif;
+}
+.chat-message .eternia-awakening .aw-card-who { margin: 0; padding: 0 10px 8px; color: #4a4030; font: italic 12px/1.35 "Signika", sans-serif; }
+
+/* -------------------------------------------- */
+/*  Who holds a Magia (0.51)                     */
+/* -------------------------------------------- */
+
+/* "1/1" on the card: the limit of holders in the world; full, red; the crown of an Absoluta */
+.magic-picker .mp-card-holders {
+  position: absolute;
+  top: 7px;
+  right: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 6px;
+  border: 1px solid color-mix(in srgb, var(--mp-cat) 55%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--mp-cat) 10%, #fffaf0);
+  color: var(--mp-cat);
+  font: 700 10.5px/1.4 var(--et-sans, "Signika", sans-serif);
+  letter-spacing: 0.02em;
+}
+.magic-picker .mp-card-holders.full { border-color: #8c2f2f; background: #f6e2dc; color: #8c2f2f; }
+.magic-picker .mp-card.blocked { opacity: 0.62; filter: saturate(0.5); }
+.magic-picker .mp-card.blocked:hover,
+.magic-picker .mp-card.blocked.selected { opacity: 0.85; }
+
+/* The page: who holds it, the crown, why this player can't take it */
+.magic-picker :is(.mp-page-holders, .mp-page-exclusive, .mp-page-blocked) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font: 600 12.5px/1.35 var(--et-sans, "Signika", sans-serif);
+}
+.magic-picker .mp-page-holders { border: 1px solid color-mix(in srgb, var(--mp-cat) 40%, transparent); background: color-mix(in srgb, var(--mp-cat) 7%, #fffaf0); color: var(--pf-text, #2b2116); }
+.magic-picker .mp-page-holders span { flex: 1; }
+.magic-picker .mp-page-holders b { color: var(--mp-cat); }
+.magic-picker .mp-page-holders.full b { color: #8c2f2f; }
+.magic-picker .mp-page-exclusive { border: 1px solid #b9923a; background: linear-gradient(180deg, #fbf1d4, #f2dfa8); color: #5c4310; }
+.magic-picker .mp-page-blocked { border: 1px solid #8c2f2f; background: #f6e2dc; color: #6d2222; }

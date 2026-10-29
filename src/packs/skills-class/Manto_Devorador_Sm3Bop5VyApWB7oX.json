@@ -1,0 +1,182 @@
+{
+  "name": "Manto Devorador",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Maldição.</strong> O seu casaco é uma fera. Ela tem fome de tudo: de carne, de aço, de magia e até do espaço, que ela morde e deixa um buraco onde nada passa. Ela ataca sozinha quem chega perto, e defende você mesmo quando você não quer. O preço é o seu corpo: os pulmões que já não funcionam, a tosse que vem no meio da luta. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP.</p><ul><li><strong>Única:</strong> só uma pessoa no mundo tem esta Magia de cada vez.</li><li><strong>A Fera Morde Sozinha:</strong> quando um inimigo a até 1 Qd declara um ataque contra você, a fera morde primeiro, acerte ele ou não: [NP÷2 + 2] de dano direto nele.</li><li><strong>Tabu, Pulmões Doentes:</strong> em combate, no começo de cada turno seu, role 1d6: no 1, você tosse sangue, perde a Ação Maior desse turno e sofre [NP] de dano direto. E a sua Defesa Física cai [NP÷2] em combate.</li><li><strong>Traço, Fome Negra:</strong> você é imune a [Agarrado] (a fera não deixa ninguém segurar você), e os seus feitiços do Manto causam +NP÷2 de dano em quem está [Agarrado].</li><li><strong>Feitiços:</strong> Presa Negra e Corte do Espaço (NP 1), Mil Presas e Espinhos do Manto (NP 3), Dragão Negro (NP 5) e o feitiço supremo Boca do Abismo (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Boca do Abismo pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Ele tosse, e o casaco rosna por ele.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/equipment/chest/coat-trench-brown.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "cough": {
+            "chance": 1,
+            "damage": "@cr"
+          },
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Pulmões Doentes",
+      "img": "icons/equipment/chest/coat-trench-brown.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.defense.phys.mod",
+            "type": "add",
+            "value": "-floor(@cr/2)",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "eWUQ3owEsgHaCJ6p",
+      "_key": "!items.effects!Sm3Bop5VyApWB7oX.eWUQ3owEsgHaCJ6p"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "manto-devorador",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "grappled"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          },
+          "retaliate": {
+            "reach": 1,
+            "value": "floor(@cr/2)+2"
+          },
+          "immune": [
+            "grappled"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Fome Negra",
+      "img": "icons/equipment/chest/coat-trench-brown.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "vsplDfjnCU2RAizD",
+      "_key": "!items.effects!Sm3Bop5VyApWB7oX.vsplDfjnCU2RAizD"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "manto-devorador-manto-devorador",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "manto-devorador",
+        "category": "curse",
+        "tagline": "O casaco é uma fera negra que come tudo, até o espaço entre vocês.",
+        "holders": 1
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "Sm3Bop5VyApWB7oX",
+  "folder": "hWC5lMESEjFLVwIo",
+  "_key": "!items!Sm3Bop5VyApWB7oX"
+}

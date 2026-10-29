@@ -1,0 +1,124 @@
+{
+  "name": "Espinhos do Manto",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Manto Devorador.</strong> A fera se arma de espinhos: até o fim da cena você tem [Espelho: NP÷2 + 2], e ela morde também quem ataca você a até 2 Qd ([NP÷2 + 2] de dano direto, uma mordida a mais). Uma vez por cena.</p><p><strong>Custo:</strong> nenhum.</p><hr><p><em>Chegar perto dele é encostar num ouriço que tem fome.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/equipment/shoulder/pauldron-spiked-black.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "expires": "endOfScene",
+          "statusData": {
+            "statusId": "mirror",
+            "value": "floor(@cr/2)+2"
+          },
+          "retaliate": {
+            "reach": 2,
+            "value": "floor(@cr/2)+2"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Espinhos do Manto",
+      "img": "icons/equipment/shoulder/pauldron-spiked-black.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "mirror"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "7namXmdAVKFHft9D",
+      "_key": "!items.effects!hY7eEWgaUOl6F5Oo.7namXmdAVKFHft9D"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "manto-devorador-espinhos",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "manto-devorador"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "hY7eEWgaUOl6F5Oo",
+  "folder": "hWC5lMESEjFLVwIo",
+  "_key": "!items!hY7eEWgaUOl6F5Oo"
+}

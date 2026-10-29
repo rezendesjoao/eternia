@@ -1,0 +1,165 @@
+{
+  "name": "Portador de Bênçãos",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Absoluta.</strong> Você nasceu amado pelo mundo. Cada vez que algo consegue feri-lo, o mundo lhe dá uma bênção contra aquilo: contra o fogo depois do primeiro fogo, contra o veneno depois do primeiro veneno, contra a morte depois da primeira. Os espíritos se juntam à sua volta como gatos ao sol, e quase não sobra magia para quem está perto. Você é o mais forte, e todo mundo sabe, inclusive quem quer você morto. Mais forte que todas as outras categorias.</p><ul><li><strong>Absoluta:</strong> só uma pessoa no mundo tem esta Magia, e ela ocupa todas as vagas de Magia: você nunca terá outra. [Silenciado] não impede os feitiços dela.</li><li><strong>A Bênção que Chega:</strong> em combate, um Estado Negativo que pega em você lhe dá uma bênção contra ele até o fim da cena (o que pegou fica até acabar; os próximos não pegam), e um golpe de um elemento ([Chama], [Frio], [Choque], [Água], [Vento], [Radiância], [Corrupção], [Veneno], [Ferro]...) que fere você lhe dá uma bênção contra esse elemento: o dano dele cai à metade até o fim da cena.</li><li><strong>A Fênix:</strong> uma vez por cenário, quando chegaria a 0 PV, você fica com todo o PV.</li><li><strong>As Flechas:</strong> nenhum golpe físico de mais de 1 Qd de distância acerta você.</li><li><strong>Tabu, O Amado dos Espíritos:</strong> os espíritos se juntam em você: os feitiços dos seus aliados a até 3 Qd de você rolam 1d6 a menos de dano. E todo mundo quer o mais forte: no começo de cada combate, o seu Ódio sobe [NP].</li><li><strong>Traço, O Amado do Mundo:</strong> você é imune a [Medo], [Encantado] e [Dominado].</li><li><strong>Feitiços:</strong> Golpe do Escolhido e Bênção do Vento (NP 1), Bênção do Primeiro Encontro (NP 3), Corte que Ninguém Vê (NP 5), Bênção da Fênix (NP 7) e o feitiço supremo Espada do Dragão (NP 10), que só sai contra um inimigo digno.</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Espada do Dragão pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Ele nunca perdeu. O mundo não deixaria.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/treasure/brooch-crown-gold.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "manaHog": true,
+          "hateStart": "@cr"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "O Amado dos Espíritos",
+      "img": "icons/commodities/treasure/brooch-crown-gold.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "qBQ2VxdnMe7WXIJV",
+      "_key": "!items.effects!pYXu9fOXpZhytSJV.qBQ2VxdnMe7WXIJV"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "bencaos",
+            "adapt": true
+          },
+          "arrowWard": true,
+          "revive": {
+            "uses": 1,
+            "per": "scenario",
+            "hp": "@hpMax"
+          },
+          "immune": [
+            "frightened",
+            "charmed",
+            "dominated"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "O Amado do Mundo",
+      "img": "icons/commodities/treasure/brooch-crown-gold.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "SE6Dbyl9qcDSRNnq",
+      "_key": "!items.effects!pYXu9fOXpZhytSJV.SE6Dbyl9qcDSRNnq"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "bencaos-bencaos",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "bencaos",
+        "category": "absolute",
+        "tagline": "O mundo dá a bênção que você precisa, na hora que você precisa.",
+        "holders": 1,
+        "exclusive": true
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "pYXu9fOXpZhytSJV",
+  "folder": "bVqzaEUMvW2bD8bV",
+  "_key": "!items!pYXu9fOXpZhytSJV"
+}

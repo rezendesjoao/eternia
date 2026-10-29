@@ -62,7 +62,6 @@ export function registerSettings() {
   });
   toggle("autoPhases");
   toggle("endOfScene");
-  toggle("revive");
   // Evolving the form of a race (races/evolution.mjs): a player's request waits for the GM
   toggle("evolutionApproval");
   toggle("closeReach");
@@ -89,6 +88,8 @@ export function registerSettings() {
   toggle("quickEffect");
   // A card in the chat for a character made in the creation wizard
   toggle("creationCard");
+  // The Awakening: the players draw their first Magia (apps/awakening.mjs)
+  toggle("awakening");
   // Content
   toggle("content");
   // The Player's Guide kept in the world's Journal (journal/index.mjs)

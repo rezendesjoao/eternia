@@ -39,6 +39,7 @@ import { statusDefinition } from "../helpers/statuses.mjs";
 import { addStatus, has, rating, removeStatuses } from "./rules.mjs";
 import { agonyPain, freed } from "./damage.mjs";
 import { STATUS_ACTIONS, statusAction } from "./status-actions.mjs";
+import { unmovable, unmovedLine } from "./goliath.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 const flag = (effect, key) => effect.getFlag?.(SYSTEM_ID, key) ?? effect.flags?.[SYSTEM_ID]?.[key];
@@ -149,6 +150,8 @@ export async function stealStatuses(actor, statuses, thief) {
 async function doAction(actor, payload) {
   const { type, value, status, statuses = [], casterUuid = "", sceneId = "" } = payload;
   if (USE_ACTIONS.has(type)) return USE_ACTIONS.get(type)(actor, payload);
+  // A giant's body isn't moved by force (conditions/goliath.mjs)
+  if (["switch", "pull", "push"].includes(type) && unmovable(actor)) return unmovedLine(actor);
   if (type === "switch") return switchPlaces(actor, await actorOf(casterUuid), sceneId);
   if (type === "pull") return pullTo(actor, await actorOf(casterUuid), sceneId);
   if (type === "push") return pushFrom(actor, await actorOf(casterUuid), sceneId, value);
@@ -351,7 +354,8 @@ async function onCreateEffect(effect, options, userId) {
   if (!isLocalChange(options, userId)) return;
   const actor = effect.parent;
   if (!(actor instanceof Actor)) return;
-  // An immunity ends the statuses it covers.
+  // An immunity ends the statuses it covers (not a blessing's, `immuneKeep`: the one that took stays until it ends).
+  if (flag(effect, "immuneKeep")) return;
   const immune = listOf(flag(effect, "immune")).filter(id => has(actor, id));
   if (immune.length) await removeStatuses(actor, immune);
 }

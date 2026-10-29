@@ -10,6 +10,9 @@
 			<p class="mp-page-tag">{{tagline}}</p>
 		</div>
 	</header>
+	{{#if holderLabel}}<p class="mp-page-holders{{#if holderFull}} full{{/if}}"><i class="fa-solid fa-users"></i><span>{{holderTip}}</span><b>{{holderLabel}}</b></p>{{/if}}
+	{{#if exclusive}}<p class="mp-page-exclusive"><i class="fa-solid fa-crown"></i>{{localize "ETERNIA.Holders.Exclusive"}}</p>{{/if}}
+	{{#if blockedNote}}<p class="mp-page-blocked"><i class="fa-solid fa-lock"></i>{{blockedNote}}</p>{{/if}}
 	{{#if allRoles.length}}<div class="mp-page-roles">{{#each allRoles}}<span><i class="{{icon}}"></i>{{label}}</span>{{/each}}</div>{{/if}}
 	{{#if intro}}<p class="mp-page-intro">{{intro}}</p>{{/if}}
 	{{#if trait}}<div class="mp-trait"><i class="fa-solid fa-star"></i><p><b>{{trait.label}}:</b> {{trait.text}}</p></div>{{/if}}

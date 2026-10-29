@@ -1,0 +1,78 @@
+{
+  "name": "Tesouras no Sangue",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Sangue de Ferro. Feitiço grande.</strong> Tesouras se abrem dentro de todos numa área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; [5d6 + Poder de Ataque] de dano físico de [Ferro], e cada um fica com [Ferro no Sangue: 2].</p><p><strong>Custo:</strong> Ódio 3 e 2 PV.</p><hr><p><em>O som é de tecido sendo cortado. Ninguém ali vestia tecido.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Iron"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 5,
+      "mod": 0,
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/skills/trades/scissors-tailor-barber.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "sangue-de-ferro-tesouras",
+      "kind": "feeds",
+      "branch": "magic",
+      "hpCost": "2",
+      "hitStatuses": [
+        {
+          "statusId": "ironBlood",
+          "value": 2
+        }
+      ],
+      "magicSpell": {
+        "id": "sangue-de-ferro"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "N6MK7jCTrpIqVTkQ",
+  "folder": "cBrpXcHD61wfVnyp",
+  "_key": "!items!N6MK7jCTrpIqVTkQ"
+}

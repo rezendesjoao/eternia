@@ -1,0 +1,82 @@
+{
+  "name": "Boca do Abismo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Manto Devorador. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: a fera abre uma boca do tamanho de uma casa sobre um alvo a até 4 Qd. Teste de Precisão contra a Esquiva; [(2 + 2×pontos gastos)d6 + Poder de Ataque + pontos gastos×NP] de dano físico de [Corrupção], ele fica [Agarrado] por você, e você recupera metade do PV que o golpe tirou (a fera divide a comida). Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Por um momento ninguém viu nem ele, nem o chão onde ele estava.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/biological/mouth-pincer-brown.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "manto-devorador-abismo",
+      "kind": "spends",
+      "branch": "magic",
+      "drain": 0.5,
+      "hitStatuses": [
+        {
+          "statusId": "grappled"
+        }
+      ],
+      "magicSpell": {
+        "id": "manto-devorador"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder de Ataque] + pontos gastos×NP Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "8O2xqltPAWSEJFhf",
+  "folder": "hWC5lMESEjFLVwIo",
+  "_key": "!items!8O2xqltPAWSEJFhf"
+}

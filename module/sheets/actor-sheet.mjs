@@ -13,6 +13,7 @@ import { EQUIP_TYPES } from "../piles/pile-config.mjs";
 import { diceFormula } from "../helpers/dice.mjs";
 import { effectModified } from "../helpers/sheet-values.mjs";
 import { refreshSkills } from "../apps/skill-refresh.mjs";
+import { isAwakenedMagia } from "../apps/awakening.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -777,8 +778,13 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
   /** Delete an item, a skill or a Magia after a confirmation (a slip of the trash can loses the NH and the picks). */
   static async #onItemDelete(event, target) {
     if (!this.isEditable) return;
-    const itemId = target.closest(".item")?.dataset.itemId;
-    await this.actor.items.get(itemId)?.deleteDialog({ classes: ["lhauto-dialog"] });
+    const item = this.actor.items.get(target.closest(".item")?.dataset.itemId);
+    // The Magia of the Awakening doesn't leave a player's sheet (apps/awakening.mjs)
+    if (item && !game.user.isGM && isAwakenedMagia(this.actor, item)) {
+      ui.notifications.warn(game.i18n.format("ETERNIA.Awakening.Locked", { name: item.name }));
+      return;
+    }
+    await item?.deleteDialog({ classes: ["lhauto-dialog"] });
   }
 
   static async #onItemEquip(event, target) {

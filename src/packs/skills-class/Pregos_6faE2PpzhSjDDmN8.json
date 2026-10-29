@@ -1,0 +1,83 @@
+{
+  "name": "Pregos",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Sangue de Ferro.</strong> Com um estalo dos dedos, todo o ferro que já está num alvo a até 6 Qd sai de uma vez em forma de pregos: o ataque acerta sem teste; [NP÷2 + 2] de dano físico de [Ferro] para cada ponto de [Ferro no Sangue] dele, que zera. Contra quem não tem o ferro, não acontece nada. Uma vez por rodada.</p><p><strong>Custo:</strong> Ódio 1 e 2 PV.</p><hr><p><em>Um estalo. Depois, o barulho de metal caindo no chão.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Iron"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "auto",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/metal/pin-cottar-steel.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "sangue-de-ferro-pregos",
+      "kind": "feeds",
+      "branch": "magic",
+      "hpCost": "2",
+      "bonusVs": [
+        {
+          "statuses": [
+            "ironBlood"
+          ],
+          "value": "floor(@cr/2)+2",
+          "perValue": true,
+          "consume": true
+        }
+      ],
+      "magicSpell": {
+        "id": "sangue-de-ferro"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      },
+      "damageText": "[NP÷2 + 2] × Ferro no Sangue Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 30000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "6faE2PpzhSjDDmN8",
+  "folder": "cBrpXcHD61wfVnyp",
+  "_key": "!items!6faE2PpzhSjDDmN8"
+}

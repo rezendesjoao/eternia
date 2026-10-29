@@ -1,5 +1,130 @@
 # Changelog
 
+## 0.51.0 — 2026-10-29
+
+A onda das Magias apelonas: treze Magias mais fortes que as outras de propósito, cada uma com uma regra que nenhuma
+outra tem e um preço do tamanho dela, a categoria nova **Absoluta**, o limite de portadores no mundo e quatro Magias de
+personagens fortes demais por natureza ainda mais fortes, com defeitos pesados.
+
+### Adicionado
+- **Treze Magias** (a "apelação" de 0 a 10 é a do pedido; a régua delas está em `docs/matematica.md`, seção 5):
+  - **Selo do Ceifador** (Proibida, 8): o deus da morte sela o PV máximo de quem os feitiços tocam, para sempre
+    ([Vida Selada], inimigos e personagens de jogadores); cada feitiço que sela cobra 1 da vida de quem usa, a alma de
+    um selado que cai devolve 1, a vida selada volta quando quem selou morre de vez, e o supremo mata quem o usa no fim
+    da cena.
+  - **Sangue de Ferro** (Perdida, 6): o ferro do sangue vira lâmina ([Ferro no Sangue]): cada quadrado que o alvo anda
+    por conta própria custa o Valor em dano direto, no 5 o ferro sai de uma vez ([Atordoado] e [Lento]), e os feitiços
+    ignoram a Defesa Física de quem tem o ferro.
+  - **Permeação** (Perdida, 6): [Permeando], nenhum ataque chega (nem dano, nem estados) e quem atravessa não ataca;
+    cada golpe que passa vira [Antecipação], que os golpes da Magia gastam no dano.
+  - **Olhar que Apaga** (Absoluta, 9): com a faixa, você está [Cego]; sem ela ([Olhar Aberto]), todo mundo a até 4 Qd,
+    aliados também, fica [Apagado] (sem feitiços nem Maldições, e os Traços das Magias param); os olhos secam ([Fadiga]
+    por rodada) e fecham em 3 rodadas.
+  - **Retrocesso** (Proibida, 8): o retrato da rodada guarda o PV e os estados de todos no começo de cada rodada, e
+    voltar o tempo devolve o PV, tira os Estados Negativos que vieram depois e levanta quem caiu nesta rodada (os mortos
+    não voltam); a [Ampulheta] cheia transborda: volta o tempo de todos em volta, inimigos também, e quem usa dorme.
+  - **Cobiça** (Maldição, 8): a Fortuna (1 por 5 comuns do NP na bolsa, até o NP) soma dados no dano; cada feitiço come
+    Yuld, o supremo gasta tudo e bate pelo que gastou, o Yuld deixado pelas criaturas derrubadas vem com metade a mais,
+    e quem cai perde metade da bolsa.
+  - **Impecável** (Absoluta, 9): cinco segundos de futuro: todo ataque de alvo único contra você erra (menos o de quem
+    também vê o futuro), e os seus feitiços acertam sem teste; o Voto: os seus golpes não matam (param em 1 PV), e −1d6
+    na Esquiva contra área.
+  - **Manto Devorador** (Maldição, 8): a fera do casaco morde sozinha quem ataca você a até 1 Qd; o Corte do Espaço deixa
+    os golpes de longe sem chegar; a tosse tira a Ação Maior e fere (1 em 1d6 a cada turno).
+  - **Golias** (Perdida, 8): [Golias: n], o limiar: golpe abaixo de n não faz nada (nem os estados), nada empurra você,
+    os ataques físicos causam +NP e a couraça volta a [Barreira] em cada Manutenção; o gigante deixa [Fadiga] ao dormir.
+  - **Santo da Espada** (Perdida, 7): o Corte Absoluto atravessa tudo que deixa um golpe passar ([O Único], cópias,
+    [Contragolpe], [Intangível], [Intocável], [Permeando], o limiar), corta feitiços no ar e bate +3 por NP do alvo acima
+    do seu; o Tabu recusa toda [Barreira] e [Anulação] em combate.
+  - **Portador de Bênçãos** (Absoluta, 10): a bênção que chega: um Estado Negativo que pega dá imunidade a ele até o fim
+    da cena, e um elemento que fere passa a doer metade; a Fênix (uma vez por cenário, volta com todo o PV), as flechas
+    que não acertam, a Espada do Dragão que só sai contra um inimigo digno; o Tabu: os feitiços dos aliados perto rolam
+    1d6 a menos, e o Ódio começa o combate em NP.
+  - **Aposta Mortal** (Maldição, 8): cada feitiço gira três carretéis (um cartão no chat): três iguais ou a [Sorte] no 3 é
+    o [Jackpot]: 3 rodadas de PV cheio em cada Manutenção, sem cair, feitiços sem Ódio e +NP no dano.
+  - **Fruta do Tremor** (Absoluta, 9): o [Abalo] cresce a cada tremor e soma no dano, os tremores acham os alvos sozinhos
+    (todo mundo no chão na área, aliados também) e ignoram a Defesa; o mar odeia a fruta: [Encharcado] ou [Nadando], sem
+    feitiços, e o dano de [Água] dobra.
+- **A categoria Absoluta:** a mais forte de todas, um portador só e um Tabu pesado; ela ocupa todas as vagas de Magia
+  (as do NP 5 e 10 fecham: a aba Magias as mostra fechadas, a subida de NP avisa, a janela não oferece outra) e só entra
+  numa ficha sem outra Magia. [Silenciado] não impede os feitiços dela; [Apagado] impede.
+- **O limite de portadores** (`module/apps/magic-holders.mjs`): toda Magia que não é Conjuração pode ter 1, 2 ou 3
+  portadores no mundo (50 das 97 de antes e as 13 novas); contam as fichas do mundo (e os tokens soltos das cenas) e o
+  Despertar ainda aberto que a sorteou. Esgotada, não sai no sorteio (o dado tem uma face para cada Magia livre) e a
+  janela mostra "1/1", quem a tem e não deixa o jogador escolher; o Mestre escolhe livre.
+- **Onze condições** (64 no total, com ícones próprios): [Vida Selada], [Ferro no Sangue], [Permeando],
+  [Antecipação], [Apagado], [Olhar Aberto], [Ampulheta], [Jackpot], [Sorte], [Golias] e [Abalo].
+- **Regras novas no motor:** o selo de vida e o preço (`seal`, `selfSeal`, `sealStriker`, `diesAtSceneEnd`), o dano do
+  movimento, a passagem dos golpes (`passage.mjs`: atravessar, `cutSpell`, `spaceCut`, `arrowWard`), `pierce.all`,
+  `pierce.inside` e `pierce.defense: "none"`, `rankAbove`, o retrato da rodada e a ação `rewind`, a Fortuna (`@fortune`,
+  `@yuld`, `@yuldPaid`, `yuldCost`, `goldBonus`, `goldOnFall`), a previsão (`foresight`, `eternia.passive.areaDodge`), a
+  mordida (`retaliate`) e a tosse (`cough`), o limiar (`goliath`, `unmovable`, `barrierEachRound`), as bênçãos (`adapt`,
+  `manaHog`, `hateStart`, `worthyOnly`, `immuneKeep`, o Fôlego Extra por cenário), os carretéis (`slots`,
+  `slotsEachRound`, `pairsDouble`), o tremor (`quakeGain`, `around`, `seaCurse`, `vulnerable`), o Reino com `notSelf` e
+  `damage`, a `cleanupFatigue`, o `counterMult` e as chaves novas do Relógio do Sol (`sunClock` com número, `sunPower`,
+  `noonRounds`, `pride`, `sunNight`, `nightDice`). Detalhes em `docs/condicoes.md`.
+- **O teste `test-onda.js`** e o executor `run-onda.js` (fora do repositório): uma parte por Magia, os buffs e os
+  portadores.
+
+### Alterado
+- **Sol** virou **Absoluta**: o Sol sobe 2 por rodada, cada ponto vale +2 de dano, o meio-dia dura duas rodadas e os
+  feitiços rolam mais; o Tabu novo: com o Sol acima de 0 você nunca se esquiva, e de noite o Sol não nasce e os feitiços
+  rolam 2d6 a menos.
+- **Artes Negras:** feitiços com 1d6 a mais e a Sentença Negra mais rápida; a morte não leva quem a usa (uma vez por cena
+  fica com 1 PV), e a Contradição fere os aliados a até 2 Qd em cada Manutenção.
+- **Magia das Fadas:** feitiços de ataque mais fortes, a Esfera das Fadas também dá [Intocável], e a Lei das Fadas acha
+  os inimigos a até 8 Qd sozinha, acerta sem teste e derruba quem fica com pouca vida; ela cobra metade do PV máximo,
+  [Fadiga: NP×2] e só sai uma vez por cenário.
+- **Contra-ataque:** o [Contragolpe] devolve o triplo (+NP×2); o Tabu também pega a Resistência.
+- **AS REGRAS:** XII.1 a XII.110 (as treze páginas novas e as quatro refeitas), a XII.a com a Absoluta, os portadores e o
+  dado do Despertar, a linha de portadores em cada página com limite, a XII.b, o ÍNDICE e a IX com as onze condições.
+- **O Guia do Jogador:** capítulos 3 (o dado do Despertar), 6 (a Absoluta e os portadores), 14 (a [Vida Selada], as
+  famílias) e o glossário.
+- **Migração `kudenCleanup` 10:** as quatro Magias com buff e os feitiços delas voltam à versão do compêndio nas fichas, e
+  as outras Magias das fichas pegam o limite de portadores e a marca de Absoluta.
+- **Dados de dano a menos:** uma condição pode tirar dados do dano (os espíritos em volta do Portador de Bênçãos, o Sol à
+  noite), nunca abaixo de um dado.
+- **O token de quem conjura:** a limpeza da Arca Ômega e o golpe do [Servo] acham o token que existe na cena (o Foundry
+  também conta como token de um ator os documentos de passagem de uma ficha, no lugar do protótipo, e às vezes a limpeza
+  não achava os aliados em volta).
+
+## 0.50.0 — 2026-10-29
+
+O Despertar, a morte para sempre e o Mercado em páginas: o que faltava para a mesa começar, tirando a história.
+
+### Adicionado
+- **O Despertar** (`module/apps/awakening.mjs`): a primeira Magia dos jogadores é sorteada. No passo Magia do assistente
+  de criação, o jogador rola até três vezes, cada rolagem um 1d97 (as 97 Magias com a mesma chance, até as Ancestrais e as
+  Proibidas; uma que já saiu rola de novo), e fica com uma das que saírem. Cada rolagem fica guardada na ficha na hora e
+  sai num cartão no chat, então fechar a janela ou recarregar não dá outra. Ao criar o personagem, a Magia fica travada:
+  o jogador não a tira da ficha, e a vaga do NP 1 aberta pela ficha devolve a mesma Magia (ou abre a janela de Magias
+  só com as rolagens). O Mestre não vê o sorteio: escolhe a Magia direto na janela inteira, lê o que o jogador rolou e
+  pode liberar um novo sorteio. A configuração "O Despertar (Magia sorteada)" desligada devolve a escolha livre a todos.
+- **A morte é para sempre** (`module/automation/death.mjs`): quem cai e não é inimigo fica **[Morrendo: 2]**. No
+  Encerramento de cada rodada sai um cartão do **Teste da Morte** com a chance de morrer: o dono (ou o Mestre) rola 2d6
+  (o Valor ou menos mata; acima segura, e o Valor sobe 1; dois 6 sempre seguram), gasta 1 Destino para rolar 3d6, ou
+  escolhe o **Último Ato** (1 PV, a próxima rodada inteira sem poder cair, e a morte no Encerramento dela). Dano em quem
+  está [Morrendo] sobe o Valor em 2, um acerto crítico mata, e qualquer cura levanta. No fim da cena, quem ainda está
+  [Morrendo] faz um último teste. Os estados novos [Morrendo] e [Último Ato] têm ícone próprio.
+- **O Mercado em páginas:** a lista desenha 50 itens por vez, com o paginador embaixo; filtros, busca e ordem voltam à
+  página 1 e só a lista se redesenha. A busca espera o fim da digitação, as imagens carregam quando aparecem, e as
+  setas passam de página. O catálogo vem do índice do compêndio, sem carregar os quase mil itens como documentos.
+- **O teste `test-050.js`** (fora do repositório): 31 checagens da morte e do Despertar.
+
+### Alterado
+- **Ninguém revive:** saiu a configuração "Aventureiros mortos revivem no fim da cena" e o Retorno com Fadiga. O fim da
+  cena levanta os caídos com os PV cheios, mas quem morreu continua morto. A Sombra e o Erguer os Mortos não levantam
+  quem ainda está [Morrendo]; um personagem morto que levanta continua morto.
+- **As pastas de itens** "Aincrad" e "Alfheim" se chamam **Arsenal do Castelo** e **Relíquias Lendárias**.
+- **O desempenho para PCs fracos:** além das páginas do Mercado, o preparo dos catálogos no começo do jogo faz um passo
+  por vez, esperando o jogo ficar ocioso entre eles, e um jogador sem personagem de NP 1 não carrega o catálogo do
+  assistente.
+- **O Guia do Jogador e AS REGRAS:** "Cair e morrer" (o Teste da Morte, o Destino só antes de rolar, o Último Ato, o
+  golpe no chão), o Despertar (capítulos 3 e 6, XII), os estados [Morrendo] e [Último Ato], o fim da cena, as dicas
+  para o jogador e o Mestre e a configuração nova na VIII.
+- **Sem licença nem créditos de distribuição:** o sistema é da mesa. Saíram do README as seções de créditos e licença,
+  e o LICENSE.txt ficou só com o aviso MIT do código de onde o sistema veio.
+
 ## 0.49.0 — 2026-10-28
 
 A limpeza do Log Horizon: o que o jogador lê passa a dizer o que a Eternia faz (a revisão antes da 1.0,

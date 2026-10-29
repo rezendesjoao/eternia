@@ -33,6 +33,7 @@ import { lootAt } from "../piles/pile-operations.mjs";
 import { ITEMS_PACK } from "../professions/data.mjs";
 import { GOLD_ICON, nameKey, nameKeys, parseDropTable, parseRange, partIcon, priceOf, withoutDropTable } from "./drop-table.mjs";
 import { commonValue } from "../economy/data.mjs";
+import { greedBonus } from "../conditions/fortune.mjs";
 
 export { parseDropTable, parseRange };
 
@@ -312,6 +313,12 @@ async function rollTable(actor, receiver) {
   }
 
   const feller = (receiver === undefined) ? fellerOf(actor) : receiver;
+  // A feller whose Magia draws gold (conditions/fortune.mjs: the Cobiça's Trait)
+  const greed = greedBonus(feller, gold);
+  if (greed > 0) {
+    gold += greed;
+    lines.push({ img: "icons/commodities/currency/coins-plain-stack-gold.webp", name: L("Drops.Greed"), value: L("Drops.Value", { n: greed }), gold: true });
+  }
   const given = await giveDrops(actor, feller, items, gold);
   const content = await renderCard(actor, { face, lines, given, gold });
   const message = await ChatMessage.create({

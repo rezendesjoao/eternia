@@ -1,0 +1,10 @@
+{{!-- The chat card of a roll of the Awakening (module/apps/awakening.mjs): who rolled, the die and the Magia. --}}
+<div class="eternia chat-card eternia-awakening" style="--mp-cat: {{category.color}}">
+	<header>
+		<img src="{{img}}" alt="">
+		<div><small>{{eyebrow}}</small><h3>{{name}}</h3></div>
+		<span class="aw-card-die">{{die}}</span>
+	</header>
+	<p class="aw-card-cat"><i class="{{category.icon}}"></i>{{category.label}}{{#if tagline}} · {{tagline}}{{/if}}</p>
+	<p class="aw-card-who">{{localize "ETERNIA.Awakening.Chat.Who" name=who}}</p>
+</div>

@@ -5,6 +5,7 @@ import { rollBonuses, rollBonusesLabel } from "./roll-bonuses.mjs";
 import { applyModifier, checkModifier, consumeAfterRoll, damageModifier } from "../conditions/rolls.mjs";
 import { motorAutoHit, motorRollBonuses } from "../classes/motor.mjs";
 import { surpriseBonuses } from "../bestiary/surprise.mjs";
+import { aimAround } from "../conditions/quake.mjs";
 
 /**
  * Skill Check and Damage, set directly on the skill sheet:
@@ -266,6 +267,8 @@ export async function rollSkill(item, which, { targets } = {}) {
     if (type) flavor += ` (${game.i18n.localize(type)})`;
   }
 
+  // A skill that finds its own targets around its user (conditions/quake.mjs: the quake, the light that judges)
+  if (which === "check") aimAround(item);
   const attack = (which === "check") && isAttack(item);
   // A class Motor's Perfect Cut hits without a Dodge Check (classes/motor.mjs).
   const autoHit = (which === "check") && attack && motorAutoHit(item);
@@ -316,7 +319,8 @@ export async function rollSkill(item, which, { targets } = {}) {
   if (which === "check") ({ dice, mod } = (dice > 0) ? applyModifier({ dice, mod }, condition) : { dice, mod: mod + condition.mod });
   else {
     // The damage dice a condition adds ([Rhythm]: +n d6 on a spell)
-    dice += Math.max(0, condition.dice);
+    // A condition may take dice too (the spirits around a blessed ally, a Sun at night), never below one die
+    dice = (condition.dice >= 0) ? dice + condition.dice : Math.max(Math.min(dice, 1), dice + condition.dice);
     mod += condition.mod;
   }
   const bonusText = [rollBonusesLabel(bonuses), condition.text].filter(Boolean).join(", ");

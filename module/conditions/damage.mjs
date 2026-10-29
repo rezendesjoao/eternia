@@ -23,7 +23,8 @@
  *
  * The damage of the conditions themselves ([Burning], [Poisoned], [Shocked], [Doom], [Mirror], [Bond], [Nightmare],
  * [Agony]) goes through takeDamage: [Barrier], [Last Stand], the Extra Breaths and Incapacitated, with a line in the
- * chat.
+ * chat. Damage to one [Dying] (a card's or a condition's) is a blow on the ground: the Rating goes up, and a critical
+ * hit kills (automation/death.mjs), whatever the conditions setting.
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { registerHandler, request } from "../piles/pile-socket.mjs";
@@ -38,6 +39,9 @@ import { motorAbsorbs } from "../classes/motor.mjs";
 import { decoyTakes } from "./copies.mjs";
 import { tagLabel } from "../i18n/terms.mjs";
 import { phasedNote } from "../bestiary/phase.mjs";
+import { groundBlow } from "../automation/death.mjs";
+import { passageOf } from "./passage.mjs";
+import { sealLife, sealStrikerOf } from "./reaper.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -49,7 +53,8 @@ const ENDED_BY_DAMAGE = ["asleep", "lastStand", "charmed", "hidden", "counter"];
  * or stripped, the damage kept as a grudge, the combo broken, a copy lost), saved for its Undo.
  */
 const RESTORED_FIELDS = ["marked", "freezing", "soaked", "burning", "poisoned", "shocked", "decay", "fuse", "fissured",
-  "regen", "barrier", "empowered", "awakened", "mirror", "weakened", "doom", "berserk", "grudge", "combo", "clones"];
+  "regen", "barrier", "empowered", "awakened", "mirror", "weakened", "doom", "berserk", "grudge", "combo", "clones",
+  "dying"];
 
 /** Statuses that stop all healing: the first one an actor has, or null. */
 const NO_HEALING = ["cursed", "blackFlame"];
@@ -110,14 +115,19 @@ export function beforeDamage(actor, card, direct) {
     return result;
   }
   if (!rulesOn()) return result;
+  // A blow that cuts what can't be cut (`pierce.all`, the Santo da Espada) passes through all that lets a blow by
+  const all = !!card.pierce?.all;
   // A copy takes the blow (Troca com a Cópia: copies.mjs)
-  const decoy = decoyTakes(actor, card);
+  const decoy = all ? null : decoyTakes(actor, card);
   if (decoy) return { ...result, immune: true, untouched: true, notes: [decoy] };
   // Out of phase, nothing reaches it (bestiary/phase.mjs)
-  const phased = phasedNote(actor);
+  const phased = all ? null : phasedNote(actor);
   if (phased) return { ...result, immune: true, untouched: true, notes: [phased] };
+  // Going through the blow, a spell cut, the space eaten, an arrow warded (conditions/passage.mjs)
+  const passage = passageOf(actor, card, direct);
+  if (passage) return { ...result, immune: true, untouched: true, phasing: !!passage.phasing, notes: [passage.note] };
   // [The One]: noon; no attack reaches it.
-  if (has(actor, "theOne")) {
+  if (has(actor, "theOne") && !all) {
     result.immune = true;
     result.untouched = true;
     result.notes.push(L("Conditions.Applied.TheOne"));
@@ -129,17 +139,17 @@ export function beforeDamage(actor, card, direct) {
     result.harmless = true;
     result.notes.push(L("Conditions.Applied.Pacified"));
   }
-  result.counter = (direct || result.harmless) ? null : counterFor(actor, card);
+  result.counter = (direct || result.harmless || all) ? null : counterFor(actor, card);
   if (has(actor, "exposed") && !direct) {
     result.noDefense = true;
     result.noCancel = true;
     result.notes.push(L("Conditions.Applied.Exposed"));
   }
-  if (has(actor, "intangible") && !direct && (card.type === "physical")) {
+  if (has(actor, "intangible") && !direct && !all && (card.type === "physical")) {
     result.immune = true;
     result.notes.push(L("Conditions.Applied.Intangible"));
   }
-  if (has(actor, "untouchable") && !direct && (card.type === "magical")) {
+  if (has(actor, "untouchable") && !direct && !all && (card.type === "magical")) {
     result.immune = true;
     result.notes.push(L("Conditions.Applied.Untouchable"));
   }
@@ -209,7 +219,17 @@ function counterFor(actor, card) {
   });
   if (!fits.length) return null;
   const own = Math.max(0, ...fits.map(e => toInt(e.getFlag(SYSTEM_ID, "statusData")?.value)));
-  return { bonus: own + traitCounterBonus(actor), effects: fits.map(e => e.id) };
+  return { bonus: own + traitCounterBonus(actor), effects: fits.map(e => e.id), mult: traitCounterMult(actor) };
+}
+
+/** How many times the damage a [Counter] sends back: 2, or more by a Trait's `counterMult` (the Contra-ataque: 3). */
+function traitCounterMult(actor) {
+  let mult = 2;
+  for (const effect of actor.allApplicableEffects?.() ?? []) {
+    const value = effect.active ? Number(effect.getFlag(SYSTEM_ID, "trait")?.counterMult) : 0;
+    if (value > mult) mult = value;
+  }
+  return mult;
 }
 
 /** What the Traits of an actor add to the damage its [Counter] sends back (`flags.eternia.trait.counterBonus`). */
@@ -235,7 +255,7 @@ function traitCounterBonus(actor) {
  */
 export function counterBack(actor, card, counter, amount) {
   const attacker = cardAttacker(card);
-  const damage = (Math.max(0, amount) * 2) + counter.bonus;
+  const damage = (Math.max(0, amount) * (counter.mult ?? 2)) + counter.bonus;
   const name = attacker ? actorName(attacker) : "—";
   const line = L("Conditions.Applied.Counter", { n: damage, name });
   const after = async () => {
@@ -256,7 +276,15 @@ export function counterBack(actor, card, counter, amount) {
  */
 export function afterDamage(actor, card, { hp, hpLoss, absorbed, marked, start = 1 }) {
   const out = { hp, updates: {}, lines: [], end: [], after: [] };
-  if (!rulesOn() || card.recovery) return out;
+  if (card.recovery) return out;
+  // A blow on the ground: one [Dying] comes closer to death (automation/death.mjs)
+  const blow = (hpLoss > 0) ? groundBlow(actor, { critical: !!card.critical }) : null;
+  if (blow) {
+    Object.assign(out.updates, blow.updates);
+    out.lines.push(blow.line);
+    if (blow.after) out.after.push(blow.after);
+  }
+  if (!rulesOn()) return out;
   const attacker = cardAttacker(card);
   const hurt = (hpLoss > 0) || (absorbed > 0);
 
@@ -323,6 +351,9 @@ export function afterDamage(actor, card, { hp, hpLoss, absorbed, marked, start =
     out.lines.push(L("Conditions.Applied.Mirror", { n: mirror, name: actorName(attacker) }));
     out.after.push(() => takeDamage(attacker, mirror, { reason: "mirror", from: actor }));
   }
+  // A death god's guard: whoever hurts its bearer has life sealed by it (conditions/reaper.mjs)
+  const sealed = (hurt && attacker && !sameActor(attacker, actor)) ? sealStrikerOf(actor) : 0;
+  if (sealed > 0) out.after.push(() => sealLife(attacker, sealed, actor));
   // Dealing damage ends the attacker's [Hidden] (unless its spell keeps it).
   if (hurt && attacker && has(attacker, "hidden") && !card.keepHidden) {
     out.after.push(() => (attacker.isOwner ? removeStatuses(attacker, ["hidden"]) : null));
@@ -336,7 +367,9 @@ export function snapshotForUndo(actor) {
   return {
     conditionFields: Object.fromEntries(RESTORED_FIELDS.map(id => [id, toInt(bad[id])])),
     conditionEffects: [...actor.effects].filter(e => ENDED_BY_DAMAGE.some(id => e.statuses?.has(id))).map(e => e.toObject()),
-    reviveSpent: foundry.utils.deepClone(actor.getFlag(SYSTEM_ID, "reviveSpent") ?? {})
+    reviveSpent: foundry.utils.deepClone(actor.getFlag(SYSTEM_ID, "reviveSpent") ?? {}),
+    // A critical hit on the ground killed: the Undo takes the death back
+    dead: actor.statuses.has("dead")
   };
 }
 
@@ -352,6 +385,7 @@ export async function restoreForUndo(actor, before) {
     .map(([id, value]) => [`system.bad-status.${id}`, toInt(value)]), ...Object.entries(breaths)]));
   const missing = (before.conditionEffects ?? []).filter(e => !actor.effects.has(e._id));
   if (missing.length) await actor.createEmbeddedDocuments("ActiveEffect", missing, { keepId: true });
+  if ((before.dead === false) && actor.statuses.has("dead")) await actor.toggleStatusEffect("dead", { active: false });
 }
 
 /** The status that keeps healing from an actor ([Cursed], [Black Flame]), or null. */
@@ -431,6 +465,8 @@ const breathKey = effect => [(effect.parent instanceof Item) ? effect.parent.id 
  */
 export function extraBreaths(actor) {
   const spent = actor?.getFlag?.(SYSTEM_ID, "reviveSpent") ?? {};
+  // The breaths once per scenario (the Phoenix) count apart: the record of the scenario the actor is in
+  const scenario = scenarioSpent(actor);
   const out = [];
   for (const effect of actor?.allApplicableEffects?.() ?? []) {
     const data = effect.active ? effect.getFlag(SYSTEM_ID, "revive") : null;
@@ -440,10 +476,22 @@ export function extraBreaths(actor) {
     const uses = ((data.uses === undefined) && chance) ? Infinity
       : Math.max(0, isFormula(data.uses) ? (evaluateFormula(data.uses, values) ?? 0) : toInt(data.uses ?? 1));
     const key = breathKey(effect);
-    out.push({ effect, key, uses, left: Math.max(0, uses - toInt(spent[key])), per: (data.per === "round") ? "round" : "scene",
+    const per = ["round", "scenario"].includes(data.per) ? data.per : "scene";
+    const used = toInt(((per === "scenario") ? scenario.spent : spent)[key]);
+    out.push({ effect, key, uses, left: Math.max(0, uses - used), per,
       hp: String(data.hp ?? "1"), values, chance, not: [].concat(data.not ?? []).map(t => String(t).toLowerCase()) });
   }
   return out;
+}
+
+/**
+ * The Extra Breaths once per scenario an actor spent in the scenario it is in (its count of finished scenarios,
+ * automation/scenes.mjs): { key, spent }.
+ */
+function scenarioSpent(actor) {
+  const key = toInt(actor?.getFlag?.(SYSTEM_ID, "scenario"));
+  const record = actor?.getFlag?.(SYSTEM_ID, "reviveScenario");
+  return { key, spent: ((record?.key === key) && record.spent) ? record.spent : {} };
 }
 
 /** The 1d6 of an Extra Breath with a chance, by the dice's own generator (the damage is worked out at once). */
@@ -490,13 +538,16 @@ export function spendExtraBreath(actor, { tags = [], critical = false, notes = n
   }
   const raw = isFormula(breath.hp) ? (evaluateFormula(breath.hp, breath.values) ?? 1) : toInt(breath.hp);
   const hp = Math.max(1, Math.min(raw, toInt(actor.system.health?.max) || 1));
-  const spent = toInt(actor.getFlag(SYSTEM_ID, "reviveSpent")?.[breath.key]) + 1;
+  const scenario = scenarioSpent(actor);
+  const spent = toInt(((breath.per === "scenario") ? scenario.spent : (actor.getFlag(SYSTEM_ID, "reviveSpent") ?? {}))[breath.key]) + 1;
   // A breath that never runs out doesn't count in what is left
   const finite = n => (Number.isFinite(n) ? n : 0);
   const left = breaths.reduce((total, b) => total + finite(b.left), 0) - (Number.isFinite(breath.left) ? 1 : 0);
   return {
     hp, effect: breath.effect, left,
-    updates: { [`flags.${SYSTEM_ID}.reviveSpent.${breath.key}`]: spent },
+    updates: (breath.per === "scenario")
+      ? { [`flags.${SYSTEM_ID}.reviveScenario`]: { key: scenario.key, spent: { ...scenario.spent, [breath.key]: spent } } }
+      : { [`flags.${SYSTEM_ID}.reviveSpent.${breath.key}`]: spent },
     line: (rolled === null) ? L("Conditions.Applied.Breath", { effect: breath.effect.name, hp, left })
       : L("Conditions.Applied.BreathChance", { effect: breath.effect.name, n: rolled, hp })
   };
@@ -541,8 +592,8 @@ export async function giveUpBreaths(actor, n = Infinity, { effect = null } = {})
   const updates = {};
   let given = 0;
   for (const b of extraBreaths(actor)) {
-    // One that never runs out (a chance of the dead) isn't given up
-    if ((effect && (b.effect.id !== effect.id)) || !Number.isFinite(b.left)) continue;
+    // One that never runs out (a chance of the dead) isn't given up, nor one of the scenario
+    if ((effect && (b.effect.id !== effect.id)) || !Number.isFinite(b.left) || (b.per === "scenario")) continue;
     const take = Math.min(b.left, n - given);
     if (take <= 0) continue;
     updates[`flags.${SYSTEM_ID}.reviveSpent.${b.key}`] = toInt(spent[b.key]) + take;
@@ -616,6 +667,9 @@ export async function takeDamage(actor, amount, { reason = "", what: named = "",
   let hp = Math.max(0, before - damage);
   const updates = { "system.health.value": hp };
   if (absorbed) updates["system.bad-status.barrier"] = barrier - absorbed;
+  // A blow on the ground (automation/death.mjs)
+  const blow = (damage > 0) ? groundBlow(actor) : null;
+  if (blow) Object.assign(updates, blow.updates);
   const end = [];
   let lastStand = false;
   if ((hp <= 0) && rulesOn() && has(actor, "lastStand")) {
@@ -648,7 +702,7 @@ export async function takeDamage(actor, amount, { reason = "", what: named = "",
   const line = L("Conditions.DamageLine", {
     name: actorName(actor), what, n: amount, parts: parts.length ? ` (${parts.join(" ")})` : "", before, hp
   }) + (lastStand ? ` · ${label("lastStand")}` : "") + (breath ? ` · ${breath.line}` : "") + missed.map(m => ` · ${m}`).join("")
-    + (melted ? ` · ${L("Conditions.Applied.Melted")}` : "");
+    + (melted ? ` · ${L("Conditions.Applied.Melted")}` : "") + (blow ? ` · ${blow.line}` : "");
   if (!silent) {
     const title = from ? L("Conditions.DamageFrom", { what, name: actorName(from) }) : what;
     await postSummary(title, actor.hasPlayerOwner ? [line] : [], actor.hasPlayerOwner ? [] : [line]);

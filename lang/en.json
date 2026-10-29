@@ -415,6 +415,8 @@
       "weakness": "Weakness",
       "incapacitated": "Incapacitated",
       "dead": "Dead",
+      "dying": "Dying",
+      "lastAct": "Last Act",
       "staggered": "Staggered",
       "dazed": "Dazed",
       "rigor": "Rigor",
@@ -486,7 +488,18 @@
       "rhythm": "Rhythm",
       "clones": "Clones",
       "bond": "Bond",
-      "contagion": "Contagion"
+      "contagion": "Contagion",
+      "reaped": "Sealed Life",
+      "ironBlood": "Iron Blood",
+      "phasing": "Phasing",
+      "anticipation": "Anticipation",
+      "erased": "Erased",
+      "gaze": "Open Gaze",
+      "hourglass": "Hourglass",
+      "jackpot": "Jackpot",
+      "luck": "Luck",
+      "goliath": "Goliath",
+      "quake": "Quake"
     },
     "StatusGroup": {
       "bad": "Bad Status",
@@ -732,7 +745,8 @@
         "choice": "choose between {names}",
         "magic": "a new Magia",
         "auto": "{name} comes by itself",
-        "skill": "{name}"
+        "skill": "{name}",
+        "magicClosed": "the Magia slot stays closed ({name} is Absolute)"
       },
       "Dedication": "the Dedication to another class (multiclass) opens in the Combat picks",
       "After": "Then come the class choices and the skill window, with the picks already counted.",
@@ -869,7 +883,8 @@
         "Trait": "Trait",
         "BarrierBroken": "The Barrier broke",
         "Consumed": "Consumed",
-        "Decree": "Decree"
+        "Decree": "Decree",
+        "Stronger": "stronger than you"
       },
       "Notif": {
         "NoTokens": "Select the tokens to apply it to.",
@@ -1231,11 +1246,7 @@
       },
       "endOfScene": {
         "Name": "End of scene when the combat ends",
-        "Hint": "When a started combat ends: Incapacitated Adventurers get back up with full HP, Incapacitated enemies die, and Bad and Combat Statuses end. Fatigue and Weakness stay."
-      },
-      "revive": {
-        "Name": "Dead Adventurers revive at the end of the scene",
-        "Hint": "By the rules, a Dead Adventurer revives at the end of the scene with 1 HP and [Fatigue: Max HP − 1]."
+        "Hint": "When a started combat ends: Incapacitated Adventurers come back with full HP, one still Dying makes the last Death Check, Incapacitated enemies die, and Bad and Combat Statuses end. Fatigue and Weakness stay."
       },
       "cards": {
         "Name": "Attack and damage card fixes",
@@ -1363,6 +1374,10 @@
       "creationCard": {
         "Name": "New character card",
         "Hint": "A card in the chat when a character is made in the wizard, with its race, class, Magic and profession."
+      },
+      "awakening": {
+        "Name": "The Awakening (drawn Magia)",
+        "Hint": "The players' first Magia is drawn: they roll up to three times (every Magia as likely, the Ancestral and the Forbidden ones too) and keep one of what comes out, with no swap later. The GM chooses freely and may free a new draw. Off, everyone chooses their Magia."
       },
       "evolutionApproval": {
         "Name": "Evolving the form with the GM",
@@ -1503,9 +1518,7 @@
     "Scene": {
       "Title": "End of scene",
       "Recovered": "{name} gets back up with full HP.",
-      "Revived": "{name} revives with 1 HP and Fatigue {fatigue}.",
-      "Died": "{name} dies.",
-      "RevivedWhole": "{name} comes back with 1 HP and no Fatigue ({skill})."
+      "Died": "{name} dies."
     },
     "Tools": {
       "Name": "GM tools",
@@ -1801,13 +1814,15 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.49: the cleanup</strong></p><ul><li><strong>Eternia's AS REGRAS:</strong> the pages from the index to VIII were rewritten in the system's own words, short and linked to the Player's Guide; VIII lists the world settings that change the rules. The old Quick Reference left: chapter 20 of the Guide does that job.</li><li><strong>Items:</strong> 101 inherited items no longer mention classes, skills and places that do not exist here, and the powers that relied on skills nobody has now do their effect by themselves. The recipes call the Anima-mundi by its name.</li><li><strong>Skills:</strong> Analisar Objeto de Cena became a Basic skill, so every character has it and Desarmar Objeto de Cena works; the mount skills left the browser until there are rules for mounts; and the text now says what the system does: spells are learned with the Combat picks.</li><li><strong>On the sheet:</strong> the trash can asks before deleting an item, a skill or a Magia, and the profession is called Profession everywhere.</li></ul>"
+      "Body": "<p><strong>What's new in Eternia 0.51</strong></p><ul><li><strong>The wave of overpowered Magias:</strong> thirteen Magias stronger than the others on purpose, each one with a rule no other has and a price to match: Selo do Ceifador (life sealed for good), Sangue de Ferro, Permeação, Olhar que Apaga, Retrocesso, Cobiça (the Yuld turns into damage), Impecável, Manto Devorador, Golias, Santo da Espada, Portador de Bênçãos, Aposta Mortal (the reels and the Jackpot) and Fruta do Tremor. With them, eleven new conditions.</li><li><strong>The Absolute category:</strong> the strongest of all, with a single holder and a heavy Taboo. Whoever has one will never have another Magia: the slots of CR 5 and 10 close. The Sun is now Absolute.</li><li><strong>The holders:</strong> almost every Magia that isn't a Casting has a limit in the world (1, 2 or 3). Taken, it doesn't come out in the Awakening and can't be chosen; the window shows how many have it.</li><li><strong>Stronger:</strong> the Sun, the Black Arts, the Fairy Magic and the Counter hit harder and got heavy drawbacks.</li></ul><p><strong>And from 0.50</strong></p><ul><li><strong>The Awakening:</strong> your first Magia isn't chosen, it awakens. In the creation wizard you roll up to three times (a die with one face for each free Magia: all equally likely, the Ancestral and the Forbidden ones too) and keep one of what comes out. The rolls go to the chat, stay on the sheet and can't be redone, and the Magia of the Awakening never leaves the sheet. The GM chooses freely.</li><li><strong>Death is for good:</strong> whoever falls is [Dying: 2]. In the Cleanup of every round comes the Death Check: 2d6 above the Rating holds (and it goes up 1); the Rating or less kills. Before rolling, 1 Fate rolls 3d6; or choose the Last Act, one round on your feet unable to fall, and then death. Nobody comes back.</li><li><strong>The Market in pages:</strong> 50 items at a time, lighter on weak PCs.</li></ul>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
       "weakness": "[Weakness (Tag): n]: failing a Dodge Check against an attack with that tag (or any, without a tag) deals +n direct damage. Only the highest applies to each attack.",
-      "incapacitated": "At 0 HP: no actions, no checks, always Post-Action. Adventurers recover at the end of the scene; enemies die.",
-      "dead": "Out of play for the scene. Adventurers revive at the end of the scene with 1 HP and Fatigue equal to the rest of their Max HP.",
+      "incapacitated": "At 0 HP: can't act, makes no checks and stays in Post-Action. One who isn't an enemy is [Dying] and makes Death Checks; an enemy dies at the end of the scene.",
+      "dead": "Dead, for good: in Eternia nobody comes back from death.",
+      "dying": "[Dying: n]: down at death's door. In the Cleanup of every round, the Death Check: 2d6 equal to or below n kills (two 6s always hold); above it, n goes up 1. Damage on the ground raises it 2, and a critical hit kills. Any healing gets them up. With 1 Fate, roll 3d6; the Last Act trades the check for one last round.",
+      "lastAct": "Rose one last time: doesn't fall (stays at 1 HP), fights the whole round and dies in its Cleanup.",
       "staggered": "−1d6 on Major and Main Process actions. Ends at the end of their Main Process.",
       "dazed": "−1d6 on Dodge Checks; can't use reaction skills (nor Obstruction). Ends at the end of their Main Process.",
       "rigor": "No actions with the [Movement] tag, the token doesn't move, no Obstruction. Ends with a Minor or Major Action.",
@@ -1868,7 +1883,7 @@
       "lastStand": "When they would drop to 0 HP, they stay at 1 HP and the status ends.",
       "awakened": "[Awakened: n]: the transformation. +1d6 on Accuracy checks and +n damage on attacks. When it ends, it leaves [Fatigue: n].",
       "servant": "[Servant: n]: a summoned servant fights at their side. In the Cleanup Process, it strikes the nearest enemy within 4 Sq: n direct damage, with the servant's tag. The highest Rating stays. Ends at the end of the scene.",
-      "sun": "[Sun: n] (up to 5): +n damage on attacks and +n Physical and Magic Defense. In a combat, it rises by 1 in each Setup Process and with each Sun spell. At 5 it is noon: [The One] for a round, once per combat; then the Sun sets by 1 each round and rises no more. In a dark scene (night), it doesn't go past 2. Ends at the end of the scene.",
+      "sun": "[Sun: n] (up to 5): +n damage on attacks (or more, by the Magia) and +n to Physical and Magic Defense. In combat it rises in the Setup of each round (1, or more by the Magia) and 1 with each Sun spell. At 5 it is noon: [The One] for a round (or more), once per combat; then the Sun sets 1 per round and no longer rises. In a dark scene (night), it doesn't pass 2 (or what the Magia says). Ends at the end of the scene.",
       "theOne": "Noon: takes no damage nor statuses from attacks, and its attacks deal +CR damage. Ends in the Cleanup Process (its Rating is the rounds left).",
       "counter": "[Counter (Magic or Physical)]: the next attack of that type, with a single target, that hits you does nothing to you: the attacker takes double the damage you would take, as direct damage. With no type, it works against any attack, areas too. Ends after sending back a blow, or in the Cleanup Process.",
       "grudge": "[Grudge: n]: keeps the damage. Each HP you lose to attacks adds 1 (up to CR×4). A Grudge blow lets the Rating out as extra damage and clears it. Ends at the end of the scene.",
@@ -1879,7 +1894,18 @@
       "rhythm": "[Rhythm: n] (up to 3): the next damage of one of your spells (or of a [Magic Attack] or [Spell]) adds +n d6, and the Rhythm ends. New Rhythms add up. Also ends at the end of the scene.",
       "clones": "[Clones: n] (up to 6): when an attack would hit you, roll 1d6: up to n, it hits a copy (nothing reaches you, no damage nor statuses) and the Clones go down by 1. Your Close attacks deal +n damage. New Clones add up. Ends at the end of the scene.",
       "bond": "Half the HP damage they would take goes to whoever made the Bond, as direct damage. Ends at the end of the scene or if that character is Incapacitated.",
-      "contagion": "[Contagion: n]: takes n direct damage in the Cleanup and passes [Contagion: n] to the allies within 1 square that don't have it yet (whoever caught it only hurts and spreads from the next Cleanup). The highest Rating stays. Ends with a Major Action."
+      "contagion": "[Contagion: n]: takes n direct damage in the Cleanup and passes [Contagion: n] to the allies within 1 square that don't have it yet (whoever caught it only hurts and spreads from the next Cleanup). The highest Rating stays. Ends with a Major Action.",
+      "reaped": "[Sealed Life: n]: a death god sealed n of your Max HP, and it doesn't come back: not with healing, not at the end of the scene, not with rest. Only when whoever sealed it dies for good (or when the Reaper is paid, for the caster's own price).",
+      "ironBlood": "[Iron Blood: n] (up to 5): the iron of your blood turned into blades. Every square you move on your own costs n direct damage (being pulled, pushed or switched doesn't count). At 5, the iron leaves the blood at once: [Dazed] and [Slowed]. Ends with a Major Action or at the end of the scene.",
+      "phasing": "You go through everything: no attack reaches you (neither damage nor statuses), and each one that passes gives +1 [Anticipation]. In exchange you attack no one and use no skill against others (only those made for it). Given on your turn, it lasts until the end of your next turn.",
+      "anticipation": "[Anticipation: n] (up to 5): the blows that passed through you, kept. The blow that comes back (the spells of Permeation) spends it all and adds it to the damage. Ends at the end of the scene.",
+      "erased": "Your magic was erased: you use no spells (not even Curses, which [Silenced] lets by), and the Traits of your Magias stop. Ends in the Cleanup.",
+      "gaze": "The eyes without the blindfold: when it comes and in every Setup, everyone within 4 Sq of you (allies too, not you) is [Erased]. Each Cleanup with them open gives [Fatigue: 1]; they close by themselves after 3 rounds, or with a Minor Action (Break Free).",
+      "hourglass": "[Hourglass: n] (up to 3): the time you turned back. Full, the next Rewind overflows: it turns back the time of everyone within 3 Sq (enemies too), you fall [Asleep] and the hourglass empties.",
+      "jackpot": "[Jackpot: n]: the prize. You get all your HP back now and in every Setup, you don't fall (at 0 HP you come back with full HP), your spells cost no Hate and your attacks deal +CR damage. The Rating is the rounds left: it drops 1 in every Cleanup.",
+      "luck": "[Luck: n] (up to 3): the pairs the reels gave. At 3, the [Jackpot] (and the Luck goes to 0). Ends at the end of the scene.",
+      "goliath": "[Goliath: n]: the giant's body. A blow whose damage (after the Defense and Cancel) is below n does nothing, not even its statuses; n or more passes whole. You aren't pulled, pushed nor switched, and your physical attacks deal +CR damage. Ends at the end of the scene.",
+      "quake": "[Quake: n] (up to 5): the quakes you made so far. Each point makes the next spells of the Quake stronger. Ends at the end of the scene."
     },
     "StatusFamily": {
       "core": "Classic",
@@ -1947,7 +1973,8 @@
       "AwakenedEnds": "{name} returns to normal and takes Fatigue {n}.",
       "Threshold": {
         "freezing": "{name} freezes: Paralyzed.",
-        "fissured": "{name}'s guard breaks: the Barrier is gone and they are Exposed."
+        "fissured": "{name}'s guard breaks: the Barrier is gone and they are Exposed.",
+        "ironBlood": "{name}: the iron leaves the blood at once ([Dazed] and [Slowed])."
       },
       "Freed": "{name} is free of {status}: {source} is Incapacitated.",
       "LostTurnTitle": "Lost turn",
@@ -1967,7 +1994,10 @@
         "Dominated": "{name} is Dominated: can't attack {source} nor that one's allies.",
         "Engaged": "{rule}: this Magia's spells don't target who is engaged with {name} ({targets}).",
         "Amnesia": "{name} has Amnesia: only Basic skills and items.",
-        "NeedsStatus": "{name} needs {status} to use this."
+        "NeedsStatus": "{name} needs {status} to use this.",
+        "Erased": "{name} is Erased: the magic is gone (no spells, no Curses).",
+        "SeaCurse": "{name} is {status}: the sea takes the fruit's strength ({effect}).",
+        "Phasing": "{name} is Phasing: goes through everything and attacks no one."
       },
       "Move": {
         "Stuck": "{name} is {status} and can't move.",
@@ -3633,7 +3663,8 @@
         "lost": "Lost",
         "forbidden": "Forbidden",
         "ancestral": "Ancestral",
-        "curse": "Curse"
+        "curse": "Curse",
+        "absolute": "Absolute"
       },
       "CategoryHint": {
         "caster": "The magic comes out of the body: you are enough.",
@@ -3641,7 +3672,8 @@
         "lost": "Hits harder than the others of the same CR, but has a Taboo that takes its price in combat.",
         "forbidden": "The most dangerous: very strong, with a heavy Taboo.",
         "ancestral": "Ancient and without a Taboo: its attack spells roll 1d6 more, and its supreme spell only comes at CR 10.",
-        "curse": "The demons' power, which isn't magic: as strong as the Lost, with a Taboo, and [Silenced] doesn't stop its spells."
+        "curse": "The demons' power, which isn't magic: as strong as the Lost, with a Taboo, and [Silenced] doesn't stop its spells.",
+        "absolute": "The strongest of all: one holder in the world, a heavy Taboo, and it closes the other Magia slots (whoever has it will have no other)."
       },
       "Role": {
         "area": "Area",
@@ -3673,6 +3705,74 @@
       "SpellOpen": "Click to read the whole spell.",
       "SpellNoText": "This spell has no text."
     },
+    "Awakening": {
+      "Title": "The Awakening: {name}",
+      "Heading": "Which Magia awakens in you?",
+      "Lead": "Nobody chooses their first Magia: it awakens. Roll up to three times and keep one of what comes out.",
+      "Roll": "Roll the Awakening",
+      "RollN": "Roll {n}",
+      "Waiting": "Roll to see the first Magia that awakens in you.",
+      "Note": {
+        "First": "Each roll is 1d{faces}: all {faces} Magias are as likely, the Ancestral and the Forbidden ones too. You roll up to three times and keep one of what comes out. What came out doesn't change.",
+        "Left": "Keep one of the Magias that came out or roll again: {n} roll(s) left. What came out doesn't change.",
+        "Spent": "The three rolls are made: keep one of the three Magias.",
+        "Locked": "You awakened with {name}. The Magia of the Awakening isn't swapped."
+      },
+      "Back": "{name} comes back to the sheet: it is the Magia of your Awakening.",
+      "Locked": "{name} is the Magia of your Awakening and doesn't leave the sheet. Only the GM can take it out.",
+      "Error": "Could not roll the Awakening: {error}",
+      "Chat": {
+        "Eyebrow": "The Awakening · roll {n} of {total}",
+        "Die": "1d{faces}: {n}",
+        "Who": "{name} rolled the Awakening."
+      },
+      "GM": {
+        "Roll": "{name} ({n})",
+        "Rolls": "The player rolled {names}.",
+        "Chosen": "Kept {name}.",
+        "Reset": "Free a new draw",
+        "ResetConfirm": "Erase the Awakening rolls of {name}? The player rolls three times again, and the Magia on the sheet is no longer locked.",
+        "ResetDone": "The Awakening of {name} is free: the player may roll again."
+      }
+    },
+    "Death": {
+      "Title": "At Death's Door",
+      "Fall": "{name} falls and is dying: [Dying: {n}]. The Death Check comes in the Cleanup ({chance} chance of dying now). Any healing gets them up.",
+      "Saved": "{name} gets up: no longer dying.",
+      "SceneCheck": "{name} is still dying: the last Death Check decides.",
+      "DiesLastAct": "{name} falls for the last time: the Last Act is over, and so is the life.",
+      "DiesBlow": "{name} took a critical hit on the ground and died.",
+      "GroundBlow": "blow on the ground: [Dying: {n}]",
+      "GroundCritical": "critical hit on the ground: dies",
+      "Card": {
+        "Round": "Death Check · Round {round}",
+        "Scene": "The last Death Check · end of the scene",
+        "Rule": "Roll 2d6: {n} or less kills; above it holds, and [Dying] goes up 1. Two 6s always hold.",
+        "Odds": "{chance} chance of dying",
+        "OddsFate": "{chance} spending 1 Fate (3d6)",
+        "Roll": "Roll 2d6",
+        "RollFate": "Spend Fate (3d6)",
+        "LastAct": "Last Act",
+        "LastActTip": "Instead of rolling: get up with 1 HP, fight the whole next round unable to fall, and die in its Cleanup.",
+        "WithFate": "with Fate"
+      },
+      "Result": {
+        "Holds": "{name} holds ({total}). Now [Dying: {n}].",
+        "HoldsCritical": "Two 6s: {name} holds ({total}). Now [Dying: {n}].",
+        "GetsUp": "{name} holds and gets up with full HP.",
+        "Dies": "{name} rolled {total}, not above {n}: dead. In Eternia, the dead don't come back.",
+        "LastAct": "{name} rises for the Last Act: 1 HP, the whole next round, unable to fall. In its Cleanup, they die.",
+        "Saved": "No longer needed: the character got up.",
+        "Dead": "No longer needed: the character died.",
+        "Replaced": "Replaced by a new Check.",
+        "Settled": "This Check no longer counts."
+      },
+      "Error": {
+        "Done": "This Death Check is already settled.",
+        "NotYours": "Only the character's owner or the GM answers this Check.",
+        "NoFate": "No Fate to spend."
+      }
+    },
     "Wizard": {
       "Title": "Character creation: {name}",
       "Eyebrow": "Character creation",
@@ -3680,6 +3780,7 @@
         "race": "Where do you come from?",
         "class": "How do you fight?",
         "magic": "What is your Magic?",
+        "awaken": "Which Magia awakens in you?",
         "profession": "What do you do outside battle?",
         "attributes": "Where does your strength lie?",
         "skills": "What can you already do?",
@@ -3690,6 +3791,7 @@
         "race": "The race gives attributes, HP, Fate and two innate skills. Hover to read; click to choose.",
         "class": "The class gives the base attributes, the HP and the Motor: the rule only it has. Physical and magic classes choose Magics.",
         "magic": "The class says how you cast; the Magic says what you cast. Its spells join your choices.",
+        "awaken": "Nobody chooses their first Magia: it awakens. Roll up to three times and keep one of what comes out; what came out doesn't change. Its spells join your picks.",
         "profession": "The profession is the subclass: it makes items with enhancements and has a talent of its own.",
         "attributes": "Five bonus points to distribute. The modifier (the attribute ÷ 3) is what goes into the checks.",
         "skills": "Three Combat skills and one General, among the class's talents and the Magic's spells. Click a skill to read its whole text; the box beside it chooses it.",
@@ -3723,6 +3825,8 @@
         "race": "Choose a race.",
         "class": "Choose a class.",
         "magic": "Choose the first Magic.",
+        "awaken": "Roll the Awakening to see your first Magia.",
+        "awakenPick": "Keep one of the Magias that came out (or roll again, if you still can).",
         "profession": "Choose a profession, or decide later.",
         "attributes": "{n} bonus point(s) left.",
         "skills": "{combat} Combat and {general} General left.",
@@ -3792,6 +3896,7 @@
         "NoSlotTitle": "{name} gets the Magic later",
         "NoSlot": "The first Magic of {name} comes at CR {rank}. There is nothing to choose here for now: go on to the profession.",
         "Lead": "{name}: the Magic slot of CR 1. Hover a Magic to read its spells; click to choose.",
+        "AwakenLead": "{name}: the Magia slot of CR 1. Click a Magia that came out to read its spells and keep it.",
         "Decree": "{name} asks for a choice:"
       },
       "Profession": {
@@ -4087,7 +4192,8 @@
       "GuideCommon": "{value} Yuld on the 1d6 (common: an encounter ÷ 4)",
       "GuideMob": "{value} Yuld fixed (mob: an encounter ÷ 6)",
       "GuideBoss": "{value} Yuld on the 1d6, plus a fixed Anima-mundi {n} and [Core Material] (boss)",
-      "Value": "{n} Yuld"
+      "Value": "{n} Yuld",
+      "Greed": "Hand that Draws Gold"
     },
     "Bestiary": {
       "Grow": "{name} grows ({n}): [Empowered: {value}].",
@@ -4498,6 +4604,15 @@
       "AddFromMarket": "Add from the Market",
       "OpenCounter": "Open the shop",
       "Shown": "{n} of {total} items",
+      "Pager": {
+        "Label": "List pages",
+        "Range": "{from}–{to} of {total}",
+        "Page": "Page {n}",
+        "First": "First page",
+        "Prev": "Previous page",
+        "Next": "Next page",
+        "Last": "Last page"
+      },
       "Log": {
         "Buy": "<b>{actor}</b> bought {item} at the Market for {gold} Yuld.",
         "Give": "<b>{actor}</b> received {item} from the GM."
@@ -4548,6 +4663,75 @@
         "gear": "Sundries",
         "ticket": "Tickets"
       }
+    },
+    "Reaper": {
+      "Sealed": "{name}: the Reaper sealed {n} of life (Sealed Life {total}: the Max HP fell for good).",
+      "Freed": "{name}: {n} of life came back (Sealed Life {total}).",
+      "Price": "{name}: the Reaper takes {n} of your life (Sealed Life {total}).",
+      "PricePaid": "Sealed Life +{n}",
+      "Paid": "The Reaper took the soul of {fallen}: {name} gets 1 of life back (Sealed Life {total}).",
+      "Released": "{sealer} died: the {n} of life it sealed on {name} came back.",
+      "Taken": "{name}: the Reaper came for the soul it was promised. Death."
+    },
+    "Passage": {
+      "Phasing": "Phasing: the blow went through",
+      "CutSpell": "Spell cut",
+      "SpaceCut": "The space was eaten: the blow from afar doesn't cross",
+      "ArrowWard": "Blessing of Arrows: nothing from afar hits",
+      "Anticipation": "Anticipation {n}"
+    },
+    "Rewind": {
+      "Dead": "{name} is dead: the time of the dead doesn't turn back.",
+      "Nothing": "{name}: nothing to turn back (as at the start of the round already).",
+      "Back": "{name} went back to the start of the round: HP {hp}; ended {statuses}.",
+      "Rose": "{name} is standing again, as at the start of the round: HP {hp}; ended {statuses}.",
+      "Full": "{name}: the hourglass is full. The next Rewind overflows.",
+      "Overflow": "{name}: the hourglass overflowed! Time turns back for everyone around, enemies too.",
+      "Asleep": "{name} falls [Asleep], spent."
+    },
+    "Fortune": {
+      "Title": "Greed",
+      "NoYuld": "Not enough Yuld: this spell eats {need} and you have {have}.",
+      "Paid": "{n} Yuld",
+      "Lost": "{name} fell, and the demon of greed took {n} Yuld ({left} left)."
+    },
+    "Foresight": {
+      "Dodged": "Saw it coming"
+    },
+    "Beast": {
+      "Cough": "{name} coughs blood (1d6: {n}): loses the Major Action of this turn."
+    },
+    "Goliath": {
+      "Unmoved": "{name} doesn't budge: nothing pushes a giant.",
+      "Barrier": "{name}: {effect} brings back [Barrier: {n}]."
+    },
+    "Blessings": {
+      "Name": "Blessing against {what}",
+      "Status": "{name} receives a blessing: immune to {statuses} until the end of the scene.",
+      "Element": "{name} receives a blessing: the damage of {tags} is halved until the end of the scene.",
+      "Hate": "Everyone wants the strongest: {name}'s Hate rises {n} (now {hate}).",
+      "Unworthy": "{skill} only comes out against a worthy enemy: a target of CR {cr} or more."
+    },
+    "Jackpot": {
+      "Title": "The Reels",
+      "Nothing": "{name}: nothing this time.",
+      "Pair": "{name}: a pair! Luck {n}.",
+      "Prize": "JACKPOT! {name} wins the prize for {n} rounds: full HP, nothing brings them down, spells without Hate.",
+      "Lasts": "{name}: the prize lasts {n} more round(s).",
+      "Ends": "{name}: the prize is over."
+    },
+    "Quake": {
+      "NoTargets": "{skill}: no one on the ground within {n} Sq."
+    },
+    "Holders": {
+      "Count": "{n}/{max}",
+      "Full": "Taken: all {n} of its holders already exist in the world.",
+      "ExclusiveTaken": "Absolute: it only goes on a sheet without another Magia.",
+      "Tip": "Holders in the world, at most {n}: {names}",
+      "Nobody": "no one yet",
+      "Exclusive": "Absolute: whoever has it will have no other Magia (the other slots close).",
+      "SlotClosed": "Closed",
+      "SlotClosedHint": "{name} is Absolute: it takes every Magia slot."
     }
   },
   "Cancel": "Cancel"

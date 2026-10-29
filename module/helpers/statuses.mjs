@@ -41,6 +41,9 @@ export const LH_STATUSES = [
   { id: "weakness", group: "life", img: `${ICONS_PATH}/weakness.svg`, path: "bad-status.weaknesses", list: true, tagged: true },
   { id: "incapacitated", group: "life", img: `${ICONS_PATH}/incapacitated.svg` },
   { id: "dead", group: "life", img: `${ICONS_PATH}/dead.svg` },
+  // Death (automation/death.mjs): the fall's Death Checks, and the rise for one last round
+  { id: "dying", group: "life", img: `${ICONS_PATH}/dying.svg`, path: "bad-status.dying", rated: true, types: ["character"] },
+  { id: "lastAct", group: "life", img: `${ICONS_PATH}/lastAct.svg`, types: ["character"] },
   // Bad Statuses
   { id: "staggered", group: "bad", family: "core", img: `${ICONS_PATH}/staggered.svg`, path: "bad-status.staggered" },
   { id: "dazed", group: "bad", family: "core", img: `${ICONS_PATH}/dazed.svg`, path: "bad-status.dazed" },

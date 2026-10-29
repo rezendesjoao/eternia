@@ -1,0 +1,121 @@
+{
+  "name": "Guarda do Ceifador",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Selo do Ceifador.</strong> Antes de um golpe acertar você, o deus se põe na frente: [Anulação: NP + 5] contra esse dano, e quem o causou perde [NP÷2] de PV máximo ([Vida Selada]) por ter tocado no que é dele. Uma vez por rodada.</p><p><strong>Custo:</strong> Ódio 2 e 1 de [Vida Selada] em você.</p><hr><p><em>Bater em você é apertar a mão do deus. Ninguém faz isso duas vezes.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Before Damage",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/death/undead-skeleton-tusk-purple.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "consumeOn": "damage",
+          "sealStriker": "floor(@cr/2)",
+          "expires": "endOfRound",
+          "statusData": {
+            "statusId": "cancel",
+            "value": "@cr+5"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Guarda do Ceifador",
+      "img": "icons/magic/death/undead-skeleton-tusk-purple.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "cancel"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "57l2jTXZeuHADQv2",
+      "_key": "!items.effects!jeSJeapUQeD2Jnh6.57l2jTXZeuHADQv2"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "ceifador-guarda",
+      "kind": "feeds",
+      "branch": "magic",
+      "selfSeal": 1,
+      "magicSpell": {
+        "id": "ceifador"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "jeSJeapUQeD2Jnh6",
+  "folder": "FkkSRNz3QouFXBka",
+  "_key": "!items!jeSJeapUQeD2Jnh6"
+}

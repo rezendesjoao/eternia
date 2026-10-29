@@ -1,5 +1,5 @@
 /**
- * The conditions of Eternia (docs/condicoes.md): 52 statuses added to the 23 of the base rules, every one of them
+ * The conditions of Eternia (docs/condicoes.md): 64 statuses added to the 23 of the base rules, every one of them
  * automated.
  * - catalog.mjs     the new statuses and what each status does (tables read by the other parts);
  * - rules.mjs       whether an actor has a status, its Rating, who gave it, the settings;
@@ -24,6 +24,19 @@
  * - window.mjs      acting out of turn: a window of actions outside the Main Process (Lampejo);
  * - immortal.mjs    the Immortal's Regen, healing halved, the blow taken for an ally, HP as a cost (Fonte da Juventude);
  * - realm.mjs       an area around a caster that follows a rule (Reino do Caos).
+ * The wave of 0.51 (the Magias that are stronger on purpose), a file for each rule of its own:
+ * - reaper.mjs      life sealed for good, the death god's price and release (Selo do Ceifador);
+ * - iron.mjs        the iron of the blood that cuts at every square moved (Sangue de Ferro);
+ * - passage.mjs     what lets a blow pass by: going through it, the spell cut, the space eaten, the arrows warded;
+ * - erasure.mjs     the magic erased by the eyes (Olhar que Apaga);
+ * - rewind.mjs      the picture of the round and the body that goes back to it (Retrocesso);
+ * - fortune.mjs     the Yuld that turns into strength and is spent by it (Cobiça);
+ * - foresight.mjs   five seconds of the future: the blow seen coming misses (Impecável);
+ * - beast.mjs       the coat that bites whoever attacks, and the cough (Manto Devorador);
+ * - goliath.mjs     the threshold of a giant's body, the forced moves it ignores, the Barrier that comes back (Golias);
+ * - blessings.mjs   the blessings that come when they are needed, the spirits that gather (Portador de Bênçãos);
+ * - jackpot.mjs     the reels, the Luck and the prize (Sorte Grande);
+ * - quake.mjs       the quakes, the blows that find their own targets, the sea's curse (Fruta do Tremor).
  * The statuses themselves are registered with the others (helpers/statuses.mjs).
  */
 import { registerConditionDamage } from "./damage.mjs";
@@ -37,6 +50,14 @@ import { registerConditionTransformations } from "./transformations.mjs";
 import { registerOmen } from "./omen.mjs";
 import { registerImmortal } from "./immortal.mjs";
 import { registerRealm } from "./realm.mjs";
+import { registerReaper } from "./reaper.mjs";
+import { registerIron } from "./iron.mjs";
+import { registerRewind } from "./rewind.mjs";
+import { registerFortune } from "./fortune.mjs";
+import { registerBeast } from "./beast.mjs";
+import { registerBlessings } from "./blessings.mjs";
+import { registerJackpot } from "./jackpot.mjs";
+import { registerQuake } from "./quake.mjs";
 
 /** Call during the `init` hook. */
 export function registerConditions() {
@@ -51,4 +72,12 @@ export function registerConditions() {
   registerOmen();
   registerImmortal();
   registerRealm();
+  registerReaper();
+  registerIron();
+  registerRewind();
+  registerFortune();
+  registerBeast();
+  registerBlessings();
+  registerJackpot();
+  registerQuake();
 }

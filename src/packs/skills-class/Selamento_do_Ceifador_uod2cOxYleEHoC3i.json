@@ -1,0 +1,124 @@
+{
+  "name": "Selamento do Ceifador",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Selo do Ceifador. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você entrega a sua alma ao deus em troca de outra. Um alvo a até 2 Qd: o ataque acerta sem teste (ninguém foge do deus); [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Corrupção], ele perde [pontos gastos×NP] de PV máximo ([Vida Selada]) e, se ficar com [NP×5] PV ou menos, cai na hora (a alma foi junto). O preço: no fim desta cena, você morre. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3 e a sua vida.</p><hr><p><em>Os dois vão juntos. Só um deles sabia disso antes.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Blight"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "2Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "auto",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/death/skull-humanoid-white-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "onUse": true,
+          "diesAtSceneEnd": true,
+          "expires": "endOfScene"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "O Ceifador Cobra",
+      "img": "icons/magic/death/skull-humanoid-white-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "qStmHeMMxTS1B36g",
+      "_key": "!items.effects!uod2cOxYleEHoC3i.qStmHeMMxTS1B36g"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "ceifador-selamento",
+      "kind": "spends",
+      "branch": "magic",
+      "seal": "@spent*@cr",
+      "execute": {
+        "below": "@cr*5"
+      },
+      "magicSpell": {
+        "id": "ceifador"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "uod2cOxYleEHoC3i",
+  "folder": "FkkSRNz3QouFXBka",
+  "_key": "!items!uod2cOxYleEHoC3i"
+}

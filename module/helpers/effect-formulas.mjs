@@ -28,6 +28,7 @@
 import { getHands } from "./hands.mjs";
 import { motorFormulaData } from "../classes/motor.mjs";
 import { rating } from "../conditions/rules.mjs";
+import { fortuneOf } from "../conditions/fortune.mjs";
 
 const ATTRIBUTES = ["str", "dex", "pow", "int"];
 const ATTRIBUTE_REF = /@(str|dex|pow|int)\b/i;
@@ -85,6 +86,10 @@ export function formulaData(actor, item) {
   });
   data.hpLost = Math.max(0, (Number(system.health?.max) || 0) - (Number(system.health?.value) || 0));
   data.hpMax = Number(system.health?.max) || 0;
+  // The Yuld in the bag, the Fortune it makes and what the use just paid (conditions/fortune.mjs: the Cobiça)
+  data.yuld = Math.max(0, Math.trunc(Number(system.inventory?.gold) || 0));
+  data.fortune = (actor.type === "character") ? fortuneOf(actor) : 0;
+  data.yuldPaid = Math.max(0, Math.trunc(Number(item?.flags?.eternia?.yuldPaid) || 0));
   if (actor.type === "character") Object.assign(data, motorFormulaData(actor, item));
   // The dice kept in the actor's Omen, added up (conditions/omen.mjs: O Fim Já Escrito)
   const omen = actor.flags?.eternia?.omen?.dice;

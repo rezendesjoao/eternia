@@ -45,6 +45,10 @@ import { giveEffects, statusEffectData } from "../chat/status-links.mjs";
 import { naturalEnd } from "./lasting.mjs";
 import { cleanupFeeds } from "./souls.mjs";
 import { countSpell } from "./transformations.mjs";
+import { refreshBarrier } from "./goliath.mjs";
+import { jackpotCleanup, jackpotSetup } from "./jackpot.mjs";
+import { hateAtStart } from "./blessings.mjs";
+import { coughAtTurnStart } from "./beast.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -152,6 +156,21 @@ function keepsSunClock(actor) {
 }
 
 /**
+ * How an actor's Sun moves, from its Traits: how much it rises in each Setup Process (`sunClock`: true is 1), how high
+ * it goes at night (`sunNight`, SUN_NIGHT by default) and how many rounds noon's [The One] lasts (`noonRounds`, 1).
+ */
+function sunRules(actor) {
+  const traits = [...(actor?.allApplicableEffects?.() ?? [])].filter(e => e.active && e.getFlag(SYSTEM_ID, "trait")?.sunClock)
+    .map(e => e.getFlag(SYSTEM_ID, "trait"));
+  const pick = (key, fallback, fn) => (traits.some(t => t[key] !== undefined) ? fn(...traits.filter(t => t[key] !== undefined).map(t => Number(t[key]) || 0)) : fallback);
+  return {
+    rise: Math.max(1, ...traits.map(t => ((t.sunClock === true) ? 1 : (Number(t.sunClock) || 1)))),
+    night: pick("sunNight", SUN_NIGHT, Math.min),
+    noon: Math.max(1, pick("noonRounds", 1, Math.max))
+  };
+}
+
+/**
  * The Sun moves for an actor in a combat: before noon it rises by 1 (up to SUN_NOON, SUN_NIGHT at night); reaching
  * noon gives [The One] for the round, once per combat; after noon, every Setup Process sets it by 1 and spells no
  * longer raise it.
@@ -163,20 +182,21 @@ function keepsSunClock(actor) {
  */
 async function moveSun(actor, combat, { spell = false } = {}) {
   const current = rating(actor, "sun");
+  const rules = sunRules(actor);
   const afterNoon = actor.getFlag(SYSTEM_ID, "sunNoon") === combat.id;
   if (afterNoon) {
     if (spell || (current <= 0)) return null;
     await actor.update({ "system.bad-status.sun": current - 1 });
     return L("Conditions.SunSets", { name: actorName(actor), n: current - 1 });
   }
-  const cap = isNight(combat) ? SUN_NIGHT : SUN_NOON;
-  const next = Math.min(current + 1, cap);
+  const cap = isNight(combat) ? rules.night : SUN_NOON;
+  const next = Math.min(current + (spell ? 1 : rules.rise), cap);
   if (next <= current) return null;
   await actor.update({ "system.bad-status.sun": next });
   if (next < SUN_NOON) return L("Conditions.SunRises", { name: actorName(actor), n: next });
-  // Noon: [The One] for the rest of the round.
+  // Noon: [The One] for the rest of the round (or more rounds, by the Trait).
   await actor.setFlag(SYSTEM_ID, "sunNoon", combat.id);
-  await addStatus(actor, "theOne", 1);
+  await addStatus(actor, "theOne", rules.noon);
   const line = L("Conditions.Noon", { name: actorName(actor) });
   if (spell) await postSummary(label("theOne"), [line]);
   return line;
@@ -196,6 +216,13 @@ export async function setupConditions(actor, combat) {
   if (breath) lines.push(breath);
   const sun = keepsSunClock(actor) ? await moveSun(actor, combat) : null;
   if (sun) lines.push(sun);
+  // The wave of 0.51: the giant's Barrier that comes back, the prize that heals or the domain that spins, the Hate of
+  // the strongest at the start (conditions/goliath.mjs, jackpot.mjs, blessings.mjs)
+  const barrier = await refreshBarrier(actor);
+  if (barrier) lines.push(barrier);
+  lines.push(...await jackpotSetup(actor));
+  const hate = await hateAtStart(actor, combat);
+  if (hate) lines.push(hate);
   return lines;
 }
 
@@ -365,6 +392,8 @@ async function onMainProcessStart(combat, combatant) {
   if (!actor || actor.statuses.has("dead") || actor.statuses.has("incapacitated")) return;
   const poison = rating(actor, "poisoned");
   if (poison > 0) await takeDamage(actor, poison, { reason: "poisoned" });
+  // The lungs that give out (conditions/beast.mjs)
+  await coughAtTurnStart(actor, combat);
   if (has(actor, "confused") && (actor.type === "character")) {
     const hate = toInt(actor._source.system.infos?.hate);
     await actor.update({ "system.infos.hate": hate + 1 });
@@ -423,6 +452,12 @@ export async function cleanupConditions(actor) {
   if (strike) lines.push(strike.line);
   // Effects that feed whoever gave them (the Casulo das Trevas: conditions/souls.mjs)
   lines.push(...await cleanupFeeds(actor));
+  // The prize counts down (conditions/jackpot.mjs)
+  const prize = await jackpotCleanup(actor);
+  if (prize) lines.push(prize);
+  // The eyes that dry, and the like: [Fatigue] in every Cleanup Process (`cleanupFatigue`)
+  const dry = await cleanupFatigue(actor);
+  if (dry) lines.push(dry);
   // [The One] counts down: its Rating is the rounds it has left (the end of an extended one leaves [Fatigue]).
   const one = rating(actor, "theOne");
   if (one > 0) {
@@ -441,6 +476,21 @@ export async function cleanupConditions(actor) {
 }
 
 /**
+ * The [Fatigue] of the effects with `cleanupFatigue` (the eyes without the blindfold dry): their total in each Cleanup
+ * Process, for a character. Returns the line, or null.
+ * @param {Actor} actor
+ */
+async function cleanupFatigue(actor) {
+  if (actor.type !== "character") return null;
+  const effects = [...(actor.allApplicableEffects?.() ?? [])].filter(e => e.active && (toInt(e.getFlag(SYSTEM_ID, "cleanupFatigue")) > 0));
+  const n = effects.reduce((total, e) => total + toInt(e.getFlag(SYSTEM_ID, "cleanupFatigue")), 0);
+  if (n <= 0) return null;
+  const before = toInt(actor._source.system?.infos?.fatigue);
+  await actor.update({ "system.infos.fatigue": before + n });
+  return L("Conditions.FatigueOnEnd", { name: actorName(actor), effect: effects.map(e => e.name).join(", "), n });
+}
+
+/**
  * [Servant]: the servant strikes the nearest enemy within SERVANT_REACH squares of its master's token (the other side
  * by disposition, not down): the Rating as direct damage, with the tag of the servant's effect (a shadow soldier's
  * [Blight]), through takeDamage.
@@ -454,7 +504,7 @@ async function servantStrike(actor) {
   // The scene of the master's combat, not the one the GM is viewing
   const scene = combatOf(actor)?.scene ?? canvas?.scene ?? null;
   const token = !scene ? null
-    : ((actor.token?.parent === scene) ? actor.token : (actor.getDependentTokens({ scenes: scene })[0] ?? null));
+    : ((actor.token?.parent === scene) ? actor.token : (actor.getDependentTokens({ scenes: scene, concreteOnly: true })[0] ?? null));
   const side = token?.disposition ?? 0;
   if (!token || !side) return null;
   const size = scene.grid?.size || 100;

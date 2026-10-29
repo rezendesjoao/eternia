@@ -2,6 +2,7 @@ import { evaluateFormula, formulaData, isFormula, readsAttributes } from "../hel
 import { effectConditions, unmetCondition } from "../helpers/effect-conditions.mjs";
 import { isSkillFilterKey } from "../helpers/roll-bonuses.mjs";
 import { animateStatus, animatesStatuses } from "../canvas/status-animation.mjs";
+import { traitErased } from "../conditions/erasure.mjs";
 
 /**
  * Change phase of the formulas that read attribute modifiers ("@dex*2"): on a character they are computed in
@@ -158,6 +159,11 @@ export class EterniaActiveEffect extends ActiveEffect {
         }
         if (this.parent?.documentName === "Item" && !this.parent.parent) return;
         const actor = this.parent?.documentName === "Actor" ? this.parent : this.parent?.parent;
+        // A Magia's Trait doesn't work while its bearer's magic is erased (conditions/erasure.mjs)
+        if (traitErased(this, actor?._lhStatuses ?? actor?.statuses)) {
+            this._lhSuppressed = true;
+            return;
+        }
         this.unmetCondition = unmetCondition(effectConditions(this, item), actor, item);
         this._lhSuppressed = !!this.unmetCondition;
     }

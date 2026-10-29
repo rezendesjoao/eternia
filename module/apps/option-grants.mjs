@@ -8,9 +8,12 @@
  * CR (the rank up, or the CR changed by hand) and again at the next changes while the choice is still open.
  * A slot with `magic: true` is a choice among every Magia of the compendiums (skills with flags.eternia.magic) the
  * character doesn't have yet; the n-th one is open while the character has fewer than n Magias. It is offered in a
- * window of its own (apps/magic-picker.mjs), after the dialog of the other slots.
+ * window of its own (apps/magic-picker.mjs), after the dialog of the other slots. A player's first slot of CR 1 is
+ * drawn (the Awakening, apps/awakening.mjs): the picker shows the rolls, or the Magia it awakened with comes back.
  */
 import { MagicPicker } from "./magic-picker.mjs";
+import { awakeningOf, drawsAwakening, lockAwakening } from "./awakening.mjs";
+import { exclusiveMagia } from "./magic-holders.mjs";
 
 const { DialogV2 } = foundry.applications.api;
 
@@ -58,6 +61,8 @@ export async function offerGrants(actor, item, { above = 0, withStale = true, on
   // The open Magia slots (their CR), each offered in the Magia picker after the dialog
   const magic = [];
   const owned = magicsOf(actor).length;
+  // An Absoluta takes every Magia slot (apps/magic-holders.mjs): no other Magia is offered
+  const exclusive = exclusiveMagia(actor);
   let magicSlot = 0;
   for (const [index, grant] of (item.system.grants ?? []).entries()) {
     // The n-th Magia slot is open while the character has fewer than n Magias.
@@ -67,7 +72,7 @@ export async function offerGrants(actor, item, { above = 0, withStale = true, on
     if ((rank > cr) || (rank <= above)) continue;
     if (onlyChoices && !grant.magic && ((grant.uuids ?? []).length < 2)) continue;
     if (grant.magic) {
-      if (owned < magicSlot) magic.push(rank);
+      if ((owned < magicSlot) && !exclusive) magic.push({ rank, first: (magicSlot === 1) && (rank === 1) });
       continue;
     }
     const uuids = grant.uuids ?? [];
@@ -88,11 +93,28 @@ export async function offerGrants(actor, item, { above = 0, withStale = true, on
   if (auto.length) await createGranted(actor, item, auto);
   // The other slots first; "Not now" there leaves the Magia for later too.
   if ((slots.some(s => !s.done) || stale.length) && !(await offerSlots(actor, item, slots, stale, magic.length > 0))) return;
-  for (const rank of magic) {
-    const uuid = await MagicPicker.choose(actor, { source: item, rank });
+  for (const { rank, first } of magic) {
+    const uuid = (first && drawsAwakening()) ? await awakenedMagia(actor, item) : await MagicPicker.choose(actor, { source: item, rank });
     if (!uuid) return;
     await createGranted(actor, item, [uuid]);
+    // The first Magia closes the Awakening (the GM's choice too): the player can't change it
+    if (first) await lockAwakening(actor, uuid);
   }
+}
+
+/**
+ * A player's first Magia: the one it awakened with comes back; else the Magia picker with the rolls of the Awakening.
+ * @param {Actor} actor
+ * @param {Item} item  The class
+ * @returns {Promise<string|null>}
+ */
+async function awakenedMagia(actor, item) {
+  const { chosen } = awakeningOf(actor);
+  if (chosen) {
+    ui.notifications.info(game.i18n.format("ETERNIA.Awakening.Back", { name: fromUuidSync(chosen)?.name ?? "" }));
+    return chosen;
+  }
+  return MagicPicker.choose(actor, { source: item, rank: 1, awakening: true });
 }
 
 /**

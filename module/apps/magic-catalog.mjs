@@ -17,7 +17,9 @@ export const MAGIC_CATEGORIES = {
   lost: { icon: "fa-solid fa-book-skull", color: "#8c2f2f" },
   forbidden: { icon: "fa-solid fa-skull", color: "#4a2b57" },
   ancestral: { icon: "fa-solid fa-feather-pointed", color: "#2a6f73" },
-  curse: { icon: "fa-solid fa-eye-evil", color: "#33302d" }
+  curse: { icon: "fa-solid fa-eye-evil", color: "#33302d" },
+  // The Absolutas (0.51): stronger than all, one holder, and they take every Magia slot of whoever has them
+  absolute: { icon: "fa-solid fa-crown", color: "#8a6418" }
 };
 
 /** What the spells do, read from their data. */
@@ -32,13 +34,13 @@ export const MAGIC_ROLES = {
 };
 const CONTROL = new Set(["prone", "slowed", "rooted", "grappled", "dazed", "confused", "frightened", "charmed", "asleep",
   "paralyzed", "silenced", "sealed", "blinded", "taunted", "staggered", "rigor", "disarmed", "dominated", "weakened",
-  "petrified", "pacified", "amnesia", "nightmare"]);
+  "petrified", "pacified", "amnesia", "nightmare", "erased", "ironBlood"]);
 const WEAR = new Set(["burning", "poisoned", "decay", "freezing", "shocked", "cursed", "fissured", "exposed", "marked",
-  "doom", "pursuit", "soaked", "fuse", "weakness", "blackFlame", "agony"]);
+  "doom", "pursuit", "soaked", "fuse", "weakness", "blackFlame", "agony", "reaped", "ironBlood"]);
 const GUARD = new Set(["cancel", "barrier", "mirror", "intangible", "lastStand", "hidden", "counter", "grudge",
-  "untouchable", "inversion", "clones"]);
+  "untouchable", "inversion", "clones", "phasing", "goliath"]);
 const SUPPORT = new Set(["hasted", "empowered", "focused", "awakened", "bond", "servant", "sun", "theOne", "impetus",
-  "combo", "rhythm"]);
+  "combo", "rhythm", "anticipation", "gaze", "hourglass", "jackpot", "luck", "quake"]);
 const MULTI = new Set(["Area", "Wide", "Line", "Targets"]);
 
 const statusLabel = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
@@ -155,7 +157,7 @@ let textsPromise = null;
 
 /**
  * Every Magia of the compendiums with its spells, in name order. Each one:
- * { uuid, id, name, img, category, tagline, choiceGrants, spells, roles, search }
+ * { uuid, id, name, img, category, tagline, holders, exclusive, choiceGrants, spells, roles, search }
  * (the spells: { uuid, name, img, minRank, tier, tierLabel, meta, statuses, roles }).
  * @returns {Promise<object[]>}
  */
@@ -203,6 +205,9 @@ async function buildCatalog() {
         img: entry.img,
         category: categoryOf(magic),
         tagline,
+        // How many may hold it at once (0: no limit) and whether it takes every slot (apps/magic-holders.mjs)
+        holders: Math.max(0, Math.trunc(Number(magic.holders) || 0)),
+        exclusive: !!magic.exclusive || (categoryOf(magic) === "absolute"),
         choiceGrants: (Array.isArray(entry.flags.eternia.choiceGrants) ? entry.flags.eternia.choiceGrants : []).map(String),
         spells,
         roles,

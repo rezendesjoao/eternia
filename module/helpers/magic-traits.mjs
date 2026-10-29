@@ -13,8 +13,13 @@
  *   onHit       [{ statusId, value }] (traits): statuses the damage gives, like a spell's own hitStatuses.
  *   escalate    [{ if, add: [{ statusId, value }] }]: when the target already has `if`, the hit also gives `add`.
  *   strip       [statusId]: the hit ends these statuses on the target.
- *   pierce      { cancel, barrier, defense: "half" }: the damage ignores [Cancel], ignores and breaks [Barrier],
- *               counts half the Defense.
+ *   pierce      { cancel, barrier, defense: "half" | "none", inside: [statusId], all }: the damage ignores [Cancel],
+ *               ignores and breaks [Barrier], counts half the Defense (or none: a vibration), meets no Defense on a
+ *               target with one of the `inside` statuses (the iron of its blood); `all`: it cuts what can't be cut, and
+ *               nothing lets it pass by ([The One], copies, [Counter], [Intangible], [Untouchable], [Phasing], a
+ *               protector, the threshold of a giant: conditions/passage.mjs, conditions/damage.mjs).
+ *   rankAbove   formula: damage added for each CR (a monster's Rank) the target has above the caster's (the
+ *               Santo da Espada: the stronger, the better).
  *   keepHidden  true: the spell, and its damage, don't end the user's [Hidden].
  *   bonus       formula: damage added to the spells; `healBonus`: healing added to the spells that heal.
  *   randomHit   [{ statusId, value }] (spells): one of them, drawn when the damage is rolled, on a hit.
@@ -77,7 +82,7 @@ export function actorHasTag(actor, tag) {
  */
 export function magicExtras(item, attacker = null) {
   const out = { vs: [], onHit: [], escalate: [], strip: [], pierce: {}, keepHidden: false, bonus: 0, healBonus: 0, drain: 0,
-    steal: [], spend: [], spendFree: false };
+    steal: [], spend: [], spendFree: false, rankAbove: 0 };
   const actor = attacker ?? item?.actor ?? null;
   if (!item) return out;
   const traits = traitsFor(actor, item);
@@ -85,7 +90,7 @@ export function magicExtras(item, attacker = null) {
     ...traits.map(e => ({ data: e.getFlag("eternia", "trait") ?? {}, name: e.name, own: false }))];
   if (!sources.some(s => s.data.bonusVs || s.data.onHit || s.data.escalate || s.data.strip || s.data.pierce
     || s.data.keepHidden || s.data.bonus || s.data.healBonus || s.data.drain || s.data.steal || s.data.selfBonus
-    || s.data.decreeCurse)) return out;
+    || s.data.decreeCurse || s.data.rankAbove)) return out;
   const data = formulaData(actor, item);
   const num = value => (isFormula(value) ? evaluateFormula(value, data) : toInt(value)) || 0;
   for (const { data: s, name, own } of sources) {
@@ -115,6 +120,7 @@ export function magicExtras(item, attacker = null) {
     if (s.bonus) out.bonus += num(s.bonus);
     if (s.healBonus) out.healBonus += num(s.healBonus);
     if (s.drain) out.drain = Math.max(out.drain, Number(s.drain) || 0);
+    if (s.rankAbove) out.rankAbove = Math.max(out.rankAbove, num(s.rankAbove));
     out.steal.push(...(s.steal ?? []));
     // The caster's own status adds to the damage (and may be spent by it)
     for (const b of s.selfBonus ?? []) {

@@ -2,10 +2,8 @@
   "name": "Proeminência Final",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Sol. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você junta todo o seu poder numa bola de fogo gigante que gira e a lança sobre uma área ampla a até 6 Qd. Teste de Precisão contra a Resistência de cada alvo; [(1 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Chama]. Gasta todo o Motor.</p><p><strong>O Único: Supremo.</strong> Se você está [O Único] quando o usa, você força o meio-dia a durar: o [O Único] vai até o Encerramento da próxima rodada. Quando ele acabar, você fica com [Fadiga: NP×2].</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Passou do meio-dia. O sol não liga para isso.</em></p>",
+    "description": "<p><strong>Sol. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você junta todo o seu poder numa bola de fogo gigante que gira e a lança sobre uma área ampla a até 6 Qd. Teste de Precisão contra a Resistência de cada alvo; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Chama]. Gasta todo o Motor.</p><p><strong>O Único: Supremo.</strong> Se você está [O Único] quando o usa, você força o meio-dia a durar: o [O Único] ganha mais uma rodada (até o Encerramento de duas rodadas depois). Quando ele acabar, você fica com [Fadiga: NP×2].</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Passou do meio-dia. O sol não liga para isso.</em></p>",
     "tags": [
-      "Spell",
-      "Magic Attack",
       "Flame"
     ],
     "timing": "Major",
@@ -26,7 +24,7 @@
       "stat": "accuracy"
     },
     "damage": {
-      "dice": "1+2*@spent",
+      "dice": "2+2*@spent",
       "mod": "@spent*@cr",
       "type": "magical",
       "recovery": false
@@ -52,7 +50,7 @@
           "onUse": true,
           "statusData": {
             "statusId": "theOne",
-            "value": 2
+            "value": 3
           },
           "fatigueOnEnd": "@cr*2",
           "conditions": [
@@ -108,7 +106,7 @@
         },
         "spend": "all"
       },
-      "damageText": "(1+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
     }
   },
   "_stats": {

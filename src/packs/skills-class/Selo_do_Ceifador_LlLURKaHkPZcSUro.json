@@ -1,0 +1,122 @@
+{
+  "name": "Selo do Ceifador",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Proibida.</strong> Você fez o pacto que ninguém faz duas vezes. Um deus da morte fica atrás de você, invisível para todos menos para quem ele vem buscar, e a mão dele atravessa o seu corpo para arrancar um pedaço da vida de quem você toca: não uma ferida, um pedaço que não cresce mais. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o deus cobra cada pedaço que leva.</p><ul><li><strong>Única:</strong> só uma pessoa no mundo tem esta Magia de cada vez.</li><li><strong>A Vida Selada:</strong> os feitiços do Ceifador tiram PV máximo de quem acertam, para sempre ([Vida Selada]): a cura não devolve, o fim da cena não devolve, o descanso não devolve. Vale para inimigos e para personagens de jogadores. A vida que você selou só volta quando você morre de vez.</li><li><strong>Tabu, O Preço do Ceifador:</strong> cada feitiço que sela leva também a sua vida: 1 de [Vida Selada] em você (2 na Colheita do Ceifador), pago ao usar, mesmo que erre. Quando alguém com vida selada por você cai, o deus se dá por pago e devolve 1 da sua. O feitiço supremo leva tudo: no fim da cena em que o usa, você morre.</li><li><strong>Traço, A Mão Atrás de Você:</strong> você é imune a [Medo] e [Dominado] (quem tem um deus da morte nas costas não teme ninguém), e os seus feitiços do Ceifador causam +NP÷2 de dano em quem já tem [Vida Selada].</li><li><strong>Feitiços:</strong> Mão do Ceifador e Braços Selados (NP 1), Corte da Alma e Guarda do Ceifador (NP 3), Colheita do Ceifador (NP 5) e o feitiço supremo Selamento do Ceifador (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Selamento do Ceifador pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Ele não tem pressa. Ninguém foge do que já está atrás de você.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/magic/death/skull-humanoid-white-red.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "ceifador",
+            "bonusVs": [
+              {
+                "statuses": [
+                  "reaped"
+                ],
+                "value": "floor(@cr/2)"
+              }
+            ]
+          },
+          "immune": [
+            "frightened",
+            "dominated"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "A Mão Atrás de Você",
+      "img": "icons/magic/death/skull-humanoid-white-red.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "CXc9xbaZoVjTsMRp",
+      "_key": "!items.effects!LlLURKaHkPZcSUro.CXc9xbaZoVjTsMRp"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "ceifador-ceifador",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "ceifador",
+        "category": "forbidden",
+        "tagline": "O deus da morte atrás de você: a vida que ele sela não volta, e ele sempre cobra.",
+        "holders": 1
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "LlLURKaHkPZcSUro",
+  "folder": "FkkSRNz3QouFXBka",
+  "_key": "!items!LlLURKaHkPZcSUro"
+}

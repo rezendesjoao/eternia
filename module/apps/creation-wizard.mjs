@@ -8,7 +8,9 @@
  *                  CR 1, the choice of CR 1 (the Dragon Slayer's element), the Magia slots, the Paths and the Apex.
  *   3. Magia       the Magia browser of the Magia picker, for the class's slot of CR 1 (a Magia that asks for a
  *                  choice, the Mandamentos' Decree, asks it below; a spell tells what it does under the pointer and
- *                  opens its whole text on a click). A class whose first slot comes later says so.
+ *                  opens its whole text on a click). A class whose first slot comes later says so. A player draws it
+ *                  instead (the Awakening, apps/awakening.mjs): up to three rolls, kept on the actor as they are made,
+ *                  and the browser shows only the Magias rolled; the GM chooses from all and reads the player's rolls.
  *   4. Profession  the ten professions, or none for now.
  *   5. Attributes  the five bonus points (no attribute above 7) in a table, a row per attribute with what the class and
  *                  the race give, the modifier and its checks; the numbers of play below, and the points suggested for
@@ -39,6 +41,10 @@ import {
 } from "./skill-browser.mjs";
 import { MAGIC_BROWSER, MagicBrowser, magicBrowserContext } from "./magic-picker.mjs";
 import { fold } from "./magic-catalog.mjs";
+import {
+  awakeningChoices, awakeningOf, awakeningOn, awakeningRecord, awakeningView, drawsAwakening, lockAwakening,
+  resetAwakening, rollAwakening
+} from "./awakening.mjs";
 import { STATS, creationCatalog, loadDocuments, skillReading, skillSummary, skillTip } from "./creation-catalog.mjs";
 import { BONUS_POINTS, MAX_BASE_STAT } from "./stat-allocation.mjs";
 import {
@@ -233,6 +239,8 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       readerMove: CreationWizard.#onReaderMove,
       readerClose: CreationWizard.#onReaderClose,
       decree: CreationWizard.#onDecree,
+      awaken: CreationWizard.#onAwaken,
+      awakenReset: CreationWizard.#onAwakenReset,
       later: CreationWizard.#onLater,
       family: CreationWizard.#onFamily,
       portrait: CreationWizard.#onPortrait,
@@ -306,7 +314,8 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       human: race ? STATS.filter(k => toInt(race.system.attributes?.[k]) > 0) : [],
       class: sourceUuid(job) || null,
       classChoices: {},
-      magia: sourceUuid(magia) || null,
+      // The Magia it has, else the one it awakened with (apps/awakening.mjs)
+      magia: sourceUuid(magia) || (awakeningOn() ? awakeningOf(actor).chosen : null) || null,
       decree: null,
       // A character made before with a class and no profession left it for later
       profession: profession?.system.identifier || (job ? "later" : null),
@@ -357,10 +366,16 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     return this.#catalog?.professions.find(p => p.id === this.draft.profession) ?? null;
   }
 
-  /** The Magia chosen (its catalog entry), when the class has a slot at CR 1. */
+  /** The Magia chosen (its catalog entry), when the class has a slot at CR 1 (for a player who draws it, one rolled). */
   #magia() {
     if (!this.#job()?.firstMagic || !this.draft.magia) return null;
+    if (drawsAwakening() && !awakeningChoices(this.actor).includes(this.draft.magia)) return null;
     return this.#magias?.find(m => m.uuid === this.draft.magia) ?? null;
+  }
+
+  /** The Magias a player who draws the first one may take: the one it awakened with, else those rolled, in order. */
+  #awakenMagias() {
+    return awakeningChoices(this.actor).map(uuid => this.#magias?.find(m => m.uuid === uuid)).filter(Boolean);
   }
 
   /** The skill the class's choice of CR 1 gave (the Dragon Slayer's element). */
@@ -648,7 +663,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   async _prepareContext(options) {
     this.#skillIndex = await getSkillIndex();
     if (!this.#magicContext) {
-      this.#magicContext = await magicBrowserContext({ cr: 1 });
+      this.#magicContext = await magicBrowserContext({ cr: 1, actor: this.actor });
       this.#magias = this.#magicContext.magias;
     }
     if (!this.#catalog) {
@@ -690,10 +705,12 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   #headContext() {
+    // A player who draws the first Magia reads about the Awakening
+    const key = ((this.step === "magic") && this.#job()?.firstMagic && drawsAwakening()) ? "awaken" : this.step;
     return {
       eyebrow: L("Wizard.StepOf", { n: STEPS.findIndex(s => s.id === this.step) + 1, total: STEPS.length }),
-      heading: L(`Wizard.Heading.${this.step}`),
-      lead: L(`Wizard.Lead.${this.step}`)
+      heading: L(`Wizard.Heading.${key}`),
+      lead: L(`Wizard.Lead.${key}`)
     };
   }
 
@@ -763,7 +780,9 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         return job ? L("Wizard.Hint.classChoice", { name: job.name }) : L("Wizard.Hint.class");
       case "magic": {
         const magia = this.#magia();
-        return (magia && magia.choiceGrants.length) ? L("Wizard.Hint.decree", { name: magia.name }) : L("Wizard.Hint.magic");
+        if (magia && magia.choiceGrants.length) return L("Wizard.Hint.decree", { name: magia.name });
+        if (!drawsAwakening()) return L("Wizard.Hint.magic");
+        return L(awakeningOf(this.actor).rolls.length ? "Wizard.Hint.awakenPick" : "Wizard.Hint.awaken");
       }
       case "profession": return L("Wizard.Hint.profession");
       case "attributes": {
@@ -787,7 +806,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     switch (this.step) {
       case "race": return { ...step, ...this.#raceStep() };
       case "class": return { ...step, ...this.#classStep() };
-      case "magic": return { ...step, ...this.#magicStep() };
+      case "magic": return { ...step, ...(await this.#magicStep()) };
       case "profession": return { ...step, ...this.#professionStep() };
       case "attributes": return { ...step, ...this.#attributesStep() };
       case "skills": return { ...step, ...(await this.#skillsStep()) };
@@ -880,7 +899,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     ].filter(r => r.items.length);
   }
 
-  #magicStep() {
+  async #magicStep() {
     const job = this.#job();
     if (!job?.firstMagic) {
       return {
@@ -892,8 +911,15 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     }
     const ranks = new Intl.ListFormat(game.i18n.lang, { type: "conjunction" })
       .format(job.magicSlots.map(rank => L("MagicPicker.SlotRank", { rank })));
+    // A player draws it: the bar of the rolls, and only the Magias rolled (apps/awakening.mjs)
+    const awakening = drawsAwakening() ? await awakeningView(this.actor, this.#magias ?? []) : null;
+    const magias = awakening ? this.#awakenMagias() : this.#magicContext.magias;
     return {
       ...this.#magicContext,
+      magias,
+      awakening,
+      awakenWaiting: !!awakening && !magias.length,
+      gmAwakening: (!awakening && awakeningOn()) ? awakeningRecord(this.actor) : null,
       guideSlots: L("MagicPicker.Guide.Slots", { count: job.magicSlots.length, ranks }),
       magicBrowser: MAGIC_BROWSER,
       className: job.name,
@@ -1361,10 +1387,14 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     if (this.step === "magic") {
       const browser = step.querySelector(".magic-picker");
       if (browser && this.#magias) {
-        new MagicBrowser(browser, {
-          magias: this.#magias,
+        // A player who draws it sees only the Magias rolled; a roll in the bar selects its Magia too
+        const rolls = [...step.querySelectorAll(".aw-roll.made[data-uuid]")];
+        const mark = uuid => rolls.forEach(li => li.classList.toggle("selected", li.dataset.uuid === uuid));
+        const cards = new MagicBrowser(browser, {
+          magias: drawsAwakening() ? this.#awakenMagias() : this.#magias,
           selected: this.draft.magia,
           onSelect: uuid => {
+            mark(uuid);
             if (!uuid || (uuid === this.draft.magia)) return;
             this.draft.magia = uuid;
             this.draft.decree = null;
@@ -1372,6 +1402,16 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
           },
           onChoose: () => this.#onNextStep()
         });
+        mark(cards.selected);
+        for (const li of rolls) {
+          li.addEventListener("click", () => cards.select(li.dataset.uuid));
+          li.addEventListener("keydown", event => {
+            if (!["Enter", " "].includes(event.key)) return;
+            event.preventDefault();
+            event.stopPropagation();
+            cards.select(li.dataset.uuid);
+          });
+        }
       }
       this.#renderDecree();
     }
@@ -1802,6 +1842,37 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     this.#renderDecree();
   }
 
+  /** The next roll of the Awakening (kept on the actor at once); the first Magia rolled comes selected. */
+  static async #onAwaken(event, target) {
+    if (target) target.disabled = true;
+    try {
+      const roll = await rollAwakening(this.actor);
+      if (roll && !this.#magia()) {
+        this.draft.magia = roll.uuid;
+        this.draft.decree = null;
+      }
+    }
+    catch (err) {
+      console.error(`${SYSTEM_ID} | Could not roll the Awakening`, err);
+      ui.notifications.error(L("Awakening.Error", { error: err.message }));
+    }
+    await this.#refresh();
+  }
+
+  /** The GM frees a new draw for the player (after a confirmation). */
+  static async #onAwakenReset() {
+    if (!game.user.isGM) return;
+    const ok = await foundry.applications.api.DialogV2.confirm({
+      window: { title: L("Awakening.GM.Reset") },
+      content: `<p>${L("Awakening.GM.ResetConfirm", { name: this.actor.name })}</p>`,
+      rejectClose: false
+    });
+    if (!ok) return;
+    await resetAwakening(this.actor);
+    ui.notifications.info(L("Awakening.GM.ResetDone", { name: this.actor.name }));
+    await this.#refresh();
+  }
+
   /** No profession for now. */
   static #onLater() {
     this.draft.profession = "later";
@@ -1964,6 +2035,8 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     await actor.createEmbeddedDocuments("Item", items.filter(Boolean), { eterniaCreation: true });
     // Full HP and Fate
     await actor.update({ "system.health.value": toInt(actor.system.health?.max), "system.fate.value": toInt(actor.system.fate?.max) });
+    // The Magia of the slot of CR 1 closes the Awakening: the player can't change it any more (apps/awakening.mjs)
+    if (magia) await lockAwakening(actor, magia.uuid);
 
     if (setting("creationCard") !== false) await this.#announce();
   }

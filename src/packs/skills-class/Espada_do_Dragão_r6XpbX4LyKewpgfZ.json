@@ -1,0 +1,77 @@
+{
+  "name": "Espada do Dragão",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Portador de Bênçãos. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto, e só contra um inimigo digno (de NP igual ou maior que o seu; num monstro, o Rank): a espada que não sai da bainha por qualquer um sai. Um alvo a até 6 Qd: o ataque acerta sem teste; [(3 + 2×pontos gastos)d6 + Poder de Ataque + pontos gastos×NP×2] de dano físico, que nada deixa passar ao lado. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>A espada escolheu sair. O resto foi silêncio.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "auto",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "3+2*@spent",
+      "mod": "@spent*@cr*2",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/weapons/swords/greatsword-guard-jewel-green.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "bencaos-dragao",
+      "kind": "spends",
+      "branch": "magic",
+      "worthyOnly": true,
+      "pierce": {
+        "all": true,
+        "cancel": true,
+        "barrier": true
+      },
+      "magicSpell": {
+        "id": "bencaos"
+      },
+      "minRank": 10,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(3+2×pontos gastos)d6 + [Poder de Ataque] + pontos gastos×NP×2 Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "r6XpbX4LyKewpgfZ",
+  "folder": "bVqzaEUMvW2bD8bV",
+  "_key": "!items!r6XpbX4LyKewpgfZ"
+}

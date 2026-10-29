@@ -1,0 +1,88 @@
+{
+  "name": "Punho que Racha o Céu",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Golias. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: o soco do gigante, com todo o peso do corpo. Um inimigo engajado com você: Teste de Precisão contra a Esquiva; [(2 + 2×pontos gastos)d6 + Poder de Ataque + pontos gastos×NP] de dano físico, + o Valor do seu [Golias], contando metade da Defesa dele, e ele voa 4 Qd. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>As nuvens em cima dele se abriram com o vento do soco.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "Close",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/equipment/hand/gauntlet-plate-gold.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "golias-punho",
+      "kind": "spends",
+      "branch": "magic",
+      "pierce": {
+        "defense": "half"
+      },
+      "selfBonus": [
+        {
+          "statusId": "goliath",
+          "per": 1
+        }
+      ],
+      "useActions": [
+        {
+          "type": "push",
+          "value": 4
+        }
+      ],
+      "magicSpell": {
+        "id": "golias"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2+2×pontos gastos)d6 + [Poder de Ataque] + pontos gastos×NP + Golias Físico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "NTESwtI3cg3Dc3VV",
+  "folder": "60ktoW5IhbWk9V8z",
+  "_key": "!items!NTESwtI3cg3Dc3VV"
+}

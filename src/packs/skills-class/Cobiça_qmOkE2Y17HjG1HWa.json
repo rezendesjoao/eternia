@@ -1,0 +1,168 @@
+{
+  "name": "Cobiça",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Maldição.</strong> Um demônio da ganância mora na sua bolsa. Ele transforma riqueza em força: cada moeda que você carrega pesa no golpe, e você pode jogar a fortuna inteira de uma vez. Mas ele come o que transforma: gente pobre não faz essa magia, e gente que a faz não fica rica por muito tempo. Não é magia, é o poder dos demônios: [Silenciado] não impede os feitiços. Eles batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Única:</strong> só uma pessoa no mundo tem esta Magia de cada vez.</li><li><strong>A Fortuna:</strong> você tem 1 de Fortuna para cada 5 comuns do seu NP de Yuld na bolsa (o que um inimigo comum do seu NP deixa: 25 Yuld no NP 1, 56 no NP 5, 129 no NP 10), até o seu NP. Cada ponto de Fortuna é +1d6 no dano dos feitiços de ataque.</li><li><strong>Tabu, A Casa Cobra:</strong> cada feitiço come Yuld (está no custo de cada um), e sem o Yuld ele não sai. Quando você cai, o demônio leva metade do Yuld da bolsa. Em combate, a sua Defesa Física cai [NP÷2].</li><li><strong>Traço, Mão que Atrai Ouro:</strong> você é imune a [Desarmado], e o Yuld que deixam as criaturas que você derruba vem com metade a mais.</li><li><strong>Feitiços:</strong> Moeda Pesada e Comprar a Guarda (NP 1), Suborno e Cofre de Ouro (NP 3), Chuva de Ouro (NP 5) e o feitiço supremo Toda a Fortuna (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). Toda a Fortuna pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>O ouro some da bolsa dele toda vez que ele bate. Ele nunca parou de bater.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/currency/coins-plain-stack-gold-yellow.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "goldOnFall": 0.5,
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "A Casa Cobra",
+      "img": "icons/commodities/currency/coins-plain-stack-gold-yellow.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.defense.phys.mod",
+            "type": "add",
+            "value": "-floor(@cr/2)",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "y5Vqg6oHL4rHUcFx",
+      "_key": "!items.effects!qmOkE2Y17HjG1HWa.y5Vqg6oHL4rHUcFx"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "cobica",
+            "goldBonus": 0.5
+          },
+          "immune": [
+            "disarmed"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Mão que Atrai Ouro",
+      "img": "icons/commodities/currency/coins-plain-stack-gold-yellow.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "QjRiaReWPhqsTJfq",
+      "_key": "!items.effects!qmOkE2Y17HjG1HWa.QjRiaReWPhqsTJfq"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "cobica-cobica",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "cobica",
+        "category": "curse",
+        "tagline": "Quanto mais Yuld na bolsa, mais forte o golpe; e cada golpe custa caro.",
+        "holders": 1
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "qmOkE2Y17HjG1HWa",
+  "folder": "u4PFjsbfS7LphCO9",
+  "_key": "!items!qmOkE2Y17HjG1HWa"
+}

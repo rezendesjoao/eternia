@@ -1,0 +1,92 @@
+{
+  "name": "Saída por Baixo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Permeação. Feitiço grande.</strong> Você afunda e sai do chão no meio de todos, numa área a até 2 Qd: Teste de Precisão contra a Esquiva de cada alvo; [5d6 + Poder de Ataque] de dano físico (+[NP÷2] por ponto de [Antecipação], que zera) e [Derrubado]. Usar tira o seu [Permeando].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>O chão se abre para você passar. Para eles, não abre.</em></p>",
+    "tags": [
+      "Spell"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "2Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "evasion",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 5,
+      "mod": 0,
+      "type": "physical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/environment/wilderness/terrain-rocky-ground.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "permeacao-saida",
+      "kind": "feeds",
+      "branch": "magic",
+      "whilePhasing": true,
+      "hitStatuses": [
+        {
+          "statusId": "prone"
+        }
+      ],
+      "selfBonus": [
+        {
+          "statusId": "anticipation",
+          "per": "floor(@cr/2)",
+          "spend": true
+        }
+      ],
+      "useActions": [
+        {
+          "type": "removeStatus",
+          "statuses": [
+            "phasing"
+          ],
+          "recipients": "self",
+          "onUse": true
+        }
+      ],
+      "magicSpell": {
+        "id": "permeacao"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "5yUbxPl1XQRRPhTZ",
+  "folder": "7Vrajd1uqDZbEQsW",
+  "_key": "!items!5yUbxPl1XQRRPhTZ"
+}

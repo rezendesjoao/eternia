@@ -1,0 +1,128 @@
+{
+  "name": "Tirar a Faixa",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Olhar que Apaga.</strong> Você puxa a faixa dos olhos: fica com [Olhar Aberto] por até 3 rodadas (não está [Cego]). Na hora e em cada Manutenção, todo mundo a até 4 Qd de você, aliados também, fica [Apagado] até o Encerramento. Cada Encerramento com os olhos abertos dá [Fadiga: 1]. Pôr a faixa de volta antes é uma Ação Menor (Livrar-se do [Olhar Aberto]). Uma vez por rodada.</p><p><strong>Custo:</strong> nenhum.</p><hr><p><em>Os olhos dele são vermelhos. Ninguém lembra a cor deles com a faixa.</em></p>",
+    "tags": [],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "-",
+    "target": "Self",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "1/Round",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/equipment/head/headwrap-cloth-white.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "recipients": "self",
+          "expires": "endOfScene",
+          "decreeRounds": 3,
+          "cleanupFatigue": 1,
+          "realm": {
+            "radius": 4,
+            "notSelf": true,
+            "enemies": [
+              {
+                "statusId": "erased"
+              }
+            ],
+            "allies": [
+              {
+                "statusId": "erased"
+              }
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Olhar Aberto",
+      "img": "icons/equipment/head/headwrap-cloth-white.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "gaze"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "5mH7FqzmkRNV8AYJ",
+      "_key": "!items.effects!f7vru1ysQ8LFT5fE.5mH7FqzmkRNV8AYJ"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "olhar-que-apaga-faixa",
+      "kind": "feeds",
+      "branch": "magic",
+      "magicSpell": {
+        "id": "olhar-que-apaga"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "f7vru1ysQ8LFT5fE",
+  "folder": "QYyWSy6Eyksy3wOD",
+  "_key": "!items!f7vru1ysQ8LFT5fE"
+}

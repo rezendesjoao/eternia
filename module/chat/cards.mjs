@@ -127,7 +127,8 @@ export async function rollDamage(item, attackMessage) {
   // effects the roll spends (a Spark Stone's next blow, [Rhythm])
   const roller = actor ?? item.actor;
   const condition = damageModifier(roller, item);
-  dice += Math.max(0, condition.dice);
+  // A condition may take dice too (the spirits around a blessed ally, a Sun at night), never below one die
+  dice = (condition.dice >= 0) ? dice + condition.dice : Math.max(Math.min(dice, 1), dice + condition.dice);
   mod += condition.mod;
 
   let flavor = `${item.name} - ${game.i18n.localize("ETERNIA.Skill.Label.Damage")}`;

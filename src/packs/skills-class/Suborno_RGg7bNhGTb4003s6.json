@@ -1,0 +1,77 @@
+{
+  "name": "Suborno",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Cobiça.</strong> Você mostra ouro a um alvo a até 4 Qd, e o demônio sussurra o resto: Teste de Precisão contra a Resistência; ele fica [Encantado] por você. Sem dano. Uma vez por cena.</p><p><strong>Custo:</strong> Ódio 2 e 2 comuns do seu NP em Yuld.</p><hr><p><em>Até os monstros têm um preço. O seu é mais alto que o deles.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse"
+    ],
+    "timing": "Minor",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "1/Scene",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/currency/coins-plain-pouch-gold.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "cobica-suborno",
+      "kind": "feeds",
+      "branch": "magic",
+      "yuldCost": "floor((3*@cr*@cr+13*@cr+84)/2)",
+      "hitStatuses": [
+        {
+          "statusId": "charmed"
+        }
+      ],
+      "magicSpell": {
+        "id": "cobica"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 40000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "RGg7bNhGTb4003s6",
+  "folder": "u4PFjsbfS7LphCO9",
+  "_key": "!items!RGg7bNhGTb4003s6"
+}

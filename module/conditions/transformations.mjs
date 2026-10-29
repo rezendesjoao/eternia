@@ -159,6 +159,9 @@ async function fall(actor, name) {
  * @param {Actor} actor
  * @returns {Promise<boolean>}
  */
+/** Whether an actor is falling now because its transformation ended with the scene (it only falls: no Death Check). */
+export const fallingNow = actor => FALLING.has(actor?.uuid);
+
 export async function fallAtSceneEnd(actor) {
   if (!rulesOn() || !actor) return false;
   const effects = actor.effects.filter(e => flag(e, "fallOnEnd"));

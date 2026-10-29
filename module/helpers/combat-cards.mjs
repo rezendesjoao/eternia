@@ -49,6 +49,10 @@ import { isAdventurer } from "./utils.mjs";
 import { isPrimaryGM } from "./clients.mjs";
 import { parseSkillField } from "./skill-fields.mjs";
 import { useHitStatuses } from "../bestiary/minor.mjs";
+import { foreseen, foreseenDodge } from "../conditions/foresight.mjs";
+import { cardSeal, reapedOf, sealUpdates } from "../conditions/reaper.mjs";
+import { thresholdOf } from "../conditions/goliath.mjs";
+import { vulnerableTo } from "../conditions/quake.mjs";
 
 const TEMPLATES = {
   attack: "systems/eternia/templates/chat/attack-card.hbs",
@@ -433,6 +437,10 @@ export async function createAttackCard(item, attacker, formula, flavor, { bonuse
     entry.dodge = dodge;
     entry.hit = resolveHit(attack, dodge);
   }
+  // Five seconds of the future: a blow aimed at a foreseeing target alone is seen coming (conditions/foresight.mjs)
+  for (const entry of targets) {
+    if (foreseen(targetActor(entry), item, attacker ?? item.actor)) Object.assign(entry, { hit: false, dodge: foreseenDodge() });
+  }
 
   const data = {
     itemUuid: item.uuid,
@@ -675,6 +683,9 @@ export async function createDamageCard(item, attacker, formula, flavor, attackMe
     pacified,
     drain: recovery ? 0 : extras.drain,
     steal: recovery ? [] : extras.steal,
+    // Life sealed for good on each target reached (conditions/reaper.mjs), and the bonus per CR above the attacker's
+    seal: recovery ? 0 : cardSeal(item, attacker),
+    rankAbove: recovery ? 0 : extras.rankAbove,
     onHit: recovery ? [] : [...onHitOf(attacker ?? item.actor), ...motorOnHit(attacker ?? item.actor, item),
       ...skillHitStatuses(item, attacker), ...extras.onHit, ...useHitStatuses(item, attackMessage)],
     // The statuses of the hits: infinite (the Magia Infinito), given by a spell (conditions/lasting.mjs)
@@ -806,7 +817,7 @@ async function applyDamage(actor, card, mode, dodgeFailed, target = null) {
   // The defender's conditions: [Exposed] (no Defense, no Cancel), [Intangible] (no physical damage)…
   const condition = beforeDamage(actor, card, direct);
   // [Clones]: a copy may take the blow (1d6 up to the Rating), and nothing of it reaches the defender.
-  const decoy = (condition.immune || condition.untouched) ? null : await cloneDecoy(actor, card);
+  const decoy = (condition.immune || condition.untouched || card.pierce?.all) ? null : await cloneDecoy(actor, card);
   if (decoy) condition.notes.push(decoy.note);
   if (decoy?.hit) Object.assign(condition, { immune: true, untouched: true, counter: null, invert: false });
   steps.push(...condition.notes.map(note => `(${note})`));
@@ -818,6 +829,12 @@ async function applyDamage(actor, card, mode, dodgeFailed, target = null) {
     if (toInt(card.bonus) > 0) {
       amount += toInt(card.bonus);
       steps.push(`+ ${toInt(card.bonus)} ${L("Applied.Trait")}`);
+    }
+    // More damage against who is stronger (a Trait's `rankAbove`: the Santo da Espada), per CR above the attacker's
+    const above = toInt(card.rankAbove) * Math.max(0, crOf(actor) - crOf(card.attackerUuid ? fromUuidSync(card.attackerUuid) : null));
+    if (above > 0) {
+      amount += above;
+      steps.push(`+ ${above} (${L("Applied.Stronger")})`);
     }
     for (const vs of card.bonusVs ?? []) {
       if (vs.pack) {
@@ -844,7 +861,10 @@ async function applyDamage(actor, card, mode, dodgeFailed, target = null) {
   // What the Defense and [Cancel] took (IV.c: with [Barrier], they may take the blow to 0)
   let defended = 0;
   if (!direct && !condition.immune) {
-    let defense = condition.noDefense ? 0 : defenseOf(actor, card.type);
+    // A blow from inside (a Trait's `pierce.inside`: the iron of the blood) or a vibration (`pierce.defense: "none"`)
+    // meets no Defense
+    const inside = (card.pierce?.defense === "none") || (card.pierce?.inside ?? []).some(id => had.has(id));
+    let defense = (condition.noDefense || inside) ? 0 : defenseOf(actor, card.type);
     const halved = (defense > 0) && (card.pierce?.defense === "half");
     if (halved) defense = Math.floor(defense / 2);
     if (defense) steps.push(`− ${defense} ${L(card.type === "magical" ? "Applied.MDef" : "Applied.PDef")}${halved ? " (÷2)" : ""}`);
@@ -870,8 +890,21 @@ async function applyDamage(actor, card, mode, dodgeFailed, target = null) {
     amount *= 2;
     steps.push(`× 2 (${game.i18n.localize("ETERNIA.Bestiary.TroopArea")})`);
   }
+  // A giant's body: a blow below the threshold does nothing, not even its statuses (conditions/goliath.mjs)
+  const floor = (!condition.immune && !card.pierce?.all) ? thresholdOf(actor) : 0;
+  const underFloor = (floor > 0) && (amount > 0) && (amount < floor);
+  if (underFloor) {
+    steps.push(`(${amount} < ${floor} ${statusLabel("goliath")})`);
+    amount = 0;
+  }
+  // Vulnerable to a tag: the damage doubles (conditions/quake.mjs: the sea against the fruit)
+  const weak = ((amount > 0) && !condition.immune) ? vulnerableTo(actor, tags) : null;
+  if (weak) {
+    amount *= 2;
+    steps.push(`× 2 (${weak})`);
+  }
   // [Flesh Shield]: an ally takes the blow instead (conditions/immortal.mjs), nothing of it reaches the defender.
-  const covered = condition.untouched ? null : coverFor(actor, card, amount);
+  const covered = (condition.untouched || card.pierce?.all) ? null : coverFor(actor, card, amount);
   if (covered) amount = 0;
   // [Counter]: the damage goes back to the attacker, doubled, and nothing of the attack reaches the defender.
   const countered = (condition.counter && !covered) ? counterBack(actor, card, condition.counter, amount) : null;
@@ -887,7 +920,7 @@ async function applyDamage(actor, card, mode, dodgeFailed, target = null) {
   // IV.c: the Defense, [Cancel] and [Barrier] took the damage to 0, so the blow's statuses don't take (the Failed Dodge's
   // Hate Damage, Pursuit and Weakness still do). Not a blow that was 0 for another reason: a [Pacified] attacker's, one
   // a Motor eats, one an [Inversion] turns into healing (their statuses take, as their rules say).
-  const zeroed = !condition.immune && !inverted && ((defended + absorbed) > 0) && ((amount - absorbed) <= 0);
+  const zeroed = (!condition.immune && !inverted && ((defended + absorbed) > 0) && ((amount - absorbed) <= 0)) || underFloor;
   if (covered) lines.push(covered.line);
   if (countered) lines.push(countered.line);
   if (inverted) lines.push(condition.absorbs
@@ -962,6 +995,21 @@ async function applyDamage(actor, card, mode, dodgeFailed, target = null) {
   updates["system.bad-status.barrier"] = barrier;
   // [Overconfident] ends when the character loses HP.
   if (hpLoss > 0 && before.overconfident) updates["system.bad-status.overconfident"] = false;
+  // [Phasing]: the blow that went through is one more of [Anticipation] (conditions/passage.mjs)
+  if (condition.phasing) {
+    const next = Math.min(statusDefinition("anticipation")?.stack ?? 5, rating(actor, "anticipation") + 1);
+    updates["system.bad-status.anticipation"] = next;
+    lines.push(game.i18n.format("ETERNIA.Passage.Anticipation", { n: next }));
+  }
+  // The death god's hand: life sealed for good, the HP down with the Max HP (conditions/reaper.mjs)
+  if ((toInt(card.seal) > 0) && !untouched && !condition.immune) {
+    const sealer = card.attackerUuid ? fromUuidSync(card.attackerUuid) : null;
+    before.reaped = { list: reapedOf(actor), field: rating(actor, "reaped") };
+    const seal = sealUpdates(actor, card.seal, { uuid: card.attackerUuid ?? "", name: sealer ? (sealer.token?.name ?? sealer.name) : "" }, hp);
+    Object.assign(updates, seal.updates);
+    hp = updates["system.health.value"];
+    lines.push(game.i18n.format("ETERNIA.Reaper.Sealed", { name: actor.token?.name ?? actor.name, n: seal.added, total: seal.total }));
+  }
   await actor.update(updates);
   if (after.end.length) await removeConditionStatuses(actor, after.end);
   // Effects that only stood in the way of this damage (an illusion taking the blow).
@@ -1094,6 +1142,8 @@ async function undoEntry(data) {
     "system.bad-status.overconfident": before.overconfident
   };
   if (actor.type === "character") updates["system.infos.hate"] = before.hate;
+  // The life a seal took comes back (conditions/reaper.mjs)
+  if (before.reaped) Object.assign(updates, { "flags.eternia.reaped": before.reaped.list, "system.bad-status.reaped": before.reaped.field });
   await actor.update(updates);
   // The statuses the application had ended ([Marked], [Asleep], [Last Stand]…) come back; those it gave go.
   await restoreForUndo(actor, before);

@@ -22,6 +22,10 @@ import { crOf, has, isSourceOf, rating, removeStatuses, rulesOn } from "./rules.
 import { consumedBy } from "./effects.mjs";
 import { NO_DODGE } from "./catalog.mjs";
 import { closeDodge } from "./distance.mjs";
+import { areaDodge } from "./foresight.mjs";
+import { manaHog } from "./blessings.mjs";
+import { isAreaAttack } from "./damage.mjs";
+import { traitsFor } from "../helpers/magic-traits.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -113,6 +117,8 @@ export function dodgeModifier(actor, { vs = "evasion", attacker = null, item = n
   if (has(actor, "dazed")) t.add("dazed", -1);
   if (!rulesOn()) return t;
   t.autoFail = NO_DODGE.find(id => has(actor, id)) ?? null;
+  // The pride of the Sun: while it shines, its bearer never dodges (a Trait's `pride`)
+  if (!t.autoFail && (rating(actor, "sun") > 0) && prideOf(actor)) t.autoFail = "sun";
   for (const id of ["paralyzed", "rooted", "berserk", "marked", "confused", "swimming"]) if (has(actor, id)) t.add(id, -1);
   if (has(actor, "blinded") && (vs === "evasion")) t.add("blinded", -1);
   if (has(actor, "poisoned") && (vs === "resistance")) t.add("poisoned", -1);
@@ -120,6 +126,9 @@ export function dodgeModifier(actor, { vs = "evasion", attacker = null, item = n
   if (has(actor, "charmed") && attacker && isSourceOf(actor, "charmed", attacker)) t.add("charmed", -1);
   const close = closeDodge(actor);
   if (close && item && isCloseAttack(item, attacker)) t.add("closeDodge", close.dice, 0, close.name);
+  // The future of a whole area doesn't fit in five seconds (conditions/foresight.mjs)
+  const area = areaDodge(actor);
+  if (area && item && isAreaAttack(item)) t.add("areaDodge", area.dice, 0, area.name);
   if (has(actor, "focused")) {
     t.add("focused", 1);
     t.consume.push("focused");
@@ -143,9 +152,19 @@ export function damageModifier(actor, item = null) {
   if (!rulesOn()) return t;
   for (const id of ["empowered", "berserk", "awakened", "sun", "impetus", "combo"]) {
     const n = rating(actor, id);
-    if (n > 0) t.add(id, 0, n);
+    // The [Sun] of a Trait with `sunPower` weighs that much per point
+    if (n > 0) t.add(id, 0, (id === "sun") ? n * sunPowerOf(actor) : n);
   }
   if (has(actor, "theOne")) t.add("theOne", 0, crOf(actor));
+  // The prize and the giant: +CR (the giant's on physical blows: conditions/jackpot.mjs, conditions/goliath.mjs)
+  if (has(actor, "jackpot")) t.add("jackpot", 0, crOf(actor));
+  if (has(actor, "goliath") && (item?.system?.damage?.type === "physical")) t.add("goliath", 0, crOf(actor));
+  // The spirits gather around a blessed ally: an ally's spell rolls 1d6 less (conditions/blessings.mjs)
+  const hog = manaHog(actor, item);
+  if (hog) t.add("manaHog", hog.dice, 0, hog.name);
+  // A Sun that doesn't rise at night: its spells roll less (a Trait's `nightDice`)
+  const night = nightDiceOf(actor, item);
+  if (night) t.add("night", night.dice, 0, night.name);
   // [Clones]: the copies strike with the blow
   const clones = rating(actor, "clones");
   if ((clones > 0) && item && isCloseAttack(item, actor)) t.add("clones", 0, clones);
@@ -158,6 +177,30 @@ export function damageModifier(actor, item = null) {
   const weakened = rating(actor, "weakened");
   if (weakened > 0) t.add("weakened", 0, -weakened);
   return t;
+}
+
+/** The active Traits of an actor (its own effects and its items' passive ones). */
+const activeTraits = actor => [...(actor?.allApplicableEffects?.() ?? [])].filter(e => e.active && e.getFlag("eternia", "trait"));
+
+/** Whether a Trait of the actor makes it too proud to dodge while its [Sun] shines. */
+const prideOf = actor => activeTraits(actor).some(e => e.getFlag("eternia", "trait").pride);
+
+/** How much each point of [Sun] adds to the damage (1, or a Trait's `sunPower`). */
+const sunPowerOf = actor => Math.max(1, ...activeTraits(actor).map(e => Number(e.getFlag("eternia", "trait").sunPower) || 1));
+
+/** Whether a combat's scene, or the one on show, is night: at least half dark. */
+function isNight(actor) {
+  const combat = game.combats?.find(c => c.started && c.combatants.some(x => x.actor?.uuid === actor?.uuid)) ?? null;
+  const scene = combat?.scene ?? canvas?.scene ?? null;
+  return Number(scene?.environment?.darknessLevel ?? 0) >= 0.5;
+}
+
+/** The dice a Trait with `nightDice` takes from its Magia's spells at night: { dice, name } or null. */
+function nightDiceOf(actor, item) {
+  if (!item?.flags?.eternia?.magicSpell) return null;
+  const trait = traitsFor(actor, item).find(e => Number(e.getFlag("eternia", "trait")?.nightDice));
+  if (!trait || !isNight(actor)) return null;
+  return { dice: Number(trait.getFlag("eternia", "trait").nightDice), name: trait.name };
 }
 
 /** End the statuses a roll used up ([Focused]). */

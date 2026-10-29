@@ -1,0 +1,176 @@
+{
+  "name": "Retrocesso",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Proibida.</strong> Você volta o tempo de um corpo. A ferida volta a ser pele, o veneno volta a ser nada, quem caiu volta a estar de pé, como estava no começo da rodada. É o poder mais cobiçado do mundo, e você não controla direito: a força se junta como areia numa ampulheta, e quando transborda volta o tempo de tudo à sua volta, de quem você quer e de quem você não quer. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Única:</strong> só uma pessoa no mundo tem esta Magia de cada vez.</li><li><strong>O Retrato da Rodada:</strong> em combate, no começo de cada rodada, o tempo guarda como cada um estava. Voltar o tempo de alguém devolve o PV daquele momento (nunca tira), tira os Estados Negativos que chegaram depois e levanta quem caiu nesta rodada ([Incapacitado], [Morrendo]). Os mortos não voltam. Fora de combate, o corpo volta inteiro.</li><li><strong>Tabu, A Ampulheta:</strong> cada Retrocesso enche a [Ampulheta] (até 3). Cheia, o próximo transborda: volta o tempo de todo mundo a até 3 Qd, inimigos também, você cai [Adormecido] e ela esvazia. Em combate, as suas Defesas Física e Mágica caem [NP÷2].</li><li><strong>Traço, Corpo que Volta:</strong> você é imune a [Agonia] e [Deterioração], e os seus feitiços que curam curam +NP.</li><li><strong>Feitiços:</strong> Voltar a Ferida e Voltar a Força (NP 1), Rebobinar e Corpo de Criança (NP 3), Retorno em Massa (NP 5) e o feitiço supremo Antes de Existir (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Antes de Existir pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Ela tocou o ombro dele, e a cicatriz de dez anos voltou a ser um corte de ontem. Depois, nada.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/tech/dial-meter-gauge-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "A Ampulheta",
+      "img": "icons/commodities/tech/dial-meter-gauge-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.defense.phys.mod",
+            "type": "add",
+            "value": "-floor(@cr/2)",
+            "phase": "initial",
+            "priority": null
+          },
+          {
+            "key": "system.battle-status.defense.magic.mod",
+            "type": "add",
+            "value": "-floor(@cr/2)",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "kNP6zbK1hD4GW168",
+      "_key": "!items.effects!FQhahStq9oYowSxO.kNP6zbK1hD4GW168"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "retrocesso",
+            "rewind": true,
+            "healBonus": "@cr"
+          },
+          "immune": [
+            "agony",
+            "decay"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Corpo que Volta",
+      "img": "icons/commodities/tech/dial-meter-gauge-blue.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "yQms2xeI2OrQI8op",
+      "_key": "!items.effects!FQhahStq9oYowSxO.yQms2xeI2OrQI8op"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "retrocesso-retrocesso",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "retrocesso",
+        "category": "forbidden",
+        "tagline": "O corpo volta para como era: a ferida fecha, e quem caiu levanta.",
+        "holders": 1
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "FQhahStq9oYowSxO",
+  "folder": "Guxr3MCJF6cVaw4T",
+  "_key": "!items!FQhahStq9oYowSxO"
+}

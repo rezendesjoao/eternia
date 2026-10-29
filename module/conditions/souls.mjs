@@ -34,11 +34,14 @@ const fromUuidOrNull = uuid => (uuid ? fromUuidSync(uuid) : null);
 /** The scene an actor fights in: its combat's, else the viewed one (not whatever scene the GM is looking at). */
 const sceneOf = actor => combatOf(actor)?.scene ?? canvas?.scene ?? null;
 
-/** The token (document) an actor stands on in a scene, or null. */
+/**
+ * The token (document) an actor stands on in a scene, or null. Only one that exists in the scene: the dependents also
+ * hold the passing documents of `getTokenDocument` (a sheet's preview), at the prototype's place.
+ */
 function tokenOf(actor, scene = sceneOf(actor)) {
   if (!actor || !scene) return null;
   if (actor.token && (actor.token.parent === scene)) return actor.token;
-  return actor.getDependentTokens?.({ scenes: scene })?.[0] ?? null;
+  return actor.getDependentTokens?.({ scenes: scene, concreteOnly: true })?.[0] ?? null;
 }
 
 /** The grid square of a token's center. */

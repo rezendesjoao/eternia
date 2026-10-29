@@ -2,7 +2,7 @@
   "name": "Artes Negras",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Magia Proibida.</strong> A magia da morte: tira a vida do que toca, e cobra do mago a vida que ele queria ter. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Tabu, a Maldição da Contradição:</strong> em combate você fica [Maldito]: não recupera PV por cura, Regeneração nem itens, e nenhum efeito te dá Barreira. A Predação da Morte não escolhe alvos.</li><li><strong>Traço, Morte em Volta:</strong> os seus feitiços de Artes Negras causam +NP de dano em quem está [Maldito].</li><li><strong>Feitiços:</strong> Toque da Morte e Esfera da Morte (NP 1), Aura da Morte (NP 3), Predação da Morte (NP 5) e o feitiço supremo Sentença Negra (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Sentença Negra pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>As plantas murcham por onde você passa, e você aprendeu a não chegar perto de quem ama.</em></p>",
+    "description": "<p><strong>Magia Proibida.</strong> A magia da morte: tira a vida do que toca, e cobra do mago a vida que ele queria ter. A maldição que a acompanha é uma contradição: quanto mais você ama a vida, mais ela morre à sua volta, e a morte não leva você, que é quem mais a deseja. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Única:</strong> só uma pessoa no mundo tem esta Magia de cada vez.</li><li><strong>Tabu, a Maldição da Contradição:</strong> em combate você fica [Maldito]: não recupera PV por cura, Regeneração nem itens, e nenhum efeito te dá Barreira. A morte pulsa à sua volta: em cada Manutenção, os seus aliados a até 2 Qd de você sofrem [NP] de dano direto. A Predação da Morte não escolhe alvos.</li><li><strong>Traço, Morte em Volta:</strong> os seus feitiços de Artes Negras causam +NP de dano em quem está [Maldito], e a morte não leva você: uma vez por cena, quando chegaria a 0 PV, você fica com 1 PV.</li><li><strong>Feitiços:</strong> Toque da Morte e Esfera da Morte (NP 1), Aura da Morte (NP 3), Predação da Morte (NP 5) e o feitiço supremo Sentença Negra (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Sentença Negra pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>As plantas murcham por onde você passa, e você aprendeu a não chegar perto de quem ama.</em></p>",
     "tags": [],
     "timing": "Constant",
     "checkType": "",
@@ -48,7 +48,14 @@
             {
               "type": "inCombat"
             }
-          ]
+          ],
+          "realm": {
+            "radius": 2,
+            "notSelf": true,
+            "damage": {
+              "allies": "@cr"
+            }
+          }
         }
       },
       "_stats": {
@@ -101,6 +108,11 @@
                 "value": "@cr"
               }
             ]
+          },
+          "revive": {
+            "uses": 1,
+            "per": "scene",
+            "hp": "1"
           }
         }
       },
@@ -138,7 +150,8 @@
       "magic": {
         "id": "artes-negras",
         "category": "forbidden",
-        "tagline": "A magia da morte, que pega até os aliados."
+        "tagline": "A magia da morte: você não morre, e quem está perto de você sim.",
+        "holders": 1
       },
       "choiceOnly": true
     }

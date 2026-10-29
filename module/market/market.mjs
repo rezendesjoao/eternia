@@ -8,6 +8,10 @@
  *   from it or drags an item to a sheet; players only look (the world setting `marketPlayers`: everything, only what is
  *   sold, or nothing). The GM marks items to make a shop of them (shops.mjs) or to put them in one.
  *
+ *   The list shows a page at a time (PAGE_SIZE rows) of the entries the filters let through: the filters run over the
+ *   entries before the list is drawn, the counts beside them are written without drawing the banner again, and a
+ *   filter, the search (once the typing stops) or the order draws only the list again, from its first page.
+ *
  *   A shop (a merchant pile) opens the same window with only its wares, when its token is double-clicked: there the
  *   players buy, as many as the stock, the gold and the inventory allow, through the GM (piles' buyItem), and sell what
  *   they carry if the shop buys. The GM sees the stock and changes it, takes wares out, opens or closes the shop, sets
@@ -34,14 +38,18 @@ const DIR = "systems/eternia/templates/market";
 
 /** The orders of the list. */
 const SORTS = ["type", "name", "priceAsc", "priceDesc", "rankAsc", "rankDesc"];
+/** The rows of a page of the list. */
+const PAGE_SIZE = 50;
+/** How long the search waits for the typing to stop before it filters (ms). */
+const SEARCH_DELAY = 200;
 
-/** What each window last filtered, while the page is open (the Market, each shop). */
+/** What each window last filtered and the page of its list, until the game is loaded again (the Market, each shop). */
 const VIEWS = new Map();
 /** The character the GM last bought for: the next window starts with them. */
 let lastBuyer = null;
 const blankView = () => ({
   types: new Set(), grades: new Set(), folders: new Set(), tags: new Set(), sale: "", rankMin: null, rankMax: null,
-  maxPrice: null, affordable: false, query: "", sort: "type"
+  maxPrice: null, affordable: false, query: "", sort: "type", page: 1
 });
 
 const GRADE_COLOR = Object.fromEntries(GRADES.map(g => [g.id, g.color]));
@@ -116,6 +124,7 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
       markShown: EterniaMarket.#onMarkShown,
       unmark: EterniaMarket.#onUnmark,
       filter: EterniaMarket.#onFilter,
+      page: EterniaMarket.#onPage,
       band: EterniaMarket.#onBand,
       sale: EterniaMarket.#onSale,
       clearFilters: EterniaMarket.#onClearFilters,
@@ -156,6 +165,15 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
   #entries = [];
   /** The values of the filters in the entries. */
   #facets = null;
+  /** The entries the filters let through (in the list's order), with how many each filter and each kind would show. */
+  #filtered = { shown: [], counts: {}, kinds: new Map() };
+  /** What the list drawn shows (its page, counts and rows): it is drawn again when the filters let others through. */
+  #drawn = "";
+  /** The search typed and not run yet (the list waits for the typing to stop). */
+  #typed = null;
+  #searchTimer = null;
+  /** The row to focus once the list is drawn (the arrows went past the page's edge). */
+  #focusKey = null;
   /** The key of the item chosen (a uuid in the Market, an item id in a shop). */
   #selected = null;
   /** The items the GM marked in the Market (uuids). */
@@ -275,9 +293,12 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
 
   /** @override */
   async _prepareContext(options) {
-    // The Market's catalog is read again only when the list or the filters are drawn (the page and the foot use it as it is)
+    // The Market's catalog is read again only when the list or the filters are drawn (the page and the foot use it as it
+    // is), not when the list is drawn only for its page or its filters (`reload: false`)
     const parts = options.parts ?? Object.keys(this.constructor.PARTS);
-    if (this.isShop || !this.#facets || parts.some(p => ["head", "rail", "list"].includes(p))) await this.#load();
+    const reload = (options.reload !== false) && (this.isShop || parts.some(p => ["head", "rail", "list"].includes(p)));
+    if (!this.#facets || reload) await this.#load();
+    this.#filter();
     const shop = this.merchant;
     const merchantSystem = shop?.system.merchant ?? {};
     return {
@@ -376,7 +397,7 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
 
   #toolsContext(context) {
     return {
-      query: this.#view.query,
+      query: this.#typed ?? this.#view.query,
       sorts: Object.fromEntries(SORTS.map(id => [id, L(`Market.Sort.${id}`)])),
       sort: this.#view.sort,
       tabs: (context.isShop && context.acceptsSales && !context.closed) ? [
@@ -416,20 +437,54 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
         marked: this.#marked.has(e.key)
       };
     };
+    // Only the rows of the page; beside a kind, how many it has among all the entries shown
+    const { shown, kinds } = this.#filtered;
+    const page = this.#pageEntries();
     let groups;
     if (this.#view.sort === "type") {
       groups = MARKET_TYPES.map(t => ({
-        id: t.id, icon: t.icon, label: L(`Market.Type.${t.id}`),
-        rows: this.#entries.filter(e => e.type === t.id).map(row)
+        id: t.id, icon: t.icon, label: L(`Market.Type.${t.id}`), count: kinds.get(t.id) ?? 0,
+        rows: page.filter(e => e.type === t.id).map(row)
       })).filter(g => g.rows.length);
     }
-    else groups = [{ id: "all", rows: this.#entries.map(row) }];
+    else groups = [{ id: "all", rows: page.map(row) }];
     let empty = "";
     if (!this.#entries.length) {
       if (context.isShop) empty = context.selling ? game.i18n.localize("ETERNIA.Piles.NothingToSell") : game.i18n.localize("ETERNIA.Piles.NothingForSale");
       else empty = L("Market.Empty");
     }
-    return { groups, empty, drag: isGM && !context.isShop, canMark: isGM && !context.isShop, dropHint: isGM && context.isShop };
+    this.#drawn = this.#listKey();
+    return {
+      groups, empty, noMatch: (this.#entries.length > 0) && !shown.length, pager: context.closed ? null : this.#pager(),
+      drag: isGM && !context.isShop, canMark: isGM && !context.isShop, dropHint: isGM && context.isShop
+    };
+  }
+
+  /**
+   * The pager below the list, when the entries shown fill more than a page: the first page, the one before, a few around
+   * this one, the next and the last, and which rows of how many this one shows.
+   */
+  #pager() {
+    const pages = this.#pageCount();
+    if (pages < 2) return null;
+    const page = this.#view.page;
+    const total = this.#filtered.shown.length;
+    const first = Math.clamp(page - 2, 1, Math.max(1, pages - 4));
+    const step = (id, key, to, icon) => ({ step: id, page: to, icon, label: L(`Market.Pager.${key}`), disabled: to === page });
+    return {
+      range: L("Market.Pager.Range", {
+        from: number(((page - 1) * PAGE_SIZE) + 1), to: number(Math.min(total, page * PAGE_SIZE)), total: number(total)
+      }),
+      buttons: [
+        step("first", "First", 1, "fa-solid fa-angles-left"),
+        step("prev", "Prev", Math.max(1, page - 1), "fa-solid fa-angle-left"),
+        ...Array.from({ length: Math.min(5, pages) }, (_, i) => first + i).map(n => ({
+          page: n, text: number(n), label: L("Market.Pager.Page", { n: number(n) }), current: n === page
+        })),
+        step("next", "Next", Math.min(pages, page + 1), "fa-solid fa-angle-right"),
+        step("last", "Last", pages, "fa-solid fa-angles-right")
+      ]
+    };
   }
 
   async #detailContext(context) {
@@ -584,53 +639,100 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
     const parts = options.parts ?? Object.keys(this.constructor.PARTS);
     root.classList.toggle("is-shop", this.isShop);
     root.classList.toggle("is-gm", game.user.isGM);
-    if (parts.includes("list")) this.#activateList(root);
+    if (parts.includes("list")) this.#activateList(root, options);
     if (parts.includes("rail")) this.#activateRail(root);
     if (parts.includes("tools")) this.#activateTools(root);
     if (parts.includes("detail")) this.#activateDetail(root);
     if (parts.includes("foot")) this.#activateFoot(root);
     if (options.isFirstRender && this.isShop && game.user.isGM) this.#activateDrop(root);
     this.#markAffordable();
-    this.#applyFilters();
+    this.#applyCounts();
     if (parts.includes("rail")) this.#syncRail();
+    // The filters let other entries through since the list was drawn (the buyer's gold, with "what they can pay" on)
+    if (!parts.includes("list") && (this.#drawn !== this.#listKey())) this.render({ parts: ["list"], reload: false });
+  }
+
+  /** @override The parts drawn again keep the search's caret, and the row or the pager's button in focus. */
+  _preSyncPartState(partId, newElement, priorElement, state) {
+    super._preSyncPartState(partId, newElement, priorElement, state);
+    const focused = priorElement.querySelector(":focus");
+    if (focused?.matches(".mk-search input")) state.caret = [focused.selectionStart, focused.selectionEnd, focused.selectionDirection];
+    else if (focused?.matches(".mk-row[data-key]")) state.row = focused.dataset.key;
+    else if (focused?.closest(".mk-pager")) state.pager = focused.dataset.step ?? "current";
+  }
+
+  /** @override */
+  _syncPartState(partId, newElement, priorElement, state) {
+    super._syncPartState(partId, newElement, priorElement, state);
+    if (state.caret) newElement.querySelector(".mk-search input")?.setSelectionRange(...state.caret);
+    if (state.row) [...newElement.querySelectorAll(".mk-row[data-key]")].find(row => row.dataset.key === state.row)?.focus();
+    if (state.pager) {
+      const pager = newElement.querySelector(".mk-pager");
+      (pager?.querySelector(`[data-step="${state.pager}"]:not(:disabled)`) ?? pager?.querySelector("[aria-current='page']"))?.focus();
+    }
+  }
+
+  /** @override A search typed and not run yet stays in the window's view. */
+  _onClose(options) {
+    super._onClose(options);
+    clearTimeout(this.#searchTimer);
+    if ((this.#typed !== null) && (this.#typed !== this.#view.query)) Object.assign(this.#view, { query: this.#typed, page: 1 });
+    this.#typed = null;
   }
 
   /** The rows the buyer can't pay for show the price in red (the buyer's gold changes without drawing the list). */
   #markAffordable() {
     const gold = this.buyer ? getGold(this.buyer) : null;
     const selling = this.#tab === "sell";
-    for (const e of this.#entries) {
+    for (const e of this.#pageEntries()) {
       const price = this.#rows.get(e.key)?.querySelector(".mk-price");
       price?.classList.toggle("short", (gold !== null) && !selling && (e.price > gold));
     }
   }
 
-  /** The rows: their elements by key, the GM's drag to a sheet (the Market), the keys to move in the list. */
-  #activateList(root) {
+  /**
+   * The rows: their elements by key, the GM's drag to a sheet (the Market), the keys to move in the list and through
+   * its pages. A new page or other filters show the list from its top.
+   */
+  #activateList(root, options = {}) {
+    const results = root.querySelector(".mk-results");
     const list = root.querySelector(".mk-list");
     this.#rows = new Map([...root.querySelectorAll(".mk-row[data-key]")].map(row => [row.dataset.key, row]));
-    if (!list) return;
-    list.addEventListener("dragstart", event => {
+    if (!results || !list) return;
+    if (options.top) list.scrollTop = 0;
+    if (this.#focusKey) {
+      this.#rows.get(this.#focusKey)?.focus();
+      this.#focusKey = null;
+    }
+    results.addEventListener("dragstart", event => {
       const row = event.target.closest?.(".mk-row[draggable='true']");
       if (!row || !game.user.isGM || this.isShop) return;
       event.dataTransfer.setData("text/plain", JSON.stringify({ type: "Item", uuid: row.dataset.key }));
       event.dataTransfer.effectAllowed = "copy";
     });
-    list.addEventListener("keydown", event => {
+    // Enter and the space on a row choose it, the arrows go along the rows (past the page's edge, to the next page or
+    // the one before): none of them goes on to the core's keys (the space would pause the game, the arrows move the
+    // tokens selected)
+    results.addEventListener("keydown", event => {
       const row = event.target.closest?.(".mk-row");
-      if (!row) return;
-      if (["Enter", " "].includes(event.key) && (event.target === row)) {
-        event.preventDefault();
-        this.#select(row.dataset.key);
+      if (["Enter", " "].includes(event.key)) {
+        if (row || event.target.closest?.("button")) event.stopPropagation();
+        if (row && (event.target === row)) {
+          event.preventDefault();
+          this.#select(row.dataset.key);
+        }
       }
-      else if (["ArrowDown", "ArrowUp"].includes(event.key)) {
+      else if (row && ["ArrowDown", "ArrowUp"].includes(event.key)) {
         event.preventDefault();
-        const visible = [...this.#rows.values()].filter(r => !r.hidden);
-        const next = visible[visible.indexOf(row) + ((event.key === "ArrowDown") ? 1 : -1)];
+        event.stopPropagation();
+        const step = (event.key === "ArrowDown") ? 1 : -1;
+        const rows = [...this.#rows.values()];
+        const next = rows[rows.indexOf(row) + step];
         if (next) {
           next.focus();
           this.#select(next.dataset.key);
         }
+        else this.#turn(this.#view.page + step, { edge: (step > 0) ? "first" : "last" });
       }
     });
   }
@@ -642,29 +744,48 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
     const read = value => ((String(value).trim() === "") ? null : Math.max(0, toInt(value)));
     rail.querySelectorAll("input[name='rankMin'], input[name='rankMax'], input[name='maxPrice']").forEach(input => {
       input.addEventListener("input", () => {
-        this.#view[input.name] = read(input.value);
+        const value = read(input.value);
+        if (value === this.#view[input.name]) return;
+        this.#view[input.name] = value;
         this.#syncRail();
-        this.#applyFilters();
+        this.#refilter();
       });
     });
     rail.querySelector("input[name='affordable']")?.addEventListener("change", event => {
       this.#view.affordable = event.currentTarget.checked;
-      this.#applyFilters();
+      this.#refilter();
     });
   }
 
-  /** The search, as it is typed, and the order. */
+  /** The search (once the typing stops, or at Enter) and the order. */
   #activateTools(root) {
     const search = root.querySelector(".mk-search input");
     search?.addEventListener("input", () => {
-      this.#view.query = search.value;
-      this.#applyFilters();
+      this.#typed = search.value;
+      clearTimeout(this.#searchTimer);
+      this.#searchTimer = setTimeout(() => this.#search(), SEARCH_DELAY);
     });
-    search?.addEventListener("keydown", event => { if (event.key === "Enter") event.preventDefault(); });
+    search?.addEventListener("keydown", event => {
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      this.#search();
+    });
     root.querySelector(".mk-sort select")?.addEventListener("change", event => {
       this.#view.sort = SORTS.includes(event.currentTarget.value) ? event.currentTarget.value : "type";
-      this.render({ parts: ["list"] });
+      this.#entries = this.#sorted(this.#entries);
+      this.#refilter();
     });
+  }
+
+  /** The search typed: the list alone is drawn again, from its first page (the box keeps the focus and the caret). */
+  #search() {
+    clearTimeout(this.#searchTimer);
+    const query = this.#typed;
+    this.#typed = null;
+    if ((query === null) || (query === this.#view.query) || !this.rendered) return;
+    this.#view.query = query;
+    this.#syncRail();
+    this.#refilter();
   }
 
   /** The page: the stock the GM types. */
@@ -738,17 +859,16 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   /**
-   * Show the rows the filters let through, and beside each filter how many it would show (counted with the other
-   * filters on; a tag counts among the rows shown, since tags add up).
+   * Run the filters over the entries: the ones they let through, in the list's order, and beside each filter how many it
+   * would show (counted with the other filters on; a tag counts among the entries shown, since tags add up). The page of
+   * the list stays among the pages they fill.
    */
-  #applyFilters() {
-    const root = this.element;
-    if (!root) return;
+  #filter() {
     const tests = Object.entries(this.#tests());
     const counts = { type: new Map(), grade: new Map(), folder: new Map(), sale: new Map(), tags: new Map(), band: new Map() };
-    const groups = new Map();
+    const kinds = new Map();
     const bands = this.#facets?.bands ?? [];
-    let shown = 0;
+    const shown = [];
     for (const e of this.#entries) {
       let fails = 0;
       let failed = null;
@@ -759,11 +879,9 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
         if (fails > 1) break;
       }
       const visible = fails === 0;
-      const row = this.#rows.get(e.key);
-      if (row) row.hidden = !visible;
       if (visible) {
-        shown += 1;
-        inc(groups, e.type);
+        shown.push(e);
+        inc(kinds, e.type);
         for (const k of e.tagKeys) inc(counts.tags, k);
       }
       const counted = name => visible || ((fails === 1) && (failed === name));
@@ -774,26 +892,72 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
       if (counted("rank")) for (const [min, max] of bands) if ((e.rank >= min) && (e.rank <= max)) inc(counts.band, `${min}-${max}`);
     }
     counts.sale.set("", [...counts.sale.values()].reduce((a, b) => a + b, 0));
+    this.#filtered = { shown, counts, kinds };
+    this.#view.page = Math.clamp(toInt(this.#view.page) || 1, 1, this.#pageCount());
+    VIEWS.set(this.id, this.#view);
+  }
+
+  /** Beside each filter, how many it would show; above the list, how many it shows (and the GM's "mark the shown"). */
+  #applyCounts() {
+    const root = this.element;
+    if (!root) return;
+    const { shown, counts } = this.#filtered;
     for (const badge of root.querySelectorAll("[data-count]")) {
       const [facet, ...rest] = badge.dataset.count.split(":");
       const n = counts[facet]?.get(rest.join(":")) ?? 0;
       badge.textContent = n;
       badge.closest("button")?.classList.toggle("none", !n && !badge.closest("button")?.classList.contains("active"));
     }
-    for (const group of root.querySelectorAll(".mk-group[data-group]")) {
-      const id = group.dataset.group;
-      const n = (id === "all") ? shown : (groups.get(id) ?? 0);
-      group.hidden = !n;
-      const count = group.querySelector("[data-group-count]");
-      if (count) count.textContent = n;
-    }
-    const empty = root.querySelector(".mk-empty");
-    if (empty) empty.hidden = (shown > 0) || !this.#entries.length;
     const total = root.querySelector(".mk-count");
-    if (total) total.innerHTML = L("Market.Shown", { n: `<b>${number(shown)}</b>`, total: number(this.#entries.length) });
+    if (total) total.innerHTML = L("Market.Shown", { n: `<b>${number(shown.length)}</b>`, total: number(this.#entries.length) });
     const markShown = root.querySelector("[data-action='markShown']");
-    if (markShown) markShown.disabled = !shown;
-    VIEWS.set(this.id, this.#view);
+    if (markShown) markShown.disabled = !shown.length;
+  }
+
+  /** The entries of the list's page. */
+  #pageEntries() {
+    const start = (this.#view.page - 1) * PAGE_SIZE;
+    return this.#filtered.shown.slice(start, start + PAGE_SIZE);
+  }
+
+  /** How many pages the entries the filters let through fill (one, when there are none). */
+  #pageCount() {
+    return Math.max(1, Math.ceil(this.#filtered.shown.length / PAGE_SIZE));
+  }
+
+  /** What the list shows with the filters as they are: its page, how many entries of each kind, the rows of the page. */
+  #listKey() {
+    const { shown, kinds } = this.#filtered;
+    return [this.#view.page, shown.length, ...MARKET_TYPES.map(t => kinds.get(t.id) ?? 0), ...this.#pageEntries().map(e => e.key)]
+      .join("|");
+  }
+
+  /** The filters (or the order) changed: only the list is drawn again, from its first page; the counts follow. */
+  #refilter() {
+    this.#view.page = 1;
+    this.render({ parts: ["list"], reload: false, top: true });
+  }
+
+  /**
+   * Show another page of the list (only the list is drawn again, from its top).
+   * @param {number} page
+   * @param {object} [options]
+   * @param {"first"|"last"} [options.edge]   The arrows went past the page's edge: that row of the new page is chosen
+   */
+  #turn(page, { edge = null } = {}) {
+    page = Math.clamp(page, 1, this.#pageCount());
+    if (page === this.#view.page) return;
+    this.#view.page = page;
+    const parts = ["list"];
+    const rows = this.#pageEntries();
+    const next = edge ? ((edge === "first") ? rows[0] : rows.at(-1)) : null;
+    if (next) {
+      this.#selected = next.key;
+      this.#quantity = 1;
+      this.#focusKey = next.key;
+      parts.push("detail");
+    }
+    this.render({ parts, reload: false, top: true });
   }
 
   /** The filter chips and fields as the view says (after a click, without drawing the banner again). */
@@ -890,18 +1054,23 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
     this.render({ parts: ["foot"] });
   }
 
+  /** Every entry the filters let through, on every page (the page's rows show it at once). */
   static #onMarkShown() {
+    for (const e of this.#filtered.shown) this.#marked.add(e.key);
     for (const [key, row] of this.#rows) {
-      if (row.hidden) continue;
-      this.#marked.add(key);
+      if (!this.#marked.has(key)) continue;
       row.classList.add("marked");
+      row.querySelector(".mk-mark")?.setAttribute("aria-pressed", "true");
     }
     this.render({ parts: ["foot"] });
   }
 
   static #onUnmark() {
     this.#marked.clear();
-    for (const row of this.#rows.values()) row.classList.remove("marked");
+    for (const row of this.#rows.values()) {
+      row.classList.remove("marked");
+      row.querySelector(".mk-mark")?.setAttribute("aria-pressed", "false");
+    }
     this.render({ parts: ["foot"] });
   }
 
@@ -912,7 +1081,11 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
     if (set.has(value)) set.delete(value);
     else set.add(value);
     this.#syncRail();
-    this.#applyFilters();
+    this.#refilter();
+  }
+
+  static #onPage(event, target) {
+    this.#turn(toInt(target.dataset.page));
   }
 
   static #onBand(event, target) {
@@ -922,22 +1095,24 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
     this.#view.rankMin = on ? null : min;
     this.#view.rankMax = on ? null : max;
     this.#syncRail();
-    this.#applyFilters();
+    this.#refilter();
   }
 
   static #onSale(event, target) {
     this.#view.sale = target.dataset.value ?? "";
     this.#syncRail();
-    this.#applyFilters();
+    this.#refilter();
   }
 
   static #onClearFilters() {
     const sort = this.#view.sort;
     Object.assign(this.#view, blankView(), { sort });
+    clearTimeout(this.#searchTimer);
+    this.#typed = null;
     const search = this.element.querySelector(".mk-search input");
     if (search) search.value = "";
     this.#syncRail();
-    this.#applyFilters();
+    this.#refilter();
   }
 
   static #onQuantity(event, target) {
@@ -1023,7 +1198,8 @@ export class EterniaMarket extends HandlebarsApplicationMixin(ApplicationV2) {
     this.#tab = tab;
     this.#selected = null;
     this.#quantity = 1;
-    this.render({ parts: ["rail", "tools", "list", "detail", "foot"] });
+    this.#view.page = 1;
+    this.render({ parts: ["rail", "tools", "list", "detail", "foot"], top: true });
   }
 
   static async #onToggleOpen() {

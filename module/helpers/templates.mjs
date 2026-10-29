@@ -51,6 +51,8 @@
     // The Magia browser (the Magia picker and the creation wizard)
     "systems/eternia/templates/apps/magic-browser.hbs",
     "systems/eternia/templates/apps/magic-page.hbs",
+    // The rolls of the Awakening (the creation wizard and the Magia picker)
+    "systems/eternia/templates/apps/awakening-bar.hbs",
 
     // The creation wizard's steps
     ...["race", "class", "magic", "profession", "attributes", "skills", "items", "summary", "decree"]

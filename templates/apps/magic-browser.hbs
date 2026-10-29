@@ -18,7 +18,7 @@
 <div class="mp-main">
 	<ol class="mp-grid" role="listbox" aria-label="{{localize 'ETERNIA.MagicPicker.Heading'}}">
 		{{#each magias}}
-		<li class="mp-card" role="option" tabindex="0" aria-selected="false" style="--mp-cat: {{categoryColor}}"
+		<li class="mp-card{{#if blocked}} blocked{{/if}}" role="option" tabindex="0" aria-selected="false" style="--mp-cat: {{categoryColor}}"
 			data-uuid="{{uuid}}" data-name="{{name}}" data-category="{{category}}" data-roles="{{rolesKey}}" data-search="{{search}}">
 			<span class="mp-card-art"><img src="{{img}}" alt="" loading="lazy"></span>
 			<span class="mp-card-text">
@@ -27,10 +27,15 @@
 				<span class="mp-card-tag">{{tagline}}</span>
 			</span>
 			<span class="mp-card-roles">{{#each cardRoles}}<i class="{{icon}}" data-tooltip-text="{{label}}"></i>{{/each}}</span>
+			{{#if holderLabel}}<span class="mp-card-holders{{#if holderFull}} full{{/if}}" data-tooltip-text="{{holderTip}}"><i class="fa-solid {{#if exclusive}}fa-crown{{else}}fa-user{{/if}}"></i>{{holderLabel}}</span>{{/if}}
 			<i class="mp-card-check fa-solid fa-check"></i>
 		</li>
 		{{/each}}
+		{{#if awakenWaiting}}
+		<li class="mp-empty aw-waiting"><i class="fa-solid fa-dice-d20"></i>{{localize "ETERNIA.Awakening.Waiting"}}</li>
+		{{else}}
 		<li class="mp-empty" hidden><i class="fa-solid fa-wand-sparkles"></i>{{localize "ETERNIA.MagicPicker.Empty"}}</li>
+		{{/if}}
 	</ol>
 
 	<aside class="mp-detail">

@@ -415,6 +415,8 @@
       "weakness": "Fraqueza",
       "incapacitated": "Incapacitado",
       "dead": "Morto",
+      "dying": "Morrendo",
+      "lastAct": "Último Ato",
       "staggered": "Cambaleante",
       "dazed": "Atordoado",
       "rigor": "Rigidez",
@@ -486,7 +488,18 @@
       "rhythm": "Ritmo",
       "clones": "Clones",
       "bond": "Vínculo",
-      "contagion": "Contágio"
+      "contagion": "Contágio",
+      "reaped": "Vida Selada",
+      "ironBlood": "Ferro no Sangue",
+      "phasing": "Permeando",
+      "anticipation": "Antecipação",
+      "erased": "Apagado",
+      "gaze": "Olhar Aberto",
+      "hourglass": "Ampulheta",
+      "jackpot": "Jackpot",
+      "luck": "Sorte",
+      "goliath": "Golias",
+      "quake": "Abalo"
     },
     "StatusGroup": {
       "bad": "Estado Negativo",
@@ -732,7 +745,8 @@
         "choice": "escolha entre {names}",
         "magic": "uma nova Magia",
         "auto": "{name} entra sozinho",
-        "skill": "{name}"
+        "skill": "{name}",
+        "magicClosed": "a vaga de Magia fica fechada ({name} é Absoluta)"
       },
       "Dedication": "a Dedicação a outra classe (multiclasse) fica liberada nas escolhas de Combate",
       "After": "Depois vêm as escolhas da classe e a janela de habilidades, com as escolhas já contadas.",
@@ -869,7 +883,8 @@
         "Trait": "Traço",
         "BarrierBroken": "A Barreira quebrou",
         "Consumed": "Consumido",
-        "Decree": "Decreto"
+        "Decree": "Decreto",
+        "Stronger": "mais forte que você"
       },
       "Notif": {
         "NoTokens": "Selecione os tokens em que aplicar.",
@@ -1231,11 +1246,7 @@
       },
       "endOfScene": {
         "Name": "Fim de cena ao encerrar o combate",
-        "Hint": "Ao encerrar um combate iniciado: os Aventureiros Incapacitados voltam com PV cheio, os inimigos Incapacitados morrem, e acabam os Estados Negativos e de Combate. Fadiga e Fraqueza continuam."
-      },
-      "revive": {
-        "Name": "Aventureiros mortos revivem no fim da cena",
-        "Hint": "Pela regra, um Aventureiro Morto revive no fim da cena com 1 PV e [Fadiga: PV máximo − 1]."
+        "Hint": "Ao encerrar um combate iniciado: os Aventureiros Incapacitados voltam com PV cheio, quem ainda está Morrendo faz o último Teste da Morte, os inimigos Incapacitados morrem, e acabam os Estados Negativos e de Combate. Fadiga e Fraqueza continuam."
       },
       "cards": {
         "Name": "Correções nos cartões de ataque e dano",
@@ -1363,6 +1374,10 @@
       "creationCard": {
         "Name": "Cartão de personagem novo",
         "Hint": "Um cartão no chat quando um personagem é criado pelo assistente, com a raça, a classe, a Magia e a profissão."
+      },
+      "awakening": {
+        "Name": "O Despertar (Magia sorteada)",
+        "Hint": "A primeira Magia dos jogadores é sorteada: eles rolam até três vezes (todas as Magias com a mesma chance, até as Ancestrais e as Proibidas) e ficam com uma das que saírem, sem trocar depois. O Mestre escolhe livre e pode liberar um novo sorteio. Desligada, todo mundo escolhe a Magia."
       },
       "evolutionApproval": {
         "Name": "Evolução da forma com o Mestre",
@@ -1503,9 +1518,7 @@
     "Scene": {
       "Title": "Fim de cena",
       "Recovered": "{name} se recupera com PV cheio.",
-      "Revived": "{name} revive com 1 PV e Fadiga {fatigue}.",
-      "Died": "{name} morre.",
-      "RevivedWhole": "{name} volta com 1 PV e sem Fadiga ({skill})."
+      "Died": "{name} morre."
     },
     "Tools": {
       "Name": "Ferramentas do Mestre",
@@ -1801,13 +1814,15 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.49: a limpeza</strong></p><ul><li><strong>AS REGRAS da Eternia:</strong> as páginas do índice à VIII foram reescritas em texto próprio, curtas e com links para o Guia do Jogador; a VIII lista as configurações do mundo que mudam a regra. A Referência Rápida antiga saiu: o capítulo 20 do Guia faz esse papel.</li><li><strong>Itens:</strong> 101 itens herdados deixaram de citar classes, habilidades e lugares que não existem aqui, e os poderes que dependiam de habilidades que ninguém tem agora fazem o efeito sozinhos. As receitas chamam o Anima-mundi pelo nome.</li><li><strong>Habilidades:</strong> Analisar Objeto de Cena virou Básica, então todo personagem a tem e o Desarmar Objeto de Cena funciona; as Habilidades de Montaria saíram do navegador até existir regra de montaria; e o texto agora diz o que o sistema faz: os feitiços se aprendem com as escolhas de Combate.</li><li><strong>Na ficha:</strong> a lixeira pergunta antes de apagar um item, uma habilidade ou uma Magia, e a profissão se chama Profissão em todo lugar.</li></ul>"
+      "Body": "<p><strong>Novidades da Eternia 0.51</strong></p><ul><li><strong>A onda das Magias apelonas:</strong> treze Magias mais fortes que as outras de propósito, cada uma com uma regra que nenhuma outra tem e um preço do tamanho dela: Selo do Ceifador (a vida selada para sempre), Sangue de Ferro, Permeação, Olhar que Apaga, Retrocesso, Cobiça (o Yuld vira dano), Impecável, Manto Devorador, Golias, Santo da Espada, Portador de Bênçãos, Aposta Mortal (os carretéis e o Jackpot) e Fruta do Tremor. Com elas, onze condições novas.</li><li><strong>A categoria Absoluta:</strong> a mais forte de todas, com um portador só e um Tabu pesado. Quem tem uma nunca terá outra Magia: as vagas do NP 5 e 10 fecham. O Sol virou Absoluta.</li><li><strong>Os portadores:</strong> quase toda Magia que não é Conjuração tem um limite no mundo (1, 2 ou 3). Esgotada, ela não sai no Despertar e não se escolhe; a janela mostra quantos já a têm.</li><li><strong>Mais fortes:</strong> o Sol, as Artes Negras, a Magia das Fadas e o Contra-ataque bateram mais e ganharam defeitos pesados.</li></ul><p><strong>E da 0.50</strong></p><ul><li><strong>O Despertar:</strong> a primeira Magia não se escolhe, desperta. No assistente de criação você rola até três vezes (um dado com uma face para cada Magia livre: todas com a mesma chance, até as Ancestrais e as Proibidas) e fica com uma das que saírem. As rolagens saem no chat, ficam guardadas na ficha e não se refazem, e a Magia do Despertar não sai mais da ficha. O Mestre escolhe livre.</li><li><strong>A morte é para sempre:</strong> quem cai fica [Morrendo: 2]. No Encerramento de cada rodada vem o Teste da Morte: 2d6 acima do Valor segura (e ele sobe 1); o Valor ou menos mata. Antes de rolar, 1 Destino rola 3d6; ou escolha o Último Ato, uma rodada de pé sem poder cair, e depois a morte. Ninguém revive.</li><li><strong>O Mercado em páginas:</strong> 50 itens por vez, mais leve para PCs fracos.</li></ul>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
       "weakness": "[Fraqueza (Tag): n]: ao falhar na Esquiva contra um ataque com essa tag (ou qualquer um, sem tag), sofre +n de dano direto. Só a de maior Valor vale em cada ataque.",
-      "incapacitated": "Com 0 PV: não age, não faz testes e fica sempre em Pós-Ação. Aventureiros se recuperam no fim da cena; inimigos morrem.",
-      "dead": "Fora de jogo pela cena. Aventureiros revivem no fim da cena com 1 PV e Fadiga igual ao resto dos PV máximos.",
+      "incapacitated": "Com 0 PV: não age, não faz testes e fica sempre em Pós-Ação. Quem não é inimigo fica [Morrendo] e faz o Teste da Morte; o inimigo morre no fim da cena.",
+      "dead": "Morto, para sempre: na Eternia ninguém volta da morte.",
+      "dying": "[Morrendo: n]: caído à beira da morte. No Encerramento de cada rodada, o Teste da Morte: 2d6 igual ou abaixo de n mata (dois 6 sempre seguram); acima, n sobe 1. Dano no chão sobe 2, e um acerto crítico mata. Qualquer cura levanta. Com 1 Destino, rola 3d6; o Último Ato troca o teste por uma última rodada.",
+      "lastAct": "Levantou-se uma última vez: não cai (fica com 1 PV), luta a rodada inteira e morre no Encerramento dela.",
       "staggered": "−1d6 nas ações de Momento Maior e Turno. Sai no fim do seu turno.",
       "dazed": "−1d6 nas Esquivas; não usa habilidades de reação (nem a Obstrução). Sai no fim do seu turno.",
       "rigor": "Não realiza ações com a tag [Movimento], não move o token nem usa Obstrução. Sai com uma Ação Menor ou Maior.",
@@ -1868,7 +1883,7 @@
       "lastStand": "Quando chegaria a 0 PV, fica com 1 PV e o estado sai.",
       "awakened": "[Despertado: n]: a transformação. +1d6 nos testes de Precisão e +n de dano nos ataques. Quando sai, deixa [Fadiga: n].",
       "servant": "[Servo: n]: um servo invocado luta ao seu lado. No Encerramento, ataca o inimigo mais perto a até 4 Qd de você: n de dano direto, com a tag do servo. Fica o de maior Valor. Sai no fim da cena.",
-      "sun": "[Sol: n] (até 5): +n de dano nos ataques e +n nas Defesas Física e Mágica. Em combate, sobe 1 na Manutenção de cada rodada e a cada feitiço de Sol. No 5 é meio-dia: [O Único] por uma rodada, uma vez por combate; depois o Sol desce 1 por rodada e não sobe mais. Numa cena escura (noite), não passa de 2. Sai no fim da cena.",
+      "sun": "[Sol: n] (até 5): +n de dano nos ataques (ou mais, pela Magia) e +n nas Defesas Física e Mágica. Em combate, sobe na Manutenção de cada rodada (1, ou mais pela Magia) e 1 a cada feitiço de Sol. No 5 é meio-dia: [O Único] por uma rodada (ou mais), uma vez por combate; depois o Sol desce 1 por rodada e não sobe mais. Numa cena escura (noite), não passa de 2 (ou do que a Magia disser). Sai no fim da cena.",
       "theOne": "Meio-dia: não sofre dano nem estados de ataques, e os seus ataques causam +NP de dano. Sai no Encerramento (o Valor é quantas rodadas faltam).",
       "counter": "[Contragolpe (Mágico ou Físico)]: o próximo ataque desse tipo, de alvo único, que acertar você não causa nada a você: quem atacou sofre o dobro do dano que você sofreria, como dano direto. Sem tipo, vale contra qualquer ataque, até de área. Sai depois de devolver um golpe ou no Encerramento.",
       "grudge": "[Rancor: n]: guarda o dano. Cada PV que você perde para ataques soma 1 (até NP×4). Um golpe de Rancor solta o Valor como dano a mais e zera. Sai no fim da cena.",
@@ -1879,7 +1894,18 @@
       "rhythm": "[Ritmo: n] (até 3): o próximo dano de um feitiço seu (ou de um [Ataque Mágico] ou [Feitiço]) soma +n d6, e o Ritmo sai. Novos Ritmos somam. Sai também no fim da cena.",
       "clones": "[Clones: n] (até 6): quando um ataque acertaria você, role 1d6: com resultado até n, ele acerta uma cópia (nada chega, nem dano nem estados) e os Clones caem 1. Os seus ataques corpo a corpo causam +n de dano. Novos Clones somam. Sai no fim da cena.",
       "bond": "Metade do dano que sofreria nos PV vai para quem fez o Vínculo, como dano direto. Sai no fim da cena ou se essa pessoa ficar Incapacitada.",
-      "contagion": "[Contágio: n]: sofre n de dano direto no Encerramento e passa [Contágio: n] aos aliados a até 1 Qd que ainda não o têm (quem pegou só sofre e passa a partir do Encerramento seguinte). Fica o de maior Valor. Sai com uma Ação Maior."
+      "contagion": "[Contágio: n]: sofre n de dano direto no Encerramento e passa [Contágio: n] aos aliados a até 1 Qd que ainda não o têm (quem pegou só sofre e passa a partir do Encerramento seguinte). Fica o de maior Valor. Sai com uma Ação Maior.",
+      "reaped": "[Vida Selada: n]: um deus da morte selou n do seu PV máximo, e ele não volta: nem com cura, nem no fim da cena, nem com o descanso. Só volta quando quem selou morre de vez (ou quando o Ceifador é pago, para o preço de quem conjura).",
+      "ironBlood": "[Ferro no Sangue: n] (até 5): o ferro do seu sangue virou lâmina. Cada quadrado que você anda por conta própria custa n de dano direto (ser puxado, empurrado ou trocado de lugar não conta). No 5, o ferro sai do sangue de uma vez: [Atordoado] e [Lento]. Sai com uma Ação Maior ou no fim da cena.",
+      "phasing": "Você atravessa tudo: nenhum ataque chega em você (nem dano, nem estados), e cada um que passa dá +1 de [Antecipação]. Em troca, você não ataca ninguém nem usa habilidades contra os outros (só as feitas para isso). Dado no seu turno, dura até o fim do seu próximo turno.",
+      "anticipation": "[Antecipação: n] (até 5): os golpes que passaram por você, guardados. O golpe que volta (os feitiços da Permeação) gasta tudo e soma no dano. Sai no fim da cena.",
+      "erased": "A sua magia foi apagada: você não usa feitiços (nem os de Maldição, que o [Silenciado] deixa), e os Traços das suas Magias param. Sai no Encerramento.",
+      "gaze": "Os olhos sem a faixa: no começo e em cada Manutenção, todo mundo a até 4 Qd de você (aliados também, menos você) fica [Apagado]. Cada Encerramento com eles abertos dá [Fadiga: 1]; fecham sozinhos depois de 3 rodadas, ou com uma Ação Menor (Livrar-se).",
+      "hourglass": "[Ampulheta: n] (até 3): o tempo que você voltou. Cheia, o próximo Retrocesso transborda: volta o tempo de todo mundo a até 3 Qd (os inimigos também), você cai [Adormecido] e a ampulheta esvazia.",
+      "jackpot": "[Jackpot: n]: o prêmio. Você recupera todo o PV agora e em cada Manutenção, não cai (a 0 PV, volta com o PV cheio), os seus feitiços não custam Ódio e os seus ataques causam +NP de dano. O Valor é quantas rodadas faltam: cai 1 em cada Encerramento.",
+      "luck": "[Sorte: n] (até 3): os pares que os carretéis deram. No 3, é o [Jackpot] (e a Sorte zera). Sai no fim da cena.",
+      "goliath": "[Golias: n]: o corpo de gigante. Um golpe cujo dano (depois da Defesa e da Anulação) fica abaixo de n não faz nada, nem os estados dele; de n para cima passa inteiro. Você não é puxado, empurrado nem trocado de lugar, e os seus ataques físicos causam +NP de dano. Sai no fim da cena.",
+      "quake": "[Abalo: n] (até 5): os tremores que você já fez. Cada ponto deixa os próximos feitiços do Tremor mais fortes. Sai no fim da cena."
     },
     "StatusFamily": {
       "core": "Clássicos",
@@ -1947,7 +1973,8 @@
       "AwakenedEnds": "{name} volta ao normal e recebe Fadiga {n}.",
       "Threshold": {
         "freezing": "{name} congela: fica Paralisado.",
-        "fissured": "A guarda de {name} quebra: perde a Barreira e fica Exposto."
+        "fissured": "A guarda de {name} quebra: perde a Barreira e fica Exposto.",
+        "ironBlood": "{name}: o ferro sai do sangue de uma vez ([Atordoado] e [Lento])."
       },
       "Freed": "{name} se livra de {status}: {source} está Incapacitado.",
       "LostTurnTitle": "Perdeu a vez",
@@ -1967,7 +1994,10 @@
         "Dominated": "{name} está Dominado: não ataca {source} nem os aliados dessa pessoa.",
         "Engaged": "{rule}: os feitiços desta Magia não miram quem está engajado com {name} ({targets}).",
         "Amnesia": "{name} está com Amnésia: só usa as habilidades básicas e itens.",
-        "NeedsStatus": "{name} precisa de {status} para usar isto."
+        "NeedsStatus": "{name} precisa de {status} para usar isto.",
+        "Erased": "{name} está Apagado: a magia sumiu (nem feitiços, nem Maldições).",
+        "SeaCurse": "{name} está {status}: o mar tira a força da fruta ({effect}).",
+        "Phasing": "{name} está Permeando: atravessa tudo e não ataca ninguém."
       },
       "Move": {
         "Stuck": "{name} está {status} e não se move.",
@@ -3633,7 +3663,8 @@
         "lost": "Perdida",
         "forbidden": "Proibida",
         "ancestral": "Ancestral",
-        "curse": "Maldição"
+        "curse": "Maldição",
+        "absolute": "Absoluta"
       },
       "CategoryHint": {
         "caster": "A magia sai do corpo: basta você.",
@@ -3641,7 +3672,8 @@
         "lost": "Bate mais forte que as outras do mesmo NP, mas tem um Tabu que cobra em combate.",
         "forbidden": "A mais perigosa: muito forte, com um Tabu pesado.",
         "ancestral": "Antiga e sem Tabu: os feitiços de ataque rolam 1d6 a mais, e o supremo só chega no NP 10.",
-        "curse": "O poder dos demônios, que não é magia: forte como as Perdidas, com um Tabu, e o [Silenciado] não impede os feitiços."
+        "curse": "O poder dos demônios, que não é magia: forte como as Perdidas, com um Tabu, e o [Silenciado] não impede os feitiços.",
+        "absolute": "A mais forte de todas: só um portador no mundo, um Tabu pesado, e ela fecha as outras vagas de Magia (quem a tem não terá outra)."
       },
       "Role": {
         "area": "Área",
@@ -3673,6 +3705,74 @@
       "SpellOpen": "Clique para ler o feitiço inteiro.",
       "SpellNoText": "Este feitiço não tem texto."
     },
+    "Awakening": {
+      "Title": "O Despertar: {name}",
+      "Heading": "Qual Magia desperta em você?",
+      "Lead": "Ninguém escolhe a primeira Magia: ela desperta. Role até três vezes e fique com uma das que saírem.",
+      "Roll": "Rolar o Despertar",
+      "RollN": "{n}ª rolagem",
+      "Waiting": "Role para ver a primeira Magia que desperta em você.",
+      "Note": {
+        "First": "Cada rolagem é 1d{faces}: as {faces} Magias têm a mesma chance, até as Ancestrais e as Proibidas. Você rola até três vezes e fica com uma das que saírem. O que sair não muda mais.",
+        "Left": "Fique com uma das Magias que saíram ou role de novo: resta(m) {n} rolagem(ns). O que já saiu não muda.",
+        "Spent": "As três rolagens foram feitas: fique com uma das três Magias.",
+        "Locked": "Você despertou com {name}. A Magia do Despertar não se troca."
+      },
+      "Back": "{name} volta para a ficha: é a Magia do seu Despertar.",
+      "Locked": "{name} é a Magia do seu Despertar e não sai da ficha. Só o Mestre pode tirá-la.",
+      "Error": "Não deu para rolar o Despertar: {error}",
+      "Chat": {
+        "Eyebrow": "O Despertar · {n}ª rolagem de {total}",
+        "Die": "1d{faces}: {n}",
+        "Who": "{name} rolou o Despertar."
+      },
+      "GM": {
+        "Roll": "{name} ({n})",
+        "Rolls": "O jogador rolou {names}.",
+        "Chosen": "Ficou com {name}.",
+        "Reset": "Liberar novo sorteio",
+        "ResetConfirm": "Apagar as rolagens do Despertar de {name}? O jogador volta a rolar três vezes, e a Magia que está na ficha deixa de ser travada.",
+        "ResetDone": "O Despertar de {name} foi liberado: o jogador pode rolar de novo."
+      }
+    },
+    "Death": {
+      "Title": "À Beira da Morte",
+      "Fall": "{name} cai e está morrendo: [Morrendo: {n}]. No Encerramento vem o Teste da Morte ({chance} de morrer agora). Qualquer cura o levanta.",
+      "Saved": "{name} se levanta: não está mais morrendo.",
+      "SceneCheck": "{name} ainda está morrendo: o último Teste da Morte decide.",
+      "DiesLastAct": "{name} cai pela última vez: o Último Ato acabou, e com ele a vida.",
+      "DiesBlow": "{name} levou um acerto crítico no chão e morreu.",
+      "GroundBlow": "golpe no chão: [Morrendo: {n}]",
+      "GroundCritical": "acerto crítico no chão: morre",
+      "Card": {
+        "Round": "Teste da Morte · Rodada {round}",
+        "Scene": "O último Teste da Morte · fim da cena",
+        "Rule": "Role 2d6: {n} ou menos mata; acima disso segura, e o [Morrendo] sobe 1. Dois 6 sempre seguram.",
+        "Odds": "{chance} de morrer",
+        "OddsFate": "{chance} gastando 1 Destino (3d6)",
+        "Roll": "Rolar 2d6",
+        "RollFate": "Gastar Destino (3d6)",
+        "LastAct": "Último Ato",
+        "LastActTip": "Em vez de rolar: levanta com 1 PV, luta a próxima rodada inteira sem poder cair e morre no Encerramento dela.",
+        "WithFate": "com Destino"
+      },
+      "Result": {
+        "Holds": "{name} segura ({total}). Agora [Morrendo: {n}].",
+        "HoldsCritical": "Dois 6: {name} segura ({total}). Agora [Morrendo: {n}].",
+        "GetsUp": "{name} segura e se levanta com os PV cheios.",
+        "Dies": "{name} tirou {total}, não passou de {n}: morreu. Na Eternia, quem morre não volta.",
+        "LastAct": "{name} se levanta para o Último Ato: 1 PV, a próxima rodada inteira, sem poder cair. No Encerramento dela, morre.",
+        "Saved": "Não vale mais: o personagem se levantou.",
+        "Dead": "Não vale mais: o personagem morreu.",
+        "Replaced": "Trocado por um Teste novo.",
+        "Settled": "Este Teste não vale mais."
+      },
+      "Error": {
+        "Done": "Este Teste da Morte já foi resolvido.",
+        "NotYours": "Só o dono do personagem ou o Mestre responde a este Teste.",
+        "NoFate": "Sem Destino para gastar."
+      }
+    },
     "Wizard": {
       "Title": "Criação de personagem: {name}",
       "Eyebrow": "Criação de personagem",
@@ -3680,6 +3780,7 @@
         "race": "De onde você vem?",
         "class": "Como você luta?",
         "magic": "Qual é a sua Magia?",
+        "awaken": "Qual Magia desperta em você?",
         "profession": "O que você faz fora da luta?",
         "attributes": "Onde está a sua força?",
         "skills": "O que você já sabe fazer?",
@@ -3690,6 +3791,7 @@
         "race": "A raça dá atributos, PV, Destino e duas habilidades inatas. Passe o mouse para ler; clique para escolher.",
         "class": "A classe dá a base dos atributos, os PV e o Motor: a regra que só ela tem. As físicas e as mágicas escolhem Magias.",
         "magic": "A classe diz como você conjura; a Magia diz o que você conjura. Os feitiços dela entram nas suas escolhas.",
+        "awaken": "Ninguém escolhe a primeira Magia: ela desperta. Role até três vezes e fique com uma das que saírem; o que sair não muda mais. Os feitiços dela entram nas suas escolhas.",
         "profession": "A profissão é a subclasse: faz itens com aprimoramentos e tem um talento próprio.",
         "attributes": "Cinco pontos bônus para distribuir. O modificador (o atributo ÷ 3) é o que entra nos testes.",
         "skills": "Três habilidades de Combate (talentos da classe ou feitiços da Magia) e uma Geral (os talentos Gerais da classe). Clique numa habilidade para ler o texto inteiro; o quadradinho ao lado escolhe.",
@@ -3723,6 +3825,8 @@
         "race": "Escolha uma raça.",
         "class": "Escolha uma classe.",
         "magic": "Escolha a primeira Magia.",
+        "awaken": "Role o Despertar para ver a sua primeira Magia.",
+        "awakenPick": "Fique com uma das Magias que saíram (ou role de novo, se ainda puder).",
         "profession": "Escolha uma profissão, ou decida depois.",
         "attributes": "Faltam {n} ponto(s) bônus.",
         "skills": "Faltam {combat} de Combate e {general} Geral.",
@@ -3792,6 +3896,7 @@
         "NoSlotTitle": "{name} recebe a Magia mais tarde",
         "NoSlot": "A primeira Magia de {name} chega no NP {rank}. Por enquanto não há o que escolher aqui: siga para a profissão.",
         "Lead": "{name}: a vaga de Magia do NP 1. Passe o mouse sobre uma Magia para ler os feitiços dela; clique para escolher.",
+        "AwakenLead": "{name}: a vaga de Magia do NP 1. Clique numa Magia que saiu para ler os feitiços dela e ficar com ela.",
         "Decree": "{name} pede uma escolha:"
       },
       "Profession": {
@@ -4087,7 +4192,8 @@
       "GuideCommon": "{value} Yuld no 1d6 (comum: um encontro ÷ 4)",
       "GuideMob": "{value} Yuld fixos (lacaio: um encontro ÷ 6)",
       "GuideBoss": "{value} Yuld no 1d6, mais um Anima-mundi {n} e um [Material-Base] fixos (chefe)",
-      "Value": "{n} Yuld"
+      "Value": "{n} Yuld",
+      "Greed": "Mão que Atrai Ouro"
     },
     "Bestiary": {
       "Grow": "{name} cresce ({n}): [Fortalecido: {value}].",
@@ -4498,6 +4604,15 @@
       "AddFromMarket": "Pôr itens do Mercado",
       "OpenCounter": "Abrir a loja",
       "Shown": "{n} de {total} itens",
+      "Pager": {
+        "Label": "Páginas da lista",
+        "Range": "{from}–{to} de {total}",
+        "Page": "Página {n}",
+        "First": "Primeira página",
+        "Prev": "Página anterior",
+        "Next": "Próxima página",
+        "Last": "Última página"
+      },
       "Log": {
         "Buy": "<b>{actor}</b> comprou {item} no Mercado por {gold} Yuld.",
         "Give": "<b>{actor}</b> recebeu {item} do Mestre."
@@ -4548,6 +4663,75 @@
         "gear": "Diversos",
         "ticket": "Tíquetes"
       }
+    },
+    "Reaper": {
+      "Sealed": "{name}: o Ceifador selou {n} de vida (Vida Selada {total}: o PV máximo caiu para sempre).",
+      "Freed": "{name}: {n} de vida voltou (Vida Selada {total}).",
+      "Price": "{name}: o Ceifador cobra {n} da sua vida (Vida Selada {total}).",
+      "PricePaid": "Vida Selada +{n}",
+      "Paid": "O Ceifador levou a alma de {fallen}: {name} recupera 1 de vida (Vida Selada {total}).",
+      "Released": "{sealer} morreu: os {n} de vida que selou em {name} voltaram.",
+      "Taken": "{name}: o Ceifador veio buscar a alma prometida. Morte."
+    },
+    "Passage": {
+      "Phasing": "Permeando: o golpe atravessou",
+      "CutSpell": "Feitiço cortado",
+      "SpaceCut": "O espaço foi devorado: o golpe de longe não atravessa",
+      "ArrowWard": "Bênção das Flechas: nada de longe acerta",
+      "Anticipation": "Antecipação {n}"
+    },
+    "Rewind": {
+      "Dead": "{name} está morto: o tempo dos mortos não volta.",
+      "Nothing": "{name}: nada a voltar (já está como estava no começo da rodada).",
+      "Back": "{name} voltou ao começo da rodada: PV {hp}; saíram {statuses}.",
+      "Rose": "{name} voltou a estar de pé, como no começo da rodada: PV {hp}; saíram {statuses}.",
+      "Full": "{name}: a ampulheta encheu. O próximo Retrocesso transborda.",
+      "Overflow": "{name}: a ampulheta transbordou! O tempo volta para todo mundo em volta, até para os inimigos.",
+      "Asleep": "{name} cai [Adormecido], esgotado."
+    },
+    "Fortune": {
+      "Title": "Cobiça",
+      "NoYuld": "Falta Yuld: este feitiço come {need} e você tem {have}.",
+      "Paid": "{n} Yuld",
+      "Lost": "{name} caiu, e o demônio da ganância levou {n} Yuld (sobraram {left})."
+    },
+    "Foresight": {
+      "Dodged": "Previu o golpe"
+    },
+    "Beast": {
+      "Cough": "{name} tosse sangue (1d6: {n}): perde a Ação Maior deste turno."
+    },
+    "Goliath": {
+      "Unmoved": "{name} não sai do lugar: nada empurra um gigante.",
+      "Barrier": "{name}: {effect} volta a [Barreira: {n}]."
+    },
+    "Blessings": {
+      "Name": "Bênção contra {what}",
+      "Status": "{name} recebe uma bênção: imune a {statuses} até o fim da cena.",
+      "Element": "{name} recebe uma bênção: o dano de {tags} cai à metade até o fim da cena.",
+      "Hate": "Todo mundo quer o mais forte: o Ódio de {name} sobe {n} (agora {hate}).",
+      "Unworthy": "{skill} só sai contra um inimigo digno: um alvo de NP {cr} ou mais."
+    },
+    "Jackpot": {
+      "Title": "Os Carretéis",
+      "Nothing": "{name}: nada desta vez.",
+      "Pair": "{name}: um par! Sorte {n}.",
+      "Prize": "JACKPOT! {name} ganha o prêmio por {n} rodadas: PV cheio, nada derruba, feitiços sem Ódio.",
+      "Lasts": "{name}: o prêmio dura mais {n} rodada(s).",
+      "Ends": "{name}: o prêmio acabou."
+    },
+    "Quake": {
+      "NoTargets": "{skill}: ninguém no chão a até {n} Qd."
+    },
+    "Holders": {
+      "Count": "{n}/{max}",
+      "Full": "Esgotada: os {n} portadores dela já existem no mundo.",
+      "ExclusiveTaken": "Absoluta: só entra numa ficha sem outra Magia.",
+      "Tip": "Portadores no mundo, no máximo {n}: {names}",
+      "Nobody": "ninguém ainda",
+      "Exclusive": "Absoluta: quem a tem não terá outra Magia (as outras vagas fecham).",
+      "SlotClosed": "Fechada",
+      "SlotClosedHint": "{name} é Absoluta: ocupa todas as vagas de Magia."
     }
   },
   "Cancel": "Cancelar"

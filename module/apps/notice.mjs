@@ -1,5 +1,8 @@
 /**
- * What's new: once per user and release line, a short window with the news of this version (0.49: the cleanup of Log
+ * What's new: once per user and release line, a short window with the news of this version (0.51: the wave of
+ * thirteen Magias stronger than the others on purpose, the Absolute category, the limit of holders in the world and the
+ * Sun, the Black Arts, the Fairy Magic and the Counter made stronger; 0.50: the Awakening, the
+ * first Magia drawn and kept, death for good with the Death Check and the Last Act, the Market in pages; 0.49: the cleanup of Log
  * Horizon, AS REGRAS in Eternia's own words, the inherited items without the classes and places that do not exist here,
  * Analisar Objeto de Cena as a Basic skill and the trash can that asks; 0.48: the economy of the
  * Yuld, every price and drop from one model, the missions' rewards, the sales by kind and the Gatherer up to the CR; 0.47: the bestiary of
@@ -38,7 +41,7 @@
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 
 /** The release line the notice speaks about. */
-const NOTICE = "0.49";
+const NOTICE = "0.51";
 
 /** Call during the `init` hook. */
 export function registerNotice() {

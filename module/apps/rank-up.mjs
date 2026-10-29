@@ -16,6 +16,7 @@
 import { L } from "../settings.mjs";
 import { classStats, getOption } from "../helpers/character-options.mjs";
 import { magicsOf, offerGrants } from "./option-grants.mjs";
+import { exclusiveMagia } from "./magic-holders.mjs";
 import { SkillBrowser, rankUpSkills, startSkillProgress, unlocksBetween } from "./skill-browser.mjs";
 import { confirmBox } from "../helpers/dialogs.mjs";
 import { escape } from "../helpers/utils.mjs";
@@ -197,12 +198,15 @@ async function changeLines(actor, from, to) {
   const given = [];
   let magicSlot = 0;
   const owned = magicsOf(actor).length;
+  // An Absoluta takes every Magia slot (apps/magic-holders.mjs)
+  const exclusive = exclusiveMagia(actor);
   for (const grant of job?.system.grants ?? []) {
     if (grant.magic) magicSlot += 1;
     const rank = Number(grant.rank) || 1;
     if ((rank <= from) || (rank > to)) continue;
     if (grant.magic) {
-      if (owned < magicSlot) given.push({ rank, text: R("Grant.magic"), icon: "fa-solid fa-book-skull" });
+      if (exclusive) given.push({ rank, text: R("Grant.magicClosed", { name: exclusive.name }), icon: "fa-solid fa-crown" });
+      else if (owned < magicSlot) given.push({ rank, text: R("Grant.magic"), icon: "fa-solid fa-book-skull" });
       continue;
     }
     const names = (await Promise.all((grant.uuids ?? []).map(uuid => fromUuid(uuid).catch(() => null)))).filter(Boolean)

@@ -12,6 +12,7 @@ import { L } from "../settings.mjs";
 import { getOption } from "../helpers/character-options.mjs";
 import { magicsOf, offerGrants } from "../apps/option-grants.mjs";
 import { MAGIC_CATEGORIES, readDescription } from "../apps/magic-catalog.mjs";
+import { exclusiveMagia } from "../apps/magic-holders.mjs";
 import { SkillBrowser } from "../apps/skill-browser.mjs";
 import { tagLabel, term } from "../i18n/terms.mjs";
 import { toInt } from "../helpers/utils.mjs";
@@ -219,9 +220,12 @@ export async function classContext(actor, { editable }) {
       };
     };
     const slots = [];
+    // An Absoluta takes every slot: the empty ones are closed (apps/magic-holders.mjs)
+    const exclusive = exclusiveMagia(actor);
     for (const [index, rank] of ranks.entries()) {
       const m = owned[index];
-      slots.push({ rank, reached: cr >= rank, magia: m ? await view(m) : null, open: !m && (cr >= rank) });
+      slots.push({ rank, reached: cr >= rank, magia: m ? await view(m) : null, open: !m && (cr >= rank) && !exclusive,
+        closed: !m && !!exclusive, closedBy: exclusive?.name ?? "" });
     }
     for (const m of owned.slice(ranks.length)) slots.push({ rank: null, reached: true, magia: await view(m), open: false });
     magic = { slots, open: slots.filter(s => s.open).length, count: `${owned.length}/${ranks.length}` };

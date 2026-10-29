@@ -24,6 +24,9 @@ function write(holder, key, value) {
 
 /** Call at the end of the actor's prepareDerivedData. */
 export function applyConditionStats(actor) {
+  // A monster's life sealed by a death god (a character's is off its Max HP already: documents/actor.mjs)
+  const sealed = (actor.type === "monster") ? Math.max(0, Math.trunc(Number(actor.system?.["bad-status"]?.reaped) || 0)) : 0;
+  if (sealed && actor.system.health) actor.system.health.max = Math.max(0, (Number(actor.system.health.max) || 0) - sealed);
   const battle = actor.system?.["battle-status"];
   if (!battle || !rulesOn() || !actor.statuses?.size) return;
 

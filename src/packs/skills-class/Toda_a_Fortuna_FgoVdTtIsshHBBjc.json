@@ -1,0 +1,76 @@
+{
+  "name": "Toda a Fortuna",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Cobiça. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você entrega ao demônio tudo o que tem na bolsa. Um alvo a até 6 Qd: o ataque acerta sem teste; [(2 + 2×pontos gastos + Fortuna)d6 + Poder Mágico + pontos gastos×NP] de dano mágico, +1 para cada 10 Yuld gastos. Você fica com 0 Yuld. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3 e todo o seu Yuld.</p><hr><p><em>Ele era o homem mais rico da cidade. Agora é o homem que matou o dragão.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack",
+      "Curse"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "auto",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "2+2*@spent+@fortune",
+      "mod": "@spent*@cr+floor(@yuldPaid/10)",
+      "type": "magical",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/currency/coin-inset-crown-gold.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "cobica-fortuna",
+      "kind": "spends",
+      "branch": "magic",
+      "yuldCost": "@yuld",
+      "magicSpell": {
+        "id": "cobica"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(2 + 2×pontos gastos + Fortuna)d6 + [Poder Mágico] + pontos gastos×NP + Yuld gasto÷10 Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "FgoVdTtIsshHBBjc",
+  "folder": "u4PFjsbfS7LphCO9",
+  "_key": "!items!FgoVdTtIsshHBBjc"
+}

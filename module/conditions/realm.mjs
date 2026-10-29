@@ -7,6 +7,9 @@
  * comes and again in every Setup Process while it lasts, with the caster up; no Dodge Check (the area is the caster's
  * world). The values are formulas of the caster, worked out each time. A status already there with that Rating or more
  * is left alone.
+ * `notSelf: true` leaves the caster out of its own allies (the eyes that erase every magic around but their owner's);
+ * `damage: { enemies, allies, tag }` (formulas of the caster) hurts each side that much, as direct damage, every time
+ * the Realm acts (the death that pulses around the Artes Negras: the allies too).
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
@@ -15,6 +18,7 @@ import { evaluateFormula, formulaData, isFormula } from "../helpers/effect-formu
 import { statusDefinition } from "../helpers/statuses.mjs";
 import { has, rating, rulesOn } from "./rules.mjs";
 import { immunities } from "./effects.mjs";
+import { takeDamage } from "./damage.mjs";
 
 const label = id => game.i18n.localize(`ETERNIA.StatusEffect.${id}`);
 
@@ -41,7 +45,7 @@ function tokenOf(actor, scene) {
  * @param {Scene|null} scene
  * @returns {{enemies: Actor[], allies: Actor[]}}
  */
-export function realmReach(caster, radius, scene = null) {
+export function realmReach(caster, radius, scene = null, { self = true } = {}) {
   const out = { enemies: [], allies: [] };
   const own = tokenOf(caster, scene);
   if (!own) return out;
@@ -52,7 +56,9 @@ export function realmReach(caster, radius, scene = null) {
     if (!actor || actor.statuses.has("dead")) continue;
     const p = squareOf(token);
     if ((Math.abs(p.i - at.i) + Math.abs(p.j - at.j)) > radius) continue;
-    if (token === own) out.allies.push(actor);
+    if (token === own) {
+      if (self) out.allies.push(actor);
+    }
     else if (side && (token.disposition === side)) out.allies.push(actor);
     else if (side && (token.disposition === -side)) out.enemies.push(actor);
   }
@@ -86,13 +92,25 @@ async function applyRealm(caster, effect, scene = null) {
   const realm = effect.getFlag(SYSTEM_ID, "realm");
   if (!realm || caster.statuses.has("incapacitated") || caster.statuses.has("dead")) return [];
   const item = fromUuidSync(effect.getFlag(SYSTEM_ID, "source")?.itemUuid ?? "") ?? ((effect.parent instanceof Item) ? effect.parent : null);
-  const reach = realmReach(caster, Math.max(0, toInt(realm.radius)), scene);
+  const reach = realmReach(caster, Math.max(0, toInt(realm.radius)), scene, { self: !realm.notSelf });
   const lines = [];
   for (const [side, list] of [["enemies", realm.enemies], ["allies", realm.allies]]) {
     if (!list?.length) continue;
     for (const actor of reach[side]) {
       const given = await giveRule(actor, list, caster, item);
       if (given.length) lines.push(L("Realm.Rule", { name: actorName(actor), statuses: given.join(", ") }));
+    }
+  }
+  // The damage the Realm deals around (by side), as direct damage of the caster
+  for (const side of ["enemies", "allies"]) {
+    const value = realm.damage?.[side];
+    if (!value) continue;
+    const n = Math.max(0, (isFormula(value) ? evaluateFormula(value, formulaData(caster, item)) : toInt(value)) || 0);
+    if (!n) continue;
+    for (const actor of reach[side]) {
+      if (actor === caster) continue;
+      const hurt = await takeDamage(actor, n, { what: effect.name, from: caster, tag: realm.damage.tag ?? "", silent: true });
+      if (hurt) lines.push(hurt.line);
     }
   }
   return lines;

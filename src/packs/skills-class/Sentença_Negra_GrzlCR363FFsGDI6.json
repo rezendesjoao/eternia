@@ -2,7 +2,7 @@
   "name": "Sentença Negra",
   "type": "skill",
   "system": {
-    "description": "<p><strong>Artes Negras. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você marca um alvo a até 4 Qd para morrer. Teste de Precisão contra a Resistência; [(2 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Corrupção], e ele fica [Sentença: 3]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Uma marca negra aparece na testa do alvo, e começa a contar.</em></p>",
+    "description": "<p><strong>Artes Negras. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você marca um alvo a até 4 Qd para morrer. Teste de Precisão contra a Resistência; [(3 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Corrupção], e ele fica [Sentença: 2]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Uma marca negra aparece na testa do alvo, e começa a contar.</em></p>",
     "tags": [
       "Spell",
       "Magic Attack",
@@ -26,7 +26,7 @@
       "stat": "accuracy"
     },
     "damage": {
-      "dice": "2+2*@spent",
+      "dice": "3+2*@spent",
       "mod": "@spent*@cr",
       "type": "magical",
       "recovery": false
@@ -43,7 +43,7 @@
       "hitStatuses": [
         {
           "statusId": "doom",
-          "value": 3
+          "value": 2
         }
       ],
       "magicSpell": {
@@ -57,7 +57,7 @@
         },
         "spend": "all"
       },
-      "damageText": "(2+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+      "damageText": "(3+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
     }
   },
   "_stats": {

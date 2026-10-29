@@ -27,13 +27,13 @@
 			<nav class="lhmg-rail tabs" data-group="lhmg">
 				<span class="lhmg-rail-title">{{localize "ETERNIA.Sheet.MagicTab.Slots"}}<b>{{mg.count}}</b></span>
 				{{#each mg.pages as |p|}}
-				<a class="lhmg-slot{{#if p.magia}} filled{{else}}{{#if p.open}} open{{else}} locked{{/if}}{{/if}}" data-action="tab" data-group="lhmg" data-tab="{{p.id}}"{{#if p.magia}} style="--mp-cat: {{p.magia.categoryColor}}"{{/if}}>
+				<a class="lhmg-slot{{#if p.magia}} filled{{else}}{{#if p.open}} open{{else}} locked{{/if}}{{/if}}{{#if p.closed}} closed{{/if}}" data-action="tab" data-group="lhmg" data-tab="{{p.id}}"{{#if p.magia}} style="--mp-cat: {{p.magia.categoryColor}}"{{/if}}>
 					<span class="lhmg-slot-rank"><small>{{localize "ETERNIA.Sheet.CRShort"}}</small>{{#if p.rank}}{{p.rank}}{{else}}+{{/if}}</span>
 					{{#if p.magia}}
 					<span class="lhmg-slot-art"><img src="{{p.magia.img}}" alt=""></span>
 					<span class="lhmg-slot-text"><small><i class="{{p.magia.categoryIcon}}"></i>{{p.magia.categoryLabel}}</small><b>{{p.magia.name}}</b><em>{{localize "ETERNIA.Sheet.MagicTab.Learned" n=p.magia.learned total=p.magia.total}}</em></span>
 					{{else}}
-					<span class="lhmg-slot-text"><b>{{#if p.open}}{{localize "ETERNIA.Classes.SlotOpen"}}{{else}}{{localize "ETERNIA.Classes.SlotLocked" n=p.rank}}{{/if}}</b></span>
+					<span class="lhmg-slot-text"><b>{{#if p.closed}}{{localize "ETERNIA.Holders.SlotClosed"}}{{else if p.open}}{{localize "ETERNIA.Classes.SlotOpen"}}{{else}}{{localize "ETERNIA.Classes.SlotLocked" n=p.rank}}{{/if}}</b></span>
 					{{/if}}
 				</a>
 				{{/each}}
@@ -62,8 +62,8 @@
 					{{else}}
 					<div class="lhmg-open{{#if p.open}} open{{/if}}">
 						<span class="lhmg-open-rank"><small>{{localize "ETERNIA.Sheet.CRShort"}}</small>{{p.rank}}</span>
-						<h3>{{#if p.open}}{{localize "ETERNIA.Classes.SlotOpen"}}{{else}}{{localize "ETERNIA.Classes.SlotLocked" n=p.rank}}{{/if}}</h3>
-						<p>{{#if p.open}}{{localize "ETERNIA.Sheet.MagicTab.OpenHint"}}{{else}}{{localize "ETERNIA.Sheet.MagicTab.LockedHint" n=p.rank}}{{/if}}</p>
+						<h3>{{#if p.closed}}{{localize "ETERNIA.Holders.SlotClosed"}}{{else if p.open}}{{localize "ETERNIA.Classes.SlotOpen"}}{{else}}{{localize "ETERNIA.Classes.SlotLocked" n=p.rank}}{{/if}}</h3>
+						<p>{{#if p.closed}}{{localize "ETERNIA.Holders.SlotClosedHint" name=p.closedBy}}{{else if p.open}}{{localize "ETERNIA.Sheet.MagicTab.OpenHint"}}{{else}}{{localize "ETERNIA.Sheet.MagicTab.LockedHint" n=p.rank}}{{/if}}</p>
 						{{#if p.open}}{{#if mg.editable}}<button type="button" data-action="lhcl" data-op="element"><i class="fa-solid fa-hat-wizard"></i>{{localize "ETERNIA.Classes.SlotChoose"}}</button>{{/if}}{{/if}}
 					</div>
 					{{/if}}

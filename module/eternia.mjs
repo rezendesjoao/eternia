@@ -68,6 +68,8 @@ import { registerPackIndex } from "./helpers/pack-index.mjs";
 import { registerMagicCatalog } from "./apps/magic-catalog.mjs";
 import { registerPrewarm } from "./helpers/prewarm.mjs";
 import { CreationWizard, registerCreationWizard } from "./apps/creation-wizard.mjs";
+import { registerAwakening } from "./apps/awakening.mjs";
+import { registerDeath } from "./automation/death.mjs";
 import { registerCreationCatalog } from "./apps/creation-catalog.mjs";
 import { registerShopCatalog } from "./apps/starting-gear.mjs";
 
@@ -243,6 +245,10 @@ Hooks.once('init', async function () {
   registerCreationCatalog();
   registerShopCatalog();
   registerCreationWizard();
+  // The Awakening: a player's first Magia drawn, and kept
+  registerAwakening();
+  // Death: [Dying] at 0 HP, the Death Checks and the Last Act; the dead stay dead
+  registerDeath();
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();

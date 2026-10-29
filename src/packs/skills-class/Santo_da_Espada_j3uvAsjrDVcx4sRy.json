@@ -1,0 +1,176 @@
+{
+  "name": "Santo da Espada",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Magia Perdida.</strong> Não é magia. É que você corta. Feitiços, espíritos, barreiras, o espaço entre você e o inimigo: tudo tem uma linha, e você a vê. Qualquer coisa na sua mão vira lâmina, uma espada, um galho, um par de palitos, e você nunca precisou de mais que isso. Quanto mais forte o inimigo, mais você se diverte. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Única:</strong> só uma pessoa no mundo tem esta Magia de cada vez.</li><li><strong>Corte Absoluto:</strong> os seus golpes cortam o que não se corta: nada os deixa passar ao lado ([O Único], cópias, [Contragolpe], [Intangível], [Intocável], [Permeando], um protetor, o limiar de um gigante), a [Anulação] não segura e a [Barreira] quebra.</li><li><strong>Tabu, Só a Lâmina:</strong> você não aceita proteção: em combate, você não recebe [Barreira] nem [Anulação] (de ninguém, nem as suas), e a sua Defesa Mágica cai [NP].</li><li><strong>Traço, Qualquer Coisa Corta:</strong> você é imune a [Desarmado], e os seus feitiços causam +3 de dano para cada NP que o alvo tem acima do seu (contra um monstro, o Rank).</li><li><strong>Feitiços:</strong> Corte Simples e Cortar o Feitiço (NP 1), Corte no Espaço e Cortar o Espírito (NP 3), Mil Cortes (NP 5) e o feitiço supremo O Corte que Não Existe (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Corte que Não Existe pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Ele olhou para o dragão, olhou para a colher na mão e sorriu.</em></p>",
+    "tags": [],
+    "timing": "Constant",
+    "checkType": "",
+    "range": "-",
+    "target": "-",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "-",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "",
+      "stat": ""
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/weapons/swords/sword-simple-white.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "conditions": [
+            {
+              "type": "inCombat"
+            }
+          ],
+          "immune": [
+            "barrier",
+            "cancel"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Só a Lâmina",
+      "img": "icons/weapons/swords/sword-simple-white.webp",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.defense.magic.mod",
+            "type": "add",
+            "value": "-@cr",
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "AntbEN7Q2yD3WmnO",
+      "_key": "!items.effects!j3uvAsjrDVcx4sRy.AntbEN7Q2yD3WmnO"
+    },
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "trait": {
+            "magia": "santo-da-espada",
+            "pierce": {
+              "all": true,
+              "cancel": true,
+              "barrier": true
+            },
+            "rankAbove": "3"
+          },
+          "immune": [
+            "disarmed"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Qualquer Coisa Corta",
+      "img": "icons/weapons/swords/sword-simple-white.webp",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "G3AibFWEcFICMQG1",
+      "_key": "!items.effects!j3uvAsjrDVcx4sRy.G3AibFWEcFICMQG1"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "identifier": "santo-da-espada-santo-da-espada",
+      "kind": "bends",
+      "branch": "magic",
+      "magic": {
+        "id": "santo-da-espada",
+        "category": "lost",
+        "tagline": "Técnica pura: corta feitiço, espírito e o próprio espaço, com o que estiver na mão.",
+        "holders": 1
+      },
+      "choiceOnly": true
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "0.51.0",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "j3uvAsjrDVcx4sRy",
+  "folder": "eSZGQY4nb0BAuJln",
+  "_key": "!items!j3uvAsjrDVcx4sRy"
+}

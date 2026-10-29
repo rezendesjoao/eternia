@@ -29,7 +29,10 @@ export const LINKABLE = {
   petrified: {}, pacified: {}, agony: { rated: true }, amnesia: {}, nightmare: { rated: true }, impetus: { rated: true },
   combo: { rated: true }, untouchable: {}, inversion: {}, rhythm: { rated: true }, clones: { rated: true },
   // The sickness of the bestiary's expansion (0.47)
-  contagion: { rated: true }
+  contagion: { rated: true },
+  // The wave of 0.51 (the Magias that are stronger on purpose)
+  reaped: { rated: true }, ironBlood: { rated: true }, phasing: {}, anticipation: { rated: true }, erased: {}, gaze: {},
+  hourglass: { rated: true }, jackpot: { rated: true }, luck: { rated: true }, goliath: { rated: true }, quake: { rated: true }
 };
 
 /** Extra names some texts use. */
@@ -50,5 +53,7 @@ export const SYNONYMS = {
   petrify: "petrified", petrificação: "petrified", pedra: "petrified", pacify: "pacified", pacificar: "pacified",
   "dor": "agony", amnésia: "amnesia", esquecimento: "amnesia", pesadelos: "nightmare", ímpeto: "impetus",
   "sequência": "combo", intocáveis: "untouchable", inverter: "inversion", invertido: "inversion", dança: "rhythm",
-  clone: "clones", cópias: "clones"
+  clone: "clones", cópias: "clones",
+  "vida selada": "reaped", "ferro do sangue": "ironBlood", permear: "phasing", permeação: "phasing", apagar: "erased",
+  "magia apagada": "erased", "olhos abertos": "gaze", "prêmio": "jackpot", "abalo sísmico": "quake"
 };
