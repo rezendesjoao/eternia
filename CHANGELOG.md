@@ -1,5 +1,60 @@
 # Changelog
 
+## 0.49.0 — 2026-10-28
+
+A limpeza do Log Horizon: o que o jogador lê passa a dizer o que a Eternia faz (a revisão antes da 1.0,
+`Eternia-Revisao-1.0.md`, seção 3).
+
+### Adicionado
+- **A migração `content` (versão 3):** as cópias dos itens mudados que ainda têm o texto da 0.48 (nunca editadas, pela
+  impressão digital do texto) pegam o texto, as tags, os poderes e os efeitos do compêndio, e as fichas recebem de novo
+  as habilidades dos poderes; as editadas à mão só pegam o Anima-mundi das receitas, a chave nova do bônus de dano e
+  perdem o NH de habilidade do Log Horizon. Os personagens que têm as Básicas recebem Analisar Objeto de Cena.
+- **A migração `bestiary` (versão 5):** as criaturas já postas nos mundos pegam os textos consertados (a moeda e o dano
+  escrito das duas feras com nome).
+- **O aviso de novidades da 0.49.**
+
+### Alterado
+- **AS REGRAS:** o ÍNDICE e as páginas I a VIII, que eram a tradução do resumo do Log Horizon TRPG v0.3 (com "compre o
+  livro", Elder Tale, o NP por Tíquete de Registro, o corpo a corpo no mesmo quadrado, o Penetrante sem Anulação), foram
+  reescritos em texto próprio, curtos e com links para o Guia do Jogador. A VII virou Dicas da Eternia e a VIII, as
+  Configurações e regras opcionais. O V.f explica a linha de receita dos itens com nome; o V.e fala dos quatro tíquetes
+  como recompensas do Mestre. IX diz 53 condições; X e XIV chamam o material de Anima-mundi; XI e XII dizem que os
+  feitiços entram nas escolhas de Combate.
+- **101 itens herdados:** sem as restrições de classe ("Apenas &lt;Guardião&gt;", "Exclusivo de Kannagi"); os 64 cujo
+  efeito dependia de uma habilidade, classe, tag ou regra do Log Horizon passam a fazer o efeito sozinhos ([Recuperação],
+  bônus de rolagem, [Concentrado] e outros); 30 textos de ambientação reescritos para o mundo da Eternia; os 3 poderes
+  com o NH ligado a uma habilidade do Log Horizon ficam com o limite fixo; o Dispositivo de Autodestruição saiu de
+  venda (sem a restrição, seria o melhor ataque da loja inicial).
+- **As receitas** dos itens com nome chamam o Anima-mundi pelo nome ([Anima-mundi N] no lugar de [Catalisador Mágico N]
+  e dos "[ N]" sem nome), e a tag [Magic Catalyst N] aparece como Anima-mundi N.
+- **Analisar Objeto de Cena** é uma habilidade Básica (estava como Combate no pacote das Básicas, e ninguém a recebia;
+  sem ela o Desarmar Objeto de Cena não funcionava); os 126 NPCs prontos a têm.
+- **O Guia do Jogador:** os feitiços vêm das escolhas de Combate (capítulos 3 e 6); saem as tags [Treinamento] e
+  [Estilo], que nenhuma habilidade tem; o estágio III dos Celestiais é Geral (capítulo 4); o [Aflito] segura sete estados
+  (capítulo 13); o [Atordoado] impede as reações (capítulo 14); o exemplo dos Cães com os valores da 0.48 (capítulo 15).
+- **Os textos de classe, Motor e Magia:** os feitiços entram nas escolhas de Combate (14 classes, 6 Motores); Artes
+  Negras, Magia Seith e Sombras listam os feitiços que existem.
+- **A interface:** a Subclasse se chama Profissão em todo lugar; as tags Brinco e Cintura traduzidas; as tags [Humano],
+  [Aventureiro] e [Nativo] sem o Log Horizon; a dica do [Atordoado]; a linha das habilidades no assistente.
+- **A lixeira da ficha** pergunta antes de apagar um item, uma habilidade ou uma Magia.
+- **As raças antigas** dizem na descrição que saíram e quem tomou o lugar delas, como as classes antigas.
+- **O compêndio Raças e Classes** fica na pasta Eternia (estava na pasta Mestre, mas os jogadores o abrem).
+- **A moeda que sobrava:** o Floco-Vivo, as Espigas de Prata e a Pena de Geada dizem Yuld; o Bote do Uivo Violeta e a
+  Mordida do Peso da Velha Cicatriz escrevem o dano que rolam.
+- **Duas janelas do Mestre:** a migração e o Guia no Diário esperam de verdade a outra janela antes de rodar (a espera
+  começava depois da migração).
+- **README, LICENSE e créditos:** o trecho dos itens deixados em Yuld, as 53 condições, os limites conhecidos (o mapa
+  como regra, o Destino, as Gerais, o NP 11 em diante) e os créditos de Fairy Tail, Nanatsu no Taizai, Alicization, das
+  traduções e das artes geradas.
+- **As ferramentas:** `npm run check:i18n` sem o falso positivo e `npm run packs:effects` sem o erro do `foundry`.
+
+### Removido
+- **A Referência Rápida** do compêndio de regras (a folha de consulta do Log Horizon em inglês e as imagens dela,
+  `assets/rules/`): o capítulo 20 do Guia faz esse papel.
+- **As Habilidades de Montaria do navegador de habilidades:** entravam de graça como Básicas, melhores que Correr, sem
+  regra de montaria. O compêndio continua lá.
+
 ## 0.48.0 — 2026-10-28
 
 A economia do Yuld: a moeda nova e todo preço e todo drop tirados de um modelo só (docs/matematica.md, seção 9).
