@@ -1,0 +1,338 @@
+/* ==========================================================================
+   The parties (module/party/): the rules of the floating castle's parties, in the look of Eternia. The invitation is
+   the system's panel (css/duels.css: the two faces with the gold medallion, here a handshake, between them); the
+   party's frame is a small parchment card at the top left of the screen, with the green band and a row per member
+   (the portrait in the gold ring, the leader's crown, the HP bar, the NP and where it is); the party's window is a
+   parchment window like the Hall of Fame's; the notes in the chat have the dark band of the system's cards.
+   ========================================================================== */
+
+#eternia-party,
+.application.eternia-party,
+.chat-message .eternia-party-note {
+  --pt-green: #1f5137;
+  --pt-green-dark: #173f2b;
+  --pt-green-deep: #0e2519;
+  --pt-green-light: #2d6a49;
+  --pt-gold: #c9a24a;
+  --pt-gold-light: #f2db94;
+  --pt-gold-dark: #8a6a25;
+  --pt-cream: #f8efd5;
+  --pt-paper: #fffaf0;
+  --pt-line: #dacba8;
+  --pt-ink: #2b2116;
+  --pt-soft: #6b5c44;
+  --pt-red: #8c2f2f;
+  --pt-serif: "Eternia Eczar", "Eczar", Georgia, serif;
+  --pt-body: "Eternia Gelasio", "Gelasio", Georgia, serif;
+  --pt-sans: "Signika", "Roboto", sans-serif;
+  --pt-ring: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39, 0 2px 6px rgba(0, 0, 0, 0.32);
+}
+
+/* The HP bars (the frame and the window) */
+:is(#eternia-party, .eternia-party) .pt-hp {
+  position: relative;
+  display: block;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: rgba(43, 33, 22, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(43, 33, 22, 0.12);
+}
+:is(#eternia-party, .eternia-party) .pt-hp i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #2d7a4c, #5fb36f);
+  transition: width 0.4s ease-out;
+}
+:is(#eternia-party, .eternia-party) .pt-hp.mid i { background: linear-gradient(90deg, #a77a1e, #e0b24a); }
+:is(#eternia-party, .eternia-party) .pt-hp.low i { background: linear-gradient(90deg, #8c2f2f, #d0584c); }
+
+/* The portraits in the gold ring, with the leader's crown */
+:is(#eternia-party, .eternia-party) .pt-face {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4);
+  box-shadow: var(--pt-ring);
+}
+:is(#eternia-party, .eternia-party) .pt-face img { width: 100%; height: 100%; border: none; border-radius: 50%; object-fit: cover; }
+:is(#eternia-party, .eternia-party) .pt-crown {
+  position: absolute;
+  top: -7px;
+  right: -5px;
+  color: var(--pt-gold);
+  font-size: 11px;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
+}
+
+/* The party's frame (the top left of the screen)
+   ------------------------------------------------------------------------ */
+#eternia-party.pt-frame {
+  position: fixed;
+  top: 64px;
+  /* Beside the two columns of the scene controls (the layers and their tools) */
+  left: var(--pt-frame-left, 106px);
+  z-index: 60;
+  width: 214px;
+  border-radius: 7px;
+  background: #f3eee2 url("../assets/sheet/parchment.webp") center / cover;
+  box-shadow: 0 0 0 1px rgba(201, 162, 74, 0.6), 0 0 0 3px rgba(16, 41, 27, 0.9), 0 0 0 4px rgba(201, 162, 74, 0.3), 0 10px 24px rgba(8, 20, 13, 0.4);
+  color: var(--pt-ink);
+  font-family: var(--pt-sans);
+  pointer-events: auto;
+}
+#eternia-party .pt-frame-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 28px;
+  padding: 0 4px 0 9px;
+  border-bottom: 1px solid rgba(201, 162, 74, 0.7);
+  border-radius: 7px 7px 0 0;
+  background: linear-gradient(135deg, #245a3e 0%, #163a28 55%, #0e2519 100%);
+  color: var(--pt-cream);
+  font: 600 13px/1 var(--pt-serif);
+}
+#eternia-party.folded .pt-frame-head { border-bottom: none; border-radius: 7px; }
+#eternia-party .pt-frame-head > i { color: var(--pt-gold-light); font-size: 11px; }
+#eternia-party .pt-frame-head b { color: var(--pt-gold-light); font: 700 11px/1 var(--pt-sans); }
+#eternia-party .pt-frame-head button {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pt-gold-light);
+  font-size: 10px;
+  cursor: pointer;
+}
+#eternia-party .pt-frame-head button:first-of-type { margin-left: auto; }
+#eternia-party .pt-frame-head button:hover { color: #fff; }
+#eternia-party .pt-frame-list { display: grid; gap: 1px; margin: 0; padding: 4px 4px 5px; list-style: none; }
+#eternia-party .pt-member {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 6px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#eternia-party .pt-member:hover { background: rgba(31, 81, 55, 0.1); }
+#eternia-party .pt-member.mine { background: rgba(201, 162, 74, 0.14); }
+#eternia-party .pt-member.away, #eternia-party .pt-member:not(.here) { opacity: 0.72; }
+#eternia-party .pt-member.down .pt-face { filter: grayscale(0.6); }
+#eternia-party .pt-member.dead .pt-face { filter: grayscale(1); }
+#eternia-party .pt-info { display: grid; flex: 1; gap: 3px; min-width: 0; }
+#eternia-party .pt-name {
+  overflow: hidden;
+  color: var(--pt-green-dark);
+  font: 600 12.5px/1.15 var(--pt-serif);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#eternia-party .pt-info small { display: flex; align-items: baseline; gap: 6px; color: var(--pt-soft); font: 600 9.5px/1 var(--pt-sans); }
+#eternia-party .pt-info small b { color: var(--pt-gold-dark); letter-spacing: 0.04em; }
+#eternia-party .pt-info small em { overflow: hidden; margin-left: auto; font-style: italic; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
+#eternia-party .pt-face { width: 30px; height: 30px; }
+
+/* The party's window
+   ------------------------------------------------------------------------ */
+.application.eternia-party { min-width: 640px; min-height: 480px; }
+.application.eternia-party .window-content {
+  padding: 0;
+  overflow: hidden;
+  background: #f3eee2 url("../assets/sheet/parchment.webp") center / cover;
+  color: var(--pt-ink);
+}
+.eternia-party .pt-body { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: 100%; min-height: 0; }
+.eternia-party .pt-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 18px 11px;
+  border-bottom: 1px solid rgba(186, 169, 145, 0.7);
+  background: radial-gradient(120% 140% at 0% 0%, rgba(255, 255, 255, 0.5), transparent 60%);
+}
+.eternia-party .pt-emblem {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, var(--pt-green-light), var(--pt-green-dark));
+  box-shadow: 0 0 0 2px var(--pt-gold), 0 0 0 4px var(--pt-green-deep), 0 0 0 5px rgba(201, 162, 74, 0.5), 0 4px 10px rgba(0, 0, 0, 0.35);
+  color: var(--pt-gold-light);
+  font-size: 18px;
+}
+.eternia-party .pt-head-text { flex: 1; min-width: 0; }
+.eternia-party .pt-eyebrow { color: var(--pt-gold-dark); font: 700 10px/1.2 var(--pt-sans); letter-spacing: 0.28em; text-transform: uppercase; }
+.eternia-party .pt-head h2 { margin: 2px 0 1px; padding: 0; border: none; color: var(--pt-green-dark); font: 600 24px/1.1 var(--pt-serif); }
+.eternia-party .pt-head p { margin: 0; color: var(--pt-soft); font: italic 13px/1.35 var(--pt-body); }
+.eternia-party .pt-me { display: grid; gap: 3px; font: 600 10px/1 var(--pt-sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--pt-soft); }
+.eternia-party .pt-me select { min-width: 160px; }
+.eternia-party .pt-main { display: grid; grid-template-columns: 1fr 1fr; min-height: 0; }
+.eternia-party .pt-col { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; min-height: 0; padding: 10px 14px; }
+.eternia-party .pt-col + .pt-col { border-left: 1px solid rgba(186, 169, 145, 0.7); }
+/* The invite column: the title, the search, the list */
+.eternia-party .pt-col.invite { grid-template-rows: auto auto minmax(0, 1fr); }
+.eternia-party .pt-col-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 8px;
+  padding: 0 0 5px;
+  border-bottom: 1px solid rgba(201, 162, 74, 0.6);
+  color: var(--pt-green-dark);
+  font: 600 15px/1.2 var(--pt-serif);
+}
+.eternia-party .pt-col-title i { color: var(--pt-gold-dark); font-size: 12px; }
+.eternia-party :is(.pt-members, .pt-candidates, .pt-all) { display: grid; align-content: start; gap: 6px; margin: 0; padding: 0; overflow-y: auto; list-style: none; }
+.eternia-party .pt-member,
+.eternia-party .pt-candidate {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 9px;
+  border: 1px solid var(--pt-line);
+  border-radius: 7px;
+  background: linear-gradient(180deg, rgba(255, 250, 240, 0.92), rgba(241, 229, 200, 0.92));
+}
+.eternia-party .pt-member.self { border-color: var(--pt-gold); box-shadow: inset 0 0 0 1px rgba(201, 162, 74, 0.35); }
+.eternia-party .pt-member.down .pt-face { filter: grayscale(0.6); }
+.eternia-party .pt-member.dead { opacity: 0.6; }
+.eternia-party :is(.pt-member, .pt-candidate).away { opacity: 0.75; }
+.eternia-party .pt-member a.pt-face { cursor: pointer; }
+.eternia-party .pt-info { display: grid; flex: 1; gap: 4px; min-width: 0; }
+.eternia-party .pt-name { overflow: hidden; color: var(--pt-green-dark); font: 600 14px/1.15 var(--pt-serif); text-overflow: ellipsis; white-space: nowrap; }
+.eternia-party .pt-name em {
+  margin-left: 6px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: var(--pt-green);
+  color: var(--pt-cream);
+  font: 600 9px/1.35 var(--pt-sans);
+  font-style: normal;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: 2px;
+}
+.eternia-party .pt-name em.you { background: var(--pt-gold-dark); }
+.eternia-party .pt-info small { display: flex; align-items: baseline; gap: 7px; color: var(--pt-soft); font: 600 10.5px/1 var(--pt-sans); }
+.eternia-party .pt-info small b { color: var(--pt-gold-dark); }
+.eternia-party .pt-info small em { margin-left: auto; font-style: italic; font-weight: 400; }
+.eternia-party .pt-actions { display: flex; gap: 4px; }
+.eternia-party .pt-icon {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #b19a55;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #fffaf0, #ead9ae);
+  color: var(--pt-gold-dark);
+  font-size: 11px;
+  cursor: pointer;
+}
+.eternia-party .pt-icon:hover { background: linear-gradient(180deg, #fffaf0, #f2db94); color: #3d2c08; }
+.eternia-party .pt-icon.danger { color: var(--pt-red); }
+.eternia-party .pt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  height: 28px;
+  margin: 0;
+  padding: 0 12px;
+  border-radius: 6px;
+  font: 600 12px/1 var(--pt-sans);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.eternia-party .pt-btn.primary {
+  border: 1px solid var(--pt-green-deep);
+  background: linear-gradient(180deg, var(--pt-green-light), var(--pt-green-dark));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 0 0 1px rgba(201, 162, 74, 0.45);
+  color: var(--pt-cream);
+}
+.eternia-party .pt-btn.primary i { color: var(--pt-gold-light); }
+.eternia-party .pt-btn.primary:hover:not(:disabled) { background: linear-gradient(180deg, #357a55, var(--pt-green)); }
+.eternia-party .pt-btn.ghost { border: 1px solid #b19a55; background: linear-gradient(180deg, #fffaf0, #ead9ae); color: #3d2c08; }
+.eternia-party .pt-btn.ghost:hover:not(:disabled) { background: linear-gradient(180deg, #fffaf0, #f2db94); }
+.eternia-party .pt-btn.danger { color: var(--pt-red); }
+.eternia-party .pt-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.eternia-party .pt-col-foot { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 10px; }
+.eternia-party .pt-search {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 8px;
+  padding: 0 9px;
+  border: 1px solid #b19a55;
+  border-radius: 6px;
+  background: rgba(255, 250, 240, 0.85);
+  color: var(--pt-soft);
+}
+.eternia-party .pt-search input { flex: 1; height: 28px; border: none; background: transparent; box-shadow: none; }
+.eternia-party .pt-dot { width: 9px; height: 9px; border-radius: 50%; background: #b5a993; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15); }
+.eternia-party .pt-dot.on { background: #3fa35a; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 0 6px rgba(63, 163, 90, 0.7); }
+.eternia-party .pt-empty {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 26px 14px;
+  color: var(--pt-soft);
+  font: italic 13px/1.4 var(--pt-body);
+  text-align: center;
+}
+.eternia-party .pt-empty i { color: var(--pt-gold-dark); font-size: 22px; }
+.eternia-party .pt-empty strong { color: var(--pt-green-dark); font: 600 16px/1.2 var(--pt-serif); font-style: normal; }
+.eternia-party .pt-empty.small { padding: 14px 8px; }
+.eternia-party .pt-empty.small i { font-size: 15px; }
+.eternia-party .pt-gm { display: grid; grid-template-rows: auto minmax(0, 1fr); min-height: 0; padding: 10px 14px; }
+.eternia-party .pt-form { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; color: var(--pt-soft); font: italic 13px/1.35 var(--pt-body); }
+.eternia-party .pt-form span { flex: 1; }
+.eternia-party .pt-party { padding: 8px 10px; border: 1px solid var(--pt-line); border-radius: 8px; background: rgba(255, 250, 240, 0.6); }
+.eternia-party .pt-party > header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; color: var(--pt-green-dark); }
+.eternia-party .pt-party > header i { color: var(--pt-gold-dark); }
+.eternia-party .pt-party > header strong { font: 600 15px/1.2 var(--pt-serif); }
+.eternia-party .pt-party > header small { color: var(--pt-soft); font: 600 11px/1 var(--pt-sans); }
+.eternia-party .pt-party > header button { margin-left: auto; }
+.eternia-party .pt-members.compact { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.eternia-party .pt-rules {
+  margin: 0;
+  padding: 9px 18px 11px;
+  border-top: 1px solid rgba(186, 169, 145, 0.7);
+  background: rgba(31, 81, 55, 0.06);
+}
+.eternia-party .pt-rules h4 { display: flex; align-items: center; gap: 6px; margin: 0 0 4px; color: var(--pt-green-dark); font: 600 13px/1.2 var(--pt-serif); }
+.eternia-party .pt-rules h4 i { color: var(--pt-gold-dark); font-size: 11px; }
+.eternia-party .pt-rules ul { display: grid; gap: 2px; margin: 0; padding-left: 18px; color: var(--pt-ink); font: 12px/1.4 var(--pt-body); }
+
+/* The notes in the chat (a member came, left, the lead passed) */
+.chat-message .eternia-party-note {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px;
+  border: 1px solid rgba(201, 162, 74, 0.7);
+  border-radius: 7px;
+  background: linear-gradient(135deg, #245a3e 0%, #163a28 55%, #0e2519 100%);
+  color: var(--pt-cream);
+  font: 13px/1.35 var(--pt-body);
+  text-shadow: none;
+}
+.chat-message .eternia-party-note i { color: var(--pt-gold-light); font-size: 13px; }
+@media (prefers-reduced-motion: reduce) {
+  :is(#eternia-party, .eternia-party) .pt-hp i { transition: none; }
+}

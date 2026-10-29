@@ -53,6 +53,7 @@ export class EterniaItem extends Item {
    * icons so no custom art needs to ship with the system.
    */
   static TICKET_PRESETS = {
+    Evolution: { name: "Evolution Ticket", img: "icons/sundries/documents/document-sealed-signatures-red.webp" },
     Treasure: { name: "Treasure Ticket", img: "icons/sundries/flags/banner-pink.webp" },
     Fate: { name: "Fate Ticket", img: "icons/sundries/flags/banner-green.webp" },
     Connection: { name: "Connection Ticket", img: "icons/sundries/flags/banner-purple.webp" },

@@ -17,6 +17,8 @@
  * way on the scenes get their look and side back, hidden.
  * Version 5 (0.49): the texts the cleanup fixed: the money that was still Shia or gold, and the two named beasts whose
  * text kept the damage of before 0.42 (the dice were right). Only the old words are replaced.
+ * Version 6 (0.53, experience/award.mjs): the XP each creature gives (`flags.eternia.xp`), the compendium's, on the
+ * copies that have none yet (an XP the GM gave stays).
  */
 import { SYSTEM_ID } from "../settings.mjs";
 
@@ -354,7 +356,23 @@ async function run(done = 0) {
   if (done < 3) await blows044(pack, `Compendium.${SYSTEM_ID}.bestiary.Actor.`);
   if (done < 4) await disguise047(pack, `Compendium.${SYSTEM_ID}.bestiary.Actor.`);
   if (done < 5) await texts049(pack, `Compendium.${SYSTEM_ID}.bestiary.Actor.`);
+  if (done < 6) await xp053(pack, `Compendium.${SYSTEM_ID}.bestiary.Actor.`);
   return true;
+}
+
+/** Version 6: the compendium's XP on the world's copies without one. */
+async function xp053(pack, prefix) {
+  const index = await pack.getIndex({ fields: [`flags.${SYSTEM_ID}.xp`] });
+  let actors = 0;
+  for (const actor of game.actors) {
+    const uuid = actor._stats?.compendiumSource;
+    if ((actor.type !== "monster") || !uuid?.startsWith(prefix)) continue;
+    const xp = index.get(uuid.slice(prefix.length))?.flags?.[SYSTEM_ID]?.xp;
+    if (!Number.isFinite(Number(xp)) || (actor._source.flags?.[SYSTEM_ID]?.xp !== undefined)) continue;
+    await actor.update({ [`flags.${SYSTEM_ID}.xp`]: Number(xp) }, { eterniaMigration: true });
+    actors++;
+  }
+  console.log(`${SYSTEM_ID} | Bestiary: ${actors} monsters with the XP of 0.53`);
 }
 
 /** Version 5: [monster, item (null: the monster's own text), the old words, the new]. */
@@ -440,4 +458,4 @@ async function renames(pack) {
   return true;
 }
 
-export const BESTIARY_MIGRATION = { id: "bestiary", setting: "bestiaryMigrationVersion", version: 5, run };
+export const BESTIARY_MIGRATION = { id: "bestiary", setting: "bestiaryMigrationVersion", version: 6, run };

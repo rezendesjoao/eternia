@@ -5,9 +5,21 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.52.0
+## Versão 0.53.0
 
-- **Novo na 0.52.0: o Grimório, o Hall da Fama e os duelos.** Três botões novos na barra dos tokens, logo abaixo do
+- **Novo na 0.53.0: a evolução por XP e os grupos.** O NP agora sobe com a experiência, o **XP**: cada monstro dá o XP
+  escrito na ficha dele (o peso dele num encontro, como os itens deixados: um comum do NP dá 10 × (NP + 4), o lacaio ⅔,
+  o chefe 4 comuns, o chefe solo 6), e quando o total chega ao número do NP seguinte o personagem sobe sozinho, na hora,
+  com o cartão no chat, "NP 3!" sobre o token e, na tela do jogador, o aviso do NP novo com **Escolher agora**. Do NP 1
+  ao 2 são 6 monstros comuns de NP 1 para quem luta sozinho, e cada NP pede um a mais. Os **grupos** seguem as regras
+  dos de Aincrad: botão direito no token de outro jogador, **Convidar para o grupo**, um minuto para aceitar; quem
+  convida é o líder (convida, tira, passa a liderança), até seis. O XP dos monstros que alguém do grupo derruba vai
+  para todos do grupo na cena, com +10% por membro e dividido pelo NP; um chefe dá XP a todos da luta. Monstro acima do
+  seu NP dá mais, abaixo dá menos, e 4 NP abaixo não dá nada. O Mestre dá **Tíquetes de Evolução** (100 XP cada) pelo
+  que se aprende sem luta, que o jogador usa, dá ou vende; o Alquimista e o Cozinheiro fazem **poções e comidas de
+  XP**, caras de propósito. A barra de XP fica no cabeçalho da ficha (e numa faixa fina no HUD de ações), o quadro do
+  grupo no canto da tela, e o botão **Grupo** na barra dos tokens (veja [A evolução](#a-evolução) e [Os grupos](#os-grupos)).
+- **Desde a 0.52.0: o Grimório, o Hall da Fama e os duelos.** Três botões novos na barra dos tokens, logo abaixo do
   Mercado. O **Grimório** abre a lista inteira das Magias do mundo para qualquer um ler (os feitiços por NP, o Traço, o
   Tabu e quantos portadores cada uma pode ter; as do personagem levam um livrinho dourado). O **Hall da Fama** mostra as
   pessoas de quem o mundo fala e por quê: o Mestre põe um personagem lá (arrastando, pelo menu da lista de atores ou com
@@ -340,9 +352,10 @@ molduras finas e rótulos em versalete. Cada aba tem o ícone e o nome, e um nú
   número de dados, roláveis com um clique; e os estados ativos, com o botão de remover um Estado Negativo gastando
   Destino.
 - **Cabeçalho:** nome, raça · classe · profissão (cada uma abre o seu item), Destino em estrelas (clique soma 1, botão
-  direito tira 1) e o NP num brasão, com o botão de subir de NP (e, no NP 1, o da pena, que abre o assistente de
-  criação). Subir pelo botão ou digitando outro NP no brasão (vários de uma vez, ou para baixo) abre o mesmo resumo
-  antes de mudar: os Atributos Base antes e depois (com os modificadores que mudam), os PV, as escolhas de habilidade,
+  direito tira 1), a barra de XP até o próximo NP e o NP num brasão (no NP 1, o botão da pena abre o assistente de
+  criação). O NP sobe sozinho com o XP (veja [A evolução](#a-evolução)); o Mestre ainda põe um personagem num NP pelo
+  botão ao lado do brasão ou digitando outro NP nele (vários de uma vez, ou para baixo), com o mesmo resumo antes de
+  mudar: os Atributos Base antes e depois (com os modificadores que mudam), os PV, as escolhas de habilidade,
   os talentos que liberam e o que a classe dá em cada NP (o Caminho, as Magias, a Dedicação, o Ápice). Confirmado, o
   chat registra, vêm as escolhas da classe e o navegador abre com as escolhas contadas; descendo, dá para desfazer as
   escolhas feitas acima do NP novo. Cancelar deixa o NP como estava.
@@ -457,8 +470,9 @@ e dos itens iniciais (o Yuld deles volta), e o resto da ficha fica.
 
 A mesma organização num tamanho pequeno (580×610): PV, Barreira, Destino e multiplicador de Ódio no estandarte,
 defesas, Esquiva e Resistência roláveis; habilidades agrupadas pelo Momento, com o teste, o dano e o limite à
-vista; os itens deixados (veja [O bestiário](#o-bestiário)); efeitos, estados e descrição. Todo campo é editável na
-própria ficha.
+vista; os itens deixados (veja [O bestiário](#o-bestiário)), com o XP que a criatura dá no alto da aba (o lápis do
+Mestre muda o valor, e **Dar o XP** o entrega à mão; veja [A evolução](#a-evolução)); efeitos, estados e descrição.
+Todo campo é editável na própria ficha.
 
 ## O chat
 
@@ -577,6 +591,56 @@ token dele (**Desafiar para um duelo**) ou pela Arena, e escolhe o modo:
 - **O Mestre** decide um duelo pela barra (a vitória de um lado, empate ou cancelar, que não conta), anula um duelo na
   Arena (o ranking é refeito sem ele) ou zera tudo. As configurações do mundo ligam os duelos, o modo Até a Morte e o
   tempo da contagem.
+
+## A evolução
+
+O NP sobe com o **XP** desde a 0.53 (`module/experience/`; a conta e as simulações na seção 10 de
+`docs/matematica.md`).
+
+- **A tabela:** do NP ao seguinte são 10 × (NP + 4) × (NP + 5) XP (300 do NP 1 ao 2, 900 do 5 ao 6, 2.100 do 10 ao
+  11): NP + 5 monstros comuns do NP para quem luta sozinho. O XP fica em `system.infos.xp` (o total; um personagem de
+  antes começa o NP dele no número da tabela).
+- **O XP dos monstros:** cada criatura do bestiário traz o seu em `flags.eternia.xp`, pelo peso no encontro (o comum 1,
+  o lacaio ⅔, os mais fortes 4/3, a tropa 2, o chefe 4, o chefe solo 6; a Fenda, a cena inteira, quando fecha; a fera
+  com nome, um chefe do NP dela). Um monstro feito à mão vale o comum do NP dele pelas tags. A aba Itens Deixados mostra
+  o XP, com o lápis do Mestre para mudar e **Dar o XP** para entregar à mão.
+- **Quem leva:** quem derrubou (o mesmo de quem leva os itens), e o que uma criatura [Dominada] derruba é de quem a
+  domina. Sozinho, tudo; em grupo, todos do grupo na cena, +10% por membro além do primeiro, dividido pelo NP; um chefe,
+  todos os personagens da luta dele. A diferença de NP pesa cada parte: +20% por NP acima (até +50%), −20%, metade e um
+  quinto para 1, 2 e 3 abaixo, nada para 4 ou mais. O que chegou depois do começo do combate não dá XP; um Desgarrado
+  salvo dá o XP a quem o salvou.
+- **O NP sobe sozinho:** o cartão de NP no chat (agora com o XP), o anel dourado e "NP N!" sobre o token na tela de
+  todos, e na tela do jogador o aviso com **Escolher agora** (o que a classe dá e o navegador de habilidades) ou
+  **Depois** (as abas com o número dourado). O brasão do NP não se edita na ficha do jogador; o Mestre ainda põe um
+  personagem num NP (o botão, ou o NP digitado), e o XP vai junto.
+- **A ficha:** a barra de XP no cabeçalho, ao lado do brasão, com o total, o que falta, os bônus e os Tíquetes na dica;
+  o Mestre clica nela para dar ou tirar XP e dar Tíquetes. "+N XP" sobe sobre o token, e o cartão de XP de cada monstro
+  vai sussurrado aos jogadores de quem ganhou, com o Desfazer do Mestre.
+- **O Tíquete de Evolução** (tíquete do Inventário, 100 XP): o Mestre dá (o "+" da ficha, ou a caixa da barra de XP); o
+  jogador usa um ou vários, dá a outro ou vende por 100 Yuld ([Valioso]).
+- **Os bônus de XP:** o Tônico do Aprendiz (+25%), o Elixir da Sabedoria (+50%) e a Essência do Herói (+100%), do
+  Alquimista, e o Ensopado do Veterano (+20%) e o Festim do Campeão (+40%), do Cozinheiro, cada um nos próximos 10
+  monstros que derem XP: uma poção e uma comida por vez, somando; o efeito fica na aba Efeitos até os monstros acabarem.
+  O Potente da Oficina soma 5 monstros; o Banquete serve a comida ao grupo.
+
+## Os grupos
+
+Os grupos seguem as regras dos de Aincrad, no visual da Eternia (`module/party/`).
+
+- **Formar:** botão direito no token do personagem de outro jogador, **Convidar para o grupo** (ou a lista do botão
+  **Grupo**); o jogador dele tem um minuto para Entrar ou Recusar. Quem convida vira o líder. Até seis.
+- **O líder** convida, tira alguém e passa a liderança (também pelo botão direito no token de um membro); qualquer um
+  sai; o líder que sai passa a liderança para quem entrou depois dele, e o grupo que fica com um se desfaz. Cada mudança
+  deixa uma nota no chat para o grupo.
+- **O que o grupo faz:** divide o XP dos monstros entre quem está na cena (veja [A evolução](#a-evolução)); o Banquete do
+  Cozinheiro alimenta o grupo de quem usa, na cena (antes, todos os personagens dos jogadores do mundo).
+- **O quadro do grupo,** no canto de cima à esquerda da tela de cada membro: o retrato, a coroa do líder, a barra de PV,
+  o NP e onde cada um está; um clique acha o token na cena. A configuração "Quadro do grupo" (de cada jogador) o
+  esconde.
+- **A janela do grupo** (o botão Grupo): os membros com os botões, Sair, Desfazer e a lista de quem convidar. O Mestre
+  vê todos os grupos, tira e passa a liderança em qualquer um e junta os tokens selecionados num grupo.
+- Os grupos ficam na configuração do mundo `parties`; tudo passa pelo Mestre principal (pedidos pelo socket; o convite
+  no escopo `party`).
 
 ## A economia
 
@@ -1162,7 +1226,7 @@ trocar de profissão guarda a EXP de cada uma. As regras completas estão em **X
 | Alfaiate | armaduras leves, roupas, bolsas | Remendo: até 3 aliados tiram Rank × 3 de Fadiga |
 | Artesão | acessórios, amuletos, gemas | Lapidação: um aprimoramento de cada acessório vale o dobro |
 | Alquimista | poções, toxinas | Lote: 2 cópias no Rank 3, 3 no Rank 5 |
-| Cozinheiro | comidas | Banquete: 2 comidas iguais viram uma porção para o grupo |
+| Cozinheiro | comidas | Banquete: 2 comidas iguais viram uma porção para o grupo (o grupo de quem usa, na cena) |
 | Escriba | pergaminhos | Cópia: uma habilidade sua num pergaminho de uso único |
 | Engenheiro | bombas, redes, pedras de faísca | Armadilha: bombas e redes armadas num quadrado da cena |
 | Bardo | canções gravadas em cristal | Obra-prima: com dois 6, a canção sai em massa ou instantânea |
@@ -1398,7 +1462,7 @@ janelas em pergaminho, que pedem para recarregar.
 Cada jogador escolhe as suas: HUD de ações (ligado), HUD sem token selecionado (ligado), barra de macros do Foundry
 (esconder), aviso da sua vez (ligado), selecionar o token na sua vez (desligado), levar a tela até quem age
 (desligado), limpar os alvos no fim da sua vez (ligado), ícones animados (ligado), interface no visual da Eternia
-(ligado) e diários como livro da Eternia (ligado).
+(ligado), diários como livro da Eternia (ligado) e quadro do grupo (ligado).
 
 ## Instalação
 
@@ -1461,6 +1525,16 @@ eternia.duels.challenge(token);       // desafia esse token com o personagem sel
 eternia.duels.send(tokenA, tokenB, "half"); // manda o desafio direto (strike, half ou death)
 eternia.duels.stop(combatId, "a");    // o Mestre decide um duelo ("a", "b", "draw" ou "cancel")
 eternia.duels.standings();            // o ranking: { records, deltas }, refeito a partir de eternia.duels.history()
+eternia.xp.of(actor);                 // o XP total do personagem
+eternia.xp.add(actor, 120);           // XP a mais (ou a menos): o NP sobe sozinho; descer pergunta
+eternia.xp.award(monster, { feller: hero, force: true }); // o XP de um monstro, como se o herói o tivesse derrubado (Mestre)
+eternia.xp.giveTickets(actor, 3);     // Tíquetes de Evolução (Mestre); eternia.xp.useTickets(actor, 2) usa
+eternia.xp.table;                     // o XP que abre cada NP (índice = NP)
+eternia.party.open();                 // a janela do grupo
+eternia.party.of(actor);              // o grupo do personagem: { id, leader, members } (uuids)
+eternia.party.inviteFlow(actor);      // convida esse personagem com o seu (abre a espera da resposta)
+eternia.party.form([a, b, c]);        // o Mestre forma um grupo (o primeiro lidera)
+eternia.party.leave(actor);           // sai do grupo; .kick(lider, membro), .promote(lider, membro), .disband(lider)
 ```
 
 ## Limites conhecidos

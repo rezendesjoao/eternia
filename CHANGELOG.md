@@ -1,5 +1,52 @@
 # Changelog
 
+## 0.53.0 — 2026-10-29
+
+A evolução por XP e os grupos: o NP sobe sozinho quando o XP chega, cada monstro dá o XP do peso dele, e os
+personagens formam grupos como em Aincrad, que dividem o XP. A última versão antes da 1.0.
+
+### Adicionado
+- **O XP** (`module/experience/`): a tabela (do NP ao seguinte, 10 × (NP + 4) × (NP + 5) XP: 6 monstros comuns de NP 1
+  para o NP 2, sozinho; `data.mjs`, puro), o total em `system.infos.xp`, o XP de cada monstro (`flags.eternia.xp`, ou o
+  comum do NP pelas tags), quem leva (quem derrubou; o mestre de uma criatura [Dominada]), o grupo na cena (+10% por
+  membro, dividido pelo NP), o chefe para todos da luta, o fator da diferença de NP (até ×1,5 acima; nada 4 abaixo), a
+  Fenda que dá a cena quando fecha, o Desgarrado salvo, o cartão de XP sussurrado com o Desfazer do Mestre e o "+N XP"
+  sobre os tokens.
+- **O NP que sobe sozinho:** chegando o XP, o NP muda sem caixa, com o cartão de NP (agora com o XP), o anel dourado e
+  "NP N!" sobre o token, e o aviso do NP novo na tela do jogador com Escolher agora (o que a classe dá e o navegador de
+  habilidades) e Depois.
+- **A barra de XP** no cabeçalho da ficha, com o total, o que falta, os bônus e os Tíquetes na dica; um clique do Mestre
+  dá ou tira XP e dá Tíquetes. Uma faixa dourada fina no pé do HUD de ações mostra o mesmo XP.
+- **O XP de cada criatura** do bestiário (104), pelo mesmo peso dos itens deixados (`xp-monstros.mjs` e
+  `economia-aplicar.mjs`, no simulador), e na aba Itens Deixados, com o lápis e o Dar o XP do Mestre; a fera com nome
+  ganha o XP de um chefe do NP dela.
+- **Os grupos** (`module/party/`): convidar pelo botão direito no token de outro jogador ou pela janela do grupo, o
+  pedido com um minuto para responder, o líder (convida, tira, passa a liderança), sair, desfazer, até seis; o quadro do
+  grupo no canto da tela, a janela do grupo (o botão Grupo, depois de Duelos), as notas no chat, o Mestre que vê e forma
+  grupos. Configuração do mundo `parties`; configuração de cada jogador "Quadro do grupo".
+- **Os itens** (compêndio Itens, pasta Evolução): o Tíquete de Evolução (100 XP, 100 Yuld, [Valioso]; com um Mestre no
+  jogo, o uso passa por ele), o Tônico do
+  Aprendiz, o Elixir da Sabedoria e a Essência do Herói (poções do Alquimista: +25%, +50% e +100% do XP dos próximos 10
+  monstros) e o Ensopado do Veterano e o Festim do Campeão (comidas do Cozinheiro: +20% e +40%). Uma poção e uma comida
+  por vez, somando; o Potente da Oficina soma 5 monstros.
+- **Guia do Jogador:** o capítulo 8, Evolução, reescrito para o XP; o capítulo 19 novo, O Grupo (a Mesa Virtual virou
+  20); XP, Tíquete de Evolução, Grupo, Líder e Bônus de XP no glossário; o XP na referência rápida.
+- **docs/matematica.md:** a seção 10, A evolução (o modelo, a tabela, o ritmo pelo modelo e pelo Monte Carlo, os bônus e
+  a economia); `xp-ritmo.mjs` no simulador.
+- **Migração** `bestiary` 6: o XP do compêndio nas criaturas que os mundos já importaram.
+
+### Alterado
+- O NP dos personagens dos jogadores vem do XP: o brasão do NP não se edita na ficha do jogador, e o botão de subir de
+  NP é do Mestre, que põe um personagem num NP com o XP junto.
+- O Banquete do Cozinheiro alimenta o grupo de quem usa, na cena (sem grupo, os personagens dos jogadores na cena), em
+  vez de todos os personagens dos jogadores do mundo.
+- A bolha do botão direito no personagem de outro jogador ficou comum aos duelos e aos grupos (`canvas/bubble.mjs`), e
+  os painéis dos pedidos também (`helpers/panels.mjs`).
+- AS REGRAS: II.c (subir de NP pelo XP), III.a, V.c (o XP dos monstros e quantos Tíquetes dar), V.e (o Tíquete de
+  Evolução), X (o Banquete, as poções e comidas de XP) e XIV.a (o XP das criaturas).
+- A comida e as poções de cura (e as de XP) só agem na janela que usou o item, mesmo com o mesmo usuário em duas
+  janelas (`isLocalChange`).
+
 ## 0.52.0 — 2026-10-29
 
 O Grimório, o Hall da Fama e os duelos: três botões novos na barra dos tokens, logo abaixo do Mercado, e as regras dos

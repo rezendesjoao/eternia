@@ -14,7 +14,7 @@ const { HandlebarsApplicationMixin } = foundry.applications.api;
 /** Type dropdown of skills and tickets (labels: ETERNIA.Skill.Type.X, ETERNIA.Ticket.Type.X). */
 const SUBTYPES = {
   skill: ["Basic", "General", "Combat", "Monster", "Item"],
-  ticket: ["Treasure", "Fate", "Connection", "Reset"]
+  ticket: ["Evolution", "Treasure", "Fate", "Connection", "Reset"]
 };
 
 /**

@@ -1,16 +1,20 @@
 /**
- * Changing the Character Rank (Log Ticket): one flow for the sheet's rank-up button and for a CR typed in the
- * sheet. A message box sums up what changes from the old CR to the new one (any number of ranks): the Base Stats
- * (+1 each per CR, with the modifiers that move), the Max HP (the class HP Modifier per CR), the skill picks, the
- * talents that unlock and what the class gives (its Path, the Magias, the Apex, the Dedications). On confirmation the
- * CR changes, a card in the chat records it (templates/chat/rank-up-card.hbs: the portrait, the CR from and to, the
- * Base Stats, what the jump gives and the class's grants by CR), the class's choices are offered and the skill
- * selection opens with the picks owed. Going down asks too, and the picks made above the new CR can be undone
+ * Changing the Character Rank. Since 0.53 the NP follows the XP (experience/level.mjs): reaching the XP of an NP calls
+ * levelTo with `auto`, which changes it with no box. The GM can still put a character at an NP (the sheet's button, or
+ * an NP typed in the badge): a message box sums up what changes from the old CR to the new one (any number of ranks):
+ * the Base Stats (+1 each per CR, with the modifiers that move), the Max HP (the class HP Modifier per CR), the skill
+ * picks, the talents that unlock and what the class gives (its Path, the Magias, the Apex, the Dedications); the XP
+ * goes to the new NP's (up: at least its first XP; down: within it). Either way the CR changes with
+ * `{ eterniaXpLevel: { from, to } }`, a card in the chat records it (templates/chat/rank-up-card.hbs: the portrait, the
+ * CR from and to, the Base Stats, what the jump gives, the XP and the class's grants by CR), and the choices (the
+ * class's, then the skill picks) open on the window of the character's player: the banner of experience/level.mjs, or
+ * here, for a character with no player on. Going down asks too, and the picks made above the new CR can be undone
  * (skill-browser.mjs).
  *
  * Base Stats and Max HP follow the CR on their own (EterniaActor#prepareDerivedData): this only explains and orders.
- * A CR typed in the sheet is held back (preUpdateActor) and goes through the same box; an update made with
- * `{ eterniaRankUp: true }` or `{ eterniaLevelFlow: false }` skips it (macros, migrations).
+ * A CR typed in the sheet is held back (preUpdateActor) and goes through the same box, for the GM (a player's NP comes
+ * from its XP); an update made with `{ eterniaRankUp: true }` or `{ eterniaLevelFlow: false }` skips it (macros,
+ * migrations).
  */
 
 import { L } from "../settings.mjs";
@@ -22,6 +26,8 @@ import { confirmBox } from "../helpers/dialogs.mjs";
 import { escape } from "../helpers/utils.mjs";
 import { CLASSES } from "../classes/data.mjs";
 import { formOf, ROMAN } from "../races/evolution.mjs";
+import { xpForRank } from "../experience/data.mjs";
+import { xpOf, xpView } from "../experience/level.mjs";
 
 const STATS = ["str", "dex", "pow", "int"];
 
@@ -46,13 +52,19 @@ export function rankUp(actor) {
   return levelTo(actor, rankOf(actor) + 1);
 }
 
+/** Whether the choices of a character's new NP go to its player's window (one of its players is on). */
+const playerChooses = actor => game.users.some(u => !u.isGM && u.active && (u.id !== game.user.id) && actor.testUserPermission(u, "OWNER"));
+
 /**
- * Take a character to a CR, after the box with what changes.
+ * Take a character to a CR: by its XP (`auto`: no box), or after the box with what changes.
  * @param {Actor} actor
  * @param {number} target
+ * @param {object} [options]
+ * @param {boolean} [options.auto]     The XP reached it (experience/level.mjs): no box
+ * @param {boolean} [options.fromXp]   The XP went down (an Undo, the GM's box): the box, and the XP stays as it is
  * @returns {Promise<boolean>} The CR changed
  */
-export async function levelTo(actor, target) {
+export async function levelTo(actor, target, { auto = false, fromXp = false } = {}) {
   const from = rankOf(actor);
   const to = Math.max(1, Math.floor(Number(target) || 1));
   if ((to === from) || busy.has(actor.id)) return false;
@@ -60,7 +72,7 @@ export async function levelTo(actor, target) {
   try {
     const up = to > from;
     const { lines, card } = await changeLines(actor, from, to);
-    const confirmed = await confirmBox({
+    const confirmed = auto || await confirmBox({
       title: R(up ? "Window" : "WindowDown"),
       icon: up ? "fa-solid fa-angles-up" : "fa-solid fa-angles-down",
       classes: ["rank-up-dialog"],
@@ -83,7 +95,18 @@ export async function levelTo(actor, target) {
 
     // The skill picks owed follow the CR from here (see skill-browser.mjs).
     if (up) await startSkillProgress(actor, from);
-    await actor.update({ "system.infos.crank": to }, { eterniaRankUp: true });
+    // The XP goes to the new NP's: up, at least its first XP; down, within it (unless the XP itself took it down)
+    const changes = { "system.infos.crank": to };
+    const xp = xpOf(actor);
+    if (!auto && !fromXp) {
+      if (up && (xp < xpForRank(to))) changes["system.infos.xp"] = xpForRank(to);
+      if (!up && (xp >= xpForRank(to + 1))) changes["system.infos.xp"] = xpForRank(to);
+    }
+    await actor.update(changes, { eterniaRankUp: true, eterniaXpLevel: { from, to } });
+    // The XP the card shows, after the change
+    const bar = xpView(actor);
+    card.rows.push({ icon: "fa-solid fa-star", tone: "picks", label: R("Card.XP"),
+      value: bar.max ? R("Card.XPMax", { total: bar.total }) : R("Card.XPValue", { total: bar.total, left: bar.left, rank: to + 1 }) });
     const job = getOption(actor, "class");
     await ChatMessage.create({
       speaker: ChatMessage.getSpeaker({ actor }),
@@ -104,6 +127,10 @@ export async function levelTo(actor, target) {
       })
     });
     if (!up) return true;
+    // An NP the XP reached waits for the character's player: the banner on its window (experience/level.mjs), or the
+    // sheet's golden badges when it is away; only player characters take XP, so no GM window gets these. An NP the GM
+    // put by hand opens here when none of the character's players is on (the GM's own characters), else on theirs.
+    if (auto || playerChooses(actor)) return true;
     // What the class gives (its Path, the Magias, the Apex: also those still open), then the picks.
     if (job) await offerGrants(actor, job, { above: 1, withStale: false });
     SkillBrowser.open(actor);
@@ -234,9 +261,16 @@ async function changeLines(actor, from, to) {
 export function registerLevelFlow() {
   // A CR typed in the sheet (or changed by an update without the flags) waits for the box: the rest of the update
   // goes through, and the box changes the CR on confirmation.
-  Hooks.on("preUpdateActor", (actor, changes, options) => {
+  Hooks.on("preUpdateActor", (actor, changes, options, userId) => {
     if ((actor.type !== "character") || options.eterniaRankUp || (options.eterniaLevelFlow === false)) return;
-    if (!foundry.utils.hasProperty(changes, "system.infos.crank") || !getOption(actor, "class")) return;
+    if (!foundry.utils.hasProperty(changes, "system.infos.crank")) return;
+    // A player's NP comes from its XP: only the GM puts a character at an NP by hand
+    if (!game.users.get(userId)?.isGM && actor.hasPlayerOwner) {
+      delete changes.system.infos.crank;
+      if (userId === game.user.id) ui.notifications.warn(R("ByXp"));
+      return;
+    }
+    if (!getOption(actor, "class")) return;
     const to = Math.max(1, Math.floor(Number(foundry.utils.getProperty(changes, "system.infos.crank")) || 1));
     delete changes.system.infos.crank;
     if (to !== rankOf(actor)) levelTo(actor, to);

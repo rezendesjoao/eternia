@@ -386,7 +386,8 @@
         "Treasure": "Tíquete de Tesouro",
         "Fate": "Tíquete de Destino",
         "Connection": "Tíquete de Conexão",
-        "Reset": "Tíquete de Reinício"
+        "Reset": "Tíquete de Reinício",
+        "Evolution": "Tíquete de Evolução"
       },
       "AddRank": "Adicionar um Tíquete de Tesouro deste NP"
     },
@@ -722,7 +723,7 @@
     },
     "RankUp": {
       "Button": "Subir NP",
-      "Tooltip": "Subir o Nível de Personagem (Tíquete de Registro)",
+      "Tooltip": "Pôr no NP seguinte (o Mestre: o NP dos jogadores sobe com o XP)",
       "Title": "Subir Nível de Personagem: {name}",
       "Window": "Subir Nível de Personagem",
       "Confirm": "Subir o Nível de Personagem de {from} para {to}?",
@@ -769,9 +770,13 @@
         "DownPicks": "As escolhas acima do NP {to} podem ser desfeitas na janela de habilidades.",
         "Road": "Pelo caminho",
         "Form": "Forma",
-        "FormValue": "Estágio {stage} · {name} aberto"
+        "FormValue": "Estágio {stage} · {name} aberto",
+        "XP": "Experiência",
+        "XPValue": "{total} XP · faltam {left} para o NP {rank}",
+        "XPMax": "{total} XP · NP máximo"
       },
-      "Form": "A forma pode ceder: o Estágio {stage} ({name}) já pode ser despertado na ficha."
+      "Form": "A forma pode ceder: o Estágio {stage} ({name}) já pode ser despertado na ficha.",
+      "ByXp": "O NP sobe com o XP: só o Mestre põe um personagem num NP à mão."
     },
     "StatAllocation": {
       "Confirm": "Confirmar",
@@ -1408,6 +1413,10 @@
       "duelCountdown": {
         "Name": "Contagem antes do duelo (segundos)",
         "Hint": "Quanto tempo a contagem fica na tela de todos antes de o combate do duelo começar. 0 começa na hora."
+      },
+      "partyFrame": {
+        "Name": "Quadro do grupo",
+        "Hint": "Mostra, no canto da tela, os membros do seu grupo, com os PV e onde cada um está."
       }
     },
     "Use": {
@@ -1784,7 +1793,8 @@
       "HateTip": "Ódio {value}",
       "FatigueTip": "Fadiga {value}: o PV máximo cai {value}.",
       "Power": "Poder",
-      "PowerN": "Poder {n}"
+      "PowerN": "Poder {n}",
+      "XpTip": "XP {label} · {next}"
     },
     "Keys": {
       "hudDismiss": "HUD de ações: fechar o painel aberto",
@@ -1826,7 +1836,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Novidades da Eternia 0.52</strong></p><ul><li><strong>Grimório:</strong> o botão novo abaixo do Mercado, na barra dos tokens, mostra todas as Magias do mundo para ler, com os feitiços de cada uma. As Magias do seu personagem levam um livrinho dourado.</li><li><strong>Hall da Fama:</strong> as pessoas de quem o mundo fala e por que são famosas, com estrelas que dizem até onde a fama chega. O Mestre escolhe quem entra.</li><li><strong>Duelos:</strong> clique com o botão direito no token de outro personagem e desafie para um duelo de Primeiro Golpe, Metade da Vida ou Até a Morte. O outro jogador tem um minuto para aceitar, todos veem a contagem, e a mesa diz quem venceu. Nos dois primeiros modos ninguém cai; no Até a Morte, quem cai pode morrer de verdade.</li><li><strong>Arena:</strong> o botão Duelos abre o ranking: pontos, títulos, vitórias e o Campeão da Arena. Vencer quem está acima vale mais.</li></ul><p>O Guia do Jogador tem um capítulo novo, Duelos e a Arena.</p>"
+      "Body": "<p><strong>Novidades da Eternia 0.53</strong></p><ul><li><strong>Evolução por XP:</strong> o NP agora sobe sozinho quando o XP chega. Cada monstro dá o XP escrito na ficha dele; do NP 1 ao 2 são 6 monstros comuns de NP 1, e cada NP pede um a mais. A barra de XP fica no cabeçalho da ficha, ao lado do NP.</li><li><strong>Grupos:</strong> clique com o botão direito no token de outro jogador e escolha Convidar para o grupo (ou use o botão Grupo, na barra dos tokens). Quem convida lidera; até seis. O XP dos monstros que alguém do grupo derruba vai para todos do grupo na cena, dividido pelo NP, e um chefe dá XP a todos da luta.</li><li><strong>A diferença de NP:</strong> monstro acima do seu NP dá mais XP, abaixo dá menos, e 4 NP abaixo não dá nada.</li><li><strong>Tíquete de Evolução:</strong> o Mestre dá pelo que se aprende sem luta (uma aula, um feito). Cada um dá 100 XP; dá para usar, dar a outro ou vender.</li><li><strong>Poções e comidas de XP:</strong> o Alquimista e o Cozinheiro fazem itens caros que dão mais XP nos próximos monstros.</li></ul><p>O Guia do Jogador tem o capítulo Evolução novo e um capítulo novo, O Grupo.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -2310,7 +2320,8 @@
           "heal": "+{n} na cura",
           "damage": "+{n} no dano",
           "fatigue": "Tira {n} de Fadiga a mais",
-          "status": "+{n} no Valor de [{status}]"
+          "status": "+{n} no Valor de [{status}]",
+          "xp": "+{n} monstros no bônus de XP"
         },
         "double": {
           "name": "Dupla",
@@ -5010,6 +5021,229 @@
         "ResetTitle": "Zerar o ranking",
         "ResetConfirm": "Apagar os {n} duelos do histórico e zerar o ranking de todo mundo? Não dá para desfazer."
       }
+    },
+    "Xp": {
+      "Bar": {
+        "Label": "XP",
+        "Value": "{into}/{need}",
+        "Max": "{total} (NP máximo)",
+        "Next": "faltam {n} para o NP {rank}",
+        "ByXp": "o NP sobe sozinho com o XP"
+      },
+      "Float": {
+        "Gain": "+{n} XP",
+        "Loss": "−{n} XP",
+        "Rank": "NP {rank}!"
+      },
+      "Banner": {
+        "Eyebrow": "Evolução",
+        "Rank": "NP {rank}",
+        "Stats": "+{n} em cada Atributo Base e os PV da classe",
+        "Picks": "Escolhas de habilidade: {combat} de Combate e {general} Geral",
+        "Choose": "Escolher agora",
+        "Later": "Depois"
+      },
+      "Card": {
+        "Eyebrow": {
+          "fall": "Experiência",
+          "rift": "Experiência · Fenda fechada",
+          "save": "Experiência · salvo",
+          "hand": "Experiência · dada pelo Mestre"
+        },
+        "Kind": "{kind} de NP {np}",
+        "Base": "{n} XP",
+        "Alone": "Sozinho: o XP é todo seu",
+        "Party": "Grupo de {n} na cena: +{pct}%, dividido pelo NP",
+        "Raid": "Chefe: os {n} da luta dividem, pelo NP",
+        "Gain": "+{n} XP",
+        "Nothing": "nada",
+        "Share": "{pct}% do grupo",
+        "Above": "{n} NP acima: {factor}",
+        "Below": "{n} NP abaixo: {factor}",
+        "TooLow": "{n} NP abaixo: o monstro não ensina mais nada",
+        "Boost": "{name}: +{pct}%",
+        "Rank": "NP {rank}",
+        "Progress": "{into}/{need}",
+        "Max": "NP máximo",
+        "Undo": "Desfazer",
+        "Undone": "Desfeito"
+      },
+      "Kind": {
+        "common": "Comum",
+        "mob": "Lacaio",
+        "boss": "Chefe",
+        "rift": "Fenda",
+        "named": "Fera com nome"
+      },
+      "Sheet": {
+        "Chip": "{n} XP",
+        "Own": "{n} XP, o desta criatura (o Mestre pode mudar).",
+        "ByKind": "{n} XP: o de um {kind} de NP {np} (o Mestre pode dar um valor próprio).",
+        "EditTitle": "XP de {name}",
+        "EditLead": "Agora: {text}",
+        "EditField": "XP (vazio: o do NP e do tipo)",
+        "EditHint": "Mudar o XP desta criatura",
+        "Save": "Salvar",
+        "Give": "Dar o XP",
+        "GiveHint": "Dar o XP agora, mesmo que já tenha sido dado (o grupo divide)",
+        "GiveTitle": "Dar o XP de {name}",
+        "GiveLead": "{n} XP para quem? O grupo dele na cena divide, como se ele tivesse derrubado.",
+        "ForWhom": "Para",
+        "NoPlayers": "Nenhum personagem de jogador no mundo.",
+        "Given": "O XP desta criatura já foi dado."
+      },
+      "Tip": {
+        "Total": "XP total: {total}",
+        "Next": "Faltam {n} XP para o NP {rank}. O NP sobe sozinho quando o XP chega.",
+        "Max": "No NP máximo.",
+        "Boost": "{item}: +{pct}% do XP dos próximos {left} monstros",
+        "Tickets": "Tíquetes de Evolução no Inventário: {n}",
+        "GM": "Clique para dar XP ou Tíquetes."
+      },
+      "Gm": {
+        "Title": "XP de {name}",
+        "Lead": "Agora: {total} XP, NP {rank}.",
+        "Add": "XP a somar (negativo tira)",
+        "Tickets": "Tíquetes de Evolução a dar",
+        "Hint": "O NP acompanha: sobe sozinho; descer pergunta antes.",
+        "Ok": "Aplicar"
+      },
+      "Ticket": {
+        "Eyebrow": "Tíquete de Evolução",
+        "Used": "{name} usa {n} Tíquete(s) de Evolução",
+        "Gain": "+{xp} XP ({before} → {after})",
+        "None": "{name} não tem Tíquetes de Evolução.",
+        "Window": "Usar Tíquetes de Evolução",
+        "Lead": "Você tem {n}. Cada um dá {xp} XP.",
+        "HowMany": "Quantos usar",
+        "Use": "Usar",
+        "UseHint": "Usar (cada um dá 100 XP)",
+        "EmptyHint": "O Mestre dá os Tíquetes de Evolução (por uma aula, um feito, um favor). Usados, dão XP; dá para vender ou dar a outro."
+      },
+      "Boost": {
+        "Name": "{item} · +{pct}% de XP ({left})",
+        "Text": "+{pct}% do XP dos próximos {count} monstros que derem XP.",
+        "Given": "Bônus de XP para {names}: +{pct}% nos próximos {count} monstros."
+      }
+    },
+    "Party": {
+      "Title": "Grupo",
+      "Button": "Grupo",
+      "Window": "Grupo",
+      "Eyebrow": "Grupo",
+      "Heading": {
+        "Of": "O grupo de {name}",
+        "None": "Sem grupo",
+        "All": "Os grupos do mundo"
+      },
+      "Lead": {
+        "In": "o XP dos monstros que alguém do grupo derruba se divide entre quem está na cena.",
+        "None": "{name} luta sozinho: o XP dos monstros que derrubar é todo dele. Convide alguém para formar um grupo.",
+        "NoCharacter": "Selecione o token do seu personagem para ver o grupo dele.",
+        "GM": "Todos os grupos do mundo. Selecione tokens de personagens de jogadores para juntá-los num grupo."
+      },
+      "Count": "{n}/{max} no grupo",
+      "Me": "Personagem",
+      "Members": "Membros",
+      "Leader": "líder",
+      "You": "você",
+      "Find": "Achar o token na cena",
+      "Alone": "Sem grupo",
+      "AloneHint": "Convide alguém da lista ao lado, ou com o botão direito no token dele. Quem convida vira o líder.",
+      "InviteTitle": "Convidar",
+      "Search": "Procurar personagem…",
+      "Online": "O jogador está no jogo",
+      "Offline": "O jogador não está no jogo",
+      "NoCandidates": "Nenhum personagem de outro jogador sem grupo.",
+      "EmptyTitle": "Nenhum grupo",
+      "EmptyGM": "Os jogadores formam grupos convidando uns aos outros; você também pode juntar os tokens selecionados.",
+      "Form": "Formar grupo",
+      "FormLead": "Selecionados: {names}. O primeiro vira o líder.",
+      "FormHint": "Selecione de 2 a 6 tokens de personagens de jogadores para formar um grupo.",
+      "RulesTitle": "Como o grupo funciona",
+      "Rules": {
+        "1": "Até {max} personagens. Quem convida vira o líder; só o líder convida, tira alguém ou passa a liderança. Qualquer um sai quando quiser.",
+        "2": "O XP de um monstro que alguém do grupo derruba vai para todos do grupo que estão na mesma cena: +10% por membro além do primeiro, dividido pelo NP de cada um.",
+        "3": "Cada parte ainda pesa a diferença de NP: monstro acima dá mais, abaixo dá menos, e 4 NP abaixo não dá nada.",
+        "4": "Um chefe dá XP a todos os personagens da luta dele, de qualquer grupo. Os itens deixados continuam de quem derrubou.",
+        "5": "O Banquete do Cozinheiro alimenta o grupo de quem usa, na cena."
+      },
+      "Frame": {
+        "Title": "Grupo",
+        "Open": "Abrir a janela do grupo",
+        "Fold": "Recolher",
+        "Unfold": "Abrir",
+        "Rank": "NP {rank}"
+      },
+      "Where": {
+        "here": "nesta cena",
+        "far": "em outra cena",
+        "away": "jogador fora do jogo",
+        "down": "caído",
+        "dead": "morto"
+      },
+      "UI": {
+        "Ok": "OK",
+        "Invite": "Convidar para o grupo",
+        "Promote": "Passar a liderança",
+        "Kick": "Tirar do grupo",
+        "Leave": "Sair do grupo",
+        "Disband": "Desfazer o grupo",
+        "InPartyOf": "No grupo de {name}",
+        "AskTitle": "Convite para o grupo",
+        "Asks": "{name} convida {target} para o grupo.",
+        "AskRule": "O grupo tem {n} de {max}. No grupo, o XP dos monstros se divide entre quem está na cena.",
+        "Question": "Entrar no grupo?",
+        "Accept": "Entrar",
+        "Decline": "Recusar",
+        "WaitTitle": "Convite enviado",
+        "Waiting": "Esperando {name} responder…",
+        "WaitingFor": "Quem responde: {names}",
+        "Withdraw": "Retirar o convite",
+        "OnlyLeader": "Só o líder do grupo convida.",
+        "KickTitle": "Tirar do grupo",
+        "KickLead": "Tirar {name} do grupo?",
+        "LeaveTitle": "Sair do grupo",
+        "LeaveLead": "Sair do grupo? Se você for o líder, a liderança passa para quem entrou depois de você.",
+        "DisbandTitle": "Desfazer o grupo",
+        "DisbandLead": "Desfazer o grupo? Todos ficam sem grupo.",
+        "Closed": {
+          "accepted": "{name} entrou no grupo.",
+          "declined": "{name} recusou o convite.",
+          "expired": "{name} não respondeu a tempo.",
+          "cancelledAsked": "{name} retirou o convite.",
+          "expiredAsked": "O convite de {name} expirou."
+        }
+      },
+      "Note": {
+        "Formed": "{leader} formou um grupo com {name} ({n}/{max}). {leader} é o líder.",
+        "Joined": "{name} entrou no grupo de {leader} ({n}/{max}).",
+        "Left": "{name} saiu do grupo.",
+        "LeftLast": "{name} saiu, e o grupo se desfez.",
+        "Kicked": "{by} tirou {name} do grupo.",
+        "KickedLast": "{by} tirou {name}, e o grupo se desfez.",
+        "Leader": "{name} agora lidera o grupo.",
+        "Disbanded": "O grupo de {name} se desfez."
+      },
+      "Error": {
+        "Missing": "Personagem não encontrado.",
+        "NotPlayer": "{name} não é personagem de um jogador.",
+        "Dead": "{name} está morto.",
+        "Self": "Não dá para fazer isso consigo mesmo.",
+        "InParty": "{name} já está num grupo.",
+        "NotLeader": "Só o líder do grupo pode fazer isso.",
+        "Full": "O grupo está cheio ({n}).",
+        "Busy": "{name} já tem um convite esperando resposta.",
+        "Away": "O jogador de {name} não está no jogo.",
+        "NotYours": "Esse personagem não é seu.",
+        "Gone": "O convite não existe mais.",
+        "NoParty": "Não há grupo.",
+        "NotMember": "Esse personagem não está no grupo.",
+        "FormFew": "Um grupo precisa de 2 personagens de jogadores ou mais.",
+        "NoCharacter": "Selecione o token do seu personagem primeiro.",
+        "Generic": "Não deu certo."
+      },
+      "Gone": "Um personagem que não existe mais"
     }
   },
   "Cancel": "Cancelar"

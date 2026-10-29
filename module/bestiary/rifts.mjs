@@ -12,7 +12,8 @@
  * Action (in a combat, in its Main Process) and rolls 2d6 + POW; beating the number takes one writing off the clock (a
  * critical, two). A writer hurt by an attack before the end of that round makes the Rift grow back (`eternia.damaged`);
  * with `growOn: "fall"`, only a writer who falls in that round does.
- * At 0 the Rift closes: its token hides, the writer who closed it gets its drops, and no wave comes out any more.
+ * At 0 the Rift closes: its token hides, the writer who closed it gets its drops and its XP (`eternia.riftClosed`), and
+ * no wave comes out any more.
  * The writings and the growing go through the GM (socket handlers `riftWrite`, `riftGrow`).
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
@@ -150,12 +151,13 @@ async function onWrite({ riftUuid, writerUuid, steps, total }) {
   return { ok: true };
 }
 
-/** The Rift closes: its token hides, the one who closed it gets its drops. */
+/** The Rift closes: its token hides, the one who closed it gets its drops and its XP (experience/award.mjs). */
 async function closeRift(rift, writer) {
   const actor = rift.actor;
   await actor.update({ [`flags.${SYSTEM_ID}.rift.closed`]: true });
   await postCard(rift, { event: L("Rift.ClosedBy", { name: actorName(writer) }) });
   await rollDrops(actor, { force: true, receiver: (writer?.type === "character") ? writer : null });
+  Hooks.callAll("eternia.riftClosed", actor, writer ?? null);
   await rift.update({ hidden: true });
 }
 

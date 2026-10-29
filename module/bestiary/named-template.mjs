@@ -5,10 +5,11 @@
  * +1, HP ×1.25 and then ×2 with its pack or ×4 alone, 3 Fate, the [Boss] tag (not [Mob]), Hate ×+1, Identification +2,
  * its attacks +1 to hit and the damage of the new Level (scaleDamage: the common's of each Level, docs/matematica.md),
  * [Fate 1] on its strongest attack (it hits everyone engaged with it, as the bosses of the Guide), its drops ×4 plus an
- * Anima-mundi of the Level + 1 and a [Material-Base] of the Level, fixed, and one Mark of the Weight (MARKS), a passive
- * skill of its own.
+ * Anima-mundi of the Level + 1 and a [Material-Base] of the Level, fixed, the XP of a boss of its new Level (alone, a
+ * solo boss's), and one Mark of the Weight (MARKS), a passive skill of its own.
  */
 import { materialPrice } from "../economy/data.mjs";
+import { monsterXpValue } from "../experience/data.mjs";
 
 /** The Marks of the Weight: what the named beast has that the others don't. */
 export const MARKS = ["skin", "eyes", "fury", "sparks", "regen", "breath"];
@@ -187,7 +188,9 @@ export function nameBeast(data, { name, solo = false, mark, newId, catalyst, t }
     effects: [], ownership: { default: 0 }, flags: { eternia: { drop: { fixed: true, qty: 1 } } }
   });
   out.items = items;
-  out.flags = { ...(out.flags ?? {}), eternia: { ...(out.flags?.eternia ?? {}), named: { from, mark, solo: !!solo, rank: before } } };
+  // Its XP: a boss of its new Level, with its pack (4 commons) or alone (6), as its drops (experience/data.mjs)
+  out.flags = { ...(out.flags ?? {}), eternia: { ...(out.flags?.eternia ?? {}), named: { from, mark, solo: !!solo, rank: before },
+    xp: monsterXpValue(rank, { kind: solo ? "solo" : "boss" }) } };
   if (out.prototypeToken) {
     out.prototypeToken.name = name;
     if (out.prototypeToken.texture) {

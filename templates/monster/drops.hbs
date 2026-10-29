@@ -4,11 +4,18 @@
 <section class="tab major drops" data-group="primary" data-tab="drops">
 	<div class="tab-content">
 		<div class="lhpf-toolbar dr-toolbar">
+			{{!-- The XP it gives (experience/award.mjs): its own, or the one of its NP and kind --}}
+			<span class="dr-xp{{#if lh.drops.xp.own}} own{{/if}}" data-tooltip="{{lh.drops.xp.text}}"><i class="fa-solid fa-star"></i>{{localize 'ETERNIA.Xp.Sheet.Chip' n=lh.drops.xp.value}}</span>
+			{{#if lh.drops.gm}}
+			<button type="button" data-action="xp-edit" data-tooltip="{{localize 'ETERNIA.Xp.Sheet.EditHint'}}"><i class="fa-solid fa-fw fa-pen"></i></button>
+			<button type="button" data-action="xp-give" data-tooltip="{{localize 'ETERNIA.Xp.Sheet.GiveHint'}}"><i class="fa-solid fa-fw fa-star"></i>{{localize 'ETERNIA.Xp.Sheet.Give'}}</button>
+			{{/if}}
 			<span class="count" data-tooltip="{{localize 'ETERNIA.Drops.ExpectedHint'}}<br>{{localize 'ETERNIA.Drops.Guide'}}: {{lh.drops.guide}}">{{localize 'ETERNIA.Drops.Expected' rolled=lh.drops.expected.rolled fixed=lh.drops.expected.fixed}}</span>
 			{{#if editable}}{{#unless lh.drops.fromText}}<button type="button" data-action="drops-gold"><i class="fa-solid fa-fw fa-coins"></i>{{localize 'ETERNIA.Drops.AddGold'}}</button>{{/unless}}{{/if}}
 			{{#if lh.drops.gm}}<button type="button" data-action="drops-roll" data-tooltip="{{localize 'ETERNIA.Drops.RollHint'}}"><i class="fa-solid fa-fw fa-dice-d6"></i>{{localize 'ETERNIA.Drops.Roll'}}</button>{{/if}}
 		</div>
 		{{#if lh.drops.dropped}}<p class="dr-state"><i class="fa-solid fa-check"></i>{{localize 'ETERNIA.Drops.AlreadyRolled'}}</p>{{/if}}
+		{{#if lh.drops.xp.given}}<p class="dr-state"><i class="fa-solid fa-star"></i>{{localize 'ETERNIA.Xp.Sheet.Given'}}</p>{{/if}}
 		{{#if lh.drops.noLoot}}<p class="dr-state late"><i class="fa-solid fa-hourglass-end"></i>{{localize 'ETERNIA.Drops.NoLoot'}}</p>{{/if}}
 		{{#if lh.drops.fromText}}
 		<p class="dr-state text"><i class="fa-solid fa-scroll"></i>{{localize 'ETERNIA.Drops.FromText'}}

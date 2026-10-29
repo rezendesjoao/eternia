@@ -14,6 +14,7 @@ import { diceFormula } from "../helpers/dice.mjs";
 import { effectModified } from "../helpers/sheet-values.mjs";
 import { refreshSkills } from "../apps/skill-refresh.mjs";
 import { isAwakenedMagia } from "../apps/awakening.mjs";
+import { useTicketsDialog } from "../experience/tickets.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -66,6 +67,7 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
       "ticket-increment": EterniaActorSheet.#onTicketIncrement,
       "ticket-decrement": EterniaActorSheet.#onTicketDecrement,
       "ticket-rank-create": EterniaActorSheet.#onTicketRankCreate,
+      "xp-ticket-use": EterniaActorSheet.#onXpTicketUse,
       "hand-swap": EterniaActorSheet.#onHandSwap,
       "toggle-hate": EterniaActorSheet.#onToggleHate,
       "add-item-menu": EterniaActorSheet.#onAddItemMenu,
@@ -205,6 +207,7 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
     const itemsUsable = [];
     const itemsGear = [];
 
+    const itemsTicketEvolution = [];
     const itemsTicketTreasure = [];
     const itemsTicketFate = [];
     const itemsTicketConnection = [];
@@ -281,6 +284,9 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
         itemsGear.push(i);
       }
       // Append to Tickets.
+      else if (i.type === 'ticket' && i.system.subtype === 'Evolution') {
+        itemsTicketEvolution.push(i);
+      }
       else if (i.type === 'ticket' && i.system.subtype === 'Treasure') {
         itemsTicketTreasure.push(i);
       }
@@ -340,6 +346,8 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
     // Treasure Tickets are kept as one stack per rank
     itemsTicketTreasure.sort((a, b) => (Number(a.system.rank) || 0) - (Number(b.system.rank) || 0));
     context.tickets = {
+      "evolution": itemsTicketEvolution,
+      "evolutionTotal": itemsTicketEvolution.reduce((sum, i) => sum + (Number(i.system.quantity) || 0), 0),
       "treasure": itemsTicketTreasure,
       "treasureTotal": itemsTicketTreasure.reduce((sum, i) => sum + (Number(i.system.quantity) || 0), 0),
       "fate": itemsTicketFate,
@@ -890,6 +898,8 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
     if (!this.isEditable) return;
     const itemId = target.dataset.itemId;
     const item = itemId ? this.actor.items.get(itemId) : null;
+    // The Evolution Tickets are the GM's to give (experience/tickets.mjs)
+    if (((item?.system.subtype ?? target.dataset.subtype) === "Evolution") && !game.user.isGM) return;
     if (item) {
       const quantity = Number(item.system.quantity) || 0;
       await item.update({ "system.quantity": quantity + 1 });
@@ -904,9 +914,14 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
     const itemId = target.dataset.itemId;
     const item = this.actor.items.get(itemId);
     if (!item) return;
+    if ((item.system.subtype === "Evolution") && !game.user.isGM) return;
     const quantity = Number(item.system.quantity) || 0;
     if (quantity <= 1) await item.delete();
     else await item.update({ "system.quantity": quantity - 1 });
+  }
+
+  static async #onXpTicketUse() {
+    if (this.isEditable) await useTicketsDialog(this.actor);
   }
 
   static async #onTicketRankCreate(event, target) {

@@ -13,37 +13,22 @@
  */
 import { L, setting } from "../settings.mjs";
 import { escape, toInt } from "../helpers/utils.mjs";
+import { closePanel, hasPanel, notePanel, openPanel, panelLayer, registerPanels } from "../helpers/panels.mjs";
+import { bubbleFor, closeBubble, openBubble, pictureOf, registerBubbleEntry } from "../canvas/bubble.mjs";
 import {
   ASK_MS, answerChallenge, cancelChallenge, duelProblem, duelTime, errorText, onDuelMessage, resignDuel, resultLine,
   sendChallenge, sideView, stopDuel
 } from "./duels.mjs";
 import { DUEL_MODES, duelOf, liveDuels } from "./state.mjs";
 
+export { pictureOf };
+
 export const MODE_ICON = { strike: "fa-solid fa-bolt", half: "fa-solid fa-heart-half-stroke", death: "fa-solid fa-skull" };
 /** How long the winner's banner stays. */
 const WINNER_MS = 6500;
-/** How long a note about a request stays. */
-const NOTE_MS = 3800;
-
-/** The layer the duels' screens go in (over the interface, under the tooltips). */
-function layer() {
-  let el = document.getElementById("eternia-duels");
-  if (!el) {
-    el = document.createElement("div");
-    el.id = "eternia-duels";
-    document.body.append(el);
-  }
-  return el;
-}
+const layer = panelLayer;
 
 const sound = () => foundry.audio.AudioHelper.play({ src: CONFIG.sounds.notification, volume: 0.8, autoplay: true, loop: false }, false);
-
-/* -------------------------------------------- */
-/*  Panels                                      */
-/* -------------------------------------------- */
-
-/** The panels open, by key (challenge, wait:<id>, ask:<id>, note). */
-const panels = new Map();
 
 /** The two faces of a duel. */
 function versus(a, b, { mode = null } = {}) {
@@ -52,95 +37,12 @@ function versus(a, b, { mode = null } = {}) {
     + (mode ? `<p class="dl-mode-chip ${mode}"><i class="${MODE_ICON[mode]}"></i>${escape(L(`Duel.Mode.${mode}`))}</p>` : "");
 }
 
-/**
- * Open a panel (one per key: the old one goes).
- * @param {string} key
- * @param {object} options
- * @param {string} options.title
- * @param {string} options.html            The body (already escaped)
- * @param {object[]} [options.buttons]     { id, kind: "primary"|"ghost", icon, label }
- * @param {number} [options.left]          The time left (ms): the bar under the body runs out
- * @param {number} [options.total]         The whole time (the bar's full width)
- * @param {boolean} [options.danger]       A duel to the death
- * @param {boolean} [options.focus]        Its action takes the focus (a box the user opened; never a request that
- *                                         arrives while the user may be typing)
- * @param {(id: string, panel: HTMLElement) => any} [options.onButton]
- * @returns {HTMLElement}
- */
-function openPanel(key, { title, html, buttons = [], left = 0, total = 0, danger = false, onButton = null, icon = "fa-solid fa-swords", focus = false }) {
-  closePanel(key, { now: true });
-  const el = document.createElement("section");
-  el.className = `dl-box${danger ? " danger" : ""}`;
-  el.dataset.key = key;
-  el.setAttribute("role", "dialog");
-  el.innerHTML = `<header class="dl-box-head"><i class="${icon}"></i><span>${escape(title)}</span></header>
-    <div class="dl-box-body">${html}${left > 0 ? "<div class=\"dl-box-timer\"><span></span></div>" : ""}
-    <footer class="dl-box-foot">${buttons.map(b => `<button type="button" class="dl-btn ${b.kind}" data-button="${b.id}">`
-      + `<i class="${b.icon}"></i>${escape(b.label)}</button>`).join("")}</footer></div>`;
-  layer().append(el);
-  if (left > 0) {
-    const bar = el.querySelector(".dl-box-timer span");
-    const start = Math.min(100, (left / (total || left)) * 100);
-    bar.animate([{ width: `${start}%` }, { width: "0%" }], { duration: left, fill: "forwards", easing: "linear" });
-  }
-  el.addEventListener("click", event => {
-    const button = event.target.closest("[data-button]");
-    if (button && !button.disabled) onButton?.(button.dataset.button, el);
-  });
-  panels.set(key, el);
-  if (focus) el.querySelector(".dl-btn.primary, .dl-btn")?.focus({ preventScroll: true });
-  return el;
-}
-
-/** Close a panel. */
-function closePanel(key, { now = false } = {}) {
-  const el = panels.get(key);
-  if (!el) return;
-  panels.delete(key);
-  if (now) return el.remove();
-  el.classList.add("closing");
-  setTimeout(() => el.remove(), 200);
-}
-
 /** A short note in a panel (how a request ended, an error), that closes by itself. */
-function note(text, { icon = "fa-solid fa-circle-info", danger = false } = {}) {
-  const el = openPanel("note", {
-    title: L("Duel.Title"), icon, danger,
-    html: `<p class="dl-box-lead">${escape(text)}</p>`,
-    buttons: [{ id: "ok", kind: "primary", icon: "fa-solid fa-check", label: L("Duel.UI.Ok") }],
-    onButton: () => closePanel("note")
-  });
-  setTimeout(() => {
-    if (panels.get("note") === el) closePanel("note");
-  }, NOTE_MS);
-}
-
-/**
- * Enter and Escape on the panel on top, before Foundry's keys (Escape closes every window): only with the focus in a
- * panel or nowhere, never in a field (the chat, a sheet).
- */
-function onKey(event) {
-  if (!panels.size || !["Enter", "Escape"].includes(event.key)) return;
-  if (!event.target.closest?.(".dl-box") && (event.target !== document.body)) return;
-  const top = [...panels.values()].at(-1);
-  if (event.key === "Enter" && event.target.closest?.(".dl-box") && (event.target.tagName === "BUTTON")) return;
-  const button = top.querySelector((event.key === "Enter") ? ".dl-btn.primary" : ".dl-btn.ghost") ?? ((event.key === "Escape") ? top.querySelector(".dl-btn") : null);
-  if (!button) return;
-  event.preventDefault();
-  event.stopPropagation();
-  button.click();
-}
+const note = (text, { icon = "fa-solid fa-circle-info", danger = false } = {}) => notePanel(text, { title: L("Duel.Title"), icon, danger, ok: L("Duel.UI.Ok") });
 
 /* -------------------------------------------- */
 /*  The challenge                               */
 /* -------------------------------------------- */
-
-/** A picture that isn't the default one (a sheet with no portrait shows its token). */
-export const pictureOf = (actor, token = null) => {
-  const blank = src => !src || (src === CONST.DEFAULT_TOKEN) || /mystery-man/.test(src);
-  const art = actor?.img;
-  return blank(art) ? (token?.texture?.src ?? actor?.prototypeToken?.texture?.src ?? art ?? "") : art;
-};
 
 /** What a token shows in the panels. */
 const faceOf = token => ({ name: token.name || token.actor?.name || "?", img: pictureOf(token.actor, token) });
@@ -244,8 +146,8 @@ function askPanel({ challenge }) {
 
 /** A request ended: the panels of it close, and whoever didn't end it hears how. */
 function onClosed(message) {
-  const asked = panels.has(`ask:${message.id}`);
-  const waited = panels.has(`wait:${message.id}`);
+  const asked = hasPanel(`ask:${message.id}`);
+  const waited = hasPanel(`wait:${message.id}`);
   closePanel(`ask:${message.id}`);
   closePanel(`wait:${message.id}`);
   const why = message.why;
@@ -461,44 +363,23 @@ export function challenge(token) {
   return challengeDialog(mine, target);
 }
 
-/** Whether a right-click on this token opens the bubble (a character the user doesn't own, with the duels on). */
-export function bubbleFor(token, user = game.user) {
-  return !!setting("duels") && !user.isGM && (token?.actor?.type === "character") && !token.actor.testUserPermission(user, "OWNER")
-    && token.visible;
-}
-
-/** The bubble by someone else's character: its name, the duel, the Arena. */
-export function openBubble(token) {
-  closeBubble();
-  const el = document.createElement("div");
-  el.id = "eternia-duel-bubble";
-  el.className = "dl-bubble";
-  const face = faceOf(token.document);
-  el.innerHTML = `<header><img src="${escape(face.img)}" alt=""><span>${escape(face.name)}</span></header>`
-    + `<button type="button" data-bubble="duel"><i class="fa-solid fa-swords"></i>${escape(L("Duel.UI.ChallengeTo"))}</button>`
-    + `<button type="button" data-bubble="arena"><i class="fa-solid fa-ranking-star"></i>${escape(L("Duel.UI.SeeRanking"))}</button>`;
-  const point = canvas.clientCoordinatesFromCanvas({ x: token.center.x, y: token.y });
-  el.style.left = `${Math.round(point.x)}px`;
-  el.style.top = `${Math.round(point.y)}px`;
-  el.addEventListener("click", event => {
-    const button = event.target.closest("[data-bubble]");
-    if (!button) return;
-    closeBubble();
-    if (button.dataset.bubble === "duel") challenge(token);
-    else game.eternia.duels?.open();
+/** The duel's entries in the bubble of someone else's character (canvas/bubble.mjs). */
+function registerBubbleEntries() {
+  registerBubbleEntry({
+    id: "duel", order: 10, icon: "fa-solid fa-swords",
+    visible: () => !!setting("duels"),
+    label: () => L("Duel.UI.ChallengeTo"),
+    onClick: token => challenge(token)
   });
-  layer().append(el);
-  setTimeout(() => document.addEventListener("pointerdown", outside, { capture: true }), 0);
+  registerBubbleEntry({
+    id: "arena", order: 11, icon: "fa-solid fa-ranking-star",
+    visible: () => !!setting("duels"),
+    label: () => L("Duel.UI.SeeRanking"),
+    onClick: () => game.eternia.duels?.open()
+  });
 }
 
-function outside(event) {
-  if (!event.target.closest?.("#eternia-duel-bubble")) closeBubble();
-}
-
-export function closeBubble() {
-  document.removeEventListener("pointerdown", outside, { capture: true });
-  document.getElementById("eternia-duel-bubble")?.remove();
-}
+export { bubbleFor, closeBubble, openBubble };
 
 /* -------------------------------------------- */
 /*  Registration                                */
@@ -516,12 +397,12 @@ export function registerDuelScreens() {
     showWinner(message);
     refreshDuelBar();
   });
-  document.addEventListener("keydown", onKey, { capture: true });
+  registerPanels();
+  registerBubbleEntries();
   for (const hook of ["createCombat", "updateCombat", "deleteCombat", "canvasReady"]) Hooks.on(hook, () => refreshDuelBar());
   Hooks.on("updateActor", actor => {
     if (document.getElementById("eternia-duel-bar") || liveDuels().length) refreshDuelBar();
   });
-  Hooks.on("canvasPan", () => closeBubble());
   Hooks.once("ready", () => refreshDuelBar());
 }
 

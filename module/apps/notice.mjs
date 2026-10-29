@@ -1,5 +1,7 @@
 /**
- * What's new: once per user and release line, a short window with the news of this version (0.51: the wave of
+ * What's new: once per user and release line, a short window with the news of this version (0.53: the NP that rises
+ * with the XP, the monsters' XP, the parties of the floating castle, the Evolution Ticket and the boosts; 0.52: the
+ * Grimório, the Hall of Fame and the duels; 0.51: the wave of
  * thirteen Magias stronger than the others on purpose, the Absolute category, the limit of holders in the world and the
  * Sun, the Black Arts, the Fairy Magic and the Counter made stronger; 0.50: the Awakening, the
  * first Magia drawn and kept, death for good with the Death Check and the Last Act, the Market in pages; 0.49: the cleanup of Log
@@ -41,7 +43,7 @@
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 
 /** The release line the notice speaks about. */
-const NOTICE = "0.52";
+const NOTICE = "0.53";
 
 /** Call during the `init` hook. */
 export function registerNotice() {

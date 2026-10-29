@@ -26,6 +26,7 @@
     "systems/eternia/templates/actor/parts/inventory/inventory-itemlist.html",
     "systems/eternia/templates/actor/parts/inventory/inventory-equip-slot.html",
     "systems/eternia/templates/actor/parts/inventory/inventory-ticket-slot.html",
+    "systems/eternia/templates/actor/parts/inventory/inventory-ticket-evolution.html",
     "systems/eternia/templates/actor/parts/skills/skills-grid.html",
 
     "systems/eternia/templates/actor/parts/monster-skills.html",

@@ -48,10 +48,12 @@ export function baseData(item) {
 /*  What an enhancement does to an item         */
 /* -------------------------------------------- */
 
-/** What the Potent enhancement adds to on this item: "heal", "damage", "fatigue", "status" or null. */
+/** What the Potent enhancement adds to on this item: "xp", "heal", "damage", "fatigue", "status" or null. */
 export function potentKind(data) {
   const flags = data.flags?.[SYSTEM_ID] ?? {};
   const damage = data.system?.damage ?? {};
+  // A boost of the XP (experience/boosts.mjs): more monsters
+  if (toInt(flags.xpBoost?.count) > 0) return "xp";
   if (flags.heal || (damage.recovery && hasDamage(damage))) return "heal";
   if (hasDamage(damage)) return "damage";
   if (toInt(flags.fatigue) > 0) return "fatigue";
@@ -149,6 +151,9 @@ function applyPotent(data, def, f) {
   const flags = data.flags[SYSTEM_ID];
   const damage = data.system.damage ?? {};
   switch (potentKind(data)) {
+    case "xp":
+      flags.xpBoost = { ...flags.xpBoost, count: toInt(flags.xpBoost.count) + (def.potent.amount * f) };
+      break;
     case "heal":
       if (flags.heal) flags.heal = { ...flags.heal, mod: plus(flags.heal.mod ?? 0, def.potent.amount * f) };
       else damage.mod = plus(damage.mod, def.potent.amount * f);

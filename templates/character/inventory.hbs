@@ -81,6 +81,7 @@
 
 				<header class="lhpf-section">{{localize 'ETERNIA.Label.Tickets'}}</header>
 				<div class="ticket-slots-grid lhpf-tickets">
+					{{> "systems/eternia/templates/actor/parts/inventory/inventory-ticket-evolution.html" item=tickets.evolution.[0] total=tickets.evolutionTotal gm=lh.xp.gm editable=editable}}
 					{{> "systems/eternia/templates/actor/parts/inventory/inventory-ticket-ranked-slot.html" subtype="Treasure" typeLabel="ETERNIA.Ticket.Type.Treasure" icon="icons/sundries/flags/banner-pink.webp" items=tickets.treasure total=tickets.treasureTotal rank=system.infos.crank}}
 					{{> "systems/eternia/templates/actor/parts/inventory/inventory-ticket-slot.html" subtype="Fate" typeLabel="ETERNIA.Ticket.Type.Fate" icon="icons/sundries/flags/banner-green.webp" item=tickets.fate.[0]}}
 					{{> "systems/eternia/templates/actor/parts/inventory/inventory-ticket-slot.html" subtype="Connection" typeLabel="ETERNIA.Ticket.Type.Connection" icon="icons/sundries/flags/banner-purple.webp" item=tickets.connection.[0]}}

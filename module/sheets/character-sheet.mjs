@@ -31,6 +31,9 @@ import { categoryOf, categoryView } from "../apps/magic-catalog.mjs";
 import { formOf, openEvolution, raceColor, regress, ROMAN } from "../races/evolution.mjs";
 import { raceBadge, raceContext } from "../races/sheet.mjs";
 import { portraitFit } from "../helpers/portrait.mjs";
+import { addXp, xpView } from "../experience/level.mjs";
+import { boostsOf } from "../experience/boosts.mjs";
+import { giveTickets, ticketCount } from "../experience/tickets.mjs";
 
 const DIR = `systems/eternia/templates/character`;
 const PARTIALS = ["sidebar", "character", "skills", "race", "inventory", "class", "magic", "profession", "effects", "biography"];
@@ -230,6 +233,8 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       "lhpf-regress": EterniaCharacterSheet.#onRegress,
       "lhpf-race-browse": EterniaCharacterSheet.#onRaceBrowse,
       "lhauto-fate": EterniaCharacterSheet.#onFate,
+      // The XP of the header (the GM): give or take XP, give Evolution Tickets
+      "lhpf-xp": EterniaCharacterSheet.#onXp,
       "lhauto-remove-bad": EterniaCharacterSheet.#onRemoveBad,
       "lhauto-allocate": EterniaCharacterSheet.#onAllocate,
       "lhauto-gold": EterniaCharacterSheet.#onGold,
@@ -319,6 +324,9 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       pips: Array.from({ length: Math.clamp(Math.max(fateMax, fate), 0, 10) }, (_, i) => i < fate),
       tooltip: L("Sheet.FateHint", { value: fate, max: fateMax })
     };
+
+    // Header: the XP to the next NP (experience/level.mjs), what boosts it and the Evolution Tickets in the bag
+    lh.xp = this.#xpContext();
 
     // Defenses, initiative, speed, power
     const total = path => toInt(foundry.utils.getProperty(battle, `${path}.total`));
@@ -746,6 +754,43 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
 
   static #onFate() {
     return this.#setFate(1);
+  }
+
+  /** The XP bar of the header: where the character is in its NP, its boosts, its Tickets. */
+  #xpContext() {
+    const actor = this.actor;
+    const bar = xpView(actor);
+    const boosts = boostsOf(actor).map(e => e.getFlag(SYSTEM_ID, "xpBoost"));
+    const lines = [L("Xp.Tip.Total", { total: bar.total.toLocaleString(game.i18n.lang) })];
+    lines.push(bar.max ? L("Xp.Tip.Max") : L("Xp.Tip.Next", { n: bar.left.toLocaleString(game.i18n.lang), rank: bar.rank + 1 }));
+    for (const b of boosts) lines.push(L("Xp.Tip.Boost", { item: b.item, pct: b.pct, left: b.left }));
+    const tickets = ticketCount(actor);
+    if (tickets) lines.push(L("Xp.Tip.Tickets", { n: tickets }));
+    const gm = game.user.isGM;
+    if (gm) lines.push(L("Xp.Tip.GM"));
+    return { ...bar, boost: boosts.length > 0, gm, tooltip: lines.map(l => `<p>${escape(l)}</p>`).join("") };
+  }
+
+  /** The GM's box of the XP: XP to give (or take, negative) and Evolution Tickets to give. */
+  static async #onXp() {
+    if (!game.user.isGM) return;
+    const actor = this.actor;
+    const bar = xpView(actor);
+    const data = await foundry.applications.api.DialogV2.input({
+      window: { title: L("Xp.Gm.Title", { name: actor.name }), icon: "fa-solid fa-star" },
+      classes: ["eternia", "lhd-box"],
+      position: { width: 420 },
+      content: `<p>${escape(L("Xp.Gm.Lead", { total: bar.total, rank: bar.rank }))}</p>`
+        + `<div class="form-group"><label>${escape(L("Xp.Gm.Add"))}</label><input type="number" name="xp" step="1" value="" placeholder="0" autofocus></div>`
+        + `<div class="form-group"><label>${escape(L("Xp.Gm.Tickets"))}</label><input type="number" name="tickets" min="0" step="1" value="" placeholder="0"></div>`
+        + `<p class="hint">${escape(L("Xp.Gm.Hint"))}</p>`,
+      ok: { label: L("Xp.Gm.Ok"), icon: "fa-solid fa-check" }
+    });
+    if (!data) return;
+    const tickets = Math.max(0, toInt(data.tickets));
+    if (tickets) await giveTickets(actor, tickets);
+    const xp = toInt(data.xp);
+    if (xp) await addXp(actor, xp, { source: (xp < 0) ? "undo" : "gm" });
   }
 
   static #onRemoveBad() {

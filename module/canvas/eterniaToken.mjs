@@ -1,4 +1,5 @@
 import { HIDDEN_STATUS } from "../helpers/statuses.mjs";
+import { bubbleFor, openBubble } from "./bubble.mjs";
 
 /**
  * Token with support for the [Hidden] status: the token disappears for every user that does not
@@ -32,18 +33,19 @@ export class EterniaToken extends foundry.canvas.placeables.Token {
 
   /**
    * @override
-   * A right-click on someone else's character (a player's) opens the duel's bubble (duels/ui.mjs) instead of nothing.
+   * A right-click on someone else's character (a player's) opens its bubble (canvas/bubble.mjs: the duel, the party)
+   * instead of nothing.
    */
   _canHUD(user, event) {
     if (super._canHUD(user, event)) return true;
     if (!this.layer.active || this.layer._draggedToken || canvas.regions?._placementContext || canvas.controls.ruler.active) return false;
     if (CONFIG.Canvas.rulerClass.canMeasure && (event?.type === "pointerdown")) return false;
-    return !!game.eternia?.duels?.bubbleFor?.(this, user);
+    return bubbleFor(this, user);
   }
 
   /** @override */
   _onClickRight(event) {
-    if (!this.isOwner && game.eternia?.duels?.bubbleFor?.(this)) return game.eternia.duels.openBubble(this);
+    if (!this.isOwner && bubbleFor(this)) return openBubble(this);
     return super._onClickRight(event);
   }
 

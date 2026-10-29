@@ -14,7 +14,7 @@ import { toInt } from "../helpers/utils.mjs";
 import { isEmpty, term } from "../i18n/terms.mjs";
 import { ATTRIBUTES, Summaries, TIMING_GROUPS, activeStatuses, signed } from "./character-sheet.mjs";
 import { EterniaActorMonsterSheet } from "./actor-monster-sheet.mjs";
-import { activateDropTab, addDropRow, addGoldRow, convertFromSheet, dropsContext, rollFromSheet } from "../bestiary/drop-tab.mjs";
+import { activateDropTab, addDropRow, addGoldRow, convertFromSheet, dropsContext, editXpFromSheet, giveXpFromSheet, rollFromSheet } from "../bestiary/drop-tab.mjs";
 import { nameMonster } from "../bestiary/named.mjs";
 import { PHYSICAL_TYPES } from "../piles/pile-config.mjs";
 import { portraitFit } from "../helpers/portrait.mjs";
@@ -40,6 +40,8 @@ export class EterniaMonsterSheet extends EterniaActorMonsterSheet {
       "lhauto-summary": EterniaMonsterSheet.#onSummary,
       "lhauto-statuses": EterniaMonsterSheet.#onStatuses,
       "drops-roll": EterniaMonsterSheet.#onDropsRoll,
+      "xp-edit": EterniaMonsterSheet.#onXpEdit,
+      "xp-give": EterniaMonsterSheet.#onXpGive,
       "drops-gold": EterniaMonsterSheet.#onDropsGold,
       "drops-convert": EterniaMonsterSheet.#onDropsConvert,
       "named-beast": EterniaMonsterSheet.#onNamedBeast
@@ -223,6 +225,14 @@ export class EterniaMonsterSheet extends EterniaActorMonsterSheet {
   }
 
   /** Itens Deixados: roll now (GM), for whom it asks. */
+  static #onXpEdit() {
+    editXpFromSheet(this.actor);
+  }
+
+  static #onXpGive() {
+    giveXpFromSheet(this.actor);
+  }
+
   static #onDropsRoll() {
     return rollFromSheet(this.actor);
   }

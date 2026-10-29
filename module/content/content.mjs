@@ -13,7 +13,7 @@
  *   skills leave with the item. use.mjs checks and counts their use like any skill.
  * - Statuses "at the start of the scene": given by the equipped items when a combat starts.
  * - Food: using it removes Fatigue from whoever eats it (the user, or the targeted characters; a Banquet,
- *   flags.eternia.banquet, feeds every character of the players).
+ *   flags.eternia.banquet, feeds the user's party on its scene, or the characters of the players there).
  * - Healing items (potions, jewels): using one heals whoever drinks it the same way.
  *
  * Only missing data is filled: what a GM edited by hand is never replaced.
@@ -28,6 +28,8 @@ import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { actorName, combatActors, escape, toInt } from "../helpers/utils.mjs";
 import { statusDefinition } from "../helpers/statuses.mjs";
 import { giveEffects, statusEffectData } from "../chat/status-links.mjs";
+import { membersOf, partyOf } from "../party/state.mjs";
+import { isLocalChange } from "../helpers/clients.mjs";
 
 const EQUIPMENT = ["weapon", "armor", "shield", "accessory", "bag"];
 /** Item types whose trigger powers become skills (gear is carried, never equipped). */
@@ -379,19 +381,29 @@ const foodOf = message => toInt(message.getFlag("eternia", "use")?.item?.flags?.
 
 /** Someone used a food or a healing item: whoever eats or drinks it gets its effect. */
 function onCreateMessage(message, options, userId) {
-  if ((userId !== game.user.id) || !setting("content")) return;
+  // Only the window that used it (the same user may have two open)
+  if (!isLocalChange(options, userId) || !setting("content")) return;
   if (foodOf(message)) eat(message).catch(err => console.error(`${SYSTEM_ID} | Food failed`, err));
   if (healOf(message)) drink(message).catch(err => console.error(`${SYSTEM_ID} | Healing failed`, err));
 }
 
+/** The scene a character is on (its token's), else the one being viewed. */
+const sceneOf = actor => actor?.token?.parent ?? actor?.getActiveTokens(false, true)[0]?.parent ?? canvas?.scene ?? null;
+
+/** Whether a character has a token on a scene. */
+const isOn = (actor, scene) => !!scene && scene.tokens.some(t => (t.actorId === actor.id) || (t.actor?.uuid === actor.uuid));
+
 /**
- * Who gets a used item's effect: the user and every character of the players (a Banquet), the user (Target: Self),
- * else the targeted characters, else the user.
+ * Who gets a used item's effect: the user and its party on its scene (a Banquet; with no party, the characters of the
+ * players on that scene), the user (Target: Self), else the targeted characters, else the user.
  */
-function recipients(use) {
+export function recipients(use) {
   const user = fromUuidSync(use.actorUuid);
   if (use.item?.flags?.[SYSTEM_ID]?.banquet) {
-    return [...new Set([user, ...game.actors.filter(a => (a.type === "character") && a.hasPlayerOwner)])].filter(a => a?.type === "character");
+    const scene = sceneOf(user);
+    const party = user ? partyOf(user) : null;
+    const table = party ? membersOf(party) : game.actors.filter(a => (a.type === "character") && a.hasPlayerOwner);
+    return [...new Set([user, ...table.filter(a => isOn(a, scene))])].filter(a => a?.type === "character");
   }
   const targets = use.self ? [user] : [...game.user.targets].map(t => t.actor);
   return [...new Set((targets.length ? targets : [user]).filter(a => a?.type === "character"))];

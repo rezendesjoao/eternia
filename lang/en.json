@@ -386,7 +386,8 @@
         "Treasure": "Treasure Ticket",
         "Fate": "Fate Ticket",
         "Connection": "Connection Ticket",
-        "Reset": "Reset Ticket"
+        "Reset": "Reset Ticket",
+        "Evolution": "Evolution Ticket"
       },
       "AddRank": "Add a Treasure Ticket of this CR"
     },
@@ -722,7 +723,7 @@
     },
     "RankUp": {
       "Button": "CR Up",
-      "Tooltip": "Character Rank Up (Log Ticket)",
+      "Tooltip": "Put at the next NP (the GM: the players' NP rises with the XP)",
       "Title": "Character Rank Up: {name}",
       "Window": "Character Rank Up",
       "Confirm": "Raise Character Rank from {from} to {to}?",
@@ -769,9 +770,13 @@
         "DownPicks": "The picks above CR {to} can be undone in the skill window.",
         "Road": "Along the way",
         "Form": "Form",
-        "FormValue": "Stage {stage} · {name} open"
+        "FormValue": "Stage {stage} · {name} open",
+        "XP": "Experience",
+        "XPValue": "{total} XP · {left} to NP {rank}",
+        "XPMax": "{total} XP · top NP"
       },
-      "Form": "The form may give way: Stage {stage} ({name}) can be awakened from the sheet."
+      "Form": "The form may give way: Stage {stage} ({name}) can be awakened from the sheet.",
+      "ByXp": "The NP rises with the XP: only the GM puts a character at an NP by hand."
     },
     "StatAllocation": {
       "Confirm": "Confirm",
@@ -1408,6 +1413,10 @@
       "duelCountdown": {
         "Name": "Countdown before a duel (seconds)",
         "Hint": "How long the countdown stays on everyone's screen before the duel's combat starts. 0 starts at once."
+      },
+      "partyFrame": {
+        "Name": "Party frame",
+        "Hint": "Shows, at the corner of the screen, the members of your party, with their HP and where each one is."
       }
     },
     "Use": {
@@ -1784,7 +1793,8 @@
       "HateTip": "Hate {value}",
       "FatigueTip": "Fatigue {value}: the maximum HP drops by {value}.",
       "Power": "Power",
-      "PowerN": "Power {n}"
+      "PowerN": "Power {n}",
+      "XpTip": "XP {label} · {next}"
     },
     "Keys": {
       "hudDismiss": "Action HUD: close the open panel",
@@ -1826,7 +1836,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>What's new in Eternia 0.52</strong></p><ul><li><strong>Grimoire:</strong> the new button below the Market, on the token controls, shows every Magia of the world to read, with each one's spells. Your character's Magias carry a little gold book.</li><li><strong>Hall of Fame:</strong> the people the world talks about and why they are famous, with stars that say how far the fame goes. The GM chooses who goes in.</li><li><strong>Duels:</strong> right-click another character's token and challenge them to a duel of First Strike, Half Loss or To the Death. The other player has a minute to accept, everyone sees the countdown, and the table says who won. In the first two modes nobody falls; to the death, whoever falls may die for good.</li><li><strong>Arena:</strong> the Duels button opens the ranking: points, titles, wins and the Arena Champion. Beating someone above you is worth more.</li></ul><p>The Player's Guide has a new chapter, Duels and the Arena.</p>"
+      "Body": "<p><strong>What's new in Eternia 0.53</strong></p><ul><li><strong>Evolution by XP:</strong> the NP now rises by itself when the XP gets there. Each monster gives the XP written on its sheet; from NP 1 to 2 it takes 6 common monsters of NP 1, and each NP one more. The XP bar is in the sheet's header, beside the NP.</li><li><strong>Parties:</strong> right-click another player's token and choose Invite to the party (or use the Party button on the token controls). Who invites leads; up to six. The XP of the monsters someone of the party fells goes to everyone of the party on the scene, shared by NP, and a boss gives XP to everyone of its fight.</li><li><strong>The NP difference:</strong> a monster above your NP gives more XP, below gives less, and 4 NP below gives nothing.</li><li><strong>Evolution Ticket:</strong> the GM gives it for what teaches without a fight (a lesson, a feat). Each gives 100 XP; it can be used, given or sold.</li><li><strong>XP potions and food:</strong> the Alchemist and the Cook make dear items that give more XP for the next monsters.</li></ul><p>The Player's Guide has the Evolution chapter anew and a new chapter, The Party.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -2310,7 +2320,8 @@
           "heal": "+{n} healing",
           "damage": "+{n} damage",
           "fatigue": "Removes {n} more Fatigue",
-          "status": "+{n} to the Rating of [{status}]"
+          "status": "+{n} to the Rating of [{status}]",
+          "xp": "+{n} monsters on the XP boost"
         },
         "double": {
           "name": "Double",
@@ -5010,6 +5021,229 @@
         "ResetTitle": "Reset the ranking",
         "ResetConfirm": "Erase the {n} duels of the history and reset everyone's ranking? It can't be undone."
       }
+    },
+    "Xp": {
+      "Bar": {
+        "Label": "XP",
+        "Value": "{into}/{need}",
+        "Max": "{total} (top NP)",
+        "Next": "{n} to NP {rank}",
+        "ByXp": "the NP rises by itself with the XP"
+      },
+      "Float": {
+        "Gain": "+{n} XP",
+        "Loss": "−{n} XP",
+        "Rank": "NP {rank}!"
+      },
+      "Banner": {
+        "Eyebrow": "Evolution",
+        "Rank": "NP {rank}",
+        "Stats": "+{n} to each Base Stat and the class's HP",
+        "Picks": "Skill picks: {combat} Combat and {general} General",
+        "Choose": "Choose now",
+        "Later": "Later"
+      },
+      "Card": {
+        "Eyebrow": {
+          "fall": "Experience",
+          "rift": "Experience · Rift closed",
+          "save": "Experience · saved",
+          "hand": "Experience · given by the GM"
+        },
+        "Kind": "{kind} of NP {np}",
+        "Base": "{n} XP",
+        "Alone": "Alone: the XP is all yours",
+        "Party": "Party of {n} on the scene: +{pct}%, shared by NP",
+        "Raid": "Boss: the {n} of the fight share it, by NP",
+        "Gain": "+{n} XP",
+        "Nothing": "nothing",
+        "Share": "{pct}% of the party",
+        "Above": "{n} NP above: {factor}",
+        "Below": "{n} NP below: {factor}",
+        "TooLow": "{n} NP below: the monster has nothing left to teach",
+        "Boost": "{name}: +{pct}%",
+        "Rank": "NP {rank}",
+        "Progress": "{into}/{need}",
+        "Max": "Top NP",
+        "Undo": "Undo",
+        "Undone": "Undone"
+      },
+      "Kind": {
+        "common": "Common",
+        "mob": "Mob",
+        "boss": "Boss",
+        "rift": "Rift",
+        "named": "Named beast"
+      },
+      "Sheet": {
+        "Chip": "{n} XP",
+        "Own": "{n} XP, this creature's own (the GM may change it).",
+        "ByKind": "{n} XP: a {kind} of NP {np}'s (the GM may give it a value of its own).",
+        "EditTitle": "XP of {name}",
+        "EditLead": "Now: {text}",
+        "EditField": "XP (empty: the NP's and kind's)",
+        "EditHint": "Change this creature's XP",
+        "Save": "Save",
+        "Give": "Give the XP",
+        "GiveHint": "Give the XP now, even if it was given (the party shares it)",
+        "GiveTitle": "Give the XP of {name}",
+        "GiveLead": "{n} XP to whom? Their party on the scene shares it, as if they had felled it.",
+        "ForWhom": "To",
+        "NoPlayers": "No character of a player in the world.",
+        "Given": "This creature's XP was given."
+      },
+      "Tip": {
+        "Total": "Total XP: {total}",
+        "Next": "{n} XP to NP {rank}. The NP rises by itself when the XP gets there.",
+        "Max": "At the top NP.",
+        "Boost": "{item}: +{pct}% of the XP of the next {left} monsters",
+        "Tickets": "Evolution Tickets in the Inventory: {n}",
+        "GM": "Click to give XP or Tickets."
+      },
+      "Gm": {
+        "Title": "XP of {name}",
+        "Lead": "Now: {total} XP, NP {rank}.",
+        "Add": "XP to add (negative takes)",
+        "Tickets": "Evolution Tickets to give",
+        "Hint": "The NP follows: it rises by itself; going down asks first.",
+        "Ok": "Apply"
+      },
+      "Ticket": {
+        "Eyebrow": "Evolution Ticket",
+        "Used": "{name} uses {n} Evolution Ticket(s)",
+        "Gain": "+{xp} XP ({before} → {after})",
+        "None": "{name} has no Evolution Tickets.",
+        "Window": "Use Evolution Tickets",
+        "Lead": "You have {n}. Each gives {xp} XP.",
+        "HowMany": "How many",
+        "Use": "Use",
+        "UseHint": "Use (each gives 100 XP)",
+        "EmptyHint": "The GM gives the Evolution Tickets (for a lesson, a feat, a favour). Used, they give XP; they can be sold or given."
+      },
+      "Boost": {
+        "Name": "{item} · +{pct}% XP ({left})",
+        "Text": "+{pct}% of the XP of the next {count} monsters that give XP.",
+        "Given": "XP boost for {names}: +{pct}% for the next {count} monsters."
+      }
+    },
+    "Party": {
+      "Title": "Party",
+      "Button": "Party",
+      "Window": "Party",
+      "Eyebrow": "Party",
+      "Heading": {
+        "Of": "{name}'s party",
+        "None": "No party",
+        "All": "The parties of the world"
+      },
+      "Lead": {
+        "In": "the XP of the monsters someone of the party fells is shared by those on the scene.",
+        "None": "{name} fights alone: the XP of the monsters they fell is all theirs. Invite someone to form a party.",
+        "NoCharacter": "Select your character's token to see its party.",
+        "GM": "Every party of the world. Select tokens of characters of players to join them in a party."
+      },
+      "Count": "{n}/{max} in the party",
+      "Me": "Character",
+      "Members": "Members",
+      "Leader": "leader",
+      "You": "you",
+      "Find": "Find the token on the scene",
+      "Alone": "No party",
+      "AloneHint": "Invite someone from the list beside, or with a right-click on their token. Who invites leads.",
+      "InviteTitle": "Invite",
+      "Search": "Search a character…",
+      "Online": "The player is in the game",
+      "Offline": "The player is not in the game",
+      "NoCandidates": "No character of another player without a party.",
+      "EmptyTitle": "No party",
+      "EmptyGM": "The players form parties inviting one another; you can also join the tokens selected.",
+      "Form": "Form a party",
+      "FormLead": "Selected: {names}. The first one leads.",
+      "FormHint": "Select 2 to 6 tokens of characters of players to form a party.",
+      "RulesTitle": "How the party works",
+      "Rules": {
+        "1": "Up to {max} characters. Who invites leads; only the leader invites, takes someone out or passes the lead. Anyone leaves at will.",
+        "2": "The XP of a monster someone of the party fells goes to everyone of the party on the same scene: +10% per member past the first, shared by each one's NP.",
+        "3": "Each part still weighs the NP difference: a monster above gives more, below gives less, and 4 NP below gives nothing.",
+        "4": "A boss gives XP to every character of its fight, of any party. The drops still go to whoever felled it.",
+        "5": "The Cook's Banquet feeds the user's party on the scene."
+      },
+      "Frame": {
+        "Title": "Party",
+        "Open": "Open the party's window",
+        "Fold": "Fold",
+        "Unfold": "Unfold",
+        "Rank": "NP {rank}"
+      },
+      "Where": {
+        "here": "on this scene",
+        "far": "on another scene",
+        "away": "player out of the game",
+        "down": "fallen",
+        "dead": "dead"
+      },
+      "UI": {
+        "Ok": "OK",
+        "Invite": "Invite to the party",
+        "Promote": "Pass the lead",
+        "Kick": "Take out of the party",
+        "Leave": "Leave the party",
+        "Disband": "Disband the party",
+        "InPartyOf": "In {name}'s party",
+        "AskTitle": "Party invitation",
+        "Asks": "{name} invites {target} to the party.",
+        "AskRule": "The party has {n} of {max}. In a party, the monsters' XP is shared by those on the scene.",
+        "Question": "Join the party?",
+        "Accept": "Join",
+        "Decline": "Decline",
+        "WaitTitle": "Invitation sent",
+        "Waiting": "Waiting for {name} to answer…",
+        "WaitingFor": "Who answers: {names}",
+        "Withdraw": "Take it back",
+        "OnlyLeader": "Only the party's leader invites.",
+        "KickTitle": "Take out of the party",
+        "KickLead": "Take {name} out of the party?",
+        "LeaveTitle": "Leave the party",
+        "LeaveLead": "Leave the party? If you lead it, the lead passes to who came after you.",
+        "DisbandTitle": "Disband the party",
+        "DisbandLead": "Disband the party? Everyone is left with no party.",
+        "Closed": {
+          "accepted": "{name} joined the party.",
+          "declined": "{name} declined the invitation.",
+          "expired": "{name} didn't answer in time.",
+          "cancelledAsked": "{name} took the invitation back.",
+          "expiredAsked": "{name}'s invitation expired."
+        }
+      },
+      "Note": {
+        "Formed": "{leader} formed a party with {name} ({n}/{max}). {leader} leads it.",
+        "Joined": "{name} joined {leader}'s party ({n}/{max}).",
+        "Left": "{name} left the party.",
+        "LeftLast": "{name} left, and the party is no more.",
+        "Kicked": "{by} took {name} out of the party.",
+        "KickedLast": "{by} took {name} out, and the party is no more.",
+        "Leader": "{name} now leads the party.",
+        "Disbanded": "{name}'s party is no more."
+      },
+      "Error": {
+        "Missing": "Character not found.",
+        "NotPlayer": "{name} is not a character of a player.",
+        "Dead": "{name} is dead.",
+        "Self": "You can't do that to yourself.",
+        "InParty": "{name} is in a party already.",
+        "NotLeader": "Only the party's leader can do that.",
+        "Full": "The party is full ({n}).",
+        "Busy": "{name} has an invitation waiting already.",
+        "Away": "{name}'s player is not in the game.",
+        "NotYours": "That character isn't yours.",
+        "Gone": "The invitation is no more.",
+        "NoParty": "There is no party.",
+        "NotMember": "That character is not in the party.",
+        "FormFew": "A party takes 2 characters of players or more.",
+        "NoCharacter": "Select your character's token first.",
+        "Generic": "It didn't work."
+      },
+      "Gone": "A character no longer there"
     }
   },
   "Cancel": "Cancel"

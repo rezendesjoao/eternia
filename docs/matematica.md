@@ -5,8 +5,9 @@ de entrar no compêndio: os números de cada seção são os que as 14 classes, 
 do bestiário seguem (as 52 do Império desde a 0.42, as 52 de Norlangarth desde a 0.47). As contas vêm de um simulador (Monte Carlo de lutas, com os dados e as regras de
 `module/helpers/combat-cards.mjs`), em `Desktop/Daggerheart/Eternia-Balanceamento/simulador` (fora do repositório; a
 seção 8 diz como rodar). Desde a 0.48, a seção 9 faz o mesmo com a economia: o preço de cada item, o que cada criatura
-deixa e as recompensas das missões saem de um modelo só, medido no mesmo simulador. Onde este documento e uma regra do
-compêndio discordarem, vale a regra, e o documento está desatualizado.
+deixa e as recompensas das missões saem de um modelo só, medido no mesmo simulador; desde a 0.53, a seção 10 faz o mesmo
+com a evolução: a tabela do XP, o XP de cada criatura e o ritmo de subir de NP, com o mesmo comum por unidade. Onde este
+documento e uma regra do compêndio discordarem, vale a regra, e o documento está desatualizado.
 
 ## 1. Os dados
 
@@ -491,7 +492,9 @@ node economia-drops.mjs    # o que cada criatura deixa pelo modelo: economia-dro
 node economia-mc.mjs       # as simulações da economia (Monte Carlo, Anima-mundi, equipamento, missões, sessões)
 node economia-equip.js     # o equipamento atrasado nos encontros (0 a 3 níveis): economia-equip.json
 node economia-doc.mjs > economia-doc.md                # as tabelas da seção 9
-node economia-aplicar.mjs  # escreve preços, drops e textos no compêndio (--dry para ensaiar)
+node economia-aplicar.mjs  # escreve preços, drops, o XP das criaturas e textos no compêndio (--dry para ensaiar)
+node xp-monstros.mjs       # o XP de cada criatura pelo peso no encontro (seção 10): xp-monstros.json
+node xp-ritmo.mjs          # o ritmo da evolução: a tabela, os encontros e as sessões por NP, o Monte Carlo (seção 10)
 ```
 
 Os números da economia ficam em `module/economy/data.mjs` (o comum, o Anima-mundi, o [Material-Base], a Quintessência,
@@ -790,3 +793,131 @@ Drops: 104 criaturas; 2 a mais de 10% do valor do modelo (Basilisco ×1.17, Cont
   nível × o grau; um nomeado, a receita.
 - **Uma missão:** a tabela de missões, pelo NP do grupo. Uma parte pode vir como item, que conta até 3/4 do preço.
 
+## 10. A evolução
+
+Desde a 0.53, o NP sobe com a experiência, o **XP**, e não mais quando o Mestre diz. Os números ficam em
+`module/experience/data.mjs` (puro, sem Foundry: o sistema, o modelo da fera com nome e os scripts `xp-*` do simulador o
+leem). A unidade é a mesma da economia: o **comum**, o inimigo comum do NP. A âncora é do usuário: **do NP 1 ao 2 são pelo
+menos 6 monstros de NP 1** para quem luta sozinho, e "não é para upar fácil".
+
+### O modelo
+
+- **Um comum do NP dá 10 × (NP + 4) XP:** 50 no NP 1, 90 no NP 5, 140 no NP 10, 240 no NP 20. A curva sobe devagar (×2,8 do
+  NP 1 ao 10) para um monstro um pouco abaixo ainda valer alguma coisa.
+- **Do NP ao seguinte são NP + 5 comuns do NP**, sozinho: 6 no NP 1 (a âncora), 10 no NP 5, 15 no NP 10. Então o XP até o
+  próximo NP é **10 × (NP + 4) × (NP + 5)**: 300, 420, 560, ..., 2.100 no NP 10. A tabela vai até o NP 30.
+- **Cada criatura vale o peso dela num encontro, como os itens deixados** (seção 9): um encontro vale 4 comuns, seja quem for
+  que o encha. O lacaio dá ⅔ de um comum, o comum que vem três por encontro 4/3, a tropa que conta como 2 comuns, 2; o chefe
+  de grupo 4 e o chefe solo 6 (a tabela do chefe, sem o Anima-mundi e o [Material-Base]). A Fenda paga a cena (1, 2 ou 3
+  encontros) quando fecha; as levas não dão nada. A Lagartixa-Tesouro, um evento de tesouro, dá o XP de um chefe se for
+  presa; a fera com nome, o de um chefe do NP dela (solo, se vem sozinha). O valor de cada uma fica em `flags.eternia.xp`,
+  escrito por `economia-aplicar.mjs` (o mesmo `dropPlan` dos itens deixados, em `xp-monstros.mjs`); um monstro feito à mão,
+  sem a flag, vale o comum do NP dele pelas tags (Chefe 4, Lacaio ⅔).
+- **Quem leva:** quem derrubou (o mesmo `fellerOf` dos itens deixados); o que uma criatura [Dominada] derruba é de quem a
+  domina; um aliado do Mestre (uma ficha sem jogador) não passa XP a ninguém.
+- **A diferença de NP** (o do monstro menos o de cada um): +1 ×1,2; +2 ×1,4; +3 ou mais ×1,5; −1 ×0,8; −2 ×0,5; −3 ×0,2;
+  −4 ou menos, nada. Com a curva do comum, um monstro 1 NP abaixo rende ~70% do seu, 2 abaixo ~40%, 3 abaixo ~15%.
+- **O grupo** (até 6): o XP do monstro ganha +10% por membro na cena além do primeiro e se divide pelo NP de cada um;
+  depois, cada parte pesa a diferença de NP dela. Um **chefe** é de todos os personagens da luta dele, de qualquer grupo (o
+  bônus conta até 6). Quem do grupo está em outra cena não ganha.
+- **O Tíquete de Evolução** dá 100 XP em qualquer NP (um terço do NP 1, um vigésimo do NP 10) e vale 100 Yuld, [Valioso]:
+  a loja paga o cheio. É o XP que o Mestre dá pelo que se aprende sem luta.
+- **Os bônus de XP** (poções do Alquimista, comidas do Cozinheiro): +% do XP dos próximos N monstros que derem XP, um de
+  cada tipo, somando. O preço é o dobro do XP que acrescentam a um personagem sozinho lutando no nível do item, a um Yuld
+  por XP (a taxa do Tíquete): `boostPrice`.
+
+### A tabela
+
+| NP | XP para chegar | XP até o próximo | Um comum dá | Comuns até o próximo (sozinho) | Um Tíquete |
+|---|---|---|---|---|---|
+| 1 | 0 | 300 | 50 | 6 | 33,3% |
+| 2 | 300 | 420 | 60 | 7 | 23,8% |
+| 3 | 720 | 560 | 70 | 8 | 17,9% |
+| 4 | 1.280 | 720 | 80 | 9 | 13,9% |
+| 5 | 2.000 | 900 | 90 | 10 | 11,1% |
+| 6 | 2.900 | 1.100 | 100 | 11 | 9,1% |
+| 7 | 4.000 | 1.320 | 110 | 12 | 7,6% |
+| 8 | 5.320 | 1.560 | 120 | 13 | 6,4% |
+| 9 | 6.880 | 1.820 | 130 | 14 | 5,5% |
+| 10 | 8.700 | 2.100 | 140 | 15 | 4,8% |
+| 15 | 22.400 | 3.800 | 190 | 20 | 2,6% |
+| 20 | 45.600 | 6.000 | 240 | 25 | 1,7% |
+
+### O ritmo
+
+Pelo modelo, com o grupo de 4 do mesmo NP (cada um leva 1,3/4 de cada monstro) e a sessão da seção 9 (2 encontros padrão
+e o clímax, um chefe com 2 comuns). O Monte Carlo sorteia os encontros entre as criaturas do bestiário de cada NP
+(`xp-ritmo.mjs`, 2.000 corridas); do NP 10 em diante o bestiário ainda não tem criaturas, e vale o modelo.
+
+| NP → NP+1 | XP | Sozinho: comuns | Grupo de 4: encontros padrão | Sessões (modelo) | Sessões (Monte Carlo) | Encontros desde o NP 1 | Sessões desde o NP 1 |
+|---|---|---|---|---|---|---|---|
+| 1 → 2 | 300 | 6 | 4,6 | 1,3 | 1,6 | 4,6 | 1,3 |
+| 2 → 3 | 420 | 7 | 5,4 | 1,5 | 1,7 | 10 | 2,9 |
+| 3 → 4 | 560 | 8 | 6,2 | 1,8 | 2 | 16,2 | 4,6 |
+| 4 → 5 | 720 | 9 | 6,9 | 2 | 2 | 23,1 | 6,6 |
+| 5 → 6 | 900 | 10 | 7,7 | 2,2 | 2,3 | 30,8 | 8,8 |
+| 6 → 7 | 1.100 | 11 | 8,5 | 2,4 | 2,4 | 39,2 | 11,2 |
+| 7 → 8 | 1.320 | 12 | 9,2 | 2,6 | 3 | 48,5 | 13,8 |
+| 8 → 9 | 1.560 | 13 | 10 | 2,9 | 3 | 58,5 | 16,7 |
+| 9 → 10 | 1.820 | 14 | 10,8 | 3,1 | 3,3 | 69,2 | 19,8 |
+| 14 → 15 | 3.420 | 19 | 14,6 | 4,2 | — | 134,6 | 38,5 |
+| 19 → 20 | 5.520 | 24 | 18,5 | 5,3 | — | 219,2 | 62,6 |
+
+Antes (até a 0.52), o costume era 1 NP por sessão: o NP 10 chegava em 9 sessões. Agora são cerca de **20 sessões** (69
+encontros) para o grupo de 4 que luta no próprio NP, menos com os Tíquetes e os bônus, mais para quem caça abaixo do NP.
+Sozinho, é um monstro por luta (6 lutas do NP 1 ao 2, 14 do 9 ao 10), mas cada luta é um encontro inteiro para um só, com
+a morte para sempre.
+
+**Lutar abaixo ou acima** (o XP de um comum, sozinho, já com o fator):
+
+| Seu NP | 3 abaixo | 2 abaixo | 1 abaixo | No NP | 1 acima | 2 acima | 3 acima |
+|---|---|---|---|---|---|---|---|
+| 4 | 10 | 30 | 56 | 80 | 108 | 140 | 165 |
+| 5 | 12 | 35 | 64 | 90 | 120 | 154 | 180 |
+| 8 | 18 | 50 | 88 | 120 | 156 | 196 | 225 |
+| 10 | 22 | 60 | 104 | 140 | 180 | 224 | 255 |
+
+**Levar alguém de NP baixo** (um comum de NP 8 derrubado pelo grupo): a divisão pelo NP faz o carregado aprender devagar.
+
+| Grupo | Parte de cada um | O que vale, em comuns do NP do menor |
+|---|---|---|
+| 4 de NP 8 | 39, 39, 39, 39 | 0,3 |
+| 3 de NP 8 e 1 de NP 1 | 50, 50, 50, 9 | 0,2 |
+| 3 de NP 8 e 1 de NP 5 | 43, 43, 43, 40 | 0,4 |
+
+O NP 1 carregado ganha 0,2 comum dele por monstro, menos que os 0,3 de um grupo de 4 do próprio NP: ser levado não
+acelera, e o perigo é de NP 8.
+
+### O Tíquete e os bônus
+
+| Item | Nível | Preço (Yuld) | XP a mais, sozinho, em monstros do nível | XP a mais, grupo de 4 |
+|---|---|---|---|---|
+| Tíquete de Evolução | 1 | 100 | 100 | 100 |
+| Tônico do Aprendiz (+25%, 10 monstros) | 3 | 350 | 175 | 57 |
+| Elixir da Sabedoria (+50%, 10) | 8 | 1.200 | 600 | 195 |
+| Essência do Herói (+100%, 10) | 14 | 3.600 | 1.800 | 585 |
+| Ensopado do Veterano (+20%, 10; comida) | 4 | 320 | 160 | 52 |
+| Festim do Campeão (+40%, 10; comida) | 12 | 1.280 | 640 | 208 |
+
+O Tíquete vale mais para quem está no começo (um terço do NP 1) e menos depois (um vigésimo do NP 10): no NP alto,
+vendê-lo rende quase um comum de Yuld. Os bônus são caros de propósito: valem o tempo que poupam, e a economia (seção 9)
+aperta fora do equipamento do balanço. O Alquimista faz as poções em lote (2 cópias no Rank 3, 3 no 5) e o Banquete do
+Cozinheiro serve a comida ao grupo, o que barateia os dois para quem tem a profissão.
+
+### E a economia
+
+Mais lutas por NP são mais itens deixados por NP: com 6 a 10 encontros por NP (antes, 3), os drops sozinhos ficam entre
+"farmando o dobro" e "farmando o triplo" da tabela 3 da seção 9, e o equipamento atrasa de 1 a 4 níveis no NP 10 sem
+missões (antes, 7). A missão padrão continua uma por NP do grupo; com ela, sobra Yuld para os bônus, os acessórios e a
+Oficina. Se a mesa achar a economia frouxa, o caminho é a missão padrão menor, não os preços.
+
+### Criar conteúdo novo
+
+- **Uma criatura:** o XP é o peso dela no encontro × o comum do NP (`monsterXpValue`): o comum 1, o lacaio ⅔, quantas dela
+  fazem um encontro (4 ÷ isso), o chefe 4, o chefe solo 6. Ponha a criatura no compêndio, rode `node xp-monstros.mjs` para
+  ver a linha dela e `node economia-aplicar.mjs` para escrever `flags.eternia.xp` (com os drops). Uma criatura que vale de
+  propósito mais ou menos (um evento, uma inofensiva) entra em `SPECIAL` de `xp-monstros.mjs`.
+- **Um item de XP:** `flags.eternia.xpBoost = { kind: "potion" | "food", pct, count }` e o preço de `boostPrice`.
+- **Mudar a curva:** os números estão em `experience/data.mjs` (`commonXp`, `commonsPerRank`, `LEVEL_FACTORS`,
+  `partyBonus`, `TICKET_XP`): mude lá e rode `xp-monstros.mjs`, `economia-aplicar.mjs` e `xp-ritmo.mjs`; o Guia (capítulo 8)
+  e AS REGRAS (II.c) repetem a tabela.

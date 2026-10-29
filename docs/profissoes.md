@@ -92,7 +92,8 @@ flags.eternia.craft = {
 | Efeito | `onHit: { statusId, value }` | estado que o dano dá em quem atinge (o Desfazer tira) |
 | Efeito | chave `eternia.passive.luck` | Destino máximo que não se soma: só o maior conta |
 | Item usável | `useActions: [{ type: "removeStatus", statuses }]` | tira esses estados de quem recebe o item |
-| Item usável | `banquet` | quem usa e cada personagem dos jogadores comem |
+| Item usável | `banquet` | quem usa e o grupo dele na cena comem (sem grupo, os personagens dos jogadores na cena) |
+| Item usável | `xpBoost: { kind, pct, count }` | bônus de XP: +pct% dos próximos `count` monstros (`experience/boosts.mjs`); o Potente soma 5 monstros |
 | Item | `copy` | pergaminho do Escriba (habilidade, NH, quem gravou) |
 
 ## Criar uma profissão ou um aprimoramento

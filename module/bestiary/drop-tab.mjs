@@ -11,6 +11,7 @@ import { PHYSICAL_TYPES } from "../piles/pile-config.mjs";
 import { cameLate, convertTable, dropRows, dropRule, expectedValue, freeRange, rangeLabel, rollDrops } from "./drops.mjs";
 import { GOLD_ICON, parseDropTable, parseRange } from "./drop-table.mjs";
 import { BOSS_TABLE, MAX_ANIMA, commonValue, monsterValue } from "../economy/data.mjs";
+import { awardMonster, monsterXp, monsterXpText, ownXp } from "../experience/award.mjs";
 
 const { DialogV2 } = foundry.applications.api;
 
@@ -64,6 +65,8 @@ export async function dropsContext(actor) {
     growth: toInt(actor.getFlag(SYSTEM_ID, "growth")),
     dropped: !!dropped,
     noLoot: cameLate(actor),
+    // The XP it gives (experience/award.mjs): its own or its NP's and kind's; whether it was given
+    xp: { value: monsterXp(actor), text: monsterXpText(actor), own: ownXp(actor), given: !!actor.getFlag(SYSTEM_ID, "xpGiven") },
     gm: game.user.isGM
   };
 }
@@ -127,6 +130,44 @@ export async function rollFromSheet(actor) {
   if (!data) return;
   const receiver = data.receiver ? (fromUuidSync(data.receiver) ?? null) : null;
   return rollDrops(actor, { force: true, receiver });
+}
+
+/** The sheet's XP (GM): the monster's own XP, or empty for the one of its NP and kind. */
+export async function editXpFromSheet(actor) {
+  if (!game.user.isGM) return;
+  const own = ownXp(actor) ? monsterXp(actor) : "";
+  const data = await DialogV2.input({
+    window: { title: L("Xp.Sheet.EditTitle", { name: actor.token?.name ?? actor.name }), icon: "fa-solid fa-star" },
+    classes: ["eternia", "lhd-box"],
+    content: `<p>${foundry.utils.escapeHTML(L("Xp.Sheet.EditLead", { text: monsterXpText(actor) }))}</p>`
+      + `<div class="form-group"><label>${L("Xp.Sheet.EditField")}</label><input type="number" name="xp" min="0" step="1" value="${own}" placeholder="${monsterXp(actor)}" autofocus></div>`,
+    ok: { label: L("Xp.Sheet.Save"), icon: "fa-solid fa-check" }
+  });
+  if (!data) return;
+  const value = String(data.xp ?? "").trim();
+  // Empty: the NP's and kind's. A token's actor keeps a null over its world actor's value (taking the key away from
+  // the token would bring that one back)
+  if (value === "") return actor.isToken ? actor.setFlag(SYSTEM_ID, "xp", null) : actor.unsetFlag(SYSTEM_ID, "xp");
+  return actor.setFlag(SYSTEM_ID, "xp", Math.max(0, toInt(value)));
+}
+
+/** The sheet's "Give the XP" (GM): to whom (with the party), even for a monster that already gave it. */
+export async function giveXpFromSheet(actor) {
+  if (!game.user.isGM) return;
+  const party = game.actors.filter(a => (a.type === "character") && a.hasPlayerOwner).sort((a, b) => a.name.localeCompare(b.name));
+  if (!party.length) return ui.notifications.warn(L("Xp.Sheet.NoPlayers"));
+  const felled = actor.getFlag(SYSTEM_ID, "felledBy");
+  const felledActor = felled ? fromUuidSync(felled) : null;
+  const options = party.map(a => `<option value="${a.uuid}"${(felledActor && ((felledActor.uuid === a.uuid) || (felledActor.id === a.id))) ? " selected" : ""}>${foundry.utils.escapeHTML(a.name)}</option>`).join("");
+  const data = await DialogV2.input({
+    window: { title: L("Xp.Sheet.GiveTitle", { name: actor.token?.name ?? actor.name }), icon: "fa-solid fa-star" },
+    classes: ["eternia", "lhd-box"],
+    content: `<p>${foundry.utils.escapeHTML(L("Xp.Sheet.GiveLead", { n: monsterXp(actor) }))}</p>`
+      + `<div class="form-group"><label>${L("Xp.Sheet.ForWhom")}</label><select name="receiver">${options}</select></div>`,
+    ok: { label: L("Xp.Sheet.Give"), icon: "fa-solid fa-star" }
+  });
+  if (!data?.receiver) return;
+  return awardMonster(actor, { feller: fromUuidSync(data.receiver) ?? null, force: true, reason: "hand" });
 }
 
 /** The sheet's "Turn into rows" (GM): the description's table becomes the rows. */

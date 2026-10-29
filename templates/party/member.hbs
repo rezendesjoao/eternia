@@ -1,0 +1,14 @@
+{{!-- A member of a party in its window (module/party/window.mjs): the portrait (the leader's crown), the name, the NP,
+     the HP, where it is, and the buttons the user has for it. --}}
+<li class="pt-member{{#if leader}} leader{{/if}}{{#if self}} self{{/if}}{{#if down}} down{{/if}}{{#if dead}} dead{{/if}}{{#unless online}} away{{/unless}}" data-uuid="{{uuid}}">
+	<a class="pt-face" data-action="pan" data-tooltip-text="{{localize 'ETERNIA.Party.Find'}}"><img src="{{img}}" alt="">{{#if leader}}<i class="pt-crown fa-solid fa-crown"></i>{{/if}}</a>
+	<span class="pt-info">
+		<span class="pt-name">{{name}}{{#if leader}}<em>{{localize "ETERNIA.Party.Leader"}}</em>{{/if}}{{#if self}}<em class="you">{{localize "ETERNIA.Party.You"}}</em>{{/if}}</span>
+		<span class="pt-hp {{tone}}"><i style="width: {{pct}}%"></i></span>
+		<small><b>{{localize "ETERNIA.Party.Frame.Rank" rank=rank}}</b><span>{{hp}}/{{max}}</span><em>{{where}}</em></small>
+	</span>
+	<span class="pt-actions">
+		{{#if canLead}}<button type="button" class="pt-icon" data-action="promote" data-tooltip-text="{{localize 'ETERNIA.Party.UI.Promote'}}"><i class="fa-solid fa-crown"></i></button>{{/if}}
+		{{#if canKick}}<button type="button" class="pt-icon danger" data-action="kick" data-tooltip-text="{{localize 'ETERNIA.Party.UI.Kick'}}"><i class="fa-solid fa-user-minus"></i></button>{{/if}}
+	</span>
+</li>

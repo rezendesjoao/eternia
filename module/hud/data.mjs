@@ -23,6 +23,7 @@ import { isEmpty, tagLabel, term } from "../i18n/terms.mjs";
 import { ATTRIBUTES, COMBAT_CHECKS, TIMING_GROUPS } from "../sheets/character-sheet.mjs";
 import { actorName, combatantOf, combatOf, escape, toInt } from "../helpers/utils.mjs";
 import { spendsFate } from "../automation/fate.mjs";
+import { xpView } from "../experience/level.mjs";
 
 /**
  * The panels, in the order of their buttons. A character's skills come apart in three (skillPanelOf): "skills" has
@@ -522,6 +523,8 @@ export function hudContext(actor, token, { panel, collapsed }) {
     } : null,
     hate: character ? { value: hate, rank, tooltip: [L("Hud.HateTip", { value: hate }), rank ? game.i18n.localize(`ETERNIA.StatusEffect.${rank === "top" ? "hateTop" : "hateUnder"}`) : ""].filter(Boolean).join(" · ") } : null,
     fatigue: character ? toInt(source.infos?.fatigue) : 0,
+    // The XP to the next NP (experience/level.mjs), a thin strip at the foot of the bar, for a character of a player
+    xp: (character && actor.hasPlayerOwner) ? (bar => ({ pct: bar.pct, tooltip: L("Hud.XpTip", { label: bar.label, next: bar.next || bar.label }) }))(xpView(actor)) : null,
     motors: character ? motorBlocks(actor) : [],
     combat: combatBlock(actor, token),
     dodge: dodgeOf(actor),

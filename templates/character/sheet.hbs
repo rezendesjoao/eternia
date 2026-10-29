@@ -31,13 +31,18 @@
 			{{#if lh.creation.can}}
 			<button type="button" class="rank-up wizard" data-action="lhpf-wizard" data-tooltip="{{localize 'ETERNIA.Sheet.Wizard'}}"><i class="fa-solid fa-feather-pointed"></i></button>
 			{{/if}}
-			{{#if editable}}
+			{{!-- The XP of the NP (experience/level.mjs): the bar to the next NP; the GM gives or sets it with a click --}}
+			<div class="char-xp{{#if lh.xp.max}} max{{/if}}{{#if lh.xp.boost}} boosted{{/if}}{{#if lh.xp.gm}} editable{{/if}}"{{#if lh.xp.gm}} data-action="lhpf-xp"{{/if}} data-tooltip-html="{{lh.xp.tooltip}}" data-tooltip-class="lhb-tooltip">
+				<span class="xp-line"><b>{{localize 'ETERNIA.Xp.Bar.Label'}}</b><span>{{lh.xp.label}}</span>{{#if lh.xp.boost}}<i class="fa-solid fa-flask-vial"></i>{{/if}}</span>
+				<span class="xp-bar"><i style="width: {{lh.xp.pct}}%"></i></span>
+			</div>
+			{{#if lh.xp.gm}}
 			<button type="button" class="rank-up" data-action="rank-up" data-tooltip="ETERNIA.RankUp.Tooltip"><i class="fa-solid fa-angles-up"></i></button>
 			{{/if}}
-			<div class="level" data-tooltip="{{localize 'ETERNIA.Sheet.CR'}}">
+			<div class="level" data-tooltip="{{localize 'ETERNIA.Sheet.CR'}}{{#unless lh.xp.gm}} · {{localize 'ETERNIA.Xp.Bar.ByXp'}}{{/unless}}">
 				<svg class="badge" viewBox="0 0 40 43" aria-hidden="true"><path d="M20 1.5 37.5 6.5V21.5C37.5 31.5 29.5 38 20 41.5 10.5 38 2.5 31.5 2.5 21.5V6.5Z"></path></svg>
 				<label>{{localize 'ETERNIA.Sheet.CRShort'}}</label>
-				<input type="text" name="system.infos.crank" value="{{source.infos.crank}}" data-dtype="Number" maxlength="3"{{#if modified.crank}} class="has-effect" data-tooltip="{{modified.crank.tooltip}}"{{/if}}>
+				<input type="text" name="system.infos.crank" value="{{source.infos.crank}}" data-dtype="Number" maxlength="3"{{#unless lh.xp.gm}} readonly{{/unless}}{{#if modified.crank}} class="has-effect" data-tooltip="{{modified.crank.tooltip}}"{{/if}}>
 			</div>
 		</div>
 	</header>

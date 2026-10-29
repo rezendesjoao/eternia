@@ -1,0 +1,36 @@
+{{!-- A monster's XP in the chat (module/experience/award.mjs), with the look of the rank card: the portrait and the
+     name on the green band, the XP in the gold seal, how it was shared, a row per character who got it (the gain, why
+     it is that, the bar of its NP after it), and the GM's Undo. Whispered to their players and to the GMs. --}}
+<div class="eternia-rank-card eternia-xp-card{{#if undone}} undone{{/if}}" aria-label="{{eyebrow}}: {{name}}">
+	<header class="rk-head">
+		<img src="{{img}}" alt="">
+		<div class="rk-title">
+			<small><i class="fa-solid fa-star"></i>{{eyebrow}}</small>
+			<h3>{{name}}</h3>
+		</div>
+		<div class="rk-seal" aria-label="{{base}}">
+			<small>XP</small>
+			<span class="xp-base"><b>{{base}}</b></span>
+		</div>
+	</header>
+	<p class="xp-how"><i class="fa-solid fa-users"></i><span>{{kind}} · {{how}}</span></p>
+	<ul class="rk-rows xp-rows">
+		{{#each rows}}
+		<li class="rk-row xp-row{{#unless gain}} none{{/unless}}">
+			<img class="xp-img" src="{{img}}" alt="">
+			<span class="rk-text">
+				<span class="xp-name"><b>{{name}}</b>{{#if notes}}<em>{{notes}}</em>{{/if}}</span>
+				<span class="xp-progress"><span class="xp-rank">{{rankLabel}}</span><span class="xp-track"><i style="width: {{pct}}%"></i></span><span class="xp-count">{{progress}}</span></span>
+			</span>
+			<span class="xp-gain">{{gainLabel}}</span>
+		</li>
+		{{/each}}
+	</ul>
+	{{#if undone}}
+	<p class="rk-state">{{undoneLabel}}</p>
+	{{else}}
+	<div class="rk-actions xp-actions">
+		<button type="button" data-action="xp-undo"><i class="fa-solid fa-rotate-left"></i>{{undoLabel}}</button>
+	</div>
+	{{/if}}
+</div>

@@ -4,7 +4,8 @@
  * less, a character engaged with it (on one of its squares) spends a Major Action (in a combat, in its own Main Process)
  * and rolls Negotiation against its Resistance, both rolled, by the rule of the Hit Check (a fumble always fails, a
  * critical always wins, the monster wins the ties). Winning, the monster is [Pacified] until the end of the scene and
- * leaves the fight: defeated in the combat, no drops (`noLoot`), `flags.eternia.saved = { by, name }`; the GM may then
+ * leaves the fight: defeated in the combat, no drops (`noLoot`) but its XP to the one who saved it (`eternia.saved`),
+ * `flags.eternia.saved = { by, name }`; the GM may then
  * make it a Connection of the one who saved it (the card's button). The card comes out the first time its HP reach that
  * share (`saveOffered`), with the Save button; the roll goes on the saver's window and the GM applies it (`bestiarySave`).
  */
@@ -159,6 +160,8 @@ async function onSave({ tokenUuid, saverUuid, total, vs, success }) {
     if (combatant) await combatant.update({ defeated: true });
   }
   await postCard(token, { state: "saved", saverUuid: saver.uuid, saverName: actorName(saver), event: L("Save.Saved", names) });
+  // Who saved it gets its XP, as if it had felled it (experience/award.mjs)
+  Hooks.callAll("eternia.saved", monster, saver);
   return { ok: true };
 }
 

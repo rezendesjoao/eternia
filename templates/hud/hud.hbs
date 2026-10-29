@@ -2,6 +2,7 @@
 <div class="lhh">
 	{{#if panel}}{{> "systems/eternia/templates/hud/panel.hbs"}}{{/if}}
 	<div class="lhh-bar">
+		{{#if xp}}<span class="lhh-xp" data-tooltip-text="{{xp.tooltip}}" data-tooltip-direction="UP"><i style="width: {{xp.pct}}%"></i></span>{{/if}}
 		<div class="lhh-cap">
 			<a class="lhh-portrait" data-action="lhh-sheet" data-tooltip-text="{{name}} · {{localize 'ETERNIA.Hud.OpenSheet'}}" data-tooltip-direction="UP"><img src="{{img}}" alt=""></a>
 			<a class="lhh-fold" data-action="lhh-collapse" data-tooltip-text="{{#if collapsed}}{{localize 'ETERNIA.Hud.Expand'}}{{else}}{{localize 'ETERNIA.Hud.Collapse'}}{{/if}}" data-tooltip-direction="UP"><i class="fa-solid {{#if collapsed}}fa-angles-right{{else}}fa-angles-left{{/if}}"></i></a>

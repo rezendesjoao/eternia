@@ -279,6 +279,55 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
 - Testes: `Data/eternia-tests/test-052.js` (faz os dois duelistas e apaga no fim); para testar o pedido de verdade, um
   segundo navegador entra como "Jogador Teste".
 
+## A experiência e os grupos (0.53)
+- **O NP sobe com o XP.** Os números ficam em `module/experience/data.mjs` (puro: o sistema, o modelo da fera com nome e
+  os scripts `xp-*` do simulador o leem); a régua, a seção 10 de `docs/matematica.md`. O total é `system.infos.xp`, lido
+  por `xpOf` (nunca abaixo do XP que o NP começa: um personagem de antes da 0.53 começa o NP dele no número da tabela).
+  Todo XP passa por `addXp` (`experience/level.mjs`), que sobe com `{ eterniaXpGain }` (o "+N XP" de cada tela) e deixa o
+  NP seguir (`followXp`, uma mudança por vez por personagem): chegou, `levelTo(actor, np, { auto: true })` muda sem caixa;
+  o XP que desce (o Desfazer, a caixa do Mestre) pergunta antes de descer. O NP muda com `{ eterniaXpLevel: { from, to } }`:
+  toda tela mostra o anel e "NP N!", e a tela dos jogadores do personagem, o aviso com Escolher agora (`openChoices`).
+- `levelTo` sem `auto` é a caixa de antes, para o Mestre: o XP vai junto (subindo, pelo menos o XP do NP; descendo, dentro
+  dele). O `preUpdateActor` de `rank-up.mjs` segura o NP que um jogador digita num personagem de jogador. As escolhas de
+  um NP que o XP deu esperam o jogador (o aviso na tela dele; fora do jogo, as abas com o número dourado): só personagens
+  de jogador ganham XP, então nenhuma tela de Mestre as abre. As de um NP que o Mestre pôs à mão abrem na tela do
+  Mestre só quando nenhum jogador do personagem está no jogo (os personagens do próprio Mestre).
+- O XP de um personagem é lido e gravado numa fila por personagem (`inLine` de `level.mjs`), e as premiações e os
+  Desfazer passam por uma fila só no Mestre (`award.mjs`): dois monstros caídos na mesma área nunca gravam o XP um por
+  cima do outro. Com um Mestre no jogo, o uso do Tíquete vai a ele (pedido `xpTickets`), a única mão que grava XP; sem
+  Mestre, a tela do jogador grava. O `xpGiven` só fica no ator de um token (ou num vinculado): o ator do mundo de tokens
+  sem vínculo passaria a marca a todos eles.
+- **O XP dos monstros** (`experience/award.mjs`): no Mestre principal, 700 ms depois de [Incapacitado] ou [Morto] (como os
+  itens deixados), quem derrubou (`fellerOf` de `bestiary/drops.mjs`; o mestre de uma criatura [Dominada]: `creditOf`) e o
+  grupo dele na cena; um chefe ([Boss]), todos os personagens dos jogadores do combate dele. Só fichas com jogador
+  (`hasPlayerOwner`) ganham XP. Uma vez por monstro (`flags.eternia.xpGiven`, que o Desfazer tira), nunca o que chegou
+  tarde (`cameLate`). A Fenda dá quando fecha e o Desgarrado salvo a quem salvou, pelos ganchos `eternia.riftClosed` e
+  `eternia.saved` (`rifts.mjs` e `save.mjs` não importam a experiência). O cartão (`templates/chat/xp-card.hbs`,
+  `flags.eternia.xpCard`) vai sussurrado aos jogadores de quem ganhou e aos Mestres.
+- **O XP de cada criatura** fica em `flags.eternia.xp`, escrito por `economia-aplicar.mjs` a partir de `xp-monstros.mjs`
+  (o `dropPlan` dos itens deixados: o peso no encontro). Criatura nova: rode os dois; não escreva o XP à mão no JSON, que o
+  script reescreve o bestiário a partir de `economia-base.json`. A fera com nome ganha o XP no `named-template.mjs`. Uma
+  criatura sem a flag vale `monsterXpValue` pelo NP e pelas tags. A migração `bestiary` 6 leva o XP às cópias dos mundos.
+- **Os bônus** (`experience/boosts.mjs`): item com `flags.eternia.xpBoost = { kind, pct, count }` dá um efeito com a mesma
+  flag e `left`, gasto pelo `awardMonster` (um monstro por XP recebido), um de cada tipo por vez. Quem recebe é o
+  `recipients` de `content/content.mjs` (o mesmo da comida: Pessoal, os alvos, o Banquete). O Potente da Oficina soma 5
+  monstros (`potentKind` "xp").
+- **O Tíquete de Evolução** (`experience/tickets.mjs`): item `ticket` com subtipo `Evolution` (o espaço próprio em
+  `templates/actor/parts/inventory/inventory-ticket-evolution.html`); o "+" e o "−" são só do Mestre (`#onTicketIncrement`
+  segura o jogador).
+- **Os grupos** (`module/party/`): a configuração do mundo `parties` (`[{ id, leader, members, created }]`, uuids dos
+  atores do mundo), gravada só pelo Mestre principal pelos pedidos `partyInvite`, `partyAnswer`, `partyCancel`,
+  `partyLeave`, `partyKick`, `partyPromote`, `partyDisband` e `partyForm`; o convite no socket, escopo `party` (`ask`,
+  `closed`). Toda tela redesenha pelo `onChange` da configuração (gancho `eternia.partiesChanged`). O quadro do grupo
+  (`#eternia-party`) é desenhado em `ui.mjs`, ao lado de `#scene-controls`; a janela em `window.mjs` com
+  `templates/party/`; CSS em `css/party.css` (prefixo `pt`). O Banquete lê o grupo (`recipients`).
+- **A bolha e os painéis comuns:** o clique direito no personagem de outro jogador (`canvas/bubble.mjs`,
+  `registerBubbleEntry`: os duelos e os grupos põem as entradas) e os painéis dos pedidos (`helpers/panels.mjs`: o convite
+  do grupo e o desafio do duelo, com as classes `dl-*` de `css/duels.css`). Entrada nova na bolha: `registerBubbleEntry`.
+- Testes: `Data/eternia-tests/test-053.js` (XP, grupo, Tíquete, bônus, telas; faz os personagens "XP A (teste)"… e apaga
+  no fim) e `run-053.js` (a bateria inteira); o convite e o quadro se testam com o segundo navegador como "Jogador Teste"
+  (`setup-053-grupo.js` monta a cena, com um usuário "Jogador Dois").
+
 ## A morte (0.50)
 - `module/automation/death.mjs`: quem cai num token que não é hostil (`isAdventurer`) fica [Morrendo: 2]
   (`system.bad-status.dying`, um Estado Vital: o Destino não tira), menos o colapso pela Fadiga e a queda de uma

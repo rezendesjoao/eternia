@@ -1,0 +1,294 @@
+/* ==========================================================================
+   The experience (module/experience/): the XP bar of the character sheet's header, beside the NP badge; the
+   Evolution Ticket's slot among the inventory's tickets; the XP chip of the monster sheet's Itens Deixados; the XP
+   card and the Ticket's card in the chat (the rank card's look); and the banner of an NP reached, on the player's
+   screen (the duels' winner card: parchment, the green frame with the gold edges, the portrait in the gold ring).
+   ========================================================================== */
+
+/* The header's XP: the label, the numbers and the bar to the next NP
+   ------------------------------------------------------------------------ */
+.lhpf .char-level .char-xp {
+  display: grid;
+  gap: 4px;
+  width: 148px;
+  padding: 5px 8px 6px;
+  border: 1px solid var(--pf-tertiary-darker);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--pf-text-light);
+}
+.lhpf .char-level .char-xp.editable { cursor: pointer; }
+.lhpf .char-level .char-xp.editable:hover {
+  border-color: var(--pf-tertiary);
+  background: rgba(0, 0, 0, 0.32);
+}
+.lhpf .char-level .char-xp .xp-line {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font: 400 12px/1 var(--pf-sans);
+  white-space: nowrap;
+}
+.lhpf .char-level .char-xp .xp-line b {
+  color: var(--pf-tertiary);
+  font: 700 10px/1 var(--pf-sans);
+  letter-spacing: 0.1em;
+}
+.lhpf .char-level .char-xp .xp-line span {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+.lhpf .char-level .char-xp .xp-line i { color: #9fdc94; font-size: 10px; }
+.lhpf .char-level .char-xp .xp-bar {
+  position: relative;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: inset 0 0 0 1px rgba(233, 215, 161, 0.22);
+}
+.lhpf .char-level .char-xp .xp-bar i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #a98232, #f2db94);
+  box-shadow: 0 0 6px rgba(242, 219, 148, 0.55);
+  transition: width 0.6s ease-out;
+}
+.lhpf .char-level .char-xp.boosted .xp-bar i { background: linear-gradient(90deg, #5ea865, #f2db94); }
+.lhpf .char-level .char-xp.max .xp-bar i { width: 100% !important; }
+
+/* The NP badge reads only (a player's NP comes from its XP) */
+.lhpf .char-level .level input[readonly] { cursor: default; }
+
+/* The Evolution Ticket's slot: "Use" in gold */
+.lhpf .ticket-slot--evolution .xp-ticket-use {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 18px;
+  border: 1px solid #8a6a25;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #fff1c2, #e3c369);
+  color: #3d2c08;
+  font-size: 10px;
+}
+.lhpf .ticket-slot--evolution .xp-ticket-use:hover { background: linear-gradient(180deg, #fffaf0, #f2db94); }
+.lhpf .ticket-slot--evolution .empty-slot { cursor: help; opacity: 0.7; }
+
+/* The HUD's XP: a thin gold strip at the foot of the bar, past the portrait's cap */
+#lhauto-hud .lhh-bar { position: relative; }
+#lhauto-hud .lhh-xp {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 62px;
+  z-index: 1;
+  height: 4px;
+  background: rgba(31, 41, 28, 0.28);
+}
+#lhauto-hud .lhh-xp i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: linear-gradient(90deg, #a98232, #f2db94);
+  box-shadow: 0 0 5px rgba(242, 219, 148, 0.6);
+  transition: width 0.6s ease-out;
+}
+#lhauto-hud.collapsed .lhh-xp { display: none; }
+
+/* The XP of a monster (the Itens Deixados tab) */
+.lhpf .drops .dr-xp {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+  padding: 0 9px;
+  border: 1px solid #b19a55;
+  border-radius: 11px;
+  background: linear-gradient(180deg, #fff3cf, #ecd59a);
+  color: #3d2c08;
+  font: 700 12px/1 var(--pf-sans);
+  white-space: nowrap;
+}
+.lhpf .drops .dr-xp i { color: #8a6a25; font-size: 10px; }
+.lhpf .drops .dr-xp.own { border-color: #1f5137; box-shadow: inset 0 0 0 1px rgba(31, 81, 55, 0.35); }
+.lhpf .drops .dr-toolbar button { white-space: nowrap; }
+
+/* The XP card (templates/chat/xp-card.hbs)
+   ------------------------------------------------------------------------ */
+.chat-message .eternia-xp-card .rk-seal { min-width: 54px; }
+.chat-message .eternia-xp-card .xp-base b { color: #2a1e05; font: 700 15px/1.1 var(--rk-serif); white-space: nowrap; }
+.chat-message .eternia-xp-card .xp-how {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin: 0;
+  padding: 6px 10px 2px;
+  color: var(--rk-soft);
+  font: italic 12px/1.35 var(--rk-body);
+}
+.chat-message .eternia-xp-card .xp-how i { flex: 0 0 auto; color: #1f5137; font-size: 11px; font-style: normal; }
+.chat-message .eternia-xp-card .xp-row { grid-template-columns: 30px minmax(0, 1fr) auto; gap: 8px; }
+.chat-message .eternia-xp-card .xp-img {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #b19a55;
+  border-radius: 50%;
+  background: #e8dcc0;
+  box-shadow: 0 0 0 1px #fbf4df, 0 1px 2px rgba(0, 0, 0, 0.3);
+  object-fit: cover;
+}
+.chat-message .eternia-xp-card .xp-name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 6px; }
+.chat-message .eternia-xp-card .xp-name b { color: #173f2b; font: 600 13px/1.25 var(--rk-serif); }
+.chat-message .eternia-xp-card .xp-name em { color: var(--rk-soft); font: 600 10px/1.3 var(--rk-sans); font-style: normal; }
+.chat-message .eternia-xp-card .xp-progress { display: flex; align-items: center; gap: 6px; margin-top: 3px; }
+.chat-message .eternia-xp-card .xp-rank {
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: #1f5137;
+  color: #fbf4df;
+  font: 600 9px/1.35 var(--rk-sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.chat-message .eternia-xp-card .xp-track {
+  position: relative;
+  flex: 1;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: rgba(31, 81, 55, 0.14);
+}
+.chat-message .eternia-xp-card .xp-track i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #a98232, #e3c369);
+}
+.chat-message .eternia-xp-card .xp-count { color: var(--rk-soft); font: 600 10px/1 var(--rk-sans); white-space: nowrap; }
+.chat-message .eternia-xp-card .xp-gain { color: #6e5520; font: 700 15px/1 var(--rk-serif); white-space: nowrap; }
+.chat-message .eternia-xp-card .xp-row.none .xp-gain { color: var(--rk-soft); font: italic 12px/1 var(--rk-body); }
+.chat-message .eternia-xp-card .rk-actions { display: flex; justify-content: flex-end; padding: 2px 8px 7px; }
+.chat-message .eternia-xp-card .rk-actions button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  height: 26px;
+  margin: 0;
+  padding: 0 12px;
+  border: 1px solid #b19a55;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #fffaf0, #ead9ae);
+  color: #3d2c08;
+  font: 600 12px/1 var(--rk-sans);
+  cursor: pointer;
+}
+.chat-message .eternia-xp-card .rk-actions button:hover { border-color: #8a6a25; background: linear-gradient(180deg, #fffaf0, #f2db94); }
+.chat-message .eternia-xp-card.undone { opacity: 0.6; }
+.chat-message .eternia-xp-card .rk-state { margin: 0; padding: 4px 10px 7px; color: var(--rk-soft); font: italic 12px/1.3 var(--rk-body); text-align: right; }
+
+/* The Evolution Ticket's card: the ticket and the XP it gave */
+.chat-message .eternia-xp-ticket {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  padding: 7px 9px;
+  border: 1px solid #b19a55;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fffaf0, #f1e5c8);
+  color: #1c1c1c;
+}
+.chat-message .eternia-xp-ticket img { width: 38px; height: 38px; border: 1px solid #b19a55; border-radius: 6px; background: #2b2416; object-fit: cover; }
+.chat-message .eternia-xp-ticket small { display: block; color: #8a6a25; font: 700 8.5px/1.3 "Signika", sans-serif; letter-spacing: 0.16em; text-transform: uppercase; }
+.chat-message .eternia-xp-ticket strong { display: block; color: #173f2b; font: 600 13.5px/1.25 "Eternia Eczar", "Eczar", Georgia, serif; }
+.chat-message .eternia-xp-ticket span { color: #6e5520; font: 700 13px/1.3 "Eternia Eczar", "Eczar", Georgia, serif; }
+
+/* The line of a use card: who got the boost */
+.chat-message .xp-boosted i { color: #8a6a25; }
+
+/* The banner of an NP reached (module/experience/level.mjs)
+   ------------------------------------------------------------------------ */
+#eternia-xp-banner.xp-banner {
+  position: fixed;
+  top: 38%;
+  left: 50%;
+  z-index: 9995;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  min-width: 380px;
+  max-width: min(560px, calc(100vw - 40px));
+  padding: 46px 40px 18px;
+  border-radius: 10px;
+  background:
+    radial-gradient(140% 80% at 50% 0%, rgba(255, 252, 242, 0.96) 0%, rgba(255, 252, 242, 0) 65%),
+    #f3eee2 url("../assets/sheet/parchment.webp") center / cover;
+  box-shadow: 0 0 0 1px rgba(201, 162, 74, 0.6), 0 0 0 4px rgba(16, 41, 27, 0.92), 0 0 0 5px rgba(201, 162, 74, 0.35), 0 26px 64px rgba(8, 20, 13, 0.55);
+  color: #2b2116;
+  font-family: "Signika", sans-serif;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+#eternia-xp-banner .xp-banner-medal {
+  position: absolute;
+  top: -38px;
+  left: calc(50% - 38px);
+  display: block;
+  width: 76px;
+  height: 76px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #fffaf0, #e7d4a4);
+  box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 4px #c9a24a, 0 0 0 6px #0e2519, 0 0 22px rgba(242, 219, 148, 0.75);
+}
+#eternia-xp-banner .xp-banner-medal img { width: 100%; height: 100%; border: none; border-radius: 50%; object-fit: cover; }
+#eternia-xp-banner .xp-banner-eyebrow { color: #8a6a25; font: 700 11px/1.2 "Signika", sans-serif; letter-spacing: 0.32em; text-transform: uppercase; }
+#eternia-xp-banner .xp-banner-rank {
+  color: #173f2b;
+  font: 600 46px/1 "Eternia Eczar", "Eczar", Georgia, serif;
+  text-shadow: 0 1px 0 #fffaf0, 0 0 18px rgba(242, 219, 148, 0.8);
+}
+#eternia-xp-banner .xp-banner-name { color: #2b2116; font: italic 16px/1.3 "Eternia Gelasio", "Gelasio", Georgia, serif; }
+#eternia-xp-banner .xp-banner-lines {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  margin: 6px 0 2px;
+  padding: 8px 0 0;
+  border-top: 1px dashed #cdbd99;
+  list-style: none;
+}
+#eternia-xp-banner .xp-banner-lines li { display: flex; justify-content: center; align-items: baseline; gap: 7px; color: #2b2116; font: 13px/1.35 "Eternia Gelasio", "Gelasio", Georgia, serif; }
+#eternia-xp-banner .xp-banner-lines i { color: #1f5137; font-size: 11px; }
+#eternia-xp-banner footer { display: flex; gap: 8px; margin-top: 8px; }
+#eternia-xp-banner .xp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  margin: 0;
+  padding: 0 16px;
+  border-radius: 6px;
+  font: 600 13px/1 "Signika", sans-serif;
+  cursor: pointer;
+}
+#eternia-xp-banner .xp-btn.primary {
+  border: 1px solid #0e2519;
+  background: linear-gradient(180deg, #2d6a49, #173f2b);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 0 0 1px rgba(201, 162, 74, 0.55);
+  color: #f8efd5;
+}
+#eternia-xp-banner .xp-btn.primary i { color: #f2db94; }
+#eternia-xp-banner .xp-btn.primary:hover { background: linear-gradient(180deg, #357a55, #1f5137); }
+#eternia-xp-banner .xp-btn.ghost {
+  border: 1px solid #b19a55;
+  background: linear-gradient(180deg, #fffaf0, #ead9ae);
+  color: #3d2c08;
+}
+#eternia-xp-banner .xp-btn.ghost:hover { background: linear-gradient(180deg, #fffaf0, #f2db94); }
+@media (prefers-reduced-motion: reduce) {
+  .lhpf .char-level .char-xp .xp-bar i { transition: none; }
+}

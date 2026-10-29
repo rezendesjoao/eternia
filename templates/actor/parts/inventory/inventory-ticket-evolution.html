@@ -1,0 +1,33 @@
+{{!-- The Evolution Tickets (module/experience/tickets.mjs): how many the character has, "Use" for its player (XP),
+     give them to another character, and the GM's + and − (only the GM makes them). --}}
+<div class="equip-slot ticket-slot ticket-slot--evolution" data-slot-type="Evolution">
+	{{#if item}}
+		<li class="item equipped draggable" data-item-id="{{item._id}}">
+			<div class="item-name">
+				<div class="item-control item-edit item-image" data-action="item-edit">
+					<img src="{{item.img}}" title="{{item.name}}" width="48" height="48" />
+				</div>
+				<div class="items-control">
+					<a class="item-control item-give" data-action="item-give" data-tooltip="ETERNIA.Piles.GiveTo"><i class="fas fa-hand-holding"></i></a>
+					{{#if gm}}<a class="item-control item-delete" data-action="item-delete" title=""><i class="fas fa-trash"></i></a>{{/if}}
+				</div>
+			</div>
+		</li>
+		<span class="slot-quantity">{{total}}</span>
+		<span class="slot-label">{{item.name}}</span>
+	{{else}}
+		<span class="item-control empty-slot" data-tooltip="ETERNIA.Xp.Ticket.EmptyHint">
+			<img class="slot-placeholder" src="icons/sundries/documents/document-sealed-signatures-red.webp" alt="" height="32" width="32" />
+		</span>
+		<span class="slot-label">{{localize "ETERNIA.Ticket.Type.Evolution"}}</span>
+	{{/if}}
+	<div class="slot-stack-controls">
+		{{#if gm}}
+		<a class="item-control ticket-decrement {{#unless item}}disabled{{/unless}}" data-action="ticket-decrement" data-item-id="{{item._id}}" data-subtype="Evolution" title="{{localize 'ETERNIA.Label.Remove'}}">−</a>
+		<a class="item-control ticket-increment" data-action="ticket-increment" data-item-id="{{item._id}}" data-subtype="Evolution" title="{{localize 'ETERNIA.Add'}}">+</a>
+		{{else if (and item editable)}}
+		<a class="item-control xp-ticket-use" data-action="xp-ticket-use" data-tooltip="ETERNIA.Xp.Ticket.UseHint"><i class="fa-solid fa-angles-up"></i></a>
+		{{/if}}
+		{{#if (and gm item)}}<a class="item-control xp-ticket-use" data-action="xp-ticket-use" data-tooltip="ETERNIA.Xp.Ticket.UseHint"><i class="fa-solid fa-angles-up"></i></a>{{/if}}
+	</div>
+</div>

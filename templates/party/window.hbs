@@ -1,0 +1,86 @@
+{{!-- The party's window (module/party/window.mjs): the head with the medallion and how the party shares the XP; for a
+     player, the members of its party (the leader's crown, the HP, the NP, where each one is, the buttons) and the
+     characters it can invite; for the GM, every party of the world and "Form a party" with the tokens selected. --}}
+<div class="pt-body">
+
+	<header class="pt-head">
+		<span class="pt-emblem"><i class="fa-solid fa-users"></i></span>
+		<div class="pt-head-text">
+			<span class="pt-eyebrow">{{localize "ETERNIA.Party.Eyebrow"}}</span>
+			<h2>{{#if gm}}{{localize "ETERNIA.Party.Heading.All"}}{{else if party}}{{party.title}}{{else}}{{localize "ETERNIA.Party.Heading.None"}}{{/if}}</h2>
+			<p>{{#if gm}}{{localize "ETERNIA.Party.Lead.GM"}}{{else if party}}{{party.count}} · {{localize "ETERNIA.Party.Lead.In"}}{{else if me}}{{localize "ETERNIA.Party.Lead.None" name=me.name}}{{else}}{{localize "ETERNIA.Party.Lead.NoCharacter"}}{{/if}}</p>
+		</div>
+		{{#if choices.length}}
+		<label class="pt-me">
+			<span>{{localize "ETERNIA.Party.Me"}}</span>
+			<select name="pt-me">{{#each choices}}<option value="{{uuid}}"{{#if selected}} selected{{/if}}>{{name}}</option>{{/each}}</select>
+		</label>
+		{{/if}}
+	</header>
+
+	{{#if gm}}
+	{{!-- The GM: every party --}}
+	<div class="pt-gm">
+		<div class="pt-form">
+			<span>{{#if canForm}}{{localize "ETERNIA.Party.FormLead" names=selected}}{{else}}{{localize "ETERNIA.Party.FormHint"}}{{/if}}</span>
+			<button type="button" class="pt-btn primary" data-action="form"{{#unless canForm}} disabled{{/unless}}><i class="fa-solid fa-users"></i>{{localize "ETERNIA.Party.Form"}}</button>
+		</div>
+		<ol class="pt-all">
+			{{#each all as |p|}}
+			<li class="pt-party" data-party="{{p.id}}">
+				<header><i class="fa-solid fa-users"></i><strong>{{p.title}}</strong><small>{{p.count}}</small>
+					<button type="button" class="pt-btn ghost danger" data-action="disband"><i class="fa-solid fa-people-arrows"></i>{{localize "ETERNIA.Party.UI.Disband"}}</button></header>
+				<ol class="pt-members compact">
+					{{#each p.members}}{{> "systems/eternia/templates/party/member.hbs"}}{{/each}}
+				</ol>
+			</li>
+			{{else}}
+			<li class="pt-empty"><i class="fa-solid fa-users-slash"></i><strong>{{localize "ETERNIA.Party.EmptyTitle"}}</strong><span>{{localize "ETERNIA.Party.EmptyGM"}}</span></li>
+			{{/each}}
+		</ol>
+	</div>
+	{{else}}
+	<div class="pt-main">
+		<section class="pt-col">
+			<h3 class="pt-col-title"><i class="fa-solid fa-shield-heart"></i>{{localize "ETERNIA.Party.Members"}}</h3>
+			{{#if party}}
+			<ol class="pt-members" data-party="{{party.id}}">
+				{{#each party.members}}{{> "systems/eternia/templates/party/member.hbs"}}{{/each}}
+			</ol>
+			<footer class="pt-col-foot" data-party="{{party.id}}">
+				<button type="button" class="pt-btn ghost" data-action="leave"><i class="fa-solid fa-person-walking-arrow-right"></i>{{localize "ETERNIA.Party.UI.Leave"}}</button>
+				{{#if leads}}<button type="button" class="pt-btn ghost danger" data-action="disband"><i class="fa-solid fa-people-arrows"></i>{{localize "ETERNIA.Party.UI.Disband"}}</button>{{/if}}
+			</footer>
+			{{else}}
+			<div class="pt-empty"><i class="fa-solid fa-user"></i><strong>{{localize "ETERNIA.Party.Alone"}}</strong><span>{{localize "ETERNIA.Party.AloneHint"}}</span></div>
+			{{/if}}
+		</section>
+
+		<section class="pt-col invite">
+			<h3 class="pt-col-title"><i class="fa-solid fa-user-plus"></i>{{localize "ETERNIA.Party.InviteTitle"}}</h3>
+			{{#if canInvite}}
+			<label class="pt-search"><i class="fa-solid fa-magnifying-glass"></i><input type="search" placeholder="{{localize 'ETERNIA.Party.Search'}}" autocomplete="off" spellcheck="false"></label>
+			<ol class="pt-candidates">
+				{{#each candidates}}
+				<li class="pt-candidate{{#unless online}} away{{/unless}}" data-uuid="{{uuid}}" data-name="{{name}}">
+					<span class="pt-face"><img src="{{img}}" alt="" loading="lazy"></span>
+					<span class="pt-info"><span class="pt-name">{{name}}</span><small>{{localize "ETERNIA.Party.Frame.Rank" rank=rank}}{{#if players}} · {{players}}{{/if}}</small></span>
+					<span class="pt-dot{{#if online}} on{{/if}}" data-tooltip-text="{{#if online}}{{localize 'ETERNIA.Party.Online'}}{{else}}{{localize 'ETERNIA.Party.Offline'}}{{/if}}"></span>
+					<button type="button" class="pt-btn primary" data-action="invite"{{#if blocked}} disabled data-tooltip-text="{{blocked}}"{{/if}}><i class="fa-solid fa-user-plus"></i>{{localize "ETERNIA.Party.UI.Invite"}}</button>
+				</li>
+				{{else}}
+				<li class="pt-empty small"><i class="fa-solid fa-user-slash"></i><span>{{localize "ETERNIA.Party.NoCandidates"}}</span></li>
+				{{/each}}
+			</ol>
+			{{else}}
+			<div class="pt-empty small"><i class="fa-solid fa-lock"></i><span>{{#if inviteNote}}{{inviteNote}}{{else}}{{localize "ETERNIA.Party.Lead.NoCharacter"}}{{/if}}</span></div>
+			{{/if}}
+		</section>
+	</div>
+	{{/if}}
+
+	<aside class="pt-rules">
+		<h4><i class="fa-solid fa-star"></i>{{localize "ETERNIA.Party.RulesTitle"}}</h4>
+		<ul>{{#each rules}}<li>{{this}}</li>{{/each}}</ul>
+	</aside>
+</div>

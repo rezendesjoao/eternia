@@ -118,6 +118,16 @@ No monstro (o token, num monstro sem vínculo):
   compara a média da tabela com o valor do NP (lacaio: um encontro ÷ 6, fixo; chefe: ×4 no 1d6, mais um Anima-mundi do NP + 1 e
   um [Material-Base] do NP, fixos).
 
+## O XP
+
+Cada criatura do bestiário traz o XP que dá em `flags.eternia.xp` (desde a 0.53): o peso dela num encontro × o XP de um
+comum do NP dela (`monsterXpValue` de `module/experience/data.mjs`: o comum 1, o lacaio ⅔, as de "3 por encontro" 4/3, a
+tropa 2, o chefe 4, o chefe solo 6; a Fenda, 1 a 3 encontros). O valor sai de `xp-monstros.mjs` (o mesmo `dropPlan` dos
+itens deixados) e é escrito por `economia-aplicar.mjs`, junto com os drops: criatura nova, rode os dois. Sem a flag, o
+sistema calcula pelo NP e pelas tags (Chefe, Lacaio). A fera com nome ganha o XP de um chefe do NP dela no
+`named-template.mjs`. Quem leva, o grupo, o chefe e o cartão: `module/experience/award.mjs` e a seção 10 de
+`docs/matematica.md`.
+
 ## As regras de monstro
 
 Uma habilidade de monstro traz uma regra em `flags.eternia.monster = { rule, ... }`:
