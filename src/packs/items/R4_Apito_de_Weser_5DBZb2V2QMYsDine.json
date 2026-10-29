@@ -2,7 +2,7 @@
   "name": "R4 Apito de Weser",
   "type": "accessory",
   "system": {
-    "description": "<p>O NH das habilidades com a tag [Invocação de Servo] que você adquiriu é tratado como +1 (pode ultrapassar o NH Máximo). Não é possível equipar dois ou mais deste item ao mesmo tempo. [NP14] O efeito de aumentar o NH em 1 é anulado.</p>\n<hr>\n<p>Uma flauta transversal que, segundo dizem, era a favorita de Weser, um invocador da Era dos Deuses. Seu som tem o efeito de inspirar seus seguidores e amplificar o poder deles.</p>\n<hr>\n<p>Pétala Carmesim Brilhante [Material-Base] (70 Yuld) + Varinha de Pinho (280 Yuld) + [Catalisador Mágico 4] (105 Yuld) x 3 + Custo de Fabricação (230 Yuld)</p>",
+    "description": "<p>Suas habilidades com a tag [Invocação] recebem +1d6 na rolagem de dano. Não é possível equipar dois ou mais deste item ao mesmo tempo. [NP14] Este efeito não se aplica.</p>\n<hr>\n<p>Uma flauta transversal que, segundo dizem, era a favorita de Weser, um invocador da Era dos Deuses. Seu som tem o efeito de inspirar seus seguidores e amplificar o poder deles.</p>\n<hr>\n<p>Pétala Carmesim Brilhante [Material-Base] (70 Yuld) + Varinha de Pinho (280 Yuld) + [Anima-mundi 4] (105 Yuld) x 3 + Custo de Fabricação (230 Yuld)</p>",
     "tags": [
       "Accessory",
       "Rare",
@@ -23,7 +23,61 @@
     "accuracy": 0
   },
   "img": "icons/tools/instruments/whistle-copper.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "eXbvPCcps6zCHFDp",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "rollFilter": {
+            "skillTags": [
+              "Summon"
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.48.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "R4 Apito de Weser",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "eternia.roll.damage.dice",
+            "type": "add",
+            "value": 1,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!5DBZb2V2QMYsDine.eXbvPCcps6zCHFDp",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
   "sort": 0,
   "ownership": {
     "default": 0

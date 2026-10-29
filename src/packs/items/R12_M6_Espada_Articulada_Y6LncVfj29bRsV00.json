@@ -2,7 +2,7 @@
   "name": "R12 M6 Espada Articulada",
   "type": "weapon",
   "system": {
-    "description": "<p>Você causa +30 de dano com sua \"Parada-Riposta\".\nUma espada de uma mão de formato especial, com pequenas lâminas triangulares ligadas em várias camadas. A lâmina pode se estender e se recolher conforme a vontade do usuário, permitindo ataques repentinos. Quando recolhida, tem o tamanho de uma espada de uma mão comum, o que a torna prática de carregar.</p><hr><p>Cristal com Padrão de Maldição[Material-Base](250 Yuld)+Espada Larga(660 Yuld)+Chicote de Múltiplas Seções(440 Yuld)×2+[Catalisador Mágico 12](520 Yuld)×4+Custo de Fabricação(1.540 Yuld)</p>",
+    "description": "<p>[Momento: Imediatamente Após o Teste] Use quando você passar numa Esquiva contra um ataque: cause 30 de dano direto a quem atacou. Uma vez por cena.\nUma espada de uma mão de formato especial, com pequenas lâminas triangulares ligadas em várias camadas. A lâmina pode se estender e se recolher conforme a vontade do usuário, permitindo ataques repentinos. Quando recolhida, tem o tamanho de uma espada de uma mão comum, o que a torna prática de carregar.</p><hr><p>Cristal com Padrão de Maldição[Material-Base](250 Yuld)+Espada Larga(660 Yuld)+Chicote de Múltiplas Seções(440 Yuld)×2+[Anima-mundi 12](520 Yuld)×4+Custo de Fabricação(1.540 Yuld)</p>",
     "tags": [
       "One-Handed",
       "Blade",
@@ -31,7 +31,27 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "After Check",
+          "target": "Single",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Immediately After Check] Use when you succeed at a Dodge against an attack: deal 30 direct damage to the attacker. Once per scene.",
+          "damage": {
+            "dice": 0,
+            "mod": 30,
+            "type": "direct",
+            "recovery": false,
+            "noPower": true
+          }
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
     "systemId": "eternia",

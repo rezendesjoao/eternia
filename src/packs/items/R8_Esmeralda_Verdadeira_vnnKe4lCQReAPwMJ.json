@@ -2,7 +2,7 @@
   "name": "R8 Esmeralda Verdadeira",
   "type": "accessory",
   "system": {
-    "description": "<p>\"Avaliar Item\"\"Identificar Inimigo\" +2 。[Momento: Ação] \"Amarra Astral\" 。\"Amarra Astral\" 「 :3 」 。Uma vez por Cenário.\nUma joia feita infundindo poder mágico no Jade da Verdadeira Percepção, que, dizem, tem o poder de enxergar a verdade. Concede a quem a usa a capacidade de descobrir informações ocultas.</p><hr><p>Grande Cristal Mágico [Material-Base] (145 Yuld) + Anel Branco (420 Yuld) + Livro Ilustrado dos Monstros (Iniciante) (80 Yuld) ×3 + Enciclopédia (80 Yuld) ×3 + [Catalisador Mágico 8] (260 Yuld) ×3 + Custo de Fabricação (730 Yuld)</p>",
+    "description": "<p>+2 nos testes de Avaliar Item e de Identificar Inimigo. [Momento: Movimento] Até três alvos a até 4 Qd recebem [Rigidez]; a de quem não sofrer dano de PV neste turno sai no fim dele. Uma vez por Cenário.\nUma joia feita infundindo poder mágico no Jade da Verdadeira Percepção, que, dizem, tem o poder de enxergar a verdade. Concede a quem a usa a capacidade de descobrir informações ocultas.</p><hr><p>Grande Cristal Mágico [Material-Base] (145 Yuld) + Anel Branco (420 Yuld) + Livro Ilustrado dos Monstros (Iniciante) (80 Yuld) ×3 + Enciclopédia (80 Yuld) ×3 + [Anima-mundi 8] (260 Yuld) ×3 + Custo de Fabricação (730 Yuld)</p>",
     "tags": [
       "Accessory",
       "Magic Stone",
@@ -33,13 +33,35 @@
     "eternia": {
       "powers": [
         {
-          "timing": "Action",
-          "target": "-",
-          "range": "-",
+          "timing": "Move",
+          "target": "3 Targets",
+          "range": "4Sq",
           "cost": "",
           "limit": "1/Scenario",
-          "text": "\"Item Appraisal\"\"Enemy Identification\" +2 。[Trigger: Action] \"Astral Bind\" 。\"Astral Bind\" 「 :3 」 。Once per scenario.",
-          "whole": true
+          "text": "[Trigger: Move] Up to three targets within 4Sq take [Rigor]; on a target that takes no HP damage this main process, it ends at the end of it. Once per scenario.",
+          "effects": [
+            {
+              "name": "R8 Esmeralda Verdadeira",
+              "img": "systems/eternia/assets/ui/items_icons/accessory.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "rigor"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "rigor"
+                  }
+                }
+              }
+            }
+          ]
         }
       ]
     }

@@ -8,6 +8,7 @@
  *   there and, when the system brings a new version of it, rewrites its pages (world setting `guideJournal`).
  */
 import { setting, SYSTEM_ID } from "../settings.mjs";
+import { clientsDiscovered, isPrimaryGM } from "../helpers/clients.mjs";
 
 /** The compendium of the guide. */
 const GUIDE_PACK = `${SYSTEM_ID}.guide`;
@@ -32,8 +33,11 @@ export function registerJournal() {
   syncLook();
   Hooks.on("eterniaLook", syncLook);
   Hooks.on("getProseMirrorMenuDropDowns", addBookMenu);
-  Hooks.once("ready", () => {
-    if (game.users.activeGM?.isSelf && setting("guideJournal")) syncGuide().catch(err => console.error("Eternia | Guia do Jogador", err));
+  // One window of the GM writes the Guide (two of them at once would make two copies)
+  Hooks.once("ready", async () => {
+    if (!game.users.activeGM?.isSelf || !setting("guideJournal")) return;
+    await clientsDiscovered();
+    if (isPrimaryGM()) syncGuide().catch(err => console.error("Eternia | Guia do Jogador", err));
   });
 }
 

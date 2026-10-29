@@ -2,7 +2,7 @@
   "name": "R7 M6 Manopla de Atlas",
   "type": "weapon",
   "system": {
-    "description": "<p>O \"Baque do Urso-Pardo\" que você usar pode mover o alvo até 2Qd com [Movimento Instantâneo (Forçado)].\nEsta manopla maciça dá a ilusão de estar sendo usada por uma raça um tamanho maior que a do portador. Quando a palavra-chave é entoada, um braço colossal que lembra o gigante Atlas se manifesta como energia espiritual. Embora o dano não aumente, qualquer oponente apanhado pela varredura desse braço enorme fica cambaleante.</p><hr><p>Concha Fosca [Material-Base] (120 Yuld) + Soqueira de Latão (420 Yuld) + Braçadeira (300 Yuld) + [Catalisador Mágico 7] (210 Yuld) ×3 + Custo de Fabricação (690 Yuld)</p>",
+    "description": "<p>[Momento: Imediatamente Após o Dano] Use quando um [Ataque com Arma] seu com esta arma causar dano a um alvo: ele faz um [Movimento Instantâneo (Forçado)] de até 2 Qd para longe de você. Uma vez por rodada.\nEsta manopla maciça dá a ilusão de estar sendo usada por uma raça um tamanho maior que a do portador. Quando a palavra-chave é entoada, um braço colossal que lembra o gigante Atlas se manifesta como energia espiritual. Embora o dano não aumente, qualquer oponente apanhado pela varredura desse braço enorme fica cambaleante.</p><hr><p>Concha Fosca [Material-Base] (120 Yuld) + Soqueira de Latão (420 Yuld) + Braçadeira (300 Yuld) + [Anima-mundi 7] (210 Yuld) ×3 + Custo de Fabricação (690 Yuld)</p>",
     "tags": [
       "Two-Handed",
       "Martial Arts",
@@ -30,7 +30,26 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "After Damage",
+          "target": "Single",
+          "range": "Close",
+          "cost": "",
+          "limit": "1/Round",
+          "text": "[Trigger: Immediately After Damage] Use when a [Weapon Attack] of yours with this weapon deals damage to a target: it makes an [Instant Move (Forced)] of up to 2Sq away from you. Once per round.",
+          "useActions": [
+            {
+              "type": "push",
+              "value": 2
+            }
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
     "systemId": "eternia",

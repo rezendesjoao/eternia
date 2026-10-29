@@ -2,7 +2,7 @@
   "name": "Espada Espiritual: Toki no Tamashii",
   "type": "weapon",
   "system": {
-    "description": "<p>Quando você usar \"Percepção Instantânea\" estando em [Topo de Ódio], você recebe +20 na sua próxima rolagem de dano.\nUm cavaleiro leal, que jurou a vida a uma princesa, recebeu esta espada espiritual diretamente das mãos dela. Ela cria um instante de quietude na estreita fresta do tempo, concedendo ao portador a oportunidade ideal.</p><hr><p>[Material-Base](55 Yuld)+ (260 Yuld)+[ 3](85 Yuld)×4+Custo de Fabricação(320 Yuld)</p>",
+    "description": "<p>[Momento: Imediatamente Após o Teste] Use quando você passar numa Esquiva estando no [Topo de Ódio]: sua próxima rolagem de dano nesta cena recebe +20. Uma vez por cena.\nUm cavaleiro leal, que jurou a vida a uma princesa, recebeu esta espada espiritual diretamente das mãos dela. Ela cria um instante de quietude na estreita fresta do tempo, concedendo ao portador a oportunidade ideal.</p><hr><p>[Material-Base](55 Yuld)+ (260 Yuld)+[Anima-mundi 3](85 Yuld)×4+Custo de Fabricação(320 Yuld)</p>",
     "tags": [
       "Two-Handed",
       "Katana",
@@ -30,7 +30,55 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "After Check",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Immediately After Check] Use when you succeed at a Dodge while at [Hate Top]: your next damage roll this scene gains +20. Once per scene.",
+          "effects": [
+            {
+              "name": "Espada Espiritual: Toki no Tamashii",
+              "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "eternia.roll.damage.mod",
+                    "type": "add",
+                    "value": 20,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "consumeOn": "attack",
+                  "rollFilter": {
+                    "damageTypes": [
+                      "physical",
+                      "magical",
+                      "penetrating",
+                      "direct"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
     "systemId": "eternia",

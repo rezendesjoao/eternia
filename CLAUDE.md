@@ -200,6 +200,11 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   `monsterValue` (pelo tipo e por quantas fazem um encontro), conferido com `node economia-drops.mjs`. Os preços e os
   drops do compêndio saem de `economia-aplicar.mjs` (no simulador), a partir de `economia-base.json` (os de 0.47):
   mudou um número de `data.mjs`, rode-o de novo em vez de editar os JSON à mão.
+- **O script reescreve a partir da base** as criaturas do bestiário inteiras e as descrições dos itens com receita: mudar
+  o texto de uma criatura ou de um item com receita pede a mesma troca em `economia-base.json` (com os preços em G), ou o
+  script a desfaz. A limpeza da 0.49 entrou assim; confira com `node economia-aplicar.mjs --dry` (0 arquivos mudados).
+  AS REGRAS não sai mais da base (desde a 0.49, que reescreveu o ÍNDICE e as páginas I a VIII): o script só refaz o
+  bloco V.e e acerta os números no texto atual.
 - A venda é `saleRate` (`sellPrice` de `piles/pile-utils.mjs`): tesouros pelo cheio, mágicos e Anima-mundi pela metade, o
   resto pela taxa da loja (10% por padrão); o Anima-mundi sem o Selo (`flags.eternia.unsealed`) não se vende, nem pelo
   Mercador. A migração `economy` (`economy/migration.mjs`) levou as bolsas (×2), os preços e os drops aos mundos de antes.

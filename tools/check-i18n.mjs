@@ -36,10 +36,12 @@ for (const { lang, path: file } of system.languages) {
 }
 
 const used = new Map();
+// A key read whole as a group of keys (getProperty(translations, "ETERNIA.StatusEffect")) is not a missing key
+const groups = new Set(Object.keys(en).flatMap(k => k.split(".").slice(1).map((_, i, a) => k.split(".").slice(0, i + 1).join("."))));
 for (const file of [...walk("module"), ...walk("templates")]) {
   const text = fs.readFileSync(file, "utf8");
   for (const [, key] of text.matchAll(/["'`]((?:ETERNIA|TYPES)\.[A-Za-z0-9_.-]+)["'`]/g)) {
-    if (!key.endsWith(".") && !(key in en) && !used.has(key)) used.set(key, file);
+    if (!key.endsWith(".") && !(key in en) && !groups.has(key) && !used.has(key)) used.set(key, file);
   }
 }
 for (const [key, file] of used) console.log(`en.json lacks ${key} (${file})`);

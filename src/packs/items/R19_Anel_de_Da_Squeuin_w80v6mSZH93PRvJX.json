@@ -2,7 +2,7 @@
   "name": "R19 Anel de Da Squeuin",
   "type": "accessory",
   "system": {
-    "description": "<p>Exclusivo de Invocador. [Momento: Manutenção] Você pode usar \"Invocação de Servo: Slime\". Nesse caso, ela é tratada como se tivesse NH 8 e pode ser usada mesmo que você não tenha a habilidade. Uma vez por Cenário.\nUm anel criado por Da Skuwin, um alquimista dos antigos Alv. Pode invocar um slime excepcionalmente grande, de tamanho anormal. Segundo um relato, ele o usava para limpar o quarto, por causa da sua extrema preguiça. Invoca um slime gigantesco, de tamanho anormal, numa área escolhida por quem o usa. Custo de Fabricação: 260 Yuld</p><hr><p>Nefrita Cor da Aurora [Material-Base] (530 Yuld) + Anel Vermelho (2.200 Yuld) + [Catalisador Mágico 19] (1.340 Yuld) ×4 + Custo de Fabricação (0 Yuld)</p>",
+    "description": "<p>[Momento: Manutenção] Um slime gigantesco toma forma ao seu redor: até o fim da Cena, você recebe [Anulação (Dano Mágico): 30]. Uma vez por Cenário.\nUm anel criado por Da Squeuin, um alquimista de uma era esquecida. Pode invocar um slime excepcionalmente grande, de tamanho anormal. Segundo um relato, ele o usava para limpar o quarto, por causa da sua extrema preguiça. Invoca um slime gigantesco, de tamanho anormal, numa área escolhida por quem o usa. Custo de Fabricação: 260 Yuld</p><hr><p>Nefrita Cor da Aurora [Material-Base] (530 Yuld) + Anel Vermelho (2.200 Yuld) + [Anima-mundi 19] (1.340 Yuld) ×4 + Custo de Fabricação (0 Yuld)</p>",
     "tags": [
       "Accessory",
       "Magic Stone",
@@ -38,7 +38,32 @@
           "range": "-",
           "cost": "",
           "limit": "1/Scenario",
-          "text": "[Trigger: Setup] You can use \"Servant Summon: Slime\". At this time, it is treated as if SR is 8, and it can be used even if you do not have any skills. Once per scenario."
+          "text": "[Trigger: Setup] A gigantic slime takes shape around you: until the end of the scene, you gain [Cancel (Magic Damage): 30]. Once per scenario.",
+          "effects": [
+            {
+              "name": "R19 Anel de Da Squeuin",
+              "img": "systems/eternia/assets/ui/items_icons/accessory.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "cancel"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "cancel",
+                    "value": 30,
+                    "tag": "Magical"
+                  }
+                }
+              }
+            }
+          ]
         }
       ]
     }

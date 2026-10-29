@@ -2,7 +2,7 @@
   "name": "R17 Casca de Abeto",
   "type": "armor",
   "system": {
-    "description": "<p>Você recebe a tag [Alta Proteção]. Quando você usa \"Confiar a Vida\", os [PV] que você recupera continuam os mesmos, mas os [PV] que você gasta como custo são reduzidos em 30.\nUma armadura rara feita de casca de árvore encantada. Inabalável diante do calor do verão ou do frio do inverno, guarda a magia do abeto que, como senhor da floresta, vela por todos os seres vivos.</p><hr><p>Minério Brilhante [Material-Base] (440 Yuld) + Brigandina (2.200 Yuld) ×2 + Pergaminho de Alta Proteção I (500 Yuld) + [Catalisador Mágico 17] (1.050 Yuld) ×3 + Custo de Fabricação (2.000 Yuld)</p>",
+    "description": "<p>Você recebe a tag [Alta Proteção]. [Momento: Iniciativa] Você sofre 20 de dano direto e um aliado a até 4 Qd recupera 50 PV. Uma vez por cena.\nUma armadura rara feita de casca de árvore encantada. Inabalável diante do calor do verão ou do frio do inverno, guarda a magia do abeto que, como senhor da floresta, vela por todos os seres vivos.</p><hr><p>Minério Brilhante [Material-Base] (440 Yuld) + Brigandina (2.200 Yuld) ×2 + Pergaminho de Alta Proteção I (500 Yuld) + [Anima-mundi 17] (1.050 Yuld) ×3 + Custo de Fabricação (2.000 Yuld)</p>",
     "tags": [
       "Medium Armor",
       "Not For Sale",
@@ -28,7 +28,27 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Initiative",
+          "target": "Single",
+          "range": "4Sq",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Initiative] You take 20 direct damage and an ally within 4Sq recovers 50 HP. Once per scene.",
+          "damage": {
+            "dice": 0,
+            "mod": 50,
+            "type": "",
+            "recovery": true,
+            "noPower": true
+          }
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
     "systemId": "eternia",

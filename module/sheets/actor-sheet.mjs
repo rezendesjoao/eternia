@@ -774,10 +774,11 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
     this.actor.items.get(itemId)?.sheet.render(true);
   }
 
+  /** Delete an item, a skill or a Magia after a confirmation (a slip of the trash can loses the NH and the picks). */
   static async #onItemDelete(event, target) {
     if (!this.isEditable) return;
     const itemId = target.closest(".item")?.dataset.itemId;
-    await this.actor.items.get(itemId)?.delete();
+    await this.actor.items.get(itemId)?.deleteDialog({ classes: ["lhauto-dialog"] });
   }
 
   static async #onItemEquip(event, target) {

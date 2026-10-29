@@ -115,7 +115,7 @@ No monstro (o token, num monstro sem vínculo):
   inventário (`maxSpace − usedSpace`, só os tipos que ocupam espaço) vai para a pilha.
 - **O cartão** guarda em `flags.eternia.dropCard` o que foi dado (ids, Yuld, a pilha) para o Desfazer.
 - **A economia** (`economy/data.mjs`, docs/matematica.md seção 9; `EXPECTED_VALUE` = o comum: 25, 31, 38, 46, 56, 68, 81, 95, 111 e 129 Yuld do NP 1 ao 10): a aba
-  compara a média da tabela com o valor do NP (lacaio: um quarto, fixo; chefe: ×4 no 1d6, mais um Anima-mundi do NP + 1 e
+  compara a média da tabela com o valor do NP (lacaio: um encontro ÷ 6, fixo; chefe: ×4 no 1d6, mais um Anima-mundi do NP + 1 e
   um [Material-Base] do NP, fixos).
 
 ## As regras de monstro

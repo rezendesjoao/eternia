@@ -2,7 +2,7 @@
   "name": "R5 Dux Tredegim",
   "type": "armor",
   "system": {
-    "description": "<p>O \"Atirador Silencioso\" que você adquiriu é tratado como tendo NH +1 (pode ultrapassar o NH Máximo). Se você não o tiver, ele é tratado como tendo NH1.\nUma armadura de couro inspirada na armadura de um general famoso como o melhor arqueiro do antigo reino. O centro de gravidade e as articulações foram projetados para facilitar o disparo, permitindo tiros únicos poderosos.</p><hr><p>Tesoura Corta-Almas[Material-Base](85 Yuld)+Couro Tachonado(360 Yuld)+[Catalisador Mágico 5](135 Yuld)×3+Custo de Fabricação(430 Yuld)</p>",
+    "description": "<p>[Momento: Movimento] Neste turno, seus [Ataques à Distância] recebem +5 na rolagem de dano.\nUma armadura de couro inspirada na armadura de um general famoso como o melhor arqueiro do antigo reino. O centro de gravidade e as articulações foram projetados para facilitar o disparo, permitindo tiros únicos poderosos.</p><hr><p>Tesoura Corta-Almas[Material-Base](85 Yuld)+Couro Tachonado(360 Yuld)+[Anima-mundi 5](135 Yuld)×3+Custo de Fabricação(430 Yuld)</p>",
     "tags": [
       "Medium Armor",
       "Not For Sale",
@@ -28,7 +28,57 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Move",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "",
+          "text": "[Trigger: Move] During this main process, your [Ranged Attacks] gain +5 to damage rolls.",
+          "effects": [
+            {
+              "name": "R5 Dux Tredegim",
+              "img": "systems/eternia/assets/ui/items_icons/armor.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "eternia.roll.damage.mod",
+                    "type": "add",
+                    "value": 5,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfProcess",
+                  "rollFilter": {
+                    "skillTags": [
+                      "Weapon Attack",
+                      "Ranged Attack"
+                    ],
+                    "weaponTags": [
+                      "Bow",
+                      "Crossbow",
+                      "Throwing"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
     "systemId": "eternia",

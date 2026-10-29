@@ -2,7 +2,7 @@
   "name": "R13 Escudo de Força",
   "type": "shield",
   "system": {
-    "description": "<p>Seu \"Pacto do Escudo\" concede +10 adicional à intensidade da [Anulação]. Seu \"Broquel Garboso\" concede +20 adicional à intensidade da [Barreira].\nEscudo de Campo de Força Um escudo criado com a técnica secreta dos Alv. Embora pareça pequeno e frágil, ele expande um campo de força transparente quando se entoa uma palavra-chave, protegendo você. Diferente dos escudos comuns, ele não bloqueia a visão, por isso é muito cobiçado por quem usa escudos. Oferece uma poderosa capacidade defensiva. Alto Leve Escudo Espaço</p><hr><p>Circuito Multicadeia [Material-Base] (290 Yuld) + Escudo Pipa (440 Yuld) + Constructo Branco II (460 Yuld) ×2 + [Catalisador Mágico 13] (610 Yuld) ×2 + Custo de Fabricação (980 Yuld)</p>",
+    "description": "<p>Quando você usa Proteger, o dano que você sofre no lugar do aliado cai 10. [Momento: Manutenção] Você recebe [Barreira: 20]. Uma vez por cena.\nUm escudo criado com uma técnica secreta já perdida. Embora pareça pequeno e frágil, ele expande um campo de força transparente quando se entoa uma palavra-chave, protegendo você. Diferente dos escudos comuns, ele não bloqueia a visão, por isso é muito cobiçado por quem usa escudos. Oferece uma poderosa capacidade defensiva.</p><hr><p>Circuito Multicadeia [Material-Base] (290 Yuld) + Escudo Pipa (440 Yuld) + Constructo Branco II (460 Yuld) ×2 + [Anima-mundi 13] (610 Yuld) ×2 + Custo de Fabricação (980 Yuld)</p>",
     "tags": [
       "One-Handed",
       "Shield",
@@ -29,7 +29,44 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Setup",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Setup] You gain [Barrier: 20]. Once per scene.",
+          "effects": [
+            {
+              "name": "R13 Escudo de Força",
+              "img": "systems/eternia/assets/ui/items_icons/shield.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "barrier"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "barrier",
+                    "value": 20
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
     "systemId": "eternia",

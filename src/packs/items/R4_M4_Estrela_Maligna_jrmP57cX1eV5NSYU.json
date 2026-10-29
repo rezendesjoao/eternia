@@ -2,7 +2,7 @@
   "name": "R4 M4 Estrela Maligna",
   "type": "weapon",
   "system": {
-    "description": "<p>[Momento: Ação] Usado simultaneamente com suas habilidades \"Andorinha Giratória\" e \"Dardos Múltiplos\". O alcance do ataque aumenta em +1Qd.\nUma arma de arremesso imbuída do conceito de morte por meio da gravação de maus presságios e estrelas agourentas e da realização de rituais mágicos. Embora seja difícil de manejar, ostenta grande poder e longo alcance.</p><hr><p>Lâmina Manchada de Sangue[Material-Base](70 Yuld)+Shuriken de 4 Pontas(120 Yuld)×2+[Catalisador Mágico 4](105 Yuld)×2+Custo de Fabricação(200 Yuld)</p>",
+    "description": "<p>Seus [Ataques com Arma] feitos com esta arma recebem +1 Qd de alcance.\nUma arma de arremesso imbuída do conceito de morte por meio da gravação de maus presságios e estrelas agourentas e da realização de rituais mágicos. Embora seja difícil de manejar, ostenta grande poder e longo alcance.</p><hr><p>Lâmina Manchada de Sangue[Material-Base](70 Yuld)+Shuriken de 4 Pontas(120 Yuld)×2+[Anima-mundi 4](105 Yuld)×2+Custo de Fabricação(200 Yuld)</p>",
     "tags": [
       "One-Handed",
       "Throwing",
@@ -25,23 +25,71 @@
     "mdef": 0
   },
   "img": "icons/weapons/thrown/shuriken-double-red.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "tOaTXUqkj2ExVJcX",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "rollFilter": {
+            "skillTags": [
+              "Weapon Attack"
+            ],
+            "weaponTags": [
+              "Throwing"
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.48.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "R4 M4 Estrela Maligna",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "eternia.skill.range",
+            "type": "add",
+            "value": 1,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!jrmP57cX1eV5NSYU.tOaTXUqkj2ExVJcX",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
   "sort": 17800000,
   "ownership": {
     "default": 0
   },
   "flags": {
     "eternia": {
-      "powers": [
-        {
-          "timing": "Action",
-          "target": "-",
-          "range": "-",
-          "cost": "",
-          "limit": "",
-          "text": "[Trigger: Action] Your \"Turning Swallow\" and \"Multiple Darts\" are used simultaneously. The attack range is increased by +1Sq."
-        }
-      ]
+      "powers": []
     }
   },
   "_stats": {

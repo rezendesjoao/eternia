@@ -2,7 +2,7 @@
   "name": "R14 Tabuleiro Ouija do Ladrão Mágico Adder",
   "type": "accessory",
   "system": {
-    "description": "<p>+1d6 em \"Analisar Objeto de Cena\" e \"Desarmar Objeto de Cena\" contra Objetos de cena com a tag [Mágico]. Ao usar \"Carapaça Elemental\", você pode mudar os alvos dela para \"[seu Ódio] ÷2 alvos (mínimo 1)\". Além do efeito normalmente escolhido, sua \"Carapaça Elemental\" também concede [Anulação] contra [Fada].\nTabuleiro da Bruxa. O Tabuleiro da Bruxa favorito do lendário ladrão Adera, que desbravou muitas ruínas dos Alv. É composto de uma placa de prata com runas secretas gravadas, de cerca de 20 centímetros de diâmetro, e de uma pequena peça de marfim em forma de coração. Concede a quem o usa a sabedoria para superar dificuldades mágicas.</p><hr><p>Disco de Prata [Material-Base] (320 Yuld) + Amuleto da Fênix Dourada (820 Yuld) + Anel Laranja (1.280 Yuld) + [Catalisador Mágico 14] (700 Yuld) ×2 + Custo de Fabricação (1.730 Yuld)</p>",
+    "description": "<p>+1d6 em \"Analisar Objeto de Cena\" e \"Desarmar Objeto de Cena\" contra Objetos de cena com a tag [Mágico]. [Momento: Ação Maior] Escolha [Chama], [Frio], [Choque] ou [Fada]. Até [seu Ódio] ÷ 2 aliados (mínimo 1) a até 2 Qd recebem [Anulação (tag escolhida): 20], que sai depois de reduzir um dano. Uma vez por cenário.\nTabuleiro da Bruxa. O Tabuleiro da Bruxa favorito do lendário ladrão Adder, que desbravou muitas ruínas antigas. É composto de uma placa de prata com runas secretas gravadas, de cerca de 20 centímetros de diâmetro, e de uma pequena peça de marfim em forma de coração. Concede a quem o usa a sabedoria para superar dificuldades mágicas.</p><hr><p>Disco de Prata [Material-Base] (320 Yuld) + Amuleto da Fênix Dourada (820 Yuld) + Anel Laranja (1.280 Yuld) + [Anima-mundi 14] (700 Yuld) ×2 + Custo de Fabricação (1.730 Yuld)</p>",
     "tags": [
       "Accessory",
       "Not For Sale",
@@ -28,7 +28,20 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Major",
+          "target": "Refer",
+          "range": "2Sq",
+          "cost": "",
+          "limit": "1/Scenario",
+          "text": "[Trigger: Major] Choose [Flame], [Cold], [Shock] or [Fairy]. Up to [your Hate] ÷ 2 allies (minimum 1) within 2Sq gain [Cancel (chosen tag): 20], removed after it reduces one damage. Once per scenario."
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
     "systemId": "eternia",

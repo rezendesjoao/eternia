@@ -2,7 +2,7 @@
   "name": "R3 Manopla do Feiticeiro",
   "type": "accessory",
   "system": {
-    "description": "<p>Você recebe +3 de [Poder Mágico].</p>\n<p>Quando você usa Código Amplificador, mude o efeito de +(NHx3) para +(NHx5).</p>\n<hr>\n<p>Uma manopla incrustada com uma joia que acumula o poder mágico do elemento controlado por quem a usa. Tem o efeito de aumentar o poder mental do dono, permitindo que ele concentre seu poder mágico de forma mais profunda em pouco tempo.</p>\n<hr>\n<p>Pedra Mágica Carmesim [Material-Base] (55 Yuld) + Guarda de Sigilos (120 Yuld) x 2 + [Catalisador Mágico 3] (85 Yuld) x 4 + Custo de Fabricação (290 Yuld)</p>",
+    "description": "<p>Você recebe +3 de [Poder Mágico].</p>\n<p>Seus [Ataques Mágicos] recebem +2 na rolagem de dano.</p>\n<hr>\n<p>Uma manopla incrustada com uma joia que acumula o poder mágico do elemento controlado por quem a usa. Tem o efeito de aumentar o poder mental do dono, permitindo que ele concentre seu poder mágico de forma mais profunda em pouco tempo.</p>\n<hr>\n<p>Pedra Mágica Carmesim [Material-Base] (55 Yuld) + Guarda de Sigilos (120 Yuld) x 2 + [Anima-mundi 3] (85 Yuld) x 4 + Custo de Fabricação (290 Yuld)</p>",
     "tags": [
       "Accessory",
       "Gloves",
@@ -24,7 +24,61 @@
     "accuracy": 0
   },
   "img": "icons/equipment/hand/gauntelet-tooled-blue.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "xGkfVwN3SYfPvjrC",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "rollFilter": {
+            "skillTags": [
+              "Magic Attack"
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.48.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "R3 Manopla do Feiticeiro",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "eternia.roll.damage.mod",
+            "type": "add",
+            "value": 2,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!uMjQ5mOLR50fPAwN.xGkfVwN3SYfPvjrC",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
   "sort": 0,
   "ownership": {
     "default": 0

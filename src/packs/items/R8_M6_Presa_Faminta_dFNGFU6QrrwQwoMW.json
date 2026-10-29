@@ -2,7 +2,7 @@
   "name": "R8 M6 Presa Faminta",
   "type": "weapon",
   "system": {
-    "description": "<p>[Momento: Ação] Use isto ao mesmo tempo que sua \"Estocada Escarlate\". Mude o efeito de \"Estocada Escarlate\" de \"recupera seus [PV]\" para \"aplica [Perseguição: NH de Estocada Escarlate ×4] ao alvo\".\nUma lança de uma mão com o dente de um dragão ancestral na ponta. A ponta fere a presa e então suga sangue ou poder mágico do ferimento, inchando e penetrando ainda mais fundo no inimigo.</p><hr><p>Fóssil Misterioso [Material-Base] (145 Yuld) + Língua de Boi (460 Yuld) + Frasco de Golpes Poderosos I (80 Yuld) ×4 + [Catalisador Mágico 8] (260 Yuld) ×3 + Custo de Fabricação (830 Yuld)</p>",
+    "description": "<p>[Momento: Imediatamente Após o Dano] Use quando um [Ataque com Arma] seu com esta arma causar dano a um alvo: ele recebe [Perseguição: 12]. Uma vez por rodada.\nUma lança de uma mão com o dente de um dragão ancestral na ponta. A ponta fere a presa e então suga sangue ou poder mágico do ferimento, inchando e penetrando ainda mais fundo no inimigo.</p><hr><p>Fóssil Misterioso [Material-Base] (145 Yuld) + Língua de Boi (460 Yuld) + Frasco de Golpes Poderosos I (80 Yuld) ×4 + [Anima-mundi 8] (260 Yuld) ×3 + Custo de Fabricação (830 Yuld)</p>",
     "tags": [
       "One-Handed",
       "Spear",
@@ -34,12 +34,36 @@
     "eternia": {
       "powers": [
         {
-          "timing": "Action",
-          "target": "-",
-          "range": "-",
+          "timing": "After Damage",
+          "target": "Single",
+          "range": "Close",
           "cost": "",
-          "limit": "",
-          "text": "[Trigger: Action] Use this with your \"Scarlet Thrust\" at the same time. Change the effect of \"Scarlet, Thrust\" from \"recover your [HP]\" to \"inflict [Pursuit: Scarlet Thrust's SR ×4] on the target.\""
+          "limit": "1/Round",
+          "text": "[Trigger: Immediately After Damage] Use when a [Weapon Attack] of yours with this weapon deals damage to a target: it takes [Pursuit: 12]. Once per round.",
+          "effects": [
+            {
+              "name": "R8 M6 Presa Faminta",
+              "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "pursuit"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "pursuit",
+                    "value": 12
+                  }
+                }
+              }
+            }
+          ]
         }
       ]
     }

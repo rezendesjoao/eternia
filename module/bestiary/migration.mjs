@@ -15,6 +15,8 @@
  * The skills of the disguise and of the stone pose take the compendium's text, by name, and lose the old picture of the
  * rule; the table notes that said the token was a chest or a statue take the new sentence; the tokens disguised the old
  * way on the scenes get their look and side back, hidden.
+ * Version 5 (0.49): the texts the cleanup fixed: the money that was still Shia or gold, and the two named beasts whose
+ * text kept the damage of before 0.42 (the dice were right). Only the old words are replaced.
  */
 import { SYSTEM_ID } from "../settings.mjs";
 
@@ -351,7 +353,46 @@ async function run(done = 0) {
   if (done < 2) await damage042(pack, `Compendium.${SYSTEM_ID}.bestiary.Actor.`);
   if (done < 3) await blows044(pack, `Compendium.${SYSTEM_ID}.bestiary.Actor.`);
   if (done < 4) await disguise047(pack, `Compendium.${SYSTEM_ID}.bestiary.Actor.`);
+  if (done < 5) await texts049(pack, `Compendium.${SYSTEM_ID}.bestiary.Actor.`);
   return true;
+}
+
+/** Version 5: [monster, item (null: the monster's own text), the old words, the new]. */
+const TEXTS_049 = [
+  ["Floco-Vivo", null, "punhado de Shia", "punhado de Yuld"],
+  ["Ceifeira do Meio-Dia", "Espigas de Prata", "vendidas, dão ouro", "vendidas, dão Yuld"],
+  ["Espectro do Inverno", "Pena de Geada", "a pagam em ouro", "a pagam em Yuld"],
+  ["Uivo Violeta", "Bote", "[2d6 + 72]", "[2d6 + 78]"],
+  ["Velha Cicatriz", "Mordida do Peso", "[2d6 + 33]", "[2d6 + 39]"]
+];
+
+async function texts049(pack, prefix) {
+  const index = await pack.getIndex();
+  const nameOf = id => index.get(id)?.name;
+  let actors = 0, items = 0;
+  for (const actor of game.actors) {
+    const uuid = actor._stats?.compendiumSource;
+    const name = uuid?.startsWith(prefix) ? nameOf(uuid.slice(prefix.length)) : null;
+    const rows = name ? TEXTS_049.filter(([monster]) => monster === name) : [];
+    if (!rows.length) continue;
+    const own = actor._source.system?.description ?? "";
+    const description = rows.filter(([, item]) => !item).reduce((text, [, , old, now]) => text.split(old).join(now), own);
+    if (description !== own) {
+      await actor.update({ "system.description": description }, { eterniaMigration: true });
+      actors++;
+    }
+    const updates = [];
+    for (const item of actor._source.items) {
+      const text = item.system?.description ?? "";
+      const next = rows.filter(([, itemName]) => itemName === item.name).reduce((t, [, , old, now]) => t.split(old).join(now), text);
+      if (next !== text) updates.push({ _id: item._id, "system.description": next });
+    }
+    if (updates.length) {
+      await actor.updateEmbeddedDocuments("Item", updates, { eterniaMigration: true });
+      items += updates.length;
+    }
+  }
+  console.log(`${SYSTEM_ID} | Bestiary: ${actors} monsters and ${items} of their items with the texts of 0.49`);
 }
 
 async function renames(pack) {
@@ -399,4 +440,4 @@ async function renames(pack) {
   return true;
 }
 
-export const BESTIARY_MIGRATION = { id: "bestiary", setting: "bestiaryMigrationVersion", version: 4, run };
+export const BESTIARY_MIGRATION = { id: "bestiary", setting: "bestiaryMigrationVersion", version: 5, run };

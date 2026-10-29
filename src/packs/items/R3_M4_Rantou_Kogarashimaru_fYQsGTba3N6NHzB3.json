@@ -2,7 +2,7 @@
   "name": "R3 M4 Rantou Kogarashimaru",
   "type": "weapon",
   "system": {
-    "description": "<p>Você recebe +2d6 de bônus na rolagem de dano quando usa Corte de Izuna ou Rito da Cotovia.</p>\n<p>Uma espada demoníaca que, dizem, levanta o vento com um único golpe e invoca uma tempestade quando há batalha. O vendaval gerado fortalece os lampejos e o manejo físico de seu dono.</p>\n<hr>\n<p>Garra Escarlate [Material-Base] (55 Yuld) + Nagawakizashi (180 Yuld) + [Catalisador Mágico 3] (85 Yuld) x 3 + Custo de Fabricação (195 Yuld)</p>",
+    "description": "<p>Seus [Ataques com Arma] feitos com esta arma recebem +1d6 na rolagem de dano.</p>\n<p>Uma espada demoníaca que, dizem, levanta o vento com um único golpe e invoca uma tempestade quando há batalha. O vendaval gerado fortalece os lampejos e o manejo físico de seu dono.</p>\n<hr>\n<p>Garra Escarlate [Material-Base] (55 Yuld) + Nagawakizashi (180 Yuld) + [Anima-mundi 3] (85 Yuld) x 3 + Custo de Fabricação (195 Yuld)</p>",
     "tags": [
       "M4",
       "One-Handed",
@@ -25,7 +25,65 @@
     "mdef": 0
   },
   "img": "systems/eternia/assets/icons/items/rantou-kogarashimaru.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "mZ8jFxugrPUHAPHN",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "rollFilter": {
+            "skillTags": [
+              "Weapon Attack",
+              "Iai"
+            ],
+            "weaponTags": [
+              "Katana"
+            ]
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.48.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "R3 M4 Rantou Kogarashimaru",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "eternia.roll.damage.dice",
+            "type": "add",
+            "value": 1,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!fYQsGTba3N6NHzB3.mZ8jFxugrPUHAPHN",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
   "sort": 16000000,
   "ownership": {
     "default": 0

@@ -2,7 +2,7 @@
   "name": "R5 Anel da Pulsação",
   "type": "accessory",
   "system": {
-    "description": "<p>Sua habilidade Escrituras Sagradas, se adquirida, é tratada como tendo NH +1 (mesmo que ultrapasse o NH Máximo). <br>Se você não a tiver adquirido, ela é tratada como tendo NH 1. <br>Você não pode equipar mais de um deste item ao mesmo tempo. <br>[Momento: Ação] Use ao mesmo tempo que a sua Ressurreição. Remova um Estado Negativo do alvo da Ressurreição.</p>\n<hr>\n<p>Um anel que, dizem, era usado por um grupo de curandeiros famosos da antiga dinastia. As preces depositadas nele fortalecem o poder de cura usado por quem o veste.</p>\n<hr>\n<p>Frasco Catalisador [Material-Base] (85 Yuld) + Anel de Cristal (220 Yuld) + [Catalisador Mágico 5] (135 Yuld) x 4 + Custo de Fabricação (540 Yuld)</p>",
+    "description": "<p>[Momento: Ação Menor] Neste turno, sua [Recuperação] recebe +6. <br>Você não pode equipar mais de um deste item ao mesmo tempo. <br>[Momento: Ação] Use ao mesmo tempo que uma habilidade sua que recupere PV de um aliado. Remova um Estado Negativo desse aliado. Uma vez por cena.</p>\n<hr>\n<p>Um anel que, dizem, era usado por um grupo de curandeiros famosos da antiga dinastia. As preces depositadas nele fortalecem o poder de cura usado por quem o veste.</p>\n<hr>\n<p>Frasco Catalisador [Material-Base] (85 Yuld) + Anel de Cristal (220 Yuld) + [Anima-mundi 5] (135 Yuld) x 4 + Custo de Fabricação (540 Yuld)</p>",
     "tags": [
       "Accessory",
       "Magic Stone",
@@ -33,12 +33,46 @@
     "eternia": {
       "powers": [
         {
+          "timing": "Minor",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "",
+          "text": "[Trigger: Minor] During this main process, your [Recovery] gains +6.",
+          "effects": [
+            {
+              "name": "R5 Anel da Pulsação",
+              "img": "systems/eternia/assets/ui/items_icons/accessory.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "system.battle-status.power.restoration.mod",
+                    "type": "add",
+                    "value": 6,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfProcess"
+                }
+              }
+            }
+          ]
+        },
+        {
           "timing": "Action",
           "target": "Single",
           "range": "-",
           "cost": "",
-          "limit": "",
-          "text": "[Trigger: Action] Use this at the same time as your Resurrection. Remove one BS from the target of Resurrection."
+          "limit": "1/Scene",
+          "text": "[Trigger: Action] Use this at the same time as a skill of yours that recovers an ally's HP. Remove one Bad Status from that ally. Once per scene."
         }
       ]
     }

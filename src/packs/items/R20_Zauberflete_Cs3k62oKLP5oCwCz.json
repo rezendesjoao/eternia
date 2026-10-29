@@ -2,7 +2,7 @@
   "name": "R20 Zauberflete",
   "type": "weapon",
   "system": {
-    "description": "<p>Você recebe +10 na rolagem de dano de [Ataque Especial] para todas as habilidades que possui com a tag [Canção de Suporte] (NH+1; o NH Máximo pode ser excedido). [Momento: Rolagem de Dano] Uma vez por cenário.\nUma flauta sinistra que encanta os ouvintes e os leva à loucura com seu belo som. Muitos músicos talentosos a tocaram, mas todos que a possuíram tiveram finais infelizes. Também existem variantes com a forma de outros instrumentos.</p><hr><p>Membrana de Tecido Resistente [Material-Base] (580 Yuld) + Instrumento Obra-Prima (1.080 Yuld) + [Catalisador Mágico 20] (1.510 Yuld) ×5 + Custo de Fabricação (4.350 Yuld)</p>",
+    "description": "<p>[Momento: Rolagem de Dano] Sua rolagem de dano recebe +10. Uma vez por cenário.\nUma flauta sinistra que encanta os ouvintes e os leva à loucura com seu belo som. Muitos músicos talentosos a tocaram, mas todos que a possuíram tiveram finais infelizes. Também existem variantes com a forma de outros instrumentos.</p><hr><p>Membrana de Tecido Resistente [Material-Base] (580 Yuld) + Instrumento Obra-Prima (1.080 Yuld) + [Anima-mundi 20] (1.510 Yuld) ×5 + Custo de Fabricação (4.350 Yuld)</p>",
     "tags": [
       "Two-Handed",
       "Instrument",
@@ -39,8 +39,41 @@
           "range": "-",
           "cost": "",
           "limit": "1/Scenario",
-          "text": "You gain +10 to your [Special Attack] damage roll for all skills you possess with the [Support Song] tag (SR+1, maximum SR may be exceeded). [Trigger: Damage Roll] Once per scenario.",
-          "whole": true
+          "text": "[Trigger: Damage Roll] Your damage roll gains +10. Once per scenario.",
+          "effects": [
+            {
+              "name": "R20 Zauberflete",
+              "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "eternia.roll.damage.mod",
+                    "type": "add",
+                    "value": 10,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfProcess",
+                  "rollFilter": {
+                    "damageTypes": [
+                      "physical",
+                      "magical",
+                      "penetrating",
+                      "direct"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
         }
       ]
     }

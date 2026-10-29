@@ -2,7 +2,7 @@
   "name": "Machado de Santa Rilith",
   "type": "weapon",
   "system": {
-    "description": "<p>Suas habilidades \"Símbolo do Sol\" e \"Santuário\" passam a ter \"Alvo: Área Ampla 2 (Escolha)\", e o efeito de \"Santuário\" passa a durar até o alvo estar a mais de 3 Qd de você, em vez de apenas até ele sair do seu Qd.\nO Machado de Santa Lirys, personagem de uma história do Povo da Terra. Ela era a filha de um pobre lenhador, mas, depois que o pai foi morto por um tirano, empunhou um machado, inspirou o povo e liderou uma rebelião para vingá-lo. A história termina aí e o destino dela é desconhecido, mas o machado que guiou e protegeu o povo agora está em suas mãos.</p><hr><p>Grande Presa de Jade [Material-Base] (530 Yuld) + Mangual Pesado (2.800 Yuld) + [Catalisador Mágico 19] (1.340 Yuld) ×3 + Custo de Fabricação (2.600 Yuld)</p>",
+    "description": "<p>[Momento: Movimento] Você e os aliados em [Área Ampla 2 (Escolha)] recebem +5 em [Defesa Física] e [Defesa Mágica] até o fim da rodada. Uma vez por cena.\nO Machado de Santa Rilith, heroína de uma lenda que os camponeses do Império contam até hoje. Ela era a filha de um pobre lenhador, mas, depois que o pai foi morto por um tirano, empunhou um machado, inspirou o povo e liderou uma rebelião para vingá-lo. A história termina aí e o destino dela é desconhecido, mas o machado que guiou e protegeu o povo agora está em suas mãos.</p><hr><p>Grande Presa de Jade [Material-Base] (530 Yuld) + Mangual Pesado (2.800 Yuld) + [Anima-mundi 19] (1.340 Yuld) ×3 + Custo de Fabricação (2.600 Yuld)</p>",
     "tags": [
       "Two-Handed",
       "Hafted",
@@ -30,7 +30,54 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Move",
+          "target": "Wide 2 (P)",
+          "range": "Close",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Move] You and the allies in [Wide Area 2 (Select)] gain +5 to [Physical Defense] and [Magic Defense] until the end of the round. Once per scene.",
+          "effects": [
+            {
+              "name": "Machado de Santa Rilith",
+              "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "system.battle-status.defense.phys.mod",
+                    "type": "add",
+                    "value": 5,
+                    "phase": "initial",
+                    "priority": null
+                  },
+                  {
+                    "key": "system.battle-status.defense.magic.mod",
+                    "type": "add",
+                    "value": 5,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfRound",
+                  "recipients": "allies"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
     "systemId": "eternia",

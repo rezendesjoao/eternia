@@ -2,7 +2,7 @@
   "name": "R6 M4 Kaishakuken Decapitador",
   "type": "weapon",
   "system": {
-    "description": "<p>Quando você usa \"Golpe Excepcional\", o efeito passa a ser \"+[(NP×3)+15]\" em vez de \"+[(NP×2)+10]\".\nA espada mágica renascida de textos antigos, uma arma de carrasco. Ela é capaz de desferir um único golpe decisivo que decapita qualquer inimigo.</p><hr><p>[Material-Base](100 Yuld)+ (460 Yuld)+[ 6](170 Yuld)×2+Custo de Fabricação(420 Yuld)</p>",
+    "description": "<p>[Momento: Rolagem de Dano & Ódio 2] A rolagem de dano do seu [Ataque com Arma] com esta arma recebe +[(NP×2)+10]. Uma vez por cenário.\nA espada mágica renascida de textos antigos, uma arma de carrasco. Ela é capaz de desferir um único golpe decisivo que decapita qualquer inimigo.</p><hr><p>[Material-Base](100 Yuld)+ (460 Yuld)+[Anima-mundi 6](170 Yuld)×2+Custo de Fabricação(420 Yuld)</p>",
     "tags": [
       "Two-Handed",
       "Blade",
@@ -30,7 +30,54 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Damage Roll",
+          "target": "Self",
+          "range": "-",
+          "cost": "Hate 2",
+          "limit": "1/Scenario",
+          "text": "[Trigger: Damage Roll & Hate 2] The damage roll of your [Weapon Attack] with this weapon gains +[(CR×2)+10]. Once per scenario.",
+          "effects": [
+            {
+              "name": "R6 M4 Kaishakuken Decapitador",
+              "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "eternia.roll.damage.mod",
+                    "type": "add",
+                    "value": "@cr*2+10",
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfProcess",
+                  "rollFilter": {
+                    "skillTags": [
+                      "Weapon Attack"
+                    ],
+                    "weaponTags": [
+                      "Blade"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
     "systemId": "eternia",

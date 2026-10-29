@@ -138,7 +138,8 @@ export const CURRENCY_TEXT = [
   ["o ouro volta", "o Yuld volta"], ["aceita o ouro", "aceita o Yuld"], ["o ouro vai para quem aceitou", "o Yuld vai para quem aceitou"],
   ["e o Mestre descreve o ouro", "e o Mestre descreve as moedas"], ["vendidas, dão ouro", "vendidas, dão Yuld"],
   ["a pagam em ouro", "a pagam em Yuld"], ["e todo o ouro", "e todo o Yuld"], ["o que veio, o ouro e", "o que veio, o Yuld e"],
-  ["Uma linha pode ser de ouro", "Uma linha pode ser de Yuld"], ["Aceita, o ouro vai", "Aceita, o Yuld vai"]
+  ["Uma linha pode ser de ouro", "Uma linha pode ser de Yuld"], ["Aceita, o ouro vai", "Aceita, o Yuld vai"],
+  ["punhado de Shia", "punhado de Yuld"]
 ];
 
 /** The Gatherer finds Anima-mundi up to the character's NP (and the profession's cap): no level-6 vein at NP 1. */

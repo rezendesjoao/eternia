@@ -2,7 +2,7 @@
   "name": "R5 M5 Owazamono: Nue Sombrio",
   "type": "weapon",
   "system": {
-    "description": "<p>Você é considerado como tendo o NH de \"Assassinar\" e de \"Eco Retornante\" aumentado em +1 (mesmo que exceda o NH Máximo).\nUma enorme espada montante de lâmina negra como breu, que parece sugar a luz. Seu fio faz o oponente calcular mal a distância, infligindo ferimentos mais profundos.</p><hr><p>[Material-Base](85 Yuld)+ (440 Yuld)+[ 5](135 Yuld)×3+Custo de Fabricação(440 Yuld)</p>",
+    "description": "<p>[Momento: Rolagem de Dano] A rolagem de dano do seu [Ataque com Arma] com esta arma recebe +7. Uma vez por cena.\nUma enorme espada montante de lâmina negra como breu, que parece sugar a luz. Seu fio faz o oponente calcular mal a distância, infligindo ferimentos mais profundos.</p><hr><p>[Material-Base](85 Yuld)+ (440 Yuld)+[Anima-mundi 5](135 Yuld)×3+Custo de Fabricação(440 Yuld)</p>",
     "tags": [
       "Two-Handed",
       "Katana",
@@ -30,7 +30,55 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Damage Roll",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Damage Roll] The damage roll of your [Weapon Attack] with this weapon gains +7. Once per scene.",
+          "effects": [
+            {
+              "name": "R5 M5 Owazamono: Nue Sombrio",
+              "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "eternia.roll.damage.mod",
+                    "type": "add",
+                    "value": 7,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfProcess",
+                  "rollFilter": {
+                    "skillTags": [
+                      "Weapon Attack",
+                      "Iai"
+                    ],
+                    "weaponTags": [
+                      "Katana"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
     "systemId": "eternia",

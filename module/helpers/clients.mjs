@@ -10,7 +10,8 @@
  *   expiries, migrations): among the active GM's open windows, the one with the lowest id.
  */
 
-export const CLIENT_ID = foundry.utils.randomID();
+// The Node tools import this file through other modules (tools/migrate-effects.mjs): there is no `foundry` there
+export const CLIENT_ID = globalThis.foundry?.utils?.randomID() ?? Math.random().toString(36).slice(2, 18).padEnd(16, "0");
 
 const SOCKET = "system.eternia";
 const SCOPE = "clients";
@@ -35,18 +36,26 @@ export function registerClients() {
     Hooks.on(`preDelete${name}`, (doc, options) => stamp(options));
   }
 
-  Hooks.once("ready", () => {
-    game.socket.on(SOCKET, _onMessage);
-    _emit("hello");
-    setInterval(() => {
-      _emit("here");
-      const now = Date.now();
-      for (const [id, seen] of peers) if (now - seen > TIMEOUT) peers.delete(id);
-    }, HEARTBEAT);
-    // A window that closes without saying so is dropped after TIMEOUT.
-    window.addEventListener("pagehide", () => _emit("bye"));
-    discovered = new Promise(resolve => setTimeout(resolve, DISCOVERY));
-  });
+  Hooks.once("ready", startDiscovery);
+}
+
+/**
+ * Start talking to the other windows of the user (once). The `ready` hook of eternia.mjs, which runs the migrations,
+ * comes before the one above: clientsDiscovered() starts it there.
+ */
+function startDiscovery() {
+  if (discovered) return discovered;
+  game.socket.on(SOCKET, _onMessage);
+  _emit("hello");
+  setInterval(() => {
+    _emit("here");
+    const now = Date.now();
+    for (const [id, seen] of peers) if (now - seen > TIMEOUT) peers.delete(id);
+  }, HEARTBEAT);
+  // A window that closes without saying so is dropped after TIMEOUT.
+  window.addEventListener("pagehide", () => _emit("bye"));
+  discovered = new Promise(resolve => setTimeout(resolve, DISCOVERY));
+  return discovered;
 }
 
 function _emit(type) {
@@ -88,7 +97,7 @@ export function isPrimaryGM() {
   return !!game.users?.activeGM?.isSelf && isPrimaryClient();
 }
 
-/** Resolves once this window had time to hear from the other windows of the user. */
+/** Resolves once this window had time to hear from the other windows of the user (from `ready` on). */
 export function clientsDiscovered() {
-  return discovered ?? Promise.resolve();
+  return game.socket ? startDiscovery() : Promise.resolve();
 }

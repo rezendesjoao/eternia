@@ -77,8 +77,11 @@ export function rankUpSkills(rank) {
 /** Folder of the skills every character can learn. */
 const COMMON_FOLDER = "common";
 
-/** Compendiums of the Basic skills a character can take (not the GM EX Powers nor monster skills). */
-const BASIC_PACKS = ["eternia.skills-basic", "eternia.skills-mounts"];
+/**
+ * Compendiums of the Basic skills a character can take (not the GM EX Powers nor monster skills). The mount skills stay
+ * out while the system has no rules for mounts: they would come free, and better than Correr.
+ */
+const BASIC_PACKS = ["eternia.skills-basic"];
 
 /** Source filter values, in display order. */
 const SOURCES = ["eligible", "class", "magic", "dedication", "race", "subclass", "common", "all"];

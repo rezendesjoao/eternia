@@ -285,8 +285,9 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   [As condições](#as-condições)).
 - **Já vem pronto:** a ficha de personagem e a de monstro, o HUD de ações, o chat, os tokens e as outras janelas no
   mesmo visual; toda a automação de combate e de uso de habilidades; a interface em português do Brasil.
-- **Compêndios com conteúdo:** Guia do Jogador, Habilidades Básicas, Habilidades de Montaria, Poderes EX do Mestre,
-  Itens, Bestiário, Regras e O Mundo de Eternia (o mundo de jogo, só do Mestre), em português.
+- **Compêndios com conteúdo:** Guia do Jogador, Habilidades Básicas, Habilidades de Montaria (fora do navegador de
+  habilidades até haver regra de montaria), Poderes EX do Mestre, Itens, Bestiário, Regras e O Mundo de Eternia (o
+  mundo de jogo, só do Mestre), em português.
 - **Compêndios da Eternia:** Raças e Classes (as 6 raças em 8 itens, com os Bestiais em três linhagens, e as 6 antigas; as 10 profissões; as 22 classes, 14 na lista e 8 antigas), Habilidades Raciais e
   Habilidades de Classe (36 por classe, 64 no Matador de Dragões, e as 97 Magias com os feitiços: 1511 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
   Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
@@ -858,11 +859,11 @@ Para mostrar uma página aos jogadores, importe o diário para o mundo e dê a e
 ## O bestiário
 
 **Os itens deixados rolam sozinhos.** Cada monstro tem a sua tabela na aba **Itens Deixados** da ficha: cada linha é um
-item com as faces do 1d6 que o dão (1–3, 6) ou **Fixo**, e quantas cópias, e uma linha pode ser de ouro (2d6×3). Quando
-o monstro cai, o Mestre principal rola o 1d6 e um cartão no chat mostra o dado, o que veio, o ouro e para onde foi:
-**quem derrubou o monstro leva todos os itens e todo o ouro** (o atacante do cartão de dano que o levou a 0 PV, ou quem
+item com as faces do 1d6 que o dão (1–3, 6) ou **Fixo**, e quantas cópias, e uma linha pode ser de Yuld. Quando
+o monstro cai, o Mestre principal rola o 1d6 e um cartão no chat mostra o dado, o que veio, o Yuld e para onde foi:
+**quem derrubou o monstro leva todos os itens e todo o Yuld** (o atacante do cartão de dano que o levou a 0 PV, ou quem
 deu o veneno ou o fogo que o feriu), e o que não cabe no inventário fica numa pilha de saque no quadrado dele. O cartão
-tem o **Desfazer** do Mestre. Seguem as regras do Log Horizon: o Fixo cai sempre, e quem entrou no combate depois do
+tem o **Desfazer** do Mestre. O Fixo cai sempre, e quem entrou no combate depois do
 começo (os chamados, as levas, um token posto no meio da luta) não deixa nada. A configuração **Itens deixados: quando
 rolar** troca a queda pelo fim do combate ou pela rolagem à mão (o botão Rolar da aba, que também escolhe quem recebe).
 Um monstro do mundo com a tabela escrita no texto rola por ela mesmo, e a aba tem o **Virar dados**. O Bestiário traz
@@ -1108,7 +1109,7 @@ os efeitos que vão só para os aliados ou só para os inimigos entre os alvos (
 
 ## As condições
 
-Os 23 estados das regras de base e mais 52 condições da Eternia, feitas para emular poderes de anime. A regra de
+Os 23 estados das regras de base e mais 53 condições da Eternia, feitas para emular poderes de anime. A regra de
 cada uma aparece ao passar o mouse (na ficha, no HUD e nos estados clicáveis do chat), e a página
 **IX. CONDIÇÕES DA ETERNIA** do diário AS REGRAS traz todas por extenso.
 
@@ -1352,6 +1353,14 @@ eternia.syncGuide();                  // o Guia do Jogador no Diário, como o co
   Cauda (Fogo-Raposa), comer o elemento ao alcance (Comer o Elemento) e o rito de cada estágio da forma.
 - **Erro do core 14.367 no console** com combates simultâneos (`Cannot use 'in' operator to search for 'turn'`): vem
   do rastreador de combate do Foundry e é inofensivo.
+- **O mapa ainda não é regra:** as áreas não marcam os alvos sozinhas (quem usa marca cada alvo, e uma habilidade de
+  alvo Individual com três tokens marcados acerta os três), o alcance e a linha de visão só são conferidos no ataque, e
+  andar não gasta nem conta quadrados (as habilidades que movem um token são feitas à mão).
+- **O Destino** não volta sozinho no começo da sessão, e o Pós-Jogo (PV, Destino, Fadiga, tíquetes) é feito à mão.
+- **As escolhas Gerais** compram os talentos Gerais da classe e a habilidade Geral da raça; a lista de Talentos Gerais
+  comuns ainda não existe, e por volta do NP 9 a 13 (conforme a classe) a escolha Geral fica sem destino.
+- **Do NP 11 em diante** só a raça abre coisa nova (os estágios IV e V); as classes e as Magias param no Ápice (NP 10),
+  e o bestiário vai até o NP 9.
 
 ## Desenvolvimento
 
@@ -1398,7 +1407,16 @@ eternia.syncGuide();                  // o Guia do Jogador no Diário, como o co
   para eles). As katanas, os chicotes e os itens de Sword Art Online (`assets/icons/items/`) são arte própria da
   Eternia.
 - **Reki Kawahara / Kadokawa:** criadores de Sword Art Online, de onde vêm os nomes e a inspiração dos itens das pastas
-  Aincrad, Alfheim e Submundo. A Eternia não é oficial nem tem vínculo com eles.
+  Aincrad, Alfheim e Submundo, e a inspiração do mundo de jogo (o Submundo de Alicization: Centória, Norlangarth, a
+  Igreja, os Cavaleiros da Integridade, Aincrad), com três personagens maiores que levam os nomes da obra (Bercouli,
+  Chudelkin e Deusolbert). A Eternia não é oficial nem tem vínculo com eles.
+- **Hiro Mashima / Kodansha:** criador de Fairy Tail, e **Nakaba Suzuki / Kodansha:** criador de Nanatsu no Taizai, de
+  onde vêm os nomes e a inspiração de várias Magias e feitiços (o Matador de Dragões, o Take Over, a Magia Seith, os
+  Espíritos Celestiais, o Arco do Tempo, os Mandamentos, as Chamas do Purgatório e outros). A Eternia não é oficial nem
+  tem vínculo com eles.
+- **Yukamichi:** autor das traduções que o resumo de regras de origem incorporou.
+- **Retratos e tokens** do bestiário, dos NPCs e dos personagens maiores: gerados com ferramentas de imagem por IA, a
+  partir dos textos de cada criatura e personagem, e emoldurados por script.
 - **Ícones** de [game-icons.net](https://game-icons.net) sob [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
   (fundos dos estados recoloridos; Encharcado, Enfraquecido, Pavio, Servo, Dominado, Chama Negra, Sol, O Único,
   Contragolpe, Rancor, Petrificado, Pacificado, Agonia, Amnésia, Pesadelo, Ímpeto, Combo, Intocável, Inversão, Ritmo,

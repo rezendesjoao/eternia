@@ -14,7 +14,7 @@ export const TAGS = {
   "Heavy Armor": "Armadura Pesada", "Shield": "Escudo", "Helm": "Elmo", "Gloves": "Luvas",
   "Boots": "Botas", "Cloak": "Manto", "Bag": "Bolsa", "One-Handed": "Uma Mão", "Two-Handed": "Duas Mãos",
   "Accessory": "Acessório", "Head": "Cabeça", "Arms": "Braços", "Legs": "Pernas", "Dual Wield": "Duas Armas",
-  "Sword": "Espada",
+  "Sword": "Espada", "Earring": "Brinco", "Waist": "Cintura",
   // Item properties
   "Consumable": "Consumível", "Not For Sale": "Invendável", "Untradeable": "Intransferível",
   "Rare": "Raro", "Potion": "Poção", "Scroll": "Pergaminho", "Toxin": "Toxina", "Food": "Comida",
@@ -65,7 +65,7 @@ export function translateTag(tag) {
   const known = TAG_INDEX.get(tagKey(raw));
   if (known) return known;
   let m;
-  if ((m = raw.match(/^\s*Magic Catalyst\s*(\d+)\s*$/i))) return `Catalisador Mágico ${m[1]}`;
+  if ((m = raw.match(/^\s*Magic Catalyst\s*(\d+)\s*$/i))) return `Anima-mundi ${m[1]}`;
   if ((m = raw.match(/^\s*CR\s*(\d+)\s*$/))) return `NP${m[1]}`;
   // Comma lists of known tags ("Boss, Raid"); anything else is free text and stays as it is
   if (raw.includes(",")) {

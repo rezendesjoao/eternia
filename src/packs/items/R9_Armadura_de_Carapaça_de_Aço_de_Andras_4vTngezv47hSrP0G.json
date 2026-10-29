@@ -2,7 +2,7 @@
   "name": "R9 Armadura de Carapaça de Aço de Andras",
   "type": "armor",
   "system": {
-    "description": "<p>No início da cena, você recebe [Anulação (ataques que não sejam Corpo a corpo): 10]. [Momento: Ação] Use junto com uma de suas ações que tenha a tag [Postura]. Sua próxima rolagem de dano recebe +5 (este efeito é tratado como um Estado de Combate e é removido assim que surtir efeito).\nArmadura forjada a partir de um fragmento lascado da carapaça do dragão de aço. As placas da armadura mudam de forma de acordo com a vontade de quem a veste, auxiliando tanto no ataque quanto na defesa.</p><hr><p>Carapaça do Dragão de Aço [Material-Base] (165 Yuld) + Armadura Lamelar (1.060 Yuld) + Escudo de Ferro (300 Yuld) + [Catalisador Mágico 9] (310 Yuld) ×3 + Custo de Fabricação (1.040 Yuld)</p>",
+    "description": "<p>No início da cena, você recebe [Anulação (ataques que não sejam Corpo a corpo): 10]. [Momento: Ação] Use junto com uma de suas ações que tenha a tag [Movimento]. Sua próxima rolagem de dano recebe +5 (este efeito é tratado como um Estado de Combate e é removido assim que surtir efeito).\nArmadura forjada a partir de um fragmento lascado da carapaça do dragão de aço. As placas da armadura mudam de forma de acordo com a vontade de quem a veste, auxiliando tanto no ataque quanto na defesa.</p><hr><p>Carapaça do Dragão de Aço [Material-Base] (165 Yuld) + Armadura Lamelar (1.060 Yuld) + Escudo de Ferro (300 Yuld) + [Anima-mundi 9] (310 Yuld) ×3 + Custo de Fabricação (1.040 Yuld)</p>",
     "tags": [
       "Heavy Armor",
       "Not For Sale",
@@ -37,7 +37,7 @@
           "range": "-",
           "cost": "",
           "limit": "",
-          "text": "[Trigger: Action] Use together with one of your actions with the [Stance] tag. Your next damage roll gets +5 (this effect is treated as a Combat Status and is removed once it takes effect).",
+          "text": "[Trigger: Action] Use together with one of your actions with the [Movement] tag. Your next damage roll gets +5 (this effect is treated as a Combat Status and is removed once it takes effect).",
           "effects": [
             {
               "name": "R9 Steel Shell Armor of Andras",
@@ -49,7 +49,7 @@
               "system": {
                 "changes": [
                   {
-                    "key": "lhtrpg.roll.damage.mod",
+                    "key": "eternia.roll.damage.mod",
                     "type": "add",
                     "value": 5,
                     "phase": "initial",
@@ -59,7 +59,8 @@
               },
               "flags": {
                 "eternia": {
-                  "expires": "endOfRound"
+                  "expires": "endOfRound",
+                  "consumeOn": "attack"
                 }
               }
             }

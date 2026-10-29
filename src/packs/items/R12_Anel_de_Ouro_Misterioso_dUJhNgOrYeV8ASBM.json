@@ -2,7 +2,7 @@
   "name": "R12 Anel de Ouro Misterioso",
   "type": "accessory",
   "system": {
-    "description": "<p>O NH da sua \"Bateria Robusta\" aumenta em +1 (pode ultrapassar o NH Máximo).\nAnel de Classe Artefato Anel Artefato Um anel de classe Artefato que, segundo dizem, cristaliza por meio de um ritual o conceito de mistério. Tem a aparência de um grande anel em forma de losango. Amplifica seu mistério em resposta ao poder mágico, aumentando muito o dano das magias de quem o usa. No entanto, enquanto está ativo, o Ódio aumenta continuamente. 0 0 0 0 0 0 0 0 0 0 10 0 0 Amplificação do Mistério Aumenta consideravelmente o dano das magias de quem o usa. No entanto, enquanto está ativo, o Ódio aumenta continuamente. 2.0 5 1 rodada</p><hr><p>[Material-Base](250 Yuld)+ (720 Yuld)+[ 12](520 Yuld)×3+Custo de Fabricação(1.300 Yuld)</p>",
+    "description": "<p>[Momento: Movimento] Neste turno, seus [Ataques Mágicos] recebem +5 na rolagem de dano.\nAnel de Classe Artefato Anel Artefato Um anel de classe Artefato que, segundo dizem, cristaliza por meio de um ritual o conceito de mistério. Tem a aparência de um grande anel em forma de losango. Amplifica seu mistério em resposta ao poder mágico, aumentando muito o dano das magias de quem o usa. No entanto, enquanto está ativo, o Ódio aumenta continuamente. 0 0 0 0 0 0 0 0 0 0 10 0 0 Amplificação do Mistério Aumenta consideravelmente o dano das magias de quem o usa. No entanto, enquanto está ativo, o Ódio aumenta continuamente. 2.0 5 1 rodada</p><hr><p>[Material-Base](250 Yuld)+ (720 Yuld)+[Anima-mundi 12](520 Yuld)×3+Custo de Fabricação(1.300 Yuld)</p>",
     "tags": [
       "Accessory",
       "Magic Stone",
@@ -29,7 +29,51 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Move",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "",
+          "text": "[Trigger: Move] During this main process, your [Magic Attacks] gain +5 to damage rolls.",
+          "effects": [
+            {
+              "name": "R12 Anel de Ouro Misterioso",
+              "img": "systems/eternia/assets/ui/items_icons/accessory.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "eternia.roll.damage.mod",
+                    "type": "add",
+                    "value": 5,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfProcess",
+                  "rollFilter": {
+                    "skillTags": [
+                      "Magic Attack"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
     "systemId": "eternia",

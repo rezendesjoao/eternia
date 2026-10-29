@@ -2,7 +2,7 @@
   "name": "Ritual da Paz",
   "type": "weapon",
   "system": {
-    "description": "<p>O valor de aumento de Ódio da sua habilidade \"Uivo do Mago\" passa a ser 0.\nUm cajado que, segundo dizem, aguça o espírito do dono e concede um nível excepcional de concentração. Ele facilita o controle sobre a liberação maciça de poder mágico.</p><hr><p>Espinhos da Autodisciplina [Material-Base] (55 Yuld) + Cajado de Olmo (220 Yuld) + [Catalisador Mágico 3] (85 Yuld) ×3 + Custo de Fabricação (190 Yuld)</p>",
+    "description": "<p>[Momento: Instantânea] Neste turno, seus [Feitiços] custam 0 de Ódio. Uma vez por cenário.\nUm cajado que, segundo dizem, aguça o espírito do dono e concede um nível excepcional de concentração. Ele facilita o controle sobre a liberação maciça de poder mágico.</p><hr><p>Espinhos da Autodisciplina [Material-Base] (55 Yuld) + Cajado de Olmo (220 Yuld) + [Anima-mundi 3] (85 Yuld) ×3 + Custo de Fabricação (190 Yuld)</p>",
     "tags": [
       "Two-Handed",
       "Staff",
@@ -30,7 +30,51 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Instant",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scenario",
+          "text": "[Trigger: Instant] During this main process, your [Spells] cost 0 Hate. Once per scenario.",
+          "effects": [
+            {
+              "name": "Ritual da Paz",
+              "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "eternia.skill.hateCost",
+                    "type": "override",
+                    "value": 0,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfProcess",
+                  "rollFilter": {
+                    "skillTags": [
+                      "Spell"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
     "systemId": "eternia",

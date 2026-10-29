@@ -2,7 +2,7 @@
   "name": "R8 Armadura Mágica Tipo 39 (Leve)",
   "type": "armor",
   "system": {
-    "description": "<p>Você é tratado como tendo \"Foco Instantâneo\" com NH 1. Se você já o tiver, seu \"Foco Instantâneo\" passa a ter \"Usos: 2 por Cena\". [Momento: Ver texto] Use quando você sofrer um movimento forçado. Reduza esse movimento em 1 Qd.\nUma peça de armadura que incorpora um mecanismo desconhecido, que se acredita ser parte de uma máquina de guerra mágica. Suas propriedades mudam de acordo com quem a veste, e ela também tem diversas funções de auxílio às ações.</p><hr><p>Armadura Mágica de Contra-Passagem [Material-Base] (145 Yuld) + Gibão de Viajante (540 Yuld) + Cota de Placas (600 Yuld) + [Catalisador Mágico 8] (260 Yuld) ×3 + Custo de Fabricação (1.110 Yuld)</p>",
+    "description": "<p>[Momento: Instantânea] Você fica [Concentrado]. Uma vez por cena. [Momento: Ver texto] Use quando você sofrer um movimento forçado. Reduza esse movimento em 1 Qd.\nUma peça de armadura que incorpora um mecanismo desconhecido, que se acredita ser parte de uma máquina de guerra mágica. Suas propriedades mudam de acordo com quem a veste, e ela também tem diversas funções de auxílio às ações.</p><hr><p>Armadura Mágica de Contra-Passagem [Material-Base] (145 Yuld) + Gibão de Viajante (540 Yuld) + Cota de Placas (600 Yuld) + [Anima-mundi 8] (260 Yuld) ×3 + Custo de Fabricação (1.110 Yuld)</p>",
     "tags": [
       "Light Armor",
       "Not For Sale",
@@ -31,6 +31,37 @@
   "flags": {
     "eternia": {
       "powers": [
+        {
+          "timing": "Instant",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Instant] You become [Focused]. Once per scene.",
+          "effects": [
+            {
+              "name": "R8 Armadura Mágica Tipo 39 (Leve)",
+              "img": "systems/eternia/assets/ui/items_icons/armor.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [
+                "focused"
+              ],
+              "system": {
+                "changes": []
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfScene",
+                  "statusData": {
+                    "statusId": "focused"
+                  }
+                }
+              }
+            }
+          ]
+        },
         {
           "timing": "Refer",
           "target": "Self",

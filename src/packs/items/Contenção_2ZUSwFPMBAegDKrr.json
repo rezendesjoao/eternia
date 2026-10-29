@@ -2,7 +2,7 @@
   "name": "Contenção",
   "type": "weapon",
   "system": {
-    "description": "<p>O dano do seu \"Ataque Perturbador\" aumenta em +10.\nA Lança Radiante, uma lança mágica concedida a um guerreiro honrado que lutou na linha de frente das guerras antigas, protegendo seus companheiros dos ataques. Sua ponta fica tão afiada que põe em perigo o próprio portador.</p><hr><p>Agente Polidor dos Alv[Material-Base](320 Yuld)+Farrality(1.020 Yuld)+[Catalisador Mágico 14](700 Yuld)×5+Custo de Fabricação(1.830 Yuld)</p>",
+    "description": "<p>[Momento: Antes do Dano] Use quando você usar Proteger: cause 10 de dano direto a quem fez o ataque. Uma vez por cena.\nA Lança Radiante, uma lança mágica concedida a um guerreiro honrado que lutou na linha de frente das guerras antigas, protegendo seus companheiros dos ataques. Sua ponta fica tão afiada que põe em perigo o próprio portador.</p><hr><p>Agente Polidor dos Alv[Material-Base](320 Yuld)+Farrality(1.020 Yuld)+[Anima-mundi 14](700 Yuld)×5+Custo de Fabricação(1.830 Yuld)</p>",
     "tags": [
       "One-Handed",
       "Spear",
@@ -30,7 +30,27 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Before Damage",
+          "target": "Single",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Before Damage] Use when you use Protect: deal 10 direct damage to the one who made the attack. Once per scene.",
+          "damage": {
+            "dice": 0,
+            "mod": 10,
+            "type": "direct",
+            "recovery": false,
+            "noPower": true
+          }
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
     "systemId": "eternia",

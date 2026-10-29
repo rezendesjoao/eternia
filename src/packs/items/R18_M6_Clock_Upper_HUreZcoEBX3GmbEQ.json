@@ -2,7 +2,7 @@
   "name": "R18 M6 Clock Upper",
   "type": "weapon",
   "system": {
-    "description": "<p>[Momento: Ação & Destino 1] Usado ao mesmo tempo que \"Surra\". Adiciona +[NH de \"Chute da Serpe\" × 6] ao dano direto causado pelo efeito de \"Surra\".\nUma armadura adicional metálica que envolve as mãos e os pés, reluzindo com um brilho prateado. Acredita-se que seja um equipamento especial de golem da era dos Alv, embora os detalhes sejam desconhecidos. Possui uma função que permite súbitos picos de iniciativa aproveitando o excesso de PM liberado na atmosfera.</p><hr><p>Espelho Espiritual da Chuva de Outono [Material-Base] (480 Yuld) + Katar (2.000 Yuld) + Perneiras (1.460 Yuld) + [Catalisador Mágico 18] (1.190 Yuld) ×4 + Custo de Fabricação (3.450 Yuld)</p>",
+    "description": "<p>[Momento: Ver texto & Destino 1] Use quando um ataque seu deixar um inimigo [Incapacitado] ou [Morto]: escolha outro inimigo a até 2 Qd, faça um [Teleporte Instantâneo] para o quadrado dele e cause 20 de dano direto a ele.\nUma armadura adicional metálica que envolve as mãos e os pés, reluzindo com um brilho prateado. Acredita-se que seja um equipamento especial de golem de uma era esquecida, embora os detalhes sejam desconhecidos. Possui uma função que permite súbitos picos de iniciativa aproveitando o excesso de PM liberado na atmosfera.</p><hr><p>Espelho Espiritual da Chuva de Outono [Material-Base] (480 Yuld) + Katar (2.000 Yuld) + Perneiras (1.460 Yuld) + [Anima-mundi 18] (1.190 Yuld) ×4 + Custo de Fabricação (3.450 Yuld)</p>",
     "tags": [
       "Two-Handed",
       "Martial Arts",
@@ -34,12 +34,19 @@
     "eternia": {
       "powers": [
         {
-          "timing": "Action",
-          "target": "-",
-          "range": "-",
+          "timing": "Refer",
+          "target": "Single",
+          "range": "2Sq",
           "cost": "Fate 1",
           "limit": "",
-          "text": "[Trigger: Action & Fate 1] Used at the same time as \"Beat Up\". Adds +[\"Wyvern Kick\" SR × 6] to the direct damage dealt by the effect of \"Beat Up\"."
+          "text": "[Trigger: Text & Fate 1] Use when an attack of yours renders an enemy [Incapacitated] or [Dead]: choose another enemy within 2Sq, [Instant Teleport] to its square and deal 20 direct damage to it.",
+          "damage": {
+            "dice": 0,
+            "mod": 20,
+            "type": "direct",
+            "recovery": false,
+            "noPower": true
+          }
         }
       ]
     }

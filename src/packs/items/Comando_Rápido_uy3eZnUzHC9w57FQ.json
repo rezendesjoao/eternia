@@ -2,7 +2,7 @@
   "name": "Comando Rápido",
   "type": "weapon",
   "system": {
-    "description": "<p>Seu [Poder Mágico] aumenta em +4. [Momento: Movimento] Escolha uma habilidade que você possua com a tag [Invocação de Servo]. Ative imediatamente o \"Efeito Garantido\" dessa habilidade. Uma vez por cena.\nUm chicote especial criado para dar ordens a monstros. Sua ponta se divide em três partes, e cada uma termina em uma estatueta: a cabeça de uma serpente, símbolo do soberano da terra; um touro furioso, que representa o poder do solo; e uma águia, a rainha dos céus. Essas estatuetas amplificam o poder mágico de quem empunha o chicote. Os monstros comandados por este chicote cumprem suas ordens imediatamente. 10 8 5 Aumenta a eficácia dos comandos dados aos monstros.</p><hr><p>Fio de Aço Verdadeiro [Material-Base] (400 Yuld) + Foice de Corrente (920 Yuld) + Apito da Carruagem de Ferro (1.500 Yuld) + [Catalisador Mágico 16] (930 Yuld) ×3 + Custo de Fabricação (2.800 Yuld)</p>",
+    "description": "<p>Seu [Poder Mágico] aumenta em +4. [Momento: Movimento] Neste turno, suas habilidades com a tag [Invocação] recebem +2d6 na rolagem de dano. Uma vez por cena.\nUm chicote especial criado para dar ordens a monstros. Sua ponta se divide em três partes, e cada uma termina em uma estatueta: a cabeça de uma serpente, símbolo do soberano da terra; um touro furioso, que representa o poder do solo; e uma águia, a rainha dos céus. Essas estatuetas amplificam o poder mágico de quem empunha o chicote. Os monstros comandados por este chicote cumprem suas ordens imediatamente. 10 8 5 Aumenta a eficácia dos comandos dados aos monstros.</p><hr><p>Fio de Aço Verdadeiro [Material-Base] (400 Yuld) + Foice de Corrente (920 Yuld) + Apito da Carruagem de Ferro (1.500 Yuld) + [Anima-mundi 16] (930 Yuld) ×3 + Custo de Fabricação (2.800 Yuld)</p>",
     "tags": [
       "One-Handed",
       "Whip",
@@ -81,11 +81,42 @@
       "powers": [
         {
           "timing": "Move",
-          "target": "-",
+          "target": "Self",
           "range": "-",
           "cost": "",
           "limit": "1/Scene",
-          "text": "[Trigger: Move] Select one skill you possess with the [Summon Servant] tag. Immediately activate that skill's \"Fixed Effect.\" Once per scene."
+          "text": "[Trigger: Move] During this main process, your skills with the [Summon] tag gain +2d6 to damage rolls. Once per scene.",
+          "effects": [
+            {
+              "name": "Comando Rápido",
+              "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "eternia.roll.damage.dice",
+                    "type": "add",
+                    "value": 2,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfProcess",
+                  "rollFilter": {
+                    "skillTags": [
+                      "Summon"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
         }
       ]
     }

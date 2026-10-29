@@ -2,7 +2,7 @@
   "name": "R10 Traje de Guerra de Maya",
   "type": "armor",
   "system": {
-    "description": "<p>Você é tratado como tendo \"Ataque Móvel\" e \"Passo Relâmpago\" com NH +1 (pode ultrapassar o NH Máximo). A distância de movimento do \"Ritardando\" que você usa recebe +1Qd.\nManto da Legião. O manto favorito de um lendário poeta dos campos de batalha. Aliviado pela magia e dotado de uma estrutura única, oferece a máxima eficácia em táticas de manobra.</p><hr><p>Faixa de Guerra do Destruidor[Material-Base](195 Yuld)+Camisa de Malha(980 Yuld)+[Catalisador Mágico 10](370 Yuld)×3+Custo de Fabricação(900 Yuld)</p>",
+    "description": "<p>Sua [Velocidade] aumenta em +1. [Momento: Movimento] Você faz um [Movimento Normal] de até [Velocidade] Qd e, neste turno, seus [Ataques com Arma] recebem +3 na rolagem de dano.\nManto da Legião. O manto favorito de um lendário poeta dos campos de batalha. Aliviado pela magia e dotado de uma estrutura única, oferece a máxima eficácia em táticas de manobra.</p><hr><p>Faixa de Guerra do Destruidor[Material-Base](195 Yuld)+Camisa de Malha(980 Yuld)+[Anima-mundi 10](370 Yuld)×3+Custo de Fabricação(900 Yuld)</p>",
     "tags": [
       "Medium Armor",
       "Not For Sale",
@@ -23,12 +23,102 @@
     "accuracy": 0
   },
   "img": "icons/equipment/chest/breastplate-layered-leather-green.webp",
-  "effects": [],
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "_id": "dmBPymXSpmbv73wZ",
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.48.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "R10 Traje de Guerra de Maya",
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {
+        "changes": [
+          {
+            "key": "system.battle-status.speed.mod",
+            "type": "add",
+            "value": 1,
+            "phase": "initial",
+            "priority": null
+          }
+        ]
+      },
+      "description": "",
+      "statuses": [],
+      "sort": 0,
+      "_key": "!items.effects!EusT36tNmzUpE3y1.dmBPymXSpmbv73wZ",
+      "start": null,
+      "showIcon": 1
+    }
+  ],
   "sort": 1800000,
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Move",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "",
+          "text": "[Trigger: Move] You make a [Normal Move] up to your [Speed] Sq and, during this main process, your [Weapon Attacks] gain +3 to damage rolls.",
+          "effects": [
+            {
+              "name": "R10 Traje de Guerra de Maya",
+              "img": "systems/eternia/assets/ui/items_icons/armor.svg",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "eternia.roll.damage.mod",
+                    "type": "add",
+                    "value": 3,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "expires": "endOfProcess",
+                  "rollFilter": {
+                    "skillTags": [
+                      "Weapon Attack"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
     "systemId": "eternia",

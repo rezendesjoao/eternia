@@ -2,7 +2,7 @@
   "name": "Shide no Ōtsuchi",
   "type": "weapon",
   "system": {
-    "description": "<p>Sua habilidade \"Vencedor\" passa a ter Alvo: Área Ampla 5 (Escolha).\nUma grande maça de prata gravada com palavras de luto pelos inimigos caídos. Seu brilho jamais se apaga, mesmo depois de abater incontáveis adversários em batalha, incutindo medo nos inimigos e inspirando os aliados.</p><hr><p>Placa de Prata Gravada [Material-Base] (290 Yuld) + Maça Pesada (760 Yuld) + [Catalisador Mágico 13] (610 Yuld) ×4 + Custo de Fabricação (1.670 Yuld)</p>",
+    "description": "<p>[Momento: Ver texto & Ódio 1] Use quando você deixar um inimigo [Incapacitado] ou [Morto]: os aliados em [Área Ampla 5 (Escolha)] diminuem o [Ódio] em 1.\nUma grande maça de prata gravada com palavras de luto pelos inimigos caídos. Seu brilho jamais se apaga, mesmo depois de abater incontáveis adversários em batalha, incutindo medo nos inimigos e inspirando os aliados.</p><hr><p>Placa de Prata Gravada [Material-Base] (290 Yuld) + Maça Pesada (760 Yuld) + [Anima-mundi 13] (610 Yuld) ×4 + Custo de Fabricação (1.670 Yuld)</p>",
     "tags": [
       "Two-Handed",
       "Hafted",
@@ -30,7 +30,20 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "eternia": {
+      "powers": [
+        {
+          "timing": "Refer",
+          "target": "Wide 5 (P)",
+          "range": "Close",
+          "cost": "Hate 1",
+          "limit": "",
+          "text": "[Trigger: Text & Hate 1] Use when you render an enemy [Incapacitated] or [Dead]: the allies in [Wide Area 5 (Select)] reduce their [Hate] by 1."
+        }
+      ]
+    }
+  },
   "_stats": {
     "coreVersion": "13.351",
     "systemId": "eternia",
