@@ -216,6 +216,19 @@ export function skillRollable(item) {
 }
 
 /**
+ * Whether an attack (a Check against Evasion / Resistance, or an automatic hit) has nobody targeted: it goes at its
+ * targets, so it is neither used nor rolled until the user targets someone, and a warning says so. A skill that finds
+ * its own targets around its user (conditions/quake.mjs) aims when its Check is rolled.
+ * @param {Item} item
+ * @returns {boolean}
+ */
+export function lacksTarget(item) {
+  if (!CHECK_VS.includes(item?.system?.check?.vs) || game.user.targets.size || item.getFlag?.("eternia", "around")) return false;
+  ui.notifications.warn(game.i18n.format("ETERNIA.Combat.Notif.NoTarget", { skill: item.name }));
+  return true;
+}
+
+/**
  * The character a character skill rolls for: its owner, else the selected token's or the user's character.
  * @param {Item} item
  * @returns {Actor|null}
@@ -269,6 +282,8 @@ export async function rollSkill(item, which, { targets } = {}) {
 
   // A skill that finds its own targets around its user (conditions/quake.mjs: the quake, the light that judges)
   if (which === "check") aimAround(item);
+  // An attack waits for a target: with nobody targeted, no one would dodge it or take its damage
+  if ((which === "check") && lacksTarget(item)) return null;
   const attack = (which === "check") && isAttack(item);
   // A class Motor's Perfect Cut hits without a Dodge Check (classes/motor.mjs).
   const autoHit = (which === "check") && attack && motorAutoHit(item);

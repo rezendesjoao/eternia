@@ -79,6 +79,8 @@ export function registerSettings() {
     type: String, default: "all",
     choices: { manual: "ETERNIA.Settings.autoApply.manual", enemies: "ETERNIA.Settings.autoApply.enemies", all: "ETERNIA.Settings.autoApply.all" }
   });
+  // Every blow that hits rolls its damage at once, a character's too (helpers/combat-cards.mjs onAttackResolved)
+  toggle("hitDamage");
   toggle("monsterDamage");
   toggle("monsterTarget");
   // A monster's (Menor): its Minor Action spent and the bonus added when it is free (bestiary/minor.mjs)
@@ -185,7 +187,8 @@ export function registerClientSettings() {
   toggle("turnNotice", true);
   toggle("turnSelect", false);
   toggle("turnPan", false);
-  toggle("turnUntarget", true);
+  // Off: a target stays until its user changes it
+  toggle("turnUntarget", false);
   // The creation wizard opens when this user makes a character (apps/creation-wizard.mjs)
   toggle("creationWizard", true);
   // The release notice already seen (notice.mjs).

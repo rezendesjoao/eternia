@@ -5,8 +5,11 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.53.0
+## Versão 0.53.1
 
+- **Na 0.53.1: consertos do combate.** Um ataque sem alvo marcado não é usado nem rolado (um aviso pede o alvo), o
+  alvo fica marcado até o jogador trocar ("Limpar os alvos no fim da sua vez" começa desligada) e o dano de todo golpe
+  que acerta rola e entra sozinho, também o dos personagens (configuração do Mestre **Dano sozinho no acerto**).
 - **Novo na 0.53.0: a evolução por XP e os grupos.** O NP agora sobe com a experiência, o **XP**: cada monstro dá o XP
   escrito na ficha dele (o peso dele num encontro, como os itens deixados: um comum do NP dá 10 × (NP + 4), o lacaio ⅔,
   o chefe 4 comuns, o chefe solo 6), e quando o total chega ao número do NP seguinte o personagem sobe sozinho, na hora,
@@ -1384,6 +1387,9 @@ O que o sistema faz sozinho:
   habilidade em quem ele alcançou; quem ainda pode usar uma reação Antes do Dano espera o dono. Um cartão de resultado
   por golpe, com o Desfazer de cada alvo e o Desfazer tudo. Um ataque sem dano faz um cartão de 0, que leva o Dano de
   Ódio, a Perseguição, a Fraqueza, o [Marcado] e o −1 de Ódio da esquiva falha.
+- **Dano sozinho no acerto:** quando o Teste de Acerto vence a Esquiva (ou o acerto é automático), a tela do Mestre
+  rola o dano do golpe, de personagens e de monstros, e ele entra em quem foi atingido; o botão Dano de um ataque já
+  rolado pergunta antes de rolar outro. Um ataque sem alvo marcado não é usado nem rolado: um aviso pede o alvo.
 - **O turno do monstro:** no começo dele, a tela do Mestre marca o Topo de Ódio que o monstro alcança (senão, o
   Aventureiro mais perto); no HUD, um clique no ataque usa a habilidade e rola o Teste, e o dano sai sozinho quando
   acerta. O "(Menor)" do ataque gasta a Ação Menor livre e soma o bônus; o [Destino 1] dos chefes é perguntado no
@@ -1396,7 +1402,7 @@ O que o sistema faz sozinho:
 
 ### Turno (cada jogador escolhe)
 Aviso com som quando começa a sua vez, selecionar o token na sua vez, levar a tela até quem age e limpar os alvos no
-fim da sua vez.
+fim da sua vez (desligado: o alvo fica até você trocar).
 
 ### Estados e efeitos a partir do chat
 - **Estados clicáveis:** os estados escritos nos cartões ([Atordoado], [Deterioração: 10], [Fraqueza (Chama): 5]…)
@@ -1443,6 +1449,7 @@ janelas em pergaminho, que pedem para recarregar.
 | Correções nos cartões de ataque e dano | ligado |
 | Esquiva automática dos personagens | ligado |
 | Aplicar dano, cura e efeitos sozinho | sozinho em todos |
+| Dano sozinho no acerto | ligado |
 | Ataque do monstro em um clique | ligado |
 | Monstro mira o Topo de Ódio | ligado |
 | O (Menor) do monstro sozinho | ligado |
@@ -1461,7 +1468,7 @@ janelas em pergaminho, que pedem para recarregar.
 
 Cada jogador escolhe as suas: HUD de ações (ligado), HUD sem token selecionado (ligado), barra de macros do Foundry
 (esconder), aviso da sua vez (ligado), selecionar o token na sua vez (desligado), levar a tela até quem age
-(desligado), limpar os alvos no fim da sua vez (ligado), ícones animados (ligado), interface no visual da Eternia
+(desligado), limpar os alvos no fim da sua vez (desligado), ícones animados (ligado), interface no visual da Eternia
 (ligado), diários como livro da Eternia (ligado) e quadro do grupo (ligado).
 
 ## Instalação

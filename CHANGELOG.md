@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.53.1 — 2026-10-29
+
+Consertos pontuais do combate: o ataque sem alvo, o alvo que sumia sozinho e o dano dos personagens.
+
+### Adicionado
+- **Dano sozinho no acerto** (configuração do mundo `hitDamage`, ligada): quando o Teste de Acerto vence a Esquiva (ou o
+  acerto é automático), o dano do golpe é rolado sozinho, também o dos personagens, na tela do Mestre principal
+  (`onAttackResolved` em `helpers/combat-cards.mjs`), com a mesma visibilidade do cartão de ataque, e entra pelo
+  `autoApply`. Desligada, só o dano dos monstros rola sozinho (`monsterDamage`), como antes.
+- O botão Dano (do cartão de uso ou do cartão de ataque) de um ataque com o dano já rolado pergunta antes de rolar outro.
+
+### Alterado
+- Um ataque (Teste contra Esquiva, Resistência ou automático) sem alvo marcado não é usado nem rolado: um aviso pede o
+  alvo (`lacksTarget` em `helpers/skill-rolls.mjs`, no `planUse` e no `rollSkill`). As habilidades que acham os próprios
+  alvos em volta (`flags.eternia.around`) continuam como estão.
+- "Limpar os alvos no fim da sua vez" (`turnUntarget`) agora começa desligada: o alvo fica até o jogador trocar.
+- Um cartão de ataque que errou todos não é dado por tratado: um reroll ou uma ação de cartão que vira o erro em acerto
+  ainda rola o dano sozinho.
+- Guia do Jogador: capítulos 11 (Ataque e Dano) e 20 (Mesa Virtual).
+
 ## 0.53.0 — 2026-10-29
 
 A evolução por XP e os grupos: o NP sobe sozinho quando o XP chega, cada monstro dá o XP do peso dele, e os

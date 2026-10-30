@@ -3,7 +3,8 @@
  *
  * The system posts a skill's card from EterniaItem#ItemThrow, which is also where it applies the
  * skill's "when used" effects: that is the moment the skill is used. This wraps it:
- * - before: an Incapacitated or Dead user, the Timing against the combat phase (Major / Minor /
+ * - before: an attack with nobody targeted (stopped with a warning: helpers/skill-rolls.mjs lacksTarget), an
+ *   Incapacitated or Dead user, the Timing against the combat phase (Major / Minor /
  *   Move / Instant only in the user's own Main Process, Setup in the Setup Process…), the action
  *   already spent in this Main Process (one Major, one Minor and one Move), the usage limit
  *   (1/Scene, (SR)/Scenario, 1/Round…) and the Fate cost (the user must have it). An issue asks to
@@ -50,6 +51,7 @@ import { troopTargets } from "../bestiary/troop.mjs";
 import { rampageIssues } from "../bestiary/rampage.mjs";
 import { monsterUseIssues } from "../bestiary/use-checks.mjs";
 import { askFateOption, fateOptionText, minorOf, minorText } from "../bestiary/minor.mjs";
+import { lacksTarget } from "../helpers/skill-rolls.mjs";
 
 /** The action a Timing spends in the Main Process ([Instant]: one in the user's own Main Process, III.b). */
 const ACTIONS = { Major: "major", Minor: "minor", Move: "move", Instant: "instant" };
@@ -453,6 +455,8 @@ export async function commitItemUse(item, plan, message) {
  * @returns {Promise<object|null>}   The plan to record after the card, or null when the use stops.
  */
 async function planUse(item) {
+  // An attack is used at its targets: with nobody targeted it stops here, before it spends anything
+  if (lacksTarget(item)) return null;
   const state = inspectUse(item, { targets: [...game.user.targets] });
   const forced = await decide(item, state.issues);
   if (!forced) return null;

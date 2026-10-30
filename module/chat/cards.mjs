@@ -14,7 +14,7 @@
  *   nobody is targeted.
  */
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
-import { createDamageCard, targetEntries } from "../helpers/combat-cards.mjs";
+import { createDamageCard, damageOfAttack, targetEntries } from "../helpers/combat-cards.mjs";
 import { diceFormula } from "../helpers/dice.mjs";
 import { evaluateFormula, formulaData } from "../helpers/effect-formulas.mjs";
 import { isMonsterSkill, rollSkill, skillRollable } from "../helpers/skill-rolls.mjs";
@@ -93,8 +93,10 @@ function rollTargets(attackMessage) {
  * Roll a skill's Damage against the given attack (the system's rollSkill, with the attack chosen here).
  * @param {Item} item
  * @param {ChatMessage|null} attackMessage
+ * @param {object} [options]
+ * @param {string} [options.mode]   The damage card's message mode (see createDamageCard)
  */
-export async function rollDamage(item, attackMessage) {
+export async function rollDamage(item, attackMessage, { mode } = {}) {
   const values = item.system.damage;
   const powers = (!isMonsterSkill(item) && !values.noPower)
     ? [DAMAGE_POWER[values.type], values.recovery ? "restoration" : null].filter(Boolean)
@@ -146,7 +148,7 @@ export async function rollDamage(item, attackMessage) {
   let result;
   try {
     result = await createDamageCard(item, actor, diceFormula({ dice, mod }), flavor, attackMessage, targets,
-      { bonuses: [rollBonusesLabel(bonuses), condition.text].filter(Boolean).join(", ") });
+      { bonuses: [rollBonusesLabel(bonuses), condition.text].filter(Boolean).join(", "), mode });
   }
   finally {
     pending = null;
@@ -217,8 +219,23 @@ function onSkillRoll(event, message, button) {
     const item = uuid ? await fromUuid(uuid).catch(() => null) : null;
     if (!item) return ui.notifications.warn(game.i18n.localize("ETERNIA.Skill.Notif.Missing"));
     if (which === "check") return rollCheck(item, message);
-    return rollDamage(item, linkedAttack(message));
+    return rollDamageOnce(item, linkedAttack(message));
   })().catch(err => console.error(`${SYSTEM_ID} | Skill roll failed`, err));
+}
+
+/** A Damage button of an attack whose damage is already rolled (by itself on the hit: setting hitDamage) asks first. */
+async function rollDamageOnce(item, attackMessage) {
+  if (attackMessage && damageOfAttack(attackMessage.id)) {
+    const again = await confirm({
+      title: L("Cards.DamageAgainTitle"),
+      icon: "fa-solid fa-rotate-right",
+      content: `<p>${escape(L("Cards.DamageRolled", { skill: item.name }))}</p>`,
+      yes: L("Cards.RollAgain"),
+      no: L("Use.Cancel")
+    });
+    if (!again) return null;
+  }
+  return rollDamage(item, attackMessage);
 }
 
 /** "Roll damage" on the attack card itself, for its author. */
@@ -234,7 +251,7 @@ function addDamageButton(message, html) {
   button.innerHTML = `<i class="fa-solid fa-burst"></i> ${escape(L("Cards.RollDamage"))}`;
   button.addEventListener("click", event => {
     event.preventDefault();
-    rollDamage(item, message).catch(err => console.error(`${SYSTEM_ID} | Damage roll failed`, err));
+    rollDamageOnce(item, message).catch(err => console.error(`${SYSTEM_ID} | Damage roll failed`, err));
   });
   card.append(button);
 }

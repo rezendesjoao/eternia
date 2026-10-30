@@ -22,6 +22,8 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
 - Desde a 0.44 a tela do Mestre principal aplica sozinha os cartões de dano em quem o golpe atingiu e os efeitos da
   habilidade em quem ele alcançou (`onAutoCard` em `helpers/combat-cards.mjs`, configuração `autoApply`); o cartão tratado
   leva `flags.eternia.autoDone`. Código novo que lê um cartão de dano conta com o dano já aplicado quando ele aparece.
+  O dano de todo golpe que acerta também rola sozinho lá (configuração `hitDamage`; sem ela, só o dos monstros, pela
+  `monsterDamage`), e um ataque sem alvo marcado nem é usado nem rolado (`lacksTarget` de `helpers/skill-rolls.mjs`).
 - O que um uso gasta além da ação do Momento fica em `flags.eternia.alsoSpends` da habilidade (a Disparada) e em
   `usage.alsoSpent` no registro; o (Menor) e o [Destino 1] dos monstros, em `flags.eternia.minor` e `fateOption`
   (`bestiary/minor.mjs`, veja `docs/bestiario.md`).

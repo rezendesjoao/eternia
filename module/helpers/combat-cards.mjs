@@ -643,8 +643,11 @@ export function findAttackMessage(item) {
  * @param {string} flavor
  * @param {ChatMessage} [attackMessage]
  * @param {object[]} [defaultTargets]   Targets when there is no attack card, instead of the user's
+ * @param {object} [options]
+ * @param {string} [options.bonuses]
+ * @param {string} [options.mode]       The message mode, else the user's (the damage rolled by itself: the attack's)
  */
-export async function createDamageCard(item, attacker, formula, flavor, attackMessage, defaultTargets, { bonuses = "" } = {}) {
+export async function createDamageCard(item, attacker, formula, flavor, attackMessage, defaultTargets, { bonuses = "", mode } = {}) {
   const roll = await new Roll(formula).evaluate();
   const attack = attackMessage?.getFlag("eternia", "attack");
   const targets = attack
@@ -707,7 +710,7 @@ export async function createDamageCard(item, attacker, formula, flavor, attackMe
     rolls: [roll],
     flags: { eternia: { damage: data } }
   };
-  ChatMessage.applyMode(messageData);
+  ChatMessage.applyMode(messageData, mode);
   const message = await ChatMessage.create(messageData);
   // The attacker's statuses the spell spends (the [Grudge] a blow lets out): helpers/magic-traits.mjs
   const spender = attacker ?? item.actor;
@@ -1218,26 +1221,42 @@ function waitsToReact(actor, inspectUse) {
     && !inspectUse(i).issues.length);
 }
 
+/** The mode a card was posted in: a card rolled from it on another window is seen by the same people. */
+const modeOf = message => (message.blind ? "blind" : (message.whisper?.length ? "gm" : "public"));
+
 /**
- * An attack card whose targets all have their result: a monster's blow rolls its damage at once (setting
- * monsterDamage), and an attack without damage still strikes (a damage card of 0: the Failed Dodge's Hate Damage,
- * Pursuit, Weakness and [Marked], and [The One], [Clones], [Counter] and a protector against it), which the
- * skill's effects then follow (applyHitEffects).
+ * The damage card already rolled for an attack card, among the recent chat messages.
+ * @param {string} attackId
+ * @returns {ChatMessage|null}
+ */
+export function damageOfAttack(attackId) {
+  const recent = game.messages.contents.slice(-ATTACK_LOOKBACK).reverse();
+  return recent.find(m => m.flags?.eternia?.damage?.attackId === attackId) ?? null;
+}
+
+/**
+ * An attack card whose targets all have their result: a blow that hit rolls its damage at once (setting hitDamage;
+ * without it, only a monster's, setting monsterDamage), and an attack without damage still strikes (a damage card of
+ * 0: the Failed Dodge's Hate Damage, Pursuit, Weakness and [Marked], and [The One], [Clones], [Counter] and a protector
+ * against it), which the skill's effects then follow (applyHitEffects). Nobody hit, the card waits: a reroll or a card
+ * action that turns the miss into a hit brings it back here.
  * @param {string} id   The attack card
  */
 async function onAttackResolved(id) {
   const message = game.messages.get(id);
   if (!message || message.getFlag("eternia", "autoDone")) return;
-  await message.setFlag("eternia", "autoDone", true);
   const attack = message.getFlag("eternia", "attack");
   const item = attack?.itemUuid ? fromUuidSync(attack.itemUuid) : null;
   if (!item?.actor || !attack.targets.some(t => t.hit === true)) return;
+  await message.setFlag("eternia", "autoDone", true);
+  // Its damage already rolled from the card's buttons
+  if (damageOfAttack(id)) return;
   const { skillRollable } = await import("./skill-rolls.mjs");
   if (skillRollable(item).damage) {
-    // A character rolls its own damage (its card applies itself); a monster's, at once
-    if (setting("monsterDamage") && !isAdventurer(item.actor)) {
+    // The damage card then applies itself (setting autoApply)
+    if (setting("hitDamage") || (setting("monsterDamage") && !isAdventurer(item.actor))) {
       const { rollDamage } = await import("../chat/cards.mjs");
-      await rollDamage(item, message);
+      await rollDamage(item, message, { mode: modeOf(message) });
     }
     return;
   }
