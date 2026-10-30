@@ -5,6 +5,8 @@
  *   compose.mjs  the picture (an SVG built in the browser around the Foundry icon)
  */
 import { SYSTEM_ID } from "../settings.mjs";
+import { lowPerformance } from "../helpers/performance.mjs";
+import { MARKET_INDEX_FIELDS, marketPack, packIndex } from "../helpers/pack-index.mjs";
 import {
   DEFAULT_THEME, ELEMENT_THEMES, FRAMED_TYPES, GENERIC_ICONS, KIND_THEMES, MOVING_TYPES, TIER_LEVELS
 } from "./data.mjs";
@@ -22,8 +24,19 @@ let viewer = null;
 /** What the compendium indexes must carry to draw an icon. */
 const INDEX_FIELDS = ["system.rank", "system.tags", `flags.${SYSTEM_ID}.icon`];
 
-/** Whether the icons move: the client setting, unless the system asks for reduced motion. */
+/**
+ * The sidebar directories that never show an item icon (their pictures are portraits and scene thumbnails), docked or
+ * popped out: what is drawn in them is not looked at.
+ */
+const PLAIN = ["actors", "scenes", "journal", "playlists"].flatMap(id => [`#${id}`, `#${id}-popout`]).join(", ");
+const inPlain = node => !!node.closest?.(PLAIN);
+
+/**
+ * Whether the icons move: the client setting, unless the system asks for reduced motion or Foundry runs in its Low
+ * performance mode (the weakest computers).
+ */
 const animated = () => game.settings.get(SYSTEM_ID, "iconEffects")
+  && !lowPerformance()
   && !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
 /** The magic grade ([M1] to [M7]) of an item from its tags, or 0. */
@@ -77,36 +90,67 @@ function buildRegistry() {
   }
 }
 
-/** The application an element is in. */
-function appOf(element) {
+/**
+ * The application an element is in. With `apps`, the answers of one pass over the page (an observer's batch, the first
+ * look) are kept for every element walked through, so the <img> of one subtree climb it once; made again each pass, it
+ * never answers for an element moved since.
+ * @param {Element} element
+ * @param {Map<Element, object|null>} [apps]
+ */
+function appOf(element, apps) {
+  const walked = [];
+  let app = null;
   for (let node = element; node; node = node.parentElement) {
-    const app = node.id && foundry.applications.instances.get(node.id);
-    if (app) return app;
+    if (apps?.has(node)) {
+      app = apps.get(node);
+      break;
+    }
+    walked.push(node);
+    const found = node.id && foundry.applications.instances.get(node.id);
+    if (found) {
+      app = found;
+      break;
+    }
   }
-  return null;
+  if (apps) for (const node of walked) apps.set(node, app);
+  return app;
 }
+
+/** The icon paths of the <img> sources seen (a source always gives the same path in a page), up to PATHS_KEPT. */
+const paths = new Map();
+const PATHS_KEPT = 5000;
 
 /** The icon path of an <img> source, as items store it. */
 function pathOf(src) {
+  let path = paths.get(src);
+  if (path !== undefined) return path;
   try {
     const url = new URL(src, window.location.href);
-    if (url.origin !== window.location.origin) return src;
-    const route = foundry.utils.getRoute("/");
-    let path = decodeURIComponent(url.pathname);
-    if (path.startsWith(route)) path = path.slice(route.length);
-    return path.replace(/^\/+/, "");
+    if (url.origin !== window.location.origin) path = src;
+    else {
+      const route = foundry.utils.getRoute("/");
+      path = decodeURIComponent(url.pathname);
+      if (path.startsWith(route)) path = path.slice(route.length);
+      path = path.replace(/^\/+/, "");
+    }
   }
   catch {
-    return src;
+    path = src;
   }
+  if (paths.size >= PATHS_KEPT) paths.clear();
+  paths.set(src, path);
+  return path;
 }
 
 /**
  * The item an <img> shows: from its sheet row, its sheet, its compendium or sidebar entry, or by its path (and, when
  * items draw that path in different ways, by the name in its alt text, as the chat cards give it).
+ * @param {HTMLImageElement} img
+ * @param {string} path
+ * @param {Map} [apps]   The answers of appOf in this pass
  */
-function itemFor(img, path) {
-  const app = appOf(img);
+function itemFor(img, path, apps) {
+  const app = appOf(img, apps);
   const doc = app?.document;
   const row = img.closest("[data-item-id]");
   if (row) {
@@ -125,11 +169,13 @@ function itemFor(img, path) {
 }
 
 /** What an <img> shows, when it is an item icon to decorate: its source, icon path and style. */
-function targetOf(img) {
+function targetOf(img, apps) {
   const src = img.getAttribute("src");
   if (!src || src.startsWith("blob:") || src.startsWith("data:")) return null;
   const path = pathOf(src);
-  const style = iconStyleOf(itemFor(img, path));
+  // A path no item draws, whichever it is (the item found always has this img: iconStyleOf leaves the generic icons)
+  if (!path || path.startsWith(GENERIC_ICONS)) return null;
+  const style = iconStyleOf(itemFor(img, path, apps));
   return style ? { src, path, style } : null;
 }
 
@@ -143,9 +189,11 @@ function swap(img, { src, path }, url) {
 /**
  * Swaps an <img> of an item icon to its picture: at once when the picture is drawn, else when the <img> comes near
  * the screen, so long lists and hidden tabs draw only what is seen.
+ * @param {HTMLImageElement} img
+ * @param {Map} [apps]   The answers of appOf in this pass
  */
-function decorate(img) {
-  const target = targetOf(img);
+function decorate(img, apps) {
+  const target = targetOf(img, apps);
   if (!target) return;
   const url = drawnPictureOf(target.path, target.style);
   if (url) swap(img, target, url);
@@ -154,10 +202,11 @@ function decorate(img) {
 
 /** Draws the pictures of the <img> that came near the screen. */
 function draw(entries) {
+  const apps = new Map();
   for (const { target: img, isIntersecting } of entries) {
     if (!isIntersecting) continue;
     viewer.unobserve(img);
-    const target = targetOf(img);
+    const target = targetOf(img, apps);
     if (!target) continue;
     pictureOf(target.path, target.style).then(url => swap(img, target, url),
       err => console.warn(`${SYSTEM_ID} | Could not draw the icon ${target.path}`, err));
@@ -165,27 +214,35 @@ function draw(entries) {
 }
 
 /** The <img> of a node and below it. */
-function* imagesOf(node) {
-  if (node.nodeType !== Node.ELEMENT_NODE) return;
-  if (node.tagName === "IMG") yield node;
-  else yield* node.getElementsByTagName("img");
+function imagesOf(node) {
+  if (node.nodeType !== Node.ELEMENT_NODE) return [];
+  return (node.tagName === "IMG") ? [node] : node.getElementsByTagName("img");
 }
 
 /** Decorates the item icons already shown and the ones that come. */
 async function start() {
-  const packs = game.packs.filter(pack => pack.documentName === "Item");
-  await Promise.all(packs.map(pack => pack.getIndex({ fields: INDEX_FIELDS })));
+  // Only the compendiums with items that take a frame: the registry keeps nothing of the others (the skills'), whose
+  // indexes the windows' catalogs fetch later, one at a time, once the game is idle (helpers/prewarm.mjs). The GM asks
+  // the compendiums the Market lists for its fields too: its catalog then reads this index, not one of its own.
+  const packs = game.packs.filter(pack => (pack.documentName === "Item") && pack.index.some(e => FRAMED_TYPES.includes(e.type)));
+  const fields = pack => ((game.user.isGM && marketPack(pack)) ? [...INDEX_FIELDS, ...MARKET_INDEX_FIELDS] : INDEX_FIELDS);
+  await Promise.all(packs.map(pack => packIndex(pack, fields(pack))));
   buildRegistry();
   viewer = new IntersectionObserver(draw, { rootMargin: "300px" });
-  for (const img of document.getElementsByTagName("img")) decorate(img);
+  const apps = new Map();
+  for (const img of document.getElementsByTagName("img")) if (!inPlain(img)) decorate(img, apps);
   observer = new MutationObserver(records => {
+    const apps = new Map();
     for (const record of records) {
+      if (inPlain(record.target)) continue;
       if (record.type === "attributes") {
-        decorate(record.target);
+        decorate(record.target, apps);
         continue;
       }
       for (const node of record.removedNodes) for (const img of imagesOf(node)) viewer.unobserve(img);
-      for (const node of record.addedNodes) for (const img of imagesOf(node)) decorate(img);
+      for (const node of record.addedNodes) {
+        if (!node.matches?.(PLAIN)) for (const img of imagesOf(node)) decorate(img, apps);
+      }
     }
   });
   observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["src"] });

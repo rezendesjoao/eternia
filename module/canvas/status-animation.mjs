@@ -7,9 +7,11 @@
  *   small ring flashes on it. An effect without an icon on the token sinks into its middle.
  * - Taken away: the icon leaves its place growing, turning and fading upwards.
  * Every client plays it on its own canvas, for the tokens it sees. With "reduce motion" in the system it is only a
- * short flash; the client setting "statusAnimation" off brings the core text back.
+ * short flash; in Foundry's Low canvas performance mode (weak computers) and with the client setting "statusAnimation"
+ * off, the core's light scrolling text plays instead.
  */
 import { setting } from "../settings.mjs";
+import { lowPerformance } from "../helpers/performance.mjs";
 import { statusDefinition } from "../helpers/statuses.mjs";
 
 /** The colour of the ring, by the status's group. */
@@ -225,6 +227,8 @@ async function leave(token, effect) {
  */
 export function animateStatus(effect, enabled) {
   if (!canvas?.ready || !effect.img) return false;
+  // Low performance: the core's scrolling text, as with the setting off
+  if (lowPerformance()) return false;
   const actor = effect.target;
   for (const token of actor?.getActiveTokens?.(true) ?? []) {
     if (!token.visible || token.document.isSecret) continue;

@@ -22,10 +22,18 @@ export function isTwoHanded(item) {
  * @returns {{main: Item|null, off: Item|null, locked: boolean}}  locked: the main weapon is Two-Handed
  */
 export function getHands(actor) {
-  const weapons = actor?.items.filter(i => (i.type === "weapon") && i.system.equipped) ?? [];
+  // While the actor is prepared its items don't change: every effect phase shares one answer (documents/actor.mjs)
+  const shared = actor?._lhPrep;
+  if (shared) return shared.hands ??= handsOf(actor);
+  return handsOf(actor);
+}
+
+function handsOf(actor) {
+  const types = actor?.itemTypes;
+  const weapons = types?.weapon.filter(i => i.system.equipped) ?? [];
   const main = weapons.find(w => w.system.main) ?? weapons[0] ?? null;
   const off = weapons.find(w => w !== main)
-    ?? actor?.items.find(i => (i.type === "shield") && i.system.equipped) ?? null;
+    ?? types?.shield.find(i => i.system.equipped) ?? null;
   return { main, off, locked: isTwoHanded(main) };
 }
 

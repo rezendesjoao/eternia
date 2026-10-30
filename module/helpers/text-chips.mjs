@@ -524,12 +524,24 @@ export function chipText(text, context = {}) {
   return html + plain(source.slice(last));
 }
 
-/** Whose text a rich text is (the `relativeTo` of the enrichment). */
+/** The context of each enrichment, by its options (TextEditor#enrichHTML gives every bracket of a text the same object). */
+const CONTEXTS = new WeakMap();
+
+/**
+ * Whose text a rich text is (the `relativeTo` of the enrichment): one context per enrichment, so its brackets read the
+ * character's values once (wordValue keeps them in it).
+ */
 function contextOf(options) {
-  const doc = options?.relativeTo;
-  if (doc?.documentName === "Item") return { item: doc, actor: doc.actor ?? null };
-  if (doc?.documentName === "Actor") return { actor: doc };
-  return {};
+  if ((options === null) || (typeof options !== "object")) return {};
+  let context = CONTEXTS.get(options);
+  if (!context) {
+    const doc = options.relativeTo;
+    if (doc?.documentName === "Item") context = { item: doc, actor: doc.actor ?? null };
+    else if (doc?.documentName === "Actor") context = { actor: doc };
+    else context = {};
+    CONTEXTS.set(options, context);
+  }
+  return context;
 }
 
 /** Call during the `init` hook: the chips in every rich text the system shows, and its dice as d6. */

@@ -1,4 +1,5 @@
 import { CORE_PACK, getOption, optionDataFrom } from "../helpers/character-options.mjs";
+import { packIndex } from "../helpers/pack-index.mjs";
 import { tagLabel } from "../i18n/terms.mjs";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
@@ -47,7 +48,7 @@ async function buildIndex(type) {
 
   for (const pack of game.packs) {
     if ((pack.documentName !== "Item") || !pack.visible) continue;
-    const index = await pack.getIndex({ fields: INDEX_FIELDS });
+    const index = await packIndex(pack, INDEX_FIELDS);
     const order = pack.collection === CORE_PACK ? 0 : 1;
     for (const e of index) {
       if (e.type === type) entries.push(entry(e, e.uuid ?? pack.getUuid(e._id), pack.title, order));
@@ -214,5 +215,6 @@ export function registerOptionBrowser() {
   Hooks.on("deleteItem", watchOptionItems);
   Hooks.on("createCompendium", clearOptionIndex);
   Hooks.on("deleteCompendium", clearOptionIndex);
-  Hooks.on("updateCompendium", clearOptionIndex);
+  // Only an Item compendium's change: the world's items come by watchOptionItems
+  Hooks.on("updateCompendium", pack => (pack.documentName === "Item") && clearOptionIndex());
 }

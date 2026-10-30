@@ -5,12 +5,19 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 0.53.1
+## Versão 1.0.0
 
-- **Na 0.53.1: consertos do combate.** Um ataque sem alvo marcado não é usado nem rolado (um aviso pede o alvo), o
+- **Na 1.0.0: a primeira versão completa, mais leve e mais rápida.** Nada mudou nas regras nem no visual. O sistema
+  chega ao navegador em poucos arquivos em vez de centenas (com o servidor longe, a entrada no mundo fica segundos mais
+  curta: no mundo de teste, a 60 ms do servidor, de ~13 s para ~8,5 s), os ícones dos estados e as fontes da cena chegam
+  enquanto o mundo ainda carrega, e no combate a ficha, o HUD e o quadro do grupo só se redesenham quando algo deles muda
+  (num computador com a CPU 4× mais lenta, 8 rodadas de combate com a ficha aberta passaram de ~22 s para ~8 s de
+  trabalho). Num computador mais fraco, o **Modo de Desempenho** do Foundry em **Baixo** também para as animações que só
+  enfeitam a Eternia (veja [Desempenho](#desempenho)).
+- **Desde a 0.53.1: consertos do combate.** Um ataque sem alvo marcado não é usado nem rolado (um aviso pede o alvo), o
   alvo fica marcado até o jogador trocar ("Limpar os alvos no fim da sua vez" começa desligada) e o dano de todo golpe
   que acerta rola e entra sozinho, também o dos personagens (configuração do Mestre **Dano sozinho no acerto**).
-- **Novo na 0.53.0: a evolução por XP e os grupos.** O NP agora sobe com a experiência, o **XP**: cada monstro dá o XP
+- **Desde a 0.53.0: a evolução por XP e os grupos.** O NP agora sobe com a experiência, o **XP**: cada monstro dá o XP
   escrito na ficha dele (o peso dele num encontro, como os itens deixados: um comum do NP dá 10 × (NP + 4), o lacaio ⅔,
   o chefe 4 comuns, o chefe solo 6), e quando o total chega ao número do NP seguinte o personagem sobe sozinho, na hora,
   com o cartão no chat, "NP 3!" sobre o token e, na tela do jogador, o aviso do NP novo com **Escolher agora**. Do NP 1
@@ -1483,6 +1490,20 @@ Esse endereço aponta para a versão mais recente publicada nas
 [releases](https://github.com/rezendesjoao/eternia/releases), então o Foundry também avisa quando houver
 atualização. Requer o Foundry VTT v14.
 
+## Desempenho
+
+O sistema chega ao navegador em poucos arquivos (o código e os modelos num só, os estilos em dois), busca os ícones dos
+estados e as fontes da cena enquanto os dados do mundo ainda estão a caminho, e só redesenha o que mudou: a aba aberta
+da ficha, o HUD quando algo dele muda, as fichas de quem uma condição de verdade alcançou. Num computador mais fraco, o
+**Modo de Desempenho** do Foundry em **Baixo** (Configurar Opções → Geral) também para as animações que só enfeitam a
+Eternia: o brilho dos pontos do Motor, as marcas que pulsam na ficha e na bancada, os ícones animados dos itens e o
+medalhão dos estados nos tokens, que volta a ser o texto do Foundry (`css/performance.css`, pela classe
+`performance-low` que o Foundry põe no `body`), e o
+chat abre com as últimas 50 mensagens em vez de 100 (`module/helpers/performance.mjs`). A **Taxa Máxima de Quadros**
+em 30 alivia mais. O que mais pesa ao entrar no mundo, para todos, é o tamanho do chat: o
+Foundry manda todas as mensagens do mundo a cada um que entra, então exportar e limpar o chat entre os arcos deixa a
+entrada mais rápida.
+
 ## Para macros
 
 ```js
@@ -1588,7 +1609,13 @@ eternia.party.leave(actor);           // sai do grupo; .kick(lider, membro), .pr
   Momento, alcance, alvo, custo, limite, tipos) ficam em inglês e aparecem traduzidos na tela.
   - `npm install` e depois `npm run packs:build` compila `src/packs` → `packs` (com o mundo fechado).
   - `npm run packs:unpack` faz o caminho de volta, depois de editar os compêndios dentro do Foundry.
-- `npm run package` monta `dist/eternia.zip` e `dist/system.json` para a release.
+- `npm run package` monta `dist/eternia.zip` e `dist/system.json` para a release. O zip carrega o sistema empacotado
+  por `tools/bundle.mjs` (esbuild): o código de `module/` com todos os modelos de `templates/` dentro num arquivo só,
+  `module/eternia.bundle.mjs` (com o mapa para o console), e os estilos de cada camada num arquivo só,
+  `css/eternia.bundle.system.css` e `css/eternia.bundle.modules.css`, na ordem do manifesto. O `system.json` do zip
+  aponta para eles; o do repositório continua carregando os arquivos soltos, então o teste local roda o código-fonte.
+  O motivo: o servidor do Foundry responde cada arquivo com `no-cache`, em HTTP/1.1, e cada arquivo custa uma ida e
+  volta até o servidor a cada entrada, mesmo sem mudança (eram ~250 de código, 22 de estilo e ~135 modelos).
 - `tools/make-textures.py` gera as texturas da ficha e `tools/make-logo.py` o logo, sem arte de terceiros.
 - `tools/make-status-icons.mjs` gera os ícones dos estados a partir dos ícones do game-icons.net.
 - `docs/condicoes.md` explica onde cada regra das condições está no código e como criar uma condição nova.

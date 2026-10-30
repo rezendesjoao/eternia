@@ -22,7 +22,8 @@
  * Everything is redrawn when the settings change; the core look comes back with "tokenStyle" off.
  */
 import { SYSTEM_ID, setting } from "../settings.mjs";
-import { motorData, motorMax, motorsOf } from "../classes/motor.mjs";
+import { motorData, motorsOf } from "../classes/motor.mjs";
+import { toInt } from "../helpers/utils.mjs";
 import { hideLanding } from "./status-animation.mjs";
 
 const FONT = "Eternia Eczar";
@@ -52,10 +53,17 @@ const PIP_RADIUS = 3.6;
 /** How far under the token's edge the capitals of the name start, at UI scale 1. */
 const NAME_GAP = 2;
 
-const styled = () => setting("tokenStyle") !== false;
+/**
+ * The token settings (settings.mjs) as last read, until they change ("eterniaTokenStyle", below): every refresh of
+ * every token reads them, and each read of a world setting searches all of them. A failed read (null) isn't kept.
+ */
+let known = {};
+const tokenSetting = key => (known[key] ??= setting(key));
+
+const styled = () => tokenSetting("tokenStyle") !== false;
 
 /** Whether a token shows its HP bar and Motor now: always, or only while it is in the combat ("tokenBarsCombat"). */
-const inPlay = token => (setting("tokenBarsCombat") === false) || !!token.inCombat;
+const inPlay = token => (tokenSetting("tokenBarsCombat") === false) || !!token.inCombat;
 
 /** Call during the `init` hook, after the settings. */
 export function registerTokens() {
@@ -80,23 +88,43 @@ export function registerTokens() {
     const fatigue = foundry.utils.hasProperty(changes, "system.infos.fatigue");
     if (bad || fatigue) redraw(actor.getActiveTokens(), { refreshBars: true });
   });
-  // [Identified] shows an enemy's HP bar to the players (setting "tokenBars").
+  // [Identified] shows an enemy's HP bar to the players (setting "tokenBars"); _refreshState places the nameplate
+  // under it.
   const onStatus = effect => {
     if (!effect.statuses?.has("identified")) return;
     const actor = effect.parent;
-    if (actor instanceof Actor) redraw(actor.getActiveTokens(), { refreshState: true, refreshNameplate: true });
+    if (actor instanceof Actor) redraw(actor.getActiveTokens(), { refreshState: true });
   };
   Hooks.on("createActiveEffect", onStatus);
   Hooks.on("deleteActiveEffect", onStatus);
-  // Settings changed (settings.mjs): every token again.
-  Hooks.on("eterniaTokenStyle", () => redraw(canvas?.tokens?.placeables ?? [],
-    { refreshBars: true, refreshNameplate: true, refreshState: true, refreshTooltip: true, refreshEffects: true }));
+  // Settings changed (settings.mjs, the onChange of the three, on every client): read again, every token again.
+  Hooks.on("eterniaTokenStyle", () => {
+    known = {};
+    redraw(canvas?.tokens?.placeables ?? [],
+      { refreshBars: true, refreshNameplate: true, refreshState: true, refreshTooltip: true, refreshEffects: true });
+  });
+  // A world setting deleted goes back to its default without calling its onChange.
+  Hooks.on("deleteSetting", () => {
+    known = {};
+  });
   // Joining or leaving the combat shows or hides the HP bar and the Motor (setting "tokenBarsCombat").
   const combatChanged = () => redraw(canvas?.tokens?.placeables ?? [], { refreshState: true });
-  for (const hook of ["createCombat", "deleteCombat", "createCombatant", "deleteCombatant"]) Hooks.on(hook, combatChanged);
+  for (const hook of ["createCombat", "deleteCombat"]) Hooks.on(hook, combatChanged);
   Hooks.on("updateCombat", (combat, changes) => {
     if (("active" in changes) || ("scene" in changes)) combatChanged();
   });
+  // A combatant changes only the tokens of its combat: its own (in the combat or not; by its id, as
+  // TokenDocument#inCombat finds it), its actor's (the Motor's glow reads whether the actor fights in a started
+  // combat) and the other actors' of the combat, whose effects that depend on the combat are prepared again
+  // (helpers/effect-conditions.mjs).
+  const combatantChanged = combatant => {
+    const tokens = new Set([canvas?.tokens?.get(combatant.tokenId)]);
+    for (const actor of new Set([combatant.actor, ...(combatant.parent?.combatants ?? []).map(c => c.actor)])) {
+      for (const token of actor?.getActiveTokens() ?? []) tokens.add(token);
+    }
+    redraw(tokens, { refreshState: true });
+  };
+  for (const hook of ["createCombatant", "deleteCombatant"]) Hooks.on(hook, combatantChanged);
 }
 
 /** Ask these tokens to refresh some of their parts. */
@@ -115,7 +143,7 @@ function redraw(tokens, flags) {
  */
 function hpBarPolicy(token) {
   if (!inPlay(token)) return false;
-  const mode = setting("tokenBars");
+  const mode = tokenSetting("tokenBars");
   if (mode === "always") return true;
   if (mode !== "identified") return null;
   const actor = token.actor;
@@ -262,6 +290,13 @@ function nameStyle() {
   });
 }
 
+/** The nameplates' style, one object for all: a new style on a text makes it draw itself again on the next frame. */
+let plateStyle = null;
+const nameplateStyle = () => (plateStyle ??= nameStyle());
+
+/** The names fitName has cut for the nameplates (in their style), by width and name. */
+const fitted = new Map();
+
 /** The name cut with "…" to fit a width (in text pixels). */
 function fitName(name, style, width) {
   const measure = text => PIXI.TextMetrics.measureText(text, style).width;
@@ -337,34 +372,53 @@ function tokenClass(Base) {
       }
     }
 
-    /** The first class Motor of a character: its points as diamonds near the bottom of the token, its state as a disc. */
+    /**
+     * The first class Motor of a character: its points as diamonds near the bottom of the token, its state as a disc.
+     * Every refresh of the token comes here: it is drawn again only when something it draws changed (`lhKey`).
+     */
     #drawMotor() {
-      if (!this.lhMotor || this.lhMotor.destroyed) this.lhMotor = this.addChild(new PIXI.Graphics());
+      if (!this.lhMotor || this.lhMotor.destroyed) {
+        this.lhMotor = this.addChild(new PIXI.Graphics());
+        // The diamonds: one child, cleared and drawn again
+        this.lhMotor.lhPips = this.lhMotor.addChild(new PIXI.Graphics());
+      }
       const g = this.lhMotor;
-      g.clear();
       g.zIndex = 4;
-      const motor = (styled() && (this.actor?.type === "character")) ? motorsOf(this.actor)[0] : null;
-      const max = motor ? motorMax(this.actor, motor.def.id) : 0;
-      g.visible = !!max && !this.document.isSecret && inPlay(this);
-      if (!g.visible) return;
+      // Out of play the Motor isn't looked for in the items
+      const shown = styled() && (this.actor?.type === "character") && !this.document.isSecret && inPlay(this);
+      const motor = shown ? motorsOf(this.actor)[0] : null;
+      // Its cap as motorMax gives it, without looking for the same Motor in the items again
+      const max = motor ? Math.max(0, toInt(motor.def.max(this.actor, { lesser: motor.lesser }))) : 0;
+      if (!max) {
+        g.clear();
+        g.visible = false;
+        return;
+      }
       const data = motorData(this.actor, motor.def.id);
       const ready = !!motor.def.display?.(this.actor, { lesser: motor.lesser, data, max })?.ready;
+      const value = Math.clamp(Number(data.value) || 0, 0, max);
+      const color = motor.def.stateColors?.[data.state] ?? MOTOR_STATES[data.state] ?? COLORS.green;
       const s = canvas.dimensions.uiScale;
       const { width, height } = this.document.getSize();
-      const pips = new PIXI.Graphics();
-      const w = drawPips(pips, Math.clamp(Number(data.value) || 0, 0, max), max, s);
+      const big = this.document.height >= 2;
+      // Everything the drawing below reads
+      const key = [max, value, color, ready, s, width, height, big].join("|");
+      if (g.visible && (g.lhKey === key)) return;
+      g.lhKey = key;
+      g.visible = true;
+      g.clear();
+      const pips = g.lhPips.clear();
+      const w = drawPips(pips, value, max, s);
       const d = 4.2 * s;
       // State disc at the left end of the row
       g.lineStyle(Math.max(1, s), COLORS.ink, 0.85).beginFill(COLORS.gold, 1).drawCircle(d, 0, d).endFill();
-      g.lineStyle(0).beginFill(motor.def.stateColors?.[data.state] ?? MOTOR_STATES[data.state] ?? COLORS.green, 1).drawCircle(d, 0, d * 0.62).endFill();
+      g.lineStyle(0).beginFill(color, 1).drawCircle(d, 0, d * 0.62).endFill();
       if (ready) {
         g.lineStyle(Math.max(1, 1.4 * s), COLORS.goldBright, 0.9).drawRoundedRect((2 * d) + (2 * s), -5 * s, w + (6 * s), 10 * s, 5 * s);
         g.lineStyle(0);
       }
       pips.position.set((2 * d) + (5 * s), 0);
-      g.addChild(pips);
-      for (const child of g.children.slice(0, -1)) child.destroy();
-      const bh = Math.round((this.document.height >= 2 ? 10 : 8) * s);
+      const bh = Math.round((big ? 10 : 8) * s);
       const total = (2 * d) + (5 * s) + w;
       g.position.set((width - total) / 2, height - (bh / 2) - (10 * s));
     }
@@ -421,12 +475,20 @@ function tokenClass(Base) {
 
     /** @override */
     _refreshNameplate() {
-      if (!styled()) return super._refreshNameplate();
-      const style = nameStyle();
+      if (!styled()) {
+        fitted.clear();
+        return super._refreshNameplate();
+      }
+      const style = nameplateStyle();
       const s = canvas.dimensions.uiScale;
       const { width } = this.document.getSize();
-      this.nameplate.style = style;
-      this.nameplate.text = fitName(this.document.name ?? "", style, Math.max(width * 1.8, 120 * s) / s);
+      // Set only when it isn't already: setting a style, even the same, draws the name again (outline and shadow)
+      if (this.nameplate.style !== style) this.nameplate.style = style;
+      const name = this.document.name ?? "", room = Math.max(width * 1.8, 120 * s) / s;
+      const key = `${room}|${name}`;
+      let text = fitted.get(key);
+      if (text === undefined) fitted.set(key, text = fitName(name, style, room));
+      this.nameplate.text = text;
       this.#layoutNameplate();
     }
 

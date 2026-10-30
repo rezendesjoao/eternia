@@ -345,12 +345,13 @@ async function updateCardTarget(message, kind, index, patch) {
   if (!result.ok) ui.notifications.warn(game.i18n.localize(result.error ?? "ETERNIA.Piles.Error.Generic"));
 }
 
-async function _applyTargetPatch(message, kind, index, patch) {
+/** `extra`: more changes for the same update (the mark of a card applied by itself, autoApplyDamage). */
+async function _applyTargetPatch(message, kind, index, patch, extra = {}) {
   const data = foundry.utils.deepClone(message.getFlag("eternia", kind));
   if (!data?.targets?.[index]) return;
   Object.assign(data.targets[index], patch);
   const content = await renderCard(kind, data, message.rolls[0]);
-  return message.update({ content, [`flags.eternia.${kind}`]: data });
+  return message.update({ content, [`flags.eternia.${kind}`]: data, ...extra });
 }
 
 /** GM side of updateCardTarget: only the owner of that target may change it. */
@@ -625,13 +626,40 @@ async function _onCardAdjustRequest({ messageId, change }, user) {
 const ATTACK_LOOKBACK = 30;
 
 /**
+ * The latest chat messages, the newest first, at most `count`, without copying the whole log (`contents` copies them
+ * all: thousands). The collection's source list has the messages in the collection's order; one that failed to load
+ * is only in the list (and a message made again with its id comes after it), and is passed over.
+ * @param {number} count
+ * @returns {Generator<ChatMessage>}
+ */
+function* recentMessages(count) {
+  const source = game.messages._source;
+  if (!Array.isArray(source)) {
+    yield* game.messages.contents.slice(-count).reverse();
+    return;
+  }
+  const seen = new Set();
+  for (let i = source.length - 1; (i >= 0) && (seen.size < count); i--) {
+    const message = game.messages.get(source[i]?._id);
+    if (!message || seen.has(message)) continue;
+    seen.add(message);
+    yield message;
+  }
+}
+
+/** The first of the latest messages (newest first) that passes the test, or null. */
+function findRecent(count, test) {
+  for (const message of recentMessages(count)) if (test(message)) return message;
+  return null;
+}
+
+/**
  * The latest attack card of this skill among the recent chat messages, if any.
  * @param {Item} item
  * @returns {ChatMessage|null}
  */
 export function findAttackMessage(item) {
-  const recent = game.messages.contents.slice(-ATTACK_LOOKBACK).reverse();
-  return recent.find(m => m.getFlag("eternia", "attack")?.itemUuid === item.uuid) ?? null;
+  return findRecent(ATTACK_LOOKBACK, m => m.getFlag("eternia", "attack")?.itemUuid === item.uuid);
 }
 
 /**
@@ -1193,6 +1221,8 @@ let collecting = null;
 let lastReach = true;
 /** One automatic application at a time on the GM's window. */
 let autoQueue = Promise.resolve();
+/** The damage cards this window began to apply by itself (their `autoDone` comes with the first result). */
+const autoStarted = new Set();
 
 const queueAuto = fn => {
   autoQueue = autoQueue.then(fn).catch(err => console.error("eternia | Automatic application failed", err));
@@ -1230,8 +1260,7 @@ const modeOf = message => (message.blind ? "blind" : (message.whisper?.length ? 
  * @returns {ChatMessage|null}
  */
 export function damageOfAttack(attackId) {
-  const recent = game.messages.contents.slice(-ATTACK_LOOKBACK).reverse();
-  return recent.find(m => m.flags?.eternia?.damage?.attackId === attackId) ?? null;
+  return findRecent(ATTACK_LOOKBACK, m => m.flags?.eternia?.damage?.attackId === attackId);
 }
 
 /**
@@ -1272,39 +1301,49 @@ async function onAttackResolved(id) {
  */
 async function autoApplyDamage(id) {
   const message = game.messages.get(id);
-  if (!message || message.getFlag("eternia", "autoDone")) return;
-  await message.setFlag("eternia", "autoDone", true);
-  const card = message.getFlag("eternia", "damage");
-  const attackId = card.attackId ?? message.getFlag("eternia", "attackId");
-  const attackMessage = attackId ? game.messages.get(attackId) : null;
-  const attack = attackMessage?.getFlag("eternia", "attack");
-  const enemiesOnly = setting("autoApply") === "enemies";
-  const mode = card.recovery ? "heal" : "damage";
-  const { inspectUse } = await import("../automation/use.mjs");
-  const reached = [];
-  collecting = [];
+  if (!message || autoStarted.has(id) || message.getFlag("eternia", "autoDone")) return;
+  // The queue runs one at a time: the mark in memory keeps the card's next updates from applying it again, and the
+  // card takes `autoDone` in the update of its first result (one update less on every window), or alone at the end
+  // when no result was written (no target took the damage, or it failed).
+  autoStarted.add(id);
+  let marked = false;
   try {
-    for (const [index, target] of card.targets.entries()) {
-      if (target.applied) continue;
-      const actor = targetActor(target);
-      if (!actor) continue;
-      // The blow hit this target (a dodge still to roll waits)
-      if (attack && (attack.targets.find(t => t.tokenUuid ? (t.tokenUuid === target.tokenUuid) : (t.actorUuid === target.actorUuid))?.hit !== true)) continue;
-      // The two of a duel are each other's enemies (duels/state.mjs)
-      if (enemiesOnly && isAdventurer(actor, target.tokenUuid ? fromUuidSync(target.tokenUuid) : null)
-        && !areDuelFoes(actor, card.attackerUuid ? fromUuidSync(card.attackerUuid) : null)) continue;
-      if (!card.recovery && waitsToReact(actor, inspectUse)) continue;
-      const result = await applyDamage(actor, card, mode, target.dodgeFailed, target);
-      await _applyTargetPatch(game.messages.get(id), "damage", index, { applied: result, reached: lastReach });
-      if (lastReach) reached.push(actor);
+    const card = message.getFlag("eternia", "damage");
+    const attackId = card.attackId ?? message.getFlag("eternia", "attackId");
+    const attackMessage = attackId ? game.messages.get(attackId) : null;
+    const attack = attackMessage?.getFlag("eternia", "attack");
+    const enemiesOnly = setting("autoApply") === "enemies";
+    const mode = card.recovery ? "heal" : "damage";
+    const { inspectUse } = await import("../automation/use.mjs");
+    const reached = [];
+    collecting = [];
+    try {
+      for (const [index, target] of card.targets.entries()) {
+        if (target.applied) continue;
+        const actor = targetActor(target);
+        if (!actor) continue;
+        // The blow hit this target (a dodge still to roll waits)
+        if (attack && (attack.targets.find(t => t.tokenUuid ? (t.tokenUuid === target.tokenUuid) : (t.actorUuid === target.actorUuid))?.hit !== true)) continue;
+        // The two of a duel are each other's enemies (duels/state.mjs)
+        if (enemiesOnly && isAdventurer(actor, target.tokenUuid ? fromUuidSync(target.tokenUuid) : null)
+          && !areDuelFoes(actor, card.attackerUuid ? fromUuidSync(card.attackerUuid) : null)) continue;
+        if (!card.recovery && waitsToReact(actor, inspectUse)) continue;
+        const result = await applyDamage(actor, card, mode, target.dodgeFailed, target);
+        const mark = marked ? {} : { "flags.eternia.autoDone": true };
+        if (await _applyTargetPatch(game.messages.get(id), "damage", index, { applied: result, reached: lastReach }, mark)) marked = true;
+        if (lastReach) reached.push(actor);
+      }
     }
+    finally {
+      const entries = collecting;
+      collecting = null;
+      await postGroupedApplied(entries ?? []);
+    }
+    if (!card.recovery && attackMessage) await applyHitEffects(attackMessage, reached);
   }
   finally {
-    const entries = collecting;
-    collecting = null;
-    await postGroupedApplied(entries ?? []);
+    if (!marked) await game.messages.get(id)?.setFlag("eternia", "autoDone", true);
   }
-  if (!card.recovery && attackMessage) await applyHitEffects(attackMessage, reached);
 }
 
 /**

@@ -4,11 +4,11 @@
  * for it) and kept until a compendium skill changes. The roles of a Magia come from its spells' own data (target,
  * damage, the statuses they give), so a new Magia gets them by itself. What a Magia's description says (the opening,
  * its Trait, its Tabu and the closing line) comes apart, from the Magias' documents only, loaded once when the game is
- * idle. The Magia picker, the creation wizard and the Magias tab of the sheet read it.
+ * idle, a slice at a time (TEXT_SLICE). The Magia picker, the creation wizard and the Magias tab of the sheet read it.
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { term } from "../i18n/terms.mjs";
-import { loadDocuments } from "../helpers/pack-index.mjs";
+import { idle, loadDocuments, packIndex } from "../helpers/pack-index.mjs";
 
 /** The categories, in the order of the filters. */
 export const MAGIC_CATEGORIES = {
@@ -154,6 +154,13 @@ function readSpell(entry, pack) {
 let catalogPromise = null;
 /** What the Magias' descriptions say (Promise of uuid → text). */
 let textsPromise = null;
+/** Whether a window waits for the texts: the slices not read yet are then asked at once. */
+let textsWanted = false;
+/**
+ * How many Magias' documents are read in one go: made in one piece of work (the Items, then their texts), a slice keeps a
+ * weak PC from stopping the game for long.
+ */
+const TEXT_SLICE = 20;
 
 /**
  * Every Magia of the compendiums with its spells, in name order. Each one:
@@ -173,7 +180,7 @@ async function buildCatalog() {
   const magias = [];
   for (const pack of game.packs) {
     if ((pack.documentName !== "Item") || !pack.visible) continue;
-    const index = await pack.getIndex();
+    const index = await packIndex(pack);
     const spellsOf = new Map();
     const found = [];
     for (const entry of index) {
@@ -220,10 +227,17 @@ async function buildCatalog() {
 
 /**
  * What the Magias' descriptions say, by uuid: { intro, tabu, trait, notes, visual } (readDescription). Their documents
- * are loaded once, together.
+ * are loaded once, TEXT_SLICE at a time: read ahead (prewarmMagicCatalog), each slice once the game is idle again; for a
+ * window waiting for them, the slices left are asked together (each still made when it comes).
  * @returns {Promise<Map<string, object>>}
  */
 export function magicTexts() {
+  textsWanted = true;
+  return textsOf();
+}
+
+/** The texts, being read or read (the prewarm asks through here: it doesn't hurry the slices). */
+function textsOf() {
   textsPromise ??= loadTexts().catch(err => {
     textsPromise = null;
     throw err;
@@ -238,10 +252,20 @@ async function loadTexts() {
     if (!byPack.has(m.pack)) byPack.set(m.pack, []);
     byPack.get(m.pack).push(m._id);
   }
+  const slices = [];
   for (const [id, ids] of byPack) {
+    for (let i = 0; i < ids.length; i += TEXT_SLICE) slices.push([id, ids.slice(i, i + TEXT_SLICE)]);
+  }
+  const read = async ([id, ids]) => {
     const docs = await game.packs.get(id)?.getDocuments({ _id__in: ids }) ?? [];
     for (const doc of docs) texts.set(doc.uuid, readDescription(doc.system?.description));
+  };
+  // Read ahead, one slice each time the game is idle; once a window waits, the ones left together
+  while (slices.length && !textsWanted) {
+    await idle(1000, 100);
+    await read(slices.shift());
   }
+  await Promise.all(slices.map(read));
   return texts;
 }
 
@@ -290,11 +314,13 @@ export function registerMagicCatalog() {
   Hooks.on("createItem", watch);
   Hooks.on("updateItem", watch);
   Hooks.on("deleteItem", watch);
-  for (const hook of ["createCompendium", "deleteCompendium", "updateCompendium"]) Hooks.on(hook, clearMagicCatalog);
+  for (const hook of ["createCompendium", "deleteCompendium"]) Hooks.on(hook, clearMagicCatalog);
+  // Only an Item compendium's change (the Magias come from them)
+  Hooks.on("updateCompendium", pack => (pack.documentName === "Item") && clearMagicCatalog());
 }
 
 /** Build the catalog and read the descriptions while the game is idle (the first window opens at once). */
 export function prewarmMagicCatalog() {
-  return magicCatalog().then(() => magicTexts())
+  return magicCatalog().then(() => textsOf())
     .catch(err => console.warn(`${SYSTEM_ID} | Could not prepare the Magia catalog`, err));
 }

@@ -1,3 +1,5 @@
+import TEMPLATES from "./template-bundle.mjs";
+
 /**
  * Define a set of template paths to pre-load
  * Pre-loaded templates are compiled and cached for fast access when rendering
@@ -67,3 +69,18 @@
     "systems/eternia/templates/effects/effect-roll-filter.hbs"
   ]);
 };
+
+/**
+ * Register the templates the release bundle carries (helpers/template-bundle.mjs), compiled the way Foundry's
+ * getTemplate compiles what the server sends: getTemplate then finds every one already registered and never asks
+ * the server. Handlebars compiles each one on its first use, so this costs nothing up front. In the repository the
+ * bundle is null and nothing changes.
+ */
+export function registerBundledTemplates() {
+  if (!TEMPLATES) return;
+  for (const [path, html] of Object.entries(TEMPLATES)) {
+    if (path in Handlebars.partials) continue;
+    Handlebars.registerPartial(path, Handlebars.compile(html, { preventIndent: true }));
+    (Handlebars.templateIds[path] ??= new Set()).add(path);
+  }
+}

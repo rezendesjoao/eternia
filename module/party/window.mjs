@@ -38,11 +38,11 @@ export class PartyWindow extends HandlebarsApplicationMixin(ApplicationV2) {
     return this.open();
   }
 
-  /** Draw the window again, when it is open. */
-  static refresh() {
-    const app = foundry.applications.instances.get(this.ID);
+  /** Draw the window again, when it is open (at most once per burst of changes: a selection fires several). */
+  static refresh = foundry.utils.debounce(() => {
+    const app = foundry.applications.instances.get(PartyWindow.ID);
     if (app?.rendered) app.render();
-  }
+  }, 60);
 
   constructor(options = {}) {
     super({ ...options, id: PartyWindow.ID });

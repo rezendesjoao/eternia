@@ -25,6 +25,7 @@
  */
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { isPrimaryGM } from "../helpers/clients.mjs";
+import { packIndex } from "../helpers/pack-index.mjs";
 import { actorName, escape, toInt } from "../helpers/utils.mjs";
 import { tagLabel } from "../i18n/terms.mjs";
 import { PHYSICAL_TYPES, SPACE_TYPES } from "../piles/pile-config.mjs";
@@ -137,7 +138,7 @@ async function compendiumItem(name) {
   if (!pack) return null;
   if (!itemsByName) {
     itemsByName = new Map();
-    for (const e of await pack.getIndex()) if (!itemsByName.has(nameKey(e.name))) itemsByName.set(nameKey(e.name), e._id);
+    for (const e of await packIndex(pack)) if (!itemsByName.has(nameKey(e.name))) itemsByName.set(nameKey(e.name), e._id);
   }
   const id = nameKeys(name).map(k => itemsByName.get(k)).find(Boolean);
   const doc = id ? await pack.getDocument(id) : null;
@@ -510,6 +511,8 @@ export function registerDrops() {
   Hooks.on("preCreateToken", onPreCreateToken);
   Hooks.on("renderChatMessageHTML", onRenderMessage);
   // A new world index for the "Lista de Itens" entries when the compendium changes
-  Hooks.on("updateCompendium", () => { itemsByName = null; });
+  Hooks.on("updateCompendium", pack => {
+    if (pack.collection === ITEMS_PACK) itemsByName = null;
+  });
   foundry.applications.handlebars.loadTemplates([TEMPLATE]);
 }

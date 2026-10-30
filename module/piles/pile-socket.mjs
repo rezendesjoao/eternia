@@ -51,7 +51,10 @@ export async function request(action, payload = {}) {
       clearTimeout(timer);
       resolve(result);
     });
-    game.socket.emit(SOCKET, { scope: SCOPE, type: "request", id, action, payload, userId: game.user.id });
+    // Only a GM's window does the work (the one isPrimaryGM when it arrives, even if the active GM changed meanwhile):
+    // the server sends the request to the windows of every GM, and to nobody else.
+    const message = { scope: SCOPE, type: "request", id, action, payload, userId: game.user.id };
+    game.socket.emit(SOCKET, message, { recipients: game.users.filter(u => u.isGM).map(u => u.id) });
   });
 }
 
@@ -77,10 +80,13 @@ async function _onMessage(message) {
   if (message?.scope !== SCOPE) return;
 
   if (message.type === "request") {
-    // Only one window of the active GM: the same GM may be logged in from several.
-    if (!isPrimaryGM()) return;
+    // Only one window of the active GM: the same GM may be logged in from several. A GM's own request comes back to
+    // its window too (it is one of the recipients): never this window's.
+    if (!isPrimaryGM() || pending.has(message.id)) return;
     const result = await _enqueue(message.action, message.payload, message.userId);
-    game.socket.emit(SOCKET, { scope: SCOPE, type: "response", id: message.id, userId: message.userId, result });
+    // The answer only to the windows of whoever asked
+    const response = { scope: SCOPE, type: "response", id: message.id, userId: message.userId, result };
+    game.socket.emit(SOCKET, response, { recipients: [message.userId] });
   }
   else if (message.type === "response") {
     if (message.userId !== game.user.id) return;

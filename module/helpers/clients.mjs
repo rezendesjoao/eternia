@@ -58,8 +58,13 @@ function startDiscovery() {
   return discovered;
 }
 
+/**
+ * Only the windows of this user listen (_onMessage), so the server sends it only to them (this one too, which knows
+ * itself by the id); the heartbeat stays on without a peer, so that two windows that lost each other meet again.
+ */
 function _emit(type) {
-  game.socket.emit(SOCKET, { scope: SCOPE, type, clientId: CLIENT_ID, userId: game.user.id });
+  const message = { scope: SCOPE, type, clientId: CLIENT_ID, userId: game.user.id };
+  game.socket.emit(SOCKET, message, { recipients: [game.user.id] });
 }
 
 function _onMessage(message) {

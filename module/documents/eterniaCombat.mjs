@@ -47,23 +47,26 @@ export class EterniaCombat extends Combat {
 		};
 	}
 
-	/** Has this combatant finished its Main Process this round? */
-	isPostAction(combatant) {
+	/**
+	 * Has this combatant finished its Main Process this round?
+	 * The `progress` argument of these three: the round state, when the caller already read it for several combatants.
+	 */
+	isPostAction(combatant, progress) {
 		if (!this.started) return false;
 		if (this.phase === "cleanup") return true;
-		return this.progress.acted.includes(combatant.id);
+		return (progress ?? this.progress).acted.includes(combatant.id);
 	}
 
 	/** Is this combatant waiting on Standby? */
-	isOnStandby(combatant) {
-		const { acted, active, standby } = this.progress;
+	isOnStandby(combatant, progress) {
+		const { acted, active, standby } = progress ?? this.progress;
 		return standby.includes(combatant.id) && !acted.includes(combatant.id) && active !== combatant.id;
 	}
 
 	/** Can the active combatant still declare Standby this round? */
-	canStandby(combatant = this.combatant) {
+	canStandby(combatant = this.combatant, progress) {
 		if (!combatant || this.phase !== "main") return false;
-		const { active, standby } = this.progress;
+		const { active, standby } = progress ?? this.progress;
 		return active === combatant.id && !standby.includes(combatant.id);
 	}
 
@@ -98,20 +101,31 @@ export class EterniaCombat extends Combat {
 	 */
 	_orderTurns({ acted, active, standby }) {
 		// [Slowed] combatants act after everyone who isn't (conditions/catalog.mjs).
-		const slowed = c => (rulesOn() && c.actor?.statuses?.has("slowed")) ? 0.5 : 0;
+		const rules = rulesOn();
+		const slowed = c => (rules && c.actor?.statuses?.has("slowed")) ? 0.5 : 0;
 		const group = c => {
 			if (acted.includes(c.id)) return 0;
 			if (c.id === active) return 1;
 			return standby.includes(c.id) ? 3 : 2 + slowed(c);
 		};
 		const init = c => Number.isNumeric(c.initiative) ? Math.floor(c.initiative) : -Infinity;
-		// Adventurers win the tie (a ready NPC on a hostile token is an enemy: helpers/utils.mjs isAdventurer)
-		const pc = c => isAdventurer(c.actor, c.token) ? 0 : 1;
-		return this.combatants.contents.sort((a, b) => {
-			const ga = group(a), gb = group(b);
+		// Adventurers win the tie (a ready NPC on a hostile token is an enemy: helpers/utils.mjs isAdventurer), read
+		// only when needed, once per combatant
+		const pcs = new Map();
+		const pc = c => {
+			let value = pcs.get(c);
+			if (value === undefined) pcs.set(c, value = isAdventurer(c.actor, c.token) ? 0 : 1);
+			return value;
+		};
+		// The group, Initiative and place among the Post-Action of each combatant, worked out before sorting
+		const combatants = this.combatants.contents;
+		const keys = new Map(combatants.map(c => [c, { group: group(c), init: init(c), acted: acted.indexOf(c.id) }]));
+		return combatants.sort((a, b) => {
+			const ka = keys.get(a), kb = keys.get(b);
+			const ga = ka.group, gb = kb.group;
 			if (ga !== gb) return ga - gb;
-			if (ga === 0) return acted.indexOf(a.id) - acted.indexOf(b.id);
-			const byInit = ga === 3 ? init(a) - init(b) : init(b) - init(a);
+			if (ga === 0) return ka.acted - kb.acted;
+			const byInit = ga === 3 ? ka.init - kb.init : kb.init - ka.init;
 			return byInit || (pc(a) - pc(b)) || a.name.localeCompare(b.name) || (a.id > b.id ? 1 : -1);
 		});
 	}
@@ -399,12 +413,15 @@ export class EterniaCombat extends Combat {
 	 * @param {{clear?: boolean}} options  Remove it from everyone (combat ending).
 	 */
 	async _syncStandbyStatus({ clear = false } = {}) {
+		// The round state, read again after each change (the combat may have moved meanwhile)
+		let progress = null;
 		for (const combatant of this.combatants) {
 			const actor = combatant.actor;
 			if (!actor) continue;
-			const wanted = !clear && this.isOnStandby(combatant);
+			const wanted = !clear && this.isOnStandby(combatant, progress ??= this.progress);
 			if (actor.statuses.has("standby") !== wanted) {
 				await actor.toggleStatusEffect("standby", { active: wanted });
+				progress = null;
 			}
 		}
 	}
@@ -548,7 +565,8 @@ function _renderPhaseBar(combat, header) {
 		button.dataset.tooltip = game.i18n.localize(`ETERNIA.Combat.PhaseHint.${step}`);
 		if (step === "main" && phase === "main") {
 			const alive = combat.turns.filter(t => !t.isDefeated);
-			const done = alive.filter(t => combat.isPostAction(t)).length;
+			const progress = combat.progress;
+			const done = alive.filter(t => combat.isPostAction(t, progress)).length;
 			button.textContent += ` ${done + 1}/${alive.length}`;
 		}
 		if (game.user.isGM && step !== "briefing") {
@@ -564,13 +582,14 @@ function _renderPhaseBar(combat, header) {
 function _renderCombatantStates(combat, html) {
 	if (!combat.started) return;
 	const phase = combat.phase;
+	const progress = combat.progress;
 	for (const li of html.querySelectorAll(".combatant[data-combatant-id]")) {
 		const combatant = combat.combatants.get(li.dataset.combatantId);
 		if (!combatant) continue;
 		li.querySelector(".lh-action-state")?.remove();
 
-		const post = combat.isPostAction(combatant);
-		const standby = !post && combat.isOnStandby(combatant);
+		const post = combat.isPostAction(combatant, progress);
+		const standby = !post && combat.isOnStandby(combatant, progress);
 		const active = phase === "main" && combat.combatant?.id === combatant.id;
 		li.classList.toggle("lh-post-action", post);
 		li.classList.toggle("lh-standby", standby);
@@ -582,7 +601,7 @@ function _renderCombatantStates(combat, html) {
 		badge.dataset.tooltip = game.i18n.localize(`ETERNIA.Combat.ActionStateHint.${state}`);
 
 		const controls = li.querySelector(".combatant-controls");
-		if (active && combat.canStandby(combatant) && (game.user.isGM || combatant.isOwner)) {
+		if (active && combat.canStandby(combatant, progress) && (game.user.isGM || combatant.isOwner)) {
 			const button = document.createElement("button");
 			button.type = "button";
 			button.className = "inline-control combatant-control icon fa-solid fa-hourglass-half lh-standby-button";

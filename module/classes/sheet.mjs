@@ -21,6 +21,7 @@ import {
   crOf, motorData, motorDef, motorMax, motorName, motorsOf, motorStateLabel, motorUnit, setMotor
 } from "./motor.mjs";
 import { chipText } from "../helpers/text-chips.mjs";
+import { byText } from "../sheets/sheet-render.mjs";
 
 const FIELDS = [
   "system.subtype", "system.skillRank", "system.tags", "system.timing", "folder",
@@ -63,16 +64,48 @@ export function clearClassIndex() {
   indexPromise = null;
 }
 
-/** The character's copy of a compendium skill: same compendium entry, or same identifier. */
-function ownedCopy(actor, entry) {
-  const id = entry.flags?.eternia?.identifier;
-  return actor.items.find(i => (i.type === "skill") && ((i._stats?.compendiumSource === entry.uuid)
-    || (id && (i.flags?.eternia?.identifier === id)))) ?? null;
+/**
+ * The character's copy of a compendium skill (same compendium entry, or same identifier: the first of its skills that
+ * has either), for every skill of the tab after one pass over its items.
+ * @param {Actor} actor
+ * @returns {(entry: object) => Item|null}
+ */
+function ownedCopies(actor) {
+  const bySource = new Map();
+  const byIdentifier = new Map();
+  let order = 0;
+  for (const item of actor.items) {
+    order += 1;
+    if (item.type !== "skill") continue;
+    const source = item._stats?.compendiumSource;
+    const id = item.flags?.eternia?.identifier;
+    if (source && !bySource.has(source)) bySource.set(source, [order, item]);
+    if (id && !byIdentifier.has(id)) byIdentifier.set(id, [order, item]);
+  }
+  return entry => {
+    const id = entry.flags?.eternia?.identifier;
+    const a = bySource.get(entry.uuid), b = id ? byIdentifier.get(id) : undefined;
+    if (a && b) return (a[0] <= b[0]) ? a[1] : b[1];
+    return (a ?? b)?.[1] ?? null;
+  };
+}
+
+/**
+ * The class's Path and element skills (the Dragon Slayer's) and the ones the character took: the sections of the tab
+ * with a choice still open, and the tab's badge on the sheet.
+ * @param {object|null} def           The class (CLASSES)
+ * @param {object[]} entries          Its compendium skills
+ * @param {Function} ownedCopy        ownedCopies of the character
+ */
+function classChoices(def, entries, ownedCopy) {
+  const of = key => entries.filter(e => e.flags?.eternia?.[key]?.class === def?.id);
+  const paths = of("path"), elements = of("element");
+  return { paths, elements, path: paths.find(e => ownedCopy(e)) ?? null, element: elements.find(e => ownedCopy(e)) ?? null };
 }
 
 /** A row of the tab: the character's skill, or the compendium one it can still learn. */
-function skillRow(actor, entry, cr, { delay = 0 } = {}) {
-  const owned = ownedCopy(actor, entry);
+function skillRow(ownedCopy, entry, cr, { delay = 0 } = {}) {
+  const owned = ownedCopy(entry);
   const flags = entry.flags?.eternia ?? {};
   const kind = flags.kind ?? "";
   const rank = owned?.system.skillRank ?? entry.system?.skillRank ?? {};
@@ -95,6 +128,9 @@ function skillRow(actor, entry, cr, { delay = 0 } = {}) {
     general: entry.system?.subtype === "General"
   };
 }
+
+/** What a Magia's description says (readDescription parses a document), by its text: read once, not on every render. */
+const readingOf = byText(readDescription);
 
 /** "2/4": how many of these skills the character has. */
 const tally = rows => (rows.length ? `${rows.filter(r => r.owned).length}/${rows.length}` : "");
@@ -163,22 +199,24 @@ export async function classContext(actor, { editable }) {
   const cr = crOf(actor);
   const def = CLASSES[job.system.identifier] ?? null;
   const entries = await classSkills(job.name);
+  const ownedCopy = ownedCopies(actor);
+  const choices = classChoices(def, entries, ownedCopy);
   const flag = (entry, key) => entry.flags?.eternia?.[key];
   const own = motors.find(m => !m.lesser && (m.def.id === def?.motor));
 
   // Kit, branches of talents and the general talents
-  const rows = branch => entries.filter(e => flag(e, "branch") === branch).map(e => skillRow(actor, e, cr))
+  const rows = branch => entries.filter(e => flag(e, "branch") === branch).map(e => skillRow(ownedCopy, e, cr))
     .sort((a, b) => (a.minRank - b.minRank) || a.name.localeCompare(b.name, game.i18n.lang));
   const branches = (def?.branches ?? []).map(id => ({ id, label: L(`Classes.${def.id}.Branch.${id}`), talents: rows(id) }));
 
   // Path: the one followed, or the three to choose from at CR 3
-  const pathSkills = entries.filter(e => flag(e, "path")?.class === def?.id);
-  const followed = pathSkills.find(e => ownedCopy(actor, e));
+  const pathSkills = choices.paths;
+  const followed = choices.path;
   const pathView = e => ({
-    ...skillRow(actor, e, cr),
+    ...skillRow(ownedCopy, e, cr),
     id: flag(e, "path").id,
-    itemId: ownedCopy(actor, e)?.id ?? null,
-    talents: entries.filter(t => (flag(t, "pathTalent")?.id === flag(e, "path").id)).map(t => skillRow(actor, t, cr))
+    itemId: ownedCopy(e)?.id ?? null,
+    talents: entries.filter(t => (flag(t, "pathTalent")?.id === flag(e, "path").id)).map(t => skillRow(ownedCopy, t, cr))
       .sort((a, b) => a.minRank - b.minRank)
   });
   const order = def?.paths ?? [];
@@ -186,13 +224,13 @@ export async function classContext(actor, { editable }) {
   const apex = entries.find(e => flag(e, "apex") === def?.id);
 
   // Element (the Dragon Slayer's, chosen at CR 1): the one chosen, with its talents, or the ones to choose from
-  const elementSkills = entries.filter(e => flag(e, "element")?.class === def?.id);
-  const ownElement = elementSkills.find(e => ownedCopy(actor, e));
+  const elementSkills = choices.elements;
+  const ownElement = choices.element;
   const elementOrder = def?.elements ?? [];
   const elements = elementSkills.map(e => ({
-    ...skillRow(actor, e, cr),
+    ...skillRow(ownedCopy, e, cr),
     id: flag(e, "element").id,
-    talents: entries.filter(t => (flag(t, "elementTalent")?.id === flag(e, "element").id)).map(t => skillRow(actor, t, cr))
+    talents: entries.filter(t => (flag(t, "elementTalent")?.id === flag(e, "element").id)).map(t => skillRow(ownedCopy, t, cr))
       .sort((a, b) => a.minRank - b.minRank)
   })).sort((a, b) => elementOrder.indexOf(a.id) - elementOrder.indexOf(b.id));
 
@@ -207,10 +245,10 @@ export async function classContext(actor, { editable }) {
       const category = MAGIC_CATEGORIES[data.category] ? data.category : "caster";
       // The skills only a choice gives (a Decree) show only when the character has them
       const spells = (await classSkills(m.name))
-        .filter(e => (flag(e, "magicSpell")?.id === data.id) && (!flag(e, "choiceOnly") || ownedCopy(actor, e)))
-        .map(e => skillRow(actor, e, cr)).sort((a, b) => (a.minRank - b.minRank) || a.name.localeCompare(b.name, game.i18n.lang));
+        .filter(e => (flag(e, "magicSpell")?.id === data.id) && (!flag(e, "choiceOnly") || ownedCopy(e)))
+        .map(e => skillRow(ownedCopy, e, cr)).sort((a, b) => (a.minRank - b.minRank) || a.name.localeCompare(b.name, game.i18n.lang));
       // What its description says: the Trait, the Tabu and the opening (the Magias tab shows them)
-      const text = readDescription(m.system.description);
+      const text = readingOf(m.system.description);
       return {
         ...ownedRow(m, cr), spells, tally: tally(spells), tagline: data.tagline ?? "", category,
         categoryLabel: L(`MagicPicker.Category.${category}`), categoryIcon: MAGIC_CATEGORIES[category].icon,
@@ -314,7 +352,7 @@ export async function classContext(actor, { editable }) {
     branches,
     general,
     path,
-    apex: apex ? { ...skillRow(actor, apex, cr), reached: cr >= 10 } : null,
+    apex: apex ? { ...skillRow(ownedCopy, apex, cr), reached: cr >= 10 } : null,
     magic,
     element,
     dedications: lesserMotors,
@@ -324,8 +362,34 @@ export async function classContext(actor, { editable }) {
   };
 }
 
-/** Pictures of the tooltips already built (uuid → HTML), until the page reloads. */
+/**
+ * What waits in the class and Magias tabs, without building them (the badges of the sheet's tab bar, drawn on every
+ * change of the character): the sections classContext shows with a choice still open, and its open Magia slots.
+ * @param {Actor} actor
+ * @returns {Promise<{class: number, magic: number}>}
+ */
+export async function classBadges(actor) {
+  const job = getOption(actor, "class");
+  if (!job) return { class: 0, magic: 0 };
+  const cr = crOf(actor);
+  const def = CLASSES[job.system.identifier] ?? null;
+  const choices = classChoices(def, await classSkills(job.name), ownedCopies(actor));
+  // A slot is open from its CR while no Magia took it, unless an Absoluta closes them all
+  let magic = 0;
+  if (def?.magic && !exclusiveMagia(actor)) {
+    const taken = magicsOf(actor).length;
+    magic = (job.system.grants ?? []).filter(g => g.magic).map(g => Number(g.rank) || 1)
+      .filter((rank, index) => (index >= taken) && (cr >= rank)).length;
+  }
+  const element = (choices.elements.length > 0) && !choices.element;
+  const path = (cr >= 3) && !choices.path && (choices.paths.length > 0);
+  return { class: Number(element) + Number(path), magic };
+}
+
+/** Pictures of the tooltips already built (uuid, or the owned skill's uuid and change time → HTML). */
 const tips = new Map();
+/** The tooltips kept: a changed skill leaves its old one behind, so the oldest go. */
+const MAX_TIPS = 300;
 
 /** The tooltip of a skill of the tab: its picture, name, what it is, and the first lines of what it does. */
 async function tipOf(actor, tile) {
@@ -345,6 +409,7 @@ async function tipOf(actor, tile) {
   const html = `<div class="lhcl-tip"><header><img src="${skill.img}" alt=""><div><strong>${foundry.utils.escapeHTML(skill.name)}</strong>`
     + `${meta ? `<span>${foundry.utils.escapeHTML(meta)}</span>` : ""}</div></header>`
     + `${text ? `<p>${foundry.utils.escapeHTML(text)}</p>` : ""}</div>`;
+  if (tips.size >= MAX_TIPS) tips.delete(tips.keys().next().value);
   tips.set(key, html);
   return html;
 }
@@ -352,7 +417,7 @@ async function tipOf(actor, tile) {
 /**
  * After the sheet renders: every skill of the class tab shows what it does under the pointer.
  * @param {ActorSheet} sheet
- * @param {HTMLElement} root
+ * @param {HTMLElement} root   What the render drew (the sheet, or the part of one of the tabs)
  */
 export function activateClassTab(sheet, root) {
   // The tooltip of a tile this render replaced would stay forever
@@ -436,5 +501,7 @@ export function registerClassSheet() {
   Hooks.on("createItem", watch);
   Hooks.on("updateItem", watch);
   Hooks.on("deleteItem", watch);
-  for (const hook of ["createCompendium", "deleteCompendium", "updateCompendium"]) Hooks.on(hook, clearClassIndex);
+  for (const hook of ["createCompendium", "deleteCompendium"]) Hooks.on(hook, clearClassIndex);
+  // Only an Item compendium's change (the class skills come from them; a scene or actor compendium keeps the index)
+  Hooks.on("updateCompendium", pack => (pack.documentName === "Item") && clearClassIndex());
 }

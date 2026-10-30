@@ -3,14 +3,17 @@ import { skillModifiers } from "../helpers/roll-bonuses.mjs";
 import { OPTION_ICONS, OPTION_TYPES } from "../helpers/character-options.mjs";
 import { useSkillEffects } from "../helpers/sustained.mjs";
 
+/** Item types whose effects apply while carried, equipped or not (see areEffectsSuppressed); made on first use. */
+let carriedTypes = null;
+
 /**
  * Extend the basic Item with some very simple modifications.
  * @extends {Item}
  */
 export class EterniaItem extends Item {
 
-  
-  chatTemplate = {
+  /** The chat card template of each item type (one object for every item: see chatTemplate). */
+  static CHAT_TEMPLATES = {
     "skill": "systems/eternia/templates/dialogs/skillThrow.hbs",
     "weapon": "systems/eternia/templates/dialogs/itemCard.hbs",
     "armor": "systems/eternia/templates/dialogs/itemCard.hbs",
@@ -24,6 +27,11 @@ export class EterniaItem extends Item {
     "union": "systems/eternia/templates/item/item-union-sheet.html",
     }
 
+  /** @type {Object<string, string>} */
+  get chatTemplate() {
+    return EterniaItem.CHAT_TEMPLATES;
+  }
+
   /**
  * Should this item's active effects be suppressed.
  * @type {boolean}
@@ -34,7 +42,8 @@ export class EterniaItem extends Item {
     if (this.type === "usable") return true;
     // Race / Class / Subclass effects apply as long as the character holds the item, and so do the
     // effects of other carried items (Gear such as the Cursed Stone), which are never equipped.
-    const requireEquipped = !["skill", "connection", "union", "gear", ...OPTION_TYPES].includes(this.type);
+    carriedTypes ??= new Set(["skill", "connection", "union", "gear", ...OPTION_TYPES]);
+    const requireEquipped = !carriedTypes.has(this.type);
     if (requireEquipped && (this.system.equipped === false)) return true;
 
     return false;

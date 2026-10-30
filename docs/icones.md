@@ -42,7 +42,12 @@ telas (chat, HUD, bancada), pelo caminho do ícone, quando ele é de um item só
 chat), quando o mesmo caminho tem variações de cor. Um desenho novo só é feito quando o `<img>` chega perto da tela
 (`IntersectionObserver`); os já feitos entram na hora. As animações ficam dentro do SVG, então tocam em qualquer
 lugar. A configuração **Ícones animados** (de cada jogador) desliga o movimento e deixa só as molduras; o sistema
-também para o movimento quando o computador pede menos animação.
+também para o movimento quando o computador pede menos animação e no Modo de Desempenho Baixo do Foundry.
+
+O observador não olha as barras laterais de atores, cenas, diários e músicas (nem as janelas soltas delas): ali só há
+retratos e miniaturas, nenhum ícone de item. O caminho de cada `src` é calculado uma vez por página, a janela de cada
+`<img>` é achada subindo a árvore uma vez por lote do observador, e um ícone genérico sai antes de procurar o item. No
+`ready`, os ícones pedem só o índice dos compêndios que têm equipamento (`FRAMED_TYPES`).
 
 ## Arte própria
 

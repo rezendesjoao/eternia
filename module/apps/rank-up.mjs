@@ -88,8 +88,9 @@ export async function levelTo(actor, target, { auto = false, fromXp = false } = 
       no: L("Use.Cancel")
     });
     if (!confirmed) {
-      // A CR typed in the sheet goes back to the one the character has.
-      if (actor.sheet?.rendered) actor.sheet.render();
+      // A CR typed in the sheet goes back to the one the character has (a change of the character: the sheet draws its
+      // frame and the open tab, sheets/character-sheet.mjs)
+      if (actor.sheet?.rendered) actor.sheet.render({ renderContext: "eternia.rankUp" });
       return false;
     }
 

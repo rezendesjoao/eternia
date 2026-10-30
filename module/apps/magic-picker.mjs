@@ -20,7 +20,7 @@ import {
   MAGIC_CATEGORIES, MAGIC_ROLES, categoryView, fold, magicCatalog, magicTexts, roleView, spellTexts
 } from "./magic-catalog.mjs";
 import { awakeningChoices, awakeningView, rollAwakening } from "./awakening.mjs";
-import { holderState } from "./magic-holders.mjs";
+import { holderCensus, holderState } from "./magic-holders.mjs";
 
 export { MAGIC_CATEGORIES } from "./magic-catalog.mjs";
 
@@ -52,6 +52,8 @@ export const magicSlotsOf = job => (job?.system?.grants ?? []).filter(g => g?.ma
  */
 export async function magicBrowserContext({ cr = 1, ownedIds = new Set(), ownedNames = new Set(), slots = [], actor = null } = {}) {
   const [catalog, texts] = await Promise.all([magicCatalog(), magicTexts(), foundry.applications.handlebars.getTemplate(MAGIC_PAGE)]);
+  // Who holds what, read once for every card
+  const census = holderCensus();
   const magias = catalog.filter(m => !ownedIds.has(m.id) && !ownedNames.has(fold(m.name))).map(m => {
     const category = categoryView(m.category);
     const text = texts.get(m.uuid) ?? {};
@@ -67,7 +69,7 @@ export async function magicBrowserContext({ cr = 1, ownedIds = new Set(), ownedN
       allRoles: m.roles.map(roleView),
       nowCount: m.spells.filter(s => s.minRank <= cr).length,
       spells: m.spells.map(s => ({ ...s, now: s.minRank <= cr })),
-      ...holderView(m, actor)
+      ...holderView(m, actor, census)
     };
   });
   const categories = Object.keys(MAGIC_CATEGORIES).map(id => ({ ...categoryView(id), count: magias.filter(m => m.category === id).length }))
@@ -88,8 +90,8 @@ export async function magicBrowserContext({ cr = 1, ownedIds = new Set(), ownedN
  * What the cards and the pages say about who holds a Magia: "1/1" (full or not), the crown of the exclusive ones, and
  * whether this user may take it (a player can't take one that is full, nor an exclusive one beside another Magia).
  */
-function holderView(magia, actor) {
-  const state = holderState(magia, actor);
+function holderView(magia, actor, census) {
+  const state = holderState(magia, actor, census);
   const names = state.names.length ? state.names.join(", ") : L("Holders.Nobody");
   return {
     holderLabel: state.label,

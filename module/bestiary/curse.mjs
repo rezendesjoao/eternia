@@ -8,6 +8,7 @@
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isPrimaryGM } from "../helpers/clients.mjs";
+import { worldActors } from "../helpers/world-actors.mjs";
 import { actorName, postSummary, toInt } from "../helpers/utils.mjs";
 import { giveEffects } from "../chat/status-links.mjs";
 import { rulesOn, sameActor } from "../conditions/rules.mjs";
@@ -30,17 +31,12 @@ async function onDamaged(actor, card, { amount = 0, absorbed = 0, attacker = nul
   await postSummary(item.name, [L("Bestiary.Curse.Given", { name: actorName(actor), by: actorName(attacker), statuses: names.join(", ") })]);
 }
 
-/** Every actor that may carry a curse: the world's and the unlinked tokens' of every scene. */
-function everyActor() {
-  const actors = [...game.actors];
-  for (const scene of game.scenes) for (const token of scene.tokens) if (!token.actorLink && token.actor) actors.push(token.actor);
-  return actors;
-}
-
 /** A monster fell (on the primary GM): the curses it gave end on everyone. */
 async function onFall(monster) {
   const freed = [];
-  for (const actor of everyActor()) {
+  // Every actor that may carry one: the world's and the unlinked tokens' of every scene (only the tokens with a curse of
+  // this monster have their actors built: helpers/world-actors.mjs)
+  for (const actor of worldActors({ effect: e => e.flags?.[SYSTEM_ID]?.curseOf === monster.uuid })) {
     const mine = cursesOn(actor).filter(e => e.getFlag(SYSTEM_ID, "curseOf") === monster.uuid);
     if (!mine.length) continue;
     const ids = mine.map(e => e.id);

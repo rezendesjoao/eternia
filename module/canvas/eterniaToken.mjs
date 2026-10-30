@@ -13,9 +13,9 @@ export class EterniaToken extends foundry.canvas.placeables.Token {
     return !!this.document.hasStatusEffect(HIDDEN_STATUS);
   }
 
-  /** @override */
+  /** @override The GM first: this runs for every token on every frame of a movement with vision. */
   get isVisible() {
-    if (this.isLHHidden && !game.user.isGM && !this.document.isOwner) return false;
+    if (!game.user.isGM && this.isLHHidden && !this.document.isOwner) return false;
     return super.isVisible;
   }
 

@@ -8,6 +8,7 @@ import { prepareSkillFields, composeSkillField, CUSTOM } from "../helpers/skill-
 import { canUseItem, useItem } from "../helpers/item-use.mjs";
 import { activateConditionInputs, conditionsContext, conditionsFromForm } from "../helpers/effect-conditions.mjs";
 import { skillModifiers } from "../helpers/roll-bonuses.mjs";
+import { SheetRenderMixin, needsRollData } from "./sheet-render.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -18,11 +19,27 @@ const SUBTYPES = {
 };
 
 /**
+ * A skill a Race / Class / Subclass grants, for display: the document when it is loaded, or its compendium index entry
+ * (the name and the picture are there), else fetched (a compendium not indexed yet, an embedded uuid).
+ * @param {string} uuid
+ * @returns {Promise<object|null>}
+ */
+async function grantedSkill(uuid) {
+  let skill = null;
+  try {
+    skill = fromUuidSync(uuid, { strict: false });
+  } catch (err) {
+    skill = null;
+  }
+  return skill ?? fromUuid(uuid).catch(() => null);
+}
+
+/**
  * Sheet for items in AppV2.
  * Supports all 14 item types, dynamically selecting the template in _configureRenderParts.
  * @extends {foundry.applications.sheets.ItemSheetV2}
  */
-export class EterniaItemSheet extends HandlebarsApplicationMixin(foundry.applications.sheets.ItemSheetV2) {
+export class EterniaItemSheet extends SheetRenderMixin(HandlebarsApplicationMixin(foundry.applications.sheets.ItemSheetV2)) {
 
   static DEFAULT_OPTIONS = {
     classes: ["eternia", "sheet", "item"],
@@ -85,24 +102,21 @@ export class EterniaItemSheet extends HandlebarsApplicationMixin(foundry.applica
     context.editable = this.isEditable;
     context.owner = item.isOwner;
 
-    // Retrieve the roll data for TinyMCE/ProseMirror editors.
-    context.rollData = {};
+    // The roll data of the inline rolls of the enriched texts (its actor's): built when read (needsRollData)
     const actor = item.parent instanceof Actor ? item.parent : (item.actor ?? null);
-    if (actor) {
-      context.rollData = actor.getRollData();
-    }
+    let rollData = null;
+    Object.defineProperty(context, "rollData", {
+      get: () => (rollData ??= actor ? actor.getRollData() : {}), enumerable: true, configurable: true
+    });
 
+    const enrich = text => foundry.applications.ux.TextEditor.implementation.enrichHTML(text, {
+      async: true,
+      rollData: needsRollData(text) ? context.rollData : undefined,
+      relativeTo: item
+    });
     context.enrichments = {
-      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(context.system.description ?? "", {
-        async: true,
-        rollData: context.rollData,
-        relativeTo: item
-      }),
-      skillText: await foundry.applications.ux.TextEditor.implementation.enrichHTML(context.system.skillText ?? "", {
-        async: true,
-        rollData: context.rollData,
-        relativeTo: item
-      })
+      description: await enrich(context.system.description ?? ""),
+      skillText: await enrich(context.system.skillText ?? "")
     };
 
     // Skill / usable item Check / Damage: dice select options
@@ -158,7 +172,7 @@ export class EterniaItemSheet extends HandlebarsApplicationMixin(foundry.applica
     const grants = this.item.system.grants ?? [];
     return Promise.all(grants.map(async (grant, index) => {
       const skills = await Promise.all((grant.uuids ?? []).map(async uuid => {
-        const skill = await fromUuid(uuid).catch(() => null);
+        const skill = await grantedSkill(uuid);
         return skill ? { uuid, name: skill.name, img: skill.img } : { uuid, name: uuid, img: "icons/svg/hazard.svg", missing: true };
       }));
       return { index, choice: skills.length > 1, skills };
@@ -172,7 +186,7 @@ export class EterniaItemSheet extends HandlebarsApplicationMixin(foundry.applica
    */
   async _prepareSubclassSkills() {
     const skills = await Promise.all((this.item.system.skills ?? []).map(async uuid => {
-      const skill = await fromUuid(uuid).catch(() => null);
+      const skill = await grantedSkill(uuid);
       return skill ? { uuid, name: skill.name, img: skill.img } : { uuid, name: uuid, img: "icons/svg/hazard.svg", missing: true };
     }));
     return skills.sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang));

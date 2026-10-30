@@ -33,6 +33,7 @@
 
 import { getOption } from "../helpers/character-options.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
+import { packIndex } from "../helpers/pack-index.mjs";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -124,7 +125,7 @@ async function buildIndex() {
   const entries = [];
   for (const pack of game.packs) {
     if ((pack.documentName !== "Item") || !pack.visible) continue;
-    const index = await pack.getIndex({ fields: INDEX_FIELDS });
+    const index = await packIndex(pack, INDEX_FIELDS);
     for (const e of index) {
       if ((e.type !== "skill") || !TABS.includes(e.system?.subtype)) continue;
       // Folder placeholders left in the compendiums by the old Compendium Folders module.
@@ -236,6 +237,33 @@ function ownedSkill(actor, entry) {
     && ((i._stats?.compendiumSource === entry.uuid) || (normalize(i.name) === normalize(entry.name))));
 }
 
+/**
+ * The character's copies of the skills, for a whole list of entries (a render of the window): entry -> what ownedSkill
+ * finds, the first of the character's skills from that compendium entry or of that name (null when none), read once
+ * from its items.
+ * @param {Actor} actor
+ * @returns {(entry: object) => Item|null}
+ */
+function ownedSkills(actor) {
+  const order = new Map();
+  const bySource = new Map();
+  const byName = new Map();
+  for (const item of actor.items) {
+    if (item.type !== "skill") continue;
+    order.set(item, order.size);
+    const source = item._stats?.compendiumSource;
+    if (!bySource.has(source)) bySource.set(source, item);
+    const name = normalize(item.name);
+    if (!byName.has(name)) byName.set(name, item);
+  }
+  return entry => {
+    const source = bySource.get(entry.uuid);
+    const named = byName.get(normalize(entry.name));
+    if (!source || !named) return source ?? named ?? null;
+    return (order.get(source) <= order.get(named)) ? source : named;
+  };
+}
+
 /* -------------------------------------------- */
 /*  Pending picks                               */
 /* -------------------------------------------- */
@@ -324,13 +352,15 @@ export async function startSkillProgress(actor, base = rankOf(actor)) {
 export async function unlocksBetween(actor, from, to) {
   const lists = skillLists(actor);
   const out = { class: 0, magic: 0, race: 0, dedication: 0 };
-  for (const entry of await getSkillIndex()) {
+  const index = await getSkillIndex();
+  const ownedOf = ownedSkills(actor);
+  for (const entry of index) {
     if (!PICK_SUBTYPES.includes(entry.subtype) || entry.choiceOnly || entry.dedicationOf) continue;
     const source = sourceOf(entry, lists);
     if (!(source in out)) continue;
     if (entry.pathTalent && !lists.paths.has(entry.pathTalent)) continue;
     if (entry.elementTalent && !lists.elements.has(entry.elementTalent)) continue;
-    if (ownedSkill(actor, entry)) continue;
+    if (ownedOf(entry)) continue;
     const minRank = entry.minRank + (((source === "dedication") && entry.dedicationTalent) ? DEDICATION_DELAY : 0);
     if ((minRank > from) && (minRank <= to)) out[source] += 1;
   }
@@ -659,13 +689,15 @@ export class SkillBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
 
     const entries = [];
     let hidden = 0;
+    // The character's copies, read once for the whole list
+    const ownedOf = ownedSkills(actor);
     for (const entry of ctx.index) {
       if (entry.subtype !== this.tab) continue;
       const source = sourceOf(entry, lists);
       if ((this.source === "eligible") && !source) continue;
       if (!["eligible", "all"].includes(this.source) && (source !== this.source)) continue;
 
-      const owned = ownedSkill(actor, entry);
+      const owned = ownedOf(entry);
       if (entry.choiceOnly && !owned) continue;
       // What left the lists (the Dedication of a class another one replaced) stays only for who has it.
       if (entry.retired && !owned) continue;
@@ -945,7 +977,8 @@ export function registerSkillBrowser() {
   Hooks.on("deleteItem", watchSkills);
   Hooks.on("createCompendium", clearSkillIndex);
   Hooks.on("deleteCompendium", clearSkillIndex);
-  Hooks.on("updateCompendium", clearSkillIndex);
+  // Only an Item compendium's change (the skills come from them)
+  Hooks.on("updateCompendium", pack => (pack.documentName === "Item") && clearSkillIndex());
   // The pending picks and the skills of a character change what the window shows.
   const refresh = actor => {
     if (!(actor instanceof Actor)) return;

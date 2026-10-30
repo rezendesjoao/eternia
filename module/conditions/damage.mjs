@@ -361,11 +361,15 @@ export function afterDamage(actor, card, { hp, hpLoss, absorbed, marked, start =
   return out;
 }
 
-/** The statuses an application may end, saved before it for its Undo (and the Extra Breaths spent). */
+/**
+ * The statuses an application may end, saved before it for its Undo (and the Extra Breaths spent). Of the fields, only
+ * those that aren't 0 (every result card keeps a snapshot, and every window loads every card): the Undo puts the others
+ * back to 0.
+ */
 export function snapshotForUndo(actor) {
   const bad = actor._source.system?.["bad-status"] ?? {};
   return {
-    conditionFields: Object.fromEntries(RESTORED_FIELDS.map(id => [id, toInt(bad[id])])),
+    conditionFields: Object.fromEntries(RESTORED_FIELDS.map(id => [id, toInt(bad[id])]).filter(([, value]) => value)),
     conditionEffects: [...actor.effects].filter(e => ENDED_BY_DAMAGE.some(id => e.statuses?.has(id))).map(e => e.toObject()),
     reviveSpent: foundry.utils.deepClone(actor.getFlag(SYSTEM_ID, "reviveSpent") ?? {}),
     // A critical hit on the ground killed: the Undo takes the death back
@@ -381,8 +385,12 @@ export async function restoreForUndo(actor, before) {
   for (const key of new Set([...Object.keys(actor.getFlag(SYSTEM_ID, "reviveSpent") ?? {}), ...Object.keys(spent)])) {
     breaths[`flags.${SYSTEM_ID}.reviveSpent.${key}`] = toInt(spent[key]);
   }
-  await actor.update(Object.fromEntries([...Object.entries(before.conditionFields)
-    .map(([id, value]) => [`system.bad-status.${id}`, toInt(value)]), ...Object.entries(breaths)]));
+  // A snapshot keeps only the fields that weren't 0; one saved before that keeps them all, 0 included (its zeros give it
+  // away), and comes back field by field as it was saved (a field added to RESTORED_FIELDS later stays as it is).
+  const fields = before.conditionFields;
+  const ids = Object.values(fields).some(value => !toInt(value)) ? Object.keys(fields) : RESTORED_FIELDS;
+  await actor.update(Object.fromEntries([...ids.map(id => [`system.bad-status.${id}`, toInt(fields[id] ?? 0)]),
+    ...Object.entries(breaths)]));
   const missing = (before.conditionEffects ?? []).filter(e => !actor.effects.has(e._id));
   if (missing.length) await actor.createEmbeddedDocuments("ActiveEffect", missing, { keepId: true });
   if ((before.dead === false) && actor.statuses.has("dead")) await actor.toggleStatusEffect("dead", { active: false });

@@ -329,5 +329,7 @@ export function registerCreationCatalog() {
   Hooks.on("createItem", watch);
   Hooks.on("updateItem", watch);
   Hooks.on("deleteItem", watch);
-  for (const hook of ["createCompendium", "deleteCompendium", "updateCompendium"]) Hooks.on(hook, clearCreationCatalog);
+  for (const hook of ["createCompendium", "deleteCompendium"]) Hooks.on(hook, clearCreationCatalog);
+  // Only an Item compendium's change: the world's items come by the hooks above
+  Hooks.on("updateCompendium", pack => (pack.documentName === "Item") && clearCreationCatalog());
 }

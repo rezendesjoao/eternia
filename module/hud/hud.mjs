@@ -14,7 +14,7 @@
  *   through the system's useItem (after their Character Rank lock); a Dodge Check through the attack card's own
  *   button (rendered off-screen with its listeners).
  * The data is built in data.mjs; the bar re-renders (debounced) when the actor, its items and effects, its
- * token, the combats or the attack cards change.
+ * token (not a move out of a combat), the combats or the attack cards that may change its Dodge Checks change.
  *
  * The core macro hotbar can give its place to the HUD (client setting "hotbar"): hidden, or hidden only while the
  * HUD is on screen. It is only hidden with CSS, so the macro keys (1–0) keep working.
@@ -74,6 +74,13 @@ export class ActionHud extends HandlebarsApplicationMixin(ApplicationV2) {
   /** The open panel, if any. */
   panel = null;
 
+  /**
+   * Whether the bar shows (or is about to show) a Dodge Check, and whether a chat change since it was built may have
+   * brought one back (a deleted message lets an older card in): then the cards that don't target the actor matter too.
+   */
+  dodging = false;
+  dodgesStale = false;
+
   /** Only the portrait (client setting). */
   get collapsed() {
     return !!setting("hudCollapsed");
@@ -120,7 +127,11 @@ export class ActionHud extends HandlebarsApplicationMixin(ApplicationV2) {
 
   /** @override */
   async _prepareContext() {
-    return hudContext(this.actor, this.token, { panel: this.panel, collapsed: this.collapsed });
+    // The Dodge Checks are read from the chat as it is now, and one on its way counts as shown (until _onRender)
+    this.dodgesStale = false;
+    const context = hudContext(this.actor, this.token, { panel: this.panel, collapsed: this.collapsed });
+    if (context.dodge) this.dodging = true;
+    return context;
   }
 
   /** @override */
@@ -141,6 +152,7 @@ export class ActionHud extends HandlebarsApplicationMixin(ApplicationV2) {
   async _onRender(context, options) {
     await super._onRender(context, options);
     this.panel = context.panel?.id ?? null;
+    this.dodging = !!context.dodge;
     this.element.classList.toggle("collapsed", this.collapsed);
     this.element.classList.toggle("open", !!context.panel);
     syncHotbar();
@@ -423,6 +435,13 @@ function pickActor() {
 const GAP = 10;
 
 /**
+ * What a move writes on a token: its place, size and level (TokenDocument.MOVEMENT_FIELDS), the turn it takes, how it
+ * moves, its path and the regions it is in.
+ */
+const MOVE_KEYS = new Set(["_id", "x", "y", "elevation", "width", "height", "depth", "shape", "level", "rotation",
+  "movementAction", "_movementHistory", "_regions"]);
+
+/**
  * The free horizontal span of the bottom column at the bar's height (page pixels): the column, minus the players
  * list on the left and the chat box on the right when they overlap the bar's band, and short of the sidebar; `lift`
  * is how much higher the bar must go to clear the first two (0 when nothing is beside it).
@@ -605,15 +624,38 @@ export function registerHud() {
   const refresh = () => hud?.refresh();
   const ifShown = actor => { if (hud?.shows(actor)) hud.refresh(); };
   const ownerOf = doc => ((doc?.parent instanceof Actor) ? doc.parent : ((doc?.parent?.parent instanceof Actor) ? doc.parent.parent : null));
-  // Attack cards: the Dodge Checks of the actor shown.
-  const onAttack = message => { if (hud?.actor && message.flags?.eternia?.attack) hud.refresh(); };
+  // Attack cards: the Dodge Checks of the actor shown (only a character's, data.mjs pendingDodges). With none on the
+  // bar, a card that comes or changes without targeting the actor can only take some off (it pushes the oldest card out
+  // of the ones searched), unless the change moves it in time or changes the attack it closes (the attackId of a damage
+  // card); a deleted card lets an older one in. The other messages never redraw the bar, but one deleted, moved or
+  // reopening an attack leaves it stale: the next attack card redraws it, as any card did.
+  const onAttack = (message, always = false) => {
+    const actor = hud?.actor;
+    const attack = message.flags?.eternia?.attack;
+    if (!attack || (actor?.type !== "character")) return;
+    const targeted = (attack.targets ?? []).some(t => t?.actorUuid === actor.uuid);
+    if (always || targeted || hud.dodging || hud.dodgesStale) hud.refresh();
+  };
+  const onMessage = (message, reopens) => {
+    if (message.flags?.eternia?.attack) onAttack(message, reopens);
+    else if (reopens && hud) hud.dodgesStale = true;
+  };
 
   for (const hook of ["controlToken", "canvasReady", "deleteToken", "createCombat", "updateCombat", "deleteCombat",
     "createCombatant", "updateCombatant", "deleteCombatant", "combatTurnChange", "eternia.combatPhase"]) Hooks.on(hook, refresh);
   Hooks.on("updateActor", ifShown);
   for (const hook of ["createItem", "updateItem", "deleteItem"]) Hooks.on(hook, item => ifShown(item.parent));
   for (const hook of ["createActiveEffect", "updateActiveEffect", "deleteActiveEffect"]) Hooks.on(hook, effect => ifShown(ownerOf(effect)));
-  Hooks.on("updateToken", doc => { if (hud?.token?.document === doc) hud.refresh(); });
+  // The token shown, but not a move out of a combat: nothing on the bar or in the panels reads where it stands then
+  // (in a combat a Motor may: engaged, the Hierofante's Attack! takes a Minor Action, classes/comandante.mjs).
+  Hooks.on("updateToken", (doc, changes) => {
+    if (hud?.token?.document !== doc) return;
+    if (changes && !combatOf(hud.actor) && Object.keys(changes).every(key => MOVE_KEYS.has(key))) return;
+    hud.refresh();
+  });
   Hooks.on("updateUser", user => { if (user.isSelf) hud?.refresh(); });
-  for (const hook of ["createChatMessage", "updateChatMessage", "deleteChatMessage"]) Hooks.on(hook, onAttack);
+  Hooks.on("createChatMessage", message => onAttack(message));
+  Hooks.on("updateChatMessage", (message, changes = {}) => onMessage(message, ("timestamp" in changes)
+    || Object.keys(changes.flags?.[SYSTEM_ID] ?? {}).some(key => key.endsWith("attackId"))));
+  Hooks.on("deleteChatMessage", message => onMessage(message, true));
 }

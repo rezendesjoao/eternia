@@ -187,6 +187,14 @@ export function roundKey(actor) {
  * @returns {{def: object, lesser: boolean, item: Item}[]}
  */
 export function motorsOf(actor) {
+  // While the actor is prepared its items don't change: every formula of every effect phase shares one list, which the
+  // callers only read (the preparation's lookups, documents/actor.mjs)
+  const shared = actor?._lhPrep;
+  if (shared) return shared.motors ??= findMotors(actor);
+  return findMotors(actor);
+}
+
+function findMotors(actor) {
   const found = new Map();
   for (const item of actor?.items ?? []) {
     if (item.type !== "skill") continue;

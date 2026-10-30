@@ -18,7 +18,7 @@
  * "countdown" (a duel accepted) and "end" (its result). The UI registers what each one does (onDuelMessage).
  */
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
-import { isPrimaryGM } from "../helpers/clients.mjs";
+import { CLIENT_ID, isPrimaryGM } from "../helpers/clients.mjs";
 import { toInt } from "../helpers/utils.mjs";
 import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { isDying } from "../automation/death.mjs";
@@ -61,10 +61,13 @@ function deliver(message) {
   }
 }
 
-/** Send a message to every window (this one too); `to` limits it to some users. */
+/**
+ * Send a message to every window (this one too); `to` limits it to some users, and the server sends it only to their
+ * windows (this one's user among them gets it back too: the window that sent it, known by its id, already has it).
+ */
 function broadcast(type, data = {}) {
-  const message = { scope: SCOPE, type, ...data };
-  game.socket.emit(SOCKET, message);
+  const message = { scope: SCOPE, type, ...data, clientId: CLIENT_ID };
+  game.socket.emit(SOCKET, message, Array.isArray(message.to) ? { recipients: message.to } : {});
   deliver(message);
 }
 
@@ -481,7 +484,7 @@ export function registerDuelRules() {
 
   Hooks.once("ready", () => {
     game.socket.on(SOCKET, message => {
-      if (message?.scope === SCOPE) deliver(message);
+      if ((message?.scope === SCOPE) && (message.clientId !== CLIENT_ID)) deliver(message);
     });
     // A GM window that came back: the countdowns it was running, the HP of the duels going on, and the combats of
     // duels that ended where nobody falls (their closing was on the timer of a window that is gone)

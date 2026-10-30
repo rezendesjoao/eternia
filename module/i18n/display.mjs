@@ -119,9 +119,26 @@ const trimmed = fn => text => text.replace(/^(\s*)([\s\S]*?)(\s*)$/, (m, a, core
 const ATTR_RE = /\[(STR|DEX|POW|INT)\]/g;
 const SR_RE = /\bSR\b/g;
 
+/** Free-text fields of weapon / gear / bag sheets (see translateElement). */
+const FREE_TEXT = { ".itemRange-input": "range", ".itemTiming-input": "timing", ".itemTarget-input": "target",
+  ".itemBagLimit-input": "limit" };
+
+/**
+ * Every selector translateElement searches the root with, in one: most chat messages and windows have none of them, and
+ * one search tells it before the twenty-odd below. A selector added there goes here too.
+ */
+const TRANSLATED = [
+  ".chat-card-tags .tag", ".lh-tag-input .tag > span", ".chat-stat", ".item-timing h4", ".item-checkType h4",
+  ".skill-tile .item-throw[title]", ".skill-browser-body .skill-meta", ".skill-browser-body .skill-owned",
+  ".skill-browser-body .skill-chip", ".lh-distance", ".lh-attack-card .chat-card-type", ".lh-damage-card",
+  ".skill-field[data-field]", ...Object.keys(FREE_TEXT).map(selector => `input${selector}`), "h4.attr-name",
+  ".stat-allocation-body .stat-label", ".stat-allocation-body th", ".ticket-rank-name", ".ticket-rank-add > span",
+  ".pile-item-type", "datalist#lh-condition-tags option"
+].join(", ");
+
 /** Translate the system values shown in an element (a sheet, an app or a chat message). */
 export function translateElement(root) {
-  if (!(root instanceof HTMLElement)) return;
+  if (!(root instanceof HTMLElement) || !root.querySelector(TRANSLATED)) return;
 
   // Tag chips of chat cards and lists
   for (const el of root.querySelectorAll(".chat-card-tags .tag, .lh-tag-input .tag > span")) setText(el, trimmed(translateTag));
@@ -186,8 +203,6 @@ export function translateElement(root) {
   }
 
   // Free-text fields of weapon / gear / bag sheets keep the stored English value: Portuguese as tooltip
-  const FREE_TEXT = { ".itemRange-input": "range", ".itemTiming-input": "timing", ".itemTarget-input": "target",
-    ".itemBagLimit-input": "limit" };
   for (const [selector, field] of Object.entries(FREE_TEXT)) {
     for (const input of root.querySelectorAll(`input${selector}`)) {
       const pt = FIELD_TRANSLATORS[field](input.value);

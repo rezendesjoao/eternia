@@ -171,15 +171,17 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
 - Índices de compêndio: todo campo que o código lê de um índice de Item entra em `ITEM_INDEX_FIELDS`
   (`module/helpers/pack-index.mjs`, posto em `CONFIG.Item.compendiumIndexFields`). O Foundry guarda um índice por
   compêndio com os campos do último pedido: um `getIndex({ fields })` com um campo de fora dessa lista busca o índice
-  inteiro de novo (e o seguinte, também). As descrições ficam de fora (pesariam todos os compêndios): quem as lê carrega
-  os documentos (o catálogo de Magias carrega só as 110 Magias, uma vez). A exceção é o Mercado: ele pede as descrições
-  (`INDEX_FIELDS` de `market/catalog.mjs`) só ao índice dos compêndios com itens físicos, de propósito, para não carregar
-  ~1000 documentos.
+  inteiro de novo (e o seguinte, também). Peça sempre por `packIndex(pack, fields)` (mesmo arquivo), que junta os pedidos
+  em andamento. As descrições ficam de fora (pesariam todos os compêndios): quem as lê carrega os documentos (o catálogo
+  de Magias carrega só as 110 Magias, em fatias de 20). A exceção é o Mercado: ele pede as descrições
+  (`MARKET_INDEX_FIELDS` de `helpers/pack-index.mjs`) só ao índice dos compêndios com itens físicos, de propósito, para
+  não carregar ~1000 documentos; no Mestre, os ícones já pedem esses campos no `ready`.
 - O que as janelas leem dos compêndios é preparado com o jogo ocioso (`module/helpers/prewarm.mjs`), um passo por vez,
-  cada um esperando o jogo ficar ocioso de novo: o índice das habilidades de classe, o do navegador de habilidades, as
-  opções, o catálogo de Magias (`apps/magic-catalog.mjs`) e, para o Mestre ou para o jogador que ainda tem um personagem
-  de NP 1, o do assistente de criação (`apps/creation-catalog.mjs`) e a loja dele; para o Mestre, o Mercado por último.
-  Cada um se refaz quando um item de compêndio muda.
+  cada um esperando o jogo ficar ocioso de novo: os índices dos compêndios de Item (`itemIndexes`), o das habilidades de
+  classe, o do navegador de habilidades, as opções, o catálogo de Magias (`apps/magic-catalog.mjs`, os textos em fatias)
+  e, para o Mestre ou para o jogador que tem um personagem em branco (sem raça nem classe), o do assistente de criação
+  (`apps/creation-catalog.mjs`) e a loja dele; para o Mestre, o Mercado por último. Cada um se refaz quando um item de
+  compêndio muda.
 
 ## Criação de personagem
 - O assistente (`module/apps/creation-wizard.mjs`, `templates/apps/creation/`, `css/creation-wizard.css`) não muda o ator
@@ -372,7 +374,71 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   escritas. `test-050.js` cobre a morte e o Despertar pela API; o Despertar do jogador se testa entrando como "Jogador
   Teste" (sem senha) num personagem dele. O `createEmbeddedDocuments` devolve os documentos em qualquer ordem: ache cada um pelo nome.
 
+## Desempenho (1.0)
+- **A release é empacotada** (`tools/bundle.mjs`, chamado por `tools/package.mjs`): o servidor do Foundry responde todo
+  arquivo com `Cache-Control: no-cache`, em HTTP/1.1 (6 pedidos por vez), e cada arquivo custa uma ida e volta até a VPS
+  a cada entrada. O zip carrega `module/eternia.bundle.mjs` (esbuild, ESM, só espaços tirados, `keepNames`: o Foundry
+  guarda as fichas pelo nome da classe) com todos os modelos de `templates/` dentro (`helpers/template-bundle.mjs` é
+  `null` no repositório e vira o conteúdo da pasta no pacote; `registerBundledTemplates` os registra no `init`) e
+  `css/eternia.bundle.system.css` + `css/eternia.bundle.modules.css` (os estilos de cada camada, na ordem do manifesto;
+  nenhum pode ter `@import`/`@charset`, e todos ficam em `css/` por causa dos `url(../assets…)`). O `system.json` do zip
+  aponta para eles; o do repositório carrega os arquivos soltos, e o teste local roda o código-fonte. Arquivo de CSS
+  novo continua indo no `styles` do manifesto, como sempre.
+- **Testar o pacote:** monte uma cópia de release (os pacotes de `bundle()` numa pasta, com junctions para `assets`,
+  `packs`, `lang` e `templates`), aponte `Data/systems/eternia` para ela e reinicie o servidor. A bateria importa
+  arquivos de `module/` direto, então roda contra o código-fonte; contra o pacote, compare os mesmos testes (um import
+  direto carrega uma segunda cópia do módulo, com o estado dela).
+- `setting(key)` (`settings.mjs`) guarda os valores simples (sim/não, número, texto) até mudarem: o `onChange` de cada
+  configuração é embrulhado para esquecer o valor antes de qualquer outro ouvinte, e os ganchos de `Setting` e
+  `clientSettingChanged` também esquecem. Configuração que é objeto é lida de novo a cada vez. Nunca escreva uma
+  configuração do sistema direto no `localStorage`.
+- Toda leitura de índice de compêndio passa por `packIndex(pack, fields)` (`helpers/pack-index.mjs`): um pedido em
+  andamento que já cobre os campos serve o seguinte. Os campos do Mercado são `MARKET_INDEX_FIELDS` (mesmo arquivo); no
+  Mestre, os ícones dos itens já pedem a união deles no `ready`. O `ready` só pede os compêndios com equipamento; os
+  outros vêm no primeiro passo do `prewarm` (`itemIndexes`), um por vez. Um catálogo que se refaz quando um compêndio muda
+  filtra o `updateCompendium` por `pack.documentName === "Item"` (o primeiro argumento é o compêndio).
+- Varredura de todos os atores do mundo e das cenas: `worldActors({ effect, flags })` (`helpers/world-actors.mjs`). Ler
+  `token.actor` de um token sem vínculo monta o ator sintético inteiro (o delta é preguiçoso no v14) e ele fica vivo; com
+  o teste, só os tokens cujos dados podem casar são montados. Nunca percorra `scene.tokens` lendo `token.actor` de todos.
+- Os portadores das Magias de uma janela inteira: `holderCensus()` uma vez e `holderState(m, actor, census)` em cada uma.
+- As condições de estado dos efeitos (`helpers/effect-conditions.mjs`): cada ator guarda no preparo os tipos que os
+  efeitos dele usam (`_lhStateTypes`, por `noteStateTypes`), e `refreshStateConditions` só prepara de novo quem usa um
+  tipo cujo dado mudou: `COMBAT_INPUTS` diz o que cada tipo lê do combate, `OWN_TYPES` os que só leem os estados do
+  próprio ator. **Tipo de condição de estado novo entra numa das duas tabelas**; fora delas, ele é preparado de novo a
+  cada evento (como o Topo e o Abaixo de Ódio). A ficha só se redesenha quando um efeito passou a valer ou deixou de valer
+  (ou quando há duração do core), num `requestAnimationFrame`.
+- Durante `EterniaActor#prepareData`, `actor._lhPrep` guarda o que só depende dos itens (as mãos de `getHands`, os
+  Motores de `motorsOf`), dividido por todas as fases de efeito; fora do preparo é `null`. O que entrar ali não pode
+  depender de atributos, PV ou flags, que mudam entre as fases. O `getRollData` monta `itemData`/`skillData` só na leitura.
+- Um `game.socket.emit` com `{ recipients }` chega também às janelas do próprio usuário quando ele está na lista
+  (inclusive a que mandou): quem escuta ignora o próprio eco (`clientId`, ou o `pending` dos pedidos). Sem `recipients`, o
+  servidor manda a todos menos a quem mandou. Os pedidos das pilhas vão só aos Mestres e a resposta só a quem pediu.
+- O HUD (`hud/hud.mjs`) só redesenha com um cartão de ataque que mira o personagem mostrado, com uma Esquiva na barra ou
+  com uma mudança que pode trazer uma de volta (`dodging`, `dodgesStale`), e ignora o movimento do token fora de combate
+  (`MOVE_KEYS`). Uma parte nova do HUD que leia outra coisa precisa do gancho que a redesenha.
+- **A ficha de personagem é uma moldura e uma parte por aba** (`sheets/character-sheet.mjs`: `PARTS` = `frame` + uma por
+  `TABS`; `_replaceHTML` põe as abas no `.lhpf-body` da moldura). Um render com `renderContext` (toda mudança do
+  documento, e os redesenhos do sistema devem passar um, como `eternia.conditions`) desenha só `frame` + a aba aberta; as
+  outras ficam velhas (`#stale`) e se desenham ao abrir (`changeTab`). O que uma aba mostra é montado no
+  `_preparePartContext` dela (o comum, no `_prepareContext`), e os ouvintes de uma parte vão no `_activateSheetListeners`
+  (por parte), não no `_onRender`. `_processFormData` tira do envio os campos das abas velhas. Aba nova: um template com
+  uma raiz `section.tab`, uma entrada em `TABS` e o contexto no `_preparePartContext`. As fichas de personagem, monstro,
+  item e pilha juntam os redesenhos em fila e não desenham minimizadas (`sheets/sheet-render.mjs`, `SheetRenderMixin`).
+- `canvas/token-style.mjs` guarda as configurações dos tokens (`known`, zeradas no gancho `eterniaTokenStyle`), um estilo
+  só para os nomes (atribuir um estilo, mesmo igual, refaz o texto) e a chave do desenho do Motor (`lhKey`: tudo o que o
+  desenho lê; algo novo no desenho entra na chave).
+- **Computador fraco:** com o Modo de Desempenho do Foundry em Baixo (`body.performance-low`, `lowPerformance()` de
+  `helpers/performance.mjs`), as animações infinitas que só enfeitam param (`css/performance.css`: animação infinita nova
+  entra na lista), os ícones dos itens não se mexem, o medalhão dos estados vira o texto do core e o chat abre com 50
+  mensagens. Os outros modos ficam como estão.
+- Os ícones de estado são buscados no `i18nInit` e entregues ao `PIXI.settings.ADAPTER.fetch` quando a cena os pede
+  (`helpers/status-prefetch.mjs`); as fontes da cena carregam os arquivos de cada família juntos (`helpers/font-loading.mjs`,
+  por cima do `FontConfig.loadFont` do core).
+- Medir: o Chrome sem janela com a placa de vídeo (`--use-angle=d3d11`) e um proxy TCP com atraso (60 ms de ida e volta)
+  na frente do servidor de teste; o `Network.enable` do CDP trava a página com os 75 MB do mundo de teste (não ligue).
+
 ## Release
 1. `version` e a URL de `download` no `system.json`, e a entrada no CHANGELOG.
-2. `npm run packs:build` e `npm run package` (gera `dist/eternia.zip` e `dist/system.json`).
+2. `npm run packs:build` e `npm run package` (gera `dist/eternia.zip` e `dist/system.json`, já com os pacotes de
+   `tools/bundle.mjs`).
 3. Commit, push e `gh release create vX.Y.Z dist/system.json dist/eternia.zip`.

@@ -14,7 +14,7 @@
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { escape } from "../helpers/utils.mjs";
-import { isPrimaryGM } from "../helpers/clients.mjs";
+import { CLIENT_ID, isPrimaryGM } from "../helpers/clients.mjs";
 import { registerHandler, request } from "../piles/pile-socket.mjs";
 import {
   MAX_PARTY, PARTY_SETTING, canJoin, hasRoom, isLeader, memberKey, membersOf, parties, partyById, partyOf
@@ -55,10 +55,13 @@ function deliver(message) {
   }
 }
 
-/** Send a message to every window (this one too); `to` limits it to some users. */
+/**
+ * Send a message to every window (this one too); `to` limits it to some users, and the server sends it only to their
+ * windows (this one's user among them gets it back too: the window that sent it, known by its id, already has it).
+ */
 function broadcast(type, data = {}) {
-  const message = { scope: SCOPE, type, ...data };
-  game.socket.emit(SOCKET, message);
+  const message = { scope: SCOPE, type, ...data, clientId: CLIENT_ID };
+  game.socket.emit(SOCKET, message, Array.isArray(message.to) ? { recipients: message.to } : {});
   deliver(message);
 }
 
@@ -390,7 +393,7 @@ export function registerPartyRules() {
   registerHandler("partyForm", onForm);
   Hooks.once("ready", () => {
     game.socket.on(SOCKET, message => {
-      if (message?.scope === SCOPE) deliver(message);
+      if ((message?.scope === SCOPE) && (message.clientId !== CLIENT_ID)) deliver(message);
     });
   });
   registerHandler("partyRemove", onRemoveDeleted);

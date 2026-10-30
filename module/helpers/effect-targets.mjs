@@ -377,6 +377,13 @@ function formatChangeSummary(change, data) {
 }
 
 /**
+ * What one template render already worked out, by its root context (Handlebars' @root, a new one per render): each
+ * effect's summary (the sheets ask for its text and for its title) and the formula data of each actor and item.
+ * @type {WeakMap<object, {effects: WeakMap<object, {html: string, plain: string}>, data: Map<Actor, Map<Item|null, object>>}>}
+ */
+const RENDERS = new WeakMap();
+
+/**
  * Handlebars helper: produces a readable summary of an ActiveEffect's changes.
  * e.g. "Accuracy +2, Phys. Def. +3, Evasion +1D"
  * @param {object|object[]} changesOrEffect   ActiveEffect document, raw effect data, or changes array
@@ -384,6 +391,30 @@ function formatChangeSummary(change, data) {
  * @returns {Handlebars.SafeString|string}
  */
 export function lhEffectSummary(changesOrEffect, options) {
+  const root = options?.data?.root;
+  const isObject = value => (value !== null) && (typeof value === "object");
+  let render = null;
+  if (isObject(root) && isObject(changesOrEffect)) {
+    render = RENDERS.get(root);
+    if (!render) RENDERS.set(root, render = { effects: new WeakMap(), data: new Map() });
+  }
+  let summary = render?.effects.get(changesOrEffect);
+  if (!summary) {
+    summary = summarizeEffect(changesOrEffect, render);
+    render?.effects.set(changesOrEffect, summary);
+  }
+  if (options?.hash?.plain) return summary.plain;
+  if (!summary.html) return "";
+  return globalThis.Handlebars?.SafeString ? new Handlebars.SafeString(summary.html) : summary.html;
+}
+
+/**
+ * The summary of an effect, as HTML and as plain text (with its expiry), "" when there is nothing to say.
+ * @param {object|object[]} changesOrEffect
+ * @param {object|null} render   What the template render already worked out (RENDERS)
+ * @returns {{html: string, plain: string}}
+ */
+function summarizeEffect(changesOrEffect, render) {
   const escapeText = globalThis.foundry?.utils?.escapeHTML ?? (s => s);
   const changes = Array.isArray(changesOrEffect?.system?.changes)
     ? changesOrEffect.system.changes
@@ -421,10 +452,18 @@ export function lhEffectSummary(changesOrEffect, options) {
     }
   }
 
-  // Formulas show their value for effects on (or carried by) an actor.
+  // Formulas show their value for effects on (or carried by) an actor: its values are read only when a change is one
+  // (once per actor and item in a template render).
   const isEffect = typeof changesOrEffect?.getFlag === "function";
   const actor = isEffect ? (changesOrEffect.parent?.documentName === "Actor" ? changesOrEffect.parent : changesOrEffect.parent?.parent) : null;
-  const data = (actor?.documentName === "Actor") ? formulaData(actor, changesOrEffect.sourceItem ?? null) : null;
+  let data = null;
+  if ((actor?.documentName === "Actor") && changes.some(c => isFormula(String(c?.value ?? "").trim()))) {
+    const item = changesOrEffect.sourceItem ?? null;
+    const byItem = render?.data.get(actor) ?? new Map();
+    render?.data.set(actor, byItem);
+    if (!byItem.has(item)) byItem.set(item, formulaData(actor, item));
+    data = byItem.get(item);
+  }
 
   const parts = [];
   if (statusPart) parts.push(statusPart);
@@ -448,26 +487,15 @@ export function lhEffectSummary(changesOrEffect, options) {
     endOfScene: "ETERNIA.EffectDuration.EndOfScene"
   };
 
-  if (!parts.length && !conditionText) {
-    if (options?.hash?.plain && expires && EXPIRY_LABELS[expires]) {
-      const durLabel = globalThis.game?.i18n?.localize ? game.i18n.localize(EXPIRY_LABELS[expires]) : expires;
-      return durLabel ? `(${durLabel})` : "";
-    }
-    return "";
-  }
+  const durLabel = (expires && EXPIRY_LABELS[expires])
+    ? (globalThis.game?.i18n?.localize ? game.i18n.localize(EXPIRY_LABELS[expires]) : expires) : "";
+  if (!parts.length && !conditionText) return { html: "", plain: durLabel ? `(${durLabel})` : "" };
   // Roll bonuses: the skills they apply to ("→ «Reactive Heal»")
   const filterText = changes.some(c => isSkillFilterKey(c?.key)) ? rollFilterLabel(rollFilter(changesOrEffect)) : "";
   const joined = [parts.join(", "), filterText ? `→ ${escapeText(filterText)}` : "", conditionText ? `(${conditionText})` : ""]
     .filter(Boolean).join(" ");
-  if (options?.hash?.plain) {
-    let plain = joined.replace(/<[^>]*>/g, "");
-    if (expires && EXPIRY_LABELS[expires]) {
-      const durLabel = globalThis.game?.i18n?.localize ? game.i18n.localize(EXPIRY_LABELS[expires]) : expires;
-      if (durLabel) plain = `${plain} (${durLabel})`;
-    }
-    return plain;
-  }
-  return globalThis.Handlebars?.SafeString ? new Handlebars.SafeString(joined) : joined;
+  const plain = joined.replace(/<[^>]*>/g, "");
+  return { html: joined, plain: durLabel ? `${plain} (${durLabel})` : plain };
 }
 
 /* -------------------------------------------- */

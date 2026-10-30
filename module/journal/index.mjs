@@ -9,6 +9,7 @@
  */
 import { setting, SYSTEM_ID } from "../settings.mjs";
 import { clientsDiscovered, isPrimaryGM } from "../helpers/clients.mjs";
+import { packIndex } from "../helpers/pack-index.mjs";
 
 /** The compendium of the guide. */
 const GUIDE_PACK = `${SYSTEM_ID}.guide`;
@@ -90,18 +91,22 @@ function addBookMenu(menu, dropdowns) {
  * Put the guide's journal entries in the world's Journal and keep them as the compendium has them: a missing entry is
  * created (readable by everyone), and one whose `flags.eternia.guide.version` differs from the compendium's gets the
  * compendium's name and pages back, keeping its folder, ownership and sort. Page ids are kept, so links between the
- * guide's pages work in both copies.
+ * guide's pages work in both copies. The versions come from the compendium's index: an entry (its pages) is loaded only
+ * when the world's copy is missing or of another version.
  * @returns {Promise<JournalEntry[]>} the entries created or rewritten
  */
 export async function syncGuide() {
   const pack = game.packs.get(GUIDE_PACK);
   if (!pack) return [];
   const changed = [];
-  for (const source of await pack.getDocuments()) {
-    const version = source.getFlag(SYSTEM_ID, "guide")?.version;
+  for (const entry of (await packIndex(pack, [`flags.${SYSTEM_ID}.guide.version`])).contents) {
+    const version = entry.flags?.[SYSTEM_ID]?.guide?.version;
     if (!version) continue;
+    const local = game.journal.find(e => e.getFlag(SYSTEM_ID, "guide")?.id === entry._id) ?? game.journal.get(entry._id);
+    if (local?.getFlag(SYSTEM_ID, "guide")?.version === version) continue;
+    const source = await pack.getDocument(entry._id);
+    if (!source) continue;
     const data = source.toObject();
-    const local = game.journal.find(entry => entry.getFlag(SYSTEM_ID, "guide")?.id === source.id) ?? game.journal.get(source.id);
     const flags = foundry.utils.mergeObject(data.flags ?? {}, { [SYSTEM_ID]: { guide: { id: source.id, version } } });
     if (!local) {
       delete data.folder;
@@ -111,7 +116,6 @@ export async function syncGuide() {
       if (created) changed.push(created);
       continue;
     }
-    if (local.getFlag(SYSTEM_ID, "guide")?.version === version) continue;
     await local.deleteEmbeddedDocuments("JournalEntryPage", local.pages.map(page => page.id), { render: false });
     await local.createEmbeddedDocuments("JournalEntryPage", data.pages, { keepId: true, render: false });
     await local.update({ name: data.name, flags });

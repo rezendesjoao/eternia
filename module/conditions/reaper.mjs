@@ -22,6 +22,7 @@
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { registerHandler, request } from "../piles/pile-socket.mjs";
 import { isPrimaryGM } from "../helpers/clients.mjs";
+import { worldActors } from "../helpers/world-actors.mjs";
 import { actorName, postSummary, toInt } from "../helpers/utils.mjs";
 import { evaluateFormula, formulaData, isFormula } from "../helpers/effect-formulas.mjs";
 import { rulesOn, sameActor } from "./rules.mjs";
@@ -139,15 +140,6 @@ export function cardSeal(item, attacker) {
 /*  Falls and deaths                            */
 /* -------------------------------------------- */
 
-/** Every actor that may carry a seal: the world's and the unlinked tokens' of the scenes. */
-function everyActor() {
-  const out = [...game.actors];
-  for (const scene of game.scenes) {
-    for (const token of scene.tokens) if (!token.actorLink && token.actor) out.push(token.actor);
-  }
-  return out;
-}
-
 /** A creature with sealed life fell: each of its sealers gets 1 of its own price back. */
 async function onFall(effect, options, userId) {
   if (!effect.statuses?.has("incapacitated") || !isPrimaryGM() || !rulesOn()) return;
@@ -171,7 +163,10 @@ async function onDeath(effect, options, userId) {
   const dead = effect.parent;
   if (!(dead instanceof Actor)) return;
   const lines = [];
-  for (const actor of everyActor()) {
+  // Every actor that may carry a seal: the world's and the unlinked tokens' of the scenes (only the tokens with a seal of
+  // the dead have their actors built: helpers/world-actors.mjs)
+  const sealedByDead = flags => Array.isArray(flags[FLAG]) && flags[FLAG].some(e => e?.by === dead.uuid);
+  for (const actor of worldActors({ flags: sealedByDead })) {
     if (sameActor(actor, dead)) continue;
     const entry = reapedOf(actor).find(e => e.by === dead.uuid);
     if (!entry) continue;

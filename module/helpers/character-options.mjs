@@ -23,7 +23,7 @@ export const OPTION_ICONS = {
 
 /** The Race / Class / Subclass item of a character, if any. */
 export function getOption(actor, type) {
-  return actor.items.find(i => i.type === type) ?? null;
+  return actor.itemTypes[type]?.[0] ?? null;
 }
 
 /** Numeric fields of an option item (form inputs may store them as text). */

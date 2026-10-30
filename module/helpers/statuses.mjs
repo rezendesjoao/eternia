@@ -335,7 +335,8 @@ async function _syncEffectFromField(actor, status) {
 }
 
 function _onUpdateActor(actor, changes, options, userId) {
-  if (!isLocalChange(options, userId) || options.lhStatusMigration) return;
+  // Every status field is under `system` (and the change is nested: system.bad-status.dying)
+  if (!changes?.system || !isLocalChange(options, userId) || options.lhStatusMigration) return;
   for (const status of LH_STATUSES) {
     if (!status.path) continue;
     if (!foundry.utils.hasProperty(changes, `system.${status.path}`)) continue;

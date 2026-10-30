@@ -34,6 +34,7 @@
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isPrimaryGM, isLocalChange } from "../helpers/clients.mjs";
+import { worldActors } from "../helpers/world-actors.mjs";
 import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { statusDefinition } from "../helpers/statuses.mjs";
 import { actorName, combatantOf, postSummary, toInt } from "../helpers/utils.mjs";
@@ -616,15 +617,20 @@ async function onCreateEffect(effect, options, userId) {
   if (effect.statuses?.has("incapacitated") && isPrimaryGM()) await freeFrom(actor);
 }
 
+/** The statuses that end when the one who gave them is Incapacitated. */
+const HELD_BY_SOURCE = ["grappled", "bond", "blackFlame", "petrified"];
+
 /**
  * End the [Grappled], [Bond], [Black Flame] and [Petrified] that this actor gave, on every actor of the world and of
  * the scenes.
  */
 async function freeFrom(source) {
-  const actors = [...game.actors];
-  for (const scene of game.scenes) for (const token of scene.tokens) if (!token.actorLink && token.actor) actors.push(token.actor);
+  // Only the token actors with one of them from a caster are built (helpers/world-actors.mjs)
+  const actors = worldActors({
+    effect: e => !!e.flags?.[SYSTEM_ID]?.source?.casterUuid && HELD_BY_SOURCE.some(id => e.statuses?.includes?.(id))
+  });
   for (const actor of actors) {
-    for (const id of ["grappled", "bond", "blackFlame", "petrified"]) {
+    for (const id of HELD_BY_SOURCE) {
       if (!has(actor, id) || !sourcesOf(actor, id).some(s => sameActor(s, source))) continue;
       await removeStatuses(actor, [id]);
       await postSummary(label(id), [L("Conditions.Freed", { name: actorName(actor), status: label(id), source: actorName(source) })]);

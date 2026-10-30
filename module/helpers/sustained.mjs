@@ -4,6 +4,7 @@ import { whisperRemovedEffects } from "./effect-durations.mjs";
 import { applyItemEffects, isSelfTarget, OPPOSED } from "./item-use.mjs";
 import { runUseActions } from "../conditions/effects.mjs";
 import { effectConditions, unmetCondition } from "./effect-conditions.mjs";
+import { worldActors } from "./world-actors.mjs";
 
 /**
  * Sustained skills and tags (Harmony, Servant Summon, Enchantment).
@@ -65,19 +66,15 @@ export function getSustainedTag(item) {
 
 /**
  * All actors in the world and synthetic token actors across all scenes (de-duplicated).
+ * @param {object} [match]   Only build the token actors whose raw data may match (see helpers/world-actors.mjs)
  * @returns {Actor[]}
  */
-export function getAllActors() {
-  const actors = new Set(game.actors);
-  for (const scene of game.scenes) {
-    for (const token of scene.tokens) {
-      if (!token.actorLink && token.actor) {
-        actors.add(token.actor);
-      }
-    }
-  }
-  return [...actors];
+export function getAllActors(match = undefined) {
+  return [...new Set(worldActors(match))];
 }
+
+/** The `flags.eternia.source` of an effect's source data passes the test (for getAllActors). */
+const bySource = test => ({ effect: e => !!e.flags?.eternia?.source && test(e.flags.eternia.source) });
 
 /**
  * Find active sustained uses of a specific sustained tag by a caster actor.
@@ -87,7 +84,7 @@ export function getAllActors() {
  * @returns {Array<{useId: string, itemName: string, casterUuid: string, sustained: string, targetNames: Set<string>, effects: Array<{actor: Actor, effect: ActiveEffect}>}>}
  */
 export function getActiveSustainedUses(casterActor, tagId) {
-  const allActors = getAllActors();
+  const allActors = getAllActors(bySource(s => (s.casterUuid === casterActor.uuid) && (s.sustained === tagId) && !!s.useId));
   const usesMap = new Map();
 
   for (const actor of allActors) {
@@ -227,7 +224,7 @@ export async function _onEndSustainedUseRequest({ casterUuid, useId, tagLabel, r
     return { ok: false, error: "ETERNIA.Piles.Error.Generic" };
   }
 
-  const allActors = getAllActors();
+  const allActors = getAllActors(bySource(s => (s.casterUuid === casterUuid) && (s.useId === useId)));
   const entries = [];
 
   for (const actor of allActors) {

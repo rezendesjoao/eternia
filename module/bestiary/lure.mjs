@@ -10,6 +10,7 @@
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { isLocalChange, isPrimaryGM } from "../helpers/clients.mjs";
+import { worldActors } from "../helpers/world-actors.mjs";
 import { actorName, postSummary, toInt } from "../helpers/utils.mjs";
 import { actionsLeft, spendAction } from "../automation/use.mjs";
 import { NO_MOVEMENT } from "../conditions/catalog.mjs";
@@ -163,8 +164,8 @@ function onUpdateActor(actor, changes, options, userId) {
 /** A monster that lures fell (the primary GM): whoever it charmed is free. */
 async function onFall(source) {
   if (!lures(source)) return;
-  const actors = new Set(game.actors);
-  for (const scene of game.scenes) for (const token of scene.tokens) if (!token.actorLink && token.actor) actors.add(token.actor);
+  // Only the token actors that may be [Charmed] are built (helpers/world-actors.mjs)
+  const actors = new Set(worldActors({ effect: e => !!e.statuses?.includes?.("charmed") }));
   for (const actor of actors) {
     const lured = luresOn(actor).filter(e => sameActor(e.source, source));
     if (lured.length) await endLures(actor, lured, "Lure.SourceGone");

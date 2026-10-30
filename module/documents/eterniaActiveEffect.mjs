@@ -1,5 +1,5 @@
 import { evaluateFormula, formulaData, isFormula, readsAttributes } from "../helpers/effect-formulas.mjs";
-import { effectConditions, unmetCondition } from "../helpers/effect-conditions.mjs";
+import { effectConditions, noteStateTypes, unmetCondition } from "../helpers/effect-conditions.mjs";
 import { isSkillFilterKey } from "../helpers/roll-bonuses.mjs";
 import { animateStatus, animatesStatuses } from "../canvas/status-animation.mjs";
 import { traitErased } from "../conditions/erasure.mjs";
@@ -164,7 +164,10 @@ export class EterniaActiveEffect extends ActiveEffect {
             this._lhSuppressed = true;
             return;
         }
-        this.unmetCondition = unmetCondition(effectConditions(this, item), actor, item);
+        const conditions = effectConditions(this, item);
+        // The state conditions the actor uses (effect-conditions.mjs re-prepares it when they may have changed)
+        noteStateTypes(actor, conditions);
+        this.unmetCondition = unmetCondition(conditions, actor, item);
         this._lhSuppressed = !!this.unmetCondition;
     }
 

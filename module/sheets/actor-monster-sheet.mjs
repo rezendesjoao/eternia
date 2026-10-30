@@ -5,14 +5,18 @@ import { getStatusPanel, activateStatusPanelListeners } from "../helpers/statuse
 import { MONSTER_CHECK_MAX_DICE, parseMonsterCheck } from "../helpers/monster-checks.mjs";
 import { diceFormula, diceOptions } from "../helpers/dice.mjs";
 import { effectModified } from "../helpers/sheet-values.mjs";
+import { SheetRenderMixin, needsRollData } from "./sheet-render.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
+
+/** The system's own monster template: the only one that reads the skills as plain rows (`skillsMonster`). */
+const MONSTER_TEMPLATE = "systems/eternia/templates/actor/actor-monster-sheet.html";
 
 /**
  * Sheet for monster actors in AppV2.
  * @extends {foundry.applications.sheets.ActorSheetV2}
  */
-export class EterniaActorMonsterSheet extends HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
+export class EterniaActorMonsterSheet extends SheetRenderMixin(HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2)) {
 
   static DEFAULT_OPTIONS = {
     classes: ["eternia", "sheet", "monster"],
@@ -36,7 +40,7 @@ export class EterniaActorMonsterSheet extends HandlebarsApplicationMixin(foundry
 
   static PARTS = {
     sheet: {
-      template: "systems/eternia/templates/actor/actor-monster-sheet.html",
+      template: MONSTER_TEMPLATE,
       scrollable: [".sheet-body"]
     }
   };
@@ -60,29 +64,35 @@ export class EterniaActorMonsterSheet extends HandlebarsApplicationMixin(foundry
     context.editable = this.isEditable;
     context.owner = actor.isOwner;
 
-    // Roll data for TinyMCE/ProseMirror editors
-    context.rollData = actor.getRollData();
+    // Roll data for the inline rolls of the description: built when read (needsRollData)
+    let rollData = null;
+    Object.defineProperty(context, "rollData", {
+      get: () => (rollData ??= actor.getRollData()), enumerable: true, configurable: true
+    });
 
+    const description = context.system.description ?? "";
     context.enrichments = {
-      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(context.system.description ?? "", {
+      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(description, {
         async: true,
-        rollData: context.rollData,
+        rollData: needsRollData(description) ? context.rollData : undefined,
         relativeTo: actor
       })
     };
 
-    // Classify skills for monster
-    context.skillsMonster = actor.items
-      .filter(i => i.type === "skill")
-      .map(i => ({
-        ...i.toObject(false),
-        id: i.id,
-        _id: i.id,
-        img: i.img || CONST.DEFAULT_TOKEN,
-        system: {
-          ...i.system
-        }
-      }));
+    // Classify skills for monster (read only by the system's own template)
+    if (Object.values(this.constructor.PARTS).some(part => part.template === MONSTER_TEMPLATE)) {
+      context.skillsMonster = actor.items
+        .filter(i => i.type === "skill")
+        .map(i => ({
+          ...i.toObject(false),
+          id: i.id,
+          _id: i.id,
+          img: i.img || CONST.DEFAULT_TOKEN,
+          system: {
+            ...i.system
+          }
+        }));
+    }
 
     // Prepare active effects and status panel
     // Own effects plus the ones its items transfer (applied from the item, not copied onto the actor).

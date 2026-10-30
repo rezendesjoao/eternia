@@ -20,7 +20,7 @@ import { isEmpty, tagLabel, term } from "../i18n/terms.mjs";
 import { EterniaActorSheet } from "./actor-sheet.mjs";
 import { allocateBonusPoints } from "../apps/stat-allocation.mjs";
 import { professionAction, professionContext } from "../professions/sheet.mjs";
-import { activateClassTab, classAction, classContext } from "../classes/sheet.mjs";
+import { activateClassTab, classAction, classBadges, classContext } from "../classes/sheet.mjs";
 import { CreationWizard } from "../apps/creation-wizard.mjs";
 import { OptionBrowser } from "../apps/option-browser.mjs";
 import { CLASSES } from "../classes/data.mjs";
@@ -29,11 +29,12 @@ import { professionOf, rankTitle } from "../professions/state.mjs";
 import { PROFESSIONS, TALENTS } from "../professions/data.mjs";
 import { categoryOf, categoryView } from "../apps/magic-catalog.mjs";
 import { formOf, openEvolution, raceColor, regress, ROMAN } from "../races/evolution.mjs";
-import { raceBadge, raceContext } from "../races/sheet.mjs";
+import { raceBadgeOf, raceContext } from "../races/sheet.mjs";
 import { portraitFit } from "../helpers/portrait.mjs";
 import { addXp, xpView } from "../experience/level.mjs";
 import { boostsOf } from "../experience/boosts.mjs";
 import { giveTickets, ticketCount } from "../experience/tickets.mjs";
+import { byText, needsRollData } from "./sheet-render.mjs";
 
 const DIR = `systems/eternia/templates/character`;
 const PARTIALS = ["sidebar", "character", "skills", "race", "inventory", "class", "magic", "profession", "effects", "biography"];
@@ -100,10 +101,15 @@ const BIO_TRAITS = [
 function flavorOf(item) {
   const parts = String(item?.system?.description ?? "").split(/<hr\s*\/?>/i);
   if (parts.length < 2) return "";
-  const box = document.createElement("div");
-  box.innerHTML = parts.at(-1);
-  return box.textContent.replace(/\s+/g, " ").trim();
+  return plainText(parts.at(-1));
 }
+
+/** The text of a piece of HTML (kept by text: the bio reads the same origins on every render). */
+const plainText = byText(html => {
+  const box = document.createElement("div");
+  box.innerHTML = html;
+  return box.textContent.replace(/\s+/g, " ").trim();
+});
 
 /**
  * Paper doll of the inventory tab (templates/character/inventory.hbs): a 480×300 stage with the figure in the
@@ -134,6 +140,33 @@ function dollPlace(pos) {
 /** "athletics" -> "Athletics" (the key the system's roll-check action localizes) */
 const checkName = key => key.charAt(0).toUpperCase() + key.slice(1);
 export const signed = n => (n >= 0 ? `+${n}` : `${n}`);
+
+/** A check as the sheet shows it (the banner's combat checks, the character tab's attribute checks): a click rolls it. */
+function checkView(system, key, attr) {
+  const c = system.checks?.[key] ?? {};
+  const dice = toInt(c.dice) || 2, value = toInt(c.total);
+  return {
+    key, attr, name: checkName(key), label: game.i18n.localize(`ETERNIA.Check.${checkName(key)}`),
+    dice, total: value, mod: signed(value), tier: Math.clamp(dice - 1, 1, 5)
+  };
+}
+
+/** Enter in a number field (the banner, the header, the gold) saves it (blur) instead of keeping the focus. */
+const blurOnEnter = field => field.addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    field.blur();
+  }
+});
+
+/** The boxes of each tab that scroll, besides its content (each tab's part keeps them across its renders). */
+const TAB_SCROLL = {
+  skills: ["basic", "general", "combat"].map(t => `.tab[data-group="skills"][data-tab="${t}"] > .tab-content`),
+  class: [".lhcl-panels"],
+  magic: [".lhmg-page"],
+  effects: ["list", "status"].map(t => `.tab[data-group='effects'][data-tab='${t}'] > .tab-content`),
+  biography: BIO_PANES.map(p => `.tab[data-group="bio"][data-tab="${p}"] > .tab-content`)
+};
 
 /**
  * The active statuses of a status panel (the system's getStatusPanel), as the sidebar tags: rated ones with their
@@ -195,12 +228,15 @@ export class Summaries {
     await this.#show(row);
   }
 
-  /** After a render: the summaries that were open open again (the ones of deleted items are forgotten). */
+  /**
+   * After a render: the summaries that were open open again (the ones of deleted items are forgotten). One still open
+   * is in a part the render kept: it stays as it is.
+   */
   restore(root) {
     for (const id of this.#open) {
       const row = root.querySelector(`.item[data-item-id="${id}"]`);
-      if (row) this.#show(row, { animate: false });
-      else this.#open.delete(id);
+      if (!row) this.#open.delete(id);
+      else if (row.querySelector(":scope > .item-summary")?.hidden !== false) this.#show(row, { animate: false });
     }
   }
 
@@ -247,19 +283,30 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     }
   };
 
+  /**
+   * The frame (the banner, the header, the tab bar and the body) and each tab as a part of its own, put in the body in
+   * their order (_replaceHTML): a change of the character draws the frame and the open tab, and a tab drawn before the
+   * last changes draws again when it is opened (_configureRenderOptions, changeTab).
+   */
   static PARTS = {
-    sheet: {
-      template: `${DIR}/sheet.hbs`,
-      scrollable: [".sidebar", ...TABS.map(t => `.tab[data-tab="${t.id}"] > .tab-content`),
-        ...["basic", "general", "combat"].map(t => `.tab[data-group="skills"][data-tab="${t}"] > .tab-content`),
-        ...BIO_PANES.map(p => `.tab[data-group="bio"][data-tab="${p}"] > .tab-content`),
-        ".tab[data-group='effects'][data-tab='list'] > .tab-content", ".tab[data-group='effects'][data-tab='status'] > .tab-content",
-        ".lhmg-page", ".lhcl-panels"]
-    }
+    frame: { template: `${DIR}/sheet.hbs`, scrollable: [".sidebar"] },
+    ...Object.fromEntries(TABS.map(({ id }) => [id, {
+      template: `${DIR}/${id}.hbs`,
+      scrollable: [":scope > .tab-content", ...(TAB_SCROLL[id] ?? [])]
+    }]))
   };
 
   /** Tab group states (survive re-renders). */
   tabGroups = { primary: "character", skills: "combat", effects: "list", bio: "profile", lhcl: "kit", lhmg: "slot-0" };
+
+  /** The tabs drawn before the character's last changes: drawn again when opened. */
+  #stale = new Set();
+
+  /** The tab last asked for (a stale one opens after its render, unless another was asked meanwhile). */
+  #wanted = null;
+
+  /** How many times parts were put in the window (tells whether a render drew). */
+  #drawn = 0;
 
   /** The player picked a section of the class tab (until then it opens on a choice still open). */
   #classSectionPicked = false;
@@ -289,13 +336,96 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     const actor = this.actor;
+    // What more than one part shows (each part adds its own: _preparePartContext). The XP to the next NP
+    // (experience/level.mjs), what boosts it and the Evolution Tickets in the bag: the header and the inventory.
+    // Whether the character is still blank: the header and the character tab. The portrait (the character tab and the
+    // bio): a token shows as it is, with no square behind it.
+    context.lh = {
+      xp: this.#xpContext(),
+      creation: {
+        blank: CreationWizard.isBlank(actor),
+        can: this.isEditable && CreationWizard.canCreate(actor)
+      },
+      portrait: await portraitFit(actor.img)
+    };
+    return context;
+  }
+
+  /** @override */
+  async _preparePartContext(partId, context, options) {
+    context = await super._preparePartContext(partId, context, options);
+    const actor = this.actor;
+    const lh = context.lh;
+    switch (partId) {
+      case "frame":
+        Object.assign(lh, await this.#frameContext(context));
+        break;
+      case "character": {
+        // Each attribute with the two checks it gives
+        const system = actor.system;
+        lh.attributes = ATTRIBUTES.map(({ key, checks }) => ({
+          key,
+          abbr: L(`Sheet.Attr.${key}.abbr`),
+          label: L(`Sheet.Attr.${key}.name`),
+          base: toInt(system.attributes?.[key]?.total),
+          mod: toInt(system.attributes?.[key]?.mod),
+          modLabel: signed(toInt(system.attributes?.[key]?.mod)),
+          checks: checks.map(c => checkView(system, c, L(`Sheet.Attr.${key}.abbr`)))
+        }));
+        // What the character is: the race, class and profession
+        lh.options = this.#optionCards(context);
+        break;
+      }
+      case "skills":
+        lh.skillTabs = this.#skillTabs(context);
+        break;
+      // The race and the five stages of its form
+      case "race":
+        lh.raceTab = raceContext(actor, { editable: this.isEditable });
+        break;
+      // The class: the Motor, the kit, the Path, the talents, the Dedications (the Magias tab reads it too)
+      case "class": {
+        lh.classTab ??= await classContext(actor, { editable: this.isEditable });
+        const sections = (lh.classTab.sections ?? []).map(s => s.id);
+        if (!this.#classSectionPicked && lh.classTab.focus) this.tabGroups.lhcl = lh.classTab.focus;
+        if (sections.length && !sections.includes(this.tabGroups.lhcl)) this.tabGroups.lhcl = sections[0];
+        break;
+      }
+      // The slots of the class, the Magia of each and its spells
+      case "magic":
+        lh.classTab ??= await classContext(actor, { editable: this.isEditable });
+        lh.magic = this.#magicContext(lh.classTab);
+        break;
+      case "inventory":
+        Object.assign(lh, this.#inventoryContext(context));
+        break;
+      // Crest, bench, chances, materials, talent, works, Rank ladder (a new Rank celebrates when this tab draws)
+      case "profession":
+        lh.profession = professionContext(actor, { editable: this.isEditable });
+        break;
+      case "effects":
+        this._prepareEffects(context);
+        break;
+      // Who the character is, its data, looks and ways, its origins, ties, story and notes
+      case "biography":
+        await this._prepareBiography(context);
+        lh.bio = await this.#bioContext(context);
+        break;
+    }
+    return context;
+  }
+
+  /**
+   * The frame: the banner (HP, Barrier, Hate, Fatigue, defenses, power, combat checks, statuses), the header (what the
+   * character is, Fate) and the tabs, each with what waits in it.
+   * @param {object} context
+   */
+  async #frameContext(context) {
+    const actor = this.actor;
     const system = actor.system;
     const source = context.source;
     const battle = system["battle-status"] ?? {};
     const lh = {};
-
-    // Tabs (their badges come below, once what waits in them is known)
-    if (!TABS.some(t => t.id === this.tabGroups.primary)) this.tabGroups.primary = "character";
 
     // Sidebar: HP, Barrier, Hate, Fatigue
     const hp = toInt(system.health?.value), hpMax = Math.max(0, toInt(system.health?.max));
@@ -325,9 +455,6 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       tooltip: L("Sheet.FateHint", { value: fate, max: fateMax })
     };
 
-    // Header: the XP to the next NP (experience/level.mjs), what boosts it and the Evolution Tickets in the bag
-    lh.xp = this.#xpContext();
-
     // Defenses, initiative, speed, power
     const total = path => toInt(foundry.utils.getProperty(battle, `${path}.total`));
     lh.defense = { phys: total("defense.phys"), magic: total("defense.magic") };
@@ -338,32 +465,35 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       { id: "magic", icon: "fa-solid fa-wand-magic-sparkles", label: L("Sheet.Magic"), tooltip: "ETERNIA.Tooltip.MagicPower", value: total("power.magic") },
       { id: "recovery", icon: "fa-solid fa-hand-holding-heart", label: L("Sheet.Recovery"), tooltip: "ETERNIA.Tooltip.RestorationPower", value: total("power.restoration") }
     ];
-
-    // Attributes and checks
-    const check = (key, attr) => {
-      const c = system.checks?.[key] ?? {};
-      const dice = toInt(c.dice) || 2, value = toInt(c.total);
-      return {
-        key, attr, name: checkName(key), label: game.i18n.localize(`ETERNIA.Check.${checkName(key)}`),
-        dice, total: value, mod: signed(value), tier: Math.clamp(dice - 1, 1, 5)
-      };
-    };
-    // Each attribute with the two checks it gives (the character tab)
-    lh.attributes = ATTRIBUTES.map(({ key, checks }) => ({
-      key,
-      abbr: L(`Sheet.Attr.${key}.abbr`),
-      label: L(`Sheet.Attr.${key}.name`),
-      base: toInt(system.attributes?.[key]?.total),
-      mod: toInt(system.attributes?.[key]?.mod),
-      modLabel: signed(toInt(system.attributes?.[key]?.mod)),
-      checks: checks.map(c => check(c, L(`Sheet.Attr.${key}.abbr`)))
-    }));
-    lh.combatChecks = COMBAT_CHECKS.map(c => check(c));
+    lh.combatChecks = COMBAT_CHECKS.map(c => checkView(system, c));
 
     // Active statuses (sidebar tags)
     lh.statuses = activeStatuses(context.statusPanel);
 
-    // Skills: by subtype, then by Timing
+    // What the character is: the race, class and profession (the cards of the character tab, in their order)
+    const owned = context.characterOptions;
+    lh.identity = ["race", "class", "subclass"].filter(type => owned[type])
+      .map(type => ({ id: owned[type]._id, name: owned[type].name, type }));
+
+    // The tabs, each with what waits in it: counted without building the tabs (they draw when opened)
+    const browse = context.skillBrowse ?? {};
+    const open = await classBadges(actor);
+    const badges = {
+      skills: ["Combat", "General", "Basic"].reduce((n, subtype) => n + toInt(browse[subtype]?.pending), 0),
+      class: open.class,
+      magic: open.magic,
+      race: this.isEditable ? raceBadgeOf(actor, { editable: this.isEditable }) : 0
+    };
+    lh.tabs = TABS.map(t => ({ ...t, label: L(`Sheet.TabShort.${t.id}`), badge: badges[t.id] || 0 }));
+    return lh;
+  }
+
+  /**
+   * The skills tab: Combat / General / Basic, each by Timing.
+   * @param {object} context
+   */
+  #skillTabs(context) {
+    const actor = this.actor;
     const enrich = item => {
       const s = item.system;
       const max = Math.clamp(toInt(s.skillRank?.max), 0, 10), value = toInt(s.skillRank?.value);
@@ -387,13 +517,8 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     const powers = itemSkillsOf(actor);
     const fromItems = new Set([...powers].filter(([id]) => actor.items.has(id)).flatMap(([, list]) => list.map(s => s.id)));
     const listed = skills => skills.filter(s => !fromItems.has(s._id));
-    const powerIcons = item => (powers.get(item?._id) ?? []).map((skill, i, list) => ({
-      id: skill.id,
-      n: (list.length > 1) ? i + 1 : null,
-      tooltip: L("Sheet.UsePower", { name: skill.name, timing: term("timing", skill.system.timing) })
-    }));
     const browse = context.skillBrowse ?? {};
-    lh.skillTabs = [
+    return [
       { id: "combat", subtype: "Combat", skills: listed(context.skills.combat) },
       { id: "general", subtype: "General", skills: listed(context.skills.general) },
       { id: "basic", subtype: "Basic", skills: listed(context.skills.basic) }
@@ -401,8 +526,23 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       ...tab, groups: group(tab.skills), count: tab.skills.length,
       browse: browse[tab.subtype], pending: toInt(browse[tab.subtype]?.pending)
     }));
+  }
 
-    // Inventory: equipment slots, carried items, space, gold
+  /**
+   * The inventory tab: the equipment slots, the items carried, the space and the gold.
+   * @param {object} context
+   */
+  #inventoryContext(context) {
+    const actor = this.actor;
+    const system = actor.system;
+    const lh = {};
+    // The items' trigger powers (content.mjs), used from the item
+    const powers = itemSkillsOf(actor);
+    const powerIcons = item => (powers.get(item?._id) ?? []).map((skill, i, list) => ({
+      id: skill.id,
+      n: (list.length > 1) ? i + 1 : null,
+      tooltip: L("Sheet.UsePower", { name: skill.name, timing: term("timing", skill.system.timing) })
+    }));
     const eq = context.items.equipped, hands = context.hands;
     lh.slots = [
       { pos: "main", type: "hand", hand: "main", index: 0, icon: "weapon", label: "ETERNIA.Hands.Main", item: hands.main, swap: hands.canSwap },
@@ -424,49 +564,8 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       }));
     lh.space = { value: space, max: maxSpace, pct: maxSpace ? Math.clamp(Math.round((space / maxSpace) * 100), 0, 100) : 100, over: space > maxSpace };
     lh.itemTypes = ITEM_TYPES.map(type => ({ type, label: game.i18n.localize(`TYPES.Item.${type}`) }));
-    lh.gold = toInt(source.inventory?.gold).toLocaleString(game.i18n.lang);
-
-    // Class: the Motor, the kit, the Path, the talents, the Dedications
-    lh.classTab = await classContext(actor, { editable: this.isEditable });
-    const sections = (lh.classTab.sections ?? []).map(s => s.id);
-    if (!this.#classSectionPicked && lh.classTab.focus) this.tabGroups.lhcl = lh.classTab.focus;
-    if (sections.length && !sections.includes(this.tabGroups.lhcl)) this.tabGroups.lhcl = sections[0];
-
-    // Profession: crest, bench, chances, materials, talent, works, Rank ladder
-    lh.profession = professionContext(actor, { editable: this.isEditable });
-
-    // The portrait (the character tab and the bio): a token shows as it is, with no square behind it
-    lh.portrait = await portraitFit(actor.img);
-
-    // What the character is: the race, class and profession (the header and the character tab)
-    lh.options = this.#optionCards(context);
-    lh.identity = lh.options.filter(o => o.item).map(o => ({ id: o.item._id, name: o.item.name, type: o.type }));
-    lh.creation = {
-      blank: CreationWizard.isBlank(actor),
-      can: this.isEditable && CreationWizard.canCreate(actor)
-    };
-
-    // The Magias tab: the slots of the class, the Magia of each and its spells
-    lh.magic = this.#magicContext(lh.classTab);
-
-    // The race tab: the race and the five stages of its form
-    lh.raceTab = raceContext(actor, { editable: this.isEditable });
-
-    // The bio: who the character is, its data, looks and ways, its origins, ties, story and notes
-    lh.bio = await this.#bioContext(context);
-
-    // The tabs, each with what waits in it
-    const pendingSkills = lh.skillTabs.reduce((n, t) => n + t.pending, 0);
-    const badges = {
-      skills: pendingSkills,
-      class: (lh.classTab.sections ?? []).filter(s => s.pending).length,
-      magic: toInt(lh.classTab.magic?.open),
-      race: this.isEditable ? raceBadge(lh.raceTab) : 0
-    };
-    lh.tabs = TABS.map(t => ({ ...t, label: L(`Sheet.TabShort.${t.id}`), badge: badges[t.id] || 0 }));
-
-    context.lh = lh;
-    return context;
+    lh.gold = toInt(context.source.inventory?.gold).toLocaleString(game.i18n.lang);
+    return lh;
   }
 
   /**
@@ -588,7 +687,7 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     ];
 
     const enrich = html => foundry.applications.ux.TextEditor.implementation.enrichHTML(html ?? "", {
-      rollData: context.rollData, relativeTo: actor, secrets: actor.isOwner
+      rollData: needsRollData(html) ? context.rollData : undefined, relativeTo: actor, secrets: actor.isOwner
     });
     return {
       epithet: field("epithet"),
@@ -612,10 +711,79 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
+  _configureRenderOptions(options) {
+    if (!TABS.some(t => t.id === this.tabGroups.primary)) this.tabGroups.primary = "character";
+    // A change of the character (its data, items or effects) draws the frame and the open tab; the other tabs draw
+    // when they are opened (changeTab). The first render and the forced ones draw everything.
+    const partial = !options.isFirstRender && !options.force && !options.parts && !options.tab && !!options.renderContext;
+    if (partial) options.parts = ["frame", this.tabGroups.primary];
+    super._configureRenderOptions(options);
+    if (partial) for (const { id } of TABS) if (id !== this.tabGroups.primary) this.#stale.add(id);
+  }
+
+  /**
+   * @override
+   * The tabs go in the frame's body, in their order. When the frame draws, the tabs this render doesn't draw move from
+   * the old body to the new one and the ones it draws get their place kept there, before the old frame leaves: each tab
+   * drawn then takes its place (HandlebarsApplicationMixin#_replaceHTML finds the parts by data-application-part).
+   */
+  _replaceHTML(result, content, options) {
+    if (result.frame) {
+      const body = result.frame.querySelector(".lhpf-body");
+      for (const { id } of TABS) {
+        const kept = (id in result) ? null : this.parts[id];
+        if (kept) {
+          body.append(kept);
+          continue;
+        }
+        const place = document.createElement("section");
+        place.dataset.applicationPart = id;
+        body.append(place);
+        // Neither drawn nor kept (never drawn): drawn when opened
+        if (!(id in result)) this.#stale.add(id);
+      }
+      result = { frame: result.frame, ...result };
+    }
+    super._replaceHTML(result, content, options);
+    for (const id of Object.keys(result)) this.#stale.delete(id);
+    this.#drawn += 1;
+  }
+
+  /** @override */
   changeTab(tab, group, options = {}) {
+    if (group === "primary") {
+      this.#wanted = tab;
+      // A tab drawn before the character's last changes draws first, then opens (unless another tab was asked for)
+      if (this.#stale.has(tab)) {
+        const drawn = this.#drawn;
+        this.render({ parts: [tab] }).then(() => {
+          const open = this.state > foundry.applications.api.ApplicationV2.RENDER_STATES.NONE;
+          if (open && (this.#wanted === tab) && (this.#drawn !== drawn)) this.changeTab(tab, group, options);
+        });
+        return;
+      }
+    }
     super.changeTab(tab, group, options);
     if (group === "lhcl") this.#classSectionPicked = true;
     if (group === "lhmg") this.#magicPicked = true;
+  }
+
+  /**
+   * @override
+   * The fields of a tab drawn before the character's last changes hold the values of then: they stay out of the
+   * update (a tab that isn't open isn't edited), or they would put the old values back.
+   */
+  _processFormData(event, form, formData) {
+    const stale = [...this.#stale].map(id => this.parts[id]).filter(Boolean);
+    const inStale = el => stale.some(part => part.contains(el));
+    for (const part of stale) {
+      for (const field of part.querySelectorAll("[name], [data-edit]")) {
+        const key = field.getAttribute("name") ?? field.dataset.edit;
+        const same = form.querySelectorAll(`[name="${CSS.escape(key)}"], [data-edit="${CSS.escape(key)}"]`);
+        if (![...same].some(el => !inStale(el))) delete formData.object[key];
+      }
+    }
+    return super._processFormData(event, form, formData);
   }
 
   /** @override */
@@ -632,7 +800,45 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
     await super._onRender(context, options);
     const root = this.element;
     root.classList.remove("eternia");
+    // Summaries left open before this render.
+    this.#summaries.restore(root);
+  }
 
+  /** @override */
+  _activateSheetListeners(root, partId) {
+    // The frame's body holds the tabs, each with its own listeners (attached when the tab draws)
+    if (partId === "frame") {
+      for (const region of root.children) if (!region.matches(".lhpf-body")) super._activateSheetListeners(region, partId);
+      this.#activateFrame(root);
+      return;
+    }
+    super._activateSheetListeners(root, partId);
+    switch (partId) {
+      // The search narrows the list of the open pane (the headers of empty groups hide).
+      case "skills":
+        for (const input of root.querySelectorAll(".lhpf-skill-search input")) {
+          input.value = this.#skillQuery;
+          input.addEventListener("input", () => {
+            this.#skillQuery = input.value;
+            this.#filterSkills(root);
+          });
+        }
+        this.#filterSkills(root);
+        break;
+      case "inventory":
+        for (const field of root.querySelectorAll(".gold-input")) blurOnEnter(field);
+        break;
+      // What each skill does, under the pointer
+      case "race":
+      case "class":
+      case "magic":
+        activateClassTab(this, root);
+        break;
+    }
+  }
+
+  /** The banner's and the header's listeners. */
+  #activateFrame(root) {
     // Barrier: its own field is also in the status panel, so this copy saves by itself (no form name).
     const barrier = root.querySelector(".lhpf-barrier");
     barrier?.addEventListener("change", event => {
@@ -647,23 +853,7 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
       this.#setFate(-1);
     });
 
-    // Enter in a number field saves it (blur) instead of keeping the focus.
-    for (const field of root.querySelectorAll(".lhpf-sidebar input, .lhpf-header input, .gold-input")) {
-      field.addEventListener("keydown", event => { if (event.key === "Enter") { event.preventDefault(); field.blur(); } });
-    }
-    // The skills tab: the search narrows the list of the open pane (the headers of empty groups hide).
-    for (const input of root.querySelectorAll(".lhpf-skill-search input")) {
-      input.value = this.#skillQuery;
-      input.addEventListener("input", () => {
-        this.#skillQuery = input.value;
-        this.#filterSkills(root);
-      });
-    }
-    this.#filterSkills(root);
-    // Summaries left open before this render.
-    this.#summaries.restore(root);
-    // The class tab: what each skill does, under the pointer
-    activateClassTab(this, root);
+    for (const field of root.querySelectorAll(".lhpf-sidebar input, .lhpf-header input")) blurOnEnter(field);
   }
 
   /** What the skills tab's search has (kept across renders). */

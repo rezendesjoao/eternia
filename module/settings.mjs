@@ -27,6 +27,8 @@ const SECTIONS = {
 
 /** Call during the `init` hook. */
 export function registerSettings() {
+  for (const hook of ["createSetting", "updateSetting", "deleteSetting"]) Hooks.on(hook, doc => forget(doc.key));
+  Hooks.on("clientSettingChanged", key => forget(key));
   const toggle = (key, value = true, scope = "world") => game.settings.register(SYSTEM_ID, key, {
     name: `ETERNIA.Settings.${key}.Name`,
     hint: `ETERNIA.Settings.${key}.Hint`,
@@ -211,14 +213,49 @@ function addSectionHeaders(app, html) {
   }
 }
 
+/**
+ * The plain values of the system's settings (on/off, numbers, text), read once. Foundry's get builds a Setting document
+ * on every read of a client setting and searches the world's settings for the others, and the rules read theirs in
+ * every check, turn sort and token refresh. A value is forgotten the moment it changes: in the setting's own onChange,
+ * which Foundry calls on every client before any hook or listener can read the new value, and in the setting hooks.
+ * An object setting is read fresh every time, as before, so a caller that changes the copy it got can't change a kept one.
+ * @type {Map<string, boolean|number|string|null>}
+ */
+const values = new Map();
+/** The registered setting configurations whose onChange forgets the kept value. */
+const watched = new WeakSet();
+
+/** Make a setting forget its kept value when it changes; false when it isn't registered (yet). */
+function watch(key) {
+  const config = game.settings?.settings.get(`${SYSTEM_ID}.${key}`);
+  if (!config) return false;
+  if (watched.has(config)) return true;
+  const onChange = config.onChange;
+  config.onChange = function(...args) {
+    values.delete(key);
+    return onChange?.apply(this, args);
+  };
+  watched.add(config);
+  return true;
+}
+
+/** Forget the kept value of a setting document that changed (the hooks come after the onChange, to be sure). */
+function forget(key) {
+  if (typeof key === "string" && key.startsWith(`${SYSTEM_ID}.`)) values.delete(key.slice(SYSTEM_ID.length + 1));
+}
+
 /** A setting's value (null before the settings exist). */
 export function setting(key) {
+  if (values.has(key)) return values.get(key);
+  let value;
   try {
-    return game.settings.get(SYSTEM_ID, key);
+    value = game.settings.get(SYSTEM_ID, key);
   }
   catch {
     return null;
   }
+  if (((value === null) || ["boolean", "number", "string"].includes(typeof value)) && watch(key)) values.set(key, value);
+  return value;
 }
 
 /** Localized text ("ETERNIA.<key>"). */

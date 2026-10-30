@@ -9,7 +9,10 @@ import { registerMonsterSheet } from "./sheets/monster-sheet.mjs";
 import { EterniaItemSheet } from "./sheets/item-sheet.mjs";
 import { EterniaActiveEffectConfig } from "./apps/effect-config.mjs";
 // Import helper/utility classes and constants.
-import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
+import { preloadHandlebarsTemplates, registerBundledTemplates } from "./helpers/templates.mjs";
+import { registerStatusPrefetch } from "./helpers/status-prefetch.mjs";
+import { registerFontLoading } from "./helpers/font-loading.mjs";
+import { registerLowPerformance } from "./helpers/performance.mjs";
 import { ETERNIA } from "./helpers/config.mjs";
 import { registerStatuses } from "./helpers/statuses.mjs";
 import { registerTags } from "./helpers/tags.mjs";
@@ -87,6 +90,9 @@ Hooks.once('init', async function () {
 
   console.log(`Eternia | Initializing the system...\n${ETERNIA.ASCII}`);
 
+  // The release bundle carries every template: registered before anything renders
+  registerBundledTemplates();
+
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
   game.eternia = {
@@ -149,6 +155,12 @@ Hooks.once('init', async function () {
 
   // Eternia statuses (Token HUD, token icons, sheet sync, [Hidden])
   registerStatuses();
+  // Their icons fetched while the world data is still on its way (the first scene loads them all)
+  registerStatusPrefetch();
+  // The canvas fonts: the files of each family side by side, not one after the other
+  registerFontLoading();
+  // A weak computer (Foundry's Low performance mode): a shorter first page of the chat
+  registerLowPerformance();
   // Tag catalog, tag editor helper and tag normalization
   registerTags();
   // Effect targets catalog and summary helper

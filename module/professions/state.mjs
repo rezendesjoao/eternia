@@ -6,6 +6,7 @@
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { counter } from "../automation/scenes.mjs";
+import { packIndex } from "../helpers/pack-index.mjs";
 import { actorName, escape, toInt } from "../helpers/utils.mjs";
 import {
   ITEMS_PACK, MAX_RANK, PROFESSIONS, RANK_EXP, SHARD, attemptsOf, catalystLevel, levelCapOf, materialLevel, rankOf
@@ -130,12 +131,12 @@ export function materialFor(actor, level) {
 }
 
 /** Index of the system's item compendium, with what finds the materials. */
-let packIndex = null;
+let materialsIndex = null;
 async function itemsIndex() {
   const pack = game.packs.get(ITEMS_PACK);
   if (!pack) return null;
-  packIndex ??= await pack.getIndex({ fields: ["system.tags", `flags.${SYSTEM_ID}.material`] });
-  return { pack, index: packIndex };
+  materialsIndex ??= await packIndex(pack, ["system.tags", `flags.${SYSTEM_ID}.material`]);
+  return { pack, index: materialsIndex };
 }
 
 /** Data of a compendium item found by a test on its index entry (null if missing). */

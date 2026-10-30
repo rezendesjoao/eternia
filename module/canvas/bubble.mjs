@@ -14,6 +14,9 @@ import { panelLayer } from "../helpers/panels.mjs";
  */
 const entries = [];
 
+/** The bubble open now, or null. */
+let current = null;
+
 /**
  * Add an entry to the bubble.
  * @param {object} entry
@@ -67,7 +70,11 @@ export function openBubble(token) {
     entries.find(e => e.id === button.dataset.bubble)?.onClick(token);
   });
   panelLayer().append(el);
-  setTimeout(() => document.addEventListener("pointerdown", outside, { capture: true }), 0);
+  current = el;
+  // Not when it closed before this: a closeBubble with none open would leave the listener on
+  setTimeout(() => {
+    if (current === el) document.addEventListener("pointerdown", outside, { capture: true });
+  }, 0);
   return el;
 }
 
@@ -76,6 +83,9 @@ function outside(event) {
 }
 
 export function closeBubble() {
+  // None open: every frame of a pan comes here
+  if (!current) return;
+  current = null;
   document.removeEventListener("pointerdown", outside, { capture: true });
   document.getElementById("eternia-bubble")?.remove();
 }

@@ -28,7 +28,8 @@ export function applyConditionStats(actor) {
   const sealed = (actor.type === "monster") ? Math.max(0, Math.trunc(Number(actor.system?.["bad-status"]?.reaped) || 0)) : 0;
   if (sealed && actor.system.health) actor.system.health.max = Math.max(0, (Number(actor.system.health.max) || 0) - sealed);
   const battle = actor.system?.["battle-status"];
-  if (!battle || !rulesOn() || !actor.statuses?.size) return;
+  // The statuses first: the setting is the dearer read
+  if (!battle || !actor.statuses?.size || !rulesOn()) return;
 
   const defense = battle.defense;
   if (defense) {

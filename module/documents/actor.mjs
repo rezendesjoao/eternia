@@ -118,6 +118,21 @@ export class EterniaActor extends Actor {
     this.passiveBonuses = [];
   }
 
+  /**
+   * @inheritdoc
+   * The effect phases of one preparation share their item lookups (helpers/hands.mjs): `_lhPrep` is false while the
+   * items are prepared, the shared lookups from the first phase on (_prepareEffects), and null outside the preparation.
+   */
+  prepareData() {
+    this._lhPrep = false;
+    try {
+      super.prepareData();
+    }
+    finally {
+      this._lhPrep = null;
+    }
+  }
+
   /** @inheritdoc */
   applyActiveEffects(phase) {
     if (phase === "initial") this._prepareEffects();
@@ -131,17 +146,22 @@ export class EterniaActor extends Actor {
    * (unequipped, usable items…).
    */
   _prepareEffects() {
+    // The items are prepared: their lookups hold until the end of this preparation (see prepareData)
+    if (this._lhPrep === false) this._lhPrep = {};
+    // The state conditions the effects use (EterniaActiveEffect#determineSuppression, helpers/effect-conditions.mjs)
+    this._lhStateTypes = new Set();
+    const effects = [...this.allApplicableEffects()];
     // Conditions on statuses (see helpers/effect-conditions.mjs) read the statuses of the effects that
     // aren't conditional themselves: the actor's own are only gathered while the effects are applied.
     this._lhStatuses = new Set();
-    for (const effect of this.allApplicableEffects()) {
+    for (const effect of effects) {
       if (effect.disabled || effect.sourceItem?.areEffectsSuppressed || effect.getFlag("eternia", "conditions")?.length || effect.sourceItem?.system?.conditions?.length) continue;
       for (const status of effect.statuses) this._lhStatuses.add(status);
     }
-    for (const effect of this.allApplicableEffects()) effect.determineSuppression();
+    for (const effect of effects) effect.determineSuppression();
     this._lhStatuses = null;
     // Roll bonuses and skill modifiers: kept on the actor, evaluated when used (see EterniaActiveEffect#shouldApplyChange).
-    for (const effect of this.allApplicableEffects()) {
+    for (const effect of effects) {
       if (!effect.active) continue;
       for (const change of effect.system.changes) {
         if (isSkillFilterKey(change.key)) collectRollBonus(this, effect, change);
@@ -280,11 +300,25 @@ export class EterniaActor extends Actor {
       system[k] = foundry.utils.deepClone(v);
     }
 
-    system.itemData = {};
-    system.skillData = {};
-    for (const item of this.items) {
-      const target = (item.type === "skill") ? system.skillData : system.itemData;
-      target[item.id] = foundry.utils.deepClone(item.system);
+    // Copies of the items' data by id (@itemData.<id>…, @skillData.<id>… for the skills), made when first read: the core
+    // asks for the roll data in every effect phase of every preparation, and nothing there reads them.
+    let copies = null;
+    const copiesOf = () => {
+      if (copies) return copies;
+      copies = { itemData: {}, skillData: {} };
+      for (const item of this.items) {
+        const target = (item.type === "skill") ? copies.skillData : copies.itemData;
+        target[item.id] = foundry.utils.deepClone(item.system);
+      }
+      return copies;
+    };
+    for (const key of ["itemData", "skillData"]) {
+      Object.defineProperty(system, key, {
+        get: () => copiesOf()[key],
+        // Writing it keeps that value, as a plain property
+        set: value => Object.defineProperty(system, key, { value, writable: true, enumerable: true, configurable: true }),
+        enumerable: true, configurable: true
+      });
     }
   }
 

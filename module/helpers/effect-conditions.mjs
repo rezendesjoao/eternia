@@ -15,7 +15,6 @@
 import { EQUIP_TYPES } from "../piles/pile-config.mjs";
 import { getHands, isTwoHanded } from "./hands.mjs";
 import { tagKey, TAG_CATALOG } from "./tag-catalog.mjs";
-import { formulaData } from "./effect-formulas.mjs";
 
 /**
  * Condition types. `param`: what `value` holds ("number" | "tag" | "status"); `optional`: the tag may be
@@ -48,6 +47,22 @@ export const CONDITION_TYPES = [
 ];
 
 const STATE_TYPES = new Set(CONDITION_TYPES.filter(t => t.state).map(t => t.id));
+
+/** State types that read only the actor's own statuses: the actor re-prepares itself when they change. */
+const OWN_TYPES = new Set(["status", "notStatus"]);
+
+/**
+ * What the combat state types read of the actor's combat, as paths of an updateCombat change (combatOf: started is
+ * round > 0; EterniaCombat#phase, #progress and #isPostAction). Combatants joining or leaving are the create /
+ * deleteCombatant refreshes. A state type missing here and from OWN_TYPES is refreshed on every update: Hate Top /
+ * Under read the combat in view (game.combat, which the tracker picks), and so will a new type until it is listed.
+ */
+const COMBAT_INPUTS = new Map(Object.entries({
+  inCombat: ["round", "combatants"],
+  firstRound: ["round", "combatants"],
+  preAction: ["round", "turn", "combatants", "flags.eternia.phase", "flags.eternia.acted", "flags.eternia.active"],
+  standby: ["round", "combatants", "flags.eternia.standby"]
+}).map(([type, paths]) => [type, paths.map(p => p.split("."))]));
 
 /**
  * "top" / "under" for a character: its [Hate Top] / [Hate Under] status, or else the Hate of the characters
@@ -167,8 +182,11 @@ function motorStates(actor, item) {
  */
 export function unmetCondition(conditions, actor, item) {
   if (!conditions?.length) return null;
-  const { sr, cr } = formulaData(actor, item);
-  let equipped, hands, fight, motors;
+  // @sr and @cr as formulaData (effect-formulas.mjs) reads them: the conditions need nothing else of it
+  const sr = Number(item?.system?.skillRank?.value) || 0;
+  const system = actor?.system;
+  const cr = system ? (Number(actor.type === "monster" ? system.rank : system.infos?.crank) || 0) : 0;
+  let equipped, hands, fight, motors, skills;
   // While the actor is prepared, its statuses are those gathered before (see actor.mjs applyActiveEffects).
   const statuses = () => actor?._lhStatuses ?? actor?.statuses ?? new Set();
   const ctx = {
@@ -177,23 +195,42 @@ export function unmetCondition(conditions, actor, item) {
     hands: () => hands ??= getHands(actor),
     hate: () => hateRank(actor, statuses()),
     combat: () => fight ??= combatOf(actor),
-    skills: () => new Set((actor?.items ?? []).filter(i => i.type === "skill").map(i => i.name.trim().toLowerCase())),
+    skills: () => skills ??= new Set((actor?.items ?? []).filter(i => i.type === "skill").map(i => i.name.trim().toLowerCase())),
     motors: () => (motors ??= motorStates(actor, item)).all,
     motor: () => (motors ??= motorStates(actor, item)).own
   };
   return conditions.find(c => TESTS[c?.type] && !TESTS[c.type](c, ctx)) ?? null;
 }
 
+/** No conditions (most effects): one shared, frozen list. */
+const NO_CONDITIONS = Object.freeze([]);
+
 /** Conditions of an effect, plus those of the skill giving it. */
 export function effectConditions(effect, item) {
-  const own = effect.flags?.eternia?.conditions ?? [];
-  const fromItem = item?.system?.conditions ?? [];
+  const own = effect.flags?.eternia?.conditions ?? NO_CONDITIONS;
+  const fromItem = item?.system?.conditions ?? NO_CONDITIONS;
+  if (Array.isArray(own) && Array.isArray(fromItem) && !own.length && !fromItem.length) return NO_CONDITIONS;
   return [...(Array.isArray(fromItem) ? fromItem : Object.values(fromItem)), ...(Array.isArray(own) ? own : Object.values(own))];
 }
 
 /** Whether any of the conditions depends on statuses or combat. */
 export function hasStateCondition(conditions) {
   return conditions.some(c => STATE_TYPES.has(c?.type));
+}
+
+/**
+ * Keep on the actor the state condition types its effects use (EterniaActiveEffect#determineSuppression, while the
+ * actor is prepared): refreshStateConditions re-prepares only the actors whose types may have changed.
+ * @param {Actor|null} actor
+ * @param {object[]} conditions
+ */
+export function noteStateTypes(actor, conditions) {
+  if (actor?._lhStateTypes) addStateTypes(actor._lhStateTypes, conditions);
+}
+
+/** Add the state condition types among the conditions to a set. */
+function addStateTypes(types, conditions) {
+  for (const c of conditions) if (STATE_TYPES.has(c?.type)) types.add(c.type);
 }
 
 /** Readable condition: "SR ≥ 2", "Not equipped with [Shield]", "While [Hidden]". */
@@ -267,18 +304,82 @@ export function conditionsFromForm(data) {
   });
 }
 
+/** The state condition types an actor's effects use (noted while it was prepared, else looked up). */
+function stateTypesOf(actor) {
+  if (actor._lhStateTypes) return actor._lhStateTypes;
+  const types = new Set();
+  for (const effect of actor.allApplicableEffects()) addStateTypes(types, effectConditions(effect, effect.sourceItem));
+  return types;
+}
+
+/** Whether a change of a document changed this path (split in keys), or deleted or replaced one of its parents. */
+function touches(changed, keys) {
+  let value = changed;
+  for (const key of keys) {
+    if (!foundry.utils.isPlainObject(value)) return true;
+    if (!(key in value)) return false;
+    value = value[key];
+  }
+  return true;
+}
+
+// Which state types a refresh must re-prepare (see OWN_TYPES and COMBAT_INPUTS)
+const anyType = () => true;
+const notOwn = type => !OWN_TYPES.has(type);
+const readsOthers = type => !OWN_TYPES.has(type) && !COMBAT_INPUTS.has(type);
+const combatChanged = changed => type => !OWN_TYPES.has(type)
+  && (!COMBAT_INPUTS.has(type) || COMBAT_INPUTS.get(type).some(keys => touches(changed, keys)));
+
+/** Whether an effect of the actor or of its items has a core duration (its remaining time follows the combat). */
+function hasTimedEffects(actor) {
+  const timed = effect => Number.isFinite(effect.duration?.value);
+  return actor.effects.some(timed) || actor.items.some(item => item.effects.some(timed));
+}
+
+/** What the sheets show of the actor's effects that a re-preparation may change: whether each applies, and why not. */
+function conditionalState(actor) {
+  let state = "";
+  for (const effect of actor.allApplicableEffects()) {
+    const unmet = effect.unmetCondition;
+    state += `${effect.id}:${effect.active ? 1 : 0}${effect._lhSuppressed ? 1 : 0}:${unmet ? `${unmet.type}=${unmet.value}` : ""};`;
+  }
+  return state;
+}
+
+/** Actors whose open sheets re-render on the next frame: one render for every reset of that frame. */
+const pendingRenders = new Set();
+
+function renderNextFrame(actor) {
+  if (!pendingRenders.size) requestAnimationFrame(renderPending);
+  pendingRenders.add(actor);
+}
+
+function renderPending() {
+  const actors = new Set(pendingRenders);
+  pendingRenders.clear();
+  for (const app of foundry.applications.instances.values()) {
+    // As for a change of the actor: the character sheet draws its frame and the open tab (sheets/character-sheet.mjs)
+    if (app.rendered && (actors.has(app.document) || actors.has(app.document?.parent))) app.render({ renderContext: "eternia.conditions" });
+  }
+}
+
 /**
- * Re-prepare the actors whose effects have state conditions (and re-render their sheets): the combat
- * moved on, or a party member's Hate / statuses changed.
+ * Re-prepare the actors whose effects have state conditions that may have changed: the combat moved on, or a party
+ * member's Hate / statuses changed. Their sheets re-render (on the next frame) when that changed whether an effect
+ * applies, or always when an effect has a core duration and the combat moved (its remaining time, on the sheets).
  * @param {Actor[]} actors
+ * @param {(type: string) => boolean} needs   Whether a state condition type may have changed
+ * @param {boolean} [combatMoved]            A combat changed (the remaining time of the core durations too)
  */
-function refreshStateConditions(actors) {
+function refreshStateConditions(actors, needs, combatMoved = false) {
   for (const actor of new Set(actors)) {
-    if (!actor || ![...actor.allApplicableEffects()].some(e => hasStateCondition(effectConditions(e, e.sourceItem)))) continue;
+    const types = actor ? stateTypesOf(actor) : null;
+    if (!types?.size) continue;
+    const timed = combatMoved && hasTimedEffects(actor);
+    if (!timed && ![...types].some(needs)) continue;
+    const before = timed ? null : conditionalState(actor);
     actor.reset();
-    for (const app of foundry.applications.instances.values()) {
-      if (app.rendered && ((app.document === actor) || (app.document?.parent === actor))) app.render();
-    }
+    if (timed || (conditionalState(actor) !== before)) renderNextFrame(actor);
   }
 }
 
@@ -289,19 +390,26 @@ export function registerEffectConditions() {
   Handlebars.registerHelper("lhConditionLabel", conditionLabel);
 
   // Combat moved on (round, phase, turn, Standby…), started or ended
-  Hooks.on("updateCombat", combat => refreshStateConditions(combatActors(combat)));
-  Hooks.on("deleteCombat", combat => refreshStateConditions(combatActors(combat)));
-  Hooks.on("createCombatant", combatant => refreshStateConditions(combatActors(combatant.parent)));
-  Hooks.on("deleteCombatant", combatant => refreshStateConditions([combatant.actor, ...combatActors(combatant.parent)]));
+  Hooks.on("updateCombat", (combat, changed) => refreshStateConditions(combatActors(combat), combatChanged(changed), true));
+  Hooks.on("deleteCombat", combat => refreshStateConditions(combatActors(combat), anyType, true));
+  // Who joins or leaves is in combat or not; the others only rank their Hate against them
+  const onCombatant = (combatant, actors) => {
+    const actor = combatant.actor;
+    refreshStateConditions([actor], notOwn, true);
+    refreshStateConditions(actors.filter(a => a !== actor), readsOthers, true);
+  };
+  Hooks.on("createCombatant", combatant => onCombatant(combatant, combatActors(combatant.parent)));
+  Hooks.on("deleteCombatant", combatant => onCombatant(combatant, combatActors(combatant.parent)));
 
   // Hate Top / Under compare the Hate of the characters in combat (and leave out the Incapacitated)
   const partyOf = actor => game.combats.filter(c => c.started && c.getCombatantsByActor(actor).length).flatMap(combatActors)
     .filter(a => a !== actor);
   Hooks.on("updateActor", (actor, changed) => {
-    if (foundry.utils.hasProperty(changed, "system.infos.hate")) refreshStateConditions(partyOf(actor));
+    if (foundry.utils.hasProperty(changed, "system.infos.hate")) refreshStateConditions(partyOf(actor), readsOthers);
   });
+  // The actor itself re-prepares with its own effects: the others only read its statuses for the Hate ranking
   const onStatus = effect => {
-    if ((effect.parent instanceof Actor) && effect.statuses?.size) refreshStateConditions(partyOf(effect.parent));
+    if ((effect.parent instanceof Actor) && effect.statuses?.size) refreshStateConditions(partyOf(effect.parent), readsOthers);
   };
   Hooks.on("createActiveEffect", onStatus);
   Hooks.on("deleteActiveEffect", onStatus);

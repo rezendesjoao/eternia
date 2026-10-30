@@ -122,11 +122,33 @@ export function evaluateFormula(value, data) {
 }
 
 /**
+ * The labels already written, by formula (the skills write theirs on every preparation), for the translations they
+ * were written with (the names of the statuses): another language starts over.
+ */
+let labels = { translations: null, fallback: null, byFormula: new Map() };
+const MAX_LABELS = 2000;
+
+/**
  * Readable form of a formula: "@sr*3" -> "SR×3", "@dex.mod*2" -> "DEX mod×2".
  * @param {string} value
  * @returns {string}
  */
 export function formulaLabel(value) {
+  const formula = String(value);
+  const i18n = globalThis.game?.i18n;
+  if ((labels.translations !== i18n?.translations) || (labels.fallback !== i18n?._fallback)) {
+    labels = { translations: i18n?.translations, fallback: i18n?._fallback, byFormula: new Map() };
+  }
+  let label = labels.byFormula.get(formula);
+  if (label === undefined) {
+    label = writeFormulaLabel(formula);
+    if (labels.byFormula.size >= MAX_LABELS) labels.byFormula.clear();
+    labels.byFormula.set(formula, label);
+  }
+  return label;
+}
+
+function writeFormulaLabel(value) {
   return String(value)
     .replace(/@weapon\.attack\b/g, "Weapon Attack Power")
     .replace(/@weapon\.magic\b/g, "Weapon Magic Power")

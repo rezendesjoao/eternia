@@ -1,0 +1,37 @@
+/* ==========================================================================
+   A weak computer: the Eternia stands still in Foundry's Low performance mode
+   --------------------------------------------------------------------------
+   A player picks "Low" in Foundry's Performance Mode (Configure Settings) to spare a weak machine, and Foundry marks
+   the page with body.performance-low. In that mode the endless pulses, glows and spins of the system stop: each one
+   repaints its corner of the screen on every frame for as long as it shows (most animate a box-shadow), which a weak
+   computer feels on an open sheet or with the HUD up. They mark something that stays marked without them (the gold
+   border, the badge, the color). Every other mode looks exactly as before.
+   ========================================================================== */
+
+body.performance-low .lhpf .tab.class .lhcl-motor.ready .lhcl-pip.on,
+body.performance-low .lhpf .tab.class .lhcl-step.pending .lhcl-node,
+body.performance-low .lhpf .tab.class .lhcl-nav-item.pending::after,
+body.performance-low .lhpf :is(.tab.class, .tab.race) .lhcl-action,
+body.performance-low .lhpf .tab.class .lhcl-slot.empty.open .lhcl-slot-rank,
+body.performance-low .lhpf .tab.race .lhrc-form.ready,
+body.performance-low .lhpf .tab.race .lhrc-stage.ready .lhrc-seal,
+body.performance-low #lhauto-hud .lhh-motor.ready .lhh-motor-pips .pip.on,
+body.performance-low .lhpf .tab.magic .lhmg-slot.open,
+body.performance-low .eternia-arena .dl-live h3 i,
+body.performance-low .lhpf .tab.profession .lhp-medallion-ring,
+body.performance-low .lhpf .tab.profession .lhp-pending > i,
+body.performance-low .lhpf .tab.profession .lhp-ladder li.current .lhp-step,
+body.performance-low .lhp-bench .lhp-socket.empty,
+body.performance-low .lhp-bench .lhp-legendary-note > i,
+body.performance-low .lhp-bench .lhp-reveal-glow,
+body.performance-low .lhp-bench .lhp-done-rays,
+body.performance-low .lhpf nav.lhpf-tabs .lhpf-badge,
+body.performance-low .lhpf .lhpf-form-seal.ready,
+body.performance-low .lhpf .lhpf-toolbar button.attention {
+  animation: none;
+}
+
+/* The shine that runs across the profession's experience bar would sit still at its left end */
+body.performance-low .lhpf .tab.profession .lhp-exp-fill::after {
+  content: none;
+}

@@ -15,6 +15,7 @@ import { effectModified } from "../helpers/sheet-values.mjs";
 import { refreshSkills } from "../apps/skill-refresh.mjs";
 import { isAwakenedMagia } from "../apps/awakening.mjs";
 import { useTicketsDialog } from "../experience/tickets.mjs";
+import { SheetRenderMixin, needsRollData } from "./sheet-render.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -31,7 +32,7 @@ const EQUIP_SLOT_CAPACITY = {
  * Sheet for character actors in AppV2.
  * @extends {foundry.applications.sheets.ActorSheetV2}
  */
-export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
+export class EterniaActorSheet extends SheetRenderMixin(HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2)) {
 
   static DEFAULT_OPTIONS = {
     classes: ["eternia", "sheet", "actor"],
@@ -117,10 +118,11 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
     context.editable = this.isEditable;
     context.owner = actor.isOwner;
 
-    // Items array: flat objects with id and _id, sorted by sort order
+    // Items array: flat objects with id and _id, sorted by sort order. What the templates read, with the item's own
+    // system and flags (read only: the rows get their own fields, never the item's data).
     context.items = actor.items.contents
       .sort((a, b) => a.sort - b.sort)
-      .map(i => ({ ...i.toObject(false), id: i.id, _id: i.id }));
+      .map(i => ({ _id: i.id, id: i.id, name: i.name, img: i.img, type: i.type, sort: i.sort, system: i.system, flags: i.flags }));
 
     // Prepare character data and items.
     this._prepareItems(context);
@@ -135,8 +137,11 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
       context.skillBrowse = { Basic: {}, ...Object.fromEntries(PICK_SUBTYPES.map(s => [s, { pending: pending[s] }])) };
     }
 
-    // Roll data for TinyMCE/ProseMirror editors.
-    context.rollData = actor.getRollData();
+    // Roll data for the inline rolls of the enriched texts: built when read (needsRollData)
+    let rollData = null;
+    Object.defineProperty(context, "rollData", {
+      get: () => (rollData ??= actor.getRollData()), enumerable: true, configurable: true
+    });
 
     // Source data for editable inputs (prevents active effect baking on submitOnChange)
     const baseSource = actor._source.system ?? {};
@@ -165,21 +170,47 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
       crank: effectModified(source.infos.crank, actor.system.infos?.crank)
     };
 
-    // Enrich textarea / biography content
-    context.enrichments = {
-      biography: await foundry.applications.ux.TextEditor.implementation.enrichHTML(context.system.biography ?? "", {
-        async: true,
-        rollData: context.rollData,
-        relativeTo: actor
-      })
-    };
-
-    // Prepare active effects and status panel
-    // Own effects plus the ones its items transfer (applied from the item, not copied onto the actor).
-    context.effects = prepareActiveEffectCategories(actor.allApplicableEffects());
+    // Status panel (the biography and the effects come with the part that shows them: _preparePartContext)
     context.statusPanel = getStatusPanel(actor);
 
     return context;
+  }
+
+  /** @override */
+  async _preparePartContext(partId, context, options) {
+    context = await super._preparePartContext(partId, context, options);
+    // The system's own template shows everything in one part
+    if (partId === "sheet") {
+      await this._prepareBiography(context);
+      this._prepareEffects(context);
+    }
+    return context;
+  }
+
+  /**
+   * Enrich textarea / biography content.
+   * @param {object} context
+   * @protected
+   */
+  async _prepareBiography(context) {
+    const biography = context.system.biography ?? "";
+    context.enrichments = {
+      biography: await foundry.applications.ux.TextEditor.implementation.enrichHTML(biography, {
+        async: true,
+        rollData: needsRollData(biography) ? context.rollData : undefined,
+        relativeTo: this.actor
+      })
+    };
+  }
+
+  /**
+   * Prepare active effects: own effects plus the ones its items transfer (applied from the item, not copied onto the
+   * actor).
+   * @param {object} context
+   * @protected
+   */
+  _prepareEffects(context) {
+    context.effects = prepareActiveEffectCategories(this.actor.allApplicableEffects());
   }
 
   /**
@@ -463,9 +494,23 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
 
     // Re-apply hate/fatigue flyout state
     this._applyHateState();
+  }
 
+  /** @override */
+  _attachPartListeners(partId, htmlElement, options) {
+    super._attachPartListeners(partId, htmlElement, options);
+    this._activateSheetListeners(htmlElement, partId);
+  }
+
+  /**
+   * Listeners of what a part shows, attached when it renders (a part kept from an earlier render keeps its own).
+   * @param {HTMLElement} root     The part's element
+   * @param {string} partId
+   * @protected
+   */
+  _activateSheetListeners(root, partId) {
     // Enter key on ticket rank input
-    for (const input of this.element.querySelectorAll(".ticket-rank-input")) {
+    for (const input of root.querySelectorAll(".ticket-rank-input")) {
       input.addEventListener("keydown", async ev => {
         if (ev.key !== "Enter") return;
         ev.preventDefault();
@@ -477,9 +522,9 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
     // Toggle statuses that have no data field (the others sync from their inputs)
     // Pursuit list: add/edit/remove Ratings
     if (this.isEditable) {
-      activateStatusPanelListeners(this.element, this.actor);
+      activateStatusPanelListeners(root, this.actor);
 
-      for (const toggle of this.element.querySelectorAll(".status-toggle")) {
+      for (const toggle of root.querySelectorAll(".status-toggle")) {
         toggle.addEventListener("change", ev => {
           this.actor.toggleStatusEffect(ev.currentTarget.dataset.statusId, { active: ev.currentTarget.checked });
         });
@@ -487,10 +532,10 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
     }
 
     // Tag management
-    activateTagInput(this.element, this.actor, this);
+    activateTagInput(root, this.actor, this);
 
     // Equip an item by dragging it onto one of the equipment slots.
-    for (const slot of this.element.querySelectorAll(".equip-slot")) {
+    for (const slot of root.querySelectorAll(".equip-slot")) {
       slot.addEventListener("dragover", ev => {
         ev.preventDefault();
         ev.stopPropagation();
@@ -504,7 +549,7 @@ export class EterniaActorSheet extends HandlebarsApplicationMixin(foundry.applic
     }
 
     // Unequip an item by dragging it back onto the general inventory grid.
-    const inventoryList = this.element.querySelector(".inventory-list");
+    const inventoryList = root.querySelector(".inventory-list");
     if (inventoryList) {
       inventoryList.addEventListener("dragover", ev => ev.preventDefault());
       inventoryList.addEventListener("drop", ev => this._onInventoryDrop(ev));

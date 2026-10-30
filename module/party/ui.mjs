@@ -320,9 +320,13 @@ export function registerPartyScreens() {
   Hooks.on("updateActor", actor => {
     if ((actor.type === "character") && document.getElementById("eternia-party")) refreshFrame();
   });
+  // A status of a member the frame shows (a row of the open list reads only its own actor; the folded frame, none)
   for (const hook of ["createActiveEffect", "deleteActiveEffect"]) {
     Hooks.on(hook, effect => {
-      if ((effect.parent instanceof Actor) && document.getElementById("eternia-party")) refreshFrame();
+      const actor = effect.parent;
+      if (!(actor instanceof Actor)) return;
+      const rows = document.getElementById("eternia-party")?.querySelectorAll(".pt-member[data-uuid]") ?? [];
+      if ([...rows].some(row => row.dataset.uuid === actor.uuid)) refreshFrame();
     });
   }
   Hooks.once("ready", () => refreshFrame());

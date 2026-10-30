@@ -9,6 +9,7 @@
  *   one that is full; the GM chooses freely.
  * A Magia with `flags.eternia.magic.exclusive` (every Absoluta) takes all the Magia slots of its holder: who has it is
  * offered no other Magia (apps/option-grants.mjs), and a player with another Magia can't take it.
+ * A window that shows every Magia reads the world once for all of them (holderCensus), not once per Magia.
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { toInt } from "../helpers/utils.mjs";
@@ -44,24 +45,61 @@ export const magiaIdsOf = actor => new Set((actor?.items ?? []).filter(i => i.ty
   .map(i => i.getFlag(SYSTEM_ID, "magic")?.id).filter(Boolean));
 
 /**
+ * What the world holds now, for many Magias at once (a window shows them all): every actor that may hold one
+ * (everyActor, in its order) with the Magias it has and those its open Awakening drew, read the first time it is asked.
+ * Made again for each window drawn (the world changes between them).
+ * @returns {{idsOf: (actor: Actor) => Set<string>, rowsOf: (magia: object) => {actor: Actor, key: string}[]}}
+ */
+export function holderCensus() {
+  const ids = new Map();
+  /** The Magias an actor has (their ids), read once. */
+  const idsOf = actor => {
+    if (!ids.has(actor)) ids.set(actor, magiaIdsOf(actor));
+    return ids.get(actor);
+  };
+  let rows = null;
+  /** Magia id -> the rows that have it; Magia uuid -> the rows whose open Awakening drew it (rows by their place). */
+  const byId = new Map();
+  const byDraw = new Map();
+  const add = (map, key, row) => {
+    if (!map.has(key)) map.set(key, []);
+    map.get(key).push(row);
+  };
+  const read = () => {
+    rows = [];
+    for (const actor of everyActor()) {
+      const row = rows.push({ actor, key: actor.isToken ? actor.uuid : actor.id }) - 1;
+      for (const id of idsOf(actor)) add(byId, id, row);
+      const awakening = actor.getFlag?.(SYSTEM_ID, "awakening");
+      if (!awakening || awakening.chosen || !Array.isArray(awakening.rolls)) continue;
+      for (const uuid of new Set(awakening.rolls.map(r => r?.uuid))) add(byDraw, uuid, row);
+    }
+  };
+  return {
+    idsOf,
+    /** The actors that have a Magia or whose open Awakening drew it, in everyActor's order. */
+    rowsOf(magia) {
+      if (!rows) read();
+      const found = new Set([...(byId.get(magia.id) ?? []), ...(byDraw.get(magia.uuid) ?? [])]);
+      return [...found].sort((a, b) => a - b).map(row => rows[row]);
+    }
+  };
+}
+
+/**
  * Who holds a Magia now: the characters with it and those whose open Awakening drew it.
  * @param {{id: string, uuid: string}} magia   A catalog entry
  * @param {object} [options]
  * @param {Actor} [options.except]   Not counted (the one choosing)
+ * @param {object} [options.census]  What the world holds (holderCensus), shared by the Magias of a window
  * @returns {{count: number, names: string[]}}
  */
-export function holdersOf(magia, { except = null } = {}) {
+export function holdersOf(magia, { except = null, census = holderCensus() } = {}) {
   const names = [];
   const seen = new Set();
-  for (const actor of everyActor()) {
+  for (const { actor, key } of census.rowsOf(magia)) {
     if (except && same(actor, except)) continue;
-    const key = actor.isToken ? actor.uuid : actor.id;
     if (seen.has(key)) continue;
-    const has = magiaIdsOf(actor).has(magia.id);
-    const awakening = actor.getFlag?.(SYSTEM_ID, "awakening");
-    const drawn = !!awakening && !awakening.chosen && Array.isArray(awakening.rolls)
-      && awakening.rolls.some(r => r?.uuid === magia.uuid);
-    if (!has && !drawn) continue;
     seen.add(key);
     names.push(actor.token?.name ?? actor.name);
   }
@@ -73,14 +111,15 @@ export function holdersOf(magia, { except = null } = {}) {
  * and whether the character may take it (a player: not when full, not an exclusive one with another Magia).
  * @param {object} magia     A catalog entry
  * @param {Actor|null} actor
+ * @param {object} [census]  What the world holds (holderCensus), shared by the Magias of a window
  * @returns {{limit: number, count: number, full: boolean, exclusive: boolean, blocked: string|null, label: string, names: string[]}}
  */
-export function holderState(magia, actor = null) {
+export function holderState(magia, actor = null, census = holderCensus()) {
   const limit = holderLimit(magia);
   const exclusive = isExclusive(magia);
-  const { count, names } = limit ? holdersOf(magia, { except: actor }) : { count: 0, names: [] };
+  const { count, names } = limit ? holdersOf(magia, { except: actor, census }) : { count: 0, names: [] };
   const full = !!limit && (count >= limit);
-  const others = actor ? [...magiaIdsOf(actor)].filter(id => id !== magia.id) : [];
+  const others = actor ? [...census.idsOf(actor)].filter(id => id !== magia.id) : [];
   let blocked = null;
   if (full) blocked = L("Holders.Full", { n: limit });
   else if (exclusive && others.length) blocked = L("Holders.ExclusiveTaken");

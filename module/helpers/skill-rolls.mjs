@@ -44,7 +44,23 @@ const RECOVERY_LABEL = "ETERNIA.Skill.Label.DamageRecovery";
 
 const toInt = value => Math.trunc(Number(value) || 0);
 const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
-const statLabel = stat => game.i18n.localize(`ETERNIA.Check.${capitalize(stat)}`);
+
+/**
+ * The fixed labels (the keys above, the check names), translated once: the skills write their labels on every
+ * preparation. Kept for the translations they were read from: another language starts over.
+ */
+let texts = { translations: null, fallback: null, byKey: new Map() };
+function text(key) {
+  const i18n = game.i18n;
+  if ((texts.translations !== i18n.translations) || (texts.fallback !== i18n._fallback)) {
+    texts = { translations: i18n.translations, fallback: i18n._fallback, byKey: new Map() };
+  }
+  let value = texts.byKey.get(key);
+  if (value === undefined) texts.byKey.set(key, value = i18n.localize(key));
+  return value;
+}
+
+const statLabel = stat => text(`ETERNIA.Check.${capitalize(stat)}`);
 
 /**
  * Read dice and modifier from text like "Opposed (2d6 + 5 vs Evasion)", "2d6 + 4", "13 Fixed" (and the old "5+2D").
@@ -162,12 +178,12 @@ function extraText(values) {
 /** "2d6 + 4 vs Evasion", "Accuracy + 1d6 vs Evasion", "Auto", or "" when nothing is set. */
 function checkLabel(check, monster) {
   const { stat, dice, mod, formula, diceFormula, vs } = check;
-  if (vs === "auto") return game.i18n.localize(VS_LABELS.auto);
+  if (vs === "auto") return text(VS_LABELS.auto);
   let value;
   if (!monster && stat) value = statLabel(stat) + extraText(check);
   else if (formula || diceFormula) value = joinParts(rollParts(check));
   else value = joinParts(rollParts(check));
-  const against = vs ? `vs ${game.i18n.localize(VS_LABELS[vs])}` : "";
+  const against = vs ? `vs ${text(VS_LABELS[vs])}` : "";
   return [value, against].filter(Boolean).join(" ");
 }
 
@@ -188,11 +204,11 @@ function damagePowers({ type, recovery, noPower }) {
 function damageLabel(damage, monster) {
   const { dice, mod, formula, diceFormula, type, recovery } = damage;
   // Healing is not physical/magical damage: "Recovery" replaces the type.
-  const suffix = game.i18n.localize(recovery ? RECOVERY_LABEL : (TYPE_LABELS[type] ?? ""));
+  const suffix = text(recovery ? RECOVERY_LABEL : (TYPE_LABELS[type] ?? ""));
   const powers = monster ? [] : damagePowers(damage);
   const parts = rollParts(damage);
   if (powers.length) {
-    const named = powers.map(p => `[${game.i18n.localize(POWER_LABELS[p])}]`);
+    const named = powers.map(p => `[${text(POWER_LABELS[p])}]`);
     const value = joinParts([...parts.filter(p => p.endsWith("d6")), ...named, ...parts.filter(p => !p.endsWith("d6"))]);
     return recovery ? value : `${value} ${suffix}`.trim();
   }

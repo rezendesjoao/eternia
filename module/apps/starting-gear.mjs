@@ -18,6 +18,7 @@ import { escape, toInt } from "../helpers/utils.mjs";
 import { tagLabel, term } from "../i18n/terms.mjs";
 import { tagKey } from "../helpers/tag-catalog.mjs";
 import { equipmentMagic } from "../helpers/magic-power.mjs";
+import { packIndex } from "../helpers/pack-index.mjs";
 import { fold } from "./magic-catalog.mjs";
 import { STATS, firstSentence, loadDocuments, skillSummary } from "./creation-catalog.mjs";
 
@@ -228,7 +229,7 @@ async function buildShop() {
   const seen = new Set();
   const uuids = [];
   for (const pack of packs) {
-    for (const e of await pack.getIndex()) {
+    for (const e of await packIndex(pack)) {
       const name = fold(e.name);
       if (!sellable(e) || seen.has(name)) continue;
       seen.add(name);
@@ -259,7 +260,9 @@ export function registerShopCatalog() {
   Hooks.on("createItem", watch);
   Hooks.on("updateItem", watch);
   Hooks.on("deleteItem", watch);
-  for (const hook of ["createCompendium", "deleteCompendium", "updateCompendium"]) Hooks.on(hook, clearShopCatalog);
+  for (const hook of ["createCompendium", "deleteCompendium"]) Hooks.on(hook, clearShopCatalog);
+  // Only an Item compendium's change (the shop sells only theirs)
+  Hooks.on("updateCompendium", pack => (pack.documentName === "Item") && clearShopCatalog());
 }
 
 /* -------------------------------------------- */

@@ -11,7 +11,7 @@
  */
 import { recoveryOf } from "../conditions/recovery.mjs";
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
-import { getStatusPanel } from "../helpers/statuses.mjs";
+import { getStatusPanel, LH_STATUSES } from "../helpers/statuses.mjs";
 import { parseSkillField } from "../helpers/skill-fields.mjs";
 import { skillRollable } from "../helpers/skill-rolls.mjs";
 import { actionsLeft, inspectUse } from "../automation/use.mjs";
@@ -402,8 +402,9 @@ export function pendingDodges(actor) {
   const list = [];
   const damaged = new Set();
   const since = Date.now() - (DODGE_MINUTES * 60000);
-  const messages = game.messages.contents;
-  for (let i = messages.length - 1, seen = 0; (i >= 0) && (seen < DODGE_LOOKBACK); i--, seen++) {
+  // Only the last cards, without copying the whole chat log; walked from the newest
+  const messages = game.messages.values().drop(Math.max(0, game.messages.size - DODGE_LOOKBACK)).toArray();
+  for (let i = messages.length - 1; i >= 0; i--) {
     const message = messages[i];
     if ((message.timestamp ?? 0) < since) break;
     const attackId = message.flags?.[SYSTEM_ID]?.attackId;
@@ -500,7 +501,9 @@ export function hudContext(actor, token, { panel, collapsed }) {
   const fate = toInt(source.fate?.value), fateMax = Math.max(0, toInt(system.fate?.max));
   const hate = toInt(source.infos?.hate);
   const rank = actor.statuses.has("hateTop") ? "top" : (actor.statuses.has("hateUnder") ? "under" : null);
-  const badCount = getStatusPanel(actor).find(g => g.id === "bad")?.statuses.filter(s => s.active).length ?? 0;
+  // The Bad Statuses on, as getStatusPanel lists them in its "bad" group (without building the whole panel)
+  const badCount = LH_STATUSES.filter(s => (s.group === "bad") && (s.id !== "fatigue") && (!s.types || s.types.includes(actor.type))
+    && actor.statuses.has(s.id)).length;
 
   const panels = PANELS.filter(p => character || !p.character).map(p => ({
     ...p, label: panelLabel(p.id, character), active: p.id === panel,

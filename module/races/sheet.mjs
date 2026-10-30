@@ -13,18 +13,46 @@ import { firstSentence, readParts } from "../apps/creation-catalog.mjs";
 import { term } from "../i18n/terms.mjs";
 import { toInt } from "../helpers/utils.mjs";
 import { formOf, raceColor, ROMAN } from "./evolution.mjs";
+import { byText } from "../sheets/sheet-render.mjs";
 
 const STATS = ["str", "dex", "pow", "int"];
 const normalize = name => String(name ?? "").trim().toLowerCase();
+
+/** The parts of a race's description (readParts parses a document), by its text: read once, not on every render. */
+const partsOf = byText(readParts);
+
+/**
+ * The character's copy of a compendium skill (the same compendium entry, or the same name: the first of its skills that
+ * has either), for every tile of the tab after one pass over its items.
+ * @param {Actor} actor
+ * @returns {(uuid: string, entry: object|null) => Item|null}
+ */
+function ownedCopies(actor) {
+  const bySource = new Map();
+  const byName = new Map();
+  let order = 0;
+  for (const item of actor.items) {
+    order += 1;
+    if (item.type !== "skill") continue;
+    const source = item._stats?.compendiumSource;
+    const name = normalize(item.name);
+    if (source && !bySource.has(source)) bySource.set(source, [order, item]);
+    if (!byName.has(name)) byName.set(name, [order, item]);
+  }
+  return (uuid, entry) => {
+    const a = bySource.get(uuid), b = entry ? byName.get(normalize(entry.name)) : undefined;
+    if (a && b) return (a[0] <= b[0]) ? a[1] : b[1];
+    return (a ?? b)?.[1] ?? null;
+  };
+}
 
 /**
  * A skill tile (the class tab's): the character's copy of the compendium skill, or the compendium one (locked while
  * its stage is still closed).
  */
-function tileOf(actor, uuid, { open, rank }) {
+function tileOf(ownedCopy, uuid, { open, rank }) {
   const entry = fromUuidSync(uuid, { strict: false });
-  const owned = actor.items.find(i => (i.type === "skill") && ((i._stats?.compendiumSource === uuid)
-    || (!!entry && (normalize(i.name) === normalize(entry.name))))) ?? null;
+  const owned = ownedCopy(uuid, entry);
   if (!owned && !entry) return null;
   return {
     uuid,
@@ -39,9 +67,9 @@ function tileOf(actor, uuid, { open, rank }) {
 }
 
 /** The tiles of a stage's slots: a choice already made shows the skill chosen, one still open shows every option. */
-function slotTiles(actor, slots, opts) {
+function slotTiles(ownedCopy, slots, opts) {
   return slots.flatMap(slot => {
-    const tiles = slot.map(uuid => tileOf(actor, uuid, opts)).filter(Boolean);
+    const tiles = slot.map(uuid => tileOf(ownedCopy, uuid, opts)).filter(Boolean);
     const chosen = tiles.filter(t => t.owned);
     return ((slot.length > 1) && chosen.length) ? chosen : tiles.map(t => ({ ...t, option: slot.length > 1 }));
   });
@@ -70,10 +98,11 @@ export function raceContext(actor, { editable }) {
   const human = race.system.identifier === "human";
   const stats = raceStats(actor) ?? {};
   const bonus = flags.stageBonus ?? {};
-  const { lore } = readParts(race.system.description);
+  const { lore } = partsOf(race.system.description);
   const log = Array.isArray(flags.stageLog) ? flags.stageLog : [];
   const innate = (race.system.grants ?? []).map(g => (g?.uuids ?? []).map(String)).filter(slot => slot.length);
   const gm = game.user.isGM;
+  const ownedCopy = ownedCopies(actor);
 
   const stages = form.stages.map(st => {
     const state = (st.stage < form.stage) ? "done" : (st.stage === form.stage) ? "current"
@@ -90,7 +119,7 @@ export function raceContext(actor, { editable }) {
       // A closed stage whose CR already came opens after the one before it
       stateLabel: ((state === "locked") && (st.rank <= cr)) ? L("RaceTab.State.after", { stage: ROMAN[st.stage - 1] })
         : L(`RaceTab.State.${state}`, { rank: st.rank }),
-      skills: slotTiles(actor, (st.stage === 1) ? innate : st.grants, { open, rank: st.rank }),
+      skills: slotTiles(ownedCopy, (st.stage === 1) ? innate : st.grants, { open, rank: st.rank }),
       attribute: attributeLine(st, (state === "done" || state === "current") ? chosen : null),
       rite: st.rite,
       seen: L(`RaceTab.${human ? "SeenHuman" : "Seen"}.${st.stage}`),
@@ -127,11 +156,23 @@ export function raceContext(actor, { editable }) {
     // A race without stages (one that left the list, or one of the table's own): its innate skills
     retired: !form.stages.length,
     retiredNote: L(flags.retired ? "RaceTab.Retired" : "RaceTab.NoStages"),
-    innate: form.stages.length ? [] : slotTiles(actor, innate, { open: true, rank: 1 })
+    innate: form.stages.length ? [] : slotTiles(ownedCopy, innate, { open: true, rank: 1 })
   };
 }
 
 /** The tab's badge: the next stage can be awakened. */
 export function raceBadge(context) {
   return (!context.none && context.form?.ready) ? 1 : 0;
+}
+
+/**
+ * The tab's badge without the tab's data (the sheet's tab bar, drawn on every change of the character): raceBadge of
+ * raceContext.
+ * @param {Actor} actor
+ * @param {{editable: boolean}} options
+ */
+export function raceBadgeOf(actor, { editable }) {
+  if (!getOption(actor, "race")) return 0;
+  const form = formOf(actor);
+  return (form.stage && form.ready && editable) ? 1 : 0;
 }

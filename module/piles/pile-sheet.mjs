@@ -3,14 +3,16 @@ import {
   isMerchant, getGold, getStock, itemQuantity, buyPrice, sellPrice, getInteractingActor, usedSpace
 } from "./pile-utils.mjs";
 import * as api from "./pile-api.mjs";
+import { SheetRenderMixin } from "../sheets/sheet-render.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 
 /**
  * Sheet for pile actors (loot, chests and merchants). The GM sees the
  * configuration and management controls; players see the interaction view.
+ * Renders asked while one waits join it, and a minimized pile draws when it opens (sheets/sheet-render.mjs).
  */
-export class EterniaPileSheet extends HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
+export class EterniaPileSheet extends SheetRenderMixin(HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2)) {
 
   static DEFAULT_OPTIONS = {
     classes: ["eternia", "pile-sheet"],

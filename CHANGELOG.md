@@ -1,5 +1,75 @@
 # Changelog
 
+## 1.0.0 — 2026-10-29
+
+A primeira versão completa: mais leve e mais rápida, sem mudar nada nas regras nem na aparência. Medido no mundo de
+teste com o servidor a 60 ms de distância, a entrada no mundo caiu de ~13 s para ~8,5 s, e os pedidos ao servidor, de
+~500 para ~230.
+
+### Alterado
+- **A release empacotada** (`tools/bundle.mjs`, rodado por `npm run package`): o servidor do Foundry responde cada
+  arquivo com `no-cache` em HTTP/1.1, então cada um custava uma ida e volta até o servidor a cada entrada, mesmo sem
+  mudar. O zip agora carrega o código inteiro num arquivo (`module/eternia.bundle.mjs`, esbuild, nomes mantidos, com o
+  mapa para o console), com todos os modelos de `templates/` dentro (registrados no `init`: nenhum é pedido ao servidor),
+  e os estilos de cada camada num arquivo (`css/eternia.bundle.system.css` e `css/eternia.bundle.modules.css`, na ordem
+  do manifesto). O `system.json` do repositório continua carregando os arquivos soltos.
+- **A primeira cena:** os 89 ícones de estado, que o Foundry carrega com as texturas da primeira cena, são buscados
+  assim que as traduções chegam, enquanto os dados do mundo ainda estão a caminho, e entregues ao carregador do PIXI
+  quando a cena pede (`helpers/status-prefetch.mjs`); as fontes da cena carregam os arquivos de cada família ao mesmo
+  tempo, em vez de um depois do outro (`helpers/font-loading.mjs`).
+- **As configurações** (`setting` de `settings.mjs`): os valores simples ficam guardados até mudarem (o `onChange` de
+  cada uma esquece o valor antes de qualquer outro ouvinte), em vez de o Foundry montar um documento a cada leitura.
+- **O combate em toda tela:** a cada turno, fase, entrada no combate, mudança de Ódio ou de estado, os personagens com
+  efeitos de condição de estado eram preparados de novo e as fichas deles redesenhadas, todos. Agora cada um guarda os
+  tipos de condição que usa (`noteStateTypes`), só é preparado de novo quem lê o que mudou (`COMBAT_INPUTS` em
+  `helpers/effect-conditions.mjs`: quem só usa "em combate" uma vez por rodada, em vez de 13 ou mais), e a ficha só é
+  redesenhada quando um efeito passou a valer ou deixou de valer, num quadro só.
+- **As fichas:** a ficha de personagem é uma moldura e uma parte por aba: uma mudança do personagem desenha a moldura e a
+  aba aberta, e as outras abas se desenham quando são abertas (o HTML final é o mesmo de antes; os campos de uma aba
+  velha nunca voltam no formulário). Os redesenhos que chegam enquanto a ficha desenha viram um só, a ficha minimizada
+  não desenha (desenha ao abrir), as linhas dos itens não copiam mais cada item inteiro, os dados de rolagem só são
+  montados para textos com rolagens, o resumo de cada efeito é calculado uma vez, as habilidades concedidas por raça,
+  classe e profissão vêm do índice em vez de uma ida ao servidor cada, e os textos lidos de HTML (as origens, as
+  descrições das Magias) ficam guardados. No computador de teste com a CPU 4× mais lenta, 8 rodadas de combate com a
+  ficha e o HUD abertos passaram de ~22 s para ~8 s de trabalho; o redesenho da ficha caiu de ~24 ms para ~10 ms.
+- **O preparo dos atores:** o `getRollData` não clona mais os dados de todos os itens a cada chamada (o Foundry o chama
+  três vezes por preparo e a cada cartão do chat): `@itemData`/`@skillData` são montados só se alguém os lê. As condições
+  dos efeitos leem o NH e o NP direto, as mãos e os Motores são achados uma vez por preparo, os rótulos das habilidades
+  guardam as traduções e as fórmulas já escritas, e a ordem dos turnos lê a configuração uma vez, não a cada comparação.
+- **Os índices dos compêndios:** no `ready`, só os compêndios com equipamento (os ícones dos itens); os outros vêm com o
+  jogo ocioso, um por vez. Dois pedidos do mesmo índice ao mesmo tempo viram um só (`packIndex` de
+  `helpers/pack-index.mjs`), e o Mercado do Mestre lê o índice que os ícones já pediram. O guia é conferido pelo índice
+  e só é baixado inteiro quando mudou. Os textos das Magias são lidos em fatias de 20; o assistente de criação só é
+  preparado para o jogador que tem um personagem em branco. Os catálogos só se refazem quando muda um compêndio de Item.
+- **Os ícones dos itens:** cada caminho de imagem é calculado uma vez, a janela de cada imagem é achada subindo a árvore
+  uma vez por lote, os ícones genéricos saem antes de qualquer busca e as barras laterais de atores, cenas, diários e
+  músicas nem são olhadas.
+- **Os portadores das Magias:** a janela de Magias, o Grimório, o assistente e o Despertar leem o mundo uma vez para
+  todas as Magias (`holderCensus`), não uma vez por Magia.
+- **As varreduras do mundo** (quem uma fonte caída prendia, as maldições, as vidas seladas, a Isca, os usos sustentados):
+  um token sem vínculo só tem o ator montado quando os dados dele mostram um candidato (`helpers/world-actors.mjs`); a
+  primeira queda de uma sessão não monta mais o ator de todo token de toda cena.
+- **O chat:** um update a menos por cartão de dano aplicado sozinho (o `autoDone` vai junto do primeiro resultado), o
+  registro do Desfazer (`applied`) guarda só os estados que não eram 0, as últimas mensagens são lidas sem copiar o chat
+  inteiro, a tradução na tela sai cedo nos cartões que não têm nada a traduzir, e o Presságio testa o barato primeiro.
+- **O HUD de ações:** redesenha com um cartão de ataque só quando ele mira o personagem mostrado (ou há uma Esquiva na
+  barra), não redesenha com o movimento do token fora de combate, e conta os Estados Ruins sem montar o painel inteiro.
+- **Os tokens:** o Motor só é redesenhado quando muda, o nome reaproveita o mesmo estilo (sem refazer o contorno e a
+  sombra a cada atualização), entrar ou sair do combate atualiza só os tokens daquele combate, e as configurações do
+  token ficam guardadas.
+- **Os sockets:** o sinal das janelas do mesmo usuário vai só para elas; os pedidos ao Mestre vão só aos Mestres, e a
+  resposta só a quem pediu; os avisos dos duelos e dos grupos para alguns usuários vão só para eles.
+- **O grupo e as pilhas:** a janela do grupo junta os redesenhos de uma seleção (60 ms), o quadro do grupo só redesenha
+  com o estado de um membro, e as janelas de pilhas e lojas só com quem interage com elas.
+
+### Adicionado
+- **Computador mais fraco:** com o **Modo de Desempenho** do Foundry em **Baixo**, a Eternia para as animações que só
+  enfeitam (os brilhos e pulsos da ficha, do HUD e da bancada, em `css/performance.css`; os ícones animados dos itens),
+  o medalhão dos estados nos tokens volta a ser o texto do Foundry, e o chat abre com as últimas 50 mensagens
+  (`helpers/performance.mjs`). Guia do Jogador, capítulo 20 (A Mesa Virtual): a caixa Computador mais fraco e uma
+  caixa Com o Mestre sobre o tamanho do chat (o Foundry manda todas as mensagens do mundo a cada um que entra).
+- **Pacote da release com esbuild** (`devDependencies`): `tools/bundle.mjs`, chamado por `npm run package`.
+
 ## 0.53.1 — 2026-10-29
 
 Consertos pontuais do combate: o ataque sem alvo, o alvo que sumia sozinho e o dano dos personagens.

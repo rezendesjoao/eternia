@@ -17,7 +17,7 @@
  */
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 import { categoryView, magicCatalog } from "./magic-catalog.mjs";
-import { holderState } from "./magic-holders.mjs";
+import { holderCensus, holderState } from "./magic-holders.mjs";
 
 export const AWAKENING_FLAG = "awakening";
 /** How many times a player rolls. */
@@ -78,7 +78,10 @@ export function isAwakenedMagia(actor, item) {
  * @returns {Promise<object[]>}
  */
 export async function awakeningPool(actor) {
-  return (await magicCatalog()).filter(m => !holderState(m, actor).full);
+  const catalog = await magicCatalog();
+  // Who holds what, read once for every Magia
+  const census = holderCensus();
+  return catalog.filter(m => !holderState(m, actor, census).full);
 }
 
 /** Actors rolling now (a second click waits for the first). */

@@ -114,10 +114,14 @@ async function rollOmens(combat) {
 /*  The buttons on the attack cards             */
 /* -------------------------------------------- */
 
-/** The characters whose Omens this window may spend: the GM's controlled tokens, a player's own characters. */
+/**
+ * The characters whose Omens this window may spend: the GM's controlled tokens, a player's own characters. A player's
+ * window looks at every actor of the world for every attack card drawn: the cheap tests go first (the type, an Omen
+ * kept, which omenDice needs), the permission after them.
+ */
 function seers() {
   const actors = game.user.isGM ? (canvas.tokens?.controlled ?? []).map(t => t.actor)
-    : game.actors.filter(a => a.isOwner && (a.type === "character"));
+    : game.actors.filter(a => (a.type === "character") && a.flags?.[SYSTEM_ID]?.omen?.combat && a.isOwner);
   return [...new Set(actors.filter(a => a?.isOwner && omenDice(a).length))];
 }
 

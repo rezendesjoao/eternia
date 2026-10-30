@@ -1,6 +1,8 @@
 /**
  * Release zip: dist/eternia.zip with what Foundry needs (the manifests, the docs, lang, module, css, templates,
- * assets and the compiled packs), plus a copy of system.json next to it.
+ * assets and the compiled packs), plus a copy of its system.json next to it. The zip loads the bundles of
+ * tools/bundle.mjs (the code with the templates in one file, the stylesheets in one file per layer): its system.json
+ * points at them, while the repository's keeps loading the sources.
  *
  *   npm run packs:build      (src/packs -> packs, with the world closed)
  *   node tools/package.mjs
@@ -9,6 +11,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { bundle } from "./bundle.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, "system.json"), "utf8"));
@@ -33,12 +36,15 @@ for (const f of FILES) {
   // Foundry's lock file of an open pack never ships.
   fs.cpSync(src, path.join(STAGE, f), { recursive: true, filter: file => path.basename(file) !== "LOCK" });
 }
+const built = await bundle(STAGE);
+console.log(`${built.manifest.esmodules[0]}: ${built.inputs} modules + ${built.templates} templates, `
+  + `${(built.size / 1024).toFixed(0)} KB; ${built.styles} stylesheets -> ${built.manifest.styles.length}`);
 const zip = path.join(DIST, `${manifest.id}.zip`);
 // The Windows tar (bsdtar), not a GNU tar from Git/MSYS that reads "C:" as a remote host;
 // tar -a picks the zip format from the extension.
 const tar = (process.platform === "win32") ? path.join(process.env.SystemRoot ?? "C:\\Windows", "System32", "tar.exe") : "tar";
 execFileSync(tar, ["-a", "-c", "-f", path.relative(STAGE, zip), ...FILES], { cwd: STAGE, stdio: "inherit" });
+fs.copyFileSync(path.join(STAGE, "system.json"), path.join(DIST, "system.json"));
 fs.rmSync(STAGE, { recursive: true, force: true });
-fs.copyFileSync(path.join(ROOT, "system.json"), path.join(DIST, "system.json"));
 const size = fs.statSync(zip).size;
 console.log(`${path.relative(ROOT, zip)}: ${(size / 1024 / 1024).toFixed(1)} MB (${manifest.id} ${manifest.version})`);
