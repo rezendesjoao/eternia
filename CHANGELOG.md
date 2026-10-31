@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.0.2 — 2026-10-31
+
+O retrato dos dragões terrestres: cada montaria ganhou um token no padrão do bestiário.
+
+### Adicionado
+- **Os tokens dos dragões terrestres** (`assets/tokens/mounts/`): os seis dragões no traço de frame do anime do
+  bestiário, inteiros, na moldura dos monstros (aro de ouro, fio carmesim, fundo branco), guardados em
+  `flags.eternia.mount.token`.
+- A ficha da montaria mostra o token como retrato, como a ficha de monstro, com o ícone do item no canto; clicar num ou
+  no outro troca a imagem dele. O inventário, o HUD e o Mercado continuam com o ícone.
+- A migração `content` 4: as montarias que os mundos já têm ganham o token do dragão do compêndio (pelo nome ou, numa
+  montaria feita pelo Domador, pelo nome da base).
+- O Guia do Jogador (capítulo 15) fala do retrato da montaria.
+- `Data/eternia-tests/test-102.js` (42 checagens).
+
 ## 1.0.1 — 2026-10-30
 
 As montarias e duas profissões novas: os dragões terrestres (de Re:Zero, no lugar do "dragão pequeno, sem asas" do

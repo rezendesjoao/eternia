@@ -38,7 +38,7 @@ export const MIGRATIONS = [
   TOKENS_MIGRATION,              // the characters' tokens see and are linked, every name shows, core's turn marker off (canvas/token-defaults.mjs)
   RACE_STAGES_MIGRATION,         // the race items take the stages of their compendium race again (races/migration.mjs)
   BESTIARY_MIGRATION,            // the bestiary monsters already in the world take the names and the art of 0.37, the damage of 0.42, the (Menor) of 0.44, the hidden disguise of 0.47.1 and the texts of 0.49 (bestiary/migration.mjs)
-  CONTENT_MIGRATION,             // the items and skills of the world take the data their compendium gained: the bags, the grades and the NP locks, the cover of 0.43, the alsoSpends of 0.44 and the cleanup of 0.49 (content/migration.mjs)
+  CONTENT_MIGRATION,             // the items and skills of the world take the data their compendium gained: the bags, the grades and the NP locks, the cover of 0.43, the alsoSpends of 0.44, the cleanup of 0.49 and the mounts' tokens of 1.0.2 (content/migration.mjs)
   ECONOMY_MIGRATION,             // the Yuld of 0.48: the purses, the prices of the items, the drops of the bestiary's monsters and the shops' rate (economy/migration.mjs)
   PROFESSIONS_MIGRATION          // the Bard and the Engineer become the Tamer and the Sealer of 1.0.1, with their EXP; the old traps leave (professions/migration.mjs)
 ];

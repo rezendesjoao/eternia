@@ -5,9 +5,13 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 1.0.1
+## Versão 1.0.2
 
-- **Na 1.0.1: as montarias, o Domador e o Selador.** Os **dragões terrestres** chegam como montarias: um item próprio,
+- **Na 1.0.2: o retrato dos dragões terrestres.** Os seis dragões terrestres ganharam um token no padrão do bestiário
+  (o dragão inteiro, no traço dos monstros, na moldura dourada), que a ficha da montaria mostra como retrato, com o
+  ícone no canto. No inventário, no HUD e no Mercado continua o ícone. As montarias que o mundo já tem recebem o token
+  sozinhas.
+- **Desde a 1.0.1: as montarias, o Domador e o Selador.** Os **dragões terrestres** chegam como montarias: um item próprio,
   que não ocupa a bolsa e que o personagem monta (um por vez) pela ficha ou pelo HUD. Montado, a Velocidade, o espaço
   de alforje, a Iniciativa e as Defesas do dragão se somam, o token mostra [Montado] e os poderes da raça (Galope,
   Investida, Lealdade) ficam à mão; montar gasta a Ação de Movimento durante as rodadas, e cair ou ser derrubado
@@ -1263,6 +1267,8 @@ as rodadas, gasta a Ação de Movimento, no turno de quem monta. Desmontar é li
   grupo anda o dobro por dia e chega sem a [Fadiga] da estrada.
 - **Cair** ([Incapacitado], [Morrendo]) ou ficar [Derrubado] desmonta sozinho, com um cartão no chat.
 - **O Domador** faz montarias com aprimoramentos e as adestra (veja [As profissões](#as-profissões)).
+- **O retrato:** a ficha da montaria mostra o token do dragão, no padrão do bestiário, com o ícone do item no canto
+  (clicar num ou no outro troca a imagem). No inventário, no HUD e no Mercado fica o ícone.
 
 ## As profissões
 

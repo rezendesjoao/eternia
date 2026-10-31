@@ -13,5 +13,8 @@ export const riddenMount = actor => mountsOf(actor).find(item => item.system.equ
 /** The rules of a mount's breed (`flags.eternia.mount`). */
 export const mountRules = item => item?.flags?.[SYSTEM_ID]?.mount ?? {};
 
+/** The token of a mount (the portrait of its sheet), or null. */
+export const mountToken = item => mountRules(item).token || null;
+
 /** Whether a character rides with the Wind-Repelling Blessing of the earth dragons. */
 export const windBlessed = actor => mountRules(riddenMount(actor)).blessing === WIND;

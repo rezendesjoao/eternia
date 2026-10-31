@@ -352,6 +352,11 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   Ação Menor da Disparada em `alsoSpendsOf` (`automation/use.mjs`).
 - Montaria nova: 10 comuns do nível (seção 9 de `docs/matematica.md`), o efeito [Montado] e, se for dragão terrestre, a
   Bênção. Teste: `Data/eternia-tests/test-101.js` (montarias, Domador, Selador, migração, conteúdo e telas).
+- O retrato da montaria (1.0.2) é o token dela no padrão do bestiário (`flags.eternia.mount.token`,
+  `assets/tokens/mounts/<nome sem acentos>.webp`, de `prompts/montarias/tokens.py`, fora do repositório; o
+  `gen-itens.mjs` o põe quando o arquivo existe): a ficha da montaria o mostra no cabeçalho (`headerToken` em
+  `sheets/item-sheet.mjs`, ajustado por `portraitFit`), com o ícone no canto; o inventário, o HUD e o Mercado continuam
+  com o ícone (`img`). As cópias dos mundos ganharam o token pela migração `content` 4. Teste: `test-102.js`.
 
 ## A morte (0.50)
 - `module/automation/death.mjs`: quem cai num token que não é hostil (`isAdventurer`) fica [Morrendo: 2]

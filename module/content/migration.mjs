@@ -13,6 +13,9 @@
  * powers and effects, and their characters get the powers' skills again; an edited copy only takes the recipes'
  * Anima-mundi, the new roll key and loses the NH of a skill of Log Horizon; and the characters that have the Basic
  * skills get Analisar Objeto de Cena, which nobody received (it was a Combat skill).
+ * Version 4 (1.0.2): the mounts take the token of their compendium dragon (`flags.eternia.mount.token`, the portrait
+ * of their sheet), matched by name, or by the name of their base for a Tamer's mount (which also keeps it in the base,
+ * for a Retouch). A mount that already has a token keeps it.
  */
 import { SYSTEM_ID } from "../settings.mjs";
 import { itemSkillsOf, syncItemSkills } from "./content.mjs";
@@ -365,6 +368,36 @@ async function sceneAnalysis() {
   return n;
 }
 
+/** The mounts take the token of the compendium mount of their name (or of their base's name, when crafted). */
+async function mountTokens() {
+  const pack = game.packs.get(`${SYSTEM_ID}.items`);
+  const tokens = new Map();
+  for (const entry of (await pack?.getIndex()) ?? []) {
+    if (entry.type !== "mount") continue;
+    const token = (await pack.getDocument(entry._id))?.getFlag(SYSTEM_ID, "mount")?.token;
+    if (token) tokens.set(entry.name, token);
+  }
+  let n = 0;
+  for (const list of collections()) {
+    for (const item of list) {
+      if ((item.type !== "mount") || item.getFlag(SYSTEM_ID, "mount")?.token) continue;
+      const base = item.getFlag(SYSTEM_ID, "craft")?.base;
+      const token = tokens.get(item.name) ?? tokens.get(base?.name);
+      if (!token) continue;
+      const update = { [`flags.${SYSTEM_ID}.mount.token`]: token };
+      if (base) update[`flags.${SYSTEM_ID}.craft.base.flags.${SYSTEM_ID}.mount.token`] = token;
+      try {
+        await item.update(update);
+        n++;
+      }
+      catch (err) {
+        console.error(`${SYSTEM_ID} | Content migration: could not update ${item.uuid}`, err);
+      }
+    }
+  }
+  return n;
+}
+
 async function run(done = 0) {
   if (done < 1) {
     const items = await itemsData();
@@ -378,7 +411,8 @@ async function run(done = 0) {
     const characters = await sceneAnalysis();
     console.log(`${SYSTEM_ID} | Content: ${keys} effects with the roll key of Eternia, ${texts} items with the texts of 0.49, ${characters} characters with Analisar Objeto de Cena`);
   }
+  if (done < 4) console.log(`${SYSTEM_ID} | Content: ${await mountTokens()} mounts with their token`);
   return true;
 }
 
-export const CONTENT_MIGRATION = { id: "content", setting: "contentMigrationVersion", version: 3, run };
+export const CONTENT_MIGRATION = { id: "content", setting: "contentMigrationVersion", version: 4, run };

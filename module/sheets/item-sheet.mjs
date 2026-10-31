@@ -9,6 +9,8 @@ import { canUseItem, useItem } from "../helpers/item-use.mjs";
 import { activateConditionInputs, conditionsContext, conditionsFromForm } from "../helpers/effect-conditions.mjs";
 import { skillModifiers } from "../helpers/roll-bonuses.mjs";
 import { SheetRenderMixin, needsRollData } from "./sheet-render.mjs";
+import { portraitFit } from "../helpers/portrait.mjs";
+import { mountToken } from "../mounts/state.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -101,6 +103,10 @@ export class EterniaItemSheet extends SheetRenderMixin(HandlebarsApplicationMixi
     context.flags = item.flags;
     context.editable = this.isEditable;
     context.owner = item.isOwner;
+
+    // A mount's portrait is its token, in the bestiary's frame; its icon stays in the inventory and the shops
+    const token = (item.type === "mount") ? mountToken(item) : null;
+    if (token) context.headerToken = { src: token, field: "flags.eternia.mount.token", fit: await portraitFit(token) };
 
     // The roll data of the inline rolls of the enriched texts (its actor's): built when read (needsRollData)
     const actor = item.parent instanceof Actor ? item.parent : (item.actor ?? null);

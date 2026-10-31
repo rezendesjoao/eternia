@@ -5,6 +5,8 @@
  * and Defenses count while the character rides it, which is the item being "equipped" (one at a time; the numbers
  * in documents/actor.mjs). Its rules are in `flags.eternia.mount`:
  *   blessing   "wind": the Wind-Repelling Blessing of the earth dragons (mounted, the Dash spends no Minor Action)
+ *   token      the mount's token, in the bestiary's frame (assets/tokens/mounts/): the portrait of its sheet; its icon
+ *              (`img`) stays in the inventory, the HUD and the shops
  * Its skills are trigger powers (`flags.eternia.powers`, content/content.mjs) that only work mounted, and its
  * [Mounted] effect (statuses ["mounted"]) shows on the rider's token while it rides.
  */

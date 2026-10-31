@@ -1,5 +1,12 @@
 <header class="sheet-header">
+	{{#if headerToken}}
+	<div class="profile-token{{#if headerToken.fit}} token{{/if}}"{{#if headerToken.fit}} style="{{headerToken.fit.style}}"{{/if}}>
+		<img class="profile-token-img" src="{{headerToken.src}}" alt="" data-action="editImage" data-edit="{{headerToken.field}}" data-tooltip="{{item.name}}" />
+		<img class="profile-icon" src="{{item.img}}" alt="" data-action="editImage" data-edit="img" data-tooltip="{{localize 'ETERNIA.Mount.Icon'}}" />
+	</div>
+	{{else}}
 	<img class="profile-img" src="{{item.img}}" data-action="editImage" data-edit="img" title="{{item.name}}" />
+	{{/if}}
 	<div class="header-fields">
 		<h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'ETERNIA.Placeholder.Name'}}" /></h1>
 		<div class="grid grid-3col">
