@@ -1,0 +1,79 @@
+{
+  "name": "Reescrever no Ar",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Escrita de Cardinal.</strong> Você reescreve no ar os feitiços de uma área a até 5 Qd: a língua de Cardinal não se esquiva, o ataque acerta sem teste; [3d6 + Poder Mágico] de dano mágico, e os efeitos de feitiço saem de quem está nela (os bons dos inimigos, os ruins dos aliados). Você fica [Marcado: NP].</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>O feitiço deles estava escrito certo. Ela só trocou a língua.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 2",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "auto",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magic",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/sundries/scrolls/scroll-bound-brown-tan.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "escrita-de-cardinal-reescrever",
+      "kind": "feeds",
+      "branch": "magic",
+      "useActions": [
+        {
+          "type": "cancelSpells"
+        },
+        {
+          "type": "addStatus",
+          "status": "marked",
+          "value": "@cr",
+          "recipients": "self",
+          "onUse": true
+        }
+      ],
+      "magicSpell": {
+        "id": "escrita-de-cardinal"
+      },
+      "minRank": 3,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "1.0.4",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 50000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "iYM6whWuxlU3ySdi",
+  "folder": "Ep8L8jLbjF5WGUN7",
+  "_key": "!items!iYM6whWuxlU3ySdi"
+}

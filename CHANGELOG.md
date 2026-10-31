@@ -1,5 +1,38 @@
 # Changelog
 
+## 1.0.4 — 2026-10-31
+
+As três Magias do elenco de *A Última Etapa*, que as fichas da 1.0.3 deixaram em branco. Agora são 113 Magias.
+
+### Adicionado
+- **Página em Branco** (Absoluta, 1 portador; Kriegger): a Magia de quem nasceu sem Janela. O feitiço que mira só ele não
+  chega (nem o golpe, nem os estados, nem a cura, nem o bônus, venha de inimigo ou de aliado; área, linha e vários alvos
+  pegam). As técnicas dele não são magia ([Silenciado] e [Apagado] não as impedem, e nada que corta feitiço as corta) e
+  atravessam tudo o que protege ([Barreira], [Anulação], cópias, [Contragolpe], [Intangível], [Intocável], [Permeando], o
+  limiar do [Golias]); imune a [Apagado], [Dominado], [Encantado], [Confuso] e [Identificado], e anda 1 Qd a mais. Tabu: a
+  cura e o apoio de alvo único dos aliados também escorregam, e em combate a cura de feitiços e itens cura metade. Seis
+  técnicas: Corte que a Janela Não Vê, Antes da Segunda Palavra, Lâmina que Desescreve, Arsenal que Ninguém Devia Ter,
+  Corpo Além do Limite e a suprema O Fim da Página.
+- **A Escrita** (Absoluta, 1 portador; o Pontífice): os efeitos dos feitiços duram a cena; O Selo causa [NP] de dano
+  direto no inimigo a até 6 Qd que declara um ataque contra ele, acerte ou erre; imune a [Dominado], [Encantado],
+  [Confuso], [Medo] e [Amnésia]. Tabu: em combate os golpes dele param em 1 PV (só as condições derrubam), e os feitiços
+  dos aliados a até 3 Qd rolam 1d6 a menos. Seis feitiços: Linha Riscada, Corpo Escrito, A Lei da Cena, O Nome Apagado,
+  Escrever de Novo e o supremo Prisma de Quintessência ([Petrificado] e [Selado] num prisma que nada apaga).
+- **Escrita de Cardinal** (Perdida, 1 portador; Viridiana Varn, na vaga do NP 10): o [Silenciado] não impede os feitiços,
+  que atravessam e quebram a [Anulação] e a [Barreira]. Tabu: cada feitiço deixa [Marcado: NP]. Seis feitiços: Linha de
+  Cardinal, Fechar o que Não Fecha (duas escritas a menos no relógio de uma Fenda), Destrancar, Reescrever no Ar, Código
+  do Castelo e o supremo A Lei de Cardinal.
+- Duas regras novas no motor: `cutSpell: "single"` (o feitiço de alvo único de outro personagem não chega: o golpe, os
+  efeitos e a cura, que dá +0) e a flag de feitiço `notMagic` (técnicas que o [Apagado] e o [Silenciado] não pegam).
+- `Data/eternia-tests/test-104.js`: as três Magias nas fichas do compêndio, contra o Lobo de Teste (29 checagens).
+
+### Alterado
+- As fichas de Kriegger, do Pontífice e de Viridiana Varn com as Magias novas (Kriegger sem Pedra Mágica: luta só com
+  armas).
+- AS REGRAS (as três Magias e o índice), o Guia do Jogador (113 Magias no Despertar), README, CLAUDE.md,
+  `docs/classes.md`, `docs/condicoes.md` e `docs/matematica.md` (a apelação das três).
+- Os testes antigos que contam as Magias da janela (Perdidas 20, Absolutas 7, 113 no total), com cópias `.pre104.js`.
+
 ## 1.0.3 — 2026-10-31
 
 O elenco de *A Última Etapa*: os 97 papéis do enredo da campanha com o nome do papel e a ficha inteira, nos compêndios

@@ -100,7 +100,8 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   outra Magia. Uma Magia nova pede o limite dela e, se for de propósito mais forte que as outras, a "apelação" (a régua
   na seção 5 de `docs/matematica.md`). As 13 Magias da 0.51 e o buff do Sol, das Artes Negras, da Magia das Fadas e do
   Contra-ataque saem de `Eternia-Onda-Apelona/` (fora do repositório: `gen.mjs` escreve só as 13, `buffs.py` as quatro
-  com buff e os limites de portadores, `rules.py` AS REGRAS XII, `lang.py` os textos). Nunca rode os geradores antigos
+  com buff e os limites de portadores, `rules.py` AS REGRAS XII, `lang.py` os textos). As três do elenco (1.0.4: a
+  Página em Branco, A Escrita e a Escrita de Cardinal) saem de `Eternia-Magias-Elenco/` (`gen.mjs`, `rules.py`, `lang.py`). Nunca rode os geradores antigos
   dos kits de Magias por cima: o balanço da 0.42 mudou aqueles JSON à mão. Mudou uma Magia que as fichas já têm, suba a
   versão da migração `kudenCleanup` (`refreshMagias` com a lista dela, como `BUFFED_051`). A Cataclismo é a antiga Fruta
   do Tremor (renomeada na 0.51.1, com o mesmo id, `fruta-do-tremor`, e o nome repetido de propósito com o talento do
@@ -179,7 +180,7 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   compêndio com os campos do último pedido: um `getIndex({ fields })` com um campo de fora dessa lista busca o índice
   inteiro de novo (e o seguinte, também). Peça sempre por `packIndex(pack, fields)` (mesmo arquivo), que junta os pedidos
   em andamento. As descrições ficam de fora (pesariam todos os compêndios): quem as lê carrega os documentos (o catálogo
-  de Magias carrega só as 110 Magias, em fatias de 20). A exceção é o Mercado: ele pede as descrições
+  de Magias carrega só as 113 Magias, em fatias de 20). A exceção é o Mercado: ele pede as descrições
   (`MARKET_INDEX_FIELDS` de `helpers/pack-index.mjs`) só ao índice dos compêndios com itens físicos, de propósito, para
   não carregar ~1000 documentos; no Mestre, os ícones já pedem esses campos no `ready`.
 - O que as janelas leem dos compêndios é preparado com o jogo ocioso (`module/helpers/prewarm.mjs`), um passo por vez,

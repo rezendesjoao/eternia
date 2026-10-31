@@ -39,9 +39,13 @@ export function isCloseAttack(item, actor) {
 /** Tags of the skills that are spells for [Rhythm], besides the spells of the Magias. */
 const SPELL_TAGS = ["magic attack", "spell"];
 
-/** Whether a skill is a spell: one of a Magia (`flags.eternia.magicSpell`), or a [Magic Attack] / [Spell]. */
+/**
+ * Whether a skill is a spell: one of a Magia (`flags.eternia.magicSpell`), or a [Magic Attack] / [Spell]. A skill with
+ * `flags.eternia.notMagic` never is (the Página em Branco's techniques, the Quintessência of A Escrita).
+ */
 export function isSpell(item) {
   if (!item) return false;
+  if (item.flags?.eternia?.notMagic) return false;
   if (item.flags?.eternia?.magicSpell) return true;
   return (item.system?.tags ?? []).some(t => SPELL_TAGS.includes((findTag(t)?.label ?? String(t)).trim().toLowerCase()));
 }

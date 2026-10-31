@@ -5,9 +5,15 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 1.0.3
+## Versão 1.0.4
 
-- **Na 1.0.3: o elenco de A Última Etapa.** Os 97 papéis do enredo da campanha (31 NPCs e 66 personagens maiores,
+- **Na 1.0.4: as três Magias do elenco.** As Magias que as fichas da 1.0.3 deixaram em branco chegam, cada uma com um
+  portador só: a **Página em Branco** de Kriegger (Absoluta: o feitiço que mira só ele não chega, e as técnicas dele não
+  são magia e atravessam tudo), **A Escrita** do Pontífice (Absoluta: os efeitos duram a cena, o Selo fere quem o ataca, e
+  os golpes dele não matam) e a **Escrita de Cardinal** de Viridiana Varn (Perdida: o [Silenciado] não a cala, e ela
+  atravessa a [Anulação] e a [Barreira], mas cada feitiço a deixa [Marcada]). Agora são 113 Magias (veja
+  [As Magias](#as-magias)).
+- **Desde a 1.0.3: o elenco de A Última Etapa.** Os 97 papéis do enredo da campanha (31 NPCs e 66 personagens maiores,
   com Aldric Artorius, que entrou agora) têm o nome do papel e a ficha inteira, no NP que cada um tem quando entra na
   história: a raça e o estágio da forma, a classe com o Caminho e o Ápice, as Magias com os feitiços, os talentos de
   cada NP, a profissão, armas e armadura. A biografia diz o que o mundo sabe; o segredo de cada um fica nas Anotações,
@@ -366,7 +372,7 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
 - **Compêndios com conteúdo:** Guia do Jogador, Habilidades Básicas, Poderes EX do Mestre, Itens, Bestiário, Regras e
   O Mundo de Eternia (o mundo de jogo, só do Mestre), em português.
 - **Compêndios da Eternia:** Raças e Classes (as 6 raças em 8 itens, com os Bestiais em três linhagens, e as 6 antigas; as 10 profissões; as 22 classes, 14 na lista e 8 antigas), Habilidades Raciais e
-  Habilidades de Classe (36 por classe, 64 no Matador de Dragões, e as 110 Magias com os feitiços: 1602 ao todo),
+  Habilidades de Classe (36 por classe, 64 no Matador de Dragões, e as 113 Magias com os feitiços: 1623 ao todo),
   Habilidades Comuns (o Selar do Selador); no compêndio de Itens, as Montarias (os dragões terrestres), os Selos, as
   Engenhocas, as Canções e os 108 itens de Sword Art Online (veja
   [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). As raças, classes e habilidades gerais e de combate
@@ -861,6 +867,7 @@ As categorias: **Conjuração** e **Portadora** (a base), **Perdida**, **Proibid
 
 | Magia | Categoria | O que faz |
 |---|---|---|
+| A Escrita | Absoluta, 1 portador | A pena que escreveu o mundo: os efeitos dos feitiços duram a cena, e quem ataca você a até 6 Qd sofre NP de dano direto (o Selo). A linha riscada ([Selado]), o corpo escrito ([Servo: NP]), a lei da cena ([Pacificado] em quem está em volta), o nome apagado ([Amnésia]), escrever de novo (cura e tira os Estados Negativos) e o Prisma de Quintessência ([Petrificado] e [Selado]; não é magia, nada o apaga). Tabu: em combate, os seus golpes param em 1 PV, e os feitiços dos aliados a até 3 Qd rolam 1d6 a menos. Traço: O Autor. |
 | Absorção | Maldição | As almas: a conexão que drena ([Enfraquecido]) e bebe a força ([Fortalecido]), o ataque engolido ([Anulação], [Fortalecido]), a revolução que veste outra alma ([Despertado]), a alma roubada ([Selado], e os bônus do alvo passam para você), a ejeção ([Medo]) e o Festim de Almas ([Maldito], [Atordoado]). Tabu: em combate, a Defesa Mágica cai [NP÷2] e −1d6 nas Resistências. Traço: Fome de Almas. |
 | Água | Conjuração | Prende, corta e escorre: [Água], [Lento], [Enraizado] e o Corpo de Água ([Intangível]); o supremo é o Maremoto. Traço: Alma de Água. |
 | Alma Animal | Conjuração | Os bichos: o gato que some ([Oculto]), o pássaro que mergulha ([Voando]), o coelho que salta ([Acelerado]), o peixe ([Água], [Lento]), o urso ([Derrubado]) e o Estouro da Manada. Traço: Instinto. |
@@ -898,6 +905,7 @@ As categorias: **Conjuração** e **Portadora** (a base), **Perdida**, **Proibid
 | Desastre | Ancestral | Promover e rebaixar: a Promoção de Estado sobe de uma vez todos os Estados Negativos do alvo (os sem Valor duram mais um turno), a gota que conta metade da Defesa, a boneca de flores ([Servo] e [Regeneração]), o Murchar (tira todos os bônus), as vinhas ([Agarrado]) e a Floresta Desperta, o supremo do NP 10, que dobra os Estados Negativos. Traço: Autoridade sobre a Vida. |
 | Elo dos Sentidos | Perdida | Os sentidos ligados: as lâminas de [Psíquico], o elo que dá [Vínculo] a um aliado, a Lâmina de Sodoma ([Cambaleante]), os sentidos trocados que deixam [Confuso], a tempestade de lâminas ([Atordoado]) e o Elo Final ([Marcado]). Tabu: em combate, a Defesa Física cai [NP]. Traço: Sentidos Embaralhados. |
 | Encantamento | Conjuração | Os encantos: a força ([Fortalecido]), a guarda ([Anulação]) e a pressa ([Acelerado]) nos aliados, o Desencanto que fere e arranca os encantos do inimigo, o Grande Encantamento no grupo e o Universo Um ([Lento]). Traço: Desencantador. |
+| Escrita de Cardinal | Perdida, 1 portador | A língua da Lei de Aincrad: [Silenciado] não impede os feitiços, e eles ignoram a [Anulação] e a [Barreira]. A linha, o fechar das Fendas (duas escritas a menos, sem teste), o destrancar ([Selado], [Silenciado], [Apagado], [Paralisado] e outros saem de um aliado), o reescrever no ar (os efeitos de feitiço saem), o código do castelo ([Silenciado]) e A Lei de Cardinal (atravessa tudo e arranca os bônus). Tabu: cada feitiço deixa você [Marcado: NP]. Traço: A Outra Lei. |
 | Escrita Rúnica | Conjuração | As regras escritas: o círculo que prende ([Enraizado]), a palavra DOR ([Deterioração]), a runa que devolve o golpe ([Espelho]), as asas negras, a escuridão que transforma ([Despertado]) e a Regra Absoluta. Traço: Regra Escrita. |
 | Escrita Sólida | Conjuração | As palavras que ficam de pé: FOGO ([Queimando]), GUARDA ([Anulação]), SILÊNCIO ([Silenciado]), FERRO ([Derrubado]), TROVÃO ([Eletrificado]) e A Palavra Final ([Atordoado]). Traço: Palavra Pesada. |
 | Esmagamento | Conjuração | Quebra tudo: [Fissurado] e [Exposto] de perto, e a Desmontagem, que desfaz o golpe que vem. Traço: Desmonte. |
@@ -941,6 +949,7 @@ As categorias: **Conjuração** e **Portadora** (a base), **Perdida**, **Proibid
 | Olhar que Apaga | Absoluta, 1 portador | Os olhos que apagam magia: sem a faixa, todo mundo a até 4 Qd (aliados também) fica [Apagado] (sem feitiços nem Maldições, Traços desligados); a faixa vira laço ([Agarrado]), o Olhar Fixo apaga um alvo a cena toda, o olhar em brasa tira os efeitos de feitiço e O Fim da Magia. Tabu: com a faixa você está [Cego]; sem ela, [Fadiga] por rodada. Traço: Olhos Vermelhos. |
 | Olhos Mágicos | Conjuração | O olhar: o que deixa [Rigidez], o que deixa [Marcado], o que deixa [Encantado], o olho do demônio ([Despertado]), os Mil Olhos ([Medo]) e o Olhar Petrificante ([Paralisado]). Traço: Olhar que Petrifica. |
 | Onda | Conjuração | A onda que anula a magia: o disparo, o escudo contra ataques mágicos, o impulso que deixa [Silenciado], a anulação que arranca os encantos, a explosão que deixa [Cambaleante] e o Mundo Sem Magia ([Selado]). Traço: Vibração. |
+| Página em Branco | Absoluta, 1 portador | A falta de magia: o feitiço que mira só você não chega, de inimigo ou de aliado (golpe, estado, cura ou bônus); as técnicas não são magia ([Silenciado] e [Apagado] não as impedem) e atravessam tudo. O corte que deixa [Exposto], a corrida antes da segunda palavra, a lâmina que arranca os bônus, o arsenal em três alvos, o corpo além do limite (uma Ação Maior a mais) e O Fim da Página (sem Defesa). Tabu: a cura e o apoio de alvo único escorregam também, e a cura que chega cura metade em combate. Traço: O Corpo sem Limite. |
 | Perfume Mágico | Portadora | Os frascos: o trovão de [Choque], a força que deixa [Fortalecido], o analgésico que cura o grupo, a dor que deixa [Medo] e [Envenenado], o veneno que deixa [Envenenado] e o Perfume da Força: Máximo ([Derrubado]). Traço: Nariz Treinado. |
 | Permeação | Perdida, 2 portadores | Atravessar tudo: [Permeando], nenhum ataque chega e cada golpe que passa vira [Antecipação], gasta pelos golpes da Magia; o mergulho no chão, o contragolpe de dentro de quem bateu e os Cem Ângulos. Tabu: [Fadiga: 1] quando o [Permeando] acaba; −2 nas Esquivas. Traço: Ler a Luta. |
 | Pintura Mágica | Portadora | A tinta que vive: a fera pintada, que fica ([Servo]), as asas que deixam [Voando], a jaula que deixa [Enraizado] e [Selado], a armadura ([Anulação]), o dragão ([Queimando]) e o Mural Vivo ([Medo]). Traço: Grade Pintada. |

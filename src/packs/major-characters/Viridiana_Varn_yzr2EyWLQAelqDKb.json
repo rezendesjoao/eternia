@@ -3924,6 +3924,203 @@
       "_key": "!actors.items!yzr2EyWLQAelqDKb.NSbo7mN1EzzxhI1u"
     },
     {
+      "name": "Escrita de Cardinal",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Magia Perdida.</strong> A língua da Lei de Cardinal, a que governa Aincrad, aprendida com os elfos das Chaves nos andares altos. Ela não é a Língua Sagrada: o Selo não a lê, o silêncio não a cala, e as proteções que o Pai escreveu não a seguram. Por isso fecha as Fendas que não fecham e abre o que a Igreja trancou. Mais forte que as Magias comuns, e com um Tabu.</p><ul><li><strong>Única:</strong> só uma pessoa no mundo tem esta Magia de cada vez.</li><li><strong>Letras de Fora:</strong> os feitiços dela não são da Língua Sagrada: [Silenciado] não os impede (o [Apagado], que apaga toda magia, impede).</li><li><strong>Tabu, A Igreja Sente:</strong> cada uso acende o Quociente: cada feitiço deixa você [Marcado: NP] (−1d6 nas Esquivas; ao falhar numa, +NP de dano direto, e a marca sai).</li><li><strong>Traço, A Outra Lei:</strong> os seus feitiços atravessam o que a Língua Sagrada protege: ignoram a [Anulação] e a [Barreira] (e a quebram).</li><li><strong>Feitiços:</strong> Linha de Cardinal e Fechar o que Não Fecha (NP 1), Destrancar e Reescrever no Ar (NP 3), Código do Castelo (NP 5) e o feitiço supremo A Lei de Cardinal (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Lei de Cardinal pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>A Fenda não fechava com a Língua Sagrada. Fechou com uma palavra que nenhum sacerdote reconheceu.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/books/book-clasp-spiral-green.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "trait": {
+                "magia": "escrita-de-cardinal",
+                "pierce": {
+                  "cancel": true,
+                  "barrier": true
+                }
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "1.0.4",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "A Outra Lei",
+          "img": "icons/sundries/books/book-clasp-spiral-green.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "Gj4jVzq6SS2NP7nE",
+          "_key": "!actors.items.effects!yzr2EyWLQAelqDKb.zjL4NMk3HhbRsfhZ.Gj4jVzq6SS2NP7nE"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "escrita-de-cardinal-escrita-de-cardinal",
+          "kind": "bends",
+          "branch": "magic",
+          "magic": {
+            "id": "escrita-de-cardinal",
+            "category": "lost",
+            "tagline": "A língua da Lei do castelo, que não é a Sagrada: fecha o que não fecha e abre o que o Pai trancou.",
+            "holders": 1
+          },
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GanqWnOVHT0sihVU"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "1.0.4",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.e3Fqwyeu6rlDTvIO",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "zjL4NMk3HhbRsfhZ",
+      "_key": "!actors.items!yzr2EyWLQAelqDKb.zjL4NMk3HhbRsfhZ"
+    },
+    {
+      "name": "Fechar o que Não Fecha",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Escrita de Cardinal.</strong> Você escreve na Fenda aberta a até 1 Qd de você a palavra de Cardinal que a costura: duas escritas a menos no relógio dela, sem teste (no 0, ela fecha). Você fica [Marcado: NP]. Uma vez por rodada.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Os sacerdotes chamam de Fenda. Os elfos do castelo chamam de erro. Erro se corrige.</em></p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/commodities/treasure/token-runed-circles-grey.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "escrita-de-cardinal-fechar",
+          "kind": "feeds",
+          "branch": "magic",
+          "useActions": [
+            {
+              "type": "riftSeal",
+              "value": 2,
+              "recipients": "self"
+            },
+            {
+              "type": "addStatus",
+              "status": "marked",
+              "value": "@cr",
+              "recipients": "self",
+              "onUse": true
+            }
+          ],
+          "magicSpell": {
+            "id": "escrita-de-cardinal"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "1.0.4",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.1g1d0yCChtqkBCXm",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "7udKfAx6EKvBTAtd",
+      "_key": "!actors.items!yzr2EyWLQAelqDKb.7udKfAx6EKvBTAtd"
+    },
+    {
       "name": "Runa do Cerco",
       "type": "skill",
       "system": {
@@ -3985,6 +4182,381 @@
       },
       "_id": "r1IyrClA99JSwRb8",
       "_key": "!actors.items!yzr2EyWLQAelqDKb.r1IyrClA99JSwRb8"
+    },
+    {
+      "name": "Bênção do Vento Veloz",
+      "type": "skill",
+      "system": {
+        "description": "<p>+1d6 nos testes de Atletismo.</p><p>Você nunca escorrega nem perde o equilíbrio por causa do terreno.</p><hr><p><em>O vento parece empurrar as suas costas na corrida e firmar os seus pés no telhado molhado.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/movement/feet-winged-boots-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {},
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Bênção do Vento Veloz",
+          "img": "icons/skills/movement/feet-winged-boots-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.athletics.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "A8scv7MRoVj9zfd2",
+          "_key": "!actors.items.effects!yzr2EyWLQAelqDKb.joXvssi007KBuugu.A8scv7MRoVj9zfd2"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "skill",
+            "source": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.PRlziwUF9xcNxPch",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "joXvssi007KBuugu",
+      "_key": "!actors.items!yzr2EyWLQAelqDKb.joXvssi007KBuugu"
+    },
+    {
+      "name": "Linha de Cardinal",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Escrita de Cardinal.</strong> Uma linha da Lei do castelo contra um alvo a até 5 Qd: Teste de Precisão contra a Resistência; [3d6 + Poder Mágico] de dano mágico. Você fica [Marcado: NP].</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>A barreira dele era Língua Sagrada. A linha passou como se ela fosse papel.</em></p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "5Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 3,
+          "mod": 0,
+          "type": "magic",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/commodities/treasure/token-runed-nyd-green.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "escrita-de-cardinal-linha",
+          "kind": "feeds",
+          "branch": "magic",
+          "useActions": [
+            {
+              "type": "addStatus",
+              "status": "marked",
+              "value": "@cr",
+              "recipients": "self",
+              "onUse": true
+            }
+          ],
+          "magicSpell": {
+            "id": "escrita-de-cardinal"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "1.0.4",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.vMnYw49CxbZAVARA",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "6QzudoZ4tLsquXtx",
+      "_key": "!actors.items!yzr2EyWLQAelqDKb.6QzudoZ4tLsquXtx"
+    },
+    {
+      "name": "Bênção do Olho da Verdade",
+      "type": "skill",
+      "system": {
+        "description": "<p>+1d6 nos testes de Análise.</p><p>Você percebe quando alguém mente diretamente para você, mas não sabe qual é a verdade.</p><hr><p><em>A mentira chega aos seus ouvidos como uma nota desafinada, um som que só você escuta.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/perception/eye-ringed-green.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {},
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Bênção do Olho da Verdade",
+          "img": "icons/magic/perception/eye-ringed-green.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.analysis.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "g6JrmqKQ9ObIK4oy",
+          "_key": "!actors.items.effects!yzr2EyWLQAelqDKb.JQ2YdqY8x9EOtB57.g6JrmqKQ9ObIK4oy"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "skill",
+            "source": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.po32KdHxFSexXWEt",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "JQ2YdqY8x9EOtB57",
+      "_key": "!actors.items!yzr2EyWLQAelqDKb.JQ2YdqY8x9EOtB57"
+    },
+    {
+      "name": "Destrancar",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Escrita de Cardinal.</strong> Você abre o que a Língua Sagrada trancou num aliado a até 5 Qd: ele perde [Selado], [Silenciado], [Apagado], [Paralisado], [Petrificado], [Amnésia], [Enraizado] e [Agarrado]. Você fica [Marcado: NP].</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>A cela da Catedral não tinha fechadura. Tinha uma frase. Ela leu a frase de trás para a frente.</em></p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "5Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/misc/key-angular-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "escrita-de-cardinal-destrancar",
+          "kind": "feeds",
+          "branch": "magic",
+          "useActions": [
+            {
+              "type": "removeStatus",
+              "statuses": [
+                "sealed",
+                "silenced",
+                "erased",
+                "paralyzed",
+                "petrified",
+                "amnesia",
+                "rooted",
+                "grappled"
+              ]
+            },
+            {
+              "type": "addStatus",
+              "status": "marked",
+              "value": "@cr",
+              "recipients": "self",
+              "onUse": true
+            }
+          ],
+          "magicSpell": {
+            "id": "escrita-de-cardinal"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "1.0.4",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.6czMeFWHD6RlyeMD",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "CTAUNY7Vo7KrAnaU",
+      "_key": "!actors.items!yzr2EyWLQAelqDKb.CTAUNY7Vo7KrAnaU"
     },
     {
       "name": "Barreira Rúnica",
@@ -4105,338 +4677,73 @@
       "_key": "!actors.items!yzr2EyWLQAelqDKb.Vxioxwu0UIW2MJ48"
     },
     {
-      "name": "Bênção do Vento Veloz",
+      "name": "Reescrever no Ar",
       "type": "skill",
       "system": {
-        "description": "<p>+1d6 nos testes de Atletismo.</p><p>Você nunca escorrega nem perde o equilíbrio por causa do terreno.</p><hr><p><em>O vento parece empurrar as suas costas na corrida e firmar os seus pés no telhado molhado.</em></p>",
+        "description": "<p><strong>Escrita de Cardinal.</strong> Você reescreve no ar os feitiços de uma área a até 5 Qd: a língua de Cardinal não se esquiva, o ataque acerta sem teste; [3d6 + Poder Mágico] de dano mágico, e os efeitos de feitiço saem de quem está nela (os bons dos inimigos, os ruins dos aliados). Você fica [Marcado: NP].</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>O feitiço deles estava escrito certo. Ela só trocou a língua.</em></p>",
         "tags": [],
-        "timing": "Constant",
-        "checkType": "",
-        "range": "Close",
-        "target": "Self",
-        "subtype": "General",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "-",
-        "check": {
-          "dice": 0,
-          "mod": 0,
-          "vs": "",
-          "stat": ""
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false
-        },
-        "macroeffect": ""
-      },
-      "img": "icons/skills/movement/feet-winged-boots-blue.webp",
-      "effects": [
-        {
-          "origin": null,
-          "duration": {
-            "value": null,
-            "units": "seconds",
-            "expiry": null,
-            "expired": false
-          },
-          "disabled": false,
-          "tint": "#ffffff",
-          "transfer": true,
-          "flags": {},
-          "_stats": {
-            "coreVersion": "14.367",
-            "systemId": "eternia",
-            "systemVersion": "0.3.0",
-            "createdTime": null,
-            "modifiedTime": null,
-            "lastModifiedBy": null,
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null
-          },
-          "name": "Bênção do Vento Veloz",
-          "img": "icons/skills/movement/feet-winged-boots-blue.webp",
-          "type": "base",
-          "system": {
-            "changes": [
-              {
-                "key": "system.checks.athletics.dice",
-                "type": "add",
-                "value": 1,
-                "phase": "initial",
-                "priority": null
-              }
-            ]
-          },
-          "description": "",
-          "statuses": [],
-          "sort": 0,
-          "start": null,
-          "showIcon": 1,
-          "_id": "A8scv7MRoVj9zfd2",
-          "_key": "!actors.items.effects!yzr2EyWLQAelqDKb.joXvssi007KBuugu.A8scv7MRoVj9zfd2"
-        }
-      ],
-      "flags": {
-        "eternia": {
-          "choiceOnly": true,
-          "grantedBy": {
-            "type": "skill",
-            "source": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n"
-          }
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "eternia",
-        "systemVersion": "0.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.skills-racial.Item.PRlziwUF9xcNxPch",
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "sort": 0,
-      "ownership": {
-        "default": 0
-      },
-      "_id": "joXvssi007KBuugu",
-      "_key": "!actors.items!yzr2EyWLQAelqDKb.joXvssi007KBuugu"
-    },
-    {
-      "name": "Círculo Rúnico",
-      "type": "skill",
-      "system": {
-        "description": "<p>O Teto da Lei aumenta em [NH].</p>",
-        "tags": [
-          "Dedication"
-        ],
-        "timing": "Constant",
-        "checkType": "",
-        "range": "-",
-        "target": "-",
-        "subtype": "Combat",
-        "skillRank": {
-          "value": 1,
-          "max": 2
-        },
-        "cost": "-",
-        "limit": "-",
-        "check": {
-          "dice": 0,
-          "mod": 0,
-          "vs": "",
-          "stat": ""
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false
-        },
-        "macroeffect": ""
-      },
-      "img": "icons/commodities/treasure/token-runed-circles-blue.webp",
-      "effects": [],
-      "flags": {
-        "eternia": {
-          "identifier": "magobranco-circulo-runico",
-          "kind": "bends",
-          "branch": "runa",
-          "minRank": 3
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "eternia",
-        "systemVersion": "0.9.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.skills-class.Item.UG3vzq72NFnrzcRc",
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "sort": 0,
-      "ownership": {
-        "default": 0
-      },
-      "_id": "Ls23vT45yBOaN0RG",
-      "_key": "!actors.items!yzr2EyWLQAelqDKb.Ls23vT45yBOaN0RG"
-    },
-    {
-      "name": "Bênção do Olho da Verdade",
-      "type": "skill",
-      "system": {
-        "description": "<p>+1d6 nos testes de Análise.</p><p>Você percebe quando alguém mente diretamente para você, mas não sabe qual é a verdade.</p><hr><p><em>A mentira chega aos seus ouvidos como uma nota desafinada, um som que só você escuta.</em></p>",
-        "tags": [],
-        "timing": "Constant",
-        "checkType": "",
-        "range": "Close",
-        "target": "Self",
-        "subtype": "General",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "-",
-        "check": {
-          "dice": 0,
-          "mod": 0,
-          "vs": "",
-          "stat": ""
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false
-        },
-        "macroeffect": ""
-      },
-      "img": "icons/magic/perception/eye-ringed-green.webp",
-      "effects": [
-        {
-          "origin": null,
-          "duration": {
-            "value": null,
-            "units": "seconds",
-            "expiry": null,
-            "expired": false
-          },
-          "disabled": false,
-          "tint": "#ffffff",
-          "transfer": true,
-          "flags": {},
-          "_stats": {
-            "coreVersion": "14.367",
-            "systemId": "eternia",
-            "systemVersion": "0.3.0",
-            "createdTime": null,
-            "modifiedTime": null,
-            "lastModifiedBy": null,
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null
-          },
-          "name": "Bênção do Olho da Verdade",
-          "img": "icons/magic/perception/eye-ringed-green.webp",
-          "type": "base",
-          "system": {
-            "changes": [
-              {
-                "key": "system.checks.analysis.dice",
-                "type": "add",
-                "value": 1,
-                "phase": "initial",
-                "priority": null
-              }
-            ]
-          },
-          "description": "",
-          "statuses": [],
-          "sort": 0,
-          "start": null,
-          "showIcon": 1,
-          "_id": "g6JrmqKQ9ObIK4oy",
-          "_key": "!actors.items.effects!yzr2EyWLQAelqDKb.JQ2YdqY8x9EOtB57.g6JrmqKQ9ObIK4oy"
-        }
-      ],
-      "flags": {
-        "eternia": {
-          "choiceOnly": true,
-          "grantedBy": {
-            "type": "skill",
-            "source": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n"
-          }
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "eternia",
-        "systemVersion": "0.3.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.skills-racial.Item.po32KdHxFSexXWEt",
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "sort": 0,
-      "ownership": {
-        "default": 0
-      },
-      "_id": "JQ2YdqY8x9EOtB57",
-      "_key": "!actors.items!yzr2EyWLQAelqDKb.JQ2YdqY8x9EOtB57"
-    },
-    {
-      "name": "Restauração",
-      "type": "skill",
-      "system": {
-        "description": "<p>Gaste quantas Runas quiser (pelo menos 1): você escreve runas de cura na pele de um aliado a até 4 Qd (ou na sua). Ele recupera [(1 + Runas gastas)d6 + Recuperação] PV.</p><p><strong>Custo:</strong> Ódio 1.</p>",
-        "tags": [
-          "Spell"
-        ],
         "timing": "Major",
         "checkType": "",
-        "range": "4Sq",
-        "target": "Single",
+        "range": "5Sq",
+        "target": "Area",
         "subtype": "Combat",
         "skillRank": {
           "value": 1,
           "max": 1
         },
-        "cost": "Hate 1",
+        "cost": "Hate 2",
         "limit": "-",
         "check": {
           "dice": 0,
           "mod": 0,
-          "vs": "",
-          "stat": ""
+          "vs": "auto",
+          "stat": "accuracy"
         },
         "damage": {
-          "dice": "1+@spent",
+          "dice": 3,
           "mod": 0,
-          "type": "",
-          "recovery": true
+          "type": "magic",
+          "recovery": false
         },
         "macroeffect": ""
       },
-      "img": "icons/magic/life/heart-cross-strong-purple-orange.webp",
+      "img": "icons/sundries/scrolls/scroll-bound-brown-tan.webp",
       "effects": [],
       "flags": {
         "eternia": {
-          "identifier": "magobranco-restauracao",
-          "kind": "spends",
-          "branch": "barreira",
+          "identifier": "escrita-de-cardinal-reescrever",
+          "kind": "feeds",
+          "branch": "magic",
+          "useActions": [
+            {
+              "type": "cancelSpells"
+            },
+            {
+              "type": "addStatus",
+              "status": "marked",
+              "value": "@cr",
+              "recipients": "self",
+              "onUse": true
+            }
+          ],
+          "magicSpell": {
+            "id": "escrita-de-cardinal"
+          },
           "minRank": 3,
           "motor": {
-            "id": "magobranco",
-            "needs": {
-              "min": 1
-            },
-            "spend": "choose",
-            "max": "@motor.value"
-          },
-          "damageText": "(1+Runas)d6 + [Recuperação]"
+            "id": "@class",
+            "gain": 1
+          }
         }
       },
       "_stats": {
         "coreVersion": "14.367",
         "systemId": "eternia",
-        "systemVersion": "0.9.0",
+        "systemVersion": "1.0.4",
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.skills-class.Item.MMQSka0w2vF1qRX8",
+        "compendiumSource": "Compendium.eternia.skills-class.Item.iYM6whWuxlU3ySdi",
         "duplicateSource": null,
         "exportSource": null
       },
@@ -4444,150 +4751,25 @@
       "ownership": {
         "default": 0
       },
-      "_id": "lNip5BiccWWwguOD",
-      "_key": "!actors.items!yzr2EyWLQAelqDKb.lNip5BiccWWwguOD"
+      "_id": "37WNAPaXukcNS2Lw",
+      "_key": "!actors.items!yzr2EyWLQAelqDKb.37WNAPaXukcNS2Lw"
     },
     {
-      "name": "Runa Partida",
+      "name": "Código do Castelo",
       "type": "skill",
       "system": {
-        "description": "<p>Quando uma Runa que você gasta para Reescrever deixa o teste de um inimigo em Falha Crítica, ele sofre [NP × 2] de dano direto.</p>",
+        "description": "<p><strong>Escrita de Cardinal. Feitiço grande.</strong> Uma página inteira do código de Aincrad numa área a até 5 Qd: Teste de Precisão contra a Resistência; [5d6 + Poder Mágico] de dano mágico, e cada um fica [Silenciado] (a Língua Sagrada se cala diante de outra Lei). Você fica [Marcado: NP].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Nos andares altos, a lei não reza. Executa.</em></p>",
         "tags": [],
-        "timing": "Constant",
-        "checkType": "",
-        "range": "-",
-        "target": "-",
-        "subtype": "Combat",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "-",
-        "check": {
-          "dice": 0,
-          "mod": 0,
-          "vs": "",
-          "stat": ""
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false
-        },
-        "macroeffect": ""
-      },
-      "img": "icons/commodities/treasure/token-runed-radr-brown.webp",
-      "effects": [],
-      "flags": {
-        "eternia": {
-          "identifier": "magobranco-runa-partida",
-          "kind": "bends",
-          "branch": "julgamento",
-          "minRank": 3
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "eternia",
-        "systemVersion": "0.9.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.skills-class.Item.F6uIb123iQn9OFXt",
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "sort": 0,
-      "ownership": {
-        "default": 0
-      },
-      "_id": "BK3I8CUVZi2Ys3v8",
-      "_key": "!actors.items!yzr2EyWLQAelqDKb.BK3I8CUVZi2Ys3v8"
-    },
-    {
-      "name": "Segunda Lei",
-      "type": "skill",
-      "system": {
-        "description": "<p>A sua Lei tem dois números: Escrever a Lei pede os dois. Um teste que mostre qualquer um deles acende as Runas daquele número (as do maior, se mostrar os dois).</p>",
-        "tags": [],
-        "timing": "Constant",
-        "checkType": "",
-        "range": "-",
-        "target": "-",
-        "subtype": "Combat",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "-",
-        "check": {
-          "dice": 0,
-          "mod": 0,
-          "vs": "",
-          "stat": ""
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false
-        },
-        "macroeffect": ""
-      },
-      "img": "icons/commodities/treasure/token-runed-wyn-grey.webp",
-      "effects": [],
-      "flags": {
-        "eternia": {
-          "identifier": "magobranco-segunda-lei",
-          "kind": "feeds",
-          "branch": "runa",
-          "minRank": 3,
-          "requires": [
-            "magobranco-inscrever"
-          ]
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "eternia",
-        "systemVersion": "0.9.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.skills-class.Item.6B2cuY7IM7WJh4Sq",
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "sort": 0,
-      "ownership": {
-        "default": 0
-      },
-      "_id": "VwJq98S5kewwOZJr",
-      "_key": "!actors.items!yzr2EyWLQAelqDKb.VwJq98S5kewwOZJr"
-    },
-    {
-      "name": "Duas Sentenças",
-      "type": "skill",
-      "system": {
-        "description": "<p>Precisa de pelo menos 2 Runas e gasta todas: a luz se divide sobre até 2 alvos a até 4 Qd. Teste de Precisão contra a Resistência; [(Runas)d6 + Poder Mágico + (Runas×NP)÷4] de dano mágico de [Radiância] em cada um.</p><p><strong>Custo:</strong> Ódio 1 + as Runas gastas.</p>",
-        "tags": [
-          "Spell",
-          "Magic Attack",
-          "Radiance"
-        ],
         "timing": "Major",
         "checkType": "",
-        "range": "4Sq",
-        "target": "Targets",
+        "range": "5Sq",
+        "target": "Area",
         "subtype": "Combat",
         "skillRank": {
           "value": 1,
           "max": 1
         },
-        "cost": "Hate 1+Runas",
+        "cost": "Hate 3",
         "limit": "-",
         "check": {
           "dice": 0,
@@ -4596,42 +4778,52 @@
           "stat": "accuracy"
         },
         "damage": {
-          "dice": "@spent",
-          "mod": "floor(@spent*@cr/4)",
-          "type": "magical",
+          "dice": 5,
+          "mod": 0,
+          "type": "magic",
           "recovery": false
         },
         "macroeffect": ""
       },
-      "img": "icons/magic/light/beam-rays-teal-purple.webp",
+      "img": "icons/commodities/tech/electronics-tech-interface-crystal-yellow.webp",
       "effects": [],
       "flags": {
         "eternia": {
-          "identifier": "magobranco-duas-sentencas",
-          "kind": "spends",
-          "branch": "julgamento",
-          "minRank": 5,
-          "requires": [
-            "magobranco-runa-sagrada"
+          "identifier": "escrita-de-cardinal-codigo",
+          "kind": "feeds",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "silenced"
+            }
           ],
-          "motor": {
-            "id": "magobranco",
-            "needs": {
-              "min": 2
-            },
-            "spend": "all"
+          "useActions": [
+            {
+              "type": "addStatus",
+              "status": "marked",
+              "value": "@cr",
+              "recipients": "self",
+              "onUse": true
+            }
+          ],
+          "magicSpell": {
+            "id": "escrita-de-cardinal"
           },
-          "damageText": "(Runas)d6 + [Poder Mágico] + (Runas×NP)÷4 Mágico"
+          "minRank": 5,
+          "motor": {
+            "id": "@class",
+            "gain": 2
+          }
         }
       },
       "_stats": {
         "coreVersion": "14.367",
         "systemId": "eternia",
-        "systemVersion": "0.9.0",
+        "systemVersion": "1.0.4",
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.skills-class.Item.Wqt0ZDDHn5mLPPIT",
+        "compendiumSource": "Compendium.eternia.skills-class.Item.51qzJBc4R88aCncJ",
         "duplicateSource": null,
         "exportSource": null
       },
@@ -4639,8 +4831,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "pC9pzBcVECNpomBC",
-      "_key": "!actors.items!yzr2EyWLQAelqDKb.pC9pzBcVECNpomBC"
+      "_id": "kjYVJiqlIcV0SLtO",
+      "_key": "!actors.items!yzr2EyWLQAelqDKb.kjYVJiqlIcV0SLtO"
     },
     {
       "name": "Analisar Objeto de Cena",
@@ -5817,14 +6009,14 @@
         "age": "47",
         "gender": "Feminino",
         "homeland": "Wesdarath",
-        "notes": "<h3>Só o Mestre</h3><p>Aprendeu uma Magia Perdida nos andares altos de Aincrad e conhece os elfos das Chaves. Corrige a escrita dos alunos com letras que não são da Língua Sagrada, e fecha a Fenda que não fecha com uma língua que não é a Sagrada. A vaga do NP 10 está em branco: a Escrita de Cardinal ainda vai ser criada.</p>"
+        "notes": "<h3>Só o Mestre</h3><p>Aprendeu uma Magia Perdida nos andares altos de Aincrad e conhece os elfos das Chaves. Corrige a escrita dos alunos com letras que não são da Língua Sagrada, e fecha a Fenda que não fecha com uma língua que não é a Sagrada: a Escrita de Cardinal, a Magia do NP 10.</p>"
       }
     }
   },
   "_stats": {
     "coreVersion": "14.360",
     "systemId": "eternia",
-    "systemVersion": "1.0.2",
+    "systemVersion": "1.0.3",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

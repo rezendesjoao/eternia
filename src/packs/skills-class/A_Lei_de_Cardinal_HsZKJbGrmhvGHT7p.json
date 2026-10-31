@@ -1,0 +1,86 @@
+{
+  "name": "A Lei de Cardinal",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Escrita de Cardinal. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: por um instante, a Lei de Cardinal vale no lugar da do Pai, numa área ampla a até 6 Qd. O ataque acerta sem teste; [(1 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico, atravessando tudo, e os bônus de cada um saem de uma vez. Você fica [Marcado: NP]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Por três segundos, a Catedral não mandou em nada naquela sala.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Wide",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 4",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "auto",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": "1+2*@spent",
+      "mod": "@spent*@cr",
+      "type": "magic",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/tech/battery-arcane-crystal-cube.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "escrita-de-cardinal-lei",
+      "kind": "spends",
+      "branch": "magic",
+      "pierce": {
+        "all": true
+      },
+      "useActions": [
+        {
+          "type": "demote"
+        },
+        {
+          "type": "addStatus",
+          "status": "marked",
+          "value": "@cr",
+          "recipients": "self",
+          "onUse": true
+        }
+      ],
+      "magicSpell": {
+        "id": "escrita-de-cardinal"
+      },
+      "minRank": 7,
+      "motor": {
+        "id": "@class",
+        "needs": {
+          "full": true
+        },
+        "spend": "all"
+      },
+      "damageText": "(1+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "1.0.4",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 70000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "HsZKJbGrmhvGHT7p",
+  "folder": "Ep8L8jLbjF5WGUN7",
+  "_key": "!items!HsZKJbGrmhvGHT7p"
+}

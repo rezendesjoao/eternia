@@ -1,0 +1,81 @@
+{
+  "name": "Código do Castelo",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>Escrita de Cardinal. Feitiço grande.</strong> Uma página inteira do código de Aincrad numa área a até 5 Qd: Teste de Precisão contra a Resistência; [5d6 + Poder Mágico] de dano mágico, e cada um fica [Silenciado] (a Língua Sagrada se cala diante de outra Lei). Você fica [Marcado: NP].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Nos andares altos, a lei não reza. Executa.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "5Sq",
+    "target": "Area",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 3",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 5,
+      "mod": 0,
+      "type": "magic",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/commodities/tech/electronics-tech-interface-crystal-yellow.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "escrita-de-cardinal-codigo",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "silenced"
+        }
+      ],
+      "useActions": [
+        {
+          "type": "addStatus",
+          "status": "marked",
+          "value": "@cr",
+          "recipients": "self",
+          "onUse": true
+        }
+      ],
+      "magicSpell": {
+        "id": "escrita-de-cardinal"
+      },
+      "minRank": 5,
+      "motor": {
+        "id": "@class",
+        "gain": 2
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "1.0.4",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 60000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "51qzJBc4R88aCncJ",
+  "folder": "Ep8L8jLbjF5WGUN7",
+  "_key": "!items!51qzJBc4R88aCncJ"
+}

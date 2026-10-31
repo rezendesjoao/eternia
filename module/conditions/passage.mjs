@@ -5,7 +5,9 @@
  *   [Anticipation] (helpers/combat-cards.mjs applyDamage), up to its stack. Its bearer attacks no one
  *   (conditions/actions.mjs): only the skills with `flags.eternia.whilePhasing` go on.
  * - An effect with `cutSpell` (the Santo da Espada's Cortar o Feitiço): a spell's blow (a spell of a Magia, a [Spell] or
- *   a [Magic Attack]) is cut.
+ *   a [Magic Attack]) is cut. With `cutSpell: "single"` (the Página em Branco), only a spell aimed at its bearer alone
+ *   (no area, no line, no several targets), and from anyone: an ally's healing and effects don't reach it either
+ *   (`unwritten`, read by the healing of helpers/combat-cards.mjs and by helpers/item-use.mjs applyItemEffects).
  * - An effect with `spaceCut` (the Manto Devorador's Corte do Espaço): a blow from more than 1 square away doesn't
  *   cross the space the beast ate.
  * - An effect with `arrowWard` (the Portador de Bênçãos): a physical blow from more than 1 square away misses.
@@ -15,6 +17,7 @@
 import { L, SYSTEM_ID } from "../settings.mjs";
 import { has, rulesOn } from "./rules.mjs";
 import { isSpell } from "./rolls.mjs";
+import { isAreaAttack } from "./damage.mjs";
 
 /** The token an actor stands on in the scene on show (its first one). */
 const tokenOf = actor => (canvas?.ready ? (actor?.token?.object ?? actor?.getActiveTokens?.(true)?.[0] ?? null) : null);
@@ -48,6 +51,21 @@ export function cardDistance(actor, card) {
 /** The active effects of an actor with a flag (its own and the passive ones of its items). */
 const withFlag = (actor, key) => [...(actor?.allApplicableEffects?.() ?? [])].filter(e => e.active && e.getFlag(SYSTEM_ID, key));
 
+/** Whether an actor's `cutSpell` cuts this spell: any spell, or (`"single"`) one aimed at it alone. */
+const cutsSpell = (actor, item) => withFlag(actor, "cutSpell")
+  .some(e => (e.getFlag(SYSTEM_ID, "cutSpell") !== "single") || !isAreaAttack(item));
+
+/**
+ * The Página em Branco (`cutSpell: "single"`): a spell aimed at this actor alone, from anyone but itself (an enemy's
+ * blow, an ally's healing or effects), has nowhere to write.
+ * @param {Actor} actor
+ * @param {Item|null} item   The skill
+ */
+export function unwritten(actor, item) {
+  if (!rulesOn() || !actor || !item || (item.actor === actor) || !isSpell(item) || isAreaAttack(item)) return false;
+  return withFlag(actor, "cutSpell").some(e => e.getFlag(SYSTEM_ID, "cutSpell") === "single");
+}
+
 /**
  * Whether a blow passes by its defender, and why.
  * @param {Actor} actor
@@ -59,7 +77,8 @@ export function passageOf(actor, card, direct = false) {
   if (!rulesOn() || card.recovery || card.pierce?.all) return null;
   if (has(actor, "phasing")) return { note: L("Passage.Phasing"), phasing: true };
   const item = card.itemUuid ? fromUuidSync(card.itemUuid) : null;
-  if (item && isSpell(item) && withFlag(actor, "cutSpell").length) return { note: L("Passage.CutSpell") };
+  if (item && unwritten(actor, item)) return { note: L("Passage.Blank") };
+  if (item && isSpell(item) && cutsSpell(actor, item)) return { note: L("Passage.CutSpell") };
   if (direct) return null;
   const spaced = withFlag(actor, "spaceCut").length > 0;
   const warded = (card.type === "physical") && (withFlag(actor, "arrowWard").length > 0);

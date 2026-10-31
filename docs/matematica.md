@@ -1,7 +1,7 @@
 # A matemática da Eternia
 
 Este documento é a régua do sistema. Toda classe, Magia, habilidade de raça ou criatura nova é medida contra ele antes
-de entrar no compêndio: os números de cada seção são os que as 14 classes, as 110 Magias, as 8 raças e as 104 criaturas
+de entrar no compêndio: os números de cada seção são os que as 14 classes, as 113 Magias, as 8 raças e as 104 criaturas
 do bestiário seguem (as 52 do Império desde a 0.42, as 52 de Norlangarth desde a 0.47). As contas vêm de um simulador (Monte Carlo de lutas, com os dados e as regras de
 `module/helpers/combat-cards.mjs`), em `Desktop/Daggerheart/Eternia-Balanceamento/simulador` (fora do repositório; a
 seção 8 diz como rodar). Desde a 0.48, a seção 9 faz o mesmo com a economia: o preço de cada item, o que cada criatura
@@ -214,6 +214,8 @@ limites novos (a Contradição que fere os aliados, a Lei uma vez por cenário c
 do Contra-ataque também na Resistência). Uma Magia de apelação 8 ou mais não precisa caber na faixa do Tabu: o preço
 dela pode estar na própria regra, mas tem que existir e pesar à mesa.
 
+**As três do elenco (1.0.4).** As Magias que as fichas de *A Última Etapa* deixaram em branco: a **Página em Branco** (Kriegger, apelação 9, quase 10: a linha do 9, uma regra que quebra uma lei do jogo, o feitiço de alvo único não chega, e uma segunda do 10, as técnicas atravessam tudo e não são magia; o supremo na fórmula do 10; o Tabu, a cura de alvo único que escorrega e a metade da cura em combate, pesa numa luta longa), **A Escrita** (o Pontífice, apelação 10: várias regras, os efeitos que duram a cena, o Selo que fere quem ataca e o Autor imune; o Tabu pesa no grupo, os feitiços dos aliados perto rolam 1d6 a menos, e os golpes não matam) e a **Escrita de Cardinal** (Viridiana Varn, apelação 7: a linha da Perdida, a regra própria atravessa a [Anulação] e a [Barreira]; o Tabu passa da faixa, o [Marcado: NP] a cada feitiço).
+
 **A régua da Absoluta:** os dados de uma Ancestral, o supremo no NP 10, um portador só e nenhuma outra Magia na ficha
 (`flags.eternia.magic.exclusive`: as vagas do NP 5 e 10 fecham na aba Magias, na subida de NP e na janela; ela só entra
 numa ficha sem outra Magia). Os feitiços dela não levam as tags Feitiço nem Ataque Mágico (o [Silenciado] não os impede;
@@ -228,11 +230,11 @@ exército inteiro poderia ter (os Mandamentos, a Forma Indura, as Espadas Mágic
 
 | Categoria | 1 portador | 2 portadores | 3 portadores | Sem limite |
 |---|---|---|---|---|
-| Absoluta | 5 | — | — | — |
+| Absoluta | 7 | — | — | — |
 | Ancestral | 4 | 2 | — | — |
 | Proibida | 6 | 2 | 1 | — |
 | Maldição | 16 | 1 | 1 | — |
-| Perdida | 12 | 7 | — | — |
+| Perdida | 13 | 7 | — | — |
 | Portadora | 2 | 3 | 1 | 6 |
 | Conjuração | — | — | — | 41 |
 

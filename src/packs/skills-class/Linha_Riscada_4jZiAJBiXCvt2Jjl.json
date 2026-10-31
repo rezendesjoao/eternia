@@ -1,0 +1,75 @@
+{
+  "name": "Linha Riscada",
+  "type": "skill",
+  "system": {
+    "description": "<p><strong>A Escrita.</strong> Você risca a última linha que um alvo a até 6 Qd escreveu: Teste de Precisão contra a Resistência; [3d6 + Poder Mágico] de dano mágico, e ele fica [Selado] na última habilidade que usou (não a usa mais nesta cena).</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>O feitiço que ele ia repetir não estava mais lá. Nem a lembrança de como se fazia.</em></p>",
+    "tags": [
+      "Spell",
+      "Magic Attack"
+    ],
+    "timing": "Major",
+    "checkType": "",
+    "range": "6Sq",
+    "target": "Single",
+    "subtype": "Combat",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "Hate 1",
+    "limit": "-",
+    "check": {
+      "dice": 0,
+      "mod": 0,
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 3,
+      "mod": 0,
+      "type": "magic",
+      "recovery": false
+    },
+    "macroeffect": ""
+  },
+  "img": "icons/sundries/scrolls/scroll-bound-grey-tan.webp",
+  "effects": [],
+  "flags": {
+    "eternia": {
+      "identifier": "escrita-linha",
+      "kind": "feeds",
+      "branch": "magic",
+      "hitStatuses": [
+        {
+          "statusId": "sealed"
+        }
+      ],
+      "magicSpell": {
+        "id": "escrita"
+      },
+      "minRank": 1,
+      "motor": {
+        "id": "@class",
+        "gain": 1
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "1.0.4",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 20000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "4jZiAJBiXCvt2Jjl",
+  "folder": "pymS1za7Osic2D5b",
+  "_key": "!items!4jZiAJBiXCvt2Jjl"
+}

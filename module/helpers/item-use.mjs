@@ -8,6 +8,7 @@ import { evaluateFormula, formulaData, isFormula, resolveChanges } from "./effec
 import { effectConditions, unmetCondition } from "./effect-conditions.mjs";
 import { runUseActions } from "../conditions/effects.mjs";
 import { lastingEffectData } from "../conditions/lasting.mjs";
+import { unwritten } from "../conditions/passage.mjs";
 
 /**
  * Usable items (potions, food, scrolls, whistles, poisons…): item type "usable".
@@ -166,6 +167,9 @@ export function isMatchingSource(s, source) {
  * @returns {Promise<string[]>}   Names of the actors that received them
  */
 export async function applyItemEffects(item, actors, { useId, sustained, only, onUse } = {}) {
+  // The Página em Branco (conditions/passage.mjs): a spell aimed at one creature alone writes nothing on it, an ally's
+  // help included.
+  actors = [...actors].filter(actor => !unwritten(actor, item));
   // Effects whose conditions the caster doesn't meet (Skill Rank tiers…) are left out.
   const rawEffects = ((item.type === "skill")
     ? item.effects.filter(e => e.transfer === false)

@@ -51,6 +51,7 @@ import { isPrimaryGM } from "./clients.mjs";
 import { parseSkillField } from "./skill-fields.mjs";
 import { useHitStatuses } from "../bestiary/minor.mjs";
 import { foreseen, foreseenDodge } from "../conditions/foresight.mjs";
+import { unwritten } from "../conditions/passage.mjs";
 import { cardSeal, reapedOf, sealUpdates } from "../conditions/reaper.mjs";
 import { thresholdOf } from "../conditions/goliath.mjs";
 import { vulnerableTo } from "../conditions/quake.mjs";
@@ -796,6 +797,11 @@ async function applyDamage(actor, card, mode, dodgeFailed, target = null) {
       const hurt = await takeDamage(actor, amount, { what: `${card.skillName} (${why})`, silent: true });
       lines.push(hurt?.line ?? `${L("Applied.Heal")}: +0 HP`);
       return postApplied(actor, card, before, lines, `−${hurt?.loss ?? 0} HP`);
+    }
+    // The Página em Branco (conditions/passage.mjs): a healing spell aimed at it alone has nowhere to write.
+    if (unwritten(actor, card.itemUuid ? fromUuidSync(card.itemUuid) : null)) {
+      lines.push(`${game.i18n.localize("ETERNIA.Passage.Blank")}: +0 HP`);
+      return postApplied(actor, card, before, lines, "+0 HP");
     }
     // A [Cursed] character, or one with [Black Flame], recovers no HP (conditions/damage.mjs).
     const blocker = healBlocker(actor);

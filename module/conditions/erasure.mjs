@@ -18,9 +18,14 @@ const ERASED_TAGS = ["magic attack", "spell", "song", "curse"];
 
 const tagKeys = item => (item?.system?.tags ?? []).map(t => (findTag(t)?.label ?? String(t)).trim().toLowerCase());
 
-/** Whether a skill is magic the eyes erase: a spell of a Magia, or one with the tags of a spell or a Curse. */
+/**
+ * Whether a skill is magic the eyes erase: a spell of a Magia, or one with the tags of a spell or a Curse. A skill
+ * with `flags.eternia.notMagic` is not magic, even in a Magia (the Página em Branco's techniques, the Quintessência of
+ * A Escrita): nothing erases it.
+ */
 export function erasable(item) {
   if (!item) return false;
+  if (item.flags?.eternia?.notMagic) return false;
   if (item.flags?.eternia?.magicSpell) return true;
   return tagKeys(item).some(t => ERASED_TAGS.includes(t));
 }
