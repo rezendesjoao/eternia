@@ -1,5 +1,7 @@
 /**
- * What's new: once per user and release line, a short window with the news of this version (1.0: the first complete
+ * What's new: once per user and release line, a short window with the news of this version (1.0.1: the mounts, the earth
+ * dragons ridden from the sheet and the HUD with the Wind-Repelling Blessing, the Tamer and the Sealer in the places of
+ * the Bard and the Engineer; 1.0: the first complete
  * version, lighter and faster, the system in a few files, the status icons and fonts ahead of the first scene, less
  * redrawing and less work on every window in combat, and the Low performance mode for weaker computers; 0.53: the NP that rises
  * with the XP, the monsters' XP, the parties of the floating castle, the Evolution Ticket and the boosts; 0.52: the
@@ -45,7 +47,7 @@
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
 
 /** The release line the notice speaks about. */
-const NOTICE = "1.0";
+const NOTICE = "1.0.1";
 
 /** Call during the `init` hook. */
 export function registerNotice() {

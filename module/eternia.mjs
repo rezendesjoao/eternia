@@ -68,6 +68,7 @@ import { registerConditions } from "./conditions/index.mjs";
 import { recover } from "./conditions/recovery.mjs";
 import { takeDamage } from "./conditions/damage.mjs";
 import { professionsApi, registerProfessions } from "./professions/index.mjs";
+import { mountsApi, registerMounts } from "./mounts/index.mjs";
 import { registerBestiary } from "./bestiary/index.mjs";
 import { MOTOR_API, registerClasses } from "./classes/index.mjs";
 import { registerClassProgression } from "./classes/progression.mjs";
@@ -122,6 +123,7 @@ Hooks.once('init', async function () {
     // The stages of a race's form (races/evolution.mjs): where a character is, the box, evolving, going back, the GM's request
     form: { of: formOf, open: openEvolution, evolve, regress, request: requestEvolution, answer: answerRequest },
     professions: professionsApi,
+    mounts: mountsApi,
     motor: MOTOR_API,
     icons: iconsApi,
     hud: actionHud,
@@ -251,8 +253,10 @@ Hooks.once('init', async function () {
   registerTextChips();
   registerQuickEffect();
   registerNotice();
-  // Professions (the subclasses): the profession tab, the bench, the traps
+  // Professions (the subclasses): the profession tab, the bench, the Tamer's training and the Sealer's seal
   registerProfessions();
+  // Mounts: the earth dragons, mounting and dismounting, the rider thrown off
+  registerMounts();
   // The bestiary: the drops of the monsters, the monster rules and the Rifts
   registerBestiary();
   // The XP of the monsters, the NP that follows it, the Evolution Ticket and the boosts

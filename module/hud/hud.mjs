@@ -20,6 +20,7 @@
  * HUD is on screen. It is only hidden with CSS, so the macro keys (1–0) keep working.
  */
 import { recover } from "../conditions/recovery.mjs";
+import { toggleMount } from "../mounts/actions.mjs";
 import { removeStatuses } from "../conditions/rules.mjs";
 import { applyModifier, checkModifier, consumeAfterRoll } from "../conditions/rolls.mjs";
 import { L, SYSTEM_ID, setting } from "../settings.mjs";
@@ -59,7 +60,8 @@ export class ActionHud extends HandlebarsApplicationMixin(ApplicationV2) {
       "lhh-status-off": ActionHud.#onStatusOff,
       "lhh-status-recover": ActionHud.#onStatusRecover,
       "lhh-effect-off": ActionHud.#onEffectOff,
-      "lhh-motor": ActionHud.#onMotor
+      "lhh-motor": ActionHud.#onMotor,
+      "lhh-mount": ActionHud.#onMount
     }
   };
 
@@ -370,6 +372,12 @@ export class ActionHud extends HandlebarsApplicationMixin(ApplicationV2) {
     if (!actor?.isOwner || !id) return;
     if (id === "fatigue") return actor.update({ "system.infos.fatigue": 0 });
     return removeStatuses(actor, [id]);
+  }
+
+  /** Ride a mount, or get off it (mounts/actions.mjs: the Move Action in the rounds of a combat). */
+  static async #onMount(event, target) {
+    const item = this.actor?.items.get(target.closest("[data-item-id]")?.dataset.itemId);
+    if (this.actor?.isOwner && (item?.type === "mount")) return toggleMount(this.actor, item);
   }
 
   /** End a status with the action of the Main Process it takes (conditions/recovery.mjs). */

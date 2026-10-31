@@ -1,25 +1,26 @@
 /**
  * The profession tab of the character sheet (templates/character/profession.hbs): the crest with the Rank, the EXP
  * and the attempts of the scenario, the buttons of the bench, the Workshop's chances, the materials, the talent, the
- * works the character carries and the Rank ladder. Without a profession: the ten to choose from.
+ * works the character carries and the Rank ladder (and the skill of the Sealer). Without a profession: the ten to
+ * choose from.
  */
 import { L } from "../settings.mjs";
 import { escape, toInt } from "../helpers/utils.mjs";
 import { CORE_PACK, optionDataFrom } from "../helpers/character-options.mjs";
 import {
   ENHANCEMENT_INDEX, GRADE_QUALITY, MAX_MATERIAL, MAX_RANK, PROFESSIONS, PROFESSION_IDS, QUALITY_COLORS, RANK_EXP,
-  TALENTS, attemptsOf, batchOf, craftChances, gatherOutcome, levelCapOf
+  TALENTS, TRAIN_SPEED, attemptsOf, batchOf, craftChances, gatherOutcome, levelCapOf
 } from "./data.mjs";
 import { craftOf, enhancementText } from "./forge.mjs";
 import { freshRanks, materialsOf, professionOf, rankTitle, refundAttempt, setExp } from "./state.mjs";
 import { EXP, gatherCap, pendingOf } from "./actions.mjs";
-import { armTrap, armedTraps, trapItems } from "./traps.mjs";
+import { PROFESSION_SKILL } from "./skills.mjs";
 import { ProfessionBench, modesOf } from "./bench.mjs";
 
 const MODE_ICONS = {
   craft: "fa-solid fa-hammer", fusion: "fa-solid fa-object-group", gather: "fa-solid fa-person-digging",
   retouch: "fa-solid fa-wand-magic-sparkles", sell: "fa-solid fa-coins", sharpen: "fa-solid fa-sword",
-  mend: "fa-solid fa-shirt", banquet: "fa-solid fa-bowl-food", copy: "fa-solid fa-scroll"
+  mend: "fa-solid fa-shirt", banquet: "fa-solid fa-bowl-food", copy: "fa-solid fa-scroll", train: "fa-solid fa-horse"
 };
 
 /** What a talent says about the character now (the copies of the Batch…). */
@@ -29,6 +30,8 @@ function talentNote(p, actor) {
     case "mend": return L("Profession.Sheet.MendNow", { n: p.rank * 3 });
     case "gather": return L("Profession.Sheet.GatherNow", { n: gatherCap(p, actor) });
     case "retouch": return L("Profession.Sheet.RetouchNow");
+    case "train": return L("Profession.Sheet.TrainNow", { n: TRAIN_SPEED });
+    case "seal": return L("Profession.Sheet.SealNow", { n: p.rank });
     default: return "";
   }
 }
@@ -135,10 +138,9 @@ export function professionContext(actor, { editable }) {
       icon: talent.icon, passive: !talent.action, note: talentNote(p, actor),
       cost: talent.attempt ? L("Profession.Sheet.CostsAttempt") : ""
     },
-    traps: (p.id === "engineer") ? {
-      items: trapItems(actor).map(i => ({ id: i.id, name: i.name, img: i.img })),
-      armed: armedTraps(actor).length
-    } : null,
+    // The skills the profession gives (the Sealer's Seal), used from here or from the HUD
+    skills: actor.items.filter(i => (i.type === "skill") && (i.getFlag("eternia", PROFESSION_SKILL) === p.id))
+      .map(i => ({ id: i.id, name: i.name, img: i.img, timing: L("Profession.Sheet.SkillLine") })),
     works,
     ladder: Array.from({ length: MAX_RANK }, (_, i) => {
       const r = i + 1;
@@ -195,10 +197,7 @@ export async function professionAction(sheet, target) {
     case "pending": return ProfessionBench.open(actor, "craft");
     case "exp": return editExp(actor);
     case "refund": return game.user.isGM ? refundAttempt(actor) : null;
-    case "arm": {
-      const item = actor.items.get(target.closest("[data-item-id]")?.dataset.itemId);
-      return item ? armTrap(actor, item) : null;
-    }
+    case "skill": return actor.items.get(target.closest("[data-item-id]")?.dataset.itemId)?.ItemThrow();
   }
   return null;
 }

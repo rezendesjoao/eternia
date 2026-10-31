@@ -22,7 +22,7 @@
 import { SYSTEM_ID } from "../settings.mjs";
 import { CURRENCY_TEXT, MAX_ANIMA, PRICE_RATE, RESALE, UNSEALED, animaPrice } from "./data.mjs";
 
-const PHYSICAL = ["weapon", "armor", "shield", "accessory", "bag", "usable", "gear", "ticket"];
+const PHYSICAL = ["weapon", "armor", "shield", "accessory", "bag", "mount", "usable", "gear", "ticket"];
 const ITEMS = `${SYSTEM_ID}.items`;
 const BESTIARY = `${SYSTEM_ID}.bestiary`;
 const toInt = value => Math.trunc(Number(value) || 0);

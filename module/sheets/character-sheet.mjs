@@ -77,7 +77,7 @@ export const ATTRIBUTES = [
   { key: "int", checks: ["knowledge", "analysis"] }
 ];
 export const COMBAT_CHECKS = ["accuracy", "evasion", "resistance"];
-const ITEM_TYPES = ["weapon", "armor", "shield", "accessory", "bag", "usable", "gear"];
+const ITEM_TYPES = ["weapon", "armor", "shield", "accessory", "bag", "mount", "usable", "gear"];
 
 /** The panes of the bio tab: the profile, the story, the connections and unions, the notes. */
 const BIO_PANES = ["profile", "story", "ties", "notes"];
@@ -562,6 +562,19 @@ export class EterniaCharacterSheet extends EterniaActorSheet {
         over: i >= maxSpace,
         lhPowers: powerIcons(item)
       }));
+    // The mounts (mounts/): the one ridden first, with what it gives
+    lh.mounts = (items.mounts ?? []).map(item => {
+      const s = item.system;
+      const stat = (key, value) => (toInt(value) ? `${L(`Mount.Stat.${key}`)} ${toInt(value) > 0 ? "+" : ""}${toInt(value)}` : "");
+      return Object.assign(item, {
+        ridden: s.equipped === true,
+        line: [stat("speed", s.speed), stat("space", s.bagSpace), stat("initiative", s.initiative), stat("pdef", s.pdef), stat("mdef", s.mdef)]
+          .filter(Boolean).join(" · "),
+        toggle: L((s.equipped === true) ? "Mount.Dismount" : "Mount.Ride"),
+        // Its powers only work mounted
+        lhPowers: (s.equipped === true) ? powerIcons(item) : []
+      });
+    }).sort((a, b) => (b.ridden - a.ridden) || a.name.localeCompare(b.name, game.i18n.lang));
     lh.space = { value: space, max: maxSpace, pct: maxSpace ? Math.clamp(Math.round((space / maxSpace) * 100), 0, 100) : 100, over: space > maxSpace };
     lh.itemTypes = ITEM_TYPES.map(type => ({ type, label: game.i18n.localize(`TYPES.Item.${type}`) }));
     lh.gold = toInt(context.source.inventory?.gold).toLocaleString(game.i18n.lang);

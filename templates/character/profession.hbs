@@ -1,5 +1,5 @@
 {{!-- PROFESSION (module/professions/sheet.mjs): the crest with the Rank, the EXP and the attempts of the scenario,
-     the bench's buttons, the work waiting, the Workshop's chances, the materials, the talent, the Engineer's traps,
+     the bench's buttons, the work waiting, the Workshop's chances, the materials, the talent, the Sealer's skill,
      the works the character carries and the Rank ladder. Without a profession: the ten to choose from. --}}
 <section class="tab major profession" data-group="primary" data-tab="profession">
 	<div class="tab-content">
@@ -136,19 +136,17 @@
 			</div>
 		</div>
 
-		{{!-- Engineer: traps --}}
-		{{#if p.traps}}
+		{{!-- The skills of the profession (the Sealer's Seal) --}}
+		{{#if p.skills.length}}
 		<div class="subsection lhp-traps">
-			<header><span>{{localize "ETERNIA.Profession.Sheet.Traps"}}</span>{{#if p.traps.armed}}<span class="lhp-header-note"><i class="fa-solid fa-land-mine-on"></i> {{localize "ETERNIA.Profession.Sheet.Armed" n=p.traps.armed}}</span>{{/if}}</header>
+			<header><span>{{localize "ETERNIA.Profession.Sheet.Skills"}}</span></header>
 			<ul class="lhp-trap-list">
-				{{#each p.traps.items as |t|}}
-				<li data-item-id="{{t.id}}">
-					<img src="{{t.img}}" alt="">
-					<span>{{t.name}}</span>
-					{{#if p.editable}}<button type="button" data-action="lhp" data-op="arm"><i class="fa-solid fa-land-mine-on"></i> {{localize "ETERNIA.Profession.Sheet.Arm"}}</button>{{/if}}
+				{{#each p.skills as |s|}}
+				<li data-item-id="{{s.id}}">
+					<img src="{{s.img}}" alt="">
+					<span>{{s.name}} <small>{{s.timing}}</small></span>
+					{{#if p.editable}}<button type="button" data-action="lhp" data-op="skill"><i class="fa-solid fa-lock"></i> {{localize "ETERNIA.Profession.Sheet.UseSkill"}}</button>{{/if}}
 				</li>
-				{{else}}
-				<li class="lhpf-empty">{{localize "ETERNIA.Profession.Sheet.NoTraps"}}</li>
 				{{/each}}
 			</ul>
 		</div>

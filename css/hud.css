@@ -762,6 +762,28 @@ body.lhauto-no-hotbar #lhauto-hud {
 #lhauto-hud .lhh-entry .lhh-row-name {
   font-weight: 600;
 }
+/* A mount: ride or get off (mounts/); the one ridden in gold */
+#lhauto-hud .lhh-entry.ridden {
+  background: linear-gradient(90deg, rgba(212, 168, 74, 0.2), rgba(212, 168, 74, 0));
+}
+#lhauto-hud .lhh-mount {
+  display: inline-flex;
+  flex: 0 0 24px;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  background: var(--pf-primary, #1f5137);
+  color: #f3e6c4;
+  cursor: pointer;
+}
+#lhauto-hud .lhh-mount:hover {
+  filter: brightness(1.15);
+}
+#lhauto-hud .lhh-mount.ridden {
+  background: #8a5a1b;
+}
 #lhauto-hud .lhh-rows:has(.lhh-entry) > .lhh-row {
   padding-left: 26px;
 }

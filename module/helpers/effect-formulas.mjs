@@ -14,6 +14,7 @@
  *   @status.<id>         The Rating of one of the actor's statuses ("@status.sun"), 0 without it
  *   @hpLost              The HP the actor is missing (Max HP − HP)
  *   @omen                The dice the actor keeps in its Omen, added up (conditions/omen.mjs), 0 without them
+ *   @prank               The Rank of the character's profession (0 without one): the Sealer's Seal
  *   @motor.value, @motor.max, @motor.last   The class Motor of the skill (or the actor's first one)
  *                        Usable anywhere: the items are prepared before the actor's effects apply. The Attack
  *                        Power base already is the main weapon's, so "Attack Power becomes [Weapon's x2]" is
@@ -29,6 +30,7 @@ import { getHands } from "./hands.mjs";
 import { motorFormulaData } from "../classes/motor.mjs";
 import { rating } from "../conditions/rules.mjs";
 import { fortuneOf } from "../conditions/fortune.mjs";
+import { professionRank } from "../professions/data.mjs";
 
 const ATTRIBUTES = ["str", "dex", "pow", "int"];
 const ATTRIBUTE_REF = /@(str|dex|pow|int)\b/i;
@@ -91,6 +93,8 @@ export function formulaData(actor, item) {
   data.fortune = (actor.type === "character") ? fortuneOf(actor) : 0;
   data.yuldPaid = Math.max(0, Math.trunc(Number(item?.flags?.eternia?.yuldPaid) || 0));
   if (actor.type === "character") Object.assign(data, motorFormulaData(actor, item));
+  // The Rank of the character's profession (0 without one): the Sealer's Seal (professions/)
+  data.prank = (actor.type === "character") ? professionRank(actor) : 0;
   // The dice kept in the actor's Omen, added up (conditions/omen.mjs: O Fim Já Escrito)
   const omen = actor.flags?.eternia?.omen?.dice;
   data.omen = Array.isArray(omen) ? omen.reduce((total, n) => total + (Number(n) || 0), 0) : 0;

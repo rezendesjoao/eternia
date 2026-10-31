@@ -1,6 +1,6 @@
 /**
  * What a character does with its profession, each with its chat card: a Workshop attempt and the finished work, a
- * Fusion, a Retouch, a Gathering, a sale, and the talents used as an action (Sharpen, Mend, Banquet, Copy).
+ * Fusion, a Retouch, a Gathering, a sale, and the talents used as an action (Sharpen, Mend, Banquet, Copy, Train).
  * Every function checks what it needs and warns (and returns null) when something is missing.
  */
 import { L, SYSTEM_ID } from "../settings.mjs";
@@ -8,8 +8,8 @@ import { counter } from "../automation/scenes.mjs";
 import { request } from "../piles/pile-socket.mjs";
 import { actorName, escape, toInt } from "../helpers/utils.mjs";
 import {
-  ENHANCEMENT_INDEX, GRADE_QUALITY, LEGENDARY, LEGENDARY_GRADE, MAX_MATERIAL, QUALITY_COLORS, batchOf, craftOutcome,
-  gatherOutcome, isPlainItem, kindOf, materialLevel, multiplierOf
+  ENHANCEMENT_INDEX, GRADE_QUALITY, LEGENDARY, LEGENDARY_GRADE, MAX_MATERIAL, QUALITY_COLORS, TRAIN_SPEED, batchOf,
+  craftOutcome, gatherOutcome, isPlainItem, kindOf, materialLevel, multiplierOf
 } from "./data.mjs";
 import {
   baseData, banquetFrom, buildCrafted, copiableSkills, craftOf, defaultName, enhancementText, enhancementsFor,
@@ -195,20 +195,17 @@ export const canCutFor = (professionId, base) => (professionId === "artisan") &&
  * @param {object} choice
  * @param {object[]} choice.picks           [{id, tag?, cut?}]
  * @param {string} [choice.name]
- * @param {"mass"|"instant"} [choice.masterpiece]   A Bard's Masterpiece (two sixes)
  * @returns {Promise<Item[]|null>}
  */
-export async function finishCraft(actor, { picks, name = "", masterpiece = null }) {
+export async function finishCraft(actor, { picks, name = "" }) {
   const pending = pendingOf(actor);
   const p = professionOf(actor);
   if (!pending || !p) return warn("Profession.Error.NoPending");
   const clean = picks.map(pick => ({ id: pick.id, ...(pick.tag ? { tag: pick.tag } : {}), ...(pick.cut ? { cut: true } : {}) }));
   const problem = picksProblem(pending.base, clean, { slots: pending.slots, canCut: canCutFor(pending.profession, pending.base) });
   if (problem) return warn(problem);
-  const master = ((pending.profession === "bard") && pending.doubleSix && ["mass", "instant"].includes(masterpiece)) ? masterpiece : null;
   const data = buildCrafted(pending.base, {
-    grade: pending.grade, enhancements: clean, crafter: actor.name, profession: pending.profession, rank: pending.rank,
-    masterpiece: master, name
+    grade: pending.grade, enhancements: clean, crafter: actor.name, profession: pending.profession, rank: pending.rank, name
   });
   const copies = toInt(pending.copies || 1) + (clean.some(e => e.id === "double") ? 1 : 0);
   if (pending.equipped && (copies === 1)) {
@@ -222,7 +219,6 @@ export async function finishCraft(actor, { picks, name = "", masterpiece = null 
     const { name: enh, text } = enhancementText(def, pending.base, pick);
     return `${enh}${pick.cut ? " ✦" : ""}: ${text}`;
   });
-  if (master) lines.push(`${L("Profession.Masterpiece.Name")}: ${L(`Profession.Masterpiece.${master}`)}`);
   if (copies > 1) lines.push(L("Profession.Chat.Copies", { n: copies }));
   await postCard(actor, p, {
     title: L("Profession.Chat.Made", { name: actorName(actor) }),
@@ -495,6 +491,52 @@ export async function onSharpenRequest({ smithUuid, itemUuid }, user) {
   if ((weapon?.type !== "weapon") || (weapon.actor?.type !== "character")) return { ok: false };
   if (weapon.effects.some(e => e.getFlag(SYSTEM_ID, "sharpen"))) return { ok: false, error: "Profession.Error.Sharpened" };
   await weapon.createEmbeddedDocuments("ActiveEffect", [sharpenEffect(weapon, smith)]);
+  return { ok: true };
+}
+
+/** The effect a Train puts on a mount (it counts while the mount is ridden), until its owner's scenario ends. */
+export function trainEffect(mount, tamer) {
+  return {
+    name: L("Profession.Talent.train.name"), img: "icons/commodities/treasure/egg-ornate-green-gold.webp",
+    type: "base", transfer: true, disabled: false,
+    system: { changes: [{ key: "system.battle-status.speed.mod", type: "add", value: TRAIN_SPEED, phase: "initial", priority: null }] },
+    description: `<p>${escape(L("Profession.Talent.train.effect", { n: TRAIN_SPEED, name: tamer.name }))}</p>`,
+    flags: { [SYSTEM_ID]: { trained: { scenario: counter(mount.actor, "scenario"), tamer: tamer.name } } }
+  };
+}
+
+/**
+ * Train (Tamer): a mount of the party gets +1 Speed until its owner's scenario ends. Spends an attempt.
+ * @param {Actor} actor
+ * @param {Item} mount
+ */
+export async function train(actor, mount) {
+  const p = professionOf(actor);
+  if (p?.id !== "tamer") return warn("Profession.Error.NoProfession");
+  if (!p.attempts.left) return warn("Profession.Error.NoAttempts");
+  if ((mount?.type !== "mount") || (mount.actor?.type !== "character")) return warn("Profession.Error.NoMount");
+  if (mount.effects.some(e => e.getFlag(SYSTEM_ID, "trained"))) return warn("Profession.Error.Trained");
+  if (mount.isOwner) await mount.createEmbeddedDocuments("ActiveEffect", [trainEffect(mount, actor)]);
+  else {
+    const result = await request("professionTrain", { tamerUuid: actor.uuid, itemUuid: mount.uuid });
+    if (!result?.ok) return warn(result?.error ?? "Profession.Error.Generic");
+  }
+  await record(actor, { attempt: true });
+  await postCard(actor, p, {
+    title: L("Profession.Talent.train.name"),
+    lines: [L("Profession.Chat.Trained", { item: mount.name, name: actorName(mount.actor), n: TRAIN_SPEED })]
+  });
+  return true;
+}
+
+/** GM side of a Train of someone else's mount: only from the owner of a Tamer with an attempt left. */
+export async function onTrainRequest({ tamerUuid, itemUuid }, user) {
+  const tamer = await fromUuid(tamerUuid);
+  const mount = await fromUuid(itemUuid);
+  if (!tamer?.testUserPermission(user, "OWNER") || (professionOf(tamer)?.id !== "tamer")) return { ok: false };
+  if ((mount?.type !== "mount") || (mount.actor?.type !== "character")) return { ok: false };
+  if (mount.effects.some(e => e.getFlag(SYSTEM_ID, "trained"))) return { ok: false, error: "Profession.Error.Trained" };
+  await mount.createEmbeddedDocuments("ActiveEffect", [trainEffect(mount, tamer)]);
   return { ok: true };
 }
 

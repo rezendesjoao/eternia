@@ -5,9 +5,22 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 1.0.0
+## Versão 1.0.1
 
-- **Na 1.0.0: a primeira versão completa, mais leve e mais rápida.** Nada mudou nas regras nem no visual. O sistema
+- **Na 1.0.1: as montarias, o Domador e o Selador.** Os **dragões terrestres** chegam como montarias: um item próprio,
+  que não ocupa a bolsa e que o personagem monta (um por vez) pela ficha ou pelo HUD. Montado, a Velocidade, o espaço
+  de alforje, a Iniciativa e as Defesas do dragão se somam, o token mostra [Montado] e os poderes da raça (Galope,
+  Investida, Lealdade) ficam à mão; montar gasta a Ação de Movimento durante as rodadas, e cair ou ser derrubado
+  desmonta. Todo dragão terrestre tem a **Bênção de Repelir o Vento**: montado, a Disparada não gasta a Ação Menor, e
+  numa viagem o grupo anda o dobro sem a Fadiga da estrada. São seis raças, do Dragão Terrestre de Tração (Nível 1,
+  250 Yuld) ao Dragão Diana (Nível 24). O **Domador** toma o lugar do Bardo: faz montarias na Oficina (com seis
+  aprimoramentos próprios e o lendário Sangue de Solus) e adestra a montaria do grupo (+1 de Velocidade até o fim do
+  cenário). O **Selador** toma o lugar do Engenheiro: escreve a Língua Sagrada, faz **selos** (Guarda, Silêncio,
+  Contenção e Fenda) e sela inimigos com a habilidade **Selar** (o inimigo perde a última habilidade que usou até o fim
+  da cena), e escreve melhor nas Fendas. Os personagens que eram Bardos ou Engenheiros viram Domadores e Seladores com
+  a mesma EXP; as montarias de Log Horizon (os apitos e o compêndio Habilidades de Montaria) saíram (veja
+  [As montarias](#as-montarias) e [As profissões](#as-profissões)).
+- **Desde a 1.0.0: a primeira versão completa, mais leve e mais rápida.** Nada mudou nas regras nem no visual. O sistema
   chega ao navegador em poucos arquivos em vez de centenas (com o servidor longe, a entrada no mundo fica segundos mais
   curta: no mundo de teste, a 60 ms do servidor, de ~13 s para ~8,5 s), os ícones dos estados e as fontes da cena chegam
   enquanto o mundo ainda carrega, e no combate a ficha, o HUD e o quadro do grupo só se redesenham quando algo deles muda
@@ -341,13 +354,14 @@ sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo temp
   [As condições](#as-condições)).
 - **Já vem pronto:** a ficha de personagem e a de monstro, o HUD de ações, o chat, os tokens e as outras janelas no
   mesmo visual; toda a automação de combate e de uso de habilidades; a interface em português do Brasil.
-- **Compêndios com conteúdo:** Guia do Jogador, Habilidades Básicas, Habilidades de Montaria (fora do navegador de
-  habilidades até haver regra de montaria), Poderes EX do Mestre, Itens, Bestiário, Regras e O Mundo de Eternia (o
-  mundo de jogo, só do Mestre), em português.
+- **Compêndios com conteúdo:** Guia do Jogador, Habilidades Básicas, Poderes EX do Mestre, Itens, Bestiário, Regras e
+  O Mundo de Eternia (o mundo de jogo, só do Mestre), em português.
 - **Compêndios da Eternia:** Raças e Classes (as 6 raças em 8 itens, com os Bestiais em três linhagens, e as 6 antigas; as 10 profissões; as 22 classes, 14 na lista e 8 antigas), Habilidades Raciais e
-  Habilidades de Classe (36 por classe, 64 no Matador de Dragões, e as 110 Magias com os feitiços: 1602 ao todo); no compêndio de Itens, as Engenhocas, as Canções e os 108 itens de Sword
-  Art Online (veja [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). Ainda vazio: Habilidades Comuns. As
-  raças, classes e habilidades gerais e de combate de Log Horizon foram tiradas do sistema.
+  Habilidades de Classe (36 por classe, 64 no Matador de Dragões, e as 110 Magias com os feitiços: 1602 ao todo),
+  Habilidades Comuns (o Selar do Selador); no compêndio de Itens, as Montarias (os dragões terrestres), os Selos, as
+  Engenhocas, as Canções e os 108 itens de Sword Art Online (veja
+  [Os itens de Sword Art Online](#os-itens-de-sword-art-online)). As raças, classes e habilidades gerais e de combate
+  de Log Horizon e as montarias de lá foram tiradas do sistema.
 
 ## A ficha de personagem
 
@@ -397,7 +411,8 @@ molduras finas e rótulos em versalete. Cada aba tem o ícone e o nome, e um nú
   mostra o que fazem; os do NP acima ficam apagados com o NP em que chegam). Uma vaga aberta brilha e tem o botão de
   escolher a Magia.
 - **Inventário:** o boneco de equipamento (sete espaços ligados por linhas às partes do corpo) e, ao lado, a riqueza
-  (receber e gastar Yuld fica registrado no chat), o espaço da bolsa e os tíquetes; embaixo, o que se carrega.
+  (receber e gastar Yuld fica registrado no chat), o espaço da bolsa e os tíquetes; embaixo, as montarias (a montada em
+  destaque, com o que dá e o botão de montar e desmontar) e o que se carrega.
 - **Profissão:** o brasão da profissão com o Rank, a EXP e as tentativas do cenário, os botões da bancada (Oficina,
   Fusão, talentos), as chances, os materiais, o talento, as obras e os Ranks; sem profissão, as dez para escolher.
 - **Efeitos e estados** (os efeitos dos itens dizem "Passivo" na duração).
@@ -1224,6 +1239,31 @@ atrás, em 2×2, com uma luz leve na cor de cada uma; os demônios trazem uma n�
 
 A página **XIV. O BESTIÁRIO** do diário AS REGRAS explica tudo para o Mestre.
 
+## As montarias
+
+Os **dragões terrestres** são as montarias da Eternia (compêndio de Itens, pasta Montarias). A montaria é um item
+próprio (tipo Montaria): não ocupa espaço na bolsa, e o personagem monta em uma de cada vez, pelo botão da seção
+**Montarias** da aba Inventário ou do painel **Itens** do HUD. Fora de combate e na Preparação, montar é livre; durante
+as rodadas, gasta a Ação de Movimento, no turno de quem monta. Desmontar é livre. As regras completas estão em
+**IV.i. AS MONTARIAS**, no diário AS REGRAS.
+
+| Nível | Montaria | Montado | Poderes | Preço |
+|---|---|---|---|---|
+| 1 | Dragão Terrestre de Tração | Velocidade +1, espaço +4 | — | 250 |
+| 4 | Dragão Terrestre de Sela | Velocidade +2, espaço +2 | Galope | 460 |
+| 8 | Dragão Terrestre Corredor | Velocidade +2, espaço +2, Iniciativa +3 | Galope | 950 |
+| 12 | Dragão Terrestre de Guerra | Velocidade +2, espaço +3, Defesa Física +2 | Investida | 1.680 |
+| 18 | Dragão Terrestre Azul | Velocidade +3, espaço +3, Iniciativa +2 | Galope, Investida | 3.250 |
+| 24 | Dragão Diana | Velocidade +3, espaço +4, Defesas +2 | Galope, Lealdade | 6.350 |
+
+- **Montado:** os números do dragão se somam aos do personagem, o token mostra [Montado] e os poderes da raça viram
+  habilidades que só funcionam montado (Galope: Movimento Seguro de até [Velocidade] Qd, 1/Cena; Investida: andar e
+  atacar, [2d6 + Poder de Ataque]; Lealdade: anula um ataque, 1/Cena).
+- **Bênção de Repelir o Vento** (todo dragão terrestre): montado, a Disparada não gasta a Ação Menor; numa viagem, o
+  grupo anda o dobro por dia e chega sem a [Fadiga] da estrada.
+- **Cair** ([Incapacitado], [Morrendo]) ou ficar [Derrubado] desmonta sozinho, com um cartão no chat.
+- **O Domador** faz montarias com aprimoramentos e as adestra (veja [As profissões](#as-profissões)).
+
 ## As profissões
 
 A subclasse da Eternia é uma **profissão**: um ofício fora de combate que faz itens com aprimoramentos, sobe de
@@ -1238,8 +1278,8 @@ trocar de profissão guarda a EXP de cada uma. As regras completas estão em **X
 | Alquimista | poções, toxinas | Lote: 2 cópias no Rank 3, 3 no Rank 5 |
 | Cozinheiro | comidas | Banquete: 2 comidas iguais viram uma porção para o grupo (o grupo de quem usa, na cena) |
 | Escriba | pergaminhos | Cópia: uma habilidade sua num pergaminho de uso único |
-| Engenheiro | bombas, redes, pedras de faísca | Armadilha: bombas e redes armadas num quadrado da cena |
-| Bardo | canções gravadas em cristal | Obra-prima: com dois 6, a canção sai em massa ou instantânea |
+| Selador | selos da Língua Sagrada | Selar: em combate, Precisão + Rank contra a Resistência; o inimigo fica [Selado] (a última habilidade que usou). Escreve nas Fendas com o Rank |
+| Domador | montarias (os dragões terrestres) | Adestrar: +1 de Velocidade na montaria de um personagem do grupo até o fim do cenário |
 | Coletor | (Coleta) | Coleta: Anima-mundi e, com dois 6, Quintessência |
 | Mercador | (Retoque e venda) | Retoque: troca um aprimoramento; vende tudo pelo valor cheio |
 
@@ -1250,14 +1290,19 @@ trocar de profissão guarda a EXP de cada uma. As regras completas estão em **X
   Perfeito [M3], com 1 a 3 aprimoramentos à escolha. Dois 6 sobem um degrau.
 - **Fusão:** dois itens feitos iguais viram um do grau acima, com mais um aprimoramento; dois Perfeitos e uma
   Quintessência viram um **Lendário [M4]**, com o aprimoramento lendário da lista (Fio do Destino, Égide,
-  Coração Estelar).
-- **Aprimoramentos:** 6 por tipo de item (armas, proteções, acessórios, consumíveis) e o Espaçosa das bolsas. Os
-  números dobram do nível 11 e triplicam do 21; entram nos números do item ou em efeitos que valem com ele equipado.
+  Coração Estelar, Sangue de Solus).
+- **Aprimoramentos:** 6 por tipo de item (armas, proteções, acessórios, montarias, consumíveis) e o Espaçosa das
+  bolsas. Os números dobram do nível 11 e triplicam do 21 (menos a Velocidade da Ligeira, das montarias); entram nos
+  números do item ou em efeitos que valem com ele equipado (a montaria: montada).
 - **A aba Profissão** mostra o brasão com o Rank, a EXP e as tentativas, os botões da bancada, as chances, os
   materiais, o talento, as obras na mochila e os Ranks. A **bancada** faz cada ação passo a passo, com a rolagem na
   tela, e posta um cartão no chat.
-- **Itens novos:** Engenhocas (Bomba Incendiária, Bomba de Gelo, Rede, Pedra de Faísca) e Canções (Hino de Coragem,
-  Marcha de Guerra, Balada do Pavor, Canção de Ninar), em três graus; a Quintessência.
+- **Itens novos:** Selos do Selador (Guarda, Silêncio, Contenção e Fenda), em três graus; a Quintessência. As
+  Engenhocas (Bomba Incendiária, Bomba de Gelo, Rede, Pedra de Faísca) e as Canções (Hino de Coragem, Marcha de Guerra,
+  Balada do Pavor, Canção de Ninar) continuam no compêndio, à venda e nos tesouros, mas ninguém mais as faz: na 1.0.1
+  o Engenheiro e o Bardo deram lugar ao Selador e ao Domador (a migração `professions` passou os personagens e a EXP).
+- **O Selar** é uma habilidade Geral (compêndio Habilidades Comuns) que a profissão dá e tira sozinha: fica no HUD e na
+  aba Profissão, e cada uso gasta uma tentativa e dá 2 de EXP.
 
 ## Os itens de Sword Art Online
 
@@ -1530,6 +1575,9 @@ eternia.motor.max(actor, "samurai");  // o Teto
 eternia.professions.open(actor, "craft"); // a bancada da profissão num modo (craft, fusion, gather, retouch…)
 eternia.professions.of(actor);        // profissão, Rank, EXP, tentativas e nível máximo
 eternia.professions.addExp(actor, 10); // EXP da profissão (anuncia o Rank novo)
+eternia.mounts.up(actor, item);       // monta (durante as rodadas, gasta a Ação de Movimento no turno)
+eternia.mounts.down(actor);           // desmonta
+eternia.mounts.ridden(actor);         // a montaria montada, ou null
 eternia.icons.styleOf(item);          // como o ícone do item é desenhado (moldura, nível, tema, cor)
 eternia.icons.refresh();              // desenha de novo os ícones da tela
 eternia.bestiary.rollDrops(actor, { force: true, receiver: hero }); // os itens deixados de um monstro (null: o chão)

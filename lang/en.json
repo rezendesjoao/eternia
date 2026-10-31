@@ -14,7 +14,8 @@
       "race": "Race",
       "class": "Class",
       "subclass": "Subclass",
-      "usable": "Usable"
+      "usable": "Usable",
+      "mount": "Mount"
     },
     "Actor": {
       "character": "Player Character",
@@ -270,7 +271,9 @@
         "Skill": "Skill",
         "Target": "Target",
         "ThrowToChat": "Send to Chat",
-        "Timing": "Timing"
+        "Timing": "Timing",
+        "Speed": "Speed",
+        "Mounted": "Ridden"
       },
       "Use": {
         "Button": "Use",
@@ -500,7 +503,8 @@
       "jackpot": "Jackpot",
       "luck": "Luck",
       "goliath": "Goliath",
-      "quake": "Quake"
+      "quake": "Quake",
+      "mounted": "Mounted"
     },
     "StatusGroup": {
       "bad": "Bad Status",
@@ -1059,7 +1063,8 @@
       "Curse": "Curse: the demons' power, which isn't magic. Silenced doesn't stop it, even with [Spell] or [Magic Attack].",
       "Iron": "Iron element. Interacts with Weakness/Cancel (Iron).",
       "Wind": "Wind element. Interacts with Weakness/Cancel (Wind).",
-      "Water": "Water element. Interacts with Weakness/Cancel (Water)."
+      "Water": "Water element. Interacts with Weakness/Cancel (Water).",
+      "Seal": "A seal of the Sacred Tongue, made by a Sealer."
     },
     "Condition": {
       "Title": "Conditions",
@@ -1482,7 +1487,8 @@
       "Incapacitated": "{name} is Incapacitated and can't act.",
       "ConfirmEyebrow": "Before you use it",
       "Recharging": "{skill} is recharging: each Setup Process, a 1d6 says whether it comes back.",
-      "TroopTargets": "{skill} reaches up to {n} targets now: that's what is left of the band."
+      "TroopTargets": "{skill} reaches up to {n} targets now: that's what is left of the band.",
+      "NotMounted": "You aren't riding {item}."
     },
     "Cards": {
       "RollDamage": "Roll damage",
@@ -1802,7 +1808,8 @@
       "FatigueTip": "Fatigue {value}: the maximum HP drops by {value}.",
       "Power": "Power",
       "PowerN": "Power {n}",
-      "XpTip": "XP {label} · {next}"
+      "XpTip": "XP {label} · {next}",
+      "Mounts": "Mounts"
     },
     "Keys": {
       "hudDismiss": "Action HUD: close the open panel",
@@ -1844,7 +1851,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Got it",
-      "Body": "<p><strong>Eternia 1.0</strong></p><p>The first complete version arrives lighter and faster, with nothing changed in the rules or the look:</p><ul><li><strong>Joining the world:</strong> the system comes in a few files instead of hundreds. With a distant server, joining takes seconds less.</li><li><strong>The first scene:</strong> the status icons and the fonts arrive while the world is still loading.</li><li><strong>In combat:</strong> the sheet, the HUD and the party frame redraw only when something of theirs changes, and every window does less work on each turn, damage and status.</li><li><strong>A weaker computer:</strong> with Foundry's <strong>Performance Mode</strong> on <strong>Low</strong> (Configure Settings → General), Eternia stops the animations that are only decoration and the chat opens with fewer messages. See the box about weaker computers in the Virtual Table chapter of the Player's Guide.</li></ul>"
+      "Body": "<p><strong>Eternia 1.0.1</strong></p><p>Mounts and two new professions:</p><ul><li><strong>Mounts:</strong> the earth dragons. Buy one at the Market or a shop and ride it from the Inventory tab (section Mounts) or the Items panel of the HUD. Mounted, you run farther and get saddlebag space, and with the <strong>Wind-Repelling Blessing</strong> the Dash spends no Minor Action. In the rounds of a combat, mounting takes the Move Action; falling or being knocked prone throws you off.</li><li><strong>Tamer</strong>, in the Bard's place: makes mounts at the Workshop and trains the party's (+1 Speed until the end of the scenario).</li><li><strong>Sealer</strong>, in the Engineer's place: makes seals and uses <strong>Seal</strong> in combat, and the enemy loses the last skill it used until the end of the scene. On the Rifts, it writes with its Rank added.</li><li><strong>Who was a Bard or an Engineer</strong> is now a Tamer or a Sealer, with the same EXP. The Songs and Gadgets you have still work.</li></ul><p>It is all in the Player's Guide, in the chapters on equipment and professions.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fatigue: n] takes n from the Max HP; new Fatigue adds up. At 0 Max HP the character is Incapacitated. Food, rest or the Post-Game end it.",
@@ -1935,7 +1942,8 @@
       "jackpot": "[Jackpot: n]: the prize. You get all your HP back now and in every Setup, you don't fall (at 0 HP you come back with full HP), your spells cost no Hate and your attacks deal +CR damage. The Rating is the rounds left: it drops 1 in every Cleanup.",
       "luck": "[Luck: n] (up to 3): the pairs the reels gave. At 3, the [Jackpot] (and the Luck goes to 0). Ends at the end of the scene.",
       "goliath": "[Goliath: n]: the giant's body. A blow whose damage (after the Defense and Cancel) is below n does nothing, not even its statuses; n or more passes whole. You aren't pulled, pushed nor switched, and your physical attacks deal +CR damage. Ends at the end of the scene.",
-      "quake": "[Quake: n] (up to 5): the quakes you made so far. Each point makes the next spells of the Cataclismo stronger. Ends at the end of the scene."
+      "quake": "[Quake: n] (up to 5): the quakes you made so far. Each point makes the next spells of the Cataclismo stronger. Ends at the end of the scene.",
+      "mounted": "On a mount: its Speed, space, Initiative and Defenses count, and its powers can be used. Falling, dying or being knocked [Prone] throws the rider off."
     },
     "StatusFamily": {
       "core": "Classic",
@@ -2165,10 +2173,10 @@
         "alchemist": "Alchemist",
         "cook": "Cook",
         "scribe": "Scribe",
-        "engineer": "Engineer",
-        "bard": "Bard",
         "gatherer": "Gatherer",
-        "merchant": "Merchant"
+        "merchant": "Merchant",
+        "tamer": "Tamer",
+        "sealer": "Sealer"
       },
       "Crafts": {
         "blacksmith": "Weapons, heavy and medium armor, shields",
@@ -2177,10 +2185,10 @@
         "alchemist": "Potions and toxins",
         "cook": "Food",
         "scribe": "Scrolls",
-        "engineer": "Bombs, nets and spark stones",
-        "bard": "Songs recorded in crystal",
         "gatherer": "Anima-mundi and Quintessence",
-        "merchant": "Retouches and full-price sales"
+        "merchant": "Retouches and full-price sales",
+        "tamer": "Mounts (the earth dragons)",
+        "sealer": "Seals of the Sacred Tongue"
       },
       "RankTitle": {
         "1": "Novice",
@@ -2212,7 +2220,9 @@
         "food": "Food",
         "scroll": "Scroll",
         "gadget": "Gadget",
-        "song": "Song"
+        "song": "Song",
+        "mount": "Mount",
+        "seal": "Seal"
       },
       "Enh": {
         "sharp": {
@@ -2370,6 +2380,41 @@
           "name": "Star Heart",
           "text": "Starts every combat with [Last Stand]",
           "epithet": "of the Stars"
+        },
+        "fleet": {
+          "name": "Fleet",
+          "text": "+{n} Speed",
+          "epithet": "of the Wind"
+        },
+        "saddlebags": {
+          "name": "Saddlebags",
+          "text": "+{n} saddlebag spaces",
+          "epithet": "of Burden"
+        },
+        "plated": {
+          "name": "Plated",
+          "text": "+{n} Physical Defense",
+          "epithet": "of Plates"
+        },
+        "blessed": {
+          "name": "Blessed",
+          "text": "+{n} Magic Defense",
+          "epithet": "of the Blessing"
+        },
+        "spirited": {
+          "name": "Spirited",
+          "text": "+{n} Initiative",
+          "epithet": "of the Burst"
+        },
+        "sturdy": {
+          "name": "Sturdy",
+          "text": "+{n} Max HP",
+          "epithet": "of the Broad Back"
+        },
+        "solusBlood": {
+          "name": "Blood of Solus",
+          "text": "Starts every combat [Hasted], while ridden",
+          "epithet": "of Solus"
         }
       },
       "Talent": {
@@ -2398,14 +2443,6 @@
           "name": "Copy",
           "text": "Write one of your skills on a scroll anyone uses once, with your Skill Rank, check and damage. Spends an attempt and gives 2 EXP."
         },
-        "trap": {
-          "name": "Trap",
-          "text": "In the Setup (or out of combat), arm a bomb or a net on a square of the scene: it goes off on the first enemy that steps in."
-        },
-        "masterpiece": {
-          "name": "Masterpiece",
-          "text": "With two sixes in the Workshop, the song comes out en masse (every target) or instant (Timing Instant), your choice."
-        },
         "gather": {
           "name": "Gathering",
           "text": "Roll 2d6 + Rank: 8 or more finds 1 Anima-mundi of the level you choose (up to your CR), 11 or more finds 2, and two sixes also find a Quintessence. What you find has no Seal of the Anima: it serves in the Workshop, but no shop buys it. Spends an attempt."
@@ -2413,6 +2450,15 @@
         "retouch": {
           "name": "Retouch",
           "text": "Swap one enhancement of a crafted item for another of its list: it costs 2 Anima-mundi of the item's level (100 Yuld at Level 1), doubling with each retouch of the item. Spends an attempt and gives 5 EXP. You sell everything at full price, but not the Anima-mundi without the Seal of the Anima, which nobody buys."
+        },
+        "train": {
+          "name": "Train",
+          "text": "In the Interlude, a mount of a character of the party gets +1 Speed until the end of its owner's scenario. Spends an attempt.",
+          "effect": "+{n} Speed until the end of the scenario, while ridden (trained by {name})."
+        },
+        "seal": {
+          "name": "Seal",
+          "text": "In combat, the skill Seal (Major Action, up to 4 Sq): Accuracy + Rank against an enemy's Resistance; on a hit it is [Sealed] (the last skill it used) until the end of the scene. Spends an attempt and gives 2 EXP. On the Rifts, your writing adds your Rank."
         }
       },
       "Why": {
@@ -2427,9 +2473,7 @@
       "Masterpiece": {
         "Name": "Masterpiece",
         "mass": "En masse: affects every target",
-        "instant": "Instant: used at any time",
-        "massHint": "The target becomes All",
-        "instantHint": "The Timing becomes Instant"
+        "instant": "Instant: used at any time"
       },
       "Copy": {
         "Name": "Scroll: {name}",
@@ -2478,9 +2522,7 @@
         "NoFatigue": "{name}: no change.",
         "Banquet": "Two portions of {item} became a banquet for the party.",
         "Copied": "«{skill}» was written on a scroll.",
-        "TrapArmed": "Armed {item} on a square of the scene.",
-        "TrapTriggered": "{item} went off on {name}!",
-        "TrapEffects": "Effects: {effects}."
+        "Trained": "{name}'s {item} gets +{n} Speed until the end of the scenario."
       },
       "Error": {
         "NoProfession": "This character doesn't have that profession.",
@@ -2505,10 +2547,10 @@
         "NoTargets": "Choose up to 3 characters.",
         "NoPair": "Missing 2 equal foods.",
         "NoSkill": "Choose one of your skills.",
-        "NotTrap": "Only bombs and nets become traps.",
-        "NoScene": "Open a scene to arm the trap.",
-        "TrapPhase": "Traps are armed in the Setup (or out of combat).",
-        "Missing": "The profession is not in the compendium."
+        "Missing": "The profession is not in the compendium.",
+        "NoMount": "Choose a mount of a character.",
+        "Trained": "This mount is already trained this scenario.",
+        "NotYourSkill": "{skill} belongs to the {name}: only who has that profession uses it."
       },
       "Gather": {
         "Result": {
@@ -2533,7 +2575,8 @@
         "sharpen": "Sharpen",
         "mend": "Mend",
         "banquet": "Banquet",
-        "copy": "Copy"
+        "copy": "Copy",
+        "train": "Train"
       },
       "ModeHint": {
         "craft": "Make an item with enhancements",
@@ -2544,7 +2587,8 @@
         "sharpen": "+2 Attack Power on a weapon",
         "mend": "Removes Fatigue from up to 3 allies",
         "banquet": "2 foods become one for the party",
-        "copy": "A skill on a scroll"
+        "copy": "A skill on a scroll",
+        "train": "+1 Speed on a mount"
       },
       "Stat": {
         "attack": "Attack Power",
@@ -2558,7 +2602,8 @@
         "target": "Target",
         "heal": "Healing",
         "damage": "Damage",
-        "fatigue": "Fatigue"
+        "fatigue": "Fatigue",
+        "speed": "Speed"
       },
       "Bench": {
         "Title": "Bench",
@@ -2571,7 +2616,8 @@
           "sharpen": "Choose a weapon of the party. Spends an attempt.",
           "mend": "Choose up to 3 characters. Spends an attempt.",
           "banquet": "Two equal foods become one portion for the whole party.",
-          "copy": "Choose one of your skills. Spends an attempt and gives 2 EXP."
+          "copy": "Choose one of your skills. Spends an attempt and gives 2 EXP.",
+          "train": "Choose a mount of the party. Spends an attempt."
         },
         "ChooseEnhancements": "Choose the enhancements",
         "Continue": "Continue",
@@ -2592,7 +2638,8 @@
           "sharpen": "Sharpen (+{n})",
           "mend": "Mend (−{n} Fatigue)",
           "banquet": "Prepare the banquet",
-          "copy": "Write the scroll"
+          "copy": "Write the scroll",
+          "train": "Train (+{n} Speed)"
         },
         "MaterialName": "Anima-mundi {n}",
         "Owned": "You have {n}",
@@ -2615,7 +2662,8 @@
           "sharpen": "Choose a weapon.",
           "mend": "Choose the characters.",
           "banquet": "Choose a pair of foods.",
-          "copy": "Choose a skill."
+          "copy": "Choose a skill.",
+          "train": "Choose a mount."
         },
         "CraftTitle": "{item}",
         "FusionTitle": "Fusion: {item}",
@@ -2648,7 +2696,8 @@
           "sharpen": "Weapon sharpened",
           "mend": "Mended",
           "banquet": "Banquet ready",
-          "copy": "Scroll written"
+          "copy": "Scroll written",
+          "train": "Mount trained"
         },
         "Again": {
           "craft": "New work",
@@ -2658,7 +2707,8 @@
           "sharpen": "Sharpen another",
           "mend": "Back",
           "banquet": "Another banquet",
-          "copy": "Another copy"
+          "copy": "Another copy",
+          "train": "Train another"
         },
         "Search": "Search…",
         "Level": "level {n}",
@@ -2682,7 +2732,9 @@
         "DoubleSix": "Two sixes: one step up!",
         "RankUp": "New Rank!",
         "Open": "Open the item",
-        "Close": "Close"
+        "Close": "Close",
+        "EmptyTrain": "No mount in the party.",
+        "Ridden": "Ridden"
       },
       "Sheet": {
         "ChooseTitle": "Choose a profession",
@@ -2702,10 +2754,6 @@
         "Shards": "Quintessence",
         "Talent": "Talent",
         "Always": "Always on",
-        "Traps": "Traps",
-        "Armed": "{n} armed",
-        "Arm": "Arm",
-        "NoTraps": "No bomb or net in the bag.",
         "Works": "Works",
         "NoWorks": "No item made in a Workshop in the bag.",
         "Ladder": "Ranks",
@@ -2727,13 +2775,12 @@
         "RetouchNow": "Shops pay full price for your items.",
         "ExpHint": "Workshop EXP: Failure 1 · Salvage 2 · Uncommon 3 · Rare 5 · Perfect 8. Retouch {retouch}.",
         "Exp": "{name} EXP",
-        "Save": "Save"
-      },
-      "Trap": {
-        "Pick": "Click the square to arm {item} on (Esc cancels).",
-        "Armed": "Trap armed",
-        "Region": "Trap: {item}",
-        "Name": "Trap"
+        "Save": "Save",
+        "TrainNow": "Now: +{n} Speed on a mount of the party.",
+        "SealNow": "Now: Accuracy + {n} against the Resistance; on the Rifts, +{n} to the writing.",
+        "Skills": "Skill of the profession",
+        "UseSkill": "Use",
+        "SkillLine": "Major Action · up to 4 Sq · spends 1 attempt"
       }
     },
     "Motor": {
@@ -4388,7 +4435,11 @@
       "ClosedBy": "{name} wrote the last line: the Rift closed.",
       "Setup": "Round {round}: the Rift throbs.",
       "Wave": "Came out of the Rift: {list}.",
-      "GrewFall": "{name} fell while writing: the Rift grows {n}."
+      "GrewFall": "{name} fell while writing: the Rift grows {n}.",
+      "SealerRank": "Sealer +{n}",
+      "Sealed": "{name} pressed a Rift Seal: {n} writing(s) off.",
+      "SealLine": "{name} pressed the seal on {rift}: {n} writing(s) off.",
+      "NoneNear": "{name} must be within 1 square of an open Rift to use the seal."
     },
     "Named": {
       "Hint": "Name it: a named beast made from this monster (GM)",
@@ -4692,7 +4743,8 @@
         "bag": "Bags",
         "usable": "Consumables",
         "gear": "Sundries",
-        "ticket": "Tickets"
+        "ticket": "Tickets",
+        "mount": "Mounts"
       }
     },
     "Reaper": {
@@ -5252,6 +5304,32 @@
         "Generic": "It didn't work."
       },
       "Gone": "A character no longer there"
+    },
+    "Mount": {
+      "Section": "Mounts",
+      "Gives": "Ridden, it gives",
+      "Ridden": "Ridden",
+      "Ride": "Ride",
+      "Dismount": "Get off",
+      "Stat": {
+        "speed": "Speed",
+        "space": "Space",
+        "initiative": "Initiative",
+        "pdef": "Phys. Def.",
+        "mdef": "Mag. Def."
+      },
+      "Error": {
+        "Down": "{name} is [{status}]: no riding now.",
+        "NotYourTurn": "In the rounds of a combat, {name} only mounts in its own Main Process, with the Move Action.",
+        "NoMove": "{name} already spent the Move Action of this Main Process."
+      },
+      "Card": {
+        "Up": "{name} mounts",
+        "UpMove": "The Move Action is spent.",
+        "UpFree": "Out of the rounds of a combat, mounting takes no action.",
+        "Down": "{name} gets off",
+        "Thrown": "{name} is thrown off ([{status}])"
+      }
     }
   },
   "Cancel": "Cancel"

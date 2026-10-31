@@ -47,10 +47,11 @@
 		<h4 class="lhh-group">{{label}}</h4>
 		<ul class="lhh-rows">
 			{{#each entries}}
-			<li class="lhh-entry" data-item-id="{{id}}">
+			<li class="lhh-entry{{#if mount.ridden}} ridden{{/if}}" data-item-id="{{id}}">
 				<span class="lhh-row-img"><img src="{{img}}" alt=""></span>
 				<span class="lhh-row-name">{{name}}</span>
 				<span class="lhh-row-meta"><span class="lhh-chip limit">{{typeLabel}}</span></span>
+				{{#if mount}}<a class="lhh-mount{{#if mount.ridden}} ridden{{/if}}" data-action="lhh-mount" data-tooltip-text="{{mount.label}}" aria-label="{{mount.label}}"><i class="fa-solid {{#if mount.ridden}}fa-person-walking{{else}}fa-horse{{/if}}"></i></a>{{/if}}
 			</li>
 			{{#each powers}}{{> "systems/eternia/templates/hud/row.hbs"}}{{/each}}
 			{{/each}}

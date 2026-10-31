@@ -56,7 +56,7 @@ export const pinsOf = actor => {
 const MONSTER_CHECKS = ["evasion", "resistance"];
 /** The actions of the Main Process and their icons. */
 const ACTION_ICONS = [["major", "fa-burst"], ["minor", "fa-hand"], ["move", "fa-shoe-prints"], ["instant", "fa-bolt"]];
-const EQUIPMENT = ["weapon", "shield", "armor", "accessory", "bag"];
+const EQUIPMENT = ["weapon", "shield", "armor", "accessory", "bag", "mount"];
 const checkName = key => key.charAt(0).toUpperCase() + key.slice(1);
 const signed = n => (n >= 0 ? `+${n}` : `${n}`);
 const diceText = (dice, mod) => (dice ? `${dice}d6${mod ? signed(mod) : ""}` : String(mod));
@@ -305,7 +305,10 @@ function itemsPanel(actor, pins) {
   };
   const equipped = actor.items.filter(i => EQUIPMENT.includes(i.type) && (i.system.equipped !== false));
   const hands = equipped.filter(i => ["weapon", "shield"].includes(i.type));
-  const gear = equipped.filter(i => !["weapon", "shield"].includes(i.type)).concat(actor.items.filter(i => i.type === "gear"));
+  const gear = equipped.filter(i => !["weapon", "shield", "mount"].includes(i.type)).concat(actor.items.filter(i => i.type === "gear"));
+  // The mounts (mounts/): the one ridden first, with its powers, and the button to ride or get off
+  const mounts = actor.items.filter(i => i.type === "mount")
+    .sort((a, b) => ((b.system.equipped === true) - (a.system.equipped === true)) || a.name.localeCompare(b.name, game.i18n.lang));
   // A power is named after its item ("Whip (1)"): under the item it reads "Power 1 · Setup".
   const entry = item => ({
     id: item.id, name: item.name, img: item.img,
@@ -316,12 +319,19 @@ function itemsPanel(actor, pins) {
       if (skill.name.startsWith(item.name)) {
         row.name = [L((list.length > 1) ? "Hud.PowerN" : "Hud.Power", { n: i + 1 }), timing].filter(Boolean).join(" · ");
       }
+      // A power with a name of its own (a mount's Gallop): its name and its Timing
+      else row.name = [skill.name, timing].filter(Boolean).join(" · ");
       return row;
     })
   });
   const groups = [
     { id: "hands", label: L("Hud.Hands"), entries: hands.map(entry) },
     { id: "equipment", label: L("Hud.Powers"), entries: gear.map(entry).filter(e => e.powers.length) },
+    { id: "mounts", label: L("Hud.Mounts"), entries: mounts.map(item => {
+      const ridden = item.system.equipped === true;
+      // Unridden, its powers stay out: they only work mounted
+      return { ...entry(item), ...(ridden ? {} : { powers: [] }), mount: { ridden, label: L(ridden ? "Mount.Dismount" : "Mount.Ride") } };
+    }) },
     { id: "usable", label: L("Hud.Usables"), rows: actor.items.filter(i => i.type === "usable").map(i => usableRow(i, pins)) }
   ].filter(g => g.entries?.length || g.rows?.length);
   return { groups };
@@ -340,7 +350,9 @@ function effectsPanel(actor) {
   const fatigue = toInt(actor._source.system?.infos?.fatigue);
   const fatigueImg = CONFIG.statusEffects.find(s => s.id === "fatigue")?.img;
   if (fatigue) statuses.unshift({ id: "fatigue", img: fatigueImg, label: L("Sheet.Fatigue"), detail: String(fatigue), group: "life", fixed: true });
-  const effects = actor.temporaryEffects.filter(e => !e.statuses.size || ![...e.statuses].some(id => statuses.some(s => s.id === id)))
+  // The [Mounted] of the mount ridden is in the items panel (its button gets off)
+  const effects = actor.temporaryEffects.filter(e => !e.getFlag(SYSTEM_ID, "mounted"))
+    .filter(e => !e.statuses.size || ![...e.statuses].some(id => statuses.some(s => s.id === id)))
     .map(e => ({ id: e.id, uuid: e.uuid, name: e.name, img: e.img, duration: e.duration?.label ?? "" }));
   const bad = statuses.filter(s => s.bad).length;
   return {

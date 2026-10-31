@@ -33,6 +33,7 @@ export const MARKET_TYPES = [
   { id: "shield", icon: "fa-solid fa-shield" },
   { id: "accessory", icon: "fa-solid fa-ring" },
   { id: "bag", icon: "fa-solid fa-sack" },
+  { id: "mount", icon: "fa-solid fa-dragon" },
   { id: "usable", icon: "fa-solid fa-flask" },
   { id: "gear", icon: "fa-solid fa-toolbox" },
   { id: "ticket", icon: "fa-solid fa-ticket" }

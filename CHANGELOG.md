@@ -1,5 +1,54 @@
 # Changelog
 
+## 1.0.1 — 2026-10-30
+
+As montarias e duas profissões novas: os dragões terrestres (de Re:Zero, no lugar do "dragão pequeno, sem asas" do
+mundo), o Domador no lugar do Bardo e o Selador no lugar do Engenheiro.
+
+### Adicionado
+- **As montarias** (`module/mounts/`, `docs/montarias.md`): o tipo de item **Montaria**, que não ocupa a mochila e que o
+  personagem monta, um por vez, pelo botão da seção **Montarias** da aba Inventário ou do painel **Itens** do HUD.
+  Montado, a Velocidade, o espaço de alforje, a Iniciativa e as Defesas da montaria se somam; o token mostra [Montado]
+  (estado novo, que só a montaria dá); os poderes da raça viram habilidades que só funcionam montado. Fora de combate e
+  na Preparação, montar é livre; durante as rodadas, gasta a Ação de Movimento, no seu turno. [Incapacitado],
+  [Morrendo], [Morto] e [Derrubado] derrubam da montaria, com um cartão no chat.
+- **Os dragões terrestres**, na pasta Montarias do compêndio de itens: de Tração (Nível 1), de Sela (4), Corredor (8),
+  de Guerra (12), Azul (18) e Diana (24), a 10 comuns do nível (250 a 6.350 Yuld). Todos têm a **Bênção de Repelir o
+  Vento**: montado, a Disparada não gasta a Ação Menor; numa viagem, o dobro do caminho e sem a [Fadiga] da estrada. Os
+  poderes: Galope (Movimento Seguro de [Velocidade] Qd, 1/Cena), Investida (andar e atacar com [2d6 + Poder de
+  Ataque]) e Lealdade (anula um ataque, 1/Cena).
+- **O Domador**, profissão no lugar do Bardo: faz montarias na Oficina, com a lista própria de aprimoramentos (Ligeira,
+  +1 de Velocidade que não cresce com o nível; Alforjes; Couraçada; Abençoada; Briosa; Robusta) e o lendário Sangue de
+  Solus (começa cada combate [Acelerado]); o talento **Adestrar** dá +1 de Velocidade à montaria de um personagem do
+  grupo até o fim do cenário do dono (modo da bancada; gasta uma tentativa).
+- **O Selador**, profissão no lugar do Engenheiro: faz **selos** (Guarda, Silêncio, Contenção e Fenda, em três graus,
+  na pasta Selos) e tem a habilidade **Selar** (compêndio Habilidades Comuns): em combate, Precisão + Rank contra a
+  Resistência; acertando, o inimigo fica [Selado] (a última habilidade que usou) até o fim da cena. A profissão dá e
+  tira a habilidade sozinha, e cada uso gasta uma tentativa e dá 2 de EXP. Nas Fendas, o Selador escreve com o Rank
+  somado, e o **Selo de Fenda** apaga 1, 2 ou 3 escritas sem rolagem (ação de uso `riftSeal`).
+- A fórmula `@prank` (o Rank da profissão do personagem) e o poder de item com `name` e `check` próprios.
+- A migração `professions`: os personagens (e os itens do mundo) que eram Bardos ou Engenheiros viram Domadores e
+  Seladores, com a mesma EXP; as armadilhas de Engenheiro que sobraram nas cenas saem.
+- O Guia do Jogador: a seção A montaria (capítulo 15), o Selador e o Domador (16), a Disparada no dragão (10), o painel
+  Itens (20), o glossário e a referência rápida. AS REGRAS: IV.i. AS MONTARIAS, a viagem em III.e, o [Montado] em VI e o
+  Selador e o Domador em X e XIV. O Mundo de Eternia: os dragões terrestres no capítulo 10 e as Tarefas do Selador e
+  do Domador no 16.
+- `Data/eternia-tests/test-101.js` (58 checagens).
+
+### Alterado
+- Os 14 NPCs prontos que eram Bardos ou Engenheiros ganharam a profissão que combina com cada um (Domador, Selador,
+  Mercador, Cozinheiro, Escriba, Alfaiate, Coletor ou Artesão), com a EXP de antes; a Nib virou "a Seladora".
+- As Engenhocas e as Canções continuam à venda e nos tesouros, mas nenhuma profissão as faz; as bombas e redes não
+  falam mais da armadilha do Engenheiro.
+- A aba Profissão mostra a habilidade da profissão (o Selar) no lugar das armadilhas; o HUD mostra o nome e o Momento dos
+  poderes com nome próprio.
+- O aviso de novidades da 1.0.1.
+
+### Removido
+- O Bardo (e a Obra-prima) e o Engenheiro (e as armadilhas, `professions/traps.mjs`).
+- As montarias de Log Horizon: os 18 apitos da pasta Invocações e o compêndio Habilidades de Montaria (27 habilidades),
+  que nunca funcionaram na Eternia.
+
 ## 1.0.0 — 2026-10-29
 
 A primeira versão completa: mais leve e mais rápida, sem mudar nada nas regras nem na aparência. Medido no mundo de

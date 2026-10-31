@@ -11,7 +11,8 @@ import { MAX_ANIMA, animaPrice } from "../economy/data.mjs";
 
 /**
  * The ten professions: picture and color of the crest, the kinds of item they make (kindOf) and their talent.
- * `kinds` empty: the profession makes nothing in the Workshop (Gatherer, Merchant).
+ * `kinds` empty: the profession makes nothing in the Workshop (Gatherer, Merchant). Since 1.0.1 the Sealer and the
+ * Tamer take the places of the Engineer and the Bard (migration.mjs moves their characters and EXP).
  */
 export const PROFESSIONS = {
   blacksmith: { img: "icons/skills/trades/smithing-anvil-silver-red.webp", color: "#b4532a", icon: "fa-solid fa-hammer", kinds: ["weapon", "heavyArmor", "shield"], talent: "sharpen" },
@@ -20,14 +21,17 @@ export const PROFESSIONS = {
   alchemist: { img: "icons/tools/laboratory/alembic-glass-ball-blue.webp", color: "#4b7f2a", icon: "fa-solid fa-flask", kinds: ["potion", "toxin"], talent: "batch" },
   cook: { img: "icons/tools/cooking/pot-camping-iron-black.webp", color: "#b8862b", icon: "fa-solid fa-utensils", kinds: ["food"], talent: "banquet" },
   scribe: { img: "icons/skills/trades/academics-scribe-quill-gray.webp", color: "#5a4a8a", icon: "fa-solid fa-feather-pointed", kinds: ["scroll"], talent: "copy" },
-  engineer: { img: "icons/weapons/thrown/bomb-timer.webp", color: "#59636e", icon: "fa-solid fa-bomb", kinds: ["gadget"], talent: "trap" },
-  bard: { img: "icons/tools/instruments/lute-gold-brown.webp", color: "#a63f6b", icon: "fa-solid fa-music", kinds: ["song"], talent: "masterpiece" },
+  sealer: { img: "icons/commodities/treasure/talisman-embossed-rune-red.webp", color: "#3b5f9a", icon: "fa-solid fa-stamp", kinds: ["seal"], talent: "seal" },
+  tamer: { img: "icons/commodities/treasure/egg-ornate-green-gold.webp", color: "#7a5230", icon: "fa-solid fa-horse", kinds: ["mount"], talent: "train" },
   gatherer: { img: "icons/skills/trades/mining-pickaxe-yellow-blue.webp", color: "#3f7a4f", icon: "fa-solid fa-person-digging", kinds: [], talent: "gather" },
   merchant: { img: "icons/tools/hand/scale-balances-merchant-brown.webp", color: "#a8841f", icon: "fa-solid fa-scale-balanced", kinds: [], talent: "retouch" }
 };
 export const PROFESSION_IDS = Object.keys(PROFESSIONS);
 
-/** The talents: used as an action (from the bench, or the trap list of the tab) or always on, and what they spend. */
+/**
+ * The talents: used as an action (from the bench; the Sealer's Seal is a skill of its own, used in combat) or always
+ * on, and what they spend.
+ */
 export const TALENTS = {
   sharpen: { icon: "fa-solid fa-sword", action: true, attempt: true },
   mend: { icon: "fa-solid fa-shirt", action: true, attempt: true },
@@ -35,8 +39,8 @@ export const TALENTS = {
   batch: { icon: "fa-solid fa-flask-vial" },
   banquet: { icon: "fa-solid fa-bowl-food", action: true },
   copy: { icon: "fa-solid fa-scroll", action: true, attempt: true },
-  trap: { icon: "fa-solid fa-land-mine-on", action: true },
-  masterpiece: { icon: "fa-solid fa-star" },
+  seal: { icon: "fa-solid fa-lock", action: true, attempt: true },
+  train: { icon: "fa-solid fa-horse", action: true, attempt: true },
   gather: { icon: "fa-solid fa-person-digging", action: true, attempt: true },
   retouch: { icon: "fa-solid fa-wand-magic-sparkles", action: true, attempt: true }
 };
@@ -57,6 +61,22 @@ export const attemptsOf = rank => rank + 1;
 export const levelCapOf = rank => rank * 6;
 /** Alchemist's Batch: copies of each potion or toxin. */
 export const batchOf = rank => (rank >= 5) ? 3 : (rank >= 3) ? 2 : 1;
+/** The Tamer's training: Speed the mount gets until its owner's scenario ends. */
+export const TRAIN_SPEED = 1;
+/** EXP of a use of the Sealer's Seal. */
+export const SEAL_EXP = 2;
+
+/**
+ * The Rank of a character's profession (0 without one), read from its Subclass and its EXP: `@prank` in the roll
+ * formulas (the Sealer's Seal), the Sealer's writing on the Rifts.
+ * @param {Actor} actor
+ * @param {string} [id]   Only this profession
+ */
+export function professionRank(actor, id = null) {
+  const item = actor?.items?.find(i => (i.type === "subclass") && PROFESSIONS[i.system?.identifier]);
+  if (!item || (id && (item.system.identifier !== id))) return 0;
+  return rankOf(actor.flags?.eternia?.professions?.[item.system.identifier]?.exp);
+}
 
 /* -------------------------------------------- */
 /*  Workshop and gathering rolls                */
@@ -146,7 +166,7 @@ export const multiplierOf = level => (toInt(level) > 20) ? 3 : (toInt(level) > 1
 /** Usable items by their tags. */
 const USABLE_KINDS = [
   ["charm", ["Charm"]], ["gem", ["Gem"]], ["potion", ["Potion", "Medicine"]], ["toxin", ["Toxin"]],
-  ["food", ["Food"]], ["scroll", ["Scroll"]], ["gadget", ["Gadget"]], ["song", ["Song"]]
+  ["food", ["Food"]], ["scroll", ["Scroll"]], ["gadget", ["Gadget"]], ["song", ["Song"]], ["seal", ["Seal"]]
 ];
 
 const tagsOf = data => new Set((data?.system?.tags ?? []).map(tagKey));
@@ -162,6 +182,7 @@ export function kindOf(data) {
     case "armor": return tags.has(tagKey("Light Armor")) ? "lightArmor" : "heavyArmor";
     case "shield": return "shield";
     case "bag": return "bag";
+    case "mount": return "mount";
     case "accessory": return "accessory";
     case "usable": return USABLE_KINDS.find(([, list]) => list.some(t => tags.has(tagKey(t))))?.[0] ?? null;
     default: return null;
@@ -171,8 +192,9 @@ export function kindOf(data) {
 /** Enhancement list of each kind. */
 export const CATEGORY = {
   weapon: "weapon", heavyArmor: "protection", lightArmor: "protection", shield: "protection", bag: "bag",
-  accessory: "accessory", charm: "consumable", gem: "consumable", potion: "consumable", toxin: "consumable",
-  food: "consumable", scroll: "consumable", gadget: "consumable", song: "consumable"
+  mount: "mount", accessory: "accessory", charm: "consumable", gem: "consumable", potion: "consumable",
+  toxin: "consumable", food: "consumable", scroll: "consumable", gadget: "consumable", song: "consumable",
+  seal: "consumable"
 };
 export const categoryOf = data => CATEGORY[kindOf(data)] ?? null;
 
@@ -197,6 +219,7 @@ export function isPlainItem(data) {
  *   cancel   a permanent [Cancel] of that value (eternia.passive.cancel)
  *   repeat   may be taken more than once
  *   uncut    the Artisan's Cut doesn't double it
+ *   flat     its numbers don't grow with the item's level (a mount's Speed)
  * Consumables: potent (+5 to what it heals/deals/removes or +1 to its status), copies, timing, wide,
  * purify (statuses it also removes), status (status it also gives).
  */
@@ -220,6 +243,14 @@ export const ENHANCEMENTS = {
   bag: [
     { id: "roomy", icon: "fa-solid fa-sack-xmark", fields: { bagSpace: 2 }, repeat: true }
   ],
+  mount: [
+    { id: "fleet", icon: "fa-solid fa-wind", fields: { speed: 1 }, flat: true },
+    { id: "saddlebags", icon: "fa-solid fa-sack-dollar", fields: { bagSpace: 2 }, repeat: true },
+    { id: "plated", icon: "fa-solid fa-shield-halved", fields: { pdef: 2 } },
+    { id: "blessed", icon: "fa-solid fa-hat-wizard", fields: { mdef: 2 } },
+    { id: "spirited", icon: "fa-solid fa-bolt", fields: { initiative: 3 } },
+    { id: "sturdy", icon: "fa-solid fa-heart", changes: { "system.health.effect": 6 } }
+  ],
   accessory: [
     { id: "lucky", icon: "fa-solid fa-clover", changes: { "eternia.passive.luck": 1 }, uncut: true },
     { id: "vital", icon: "fa-solid fa-heart-pulse", changes: { "system.health.effect": 5 } },
@@ -242,7 +273,8 @@ export const ENHANCEMENTS = {
 export const LEGENDARY = {
   weapon: { id: "fate", icon: "fa-solid fa-dice-d20", legendary: true },
   protection: { id: "aegis", icon: "fa-solid fa-shield", legendary: true },
-  accessory: { id: "starheart", icon: "fa-solid fa-star", legendary: true }
+  accessory: { id: "starheart", icon: "fa-solid fa-star", legendary: true },
+  mount: { id: "solusBlood", icon: "fa-solid fa-sun", legendary: true }
 };
 
 /** Every enhancement by id. */
@@ -257,7 +289,8 @@ export const ITEM_FIELDS = {
   armor: ["pdef", "mdef", "initiative"],
   shield: ["pdef", "mdef"],
   accessory: ["pdef", "mdef", "magic", "initiative"],
-  bag: ["bagSpace"]
+  bag: ["bagSpace"],
+  mount: ["speed", "bagSpace", "pdef", "mdef", "initiative"]
 };
 
 /** Actor values of the item fields, for items whose field the character doesn't read (a shield's Initiative). */
@@ -268,7 +301,8 @@ export const FIELD_KEYS = {
   initiative: "system.battle-status.initiative.mod",
   pdef: "system.battle-status.defense.phys.mod",
   mdef: "system.battle-status.defense.magic.mod",
-  bagSpace: "system.inventory.mod"
+  bagSpace: "system.inventory.mod",
+  speed: "system.battle-status.speed.mod"
 };
 
 /** Timings the Quick enhancement turns into a Minor Action. */

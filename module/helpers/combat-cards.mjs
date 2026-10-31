@@ -12,7 +12,7 @@
  * failed its Dodge Check, Hate Damage, [Pursuit] and [Weakness] follow, each through [Barrier] on
  * its own, and a character loses 1 Hate. Every application posts a summary with an Undo button.
  * The attacker's effects may give the damage tags (`flags.eternia.damageTags`) and statuses to whoever it hits
- * (`flags.eternia.onHit: {statusId, value}`), like an Engineer's Spark Stone (professions/); so may the skill itself
+ * (`flags.eternia.onHit: {statusId, value}`), like a Spark Stone (an Engenhoca of the item compendium); so may the skill itself
  * (`flags.eternia.hitStatuses: [{statusId, value}]`, the value a formula: the spells of the Magias). The spells and
  * the Traits of the Magias add more (helpers/magic-traits.mjs): damage against a status (consuming it or not), a
  * status that escalates, statuses stripped, [Cancel] / [Barrier] / half the Defense ignored, a flat bonus.
@@ -1082,7 +1082,7 @@ async function applyDamage(actor, card, mode, dodgeFailed, target = null) {
     const healed = await takeHealing(attacker, drained, { what: card.skillName, from: actor, silent: true });
     if (healed) lines.push(healed.line);
   }
-  // Statuses the attacker's effects give on a hit (an Engineer's Spark Stone), and those that escalate from a status
+  // Statuses the attacker's effects give on a hit (a Spark Stone), and those that escalate from a status
   // the target already had (a Magia's Trait): Undo takes them back. Fire on a [Soaked] target only dries it. Nothing
   // of an attack that didn't reach the target ([Counter], [The One]) nor of one whose damage was taken to 0.
   const dried = had.has("soaked") && (card.tags ?? []).some(t => /flame/i.test(String(t)));

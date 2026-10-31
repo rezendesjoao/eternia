@@ -76,7 +76,7 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
 - Fonte em `src/packs/<pacote>/*.json`, em português. Campos lidos pela automação (tags, Momento, alcance, alvo,
   custo, limite, tipos, subtipos) ficam em inglês; `module/i18n/` traduz na tela.
 - Raças, classes e habilidades gerais e de combate da Eternia ficam em `races-classes`, `skills-racial`,
-  `skills-class` e `skills-common` (este ainda vazio). O navegador de habilidades acha a origem de cada habilidade
+  `skills-class` e `skills-common` (este só com as habilidades das profissões, o Selar do Selador, pasta Profissões). O navegador de habilidades acha a origem de cada habilidade
   pelo nome das pastas (a classe, a raça) e pelas flags da Dedicação e dos Caminhos.
 - Classe = item `class` (base, tags de papel, `grants` com o kit, a escolha do elemento no NP 1 quando a classe tem
   elementos, o Caminho no NP 3 e o Ápice no NP 10) + habilidades na pasta com o nome da classe em `skills-class`, com o
@@ -158,7 +158,11 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
   (veja "Os NPCs" e "Os personagens maiores" em `docs/bestiario.md`).
 - Profissão = item `subclass` com `system.identifier` igual a um id de `module/professions/data.mjs`, na pasta
   Profissões de `races-classes`. O progresso fica no personagem (`flags.eternia.professions.<id>`) e o item feito guarda
-  a base em `flags.eternia.craft` (veja `docs/profissoes.md`). Engenhocas e Canções ficam em `items` (pastas próprias).
+  a base em `flags.eternia.craft` (veja `docs/profissoes.md`). Desde a 1.0.1, o Selador (`sealer`) e o Domador (`tamer`)
+  estão nos lugares (e nos `_id`) do Engenheiro e do Bardo, que saíram (a migração `professions` passou os personagens
+  e a EXP). Selos e Montarias ficam em `items` (pastas próprias); as Engenhocas e as Canções continuam lá, mas nenhuma
+  profissão as faz. Uma habilidade de profissão (o Selar) leva `flags.eternia.profession` e `choiceOnly`: a profissão a
+  dá e tira (`professions/skills.mjs`), e cada uso gasta uma tentativa.
 - Ícones de item: cada item tem um só seu (`img` + `flags.eternia.icon.hue` nunca se repetem). Ícones do Foundry entram
   pelo caminho (`icons/...`), nunca copiados para o repositório (licença); arte própria fica em `assets/icons/items/`.
   Molduras e efeitos são desenhados no navegador (`module/icons/`, veja `docs/icones.md`).
@@ -331,6 +335,23 @@ Sistema do Foundry VTT v14 (id `eternia`). Fork do LHTTRPG 2.1.1 (remoto `upstre
 - Testes: `Data/eternia-tests/test-053.js` (XP, grupo, Tíquete, bônus, telas; faz os personagens "XP A (teste)"… e apaga
   no fim) e `run-053.js` (a bateria inteira); o convite e o quadro se testam com o segundo navegador como "Jogador Teste"
   (`setup-053-grupo.js` monta a cena, com um usuário "Jogador Dois").
+
+## As montarias (1.0.1)
+- **A montaria é o tipo de item `mount`** (`template.json`; `module/mounts/`, veja `docs/montarias.md`): equipar é
+  montar, uma por vez, e ela não ocupa a mochila (fora de `SPACE_TYPES`, dentro de `EQUIP_TYPES` e `PHYSICAL_TYPES`). A
+  montada soma Velocidade, espaço, Iniciativa e Defesas em `documents/actor.mjs`; os efeitos dela só valem montada, como
+  os do equipamento. Os dragões terrestres (de Re:Zero, no lugar do "dragão pequeno, sem asas" do Mundo) saem de
+  `Eternia-Montarias/gen-itens.mjs` (fora do repositório), que também faz os selos, as duas profissões e o Selar.
+- Montar e desmontar passam por `mounts/actions.mjs` (a ficha, o HUD e a API): livre fora das rodadas e na Preparação,
+  a Ação de Movimento no turno durante elas. [Incapacitado], [Morrendo], [Morto] e [Derrubado] derrubam (o gancho de
+  `createActiveEffect` em `mounts/index.mjs`). O [Montado] é o efeito da própria montaria, com `showIcon` sempre (o Foundry
+  14 só desenha no token o efeito temporário ou o "sempre"), e o estado `mounted` tem `hud: false`: fica fora do HUD do
+  token e do painel de estados.
+- Os poderes da montaria são `flags.eternia.powers` (habilidades de item, só montada: `Use.NotMounted`), com `name` e
+  `check` opcionais (`content/content.mjs`). A Bênção de Repelir o Vento (`flags.eternia.mount.blessing = "wind"`) tira a
+  Ação Menor da Disparada em `alsoSpendsOf` (`automation/use.mjs`).
+- Montaria nova: 10 comuns do nível (seção 9 de `docs/matematica.md`), o efeito [Montado] e, se for dragão terrestre, a
+  Bênção. Teste: `Data/eternia-tests/test-101.js` (montarias, Domador, Selador, migração, conteúdo e telas).
 
 ## A morte (0.50)
 - `module/automation/death.mjs`: quem cai num token que não é hostil (`isAdventurer`) fica [Morrendo: 2]

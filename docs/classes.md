@@ -163,7 +163,7 @@ Antes de entrar no sistema, cada classe passa por esta lista:
    Motor de lá: 2 pontos por rodada; 1d6 + NP por ponto num alvo e 1d6 + NP÷2 em área no golpe que gasta tudo; um
    bônus só de Motor cheio, uma vez por cena quando vem de talento; talento de Teto +1; o Ápice transforma sem dar
    ação a mais; NP÷2 sempre para baixo.
-9. O nome não bate com o de uma profissão (Bardo, Alquimista, Engenheiro...) nem com o de uma raça.
+9. O nome não bate com o de uma profissão (Domador, Alquimista, Selador...) nem com o de uma raça.
 10. O Motor cabe num cartão de seis linhas e aparece no token.
 
 ## Partes da regra

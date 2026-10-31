@@ -1,0 +1,122 @@
+{
+  "name": "Dragão Terrestre Azul",
+  "type": "mount",
+  "system": {
+    "description": "<p><strong>Montaria</strong> (Nível 18). Montado: +3 de Velocidade, +3 espaços de alforje e +2 de Iniciativa.</p><p><strong>Bênção de Repelir o Vento</strong> (Passiva): montado, a Disparada não gasta a Ação Menor. Numa viagem, você anda o dobro por dia e chega sem a [Fadiga] da estrada, e quem vai na carroça que ele puxa também.</p><p>[Momento: Movimento] <strong>Galope.</strong> Alvo: Você. Movimento Seguro de até [Velocidade] Qd: a Obstrução não o para. 1/Cena.</p><p>[Momento: Ação Maior] <strong>Investida.</strong> Alvo: Único · Alcance: Corpo a corpo. Ande até [Velocidade] Qd em linha reta até um inimigo e ataque: Precisão contra Esquiva, [2d6 + Poder de Ataque] de dano físico.</p><hr><p><em>Uma linhagem de escamas azuis como o céu de inverno, criada por poucas famílias e vendida a menos ainda. Os nobres o exibem nos desfiles; quem já montou um sabe que ele é rápido como um corredor e valente como um de guerra.</em></p>",
+    "tags": [],
+    "rank": 18,
+    "price": 3250,
+    "equipped": false,
+    "skillText": "",
+    "linkedSkillUuid": "",
+    "pdef": 0,
+    "mdef": 0,
+    "initiative": 2,
+    "speed": 3,
+    "bagSpace": 3
+  },
+  "img": "icons/creatures/reptiles/dragon-horned-blue.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "mounted": true
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "1.0.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Montado",
+      "img": "systems/eternia/assets/ui/status/mounted.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "mounted"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 2,
+      "_id": "e04kvu0IDIVTFIGx",
+      "_key": "!items.effects!m8lNQ6y1aMZGVldk.e04kvu0IDIVTFIGx"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "mount": {
+        "blessing": "wind"
+      },
+      "powers": [
+        {
+          "name": "Galope",
+          "timing": "Move",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Move] Gallop: \"Target: Self / Range: -\". Safe Movement of up to [Speed] Sq: no Obstruction stops it. Once per scene."
+        },
+        {
+          "name": "Investida",
+          "timing": "Major",
+          "target": "Single",
+          "range": "Close",
+          "cost": "",
+          "limit": "",
+          "text": "[Trigger: Major] Charge: \"Target: Single / Range: Close\". Walk up to [Speed] Sq in a straight line to an enemy and attack: Accuracy against Evasion, [2d6 + Attack Power] physical damage.",
+          "check": {
+            "dice": 0,
+            "mod": 0,
+            "vs": "evasion",
+            "stat": "accuracy"
+          },
+          "damage": {
+            "dice": 2,
+            "mod": 0,
+            "type": "physical",
+            "recovery": false,
+            "noPower": false
+          }
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "1.0.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 5000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "m8lNQ6y1aMZGVldk",
+  "folder": "c5Vq3IqTZ9Nya1ku",
+  "_key": "!items!m8lNQ6y1aMZGVldk"
+}

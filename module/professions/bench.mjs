@@ -1,7 +1,7 @@
 /**
  * The bench of a profession: the window behind the buttons of the profession tab. One per character, with a mode for
  * each thing the profession does: the Workshop and the Fusion (crafters), Gathering (Gatherer), Retouch and sales
- * (Merchant), and the talents used as an action (Sharpen, Mend, Banquet, Copy). A mode starts on a "choose" step;
+ * (Merchant), and the talents used as an action (Sharpen, Mend, Banquet, Copy, Train). A mode starts on a "choose" step;
  * the rolls show a "reveal" (the dice falling, then the quality), crafting goes on to the "enhance" step, and every
  * action ends on a "done" card.
  */
@@ -9,8 +9,8 @@ import { L, SYSTEM_ID } from "../settings.mjs";
 import { toInt } from "../helpers/utils.mjs";
 import { tagLabel, term } from "../i18n/terms.mjs";
 import {
-  ENHANCEMENT_INDEX, GRADE_QUALITY, ITEMS_PACK, QUALITY_COLORS, batchOf, craftChances, gatherOutcome, isPlainItem,
-  kindOf, materialLevel, multiplierOf
+  ENHANCEMENT_INDEX, GRADE_QUALITY, ITEMS_PACK, QUALITY_COLORS, TRAIN_SPEED, batchOf, craftChances, gatherOutcome,
+  isPlainItem, kindOf, materialLevel, multiplierOf
 } from "./data.mjs";
 import {
   buildCrafted, copiableSkills, craftOf, defaultName, enhancementText, enhancementsFor, unavailableReason
@@ -18,7 +18,7 @@ import {
 import { materialsOf, professionOf, rankTitle } from "./state.mjs";
 import {
   banquet, banquetPairs, canCutFor, copy, craftAttempt, craftProblem, discardPending, finishCraft, fuse, fusionPairs,
-  gather, gatherCap, mend, partyOf, pendingOf, retouch, retouchCost, sell, sellable, sharpen, sharpenValue
+  gather, gatherCap, mend, partyOf, pendingOf, retouch, retouchCost, sell, sellable, sharpen, sharpenValue, train
 } from "./actions.mjs";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
@@ -30,7 +30,7 @@ export const PROFESSION_TEMPLATES = ["bench", "bench-choose", "bench-enhance", "
 const MODE_ICONS = {
   craft: "fa-solid fa-hammer", fusion: "fa-solid fa-object-group", gather: "fa-solid fa-person-digging",
   retouch: "fa-solid fa-wand-magic-sparkles", sell: "fa-solid fa-coins", sharpen: "fa-solid fa-sword",
-  mend: "fa-solid fa-shirt", banquet: "fa-solid fa-bowl-food", copy: "fa-solid fa-scroll"
+  mend: "fa-solid fa-shirt", banquet: "fa-solid fa-bowl-food", copy: "fa-solid fa-scroll", train: "fa-solid fa-horse"
 };
 const DICE_ICONS = ["", "one", "two", "three", "four", "five", "six"].map(n => `fa-solid fa-dice-${n}`);
 
@@ -40,7 +40,7 @@ export function modesOf(p) {
   if (p.def.kinds.length) modes.push("craft", "fusion");
   if (p.id === "gatherer") modes.push("gather");
   if (p.id === "merchant") modes.push("retouch", "sell");
-  if (["sharpen", "mend", "banquet", "copy"].includes(p.def.talent)) modes.push(p.def.talent);
+  if (["sharpen", "mend", "banquet", "copy", "train"].includes(p.def.talent)) modes.push(p.def.talent);
   return modes;
 }
 
@@ -59,6 +59,8 @@ function statsOf(data) {
     case "shield": return [n("Profession.Stat.pdef", s.pdef), n("Profession.Stat.mdef", s.mdef)];
     case "accessory": return [n("Profession.Stat.pdef", s.pdef), n("Profession.Stat.mdef", s.mdef), n("Profession.Stat.magic", s.magic), n("Profession.Stat.initiative", s.initiative)];
     case "bag": return [n("Profession.Stat.space", s.bagSpace)];
+    case "mount": return [n("Profession.Stat.speed", s.speed), n("Profession.Stat.space", s.bagSpace), n("Profession.Stat.initiative", s.initiative),
+      n("Profession.Stat.pdef", s.pdef), n("Profession.Stat.mdef", s.mdef)];
     default: {
       const flags = data?.flags?.[SYSTEM_ID] ?? {};
       const damage = s.damage ?? {};
@@ -102,7 +104,6 @@ export class ProfessionBench extends HandlebarsApplicationMixin(ApplicationV2) {
       pick: ProfessionBench.#onPick,
       unpick: ProfessionBench.#onUnpick,
       cut: ProfessionBench.#onCut,
-      master: ProfessionBench.#onMaster,
       keep: ProfessionBench.#onKeep,
       out: ProfessionBench.#onOut,
       finish: ProfessionBench.#onFinish,
@@ -157,7 +158,6 @@ export class ProfessionBench extends HandlebarsApplicationMixin(ApplicationV2) {
     this.picks = [];
     this.name = "";
     this.nameEdited = false;
-    this.masterpiece = null;
     this.pairKey = null;
     this.keep = null;
     this.itemId = null;
@@ -358,6 +358,24 @@ export class ProfessionBench extends HandlebarsApplicationMixin(ApplicationV2) {
           } : null)
         };
       }
+      case "train": {
+        const groups = partyOf(actor).map(owner => ({
+          name: owner.name, img: owner.img,
+          items: owner.items.filter(i => (i.type === "mount") && matches(i.name)).map(i => card({
+            key: i.uuid, name: i.name, img: i.img, level: Math.max(1, toInt(i.system.rank)),
+            meta: (i.system.equipped === true) ? L("Profession.Bench.Ridden") : "",
+            locked: i.effects.some(e => e.getFlag(SYSTEM_ID, "trained")), lockHint: L("Profession.Error.Trained")
+          }))
+        })).filter(g => g.items.length);
+        const mount = await this.#doc(this.itemId);
+        return {
+          list: { groups, empty: L("Profession.Bench.EmptyTrain"), search: this.search, searchable: true },
+          side: this.#simpleSide("train", mount ? {
+            img: mount.img, name: mount.name, lines: [L("Profession.Talent.train.effect", { n: TRAIN_SPEED, name: actor.name })],
+            confirm: L("Profession.Bench.Confirm.train", { n: TRAIN_SPEED }), attempt: true
+          } : null)
+        };
+      }
       case "mend": {
         const items = partyOf(actor).map(a => card({
           key: a.id, name: a.name, img: a.img, meta: L("Profession.Bench.Fatigue", { n: toInt(a.system.infos?.fatigue) }),
@@ -455,9 +473,9 @@ export class ProfessionBench extends HandlebarsApplicationMixin(ApplicationV2) {
    */
   async #enhanceContext(p, pending) {
     let base, grade, slots, kept = [], canCut = false, legendary = null, title, keepChoice = null, cost = null, roll = null;
-    // A Fusion or Retouch of an item with a name of its own keeps it, and its Masterpiece.
+    // A Fusion or Retouch of an item with a name of its own keeps it, and its Masterpiece (a song of a Bard, before 1.0.1).
     let ownName = null;
-    let masterpiece = (this.mode === "craft") ? this.masterpiece : null;
+    let masterpiece = null;
     if (this.mode === "craft") {
       if (!pending) {
         this.step = "choose";
@@ -565,8 +583,7 @@ export class ProfessionBench extends HandlebarsApplicationMixin(ApplicationV2) {
     }).filter(Boolean);
     if (masterpiece) effects.push({ icon: "fa-solid fa-star", name: L("Profession.Masterpiece.Name"), text: L(`Profession.Masterpiece.${masterpiece}`), legendary: true });
 
-    const ready = (picks.length === slots) && !(retouching && (this.out === null))
-      && !((this.mode === "craft") && (pending.profession === "bard") && pending.doubleSix && !this.masterpiece);
+    const ready = (picks.length === slots) && !(retouching && (this.out === null));
     const copies = (this.mode === "craft") ? toInt(pending.copies || 1) + (picks.some(e => e.id === "double") ? 1 : 0) : 1;
     return {
       enhance: {
@@ -575,9 +592,6 @@ export class ProfessionBench extends HandlebarsApplicationMixin(ApplicationV2) {
         retouching, keptView: retouching ? keptView : null, pickOut: retouching && (this.out === null),
         name: this.nameEdited ? this.name : "", placeholder,
         stats: compare(statsOf(base), statsOf(preview)), effects, copies: copies > 1 ? copies : 0,
-        masterpiece: ((this.mode === "craft") && (pending.profession === "bard") && pending.doubleSix)
-          ? ["mass", "instant"].map(id => ({ id, label: L(`Profession.Masterpiece.${id}`), hint: L(`Profession.Masterpiece.${id}Hint`), active: this.masterpiece === id }))
-          : null,
         ready, canDiscard: (this.mode === "craft") && game.user.isGM,
         finish: L(`Profession.Bench.Finish.${this.mode}`, { n: cost ?? 0 }),
         lede: L(`Profession.Bench.Lede.${this.mode}`, { n: slots })
@@ -726,7 +740,6 @@ export class ProfessionBench extends HandlebarsApplicationMixin(ApplicationV2) {
           this.picks = [];
           this.name = "";
           this.nameEdited = false;
-          this.masterpiece = null;
           if (this.selected.from === "inventory") this.selected = null;
         }
       }
@@ -788,11 +801,6 @@ export class ProfessionBench extends HandlebarsApplicationMixin(ApplicationV2) {
     this.render();
   }
 
-  static #onMaster(event, target) {
-    this.masterpiece = target.dataset.value;
-    this.render();
-  }
-
   /** Fusion: whose enhancements stay. */
   static #onKeep(event, target) {
     this.keep = target.dataset.id;
@@ -816,7 +824,7 @@ export class ProfessionBench extends HandlebarsApplicationMixin(ApplicationV2) {
     try {
       const name = this.nameEdited ? this.name : "";
       let items = null;
-      if (this.mode === "craft") items = await finishCraft(this.actor, { picks: this.picks, name, masterpiece: this.masterpiece });
+      if (this.mode === "craft") items = await finishCraft(this.actor, { picks: this.picks, name });
       else if (this.mode === "fusion") {
         const pair = fusionPairs(this.actor).find(pr => pr.key === this.pairKey);
         const item = pair && await fuse(this.actor, { ids: pair.items.slice(0, 2).map(i => i.id), keep: this.keep, pick: this.picks[0] ?? null, name });
@@ -854,11 +862,10 @@ export class ProfessionBench extends HandlebarsApplicationMixin(ApplicationV2) {
     this.picks = [];
     this.name = "";
     this.nameEdited = false;
-    this.masterpiece = null;
     this.step = "done";
   }
 
-  /** The other modes: sell, sharpen, mend, banquet, copy. */
+  /** The other modes: sell, sharpen, train, mend, banquet, copy. */
   static async #onConfirm() {
     if (this.#busy) return;
     this.#busy = true;
@@ -879,6 +886,15 @@ export class ProfessionBench extends HandlebarsApplicationMixin(ApplicationV2) {
           if (!weapon || !(await sharpen(actor, weapon))) return;
           this.#docs.delete(this.itemId);
           this.done = { title: L("Profession.Bench.Done.sharpen"), item: { name: weapon.name, img: weapon.img, enhancements: [] }, lines: [L("Profession.Chat.Sharpened", { item: weapon.name, name: weapon.actor.name, n: sharpenValue(weapon) })], again: L("Profession.Bench.Again.sharpen") };
+          this.itemId = null;
+          this.step = "done";
+          break;
+        }
+        case "train": {
+          const mount = await this.#doc(this.itemId);
+          if (!mount || !(await train(actor, mount))) return;
+          this.#docs.delete(this.itemId);
+          this.done = { title: L("Profession.Bench.Done.train"), item: { name: mount.name, img: mount.img, enhancements: [] }, lines: [L("Profession.Chat.Trained", { item: mount.name, name: mount.actor.name, n: TRAIN_SPEED })], again: L("Profession.Bench.Again.train") };
           this.itemId = null;
           this.step = "done";
           break;

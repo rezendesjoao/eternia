@@ -20,7 +20,7 @@ export const TAGS = {
   "Rare": "Raro", "Potion": "Poção", "Scroll": "Pergaminho", "Toxin": "Toxina", "Food": "Comida",
   "Gem": "Gema", "Charm": "Amuleto", "Medicine": "Medicamento", "Magic Tool": "Ferramenta Mágica",
   "Magic Ring": "Anel Mágico", "Embroidery": "Bordado", "Summoning Whistle": "Apito de Invocação",
-  "Flag": "Bandeira", "Tame": "Adestramento", "Gadget": "Engenhoca", "Valuable": "Valioso", "Core Material": "Material-Base",
+  "Flag": "Bandeira", "Tame": "Adestramento", "Gadget": "Engenhoca", "Seal": "Selo", "Valuable": "Valioso", "Core Material": "Material-Base",
   // Skill keywords
   "Preparation": "Preparação", "Training": "Treinamento", "Style": "Estilo", "Stance": "Postura",
   "Harmony": "Harmonia", "Servant Summon": "Invocação de Servo", "Enchantment": "Encantamento",

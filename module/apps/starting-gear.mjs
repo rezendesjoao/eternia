@@ -134,6 +134,11 @@ function statParts(entry, description) {
     if (entry.twoHanded) parts.push(tagLabel("Two-Handed"));
   }
   else if (entry.type === "bag") parts.push(`${label("BagSpace")} +${stats.bagSpace}`);
+  // A mount: what it gives ridden (mounts/)
+  else if (entry.type === "mount") {
+    parts.push(`${label("Speed")} ${signed(stats.speed)}`);
+    if (stats.bagSpace) parts.push(`${label("BagSpace")} +${stats.bagSpace}`);
+  }
   if (entry.type !== "weapon") {
     if (stats.pdef || stats.mdef) parts.push(`${label("PDef")} ${stats.pdef}`, `${label("MDef")} ${stats.mdef}`);
     if (stats.initiative) parts.push(`${label("Initiative")} ${signed(stats.initiative)}`);
@@ -166,7 +171,8 @@ export function gearEntry(item) {
     twoHanded: keys.includes(TWO_HANDED),
     stats: {
       attack: toInt(s.attack), magic: toInt(s.magic), accuracy: toInt(s.accuracy), pdef: toInt(s.pdef),
-      mdef: toInt(s.mdef), initiative: toInt(s.initiative), bagSpace: toInt(s.bagSpace), range: s.range ?? ""
+      mdef: toInt(s.mdef), initiative: toInt(s.initiative), bagSpace: toInt(s.bagSpace), range: s.range ?? "",
+      speed: toInt(s.speed)
     },
     bonus: bonusesOf(item)
   };

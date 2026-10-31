@@ -44,17 +44,6 @@
 			{{/each}}
 		</div>
 
-		{{#if e.masterpiece}}
-		<div class="lhp-masterpiece">
-			<span class="lhp-mini-label"><i class="fa-solid fa-star"></i> {{localize "ETERNIA.Profession.Masterpiece.Name"}}</span>
-			<div>
-				{{#each e.masterpiece as |m|}}
-				<a class="lhp-master{{#if m.active}} active{{/if}}" data-action="master" data-value="{{m.id}}"><b>{{m.label}}</b><small>{{m.hint}}</small></a>
-				{{/each}}
-			</div>
-		</div>
-		{{/if}}
-
 		{{#if e.legendary}}
 		<div class="lhp-legendary-note">
 			<i class="fa-solid fa-star"></i>

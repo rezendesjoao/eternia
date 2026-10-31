@@ -14,7 +14,8 @@
       "race": "Raça",
       "class": "Classe",
       "subclass": "Profissão",
-      "usable": "Utilizável"
+      "usable": "Utilizável",
+      "mount": "Montaria"
     },
     "Actor": {
       "character": "Personagem Jogador",
@@ -270,7 +271,9 @@
         "Skill": "Habilidade",
         "Target": "Alvo",
         "ThrowToChat": "Enviar ao Chat",
-        "Timing": "Momento"
+        "Timing": "Momento",
+        "Speed": "Velocidade",
+        "Mounted": "Montado"
       },
       "Use": {
         "Button": "Usar",
@@ -500,7 +503,8 @@
       "jackpot": "Jackpot",
       "luck": "Sorte",
       "goliath": "Golias",
-      "quake": "Abalo"
+      "quake": "Abalo",
+      "mounted": "Montado"
     },
     "StatusGroup": {
       "bad": "Estado Negativo",
@@ -1059,7 +1063,8 @@
       "Curse": "Maldição: o poder dos demônios, que não é magia. Silenciado não impede, mesmo com [Feitiço] ou [Ataque Mágico].",
       "Iron": "Elemento ferro. Interage com Fraqueza/Anulação (Ferro).",
       "Wind": "Elemento vento. Interage com Fraqueza/Anulação (Vento).",
-      "Water": "Elemento água. Interage com Fraqueza/Anulação (Água)."
+      "Water": "Elemento água. Interage com Fraqueza/Anulação (Água).",
+      "Seal": "Selo da Língua Sagrada, feito pelo Selador."
     },
     "Condition": {
       "Title": "Condições",
@@ -1482,7 +1487,8 @@
       "Incapacitated": "{name} está Incapacitado e não pode agir.",
       "ConfirmEyebrow": "Antes de usar",
       "Recharging": "{skill} está recarregando: em cada Manutenção, um 1d6 diz se ela volta.",
-      "TroopTargets": "{skill} acerta até {n} alvos agora: é o que resta do bando."
+      "TroopTargets": "{skill} acerta até {n} alvos agora: é o que resta do bando.",
+      "NotMounted": "Você não está montado em {item}."
     },
     "Cards": {
       "RollDamage": "Rolar dano",
@@ -1802,7 +1808,8 @@
       "FatigueTip": "Fadiga {value}: o PV máximo cai {value}.",
       "Power": "Poder",
       "PowerN": "Poder {n}",
-      "XpTip": "XP {label} · {next}"
+      "XpTip": "XP {label} · {next}",
+      "Mounts": "Montarias"
     },
     "Keys": {
       "hudDismiss": "HUD de ações: fechar o painel aberto",
@@ -1844,7 +1851,7 @@
     "Notice": {
       "Title": "Eternia {version}",
       "Ok": "Entendi",
-      "Body": "<p><strong>Eternia 1.0</strong></p><p>A primeira versão completa chega mais leve e mais rápida, sem mudar nada nas regras nem no visual:</p><ul><li><strong>Entrar no mundo:</strong> o sistema chega em poucos arquivos em vez de centenas. Com o servidor longe, a entrada fica segundos mais curta.</li><li><strong>A primeira cena:</strong> os ícones dos estados e as fontes chegam enquanto o mundo ainda carrega.</li><li><strong>No combate:</strong> a ficha, o HUD e o quadro do grupo só se redesenham quando algo deles muda, e cada tela faz menos conta a cada turno, a cada dano e a cada estado.</li><li><strong>Computador mais fraco:</strong> com o <strong>Modo de Desempenho</strong> do Foundry em <strong>Baixo</strong> (Configurar Opções → Geral), a Eternia para as animações que só enfeitam e o chat abre com menos mensagens. Veja a caixa Computador mais fraco no capítulo A Mesa Virtual do Guia do Jogador.</li></ul>"
+      "Body": "<p><strong>Eternia 1.0.1</strong></p><p>As montarias e duas profissões novas:</p><ul><li><strong>Montarias:</strong> os dragões terrestres. Compre um no Mercado ou numa loja e monte pela aba Inventário (seção Montarias) ou pelo painel Itens do HUD. Montado, você corre mais e ganha espaço de alforje, e com a <strong>Bênção de Repelir o Vento</strong> a Disparada não gasta a Ação Menor. Durante as rodadas, montar gasta a Ação de Movimento; cair ou ser derrubado desmonta.</li><li><strong>Domador</strong>, no lugar do Bardo: faz montarias na Oficina e adestra a do grupo (+1 de Velocidade até o fim do cenário).</li><li><strong>Selador</strong>, no lugar do Engenheiro: faz selos e usa o <strong>Selar</strong> em combate, e o inimigo perde a última habilidade que usou até o fim da cena. Nas Fendas, escreve com o Rank somado.</li><li><strong>Quem era Bardo ou Engenheiro</strong> agora é Domador ou Selador, com a mesma EXP. As Canções e as Engenhocas que você tem continuam funcionando.</li></ul><p>Tudo está no Guia do Jogador, nos capítulos Equipamento e Riqueza e Profissões.</p>"
     },
     "StatusDesc": {
       "fatigue": "[Fadiga: n] tira n dos PV máximos; novas Fadigas somam. Com PV máximos 0, o personagem fica Incapacitado. Sai com Comida, descanso ou no Pós-Jogo.",
@@ -1935,7 +1942,8 @@
       "jackpot": "[Jackpot: n]: o prêmio. Você recupera todo o PV agora e em cada Manutenção, não cai (a 0 PV, volta com o PV cheio), os seus feitiços não custam Ódio e os seus ataques causam +NP de dano. O Valor é quantas rodadas faltam: cai 1 em cada Encerramento.",
       "luck": "[Sorte: n] (até 3): os pares que os carretéis deram. No 3, é o [Jackpot] (e a Sorte zera). Sai no fim da cena.",
       "goliath": "[Golias: n]: o corpo de gigante. Um golpe cujo dano (depois da Defesa e da Anulação) fica abaixo de n não faz nada, nem os estados dele; de n para cima passa inteiro. Você não é puxado, empurrado nem trocado de lugar, e os seus ataques físicos causam +NP de dano. Sai no fim da cena.",
-      "quake": "[Abalo: n] (até 5): os tremores que você já fez. Cada ponto deixa os próximos feitiços do Cataclismo mais fortes. Sai no fim da cena."
+      "quake": "[Abalo: n] (até 5): os tremores que você já fez. Cada ponto deixa os próximos feitiços do Cataclismo mais fortes. Sai no fim da cena.",
+      "mounted": "Sobre uma montaria: a Velocidade, o espaço, a Iniciativa e as Defesas dela contam, e os poderes dela podem ser usados. Cair, morrer ou ficar [Derrubado] desmonta."
     },
     "StatusFamily": {
       "core": "Clássicos",
@@ -2165,10 +2173,10 @@
         "alchemist": "Alquimista",
         "cook": "Cozinheiro",
         "scribe": "Escriba",
-        "engineer": "Engenheiro",
-        "bard": "Bardo",
         "gatherer": "Coletor",
-        "merchant": "Mercador"
+        "merchant": "Mercador",
+        "tamer": "Domador",
+        "sealer": "Selador"
       },
       "Crafts": {
         "blacksmith": "Armas, armaduras pesadas e médias, escudos",
@@ -2177,10 +2185,10 @@
         "alchemist": "Poções e toxinas",
         "cook": "Comidas",
         "scribe": "Pergaminhos",
-        "engineer": "Bombas, redes e pedras de faísca",
-        "bard": "Canções gravadas em cristal",
         "gatherer": "Anima-mundi e Quintessência",
-        "merchant": "Retoques e vendas pelo valor cheio"
+        "merchant": "Retoques e vendas pelo valor cheio",
+        "tamer": "Montarias (os dragões terrestres)",
+        "sealer": "Selos da Língua Sagrada"
       },
       "RankTitle": {
         "1": "Novato",
@@ -2212,7 +2220,9 @@
         "food": "Comida",
         "scroll": "Pergaminho",
         "gadget": "Engenhoca",
-        "song": "Canção"
+        "song": "Canção",
+        "mount": "Montaria",
+        "seal": "Selo"
       },
       "Enh": {
         "sharp": {
@@ -2370,6 +2380,41 @@
           "name": "Coração Estelar",
           "text": "Começa cada combate com [Último Fôlego]",
           "epithet": "das Estrelas"
+        },
+        "fleet": {
+          "name": "Ligeira",
+          "text": "+{n} de Velocidade",
+          "epithet": "do Vento"
+        },
+        "saddlebags": {
+          "name": "Alforjes",
+          "text": "+{n} espaços de alforje",
+          "epithet": "de Carga"
+        },
+        "plated": {
+          "name": "Couraçada",
+          "text": "+{n} de Defesa Física",
+          "epithet": "de Couraça"
+        },
+        "blessed": {
+          "name": "Abençoada",
+          "text": "+{n} de Defesa Mágica",
+          "epithet": "da Bênção"
+        },
+        "spirited": {
+          "name": "Briosa",
+          "text": "+{n} de Iniciativa",
+          "epithet": "do Arranque"
+        },
+        "sturdy": {
+          "name": "Robusta",
+          "text": "+{n} de PV máximo",
+          "epithet": "do Lombo Largo"
+        },
+        "solusBlood": {
+          "name": "Sangue de Solus",
+          "text": "Começa cada combate [Acelerado], montada",
+          "epithet": "de Solus"
         }
       },
       "Talent": {
@@ -2398,14 +2443,6 @@
           "name": "Cópia",
           "text": "Grave uma habilidade sua num pergaminho que qualquer um usa uma vez, com o seu NH, o seu teste e o seu dano. Gasta uma tentativa e dá 2 de EXP."
         },
-        "trap": {
-          "name": "Armadilha",
-          "text": "Na Manutenção (ou fora de combate), arme uma bomba ou uma rede num quadrado da cena: ela dispara no primeiro inimigo que entrar nele."
-        },
-        "masterpiece": {
-          "name": "Obra-prima",
-          "text": "Com dois 6 na Oficina, a canção sai em massa (todos os alvos) ou instantânea (Momento Instantânea), à sua escolha."
-        },
         "gather": {
           "name": "Coleta",
           "text": "Role 2d6 + Rank: 8 ou mais encontra 1 Anima-mundi do nível que você escolher (até o seu NP), 11 ou mais encontra 2, e dois 6 também encontram uma Quintessência. O que você acha não tem o Selo do Anima: serve na Oficina, mas nenhuma loja compra. Gasta uma tentativa."
@@ -2413,6 +2450,15 @@
         "retouch": {
           "name": "Retoque",
           "text": "Troque um aprimoramento de um item feito numa Oficina por outro da mesma lista: custa o preço de 2 Anima-mundi do nível do item (100 Yuld no Nível 1), e o preço dobra a cada novo retoque do item. Gasta uma tentativa e dá 5 de EXP. Você vende tudo pelo valor cheio, menos o Anima-mundi sem o Selo do Anima, que ninguém compra."
+        },
+        "train": {
+          "name": "Adestrar",
+          "text": "No Interlúdio, a montaria de um personagem do grupo ganha +1 de Velocidade até o fim do cenário do dono dela. Gasta uma tentativa.",
+          "effect": "+{n} de Velocidade até o fim do cenário, montada (adestrada por {name})."
+        },
+        "seal": {
+          "name": "Selar",
+          "text": "Em combate, a habilidade Selar (Ação Maior, até 4 Qd): Precisão + Rank contra a Resistência de um inimigo; acertando, ele fica [Selado] (a última habilidade que usou) até o fim da cena. Gasta uma tentativa e dá 2 de EXP. Nas Fendas, a sua escrita soma o Rank."
         }
       },
       "Why": {
@@ -2427,9 +2473,7 @@
       "Masterpiece": {
         "Name": "Obra-prima",
         "mass": "Em massa: afeta todos os alvos",
-        "instant": "Instantânea: usada a qualquer momento",
-        "massHint": "O alvo vira Todos",
-        "instantHint": "O Momento vira Instantânea"
+        "instant": "Instantânea: usada a qualquer momento"
       },
       "Copy": {
         "Name": "Pergaminho: {name}",
@@ -2478,9 +2522,7 @@
         "NoFatigue": "{name}: sem mudança.",
         "Banquet": "Duas porções de {item} viraram um banquete para o grupo.",
         "Copied": "«{skill}» foi gravada num pergaminho.",
-        "TrapArmed": "Armou {item} num quadrado da cena.",
-        "TrapTriggered": "{item} disparou em {name}!",
-        "TrapEffects": "Efeitos: {effects}."
+        "Trained": "{item} de {name} ganha +{n} de Velocidade até o fim do cenário."
       },
       "Error": {
         "NoProfession": "Este personagem não tem essa profissão.",
@@ -2505,10 +2547,10 @@
         "NoTargets": "Escolha até 3 personagens.",
         "NoPair": "Faltam 2 comidas iguais.",
         "NoSkill": "Escolha uma habilidade sua.",
-        "NotTrap": "Só bombas e redes viram armadilhas.",
-        "NoScene": "Abra uma cena para armar a armadilha.",
-        "TrapPhase": "Armadilhas se armam na Manutenção (ou fora de combate).",
-        "Missing": "A profissão não está no compêndio."
+        "Missing": "A profissão não está no compêndio.",
+        "NoMount": "Escolha uma montaria de um personagem.",
+        "Trained": "Esta montaria já está adestrada neste cenário.",
+        "NotYourSkill": "{skill} é do {name}: só quem tem essa profissão a usa."
       },
       "Gather": {
         "Result": {
@@ -2533,7 +2575,8 @@
         "sharpen": "Afiar",
         "mend": "Remendo",
         "banquet": "Banquete",
-        "copy": "Cópia"
+        "copy": "Cópia",
+        "train": "Adestrar"
       },
       "ModeHint": {
         "craft": "Crie um item com aprimoramentos",
@@ -2544,7 +2587,8 @@
         "sharpen": "+2 de Poder de Ataque numa arma",
         "mend": "Tira Fadiga de até 3 aliados",
         "banquet": "2 comidas viram uma do grupo",
-        "copy": "Uma habilidade num pergaminho"
+        "copy": "Uma habilidade num pergaminho",
+        "train": "+1 de Velocidade numa montaria"
       },
       "Stat": {
         "attack": "Poder de Ataque",
@@ -2558,7 +2602,8 @@
         "target": "Alvo",
         "heal": "Cura",
         "damage": "Dano",
-        "fatigue": "Fadiga"
+        "fatigue": "Fadiga",
+        "speed": "Velocidade"
       },
       "Bench": {
         "Title": "Bancada",
@@ -2571,7 +2616,8 @@
           "sharpen": "Escolha uma arma do grupo. Gasta uma tentativa.",
           "mend": "Escolha até 3 personagens. Gasta uma tentativa.",
           "banquet": "Duas comidas iguais viram uma porção para o grupo inteiro.",
-          "copy": "Escolha uma habilidade sua. Gasta uma tentativa e dá 2 de EXP."
+          "copy": "Escolha uma habilidade sua. Gasta uma tentativa e dá 2 de EXP.",
+          "train": "Escolha uma montaria do grupo. Gasta uma tentativa."
         },
         "ChooseEnhancements": "Escolher os aprimoramentos",
         "Continue": "Continuar",
@@ -2592,7 +2638,8 @@
           "sharpen": "Afiar (+{n})",
           "mend": "Remendar (−{n} de Fadiga)",
           "banquet": "Preparar o banquete",
-          "copy": "Gravar o pergaminho"
+          "copy": "Gravar o pergaminho",
+          "train": "Adestrar (+{n} de Velocidade)"
         },
         "MaterialName": "Anima-mundi {n}",
         "Owned": "Você tem {n}",
@@ -2615,7 +2662,8 @@
           "sharpen": "Escolha uma arma.",
           "mend": "Escolha os personagens.",
           "banquet": "Escolha um par de comidas.",
-          "copy": "Escolha uma habilidade."
+          "copy": "Escolha uma habilidade.",
+          "train": "Escolha uma montaria."
         },
         "CraftTitle": "{item}",
         "FusionTitle": "Fusão: {item}",
@@ -2648,7 +2696,8 @@
           "sharpen": "Arma afiada",
           "mend": "Remendado",
           "banquet": "Banquete pronto",
-          "copy": "Pergaminho gravado"
+          "copy": "Pergaminho gravado",
+          "train": "Montaria adestrada"
         },
         "Again": {
           "craft": "Nova obra",
@@ -2658,7 +2707,8 @@
           "sharpen": "Afiar outra",
           "mend": "Voltar",
           "banquet": "Outro banquete",
-          "copy": "Outra cópia"
+          "copy": "Outra cópia",
+          "train": "Adestrar outra"
         },
         "Search": "Buscar…",
         "Level": "nível {n}",
@@ -2682,7 +2732,9 @@
         "DoubleSix": "Dois 6: subiu um degrau!",
         "RankUp": "Rank novo!",
         "Open": "Abrir o item",
-        "Close": "Fechar"
+        "Close": "Fechar",
+        "EmptyTrain": "Nenhuma montaria no grupo.",
+        "Ridden": "Montada"
       },
       "Sheet": {
         "ChooseTitle": "Escolha uma profissão",
@@ -2702,10 +2754,6 @@
         "Shards": "Quintessência",
         "Talent": "Talento",
         "Always": "Sempre ativo",
-        "Traps": "Armadilhas",
-        "Armed": "{n} armada(s)",
-        "Arm": "Armar",
-        "NoTraps": "Nenhuma bomba ou rede na mochila.",
         "Works": "Obras",
         "NoWorks": "Nenhum item feito numa Oficina na mochila.",
         "Ladder": "Ranks",
@@ -2727,13 +2775,12 @@
         "RetouchNow": "Lojas pagam o valor cheio pelos seus itens.",
         "ExpHint": "EXP da Oficina: Falha 1 · Aproveitamento 2 · Incomum 3 · Raro 5 · Perfeito 8. Retoque {retouch}.",
         "Exp": "EXP de {name}",
-        "Save": "Salvar"
-      },
-      "Trap": {
-        "Pick": "Clique no quadrado onde armar {item} (Esc cancela).",
-        "Armed": "Armadilha armada",
-        "Region": "Armadilha: {item}",
-        "Name": "Armadilha"
+        "Save": "Salvar",
+        "TrainNow": "Agora: +{n} de Velocidade numa montaria do grupo.",
+        "SealNow": "Agora: Precisão + {n} contra a Resistência; nas Fendas, +{n} na escrita.",
+        "Skills": "Habilidade da profissão",
+        "UseSkill": "Usar",
+        "SkillLine": "Ação Maior · até 4 Qd · gasta 1 tentativa"
       }
     },
     "Motor": {
@@ -4388,7 +4435,11 @@
       "ClosedBy": "{name} escreveu a última linha: a Fenda fechou.",
       "Setup": "Rodada {round}: a Fenda pulsa.",
       "Wave": "Saiu da Fenda: {list}.",
-      "GrewFall": "{name} caiu enquanto escrevia: a Fenda cresce {n}."
+      "GrewFall": "{name} caiu enquanto escrevia: a Fenda cresce {n}.",
+      "SealerRank": "Selador +{n}",
+      "Sealed": "{name} pressionou um Selo de Fenda: {n} escrita(s) a menos.",
+      "SealLine": "{name} pressionou o selo sobre {rift}: {n} escrita(s) a menos.",
+      "NoneNear": "{name} precisa estar a até 1 quadrado de uma Fenda aberta para usar o selo."
     },
     "Named": {
       "Hint": "Dar Nome: uma fera com nome feita deste monstro (Mestre)",
@@ -4692,7 +4743,8 @@
         "bag": "Bolsas",
         "usable": "Consumíveis",
         "gear": "Diversos",
-        "ticket": "Tíquetes"
+        "ticket": "Tíquetes",
+        "mount": "Montarias"
       }
     },
     "Reaper": {
@@ -5252,6 +5304,32 @@
         "Generic": "Não deu certo."
       },
       "Gone": "Um personagem que não existe mais"
+    },
+    "Mount": {
+      "Section": "Montarias",
+      "Gives": "Montado, dá",
+      "Ridden": "Montado",
+      "Ride": "Montar",
+      "Dismount": "Desmontar",
+      "Stat": {
+        "speed": "Velocidade",
+        "space": "Espaço",
+        "initiative": "Iniciativa",
+        "pdef": "Def. Física",
+        "mdef": "Def. Mágica"
+      },
+      "Error": {
+        "Down": "{name} está [{status}]: não dá para montar.",
+        "NotYourTurn": "Durante as rodadas do combate, {name} só monta no próprio turno, com a Ação de Movimento.",
+        "NoMove": "{name} já gastou a Ação de Movimento deste turno."
+      },
+      "Card": {
+        "Up": "{name} monta",
+        "UpMove": "Gastou a Ação de Movimento.",
+        "UpFree": "Fora das rodadas de um combate, montar não gasta ação.",
+        "Down": "{name} desmonta",
+        "Thrown": "{name} cai da montaria ([{status}])"
+      }
     }
   },
   "Cancel": "Cancelar"

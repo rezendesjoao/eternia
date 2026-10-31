@@ -19,6 +19,8 @@ export const ITEM_INDEX_FIELDS = [
   "flags.eternia.apex", "flags.eternia.dedication", "flags.eternia.element", "flags.eternia.elementTalent",
   "flags.eternia.magic", "flags.eternia.magicSpell", "flags.eternia.retired", "flags.eternia.motor",
   "flags.eternia.hitStatuses", "flags.eternia.useActions", "flags.eternia.choiceGrants",
+  // The skills a profession gives (professions/skills.mjs)
+  "flags.eternia.profession",
   // The statuses a spell gives with its effects (the roles of the Magias)
   "effects.statuses", "effects.transfer", "effects.flags.eternia.statusData",
   // Races, classes and professions
@@ -36,7 +38,7 @@ export const ITEM_INDEX_FIELDS = [
  */
 export const MARKET_INDEX_FIELDS = [
   "system.description", "system.tags", "system.price", "system.rank", "system.quantity", "system.attack", "system.magic",
-  "system.accuracy", "system.pdef", "system.mdef", "system.initiative", "system.bagSpace", "system.range",
+  "system.accuracy", "system.pdef", "system.mdef", "system.initiative", "system.bagSpace", "system.range", "system.speed",
   "effects.disabled", "effects.transfer", "effects.system.changes", "effects.changes"
 ];
 

@@ -2044,6 +2044,36 @@
 .lhpf .lhpf-carried .item-summary {
   margin-left: 42px;
 }
+/* The mounts (mounts/): what the one ridden gives, and the button to ride or get off */
+.lhpf .lhpf-mounts .type {
+  flex: 0 0 auto;
+  min-width: 96px;
+  text-align: right;
+}
+.lhpf .lhpf-mounts .data .item-name {
+  flex: 1 1 auto;
+}
+.lhpf .lhpf-mounts .items > li.item.ridden {
+  background: linear-gradient(90deg, rgba(212, 168, 74, 0.22), rgba(212, 168, 74, 0.04));
+  box-shadow: inset 3px 0 0 #b8892f;
+}
+.lhpf .lhpf-mount-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 6px;
+  padding: 1px 5px;
+  border-radius: 2px;
+  background: var(--pf-primary, #1f5137);
+  color: #f3e6c4;
+  font: 600 9px/1.2 var(--pf-sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.lhpf .lhpf-mounts .items > li.item.ridden .lhpf-mount-toggle {
+  color: #8a5a1b;
+}
 
 /* Add-item menu */
 .lhpf .addItem {

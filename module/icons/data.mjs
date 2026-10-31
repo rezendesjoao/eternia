@@ -5,7 +5,7 @@
 import { GRADE_QUALITY, QUALITY_COLORS } from "../professions/data.mjs";
 
 /** Item types that get a frame, and the ones that also move with the level. */
-export const FRAMED_TYPES = ["weapon", "armor", "shield", "accessory", "bag", "usable", "gear"];
+export const FRAMED_TYPES = ["weapon", "armor", "shield", "accessory", "bag", "mount", "usable", "gear"];
 export const MOVING_TYPES = ["weapon", "armor", "shield", "accessory"];
 
 /** Generic icons shared by many items: never decorated. */

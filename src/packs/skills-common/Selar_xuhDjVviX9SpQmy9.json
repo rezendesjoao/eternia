@@ -1,0 +1,107 @@
+{
+  "name": "Selar",
+  "type": "skill",
+  "img": "icons/commodities/treasure/talisman-embossed-rune-red.webp",
+  "system": {
+    "description": "<p>Você escreve a Língua Sagrada sobre um inimigo a até 4 Qd: Precisão + o seu Rank de Selador contra a Resistência dele. Acertando, ele fica [Selado] (a última habilidade que usou) até o fim da cena. Gasta uma tentativa da profissão e dá 2 de EXP.</p><hr><p><em>Três traços no ar, um nome que não é dito, e o golpe que o inimigo preparava esquece como se faz.</em></p>",
+    "tags": [],
+    "timing": "Major",
+    "checkType": "",
+    "range": "4Sq",
+    "target": "Single",
+    "subtype": "General",
+    "skillRank": {
+      "value": 1,
+      "max": 1
+    },
+    "cost": "",
+    "limit": "",
+    "macroeffect": "",
+    "check": {
+      "dice": 0,
+      "mod": "@prank",
+      "vs": "resistance",
+      "stat": "accuracy"
+    },
+    "damage": {
+      "dice": 0,
+      "mod": 0,
+      "type": "",
+      "recovery": false,
+      "noPower": false
+    }
+  },
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": false,
+      "flags": {
+        "eternia": {
+          "expires": "endOfScene",
+          "statusData": {
+            "statusId": "sealed"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "1.0.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Selado",
+      "img": "systems/eternia/assets/ui/status/sealed.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "sealed"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 1,
+      "_id": "g9E4fw7F2rhWoxHW",
+      "_key": "!items.effects!xuhDjVviX9SpQmy9.g9E4fw7F2rhWoxHW"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "profession": "sealer",
+      "choiceOnly": true,
+      "identifier": "profissao-selar"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "1.0.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "xuhDjVviX9SpQmy9",
+  "folder": "klYE4WRC8gvx2usI",
+  "_key": "!items!xuhDjVviX9SpQmy9"
+}

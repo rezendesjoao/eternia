@@ -31,7 +31,7 @@ import { giveEffects, statusEffectData } from "../chat/status-links.mjs";
 import { membersOf, partyOf } from "../party/state.mjs";
 import { isLocalChange } from "../helpers/clients.mjs";
 
-const EQUIPMENT = ["weapon", "armor", "shield", "accessory", "bag"];
+const EQUIPMENT = ["weapon", "armor", "shield", "accessory", "bag", "mount"];
 /** Item types whose trigger powers become skills (gear is carried, never equipped). */
 const POWER_TYPES = [...EQUIPMENT, "gear"];
 /** Flag of an item skill: the id of the item it comes from (on the same actor) and which of its powers. */
@@ -215,7 +215,8 @@ function powerTexts(html) {
  */
 function skillData(item, powers, index, texts) {
   const power = powers[index];
-  const name = (powers.length > 1) ? `${item.name} (${index + 1})` : item.name;
+  // A power with a name of its own (a mount's Gallop) keeps it; the others are named after their item
+  const name = power.name || ((powers.length > 1) ? `${item.name} (${index + 1})` : item.name);
   // The item's own text, unless its powers can't be told apart (edited by hand): then the English one.
   const own = (texts.powers.length === powers.length) ? (power.whole ? texts.rules : texts.powers[index]) : "";
   const flags = { [ITEM_SKILL]: { item: item.id, power: index } };
@@ -232,6 +233,8 @@ function skillData(item, powers, index, texts) {
     description: `<p>${escape(own || power.text)}</p>`
   };
   if (power.damage) system.damage = { ...power.damage };
+  // A power that attacks (a mount's Charge): its check, as a skill's
+  if (power.check) system.check = { ...power.check };
   return {
     name,
     type: "skill",

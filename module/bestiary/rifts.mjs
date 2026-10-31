@@ -9,8 +9,9 @@
  *   growOn   "hurt" (by an attack, the Small Rift) or "fall" (Incapacitated by anything, the Great Rift)
  * Its clock is its Fate (`system.fate`: the writings left of the max), shown on its token as the Fate diamonds.
  * Writing (the card's button, or `game.eternia.bestiary.writeRift`): a character within 1 square of it spends a Major
- * Action (in a combat, in its Main Process) and rolls 2d6 + POW; beating the number takes one writing off the clock (a
- * critical, two). A writer hurt by an attack before the end of that round makes the Rift grow back (`eternia.damaged`);
+ * Action (in a combat, in its Main Process) and rolls 2d6 + POW (a Sealer adds the Rank of its profession); beating the
+ * number takes one writing off the clock (a critical, two). A Rift Seal (Selo de Fenda, the use action "riftSeal")
+ * pressed on it within 1 square takes its writings off without a roll. A writer hurt by an attack before the end of that round makes the Rift grow back (`eternia.damaged`);
  * with `growOn: "fall"`, only a writer who falls in that round does.
  * At 0 the Rift closes: its token hides, the writer who closed it gets its drops and its XP (`eternia.riftClosed`), and
  * no wave comes out any more.
@@ -25,6 +26,8 @@ import { applyModifier, checkModifier, consumeAfterRoll } from "../conditions/ro
 import { diceFormula } from "../helpers/dice.mjs";
 import { rollDrops } from "./drops.mjs";
 import { spawnNear } from "./spawn.mjs";
+import { registerUseAction } from "../conditions/effects.mjs";
+import { professionRank } from "../professions/data.mjs";
 
 const TEMPLATE = "systems/eternia/templates/chat/rift-card.hbs";
 
@@ -110,7 +113,9 @@ export async function writeRift(rift, writer = writerToken()) {
     await spendAction(actor, "major");
   }
   const condition = checkModifier(actor, { stat: "pow" });
-  const formula = diceFormula(applyModifier({ dice: 2, mod: toInt(actor.system.attributes?.pow?.mod) }, condition));
+  // The Sealer writes the Sacred Tongue for a living: its Rank adds up (professions/)
+  const sealer = professionRank(actor, "sealer");
+  const formula = diceFormula(applyModifier({ dice: 2, mod: toInt(actor.system.attributes?.pow?.mod) + sealer }, condition));
   const roll = await new Roll(formula).evaluate();
   const sixes = roll.dice[0]?.results.filter(r => r.result === 6).length ?? 0;
   const ones = roll.dice[0]?.results.filter(r => r.result === 1).length ?? 0;
@@ -118,7 +123,7 @@ export async function writeRift(rift, writer = writerToken()) {
   const fumble = !critical && (ones === roll.dice[0]?.results.length);
   await roll.toMessage({
     speaker: ChatMessage.getSpeaker({ actor }),
-    flavor: `${L("Rift.WriteFlavor", { dc: state.dc })}${condition.text ? ` (${condition.text})` : ""}`
+    flavor: `${L("Rift.WriteFlavor", { dc: state.dc })}${sealer ? ` · ${L("Rift.SealerRank", { n: sealer })}` : ""}${condition.text ? ` (${condition.text})` : ""}`
   });
   await consumeAfterRoll(actor, condition.consume);
   const success = !fumble && (critical || (roll.total > state.dc));
@@ -128,8 +133,8 @@ export async function writeRift(rift, writer = writerToken()) {
   return result;
 }
 
-/** The GM moves the clock: a writing (or a failed one), and the Rift closes at 0. */
-async function onWrite({ riftUuid, writerUuid, steps, total }) {
+/** The GM moves the clock: a writing (or a failed one, or a Rift Seal), and the Rift closes at 0. */
+async function onWrite({ riftUuid, writerUuid, steps, total, seal = false }) {
   const rift = fromUuidSync(riftUuid);
   const actor = rift?.actor;
   const writer = fromUuidSync(writerUuid);
@@ -144,7 +149,7 @@ async function onWrite({ riftUuid, writerUuid, steps, total }) {
   const left = Math.max(0, state.left - steps);
   await actor.update({ "system.fate.value": left });
   if (left > 0) {
-    await postCard(rift, { event: L(steps > 1 ? "Rift.WroteCritical" : "Rift.Wrote", { name, total }) });
+    await postCard(rift, { event: seal ? L("Rift.Sealed", { name, n: steps }) : L(steps > 1 ? "Rift.WroteCritical" : "Rift.Wrote", { name, total }) });
     return { ok: true };
   }
   await closeRift(rift, writer);
@@ -230,8 +235,27 @@ function onRenderMessage(message, html) {
   });
 }
 
+/**
+ * A Rift Seal (Selo de Fenda, what a Sealer makes), the use action "riftSeal" of the item (conditions/effects.mjs): on
+ * the open Rift within 1 square of the user, it takes `value` writings off the clock, with no roll. Returns the line.
+ */
+async function sealAction(actor, { value, sceneId }) {
+  const scene = game.scenes.get(sceneId) ?? canvas?.scene;
+  const token = actor.getActiveTokens?.(false, true).find(t => t.parent === scene) ?? null;
+  const rift = token ? openRifts(scene).find(t => gap(token, t) <= 1) : null;
+  if (!rift) {
+    ui.notifications.warn(L("Rift.NoneNear", { name: actorName(actor) }));
+    return null;
+  }
+  const payload = { riftUuid: rift.uuid, writerUuid: actor.uuid, steps: Math.max(1, toInt(value)), total: 0, seal: true };
+  // On the GM the clock moves here (this may already run inside one of its requests); a player asks the GM
+  const result = game.user.isGM ? await onWrite(payload) : await request("riftWrite", payload);
+  return result?.ok ? L("Rift.SealLine", { name: actorName(actor), rift: actorName(rift.actor), n: payload.steps }) : null;
+}
+
 /** Call during the `init` hook. */
 export function registerRifts() {
+  registerUseAction("riftSeal", sealAction);
   registerHandler("riftWrite", payload => onWrite(payload));
   registerHandler("riftGrow", payload => onGrow(payload));
   Hooks.on("eternia.damaged", (...args) => onDamaged(...args).catch(err => console.error(`${SYSTEM_ID} | Rift growth failed`, err)));

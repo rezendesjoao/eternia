@@ -33,6 +33,13 @@
 			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.MDef'}}</span><span class="chat-stat-value">{{system.mdef}}</span></div>
 			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Magic'}}</span><span class="chat-stat-value">{{system.magic}}</span></div>
 		{{/if}}
+		{{#if isMount}}
+			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Speed'}}</span><span class="chat-stat-value">+{{system.speed}}</span></div>
+			{{#if system.bagSpace}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.BagSpace'}}</span><span class="chat-stat-value">+{{system.bagSpace}}</span></div>{{/if}}
+			{{#if system.initiative}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.Initiative'}}</span><span class="chat-stat-value">+{{system.initiative}}</span></div>{{/if}}
+			{{#if system.pdef}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.PDef'}}</span><span class="chat-stat-value">+{{system.pdef}}</span></div>{{/if}}
+			{{#if system.mdef}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.MDef'}}</span><span class="chat-stat-value">+{{system.mdef}}</span></div>{{/if}}
+		{{/if}}
 		{{#if isBag}}
 			<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.BagSpace'}}</span><span class="chat-stat-value">{{system.bagSpace}}</span></div>
 			{{#if system.limit}}<div class="chat-stat"><span class="chat-stat-label">{{localize 'ETERNIA.Item.Label.BagLimit'}}</span><span class="chat-stat-value">{{system.limit}}</span></div>{{/if}}

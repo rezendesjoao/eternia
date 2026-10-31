@@ -380,6 +380,8 @@ export class EterniaActor extends Actor {
     // Weapons (max. 2) and accessories (max. 3) over the equippable limit give no bonus
     const weaponBonus = (weapons.length <= 2) ? weapons : [];
     const accessoryBonus = (accessories.length <= 3) ? accessories : [];
+    // The mount the character rides (mounts/): one at a time, the first one counts
+    const mounts = this._equipped("mount").slice(0, 1);
 
     /**
      * ATTACK, MAGIC, RESTORATION POWER
@@ -401,7 +403,7 @@ export class EterniaActor extends Actor {
      * DEFENSES
     */
 
-    const defenseItems = [...armors, ...shields, ...accessoryBonus];
+    const defenseItems = [...armors, ...shields, ...accessoryBonus, ...mounts];
     bStatus.defense.phys.base = str.mod * 2;
     bStatus.defense.magic.base = int.mod * 2;
     bStatus.defense.phys.total = bStatus.defense.phys.base + bStatus.defense.phys.mod + sum(defenseItems, "pdef");
@@ -412,13 +414,13 @@ export class EterniaActor extends Actor {
     */
 
     bStatus.speed.base = 2;
-    bStatus.speed.total = bStatus.speed.base + (bStatus.speed.mod ?? 0);
+    bStatus.speed.total = bStatus.speed.base + (bStatus.speed.mod ?? 0) + sum(mounts, "speed");
 
     /**
      * INITIATIVE
      */
 
-    const initBonus = sum([...weaponBonus, ...armors, ...accessoryBonus], "initiative");
+    const initBonus = sum([...weaponBonus, ...armors, ...accessoryBonus, ...mounts], "initiative");
     bStatus.initiative.base = str.mod + int.mod;
     // If the initiative goes under zero, it's equal to zero
     bStatus.initiative.total = Math.max(bStatus.initiative.base + initBonus + bStatus.initiative.mod, 0);
@@ -427,7 +429,10 @@ export class EterniaActor extends Actor {
   _computeInventoryMaxSpace() {
     const inventory = this.system.inventory;
     inventory.base = 2;
-    inventory.maxSpace = inventory.base + (inventory.mod ?? 0) + EterniaActor._sum(this._equipped("bag"), "bagSpace");
+    // The bag and the saddlebags of the mount ridden
+    const ridden = this._equipped("mount").slice(0, 1);
+    inventory.maxSpace = inventory.base + (inventory.mod ?? 0) + EterniaActor._sum(this._equipped("bag"), "bagSpace")
+      + EterniaActor._sum(ridden, "bagSpace");
   }
 
 }

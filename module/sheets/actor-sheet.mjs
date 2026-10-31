@@ -10,6 +10,7 @@ import { PICK_SUBTYPES, SkillBrowser, getPendingSkills } from "../apps/skill-bro
 import { OptionBrowser } from "../apps/option-browser.mjs";
 import { equipInHand, getHands, swapHands, unequipHand } from "../helpers/hands.mjs";
 import { EQUIP_TYPES } from "../piles/pile-config.mjs";
+import { toggleMount } from "../mounts/actions.mjs";
 import { diceFormula } from "../helpers/dice.mjs";
 import { effectModified } from "../helpers/sheet-values.mjs";
 import { refreshSkills } from "../apps/skill-refresh.mjs";
@@ -237,6 +238,8 @@ export class EterniaActorSheet extends SheetRenderMixin(HandlebarsApplicationMix
     const itemsBag = [];
     const itemsUsable = [];
     const itemsGear = [];
+    // The mounts, ridden or not (they walk beside the character: no inventory space)
+    const itemsMount = [];
 
     const itemsTicketEvolution = [];
     const itemsTicketTreasure = [];
@@ -314,6 +317,9 @@ export class EterniaActorSheet extends SheetRenderMixin(HandlebarsApplicationMix
       else if (i.type === 'gear') {
         itemsGear.push(i);
       }
+      else if (i.type === 'mount') {
+        itemsMount.push(i);
+      }
       // Append to Tickets.
       else if (i.type === 'ticket' && i.system.subtype === 'Evolution') {
         itemsTicketEvolution.push(i);
@@ -362,6 +368,7 @@ export class EterniaActorSheet extends SheetRenderMixin(HandlebarsApplicationMix
       "bags": itemsBag,
       "usables": itemsUsable,
       "gear": itemsGear,
+      "mounts": itemsMount,
     };
 
     // Main / off hand slots (what each hand holds is deduced from the equipped items).
@@ -851,6 +858,8 @@ export class EterniaActorSheet extends SheetRenderMixin(HandlebarsApplicationMix
       else await equipInHand(this.actor, item);
       return;
     }
+    // A mount is ridden, not worn (mounts/actions.mjs: the Move Action in the rounds of a combat)
+    if (item.type === "mount") return toggleMount(this.actor, item);
 
     const equipped = !item.system.equipped;
     const updates = [{ _id: item.id, "system.equipped": equipped }];

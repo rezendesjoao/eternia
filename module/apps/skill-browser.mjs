@@ -79,8 +79,8 @@ export function rankUpSkills(rank) {
 const COMMON_FOLDER = "common";
 
 /**
- * Compendiums of the Basic skills a character can take (not the GM EX Powers nor monster skills). The mount skills stay
- * out while the system has no rules for mounts: they would come free, and better than Correr.
+ * Compendiums of the Basic skills a character can take (not the GM EX Powers nor monster skills). A mount's skills come
+ * with the mount (mounts/), never from here.
  */
 const BASIC_PACKS = ["eternia.skills-basic"];
 

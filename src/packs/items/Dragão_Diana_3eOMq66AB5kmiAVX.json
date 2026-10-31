@@ -1,0 +1,140 @@
+{
+  "name": "Dragão Diana",
+  "type": "mount",
+  "system": {
+    "description": "<p><strong>Montaria</strong> (Nível 24). Montado: +3 de Velocidade, +4 espaços de alforje, +2 de Defesa Física e +2 de Defesa Mágica.</p><p><strong>Bênção de Repelir o Vento</strong> (Passiva): montado, a Disparada não gasta a Ação Menor. Numa viagem, você anda o dobro por dia e chega sem a [Fadiga] da estrada, e quem vai na carroça que ele puxa também.</p><p>[Momento: Movimento] <strong>Galope.</strong> Alvo: Você. Movimento Seguro de até [Velocidade] Qd: a Obstrução não o para. 1/Cena.</p><p>[Momento: Antes do Dano] <strong>Lealdade.</strong> Alvo: Você. O dragão se põe entre você e o golpe: anula todo o dano desse ataque. 1/Cena.</p><hr><p><em>A raça mais nobre dos dragões terrestres, de escamas negras e olhar de quem escolhe. Uma Diana não aceita qualquer dono; quando aceita, não o abandona mais. Os criadores contam de Dianas que voltaram ao campo de batalha para tirar dali o cavaleiro caído.</em></p>",
+    "tags": [],
+    "rank": 24,
+    "price": 6350,
+    "equipped": false,
+    "skillText": "",
+    "linkedSkillUuid": "",
+    "pdef": 2,
+    "mdef": 2,
+    "initiative": 0,
+    "speed": 3,
+    "bagSpace": 4
+  },
+  "img": "icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp",
+  "effects": [
+    {
+      "origin": null,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "disabled": false,
+      "tint": "#ffffff",
+      "transfer": true,
+      "flags": {
+        "eternia": {
+          "mounted": true
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "1.0.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "name": "Montado",
+      "img": "systems/eternia/assets/ui/status/mounted.svg",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "statuses": [
+        "mounted"
+      ],
+      "sort": 0,
+      "start": null,
+      "showIcon": 2,
+      "_id": "sV0fqDl99FLZTuWj",
+      "_key": "!items.effects!3eOMq66AB5kmiAVX.sV0fqDl99FLZTuWj"
+    }
+  ],
+  "flags": {
+    "eternia": {
+      "mount": {
+        "blessing": "wind"
+      },
+      "icon": {
+        "hue": 250
+      },
+      "powers": [
+        {
+          "name": "Galope",
+          "timing": "Move",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Move] Gallop: \"Target: Self / Range: -\". Safe Movement of up to [Speed] Sq: no Obstruction stops it. Once per scene."
+        },
+        {
+          "name": "Lealdade",
+          "timing": "Before Damage",
+          "target": "Self",
+          "range": "-",
+          "cost": "",
+          "limit": "1/Scene",
+          "text": "[Trigger: Before Damage] Loyalty: \"Target: Self / Range: -\". The dragon steps between you and the blow: it cancels all the damage of that attack. Once per scene.",
+          "effects": [
+            {
+              "name": "Lealdade",
+              "img": "icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp",
+              "type": "base",
+              "transfer": false,
+              "disabled": false,
+              "statuses": [],
+              "system": {
+                "changes": [
+                  {
+                    "key": "eternia.passive.cancel",
+                    "type": "add",
+                    "value": 9999,
+                    "phase": "initial",
+                    "priority": null
+                  }
+                ]
+              },
+              "flags": {
+                "eternia": {
+                  "recipients": "self",
+                  "consumeOn": "damage",
+                  "expires": "endOfScene"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "eternia",
+    "systemVersion": "1.0.1",
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "sort": 6000,
+  "ownership": {
+    "default": 0
+  },
+  "_id": "3eOMq66AB5kmiAVX",
+  "folder": "c5Vq3IqTZ9Nya1ku",
+  "_key": "!items!3eOMq66AB5kmiAVX"
+}

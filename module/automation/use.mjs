@@ -52,6 +52,8 @@ import { rampageIssues } from "../bestiary/rampage.mjs";
 import { monsterUseIssues } from "../bestiary/use-checks.mjs";
 import { askFateOption, fateOptionText, minorOf, minorText } from "../bestiary/minor.mjs";
 import { lacksTarget } from "../helpers/skill-rolls.mjs";
+import { windBlessed } from "../mounts/state.mjs";
+import { professionSkillIssue } from "../professions/skills.mjs";
 
 /** The action a Timing spends in the Main Process ([Instant]: one in the user's own Main Process, III.b). */
 const ACTIONS = { Major: "major", Minor: "minor", Move: "move", Instant: "instant" };
@@ -62,7 +64,7 @@ const OUT_OF_COMBAT = new Set(["Rest Time", "Pre-Play", "Interlude"]);
 /** Usage limit types that are counted. */
 const LIMIT_TYPES = ["Scene", "Scenario", "Round"];
 /** Items whose skills only work while they are equipped. */
-const EQUIPMENT = ["weapon", "armor", "shield", "accessory", "bag"];
+const EQUIPMENT = ["weapon", "armor", "shield", "accessory", "bag", "mount"];
 
 /** Call during the `init` hook. */
 export function registerUse() {
@@ -246,7 +248,7 @@ function itemIssues(item, actor, combat, combatant) {
   const issues = [];
   const owner = sourceItem(item);
   if (owner && EQUIPMENT.includes(owner.type) && (owner.system.equipped === false)) {
-    issues.push(L("Use.NotEquipped", { item: owner.name }));
+    issues.push(L((owner.type === "mount") ? "Use.NotMounted" : "Use.NotEquipped", { item: owner.name }));
   }
   const partner = item.getFlag(SYSTEM_ID, "withItem");
   if (partner && !actor.items.some(i => (i.name === partner) && EQUIPMENT.includes(i.type) && (i.system.equipped !== false))) {
@@ -364,6 +366,9 @@ export function inspectUse(item, { targets = null } = {}) {
   if (worthy) issues.push({ text: worthy, mode: setting("conditionLimits") || "warn", kind: "condition" });
   const yuld = yuldIssue(item, actor);
   if (yuld) issues.push({ text: yuld, mode: "block", kind: "item" });
+  // A skill of a profession (the Sealer's Seal): only with it, and it spends an attempt (professions/skills.mjs)
+  const job = professionSkillIssue(item, actor);
+  if (job) issues.push({ text: job, mode: "block", kind: "item" });
 
   // Usage limit, and the conditions of an item's skill
   const limitsMode = setting("limits");
@@ -426,7 +431,15 @@ export async function spendAction(actor, action) {
  */
 function alsoSpendsOf(item) {
   const list = [...(skillMotor(item)?.alsoSpends ?? []), ...(item.getFlag?.(SYSTEM_ID, "alsoSpends") ?? [])];
-  return [...new Set(list)].filter(a => Object.values(ACTIONS).includes(a));
+  // On an earth dragon the wind doesn't touch the rider: the Dash keeps the Minor Action (mounts/)
+  const blessed = isDash(item) && windBlessed(item.actor);
+  return [...new Set(list)].filter(a => Object.values(ACTIONS).includes(a) && !(blessed && (a === "minor")));
+}
+
+/** The Basic skill Disparada (the Dash), by its compendium source or its name. */
+function isDash(item) {
+  if ((item?.type !== "skill") || (item.system?.subtype !== "Basic")) return false;
+  return String(item._stats?.compendiumSource ?? "").endsWith(".Ql4JC6Et0zoSMkEL") || /^\s*(disparada|dash)\s*$/i.test(item.name);
 }
 
 /**

@@ -85,8 +85,11 @@ export function enhancementsFor(data) {
   return { category, list: ENHANCEMENTS[category] ?? [], legendary: LEGENDARY[category] ?? null };
 }
 
-/** How much the numbers of an enhancement count on this item: ×2 from level 11, ×3 from 21, ×2 more when cut. */
-export const factorOf = (data, pick = {}) => multiplierOf(data.system?.rank) * (pick.cut ? 2 : 1);
+/**
+ * How much the numbers of an enhancement count on this item: ×2 from level 11, ×3 from 21 (not a `flat` one, as a
+ * mount's Speed), ×2 more when cut.
+ */
+export const factorOf = (data, pick = {}, def = null) => (def?.flat ? 1 : multiplierOf(data.system?.rank)) * (pick.cut ? 2 : 1);
 
 /** The status a Potent enhancement raises, for its text. */
 const potentStatus = data => (data.effects ?? []).map(e => e.flags?.[SYSTEM_ID]?.statusData).find(s => toInt(s?.value) > 0)?.statusId;
@@ -99,7 +102,7 @@ const potentStatus = data => (data.effects ?? []).map(e => e.flags?.[SYSTEM_ID]?
  * @returns {{name: string, text: string}}
  */
 export function enhancementText(def, data, pick = {}) {
-  const f = factorOf(data, pick);
+  const f = factorOf(data, pick, def);
   const key = `Profession.Enh.${def.id}`;
   const name = L(`${key}.name`);
   const tag = tagLabel(pick.tag || def.tags?.[0] || "");
@@ -207,7 +210,7 @@ export function buildCrafted(base, craft) {
   for (const pick of craft.enhancements) {
     const def = ENHANCEMENT_INDEX.get(pick.id);
     if (!def) continue;
-    const f = factorOf(base, pick);
+    const f = factorOf(base, pick, def);
     const { name, text } = enhancementText(def, base, pick);
     lines.push({ name, text, cut: !!pick.cut, legendary: !!def.legendary });
     const changes = [];
@@ -245,6 +248,8 @@ export function buildCrafted(base, craft) {
     }
     if (def.id === "aegis") flags.powers = [...(flags.powers ?? []), aegisPower(name, text, data.img)];
     if (def.id === "starheart") flags.sceneStatuses = [...(flags.sceneStatuses ?? []), { status: "lastStand" }];
+    // The blood of the dead god the dragons were born of: every combat starts [Hasted] (content.mjs, while ridden)
+    if (def.id === "solusBlood") flags.sceneStatuses = [...(flags.sceneStatuses ?? []), { status: "hasted" }];
   }
 
   if (craft.masterpiece === "mass") system.target = "All";

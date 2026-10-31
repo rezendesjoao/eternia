@@ -32,6 +32,7 @@ const ICONS_PATH = "systems/eternia/assets/ui/status";
  *                               rules change directly: an effect of it that goes doesn't take its value back, and
  *                               one that comes when the status isn't on starts the count from 0.
  * @property {boolean} [source]  The status acts against or through the character who gave it.
+ * @property {boolean} [hud]     False: kept out of the Token HUD (a status an item gives, as [Mounted]).
  */
 
 /** @type {LHStatus[]} */
@@ -66,6 +67,8 @@ export const LH_STATUSES = [
   { id: "hateTop", group: "other", img: `${ICONS_PATH}/hateTop.svg` },
   { id: "hateUnder", group: "other", img: `${ICONS_PATH}/hateUnder.svg` },
   { id: "absent", group: "other", img: `${ICONS_PATH}/absent.svg` },
+  // Riding a mount: the mount's own effect, while it is ridden (mounts/); not toggled by hand
+  { id: "mounted", group: "other", img: `${ICONS_PATH}/mounted.svg`, types: ["character"], hud: false },
   // The conditions of Eternia (conditions/catalog.mjs)
   ...NEW_STATUSES
 ];
@@ -96,7 +99,8 @@ export function registerStatuses() {
     // Static id: a status can only exist once per actor, even with concurrent toggles.
     _id: `lh${s.id}`.padEnd(16, "0"),
     name: `ETERNIA.StatusEffect.${s.id}`,
-    img: s.img
+    img: s.img,
+    hud: s.hud ?? true
   }));
   CONFIG.specialStatusEffects.DEFEATED = "dead";
 
@@ -131,6 +135,8 @@ export function getStatusPanel(actor) {
     statuses: LH_STATUSES
       .filter(s => (s.group === group) && (s.id !== "fatigue"))
       .filter(s => !s.types || s.types.includes(actor.type))
+      // A status an item gives ([Mounted]) isn't toggled by hand
+      .filter(s => s.hud !== false)
       .sort((a, b) => PANEL_ORDER.get(a.id) - PANEL_ORDER.get(b.id))
       .map((s, i, list) => {
         const value = s.path ? foundry.utils.getProperty(source, s.path) : undefined;

@@ -11,16 +11,16 @@ export const PILE_MODES = {
 };
 
 // Item types that physically exist and can be carried, dropped, traded or sold.
-export const PHYSICAL_TYPES = ["weapon", "armor", "shield", "accessory", "bag", "usable", "gear", "ticket"];
+export const PHYSICAL_TYPES = ["weapon", "armor", "shield", "accessory", "bag", "mount", "usable", "gear", "ticket"];
 
 // Item types that take a slot in the character's general inventory grid when
 // unequipped (mirrors the carriedItems list of the character sheet). Tickets
-// live in their own slots and never use inventory space.
+// live in their own slots and never use inventory space, and a mount walks beside its owner (mounts/).
 export const SPACE_TYPES = ["weapon", "armor", "shield", "accessory", "bag", "usable", "gear"];
 
-// Item types that go in an equipment slot of the character sheet. Anything else (gear, potions…)
-// is only carried: it can't be equipped.
-export const EQUIP_TYPES = ["weapon", "armor", "shield", "accessory", "bag"];
+// Item types that go in an equipment slot of the character sheet (a mount's "equipped" is being mounted on it).
+// Anything else (gear, potions…) is only carried: it can't be equipped.
+export const EQUIP_TYPES = ["weapon", "armor", "shield", "accessory", "bag", "mount"];
 
 export const DEFAULT_IMAGES = {
   loot: "icons/containers/bags/pack-leather-brown.webp",

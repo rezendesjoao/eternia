@@ -637,6 +637,8 @@ serve na Oficina mas não vira Yuld.
 | Gema | 17 | 3,2 | 80 | 160 | 480 | 1.580 | — |
 | Engenhoca | 12 | 2,4 | 80 | — | 400 | 1.000 | — |
 | Canção | 12 | 2,7 | 80 | — | 400 | 1.000 | — |
+| Selo (1.0.1) | 12 | 2,7 | 80 | — | 400 | 1.000 | — |
+| Montaria (1.0.1) | 6 | 10 | 250 | 560 | 1.290 | 3.850 | 7.950 |
 | Invocação | 7 | 5,3 | 180 | 360 | 620 | — | — |
 | Invocação [M1-3] | 18 | 5,4 | 120 | 180 | 720 | 2.400 | — |
 | Diversos | 7 | 1,6 | 40 | 140 | — | — | — |
@@ -780,6 +782,22 @@ Drops: 104 criaturas; 2 a mais de 10% do valor do modelo (Basilisco ×1.17, Cont
   padrão, o equipamento acompanha o NP e sobra Yuld para o resto. Antes não havia tabela de missão: a Tabela de Tesouro
   dos Prêmios de LH não estava no sistema.
 - **Revender ficou caro:** o equipamento usado rende 1/10 (antes, a metade), então cada troca custa quase o preço inteiro.
+
+### As montarias e as profissões novas (1.0.1)
+
+- **A montaria custa 10 comuns do nível** (a armadura pesada é 9,5; a Invocação de Log Horizon, 5,3): é equipamento que
+  fica, e dá Velocidade (o que mais pesa no combate), espaço de alforje e as viagens. Pelo modelo, a de Nível 1 (250
+  Yuld) sai da primeira missão padrão (300); a do NP, com o equipamento do NP já pago, pede de duas a três missões a
+  mais. A Diana tem força 1,2 (a Lealdade é um poder de Égide).
+- **A Velocidade não cresce com o nível.** A base é 2 Qd; as raças dão de +1 a +3, a Ligeira do Domador +1 (`flat`) e
+  o Adestrar +1 até o fim do cenário: no máximo 2 + 3 + 1 + 1 = 7 Qd na Corrida, 9 na Disparada. A Bênção de Repelir o
+  Vento não dá número: devolve a Ação Menor da Disparada a quem está montado.
+- **Os selos** seguem as Canções: o mesmo teste fixo por grau (2d6 + 4, 7, 11), os mesmos preços (80, 400, 1.000) e a
+  Barreira do Selo de Guarda um pouco acima da do Hino (5, 15, 25 contra 0, 10, 20), porque ele não dá [Concentrado].
+  O Selo de Fenda I apaga 1 das 2 escritas da Fenda Pequena: metade do trabalho de uma Ação Maior acertada.
+- **O Selar do Selador** não entra na régua das classes: é limitado pelas tentativas da profissão (Rank + 1 por cenário,
+  as mesmas da Oficina), não causa dano e só tranca a última habilidade do inimigo até o fim da cena. É Precisão + Rank
+  contra a Resistência, como um feitiço sem dano.
 
 ### Criar conteúdo novo na economia
 
