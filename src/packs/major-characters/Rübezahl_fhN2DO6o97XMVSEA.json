@@ -4,27 +4,27 @@
   "img": "systems/eternia/assets/tokens/major/rubezahl.webp",
   "system": {
     "health": {
-      "value": 0,
-      "max": 0
+      "value": 226,
+      "max": 226
     },
     "fate": {
-      "value": 0,
-      "max": 0
+      "value": 1,
+      "max": 1
     },
     "tags": [],
-    "biography": "",
+    "biography": "<p>O eremita de barba verde que os pastores de Rulid chamam de \"o avô da montanha\". Dizem que, enquanto ele dorme na serra, a serra dorme. Só quer que o deixem em paz.</p>",
     "race": "",
     "attributes": {
       "str": {
-        "value": 0,
+        "value": 3,
         "mod": 0
       },
       "dex": {
-        "value": 0,
+        "value": 1,
         "mod": 0
       },
       "pow": {
-        "value": 0,
+        "value": 1,
         "mod": 0
       },
       "int": {
@@ -96,7 +96,17 @@
       "impetus": 0,
       "combo": 0,
       "rhythm": 0,
-      "clones": 0
+      "clones": 0,
+      "contagion": 0,
+      "dying": 0,
+      "ironBlood": 0,
+      "anticipation": 0,
+      "hourglass": 0,
+      "jackpot": 0,
+      "luck": 0,
+      "goliath": 0,
+      "quake": 0,
+      "reaped": 0
     },
     "checks": {
       "athletics": {
@@ -145,7 +155,8 @@
       }
     },
     "infos": {
-      "crank": 1,
+      "crank": 22,
+      "xp": 0,
       "hate": 0,
       "fatigue": 0,
       "level": 35
@@ -154,7 +165,7 @@
       "guild": ""
     },
     "inventory": {
-      "gold": 700
+      "gold": 2640
     }
   },
   "prototypeToken": {
@@ -260,8 +271,8 @@
         "tags": [],
         "identifier": "human",
         "attributes": {
-          "str": 0,
-          "dex": 0,
+          "str": 1,
+          "dex": 1,
           "pow": 0,
           "int": 0
         },
@@ -353,6 +364,37 @@
                 ]
               ]
             }
+          ],
+          "stage": 4,
+          "stageBonus": {
+            "str": 1,
+            "dex": 0,
+            "pow": 0,
+            "int": 0
+          },
+          "stageLog": [
+            {
+              "stage": 2,
+              "created": [
+                "rCgz3DeZSc1FRQd4",
+                "CTmEXfs21LFpNnK9"
+              ],
+              "attribute": null
+            },
+            {
+              "stage": 3,
+              "created": [
+                "2aDN2mxbdJ1XNmag"
+              ],
+              "attribute": null
+            },
+            {
+              "stage": 4,
+              "created": [
+                "LS4npC8mIjnn9CVv"
+              ],
+              "attribute": "str"
+            }
           ]
         }
       },
@@ -371,8 +413,5142 @@
       "ownership": {
         "default": 0
       },
-      "_id": "bBiNwr0P4chsWgrw",
-      "_key": "!actors.items!fhN2DO6o97XMVSEA.bBiNwr0P4chsWgrw"
+      "_id": "qp8OmtwtqGjinpPe",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.qp8OmtwtqGjinpPe"
+    },
+    {
+      "name": "Berserker",
+      "type": "class",
+      "system": {
+        "description": "<p><strong>Atributos:</strong> Força 4, Destreza 3, Poder 2 e Inteligência 1. <strong>PV:</strong> 50, +8 por NP (faixa Robusta). <strong>Papel:</strong> Dano.</p><p><strong>Motor: Ira.</strong> Cada ataque que tira PV do Berserker vira Ira, e mais ainda quando ele está perto de cair. A Ira soma ao dano das armas; o Golpe Selvagem gasta toda de uma vez, e o Fôlego de Sangue a troca por PV.</p><p><strong>Magias:</strong> a classe é como você luta; a Magia é a magia que se mistura a ela. Você escolhe uma Magia no NP 1 e outra no NP 10 (Alma de Fera, Gigante, Esmagamento...), e os feitiços delas entram nas suas escolhas de Combate e alimentam a Ira (+1; os grandes, +2).</p><p><strong>Kit do NP 1:</strong> Ira, Sangrar, Golpe Selvagem e Fôlego de Sangue, e a primeira Magia. <strong>NP 3:</strong> um Caminho (Gigante, Dragão ou Ancestrais). <strong>NP 5:</strong> Dedicação. <strong>NP 10:</strong> o Ápice, Fúria Imortal, e a segunda Magia.</p><hr><p><em>O Berserker não foge da dor: vai atrás dela. Pouca armadura, uma arma pesada e um corpo coberto de cicatrizes que contam cada luta. Quanto mais o sangue escorre, mais forte ele bate, e quem espera que ele canse descobre tarde que é o contrário.</em></p>",
+        "tags": [
+          "Damage"
+        ],
+        "identifier": "berserker",
+        "attributes": {
+          "str": 4,
+          "dex": 3,
+          "pow": 2,
+          "int": 1
+        },
+        "hp": 50,
+        "hpPerRank": 8,
+        "grants": [
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.bfX6cqvC8lB8flCL"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.Xr4oUmZABvSEygJn"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.FnAdmIUwEWkRVf6p"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.Pek0HF4gvV5afTkS"
+            ]
+          },
+          {
+            "rank": 1,
+            "magic": true
+          },
+          {
+            "rank": 10,
+            "magic": true
+          },
+          {
+            "rank": 3,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.s7LKFoL7OY0QDyRb",
+              "Compendium.eternia.skills-class.Item.zZXWVb492v1m7yx9",
+              "Compendium.eternia.skills-class.Item.wwwPQtuy1T4Hjtnq"
+            ]
+          },
+          {
+            "rank": 10,
+            "auto": true,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.zQwMJrzkl582hFvx"
+            ]
+          }
+        ]
+      },
+      "img": "systems/eternia/assets/icons/classes/berserker.svg",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.races-classes.Item.MAuTQy4tVGMZv5CD",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "rJraxGE3auNKAqx6",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.rJraxGE3auNKAqx6"
+    },
+    {
+      "name": "Coletor",
+      "type": "subclass",
+      "system": {
+        "description": "<p><strong>Talento: Coleta.</strong> Role 2d6 + Rank: 8 ou mais encontra 1 Anima-mundi do nível que você escolher (até o seu NP e até Rank × 6, no máximo 10), 11 ou mais encontra 2, e dois 6 também encontram uma Quintessência. O que você acha não tem o Selo do Anima: serve na Oficina, mas nenhuma loja compra. Gasta uma tentativa. EXP: nada 1, um material 3, dois 5, Quintessência 8.</p><p><strong>Rank:</strong> sobe com EXP (Rank 2 com 20, 3 com 40, 4 com 80, 5 com 160). Cada Rank dá +1 na rolagem, uma tentativa a mais por cenário e libera 6 níveis de item.</p><p>Tudo é feito pela aba Profissão da ficha.</p><hr><p><em>Olhos no chão e mãos sujas de terra: onde os outros veem pedras e raízes, o coletor encontra veios de anima-mundi e, nas noites de sorte, uma gota de quintessência.</em></p>",
+        "tags": [],
+        "identifier": "gatherer",
+        "grants": [],
+        "skills": []
+      },
+      "img": "icons/skills/trades/mining-pickaxe-yellow-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.4.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.races-classes.Item.Ar3Gi9YBpLPUSMxf",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "fQCa84nNM3TevYxl",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.fQCa84nNM3TevYxl"
+    },
+    {
+      "name": "Bênção da Leitura do Vento",
+      "type": "skill",
+      "system": {
+        "description": "<p>+1d6 nos testes de Percepção.</p><p>Você sente no vento a intenção hostil de quem está por perto, um instante antes do gesto.</p><hr><p><em>Uma brisa que mais ninguém sente toca a sua nuca antes do perigo, e os seus olhos se voltam para o lugar certo sem que você saiba por quê.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/air/weather-wind-gust.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {},
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Bênção da Leitura do Vento",
+          "img": "icons/magic/air/weather-wind-gust.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.perception.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "Zq8ywg8XND944o4p",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.CUgWcnrBVxMSO2bb.Zq8ywg8XND944o4p"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "race",
+            "source": "Compendium.eternia.races-classes.Item.CMMPFP41a2v6KJly"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.wZ7b1vx7z5MZw307",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "CUgWcnrBVxMSO2bb",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.CUgWcnrBVxMSO2bb"
+    },
+    {
+      "name": "Força dos Laços",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use quando um aliado a até 20 Qd ficar Incapacitado, ou quando você ficar com metade dos PV ou menos.</p><p>Até o fim da rodada, você recebe +1d6 em todos os testes e +[NP×2] nas suas rolagens de dano.</p><hr><p><em>Um nome gritado, um punho que se fecha. O cansaço some do rosto e algo novo acende nos olhos: a recusa de cair enquanto alguém ainda conta com você.</em></p>",
+        "tags": [],
+        "timing": "Instant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/life/heart-hand-gold-green-light.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "rollFilter": {
+                "damageTypes": [
+                  "physical",
+                  "magical",
+                  "penetrating",
+                  "direct"
+                ]
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Força dos Laços",
+          "img": "icons/magic/life/heart-hand-gold-green-light.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.accuracy.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.evasion.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.resistance.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.athletics.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.endurance.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.disable.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.operation.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.perception.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.negotiation.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.knowledge.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.analysis.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "eternia.roll.damage.mod",
+                "type": "add",
+                "value": "@cr*2",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "uXXok6VNMp9Maq4B",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.kMUbWj0lXFMkwrzN.uXXok6VNMp9Maq4B"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "race",
+            "source": "Compendium.eternia.races-classes.Item.CMMPFP41a2v6KJly"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.1iwcIIWN17zLMWby",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "kMUbWj0lXFMkwrzN",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.kMUbWj0lXFMkwrzN"
+    },
+    {
+      "name": "Coleção de Bênçãos",
+      "type": "skill",
+      "system": {
+        "description": "<p>Cada NH desta habilidade dá uma Bênção nova, à sua escolha entre as Bênçãos dos Humanos que você ainda não tem.</p><p>Ao adquirir a habilidade ou subir o NH dela, escolha a Bênção.</p><hr><p><em>Uma nova Bênção chega como um despertar: por um instante, o mundo inteiro parece prestar atenção em você, e depois volta ao normal, com algo a mais.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 3,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "minRank": 3,
+          "rankGrants": [
+            "Compendium.eternia.skills-racial.Item.wZ7b1vx7z5MZw307",
+            "Compendium.eternia.skills-racial.Item.XX1m341mzy65qPIS",
+            "Compendium.eternia.skills-racial.Item.PRlziwUF9xcNxPch",
+            "Compendium.eternia.skills-racial.Item.t1oaxTeq3Q58JKCp",
+            "Compendium.eternia.skills-racial.Item.bWP38ho41YJAYFsZ",
+            "Compendium.eternia.skills-racial.Item.81TCqdMShGqdj4CJ",
+            "Compendium.eternia.skills-racial.Item.EujCiVbwjbPTMpIW",
+            "Compendium.eternia.skills-racial.Item.po32KdHxFSexXWEt"
+          ],
+          "choiceOnly": true,
+          "raceStage": 2,
+          "grantedBy": {
+            "type": "race",
+            "source": "Compendium.eternia.races-classes.Item.CMMPFP41a2v6KJly"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "rCgz3DeZSc1FRQd4",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.rCgz3DeZSc1FRQd4"
+    },
+    {
+      "name": "Bênção do Corpo de Ferro",
+      "type": "skill",
+      "system": {
+        "description": "<p>+1d6 nos testes de Vigor.</p><p>Frio, calor, fome e sede extremos levam o dobro do tempo para afetar você.</p><hr><p><em>Você atravessa a neve de mangas curtas, e dias sem comer deixam no seu rosto apenas um traço de cansaço.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/buff-strength-muscle-damage.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {},
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Bênção do Corpo de Ferro",
+          "img": "icons/magic/control/buff-strength-muscle-damage.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.endurance.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "8Naj0qegRvCH6r1G",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.CTmEXfs21LFpNnK9.8Naj0qegRvCH6r1G"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "skill",
+            "source": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.t1oaxTeq3Q58JKCp",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "CTmEXfs21LFpNnK9",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.CTmEXfs21LFpNnK9"
+    },
+    {
+      "name": "Segunda Origem",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você recebe [Despertado: NP] até o fim da cena: +1d6 nos testes de Precisão e +NP no dano dos seus ataques.</p><p>Quando o estado acaba, você recebe [Fadiga: NP].</p><hr><p><em>O reservatório escondido sob o seu poder se rompe. Uma aura da cor da sua alma envolve o corpo, o ar treme à sua volta e a respiração sai em vapor. Quando a aura se apaga, o corpo cobra o preço em exaustão.</em></p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scenario",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/light/explosion-star-glow-yellow.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "awakened",
+                "value": "@cr"
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Segunda Origem",
+          "img": "systems/eternia/assets/ui/status/awakened.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "awakened"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "toX6jqEfYwME3MV6",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.2aDN2mxbdJ1XNmag.toX6jqEfYwME3MV6"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "minRank": 7,
+          "choiceOnly": true,
+          "raceStage": 3,
+          "grantedBy": {
+            "type": "race",
+            "source": "Compendium.eternia.races-classes.Item.CMMPFP41a2v6KJly"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.dmFT6Bat0MRH9Qur",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "2aDN2mxbdJ1XNmag",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.2aDN2mxbdJ1XNmag"
+    },
+    {
+      "name": "Unção",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use antes de um teste de um aliado a até 5 Qd (ou de você mesmo): a marca de luz da sua testa acende, e ele recebe +2d6 nesse teste. Uma vez por cena.</p><hr><p><em>Um toque leve no ombro, uma palavra baixa. A marca na sua testa brilha como óleo santo à luz de uma vela, e quem você tocou sente, por um instante, que o mundo inteiro está do lado dele.</em></p>",
+        "tags": [],
+        "timing": "Before Check",
+        "checkType": "",
+        "range": "5Sq",
+        "target": "Single",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/holy/saint-glass-portrait-halo.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "consumeOn": "check",
+              "expires": "endOfRound"
+            }
+          },
+          "name": "Unção",
+          "img": "icons/magic/holy/saint-glass-portrait-halo.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.accuracy.dice",
+                "type": "add",
+                "value": 2,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.evasion.dice",
+                "type": "add",
+                "value": 2,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.resistance.dice",
+                "type": "add",
+                "value": 2,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.athletics.dice",
+                "type": "add",
+                "value": 2,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.endurance.dice",
+                "type": "add",
+                "value": 2,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.disable.dice",
+                "type": "add",
+                "value": 2,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.operation.dice",
+                "type": "add",
+                "value": 2,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.perception.dice",
+                "type": "add",
+                "value": 2,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.negotiation.dice",
+                "type": "add",
+                "value": 2,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.knowledge.dice",
+                "type": "add",
+                "value": 2,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.analysis.dice",
+                "type": "add",
+                "value": 2,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "uC0UkG8gw6SxbjqF",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.LS4npC8mIjnn9CVv.uC0UkG8gw6SxbjqF"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "minRank": 12,
+          "choiceOnly": true,
+          "raceStage": 4,
+          "grantedBy": {
+            "type": "race",
+            "source": "Compendium.eternia.races-classes.Item.CMMPFP41a2v6KJly"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.32.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.A1TwAw1aOAVQZeJf",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "LS4npC8mIjnn9CVv",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.LS4npC8mIjnn9CVv"
+    },
+    {
+      "name": "Ira",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Motor do Berserker.</strong> A dor vira <strong>Ira</strong>. Todo combate começa com 0 de Ira.</p><ul><li><strong>Ganha:</strong> +1 Ira cada vez que um ataque de um inimigo tira PV de você; +1 a mais se você ficar com metade dos PV ou menos.</li><li><strong>Efeito:</strong> enquanto tiver Ira, os seus Ataques com Arma somam +[Ira] ao dano.</li><li><strong>Gasta:</strong> o Golpe Selvagem gasta toda a Ira num golpe só; o Fôlego de Sangue troca Ira por PV.</li><li><strong>Teto:</strong> 3 de Ira, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> no Encerramento de uma rodada em que você não atacou nem perdeu PV, perde 1 Ira.</li></ul><p><em>Cada ferida aberta é uma porta para algo que estava esperando para sair.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/wounds/anatomy-organ-heart-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-ira",
+          "kind": "motor",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "berserker",
+            "role": "core"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.MAuTQy4tVGMZv5CD"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.bfX6cqvC8lB8flCL",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "RIkTyPsmr7ArDaKX",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.RIkTyPsmr7ArDaKX"
+    },
+    {
+      "name": "Sangrar",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você abre a própria ferida: perde [NP+5] PV (sem Barreira nem Anulação) e ganha +2 Ira. Não pode usar com [NP+5] PV ou menos.</p><p><em>Uma mordida no próprio braço, e os olhos mudam de cor.</em></p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/wounds/injury-triple-slash-bleed.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-sangrar",
+          "kind": "feeds",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "berserker",
+            "gain": 2
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.MAuTQy4tVGMZv5CD"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.Xr4oUmZABvSEygJn",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "f4N9jeAPDEKQ9tJg",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.f4N9jeAPDEKQ9tJg"
+    },
+    {
+      "name": "Golpe Selvagem",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com pelo menos 1 de Ira, você solta tudo num golpe: [(1 + Ira)d6 + Poder de Ataque + Ira×NP] de dano físico. Gasta toda a Ira.</p><hr><p><em>Não há técnica nenhuma. Só o peso do corpo inteiro atrás da arma.</em></p>",
+        "tags": [
+          "Weapon Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "1+@spent",
+          "mod": "@spent*@use.per",
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/strike-axe-blood-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-golpe-selvagem",
+          "kind": "spends",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "berserker",
+            "needs": {
+              "min": 1
+            },
+            "spend": "all"
+          },
+          "damageText": "(1+Ira)d6 + [Poder de Ataque] + Ira×NP Físico",
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.MAuTQy4tVGMZv5CD"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.FnAdmIUwEWkRVf6p",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "xbBwfQu9KpGdfpWw",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.xbBwfQu9KpGdfpWw"
+    },
+    {
+      "name": "Fôlego de Sangue",
+      "type": "skill",
+      "system": {
+        "description": "<p>Gaste quanta Ira quiser: você recupera [Ira gasta × (NP+5)] PV. A cura entra sozinha.</p><p><em>A fúria fecha as feridas por dentro, por um tempo.</em></p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/wounds/blood-cells-vessel-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-folego",
+          "kind": "spends",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "berserker",
+            "needs": {
+              "min": 1
+            },
+            "spend": "choose"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.MAuTQy4tVGMZv5CD"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.Pek0HF4gvV5afTkS",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "xJaQZJMR554SGSn7",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.xJaQZJMR554SGSn7"
+    },
+    {
+      "name": "Caminho do Gigante",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Reescreve o efeito da Ira.</strong> Os seus Ataques com Arma somam +1d6 a cada 2 de Ira, em vez de +[Ira]; com uma arma [Duas Mãos], +1d6 a mais.</p><p><strong>Talentos do Caminho:</strong> Passo de Gigante (NP 3) e Terremoto (NP 7).</p><hr><p><em>Armas grandes demais para qualquer um, e leves demais para ele.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/strike-hammer-destructive-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-gigante",
+          "kind": "bends",
+          "branch": "path",
+          "choiceOnly": true,
+          "path": {
+            "class": "berserker",
+            "id": "gigante"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.MAuTQy4tVGMZv5CD"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.s7LKFoL7OY0QDyRb",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Ohpjpk63WWmfh5Wo",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.Ohpjpk63WWmfh5Wo"
+    },
+    {
+      "name": "Fúria Imortal",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Ápice do Berserker (NP 10).</strong> Em combate, com 2 de Ira ou mais, você tem [Último Fôlego]: quando um dano o levaria a 0 PV, você fica com 1 PV e perde 2 de Ira (em vez de toda, se tiver Recusar a Queda). Enquanto houver Ira, você não cai.</p><ul><li><strong>Gigante:</strong> +1d6 a cada 1 de Ira, em vez de a cada 2.</li><li><strong>Dragão:</strong> o Sopro do Dragão mantém 2 de Ira.</li><li><strong>Ancestrais:</strong> cada aliado que cai lhe dá 3 de Ira e [NP+5] PV.</li></ul><hr><p><em>Já o deram por morto tantas vezes que ele perdeu a conta.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/flame-burning-skull-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-furia-imortal",
+          "kind": "bends",
+          "branch": "apex",
+          "choiceOnly": true,
+          "apex": "berserker",
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.MAuTQy4tVGMZv5CD"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.zQwMJrzkl582hFvx",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "a8veNKNGey96XaMv",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.a8veNKNGey96XaMv"
+    },
+    {
+      "name": "Cataclismo",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Magia Absoluta.</strong> O fim do mundo cabe nas suas mãos. Quando você fecha o punho, o ar racha como vidro, e a rachadura corre pelo chão, pelo mar e pelo corpo de quem está na frente. Nenhuma armadura segura uma vibração. Mas o tremor tem um inimigo: a água. Dentro dela a vibração se perde, o corpo pesa como pedra, e a água devolve o tremor para dentro de você. E um corpo que carrega um cataclismo não tem lugar para mais nada. Mais forte que todas as outras categorias.</p><ul><li><strong>Absoluta:</strong> só uma pessoa no mundo tem esta Magia, e ela ocupa todas as vagas de Magia: você nunca terá outra. [Silenciado] não impede os feitiços dela.</li><li><strong>O Abalo:</strong> cada feitiço do Cataclismo sobe o seu [Abalo] (até 5; os grandes, 2), e cada ponto soma +NP÷2 no dano dos próximos. Os tremores em volta de você acham os alvos sozinhos: pegam todo mundo que está no chão na área, aliados também (quem está [Voando] escapa).</li><li><strong>Tabu, Água que Cala:</strong> a água cala o tremor: [Encharcado] ou [Nadando], você não usa os feitiços do Cataclismo, e o dano de [Água] em você dobra.</li><li><strong>Traço, Vibração:</strong> você é imune a [Derrubado], e os seus feitiços do Cataclismo ignoram a Defesa inteira (nenhuma armadura segura uma vibração).</li><li><strong>Feitiços:</strong> Racha no Ar e Soco do Tremor (NP 1), Chão que Treme (NP 3), Bolha de Tremor (NP 5), Mar que Sobe (NP 7) e o feitiço supremo O Mundo Racha (NP 10).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Mundo Racha pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Ninguém ouviu o soco. Ouviram a montanha cair.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "vulnerable": [
+                "Water"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.51.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Água que Cala",
+          "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "7aly80qzu2ZE9D60",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.JDzMqUwKNRYPGVw2.7aly80qzu2ZE9D60"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "trait": {
+                "magia": "fruta-do-tremor",
+                "seaCurse": true,
+                "pierce": {
+                  "defense": "none"
+                }
+              },
+              "immune": [
+                "prone"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.51.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Vibração",
+          "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "Ysn6YmtqeZVZGJpx",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.JDzMqUwKNRYPGVw2.Ysn6YmtqeZVZGJpx"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "fruta-do-tremor-fruta-do-tremor",
+          "kind": "bends",
+          "branch": "magic",
+          "magic": {
+            "id": "fruta-do-tremor",
+            "category": "absolute",
+            "tagline": "Você racha o ar e o mundo treme; só a água cala o tremor.",
+            "holders": 1,
+            "exclusive": true
+          },
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.MAuTQy4tVGMZv5CD"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.wAHJiLeswLCwgxcP",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "JDzMqUwKNRYPGVw2",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.JDzMqUwKNRYPGVw2"
+    },
+    {
+      "name": "Racha no Ar",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Cataclismo.</strong> Você soca o ar, e a rachadura corre até um alvo a até 5 Qd: Teste de Precisão contra a Esquiva; [3d6 + Poder de Ataque] de dano físico (+NP÷2 por ponto de [Abalo]), ignorando a Defesa, e ele fica [Cambaleante]. O [Abalo] sobe 1.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>O ar fez o barulho de um espelho quebrando.</em></p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "5Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 3,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/containers/kitchenware/vase-clay-cracked-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fruta-do-tremor-racha",
+          "kind": "feeds",
+          "branch": "magic",
+          "quakeGain": 1,
+          "hitStatuses": [
+            {
+              "statusId": "staggered"
+            }
+          ],
+          "selfBonus": [
+            {
+              "statusId": "quake",
+              "per": "floor(@cr/2)"
+            }
+          ],
+          "magicSpell": {
+            "id": "fruta-do-tremor"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          },
+          "damageText": "3d6 + [Poder de Ataque] + Abalo×NP÷2 Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.EERwAebFzSlgolPA",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "CXyKWcb1mc2hadDo",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.CXyKWcb1mc2hadDo"
+    },
+    {
+      "name": "Arrancada",
+      "type": "skill",
+      "system": {
+        "description": "<p>Antes do golpe, você corre até a sua Velocidade em linha reta, sem gastar a Ação de Movimento. Gaste 1 de Ira: [2d6 + Poder de Ataque + NP] de dano físico, e o alvo fica [Derrubado].</p>",
+        "tags": [
+          "Weapon Attack",
+          "Dedication"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": "@cr",
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/mammals/ox-bull-horned-glowing-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-arrancada",
+          "kind": "spends",
+          "branch": "massacre",
+          "minRank": 1,
+          "motor": {
+            "id": "berserker",
+            "needs": {
+              "min": 1
+            },
+            "spend": 1
+          },
+          "damageText": "2d6 + [Poder de Ataque] + NP Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.z8fQBCGKv657FOSJ",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "SOvCtl8bTXyvaCel",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.SOvCtl8bTXyvaCel"
+    },
+    {
+      "name": "Soco do Tremor",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Cataclismo.</strong> O tremor inteiro num punho, contra um inimigo engajado com você: Teste de Precisão contra a Esquiva; [3d6 + Poder de Ataque + NP] de dano físico (+NP÷2 por ponto de [Abalo]), ignorando a Defesa, e ele voa 3 Qd para longe. O [Abalo] sobe 1.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Ele parou de voar quando acabou a ilha.</em></p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 3,
+          "mod": "@cr",
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/hand/gauntlet-iron-riveted-brown.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fruta-do-tremor-soco",
+          "kind": "feeds",
+          "branch": "magic",
+          "quakeGain": 1,
+          "useActions": [
+            {
+              "type": "push",
+              "value": 3
+            }
+          ],
+          "selfBonus": [
+            {
+              "statusId": "quake",
+              "per": "floor(@cr/2)"
+            }
+          ],
+          "magicSpell": {
+            "id": "fruta-do-tremor"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          },
+          "damageText": "3d6 + [Poder de Ataque] + NP + Abalo×NP÷2 Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.9ZOUtUAGTQvJoVJG",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "cSAvgHynIm8zivV6",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.cSAvgHynIm8zivV6"
+    },
+    {
+      "name": "Couro Curtido",
+      "type": "skill",
+      "system": {
+        "description": "<p>Frio, calor, fome e marchas longas não o derrubam: +1d6 nos Testes de Vigor.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/chest/vest-leather-brown.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {}
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Couro Curtido",
+          "img": "icons/equipment/chest/vest-leather-brown.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.endurance.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "PtokiezZCUPMJJnu",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.EabKkGTUQgyy7p38.PtokiezZCUPMJJnu"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-couro-curtido",
+          "kind": "bends",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.p9TvQAhhAYBXBXoP",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "EabKkGTUQgyy7p38",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.EabKkGTUQgyy7p38"
+    },
+    {
+      "name": "Explosão de Fúria",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com pelo menos 2 de Ira, você entra em [Fúria: metade da Ira, para cima] até o fim da cena (ou até gastar uma Ação Maior para sair): esse valor a mais de dano nos ataques, −1d6 nas Esquivas, e só habilidades que atacam ou de movimento. Não gasta a Ira.</p><hr><p><em>O mundo fica vermelho e estreito, do tamanho de um inimigo.</em></p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/abilities/mouth-teeth-rows-red.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "berserk",
+                "value": "ceil(@motor.value/2)"
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Explosão de Fúria",
+          "img": "systems/eternia/assets/ui/status/berserk.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "berserk"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "gxtKn17IueGYvC7N",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.NmXARpr3vivHJs8m.gxtKn17IueGYvC7N"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-explosao",
+          "kind": "bends",
+          "branch": "furia",
+          "minRank": 1,
+          "motor": {
+            "id": "berserker",
+            "needs": {
+              "min": 2
+            }
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.xTwBIPA2qFvSAJx5",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "NmXARpr3vivHJs8m",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.NmXARpr3vivHJs8m"
+    },
+    {
+      "name": "Pele Grossa",
+      "type": "skill",
+      "system": {
+        "description": "<p>Em combate, você tem [Anulação] igual à sua Ira: quanto mais ferido, menos o próximo golpe entra.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/chest/breastplate-layered-leather-brown.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "conditions": [
+                {
+                  "type": "inCombat"
+                }
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Pele Grossa",
+          "img": "icons/equipment/chest/breastplate-layered-leather-brown.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.cancel",
+                "type": "add",
+                "value": "@motor.value",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "Okik5ro0hoO10OZn",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.n5ZAqXdxaVbcCFIp.Okik5ro0hoO10OZn"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-pele-grossa",
+          "kind": "bends",
+          "branch": "couro",
+          "minRank": 1,
+          "motor": {
+            "id": "berserker"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.vZ1d6JAn8Aqc2DRQ",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "n5ZAqXdxaVbcCFIp",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.n5ZAqXdxaVbcCFIp"
+    },
+    {
+      "name": "Força Bruta",
+      "type": "skill",
+      "system": {
+        "description": "<p>Arrombar uma porta, erguer uma carroça, partir correntes: Teste de Atletismo com +[NH]d6. Em combate, a sua Ira soma ao teste.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "General",
+        "skillRank": {
+          "value": 3,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": "@motor.value",
+          "vs": "",
+          "stat": "athletics"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/hand-grip-axe-strike-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-forca-bruta",
+          "kind": "bends",
+          "branch": "general",
+          "motor": {
+            "id": "berserker"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.2SSAH6AZwEEyPKhr",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "whFKlSZLoR60JZ6P",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.whFKlSZLoR60JZ6P"
+    },
+    {
+      "name": "Chão que Treme",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Cataclismo.</strong> O chão treme a até 3 Qd de você e pega todo mundo que está nele, aliados também (os alvos se acham sozinhos): Teste de Precisão contra a Esquiva de cada um; [4d6 + Poder de Ataque] de dano físico (+NP÷2 por ponto de [Abalo]), ignorando a Defesa, e [Derrubado]. O [Abalo] sobe 1.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Quem estava de pé deixou de estar. Quem estava sentado também.</em></p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 4,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/wilderness/terrain-stone-stalagtite.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fruta-do-tremor-terremoto",
+          "kind": "feeds",
+          "branch": "magic",
+          "quakeGain": 1,
+          "around": {
+            "radius": 3
+          },
+          "hitStatuses": [
+            {
+              "statusId": "prone"
+            }
+          ],
+          "selfBonus": [
+            {
+              "statusId": "quake",
+              "per": "floor(@cr/2)"
+            }
+          ],
+          "magicSpell": {
+            "id": "fruta-do-tremor"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          },
+          "damageText": "4d6 + [Poder de Ataque] + Abalo×NP÷2 Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.8CZxu8lXhQ96YQQi",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "4FkmgosIIsQRkcE5",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.4FkmgosIIsQRkcE5"
+    },
+    {
+      "name": "Rugido",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você ruge na cara dos inimigos do seu quadrado: os que você escolher ficam [Provocado] por você. +1 Ira.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Close",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/abilities/mouth-teeth-rows-white.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "taunted"
+              },
+              "expires": "endOfRound",
+              "recipients": "enemies"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Rugido",
+          "img": "systems/eternia/assets/ui/status/taunted.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "taunted"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "cOC4hkU4mXiBPQKZ",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.9riCyjiHvMXgqwDj.cOC4hkU4mXiBPQKZ"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-rugido",
+          "kind": "feeds",
+          "branch": "sangue",
+          "minRank": 1,
+          "motor": {
+            "id": "berserker",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.M2x98mKgoB4P48C2",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "9riCyjiHvMXgqwDj",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.9riCyjiHvMXgqwDj"
+    },
+    {
+      "name": "Grito Intimidador",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você grita tão perto que a pessoa sente o hálito: Teste de Negociação com +[NH]d6 para intimidar, arrancar uma informação ou fazer alguém recuar. A sua Ira soma ao teste.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "General",
+        "skillRank": {
+          "value": 3,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": "@motor.value",
+          "vs": "",
+          "stat": "negotiation"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/abilities/mouth-teeth-sharp.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-grito-intimidador",
+          "kind": "bends",
+          "branch": "general",
+          "motor": {
+            "id": "berserker"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.dTil0G4Y5Kg3TLtg",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "YfkRmEk33IJ7DjUQ",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.YfkRmEk33IJ7DjUQ"
+    },
+    {
+      "name": "Sede de Batalha",
+      "type": "skill",
+      "system": {
+        "description": "<p>Quando um ataque seu com arma deixa um inimigo com 0 PV, +1 Ira.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/wounds/blood-drip-droplet-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-sede-de-batalha",
+          "kind": "feeds",
+          "branch": "sangue",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.lRXFjGwJR0hZMLiN",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Tsxr0vsZBHulZH1Y",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.Tsxr0vsZBHulZH1Y"
+    },
+    {
+      "name": "Passo de Gigante",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Caminho do Gigante.</strong> O Golpe Selvagem alcança alvos a 1 Qd a mais: um passo largo e o golpe chega antes do inimigo.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "rollFilter": {
+                "skills": [
+                  {
+                    "name": "Golpe Selvagem"
+                  }
+                ]
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Passo de Gigante",
+          "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.skill.range",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "eternia.skill.note",
+                "type": "override",
+                "value": "Passo de Gigante: +1 Qd de alcance.",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "3ZLGNI5tSLAHICV6",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.6TFxNOEIPGfDkFt3.3ZLGNI5tSLAHICV6"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-passo-de-gigante",
+          "kind": "bends",
+          "branch": "pathTalent",
+          "minRank": 3,
+          "pathTalent": {
+            "class": "berserker",
+            "id": "gigante"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.I58IuktSvPUYn4tG",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "6TFxNOEIPGfDkFt3",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.6TFxNOEIPGfDkFt3"
+    },
+    {
+      "name": "Sangue Quente",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você chega à luta já fervendo: começa todo combate com [NH] de Ira.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "General",
+        "skillRank": {
+          "value": 2,
+          "max": 2
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/flame-burning-fist-strike.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-sangue-quente",
+          "kind": "feeds",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.AyjA41D010NSD2C6",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "0MYVqtZticyySNKO",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.0MYVqtZticyySNKO"
+    },
+    {
+      "name": "Bolha de Tremor",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Cataclismo. Feitiço grande.</strong> Uma bolha de tremor na palma da mão, encostada num alvo a até 4 Qd: o ataque acerta sem teste; [5d6 + Poder de Ataque] de dano físico (+NP÷2 por ponto de [Abalo]), ignorando a Defesa, e ele fica [Atordoado]. O [Abalo] sobe 2.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>A bolha estoura por dentro. Por fora, nem um arranhão.</em></p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "auto",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 5,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/water/bubbles-air-water-pink.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fruta-do-tremor-bolha",
+          "kind": "feeds",
+          "branch": "magic",
+          "quakeGain": 2,
+          "hitStatuses": [
+            {
+              "statusId": "dazed"
+            }
+          ],
+          "selfBonus": [
+            {
+              "statusId": "quake",
+              "per": "floor(@cr/2)"
+            }
+          ],
+          "magicSpell": {
+            "id": "fruta-do-tremor"
+          },
+          "minRank": 5,
+          "motor": {
+            "id": "@class",
+            "gain": 2
+          },
+          "damageText": "5d6 + [Poder de Ataque] + Abalo×NP÷2 Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.rFuHDv5ehDB0O0di",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "zovEFpr0K2FLgL0q",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.zovEFpr0K2FLgL0q"
+    },
+    {
+      "name": "Cicatrizes de Guerra",
+      "type": "skill",
+      "system": {
+        "description": "<p>O Teto da Ira aumenta em [NH].</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 2,
+          "max": 2
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/wounds/injury-stapled-flesh-tan.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-cicatrizes",
+          "kind": "bends",
+          "branch": "couro",
+          "minRank": 3
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.9Gg8MI6KHfVdam2u",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "yotYXsIBo8ootdmh",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.yotYXsIBo8ootdmh"
+    },
+    {
+      "name": "Ferida Aberta",
+      "type": "skill",
+      "system": {
+        "description": "<p>Na Manutenção, se você estiver com metade dos PV ou menos, +1 Ira.</p><p><em>Os pontos arrebentam, e ele sorri.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/wounds/injury-stitched-flesh-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-ferida-aberta",
+          "kind": "feeds",
+          "branch": "sangue",
+          "minRank": 3
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.gv25FHzyaXFv0hYm",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "krw1ZSKHzT4AQYfy",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.krw1ZSKHzT4AQYfy"
+    },
+    {
+      "name": "Giro Selvagem",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com pelo menos 2 de Ira, você gira com a arma estendida: todos os inimigos do seu quadrado sofrem [(1 + Ira)d6 + Poder de Ataque + (Ira×NP)÷2] de dano físico. Gasta toda a Ira.</p><p><em>Um círculo de aço e ninguém de pé dentro dele.</em></p>",
+        "tags": [
+          "Weapon Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "1+@spent",
+          "mod": "floor(@spent*@cr/2)",
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/strike-axe-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-giro-selvagem",
+          "kind": "spends",
+          "branch": "massacre",
+          "minRank": 3,
+          "motor": {
+            "id": "berserker",
+            "needs": {
+              "min": 2
+            },
+            "spend": "all"
+          },
+          "damageText": "(1+Ira)d6 + [Poder de Ataque] + (Ira×NP)÷2 Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.SzELikTzvPeJSMH4",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "lX7XspvV2FdivLGs",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.lX7XspvV2FdivLGs"
+    },
+    {
+      "name": "Mar que Sobe",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Cataclismo. Feitiço grande.</strong> Você racha o fundo do mar e manda a onda: todo mundo no chão a até 6 Qd de você, aliados também (os alvos se acham sozinhos). Teste de Precisão contra a Esquiva de cada um; [6d6 + Poder de Ataque] de dano físico de [Água] (+NP÷2 por ponto de [Abalo]), ignorando a Defesa, [Derrubado] e [Encharcado: NP÷2]. Você não se molha: a onda é sua. O [Abalo] sobe 2.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>O mar subiu pela rua principal e levou a feira inteira.</em></p>",
+        "tags": [
+          "Water"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "6Sq",
+        "target": "Wide",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 4",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 6,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/air/wind-weather-sailing-ship.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fruta-do-tremor-maremoto",
+          "kind": "feeds",
+          "branch": "magic",
+          "quakeGain": 2,
+          "around": {
+            "radius": 6
+          },
+          "hitStatuses": [
+            {
+              "statusId": "prone"
+            },
+            {
+              "statusId": "soaked",
+              "value": "floor(@cr/2)"
+            }
+          ],
+          "selfBonus": [
+            {
+              "statusId": "quake",
+              "per": "floor(@cr/2)"
+            }
+          ],
+          "magicSpell": {
+            "id": "fruta-do-tremor"
+          },
+          "minRank": 7,
+          "motor": {
+            "id": "@class",
+            "gain": 2
+          },
+          "damageText": "6d6 + [Poder de Ataque] + Abalo×NP÷2 Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.OLXSl7biN7H0bmTG",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "9Um5h95hikKWe3qz",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.9Um5h95hikKWe3qz"
+    },
+    {
+      "name": "Uivo de Guerra",
+      "type": "skill",
+      "system": {
+        "description": "<p>Gaste 2 de Ira: os aliados a até 3 Qd que você escolher (você também) ganham [Fortalecido: NP÷2 + 2] até o fim da rodada.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/abilities/wolf-howl-moon-white.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "empowered",
+                "value": "floor(@cr/2)+2"
+              },
+              "expires": "endOfRound",
+              "recipients": "allies"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Uivo de Guerra",
+          "img": "systems/eternia/assets/ui/status/empowered.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "empowered"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "ONRyaUSyd89tLgfu",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.L50tY6B3Iy6GL3sJ.ONRyaUSyd89tLgfu"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-uivo",
+          "kind": "spends",
+          "branch": "furia",
+          "minRank": 3,
+          "motor": {
+            "id": "berserker",
+            "needs": {
+              "min": 2
+            },
+            "spend": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.vnH7sWkHl3CbdPYB",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "L50tY6B3Iy6GL3sJ",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.L50tY6B3Iy6GL3sJ"
+    },
+    {
+      "name": "Esmagar",
+      "type": "skill",
+      "system": {
+        "description": "<p>Gaste até [NH+1] de Ira num golpe que quebra a guarda: [(1 + Ira gasta)d6 + Poder de Ataque] de dano físico, e o alvo fica [Fissurado: 1].</p>",
+        "tags": [
+          "Weapon Attack",
+          "Dedication"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 3,
+          "max": 3
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "1+@spent",
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/strike-club-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-esmagar",
+          "kind": "spends",
+          "branch": "massacre",
+          "minRank": 5,
+          "motor": {
+            "id": "berserker",
+            "needs": {
+              "min": 1
+            },
+            "spend": "choose",
+            "max": "@sr+1"
+          },
+          "damageText": "(1+Ira gasta)d6 + [Poder de Ataque] Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.vANTBqa6Kme4rIpE",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "MIiUQiXbw9qwKhqq",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.MIiUQiXbw9qwKhqq"
+    },
+    {
+      "name": "Fúria Cega",
+      "type": "skill",
+      "system": {
+        "description": "<p>Em [Fúria], cada ataque seu que acerta um inimigo dá +1 Ira.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-furia-cega",
+          "kind": "feeds",
+          "branch": "furia",
+          "minRank": 5,
+          "requires": [
+            "berserker-explosao"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.WqCo3ekTKB8EU7gG",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "zZn9ZL6qLhXmisQl",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.zZn9ZL6qLhXmisQl"
+    },
+    {
+      "name": "Recusar a Queda",
+      "type": "skill",
+      "system": {
+        "description": "<p>Em combate, com 3 de Ira ou mais, você tem [Último Fôlego]: quando um dano o levaria a 0 PV, você fica com 1 PV e perde toda a Ira.</p><hr><p><em>Ele devia estar no chão. Ainda não percebeu.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/wounds/injury-pain-body-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-recusar-a-queda",
+          "kind": "spends",
+          "branch": "couro",
+          "minRank": 5,
+          "requires": [
+            "berserker-pele-grossa"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.2ubS1dw9GeYPi1Un",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "i91tWlUJ0a6eCj5i",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.i91tWlUJ0a6eCj5i"
+    },
+    {
+      "name": "Sangue Fervente",
+      "type": "skill",
+      "system": {
+        "description": "<p>Sangrar passa a gastar a Ação de Movimento em vez da Ação Menor.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/wounds/blood-cells-vessel-red-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-sangue-fervente",
+          "kind": "bends",
+          "branch": "sangue",
+          "minRank": 5,
+          "requires": [
+            "berserker-ferida-aberta"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.xr0FGQpXf3QqXNvG",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "a0olbrnAJcnXlW7X",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.a0olbrnAJcnXlW7X"
+    },
+    {
+      "name": "O Mundo Racha",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Cataclismo. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você racha o mundo. Todo mundo no chão a até 8 Qd de você, aliados também (os alvos se acham sozinhos): o ataque acerta sem teste; [(2 + 2×pontos gastos)d6 + Poder de Ataque + pontos gastos×NP] de dano físico, +NP por ponto de [Abalo], que zera, ignorando a Defesa, [Derrubado] e [Atordoado]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Os mapas daquela região tiveram de ser desenhados de novo.</em></p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "8Sq",
+        "target": "Wide",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 4",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "auto",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "2+2*@spent",
+          "mod": "@spent*@cr",
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/wilderness/wall-ruins.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fruta-do-tremor-mundo",
+          "kind": "spends",
+          "branch": "magic",
+          "around": {
+            "radius": 8
+          },
+          "hitStatuses": [
+            {
+              "statusId": "prone"
+            },
+            {
+              "statusId": "dazed"
+            }
+          ],
+          "selfBonus": [
+            {
+              "statusId": "quake",
+              "per": "@cr",
+              "spend": true
+            }
+          ],
+          "magicSpell": {
+            "id": "fruta-do-tremor"
+          },
+          "minRank": 10,
+          "motor": {
+            "id": "@class",
+            "needs": {
+              "full": true
+            },
+            "spend": "all"
+          },
+          "damageText": "(2+2×pontos gastos)d6 + [Poder de Ataque] + pontos gastos×NP + Abalo×NP Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.QRD24FrUHF3K7raP",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Wsh29fBkfix9uV1R",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.Wsh29fBkfix9uV1R"
+    },
+    {
+      "name": "Terremoto",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Caminho do Gigante.</strong> O Golpe Selvagem feito com 4 de Ira ou mais deixa o alvo [Derrubado].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/earth/strike-body-stone-crumble.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-terremoto",
+          "kind": "bends",
+          "branch": "pathTalent",
+          "minRank": 7,
+          "pathTalent": {
+            "class": "berserker",
+            "id": "gigante"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.fB6HdPajWNTe6lRR",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "wDenvTgNYK5AVqNj",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.wDenvTgNYK5AVqNj"
+    },
+    {
+      "name": "Bênção do Vento Veloz",
+      "type": "skill",
+      "system": {
+        "description": "<p>+1d6 nos testes de Atletismo.</p><p>Você nunca escorrega nem perde o equilíbrio por causa do terreno.</p><hr><p><em>O vento parece empurrar as suas costas na corrida e firmar os seus pés no telhado molhado.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/movement/feet-winged-boots-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {},
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Bênção do Vento Veloz",
+          "img": "icons/skills/movement/feet-winged-boots-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.athletics.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "A8scv7MRoVj9zfd2",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.rKLXid58pRoWSWZG.A8scv7MRoVj9zfd2"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "skill",
+            "source": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.PRlziwUF9xcNxPch",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "rKLXid58pRoWSWZG",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.rKLXid58pRoWSWZG"
+    },
+    {
+      "name": "Colheita Rubra",
+      "type": "skill",
+      "system": {
+        "description": "<p>Cada inimigo que o Giro Selvagem deixa com 0 PV devolve +1 Ira.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/strike-blade-blood-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-colheita-rubra",
+          "kind": "feeds",
+          "branch": "massacre",
+          "minRank": 7,
+          "requires": [
+            "berserker-giro-selvagem"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.rXlnnu9SbB5iyCii",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Z8iJxmu7B4YVpgNA",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.Z8iJxmu7B4YVpgNA"
+    },
+    {
+      "name": "Bênção do Olho da Verdade",
+      "type": "skill",
+      "system": {
+        "description": "<p>+1d6 nos testes de Análise.</p><p>Você percebe quando alguém mente diretamente para você, mas não sabe qual é a verdade.</p><hr><p><em>A mentira chega aos seus ouvidos como uma nota desafinada, um som que só você escuta.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/perception/eye-ringed-green.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {},
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Bênção do Olho da Verdade",
+          "img": "icons/magic/perception/eye-ringed-green.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.analysis.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "g6JrmqKQ9ObIK4oy",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.Pqb7sfMuZ7ddHo1h.g6JrmqKQ9ObIK4oy"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "skill",
+            "source": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.po32KdHxFSexXWEt",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Pqb7sfMuZ7ddHo1h",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.Pqb7sfMuZ7ddHo1h"
+    },
+    {
+      "name": "Fôlego Bestial",
+      "type": "skill",
+      "system": {
+        "description": "<p>O Fôlego de Sangue cura [Ira gasta × (NP+10)] em vez de [Ira gasta × (NP+5)].</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/wounds/blood-cells-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-folego-bestial",
+          "kind": "bends",
+          "branch": "couro",
+          "minRank": 7,
+          "requires": [
+            "berserker-recusar-a-queda"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.T92wRZCd1uwEMUiM",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "hgut0Rm7LrWlpw1I",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.hgut0Rm7LrWlpw1I"
+    },
+    {
+      "name": "Olhos Vermelhos",
+      "type": "skill",
+      "system": {
+        "description": "<p>Uma vez por cena, em [Fúria], o Golpe Selvagem acerta sem Teste de Esquiva.</p><p><em>Ninguém desvia de algo que não pensa em errar.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/wounds/injury-eyes-blood-red-pink.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "berserker-olhos-vermelhos",
+          "kind": "bends",
+          "branch": "furia",
+          "minRank": 7,
+          "requires": [
+            "berserker-furia-cega"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.1HYSIXNBB36ENw3J",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "tpBnWJAjr9FqlDLV",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.tpBnWJAjr9FqlDLV"
+    },
+    {
+      "name": "Analisar Objeto de Cena",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "analysis"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/traps/trap-jaw-steel.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746551067,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.V30xXzllUuzBfafd",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "TOiQOm5wbQJ7jDYU",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.TOiQOm5wbQJ7jDYU"
+    },
+    {
+      "name": "Ataque Básico com Arma",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você causa [1d6 + Poder de Ataque] de dano físico.</p>",
+        "tags": [
+          "Weapon Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 1,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": "uIW9aGui82UJfjzb"
+      },
+      "img": "icons/skills/melee/hand-grip-sword-white-brown.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790745586234,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.WM5upuUBddixPdjC",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "qWTECIYKGsxboirn",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.qWTECIYKGsxboirn"
+    },
+    {
+      "name": "Ataque Mágico Básico",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você causa [1d6 + Poder Mágico] de dano mágico.</p>",
+        "tags": [
+          "Magic Attack",
+          "Staff",
+          "Magic Stone"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 1,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": "ANQS94Uf2wa5dCgP"
+      },
+      "img": "icons/magic/light/projectile-smoke-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790745560103,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.fl482m53K1KVmt4U",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "69PlODaPhroBmMv1",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.69PlODaPhroBmMv1"
+    },
+    {
+      "name": "Avaliar Item",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo um único Item com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "analysis"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/trades/academics-investigation-study-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746512655,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.PtOCLZ1FmScvQhNk",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "b5PmbTcOHxRfFp1c",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.b5PmbTcOHxRfFp1c"
+    },
+    {
+      "name": "Correr",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você pode fazer um [Movimento Normal] de até [Velocidade] Qd.</p>",
+        "tags": [
+          "Movement"
+        ],
+        "timing": "Move",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/movement/feet-winged-boots-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746713856,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.lEAXTaLa3FdWMn0A",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "xNHcVYDIeKiun1If",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.xNHcVYDIeKiun1If"
+    },
+    {
+      "name": "Desarmar Objeto de Cena",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena que esteja [Analisado] e tenha [Dificuldade de Desarme]. Os efeitos do alvo terminam.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "Basic (Disable vs Disable Difficulty)",
+        "range": "1Sq",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/traps/trap-jaw-green.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746569272,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.ZHAPIDBQHQCFWtiH",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "ezW7ylTI0OxqIb4W",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.ezW7ylTI0OxqIb4W"
+    },
+    {
+      "name": "Deslocar-se",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você pode fazer um [Movimento Seguro] de 1 Qd. Logo em seguida, você perde uma Ação Menor. Se não tiver uma Ação Menor para perder, você não pode usar esta habilidade.</p>",
+        "tags": [
+          "Movement"
+        ],
+        "timing": "Move",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 5
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/movement/arrow-upward-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746742799,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.Snhgn7GWvwbtX6t1",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "3yMalOXxbShABwwc",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.3yMalOXxbShABwwc"
+    },
+    {
+      "name": "Detectar Anomalias",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo tudo dentro do alcance que tenha [Dificuldade de Detecção]. O alvo remove quaisquer efeitos [Encoberto] ou [Oculto]. Você não precisa remover esses efeitos dos seus aliados.</p>",
+        "tags": [],
+        "timing": "Setup",
+        "checkType": "",
+        "range": "Close",
+        "target": "Wide 20 (A)",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "perception"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/silhouette-grow-shrink-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746020062,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.AkE9jnFrKsm8i89o",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "oND4pU2oEMnnQ90T",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.oND4pU2oEMnnQ90T"
+    },
+    {
+      "name": "Disparada",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você pode fazer um [Movimento Normal] de até [Velocidade] + 2 Qd. &nbsp;Logo em seguida, você perde uma Ação Menor. Se não tiver uma Ação Menor para perder, você não pode usar esta habilidade.</p>",
+        "tags": [
+          "Movement"
+        ],
+        "timing": "Move",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/movement/figure-running-gray.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790745964303,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.Ql4JC6Et0zoSMkEL",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "PQ1snV7LCd0HY2rz",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.PQ1snV7LCd0HY2rz"
+    },
+    {
+      "name": "Esconder-se",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você fica [Oculto]. No entanto, você não pode usar esta habilidade se estiver no Topo de Ódio, se outro personagem puder fazer uma [Obstrução] contra você ou se estiver sob algum Estado Negativo.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/perception/shadow-stealth-eyes-purple.webp",
+      "effects": [
+        {
+          "name": "Esconder-se",
+          "img": "icons/magic/perception/shadow-stealth-eyes-purple.webp",
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "_id": "g8V4pL2sK7mY3zN1",
+          "description": "",
+          "transfer": false,
+          "statuses": [
+            "hidden"
+          ],
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "hidden"
+              },
+              "expiry": {
+                "expires": "endOfScene"
+              }
+            }
+          },
+          "tint": "#ffffff",
+          "_stats": {
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "coreVersion": "13.351",
+            "systemId": "eternia",
+            "systemVersion": "0.1.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "exportSource": null
+          },
+          "sort": 0,
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.NaMQL0zoT45xTqDl.g8V4pL2sK7mY3zN1",
+          "system": {
+            "changes": []
+          },
+          "start": null,
+          "showIcon": 1
+        }
+      ],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746483505,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.NHwN2c3MQtppMdtA",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "NaMQL0zoT45xTqDl",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.NaMQL0zoT45xTqDl"
+    },
+    {
+      "name": "Golpe de Misericórdia",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use esta habilidade depois de fazer, durante este turno, um ataque que tenha causado pelo menos 1 de dano a um alvo [Incapacitado]. Esse alvo fica [Morto].</p>",
+        "tags": [],
+        "timing": "Instant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/wounds/injury-body-pain-gray.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790745951610,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.0kYKskp1c9eXs0DW",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "86JP7Nt52kjbsCwl",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.86JP7Nt52kjbsCwl"
+    },
+    {
+      "name": "Identificar Inimigo",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade só pode ter como alvo um personagem com [Dificuldade de Identificação]. O alvo fica [Identificado].</p>",
+        "tags": [],
+        "timing": "Setup",
+        "checkType": "",
+        "range": "20Sq",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "knowledge"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/perception/orb-crystal-ball-scrying.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746298927,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.obao1W79fgYWcx5o",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Ye6DVzmJJ1a59ZHv",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.Ye6DVzmJJ1a59ZHv"
+    },
+    {
+      "name": "Negociar",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você pode mover um item do seu [Espaço de Inventário] para o [Espaço de Inventário] de um alvo voluntário. Se o alvo não tiver [Espaços de Inventário] vazios, o item cai no mesmo quadrado do alvo. Você pode usar esta habilidade básica quantas vezes quiser durante uma Preparação.</p>",
+        "tags": [
+          "Preparation"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/social/diplomacy-handshake-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746764750,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.sDoZ2vHmSG9V6X4Z",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Qma3CS1q5dcOvlyS",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.Qma3CS1q5dcOvlyS"
+    },
+    {
+      "name": "Proteger",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use quando um aliado que não seja você for sofrer dano. Você sofre o dano no lugar do alvo, e o alvo não é afetado pelo ataque. Você precisa estar no estado [Pré-Ação] para usar esta habilidade e passa ao estado [Pós-Ação] depois de usá-la. Esta habilidade só pode ser usada uma vez em resposta a cada ataque. Inimigos não podem usar esta habilidade.</p>",
+        "tags": [],
+        "timing": "Before Damage",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "cover": true,
+              "consumeOn": "damage",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.43.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Proteger",
+          "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "fbR02Gic71D3fEQS",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.S8R8giviThaTSloR.fbR02Gic71D3fEQS"
+        }
+      ],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746688861,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.tS3O6p4M5xmHkwAh",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "S8R8giviThaTSloR",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.S8R8giviThaTSloR"
+    },
+    {
+      "name": "Reconhecer Inimigo",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use esta habilidade quando tentar obter informações sobre os inimigos da próxima cena.</p>\n<p>(Resultado: 10) Você descobre o número de inimigos que vão aparecer.<br>(Resultado: 20) Você descobre o nome do inimigo de menor nível (se vários empatarem no mesmo nível, o Mestre escolhe) e também se ele tem a tag [Chefe] ou [Lacaio].<br>(Falha Crítica): O inimigo percebe o seu reconhecimento.</p>",
+        "tags": [
+          "Scout"
+        ],
+        "timing": "Briefing",
+        "checkType": "",
+        "range": "Refer",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "athletics"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/nature/stealth-hide-eyes-green.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746424055,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.pLccgRPUqH0oIYYE",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "6OIJbzdRuEmVnB4C",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.6OIJbzdRuEmVnB4C"
+    },
+    {
+      "name": "Switch",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você e um aliado a até 2 Qd trocam de lugar e de Ódio: você fica com o Ódio dele, e ele com o seu. O aliado fica [Concentrado].</p><hr><p><em>Um golpe abre a guarda do inimigo, um grito curto avisa a troca e os dois cruzam de posição. Quando o monstro se recupera, a lâmina que o encara já é outra, descansada e pronta.</em></p>",
+        "tags": [
+          "Movement"
+        ],
+        "timing": "Move",
+        "checkType": "",
+        "range": "2Sq",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/swords-parry-block-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "focused"
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Switch",
+          "img": "systems/eternia/assets/ui/status/focused.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "focused"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "TezNyfNuTHtrkEWn",
+          "_key": "!actors.items.effects!fhN2DO6o97XMVSEA.d9m5gC04IvAbdECy.TezNyfNuTHtrkEWn"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "switch"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.kqbIzeoowK8G1QBd",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "d9m5gC04IvAbdECy",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.d9m5gC04IvAbdECy"
+    },
+    {
+      "name": "Trocar Equipamento",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você pode mover um item de um [Espaço de Inventário] para um [Espaço de Equipamento], ou vice-versa. Você também pode largar ou pegar um item no seu quadrado, ou trocar uma peça de equipamento. Não há limite para o número de trocas de equipamento que você pode fazer com uma única ação. Você pode usar esta habilidade básica quantas vezes quiser durante uma Preparação.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/time/arrows-circling-pink.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746319082,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.oIUaP3VXGHGlKm4h",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "aJVKywVesSLbeUh3",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.aJVKywVesSLbeUh3"
+    },
+    {
+      "name": "Machado de Santa Rilith",
+      "type": "weapon",
+      "system": {
+        "description": "<p>[Momento: Movimento] Você e os aliados em [Área Ampla 2 (Escolha)] recebem +5 em [Defesa Física] e [Defesa Mágica] até o fim da rodada. Uma vez por cena.\nO Machado de Santa Rilith, heroína de uma lenda que os camponeses do Império contam até hoje. Ela era a filha de um pobre lenhador, mas, depois que o pai foi morto por um tirano, empunhou um machado, inspirou o povo e liderou uma rebelião para vingá-lo. A história termina aí e o destino dela é desconhecido, mas o machado que guiou e protegeu o povo agora está em suas mãos.</p><hr><p>Grande Presa de Jade [Material-Base] (530 Yuld) + Mangual Pesado (2.800 Yuld) + [Anima-mundi 19] (1.340 Yuld) ×3 + Custo de Fabricação (2.600 Yuld)</p>",
+        "tags": [
+          "Two-Handed",
+          "Hafted",
+          "Not For Sale",
+          "M4"
+        ],
+        "initiative": -2,
+        "rank": 19,
+        "price": 9950,
+        "equipped": true,
+        "attack": 60,
+        "magic": 0,
+        "accuracy": -2,
+        "main": false,
+        "range": "Close",
+        "checkType": "-",
+        "target": "-",
+        "timing": "-",
+        "pdef": 0,
+        "mdef": 0
+      },
+      "img": "icons/weapons/axes/axe-double-engraved-runes.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "powers": [
+            {
+              "timing": "Move",
+              "target": "Wide 2 (P)",
+              "range": "Close",
+              "cost": "",
+              "limit": "1/Scene",
+              "text": "[Trigger: Move] You and the allies in [Wide Area 2 (Select)] gain +5 to [Physical Defense] and [Magic Defense] until the end of the round. Once per scene.",
+              "effects": [
+                {
+                  "name": "Machado de Santa Rilith",
+                  "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
+                  "type": "base",
+                  "transfer": false,
+                  "disabled": false,
+                  "statuses": [],
+                  "system": {
+                    "changes": [
+                      {
+                        "key": "system.battle-status.defense.phys.mod",
+                        "type": "add",
+                        "value": 5,
+                        "phase": "initial",
+                        "priority": null
+                      },
+                      {
+                        "key": "system.battle-status.defense.magic.mod",
+                        "type": "add",
+                        "value": 5,
+                        "phase": "initial",
+                        "priority": null
+                      }
+                    ]
+                  },
+                  "flags": {
+                    "eternia": {
+                      "expires": "endOfRound",
+                      "recipients": "allies"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.BuAgrlrEHCJGKUmD",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "VjR9XiE7XmlzUEd9",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.VjR9XiE7XmlzUEd9"
+    },
+    {
+      "name": "Armadura de Bandas",
+      "type": "armor",
+      "system": {
+        "description": "<p>Armadura reforçada com grossas tiras de couro presas sobre a cota de malha.</p>",
+        "tags": [
+          "Medium Armor"
+        ],
+        "pdef": 35,
+        "mdef": 29,
+        "initiative": 0,
+        "rank": 19,
+        "price": 3400,
+        "equipped": true,
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "timing": "-",
+        "attack": 0,
+        "magic": 0,
+        "accuracy": 0
+      },
+      "img": "icons/equipment/chest/breastplate-banded-blue.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.5KHHtluAH6T1wuY4",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "A2JFjXQF8vZPuJZ8",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.A2JFjXQF8vZPuJZ8"
+    },
+    {
+      "name": "R19 Anel de Da Squeuin",
+      "type": "accessory",
+      "system": {
+        "description": "<p>[Momento: Manutenção] Um slime gigantesco toma forma ao seu redor: até o fim da Cena, você recebe [Anulação (Dano Mágico): 30]. Uma vez por Cenário.\nUm anel criado por Da Squeuin, um alquimista de uma era esquecida. Pode invocar um slime excepcionalmente grande, de tamanho anormal. Segundo um relato, ele o usava para limpar o quarto, por causa da sua extrema preguiça. Invoca um slime gigantesco, de tamanho anormal, numa área escolhida por quem o usa. Custo de Fabricação: 260 Yuld</p><hr><p>Nefrita Cor da Aurora [Material-Base] (530 Yuld) + Anel Vermelho (2.200 Yuld) + [Anima-mundi 19] (1.340 Yuld) ×4 + Custo de Fabricação (0 Yuld)</p>",
+        "tags": [
+          "Accessory",
+          "Magic Stone",
+          "Not For Sale",
+          "M5"
+        ],
+        "pdef": 0,
+        "mdef": 0,
+        "rank": 19,
+        "price": 11600,
+        "equipped": true,
+        "initiative": 0,
+        "magic": 40,
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "timing": "-",
+        "attack": 0,
+        "accuracy": 0
+      },
+      "img": "icons/equipment/finger/ring-faceted-ornate-silver-red.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "powers": [
+            {
+              "timing": "Setup",
+              "target": "Self",
+              "range": "-",
+              "cost": "",
+              "limit": "1/Scenario",
+              "text": "[Trigger: Setup] A gigantic slime takes shape around you: until the end of the scene, you gain [Cancel (Magic Damage): 30]. Once per scenario.",
+              "effects": [
+                {
+                  "name": "R19 Anel de Da Squeuin",
+                  "img": "systems/eternia/assets/ui/items_icons/accessory.svg",
+                  "type": "base",
+                  "transfer": false,
+                  "disabled": false,
+                  "statuses": [
+                    "cancel"
+                  ],
+                  "system": {
+                    "changes": []
+                  },
+                  "flags": {
+                    "eternia": {
+                      "expires": "endOfScene",
+                      "statusData": {
+                        "statusId": "cancel",
+                        "value": 30,
+                        "tag": "Magical"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.w80v6mSZH93PRvJX",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "5AhjzYMPaqQbydPk",
+      "_key": "!actors.items!fhN2DO6o97XMVSEA.5AhjzYMPaqQbydPk"
     }
   ],
   "effects": [],
@@ -382,13 +5558,33 @@
       "major": {
         "lote": 9,
         "pos": 1
+      },
+      "elenco": {
+        "slug": "rubezahl",
+        "papel": "Rübezahl, a Autoridade da Terra (Cataclismo)"
+      },
+      "professions": {
+        "gatherer": {
+          "exp": 160
+        }
+      },
+      "skillProgress": {
+        "base": 22,
+        "creation": false
+      },
+      "bio": {
+        "epithet": "a Autoridade da Terra",
+        "age": "Muito velho",
+        "gender": "Masculino",
+        "homeland": "A Cordilheira do Fim, Norlangarth",
+        "notes": "<h3>Só o Mestre</h3><p>Ouve Hursag respirar debaixo do chão, e a respiração está ficando curta. Morre no outono de 377, o primeiro contrato de Kriegger; a Palavra dorme até o inverno e acorda em Tuk.</p>"
       }
     }
   },
   "_stats": {
     "coreVersion": "14.360",
     "systemId": "eternia",
-    "systemVersion": "0.39.0",
+    "systemVersion": "1.0.2",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

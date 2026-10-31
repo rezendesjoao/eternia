@@ -5,9 +5,14 @@ por NH, combate por Processos, Ódio, Destino, estados e durações); as classes
 Eternia. A ficha em pergaminho, o HUD de ações, o chat, os tokens e a automação de mesa fazem parte do próprio
 sistema, feitos para mesas com muitos jogadores e vários combates ao mesmo tempo.
 
-## Versão 1.0.2
+## Versão 1.0.3
 
-- **Na 1.0.2: o retrato dos dragões terrestres.** Os seis dragões terrestres ganharam um token no padrão do bestiário
+- **Na 1.0.3: o elenco de A Última Etapa.** Os 97 papéis do enredo da campanha (31 NPCs e 66 personagens maiores,
+  com Aldric Artorius, que entrou agora) têm o nome do papel e a ficha inteira, no NP que cada um tem quando entra na
+  história: a raça e o estágio da forma, a classe com o Caminho e o Ápice, as Magias com os feitiços, os talentos de
+  cada NP, a profissão, armas e armadura. A biografia diz o que o mundo sabe; o segredo de cada um fica nas Anotações,
+  para o Mestre (veja [O bestiário](#o-bestiário)).
+- **Desde a 1.0.2: o retrato dos dragões terrestres.** Os seis dragões terrestres ganharam um token no padrão do bestiário
   (o dragão inteiro, no traço dos monstros, na moldura dourada), que a ficha da montaria mostra como retrato, com o
   ícone no canto. No inventário, no HUD e no Mercado continua o ícone. As montarias que o mundo já tem recebem o token
   sozinhas.
@@ -1234,11 +1239,16 @@ com o kit, o Caminho e o Ápice; ninguém tem Magia. Cada um tem alcunha, idade,
 um token neutro e vinculado, com a moldura da Eternia e um fio verde-azulado. Sem classe, a ficha soma só os números da
 raça, como o sistema calcula: o povo comum é frágil numa luta.
 
-**Os personagens maiores.** O compêndio **Personagens Maiores** traz 140 personagens de grande relevância na
+**Os personagens maiores.** O compêndio **Personagens Maiores** traz 141 personagens de grande relevância na
 história, em 15 pastas, dos espadachins aos anciãos, das damas e sacerdotisas aos meio-feras e às feras
 e divindades; os 18 mais novos ficam na pasta v2. Cada um vem com o nome, a raça e um token e retrato no traço de anime; o resto da ficha (a classe, a
 Magia, a profissão, os atributos, o NP) fica para o Mestre: o botão da pena abre o assistente de criação com a raça já
-marcada. As feras e divindades absolutas têm o token Astro, o círculo de ouro com raios em cada canto e um céu da noite
+marcada.
+
+**O elenco da campanha.** Os 97 papéis do enredo *A Última Etapa* (31 NPCs e 66 personagens maiores) têm o nome do
+papel e a ficha inteira, no NP que cada um tem quando entra na história: a raça e o estágio da forma, a classe com o
+Caminho e o Ápice, as Magias nas vagas da classe com os feitiços, os talentos de cada NP, a profissão, armas e armadura
+e PV e Destino cheios. A biografia diz o que o mundo sabe; o segredo de cada um fica nas Anotações, para o Mestre. As feras e divindades absolutas têm o token Astro, o círculo de ouro com raios em cada canto e um céu da noite
 atrás, em 2×2, com uma luz leve na cor de cada uma; os demônios trazem uma névoa escura em volta.
 
 A página **XIV. O BESTIÁRIO** do diário AS REGRAS explica tudo para o Mestre.

@@ -318,7 +318,8 @@ criaturas), para o Mestre importar uma categoria sem trazer as outras.
 
 O compêndio **NPCs** (`npcs`, só do Mestre) tem 126 personagens prontos em nove pastas: Campo e Aldeias, Cidades e
 Ofícios, Igreja Axiom, Nobreza e Governo, Guardas e Cavaleiros, Academias e Saber, Guildas e Aventureiros, Povos da Forma
-e Além do Muro.
+e Além do Muro. 31 deles são papéis do elenco de *A Última Etapa*, com o nome do papel e a ficha inteira (veja
+[O elenco de A Última Etapa](#o-elenco-de-a-última-etapa)); o que segue vale para os outros.
 
 - **São personagens** (`type: "character"`), montados como o assistente de criação monta um: a raça com as duas inatas
   (a escolha: a Bênção, o Pacto, a linhagem, o Astro) e as habilidades dos estágios da forma até o do NPC (as flags
@@ -339,11 +340,13 @@ e Além do Muro.
 
 ## Os personagens maiores
 
-O compêndio **Personagens Maiores** (`major-characters`, só do Mestre) tem 140 personagens de grande relevância na
+O compêndio **Personagens Maiores** (`major-characters`, só do Mestre) tem 141 personagens de grande relevância na
 história, em 15 pastas: Espadachins, Guerreiras e Aventureiras, Cavaleiros e Armaduras, Damas,
 Sacerdotisas e Magas, Nobres e Lordes, Aventureiros e Foras da Lei, Meninas e Moças, Guerreiros Veteranos, Anciãos, Magos
 e Eruditos, Meio-Feras e Monstros, Feras e Divindades, Mascotes e Bichos, Rapazes e Forasteiros e v2 (os 18 que chegaram
-na 0.41, entre eles Bercouli, Chudelkin e Deusolbert com os nomes da obra).
+na 0.41, entre eles Bercouli, Chudelkin e Deusolbert com os nomes da obra). 66 deles são o elenco de *A Última Etapa*,
+com o nome do papel e a ficha inteira: 65 dos 140 de antes e Aldric Artorius, que entrou com o token do Guardião do
+Inverno (veja [O elenco de A Última Etapa](#o-elenco-de-a-última-etapa)). O que segue vale para os outros 75.
 
 - **São personagens em branco** (`type: "character"`, NP 1) com o nome, o token e só o item de raça, copiado do
   compêndio com o `_stats.compendiumSource`. Sem habilidades, classe, Magia, profissão, NP nem números: o Mestre monta a
@@ -361,6 +364,41 @@ na 0.41, entre eles Bercouli, Chudelkin e Deusolbert com os nomes da obra).
 - **A fonte é o JSON** em `src/packs/major-characters` (cada um leva `flags.eternia.major = { lote, pos }`). Ele saiu de um
   script fora do repositório (`prompts/personagens-maiores/gerar_compendio.py`, com o elenco em `elenco.py` e os tokens
   em `tokens.py`), com ids estáveis pela posição: rodar de novo troca só os arquivos dele.
+
+## O elenco de A Última Etapa
+
+Os 97 papéis do enredo da campanha (o capítulo 9 de `Desktop/Daggerheart/Eternia-Enredo`) têm a ficha inteira, no NP que
+cada um tem quando entra na história (AS 377 para quase todos; os capitães do Torneio no de 380; Tuk e Primula depois de
+receberem a Palavra). São 31 atores dos NPCs e 65 dos Personagens Maiores, com o nome do papel no ator e no token, e
+Aldric Artorius, um ator novo dos Personagens Maiores com o token do Guardião do Inverno (a criatura do Bestiário fica
+como está: é ele contido, para os NP baixos).
+
+- **O que a ficha tem**, montado como o sistema monta, NP a NP: a raça com as inatas e os estágios da forma até o do
+  papel (os Cavaleiros da Integridade presos no I pela Síntese, a Kaimei no V, os humanos fiéis à Igreja até o IV; a
+  Coleção de Bênçãos com uma Bênção por NH, como `apps/rank-grants.mjs` dá); a classe com o kit, o elemento do Matador de
+  Dragões, o Caminho e o Ápice; as Magias nas vagas da classe (`grantedBy` da classe; a Absoluta fecha as outras vagas) e
+  os Decretos dos Mandamentos (`grantedBy` da Magia e do Absorver Mandamento); as escolhas de cada NP gastas como o
+  navegador de habilidades gastaria (os feitiços, os talentos da classe, do Caminho, do elemento e das Dedicações, e o NH
+  das que sobem); as básicas, a profissão com o Rank, os 5 pontos de atributo, armas e armadura do NP (os Objetos Divinos
+  dos Cavaleiros) e a Pedra Mágica do NP para quem tem Magia e não luta de cajado (o Poder Mágico tem uma fonte só); PV e
+  Destino cheios.
+- **As marcas:** `flags.eternia.elenco = { slug, papel }` no ator; `skillProgress = { base: NP, creation: false }` e
+  nenhuma marca `skillPicks`: a ficha não deve escolha nenhuma, e subir de NP depois conta só as escolhas novas. Os NP
+  mais altos têm mais escolhas Gerais do que a classe e a raça oferecem (os Talentos Gerais comuns ainda não existem): as
+  que sobram ficam sem gastar.
+- **O perfil:** `system.biography` diz o que o mundo sabe do papel; o segredo fica nas Anotações da Biografia
+  (`flags.eternia.bio.notes`, sob "Só o Mestre").
+- **Os portadores** contam quando o ator vai para o mundo (`apps/magic-holders.mjs`). O Cataclismo (Rübezahl e Tuk) e o
+  Impecável (Scheherazade e Primula) são a mesma Palavra antes e depois da herança: ponha no mundo um de cada vez. Os
+  Mandamentos estão nos seis Senhores do Conselho, acima do limite de 3 de propósito (no Território Negro, cada Senhor tem
+  o seu Mandamento). As outras Magias de um portador só do elenco são de um papel cada; 17 delas continuam livres para os
+  jogadores.
+- **As vagas em branco:** O Pontífice (as três), Kriegger (as duas; ele não tem Janela) e Viridiana Varn (a do NP 10)
+  esperam Magias que ainda vão ser criadas: a Escrita, o Página em Branco e a Escrita de Cardinal.
+- **A fonte é o JSON**, que sai de `Eternia-Enredo/fichas/gerar_fichas.py` (fora do repositório; as decisões de cada
+  papel em `elenco_fichas.py`, o relatório em `FICHAS.md`). Ele acha cada ator pela marca do elenco (ou pelo nome de
+  antes), e rodar de novo reescreve só os 97. Rodar `gerar_npcs.py` ou `gerar_compendio.py` devolve os atores do elenco
+  ao que eram: depois deles, rode o `gerar_fichas.py`.
 
 ## Para macros
 

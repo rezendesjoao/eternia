@@ -4,27 +4,27 @@
   "img": "systems/eternia/assets/tokens/major/sigismund-leonhart.webp",
   "system": {
     "health": {
-      "value": 0,
-      "max": 0
+      "value": 279,
+      "max": 279
     },
     "fate": {
-      "value": 0,
-      "max": 0
+      "value": 1,
+      "max": 1
     },
     "tags": [],
-    "biography": "",
+    "biography": "<p>Mestre da Presa de Marfim, a guilda mais forte do Império, que vence o Festival há trinta anos. Velho rei-guerreiro de juba branca e cicatriz no nariz: justo, duro, generoso com crianças e sem pena dos fracos. Um Marfim nunca mata, e ele também não.</p>",
     "race": "",
     "attributes": {
       "str": {
-        "value": 0,
+        "value": 3,
         "mod": 0
       },
       "dex": {
-        "value": 0,
+        "value": 1,
         "mod": 0
       },
       "pow": {
-        "value": 0,
+        "value": 1,
         "mod": 0
       },
       "int": {
@@ -96,7 +96,17 @@
       "impetus": 0,
       "combo": 0,
       "rhythm": 0,
-      "clones": 0
+      "clones": 0,
+      "contagion": 0,
+      "dying": 0,
+      "ironBlood": 0,
+      "anticipation": 0,
+      "hourglass": 0,
+      "jackpot": 0,
+      "luck": 0,
+      "goliath": 0,
+      "quake": 0,
+      "reaped": 0
     },
     "checks": {
       "athletics": {
@@ -145,16 +155,17 @@
       }
     },
     "infos": {
-      "crank": 1,
+      "crank": 25,
+      "xp": 0,
       "hate": 0,
       "fatigue": 0,
       "level": 35
     },
     "social": {
-      "guild": ""
+      "guild": "Presa de Marfim"
     },
     "inventory": {
-      "gold": 700
+      "gold": 3000
     }
   },
   "prototypeToken": {
@@ -260,9 +271,9 @@
         "tags": [],
         "identifier": "human",
         "attributes": {
-          "str": 0,
+          "str": 1,
           "dex": 0,
-          "pow": 0,
+          "pow": 1,
           "int": 0
         },
         "hp": 8,
@@ -371,8 +382,6139 @@
       "ownership": {
         "default": 0
       },
-      "_id": "RHfPQbzsEd79VKL8",
-      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.RHfPQbzsEd79VKL8"
+      "_id": "rHta0oK4TllYmTON",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.rHta0oK4TllYmTON"
+    },
+    {
+      "name": "Centurião",
+      "type": "class",
+      "system": {
+        "description": "<p><strong>Atributos:</strong> Força 4, Destreza 2, Poder 3 e Inteligência 1. <strong>PV:</strong> 55, +9 por NP (faixa Colossal). <strong>Papel:</strong> Defesa.</p><p><strong>Motor: Baluarte.</strong> Cada ataque de um inimigo contra o Centurião assenta mais uma Camada no Baluarte, e cada Camada é [Anulação: 2] contra todo dano. O Golpe do Baluarte gasta todas de uma vez e prende o inimigo a ele.</p><p><strong>Magias:</strong> a classe é como você luta; a Magia é a magia que se mistura a ela. Você escolhe uma Magia no NP 1 e outra no NP 10 (Terra, Escrita Sólida, Encantamento...), e os feitiços delas entram nas suas escolhas de Combate e alimentam o Baluarte (+1; os grandes, +2).</p><p><strong>Kit do NP 1:</strong> Baluarte, Intercepção, Brado do Baluarte e Golpe do Baluarte, e a primeira Magia. <strong>NP 3:</strong> um Caminho (Fortaleza, Escudo Erguido ou Retaliação). <strong>NP 5:</strong> Dedicação. <strong>NP 10:</strong> o Ápice, Bastião Eterno, e a segunda Magia.</p><hr><p><em>O Centurião é o primeiro que o inimigo vê e o último que ele consegue derrubar. Escudo largo, armadura pesada, os pés firmes no chão: ele não corre atrás da luta, chama a luta para si. Cada golpe que recebe deixa a sua defesa mais alta, até o momento em que ele devolve tudo de uma vez.</em></p>",
+        "tags": [
+          "Defense"
+        ],
+        "identifier": "guardiao",
+        "attributes": {
+          "str": 4,
+          "dex": 2,
+          "pow": 3,
+          "int": 1
+        },
+        "hp": 55,
+        "hpPerRank": 9,
+        "grants": [
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.5dVVHDaCZbcMO13h"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.Dj6Y8DftfrJAL4dp"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.RcsMtbEk7TIhED9Q"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.C6hzV5O7ims2X6MR"
+            ]
+          },
+          {
+            "rank": 1,
+            "magic": true
+          },
+          {
+            "rank": 10,
+            "magic": true
+          },
+          {
+            "rank": 3,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.nsItNsa1GdqYi4X8",
+              "Compendium.eternia.skills-class.Item.mvh7nKLB98jitAve",
+              "Compendium.eternia.skills-class.Item.RB3xP5oxAbxQCwYB"
+            ]
+          },
+          {
+            "rank": 10,
+            "auto": true,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.P28vEFmwtC4cd7SI"
+            ]
+          }
+        ]
+      },
+      "img": "systems/eternia/assets/icons/classes/guardiao.svg",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.races-classes.Item.8lcN320RSz2DTnqW",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "TNhMngwqP9zYLkiK",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.TNhMngwqP9zYLkiK"
+    },
+    {
+      "name": "Ferreiro",
+      "type": "subclass",
+      "system": {
+        "description": "<p><strong>Faz:</strong> armas, armaduras pesadas e médias, escudos.</p><p><strong>Talento: Afiar.</strong> No Interlúdio, uma arma do grupo ganha +2 de Poder de Ataque (×2 a partir do nível 11, ×3 a partir do 21) até o fim do cenário do dono dela. Gasta uma tentativa.</p><p><strong>Oficina:</strong> no Interlúdio ou no Pós-Jogo, escolha a base, gaste 1 Anima-mundi do nível dela e role 2d6 + Rank: até 6 Falha, 7 a 9 Aproveitamento (o material volta), 10 a 11 Incomum [M1], 12 a 13 Raro [M2], 14 ou mais Perfeito [M3]. Dois 6 sobem um degrau. Dois itens iguais viram um melhor na Fusão.</p><p><strong>Rank:</strong> sobe com EXP (Rank 2 com 20, 3 com 40, 4 com 80, 5 com 160). Cada Rank dá +1 na rolagem, uma tentativa a mais por cenário e libera 6 níveis de item.</p><p>Tudo é feito pela aba Profissão da ficha.</p><hr><p><em>O martelo cai no ritmo de um coração, e cada faísca que salta da bigorna leva um pouco da vontade de quem forja. As lâminas saem da têmpera ainda chiando, com runas que só acendem na mão certa.</em></p>",
+        "tags": [],
+        "identifier": "blacksmith",
+        "grants": [],
+        "skills": []
+      },
+      "img": "icons/skills/trades/smithing-anvil-silver-red.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.4.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.races-classes.Item.jv21wTMTXNRxXNLN",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "QcwT8rLkkWtPDLgJ",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.QcwT8rLkkWtPDLgJ"
+    },
+    {
+      "name": "Bênção do Corpo de Ferro",
+      "type": "skill",
+      "system": {
+        "description": "<p>+1d6 nos testes de Vigor.</p><p>Frio, calor, fome e sede extremos levam o dobro do tempo para afetar você.</p><hr><p><em>Você atravessa a neve de mangas curtas, e dias sem comer deixam no seu rosto apenas um traço de cansaço.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/buff-strength-muscle-damage.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {},
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Bênção do Corpo de Ferro",
+          "img": "icons/magic/control/buff-strength-muscle-damage.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.endurance.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "8Naj0qegRvCH6r1G",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.JwdQdMePn8cnqICq.8Naj0qegRvCH6r1G"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "race",
+            "source": "Compendium.eternia.races-classes.Item.CMMPFP41a2v6KJly"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.t1oaxTeq3Q58JKCp",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "JwdQdMePn8cnqICq",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.JwdQdMePn8cnqICq"
+    },
+    {
+      "name": "Força dos Laços",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use quando um aliado a até 20 Qd ficar Incapacitado, ou quando você ficar com metade dos PV ou menos.</p><p>Até o fim da rodada, você recebe +1d6 em todos os testes e +[NP×2] nas suas rolagens de dano.</p><hr><p><em>Um nome gritado, um punho que se fecha. O cansaço some do rosto e algo novo acende nos olhos: a recusa de cair enquanto alguém ainda conta com você.</em></p>",
+        "tags": [],
+        "timing": "Instant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/life/heart-hand-gold-green-light.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "rollFilter": {
+                "damageTypes": [
+                  "physical",
+                  "magical",
+                  "penetrating",
+                  "direct"
+                ]
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Força dos Laços",
+          "img": "icons/magic/life/heart-hand-gold-green-light.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.accuracy.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.evasion.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.resistance.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.athletics.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.endurance.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.disable.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.operation.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.perception.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.negotiation.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.knowledge.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.analysis.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "eternia.roll.damage.mod",
+                "type": "add",
+                "value": "@cr*2",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "uXXok6VNMp9Maq4B",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.1u8DFIOLMfDxuHB3.uXXok6VNMp9Maq4B"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "race",
+            "source": "Compendium.eternia.races-classes.Item.CMMPFP41a2v6KJly"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.1iwcIIWN17zLMWby",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "1u8DFIOLMfDxuHB3",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.1u8DFIOLMfDxuHB3"
+    },
+    {
+      "name": "Baluarte",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Motor do Centurião.</strong> O seu Baluarte junta <strong>Camadas</strong>. Todo combate começa com 0 Camadas.</p><ul><li><strong>Ganha:</strong> +1 Camada cada vez que um inimigo faz um ataque contra você, acerte ou não.</li><li><strong>Efeito:</strong> em combate, cada Camada dá [Anulação: 1]: com 3 Camadas, todo dano que você sofre cai 3.</li><li><strong>Gasta:</strong> o Golpe do Baluarte gasta todas as Camadas num golpe que prende o inimigo a você.</li><li><strong>Teto:</strong> 3 Camadas, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> no Encerramento de uma rodada em que nenhum inimigo atacou você, perde 1 Camada.</li></ul><p><em>Cada golpe que bate no escudo assenta mais uma pedra na muralha.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/wardoor-wooden-plank-boss-steel.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "conditions": [
+                {
+                  "type": "inCombat"
+                }
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Baluarte",
+          "img": "icons/equipment/shield/wardoor-wooden-plank-boss-steel.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.passive.cancel",
+                "type": "add",
+                "value": "@motor.value*@motor.layer",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "RpnI79dLqCN1QApj",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.Rs4UevbPGX7oiRY7.RpnI79dLqCN1QApj"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-baluarte",
+          "kind": "motor",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "guardiao",
+            "role": "core"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.8lcN320RSz2DTnqW"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.5dVVHDaCZbcMO13h",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Rs4UevbPGX7oiRY7",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.Rs4UevbPGX7oiRY7"
+    },
+    {
+      "name": "Intercepção",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use quando um aliado a até 1 Qd for sofrer o dano de um ataque: você se põe na frente e sofre o dano no lugar dele, como em Proteger, mas sem precisar estar em [Pré-Ação] e sem gastar ação. +1 Camada.</p><p>Aplique o dano em você pelo cartão de dano.</p>",
+        "tags": [],
+        "timing": "Before Damage",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/shield-block-gray-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-intercepcao",
+          "kind": "feeds",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "guardiao",
+            "gain": 1,
+            "action": "none"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.8lcN320RSz2DTnqW"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.Dj6Y8DftfrJAL4dp",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "E8G1JGhfTkLzBO9w",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.E8G1JGhfTkLzBO9w"
+    },
+    {
+      "name": "Brado do Baluarte",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você bate a arma no escudo e chama um inimigo a até 3 Qd: ele fica [Provocado] por você. +1 Camada.</p><p><em>O estrondo do metal corta o campo de batalha e todos os olhos se viram para o escudo.</em></p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/heater-steel-boss-red.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "taunted"
+              },
+              "expires": "endOfRound",
+              "recipients": "enemies"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Brado do Baluarte",
+          "img": "systems/eternia/assets/ui/status/taunted.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "taunted"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "KyPpED2iY4F9xVTU",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.mxcOcwVsrnyc5TXr.KyPpED2iY4F9xVTU"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-brado",
+          "kind": "feeds",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "guardiao",
+            "gain": 1
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.8lcN320RSz2DTnqW"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.RcsMtbEk7TIhED9Q",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "mxcOcwVsrnyc5TXr",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.mxcOcwVsrnyc5TXr"
+    },
+    {
+      "name": "Golpe do Baluarte",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com pelo menos 1 Camada, você empurra todo o peso do Baluarte num golpe: [(1 + Camadas)d6 + Poder de Ataque] de dano físico, e o alvo fica [Provocado] por você. Gasta todas as Camadas.</p><p><strong>Custo:</strong> Ódio 1 + as Camadas gastas.</p><hr><p><em>A muralha inteira desaba de uma vez sobre um só inimigo.</em></p>",
+        "tags": [
+          "Weapon Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1+Camadas",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "1+@spent",
+          "mod": "@use.wrath*(@cr+5)",
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/shield-block-bash-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-golpe",
+          "kind": "spends",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "guardiao",
+            "needs": {
+              "min": 1
+            },
+            "spend": "all"
+          },
+          "damageText": "(1+Camadas)d6 + [Poder de Ataque] Físico",
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.8lcN320RSz2DTnqW"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.C6hzV5O7ims2X6MR",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "1ZJABWoP4tSbdw0C",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.1ZJABWoP4tSbdw0C"
+    },
+    {
+      "name": "Caminho da Fortaleza",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Reescreve o Zera.</strong> As Camadas não caem mais no Encerramento. O Golpe do Baluarte passa a gastar só metade das Camadas (arredondado para cima) e soma o dano só pelas gastas.</p><p><strong>Talentos do Caminho:</strong> Pedra sobre Pedra (NP 3) e Fortaleza Viva (NP 7).</p><hr><p><em>Muralhas de verdade não esperam o próximo cerco para ficar de pé.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/kite-wooden-boss-steel-brown.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-fortaleza",
+          "kind": "bends",
+          "branch": "path",
+          "choiceOnly": true,
+          "path": {
+            "class": "guardiao",
+            "id": "fortaleza"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.8lcN320RSz2DTnqW"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.nsItNsa1GdqYi4X8",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "cR2cLuYRgOGBMwHH",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.cR2cLuYRgOGBMwHH"
+    },
+    {
+      "name": "Bastião Eterno",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Ápice do Centurião (NP 10).</strong> Você começa todo combate com 2 Camadas, e em combate elas não caem abaixo de 2: o Encerramento não as derruba, e depois do Golpe do Baluarte você fica com 2.</p><ul><li><strong>Fortaleza:</strong> o Teto do Baluarte aumenta em 2.</li><li><strong>Escudo Erguido:</strong> cada ataque contra um aliado do seu quadrado dá 2 Camadas.</li><li><strong>Retaliação:</strong> a Retaliação não gasta Camada.</li></ul><hr><p><em>Um dia alguém vai atravessar essa muralha. Não hoje.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/heater-crystal-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-bastiao-eterno",
+          "kind": "bends",
+          "branch": "apex",
+          "choiceOnly": true,
+          "apex": "guardiao",
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.8lcN320RSz2DTnqW"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.P28vEFmwtC4cd7SI",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "rWuT7n1sEvoe565q",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.rWuT7n1sEvoe565q"
+    },
+    {
+      "name": "Contra-ataque",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Magia Perdida.</strong> Você não ataca: devolve. Você lê o golpe que vem, a força e a hora certa, e o manda de volta para quem o soltou com o triplo da força. Quanto mais forte o inimigo, mais forte a volta. E o dano que você aguenta de propósito vira um golpe só. Os feitiços batem mais forte que os das outras Magias do mesmo NP, e o preço vem junto.</p><ul><li><strong>Única:</strong> só uma pessoa no mundo tem esta Magia de cada vez.</li><li><strong>Tabu, Ler o Golpe:</strong> você espera o golpe chegar em vez de desviar: em combate, você sofre −2 nas Esquivas contra a Esquiva e −2 contra a Resistência.</li><li><strong>Golpe direto:</strong> o Contra-ataque Total e o Contra-ataque Físico só devolvem ataques de alvo único. Ataques de área, em linha ou em mais de um alvo não dão para ler.</li><li><strong>Traço, Mais que o Dobro:</strong> você é imune a [Atordoado], e o seu [Contragolpe] devolve o triplo do dano (não o dobro) e soma +NP×2.</li><li><strong>Feitiços:</strong> Contra-ataque Total e Contra-ataque Físico (NP 1), Contra-ataque Evanescente e Contra-ataque Vingativo (NP 3), Golpe do Rancor (NP 5) e o feitiço supremo Contra-ataque Absoluto (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Contra-ataque Absoluto pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Ninguém entende como o próprio golpe voltou. Você só abriu a mão.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "conditions": [
+                {
+                  "type": "inCombat"
+                }
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Ler o Golpe",
+          "img": "systems/eternia/assets/ui/status/counter.svg",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.evasion.mod",
+                "type": "add",
+                "value": -2,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.resistance.mod",
+                "type": "add",
+                "value": -2,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "WrJt4gD2k3eVTPR5",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.XDObaBM0AY5I5Zlp.WrJt4gD2k3eVTPR5"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "trait": {
+                "magia": "contra-ataque",
+                "counterBonus": "@cr*2",
+                "counterMult": 3
+              },
+              "immune": [
+                "dazed"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Mais que o Dobro",
+          "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "Jz7CgMMQSkNYebSm",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.XDObaBM0AY5I5Zlp.Jz7CgMMQSkNYebSm"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "contra-ataque-contra-ataque",
+          "kind": "bends",
+          "branch": "magic",
+          "magic": {
+            "id": "contra-ataque",
+            "category": "lost",
+            "tagline": "Você não ataca: devolve o golpe com o triplo da força.",
+            "holders": 1
+          },
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.8lcN320RSz2DTnqW"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.DnjKQd3U2MTrxEAK",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "XDObaBM0AY5I5Zlp",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.XDObaBM0AY5I5Zlp"
+    },
+    {
+      "name": "Contra-ataque Físico",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Contra-ataque.</strong> Antes do Dano de um ataque físico de alvo único que acertou você: você recebe o golpe na lâmina, ou no corpo, e o devolve inteiro. Você fica com [Contragolpe (Físico)]: esse ataque não causa nada a você, e quem o deu sofre o triplo do dano que você sofreria, como dano direto. Uma vez por rodada.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Ele sente o próprio golpe no ombro antes de entender que errou.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Before Damage",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/hand-grip-sword-strike-orange.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "statusData": {
+                "statusId": "counter",
+                "value": 0,
+                "tag": "physical"
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Contragolpe (Físico)",
+          "img": "systems/eternia/assets/ui/status/counter.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "counter"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "U2hZpjsxDdDFiFA2",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.qOSWsO06hrrASg73.U2hZpjsxDdDFiFA2"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "contra-ataque-fisico",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "contra-ataque"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.V7SnX1AkPHOgtFxq",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "qOSWsO06hrrASg73",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.qOSWsO06hrrASg73"
+    },
+    {
+      "name": "Atrair o Ódio",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você se expõe de propósito: ganha 3 de Ódio (o custo) e +1 Camada.</p><p><em>Abre a guarda, bate no peito e espera.</em></p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/round-wooden-boss-notched-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-atrair-o-odio",
+          "kind": "feeds",
+          "branch": "desafio",
+          "minRank": 1,
+          "motor": {
+            "id": "guardiao",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.fubb3fcF1m8Q6DhS",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "0optXFR8EWtRi1Cy",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.0optXFR8EWtRi1Cy"
+    },
+    {
+      "name": "Contra-ataque Total",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Contra-ataque.</strong> Antes do Dano de um ataque mágico de alvo único que acertou você: você abre a mão diante do feitiço e o lê. Você fica com [Contragolpe (Mágico)]: esse ataque não causa nada a você, e quem o soltou sofre o triplo do dano que você sofreria, como dano direto. Uma vez por rodada.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>A magia bate na sua palma e faz a curva de volta, maior do que veio.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Before Damage",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/defensive/shield-barrier-flaming-pentagon-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "statusData": {
+                "statusId": "counter",
+                "value": 0,
+                "tag": "magical"
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Contragolpe (Mágico)",
+          "img": "systems/eternia/assets/ui/status/counter.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "counter"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "IhieE5i8BwBtEfUS",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.TQDSQUvgHZ7YO7Rl.IhieE5i8BwBtEfUS"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "contra-ataque-total",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "contra-ataque"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.099npwaTqD3YpPjX",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "TQDSQUvgHZ7YO7Rl",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.TQDSQUvgHZ7YO7Rl"
+    },
+    {
+      "name": "Muralha Humana",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você segura uma porta arrombada, escora uma viga que desaba ou fecha uma passagem com o corpo: Teste de Atletismo com +[NH]d6. Em combate, cada Camada soma +1 ao teste.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 3,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": "@motor.value",
+          "vs": "",
+          "stat": "athletics"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/chest/breastplate-banded-steel.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-muralha-humana",
+          "kind": "bends",
+          "branch": "general",
+          "motor": {
+            "id": "guardiao"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.nsBMCKEZn544uUdq",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "zL5WUgHonrTBIEpB",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.zL5WUgHonrTBIEpB"
+    },
+    {
+      "name": "Grito de Guerra",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use na Manutenção: os inimigos que você escolher a até 2 Qd ficam [Provocado] por você. +1 Camada.</p><p><strong>Usos:</strong> [NH] por cena.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Setup",
+        "checkType": "",
+        "range": "2Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 3,
+          "max": 3
+        },
+        "cost": "Hate 2",
+        "limit": "(SR)/Scene",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/heater-steel-sword-yellow-black.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "taunted"
+              },
+              "expires": "endOfRound",
+              "recipients": "enemies"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Grito de Guerra",
+          "img": "systems/eternia/assets/ui/status/taunted.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "taunted"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "UjatHppjYQPm2vXk",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.6ZOE6AnUHkQu8Y1u.UjatHppjYQPm2vXk"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-grito-de-guerra",
+          "kind": "feeds",
+          "branch": "desafio",
+          "minRank": 1,
+          "motor": {
+            "id": "guardiao",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.wCag1aAC1sHLlERk",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "6ZOE6AnUHkQu8Y1u",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.6ZOE6AnUHkQu8Y1u"
+    },
+    {
+      "name": "Guarda Estendida",
+      "type": "skill",
+      "system": {
+        "description": "<p>A Intercepção alcança aliados a até 2 Qd: você corre até o aliado antes de sofrer o dano por ele.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/kite-steel-boss-gold.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "rollFilter": {
+                "skills": [
+                  {
+                    "name": "Intercepção"
+                  }
+                ]
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Guarda Estendida",
+          "img": "icons/equipment/shield/kite-steel-boss-gold.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.skill.range",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "eternia.skill.note",
+                "type": "override",
+                "value": "Guarda Estendida: aliados a até 2 Qd.",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "5YqP0iToEL3CvZ89",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.mwsrxs1buVjeYn1E.5YqP0iToEL3CvZ89"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-guarda-estendida",
+          "kind": "bends",
+          "branch": "guarda",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.toQl8d0Y9JrJb7J3",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "mwsrxs1buVjeYn1E",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.mwsrxs1buVjeYn1E"
+    },
+    {
+      "name": "Ombros de Ferro",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você carrega o peso do grupo: +[NH×2] Espaços de Inventário, e leva um aliado Incapacitado nas costas sem perder velocidade.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "General",
+        "skillRank": {
+          "value": 2,
+          "max": 2
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/chest/heavy-steel.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {}
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Ombros de Ferro",
+          "img": "icons/equipment/chest/heavy-steel.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.inventory.mod",
+                "type": "add",
+                "value": "@sr*2",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "oAHC4cuWHyB2MKui",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.E5zOaFOk96cexhHr.oAHC4cuWHyB2MKui"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-ombros-de-ferro",
+          "kind": "bends",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.wh3HrK8uSHUyB0HF",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "E5zOaFOk96cexhHr",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.E5zOaFOk96cexhHr"
+    },
+    {
+      "name": "Contra-ataque Evanescente",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Contra-ataque.</strong> Antes do Dano de um ataque mágico, até de área: em vez de devolver, você desfaz o feitiço no ar. Você e os aliados a até 2 Qd que ele atingiu (escolha-os como alvos) ficam com [Anulação: NP×5 + 20] contra esse dano: na prática, ele some. Uma vez por cena.</p><p><em>Você dobra o polegar e o mindinho, e o feitiço vira fumaça.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Before Damage",
+        "checkType": "",
+        "range": "2Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/defensive/shield-barrier-flaming-pentagon-purple-orange.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "both",
+              "statusData": {
+                "statusId": "cancel",
+                "value": "@cr*5+20",
+                "tag": "Magic"
+              },
+              "consumeOn": "damage",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Contra-ataque Evanescente",
+          "img": "systems/eternia/assets/ui/status/cancel.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "cancel"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "ZVFgV0kmyno4wWtC",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.PsAOb1E1jlb63up3.ZVFgV0kmyno4wWtC"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "contra-ataque-evanescente",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "contra-ataque"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.ZeJoX9QiwXDTny1U",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "PsAOb1E1jlb63up3",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.PsAOb1E1jlb63up3"
+    },
+    {
+      "name": "Contra-ataque Vingativo",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Contra-ataque.</strong> Você desliga as próprias defesas de propósito e começa a guardar: você fica com [Rancor: 1] até o fim da cena, e cada PV que você perde para ataques soma 1 no Rancor (até NP×4). Enquanto guarda, as suas Defesas Física e Mágica caem [NP÷2]. O Golpe do Rancor solta tudo. Uma vez por cena.</p><p><em>Cada golpe que você leva fica guardado. Você vai devolver todos de uma vez.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/shield-damaged-broken-orange.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "statusData": {
+                "statusId": "grudge",
+                "value": 1
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Contra-ataque Vingativo",
+          "img": "systems/eternia/assets/ui/status/grudge.svg",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.battle-status.defense.phys.mod",
+                "type": "add",
+                "value": "-floor(@cr/2)",
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.battle-status.defense.magic.mod",
+                "type": "add",
+                "value": "-floor(@cr/2)",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [
+            "grudge"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "uDayEMNY3yoAfMbU",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.DMHI7FaN2t0GLOpF.uDayEMNY3yoAfMbU"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "contra-ataque-vingativo",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "contra-ataque"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.hfGJHYWb7GFtLX5i",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "DMHI7FaN2t0GLOpF",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.DMHI7FaN2t0GLOpF"
+    },
+    {
+      "name": "Palavra de Centurião",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você dá a sua palavra de que ninguém sai ferido enquanto estiver com você: Teste de Negociação com +[NH]d6 para acalmar alguém com medo, ganhar a confiança de quem foge ou convencer um guarda a deixar o grupo passar.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "General",
+        "skillRank": {
+          "value": 3,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": 0,
+          "vs": "",
+          "stat": "negotiation"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/social/diplomacy-handshake-gray.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-palavra-de-guardiao",
+          "kind": "bends",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.zynPKwBgjWZsGQys",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "TKKHjoaaoSKeXxnp",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.TKKHjoaaoSKeXxnp"
+    },
+    {
+      "name": "Investida de Escudo",
+      "type": "skill",
+      "system": {
+        "description": "<p>Antes do golpe, você pode avançar até 2 Qd em linha reta. Gaste até [NH+1] Camadas: [(1 + Camadas gastas)d6 + Poder de Ataque] de dano físico, e o alvo fica [Derrubado].</p>",
+        "tags": [
+          "Weapon Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 3,
+          "max": 3
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "1+@spent",
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/shield-block-bash-yellow.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-investida",
+          "kind": "spends",
+          "branch": "martelo",
+          "minRank": 1,
+          "motor": {
+            "id": "guardiao",
+            "needs": {
+              "min": 1
+            },
+            "spend": "choose",
+            "max": "@sr+1"
+          },
+          "damageText": "(1+Camadas gastas)d6 + [Poder de Ataque] Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.79IqNVw6X8OJcE65",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "ZQ62ngU96LPKSubH",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.ZQ62ngU96LPKSubH"
+    },
+    {
+      "name": "Muro de Ferro",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use quando você for sofrer dano: gaste até [NH+1] Camadas. Você ganha [Barreira: Camadas gastas × (NP+5)] até o fim do processo.</p>",
+        "tags": [],
+        "timing": "Before Damage",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 3,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/heater-steel-gray.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "barrier",
+                "value": "@spent*(@cr+5)"
+              },
+              "expires": "endOfProcess"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Muro de Ferro",
+          "img": "systems/eternia/assets/ui/status/barrier.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "barrier"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "W4uaks7urf31bKzX",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.cAMJT3grgI4ppdNe.W4uaks7urf31bKzX"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-muro-de-ferro",
+          "kind": "spends",
+          "branch": "muralha",
+          "minRank": 1,
+          "motor": {
+            "id": "guardiao",
+            "needs": {
+              "min": 1
+            },
+            "spend": "choose",
+            "max": "@sr+1",
+            "action": "none"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.cKoBZFJlo3D7TToV",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "cAMJT3grgI4ppdNe",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.cAMJT3grgI4ppdNe"
+    },
+    {
+      "name": "Sentinela",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você nunca baixa o escudo de todo: começa todo combate com [NH] Camadas.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "General",
+        "skillRank": {
+          "value": 2,
+          "max": 2
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/heater-steel-engraved-lance-rest.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-sentinela",
+          "kind": "feeds",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.2U908GT5AFUlm9C3",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "JGeSl0Q9BbZKCOTd",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.JGeSl0Q9BbZKCOTd"
+    },
+    {
+      "name": "Golpe do Rancor",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Contra-ataque.</strong> Feitiço grande. Você solta de uma vez tudo o que guardou num inimigo engajado com você: Teste de Precisão contra a Esquiva; [5d6 + Poder Mágico + Rancor] de dano mágico, e ele fica [Atordoado]. O seu Rancor zera.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Todo o dano da luta, num golpe só.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 5,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/sword-damaged-broken-glow-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "contra-ataque-golpe-do-rancor",
+          "kind": "feeds",
+          "branch": "magic",
+          "selfBonus": [
+            {
+              "statusId": "grudge",
+              "spend": true
+            }
+          ],
+          "hitStatuses": [
+            {
+              "statusId": "dazed"
+            }
+          ],
+          "magicSpell": {
+            "id": "contra-ataque"
+          },
+          "minRank": 5,
+          "motor": {
+            "id": "@class",
+            "gain": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.5RHrYkHqivvSa5At",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "qDviGYOtU4BuYBVi",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.qDviGYOtU4BuYBVi"
+    },
+    {
+      "name": "Pedra sobre Pedra",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Caminho da Fortaleza.</strong> Quando você se esquiva de um ataque de um inimigo, +1 Camada (além da Camada do próprio ataque).</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/round-wooden-reinforced-boss-steel.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-pedra-sobre-pedra",
+          "kind": "feeds",
+          "branch": "pathTalent",
+          "minRank": 3,
+          "pathTalent": {
+            "class": "guardiao",
+            "id": "fortaleza"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.8CLuNjQ3GPgHfFHd",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "hpoO7qOsE1M7j2Xo",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.hpoO7qOsE1M7j2Xo"
+    },
+    {
+      "name": "Contragolpe de Escudo",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use logo depois de se esquivar de um ataque de um inimigo engajado com você: gaste 1 Camada e devolva o golpe com a borda do escudo. [2d6 + Poder de Ataque + NP] de dano físico. Não gasta a sua Ação Maior.</p>",
+        "tags": [
+          "Weapon Attack",
+          "Dedication"
+        ],
+        "timing": "After Check",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": "@cr",
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/swords-parry-block-yellow.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-contragolpe",
+          "kind": "spends",
+          "branch": "martelo",
+          "minRank": 3,
+          "motor": {
+            "id": "guardiao",
+            "needs": {
+              "min": 1
+            },
+            "spend": 1,
+            "action": "none"
+          },
+          "damageText": "2d6 + [Poder de Ataque] + NP Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.OADLAujJHagJuX8A",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "09ptiZKtEkAdqVyg",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.09ptiZKtEkAdqVyg"
+    },
+    {
+      "name": "Escudo Compartilhado",
+      "type": "skill",
+      "system": {
+        "description": "<p>Gaste até [NH+1] Camadas: um aliado a até 1 Qd ganha [Anulação: Camadas gastas × 2] até o fim da rodada.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/defensive/shield-barrier-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "cancel",
+                "value": "@spent*2"
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Escudo Compartilhado",
+          "img": "systems/eternia/assets/ui/status/cancel.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "cancel"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "edmRWgBmeIyEoTVk",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.UU1LunnrDi2dpvVM.edmRWgBmeIyEoTVk"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-escudo-compartilhado",
+          "kind": "spends",
+          "branch": "guarda",
+          "minRank": 3,
+          "motor": {
+            "id": "guardiao",
+            "needs": {
+              "min": 1
+            },
+            "spend": "choose",
+            "max": "@sr+1"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.WKGEZIKDuylzCnXD",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "UU1LunnrDi2dpvVM",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.UU1LunnrDi2dpvVM"
+    },
+    {
+      "name": "Contra-ataque Absoluto",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Contra-ataque. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: Antes do Dano de qualquer ataque, mágico ou físico, até de área, que acertou você ou aliados a até 2 Qd (escolha-os como alvos). Todos ficam com [Contragolpe]: ninguém sofre o dano, e quem atacou sofre o triplo do que cada um sofreria + pontos gastos×NP, como dano direto. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>O golpe mais forte do inimigo foi o que mais doeu nele.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Before Damage",
+        "checkType": "",
+        "range": "2Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 4",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/defensive/shield-barrier-flaming-pentagon-orange.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "both",
+              "statusData": {
+                "statusId": "counter",
+                "value": "@spent*@cr",
+                "tag": "any"
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Contragolpe (Absoluto)",
+          "img": "systems/eternia/assets/ui/status/counter.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "counter"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "6Il0DDkmRCdsJxUZ",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.b4ZKcTS5n1sRpSFB.6Il0DDkmRCdsJxUZ"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "contra-ataque-absoluto",
+          "kind": "spends",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "contra-ataque"
+          },
+          "minRank": 7,
+          "motor": {
+            "id": "@class",
+            "needs": {
+              "full": true
+            },
+            "spend": "all"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.EVGPjBbXg0rD0brG",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "b4ZKcTS5n1sRpSFB",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.b4ZKcTS5n1sRpSFB"
+    },
+    {
+      "name": "Muralha Alta",
+      "type": "skill",
+      "system": {
+        "description": "<p>O Teto do Baluarte aumenta em [NH].</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 2
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/pavise-wooden-wings-blue-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-muralha-alta",
+          "kind": "bends",
+          "branch": "muralha",
+          "minRank": 3
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.pXyjYgQCEKNNemhW",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "VB0ch4oqbmX8JMeT",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.VB0ch4oqbmX8JMeT"
+    },
+    {
+      "name": "Olhos em Mim",
+      "type": "skill",
+      "system": {
+        "description": "<p>Na Manutenção, se você estiver no Topo de Ódio, +1 Camada.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/targe-copper-eye.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-olhos-em-mim",
+          "kind": "feeds",
+          "branch": "desafio",
+          "minRank": 3
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.uKvmsM4BT6N48Cfc",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "AWueW34uEgiwfoVE",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.AWueW34uEgiwfoVE"
+    },
+    {
+      "name": "Juramento de Proteção",
+      "type": "skill",
+      "system": {
+        "description": "<p>Escolha um aliado a até 3 Qd: até o fim do combate ele é o seu Protegido. Cada ataque de um inimigo contra o Protegido, acerte ou não, dá +1 Camada a você. Jurar por outro aliado troca o Protegido.</p><p>O nome do Protegido aparece no Motor, na aba Classe.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/social/diplomacy-unity-alliance.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-juramento",
+          "kind": "feeds",
+          "branch": "desafio",
+          "minRank": 5,
+          "requires": [
+            "guardiao-olhos-em-mim"
+          ],
+          "motor": {
+            "id": "guardiao"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.MbBuzthmz2LhJ577",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "DOTB7bsfofNj5ihf",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.DOTB7bsfofNj5ihf"
+    },
+    {
+      "name": "Onda de Choque",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com pelo menos 2 Camadas, você crava o escudo no chão: todos os inimigos do seu quadrado sofrem [(Camadas)d6 + Poder de Ataque] de dano físico e ficam [Provocado] por você. Gasta todas as Camadas.</p><p><em>O chão racha em círculo em volta do escudo.</em></p>",
+        "tags": [
+          "Weapon Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "@spent",
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/barrier-shield-explosion-yellow.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-onda-de-choque",
+          "kind": "spends",
+          "branch": "martelo",
+          "minRank": 5,
+          "requires": [
+            "guardiao-investida"
+          ],
+          "motor": {
+            "id": "guardiao",
+            "needs": {
+              "min": 2
+            },
+            "spend": "all"
+          },
+          "damageText": "(Camadas)d6 + [Poder de Ataque] Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.TgvwQUL0R8ZmPdcG",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "UOnxegL4v7Y8WrC0",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.UOnxegL4v7Y8WrC0"
+    },
+    {
+      "name": "Pedra Angular",
+      "type": "skill",
+      "system": {
+        "description": "<p>Cada Camada do Baluarte dá [Anulação: 2] em vez de [Anulação: 1].</p><p><em>As pedras de baixo seguram todas as outras.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/defensive/armor-stone-skin.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-pedra-angular",
+          "kind": "bends",
+          "branch": "muralha",
+          "minRank": 5,
+          "requires": [
+            "guardiao-muralha-alta"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.UPiD6epw6AvCCDdW",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "429YDOmdGXxE7XnQ",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.429YDOmdGXxE7XnQ"
+    },
+    {
+      "name": "Caos",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Magia Ancestral.</strong> O poder que veio antes de todos os outros: o Caos, de onde nasceram as deusas, os demônios, as fadas e os gigantes. Quem o carrega não aprende feitiços prontos: cria do nada o que precisa, na hora em que precisa. Uma lança, uma muralha, correntes, um gato que muda de forma, uma boca que engole golpes, um pedaço do mundo que obedece às suas regras. Só uma coisa ele não controla: quando reescreve a própria realidade, o que nasce é sorte.</p><ul><li><strong>Ancestral:</strong> sem Tabu. Os feitiços de ataque rolam 1d6 a mais que os de uma Magia comum do mesmo NP, e o feitiço supremo só chega no NP 10, mais forte que os das outras Magias.</li><li><strong>Criar na hora:</strong> cada feitiço de Caos pede uma escolha, a forma que nasce: quando é usado ou, nos que pedem teste, quando você aplica os efeitos em quem ele acertou. A Realidade Reescrita é a única que não escolhe: ela sorteia.</li><li><strong>O Reino do Caos:</strong> por uma cena, o espaço a até 3 Qd de você segue a regra que você escolhe, na hora e na Manutenção de cada rodada, sem Esquiva.</li><li><strong>Traço, Rei do Caos:</strong> você é imune a [Dominado] e aos Decretos dos Mandamentos (as leis dos outros não valem para quem cria as leis), e os seus feitiços de Caos causam +NP÷2 de dano em quem está [Agarrado].</li><li><strong>Feitiços:</strong> Forma do Caos e Gato do Caos (NP 1), Boca do Caos (NP 3), Reino do Caos (NP 5), Realidade Reescrita (NP 7) e o feitiço supremo O Mundo Recriado (NP 10).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Mundo Recriado pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Antes de existir o mundo, existia isto. Na sua mão, ele ainda não decidiu o que vai ser.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/slimes/slime-movement-swirling-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "trait": {
+                "magia": "caos",
+                "decreeImmune": true,
+                "bonusVs": [
+                  {
+                    "statuses": [
+                      "grappled"
+                    ],
+                    "value": "floor(@cr/2)"
+                  }
+                ]
+              },
+              "immune": [
+                "dominated"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Rei do Caos",
+          "img": "icons/creatures/slimes/slime-movement-swirling-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "y4KR1O1Sn2EkvGz7",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.HariFugJFbgnG2J5.y4KR1O1Sn2EkvGz7"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "caos-caos",
+          "kind": "bends",
+          "branch": "magic",
+          "magic": {
+            "id": "caos",
+            "category": "ancestral",
+            "tagline": "Criar do nada: em cada feitiço, você escolhe na hora o que nasce.",
+            "holders": 1
+          },
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.8lcN320RSz2DTnqW"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.BRW44j9O5hUMM2CY",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "HariFugJFbgnG2J5",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.HariFugJFbgnG2J5"
+    },
+    {
+      "name": "Forma do Caos",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Caos.</strong> O caos toma forma na sua mão e voa até um alvo a até 4 Qd: Teste de Precisão contra a Esquiva; [3d6 + Poder Mágico] de dano mágico. No acerto, ao aplicar os efeitos, escolha o que nasceu:</p><ul><li><strong>Lança:</strong> a ponta fica cravada e a ferida não fecha: [Deterioração: NP÷2 + 2].</li><li><strong>Correntes:</strong> elas prendem o alvo a você: [Agarrado].</li><li><strong>Muralha:</strong> o resto do caos vira um muro na sua frente: você fica com [Barreira: NP + 5] até o fim da cena.</li></ul><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Você só decide o que ele é quando já está no ar.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 3,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/commodities/treasure/puzzle-box-glowing-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "decay",
+                "value": "floor(@cr/2)+2"
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Forma do Caos: Lança",
+          "img": "systems/eternia/assets/ui/status/decay.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "decay"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "QZpOYW1hzc88D66L",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.CshwQGaaocn7ifhG.QZpOYW1hzc88D66L"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Forma do Caos: Correntes",
+          "img": "systems/eternia/assets/ui/status/grappled.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "grappled"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "G8KzvcHC2IbPbg92",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.CshwQGaaocn7ifhG.G8KzvcHC2IbPbg92"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "statusData": {
+                "statusId": "barrier",
+                "value": "@cr+5"
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Forma do Caos: Muralha",
+          "img": "systems/eternia/assets/ui/status/barrier.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "barrier"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "fcYTO2ZyUsxHao5w",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.CshwQGaaocn7ifhG.fcYTO2ZyUsxHao5w"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "caos-forma",
+          "kind": "feeds",
+          "branch": "magic",
+          "chooseEffect": true,
+          "magicSpell": {
+            "id": "caos"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.MK2eW6r6UxMbnDBT",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "CshwQGaaocn7ifhG",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.CshwQGaaocn7ifhG"
+    },
+    {
+      "name": "Gato do Caos",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Caos.</strong> Um gato feito de caos aparece ao seu lado e fica até o fim da cena: [Servo: NP÷2 + 2] (no Encerramento, ele golpeia o inimigo mais perto, a até 4 Qd). Escolha agora a forma dele: <strong>Chamas</strong> (o golpe é de [Chama]), <strong>Gelo</strong> (de [Frio]) ou <strong>Trovão</strong> (de [Choque]). Uma vez por cena.</p><hr><p><em>Ele nunca tem a mesma cara duas vezes. O humor também muda.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/nature/wolf-paw-glow-small-purple-teal.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "statusData": {
+                "statusId": "servant",
+                "value": "floor(@cr/2)+2",
+                "tag": "Flame"
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Gato do Caos: Chamas",
+          "img": "systems/eternia/assets/ui/status/servant.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "servant"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "Rx6C0v1CfGy5oNQE",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.jswIgh3ty1hVfVvY.Rx6C0v1CfGy5oNQE"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "statusData": {
+                "statusId": "servant",
+                "value": "floor(@cr/2)+2",
+                "tag": "Cold"
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Gato do Caos: Gelo",
+          "img": "systems/eternia/assets/ui/status/servant.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "servant"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "0z4rHByGIOsTwvnT",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.jswIgh3ty1hVfVvY.0z4rHByGIOsTwvnT"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "statusData": {
+                "statusId": "servant",
+                "value": "floor(@cr/2)+2",
+                "tag": "Shock"
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Gato do Caos: Trovão",
+          "img": "systems/eternia/assets/ui/status/servant.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "servant"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "pVvcK7OLkl4Zu13l",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.jswIgh3ty1hVfVvY.pVvcK7OLkl4Zu13l"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "caos-gato",
+          "kind": "feeds",
+          "branch": "magic",
+          "chooseEffect": true,
+          "magicSpell": {
+            "id": "caos"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.EB5icHn7NYXuvGl4",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "jswIgh3ty1hVfVvY",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.jswIgh3ty1hVfVvY"
+    },
+    {
+      "name": "Boca do Caos",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Caos.</strong> Antes do Dano de um ataque contra você: um vórtice abre a boca na sua frente. Escolha:</p><ul><li><strong>Engolir:</strong> ela come o golpe: [Anulação: NP×2 + 10] contra esse dano.</li><li><strong>Cuspir:</strong> ela devolve o que mordeu: [Espelho: NP×2] contra esse golpe (quem acertou você sofre NP×2 de dano direto).</li></ul><p>Uma vez por rodada.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Ninguém sabe para onde vai o que ela engole.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Before Damage",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/abilities/mouth-teeth-misshapen-pink.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "statusData": {
+                "statusId": "cancel",
+                "value": "@cr*2+10"
+              },
+              "consumeOn": "damage",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Boca do Caos: Engolir",
+          "img": "systems/eternia/assets/ui/status/cancel.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "cancel"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "2cfJ1Ww4zfMV5Z32",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.VZmCfXCL6bnTyz7a.2cfJ1Ww4zfMV5Z32"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "statusData": {
+                "statusId": "mirror",
+                "value": "@cr*2"
+              },
+              "consumeOn": "damage",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Boca do Caos: Cuspir",
+          "img": "systems/eternia/assets/ui/status/mirror.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "mirror"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "9Lc5cTLprt7O2E1u",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.VZmCfXCL6bnTyz7a.9Lc5cTLprt7O2E1u"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "caos-boca",
+          "kind": "feeds",
+          "branch": "magic",
+          "chooseEffect": true,
+          "magicSpell": {
+            "id": "caos"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.m3AUIKYKYTidhzpi",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "VZmCfXCL6bnTyz7a",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.VZmCfXCL6bnTyz7a"
+    },
+    {
+      "name": "Reino do Caos",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Caos.</strong> Feitiço grande. O espaço a até 3 Qd de você vira o seu mundo até o fim da cena, e ele anda com você. Escolha agora a regra dele: ela vale na hora e de novo na Manutenção de cada rodada para quem estiver dentro, sem Esquiva (o mundo é seu):</p><ul><li><strong>Gravidade:</strong> os inimigos ficam [Enraizado] e [Lento].</li><li><strong>Silêncio:</strong> os inimigos ficam [Silenciado].</li><li><strong>Trevas:</strong> os inimigos ficam [Cego].</li><li><strong>Vida:</strong> você e os aliados ficam com [Regeneração: NP÷2 + 2].</li></ul><p>Uma vez por cena.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Lá dentro, as leis são suas. Você só precisa decidir quais.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "1/Scene",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/nature/plant-undersea-orb-purple.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "realm": {
+                "radius": 3,
+                "enemies": [
+                  {
+                    "statusId": "rooted"
+                  },
+                  {
+                    "statusId": "slowed"
+                  }
+                ]
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Reino do Caos: Gravidade",
+          "img": "systems/eternia/assets/ui/status/rooted.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "sxo2I6GTLe3kYCzP",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.39nVPxt0pfefAbzz.sxo2I6GTLe3kYCzP"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "realm": {
+                "radius": 3,
+                "enemies": [
+                  {
+                    "statusId": "silenced"
+                  }
+                ]
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Reino do Caos: Silêncio",
+          "img": "systems/eternia/assets/ui/status/silenced.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "UBVPczJxjsGpnurD",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.39nVPxt0pfefAbzz.UBVPczJxjsGpnurD"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "realm": {
+                "radius": 3,
+                "enemies": [
+                  {
+                    "statusId": "blinded"
+                  }
+                ]
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Reino do Caos: Trevas",
+          "img": "systems/eternia/assets/ui/status/blinded.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "LATZTpgTV6PpZtEQ",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.39nVPxt0pfefAbzz.LATZTpgTV6PpZtEQ"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "realm": {
+                "radius": 3,
+                "allies": [
+                  {
+                    "statusId": "regen",
+                    "value": "floor(@cr/2)+2"
+                  }
+                ]
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Reino do Caos: Vida",
+          "img": "systems/eternia/assets/ui/status/regen.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "AAs3wHOUH0FGk2A8",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.39nVPxt0pfefAbzz.AAs3wHOUH0FGk2A8"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "caos-reino",
+          "kind": "feeds",
+          "branch": "magic",
+          "chooseEffect": true,
+          "magicSpell": {
+            "id": "caos"
+          },
+          "minRank": 5,
+          "motor": {
+            "id": "@class",
+            "gain": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.brbEYWuQlSbBmX9h",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "39nVPxt0pfefAbzz",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.39nVPxt0pfefAbzz"
+    },
+    {
+      "name": "Realidade Reescrita",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Caos.</strong> Feitiço grande. Você reescreve o mundo numa área a até 4 Qd sem saber o que vai sair: Teste de Precisão contra a Resistência de cada alvo; [5d6 + Poder Mágico] de dano mágico, e quem ela acerta fica com um destes estados, sorteado quando o dano é rolado: [Petrificado], [Adormecido], [Confuso], [Medo], [Cego] ou [Lento].</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Nem você sabe o que a realidade vai virar. É por isso que ela obedece.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 4",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 5,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/commodities/gems/pearl-fire-swirl.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "caos-realidade",
+          "kind": "feeds",
+          "branch": "magic",
+          "randomHit": [
+            {
+              "statusId": "petrified"
+            },
+            {
+              "statusId": "asleep"
+            },
+            {
+              "statusId": "confused"
+            },
+            {
+              "statusId": "frightened"
+            },
+            {
+              "statusId": "blinded"
+            },
+            {
+              "statusId": "slowed"
+            }
+          ],
+          "magicSpell": {
+            "id": "caos"
+          },
+          "minRank": 7,
+          "motor": {
+            "id": "@class",
+            "gain": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.PRudv0rSybamWB5R",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "NOOR9aaMP125fdiL",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.NOOR9aaMP125fdiL"
+    },
+    {
+      "name": "O Mundo Recriado",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Caos. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você desfaz o mundo numa área ampla a até 6 Qd e o refaz do seu jeito. Teste de Precisão contra a Resistência de cada alvo; [(1 + 2×pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico. Gasta todo o Motor. Ao aplicar os efeitos, escolha o que o mundo novo faz com quem ela acerta:</p><ul><li><strong>Pedra:</strong> [Petrificado].</li><li><strong>Sono:</strong> [Adormecido].</li><li><strong>Coroa:</strong> [Dominado] por você.</li></ul><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>No mundo novo, eles nasceram ajoelhados.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "6Sq",
+        "target": "Wide",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 4",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "1+2*@spent",
+          "mod": "@spent*@cr",
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/earth/orb-lava-ball-yellow.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "O Mundo Recriado: Pedra",
+          "img": "systems/eternia/assets/ui/status/petrified.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "petrified"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "zuFqigBMV4SaL4DS",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.aMn4cq7xmY70j5qX.zuFqigBMV4SaL4DS"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "O Mundo Recriado: Sono",
+          "img": "systems/eternia/assets/ui/status/asleep.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "asleep"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "QGhTw7bO4aCt1mPb",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.aMn4cq7xmY70j5qX.QGhTw7bO4aCt1mPb"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "O Mundo Recriado: Coroa",
+          "img": "systems/eternia/assets/ui/status/dominated.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "dominated"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "QCYGXeZ1gGPAVc3O",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.aMn4cq7xmY70j5qX.QCYGXeZ1gGPAVc3O"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "caos-mundo",
+          "kind": "spends",
+          "branch": "magic",
+          "chooseEffect": true,
+          "magicSpell": {
+            "id": "caos"
+          },
+          "minRank": 10,
+          "motor": {
+            "id": "@class",
+            "needs": {
+              "full": true
+            },
+            "spend": "all"
+          },
+          "damageText": "(1+2×pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.4sS7sW6AMSvbk6Il",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "aMn4cq7xmY70j5qX",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.aMn4cq7xmY70j5qX"
+    },
+    {
+      "name": "Postura de Bastião",
+      "type": "skill",
+      "system": {
+        "description": "<p>Até o fim da rodada, os aliados do seu quadrado que você escolher ganham [Anulação] igual às suas Camadas. Não gasta Camadas.</p><p><em>Os escudos se encaixam numa parede só.</em></p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Close",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/Scutum-steel-worn.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "cancel",
+                "value": "@motor.value"
+              },
+              "expires": "endOfRound",
+              "recipients": "allies"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Postura de Bastião",
+          "img": "systems/eternia/assets/ui/status/cancel.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "cancel"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "8YMlA1ZakNJqGsPS",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.e9RZwpcBu7wiVEvt.8YMlA1ZakNJqGsPS"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-postura-de-bastiao",
+          "kind": "bends",
+          "branch": "guarda",
+          "minRank": 5,
+          "requires": [
+            "guardiao-escudo-compartilhado"
+          ],
+          "motor": {
+            "id": "guardiao"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.sP2SxB3il4fZQfds",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "e9RZwpcBu7wiVEvt",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.e9RZwpcBu7wiVEvt"
+    },
+    {
+      "name": "Fortaleza Viva",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Caminho da Fortaleza.</strong> Na Manutenção, com 3 Camadas ou mais, você ganha [Barreira: NP+5] até o fim da rodada.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/defensive/barrier-shield-dome-blue-purple.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-fortaleza-viva",
+          "kind": "bends",
+          "branch": "pathTalent",
+          "minRank": 7,
+          "pathTalent": {
+            "class": "guardiao",
+            "id": "fortaleza"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.cYJHJpgZ8MHJkayH",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "hvXCRV4BbMUiDC6c",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.hvXCRV4BbMUiDC6c"
+    },
+    {
+      "name": "Inabalável",
+      "type": "skill",
+      "system": {
+        "description": "<p>Em combate, com 3 Camadas ou mais, você não pode ficar [Derrubado] nem [Atordoado].</p><p><em>A muralha não cai: no máximo treme.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/heater-stone-orange.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "immune": [
+                "prone",
+                "dazed"
+              ],
+              "conditions": [
+                {
+                  "type": "inCombat"
+                },
+                {
+                  "type": "motorAtLeast",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Inabalável",
+          "img": "icons/equipment/shield/heater-stone-orange.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "BijvE8JqKZ5kaW2Q",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.KJpe07AF53WkXvY4.BijvE8JqKZ5kaW2Q"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-inabalavel",
+          "kind": "bends",
+          "branch": "muralha",
+          "minRank": 7,
+          "requires": [
+            "guardiao-pedra-angular"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.GpH1fkFez5vCM2cC",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "KJpe07AF53WkXvY4",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.KJpe07AF53WkXvY4"
+    },
+    {
+      "name": "Martelo do Bastião",
+      "type": "skill",
+      "system": {
+        "description": "<p>Uma vez por cena, o Golpe do Baluarte feito com o Baluarte no Teto acerta sem Teste de Esquiva.</p><p><em>Não há para onde fugir de uma muralha inteira.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/strike-hammer-destructive-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-martelo-do-bastiao",
+          "kind": "bends",
+          "branch": "martelo",
+          "minRank": 7,
+          "requires": [
+            "guardiao-investida"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.s3wRXBPdROemGhLr",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Tv3HwSHMA84Is23t",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.Tv3HwSHMA84Is23t"
+    },
+    {
+      "name": "Último Baluarte",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use quando um aliado a até 1 Qd for sofrer o dano de um ataque: gaste 2 Camadas. Ele ganha [Último Fôlego] até o fim do processo: se o dano o levaria a 0 PV, fica com 1.</p>",
+        "tags": [],
+        "timing": "Before Damage",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/shield-damaged-broken-gold.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "lastStand"
+              },
+              "expires": "endOfProcess"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Último Baluarte",
+          "img": "systems/eternia/assets/ui/status/lastStand.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "lastStand"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "uUCmFQsFXWQenVVb",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.IBATngYZ2pp7hPw0.uUCmFQsFXWQenVVb"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "guardiao-ultimo-baluarte",
+          "kind": "spends",
+          "branch": "guarda",
+          "minRank": 7,
+          "requires": [
+            "guardiao-guarda-estendida"
+          ],
+          "motor": {
+            "id": "guardiao",
+            "needs": {
+              "min": 2
+            },
+            "spend": 2,
+            "action": "none"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.Y6KuCQwuOkMIafq8",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "IBATngYZ2pp7hPw0",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.IBATngYZ2pp7hPw0"
+    },
+    {
+      "name": "Analisar Objeto de Cena",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "analysis"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/traps/trap-jaw-steel.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746551067,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.V30xXzllUuzBfafd",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "QH9lIPqXKnhseG6M",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.QH9lIPqXKnhseG6M"
+    },
+    {
+      "name": "Ataque Básico com Arma",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você causa [1d6 + Poder de Ataque] de dano físico.</p>",
+        "tags": [
+          "Weapon Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 1,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": "uIW9aGui82UJfjzb"
+      },
+      "img": "icons/skills/melee/hand-grip-sword-white-brown.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790745586234,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.WM5upuUBddixPdjC",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "PWkDsTjXAU8Z1GJr",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.PWkDsTjXAU8Z1GJr"
+    },
+    {
+      "name": "Ataque Mágico Básico",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você causa [1d6 + Poder Mágico] de dano mágico.</p>",
+        "tags": [
+          "Magic Attack",
+          "Staff",
+          "Magic Stone"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 1,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": "ANQS94Uf2wa5dCgP"
+      },
+      "img": "icons/magic/light/projectile-smoke-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790745560103,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.fl482m53K1KVmt4U",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "muw8lbgYnU7oGnZB",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.muw8lbgYnU7oGnZB"
+    },
+    {
+      "name": "Avaliar Item",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo um único Item com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "analysis"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/trades/academics-investigation-study-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746512655,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.PtOCLZ1FmScvQhNk",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "FMYMDJm7gfyEgNCT",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.FMYMDJm7gfyEgNCT"
+    },
+    {
+      "name": "Correr",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você pode fazer um [Movimento Normal] de até [Velocidade] Qd.</p>",
+        "tags": [
+          "Movement"
+        ],
+        "timing": "Move",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/movement/feet-winged-boots-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746713856,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.lEAXTaLa3FdWMn0A",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "WVtMXoXu8gXRASkU",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.WVtMXoXu8gXRASkU"
+    },
+    {
+      "name": "Desarmar Objeto de Cena",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena que esteja [Analisado] e tenha [Dificuldade de Desarme]. Os efeitos do alvo terminam.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "Basic (Disable vs Disable Difficulty)",
+        "range": "1Sq",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/traps/trap-jaw-green.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746569272,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.ZHAPIDBQHQCFWtiH",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "PX3f2TZcu1z1kuJ5",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.PX3f2TZcu1z1kuJ5"
+    },
+    {
+      "name": "Deslocar-se",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você pode fazer um [Movimento Seguro] de 1 Qd. Logo em seguida, você perde uma Ação Menor. Se não tiver uma Ação Menor para perder, você não pode usar esta habilidade.</p>",
+        "tags": [
+          "Movement"
+        ],
+        "timing": "Move",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 5
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/movement/arrow-upward-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746742799,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.Snhgn7GWvwbtX6t1",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Yh2o6SfvfrouE2Iq",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.Yh2o6SfvfrouE2Iq"
+    },
+    {
+      "name": "Detectar Anomalias",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo tudo dentro do alcance que tenha [Dificuldade de Detecção]. O alvo remove quaisquer efeitos [Encoberto] ou [Oculto]. Você não precisa remover esses efeitos dos seus aliados.</p>",
+        "tags": [],
+        "timing": "Setup",
+        "checkType": "",
+        "range": "Close",
+        "target": "Wide 20 (A)",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "perception"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/silhouette-grow-shrink-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746020062,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.AkE9jnFrKsm8i89o",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "fBaRQdB3lvEHVk2m",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.fBaRQdB3lvEHVk2m"
+    },
+    {
+      "name": "Disparada",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você pode fazer um [Movimento Normal] de até [Velocidade] + 2 Qd. &nbsp;Logo em seguida, você perde uma Ação Menor. Se não tiver uma Ação Menor para perder, você não pode usar esta habilidade.</p>",
+        "tags": [
+          "Movement"
+        ],
+        "timing": "Move",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/movement/figure-running-gray.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790745964303,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.Ql4JC6Et0zoSMkEL",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "PgWeU8LBZnx2h7RC",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.PgWeU8LBZnx2h7RC"
+    },
+    {
+      "name": "Esconder-se",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você fica [Oculto]. No entanto, você não pode usar esta habilidade se estiver no Topo de Ódio, se outro personagem puder fazer uma [Obstrução] contra você ou se estiver sob algum Estado Negativo.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/perception/shadow-stealth-eyes-purple.webp",
+      "effects": [
+        {
+          "name": "Esconder-se",
+          "img": "icons/magic/perception/shadow-stealth-eyes-purple.webp",
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "_id": "g8V4pL2sK7mY3zN1",
+          "description": "",
+          "transfer": false,
+          "statuses": [
+            "hidden"
+          ],
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "hidden"
+              },
+              "expiry": {
+                "expires": "endOfScene"
+              }
+            }
+          },
+          "tint": "#ffffff",
+          "_stats": {
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "coreVersion": "13.351",
+            "systemId": "eternia",
+            "systemVersion": "0.1.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "exportSource": null
+          },
+          "sort": 0,
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.ViqfBazJWFxkEybm.g8V4pL2sK7mY3zN1",
+          "system": {
+            "changes": []
+          },
+          "start": null,
+          "showIcon": 1
+        }
+      ],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746483505,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.NHwN2c3MQtppMdtA",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "ViqfBazJWFxkEybm",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.ViqfBazJWFxkEybm"
+    },
+    {
+      "name": "Golpe de Misericórdia",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use esta habilidade depois de fazer, durante este turno, um ataque que tenha causado pelo menos 1 de dano a um alvo [Incapacitado]. Esse alvo fica [Morto].</p>",
+        "tags": [],
+        "timing": "Instant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/wounds/injury-body-pain-gray.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790745951610,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.0kYKskp1c9eXs0DW",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "0t0TO84IuFdm733Q",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.0t0TO84IuFdm733Q"
+    },
+    {
+      "name": "Identificar Inimigo",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade só pode ter como alvo um personagem com [Dificuldade de Identificação]. O alvo fica [Identificado].</p>",
+        "tags": [],
+        "timing": "Setup",
+        "checkType": "",
+        "range": "20Sq",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "knowledge"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/perception/orb-crystal-ball-scrying.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746298927,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.obao1W79fgYWcx5o",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "IkFMJVmoRgW5fvB4",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.IkFMJVmoRgW5fvB4"
+    },
+    {
+      "name": "Negociar",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você pode mover um item do seu [Espaço de Inventário] para o [Espaço de Inventário] de um alvo voluntário. Se o alvo não tiver [Espaços de Inventário] vazios, o item cai no mesmo quadrado do alvo. Você pode usar esta habilidade básica quantas vezes quiser durante uma Preparação.</p>",
+        "tags": [
+          "Preparation"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/social/diplomacy-handshake-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746764750,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.sDoZ2vHmSG9V6X4Z",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "haYMPv4sFjeFyohm",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.haYMPv4sFjeFyohm"
+    },
+    {
+      "name": "Proteger",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use quando um aliado que não seja você for sofrer dano. Você sofre o dano no lugar do alvo, e o alvo não é afetado pelo ataque. Você precisa estar no estado [Pré-Ação] para usar esta habilidade e passa ao estado [Pós-Ação] depois de usá-la. Esta habilidade só pode ser usada uma vez em resposta a cada ataque. Inimigos não podem usar esta habilidade.</p>",
+        "tags": [],
+        "timing": "Before Damage",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "cover": true,
+              "consumeOn": "damage",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.43.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Proteger",
+          "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "fbR02Gic71D3fEQS",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.t89msgLVUWLA7pk5.fbR02Gic71D3fEQS"
+        }
+      ],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746688861,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.tS3O6p4M5xmHkwAh",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "t89msgLVUWLA7pk5",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.t89msgLVUWLA7pk5"
+    },
+    {
+      "name": "Reconhecer Inimigo",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use esta habilidade quando tentar obter informações sobre os inimigos da próxima cena.</p>\n<p>(Resultado: 10) Você descobre o número de inimigos que vão aparecer.<br>(Resultado: 20) Você descobre o nome do inimigo de menor nível (se vários empatarem no mesmo nível, o Mestre escolhe) e também se ele tem a tag [Chefe] ou [Lacaio].<br>(Falha Crítica): O inimigo percebe o seu reconhecimento.</p>",
+        "tags": [
+          "Scout"
+        ],
+        "timing": "Briefing",
+        "checkType": "",
+        "range": "Refer",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "athletics"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/nature/stealth-hide-eyes-green.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746424055,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.pLccgRPUqH0oIYYE",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "uplMHdOZkCi0TfhN",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.uplMHdOZkCi0TfhN"
+    },
+    {
+      "name": "Switch",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você e um aliado a até 2 Qd trocam de lugar e de Ódio: você fica com o Ódio dele, e ele com o seu. O aliado fica [Concentrado].</p><hr><p><em>Um golpe abre a guarda do inimigo, um grito curto avisa a troca e os dois cruzam de posição. Quando o monstro se recupera, a lâmina que o encara já é outra, descansada e pronta.</em></p>",
+        "tags": [
+          "Movement"
+        ],
+        "timing": "Move",
+        "checkType": "",
+        "range": "2Sq",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/swords-parry-block-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "focused"
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Switch",
+          "img": "systems/eternia/assets/ui/status/focused.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "focused"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "TezNyfNuTHtrkEWn",
+          "_key": "!actors.items.effects!rFZPOx1XzWlvHkGJ.SwI23VostQQy2ISO.TezNyfNuTHtrkEWn"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "switch"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.kqbIzeoowK8G1QBd",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "SwI23VostQQy2ISO",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.SwI23VostQQy2ISO"
+    },
+    {
+      "name": "Trocar Equipamento",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você pode mover um item de um [Espaço de Inventário] para um [Espaço de Equipamento], ou vice-versa. Você também pode largar ou pegar um item no seu quadrado, ou trocar uma peça de equipamento. Não há limite para o número de trocas de equipamento que você pode fazer com uma única ação. Você pode usar esta habilidade básica quantas vezes quiser durante uma Preparação.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/time/arrows-circling-pink.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746319082,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.oIUaP3VXGHGlKm4h",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "wyo93aLkG5OvkgpB",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.wyo93aLkG5OvkgpB"
+    },
+    {
+      "name": "Firangi",
+      "type": "weapon",
+      "system": {
+        "description": "<p>Espada reta de uma mão para cavalaria. Serve tanto para perfurar quanto para cortar.</p>",
+        "tags": [
+          "One-Handed",
+          "Blade"
+        ],
+        "initiative": 0,
+        "rank": 23,
+        "price": 3000,
+        "equipped": true,
+        "attack": 26,
+        "magic": 0,
+        "accuracy": 0,
+        "main": false,
+        "range": "Close",
+        "checkType": "-",
+        "target": "-",
+        "timing": "-",
+        "pdef": 0,
+        "mdef": 0
+      },
+      "img": "icons/weapons/swords/sword-guard-engraved.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "icon": {
+            "fx": "steel"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.y0LqaGQYG1nGPk94",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "LsY3iAhPzZZHTzwv",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.LsY3iAhPzZZHTzwv"
+    },
+    {
+      "name": "Armadura de Campanha",
+      "type": "armor",
+      "system": {
+        "description": "<p>Armadura de cavaleiro com todas as partes moldadas em chapas de metal para aumentar a defesa.</p>",
+        "tags": [
+          "Heavy Armor"
+        ],
+        "pdef": 54,
+        "mdef": 33,
+        "initiative": -2,
+        "rank": 23,
+        "price": 5600,
+        "equipped": true,
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "timing": "-",
+        "attack": 0,
+        "magic": 0,
+        "accuracy": 0
+      },
+      "img": "icons/equipment/chest/breastplate-collared-steel.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.h4GD6kKBLzzvfW51",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "fYxAkZnHzXtVo6Yx",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.fYxAkZnHzXtVo6Yx"
+    },
+    {
+      "name": "Escudo Heater",
+      "type": "shield",
+      "system": {
+        "description": "<p>Um grande escudo retangular, adequado para uso a cavalo.</p>",
+        "tags": [
+          "One-Handed",
+          "Shield"
+        ],
+        "pdef": 13,
+        "mdef": 12,
+        "rank": 23,
+        "price": 2200,
+        "equipped": true,
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "timing": "-",
+        "attack": 0,
+        "magic": 0,
+        "accuracy": 0,
+        "initiative": 0
+      },
+      "img": "icons/equipment/shield/heater-steel-grey.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.eQdUS98OkGSiw2C5",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "9NWC1zaRENPQA7Uc",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.9NWC1zaRENPQA7Uc"
+    },
+    {
+      "name": "Anel Azul",
+      "type": "accessory",
+      "system": {
+        "description": "<p>Um anel com uma joia de um azul vívido, que parece atrair você para dentro dela. Possui um poder mágico muito forte.</p>",
+        "tags": [
+          "Accessory",
+          "Magic Stone"
+        ],
+        "pdef": 0,
+        "mdef": 0,
+        "rank": 24,
+        "price": 3400,
+        "equipped": true,
+        "initiative": 0,
+        "magic": 42,
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "timing": "-",
+        "attack": 0,
+        "accuracy": 0
+      },
+      "img": "icons/equipment/finger/ring-cabochon-gold-blue.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.RRrFPDbC6B2ECZwO",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "Ab7bbgizaLBfqVug",
+      "_key": "!actors.items!rFZPOx1XzWlvHkGJ.Ab7bbgizaLBfqVug"
     }
   ],
   "effects": [],
@@ -382,13 +6524,33 @@
       "major": {
         "lote": 8,
         "pos": 2
+      },
+      "elenco": {
+        "slug": "sigismund-leonhart",
+        "papel": "Sigismund Leonhart, mestre da Presa de Marfim (o Pontífice disfarçado)"
+      },
+      "professions": {
+        "blacksmith": {
+          "exp": 160
+        }
+      },
+      "skillProgress": {
+        "base": 25,
+        "creation": false
+      },
+      "bio": {
+        "epithet": "o Leão de Marfim",
+        "age": "Parece ter 60",
+        "gender": "Masculino",
+        "homeland": "Centória Central",
+        "notes": "<h3>Só o Mestre</h3><p>É o Pontífice, num corpo que escreveu para si. Quem tenta acertá-lo de verdade sente o olho direito arder (o Artigo 871). Não envelhece há trinta anos, e a Janela dele diz AUTORIDADE INSUFICIENTE. Cria o Príncipe na guilda desde menino. O corpo se desfaz quando Kaiser apaga a arena, no último dia do Torneio de 380.</p>"
       }
     }
   },
   "_stats": {
     "coreVersion": "14.360",
     "systemId": "eternia",
-    "systemVersion": "0.39.0",
+    "systemVersion": "1.0.2",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

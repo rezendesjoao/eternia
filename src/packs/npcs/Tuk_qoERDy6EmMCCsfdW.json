@@ -4,23 +4,23 @@
   "img": "systems/eternia/assets/tokens/npcs/tuk.webp",
   "system": {
     "health": {
-      "value": 8,
-      "max": 8
+      "value": 60,
+      "max": 60
     },
     "fate": {
       "value": 1,
       "max": 1
     },
     "tags": [],
-    "biography": "<p>Criança achada nos escombros de uma Queda de Aincrad, com um cachecol vermelho e nenhuma lembrança; fala uma língua que só os velhos das Nove Nações entendem. Sorri para tudo, até para o que devia assustar.</p>",
+    "biography": "<p>O menino achado nos escombros de uma Queda de Aincrad, sem memória, que fala a língua das Nove Nações. Quando o sacerdote abriu a Janela dele, a praça rachou. Todo mundo quer Tuk.</p>",
     "race": "",
     "attributes": {
       "str": {
-        "value": 2,
+        "value": 1,
         "mod": 0
       },
       "dex": {
-        "value": 2,
+        "value": 3,
         "mod": 0
       },
       "pow": {
@@ -96,7 +96,17 @@
       "impetus": 0,
       "combo": 0,
       "rhythm": 0,
-      "clones": 0
+      "clones": 0,
+      "contagion": 0,
+      "dying": 0,
+      "ironBlood": 0,
+      "anticipation": 0,
+      "hourglass": 0,
+      "jackpot": 0,
+      "luck": 0,
+      "goliath": 0,
+      "quake": 0,
+      "reaped": 0
     },
     "checks": {
       "athletics": {
@@ -145,7 +155,8 @@
       }
     },
     "infos": {
-      "crank": 1,
+      "crank": 3,
+      "xp": 0,
       "hate": 0,
       "fatigue": 0,
       "level": 35
@@ -154,7 +165,7 @@
       "guild": ""
     },
     "inventory": {
-      "gold": 300
+      "gold": 360
     }
   },
   "prototypeToken": {
@@ -371,8 +382,93 @@
       "ownership": {
         "default": 0
       },
-      "_id": "dEx4v6ODtmDu6tNh",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.dEx4v6ODtmDu6tNh"
+      "_id": "QLUqCBZ8akTNRNQX",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.QLUqCBZ8akTNRNQX"
+    },
+    {
+      "name": "Lutador",
+      "type": "class",
+      "system": {
+        "description": "<p><strong>Atributos:</strong> Força 3, Destreza 4, Poder 2 e Inteligência 1. <strong>PV:</strong> 40, +6 por NP (faixa Firme). <strong>Papéis:</strong> Dano e Defesa.</p><p><strong>Motor: Corrente.</strong> Cada golpe soma um Elo à Corrente; o Golpe Final gasta todos de uma vez e, com a Corrente cheia, deixa o alvo Atordoado. Um turno sem golpe a quebra.</p><p><strong>Magias:</strong> a classe é como você luta; a Magia é a magia que se mistura a ela. Você escolhe uma Magia no NP 1 e outra no NP 10 (Alta Velocidade, Esmagamento, Gigante...), e os feitiços delas entram nas suas escolhas de Combate e alimentam a Corrente (+1; os grandes, +2).</p><p><strong>Kit do NP 1:</strong> Corrente, Golpe de Entrada, Elo Rápido e Golpe Final, e a primeira Magia. <strong>NP 3:</strong> um Caminho (Montanha, Rio ou Tempestade). <strong>NP 5:</strong> Dedicação. <strong>NP 10:</strong> o Ápice, Corrente Infinita, e a segunda Magia.</p><hr><p><em>Os lutadores da Eternia brigam com as mãos, com faixas de couro nos punhos ou garras curtas presas aos dedos. Treinam o corpo até cada movimento puxar o seguinte, e quem os enfrenta sente os golpes chegando em fila, cada vez mais pesados.</em></p>",
+        "tags": [
+          "Damage",
+          "Defense"
+        ],
+        "identifier": "monge",
+        "attributes": {
+          "str": 3,
+          "dex": 4,
+          "pow": 2,
+          "int": 1
+        },
+        "hp": 40,
+        "hpPerRank": 6,
+        "grants": [
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.gtK6bQOmtXzLDhFV"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.fG3Wx71lQ38Yqpu4"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.Xlfvg4DnyG4INJOn"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.f347vYGQOIhgtElw"
+            ]
+          },
+          {
+            "rank": 1,
+            "magic": true
+          },
+          {
+            "rank": 10,
+            "magic": true
+          },
+          {
+            "rank": 3,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.bOMksgihTgyFpIvi",
+              "Compendium.eternia.skills-class.Item.KG01IPvTwDkr2mKX",
+              "Compendium.eternia.skills-class.Item.6OljNCR6NprMJnvU"
+            ]
+          },
+          {
+            "rank": 10,
+            "auto": true,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.HEHPHQbbWed0vWlz"
+            ]
+          }
+        ]
+      },
+      "img": "systems/eternia/assets/icons/classes/monge.svg",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.races-classes.Item.mgtGdIsiYviQ5VHn",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "SBLE37zsfwuQjEmd",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.SBLE37zsfwuQjEmd"
     },
     {
       "name": "Coletor",
@@ -402,8 +498,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "44TAcYePMP8QQqAH",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.44TAcYePMP8QQqAH"
+      "_id": "oXQxwPFa2WpCrsS4",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.oXQxwPFa2WpCrsS4"
     },
     {
       "name": "Bênção do Vento Veloz",
@@ -481,7 +577,7 @@
           "start": null,
           "showIcon": 1,
           "_id": "A8scv7MRoVj9zfd2",
-          "_key": "!actors.items.effects!qoERDy6EmMCCsfdW.AANCSU1fooEAHc45.A8scv7MRoVj9zfd2"
+          "_key": "!actors.items.effects!qoERDy6EmMCCsfdW.QaE5r7c7rmDUtVi5.A8scv7MRoVj9zfd2"
         }
       ],
       "flags": {
@@ -508,8 +604,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "AANCSU1fooEAHc45",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.AANCSU1fooEAHc45"
+      "_id": "QaE5r7c7rmDUtVi5",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.QaE5r7c7rmDUtVi5"
     },
     {
       "name": "Força dos Laços",
@@ -676,7 +772,7 @@
           "start": null,
           "showIcon": 1,
           "_id": "uXXok6VNMp9Maq4B",
-          "_key": "!actors.items.effects!qoERDy6EmMCCsfdW.uBtrrCei1ZI0ULJn.uXXok6VNMp9Maq4B"
+          "_key": "!actors.items.effects!qoERDy6EmMCCsfdW.ScNqa0GqQL8zc3u7.uXXok6VNMp9Maq4B"
         }
       ],
       "flags": {
@@ -703,8 +799,1381 @@
       "ownership": {
         "default": 0
       },
-      "_id": "uBtrrCei1ZI0ULJn",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.uBtrrCei1ZI0ULJn"
+      "_id": "ScNqa0GqQL8zc3u7",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.ScNqa0GqQL8zc3u7"
+    },
+    {
+      "name": "Corrente",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Motor do Lutador.</strong> Os seus golpes se encadeiam numa <strong>Corrente</strong> de <strong>Elos</strong>. Todo combate começa com a Corrente vazia.</p><ul><li><strong>Ganha:</strong> o Golpe de Entrada e o Elo Rápido somam +1 Elo cada.</li><li><strong>Gasta:</strong> o Golpe Final gasta todos os Elos: [(1 + Elos)d6 + Poder de Ataque + Elos×NP].</li><li><strong>Teto:</strong> 3 Elos, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> se um turno seu termina sem nenhuma habilidade da Corrente, ela quebra (0 Elos). Cada ataque de um inimigo que tira PV de você tira 1 Elo.</li><li><strong>Corrente cheia:</strong> o Golpe Final feito com os Elos no Teto deixa o alvo [Atordoado].</li></ul><p>Os golpes da Corrente pedem uma arma [Artes Marciais] na mão principal, ou as duas mãos vazias.</p><p><em>Cada golpe abre o caminho do próximo, até o último, que já estava decidido desde o primeiro.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/energy-stream-link-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "monge-corrente",
+          "kind": "motor",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "monge",
+            "role": "core"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.mgtGdIsiYviQ5VHn"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.gtK6bQOmtXzLDhFV",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "EXvK9VeH6BU3KuZ7",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.EXvK9VeH6BU3KuZ7"
+    },
+    {
+      "name": "Golpe de Entrada",
+      "type": "skill",
+      "system": {
+        "description": "<p>Um golpe que abre a guarda do inimigo: [2d6 + Poder de Ataque] de dano físico. +1 Elo.</p><p><em>Um passo curto, o quadril gira, e o punho chega antes da sombra dele.</em></p>",
+        "tags": [
+          "Weapon Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/unarmed-punch-fist.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "monge-golpe-de-entrada",
+          "kind": "feeds",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "monge",
+            "chain": "open",
+            "strike": true,
+            "gain": 1
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.mgtGdIsiYviQ5VHn"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.fG3Wx71lQ38Yqpu4",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "JsCTNn4lx2HgKiTI",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.JsCTNn4lx2HgKiTI"
+    },
+    {
+      "name": "Elo Rápido",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com pelo menos 1 Elo: um golpe curto que emenda no anterior. [1d6 + NP] de dano físico (sem o Poder de Ataque). +1 Elo.</p>",
+        "tags": [
+          "Weapon Attack"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 1,
+          "mod": "@cr",
+          "type": "physical",
+          "recovery": false,
+          "noPower": true
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/unarmed-punch-fist-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "monge-elo-rapido",
+          "kind": "feeds",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "monge",
+            "chain": "link",
+            "strike": true,
+            "needs": {
+              "min": 1
+            },
+            "gain": 1
+          },
+          "damageText": "1d6 + NP Físico",
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.mgtGdIsiYviQ5VHn"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.Xlfvg4DnyG4INJOn",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "w3ZyCA0UTG1zQTb8",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.w3ZyCA0UTG1zQTb8"
+    },
+    {
+      "name": "Golpe Final",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com pelo menos 2 Elos: o golpe que fecha a Corrente. [(1 + Elos)d6 + Poder de Ataque + Elos×NP] de dano físico. Gasta todos os Elos.</p><p><strong>Corrente cheia:</strong> com os Elos no Teto, o alvo fica [Atordoado].</p><p><strong>Custo:</strong> Ódio 1 + os Elos gastos.</p><hr><p><em>Todos os golpes anteriores eram só o caminho até este.</em></p>",
+        "tags": [
+          "Weapon Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1+Elos",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "@use.base+@spent",
+          "mod": "floor(@spent*@cr*@use.flat/2)",
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/lightning/fist-unarmed-strike-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "monge-golpe-final",
+          "kind": "spends",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "monge",
+            "chain": "finish",
+            "strike": true,
+            "needs": {
+              "min": 2
+            },
+            "spend": "all"
+          },
+          "damageText": "(1+Elos)d6 + [Poder de Ataque] + Elos×NP Físico",
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.mgtGdIsiYviQ5VHn"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.f347vYGQOIhgtElw",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "pGuzWd4v2hxq3Nnw",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.pGuzWd4v2hxq3Nnw"
+    },
+    {
+      "name": "Caminho da Montanha",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Reescreve o Golpe Final.</strong> O Golpe Final perde o dado a mais ([(Elos)d6 + Poder de Ataque + Elos×NP]), mas o alvo sempre fica [Derrubado] e [Atordoado].</p><p><strong>Talentos do Caminho:</strong> Raiz da Montanha (NP 3) e Avalanche (NP 7).</p><hr><p><em>A montanha não persegue ninguém. Quem chega até ela é que não volta.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/wilderness/cave-entrance-mountain.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "monge-montanha",
+          "kind": "bends",
+          "branch": "path",
+          "choiceOnly": true,
+          "path": {
+            "class": "monge",
+            "id": "montanha"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.mgtGdIsiYviQ5VHn"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.bOMksgihTgyFpIvi",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "MMamCpHX7eic8rsE",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.MMamCpHX7eic8rsE"
+    },
+    {
+      "name": "Cataclismo",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Magia Absoluta.</strong> O fim do mundo cabe nas suas mãos. Quando você fecha o punho, o ar racha como vidro, e a rachadura corre pelo chão, pelo mar e pelo corpo de quem está na frente. Nenhuma armadura segura uma vibração. Mas o tremor tem um inimigo: a água. Dentro dela a vibração se perde, o corpo pesa como pedra, e a água devolve o tremor para dentro de você. E um corpo que carrega um cataclismo não tem lugar para mais nada. Mais forte que todas as outras categorias.</p><ul><li><strong>Absoluta:</strong> só uma pessoa no mundo tem esta Magia, e ela ocupa todas as vagas de Magia: você nunca terá outra. [Silenciado] não impede os feitiços dela.</li><li><strong>O Abalo:</strong> cada feitiço do Cataclismo sobe o seu [Abalo] (até 5; os grandes, 2), e cada ponto soma +NP÷2 no dano dos próximos. Os tremores em volta de você acham os alvos sozinhos: pegam todo mundo que está no chão na área, aliados também (quem está [Voando] escapa).</li><li><strong>Tabu, Água que Cala:</strong> a água cala o tremor: [Encharcado] ou [Nadando], você não usa os feitiços do Cataclismo, e o dano de [Água] em você dobra.</li><li><strong>Traço, Vibração:</strong> você é imune a [Derrubado], e os seus feitiços do Cataclismo ignoram a Defesa inteira (nenhuma armadura segura uma vibração).</li><li><strong>Feitiços:</strong> Racha no Ar e Soco do Tremor (NP 1), Chão que Treme (NP 3), Bolha de Tremor (NP 5), Mar que Sobe (NP 7) e o feitiço supremo O Mundo Racha (NP 10).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Mundo Racha pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Ninguém ouviu o soco. Ouviram a montanha cair.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "vulnerable": [
+                "Water"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.51.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Água que Cala",
+          "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "7aly80qzu2ZE9D60",
+          "_key": "!actors.items.effects!qoERDy6EmMCCsfdW.6Sh3QqHj3SzAFlSR.7aly80qzu2ZE9D60"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "trait": {
+                "magia": "fruta-do-tremor",
+                "seaCurse": true,
+                "pierce": {
+                  "defense": "none"
+                }
+              },
+              "immune": [
+                "prone"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.51.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Vibração",
+          "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "Ysn6YmtqeZVZGJpx",
+          "_key": "!actors.items.effects!qoERDy6EmMCCsfdW.6Sh3QqHj3SzAFlSR.Ysn6YmtqeZVZGJpx"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "fruta-do-tremor-fruta-do-tremor",
+          "kind": "bends",
+          "branch": "magic",
+          "magic": {
+            "id": "fruta-do-tremor",
+            "category": "absolute",
+            "tagline": "Você racha o ar e o mundo treme; só a água cala o tremor.",
+            "holders": 1,
+            "exclusive": true
+          },
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.mgtGdIsiYviQ5VHn"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.wAHJiLeswLCwgxcP",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "6Sh3QqHj3SzAFlSR",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.6Sh3QqHj3SzAFlSR"
+    },
+    {
+      "name": "Racha no Ar",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Cataclismo.</strong> Você soca o ar, e a rachadura corre até um alvo a até 5 Qd: Teste de Precisão contra a Esquiva; [3d6 + Poder de Ataque] de dano físico (+NP÷2 por ponto de [Abalo]), ignorando a Defesa, e ele fica [Cambaleante]. O [Abalo] sobe 1.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>O ar fez o barulho de um espelho quebrando.</em></p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "5Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 3,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/containers/kitchenware/vase-clay-cracked-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fruta-do-tremor-racha",
+          "kind": "feeds",
+          "branch": "magic",
+          "quakeGain": 1,
+          "hitStatuses": [
+            {
+              "statusId": "staggered"
+            }
+          ],
+          "selfBonus": [
+            {
+              "statusId": "quake",
+              "per": "floor(@cr/2)"
+            }
+          ],
+          "magicSpell": {
+            "id": "fruta-do-tremor"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          },
+          "damageText": "3d6 + [Poder de Ataque] + Abalo×NP÷2 Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.EERwAebFzSlgolPA",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "KBkXL3JpAtkAyiPL",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.KBkXL3JpAtkAyiPL"
+    },
+    {
+      "name": "Desviar e Seguir",
+      "type": "skill",
+      "system": {
+        "description": "<p>Cada vez que você se esquiva de um ataque de um inimigo, +1 Elo.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/movement/trail-streak-zigzag-teal.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "monge-desviar-e-seguir",
+          "kind": "feeds",
+          "branch": "fluxo",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.VIjyTqmZAR7AReAU",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "8afYuCxtzwphAU3h",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.8afYuCxtzwphAU3h"
+    },
+    {
+      "name": "Soco do Tremor",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Cataclismo.</strong> O tremor inteiro num punho, contra um inimigo engajado com você: Teste de Precisão contra a Esquiva; [3d6 + Poder de Ataque + NP] de dano físico (+NP÷2 por ponto de [Abalo]), ignorando a Defesa, e ele voa 3 Qd para longe. O [Abalo] sobe 1.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Ele parou de voar quando acabou a ilha.</em></p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 3,
+          "mod": "@cr",
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/hand/gauntlet-iron-riveted-brown.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fruta-do-tremor-soco",
+          "kind": "feeds",
+          "branch": "magic",
+          "quakeGain": 1,
+          "useActions": [
+            {
+              "type": "push",
+              "value": 3
+            }
+          ],
+          "selfBonus": [
+            {
+              "statusId": "quake",
+              "per": "floor(@cr/2)"
+            }
+          ],
+          "magicSpell": {
+            "id": "fruta-do-tremor"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          },
+          "damageText": "3d6 + [Poder de Ataque] + NP + Abalo×NP÷2 Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.9ZOUtUAGTQvJoVJG",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "IiCKpqrqQB6vPkCc",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.IiCKpqrqQB6vPkCc"
+    },
+    {
+      "name": "Ler o Golpe",
+      "type": "skill",
+      "system": {
+        "description": "<p>Vendo alguém lutar ou treinar por alguns minutos, você lê a arte dele: Teste de Percepção com +[NH]d6. Com sucesso, o Mestre diz o estilo, a arma preferida e um ponto fraco, e o seu primeiro Golpe de Entrada contra ele dá +1 Elo a mais (marque na aba Classe).</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "-",
+        "target": "Single",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": 0,
+          "vs": "",
+          "stat": "perception"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/perception/mask-stone-eyes-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "monge-ler-o-golpe",
+          "kind": "feeds",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.4SDa8WmBPnFOlrBH",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "9QcuY6cCt4IPk1j0",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.9QcuY6cCt4IPk1j0"
+    },
+    {
+      "name": "Fôlego do Centro",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com pelo menos 1 Elo: você respira do centro do corpo. Gaste 1 Elo; você ganha [Barreira: NP+5] até o fim da rodada.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/air/air-pressure-shield-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "statusData": {
+                "statusId": "barrier",
+                "value": "@cr+5"
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Fôlego do Centro",
+          "img": "systems/eternia/assets/ui/status/barrier.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "barrier"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "CmaAME5tbBXDBrIY",
+          "_key": "!actors.items.effects!qoERDy6EmMCCsfdW.1a8OMSFXs86mKcsw.CmaAME5tbBXDBrIY"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "monge-folego-do-centro",
+          "kind": "spends",
+          "branch": "centro",
+          "minRank": 1,
+          "motor": {
+            "id": "monge",
+            "chain": "link",
+            "needs": {
+              "min": 1
+            },
+            "spend": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.hFpVoAXQ02tcRYY2",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "1a8OMSFXs86mKcsw",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.1a8OMSFXs86mKcsw"
+    },
+    {
+      "name": "Palma Atordoante",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com pelo menos 2 Elos: a palma aberta no peito do inimigo. [2d6 + Poder de Ataque] de dano físico, e o alvo fica [Atordoado]. Gasta 2 Elos.</p>",
+        "tags": [
+          "Weapon Attack",
+          "Dedication"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/light/hand-sparks-smoke-teal.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "monge-palma-atordoante",
+          "kind": "spends",
+          "branch": "punho",
+          "minRank": 1,
+          "motor": {
+            "id": "monge",
+            "chain": "finish",
+            "strike": true,
+            "needs": {
+              "min": 2
+            },
+            "spend": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.M9Fv8vqMeuaPNtNy",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "FeVYQnLnzKW61zHn",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.FeVYQnLnzKW61zHn"
+    },
+    {
+      "name": "Meditação",
+      "type": "skill",
+      "system": {
+        "description": "<p>Durante um Descanso, você medita: você e [NH] aliados perdem 1 de Fadiga a mais. Você começa o próximo combate com +1 Elo (marque na aba Classe).</p><p><em>Sentado, os olhos fechados, o lutador conta a respiração até ela parar de precisar ser contada.</em></p>",
+        "tags": [],
+        "timing": "Rest Time",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 2
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "monge-meditacao",
+          "kind": "feeds",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.5ILPexf4Hd1h5l4z",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "XKxgzUnCQk6HdnNk",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.XKxgzUnCQk6HdnNk"
+    },
+    {
+      "name": "Chão que Treme",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Cataclismo.</strong> O chão treme a até 3 Qd de você e pega todo mundo que está nele, aliados também (os alvos se acham sozinhos): Teste de Precisão contra a Esquiva de cada um; [4d6 + Poder de Ataque] de dano físico (+NP÷2 por ponto de [Abalo]), ignorando a Defesa, e [Derrubado]. O [Abalo] sobe 1.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Quem estava de pé deixou de estar. Quem estava sentado também.</em></p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 4,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/wilderness/terrain-stone-stalagtite.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fruta-do-tremor-terremoto",
+          "kind": "feeds",
+          "branch": "magic",
+          "quakeGain": 1,
+          "around": {
+            "radius": 3
+          },
+          "hitStatuses": [
+            {
+              "statusId": "prone"
+            }
+          ],
+          "selfBonus": [
+            {
+              "statusId": "quake",
+              "per": "floor(@cr/2)"
+            }
+          ],
+          "magicSpell": {
+            "id": "fruta-do-tremor"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          },
+          "damageText": "4d6 + [Poder de Ataque] + Abalo×NP÷2 Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.51.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.8CZxu8lXhQ96YQQi",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "z40qGTbw22GB6RA2",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.z40qGTbw22GB6RA2"
+    },
+    {
+      "name": "Passo do Vento",
+      "type": "skill",
+      "system": {
+        "description": "<p>Antes de um golpe da Corrente, você pode se mover 1 Qd sem gastar a Ação de Movimento, ignorando o engajamento: esses golpes alcançam 1 Qd mais longe.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/air/wind-stream-purple-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "rollFilter": {
+                "skills": [
+                  {
+                    "name": "Golpe de Entrada"
+                  },
+                  {
+                    "name": "Elo Rápido"
+                  },
+                  {
+                    "name": "Golpe Final"
+                  },
+                  {
+                    "name": "Palma Atordoante"
+                  },
+                  {
+                    "name": "Investida do Tigre"
+                  }
+                ]
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Passo do Vento",
+          "img": "icons/magic/air/wind-stream-purple-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.skill.range",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "eternia.skill.note",
+                "type": "override",
+                "value": "Passo do Vento: mova-se 1 Qd antes do golpe.",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "iHoeIGa4ZMN5pafB",
+          "_key": "!actors.items.effects!qoERDy6EmMCCsfdW.J8SVKHjEis195HPI.iHoeIGa4ZMN5pafB"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "monge-passo-do-vento",
+          "kind": "bends",
+          "branch": "vento",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.LIehDcCl7VTCDQOt",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "J8SVKHjEis195HPI",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.J8SVKHjEis195HPI"
+    },
+    {
+      "name": "Primeiro Elo",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você começa todo combate com [NH] Elos.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 2
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/energy-stream-link-spiral-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "monge-primeiro-elo",
+          "kind": "feeds",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.z7ycDkkQCEwEPSQM",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "B0tzhesR9n92TxXN",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.B0tzhesR9n92TxXN"
+    },
+    {
+      "name": "Analisar Objeto de Cena",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "analysis"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/traps/trap-jaw-steel.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746551067,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.V30xXzllUuzBfafd",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "58BXOXEKL8soQfke",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.58BXOXEKL8soQfke"
     },
     {
       "name": "Ataque Básico com Arma",
@@ -757,8 +2226,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "SbZ4VNddrhvHmDaI",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.SbZ4VNddrhvHmDaI"
+      "_id": "Z9xEw4SfQUlv7hFL",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.Z9xEw4SfQUlv7hFL"
     },
     {
       "name": "Ataque Mágico Básico",
@@ -813,8 +2282,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "2y2c0w2kP9kwsGZ1",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.2y2c0w2kP9kwsGZ1"
+      "_id": "lO40sfxLtxZ5PcEr",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.lO40sfxLtxZ5PcEr"
     },
     {
       "name": "Avaliar Item",
@@ -865,8 +2334,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "rMj6h7EFV6ofMfij",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.rMj6h7EFV6ofMfij"
+      "_id": "hC0V6E6ok7MHJyWG",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.hC0V6E6ok7MHJyWG"
     },
     {
       "name": "Correr",
@@ -919,60 +2388,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "gm7YLsLrf9sV7yBz",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.gm7YLsLrf9sV7yBz"
-    },
-    {
-      "name": "Analisar Objeto de Cena",
-      "type": "skill",
-      "system": {
-        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
-        "tags": [],
-        "timing": "Major",
-        "checkType": "",
-        "range": "1Sq",
-        "target": "Refer",
-        "subtype": "Basic",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "-",
-        "check": {
-          "dice": 0,
-          "mod": 0,
-          "vs": "",
-          "stat": "analysis"
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false
-        },
-        "macroeffect": ""
-      },
-      "img": "icons/environment/traps/trap-jaw-steel.webp",
-      "effects": [],
-      "flags": {},
-      "_stats": {
-        "coreVersion": "13.351",
-        "systemId": "eternia",
-        "systemVersion": "0.1.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.skills-basic.Item.V30xXzllUuzBfafd",
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "sort": 0,
-      "ownership": {
-        "default": 0
-      },
-      "_id": "8DifOvfEZRG8Ttk3",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.8DifOvfEZRG8Ttk3"
+      "_id": "Kw6eBiqmIthKNVVv",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.Kw6eBiqmIthKNVVv"
     },
     {
       "name": "Desarmar Objeto de Cena",
@@ -1022,8 +2439,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "FPjvGs4RTDsoXVYJ",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.FPjvGs4RTDsoXVYJ"
+      "_id": "jhlJrw0WDb3SdxRF",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.jhlJrw0WDb3SdxRF"
     },
     {
       "name": "Deslocar-se",
@@ -1060,7 +2477,13 @@
       },
       "img": "icons/skills/movement/arrow-upward-white.webp",
       "effects": [],
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
       "_stats": {
         "coreVersion": "13.351",
         "systemId": "eternia",
@@ -1076,8 +2499,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "EZlIbJ58T2tHCtlF",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.EZlIbJ58T2tHCtlF"
+      "_id": "Q6q3Su7YjkEB3yQV",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.Q6q3Su7YjkEB3yQV"
     },
     {
       "name": "Detectar Anomalias",
@@ -1128,8 +2551,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "T3Uno8A9g8VrXdzn",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.T3Uno8A9g8VrXdzn"
+      "_id": "62rvBmlvaeVMfDGs",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.62rvBmlvaeVMfDGs"
     },
     {
       "name": "Disparada",
@@ -1166,7 +2589,13 @@
       },
       "img": "icons/skills/movement/figure-running-gray.webp",
       "effects": [],
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
       "_stats": {
         "coreVersion": "13.351",
         "systemId": "eternia",
@@ -1182,8 +2611,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "frfTw4AllAQNeBfl",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.frfTw4AllAQNeBfl"
+      "_id": "eUKqbs8DBvyKAC8O",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.eUKqbs8DBvyKAC8O"
     },
     {
       "name": "Esconder-se",
@@ -1258,7 +2687,7 @@
             "exportSource": null
           },
           "sort": 0,
-          "_key": "!actors.items.effects!qoERDy6EmMCCsfdW.USMYwXVawOGb33zu.g8V4pL2sK7mY3zN1",
+          "_key": "!actors.items.effects!qoERDy6EmMCCsfdW.fi7HetXFSlLEd0cw.g8V4pL2sK7mY3zN1",
           "system": {
             "changes": []
           },
@@ -1282,8 +2711,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "USMYwXVawOGb33zu",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.USMYwXVawOGb33zu"
+      "_id": "fi7HetXFSlLEd0cw",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.fi7HetXFSlLEd0cw"
     },
     {
       "name": "Golpe de Misericórdia",
@@ -1334,8 +2763,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "M6NNiyYgR3bmcnZr",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.M6NNiyYgR3bmcnZr"
+      "_id": "7IRcUyJjH7k0hkAM",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.7IRcUyJjH7k0hkAM"
     },
     {
       "name": "Identificar Inimigo",
@@ -1386,8 +2815,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "LhFnAaGQllWUogw7",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.LhFnAaGQllWUogw7"
+      "_id": "uotXUDuywE1yZH3p",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.uotXUDuywE1yZH3p"
     },
     {
       "name": "Negociar",
@@ -1440,8 +2869,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "meNkiYURWrHrrxGS",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.meNkiYURWrHrrxGS"
+      "_id": "pwmth5tKNt9Syaoe",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.pwmth5tKNt9Syaoe"
     },
     {
       "name": "Proteger",
@@ -1475,7 +2904,51 @@
         "macroeffect": ""
       },
       "img": "icons/magic/control/silhouette-hold-change-blue.webp",
-      "effects": [],
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "cover": true,
+              "consumeOn": "damage",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.43.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Proteger",
+          "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "fbR02Gic71D3fEQS",
+          "_key": "!actors.items.effects!qoERDy6EmMCCsfdW.7PR4GZZNgzCgf4AY.fbR02Gic71D3fEQS"
+        }
+      ],
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
@@ -1492,8 +2965,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "GGJxKMjQhj2jfRfH",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.GGJxKMjQhj2jfRfH"
+      "_id": "7PR4GZZNgzCgf4AY",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.7PR4GZZNgzCgf4AY"
     },
     {
       "name": "Reconhecer Inimigo",
@@ -1546,8 +3019,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "aSDQvuzoG9FPSJFp",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.aSDQvuzoG9FPSJFp"
+      "_id": "tukBldjmnm0nbCja",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.tukBldjmnm0nbCja"
     },
     {
       "name": "Switch",
@@ -1628,7 +3101,7 @@
           "start": null,
           "showIcon": 1,
           "_id": "TezNyfNuTHtrkEWn",
-          "_key": "!actors.items.effects!qoERDy6EmMCCsfdW.6ZYWh8i6HF5VJcGo.TezNyfNuTHtrkEWn"
+          "_key": "!actors.items.effects!qoERDy6EmMCCsfdW.hscELGwo1AzSLpmj.TezNyfNuTHtrkEWn"
         }
       ],
       "flags": {
@@ -1655,8 +3128,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "6ZYWh8i6HF5VJcGo",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.6ZYWh8i6HF5VJcGo"
+      "_id": "hscELGwo1AzSLpmj",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.hscELGwo1AzSLpmj"
     },
     {
       "name": "Trocar Equipamento",
@@ -1707,8 +3180,122 @@
       "ownership": {
         "default": 0
       },
-      "_id": "EsKYLzZ7qVkC7PPp",
-      "_key": "!actors.items!qoERDy6EmMCCsfdW.EsKYLzZ7qVkC7PPp"
+      "_id": "tCZ0oKTFaDeShoaB",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.tCZ0oKTFaDeShoaB"
+    },
+    {
+      "name": "R3 Túnica do Eremita",
+      "type": "armor",
+      "system": {
+        "description": "<p>No início de uma Cena, você recebe [Anulação (Chama, Frio, Choque): 10]. [Momento: Encerramento] Seu [Ódio] diminui em 2. Uma vez por cena.</p>\n<hr>\n<ul>\n<li>Seda de Aranha Sombria [Material-Base] (55 Yuld)</li>\n<li>Mantelete (120 Yuld) &times; 3</li>\n<li>[Anima-mundi 3] (85 Yuld) &times; 2</li>\n<li>Custo de Fabricação (250 Yuld)</li>\n</ul>",
+        "tags": [
+          "M5",
+          "Light Armor",
+          "Rare",
+          "Not For Sale"
+        ],
+        "pdef": 5,
+        "mdef": 6,
+        "initiative": 0,
+        "rank": 3,
+        "price": 840,
+        "equipped": true,
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "timing": "-",
+        "attack": 0,
+        "magic": 0,
+        "accuracy": 0
+      },
+      "img": "icons/equipment/chest/robe-layered-purple.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "sceneStatuses": [
+            {
+              "status": "cancel",
+              "value": 10,
+              "tags": [
+                "Flame",
+                "Cold",
+                "Shock"
+              ]
+            }
+          ],
+          "powers": [
+            {
+              "timing": "Cleanup",
+              "target": "Self",
+              "range": "-",
+              "cost": "",
+              "limit": "1/Scene",
+              "text": "[Trigger: Cleanup] Reduce your [Hate] by 2. Once per scene."
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.ryNfgOIIj8g3aBno",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "cCceqbSB5Z7DwlgF",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.cCceqbSB5Z7DwlgF"
+    },
+    {
+      "name": "Anel Negro",
+      "type": "accessory",
+      "system": {
+        "description": "<p>Um anel com uma joia negra e brilhante. Imbuído de magia.</p>",
+        "tags": [
+          "Accessory",
+          "Magic Stone"
+        ],
+        "pdef": 0,
+        "mdef": 0,
+        "rank": 3,
+        "price": 180,
+        "equipped": true,
+        "initiative": 0,
+        "magic": 7,
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "timing": "-",
+        "attack": 0,
+        "accuracy": 0
+      },
+      "img": "icons/equipment/finger/ring-cabochon-gold-purple.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.9KrKH2SZOsHr6liy",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "6whinCoNtYYn0GgC",
+      "_key": "!actors.items!qoERDy6EmMCCsfdW.6whinCoNtYYn0GgC"
     }
   ],
   "effects": [],
@@ -1720,26 +3307,32 @@
         "pos": 6,
         "token": "token_73.png"
       },
+      "elenco": {
+        "slug": "tuk",
+        "papel": "Tuk, que herda a Terra aos oito anos (Cataclismo)"
+      },
       "professions": {
         "gatherer": {
           "exp": 0
         }
       },
       "skillProgress": {
-        "base": 1,
-        "creation": true
+        "base": 3,
+        "creation": false
       },
       "bio": {
+        "epithet": "a Autoridade da Terra",
         "age": "Uns 8",
         "gender": "Masculino",
-        "homeland": "Uma Queda de Aincrad"
+        "homeland": "Uma Queda de Aincrad",
+        "notes": "<h3>Só o Mestre</h3><p>Recebe o Cataclismo no inverno de 377, quando Rübezahl morre: é a ficha de depois disso. Nunca teve Despertar, porque veio do castelo. A Igreja, a Kaimei, o Território Negro (Rostam) e a Casa Zandrel correm atrás dele.</p>"
       }
     }
   },
   "_stats": {
     "coreVersion": "14.360",
     "systemId": "eternia",
-    "systemVersion": "0.39.0",
+    "systemVersion": "1.0.2",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

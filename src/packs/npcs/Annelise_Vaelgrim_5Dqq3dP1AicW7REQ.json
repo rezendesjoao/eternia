@@ -4,15 +4,15 @@
   "img": "systems/eternia/assets/tokens/npcs/annelise-vaelgrim.webp",
   "system": {
     "health": {
-      "value": 8,
-      "max": 8
+      "value": 63,
+      "max": 63
     },
     "fate": {
       "value": 1,
       "max": 1
     },
     "tags": [],
-    "biography": "<p>Caçula da Casa Vaelgrim; canta nos salões com um cristal de canção que a Igreja ainda não decidiu se é tabu. O irmão mais velho é o Cavaleiro 31 e passou por ela na rua sem reconhecê-la.</p>",
+    "biography": "<p>Irmã de Eldwin, o Cavaleiro 31. A prova viva da armadilha: o irmão campeão passou por ela na rua sem reconhecê-la.</p>",
     "race": "",
     "attributes": {
       "str": {
@@ -20,11 +20,11 @@
         "mod": 0
       },
       "dex": {
-        "value": 2,
+        "value": 1,
         "mod": 0
       },
       "pow": {
-        "value": 2,
+        "value": 3,
         "mod": 0
       },
       "int": {
@@ -96,7 +96,17 @@
       "impetus": 0,
       "combo": 0,
       "rhythm": 0,
-      "clones": 0
+      "clones": 0,
+      "contagion": 0,
+      "dying": 0,
+      "ironBlood": 0,
+      "anticipation": 0,
+      "hourglass": 0,
+      "jackpot": 0,
+      "luck": 0,
+      "goliath": 0,
+      "quake": 0,
+      "reaped": 0
     },
     "checks": {
       "athletics": {
@@ -145,7 +155,8 @@
       }
     },
     "infos": {
-      "crank": 3,
+      "crank": 4,
+      "xp": 0,
       "hate": 0,
       "fatigue": 0,
       "level": 35
@@ -154,7 +165,7 @@
       "guild": ""
     },
     "inventory": {
-      "gold": 3000
+      "gold": 480
     }
   },
   "prototypeToken": {
@@ -261,9 +272,9 @@
         "identifier": "human",
         "attributes": {
           "str": 0,
-          "dex": 1,
+          "dex": 0,
           "pow": 1,
-          "int": 0
+          "int": 1
         },
         "hp": 8,
         "fate": 1,
@@ -353,6 +364,23 @@
                 ]
               ]
             }
+          ],
+          "stage": 2,
+          "stageBonus": {
+            "str": 0,
+            "dex": 0,
+            "pow": 0,
+            "int": 0
+          },
+          "stageLog": [
+            {
+              "stage": 2,
+              "created": [
+                "pcFWutpArUQxXNVf",
+                "UlHQqrT6E1v6KBRK"
+              ],
+              "attribute": null
+            }
           ]
         }
       },
@@ -371,8 +399,97 @@
       "ownership": {
         "default": 0
       },
-      "_id": "rXRQ1qCxmLAl3hHp",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.rXRQ1qCxmLAl3hHp"
+      "_id": "vZqYTV8JYtgPBYgv",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.vZqYTV8JYtgPBYgv"
+    },
+    {
+      "name": "Invocador",
+      "type": "class",
+      "system": {
+        "description": "<p><strong>Atributos:</strong> Força 1, Destreza 2, Poder 4 e Inteligência 3. <strong>PV:</strong> 40, +5 por NP (faixa Leve). <strong>Papéis:</strong> Dano e Controle.</p><p><strong>Motor: Pacto.</strong> Um espírito (o Lobo, o Golem ou a Fada) fica preso a você por um contrato de Laços, que você paga com os seus PV e alimenta com os seus Feitiços. Ele age pelas suas habilidades, os comandos especiais gastam Laços, e com 0 Laços ele se desfaz.</p><p><strong>Magias:</strong> a classe é como você conjura; a Magia é o que você conjura. Você escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10 (Espíritos Celestiais, Magia Seith, Teatro de Bonecas...), e os feitiços delas entram nas suas escolhas de Combate.</p><p><strong>Kit do NP 1:</strong> Pacto, Invocar Espírito, Comando: Ataque e Escudo Vivo, e a primeira Magia. <strong>NP 3:</strong> um Caminho (Legião, Fusão ou Titã). <strong>NP 5:</strong> Dedicação e a segunda Magia. <strong>NP 10:</strong> o Ápice, Pacto Eterno, e a terceira Magia.</p><hr><p><em>Os invocadores da Eternia andam com giz, sal e uma faca pequena, e quase sempre com um curativo na palma da mão. O que eles chamam não vem de graça: vem pelo sangue, e quem olha de perto vê que o lobo que corre ao lado deles tem os mesmos olhos.</em></p>",
+        "tags": [
+          "Damage",
+          "Control"
+        ],
+        "identifier": "invocador",
+        "attributes": {
+          "str": 1,
+          "dex": 2,
+          "pow": 4,
+          "int": 3
+        },
+        "hp": 40,
+        "hpPerRank": 5,
+        "grants": [
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.StsDtMCnZPw9dXi5"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.O7szVmjQ0KZzcueG"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.DtFc22l67j2dOJg7"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.NbGS5F8hlBZ8X2m8"
+            ]
+          },
+          {
+            "rank": 1,
+            "magic": true
+          },
+          {
+            "rank": 5,
+            "magic": true
+          },
+          {
+            "rank": 10,
+            "magic": true
+          },
+          {
+            "rank": 3,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.gruvdZyrhFyzhJY8",
+              "Compendium.eternia.skills-class.Item.NSP657NpQaYKm8WV",
+              "Compendium.eternia.skills-class.Item.t20HBuqgMrmzbhxK"
+            ]
+          },
+          {
+            "rank": 10,
+            "auto": true,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.zKxIEVoOSbpPmrrD"
+            ]
+          }
+        ]
+      },
+      "img": "systems/eternia/assets/icons/classes/invocador.svg",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.races-classes.Item.6Qg32prL6o8REn4p",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "lnMKhhm6VlkWE2E9",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.lnMKhhm6VlkWE2E9"
     },
     {
       "name": "Domador",
@@ -390,7 +507,7 @@
       "_stats": {
         "coreVersion": "14.367",
         "systemId": "eternia",
-        "systemVersion": "0.4.0",
+        "systemVersion": "1.0.1",
         "createdTime": null,
         "modifiedTime": null,
         "lastModifiedBy": null,
@@ -402,8 +519,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "9p213oWT74wZkMSE",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.9p213oWT74wZkMSE"
+      "_id": "YCFgNrpwwFCe4VQS",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.YCFgNrpwwFCe4VQS"
     },
     {
       "name": "Bênção da Leitura do Vento",
@@ -481,7 +598,7 @@
           "start": null,
           "showIcon": 1,
           "_id": "Zq8ywg8XND944o4p",
-          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.xb6ZNsHr0bizbN7n.Zq8ywg8XND944o4p"
+          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.CHpfixkSVcspSzo0.Zq8ywg8XND944o4p"
         }
       ],
       "flags": {
@@ -508,8 +625,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "xb6ZNsHr0bizbN7n",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.xb6ZNsHr0bizbN7n"
+      "_id": "CHpfixkSVcspSzo0",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.CHpfixkSVcspSzo0"
     },
     {
       "name": "Força dos Laços",
@@ -676,7 +793,7 @@
           "start": null,
           "showIcon": 1,
           "_id": "uXXok6VNMp9Maq4B",
-          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.8Hfl1SUW1WpTQi1g.uXXok6VNMp9Maq4B"
+          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.CC9erKvrTCmUvpYu.uXXok6VNMp9Maq4B"
         }
       ],
       "flags": {
@@ -703,8 +820,1840 @@
       "ownership": {
         "default": 0
       },
-      "_id": "8Hfl1SUW1WpTQi1g",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.8Hfl1SUW1WpTQi1g"
+      "_id": "CC9erKvrTCmUvpYu",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.CC9erKvrTCmUvpYu"
+    },
+    {
+      "name": "Coleção de Bênçãos",
+      "type": "skill",
+      "system": {
+        "description": "<p>Cada NH desta habilidade dá uma Bênção nova, à sua escolha entre as Bênçãos dos Humanos que você ainda não tem.</p><p>Ao adquirir a habilidade ou subir o NH dela, escolha a Bênção.</p><hr><p><em>Uma nova Bênção chega como um despertar: por um instante, o mundo inteiro parece prestar atenção em você, e depois volta ao normal, com algo a mais.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "minRank": 3,
+          "rankGrants": [
+            "Compendium.eternia.skills-racial.Item.wZ7b1vx7z5MZw307",
+            "Compendium.eternia.skills-racial.Item.XX1m341mzy65qPIS",
+            "Compendium.eternia.skills-racial.Item.PRlziwUF9xcNxPch",
+            "Compendium.eternia.skills-racial.Item.t1oaxTeq3Q58JKCp",
+            "Compendium.eternia.skills-racial.Item.bWP38ho41YJAYFsZ",
+            "Compendium.eternia.skills-racial.Item.81TCqdMShGqdj4CJ",
+            "Compendium.eternia.skills-racial.Item.EujCiVbwjbPTMpIW",
+            "Compendium.eternia.skills-racial.Item.po32KdHxFSexXWEt"
+          ],
+          "choiceOnly": true,
+          "raceStage": 2,
+          "grantedBy": {
+            "type": "race",
+            "source": "Compendium.eternia.races-classes.Item.CMMPFP41a2v6KJly"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "pcFWutpArUQxXNVf",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.pcFWutpArUQxXNVf"
+    },
+    {
+      "name": "Bênção do Corpo de Ferro",
+      "type": "skill",
+      "system": {
+        "description": "<p>+1d6 nos testes de Vigor.</p><p>Frio, calor, fome e sede extremos levam o dobro do tempo para afetar você.</p><hr><p><em>Você atravessa a neve de mangas curtas, e dias sem comer deixam no seu rosto apenas um traço de cansaço.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/buff-strength-muscle-damage.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {},
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Bênção do Corpo de Ferro",
+          "img": "icons/magic/control/buff-strength-muscle-damage.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.endurance.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "8Naj0qegRvCH6r1G",
+          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.UlHQqrT6E1v6KBRK.8Naj0qegRvCH6r1G"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "skill",
+            "source": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.t1oaxTeq3Q58JKCp",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "UlHQqrT6E1v6KBRK",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.UlHQqrT6E1v6KBRK"
+    },
+    {
+      "name": "Pacto",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Motor do Invocador.</strong> Um espírito fica preso a você por um contrato de Laços: o Lobo, o Golem ou a Fada. Ele não tem token e age pelas suas habilidades. Todo combate começa sem espírito.</p><ul><li><strong>Ganha:</strong> Invocar Espírito: você escolhe o espírito e paga [NP÷2+2] PV por Laço. Com um espírito presente, os Feitiços das suas Magias dão +1 Laço (os grandes, +2); sem espírito, não dão nada.</li><li><strong>Gasta:</strong> os comandos especiais de cada espírito gastam Laços, e o Escudo Vivo gasta 1. O Comando: Ataque rola 1d6 a mais por Laço. Os feitiços supremos das Magias pedem o Teto e gastam todos os Laços, e o espírito precisa ter chegado antes desta rodada.</li><li><strong>Teto:</strong> 3 Laços, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> com 0 Laços o espírito se desfaz.</li><li><strong>Traços:</strong> o Lobo soma +1d6 ao Comando: Ataque e à Investida do Lobo; o Golem dá a você [Anulação: Laços]; a Fada, [Regeneração: Laços × 2].</li></ul><p><strong>Magias:</strong> você escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10. Os feitiços delas entram nas suas escolhas de Combate e alimentam o Pacto.</p><p><em>O círculo no chão se fecha, uma gota de sangue toca a linha, e alguma coisa do outro lado responde.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/symbols/circle-ouroboros.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "invocador-pacto",
+          "kind": "motor",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "invocador",
+            "role": "core"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.6Qg32prL6o8REn4p"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.StsDtMCnZPw9dXi5",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "72E8pvpJytGM66Id",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.72E8pvpJytGM66Id"
+    },
+    {
+      "name": "Invocar Espírito",
+      "type": "skill",
+      "system": {
+        "description": "<p>Escolha o Lobo, o Golem ou a Fada e quantos Laços dar a ele, até o Teto. Você perde [NP÷2+2] PV por Laço, um dano direto que nenhuma Barreira segura, e precisa ficar com pelo menos 1 PV.</p><p>Com o mesmo espírito, os Laços se somam. Com outro, o novo toma o lugar do antigo e chega só com os Laços que você pagou.</p><hr><p><em>O espírito divide os seus PV: cada Laço é um pouco da sua vida do lado de lá.</em></p>",
+        "tags": [
+          "Summon"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/movement/portal-vortex-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "invocador-invocar",
+          "kind": "feeds",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "invocador"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.6Qg32prL6o8REn4p"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.O7szVmjQ0KZzcueG",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Drl27HiaYZKLAMw5",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.Drl27HiaYZKLAMw5"
+    },
+    {
+      "name": "Comando: Ataque",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com um espírito presente: ele ataca um alvo a até 4 Qd. [(1 + Laços)d6 + Poder Mágico] de dano mágico (Teste de Precisão contra Resistência). Não gasta Laços.</p><p>O Lobo soma +1d6 ao dano.</p>",
+        "tags": [
+          "Magic Attack",
+          "Summon"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "1+@motor.value",
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/abilities/paw-glowing-yellow.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "invocador-comando-ataque",
+          "kind": "motor",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "invocador",
+            "spirit": "any"
+          },
+          "damageText": "(1+Laços)d6 + [Poder Mágico] Mágico",
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.6Qg32prL6o8REn4p"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.DtFc22l67j2dOJg7",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "FG48B6IC6m1qhi0L",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.FG48B6IC6m1qhi0L"
+    },
+    {
+      "name": "Escudo Vivo",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use quando você for sofrer o dano de um ataque, com um espírito presente: gaste 1 Laço. O espírito se põe na frente do golpe e você ganha [Barreira: NP+5] até o fim do processo. Com o Golem, a Barreira é [NP + 5 + Laços × 2].</p><p>Com 0 Laços, o espírito se desfaz.</p>",
+        "tags": [],
+        "timing": "Before Damage",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/magical/spirit-undead-ghost-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "barrier",
+                "value": "@use.shield"
+              },
+              "expires": "endOfProcess",
+              "recipients": "self"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Escudo Vivo",
+          "img": "systems/eternia/assets/ui/status/barrier.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "barrier"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "GZUXHPiAba6hbos0",
+          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.qKuxdROJxBkLeBYg.GZUXHPiAba6hbos0"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "invocador-escudo-vivo",
+          "kind": "spends",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "invocador",
+            "spirit": "any",
+            "needs": {
+              "min": 1
+            },
+            "spend": 1,
+            "action": "none"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.6Qg32prL6o8REn4p"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.NbGS5F8hlBZ8X2m8",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "qKuxdROJxBkLeBYg",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.qKuxdROJxBkLeBYg"
+    },
+    {
+      "name": "Caminho da Legião",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Reescreve o custo do Pacto.</strong> Cada Laço custa [NP÷4+1] PV em vez de [NP÷2+2], mas o Teto diminui em 1.</p><p><strong>Talentos do Caminho:</strong> Muitas Vozes (NP 3) e Reforço Constante (NP 7).</p><hr><p><em>Não um espírito grande: dezenas de pequenos, que pedem pouco e chegam juntos.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/magical/spirit-fear-energy-pink.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "invocador-legiao",
+          "kind": "bends",
+          "branch": "path",
+          "choiceOnly": true,
+          "path": {
+            "class": "invocador",
+            "id": "legiao"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.6Qg32prL6o8REn4p"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.gruvdZyrhFyzhJY8",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "uhf7QjUx8n9vhUHK",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.uhf7QjUx8n9vhUHK"
+    },
+    {
+      "name": "Água",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Magia (Conjuração).</strong> Você é feito de água tanto quanto a controla: prende, corta e escorre por entre os golpes. É a magia de quem luta no meio da confusão sem ser atingido, e afoga o inimigo devagar.</p><ul><li><strong>Traço, Alma de Água:</strong> você é imune a [Queimando], e os seus feitiços de Água deixam [Encharcado: NP÷2 + 2] em quem acertam.</li><li><strong>Feitiços:</strong> Lâmina de Água, Prisão de Água e Corpo de Água (NP 1), Nebulosa de Água (NP 3), Sierra (NP 5) e o feitiço supremo Maremoto (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Maremoto pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Sempre chove um pouco quando você está triste.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/water/elemental-water.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "trait": {
+                "magia": "agua",
+                "onHit": [
+                  {
+                    "statusId": "soaked",
+                    "value": "floor(@cr/2)+2"
+                  }
+                ]
+              },
+              "immune": [
+                "burning"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Alma de Água",
+          "img": "icons/magic/water/elemental-water.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "zIIpaS26pZBKQSAn",
+          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.W9sQKrZckiYylaMu.zIIpaS26pZBKQSAn"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "agua-agua",
+          "kind": "bends",
+          "branch": "magic",
+          "magic": {
+            "id": "agua",
+            "category": "caster",
+            "tagline": "A água que prende, corta e escorre."
+          },
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.6Qg32prL6o8REn4p"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.WzE4yFtEGkOZ5Sqn",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "W9sQKrZckiYylaMu",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.W9sQKrZckiYylaMu"
+    },
+    {
+      "name": "Corpo de Água",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Água.</strong> O seu corpo vira água: você fica [Intangível] (não sofre dano físico) até usar uma Ação Maior ou até o Encerramento. Uma vez por rodada.</p><p><em>A espada atravessa você e sai molhada.</em></p>",
+        "tags": [
+          "Spell",
+          "Water"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/water/water-hand.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Corpo de Água",
+          "img": "systems/eternia/assets/ui/status/intangible.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "intangible"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "EOTGAnCMus8lPyAB",
+          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.04f5AZP2ZMGQbcdz.EOTGAnCMus8lPyAB"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "agua-corpo-de-agua",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "agua"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.UZyHFFrFBIi0KUQO",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "04f5AZP2ZMGQbcdz",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.04f5AZP2ZMGQbcdz"
+    },
+    {
+      "name": "Lâmina de Água",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Água.</strong> Um arco de água afiada corta um alvo a até 4 Qd: Teste de Precisão contra a Resistência; [2d6 + Poder Mágico] de dano mágico de [Água].</p><p><strong>Custo:</strong> Ódio 1.</p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Water"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/water/projectile-water-wave-teal.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "agua-lamina-de-agua",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "agua"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.b5HcwtmNj7VsgEvX",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "qJoa4xS3eXUZRE8V",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.qJoa4xS3eXUZRE8V"
+    },
+    {
+      "name": "Investida do Lobo",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com o Lobo presente: ele salta sobre um alvo a até 4 Qd. Gaste quantos Laços quiser: [(1 + Laços gastos)d6 + Poder Mágico + Laços gastos×NP] de dano físico (Teste de Precisão contra Esquiva), e o alvo fica [Derrubado]. O Lobo soma +1d6.</p><p>Com 0 Laços, o Lobo se desfaz depois do golpe.</p><hr><p><em>Um vulto cinzento, um peso no peito, e o chão chega antes da espada.</em></p>",
+        "tags": [
+          "Physical Attack",
+          "Summon",
+          "Dedication"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "1+@spent",
+          "mod": "@magic+@spent*@cr",
+          "type": "physical",
+          "recovery": false,
+          "noPower": true
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/mammals/dog-husky-white-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "invocador-investida",
+          "kind": "spends",
+          "branch": "lobo",
+          "minRank": 1,
+          "motor": {
+            "id": "invocador",
+            "spirit": "lobo",
+            "needs": {
+              "min": 1
+            },
+            "spend": "choose"
+          },
+          "damageText": "(1+Laços gastos)d6 + [Poder Mágico] + Laços gastos×NP Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.uxILuoaIh8oq1zdO",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "jzZoBC5n03w5o58Y",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.jzZoBC5n03w5o58Y"
+    },
+    {
+      "name": "Conversar com Espíritos",
+      "type": "skill",
+      "system": {
+        "description": "<p>Teste de Negociação com +[NH]d6 para falar com espíritos, fantasmas e o eco de quem morreu há pouco. Com um espírito presente, ele serve de intérprete: vocês não precisam de uma língua em comum.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": 0,
+          "vs": "",
+          "stat": "negotiation"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/magical/spirit-undead-masked-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "invocador-conversar",
+          "kind": "bends",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.HcdrgSk9NO8q0wQj",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "rhlrOTOcw1LZSDWC",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.rhlrOTOcw1LZSDWC"
+    },
+    {
+      "name": "Prisão de Água",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Água.</strong> Uma esfera de água se fecha em volta de um alvo a até 4 Qd (Teste de Precisão contra a Resistência): ele fica [Enraizado] e [Deterioração: NP÷2 + 2] (está se afogando).</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Lá dentro, as bolhas sobem e o grito não sai.</em></p>",
+        "tags": [
+          "Spell",
+          "Water"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/water/orb-water-bubbles-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Prisão de Água",
+          "img": "systems/eternia/assets/ui/status/rooted.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "rooted"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "5Z7kkwPvxUGNjpQp",
+          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.WvH6M57nOugfK7YG.5Z7kkwPvxUGNjpQp"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "decay",
+                "value": "floor(@cr/2)+2"
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Prisão de Água: afogando",
+          "img": "systems/eternia/assets/ui/status/decay.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "decay"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "AVp7ZkqeqFg5tr05",
+          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.WvH6M57nOugfK7YG.AVp7ZkqeqFg5tr05"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "agua-prisao-de-agua",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "agua"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.ezzHrC4675FZ3FSV",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "WvH6M57nOugfK7YG",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.WvH6M57nOugfK7YG"
+    },
+    {
+      "name": "Laço de Sangue",
+      "type": "skill",
+      "system": {
+        "description": "<p>O Teto do Pacto aumenta em [NH].</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 2
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/debuff-chains-ropes-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "invocador-laco-de-sangue",
+          "kind": "bends",
+          "branch": "pacto",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.GOsMVvb2jse0Lbw0",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Hs8045apvJSVhPnQ",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.Hs8045apvJSVhPnQ"
+    },
+    {
+      "name": "Montaria Espiritual",
+      "type": "skill",
+      "system": {
+        "description": "<p>Fora de combate, com um espírito presente: o Lobo leva você nas costas (numa viagem, o grupo anda o dobro por dia), o Golem carrega a carga de [NP] pessoas e a Fada ilumina tudo até 10 Qd.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/magical/humanoid-horned-rider.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "invocador-montaria",
+          "kind": "bends",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.kG5yHBm4mOfLQAGl",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "r8xWkNCvvHdh99gQ",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.r8xWkNCvvHdh99gQ"
+    },
+    {
+      "name": "Nebulosa de Água",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Água.</strong> Feitiço grande. Dois jatos de água em espiral varrem uma área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; [2d6 + Poder Mágico] de dano mágico de [Água], e quem eles acertam fica [Lento].</p><p><strong>Custo:</strong> Ódio 3.</p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Water"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/water/water-drop-swirl-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "agua-nebulosa-de-agua",
+          "kind": "feeds",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "slowed"
+            }
+          ],
+          "magicSpell": {
+            "id": "agua"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.p2t6iXt7KkpsfFCf",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "R6wJXxVZq0Tk0OvW",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.R6wJXxVZq0Tk0OvW"
+    },
+    {
+      "name": "Luz Errante",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com a Fada presente: gaste 1 Laço. Uma luz pousa no ombro de um aliado a até 4 Qd, e ele fica [Concentrado] (+1d6 no próximo teste).</p>",
+        "tags": [
+          "Summon"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/light/orbs-smoke-pink.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "focused"
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Luz Errante",
+          "img": "systems/eternia/assets/ui/status/focused.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "focused"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "DKvHgyxuG64riOxa",
+          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.qrTvpDV0e06s43BH.DKvHgyxuG64riOxa"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "invocador-luz-errante",
+          "kind": "spends",
+          "branch": "fada",
+          "minRank": 1,
+          "motor": {
+            "id": "invocador",
+            "spirit": "fada",
+            "needs": {
+              "min": 1
+            },
+            "spend": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.wFK9fDIGTX4whetP",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "qrTvpDV0e06s43BH",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.qrTvpDV0e06s43BH"
+    },
+    {
+      "name": "Selo de Guarda",
+      "type": "skill",
+      "system": {
+        "description": "<p>Durante um Descanso, pague 1 Laço ([NP÷2+2] PV) e um espírito vigia o acampamento até o grupo partir: ninguém do grupo é pego de surpresa ali.</p>",
+        "tags": [],
+        "timing": "Rest Time",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/symbols/runes-carved-stone-purple.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "invocador-selo",
+          "kind": "feeds",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.OsseoYPS6WPwSC2U",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "fVh6yewTg6tbxrUZ",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.fVh6yewTg6tbxrUZ"
+    },
+    {
+      "name": "Muralha do Golem",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com o Golem presente: gaste quantos Laços quiser. Você e os aliados que você escolher ganham [Barreira: Laços gastos × (NP+5)] até o fim da rodada.</p><p>Com 0 Laços, o Golem se desfaz.</p><hr><p><em>Ele se ajoelha, apoia as mãos no chão, e o chão sobe em placas na frente de todos.</em></p>",
+        "tags": [
+          "Summon"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "-",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/earth/barrier-stone-pillar-purple.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "barrier",
+                "value": "@spent*(@cr+5)"
+              },
+              "expires": "endOfRound",
+              "recipients": "allies"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Muralha do Golem",
+          "img": "systems/eternia/assets/ui/status/barrier.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "barrier"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "dQppe4j6oNleXOsa",
+          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.ibBXUpgAnhwmN3YO.dQppe4j6oNleXOsa"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "invocador-muralha",
+          "kind": "spends",
+          "branch": "golem",
+          "minRank": 1,
+          "motor": {
+            "id": "invocador",
+            "spirit": "golem",
+            "needs": {
+              "min": 1
+            },
+            "spend": "choose"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.HC5kTDTnhfSIggSX",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "ibBXUpgAnhwmN3YO",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.ibBXUpgAnhwmN3YO"
+    },
+    {
+      "name": "Punho de Pedra",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com o Golem presente: o punho de pedra desce sobre um alvo a até 4 Qd. [2d6 + Poder Mágico] de dano físico (Teste de Precisão contra Esquiva), e o alvo fica [Provocado] por você. Se acertar, +1 Laço, sem pagar PV (uma vez por rodada).</p>",
+        "tags": [
+          "Physical Attack",
+          "Summon"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": "@magic",
+          "type": "physical",
+          "recovery": false,
+          "noPower": true
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/earth/construct-stone-long-arms.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "invocador-punho-de-pedra",
+          "kind": "feeds",
+          "branch": "golem",
+          "minRank": 1,
+          "motor": {
+            "id": "invocador",
+            "spirit": "golem"
+          },
+          "damageText": "2d6 + [Poder Mágico] Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.kwVNquIMqHLHOYz2",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "fYcxBTtWV1BDpUIL",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.fYcxBTtWV1BDpUIL"
+    },
+    {
+      "name": "Sentir o Além",
+      "type": "skill",
+      "system": {
+        "description": "<p>Teste de Percepção com +[NH]d6 para notar o que não se vê: espíritos, mortos-vivos, ilusões e magia ativa por perto.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": 0,
+          "vs": "",
+          "stat": "perception"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/perception/eye-slit-pink.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "invocador-sentir",
+          "kind": "bends",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.UazstMI7hP84ETyA",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "dUxue4bNB0LHzLVR",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.dUxue4bNB0LHzLVR"
+    },
+    {
+      "name": "Analisar Objeto de Cena",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "analysis"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/traps/trap-jaw-steel.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746551067,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.V30xXzllUuzBfafd",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Oyuu6nxAM1PfpAVs",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.Oyuu6nxAM1PfpAVs"
     },
     {
       "name": "Ataque Básico com Arma",
@@ -757,8 +2706,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "ZS0xDRONm353Tk8t",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.ZS0xDRONm353Tk8t"
+      "_id": "c5fWkJ6oAVqH9OAJ",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.c5fWkJ6oAVqH9OAJ"
     },
     {
       "name": "Ataque Mágico Básico",
@@ -813,8 +2762,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "9w3gVBh5u6rjsCwJ",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.9w3gVBh5u6rjsCwJ"
+      "_id": "eEn3yYdErReLj3nU",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.eEn3yYdErReLj3nU"
     },
     {
       "name": "Avaliar Item",
@@ -865,8 +2814,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "hD85eYm72c2Tb1l5",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.hD85eYm72c2Tb1l5"
+      "_id": "0vcbqaM7DCQM1Ml2",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.0vcbqaM7DCQM1Ml2"
     },
     {
       "name": "Correr",
@@ -919,60 +2868,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "OMvoiNU1ZYTD66zK",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.OMvoiNU1ZYTD66zK"
-    },
-    {
-      "name": "Analisar Objeto de Cena",
-      "type": "skill",
-      "system": {
-        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
-        "tags": [],
-        "timing": "Major",
-        "checkType": "",
-        "range": "1Sq",
-        "target": "Refer",
-        "subtype": "Basic",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "-",
-        "check": {
-          "dice": 0,
-          "mod": 0,
-          "vs": "",
-          "stat": "analysis"
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false
-        },
-        "macroeffect": ""
-      },
-      "img": "icons/environment/traps/trap-jaw-steel.webp",
-      "effects": [],
-      "flags": {},
-      "_stats": {
-        "coreVersion": "13.351",
-        "systemId": "eternia",
-        "systemVersion": "0.1.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.skills-basic.Item.V30xXzllUuzBfafd",
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "sort": 0,
-      "ownership": {
-        "default": 0
-      },
-      "_id": "Xwr3nkxXwHqMuB5V",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.Xwr3nkxXwHqMuB5V"
+      "_id": "5ts7SKLjtxOHnCVH",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.5ts7SKLjtxOHnCVH"
     },
     {
       "name": "Desarmar Objeto de Cena",
@@ -1022,8 +2919,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "k5wpYpEuJwmanfdf",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.k5wpYpEuJwmanfdf"
+      "_id": "mbgBUUjDDAIbkIYt",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.mbgBUUjDDAIbkIYt"
     },
     {
       "name": "Deslocar-se",
@@ -1060,7 +2957,13 @@
       },
       "img": "icons/skills/movement/arrow-upward-white.webp",
       "effects": [],
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
       "_stats": {
         "coreVersion": "13.351",
         "systemId": "eternia",
@@ -1076,8 +2979,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "x5t8uOg3pRXxdVbw",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.x5t8uOg3pRXxdVbw"
+      "_id": "3ItWzQhvw05TPrar",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.3ItWzQhvw05TPrar"
     },
     {
       "name": "Detectar Anomalias",
@@ -1128,8 +3031,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "1jtxGMR0CqKSjdAU",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.1jtxGMR0CqKSjdAU"
+      "_id": "e4gNEZBcydRpdUtA",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.e4gNEZBcydRpdUtA"
     },
     {
       "name": "Disparada",
@@ -1166,7 +3069,13 @@
       },
       "img": "icons/skills/movement/figure-running-gray.webp",
       "effects": [],
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
       "_stats": {
         "coreVersion": "13.351",
         "systemId": "eternia",
@@ -1182,8 +3091,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "1hy74Y83n5BoSdhg",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.1hy74Y83n5BoSdhg"
+      "_id": "r6UyawI1k05TIarZ",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.r6UyawI1k05TIarZ"
     },
     {
       "name": "Esconder-se",
@@ -1258,7 +3167,7 @@
             "exportSource": null
           },
           "sort": 0,
-          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.IqPWx9wdAraIfgQJ.g8V4pL2sK7mY3zN1",
+          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.HwX5yhZO4gQXd7ek.g8V4pL2sK7mY3zN1",
           "system": {
             "changes": []
           },
@@ -1282,8 +3191,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "IqPWx9wdAraIfgQJ",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.IqPWx9wdAraIfgQJ"
+      "_id": "HwX5yhZO4gQXd7ek",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.HwX5yhZO4gQXd7ek"
     },
     {
       "name": "Golpe de Misericórdia",
@@ -1334,8 +3243,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "xW3Rw0Rb1JToSu6c",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.xW3Rw0Rb1JToSu6c"
+      "_id": "fdUHyVeQR299ioxl",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.fdUHyVeQR299ioxl"
     },
     {
       "name": "Identificar Inimigo",
@@ -1386,8 +3295,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "FJswMV5mZlduK457",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.FJswMV5mZlduK457"
+      "_id": "KjvT6px4fHRf9aNR",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.KjvT6px4fHRf9aNR"
     },
     {
       "name": "Negociar",
@@ -1440,8 +3349,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "yvKrc5H11blrNS1x",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.yvKrc5H11blrNS1x"
+      "_id": "cSBoYAxTf1l3UAEz",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.cSBoYAxTf1l3UAEz"
     },
     {
       "name": "Proteger",
@@ -1475,7 +3384,51 @@
         "macroeffect": ""
       },
       "img": "icons/magic/control/silhouette-hold-change-blue.webp",
-      "effects": [],
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "cover": true,
+              "consumeOn": "damage",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.43.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Proteger",
+          "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "fbR02Gic71D3fEQS",
+          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.FtsXuqQNigqypnq8.fbR02Gic71D3fEQS"
+        }
+      ],
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
@@ -1492,8 +3445,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "N0k1W3sLlZUc59rB",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.N0k1W3sLlZUc59rB"
+      "_id": "FtsXuqQNigqypnq8",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.FtsXuqQNigqypnq8"
     },
     {
       "name": "Reconhecer Inimigo",
@@ -1546,8 +3499,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "WFV4ykLgB1DBjAve",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.WFV4ykLgB1DBjAve"
+      "_id": "MeoJKIEeG2HX8Ik8",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.MeoJKIEeG2HX8Ik8"
     },
     {
       "name": "Switch",
@@ -1628,7 +3581,7 @@
           "start": null,
           "showIcon": 1,
           "_id": "TezNyfNuTHtrkEWn",
-          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.ABIF5ENEYSnxqfkO.TezNyfNuTHtrkEWn"
+          "_key": "!actors.items.effects!5Dqq3dP1AicW7REQ.C6BLQjQQqjV4rhG7.TezNyfNuTHtrkEWn"
         }
       ],
       "flags": {
@@ -1655,8 +3608,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "ABIF5ENEYSnxqfkO",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.ABIF5ENEYSnxqfkO"
+      "_id": "C6BLQjQQqjV4rhG7",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.C6BLQjQQqjV4rhG7"
     },
     {
       "name": "Trocar Equipamento",
@@ -1707,8 +3660,111 @@
       "ownership": {
         "default": 0
       },
-      "_id": "dflAvfYMIwHTiz5f",
-      "_key": "!actors.items!5Dqq3dP1AicW7REQ.dflAvfYMIwHTiz5f"
+      "_id": "k0KOJQgxyTa2RBCn",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.k0KOJQgxyTa2RBCn"
+    },
+    {
+      "name": "R4 M6 Cajado Proibido de Agastya",
+      "type": "weapon",
+      "system": {
+        "description": "<p>[Momento: Manutenção] Designe um inimigo a até 4Qd de você. O alvo não poderá usar [Destino] a menos que pague imediatamente 1 ponto de [Destino]. Este efeito dura até o fim da rodada. 1/Cena&nbsp;</p>\n<hr>\n<p>Uma bengala entalhada com um padrão geométrico que lembra 14 folhas de planta. Parece que originalmente era uma peça embutida em alguma outra grande máquina, mas hoje é usada como arma pela utilidade de seus circuitos mágicos internos. Quando o circuito é ativado, ele pode transmitir um comprimento de onda que obstrui o poder mágico ao redor.</p>\n<hr>\n<table style=\"border-collapse: collapse; width: 185pt;\" border=\"0\" width=\"245\" cellspacing=\"0\" cellpadding=\"0\"><colgroup><col style=\"mso-width-source: userset; mso-width-alt: 1792; width: 37pt;\" span=\"5\" width=\"49\"> </colgroup>\n<tbody>\n<tr style=\"mso-height-source: userset; height: 12.75pt;\">\n<td class=\"xl66\" style=\"border-right: .5pt solid black; height: 12.75pt; width: 185pt;\" colspan=\"5\" width=\"245\" height=\"17\">Circuito Lógico [Material-Base] (70 Yuld)</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 12.75pt;\">\n<td class=\"xl66\" style=\"border-right: .5pt solid black; height: 12.75pt;\" colspan=\"5\" height=\"17\">2x Cajado de Olmo (220 Yuld)</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 12.75pt;\">\n<td class=\"xl66\" style=\"border-right: .5pt solid black; height: 12.75pt;\" colspan=\"5\" height=\"17\">3x [Anima-mundi 4] (105 Yuld)</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 12.75pt;\">\n<td class=\"xl66\" style=\"border-right: .5pt solid black; height: 12.75pt;\" colspan=\"5\" height=\"17\">-</td>\n</tr>\n<tr style=\"mso-height-source: userset; height: 12.75pt;\">\n<td class=\"xl70\" style=\"border-right: .5pt solid black; height: 12.75pt;\" colspan=\"5\" height=\"17\">Custo de Fabricação (310 Yuld)</td>\n</tr>\n</tbody>\n</table>",
+        "tags": [
+          "M6",
+          "Two-Handed",
+          "Staff",
+          "Not For Sale"
+        ],
+        "initiative": -2,
+        "rank": 4,
+        "price": 1140,
+        "equipped": true,
+        "attack": 14,
+        "magic": 18,
+        "accuracy": 0,
+        "main": false,
+        "range": "Close",
+        "checkType": "-",
+        "target": "-",
+        "timing": "-",
+        "pdef": 0,
+        "mdef": 0
+      },
+      "img": "icons/weapons/staves/staff-ornate-eye.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "powers": [
+            {
+              "timing": "Setup",
+              "target": "Single",
+              "range": "4Sq",
+              "cost": "",
+              "limit": "1/Scene",
+              "text": "[Trigger: Setup] Designate one enemy within 4Sq from you. The target will be unable to use [Causal Power] unless they immediately pay 1 point of [Causal Power]. This effect lasts until the end of the round. 1/Scene"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.3zdW0czUX4d0s4Zb",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "qVLgHpcBqygNLqSA",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.qVLgHpcBqygNLqSA"
+    },
+    {
+      "name": "Roupas de Caçador",
+      "type": "armor",
+      "system": {
+        "description": "<p>Armadura usada por caçadores. Nem as presas das feras a perfuram com facilidade.</p>",
+        "tags": [
+          "Light Armor"
+        ],
+        "pdef": 7,
+        "mdef": 10,
+        "initiative": 0,
+        "rank": 4,
+        "price": 360,
+        "equipped": true,
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "timing": "-",
+        "attack": 0,
+        "magic": 0,
+        "accuracy": 0
+      },
+      "img": "icons/equipment/chest/vest-leather-brown.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.pc76sGmpYTnKcEqo",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "YOSanbTuycGrdhTY",
+      "_key": "!actors.items!5Dqq3dP1AicW7REQ.YOSanbTuycGrdhTY"
     }
   ],
   "effects": [],
@@ -1720,16 +3776,21 @@
         "pos": 2,
         "token": "token_16.png"
       },
+      "elenco": {
+        "slug": "annelise-vaelgrim",
+        "papel": "Annelise Vaelgrim, irmã do Cavaleiro 31"
+      },
       "professions": {
         "tamer": {
-          "exp": 20
+          "exp": 0
         }
       },
       "skillProgress": {
-        "base": 3,
-        "creation": true
+        "base": 4,
+        "creation": false
       },
       "bio": {
+        "epithet": "a irmã do Cavaleiro 31",
         "age": "17",
         "gender": "Feminino",
         "homeland": "Centória Norte, 3º distrito"
@@ -1739,7 +3800,7 @@
   "_stats": {
     "coreVersion": "14.360",
     "systemId": "eternia",
-    "systemVersion": "0.39.0",
+    "systemVersion": "1.0.2",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

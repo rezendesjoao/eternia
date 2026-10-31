@@ -4,15 +4,15 @@
   "img": "systems/eternia/assets/tokens/npcs/amarante.webp",
   "system": {
     "health": {
-      "value": 8,
-      "max": 8
+      "value": 73,
+      "max": 73
     },
     "fate": {
       "value": 1,
       "max": 1
     },
     "tags": [],
-    "biography": "<p>Bibliotecária da Academia Imperial de Maestria com a Espada; sabe onde está cada livro e quem pegou sem devolver. Empresta aos alunos os livros que não estão no índice, porque ninguém proibiu emprestá-los.</p>",
+    "biography": "<p>A bibliotecária da academia, que empresta os livros que não estão no índice, porque ninguém proibiu emprestá-los.</p>",
     "race": "",
     "attributes": {
       "str": {
@@ -24,11 +24,11 @@
         "mod": 0
       },
       "pow": {
-        "value": 2,
+        "value": 1,
         "mod": 0
       },
       "int": {
-        "value": 2,
+        "value": 3,
         "mod": 0
       }
     },
@@ -96,7 +96,17 @@
       "impetus": 0,
       "combo": 0,
       "rhythm": 0,
-      "clones": 0
+      "clones": 0,
+      "contagion": 0,
+      "dying": 0,
+      "ironBlood": 0,
+      "anticipation": 0,
+      "hourglass": 0,
+      "jackpot": 0,
+      "luck": 0,
+      "goliath": 0,
+      "quake": 0,
+      "reaped": 0
     },
     "checks": {
       "athletics": {
@@ -145,7 +155,8 @@
       }
     },
     "infos": {
-      "crank": 3,
+      "crank": 6,
+      "xp": 0,
       "hate": 0,
       "fatigue": 0,
       "level": 35
@@ -154,7 +165,7 @@
       "guild": ""
     },
     "inventory": {
-      "gold": 220
+      "gold": 720
     }
   },
   "prototypeToken": {
@@ -353,6 +364,23 @@
                 ]
               ]
             }
+          ],
+          "stage": 2,
+          "stageBonus": {
+            "str": 0,
+            "dex": 0,
+            "pow": 0,
+            "int": 0
+          },
+          "stageLog": [
+            {
+              "stage": 2,
+              "created": [
+                "f5fKDfjo6ZCwcf8q",
+                "74rcs76MyWqYnxod"
+              ],
+              "attribute": null
+            }
           ]
         }
       },
@@ -371,8 +399,97 @@
       "ownership": {
         "default": 0
       },
-      "_id": "SlZhnaxnNRP8DpC7",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.SlZhnaxnNRP8DpC7"
+      "_id": "X3DKTeG88PXnyvtd",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.X3DKTeG88PXnyvtd"
+    },
+    {
+      "name": "Mago Branco",
+      "type": "class",
+      "system": {
+        "description": "<p><strong>Atributos:</strong> Força 1, Destreza 2, Poder 3 e Inteligência 4. <strong>PV:</strong> 40, +5 por NP (faixa Leve). <strong>Papéis:</strong> Cura e Controle.</p><p><strong>Motor: Lei.</strong> O Mago Branco escreve em runas uma Lei, um número de 2 a 12. Quando os dados de qualquer teste da luta mostram a Lei, uma Runa acende, e cada Runa reescreve um dado: o do aliado sobe, o do inimigo desce. Os Feitiços também acendem Runas.</p><p><strong>Magias:</strong> a classe é como você conjura; a Magia é o que você conjura. Você escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10 (Escrita Rúnica, Escrita Sólida, Magia das Fadas...), e os feitiços delas entram nas suas escolhas de Combate.</p><p><strong>Kit do NP 1:</strong> Lei, Escrever a Lei, Reescrever e Cura, e a primeira Magia. <strong>NP 3:</strong> um Caminho (Augúrio, Lei Absoluta ou Cerco). <strong>NP 5:</strong> Dedicação e a segunda Magia. <strong>NP 10:</strong> o Ápice, Lei Perfeita, e a terceira Magia.</p><hr><p><em>O Mago Branco não grita os feitiços: escreve. Runas no chão, nas paredes, no ar, e a luta inteira começa a obedecer a uma regra que só ele leu. Quem está do lado dele acerta o golpe impossível. Quem está do outro lado tropeça no momento certo.</em></p>",
+        "tags": [
+          "Healing",
+          "Control"
+        ],
+        "identifier": "magobranco",
+        "attributes": {
+          "str": 1,
+          "dex": 2,
+          "pow": 3,
+          "int": 4
+        },
+        "hp": 40,
+        "hpPerRank": 5,
+        "grants": [
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.Ct2fCVocbTTVh9v9"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.wQ0R9a7yc4hKBHwr"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.DRp6k0v1WRzNfLAM"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.a6C4abYg093E2Y3W"
+            ]
+          },
+          {
+            "rank": 1,
+            "magic": true
+          },
+          {
+            "rank": 5,
+            "magic": true
+          },
+          {
+            "rank": 10,
+            "magic": true
+          },
+          {
+            "rank": 3,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.0V4sTHPo1pb4ZWxx",
+              "Compendium.eternia.skills-class.Item.q7mji5daAqmmrR32",
+              "Compendium.eternia.skills-class.Item.NobPGiFlK3uWZB0j"
+            ]
+          },
+          {
+            "rank": 10,
+            "auto": true,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.KHGM5Hn3kHYk3xuC"
+            ]
+          }
+        ]
+      },
+      "img": "systems/eternia/assets/icons/classes/magobranco.svg",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.races-classes.Item.GanqWnOVHT0sihVU",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "UZHnSMsbmtERGrKy",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.UZHnSMsbmtERGrKy"
     },
     {
       "name": "Escriba",
@@ -402,8 +519,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "1fG8MhlU4S25jF9V",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.1fG8MhlU4S25jF9V"
+      "_id": "nv5Sb6iyXV7hTUqu",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.nv5Sb6iyXV7hTUqu"
     },
     {
       "name": "Bênção da Memória do Sábio",
@@ -481,7 +598,7 @@
           "start": null,
           "showIcon": 1,
           "_id": "1fY2aa27vgs3gaj5",
-          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.r0TiOYE90GfOBMcJ.1fY2aa27vgs3gaj5"
+          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.aYdOqDeasiOegJCy.1fY2aa27vgs3gaj5"
         }
       ],
       "flags": {
@@ -508,8 +625,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "r0TiOYE90GfOBMcJ",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.r0TiOYE90GfOBMcJ"
+      "_id": "aYdOqDeasiOegJCy",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.aYdOqDeasiOegJCy"
     },
     {
       "name": "Força dos Laços",
@@ -676,7 +793,7 @@
           "start": null,
           "showIcon": 1,
           "_id": "uXXok6VNMp9Maq4B",
-          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.8jzsBTZbniQMMWOZ.uXXok6VNMp9Maq4B"
+          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.x1lfcwxiri8Pk8OC.uXXok6VNMp9Maq4B"
         }
       ],
       "flags": {
@@ -703,8 +820,2177 @@
       "ownership": {
         "default": 0
       },
-      "_id": "8jzsBTZbniQMMWOZ",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.8jzsBTZbniQMMWOZ"
+      "_id": "x1lfcwxiri8Pk8OC",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.x1lfcwxiri8Pk8OC"
+    },
+    {
+      "name": "Coleção de Bênçãos",
+      "type": "skill",
+      "system": {
+        "description": "<p>Cada NH desta habilidade dá uma Bênção nova, à sua escolha entre as Bênçãos dos Humanos que você ainda não tem.</p><p>Ao adquirir a habilidade ou subir o NH dela, escolha a Bênção.</p><hr><p><em>Uma nova Bênção chega como um despertar: por um instante, o mundo inteiro parece prestar atenção em você, e depois volta ao normal, com algo a mais.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "minRank": 3,
+          "rankGrants": [
+            "Compendium.eternia.skills-racial.Item.wZ7b1vx7z5MZw307",
+            "Compendium.eternia.skills-racial.Item.XX1m341mzy65qPIS",
+            "Compendium.eternia.skills-racial.Item.PRlziwUF9xcNxPch",
+            "Compendium.eternia.skills-racial.Item.t1oaxTeq3Q58JKCp",
+            "Compendium.eternia.skills-racial.Item.bWP38ho41YJAYFsZ",
+            "Compendium.eternia.skills-racial.Item.81TCqdMShGqdj4CJ",
+            "Compendium.eternia.skills-racial.Item.EujCiVbwjbPTMpIW",
+            "Compendium.eternia.skills-racial.Item.po32KdHxFSexXWEt"
+          ],
+          "choiceOnly": true,
+          "raceStage": 2,
+          "grantedBy": {
+            "type": "race",
+            "source": "Compendium.eternia.races-classes.Item.CMMPFP41a2v6KJly"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "f5fKDfjo6ZCwcf8q",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.f5fKDfjo6ZCwcf8q"
+    },
+    {
+      "name": "Bênção do Corpo de Ferro",
+      "type": "skill",
+      "system": {
+        "description": "<p>+1d6 nos testes de Vigor.</p><p>Frio, calor, fome e sede extremos levam o dobro do tempo para afetar você.</p><hr><p><em>Você atravessa a neve de mangas curtas, e dias sem comer deixam no seu rosto apenas um traço de cansaço.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/buff-strength-muscle-damage.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {},
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Bênção do Corpo de Ferro",
+          "img": "icons/magic/control/buff-strength-muscle-damage.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.endurance.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "8Naj0qegRvCH6r1G",
+          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.74rcs76MyWqYnxod.8Naj0qegRvCH6r1G"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "skill",
+            "source": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.t1oaxTeq3Q58JKCp",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "74rcs76MyWqYnxod",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.74rcs76MyWqYnxod"
+    },
+    {
+      "name": "Lei",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Motor do Mago Branco.</strong> Você escreve em runas uma <strong>Lei</strong>, um número de 2 a 12, e o mundo obedece: quando os dados da luta mostram a Lei, uma <strong>Runa</strong> acende. A Lei começa em 7 e fica de um combate para o outro; todo combate começa com 0 Runas.</p><ul><li><strong>Ganha:</strong> sempre que um teste de qualquer personagem no combate (Testes de Precisão e Esquivas incluídos) tem dois dados que somam a Lei: +1 Runa (Lei 6, 7 ou 8), +2 (4, 5, 9 ou 10) ou +3 (2, 3, 11 ou 12). Um ganho por teste, e a Lei acende no máximo 2 Runas por rodada. Os Feitiços, da classe ou das suas Magias, também dão +1 Runa (os grandes, +2; os que gastam Runas não dão).</li><li><strong>Gasta:</strong> Reescrever, nos cartões de ataque (2 Runas, 3 se criar ou desfizer um Crítico ou uma Falha Crítica): o menor dado de um teste sobe 1 ou o maior desce 1. Os feitiços supremos das Magias pedem o Teto e gastam tudo.</li><li><strong>Teto:</strong> 3 Runas, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> no fim do combate. Trocar a Lei no meio de um combate apaga as Runas acesas.</li></ul><p><strong>Magias:</strong> você escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10. Os feitiços delas entram nas suas escolhas de Combate e acendem Runas como os da classe.</p><p><em>As runas que você escreveu brilham fraco no chão. Quando os dados caem do jeito certo, elas acendem todas de uma vez.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/gaming/dice-runed-tan.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magobranco-lei",
+          "kind": "motor",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "magobranco",
+            "role": "core"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GanqWnOVHT0sihVU"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.Ct2fCVocbTTVh9v9",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "3TlRiJQRJwxoW0Xa",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.3TlRiJQRJwxoW0Xa"
+    },
+    {
+      "name": "Escrever a Lei",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use na Manutenção (ou fora de combate): escreva a sua Lei, um número de 2 a 12. Os números raros acendem mais Runas: 6, 7 e 8 dão 1; 4, 5, 9 e 10 dão 2; 2, 3, 11 e 12 dão 3. Trocar o número no meio de um combate apaga as Runas acesas; ficar com o mesmo número não apaga nada.</p><p><em>Você traça o número no ar com o dedo, e as runas descem até o chão.</em></p>",
+        "tags": [],
+        "timing": "Setup",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/commodities/treasure/token-runed-fehu-gold.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magobranco-escrever-a-lei",
+          "kind": "bends",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "magobranco"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GanqWnOVHT0sihVU"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.wQ0R9a7yc4hKBHwr",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "78JD4mgYtedH6K4k",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.78JD4mgYtedH6K4k"
+    },
+    {
+      "name": "Reescrever",
+      "type": "skill",
+      "system": {
+        "description": "<p>Nos cartões de ataque, cada Teste de Precisão e cada Esquiva ganham os botões Runa +1 e Runa −1 enquanto você tiver Runas. Gaste 2 Runas: o menor dado do teste sobe 1 (até 6) ou o maior desce 1 (até 1), e o cartão julga o acerto de novo. Vale nos seus testes, nos dos aliados e nos dos inimigos, sem gastar ação. Se a mudança criar ou desfizer um Crítico ou uma Falha Crítica, custa 3 Runas. Reescreva antes de rolar o dano.</p><p><em>Uma runa brilha sobre o dado, e ele termina de cair do jeito que a Lei manda.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/gaming/dice-runed-brown.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magobranco-reescrever",
+          "kind": "spends",
+          "branch": "kit",
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GanqWnOVHT0sihVU"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.DRp6k0v1WRzNfLAM",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Z7OnaF9YErHa4zRx",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.Z7OnaF9YErHa4zRx"
+    },
+    {
+      "name": "Cura",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você ou um aliado a até 4 Qd recupera [2d6 + Recuperação] PV. É um Feitiço: +1 Runa.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Uma runa branca pousa na ferida e se apaga devagar, levando a dor junto.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "",
+          "recovery": true
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/life/cross-flared-green.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magobranco-cura",
+          "kind": "feeds",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "magobranco",
+            "gain": 1
+          },
+          "damageText": "2d6 + [Recuperação]",
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GanqWnOVHT0sihVU"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.a6C4abYg093E2Y3W",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "85fyU1oiqU77XjFC",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.85fyU1oiqU77XjFC"
+    },
+    {
+      "name": "Caminho do Augúrio",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Reescreve a Lei.</strong> Você não escolhe mais o número: na Manutenção, role 2d6, e a soma é a Lei da rodada. Cada vez que ela aparece, você ganha o dobro de Runas.</p><p><strong>Talentos do Caminho:</strong> Grande Augúrio (NP 3) e Roda do Céu (NP 7).</p><hr><p><em>Você não escreve a Lei. Você joga as pedras e lê o que o céu escreveu.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/neck/necklace-runed-sowelu-teal.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magobranco-augurio",
+          "kind": "feeds",
+          "branch": "path",
+          "choiceOnly": true,
+          "path": {
+            "class": "magobranco",
+            "id": "augurio"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GanqWnOVHT0sihVU"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.0V4sTHPo1pb4ZWxx",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "lUtCN6cwDCXpoXdz",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.lUtCN6cwDCXpoXdz"
+    },
+    {
+      "name": "Moldagem de Memória",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Magia (Conjuração).</strong> Você guarda na memória cada magia que vê e a molda de novo quando quiser: o fogo de um, a luz de outro, o golpe de um terceiro. É a magia de quem estuda o inimigo antes de bater e devolve a ele o que ele mesmo mostrou.</p><ul><li><strong>Traço, Lembrança Apagada:</strong> os seus feitiços de Moldagem de Memória causam +NP÷2 de dano em quem está [Selado].</li><li><strong>Feitiços:</strong> Memorizar e Moldagem de Memória: Feitiço Lembrado (NP 1), Moldagem de Memória: Esquecimento e Moldagem de Memória: Fortaleza da Terra Ardente (NP 3), Moldagem de Memória: Noite das Estrelas Cadentes (NP 5) e o feitiço supremo Moldagem de Memória: Lembrança Absoluta (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Lembrança Absoluta pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você lembra de cada luta que viu, golpe por golpe, como quem relê um livro.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/symbols/mask-metal-silver-white.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "trait": {
+                "magia": "moldagem-memoria",
+                "bonusVs": [
+                  {
+                    "statuses": [
+                      "sealed"
+                    ],
+                    "value": "floor(@cr/2)"
+                  }
+                ]
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Lembrança Apagada",
+          "img": "icons/magic/symbols/mask-metal-silver-white.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "Ine4F4BOa9bg5RiB",
+          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.eMauU8SCNdDgfmcR.Ine4F4BOa9bg5RiB"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "moldagem-memoria-moldagem-memoria",
+          "kind": "bends",
+          "branch": "magic",
+          "magic": {
+            "id": "moldagem-memoria",
+            "category": "caster",
+            "tagline": "As magias que você viu, de volta."
+          },
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GanqWnOVHT0sihVU"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.Fn99T0qsxiKzDzLt",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "eMauU8SCNdDgfmcR",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.eMauU8SCNdDgfmcR"
+    },
+    {
+      "name": "Memorizar",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Moldagem de Memória.</strong> Quando um inimigo a até 4 Qd usa um Feitiço ou um Ataque Mágico, você o guarda na memória e fica [Concentrado] (+1d6 no próximo teste). Uma vez por rodada.</p><p><em>Você só precisa ver uma vez.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Instant",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/books/book-eye-pink.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Memorizar",
+          "img": "systems/eternia/assets/ui/status/focused.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "focused"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "B00g1CA1lT6Qfj8V",
+          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.f0OUWGEvJUzmtpzr.B00g1CA1lT6Qfj8V"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "moldagem-memoria-memorizar",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "moldagem-memoria"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.CGF54dZj79mDFaYY",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "f0OUWGEvJUzmtpzr",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.f0OUWGEvJUzmtpzr"
+    },
+    {
+      "name": "Moldagem de Memória: Feitiço Lembrado",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Moldagem de Memória.</strong> Você molda de novo um ataque que já viu e o solta contra um alvo a até 4 Qd: Teste de Precisão contra a Resistência; [2d6 + Poder Mágico] de dano mágico.</p><p><strong>Custo:</strong> Ódio 1.</p>",
+        "tags": [
+          "Spell",
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/light/projectiles-trio-pink.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "moldagem-memoria-lembrado",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "moldagem-memoria"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.RLvXz1KIA2bHo9aH",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "tsAXsGEYnRnx0ed6",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.tsAXsGEYnRnx0ed6"
+    },
+    {
+      "name": "Bênção Rúnica",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use antes de um teste de um aliado a até 4 Qd (ou seu): gaste 1 Runa, e ele fica [Concentrado] (+1d6 no próximo teste que fizer, Esquiva inclusive). Não gasta ação. Uma vez por rodada.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Before Check",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/commodities/materials/feather-white-glowing-beams.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Bênção Rúnica",
+          "img": "systems/eternia/assets/ui/status/focused.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "focused"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "bLBUqp6SLQHTSpGB",
+          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.FXH9pW8jqbmlR2gN.bLBUqp6SLQHTSpGB"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "magobranco-bencao-runica",
+          "kind": "spends",
+          "branch": "barreira",
+          "minRank": 1,
+          "motor": {
+            "id": "magobranco",
+            "needs": {
+              "min": 1
+            },
+            "spend": 1,
+            "action": "none"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.nimebJGb7hAxSEbW",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "FXH9pW8jqbmlR2gN",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.FXH9pW8jqbmlR2gN"
+    },
+    {
+      "name": "Ler as Runas",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você joga um punhado de pedras rúnicas e lê como caem: Teste de Conhecimento com +[NH]d6 sobre um lugar, uma pessoa ou um caminho. Com sucesso, o Mestre conta um presságio verdadeiro (um perigo, uma ajuda ou uma escolha que vem aí). Se o teste mostrar a sua Lei, o presságio vem com um detalhe a mais.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 3,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": 0,
+          "vs": "",
+          "stat": "knowledge"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/commodities/treasure/token-runed-spiral-grey.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magobranco-ler-as-runas",
+          "kind": "bends",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.6WMVAWUccG3aVr3b",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "hBKkDmUDFomCCgA7",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.hBKkDmUDFomCCgA7"
+    },
+    {
+      "name": "Inscrever",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você grava uma runa a mais no chão, de olho nos dados da luta: +1 Runa. Uma vez por rodada.</p><p><strong>Custo:</strong> Ódio 1.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/commodities/treasure/token-runed-os-grey.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magobranco-inscrever",
+          "kind": "feeds",
+          "branch": "runa",
+          "minRank": 1,
+          "motor": {
+            "id": "magobranco",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.yMjSJ3LPFfm6qsfN",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "sgtDlfO4JuG2jZpY",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.sgtDlfO4JuG2jZpY"
+    },
+    {
+      "name": "Runa Gêmea",
+      "type": "skill",
+      "system": {
+        "description": "<p>Na primeira vez de cada rodada em que um teste do combate mostra dois dados iguais, +1 Runa, além do que a Lei der.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/commodities/treasure/token-runed-ing-brown.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magobranco-runa-gemea",
+          "kind": "feeds",
+          "branch": "runa",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.Mbu5c950nAtQi1Kl",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "0INeR6YIXLS7eeBB",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.0INeR6YIXLS7eeBB"
+    },
+    {
+      "name": "Runa de Retorno",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você grava uma runa pequena na entrada de todo lugar onde entra. O grupo nunca se perde no caminho de volta, e numa fuga pelo caminho que vocês já fizeram, ninguém precisa de teste para achar a saída.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/neck/pendant-runed-hagalz-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magobranco-runa-de-retorno",
+          "kind": "bends",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.J5VcG9ao65F7JJxO",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "ueJhLwMiMnVq0KkQ",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.ueJhLwMiMnVq0KkQ"
+    },
+    {
+      "name": "Moldagem de Memória: Esquecimento",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Moldagem de Memória.</strong> Você entra na memória de um alvo a até 4 Qd e apaga uma lembrança (Teste de Precisão contra a Resistência): a última habilidade que ele usou fica [Selado] até o fim da cena.</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Ele levanta a mão para o golpe de sempre e não lembra como se faz.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/hypnosis-mesmerism-watch.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Moldagem de Memória: Esquecimento",
+          "img": "systems/eternia/assets/ui/status/sealed.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "sealed"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "5APgSCPv4uNlqBJN",
+          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.J7M2HQrLOi6pLXBt.5APgSCPv4uNlqBJN"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "moldagem-memoria-esquecimento",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "moldagem-memoria"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.sRLH2kHYt1ii2ZcE",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "J7M2HQrLOi6pLXBt",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.J7M2HQrLOi6pLXBt"
+    },
+    {
+      "name": "Moldagem de Memória: Fortaleza da Terra Ardente",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Moldagem de Memória.</strong> Feitiço grande. Você lembra de uma terra em chamas e ela volta: o chão de uma área a até 3 Qd se abre em fogo. Teste de Precisão contra a Resistência de cada alvo; [2d6 + Poder Mágico] de dano mágico de [Chama], e quem ele acerta fica [Queimando: NP÷2 + 2].</p><p><strong>Custo:</strong> Ódio 3.</p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/earth/lava-explosion-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "moldagem-memoria-fortaleza",
+          "kind": "feeds",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "burning",
+              "value": "floor(@cr/2)+2"
+            }
+          ],
+          "magicSpell": {
+            "id": "moldagem-memoria"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.J8e4X3QU2OdVSoXc",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "1QPjYXjTeppuKs9n",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.1QPjYXjTeppuKs9n"
+    },
+    {
+      "name": "Runas Gravadas",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você começa todo combate com [NH] Runas.</p><p><em>Você grava runas nas botas, no cinto, no cabo do cajado. Algumas já estão acesas quando a luta começa.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 2
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/commodities/wood/wood-carved-runes.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magobranco-runas-gravadas",
+          "kind": "feeds",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.8Mu1dBjcNs6cVmUJ",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "pYwvxJ05ok8f52i0",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.pYwvxJ05ok8f52i0"
+    },
+    {
+      "name": "Runa Sagrada",
+      "type": "skill",
+      "system": {
+        "description": "<p>Precisa de pelo menos 1 Runa e gasta todas: as runas acesas descem juntas sobre um alvo a até 4 Qd. Teste de Precisão contra a Resistência; [(1 + Runas)d6 + Poder Mágico + (Runas×NP)÷2] de dano mágico de [Radiância].</p><p><strong>Custo:</strong> Ódio 1 + as Runas gastas.</p><hr><p><em>Uma coluna de luz branca, e no chão, por um instante, a Lei escrita em letras de fogo.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Radiance",
+          "Dedication"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1+Runas",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "1+@spent",
+          "mod": "floor(@spent*@cr/2)",
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/light/beams-strike-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magobranco-runa-sagrada",
+          "kind": "spends",
+          "branch": "julgamento",
+          "minRank": 1,
+          "motor": {
+            "id": "magobranco",
+            "needs": {
+              "min": 1
+            },
+            "spend": "all"
+          },
+          "damageText": "(1+Runas)d6 + [Poder Mágico] + (Runas×NP)÷2 Mágico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.Z96oh0fzNmZ3fbaB",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "HJLf1bSmZqdbK0ZI",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.HJLf1bSmZqdbK0ZI"
+    },
+    {
+      "name": "Selo Cego",
+      "type": "skill",
+      "system": {
+        "description": "<p>Gaste 1 Runa: um selo invisível prende os pés e as mãos de um inimigo a até 4 Qd. Ele fica [Cambaleante] (−1d6 nas ações de Momento Maior e Turno, até o fim do turno dele).</p><p><strong>Custo:</strong> Ódio 1.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/debuff-chains-purple.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "staggered"
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Selo Cego",
+          "img": "systems/eternia/assets/ui/status/staggered.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "staggered"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "bV9QxpwLFZwEqcDD",
+          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.3oTOYRe2JhDQV9gy.bV9QxpwLFZwEqcDD"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "magobranco-selo-cego",
+          "kind": "spends",
+          "branch": "selo",
+          "minRank": 1,
+          "motor": {
+            "id": "magobranco",
+            "needs": {
+              "min": 1
+            },
+            "spend": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.1rEbYF3EnRh2BOri",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "3oTOYRe2JhDQV9gy",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.3oTOYRe2JhDQV9gy"
+    },
+    {
+      "name": "Selo de Porta",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você sela com runas uma porta, um baú ou uma passagem (ou desfaz um selo mágico): Teste de Desarmar com +[NH]d6. Um selo seu só se abre com a sua palavra, com magia ou com força bruta de verdade. Se o teste mostrar a sua Lei, o selo aguenta até o fim do cenário.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Refer",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": 0,
+          "vs": "",
+          "stat": "disable"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/documents/document-sealed-brown-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magobranco-selo-de-porta",
+          "kind": "bends",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.QST3tp307PJliz6f",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "podFRu4tncO2TqNT",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.podFRu4tncO2TqNT"
+    },
+    {
+      "name": "Escrita Sólida",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Magia (Conjuração).</strong> Você escreve uma palavra no ar, e ela fica de pé: FOGO queima, FERRO pesa, GUARDA protege. É a magia de quem lê muito e sempre tem a palavra certa para a hora certa.</p><ul><li><strong>Traço, Palavra Pesada:</strong> você é imune a [Confuso], e os seus feitiços de Escrita Sólida causam +NP÷2 de dano em quem está [Derrubado].</li><li><strong>Feitiços:</strong> Escrita Sólida: Fogo e Escrita Sólida: Guarda (NP 1), Escrita Sólida: Silêncio e Escrita Sólida: Ferro (NP 3), Escrita Sólida: Trovão (NP 5) e o feitiço supremo A Palavra Final (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Palavra Final pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você carrega uma pena atrás da orelha e escreve mais rápido do que fala.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/tools/scribal/ink-quill-pink.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "trait": {
+                "magia": "escrita-solida",
+                "bonusVs": [
+                  {
+                    "statuses": [
+                      "prone"
+                    ],
+                    "value": "floor(@cr/2)"
+                  }
+                ]
+              },
+              "immune": [
+                "confused"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Palavra Pesada",
+          "img": "icons/tools/scribal/ink-quill-pink.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "lWktiFwH7MosN3jX",
+          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.Ss9qF38RqauBjeDH.lWktiFwH7MosN3jX"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "escrita-solida-escrita-solida",
+          "kind": "bends",
+          "branch": "magic",
+          "magic": {
+            "id": "escrita-solida",
+            "category": "caster",
+            "tagline": "Palavras que viram coisas: FOGO, GUARDA, FERRO."
+          },
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GanqWnOVHT0sihVU"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.AbONem0Benuuom4u",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Ss9qF38RqauBjeDH",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.Ss9qF38RqauBjeDH"
+    },
+    {
+      "name": "Moldagem de Memória: Noite das Estrelas Cadentes",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Moldagem de Memória.</strong> Feitiço grande. Você vira luz e passa por até 3 alvos a até 4 Qd antes que eles vejam: Teste de Precisão contra a Esquiva de cada um; [3d6 + Poder Mágico] de dano mágico de [Radiância].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Para quem assiste, é uma noite de estrelas caindo ao contrário.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Radiance"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Targets",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 3,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/light/projectile-beams-salvo-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "moldagem-memoria-estrelas",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "moldagem-memoria"
+          },
+          "minRank": 5,
+          "motor": {
+            "id": "@class",
+            "gain": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.hm43mZk3ELAiRug6",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "6NUABv6pt3Yfnr6v",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.6NUABv6pt3Yfnr6v"
+    },
+    {
+      "name": "Escrita Sólida: Fogo",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Escrita Sólida.</strong> A palavra FOGO, em letras de chama, voa contra um alvo a até 4 Qd: Teste de Precisão contra a Esquiva; [2d6 + Poder Mágico] de dano mágico de [Chama], e ele fica [Queimando: NP÷2 + 1].</p><p><strong>Custo:</strong> Ódio 1.</p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/books/book-symbol-fire-gold-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "escrita-solida-fogo",
+          "kind": "feeds",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "burning",
+              "value": "floor(@cr/2)+1"
+            }
+          ],
+          "magicSpell": {
+            "id": "escrita-solida"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.s4DOLJDCrQTpHFA5",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "dgUwSKDPs9ZTwkp1",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.dgUwSKDPs9ZTwkp1"
+    },
+    {
+      "name": "Escrita Sólida: Guarda",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Escrita Sólida.</strong> Antes do Dano de um ataque contra você ou contra um aliado a até 4 Qd: a palavra GUARDA fica de pé na frente do golpe, com [Anulação: NP + 5] contra esse dano. Uma vez por rodada.</p><p><em>O golpe bate nas letras, e as letras nem tremem.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Before Damage",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/books/book-symbol-anchor.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "cancel",
+                "value": "@cr+5"
+              },
+              "consumeOn": "damage",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Escrita Sólida: Guarda",
+          "img": "systems/eternia/assets/ui/status/cancel.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "cancel"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "K9QuXr8jBFTOzN3k",
+          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.JGDcQLDbIfnF5N4Z.K9QuXr8jBFTOzN3k"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "escrita-solida-guarda",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "escrita-solida"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.45SRjyvbF2r3rXic",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "JGDcQLDbIfnF5N4Z",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.JGDcQLDbIfnF5N4Z"
+    },
+    {
+      "name": "Escrita Sólida: Ferro",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Escrita Sólida.</strong> A palavra FERRO, em letras de metal do tamanho de uma porta, cai sobre um alvo a até 4 Qd: Teste de Precisão contra a Esquiva; [3d6 + Poder Mágico] de dano mágico, e ele fica [Derrubado].</p><p><strong>Custo:</strong> Ódio 2.</p>",
+        "tags": [
+          "Spell",
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 3,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/books/book-embossed-steel-brown.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "escrita-solida-ferro",
+          "kind": "feeds",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "prone"
+            }
+          ],
+          "magicSpell": {
+            "id": "escrita-solida"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.R9qI0OLhbhs4tGab",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "fAHJNMnrrKMp5FGd",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.fAHJNMnrrKMp5FGd"
+    },
+    {
+      "name": "Analisar Objeto de Cena",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "analysis"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/traps/trap-jaw-steel.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746551067,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.V30xXzllUuzBfafd",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "B7hvXzrck7sClXeL",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.B7hvXzrck7sClXeL"
     },
     {
       "name": "Ataque Básico com Arma",
@@ -757,8 +3043,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "lvzSupP8qno3iIzk",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.lvzSupP8qno3iIzk"
+      "_id": "HmaFPziNYvefqd6P",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.HmaFPziNYvefqd6P"
     },
     {
       "name": "Ataque Mágico Básico",
@@ -813,8 +3099,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "c4p03s15JWRVdI14",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.c4p03s15JWRVdI14"
+      "_id": "R4V7hUR7lkJkmtKj",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.R4V7hUR7lkJkmtKj"
     },
     {
       "name": "Avaliar Item",
@@ -865,8 +3151,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "vk7viG2EhNQqeMQR",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.vk7viG2EhNQqeMQR"
+      "_id": "nGTCjKFXhmxytytl",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.nGTCjKFXhmxytytl"
     },
     {
       "name": "Correr",
@@ -919,60 +3205,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "B2bZhBJYUwzUxWJj",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.B2bZhBJYUwzUxWJj"
-    },
-    {
-      "name": "Analisar Objeto de Cena",
-      "type": "skill",
-      "system": {
-        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
-        "tags": [],
-        "timing": "Major",
-        "checkType": "",
-        "range": "1Sq",
-        "target": "Refer",
-        "subtype": "Basic",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "-",
-        "check": {
-          "dice": 0,
-          "mod": 0,
-          "vs": "",
-          "stat": "analysis"
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false
-        },
-        "macroeffect": ""
-      },
-      "img": "icons/environment/traps/trap-jaw-steel.webp",
-      "effects": [],
-      "flags": {},
-      "_stats": {
-        "coreVersion": "13.351",
-        "systemId": "eternia",
-        "systemVersion": "0.1.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.skills-basic.Item.V30xXzllUuzBfafd",
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "sort": 0,
-      "ownership": {
-        "default": 0
-      },
-      "_id": "rD2D3HOZF7SIAzOn",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.rD2D3HOZF7SIAzOn"
+      "_id": "KG6rvZ3ZNchThEXU",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.KG6rvZ3ZNchThEXU"
     },
     {
       "name": "Desarmar Objeto de Cena",
@@ -1022,8 +3256,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "aNbwtv0fGf3nV6sC",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.aNbwtv0fGf3nV6sC"
+      "_id": "Fvk1Ny8C5eD6WjFs",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.Fvk1Ny8C5eD6WjFs"
     },
     {
       "name": "Deslocar-se",
@@ -1060,7 +3294,13 @@
       },
       "img": "icons/skills/movement/arrow-upward-white.webp",
       "effects": [],
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
       "_stats": {
         "coreVersion": "13.351",
         "systemId": "eternia",
@@ -1076,8 +3316,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "9WoQ2OaCO18dGbuH",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.9WoQ2OaCO18dGbuH"
+      "_id": "XqmkZNvhk9BeaJTY",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.XqmkZNvhk9BeaJTY"
     },
     {
       "name": "Detectar Anomalias",
@@ -1128,8 +3368,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "poS8fDy2mB6zGThI",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.poS8fDy2mB6zGThI"
+      "_id": "SOayP1nosH0U9W89",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.SOayP1nosH0U9W89"
     },
     {
       "name": "Disparada",
@@ -1166,7 +3406,13 @@
       },
       "img": "icons/skills/movement/figure-running-gray.webp",
       "effects": [],
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
       "_stats": {
         "coreVersion": "13.351",
         "systemId": "eternia",
@@ -1182,8 +3428,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "ThNyaZchBZ5Wpodb",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.ThNyaZchBZ5Wpodb"
+      "_id": "fh87SFEjx7YVDAyb",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.fh87SFEjx7YVDAyb"
     },
     {
       "name": "Esconder-se",
@@ -1258,7 +3504,7 @@
             "exportSource": null
           },
           "sort": 0,
-          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.z0XHPxTFJcQYy27f.g8V4pL2sK7mY3zN1",
+          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.Y4ngJOjjtfs1OCOE.g8V4pL2sK7mY3zN1",
           "system": {
             "changes": []
           },
@@ -1282,8 +3528,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "z0XHPxTFJcQYy27f",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.z0XHPxTFJcQYy27f"
+      "_id": "Y4ngJOjjtfs1OCOE",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.Y4ngJOjjtfs1OCOE"
     },
     {
       "name": "Golpe de Misericórdia",
@@ -1334,8 +3580,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "jKr152tz84zQHeoV",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.jKr152tz84zQHeoV"
+      "_id": "OfacXH3xW5c4m9WE",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.OfacXH3xW5c4m9WE"
     },
     {
       "name": "Identificar Inimigo",
@@ -1386,8 +3632,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "LmbD4Jj2sRfYTlXn",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.LmbD4Jj2sRfYTlXn"
+      "_id": "B1oZyyns1gVDpqwn",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.B1oZyyns1gVDpqwn"
     },
     {
       "name": "Negociar",
@@ -1440,8 +3686,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "n6B8NayCgrkEOsFx",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.n6B8NayCgrkEOsFx"
+      "_id": "kVsOiVdaFHBAPRNK",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.kVsOiVdaFHBAPRNK"
     },
     {
       "name": "Proteger",
@@ -1475,7 +3721,51 @@
         "macroeffect": ""
       },
       "img": "icons/magic/control/silhouette-hold-change-blue.webp",
-      "effects": [],
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "cover": true,
+              "consumeOn": "damage",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.43.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Proteger",
+          "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "fbR02Gic71D3fEQS",
+          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.O6k7kKLkqmGPbfLn.fbR02Gic71D3fEQS"
+        }
+      ],
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
@@ -1492,8 +3782,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "jCrRntuWTi7VqQdA",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.jCrRntuWTi7VqQdA"
+      "_id": "O6k7kKLkqmGPbfLn",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.O6k7kKLkqmGPbfLn"
     },
     {
       "name": "Reconhecer Inimigo",
@@ -1546,8 +3836,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "uaPaa6YonfaxMlB9",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.uaPaa6YonfaxMlB9"
+      "_id": "0WZezvwC7M8Onav9",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.0WZezvwC7M8Onav9"
     },
     {
       "name": "Switch",
@@ -1628,7 +3918,7 @@
           "start": null,
           "showIcon": 1,
           "_id": "TezNyfNuTHtrkEWn",
-          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.gxZ7ZS246eIowqzR.TezNyfNuTHtrkEWn"
+          "_key": "!actors.items.effects!485oBIp6TKeu7SjX.wLTyF257GfMJiBQT.TezNyfNuTHtrkEWn"
         }
       ],
       "flags": {
@@ -1655,8 +3945,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "gxZ7ZS246eIowqzR",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.gxZ7ZS246eIowqzR"
+      "_id": "wLTyF257GfMJiBQT",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.wLTyF257GfMJiBQT"
     },
     {
       "name": "Trocar Equipamento",
@@ -1707,8 +3997,157 @@
       "ownership": {
         "default": 0
       },
-      "_id": "yLRpvu4SNcihT9cb",
-      "_key": "!actors.items!485oBIp6TKeu7SjX.yLRpvu4SNcihT9cb"
+      "_id": "6QGVR3DdkPuH4jIJ",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.6QGVR3DdkPuH4jIJ"
+    },
+    {
+      "name": "R6 M4 Varinha Kodama",
+      "type": "weapon",
+      "system": {
+        "description": "<p>[Momento: Rolagem de Dano] Adicione +6 à rolagem de dano do seu [Ataque Mágico]. Uma vez por cena.\nUma varinha mágica imbuída do poder de uma árvore ancestral que ressoa como um sino. De vez em quando, ela amplifica o poder dos feitiços lançados pelo usuário.</p><hr><p>Galho Sempre-Verde [Material-Base] (100 Yuld) + Varinha de Pinho (280 Yuld) + [Anima-mundi 6] (170 Yuld) ×4 + Custo de Fabricação (500 Yuld)</p>",
+        "tags": [
+          "One-Handed",
+          "Staff",
+          "Not For Sale",
+          "M4"
+        ],
+        "initiative": 2,
+        "rank": 6,
+        "price": 1560,
+        "equipped": true,
+        "attack": 6,
+        "magic": 13,
+        "accuracy": 0,
+        "main": false,
+        "range": "Close",
+        "checkType": "-",
+        "target": "-",
+        "timing": "-",
+        "pdef": 0,
+        "mdef": 0
+      },
+      "img": "icons/weapons/wands/wand-totem.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "powers": [
+            {
+              "timing": "Damage Roll",
+              "target": "Self",
+              "range": "-",
+              "cost": "",
+              "limit": "1/Scene",
+              "text": "[Trigger: Damage Roll] Add +6 to your [Magic Attack] damage roll. Once per scene.",
+              "effects": [
+                {
+                  "name": "R6 M4 Kodama Wand",
+                  "img": "systems/eternia/assets/ui/items_icons/weapon.svg",
+                  "type": "base",
+                  "transfer": false,
+                  "disabled": false,
+                  "statuses": [],
+                  "system": {
+                    "changes": [
+                      {
+                        "key": "eternia.roll.damage.mod",
+                        "type": "add",
+                        "value": 6,
+                        "phase": "initial",
+                        "priority": null
+                      }
+                    ]
+                  },
+                  "flags": {
+                    "eternia": {
+                      "expires": "endOfProcess",
+                      "rollFilter": {
+                        "skillTags": [
+                          "Magic Attack"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.yHkHB7Jn0LqzsqmN",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "9L1hCBfK9JvUF8Si",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.9L1hCBfK9JvUF8Si"
+    },
+    {
+      "name": "R6 Uchikake da Névoa Kasumi",
+      "type": "armor",
+      "system": {
+        "description": "<p>[Momento: Ver texto] Use quando você iniciar o seu turno. Você pode fazer um [Teleporte Instantâneo] de até 2Qd. Quando o seu turno terminar, você volta, com um [Teleporte Instantâneo], ao quadrado em que estava quando o iniciou. Uma vez por Cenário.\n- Armadura leve bordada com o padrão da Escrita Enevoada, um segredo das tecelãs da Igreja. Possui uma capacidade de pseudoteleporte que permite deslocamentos instantâneos a curtas distâncias, mas o usuário é devolvido à posição original depois de certo tempo.</p><hr><p>Tecido Kasuri da Névoa [Material-Base] (100 Yuld) + Gibão de Viajante (540 Yuld) + [Anima-mundi 6] (170 Yuld) ×2 + Custo de Fabricação (480 Yuld)</p>",
+        "tags": [
+          "Light Armor",
+          "Not For Sale",
+          "M4"
+        ],
+        "pdef": 10,
+        "mdef": 12,
+        "initiative": 0,
+        "rank": 6,
+        "price": 1460,
+        "equipped": true,
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "timing": "-",
+        "attack": 0,
+        "magic": 0,
+        "accuracy": 0
+      },
+      "img": "icons/equipment/chest/robe-collared-pink.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "powers": [
+            {
+              "timing": "Refer",
+              "target": "Self",
+              "range": "2Sq",
+              "cost": "",
+              "limit": "1/Scenario",
+              "text": "[Trigger: Text] Use this when you start your main process. You may [Instant Teleport] up to 2Sq. When your main process ends, you will return to the Sq where you were when you started your main process using [Instant Teleport]. Once per scenario."
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.BU4VCvPgfguKCOdA",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "BK5jZuRkw5jb5sO8",
+      "_key": "!actors.items!485oBIp6TKeu7SjX.BK5jZuRkw5jb5sO8"
     }
   ],
   "effects": [],
@@ -1720,26 +4159,32 @@
         "pos": 6,
         "token": "3rweewfweq.png"
       },
+      "elenco": {
+        "slug": "amarante",
+        "papel": "A bibliotecária dos livros fora do índice"
+      },
       "professions": {
         "scribe": {
-          "exp": 40
+          "exp": 20
         }
       },
       "skillProgress": {
-        "base": 3,
-        "creation": true
+        "base": 6,
+        "creation": false
       },
       "bio": {
+        "epithet": "a bibliotecária",
         "age": "26",
         "gender": "Feminino",
-        "homeland": "Centória Norte"
+        "homeland": "Centória Norte",
+        "notes": "<h3>Só o Mestre</h3><p>É a porta de metade dos Sete Mistérios.</p>"
       }
     }
   },
   "_stats": {
     "coreVersion": "14.360",
     "systemId": "eternia",
-    "systemVersion": "0.39.0",
+    "systemVersion": "1.0.2",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

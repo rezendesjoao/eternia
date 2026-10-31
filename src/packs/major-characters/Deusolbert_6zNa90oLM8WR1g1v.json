@@ -4,27 +4,27 @@
   "img": "systems/eternia/assets/tokens/major/deusolbert.webp",
   "system": {
     "health": {
-      "value": 0,
-      "max": 0
+      "value": 138,
+      "max": 138
     },
     "fate": {
-      "value": 0,
-      "max": 0
+      "value": 1,
+      "max": 1
     },
     "tags": [],
-    "biography": "",
+    "biography": "<p>O Cavaleiro 7, do dragão Kazeori, que guarda a sétima região do norte há mais de cem anos.</p>",
     "race": "",
     "attributes": {
       "str": {
-        "value": 0,
+        "value": 1,
         "mod": 0
       },
       "dex": {
-        "value": 0,
+        "value": 3,
         "mod": 0
       },
       "pow": {
-        "value": 0,
+        "value": 1,
         "mod": 0
       },
       "int": {
@@ -96,7 +96,17 @@
       "impetus": 0,
       "combo": 0,
       "rhythm": 0,
-      "clones": 0
+      "clones": 0,
+      "contagion": 0,
+      "dying": 0,
+      "ironBlood": 0,
+      "anticipation": 0,
+      "hourglass": 0,
+      "jackpot": 0,
+      "luck": 0,
+      "goliath": 0,
+      "quake": 0,
+      "reaped": 0
     },
     "checks": {
       "athletics": {
@@ -145,16 +155,17 @@
       }
     },
     "infos": {
-      "crank": 1,
+      "crank": 16,
+      "xp": 0,
       "hate": 0,
       "fatigue": 0,
       "level": 35
     },
     "social": {
-      "guild": ""
+      "guild": "Cavaleiros da Integridade"
     },
     "inventory": {
-      "gold": 700
+      "gold": 1920
     }
   },
   "prototypeToken": {
@@ -260,8 +271,8 @@
         "tags": [],
         "identifier": "human",
         "attributes": {
-          "str": 0,
-          "dex": 0,
+          "str": 1,
+          "dex": 1,
           "pow": 0,
           "int": 0
         },
@@ -371,8 +382,5027 @@
       "ownership": {
         "default": 0
       },
-      "_id": "8jNuTFStAxkyw4D7",
-      "_key": "!actors.items!6zNa90oLM8WR1g1v.8jNuTFStAxkyw4D7"
+      "_id": "yYcQZcVyVqOyGXf2",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.yYcQZcVyVqOyGXf2"
+    },
+    {
+      "name": "Caçador",
+      "type": "class",
+      "system": {
+        "description": "<p><strong>Atributos:</strong> Força 2, Destreza 4, Poder 2 e Inteligência 2. <strong>PV:</strong> 40, +6 por NP (faixa Firme). <strong>Papéis:</strong> Dano e Controle.</p><p><strong>Motor: Mira.</strong> Parado, o Caçador junta Mira: na Manutenção, se não se moveu, e com Firmar a Mira. O Tiro Certeiro gasta toda ela de uma vez, e com a Mira cheia o alvo fica [Exposto]. Mover o token perde a Mira.</p><p><strong>Magias:</strong> a classe é como você luta; a Magia é a magia que se mistura a ela. Você escolhe uma Magia no NP 1 e outra no NP 10 (Armas Mágicas, Olhos Mágicos, Vento...), e os feitiços delas entram nas suas escolhas de Combate e alimentam a Mira (+1; os grandes, +2).</p><p><strong>Kit do NP 1:</strong> Mira, Firmar a Mira, Disparo e Tiro Certeiro, e a primeira Magia. <strong>NP 3:</strong> um Caminho (Falcão, Chuva de Flechas ou Olho de Águia). <strong>NP 5:</strong> Dedicação. <strong>NP 10:</strong> o Ápice, Olho do Céu, e a segunda Magia.</p><hr><p><em>O Caçador escolhe o lugar antes da luta: o galho, a janela, a pedra alta. Leva o arco às costas, a aljava de lado e a paciência inteira no peito. Quem o vê se mexer já perdeu a chance de fugir dele.</em></p>",
+        "tags": [
+          "Damage",
+          "Control"
+        ],
+        "identifier": "cacador",
+        "attributes": {
+          "str": 2,
+          "dex": 4,
+          "pow": 2,
+          "int": 2
+        },
+        "hp": 40,
+        "hpPerRank": 6,
+        "grants": [
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.pP6kFGygm3HHo6Cv"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.ACvPG08NuBRcMZMU"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.pZtNiEcToL0FlREB"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.5wtWN0jJRL9uCdnA"
+            ]
+          },
+          {
+            "rank": 1,
+            "magic": true
+          },
+          {
+            "rank": 10,
+            "magic": true
+          },
+          {
+            "rank": 3,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.rwaS9OGNJlphMHTa",
+              "Compendium.eternia.skills-class.Item.yfIVbDvLl67lkXvD",
+              "Compendium.eternia.skills-class.Item.tJIO901OxJgkNq2g"
+            ]
+          },
+          {
+            "rank": 10,
+            "auto": true,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.ZnkFC9AR60Uq5Jcj"
+            ]
+          }
+        ]
+      },
+      "img": "systems/eternia/assets/icons/classes/cacador.svg",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.races-classes.Item.oa9LfRymCrnXNtuS",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "tMPukIsgiPCmqaq9",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.tMPukIsgiPCmqaq9"
+    },
+    {
+      "name": "Ferreiro",
+      "type": "subclass",
+      "system": {
+        "description": "<p><strong>Faz:</strong> armas, armaduras pesadas e médias, escudos.</p><p><strong>Talento: Afiar.</strong> No Interlúdio, uma arma do grupo ganha +2 de Poder de Ataque (×2 a partir do nível 11, ×3 a partir do 21) até o fim do cenário do dono dela. Gasta uma tentativa.</p><p><strong>Oficina:</strong> no Interlúdio ou no Pós-Jogo, escolha a base, gaste 1 Anima-mundi do nível dela e role 2d6 + Rank: até 6 Falha, 7 a 9 Aproveitamento (o material volta), 10 a 11 Incomum [M1], 12 a 13 Raro [M2], 14 ou mais Perfeito [M3]. Dois 6 sobem um degrau. Dois itens iguais viram um melhor na Fusão.</p><p><strong>Rank:</strong> sobe com EXP (Rank 2 com 20, 3 com 40, 4 com 80, 5 com 160). Cada Rank dá +1 na rolagem, uma tentativa a mais por cenário e libera 6 níveis de item.</p><p>Tudo é feito pela aba Profissão da ficha.</p><hr><p><em>O martelo cai no ritmo de um coração, e cada faísca que salta da bigorna leva um pouco da vontade de quem forja. As lâminas saem da têmpera ainda chiando, com runas que só acendem na mão certa.</em></p>",
+        "tags": [],
+        "identifier": "blacksmith",
+        "grants": [],
+        "skills": []
+      },
+      "img": "icons/skills/trades/smithing-anvil-silver-red.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.4.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.races-classes.Item.jv21wTMTXNRxXNLN",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "GSIQIYrcUivDbAti",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.GSIQIYrcUivDbAti"
+    },
+    {
+      "name": "Bênção do Olho da Verdade",
+      "type": "skill",
+      "system": {
+        "description": "<p>+1d6 nos testes de Análise.</p><p>Você percebe quando alguém mente diretamente para você, mas não sabe qual é a verdade.</p><hr><p><em>A mentira chega aos seus ouvidos como uma nota desafinada, um som que só você escuta.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/perception/eye-ringed-green.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {},
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Bênção do Olho da Verdade",
+          "img": "icons/magic/perception/eye-ringed-green.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.analysis.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "g6JrmqKQ9ObIK4oy",
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.gqW5m2vaxq4pvVWB.g6JrmqKQ9ObIK4oy"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "race",
+            "source": "Compendium.eternia.races-classes.Item.CMMPFP41a2v6KJly"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.po32KdHxFSexXWEt",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "gqW5m2vaxq4pvVWB",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.gqW5m2vaxq4pvVWB"
+    },
+    {
+      "name": "Força dos Laços",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use quando um aliado a até 20 Qd ficar Incapacitado, ou quando você ficar com metade dos PV ou menos.</p><p>Até o fim da rodada, você recebe +1d6 em todos os testes e +[NP×2] nas suas rolagens de dano.</p><hr><p><em>Um nome gritado, um punho que se fecha. O cansaço some do rosto e algo novo acende nos olhos: a recusa de cair enquanto alguém ainda conta com você.</em></p>",
+        "tags": [],
+        "timing": "Instant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/life/heart-hand-gold-green-light.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "rollFilter": {
+                "damageTypes": [
+                  "physical",
+                  "magical",
+                  "penetrating",
+                  "direct"
+                ]
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Força dos Laços",
+          "img": "icons/magic/life/heart-hand-gold-green-light.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.accuracy.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.evasion.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.resistance.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.athletics.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.endurance.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.disable.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.operation.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.perception.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.negotiation.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.knowledge.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "system.checks.analysis.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              },
+              {
+                "key": "eternia.roll.damage.mod",
+                "type": "add",
+                "value": "@cr*2",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "uXXok6VNMp9Maq4B",
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.mkk6us9eMPWRsypl.uXXok6VNMp9Maq4B"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "race",
+            "source": "Compendium.eternia.races-classes.Item.CMMPFP41a2v6KJly"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.1iwcIIWN17zLMWby",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "mkk6us9eMPWRsypl",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.mkk6us9eMPWRsypl"
+    },
+    {
+      "name": "Mira",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Motor do Caçador.</strong> Parado, você junta <strong>Mira</strong>: a respiração contada, o vento lido, o alvo seguido sem pressa. Todo combate começa com 0 de Mira.</p><ul><li><strong>Ganha:</strong> na Manutenção, se o seu token não se moveu na rodada anterior, +1 Mira. Firmar a Mira dá +1.</li><li><strong>Gasta:</strong> o Tiro Certeiro gasta toda a Mira: cada ponto soma 1d6 + NP ao dano.</li><li><strong>Teto:</strong> 3, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> mover o token, por qualquer motivo, perde toda a Mira.</li><li><strong>Mira cheia:</strong> o Tiro Certeiro feito com a Mira no Teto acerta o ponto fraco: o alvo atingido fica [Exposto].</li></ul><p>Os tiros do Caçador pedem uma arma [Arco], [Besta] ou [Arremesso] na mão principal.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/ranged/target-bullseye-arrow-green.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-mira",
+          "kind": "motor",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "cacador",
+            "role": "core"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.oa9LfRymCrnXNtuS"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.pP6kFGygm3HHo6Cv",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "ElQeENETzbBkmFyL",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.ElQeENETzbBkmFyL"
+    },
+    {
+      "name": "Firmar a Mira",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com uma arma [Arco], [Besta] ou [Arremesso] na mão principal, você gasta a Ação de Movimento para não se mover: apoia o pé, ajusta a pegada e segue o alvo com os olhos. +1 Mira.</p><p><em>O mundo encolhe até caber na ponta da flecha.</em></p>",
+        "tags": [],
+        "timing": "Move",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/ranged/person-archery-bow-attack-gray.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-firmar",
+          "kind": "feeds",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "cacador",
+            "needs": {
+              "weapon": [
+                "Bow",
+                "Crossbow",
+                "Throwing"
+              ]
+            },
+            "gain": 1,
+            "action": "move"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.oa9LfRymCrnXNtuS"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.ACvPG08NuBRcMZMU",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "aEd6tKiIM9vG3TWL",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.aEd6tKiIM9vG3TWL"
+    },
+    {
+      "name": "Disparo",
+      "type": "skill",
+      "system": {
+        "description": "<p>Um tiro limpo contra um alvo ao alcance da arma: [2d6 + Poder de Ataque] de dano físico. O Disparo não gasta nem zera a Mira: é o tiro de quem continua esperando.</p>",
+        "tags": [
+          "Weapon Attack",
+          "Ranged Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/ranged/arrow-flying-gray-brown.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-disparo",
+          "kind": "bends",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "cacador",
+            "needs": {
+              "weapon": [
+                "Bow",
+                "Crossbow",
+                "Throwing"
+              ]
+            }
+          },
+          "damageText": "2d6 + [Poder de Ataque] Físico",
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.oa9LfRymCrnXNtuS"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.pZtNiEcToL0FlREB",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "GXPdrD9A6k1pdj9H",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.GXPdrD9A6k1pdj9H"
+    },
+    {
+      "name": "Tiro Certeiro",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com pelo menos 1 de Mira e uma arma [Arco], [Besta] ou [Arremesso] na mão principal: o tiro que você esperou. [(1 + Mira)d6 + Poder de Ataque + Mira×NP] de dano físico. A Mira toda se gasta.</p><p><strong>Mira cheia</strong> (Mira no Teto): o alvo atingido fica [Exposto].</p><p><strong>Custo:</strong> Ódio 1 + a Mira gasta.</p><hr><p><em>Um sopro, e a flecha já está do outro lado.</em></p>",
+        "tags": [
+          "Weapon Attack",
+          "Ranged Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1+Mira",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "1+@spent",
+          "mod": "@spent*@use.flat+@use.cold*(@cr+5)",
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/ranged/target-bullseye-arrow-glowing.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-tiro-certeiro",
+          "kind": "spends",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "cacador",
+            "needs": {
+              "min": 1,
+              "weapon": [
+                "Bow",
+                "Crossbow",
+                "Throwing"
+              ]
+            },
+            "spend": "all"
+          },
+          "damageText": "(1+Mira)d6 + [Poder de Ataque] + Mira×NP Físico",
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.oa9LfRymCrnXNtuS"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.5wtWN0jJRL9uCdnA",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "vQAbnqmN64N0Y2pq",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.vQAbnqmN64N0Y2pq"
+    },
+    {
+      "name": "Caminho da Chuva de Flechas",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Reescreve o Tiro Certeiro.</strong> O Tiro Certeiro atinge todos os inimigos de um quadrado ao alcance (Área), e cada ponto de Mira soma 1d6 + NP÷2 ao dano, em vez de 1d6 + NP.</p><p><strong>Talentos do Caminho:</strong> Saraivada (NP 3) e Céu Fechado (NP 7).</p><hr><p><em>Não é uma flecha. É o céu caindo de uma vez.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/ranged/arrows-flying-salvo-gray.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "rollFilter": {
+                "skills": [
+                  {
+                    "name": "Tiro Certeiro"
+                  }
+                ]
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Caminho da Chuva de Flechas",
+          "img": "icons/skills/ranged/arrows-flying-salvo-gray.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.skill.note",
+                "type": "override",
+                "value": "Chuva de Flechas: todos os inimigos de um quadrado (Área).",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "zmJJApYXUrexuESt",
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.EqrtPLhtEeBsA6vc.zmJJApYXUrexuESt"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-chuva",
+          "kind": "spends",
+          "branch": "path",
+          "choiceOnly": true,
+          "path": {
+            "class": "cacador",
+            "id": "chuva"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.oa9LfRymCrnXNtuS"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.yfIVbDvLl67lkXvD",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "EqrtPLhtEeBsA6vc",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.EqrtPLhtEeBsA6vc"
+    },
+    {
+      "name": "Olho do Céu",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Ápice do Caçador (NP 10).</strong> Firmar a Mira passa a gastar a Ação Menor, em vez da de Movimento, e o alcance dos seus Ataques à Distância aumenta em 2 Qd.</p><ul><li><strong>Falcão:</strong> mover o token até 4 Qd tira só 1 de Mira.</li><li><strong>Chuva de Flechas:</strong> a Saraivada atinge até 5 alvos.</li><li><strong>Olho de Águia:</strong> o alcance dos seus Ataques à Distância aumenta em [Mira] Qd.</li></ul><hr><p><em>De onde você está, nada fica longe.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/perception/eye-winged-pink.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "rollFilter": {
+                "skillTags": [
+                  "Ranged Attack"
+                ]
+              },
+              "conditions": [
+                {
+                  "type": "hasSkill",
+                  "value": "Caminho do Olho de Águia"
+                }
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Olho do Céu: Olho de Águia",
+          "img": "icons/magic/perception/eye-winged-pink.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.skill.range",
+                "type": "add",
+                "value": "@motor.value",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "YoMGHUGfGNSuIDEC",
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.3oOBCBazSjfoKIYL.YoMGHUGfGNSuIDEC"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-olho-do-ceu",
+          "kind": "bends",
+          "branch": "apex",
+          "choiceOnly": true,
+          "motor": {
+            "id": "cacador"
+          },
+          "apex": "cacador",
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.oa9LfRymCrnXNtuS"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.ZnkFC9AR60Uq5Jcj",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "3oOBCBazSjfoKIYL",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.3oOBCBazSjfoKIYL"
+    },
+    {
+      "name": "Fogo",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Magia (Conjuração).</strong> O fogo em todas as cores: o laranja que queima, o roxo que gruda, o azul que congela, o amarelo que sufoca e, no fim, o arco-íris inteiro. É a magia de quem acende a luta e não deixa apagar.</p><ul><li><strong>Traço, Brasa Viva:</strong> você é imune a [Queimando], e os seus feitiços de Fogo causam +NP÷2 de dano em quem está [Queimando].</li><li><strong>Feitiços:</strong> Chama Laranja e Chama Roxa (NP 1), Chama Azul e Chama Amarela (NP 3), Coluna de Fogo (NP 5) e o feitiço supremo Chama Arco-Íris (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Chama Arco-Íris pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você sempre sabe para onde o vento está soprando: é só olhar a fumaça.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/elemental-fire-humanoid.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "trait": {
+                "magia": "fogo",
+                "bonusVs": [
+                  {
+                    "statuses": [
+                      "burning"
+                    ],
+                    "value": "floor(@cr/2)"
+                  }
+                ]
+              },
+              "immune": [
+                "burning"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Brasa Viva",
+          "img": "icons/magic/fire/elemental-fire-humanoid.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "oj1XlE0NTCgP8xRE",
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.5Pzt9tkypmqtLPE8.oj1XlE0NTCgP8xRE"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "fogo-fogo",
+          "kind": "bends",
+          "branch": "magic",
+          "magic": {
+            "id": "fogo",
+            "category": "caster",
+            "tagline": "O fogo em todas as cores."
+          },
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.oa9LfRymCrnXNtuS"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.mtlHBM4WuK8u1oE9",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "5Pzt9tkypmqtLPE8",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.5Pzt9tkypmqtLPE8"
+    },
+    {
+      "name": "Chama Laranja",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Fogo.</strong> Uma chama laranja voa contra um alvo a até 4 Qd: Teste de Precisão contra a Resistência; [2d6 + Poder Mágico] de dano mágico de [Chama], e ele fica [Queimando: NP÷2 + 1].</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>O fogo de sempre, e o cheiro de pano queimado.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fogo-laranja",
+          "kind": "feeds",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "burning",
+              "value": "floor(@cr/2)+1"
+            }
+          ],
+          "magicSpell": {
+            "id": "fogo"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.ReuVfpGvZGAGqBJ5",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "GJN0BnXbRrvZhlYS",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.GJN0BnXbRrvZhlYS"
+    },
+    {
+      "name": "Flecha de Sinal",
+      "type": "skill",
+      "system": {
+        "description": "<p>Gaste 1 de Mira: uma flecha que assobia e crava uma fita vermelha num inimigo ao alcance da arma. Ele fica [Identificado] e [Marcado: NP+5] até o fim da cena.</p><p><em>O assobio diz ao grupo inteiro para onde olhar.</em></p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/ranged/arrow-flying-white-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "identified"
+              },
+              "expires": "endOfScene",
+              "recipients": "enemies"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Flecha de Sinal",
+          "img": "systems/eternia/assets/ui/status/identified.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "identified"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "Q1eAxiTQQTbYVlD7",
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.R0yKJ5n1suBtmsKl.Q1eAxiTQQTbYVlD7"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "marked",
+                "value": "@cr+5"
+              },
+              "expires": "endOfScene",
+              "recipients": "enemies"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Flecha de Sinal",
+          "img": "systems/eternia/assets/ui/status/marked.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "marked"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "6SVQlfA80itkSkgs",
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.R0yKJ5n1suBtmsKl.6SVQlfA80itkSkgs"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-flecha-sinal",
+          "kind": "spends",
+          "branch": "aljava",
+          "minRank": 1,
+          "motor": {
+            "id": "cacador",
+            "needs": {
+              "min": 1,
+              "weapon": [
+                "Bow",
+                "Crossbow",
+                "Throwing"
+              ]
+            },
+            "spend": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.rryLu5Y4LDq1VTlI",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "R0yKJ5n1suBtmsKl",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.R0yKJ5n1suBtmsKl"
+    },
+    {
+      "name": "Chama Roxa",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Fogo.</strong> Uma chama roxa salta dos seus dedos e gruda no fogo de um alvo a até 4 Qd que está [Queimando]: o Queimando dele dobra. Uma vez por rodada.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Ela não solta. Só apaga quando acaba.</em></p>",
+        "tags": [
+          "Spell",
+          "Flame"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/projectile-fireball-purple.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fogo-roxa",
+          "kind": "feeds",
+          "branch": "magic",
+          "useActions": [
+            {
+              "type": "doubleStatus",
+              "status": "burning",
+              "recipients": "targets"
+            }
+          ],
+          "magicSpell": {
+            "id": "fogo"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.fF8WBgiOrKPFvDpG",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "cySVlp1lJ10ZoVjF",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.cySVlp1lJ10ZoVjF"
+    },
+    {
+      "name": "Posto Alto",
+      "type": "skill",
+      "system": {
+        "description": "<p>Na Preparação, se o grupo sabe onde vai lutar, você escolhe o seu lugar antes: uma árvore, um telhado, uma pedra alta. Você começa o combate com +1 Mira.</p><p><em>Quando o primeiro inimigo olha para cima, já é tarde.</em></p>",
+        "tags": [],
+        "timing": "Briefing",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/birds/raptor-owl-flying-moon.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-posto-alto",
+          "kind": "feeds",
+          "branch": "general",
+          "motor": {
+            "id": "cacador"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.TdLe6bHFc5D4gQ4u",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "hUD9S0uHRI6ky9cR",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.hUD9S0uHRI6ky9cR"
+    },
+    {
+      "name": "Flecha-Rede",
+      "type": "skill",
+      "system": {
+        "description": "<p>Gaste 1 de Mira: uma flecha que se abre numa rede de corda no ar. [1d6 + Poder de Ataque] de dano físico, e o alvo atingido fica [Enraizado].</p><p><em>Pesos de chumbo nas pontas, e a presa amarrada ao chão.</em></p>",
+        "tags": [
+          "Weapon Attack",
+          "Ranged Attack",
+          "Dedication"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 1,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/ranged/arrow-barbed-flying-gray.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-flecha-rede",
+          "kind": "spends",
+          "branch": "aljava",
+          "minRank": 1,
+          "motor": {
+            "id": "cacador",
+            "needs": {
+              "min": 1,
+              "weapon": [
+                "Bow",
+                "Crossbow",
+                "Throwing"
+              ]
+            },
+            "spend": 1
+          },
+          "damageText": "1d6 + [Poder de Ataque] Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.SZdvENfqktbPUOtj",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "6wD4D4lskyaSzH1T",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.6wD4D4lskyaSzH1T"
+    },
+    {
+      "name": "Paciência da Tocaia",
+      "type": "skill",
+      "system": {
+        "description": "<p>Na Manutenção, se você está [Oculto], +1 Mira, além da Mira de ficar parado.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/perception/silhouette-stealth-shadow.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-tocaia",
+          "kind": "feeds",
+          "branch": "rastro",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.fcJLYFwCxkLILDe2",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "ghp8e9Mv6O0XcSF7",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.ghp8e9Mv6O0XcSF7"
+    },
+    {
+      "name": "Primeira Flecha",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você começa todo combate com [NH] de Mira.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "General",
+        "skillRank": {
+          "value": 2,
+          "max": 2
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/weapons/ammunition/arrow-head-war-flight.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-primeira-flecha",
+          "kind": "feeds",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.ZTEfzuRRlOCSCjhs",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "hRQf1LARk4cxbxCT",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.hRQf1LARk4cxbxCT"
+    },
+    {
+      "name": "Chama Amarela",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Fogo.</strong> Uma chama amarela de cheiro insuportável se espalha numa área a até 3 Qd: Teste de Precisão contra a Resistência de cada alvo; quem ela acerta fica [Confuso] (−1d6 em todos os testes e +1 de Ódio no começo de cada turno, até gastar uma Ação Maior).</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Ninguém consegue pensar direito com esse cheiro.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/projectile-fireball-embers-yellow.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Chama Amarela",
+          "img": "systems/eternia/assets/ui/status/confused.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "confused"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "O5eJVIh2PC4Pt8Zr",
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.AhcyeSZGUBTYQT7B.O5eJVIh2PC4Pt8Zr"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "fogo-amarela",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "fogo"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.y2eYLDLiKTbFbefS",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "AhcyeSZGUBTYQT7B",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.AhcyeSZGUBTYQT7B"
+    },
+    {
+      "name": "Chama Azul",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Fogo.</strong> Uma chama azul, que congela em vez de queimar, atinge um alvo a até 4 Qd: Teste de Precisão contra a Resistência; [2d6 + Poder Mágico] de dano mágico de [Frio], e ele fica [Congelando: 1].</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Por onde o fogo azul passa, fica gelo.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Cold"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/projectile-fireball-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fogo-azul",
+          "kind": "feeds",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "freezing",
+              "value": 1
+            }
+          ],
+          "magicSpell": {
+            "id": "fogo"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.0rG7Rd9xB2ICPmxE",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "1EfOXJFNa7DuvaCE",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.1EfOXJFNa7DuvaCE"
+    },
+    {
+      "name": "Rastrear",
+      "type": "skill",
+      "system": {
+        "description": "<p>Fora de combate, você segue pegadas, galhos quebrados e cheiro de fogueira: Teste de Percepção com +[NH]d6. Se você achar a presa antes de ser visto, o grupo escolhe onde começa o combate.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 3,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": 0,
+          "vs": "",
+          "stat": "perception"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/abilities/paw-print-pair-purple.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-rastrear",
+          "kind": "bends",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.Cwudq3suuTAul8qq",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Fm8LwXdudXnK2XkO",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.Fm8LwXdudXnK2XkO"
+    },
+    {
+      "name": "Paciência do Caçador",
+      "type": "skill",
+      "system": {
+        "description": "<p>O Teto da Mira aumenta em [NH].</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 2
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/perception/eye-ringed-glow-angry-small-teal.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-paciencia",
+          "kind": "bends",
+          "branch": "olho",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.RsDyKtsCVvqiWXji",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "sAqBqVjLG43GccDa",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.sAqBqVjLG43GccDa"
+    },
+    {
+      "name": "Rastreador",
+      "type": "skill",
+      "system": {
+        "description": "<p>Quando você usa Identificar Inimigo em combate, +1 Mira.</p><p><em>Quem conhece a presa sabe para onde ela vai pular.</em></p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/abilities/paw-print-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-rastreador",
+          "kind": "feeds",
+          "branch": "rastro",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.6JeQURdWu4T06bRu",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "rCOYnXThILV6WtbM",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.rCOYnXThILV6WtbM"
+    },
+    {
+      "name": "Viver da Terra",
+      "type": "skill",
+      "system": {
+        "description": "<p>Na viagem, você caça, acha água limpa e sabe onde acampar sem ser visto: Teste de Conhecimento com +[NH]d6. Com sucesso, o grupo come, bebe e dorme bem mesmo longe de qualquer cidade.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 3,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": 0,
+          "vs": "",
+          "stat": "knowledge"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/wilderness/camp-improvised.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-viver-da-terra",
+          "kind": "bends",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.fcPccFiuCGiPSCy2",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "STq8PvYQxboWfhHF",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.STq8PvYQxboWfhHF"
+    },
+    {
+      "name": "Coluna de Fogo",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Fogo.</strong> Feitiço grande. Uma coluna de fogo sobe do chão debaixo de um alvo a até 5 Qd: Teste de Precisão contra a Resistência; [4d6 + Poder Mágico] de dano mágico de [Chama]. Se ele está [Queimando], a coluna consome o fogo de uma vez: o dano soma o dobro do Valor do Queimando, e o Queimando sai.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Ele some dentro do fogo, e o fogo sobe até as nuvens.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "5Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 4,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/blast-jet-stream-embers-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fogo-coluna",
+          "kind": "feeds",
+          "branch": "magic",
+          "bonusVs": [
+            {
+              "statusId": "burning",
+              "value": 2,
+              "perValue": true,
+              "consume": true
+            }
+          ],
+          "magicSpell": {
+            "id": "fogo"
+          },
+          "minRank": 5,
+          "motor": {
+            "id": "@class",
+            "gain": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.AB0tt4XzdbKsIFYF",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "NyqWeyApWuPrU1kg",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.NyqWeyApWuPrU1kg"
+    },
+    {
+      "name": "Respiração Contida",
+      "type": "skill",
+      "system": {
+        "description": "<p>Os seus Ataques com Arma à distância ([Arco], [Besta] ou [Arremesso] na mão principal) que não gastam Mira somam +1d6 ao dano por ponto de Mira que você tem, até [NH]d6. A Mira não se gasta.</p><p><em>Meio fôlego preso, e a corda obedece.</em></p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 2
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/air/air-wave-gust-smoke-yellow.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-respiracao-contida",
+          "kind": "bends",
+          "branch": "olho",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.9U30xZEuIUjYBzBr",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "wsysmOvRwHDnCzUI",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.wsysmOvRwHDnCzUI"
+    },
+    {
+      "name": "Tiro em Movimento",
+      "type": "skill",
+      "system": {
+        "description": "<p>Uma vez por rodada, depois de um Ataque com Arma à distância que não gaste Mira (o Disparo, o Ataque Básico com Arma), você pode mover o token 1 Qd sem perder a Mira.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/ranged/archery-bow-attack-yellow.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-tiro-em-movimento",
+          "kind": "bends",
+          "branch": "vento",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.ZSMOmp5VhJW9HnNE",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "xXSk85xwlKe2Sbue",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.xXSk85xwlKe2Sbue"
+    },
+    {
+      "name": "Saraivada",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Caminho da Chuva de Flechas.</strong> Gaste 1 de Mira: um punhado de flechas soltas de uma vez contra até 3 alvos diferentes ao alcance. [1d6 + Poder de Ataque] de dano físico em cada um.</p>",
+        "tags": [
+          "Weapon Attack",
+          "Ranged Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Targets",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 1,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/ranged/arrows-flying-salvo-yellow.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-saraivada",
+          "kind": "spends",
+          "branch": "pathTalent",
+          "minRank": 3,
+          "motor": {
+            "id": "cacador",
+            "needs": {
+              "min": 1,
+              "weapon": [
+                "Bow",
+                "Crossbow",
+                "Throwing"
+              ]
+            },
+            "spend": 1
+          },
+          "pathTalent": {
+            "class": "cacador",
+            "id": "chuva"
+          },
+          "damageText": "1d6 + [Poder de Ataque] Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.encaZdvenZVUcxXm",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "AmeyrdvN2jQhBlTH",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.AmeyrdvN2jQhBlTH"
+    },
+    {
+      "name": "Chama Arco-Íris",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Fogo. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: o fogo de todas as cores cai sobre uma área ampla a até 6 Qd. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Chama], e quem ele acerta fica [Queimando: NP]; quem já estava Queimando fica também [Exposto]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Bonito de longe. De perto, não dá tempo de achar bonito.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "6Sq",
+        "target": "Wide",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 4",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "1+@spent",
+          "mod": "@spent*@cr",
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/projectile-meteor-salvo-strong-purple-yellow.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fogo-arco-iris",
+          "kind": "spends",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "burning",
+              "value": "@cr"
+            }
+          ],
+          "escalate": [
+            {
+              "if": "burning",
+              "add": [
+                {
+                  "statusId": "exposed"
+                }
+              ]
+            }
+          ],
+          "magicSpell": {
+            "id": "fogo"
+          },
+          "minRank": 7,
+          "motor": {
+            "id": "@class",
+            "needs": {
+              "full": true
+            },
+            "spend": "all"
+          },
+          "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.xEJ3Hce0q9Ljd1VT",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "MgNghnrrQn3OoruL",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.MgNghnrrQn3OoruL"
+    },
+    {
+      "name": "Abate Limpo",
+      "type": "skill",
+      "system": {
+        "description": "<p>Quando um ataque seu deixa um inimigo com 0 PV, +1 Mira.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/ranged/arrow-strike-apple-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-abate-limpo",
+          "kind": "feeds",
+          "branch": "rastro",
+          "minRank": 3
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.1pZQf71VFpXTixNU",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "YDxiPnIu3tWD6FFR",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.YDxiPnIu3tWD6FFR"
+    },
+    {
+      "name": "Flecha Incendiária",
+      "type": "skill",
+      "system": {
+        "description": "<p>Gaste até [NH+1] de Mira: uma flecha embebida em óleo, acesa na própria corda. [2d6 + Poder de Ataque] de dano físico de [Chama], e o alvo atingido fica [Queimando: Mira gasta × (NP÷2 + 2)].</p>",
+        "tags": [
+          "Weapon Attack",
+          "Ranged Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 2
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/weapons/ammunition/arrow-broadhead-glowing-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-flecha-incendiaria",
+          "kind": "spends",
+          "branch": "aljava",
+          "minRank": 3,
+          "motor": {
+            "id": "cacador",
+            "needs": {
+              "min": 1,
+              "weapon": [
+                "Bow",
+                "Crossbow",
+                "Throwing"
+              ]
+            },
+            "spend": "choose",
+            "max": "@sr+1"
+          },
+          "damageText": "2d6 Físico de Chama + [Poder de Ataque]"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.jhQ5QiuFIFzuFTz9",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "QVcaaI4cf2TaPCgu",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.QVcaaI4cf2TaPCgu"
+    },
+    {
+      "name": "Recuar e Atirar",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use quando um inimigo entrar no seu quadrado: gaste 1 de Mira e mova o token até 2 Qd, sem gastar ação, ignorando o engajamento e sem perder o resto da Mira.</p>",
+        "tags": [],
+        "timing": "Refer",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/movement/feet-spurred-boots-brown.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-recuar",
+          "kind": "spends",
+          "branch": "vento",
+          "minRank": 3,
+          "motor": {
+            "id": "cacador",
+            "needs": {
+              "min": 1
+            },
+            "spend": 1,
+            "action": "none"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.WotZL6i0twmOm6Yo",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "3EJzRqyR84VXEFdT",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.3EJzRqyR84VXEFdT"
+    },
+    {
+      "name": "Vento a Favor",
+      "type": "skill",
+      "system": {
+        "description": "<p>O alcance dos seus Ataques à Distância aumenta em [Mira] Qd.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/air/air-burst-spiral-blue-gray.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "rollFilter": {
+                "skillTags": [
+                  "Ranged Attack"
+                ]
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Vento a Favor",
+          "img": "icons/magic/air/air-burst-spiral-blue-gray.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "eternia.skill.range",
+                "type": "add",
+                "value": "@motor.value",
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "zzQwYQ515uzUwgKy",
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.Gsev0u5X27aKWk0W.zzQwYQ515uzUwgKy"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-vento-a-favor",
+          "kind": "bends",
+          "branch": "vento",
+          "minRank": 3,
+          "motor": {
+            "id": "cacador"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.bxrVAxLadHrUlD2c",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Gsev0u5X27aKWk0W",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.Gsev0u5X27aKWk0W"
+    },
+    {
+      "name": "Concentração do Atirador",
+      "type": "skill",
+      "system": {
+        "description": "<p>Na Manutenção, você ganha 1 de Mira mesmo que o seu token tenha se movido na rodada anterior.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/perception/eye-slit-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-concentracao",
+          "kind": "feeds",
+          "branch": "olho",
+          "minRank": 5
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.VOUSylNR4pnbPSxc",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Q6OjvHgzw8bxjmh6",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.Q6OjvHgzw8bxjmh6"
+    },
+    {
+      "name": "Vento",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Magia (Conjuração).</strong> O vento corta, empurra e carrega: lâminas que ninguém vê, rajadas que derrubam, uma armadura de tempestade e, no fim, o ar que some. É a magia de quem luta de longe e não deixa ninguém chegar perto.</p><ul><li><strong>Traço, Corrente de Ar:</strong> +1 de Velocidade; os seus feitiços de Vento causam +NP÷2 de dano em quem está [Voando].</li><li><strong>Feitiços:</strong> Lâmina de Vento e Rajada (NP 1), Armadura de Tempestade e Redemoinho (NP 3), Furacão (NP 5) e o feitiço supremo Espaço Aéreo: Zero (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). O Espaço Aéreo: Zero pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>As folhas sempre voam na sua direção. Ninguém sabe por quê.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/air/wind-tornado-funnel-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "trait": {
+                "magia": "vento",
+                "bonusVs": [
+                  {
+                    "statuses": [
+                      "flying"
+                    ],
+                    "value": "floor(@cr/2)"
+                  }
+                ]
+              }
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Corrente de Ar",
+          "img": "icons/magic/air/wind-tornado-funnel-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.battle-status.speed.mod",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "VX5EuzFCnID8EfuZ",
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.Y2e6ur26MYu3aQ8O.VX5EuzFCnID8EfuZ"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "vento-vento",
+          "kind": "bends",
+          "branch": "magic",
+          "magic": {
+            "id": "vento",
+            "category": "caster",
+            "tagline": "O vento que corta, derruba e faz voar."
+          },
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.oa9LfRymCrnXNtuS"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.rGMoKBHqanXDZD09",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Y2e6ur26MYu3aQ8O",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.Y2e6ur26MYu3aQ8O"
+    },
+    {
+      "name": "Lâmina de Vento",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Vento.</strong> Uma lâmina de vento, que ninguém vê, corta um alvo a até 4 Qd: Teste de Precisão contra a Esquiva; [2d6 + Poder Mágico] de dano mágico de [Vento].</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>O corte aparece antes do vento chegar.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Wind"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "vento-lamina",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "vento"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.2C1DIe3TVIPsRJNd",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "INWw51T0tP542Qyh",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.INWw51T0tP542Qyh"
+    },
+    {
+      "name": "Rajada",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Vento.</strong> Uma rajada em linha reta, até 3 Qd: Teste de Precisão contra a Resistência de cada alvo da Linha; [2d6 + Poder Mágico] de dano mágico de [Vento], e quem ela acerta fica [Derrubado].</p><p><strong>Custo:</strong> Ódio 2.</p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Wind"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Line",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/air/wind-weather-snow-gusts.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "vento-rajada",
+          "kind": "feeds",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "prone"
+            }
+          ],
+          "magicSpell": {
+            "id": "vento"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.yMe8Gg4HADrZqcdG",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "y3Qf3gQuJccPbFkM",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.y3Qf3gQuJccPbFkM"
+    },
+    {
+      "name": "Armadura de Tempestade",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Vento.</strong> O vento gira em volta de você até o fim da rodada: você fica [Voando] e com [Anulação: NP÷2 + 2]. Uma vez por rodada.</p><p><em>As flechas fazem a curva antes de chegar.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/air/wind-vortex-swirl-blue-purple.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Armadura de Tempestade",
+          "img": "systems/eternia/assets/ui/status/flying.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "flying"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "BHvFAx5TNzyWRyWE",
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.UADOtY4UOhI0YDuf.BHvFAx5TNzyWRyWE"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "self",
+              "statusData": {
+                "statusId": "cancel",
+                "value": "floor(@cr/2)+2"
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Armadura de Tempestade: proteção",
+          "img": "systems/eternia/assets/ui/status/cancel.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "cancel"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "8x0Xo25r5GaR823l",
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.UADOtY4UOhI0YDuf.8x0Xo25r5GaR823l"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "vento-armadura",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "vento"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.elnOYBYMy2VdY1Sz",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "UADOtY4UOhI0YDuf",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.UADOtY4UOhI0YDuf"
+    },
+    {
+      "name": "Redemoinho",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Vento.</strong> Um redemoinho gira numa área a até 3 Qd: Teste de Precisão contra a Esquiva de cada alvo; [2d6 + Poder Mágico] de dano mágico de [Vento], e quem ele acerta fica [Atordoado].</p><p><strong>Custo:</strong> Ódio 2.</p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Wind"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/air/wind-tornado-spiral-teal-green.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "vento-redemoinho",
+          "kind": "feeds",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "dazed"
+            }
+          ],
+          "magicSpell": {
+            "id": "vento"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.QXCj5KKu0LrjRJN1",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "uo277oMuy1S2DRJp",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.uo277oMuy1S2DRJp"
+    },
+    {
+      "name": "Furacão",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Vento.</strong> Feitiço grande. Um furacão desce sobre uma área a até 4 Qd: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico de [Vento], e quem ele acerta fica [Lento].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Lá dentro, cada passo é contra uma parede.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Wind"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 3,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/air/wind-tornado-wall-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "vento-furacao",
+          "kind": "feeds",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "slowed"
+            }
+          ],
+          "magicSpell": {
+            "id": "vento"
+          },
+          "minRank": 5,
+          "motor": {
+            "id": "@class",
+            "gain": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.UmNpEBtDRG9Y7ouR",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "mCDUiCzYU1U0IoE5",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.mCDUiCzYU1U0IoE5"
+    },
+    {
+      "name": "Espaço Aéreo: Zero",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Vento. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você tira o ar de uma área ampla a até 5 Qd. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Vento], e quem ele acerta fica [Silenciado]: sem ar, sem feitiço. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Um silêncio que pesa, e depois o vento volta de uma vez.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Wind"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "5Sq",
+        "target": "Wide",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 4",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "1+@spent",
+          "mod": "@spent*@cr",
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/air/wind-tornado-cyclone-purple-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "vento-zero",
+          "kind": "spends",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "silenced"
+            }
+          ],
+          "magicSpell": {
+            "id": "vento"
+          },
+          "minRank": 7,
+          "motor": {
+            "id": "@class",
+            "needs": {
+              "full": true
+            },
+            "spend": "all"
+          },
+          "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.ulPHuWbsyn86Togm",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "He97hNasZw5LpT7m",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.He97hNasZw5LpT7m"
+    },
+    {
+      "name": "Flecha Ligeira",
+      "type": "skill",
+      "system": {
+        "description": "<p>Gaste 1 de Mira: um tiro rápido, puxado da aljava sem mirar de novo. [1d6 + Poder de Ataque + NP] de dano físico.</p>",
+        "tags": [
+          "Weapon Attack",
+          "Ranged Attack"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 1,
+          "mod": "@cr",
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/ranged/arrows-flying-triple-brown.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-flecha-ligeira",
+          "kind": "spends",
+          "branch": "vento",
+          "minRank": 5,
+          "requires": [
+            "cacador-tiro-em-movimento"
+          ],
+          "motor": {
+            "id": "cacador",
+            "needs": {
+              "min": 1,
+              "weapon": [
+                "Bow",
+                "Crossbow",
+                "Throwing"
+              ]
+            },
+            "spend": 1
+          },
+          "damageText": "1d6 + [Poder de Ataque] + NP Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.TdUghs9BbWW2IYqK",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "oDRkIKH2RmsJ5T7p",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.oDRkIKH2RmsJ5T7p"
+    },
+    {
+      "name": "Flecha Perfurante",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com pelo menos 2 de Mira: uma flecha pesada que atravessa escudos e corpos. Atinge todos os inimigos numa linha reta até o alcance da arma: [(1 + Mira)d6 + Poder de Ataque + Mira×NP÷2] de dano físico em cada um. Gasta toda a Mira.</p>",
+        "tags": [
+          "Weapon Attack",
+          "Ranged Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Line",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "1+@spent",
+          "mod": "@spent*floor(@cr/2)",
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/ranged/projectile-strike-impale-gray.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "cacador-flecha-perfurante",
+          "kind": "spends",
+          "branch": "aljava",
+          "minRank": 5,
+          "motor": {
+            "id": "cacador",
+            "needs": {
+              "min": 2,
+              "weapon": [
+                "Bow",
+                "Crossbow",
+                "Throwing"
+              ]
+            },
+            "spend": "all"
+          },
+          "damageText": "(1+Mira)d6 + [Poder de Ataque] + Mira×NP÷2 Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.P85IAGKHrhr4jsYK",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "GZk8aL0qtw4bst4M",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.GZk8aL0qtw4bst4M"
+    },
+    {
+      "name": "Analisar Objeto de Cena",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "analysis"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/traps/trap-jaw-steel.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746551067,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.V30xXzllUuzBfafd",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "okzEqTdAh17QlIUy",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.okzEqTdAh17QlIUy"
+    },
+    {
+      "name": "Ataque Básico com Arma",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você causa [1d6 + Poder de Ataque] de dano físico.</p>",
+        "tags": [
+          "Weapon Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 1,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": "uIW9aGui82UJfjzb"
+      },
+      "img": "icons/skills/melee/hand-grip-sword-white-brown.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790745586234,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.WM5upuUBddixPdjC",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "1aupBjwj3LIZ3dMQ",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.1aupBjwj3LIZ3dMQ"
+    },
+    {
+      "name": "Ataque Mágico Básico",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você causa [1d6 + Poder Mágico] de dano mágico.</p>",
+        "tags": [
+          "Magic Attack",
+          "Staff",
+          "Magic Stone"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 1,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": "ANQS94Uf2wa5dCgP"
+      },
+      "img": "icons/magic/light/projectile-smoke-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790745560103,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.fl482m53K1KVmt4U",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "yO1TjbyE55QlIfGn",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.yO1TjbyE55QlIfGn"
+    },
+    {
+      "name": "Avaliar Item",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo um único Item com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "analysis"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/trades/academics-investigation-study-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746512655,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.PtOCLZ1FmScvQhNk",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "xZ5RhwMJYIiTeltY",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.xZ5RhwMJYIiTeltY"
+    },
+    {
+      "name": "Correr",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você pode fazer um [Movimento Normal] de até [Velocidade] Qd.</p>",
+        "tags": [
+          "Movement"
+        ],
+        "timing": "Move",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/movement/feet-winged-boots-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746713856,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.lEAXTaLa3FdWMn0A",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "cA3VsAnhTNllxily",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.cA3VsAnhTNllxily"
+    },
+    {
+      "name": "Desarmar Objeto de Cena",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena que esteja [Analisado] e tenha [Dificuldade de Desarme]. Os efeitos do alvo terminam.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "Basic (Disable vs Disable Difficulty)",
+        "range": "1Sq",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/traps/trap-jaw-green.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746569272,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.ZHAPIDBQHQCFWtiH",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "s6QSF4Gl2Ky8YpQm",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.s6QSF4Gl2Ky8YpQm"
+    },
+    {
+      "name": "Deslocar-se",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você pode fazer um [Movimento Seguro] de 1 Qd. Logo em seguida, você perde uma Ação Menor. Se não tiver uma Ação Menor para perder, você não pode usar esta habilidade.</p>",
+        "tags": [
+          "Movement"
+        ],
+        "timing": "Move",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 5
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/movement/arrow-upward-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746742799,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.Snhgn7GWvwbtX6t1",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "4csowPVaXlBeKvAH",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.4csowPVaXlBeKvAH"
+    },
+    {
+      "name": "Detectar Anomalias",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo tudo dentro do alcance que tenha [Dificuldade de Detecção]. O alvo remove quaisquer efeitos [Encoberto] ou [Oculto]. Você não precisa remover esses efeitos dos seus aliados.</p>",
+        "tags": [],
+        "timing": "Setup",
+        "checkType": "",
+        "range": "Close",
+        "target": "Wide 20 (A)",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "perception"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/silhouette-grow-shrink-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746020062,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.AkE9jnFrKsm8i89o",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "JknvINX59xWPHaTE",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.JknvINX59xWPHaTE"
+    },
+    {
+      "name": "Disparada",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você pode fazer um [Movimento Normal] de até [Velocidade] + 2 Qd. &nbsp;Logo em seguida, você perde uma Ação Menor. Se não tiver uma Ação Menor para perder, você não pode usar esta habilidade.</p>",
+        "tags": [
+          "Movement"
+        ],
+        "timing": "Move",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/movement/figure-running-gray.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790745964303,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.Ql4JC6Et0zoSMkEL",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "kYzTMPtUNOdvcUZY",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.kYzTMPtUNOdvcUZY"
+    },
+    {
+      "name": "Esconder-se",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você fica [Oculto]. No entanto, você não pode usar esta habilidade se estiver no Topo de Ódio, se outro personagem puder fazer uma [Obstrução] contra você ou se estiver sob algum Estado Negativo.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/perception/shadow-stealth-eyes-purple.webp",
+      "effects": [
+        {
+          "name": "Esconder-se",
+          "img": "icons/magic/perception/shadow-stealth-eyes-purple.webp",
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "_id": "g8V4pL2sK7mY3zN1",
+          "description": "",
+          "transfer": false,
+          "statuses": [
+            "hidden"
+          ],
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "hidden"
+              },
+              "expiry": {
+                "expires": "endOfScene"
+              }
+            }
+          },
+          "tint": "#ffffff",
+          "_stats": {
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "coreVersion": "13.351",
+            "systemId": "eternia",
+            "systemVersion": "0.1.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "exportSource": null
+          },
+          "sort": 0,
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.AG74uSTLOTCm7Tiq.g8V4pL2sK7mY3zN1",
+          "system": {
+            "changes": []
+          },
+          "start": null,
+          "showIcon": 1
+        }
+      ],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746483505,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.NHwN2c3MQtppMdtA",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "AG74uSTLOTCm7Tiq",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.AG74uSTLOTCm7Tiq"
+    },
+    {
+      "name": "Golpe de Misericórdia",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use esta habilidade depois de fazer, durante este turno, um ataque que tenha causado pelo menos 1 de dano a um alvo [Incapacitado]. Esse alvo fica [Morto].</p>",
+        "tags": [],
+        "timing": "Instant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/wounds/injury-body-pain-gray.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790745951610,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.0kYKskp1c9eXs0DW",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "3D3OQ59VkMNlPk5q",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.3D3OQ59VkMNlPk5q"
+    },
+    {
+      "name": "Identificar Inimigo",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade só pode ter como alvo um personagem com [Dificuldade de Identificação]. O alvo fica [Identificado].</p>",
+        "tags": [],
+        "timing": "Setup",
+        "checkType": "",
+        "range": "20Sq",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "knowledge"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/perception/orb-crystal-ball-scrying.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746298927,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.obao1W79fgYWcx5o",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "6M6aGaqdOqBwzFnF",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.6M6aGaqdOqBwzFnF"
+    },
+    {
+      "name": "Negociar",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você pode mover um item do seu [Espaço de Inventário] para o [Espaço de Inventário] de um alvo voluntário. Se o alvo não tiver [Espaços de Inventário] vazios, o item cai no mesmo quadrado do alvo. Você pode usar esta habilidade básica quantas vezes quiser durante uma Preparação.</p>",
+        "tags": [
+          "Preparation"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/social/diplomacy-handshake-blue.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746764750,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.sDoZ2vHmSG9V6X4Z",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "QotRUFminqproqN4",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.QotRUFminqproqN4"
+    },
+    {
+      "name": "Proteger",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use quando um aliado que não seja você for sofrer dano. Você sofre o dano no lugar do alvo, e o alvo não é afetado pelo ataque. Você precisa estar no estado [Pré-Ação] para usar esta habilidade e passa ao estado [Pós-Ação] depois de usá-la. Esta habilidade só pode ser usada uma vez em resposta a cada ataque. Inimigos não podem usar esta habilidade.</p>",
+        "tags": [],
+        "timing": "Before Damage",
+        "checkType": "",
+        "range": "Close",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "cover": true,
+              "consumeOn": "damage",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.43.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Proteger",
+          "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "fbR02Gic71D3fEQS",
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.fJSxxGbLDlVAtRo2.fbR02Gic71D3fEQS"
+        }
+      ],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746688861,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.tS3O6p4M5xmHkwAh",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "fJSxxGbLDlVAtRo2",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.fJSxxGbLDlVAtRo2"
+    },
+    {
+      "name": "Reconhecer Inimigo",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use esta habilidade quando tentar obter informações sobre os inimigos da próxima cena.</p>\n<p>(Resultado: 10) Você descobre o número de inimigos que vão aparecer.<br>(Resultado: 20) Você descobre o nome do inimigo de menor nível (se vários empatarem no mesmo nível, o Mestre escolhe) e também se ele tem a tag [Chefe] ou [Lacaio].<br>(Falha Crítica): O inimigo percebe o seu reconhecimento.</p>",
+        "tags": [
+          "Scout"
+        ],
+        "timing": "Briefing",
+        "checkType": "",
+        "range": "Refer",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "athletics"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/nature/stealth-hide-eyes-green.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746424055,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.pLccgRPUqH0oIYYE",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "IMnd8NOvbrEO2h3m",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.IMnd8NOvbrEO2h3m"
+    },
+    {
+      "name": "Switch",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você e um aliado a até 2 Qd trocam de lugar e de Ódio: você fica com o Ódio dele, e ele com o seu. O aliado fica [Concentrado].</p><hr><p><em>Um golpe abre a guarda do inimigo, um grito curto avisa a troca e os dois cruzam de posição. Quando o monstro se recupera, a lâmina que o encara já é outra, descansada e pronta.</em></p>",
+        "tags": [
+          "Movement"
+        ],
+        "timing": "Move",
+        "checkType": "",
+        "range": "2Sq",
+        "target": "Single",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/melee/swords-parry-block-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "focused"
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.1",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Switch",
+          "img": "systems/eternia/assets/ui/status/focused.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "focused"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "TezNyfNuTHtrkEWn",
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.kWWRLfgWVaC5yLgl.TezNyfNuTHtrkEWn"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "useActions": [
+            {
+              "type": "switch"
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.1",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.kqbIzeoowK8G1QBd",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "kWWRLfgWVaC5yLgl",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.kWWRLfgWVaC5yLgl"
+    },
+    {
+      "name": "Trocar Equipamento",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você pode mover um item de um [Espaço de Inventário] para um [Espaço de Equipamento], ou vice-versa. Você também pode largar ou pegar um item no seu quadrado, ou trocar uma peça de equipamento. Não há limite para o número de trocas de equipamento que você pode fazer com uma única ação. Você pode usar esta habilidade básica quantas vezes quiser durante uma Preparação.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/time/arrows-circling-pink.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746319082,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.oIUaP3VXGHGlKm4h",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "P3xz3fCBt9amlCl1",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.P3xz3fCBt9amlCl1"
+    },
+    {
+      "name": "Arco da Chama Abrasadora",
+      "type": "weapon",
+      "system": {
+        "description": "<p><strong>Pena de Fênix</strong> (Passiva): +1d6 na Precisão.</p><p>(Passiva) Todo dano que você causar ganha [Chama].</p><p>[Momento: Ação Maior] <strong>Liberação de Memória: Fênix.</strong> Alvo: Área 3 (escolha) · Alcance: 20 Qd. Uma fênix de fogo desce sobre os alvos: causa [7d6 + Ataque] de dano físico de [Chama], e eles ficam [Queimando: 5]. 1/Cenário.</p><hr><p><em>Um arco recurvo vermelho e laranja envolto em chamas, de braços em forma de asas de fênix.</em></p>",
+        "tags": [
+          "Two-Handed",
+          "Bow",
+          "Flame",
+          "Not For Sale",
+          "M7"
+        ],
+        "rank": 30,
+        "price": 32800,
+        "equipped": true,
+        "attack": 84,
+        "magic": 0,
+        "accuracy": 0,
+        "initiative": 0,
+        "pdef": 0,
+        "mdef": 0,
+        "checkType": "-",
+        "target": "-",
+        "timing": "-",
+        "range": "6Sq",
+        "main": false
+      },
+      "img": "systems/eternia/assets/icons/items/arco-da-chama-abrasadora.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "_id": "vTXv3IF0cLo5w9Y6",
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {},
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.6.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Arco da Chama Abrasadora: Pena de Fênix",
+          "img": "icons/svg/aura.svg",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.accuracy.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.mlljTuU8emOxtBqN.vTXv3IF0cLo5w9Y6",
+          "start": null,
+          "showIcon": 1
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "_id": "dXWSEjivMhOo2ve5",
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "damageTags": [
+                "Flame"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.6.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Arco da Chama Abrasadora",
+          "img": "icons/svg/aura.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "_key": "!actors.items.effects!6zNa90oLM8WR1g1v.mlljTuU8emOxtBqN.dXWSEjivMhOo2ve5",
+          "start": null,
+          "showIcon": 1
+        }
+      ],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "powers": [
+            {
+              "timing": "Major",
+              "target": "Wide 3 (P)",
+              "range": "20Sq",
+              "cost": "",
+              "limit": "1/Scenario",
+              "text": "[Trigger: Major] Liberação de Memória: Fênix: \"Target: Wide 3 (P) / Range: 20Sq\". A fire phoenix falls on the targets: deals [7d6 + Attack] physical [Flame] damage, and they get [Burning: 5]. Once per scenario.",
+              "damage": {
+                "dice": 7,
+                "mod": 0,
+                "type": "physical",
+                "recovery": false,
+                "noPower": false
+              },
+              "effects": [
+                {
+                  "name": "Liberação de Memória: Fênix",
+                  "img": "systems/eternia/assets/ui/status/burning.svg",
+                  "type": "base",
+                  "transfer": false,
+                  "disabled": false,
+                  "statuses": [
+                    "burning"
+                  ],
+                  "system": {
+                    "changes": []
+                  },
+                  "flags": {
+                    "eternia": {
+                      "expires": "endOfScene",
+                      "statusData": {
+                        "statusId": "burning",
+                        "value": 5
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.6.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.k6tTor2P62nVDV39",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "mlljTuU8emOxtBqN",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.mlljTuU8emOxtBqN"
+    },
+    {
+      "name": "R16 Colete da Dança da Fênix",
+      "type": "armor",
+      "system": {
+        "description": "<p>[Momento: Instantânea] Como custo, este item perde uma tag [Bordado]. Se as tags [Bordado] chegarem a zero, a tag [Quebrado] é acrescentada a este item no fim da Cena. Você entra no estado [Voando] até o fim da Cena.\nUma veste sem mangas para o tronco, feita de um rico tecido vermelho com uma fênix bordada em fio de ouro. Ao liberar o poder contido no bordado, quem a veste pode flutuar livremente no ar por um curto período.</p><hr><p>Enxofre Verdadeiro [Material-Base] (400 Yuld) + Armadura Acolchoada (2.200 Yuld) + Pergaminho de Voo II (640 Yuld) + [Anima-mundi 16] (930 Yuld) ×2 + Custo de Fabricação (1.640 Yuld)</p>",
+        "tags": [
+          "Light Armor",
+          "Not For Sale",
+          "Embroidery",
+          "M4"
+        ],
+        "pdef": 25,
+        "mdef": 30,
+        "initiative": 0,
+        "rank": 16,
+        "price": 6750,
+        "equipped": true,
+        "checkType": "-",
+        "range": "Close",
+        "target": "-",
+        "timing": "-",
+        "attack": 0,
+        "magic": 0,
+        "accuracy": 0
+      },
+      "img": "icons/equipment/chest/robe-layered-red.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "powers": [
+            {
+              "timing": "Instant",
+              "target": "Self",
+              "range": "-",
+              "cost": "",
+              "limit": "",
+              "text": "[Trigger: Instant] This item loses one [Embroidery] tag as a cost. If the [Embroidery] tags reach zero, the [Broken] tag is added to this item at the end of the scene. You gain the [Flight] state until the end of the scene.",
+              "effects": [
+                {
+                  "name": "R16 Phoenix Dance Vest",
+                  "img": "systems/eternia/assets/ui/items_icons/armor.svg",
+                  "type": "base",
+                  "transfer": false,
+                  "disabled": false,
+                  "statuses": [
+                    "flying"
+                  ],
+                  "system": {
+                    "changes": []
+                  },
+                  "flags": {
+                    "eternia": {
+                      "expires": "endOfScene",
+                      "statusData": {
+                        "statusId": "flying"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.czC6mpr9x5TKMNri",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "QZCdY40QcafOe6uv",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.QZCdY40QcafOe6uv"
+    },
+    {
+      "name": "Anel Laranja",
+      "type": "accessory",
+      "system": {
+        "description": "<p>Um anel com uma joia que guarda o laranja profundo do crepúsculo. Possui um forte poder mágico.</p>",
+        "tags": [
+          "Accessory",
+          "Magic Stone"
+        ],
+        "pdef": 0,
+        "mdef": 0,
+        "rank": 14,
+        "price": 1280,
+        "equipped": true,
+        "initiative": 0,
+        "magic": 25,
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "timing": "-",
+        "attack": 0,
+        "accuracy": 0
+      },
+      "img": "icons/equipment/finger/ring-cabochon-gold-orange.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.eniJOIEtEBYFQOfR",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "gpr5KRU3RbQ22kv2",
+      "_key": "!actors.items!6zNa90oLM8WR1g1v.gpr5KRU3RbQ22kv2"
     }
   ],
   "effects": [],
@@ -382,13 +5412,33 @@
       "major": {
         "lote": 16,
         "pos": 7
+      },
+      "elenco": {
+        "slug": "deusolbert",
+        "papel": "Deusolbert, o Cavaleiro 7 (no lugar de Daurel)"
+      },
+      "professions": {
+        "blacksmith": {
+          "exp": 80
+        }
+      },
+      "skillProgress": {
+        "base": 16,
+        "creation": false
+      },
+      "bio": {
+        "epithet": "o Arco Rubro",
+        "age": "Mais de cem anos",
+        "gender": "Masculino",
+        "homeland": "A sétima região do norte",
+        "notes": "<h3>Só o Mestre</h3><p>Levou a menina que hoje é a Cavaleira 30 e não se lembra. Tem ordem de matar o Enviado Negro em 378.</p>"
       }
     }
   },
   "_stats": {
     "coreVersion": "14.360",
     "systemId": "eternia",
-    "systemVersion": "0.40.2",
+    "systemVersion": "1.0.2",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

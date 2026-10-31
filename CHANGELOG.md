@@ -1,5 +1,31 @@
 # Changelog
 
+## 1.0.3 — 2026-10-31
+
+O elenco de *A Última Etapa*: os 97 papéis do enredo da campanha com o nome do papel e a ficha inteira, nos compêndios
+NPCs e Personagens Maiores.
+
+### Adicionado
+- **As fichas do elenco:** 31 NPCs e 65 personagens maiores com o nome do papel no ator e no token e a ficha inteira, no
+  NP de quando cada um entra na história: a raça e o estágio da forma (os Cavaleiros presos no I, a Kaimei no V), a classe
+  com o kit, o elemento, o Caminho e o Ápice, as Magias nas vagas da classe com os feitiços (e os Decretos dos
+  Mandamentos), os talentos e as Dedicações de cada NP, a Coleção de Bênçãos com as Bênçãos, a profissão com o Rank, armas
+  e armadura do NP (os Objetos Divinos dos Cavaleiros; a Pedra Mágica do NP para quem tem Magia e não luta de cajado) e PV
+  e Destino cheios. A biografia diz o que o mundo sabe, e o segredo de cada um fica nas Anotações, sob "Só o Mestre". As
+  fichas não devem escolha nenhuma (`skillProgress { base: NP }`), e subir de NP depois conta só as escolhas novas.
+- **Aldric Artorius**, personagem maior novo (agora são 141), com o token do Guardião do Inverno: a ficha inteira do
+  fundador da Casa Artorius. A criatura do Bestiário continua como está.
+- As vagas de Magia do Pontífice e de Kriegger e a do NP 10 de Viridiana Varn ficam em branco: as Magias deles (a Escrita,
+  o Página em Branco e a Escrita de Cardinal) ainda vão ser criadas.
+- `Data/eternia-tests/test-103.js`: as 97 fichas criadas no mundo, abertas em todas as abas, com PV e Destino cheios e
+  nenhuma escolha pendente.
+
+### Alterado
+- As raças de doze papéis seguem a história: o Pontífice, Kriegger, Psyche, Vajra, Marigold e Morrigan são humanos;
+  Garron é Felino, Pip é Vulpina e Mãe Hrafna é Lupina; Sefira e o Sonhador são Celestiais; Corvin é Demônio.
+- Kaiser foi para a pasta Academias e Saber do compêndio NPCs.
+- AS REGRAS (V. Mestre do Jogo), README, CLAUDE.md e `docs/bestiario.md` (a seção "O elenco de A Última Etapa").
+
 ## 1.0.2 — 2026-10-31
 
 O retrato dos dragões terrestres: cada montaria ganhou um token no padrão do bestiário.

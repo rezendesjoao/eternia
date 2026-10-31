@@ -4,19 +4,19 @@
   "img": "systems/eternia/assets/tokens/npcs/idris-ashtari.webp",
   "system": {
     "health": {
-      "value": 8,
-      "max": 8
+      "value": 102,
+      "max": 102
     },
     "fate": {
       "value": 1,
       "max": 1
     },
     "tags": [],
-    "biography": "<p>Enviado da Casa Ashtari em Centória Sul; vende metal Damasco e parece sempre cochilando, mas nunca perdeu um negócio. Sabe da Lágrima que a família esconde e não sabe mentir sobre ela.</p>",
+    "biography": "<p>Vassalo dos Fairclough que vende metal Damasco, parece sempre cochilando e nunca perdeu um negócio.</p>",
     "race": "",
     "attributes": {
       "str": {
-        "value": 0,
+        "value": 2,
         "mod": 0
       },
       "dex": {
@@ -24,11 +24,11 @@
         "mod": 0
       },
       "pow": {
-        "value": 2,
+        "value": 1,
         "mod": 0
       },
       "int": {
-        "value": 2,
+        "value": 1,
         "mod": 0
       }
     },
@@ -96,7 +96,17 @@
       "impetus": 0,
       "combo": 0,
       "rhythm": 0,
-      "clones": 0
+      "clones": 0,
+      "contagion": 0,
+      "dying": 0,
+      "ironBlood": 0,
+      "anticipation": 0,
+      "hourglass": 0,
+      "jackpot": 0,
+      "luck": 0,
+      "goliath": 0,
+      "quake": 0,
+      "reaped": 0
     },
     "checks": {
       "athletics": {
@@ -145,7 +155,8 @@
       }
     },
     "infos": {
-      "crank": 6,
+      "crank": 10,
+      "xp": 0,
       "hate": 0,
       "fatigue": 0,
       "level": 35
@@ -154,7 +165,7 @@
       "guild": ""
     },
     "inventory": {
-      "gold": 4500
+      "gold": 1200
     }
   },
   "prototypeToken": {
@@ -260,10 +271,10 @@
         "tags": [],
         "identifier": "human",
         "attributes": {
-          "str": 0,
+          "str": 1,
           "dex": 0,
           "pow": 1,
-          "int": 1
+          "int": 0
         },
         "hp": 8,
         "fate": 1,
@@ -353,6 +364,30 @@
                 ]
               ]
             }
+          ],
+          "stage": 3,
+          "stageBonus": {
+            "str": 0,
+            "dex": 0,
+            "pow": 0,
+            "int": 0
+          },
+          "stageLog": [
+            {
+              "stage": 2,
+              "created": [
+                "Bmz8a53IHGXlafaC",
+                "FN6aYjUj28RWgHza"
+              ],
+              "attribute": null
+            },
+            {
+              "stage": 3,
+              "created": [
+                "TlzKk2nHB1bD1A9W"
+              ],
+              "attribute": null
+            }
           ]
         }
       },
@@ -371,8 +406,97 @@
       "ownership": {
         "default": 0
       },
-      "_id": "BysW8R9ohjywt6Zz",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.BysW8R9ohjywt6Zz"
+      "_id": "19UVlQimjj9C7sUJ",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.19UVlQimjj9C7sUJ"
+    },
+    {
+      "name": "Mago Vermelho",
+      "type": "class",
+      "system": {
+        "description": "<p><strong>Atributos:</strong> Força 3, Destreza 2, Poder 3 e Inteligência 2. <strong>PV:</strong> 40, +6 por NP (faixa Firme). <strong>Papéis:</strong> Dano e Defesa.</p><p><strong>Motor: Arsenal.</strong> A magia do Mago Vermelho mora nas peças que ele guarda num espaço mágico: a Espada, a Armadura e o Foco. A Carga cresce a cada rodada e a cada Feitiço e dá o poder da peça que está na mão; o Reequipar troca de peça e solta a Descarga da antiga.</p><p><strong>Magias:</strong> a classe é como você conjura; a Magia é o que você conjura. Você escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10 (Reequipar: O Cavaleiro, Cartas, Cajados Mágicos, Gravidade...), e os feitiços delas entram nas suas escolhas de Combate.</p><p><strong>Kit do NP 1:</strong> Arsenal, Reequipar, Lâmina Convocada e Disparo do Foco, e a primeira Magia. <strong>NP 3:</strong> um Caminho (Arma Selada, Panóplia ou Troca Relâmpago). <strong>NP 5:</strong> Dedicação e a segunda Magia. <strong>NP 10:</strong> o Ápice, Arsenal Infinito, e a terceira Magia.</p><hr><p><em>O Mago Vermelho não escolhe entre a espada e o feitiço: carrega os dois, e muitos mais, num lugar que só ele alcança. No meio da luta a armadura muda de cor, a espada vira cajado, um baralho aparece entre os dedos, e o inimigo nunca sabe contra quem está lutando.</em></p>",
+        "tags": [
+          "Damage",
+          "Defense"
+        ],
+        "identifier": "magovermelho",
+        "attributes": {
+          "str": 3,
+          "dex": 2,
+          "pow": 3,
+          "int": 2
+        },
+        "hp": 40,
+        "hpPerRank": 6,
+        "grants": [
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.lmaGluktglEtsB26"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.huFljlPQlTMSZ2bc"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.Mmtf1IQnz9zaAcPc"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.0CfTD4PKSLgmYvC7"
+            ]
+          },
+          {
+            "rank": 1,
+            "magic": true
+          },
+          {
+            "rank": 5,
+            "magic": true
+          },
+          {
+            "rank": 10,
+            "magic": true
+          },
+          {
+            "rank": 3,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.sxJgZnishUuCnRQr",
+              "Compendium.eternia.skills-class.Item.RQj31jqnbKklflfH",
+              "Compendium.eternia.skills-class.Item.gM9lsHNEc92q3Ess"
+            ]
+          },
+          {
+            "rank": 10,
+            "auto": true,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.4uZKGp0d5az2Fb7j"
+            ]
+          }
+        ]
+      },
+      "img": "systems/eternia/assets/icons/classes/magovermelho.svg",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.races-classes.Item.GgLOuQnSuCrhagXs",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "hNEcR5GYapKSxTvm",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.hNEcR5GYapKSxTvm"
     },
     {
       "name": "Mercador",
@@ -402,8 +526,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "kSyN05nzToN1eR9N",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.kSyN05nzToN1eR9N"
+      "_id": "j2jeGk7Q1hsUSbne",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.j2jeGk7Q1hsUSbne"
     },
     {
       "name": "Bênção do Olho da Verdade",
@@ -481,7 +605,7 @@
           "start": null,
           "showIcon": 1,
           "_id": "g6JrmqKQ9ObIK4oy",
-          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.RhkK6EYQALrXbnSq.g6JrmqKQ9ObIK4oy"
+          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.oHjyUcRiHachsfVC.g6JrmqKQ9ObIK4oy"
         }
       ],
       "flags": {
@@ -508,8 +632,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "RhkK6EYQALrXbnSq",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.RhkK6EYQALrXbnSq"
+      "_id": "oHjyUcRiHachsfVC",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.oHjyUcRiHachsfVC"
     },
     {
       "name": "Força dos Laços",
@@ -676,7 +800,7 @@
           "start": null,
           "showIcon": 1,
           "_id": "uXXok6VNMp9Maq4B",
-          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.LgMAJ3r6Zi3XmP7G.uXXok6VNMp9Maq4B"
+          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.hfloyg2456HU03oi.uXXok6VNMp9Maq4B"
         }
       ],
       "flags": {
@@ -703,8 +827,3086 @@
       "ownership": {
         "default": 0
       },
-      "_id": "LgMAJ3r6Zi3XmP7G",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.LgMAJ3r6Zi3XmP7G"
+      "_id": "hfloyg2456HU03oi",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.hfloyg2456HU03oi"
+    },
+    {
+      "name": "Coleção de Bênçãos",
+      "type": "skill",
+      "system": {
+        "description": "<p>Cada NH desta habilidade dá uma Bênção nova, à sua escolha entre as Bênçãos dos Humanos que você ainda não tem.</p><p>Ao adquirir a habilidade ou subir o NH dela, escolha a Bênção.</p><hr><p><em>Uma nova Bênção chega como um despertar: por um instante, o mundo inteiro parece prestar atenção em você, e depois volta ao normal, com algo a mais.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "minRank": 3,
+          "rankGrants": [
+            "Compendium.eternia.skills-racial.Item.wZ7b1vx7z5MZw307",
+            "Compendium.eternia.skills-racial.Item.XX1m341mzy65qPIS",
+            "Compendium.eternia.skills-racial.Item.PRlziwUF9xcNxPch",
+            "Compendium.eternia.skills-racial.Item.t1oaxTeq3Q58JKCp",
+            "Compendium.eternia.skills-racial.Item.bWP38ho41YJAYFsZ",
+            "Compendium.eternia.skills-racial.Item.81TCqdMShGqdj4CJ",
+            "Compendium.eternia.skills-racial.Item.EujCiVbwjbPTMpIW",
+            "Compendium.eternia.skills-racial.Item.po32KdHxFSexXWEt"
+          ],
+          "choiceOnly": true,
+          "raceStage": 2,
+          "grantedBy": {
+            "type": "race",
+            "source": "Compendium.eternia.races-classes.Item.CMMPFP41a2v6KJly"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Bmz8a53IHGXlafaC",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.Bmz8a53IHGXlafaC"
+    },
+    {
+      "name": "Bênção do Corpo de Ferro",
+      "type": "skill",
+      "system": {
+        "description": "<p>+1d6 nos testes de Vigor.</p><p>Frio, calor, fome e sede extremos levam o dobro do tempo para afetar você.</p><hr><p><em>Você atravessa a neve de mangas curtas, e dias sem comer deixam no seu rosto apenas um traço de cansaço.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/buff-strength-muscle-damage.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {},
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Bênção do Corpo de Ferro",
+          "img": "icons/magic/control/buff-strength-muscle-damage.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.endurance.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "8Naj0qegRvCH6r1G",
+          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.FN6aYjUj28RWgHza.8Naj0qegRvCH6r1G"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "skill",
+            "source": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.t1oaxTeq3Q58JKCp",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "FN6aYjUj28RWgHza",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.FN6aYjUj28RWgHza"
+    },
+    {
+      "name": "Segunda Origem",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você recebe [Despertado: NP] até o fim da cena: +1d6 nos testes de Precisão e +NP no dano dos seus ataques.</p><p>Quando o estado acaba, você recebe [Fadiga: NP].</p><hr><p><em>O reservatório escondido sob o seu poder se rompe. Uma aura da cor da sua alma envolve o corpo, o ar treme à sua volta e a respiração sai em vapor. Quando a aura se apaga, o corpo cobra o preço em exaustão.</em></p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scenario",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/light/explosion-star-glow-yellow.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "awakened",
+                "value": "@cr"
+              },
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Segunda Origem",
+          "img": "systems/eternia/assets/ui/status/awakened.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "awakened"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "toX6jqEfYwME3MV6",
+          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.TlzKk2nHB1bD1A9W.toX6jqEfYwME3MV6"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "minRank": 7,
+          "choiceOnly": true,
+          "raceStage": 3,
+          "grantedBy": {
+            "type": "race",
+            "source": "Compendium.eternia.races-classes.Item.CMMPFP41a2v6KJly"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.dmFT6Bat0MRH9Qur",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "TlzKk2nHB1bD1A9W",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.TlzKk2nHB1bD1A9W"
+    },
+    {
+      "name": "Arsenal",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Motor do Mago Vermelho.</strong> Você guarda as suas peças num espaço mágico só seu e tem uma delas na mão: a <strong>Espada</strong>, a <strong>Armadura</strong> ou o <strong>Foco</strong> (a varinha, o baralho, o cajado). A magia mora na peça, e a <strong>Carga</strong> dá o poder dela. Todo combate começa com 0 de Carga, na peça que você estava usando.</p><ul><li><strong>Ganha:</strong> na Manutenção, +1 Carga. Os Feitiços, da classe ou das suas Magias, +1 (os grandes, +2; os que gastam Carga não dão). A Lâmina Convocada, +1.</li><li><strong>A peça na mão:</strong> Espada: os seus Ataques com Arma somam +[Carga × 2] ao dano. Armadura: [Anulação: Carga × 2]. Foco: os seus Feitiços e curas somam +[Carga × 2].</li><li><strong>Gasta:</strong> o Reequipar troca de peça. A peça que sai solta a <strong>Descarga</strong>, e a nova começa com metade da Carga (arredondada para cima). Os feitiços supremos das Magias pedem o Teto e gastam tudo.</li><li><strong>Teto:</strong> 3 de Carga, +1 a cada 5 NP (4 no NP 5, 5 no NP 10).</li><li><strong>Zera:</strong> no fim do combate. A peça fica na mão de um combate para o outro.</li></ul><p><strong>Descarga:</strong> Espada: o próximo Ataque com Arma soma +[Carga × NP]. Armadura: [Barreira: Carga × (NP+5)]. Foco: o próximo Feitiço ou cura soma +[Carga × NP].</p><p><strong>Magias:</strong> você escolhe uma Magia no NP 1, outra no NP 5 e a terceira no NP 10. Os feitiços delas entram nas suas escolhas de Combate e alimentam a Carga como os da classe.</p><p><em>A espada some num brilho e volta como um cajado. Ninguém vê de onde ela vem.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/holy/projectiles-blades-salvo-yellow.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-arsenal",
+          "kind": "motor",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "magovermelho",
+            "role": "core"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GgLOuQnSuCrhagXs"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.lmaGluktglEtsB26",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "uW1T8UDzpvvovZ0F",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.uW1T8UDzpvvovZ0F"
+    },
+    {
+      "name": "Reequipar",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você troca a peça da mão por outra do seu Arsenal (Espada, Armadura ou Foco). A peça que sai solta a Descarga com a Carga que tinha, e a nova começa com metade da Carga (arredondada para cima). Fora de combate, troque à vontade.</p><p><em>Um clarão vermelho, e a armadura já é outra.</em></p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/movement/abstract-ribbons-red-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-reequipar",
+          "kind": "spends",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "magovermelho"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GgLOuQnSuCrhagXs"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.huFljlPQlTMSZ2bc",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "P4pX8aom9ZnTRPbl",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.P4pX8aom9ZnTRPbl"
+    },
+    {
+      "name": "Lâmina Convocada",
+      "type": "skill",
+      "system": {
+        "description": "<p>Um ataque com a arma contra um alvo ao alcance dela: Teste de Precisão contra a Esquiva; [2d6 + Poder de Ataque] de dano físico. +1 Carga, com qualquer peça na mão.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>A lâmina aparece no meio do golpe, já descendo.</em></p>",
+        "tags": [
+          "Weapon Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/weapons/swords/sword-runed-glowing.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-lamina-convocada",
+          "kind": "feeds",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "magovermelho",
+            "gain": 1
+          },
+          "damageText": "2d6 + [Poder de Ataque] Físico",
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GgLOuQnSuCrhagXs"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.Mmtf1IQnz9zaAcPc",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "PK8MqdEDjDE8gbGA",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.PK8MqdEDjDE8gbGA"
+    },
+    {
+      "name": "Disparo do Foco",
+      "type": "skill",
+      "system": {
+        "description": "<p>O seu foco dispara contra um alvo a até 4 Qd: Teste de Precisão contra a Resistência; [2d6 + Poder Mágico] de dano mágico. É um Feitiço: +1 Carga.</p><p><strong>Custo:</strong> Ódio 1.</p>",
+        "tags": [
+          "Spell",
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/weapons/wands/wand-carved-fire.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-disparo-do-foco",
+          "kind": "feeds",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "magovermelho",
+            "gain": 1
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GgLOuQnSuCrhagXs"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.0CfTD4PKSLgmYvC7",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "dREGF7jEVqD2LPq2",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.dREGF7jEVqD2LPq2"
+    },
+    {
+      "name": "Caminho da Arma Selada",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Reescreve o Reequipar.</strong> Em combate você não troca de peça: a peça que você escolheu fora de combate fica selada na sua mão até o fim da luta. O Teto da Carga aumenta em 2.</p><p><strong>Talentos do Caminho:</strong> Peça Jurada (NP 3) e Selo Rompido (NP 7).</p><hr><p><em>Uma peça só, guardada com um selo que só você sabe abrir.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/weapons/swords/sword-guard-purple.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-arma-selada",
+          "kind": "bends",
+          "branch": "path",
+          "choiceOnly": true,
+          "path": {
+            "class": "magovermelho",
+            "id": "arma-selada"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GgLOuQnSuCrhagXs"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.sxJgZnishUuCnRQr",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "KTP32UyVR23yGcxh",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.KTP32UyVR23yGcxh"
+    },
+    {
+      "name": "Arsenal Infinito",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Ápice do Mago Vermelho (NP 10).</strong> O seu espaço mágico não tem mais fundo, e a troca já não custa nada. O Reequipar não gasta ação, e a peça que você deixou continua com o efeito dela até o fim daquela rodada.</p><ul><li><strong>Arma Selada:</strong> o efeito da peça vale em dobro.</li><li><strong>Panóplia:</strong> o efeito vale inteiro nas três peças.</li><li><strong>Troca Relâmpago:</strong> a nova peça começa com metade da Carga, em vez de 0.</li></ul><hr><p><em>Cem espadas giram em volta de você, e todas respondem ao mesmo tempo.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/light/explosion-star-large-teal-purple.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-arsenal-infinito",
+          "kind": "bends",
+          "branch": "apex",
+          "choiceOnly": true,
+          "apex": "magovermelho",
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GgLOuQnSuCrhagXs"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.4uZKGp0d5az2Fb7j",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "v365L2BzHLkpWAA5",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.v365L2BzHLkpWAA5"
+    },
+    {
+      "name": "Fogo",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Magia (Conjuração).</strong> O fogo em todas as cores: o laranja que queima, o roxo que gruda, o azul que congela, o amarelo que sufoca e, no fim, o arco-íris inteiro. É a magia de quem acende a luta e não deixa apagar.</p><ul><li><strong>Traço, Brasa Viva:</strong> você é imune a [Queimando], e os seus feitiços de Fogo causam +NP÷2 de dano em quem está [Queimando].</li><li><strong>Feitiços:</strong> Chama Laranja e Chama Roxa (NP 1), Chama Azul e Chama Amarela (NP 3), Coluna de Fogo (NP 5) e o feitiço supremo Chama Arco-Íris (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Chama Arco-Íris pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você sempre sabe para onde o vento está soprando: é só olhar a fumaça.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/elemental-fire-humanoid.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "trait": {
+                "magia": "fogo",
+                "bonusVs": [
+                  {
+                    "statuses": [
+                      "burning"
+                    ],
+                    "value": "floor(@cr/2)"
+                  }
+                ]
+              },
+              "immune": [
+                "burning"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Brasa Viva",
+          "img": "icons/magic/fire/elemental-fire-humanoid.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "oj1XlE0NTCgP8xRE",
+          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.vqvcMfviKofb3TOp.oj1XlE0NTCgP8xRE"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "fogo-fogo",
+          "kind": "bends",
+          "branch": "magic",
+          "magic": {
+            "id": "fogo",
+            "category": "caster",
+            "tagline": "O fogo em todas as cores."
+          },
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GgLOuQnSuCrhagXs"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.mtlHBM4WuK8u1oE9",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "vqvcMfviKofb3TOp",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.vqvcMfviKofb3TOp"
+    },
+    {
+      "name": "Chama Laranja",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Fogo.</strong> Uma chama laranja voa contra um alvo a até 4 Qd: Teste de Precisão contra a Resistência; [2d6 + Poder Mágico] de dano mágico de [Chama], e ele fica [Queimando: NP÷2 + 1].</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>O fogo de sempre, e o cheiro de pano queimado.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fogo-laranja",
+          "kind": "feeds",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "burning",
+              "value": "floor(@cr/2)+1"
+            }
+          ],
+          "magicSpell": {
+            "id": "fogo"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.ReuVfpGvZGAGqBJ5",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "xOErssOU6FEgH5Pw",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.xOErssOU6FEgH5Pw"
+    },
+    {
+      "name": "Chama Roxa",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Fogo.</strong> Uma chama roxa salta dos seus dedos e gruda no fogo de um alvo a até 4 Qd que está [Queimando]: o Queimando dele dobra. Uma vez por rodada.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Ela não solta. Só apaga quando acaba.</em></p>",
+        "tags": [
+          "Spell",
+          "Flame"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/projectile-fireball-purple.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fogo-roxa",
+          "kind": "feeds",
+          "branch": "magic",
+          "useActions": [
+            {
+              "type": "doubleStatus",
+              "status": "burning",
+              "recipients": "targets"
+            }
+          ],
+          "magicSpell": {
+            "id": "fogo"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.fF8WBgiOrKPFvDpG",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "MW5KydSBrTKDBdWk",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.MW5KydSBrTKDBdWk"
+    },
+    {
+      "name": "Aço que Responde",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com a Espada na mão, quando um Ataque com Arma seu acerta com Crítico, +1 Carga.</p><p><em>No golpe perfeito, o aço vibra na mão como se tivesse gostado.</em></p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/weapons/swords/sword-jeweled-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-aco-que-responde",
+          "kind": "feeds",
+          "branch": "espada",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.d2I8yiVIdlM14h6O",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "oEJPZzjdrHmO1Zzm",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.oEJPZzjdrHmO1Zzm"
+    },
+    {
+      "name": "Avaliar Equipamento",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você olha uma arma, uma armadura ou um item mágico e entende como foi feito: Teste de Análise com +[NH]d6 para saber o que ele faz, de onde veio e se carrega magia. Em combate, contra um alvo a até 4 Qd: você lê o equipamento dele, ele fica [Identificado], e +1 Carga.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "General",
+        "skillRank": {
+          "value": 3,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": 0,
+          "vs": "",
+          "stat": "analysis"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/symbols/runes-carved-stone-red.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Avaliar Equipamento",
+          "img": "systems/eternia/assets/ui/status/identified.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "identified"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "OxVtNWmbYAE2Hgey",
+          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.gXNPe0Oco8i7P8aS.OxVtNWmbYAE2Hgey"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-avaliar-equipamento",
+          "kind": "feeds",
+          "branch": "general",
+          "motor": {
+            "id": "magovermelho",
+            "inCombat": true,
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.FMDZEerXcIXHNOBF",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "gXNPe0Oco8i7P8aS",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.gXNPe0Oco8i7P8aS"
+    },
+    {
+      "name": "Couraça Encantada",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com a Armadura na mão, a Anulação dela passa a ser [Carga × 3].</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/chest/breastplate-sculpted-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-couraca-encantada",
+          "kind": "bends",
+          "branch": "armadura",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.65MkOJGLgJGZrDvs",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "xk92hhq2gzsyPZK4",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.xk92hhq2gzsyPZK4"
+    },
+    {
+      "name": "Fio Encantado",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com a Espada na mão, gaste até [NH+1] de Carga: o fio acende de uma ponta à outra. Um ataque contra um alvo ao alcance da arma: Teste de Precisão contra a Esquiva; [(2 + Carga gasta)d6 + Poder de Ataque + Carga gasta × NP] de dano físico.</p><p><strong>Custo:</strong> Ódio 2.</p>",
+        "tags": [
+          "Weapon Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Weapon",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 3
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "2+@spent",
+          "mod": "@spent*@cr",
+          "type": "physical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/dagger-rune-enchant-flame-strong-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-fio-encantado",
+          "kind": "spends",
+          "branch": "espada",
+          "minRank": 1,
+          "motor": {
+            "id": "magovermelho",
+            "needs": {
+              "state": "espada",
+              "min": 1
+            },
+            "spend": "choose",
+            "max": "@sr+1"
+          },
+          "damageText": "(2+Carga gasta)d6 + [Poder de Ataque] + Carga gasta×NP Físico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.3VILqea6gm2ysZHy",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "fIxm0mSExieHodFX",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.fIxm0mSExieHodFX"
+    },
+    {
+      "name": "Cuidar das Peças",
+      "type": "skill",
+      "system": {
+        "description": "<p>No Descanso, você limpa, afia e conserta o equipamento do grupo: Teste de Operação com +[NH]d6 para consertar o que quebrou (armas, armaduras, ferramentas, fechaduras). As suas peças guardam um resto de magia: você começa o próximo combate com +1 Carga.</p>",
+        "tags": [],
+        "timing": "Rest Time",
+        "checkType": "",
+        "range": "-",
+        "target": "Refer",
+        "subtype": "General",
+        "skillRank": {
+          "value": 3,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": 0,
+          "vs": "",
+          "stat": "operation"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/heater-steel-worn.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-cuidar-das-pecas",
+          "kind": "feeds",
+          "branch": "general",
+          "motor": {
+            "id": "magovermelho"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.mw1ANB0fk1vL27fB",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "NBojOgEBafXu5Gfu",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.NBojOgEBafXu5Gfu"
+    },
+    {
+      "name": "Chama Amarela",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Fogo.</strong> Uma chama amarela de cheiro insuportável se espalha numa área a até 3 Qd: Teste de Precisão contra a Resistência de cada alvo; quem ela acerta fica [Confuso] (−1d6 em todos os testes e +1 de Ódio no começo de cada turno, até gastar uma Ação Maior).</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Ninguém consegue pensar direito com esse cheiro.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/projectile-fireball-embers-yellow.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Chama Amarela",
+          "img": "systems/eternia/assets/ui/status/confused.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "confused"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "O5eJVIh2PC4Pt8Zr",
+          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.CfywsinBgjdm3z1a.O5eJVIh2PC4Pt8Zr"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "fogo-amarela",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "fogo"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.y2eYLDLiKTbFbefS",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "CfywsinBgjdm3z1a",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.CfywsinBgjdm3z1a"
+    },
+    {
+      "name": "Chama Azul",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Fogo.</strong> Uma chama azul, que congela em vez de queimar, atinge um alvo a até 4 Qd: Teste de Precisão contra a Resistência; [2d6 + Poder Mágico] de dano mágico de [Frio], e ele fica [Congelando: 1].</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Por onde o fogo azul passa, fica gelo.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Cold"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/projectile-fireball-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fogo-azul",
+          "kind": "feeds",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "freezing",
+              "value": 1
+            }
+          ],
+          "magicSpell": {
+            "id": "fogo"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.0rG7Rd9xB2ICPmxE",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "myuMgSpBTkNrZTvS",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.myuMgSpBTkNrZTvS"
+    },
+    {
+      "name": "Espaço do Arsenal",
+      "type": "skill",
+      "system": {
+        "description": "<p>O seu espaço mágico guarda mais que as três peças: armas, armaduras, ferramentas e objetos do tamanho de uma pessoa, no máximo. Fora de combate, você guarda e tira qualquer um deles na hora, sem gastar ação. Ninguém além de você alcança o que está guardado, e o que está lá não pesa.</p><p><em>Os outros carregam mochila. Você carrega um armário que ninguém vê.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/containers/chest/chest-steel-purple.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-espaco-do-arsenal",
+          "kind": "bends",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.l8xdHJZjDnCzTCxv",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "YbWvi5j8HtejZchE",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.YbWvi5j8HtejZchE"
+    },
+    {
+      "name": "Golpe Aparado",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com a Armadura na mão, quando um ataque de um inimigo tira PV de você, +1 Carga.</p><p><em>A armadura guarda cada golpe que segura, e devolve depois.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/shield/heater-steel-crystal-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-golpe-aparado",
+          "kind": "feeds",
+          "branch": "armadura",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.MNuBxcOMee4MrNlq",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "qFE3LEaAayWMk4QJ",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.qFE3LEaAayWMk4QJ"
+    },
+    {
+      "name": "Luz Restauradora",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com o Foco na mão: você ou um aliado a até 4 Qd recupera [2d6 + Recuperação] PV. É um Feitiço: +1 Carga.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>A luz do foco entra na ferida como água morna.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "",
+          "recovery": true
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/light/orb-beams-green.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-luz-restauradora",
+          "kind": "feeds",
+          "branch": "foco",
+          "minRank": 1,
+          "motor": {
+            "id": "magovermelho",
+            "needs": {
+              "state": "foco"
+            },
+            "gain": 1
+          },
+          "damageText": "2d6 + [Recuperação]"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.5CRF1IjHqSsNt8un",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "uD3UO4c1IaLYP0m6",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.uD3UO4c1IaLYP0m6"
+    },
+    {
+      "name": "Troca de Traje",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você troca de roupa num clarão, com um traje do seu Arsenal: o de festa, o de viagem, o uniforme da guarda, o disfarce de criado. Teste de Negociação com +[NH]d6 para impressionar, passar por outra pessoa ou entrar onde o traje certo abre a porta.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 3,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": 0,
+          "vs": "",
+          "stat": "negotiation"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/chest/robe-layered-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-troca-de-traje",
+          "kind": "bends",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.NN7W2B06eNMqMQaY",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "h14amYGXsA9wkEpE",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.h14amYGXsA9wkEpE"
+    },
+    {
+      "name": "Escrita Sólida",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Magia (Conjuração).</strong> Você escreve uma palavra no ar, e ela fica de pé: FOGO queima, FERRO pesa, GUARDA protege. É a magia de quem lê muito e sempre tem a palavra certa para a hora certa.</p><ul><li><strong>Traço, Palavra Pesada:</strong> você é imune a [Confuso], e os seus feitiços de Escrita Sólida causam +NP÷2 de dano em quem está [Derrubado].</li><li><strong>Feitiços:</strong> Escrita Sólida: Fogo e Escrita Sólida: Guarda (NP 1), Escrita Sólida: Silêncio e Escrita Sólida: Ferro (NP 3), Escrita Sólida: Trovão (NP 5) e o feitiço supremo A Palavra Final (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Palavra Final pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você carrega uma pena atrás da orelha e escreve mais rápido do que fala.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/tools/scribal/ink-quill-pink.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "trait": {
+                "magia": "escrita-solida",
+                "bonusVs": [
+                  {
+                    "statuses": [
+                      "prone"
+                    ],
+                    "value": "floor(@cr/2)"
+                  }
+                ]
+              },
+              "immune": [
+                "confused"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Palavra Pesada",
+          "img": "icons/tools/scribal/ink-quill-pink.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "lWktiFwH7MosN3jX",
+          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.m0xZUuXXUHlbBhs5.lWktiFwH7MosN3jX"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "escrita-solida-escrita-solida",
+          "kind": "bends",
+          "branch": "magic",
+          "magic": {
+            "id": "escrita-solida",
+            "category": "caster",
+            "tagline": "Palavras que viram coisas: FOGO, GUARDA, FERRO."
+          },
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GgLOuQnSuCrhagXs"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.AbONem0Benuuom4u",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "m0xZUuXXUHlbBhs5",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.m0xZUuXXUHlbBhs5"
+    },
+    {
+      "name": "Coluna de Fogo",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Fogo.</strong> Feitiço grande. Uma coluna de fogo sobe do chão debaixo de um alvo a até 5 Qd: Teste de Precisão contra a Resistência; [4d6 + Poder Mágico] de dano mágico de [Chama]. Se ele está [Queimando], a coluna consome o fogo de uma vez: o dano soma o dobro do Valor do Queimando, e o Queimando sai.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Ele some dentro do fogo, e o fogo sobe até as nuvens.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "5Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 4,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/blast-jet-stream-embers-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fogo-coluna",
+          "kind": "feeds",
+          "branch": "magic",
+          "bonusVs": [
+            {
+              "statusId": "burning",
+              "value": 2,
+              "perValue": true,
+              "consume": true
+            }
+          ],
+          "magicSpell": {
+            "id": "fogo"
+          },
+          "minRank": 5,
+          "motor": {
+            "id": "@class",
+            "gain": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.AB0tt4XzdbKsIFYF",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "91Rf5LzkxS2eJjh4",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.91Rf5LzkxS2eJjh4"
+    },
+    {
+      "name": "Escrita Sólida: Fogo",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Escrita Sólida.</strong> A palavra FOGO, em letras de chama, voa contra um alvo a até 4 Qd: Teste de Precisão contra a Esquiva; [2d6 + Poder Mágico] de dano mágico de [Chama], e ele fica [Queimando: NP÷2 + 1].</p><p><strong>Custo:</strong> Ódio 1.</p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/books/book-symbol-fire-gold-orange.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "escrita-solida-fogo",
+          "kind": "feeds",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "burning",
+              "value": "floor(@cr/2)+1"
+            }
+          ],
+          "magicSpell": {
+            "id": "escrita-solida"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.s4DOLJDCrQTpHFA5",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "2P75QYnAg1Ai1Y6i",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.2P75QYnAg1Ai1Y6i"
+    },
+    {
+      "name": "Escrita Sólida: Guarda",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Escrita Sólida.</strong> Antes do Dano de um ataque contra você ou contra um aliado a até 4 Qd: a palavra GUARDA fica de pé na frente do golpe, com [Anulação: NP + 5] contra esse dano. Uma vez por rodada.</p><p><em>O golpe bate nas letras, e as letras nem tremem.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Before Damage",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/books/book-symbol-anchor.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "cancel",
+                "value": "@cr+5"
+              },
+              "consumeOn": "damage",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Escrita Sólida: Guarda",
+          "img": "systems/eternia/assets/ui/status/cancel.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "cancel"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "K9QuXr8jBFTOzN3k",
+          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.ZJY3qP5f2JNB0xmp.K9QuXr8jBFTOzN3k"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "escrita-solida-guarda",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "escrita-solida"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.45SRjyvbF2r3rXic",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "ZJY3qP5f2JNB0xmp",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.ZJY3qP5f2JNB0xmp"
+    },
+    {
+      "name": "Escrita Sólida: Ferro",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Escrita Sólida.</strong> A palavra FERRO, em letras de metal do tamanho de uma porta, cai sobre um alvo a até 4 Qd: Teste de Precisão contra a Esquiva; [3d6 + Poder Mágico] de dano mágico, e ele fica [Derrubado].</p><p><strong>Custo:</strong> Ódio 2.</p>",
+        "tags": [
+          "Spell",
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 3,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/books/book-embossed-steel-brown.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "escrita-solida-ferro",
+          "kind": "feeds",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "prone"
+            }
+          ],
+          "magicSpell": {
+            "id": "escrita-solida"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.R9qI0OLhbhs4tGab",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "NH8fQ0GwCFEt41aW",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.NH8fQ0GwCFEt41aW"
+    },
+    {
+      "name": "Chama Arco-Íris",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Fogo. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: o fogo de todas as cores cai sobre uma área ampla a até 6 Qd. Teste de Precisão contra a Resistência de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico de [Chama], e quem ele acerta fica [Queimando: NP]; quem já estava Queimando fica também [Exposto]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Bonito de longe. De perto, não dá tempo de achar bonito.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Flame"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "6Sq",
+        "target": "Wide",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 4",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "1+@spent",
+          "mod": "@spent*@cr",
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/fire/projectile-meteor-salvo-strong-purple-yellow.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "fogo-arco-iris",
+          "kind": "spends",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "burning",
+              "value": "@cr"
+            }
+          ],
+          "escalate": [
+            {
+              "if": "burning",
+              "add": [
+                {
+                  "statusId": "exposed"
+                }
+              ]
+            }
+          ],
+          "magicSpell": {
+            "id": "fogo"
+          },
+          "minRank": 7,
+          "motor": {
+            "id": "@class",
+            "needs": {
+              "full": true
+            },
+            "spend": "all"
+          },
+          "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.xEJ3Hce0q9Ljd1VT",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "zpeKHvbhgXYsAxT9",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.zpeKHvbhgXYsAxT9"
+    },
+    {
+      "name": "Escrita Sólida: Silêncio",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Escrita Sólida.</strong> A palavra SILÊNCIO pousa na boca de um alvo a até 4 Qd (Teste de Precisão contra a Resistência): ele fica [Silenciado] (não usa Feitiços, Ataques Mágicos nem Canções até o fim do próximo turno dele).</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Ele abre a boca para conjurar, e só sai papel.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/books/book-black-grey.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Escrita Sólida: Silêncio",
+          "img": "systems/eternia/assets/ui/status/silenced.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "silenced"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "VGV0G7ee5WGSbAPW",
+          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.Ir6rgIQ3gpywBCVi.VGV0G7ee5WGSbAPW"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "escrita-solida-silencio",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "escrita-solida"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.vV0czyvJn9bTxh4g",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Ir6rgIQ3gpywBCVi",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.Ir6rgIQ3gpywBCVi"
+    },
+    {
+      "name": "Escrita Sólida: Trovão",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Escrita Sólida.</strong> Feitiço grande. A palavra TROVÃO se acende sobre uma área a até 4 Qd e desaba em raios: Teste de Precisão contra a Resistência de cada alvo; [3d6 + Poder Mágico] de dano mágico de [Choque], e quem ela acerta fica [Eletrificado: NP÷2 + 2].</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Primeiro o estrondo, depois as letras, e só então o raio.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack",
+          "Shock"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 3,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/books/book-symbol-lightning-silver-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "escrita-solida-trovao",
+          "kind": "feeds",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "shocked",
+              "value": "floor(@cr/2)+2"
+            }
+          ],
+          "magicSpell": {
+            "id": "escrita-solida"
+          },
+          "minRank": 5,
+          "motor": {
+            "id": "@class",
+            "gain": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.gkguB9CZByoCuLx2",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "if3QWNAONavaMwwH",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.if3QWNAONavaMwwH"
+    },
+    {
+      "name": "A Palavra Final",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Escrita Sólida. Feitiço supremo.</strong> Só com o Motor da sua classe no Teto: você escreve FIM no céu, em letras do tamanho de uma casa, e elas caem sobre uma área ampla a até 5 Qd. Teste de Precisão contra a Esquiva de cada alvo; [(1 + pontos gastos)d6 + Poder Mágico + pontos gastos×NP] de dano mágico, e quem elas acertam fica [Atordoado]. Gasta todo o Motor.</p><p><strong>Custo:</strong> Ódio 4.</p><hr><p><em>Depois da última letra, não sobra nada para dizer.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "5Sq",
+        "target": "Wide",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 4",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "1+@spent",
+          "mod": "@spent*@cr",
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/books/book-open-turquoise.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "escrita-solida-palavra-final",
+          "kind": "spends",
+          "branch": "magic",
+          "hitStatuses": [
+            {
+              "statusId": "dazed"
+            }
+          ],
+          "magicSpell": {
+            "id": "escrita-solida"
+          },
+          "minRank": 7,
+          "motor": {
+            "id": "@class",
+            "needs": {
+              "full": true
+            },
+            "spend": "all"
+          },
+          "damageText": "(1+pontos gastos)d6 + [Poder Mágico] + pontos gastos×NP Mágico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.iTraJCkXOzxorT3M",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "siQU9DBzv9DPNT54",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.siQU9DBzv9DPNT54"
+    },
+    {
+      "name": "Rajada do Foco",
+      "type": "skill",
+      "system": {
+        "description": "<p>Com o Foco na mão, gaste até [NH+1] de Carga: o foco solta tudo num feixe contra um alvo a até 4 Qd. Teste de Precisão contra a Resistência; [(2 + Carga gasta)d6 + Poder Mágico] de dano mágico.</p><p><strong>Custo:</strong> Ódio 2.</p>",
+        "tags": [
+          "Spell",
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 3
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": "2+@spent",
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/light/beam-rays-red.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-rajada-do-foco",
+          "kind": "spends",
+          "branch": "foco",
+          "minRank": 1,
+          "motor": {
+            "id": "magovermelho",
+            "needs": {
+              "state": "foco",
+              "min": 1
+            },
+            "spend": "choose",
+            "max": "@sr+1"
+          },
+          "damageText": "(2+Carga gasta)d6 + [Poder Mágico] Mágico"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.zOquBV5iodgFumjp",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "6MEfJ22ZSc3fD7rR",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.6MEfJ22ZSc3fD7rR"
+    },
+    {
+      "name": "Reequipar Veloz",
+      "type": "skill",
+      "system": {
+        "description": "<p>O Reequipar passa a gastar a Ação de Movimento em vez da Ação Menor.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/movement/acceleration-speed-tech-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "magovermelho-reequipar-veloz",
+          "kind": "bends",
+          "branch": "troca",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.dmws3EGvUQ1o2sDg",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "zbnVzc3oml9ilb7F",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.zbnVzc3oml9ilb7F"
+    },
+    {
+      "name": "Terra",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Magia (Conjuração).</strong> A terra levanta quando você manda: punhos de rocha, muralhas, avalanches e a montanha inteira. É a magia de quem fica parado e deixa o chão lutar.</p><ul><li><strong>Traço, Pés no Chão:</strong> você é imune a [Derrubado], e os seus feitiços de Terra causam +NP÷2 de dano em quem está [Enraizado].</li><li><strong>Feitiços:</strong> Punho de Rocha e Muralha de Rocha (NP 1), Avalanche de Rocha e Pele de Pedra (NP 3), Chão Partido (NP 5) e o feitiço supremo Fúria da Montanha (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Fúria da Montanha pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Você nunca tropeça. O chão sabe quem você é.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/wilderness/carved-standing-stone.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "trait": {
+                "magia": "terra",
+                "bonusVs": [
+                  {
+                    "statuses": [
+                      "rooted"
+                    ],
+                    "value": "floor(@cr/2)"
+                  }
+                ]
+              },
+              "immune": [
+                "prone"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Pés no Chão",
+          "img": "icons/environment/wilderness/carved-standing-stone.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "e6YSERGpq2YzWVzA",
+          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.qFu9VV0Dki046Bz1.e6YSERGpq2YzWVzA"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "terra-terra",
+          "kind": "bends",
+          "branch": "magic",
+          "magic": {
+            "id": "terra",
+            "category": "caster",
+            "tagline": "O chão que soca, protege e derruba."
+          },
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.GgLOuQnSuCrhagXs"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.SUAkHfCOW3yc7TIU",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "qFu9VV0Dki046Bz1",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.qFu9VV0Dki046Bz1"
+    },
+    {
+      "name": "Muralha de Rocha",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Terra.</strong> Uma muralha de rocha sobe em volta de você: você e os aliados a até 1 Qd (escolha-os como alvos) ficam com [Anulação: NP÷2 + 2] até o fim da rodada. Uma vez por rodada.</p><p><em>A muralha racha, e quem estava atrás dela nem se despenteia.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/settlement/fence-stone-brick.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "allies",
+              "statusData": {
+                "statusId": "cancel",
+                "value": "floor(@cr/2)+2"
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Muralha de Rocha",
+          "img": "systems/eternia/assets/ui/status/cancel.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "cancel"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "OJADVMpSVELYrd8C",
+          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.q7SWqZtIopOLteSw.OJADVMpSVELYrd8C"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "terra-muralha",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "terra"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.KXa7ZIZfrgl0O0rD",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "q7SWqZtIopOLteSw",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.q7SWqZtIopOLteSw"
+    },
+    {
+      "name": "Punho de Rocha",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Terra.</strong> Um punho de rocha sai do chão e acerta um alvo a até 4 Qd: Teste de Precisão contra a Esquiva; [2d6 + Poder Mágico] de dano mágico.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>O chão levanta o braço, bate e volta a ser chão.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "4Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "evasion",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/earth/strike-fist-stone-gray.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "terra-punho",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "terra"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.jWSLWlkGbi54H0hU",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "R9MaujyvMhe4mbUv",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.R9MaujyvMhe4mbUv"
+    },
+    {
+      "name": "Analisar Objeto de Cena",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "analysis"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/traps/trap-jaw-steel.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746551067,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.V30xXzllUuzBfafd",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "VSOQe24wIxo3vYaN",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.VSOQe24wIxo3vYaN"
     },
     {
       "name": "Ataque Básico com Arma",
@@ -757,8 +3959,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "p8jvJ9mfDC4Chpkk",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.p8jvJ9mfDC4Chpkk"
+      "_id": "qe4TloPPJyoPygji",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.qe4TloPPJyoPygji"
     },
     {
       "name": "Ataque Mágico Básico",
@@ -813,8 +4015,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "gDycd1QP1cE5iSAq",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.gDycd1QP1cE5iSAq"
+      "_id": "q3qYDzjqMixRh3RW",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.q3qYDzjqMixRh3RW"
     },
     {
       "name": "Avaliar Item",
@@ -865,8 +4067,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "bq5pvifL0QXkMTeB",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.bq5pvifL0QXkMTeB"
+      "_id": "P6Rhj76mnHiexTBs",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.P6Rhj76mnHiexTBs"
     },
     {
       "name": "Correr",
@@ -919,60 +4121,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "d7Z2Mj8WIjKI7qfK",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.d7Z2Mj8WIjKI7qfK"
-    },
-    {
-      "name": "Analisar Objeto de Cena",
-      "type": "skill",
-      "system": {
-        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
-        "tags": [],
-        "timing": "Major",
-        "checkType": "",
-        "range": "1Sq",
-        "target": "Refer",
-        "subtype": "Basic",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "-",
-        "check": {
-          "dice": 0,
-          "mod": 0,
-          "vs": "",
-          "stat": "analysis"
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false
-        },
-        "macroeffect": ""
-      },
-      "img": "icons/environment/traps/trap-jaw-steel.webp",
-      "effects": [],
-      "flags": {},
-      "_stats": {
-        "coreVersion": "13.351",
-        "systemId": "eternia",
-        "systemVersion": "0.1.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.skills-basic.Item.V30xXzllUuzBfafd",
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "sort": 0,
-      "ownership": {
-        "default": 0
-      },
-      "_id": "H7iphmdBU7nXgMgc",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.H7iphmdBU7nXgMgc"
+      "_id": "2pweXGQ5IVGRGtXr",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.2pweXGQ5IVGRGtXr"
     },
     {
       "name": "Desarmar Objeto de Cena",
@@ -1022,8 +4172,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "lgwukcqMLvBDBXec",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.lgwukcqMLvBDBXec"
+      "_id": "Xopjt3X40WErkIov",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.Xopjt3X40WErkIov"
     },
     {
       "name": "Deslocar-se",
@@ -1060,7 +4210,13 @@
       },
       "img": "icons/skills/movement/arrow-upward-white.webp",
       "effects": [],
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
       "_stats": {
         "coreVersion": "13.351",
         "systemId": "eternia",
@@ -1076,8 +4232,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "UjBJLsUMe7BvkLK2",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.UjBJLsUMe7BvkLK2"
+      "_id": "KJ6wsSeOsAitrjni",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.KJ6wsSeOsAitrjni"
     },
     {
       "name": "Detectar Anomalias",
@@ -1128,8 +4284,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "IawQ32iJr9qIQ4bx",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.IawQ32iJr9qIQ4bx"
+      "_id": "ALSwt7vWbqyB1X3T",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.ALSwt7vWbqyB1X3T"
     },
     {
       "name": "Disparada",
@@ -1166,7 +4322,13 @@
       },
       "img": "icons/skills/movement/figure-running-gray.webp",
       "effects": [],
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
       "_stats": {
         "coreVersion": "13.351",
         "systemId": "eternia",
@@ -1182,8 +4344,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "iiN3Z8Nn58CqOVtM",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.iiN3Z8Nn58CqOVtM"
+      "_id": "UAnSmWxg8cL02uDQ",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.UAnSmWxg8cL02uDQ"
     },
     {
       "name": "Esconder-se",
@@ -1258,7 +4420,7 @@
             "exportSource": null
           },
           "sort": 0,
-          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.TKv0qmxxN8jHNbNe.g8V4pL2sK7mY3zN1",
+          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.EhyYeDbteUuvidP0.g8V4pL2sK7mY3zN1",
           "system": {
             "changes": []
           },
@@ -1282,8 +4444,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "TKv0qmxxN8jHNbNe",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.TKv0qmxxN8jHNbNe"
+      "_id": "EhyYeDbteUuvidP0",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.EhyYeDbteUuvidP0"
     },
     {
       "name": "Golpe de Misericórdia",
@@ -1334,8 +4496,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "vu9QqWGjkLSaBqMT",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.vu9QqWGjkLSaBqMT"
+      "_id": "51liMQeOqtxRhgQN",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.51liMQeOqtxRhgQN"
     },
     {
       "name": "Identificar Inimigo",
@@ -1386,8 +4548,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "NIrHjAIf4vfP007K",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.NIrHjAIf4vfP007K"
+      "_id": "AtJL8quYjub8TSyU",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.AtJL8quYjub8TSyU"
     },
     {
       "name": "Negociar",
@@ -1440,8 +4602,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "6XbJNy4b8Gq1CjN0",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.6XbJNy4b8Gq1CjN0"
+      "_id": "gajFPojDK2pdRnhX",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.gajFPojDK2pdRnhX"
     },
     {
       "name": "Proteger",
@@ -1475,7 +4637,51 @@
         "macroeffect": ""
       },
       "img": "icons/magic/control/silhouette-hold-change-blue.webp",
-      "effects": [],
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "cover": true,
+              "consumeOn": "damage",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.43.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Proteger",
+          "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "fbR02Gic71D3fEQS",
+          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.cBi1s79at2iicCpd.fbR02Gic71D3fEQS"
+        }
+      ],
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
@@ -1492,8 +4698,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "gV5q7mwHXZNzHLzF",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.gV5q7mwHXZNzHLzF"
+      "_id": "cBi1s79at2iicCpd",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.cBi1s79at2iicCpd"
     },
     {
       "name": "Reconhecer Inimigo",
@@ -1546,8 +4752,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "dq0c4vRcGV643RgI",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.dq0c4vRcGV643RgI"
+      "_id": "YmIIoH7ffvSE3F5w",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.YmIIoH7ffvSE3F5w"
     },
     {
       "name": "Switch",
@@ -1628,7 +4834,7 @@
           "start": null,
           "showIcon": 1,
           "_id": "TezNyfNuTHtrkEWn",
-          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.LICuxVypW69KiXhv.TezNyfNuTHtrkEWn"
+          "_key": "!actors.items.effects!0SA9R0LWMDpFHTg0.3A1iLUCTWqA85vPS.TezNyfNuTHtrkEWn"
         }
       ],
       "flags": {
@@ -1655,8 +4861,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "LICuxVypW69KiXhv",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.LICuxVypW69KiXhv"
+      "_id": "3A1iLUCTWqA85vPS",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.3A1iLUCTWqA85vPS"
     },
     {
       "name": "Trocar Equipamento",
@@ -1707,8 +4913,111 @@
       "ownership": {
         "default": 0
       },
-      "_id": "OZDKISXr82hpVts8",
-      "_key": "!actors.items!0SA9R0LWMDpFHTg0.OZDKISXr82hpVts8"
+      "_id": "YdvFRhMuYKTXzyCn",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.YdvFRhMuYKTXzyCn"
+    },
+    {
+      "name": "R10 M5 Bakukon no ō shaku",
+      "type": "weapon",
+      "system": {
+        "description": "<p>[Momento: Ver texto] É ativado quando você deixa um inimigo no estado [Incapacitado][Morto] por meio de um [Ataque Mágico]. Suas rolagens de dano de [Ataque Mágico] recebem +(o NP do inimigo derrotado × 2 + 5). Este efeito dura até o fim do seu próximo turno, como um Estado de Combate.\nVarinha da Aterradora Magia da Morte</p><hr><p>Joia de Sangue Fresco [Material-Base] (195 Yuld) + Cajado de Cedro (800 Yuld) + Gema de Invocação (Iniciante) (40 Yuld) ×4 + [Anima-mundi 10] (370 Yuld) ×3 + Custo de Fabricação (1.140 Yuld)</p>",
+        "tags": [
+          "One-Handed",
+          "Staff",
+          "Not For Sale",
+          "M5"
+        ],
+        "initiative": 2,
+        "rank": 10,
+        "price": 3400,
+        "equipped": true,
+        "attack": 9,
+        "magic": 20,
+        "accuracy": 0,
+        "main": false,
+        "range": "Close",
+        "checkType": "-",
+        "target": "-",
+        "timing": "-",
+        "pdef": 0,
+        "mdef": 0
+      },
+      "img": "icons/weapons/staves/staff-ornate-gold-jeweled.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "powers": [
+            {
+              "timing": "Refer",
+              "target": "Self",
+              "range": "-",
+              "cost": "",
+              "limit": "",
+              "text": "[Trigger: Body] It activates when you put an enemy into [Incapacitated][Dead] status through a [Magic Attack]. Your [Magic Attack] damage roll gains +(the CR of the defeated enemy × 2 + 5). This effect lasts until the end of your next main process as a CS."
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.koWJHWmfyf6kHdBm",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "iED2SbSAkNzCwkcE",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.iED2SbSAkNzCwkcE"
+    },
+    {
+      "name": "Túnica Acadêmica",
+      "type": "armor",
+      "system": {
+        "description": "<p>Uma túnica simples, mas resistente, usada por eruditos.</p>",
+        "tags": [
+          "Light Armor"
+        ],
+        "pdef": 12,
+        "mdef": 18,
+        "initiative": 0,
+        "rank": 9,
+        "price": 960,
+        "equipped": true,
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "timing": "-",
+        "attack": 0,
+        "magic": 0,
+        "accuracy": 0
+      },
+      "img": "icons/equipment/chest/robe-layered-blue.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.VWLg0O5yg2ksSCyb",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "1oSYemHZhD5VmzgO",
+      "_key": "!actors.items!0SA9R0LWMDpFHTg0.1oSYemHZhD5VmzgO"
     }
   ],
   "effects": [],
@@ -1720,26 +5029,32 @@
         "pos": 7,
         "token": "token_41.png"
       },
+      "elenco": {
+        "slug": "idris-ashtari",
+        "papel": "Idris Ashtari, o vassalo que guarda a Grande Lágrima"
+      },
       "professions": {
         "merchant": {
-          "exp": 80
+          "exp": 40
         }
       },
       "skillProgress": {
-        "base": 6,
-        "creation": true
+        "base": 10,
+        "creation": false
       },
       "bio": {
+        "epithet": "o Guardião da Lágrima",
         "age": "39",
         "gender": "Masculino",
-        "homeland": "Southcroith"
+        "homeland": "Southcroith",
+        "notes": "<h3>Só o Mestre</h3><p>Guarda a Grande Lágrima do Dragão Rubro nas forjas da família e não sabe mentir sobre ela. No verão de 379, defende a Lágrima com Vajra contra Vorr e Ignar.</p>"
       }
     }
   },
   "_stats": {
     "coreVersion": "14.360",
     "systemId": "eternia",
-    "systemVersion": "0.39.0",
+    "systemVersion": "1.0.2",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,

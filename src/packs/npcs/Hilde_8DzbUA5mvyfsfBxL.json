@@ -4,15 +4,15 @@
   "img": "systems/eternia/assets/tokens/npcs/hilde.webp",
   "system": {
     "health": {
-      "value": 8,
-      "max": 8
+      "value": 72,
+      "max": 72
     },
     "fate": {
       "value": 1,
       "max": 1
     },
     "tags": [],
-    "biography": "<p>Estalajadeira da Caneca de Cobre, viúva, firme e gentil, e a única que põe dois aventureiros bêbados na rua ao mesmo tempo. Guarda atrás do balcão os recados das guildas.</p>",
+    "biography": "<p>Dona da Caneca de Cobre, em Zakkaria, que guarda os recados das guildas: é o mural do norte.</p>",
     "race": "",
     "attributes": {
       "str": {
@@ -96,7 +96,17 @@
       "impetus": 0,
       "combo": 0,
       "rhythm": 0,
-      "clones": 0
+      "clones": 0,
+      "contagion": 0,
+      "dying": 0,
+      "ironBlood": 0,
+      "anticipation": 0,
+      "hourglass": 0,
+      "jackpot": 0,
+      "luck": 0,
+      "goliath": 0,
+      "quake": 0,
+      "reaped": 0
     },
     "checks": {
       "athletics": {
@@ -145,7 +155,8 @@
       }
     },
     "infos": {
-      "crank": 3,
+      "crank": 5,
+      "xp": 0,
       "hate": 0,
       "fatigue": 0,
       "level": 35
@@ -154,7 +165,7 @@
       "guild": ""
     },
     "inventory": {
-      "gold": 380
+      "gold": 600
     }
   },
   "prototypeToken": {
@@ -261,9 +272,9 @@
         "identifier": "human",
         "attributes": {
           "str": 1,
-          "dex": 1,
+          "dex": 0,
           "pow": 0,
-          "int": 0
+          "int": 1
         },
         "hp": 8,
         "fate": 1,
@@ -353,6 +364,23 @@
                 ]
               ]
             }
+          ],
+          "stage": 2,
+          "stageBonus": {
+            "str": 0,
+            "dex": 0,
+            "pow": 0,
+            "int": 0
+          },
+          "stageLog": [
+            {
+              "stage": 2,
+              "created": [
+                "iDXQVHy4FSkEtXKi",
+                "7ZaTgwLfOcRPGoTQ"
+              ],
+              "attribute": null
+            }
           ]
         }
       },
@@ -371,14 +399,99 @@
       "ownership": {
         "default": 0
       },
-      "_id": "2tB5F5S4EV0fGUjY",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.2tB5F5S4EV0fGUjY"
+      "_id": "rYjXljDFDkBOoked",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.rYjXljDFDkBOoked"
+    },
+    {
+      "name": "Hierofante",
+      "type": "class",
+      "system": {
+        "description": "<p><strong>Atributos:</strong> Força 3, Destreza 2, Poder 2 e Inteligência 3. <strong>PV:</strong> 40, +6 por NP (faixa Firme). <strong>Papéis:</strong> Suporte e Controle.</p><p><strong>Motor: Táticas.</strong> O Hierofante junta Ordens, uma a cada Manutenção e mais quando lê o campo. Cada Ordem gasta faz um aliado agir fora do turno dele: atacar agora, avançar agora, segurar o golpe.</p><p><strong>Magias:</strong> a classe é como você luta; a Magia é a magia que se mistura a ela. Você escolhe uma Magia no NP 1 e outra no NP 10 (Encantamento, Telepatia, Magia das Fadas...), e os feitiços delas entram nas suas escolhas de Combate e alimentam as Táticas (+1; os grandes, +2).</p><p><strong>Kit do NP 1:</strong> Táticas, Avaliar o Campo, Ordem: Atacar! e Ordem: Avançar!, e a primeira Magia. <strong>NP 3:</strong> um Caminho (Marechal, Capitão ou Bandeira). <strong>NP 5:</strong> Dedicação. <strong>NP 10:</strong> o Ápice, Comando Supremo, e a segunda Magia.</p><hr><p><em>O Hierofante quase nunca é o mais forte do grupo, e quase sempre é o que todos escutam. Carrega uma corneta no cinto, um mapa dobrado no peito e a calma de quem já viu linhas cederem. Na voz dele, o grupo vira uma tropa.</em></p>",
+        "tags": [
+          "Support",
+          "Control"
+        ],
+        "identifier": "comandante",
+        "attributes": {
+          "str": 3,
+          "dex": 2,
+          "pow": 2,
+          "int": 3
+        },
+        "hp": 40,
+        "hpPerRank": 6,
+        "grants": [
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.Z99j1EAPy9oZfscB"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.uRCBix6jdS6m7xOI"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.7qC0NeiBK7EF0CIT"
+            ]
+          },
+          {
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.0rhkuChF3cr7AfJT"
+            ]
+          },
+          {
+            "rank": 1,
+            "magic": true
+          },
+          {
+            "rank": 10,
+            "magic": true
+          },
+          {
+            "rank": 3,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.vtMFPzMowzxsi7AQ",
+              "Compendium.eternia.skills-class.Item.KNB4iwiTRXq4qkaT",
+              "Compendium.eternia.skills-class.Item.KZcfmZJsqnxr4ACC"
+            ]
+          },
+          {
+            "rank": 10,
+            "auto": true,
+            "uuids": [
+              "Compendium.eternia.skills-class.Item.GRyG34wsB9IOJ2UC"
+            ]
+          }
+        ]
+      },
+      "img": "systems/eternia/assets/icons/classes/comandante.svg",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.races-classes.Item.vVQcxWIHl3nFcYO9",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "NSwi3qizkmxUt1x4",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.NSwi3qizkmxUt1x4"
     },
     {
       "name": "Cozinheiro",
       "type": "subclass",
       "system": {
-        "description": "<p><strong>Faz:</strong> comidas.</p><p><strong>Talento: Banquete.</strong> Junte 2 comidas iguais numa porção para o grupo inteiro: cada personagem dos jogadores come.</p><p><strong>Oficina:</strong> no Interlúdio ou no Pós-Jogo, escolha a base, gaste 1 Anima-mundi do nível dela e role 2d6 + Rank: até 6 Falha, 7 a 9 Aproveitamento (o material volta), 10 a 11 Incomum [M1], 12 a 13 Raro [M2], 14 ou mais Perfeito [M3]. Dois 6 sobem um degrau. Dois itens iguais viram um melhor na Fusão.</p><p><strong>Rank:</strong> sobe com EXP (Rank 2 com 20, 3 com 40, 4 com 80, 5 com 160). Cada Rank dá +1 na rolagem, uma tentativa a mais por cenário e libera 6 níveis de item.</p><p>Tudo é feito pela aba Profissão da ficha.</p><hr><p><em>Fogo baixo, panela de ferro e o tempero na medida. Uma refeição do cozinheiro aquece mais do que o corpo: depois dela, o cansaço da estrada simplesmente vai embora.</em></p>",
+        "description": "<p><strong>Faz:</strong> comidas.</p><p><strong>Talento: Banquete.</strong> Junte 2 comidas iguais numa porção para o grupo inteiro: come quem usa e o grupo dele que está na cena (sem grupo, os personagens dos jogadores na cena). Com o Ensopado do Veterano ou o Festim do Campeão, o bônus de XP vai para todos que comeram.</p><p><strong>Oficina:</strong> no Interlúdio ou no Pós-Jogo, escolha a base, gaste 1 Anima-mundi do nível dela e role 2d6 + Rank: até 6 Falha, 7 a 9 Aproveitamento (o material volta), 10 a 11 Incomum [M1], 12 a 13 Raro [M2], 14 ou mais Perfeito [M3]. Dois 6 sobem um degrau. Dois itens iguais viram um melhor na Fusão.</p><p><strong>Rank:</strong> sobe com EXP (Rank 2 com 20, 3 com 40, 4 com 80, 5 com 160). Cada Rank dá +1 na rolagem, uma tentativa a mais por cenário e libera 6 níveis de item.</p><p>Tudo é feito pela aba Profissão da ficha.</p><hr><p><em>Fogo baixo, panela de ferro e o tempero na medida. Uma refeição do cozinheiro aquece mais do que o corpo: depois dela, o cansaço da estrada simplesmente vai embora.</em></p>",
         "tags": [],
         "identifier": "cook",
         "grants": [],
@@ -402,8 +515,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "RVAQiHq4TJ3pOnOO",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.RVAQiHq4TJ3pOnOO"
+      "_id": "3IRgnQdklshGCD4t",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.3IRgnQdklshGCD4t"
     },
     {
       "name": "Bênção do Espírito da Linguagem",
@@ -481,7 +594,7 @@
           "start": null,
           "showIcon": 1,
           "_id": "xSArxnWguld2jb1Q",
-          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.XULsJiQa5XUod8WX.xSArxnWguld2jb1Q"
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.VlxZsYNpuoqTP3g3.xSArxnWguld2jb1Q"
         }
       ],
       "flags": {
@@ -508,8 +621,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "XULsJiQa5XUod8WX",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.XULsJiQa5XUod8WX"
+      "_id": "VlxZsYNpuoqTP3g3",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.VlxZsYNpuoqTP3g3"
     },
     {
       "name": "Força dos Laços",
@@ -676,7 +789,7 @@
           "start": null,
           "showIcon": 1,
           "_id": "uXXok6VNMp9Maq4B",
-          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.YhcDT9kHOtoh3w4s.uXXok6VNMp9Maq4B"
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.ffd45oRwI5Xlmdlz.uXXok6VNMp9Maq4B"
         }
       ],
       "flags": {
@@ -703,8 +816,2282 @@
       "ownership": {
         "default": 0
       },
-      "_id": "YhcDT9kHOtoh3w4s",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.YhcDT9kHOtoh3w4s"
+      "_id": "ffd45oRwI5Xlmdlz",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.ffd45oRwI5Xlmdlz"
+    },
+    {
+      "name": "Coleção de Bênçãos",
+      "type": "skill",
+      "system": {
+        "description": "<p>Cada NH desta habilidade dá uma Bênção nova, à sua escolha entre as Bênçãos dos Humanos que você ainda não tem.</p><p>Ao adquirir a habilidade ou subir o NH dela, escolha a Bênção.</p><hr><p><em>Uma nova Bênção chega como um despertar: por um instante, o mundo inteiro parece prestar atenção em você, e depois volta ao normal, com algo a mais.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "minRank": 3,
+          "rankGrants": [
+            "Compendium.eternia.skills-racial.Item.wZ7b1vx7z5MZw307",
+            "Compendium.eternia.skills-racial.Item.XX1m341mzy65qPIS",
+            "Compendium.eternia.skills-racial.Item.PRlziwUF9xcNxPch",
+            "Compendium.eternia.skills-racial.Item.t1oaxTeq3Q58JKCp",
+            "Compendium.eternia.skills-racial.Item.bWP38ho41YJAYFsZ",
+            "Compendium.eternia.skills-racial.Item.81TCqdMShGqdj4CJ",
+            "Compendium.eternia.skills-racial.Item.EujCiVbwjbPTMpIW",
+            "Compendium.eternia.skills-racial.Item.po32KdHxFSexXWEt"
+          ],
+          "choiceOnly": true,
+          "raceStage": 2,
+          "grantedBy": {
+            "type": "race",
+            "source": "Compendium.eternia.races-classes.Item.CMMPFP41a2v6KJly"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "iDXQVHy4FSkEtXKi",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.iDXQVHy4FSkEtXKi"
+    },
+    {
+      "name": "Bênção do Corpo de Ferro",
+      "type": "skill",
+      "system": {
+        "description": "<p>+1d6 nos testes de Vigor.</p><p>Frio, calor, fome e sede extremos levam o dobro do tempo para afetar você.</p><hr><p><em>Você atravessa a neve de mangas curtas, e dias sem comer deixam no seu rosto apenas um traço de cansaço.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "Close",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/control/buff-strength-muscle-damage.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {},
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.3.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Bênção do Corpo de Ferro",
+          "img": "icons/magic/control/buff-strength-muscle-damage.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.checks.endurance.dice",
+                "type": "add",
+                "value": 1,
+                "phase": "initial",
+                "priority": null
+              }
+            ]
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "8Naj0qegRvCH6r1G",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.7ZaTgwLfOcRPGoTQ.8Naj0qegRvCH6r1G"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "skill",
+            "source": "Compendium.eternia.skills-racial.Item.kE4xxl9tMzc9Vi1n"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.3.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-racial.Item.t1oaxTeq3Q58JKCp",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "7ZaTgwLfOcRPGoTQ",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.7ZaTgwLfOcRPGoTQ"
+    },
+    {
+      "name": "Táticas",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Motor do Hierofante.</strong> Você junta <strong>Ordens</strong>: cada uma é uma ação sua, guardada para a mão de quem estiver no lugar certo. Todo combate começa com 0 Ordens.</p><ul><li><strong>Ganha:</strong> na Manutenção, +1 Ordem. Avaliar o Campo dá +1.</li><li><strong>Gasta:</strong> as Ordens fazem um aliado agir fora do turno dele: Ordem: Atacar! (um ataque básico agora, com [Concentrado]) e Ordem: Avançar! (mover-se agora, com [Barreira]).</li><li><strong>Teto:</strong> 2 Ordens, +1 a cada 5 NP (3 no NP 5, 4 no NP 10).</li><li><strong>Zera:</strong> no fim do combate.</li></ul><p>Quem recebe uma Ordem age na hora, mesmo fora do próprio turno: o sistema avisa que não é o turno dele, e ele responde \"usar mesmo assim\".</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/tools/navigation/map-marked-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "comandante-taticas",
+          "kind": "motor",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "comandante",
+            "role": "core"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.vVQcxWIHl3nFcYO9"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.Z99j1EAPy9oZfscB",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "BxGwvCsmcdnV9SZO",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.BxGwvCsmcdnV9SZO"
+    },
+    {
+      "name": "Avaliar o Campo",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você para um instante e lê o campo: quem está ferido, quem protege quem, onde a linha vai ceder. +1 Ordem, e um inimigo que você vê fica [Identificado].</p><p><em>Uma batalha é um mapa que se move. Alguém precisa olhar para ele.</em></p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Refer",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/tools/navigation/spyglass-telescope-brass.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "identified"
+              },
+              "expires": "endOfScene",
+              "recipients": "enemies"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Avaliar o Campo",
+          "img": "systems/eternia/assets/ui/status/identified.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "identified"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "6xS3PgPaM0rmE34N",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.dDNfnv24lLqDysIF.6xS3PgPaM0rmE34N"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "comandante-avaliar-o-campo",
+          "kind": "feeds",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "comandante",
+            "gain": 1
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.vVQcxWIHl3nFcYO9"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.uRCBix6jdS6m7xOI",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "dDNfnv24lLqDysIF",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.dDNfnv24lLqDysIF"
+    },
+    {
+      "name": "Ordem: Atacar!",
+      "type": "skill",
+      "system": {
+        "description": "<p>Gaste 1 Ordem: um aliado que ouve você ataca agora, fora do turno dele, com o Ataque Básico com Arma ou o Ataque Mágico Básico. Ele fica [Concentrado] (+1d6 no Teste de Acerto), e a Ação Maior dele não se gasta: o sistema a devolve quando o resultado do ataque sai.</p><p><em>\"Agora!\" — e a lança já está no ar.</em></p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "Refer",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/tools/instruments/horn-red-brown.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "focused"
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Ordem: Atacar!",
+          "img": "systems/eternia/assets/ui/status/focused.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "focused"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "ZE7pTBTLJroaeceZ",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.RlzFKGQJ4lNlzslv.ZE7pTBTLJroaeceZ"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "empowered",
+                "value": "floor(@cr/2)+2"
+              },
+              "expires": "endOfRound",
+              "conditions": [
+                {
+                  "type": "hasSkill",
+                  "value": "Ponto de Ataque"
+                }
+              ],
+              "consumeOn": "attack"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Ponto de Ataque",
+          "img": "systems/eternia/assets/ui/status/empowered.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "empowered"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "GMqGJHC7NpW8xCKe",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.RlzFKGQJ4lNlzslv.GMqGJHC7NpW8xCKe"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "comandante-ordem-atacar",
+          "kind": "spends",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "comandante",
+            "needs": {
+              "min": 1
+            },
+            "spend": 1,
+            "order": "attack"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.vVQcxWIHl3nFcYO9"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.7qC0NeiBK7EF0CIT",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "RlzFKGQJ4lNlzslv",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.RlzFKGQJ4lNlzslv"
+    },
+    {
+      "name": "Ordem: Avançar!",
+      "type": "skill",
+      "system": {
+        "description": "<p>Gaste 1 Ordem: um aliado que ouve você se move agora até a Velocidade dele, sem gastar ação, e fica [Barreira: NP+5] até o fim da rodada.</p>",
+        "tags": [],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Refer",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/movement/arrows-up-trio-red.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "barrier",
+                "value": "@cr+5"
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Ordem: Avançar!",
+          "img": "systems/eternia/assets/ui/status/barrier.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "barrier"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "tIrN0ps24721Yh8I",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.Tuf4gGnnCINM6mFV.tIrN0ps24721Yh8I"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "comandante-ordem-avancar",
+          "kind": "spends",
+          "branch": "kit",
+          "choiceOnly": true,
+          "motor": {
+            "id": "comandante",
+            "needs": {
+              "min": 1
+            },
+            "spend": 1,
+            "order": "advance"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.vVQcxWIHl3nFcYO9"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.0rhkuChF3cr7AfJT",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Tuf4gGnnCINM6mFV",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.Tuf4gGnnCINM6mFV"
+    },
+    {
+      "name": "Caminho da Bandeira",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Reescreve o que as Ordens fazem.</strong> Na Manutenção, depois de ganhar as Ordens, os aliados a até 3 Qd de você ficam [Fortalecido: Ordens÷2 + 1] até o fim da rodada.</p><p><strong>Talentos do Caminho:</strong> Mastro Alto (NP 3) e Juramento da Bandeira (NP 7).</p><hr><p><em>A bandeira não luta. Só lembra a todos por que estão lutando.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/flags/banner-flag-white-mountain.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "comandante-bandeira",
+          "kind": "bends",
+          "branch": "path",
+          "choiceOnly": true,
+          "path": {
+            "class": "comandante",
+            "id": "bandeira"
+          },
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.vVQcxWIHl3nFcYO9"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.KZcfmZJsqnxr4ACC",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "jkUWgDX2Hc9GKiFO",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.jkUWgDX2Hc9GKiFO"
+    },
+    {
+      "name": "Telepatia",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Magia (Conjuração).</strong> Você liga a sua mente à dos outros: fala sem abrir a boca, ouve o que o inimigo vai fazer e manda para a cabeça dos aliados, num piscar, tudo o que sabe. Telas de luz cobertas de escrita antiga aparecem no ar e viram escudo ou explosão. É a magia de quem comanda a luta de longe.</p><ul><li><strong>Traço, Rede Mental:</strong> você é imune a [Confuso] e [Encantado]: a sua mente está ligada a outras.</li><li><strong>Feitiços:</strong> Sobrecarga e Leitura de Mente (NP 1), Proteção e Ruído Mental (NP 3), Transferência de Informação (NP 5) e o feitiço supremo Sobrecarga Total (NP 7).</li><li><strong>O Motor:</strong> cada feitiço alimenta o Motor da sua classe (+1; os grandes, +2). A Sobrecarga Total pede o Motor no Teto e gasta tudo.</li></ul><hr><p><em>Uma voz calma fala dentro da cabeça de cada aliado ao mesmo tempo. É a sua.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/commodities/treasure/brooch-eye-silver-teal.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {
+            "eternia": {
+              "trait": {
+                "magia": "telepatia"
+              },
+              "immune": [
+                "confused",
+                "charmed"
+              ]
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Rede Mental",
+          "img": "icons/commodities/treasure/brooch-eye-silver-teal.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "cC7oTYqLorJxri4x",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.njtf6L2ulsl0IA9W.cC7oTYqLorJxri4x"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "telepatia-telepatia",
+          "kind": "bends",
+          "branch": "magic",
+          "magic": {
+            "id": "telepatia",
+            "category": "caster",
+            "tagline": "Mentes ligadas: o grupo pensa junto, e o inimigo pensa alto."
+          },
+          "choiceOnly": true,
+          "grantedBy": {
+            "type": "class",
+            "source": "Compendium.eternia.races-classes.Item.vVQcxWIHl3nFcYO9"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.G1yhn0W8Rw41RGiC",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "njtf6L2ulsl0IA9W",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.njtf6L2ulsl0IA9W"
+    },
+    {
+      "name": "Leitura de Mente",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Telepatia.</strong> Quando um ataque escolhe você ou um aliado a até 6 Qd como alvo: você lê a mente de quem ataca e avisa o alvo antes do golpe. Ele fica [Concentrado] (+1d6 na Esquiva contra esse ataque). Uma vez por rodada.</p><p><em>\"Pela esquerda.\" Ele desvia antes de entender por quê.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Instant",
+        "checkType": "",
+        "range": "6Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/creatures/eyes/human-single-blue.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Leitura de Mente",
+          "img": "systems/eternia/assets/ui/status/focused.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "focused"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "R6DOxWPMPyKaX3YX",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.lGDByH9wm3NctZ3F.R6DOxWPMPyKaX3YX"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "telepatia-leitura",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "telepatia"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.ciLCBXZQvyQxjUwC",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "lGDByH9wm3NctZ3F",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.lGDByH9wm3NctZ3F"
+    },
+    {
+      "name": "Alvo Prioritário",
+      "type": "skill",
+      "system": {
+        "description": "<p>Gaste 1 Ordem: você aponta um inimigo, e o grupo inteiro mira nele. Ele fica [Fraqueza: NP÷2+2] até o fim da rodada.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Refer",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/skills/ranged/target-bullseye-arrow-yellow.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "weakness",
+                "value": "floor(@cr/2)+2"
+              },
+              "expires": "endOfRound",
+              "recipients": "enemies"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Alvo Prioritário",
+          "img": "systems/eternia/assets/ui/status/weakness.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "weakness"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "qBYHGIjuNVCUdfrk",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.KXWYPq54xNtghN8C.qBYHGIjuNVCUdfrk"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "comandante-alvo-prioritario",
+          "kind": "spends",
+          "branch": "vanguarda",
+          "minRank": 1,
+          "motor": {
+            "id": "comandante",
+            "needs": {
+              "min": 1
+            },
+            "spend": 1,
+            "order": "target"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.hYZkaYPHwTOACoKy",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "KXWYPq54xNtghN8C",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.KXWYPq54xNtghN8C"
+    },
+    {
+      "name": "Sobrecarga",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Telepatia.</strong> Telas de luz se abrem na frente de um alvo a até 5 Qd e explodem: Teste de Precisão contra a Resistência; [2d6 + Poder Mágico] de dano mágico.</p><p><strong>Custo:</strong> Ódio 1.</p><hr><p><em>Por um instante dá para ler o que estava escrito nas telas. Depois, só o clarão.</em></p>",
+        "tags": [
+          "Spell",
+          "Magic Attack"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "5Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 2,
+          "mod": 0,
+          "type": "magical",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/light/explosion-star-small-teal-purple.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "telepatia-sobrecarga",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "telepatia"
+          },
+          "minRank": 1,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.oCeOGQOMoh8zsXmL",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "gGKeE7ejQaDynDNz",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.gGKeE7ejQaDynDNz"
+    },
+    {
+      "name": "Inspirar Tropas",
+      "type": "skill",
+      "system": {
+        "description": "<p>Fora de combate, você fala a um grupo (soldados, aldeões, uma tripulação com medo): Teste de Negociação com +[NH]d6 para animar, recrutar ou acalmar.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 2,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": 0,
+          "vs": "",
+          "stat": "negotiation"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/tools/instruments/horn-red-grey.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "comandante-inspirar-tropas",
+          "kind": "bends",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.YWsdfDg2N1lijIVu",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "cMPrinRBLIPbc1YZ",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.cMPrinRBLIPbc1YZ"
+    },
+    {
+      "name": "Comandar pelo Exemplo",
+      "type": "skill",
+      "system": {
+        "description": "<p>Uma vez por rodada, quando um ataque seu acerta um inimigo, +1 Ordem.</p><p><em>Ninguém segue quem fica atrás da linha.</em></p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/head/helm-barbute-rounded-gold.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "comandante-pelo-exemplo",
+          "kind": "feeds",
+          "branch": "vanguarda",
+          "minRank": 1
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.nOEPCfDXSXJQVXRD",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "gSerRLuz5Bcs8a36",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.gSerRLuz5Bcs8a36"
+    },
+    {
+      "name": "Erguer o Estandarte",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você finca o estandarte no seu quadrado. Enquanto você não mover o token, ganha +1 Ordem a mais em cada Manutenção. Mover o token derruba o estandarte.</p><p><em>Onde a bandeira está, a linha está.</em></p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/flags/banner-standard-blue.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "comandante-erguer-estandarte",
+          "kind": "feeds",
+          "branch": "estandarte",
+          "minRank": 1,
+          "motor": {
+            "id": "comandante"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.e0PbvJOjmQSIhoRx",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "QkTSxWea7oHagHpE",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.QkTSxWea7oHagHpE"
+    },
+    {
+      "name": "Ler o Mapa",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você estuda um mapa, uma fortificação ou o terreno de uma marcha: Teste de Análise com +[NH]d6. Com sucesso, o Mestre aponta o caminho mais seguro, o ponto fraco da muralha ou o melhor lugar para uma emboscada.</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "-",
+        "target": "Self",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 3
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": "@sr",
+          "mod": 0,
+          "vs": "",
+          "stat": "analysis"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/tools/navigation/map-simple-brown.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "comandante-ler-o-mapa",
+          "kind": "bends",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.uoOD3eEXreaEEJL5",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "ByKIh8Kx6csxcRSs",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.ByKIh8Kx6csxcRSs"
+    },
+    {
+      "name": "Proteção",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Telepatia.</strong> Telas de luz se fecham em volta do grupo: você e os aliados numa área a até 3 Qd (escolha-os como alvos) ficam com [Barreira: NP + 5] até o fim da rodada. Uma vez por cena.</p><p><em>As flechas batem nas telas e caem, uma por uma, como letras apagadas.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "3Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Scene",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/defensive/shield-barrier-glowing-triangle-teal-purple.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "allies",
+              "statusData": {
+                "statusId": "barrier",
+                "value": "@cr+5"
+              },
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Proteção",
+          "img": "systems/eternia/assets/ui/status/barrier.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "barrier"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "QOVdBFEwDns1EDYd",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.6ZfnM5LCN4AV4Kli.QOVdBFEwDns1EDYd"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "telepatia-protecao",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "telepatia"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.LAvDsTTub1wPyCoO",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "6ZfnM5LCN4AV4Kli",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.6ZfnM5LCN4AV4Kli"
+    },
+    {
+      "name": "Ruído Mental",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Telepatia.</strong> Você enche a cabeça de um alvo a até 6 Qd de vozes, todas ao mesmo tempo (Teste de Precisão contra a Resistência): ele fica [Confuso] (−1d6 em todos os testes e +1 de Ódio no começo de cada turno; sai com uma Ação Maior).</p><p><strong>Custo:</strong> Ódio 2.</p><hr><p><em>Ele leva as mãos aos ouvidos. Não adianta: o barulho vem de dentro.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "6Sq",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 2",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "resistance",
+          "stat": "accuracy"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/commodities/biological/organ-brain-pink-purple.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Ruído Mental",
+          "img": "systems/eternia/assets/ui/status/confused.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "confused"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "gWy6u5TMp5OpppPx",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.vIP4dZyjfAnh1JcZ.gWy6u5TMp5OpppPx"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "telepatia-ruido",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "telepatia"
+          },
+          "minRank": 3,
+          "motor": {
+            "id": "@class",
+            "gain": 1
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.xY1FxGLrFKFVsYNV",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "vIP4dZyjfAnh1JcZ",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.vIP4dZyjfAnh1JcZ"
+    },
+    {
+      "name": "Primeira Ordem",
+      "type": "skill",
+      "system": {
+        "description": "<p>Você começa todo combate com [NH] Ordens.</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 2
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/sundries/flags/banner-silver-white.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "comandante-primeira-ordem",
+          "kind": "feeds",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.uQwe1xdF4j0jh0Io",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "ixgyx36NqtiKyNyV",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.ixgyx36NqtiKyNyV"
+    },
+    {
+      "name": "Formação Cerrada",
+      "type": "skill",
+      "system": {
+        "description": "<p>Gaste 1 Ordem: escudos juntos, ombro com ombro. Você e os aliados do seu quadrado ficam [Anulação: NP÷2+2] até o fim da rodada.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Minor",
+        "checkType": "",
+        "range": "Close",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 1",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/weapons/polearms/pike-flared-red.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "cancel",
+                "value": "floor(@cr/2)+2"
+              },
+              "expires": "endOfRound",
+              "recipients": "allies"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Formação Cerrada",
+          "img": "systems/eternia/assets/ui/status/cancel.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "cancel"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "9MNUGRd55qk9Yih6",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.URjifYdfVU5ZHe2w.9MNUGRd55qk9Yih6"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "comandante-formacao-cerrada",
+          "kind": "spends",
+          "branch": "formacao",
+          "minRank": 1,
+          "motor": {
+            "id": "comandante",
+            "needs": {
+              "min": 1
+            },
+            "spend": 1,
+            "order": "formation"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.QLFyP7pCddZ9jxA5",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "URjifYdfVU5ZHe2w",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.URjifYdfVU5ZHe2w"
+    },
+    {
+      "name": "Ordem: Segurar!",
+      "type": "skill",
+      "system": {
+        "description": "<p>Use quando um aliado for sofrer o dano de um ataque: gaste 1 Ordem, e ele fica [Barreira: NP+5] antes do dano, até o fim do processo. Não gasta ação.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Before Damage",
+        "checkType": "",
+        "range": "Refer",
+        "target": "Single",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "1/Round",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/equipment/head/helm-barbute-reinforced.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "barrier",
+                "value": "@cr+5"
+              },
+              "expires": "endOfProcess"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Ordem: Segurar!",
+          "img": "systems/eternia/assets/ui/status/barrier.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "barrier"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "80yKOdIYerXmBW60",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.wdmkMDJ3PuSmlQRZ.80yKOdIYerXmBW60"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "comandante-ordem-segurar",
+          "kind": "spends",
+          "branch": "formacao",
+          "minRank": 1,
+          "motor": {
+            "id": "comandante",
+            "needs": {
+              "min": 1
+            },
+            "spend": 1,
+            "action": "none",
+            "order": "hold"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.RJHKZjeDkDHUmHb6",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "wdmkMDJ3PuSmlQRZ",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.wdmkMDJ3PuSmlQRZ"
+    },
+    {
+      "name": "Vigília do Acampamento",
+      "type": "skill",
+      "system": {
+        "description": "<p>Quando você organiza a vigia, o grupo não é pego de surpresa num ataque ao acampamento, e você começa esse combate com as Ordens no Teto (marque na aba Classe).</p>",
+        "tags": [],
+        "timing": "Constant",
+        "checkType": "",
+        "range": "-",
+        "target": "-",
+        "subtype": "General",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/settlement/tent-flag.webp",
+      "effects": [],
+      "flags": {
+        "eternia": {
+          "identifier": "comandante-vigilia-do-acampamento",
+          "kind": "feeds",
+          "branch": "general"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.rCuVnAs9TXAo3XrR",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "jUj6Qu6YP4afpblz",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.jUj6Qu6YP4afpblz"
+    },
+    {
+      "name": "Transferência de Informação",
+      "type": "skill",
+      "system": {
+        "description": "<p><strong>Telepatia.</strong> Feitiço grande. Você manda de uma vez para a cabeça do grupo o mapa da luta, o ponto fraco do inimigo e o próximo passo de cada um: você e os aliados a até 10 Qd (escolha-os como alvos) ficam [Concentrado] e [Acelerado] (uma segunda Ação Menor) até o fim da rodada.</p><p><strong>Custo:</strong> Ódio 3.</p><hr><p><em>Um mapa inteiro se desenha atrás dos olhos de cada um, linha por linha.</em></p>",
+        "tags": [
+          "Spell"
+        ],
+        "timing": "Major",
+        "checkType": "",
+        "range": "10Sq",
+        "target": "Area",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "Hate 3",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/magic/unholy/projectiles-binary-pink.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "allies",
+              "expires": "endOfScene"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Transferência de Informação",
+          "img": "systems/eternia/assets/ui/status/focused.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "focused"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "kTYnnLuEXeEN8Vrv",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.V9GJ6WKIKjmqOiI5.kTYnnLuEXeEN8Vrv"
+        },
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "recipients": "allies",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.9.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Transferência de Informação: pressa",
+          "img": "systems/eternia/assets/ui/status/hasted.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "hasted"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "NTiFZ6AKdoeuwJoy",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.V9GJ6WKIKjmqOiI5.NTiFZ6AKdoeuwJoy"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "telepatia-transferencia",
+          "kind": "feeds",
+          "branch": "magic",
+          "magicSpell": {
+            "id": "telepatia"
+          },
+          "minRank": 5,
+          "motor": {
+            "id": "@class",
+            "gain": 2
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.9.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.Lgbg6CaxtDWdTzqo",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "V9GJ6WKIKjmqOiI5",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.V9GJ6WKIKjmqOiI5"
+    },
+    {
+      "name": "Plano de Batalha",
+      "type": "skill",
+      "system": {
+        "description": "<p>Na Preparação, você explica o plano ao grupo. Você e os aliados que ouviram ficam [Concentrado] (+1d6 no primeiro teste), e você começa o combate com +1 Ordem.</p>",
+        "tags": [
+          "Dedication"
+        ],
+        "timing": "Briefing",
+        "checkType": "",
+        "range": "Refer",
+        "target": "Targets",
+        "subtype": "Combat",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": ""
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/tools/navigation/map-chart-tan.webp",
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "statusData": {
+                "statusId": "focused"
+              },
+              "expires": "endOfScene",
+              "recipients": "allies"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.8.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Plano de Batalha",
+          "img": "systems/eternia/assets/ui/status/focused.svg",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [
+            "focused"
+          ],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "JSHRKB9Ml9d8gplI",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.tbQZ8VhT4ljeeix0.JSHRKB9Ml9d8gplI"
+        }
+      ],
+      "flags": {
+        "eternia": {
+          "identifier": "comandante-plano-de-batalha",
+          "kind": "feeds",
+          "branch": "mapa",
+          "minRank": 1,
+          "motor": {
+            "id": "comandante"
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "eternia",
+        "systemVersion": "0.8.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.skills-class.Item.M39Sg1k9jnUSwh4I",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "tbQZ8VhT4ljeeix0",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.tbQZ8VhT4ljeeix0"
+    },
+    {
+      "name": "Analisar Objeto de Cena",
+      "type": "skill",
+      "system": {
+        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
+        "tags": [],
+        "timing": "Major",
+        "checkType": "",
+        "range": "1Sq",
+        "target": "Refer",
+        "subtype": "Basic",
+        "skillRank": {
+          "value": 1,
+          "max": 1
+        },
+        "cost": "-",
+        "limit": "-",
+        "check": {
+          "dice": 0,
+          "mod": 0,
+          "vs": "",
+          "stat": "analysis"
+        },
+        "damage": {
+          "dice": 0,
+          "mod": 0,
+          "type": "",
+          "recovery": false
+        },
+        "macroeffect": ""
+      },
+      "img": "icons/environment/traps/trap-jaw-steel.webp",
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": 1790746551067,
+        "lastModifiedBy": "466etVeGeuWPLsdS",
+        "compendiumSource": "Compendium.eternia.skills-basic.Item.V30xXzllUuzBfafd",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "_id": "pcSB1YUYIZqj1OB5",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.pcSB1YUYIZqj1OB5"
     },
     {
       "name": "Ataque Básico com Arma",
@@ -757,8 +3144,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "fk13cINBEzCREbrH",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.fk13cINBEzCREbrH"
+      "_id": "ZiHICrBRI6MV4IQN",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.ZiHICrBRI6MV4IQN"
     },
     {
       "name": "Ataque Mágico Básico",
@@ -813,8 +3200,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "pN3XlmivtqaWjBHx",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.pN3XlmivtqaWjBHx"
+      "_id": "noZMDLjc7vy9xB7G",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.noZMDLjc7vy9xB7G"
     },
     {
       "name": "Avaliar Item",
@@ -865,8 +3252,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "0qPl1jY1ks2eIl5i",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.0qPl1jY1ks2eIl5i"
+      "_id": "6xz2jvtjsv0jujty",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.6xz2jvtjsv0jujty"
     },
     {
       "name": "Correr",
@@ -919,60 +3306,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "pag1FNUHHlN2WgeY",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.pag1FNUHHlN2WgeY"
-    },
-    {
-      "name": "Analisar Objeto de Cena",
-      "type": "skill",
-      "system": {
-        "description": "<p>Esta habilidade tem como alvo um único Objeto de cena com [Dificuldade de Análise]. O alvo fica [Analisado].</p>",
-        "tags": [],
-        "timing": "Major",
-        "checkType": "",
-        "range": "1Sq",
-        "target": "Refer",
-        "subtype": "Basic",
-        "skillRank": {
-          "value": 1,
-          "max": 1
-        },
-        "cost": "-",
-        "limit": "-",
-        "check": {
-          "dice": 0,
-          "mod": 0,
-          "vs": "",
-          "stat": "analysis"
-        },
-        "damage": {
-          "dice": 0,
-          "mod": 0,
-          "type": "",
-          "recovery": false
-        },
-        "macroeffect": ""
-      },
-      "img": "icons/environment/traps/trap-jaw-steel.webp",
-      "effects": [],
-      "flags": {},
-      "_stats": {
-        "coreVersion": "13.351",
-        "systemId": "eternia",
-        "systemVersion": "0.1.0",
-        "createdTime": null,
-        "modifiedTime": null,
-        "lastModifiedBy": null,
-        "compendiumSource": "Compendium.eternia.skills-basic.Item.V30xXzllUuzBfafd",
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "sort": 0,
-      "ownership": {
-        "default": 0
-      },
-      "_id": "IUZKw2Kp1LCY0bcP",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.IUZKw2Kp1LCY0bcP"
+      "_id": "EutBNrK2IkuePg5b",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.EutBNrK2IkuePg5b"
     },
     {
       "name": "Desarmar Objeto de Cena",
@@ -1022,8 +3357,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "UjTLhKOkEsRvzVT4",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.UjTLhKOkEsRvzVT4"
+      "_id": "dZoORiMwPfT3jwLX",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.dZoORiMwPfT3jwLX"
     },
     {
       "name": "Deslocar-se",
@@ -1060,7 +3395,13 @@
       },
       "img": "icons/skills/movement/arrow-upward-white.webp",
       "effects": [],
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
       "_stats": {
         "coreVersion": "13.351",
         "systemId": "eternia",
@@ -1076,8 +3417,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "FKO6ADBye7hf3GoL",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.FKO6ADBye7hf3GoL"
+      "_id": "dL0RiWAHThngudSg",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.dL0RiWAHThngudSg"
     },
     {
       "name": "Detectar Anomalias",
@@ -1128,8 +3469,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "p6NysFErnM7Xore7",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.p6NysFErnM7Xore7"
+      "_id": "cTnXnl2YCD9BXxyk",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.cTnXnl2YCD9BXxyk"
     },
     {
       "name": "Disparada",
@@ -1166,7 +3507,13 @@
       },
       "img": "icons/skills/movement/figure-running-gray.webp",
       "effects": [],
-      "flags": {},
+      "flags": {
+        "eternia": {
+          "alsoSpends": [
+            "minor"
+          ]
+        }
+      },
       "_stats": {
         "coreVersion": "13.351",
         "systemId": "eternia",
@@ -1182,8 +3529,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "Jjc93gvk8JLyffCZ",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.Jjc93gvk8JLyffCZ"
+      "_id": "pjRnvYifGQ4UC1CG",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.pjRnvYifGQ4UC1CG"
     },
     {
       "name": "Esconder-se",
@@ -1258,7 +3605,7 @@
             "exportSource": null
           },
           "sort": 0,
-          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.xjUIR1v0NFdeTjaw.g8V4pL2sK7mY3zN1",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.5gzrFixU4AVsNDOO.g8V4pL2sK7mY3zN1",
           "system": {
             "changes": []
           },
@@ -1282,8 +3629,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "xjUIR1v0NFdeTjaw",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.xjUIR1v0NFdeTjaw"
+      "_id": "5gzrFixU4AVsNDOO",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.5gzrFixU4AVsNDOO"
     },
     {
       "name": "Golpe de Misericórdia",
@@ -1334,8 +3681,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "5ApJN9NDkISpfER3",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.5ApJN9NDkISpfER3"
+      "_id": "6AO3cOPCcYEHNKxh",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.6AO3cOPCcYEHNKxh"
     },
     {
       "name": "Identificar Inimigo",
@@ -1386,8 +3733,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "6ksdfKWvomU96oKL",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.6ksdfKWvomU96oKL"
+      "_id": "ZwQl0yFm1TfkevpN",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.ZwQl0yFm1TfkevpN"
     },
     {
       "name": "Negociar",
@@ -1440,8 +3787,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "kdELu0eFVnNKegKf",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.kdELu0eFVnNKegKf"
+      "_id": "OZfAquIzcgxUsrDN",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.OZfAquIzcgxUsrDN"
     },
     {
       "name": "Proteger",
@@ -1475,7 +3822,51 @@
         "macroeffect": ""
       },
       "img": "icons/magic/control/silhouette-hold-change-blue.webp",
-      "effects": [],
+      "effects": [
+        {
+          "origin": null,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "tint": "#ffffff",
+          "transfer": false,
+          "flags": {
+            "eternia": {
+              "cover": true,
+              "consumeOn": "damage",
+              "expires": "endOfRound"
+            }
+          },
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "eternia",
+            "systemVersion": "0.43.0",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          },
+          "name": "Proteger",
+          "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+          "type": "base",
+          "system": {
+            "changes": []
+          },
+          "description": "",
+          "statuses": [],
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "_id": "fbR02Gic71D3fEQS",
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.0LvEI0WgetpZMQAr.fbR02Gic71D3fEQS"
+        }
+      ],
       "flags": {},
       "_stats": {
         "coreVersion": "13.351",
@@ -1492,8 +3883,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "tEs12Swn6qBOMbzW",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.tEs12Swn6qBOMbzW"
+      "_id": "0LvEI0WgetpZMQAr",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.0LvEI0WgetpZMQAr"
     },
     {
       "name": "Reconhecer Inimigo",
@@ -1546,8 +3937,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "uyOmryYd8ek2dXS1",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.uyOmryYd8ek2dXS1"
+      "_id": "yT4AQeCppfpEqOAr",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.yT4AQeCppfpEqOAr"
     },
     {
       "name": "Switch",
@@ -1628,7 +4019,7 @@
           "start": null,
           "showIcon": 1,
           "_id": "TezNyfNuTHtrkEWn",
-          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.mZLTBDNc3gw57iCI.TezNyfNuTHtrkEWn"
+          "_key": "!actors.items.effects!8DzbUA5mvyfsfBxL.ReaAH3JuWna7SREG.TezNyfNuTHtrkEWn"
         }
       ],
       "flags": {
@@ -1655,8 +4046,8 @@
       "ownership": {
         "default": 0
       },
-      "_id": "mZLTBDNc3gw57iCI",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.mZLTBDNc3gw57iCI"
+      "_id": "ReaAH3JuWna7SREG",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.ReaAH3JuWna7SREG"
     },
     {
       "name": "Trocar Equipamento",
@@ -1707,8 +4098,241 @@
       "ownership": {
         "default": 0
       },
-      "_id": "eTUecWx6pXDGutMq",
-      "_key": "!actors.items!8DzbUA5mvyfsfBxL.eTUecWx6pXDGutMq"
+      "_id": "5ss6cDw58t3V7C75",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.5ss6cDw58t3V7C75"
+    },
+    {
+      "name": "Lança",
+      "type": "weapon",
+      "system": {
+        "description": "<p>Uma lança grande, originalmente usada a cavalo.</p>",
+        "tags": [
+          "Two-Handed",
+          "Spear"
+        ],
+        "initiative": 2,
+        "rank": 5,
+        "price": 320,
+        "equipped": true,
+        "attack": 13,
+        "magic": 0,
+        "accuracy": 0,
+        "main": false,
+        "range": "Close",
+        "checkType": "-",
+        "target": "-",
+        "timing": "-",
+        "pdef": 0,
+        "mdef": 0
+      },
+      "img": "icons/weapons/polearms/spear-hooked-broad.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.CDbEdkdDAC7TBHlG",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "yiz9pO2dp6upWK07",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.yiz9pO2dp6upWK07"
+    },
+    {
+      "name": "R5 Dux Tredegim",
+      "type": "armor",
+      "system": {
+        "description": "<p>[Momento: Movimento] Neste turno, seus [Ataques à Distância] recebem +5 na rolagem de dano.\nUma armadura de couro inspirada na armadura de um general famoso como o melhor arqueiro do antigo reino. O centro de gravidade e as articulações foram projetados para facilitar o disparo, permitindo tiros únicos poderosos.</p><hr><p>Tesoura Corta-Almas[Material-Base](85 Yuld)+Couro Tachonado(360 Yuld)+[Anima-mundi 5](135 Yuld)×3+Custo de Fabricação(430 Yuld)</p>",
+        "tags": [
+          "Medium Armor",
+          "Not For Sale",
+          "M4"
+        ],
+        "pdef": 14,
+        "mdef": 11,
+        "initiative": 0,
+        "rank": 5,
+        "price": 1280,
+        "equipped": true,
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "timing": "-",
+        "attack": 0,
+        "magic": 0,
+        "accuracy": 0
+      },
+      "img": "icons/equipment/chest/breastplate-layered-leather-brown-silver.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "powers": [
+            {
+              "timing": "Move",
+              "target": "Self",
+              "range": "-",
+              "cost": "",
+              "limit": "",
+              "text": "[Trigger: Move] During this main process, your [Ranged Attacks] gain +5 to damage rolls.",
+              "effects": [
+                {
+                  "name": "R5 Dux Tredegim",
+                  "img": "systems/eternia/assets/ui/items_icons/armor.svg",
+                  "type": "base",
+                  "transfer": false,
+                  "disabled": false,
+                  "statuses": [],
+                  "system": {
+                    "changes": [
+                      {
+                        "key": "eternia.roll.damage.mod",
+                        "type": "add",
+                        "value": 5,
+                        "phase": "initial",
+                        "priority": null
+                      }
+                    ]
+                  },
+                  "flags": {
+                    "eternia": {
+                      "expires": "endOfProcess",
+                      "rollFilter": {
+                        "skillTags": [
+                          "Weapon Attack",
+                          "Ranged Attack"
+                        ],
+                        "weaponTags": [
+                          "Bow",
+                          "Crossbow",
+                          "Throwing"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.zE8Xs7pnJklK1yrz",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "LqshAbGHAllnAbxM",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.LqshAbGHAllnAbxM"
+    },
+    {
+      "name": "R5 Anel da Pulsação",
+      "type": "accessory",
+      "system": {
+        "description": "<p>[Momento: Ação Menor] Neste turno, sua [Recuperação] recebe +6. <br>Você não pode equipar mais de um deste item ao mesmo tempo. <br>[Momento: Ação] Use ao mesmo tempo que uma habilidade sua que recupere PV de um aliado. Remova um Estado Negativo desse aliado. Uma vez por cena.</p>\n<hr>\n<p>Um anel que, dizem, era usado por um grupo de curandeiros famosos da antiga dinastia. As preces depositadas nele fortalecem o poder de cura usado por quem o veste.</p>\n<hr>\n<p>Frasco Catalisador [Material-Base] (85 Yuld) + Anel de Cristal (220 Yuld) + [Anima-mundi 5] (135 Yuld) x 4 + Custo de Fabricação (540 Yuld)</p>",
+        "tags": [
+          "Accessory",
+          "Magic Stone",
+          "Not For Sale",
+          "M5"
+        ],
+        "pdef": 0,
+        "mdef": 0,
+        "rank": 5,
+        "price": 1390,
+        "equipped": true,
+        "initiative": 0,
+        "magic": 14,
+        "checkType": "-",
+        "range": "-",
+        "target": "-",
+        "timing": "-",
+        "attack": 0,
+        "accuracy": 0
+      },
+      "img": "icons/equipment/finger/ring-cabochon-engraved-gold-pink.webp",
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "eternia": {
+          "powers": [
+            {
+              "timing": "Minor",
+              "target": "Self",
+              "range": "-",
+              "cost": "",
+              "limit": "",
+              "text": "[Trigger: Minor] During this main process, your [Recovery] gains +6.",
+              "effects": [
+                {
+                  "name": "R5 Anel da Pulsação",
+                  "img": "systems/eternia/assets/ui/items_icons/accessory.svg",
+                  "type": "base",
+                  "transfer": false,
+                  "disabled": false,
+                  "statuses": [],
+                  "system": {
+                    "changes": [
+                      {
+                        "key": "system.battle-status.power.restoration.mod",
+                        "type": "add",
+                        "value": 6,
+                        "phase": "initial",
+                        "priority": null
+                      }
+                    ]
+                  },
+                  "flags": {
+                    "eternia": {
+                      "expires": "endOfProcess"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "timing": "Action",
+              "target": "Single",
+              "range": "-",
+              "cost": "",
+              "limit": "1/Scene",
+              "text": "[Trigger: Action] Use this at the same time as a skill of yours that recovers an ally's HP. Remove one Bad Status from that ally. Once per scene."
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": "eternia",
+        "systemVersion": "0.1.0",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": "Compendium.eternia.items.Item.Vb2uvSDDYk6JXkXp",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ymXndJDFZLASKc2f",
+      "_key": "!actors.items!8DzbUA5mvyfsfBxL.ymXndJDFZLASKc2f"
     }
   ],
   "effects": [],
@@ -1720,14 +4344,18 @@
         "pos": 6,
         "token": "token_54.png"
       },
+      "elenco": {
+        "slug": "hilde",
+        "papel": "Hilde, da Caneca de Cobre (Zakkaria)"
+      },
       "professions": {
         "cook": {
-          "exp": 40
+          "exp": 20
         }
       },
       "skillProgress": {
-        "base": 3,
-        "creation": true
+        "base": 5,
+        "creation": false
       },
       "bio": {
         "epithet": "da Caneca de Cobre",
@@ -1740,7 +4368,7 @@
   "_stats": {
     "coreVersion": "14.360",
     "systemId": "eternia",
-    "systemVersion": "0.39.0",
+    "systemVersion": "1.0.2",
     "createdTime": null,
     "modifiedTime": null,
     "lastModifiedBy": null,
